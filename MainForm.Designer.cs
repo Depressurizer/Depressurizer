@@ -246,6 +246,7 @@
             this.menu_Profile_Edit.Name = "menu_Profile_Edit";
             this.menu_Profile_Edit.Size = new System.Drawing.Size(171, 22);
             this.menu_Profile_Edit.Text = "Edit Profile Info";
+            this.menu_Profile_Edit.Click += new System.EventHandler(this.menu_Profile_Edit_Click);
             // 
             // menu_Config
             // 

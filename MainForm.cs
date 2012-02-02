@@ -488,11 +488,11 @@ namespace Depressurizer {
                 currentProfile = dlg.Profile;
                 gameData = currentProfile.GameData;
 
-                if( dlg.DownloadOnCreate ) {
+                if( dlg.DownloadNow ) {
                     UpdateProfileDownload( false );
                 }
 
-                if( dlg.ImportOnCreate ) {
+                if( dlg.ImportNow ) {
                     UpdateProfileImport( false );
                 }
 
@@ -797,6 +797,29 @@ namespace Depressurizer {
             }
         }
         #endregion
+
+        private void menu_Profile_Edit_Click( object sender, EventArgs e ) {
+            if( ProfileLoaded ) {
+                ProfileDlg dlg = new ProfileDlg( currentProfile );
+                if( dlg.ShowDialog() == DialogResult.OK ) {
+                    bool refresh = false;
+                    if( dlg.DownloadNow ) {
+                        UpdateProfileDownload( false );
+                        refresh = true;
+                    }
+
+                    if( dlg.ImportNow ) {
+                        UpdateProfileImport( false );
+                        refresh = true;
+                    }
+                    if( refresh ) {
+                        FillCategoryList();
+                        FillGameList();
+                    }
+
+                }
+            }
+        }
     }
 
     /// <summary>

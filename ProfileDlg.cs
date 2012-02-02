@@ -11,14 +11,15 @@ using System.IO;
 namespace Depressurizer {
     public partial class ProfileDlg : Form {
         public ProfileData Profile;
+        private bool editMode = false;
 
-        public bool DownloadOnCreate {
+        public bool DownloadNow {
             get {
                 return chkActDownload.Checked;
             }
         }
 
-        public bool ImportOnCreate {
+        public bool ImportNow {
             get {
                 return chkActImport.Checked;
             }
@@ -28,11 +29,40 @@ namespace Depressurizer {
             InitializeComponent();
         }
 
+        public ProfileDlg( ProfileData profile )
+            : this() {
+            Profile = profile;
+            editMode = true;
+        }
+
+        void InitializeEditMode() {
+            txtFilePath.Text = Profile.FilePath;
+            grpProfInfo.Enabled = false;
+
+            txtCommunityName.Text = Profile.CommunityName;
+            cmbAccountID.Text = Profile.AccountID;
+
+            chkActDownload.Checked = false;
+            chkActImport.Checked = false;
+
+            chkAutoDownload.Checked = Profile.AutoDownload;
+            chkAutoExport.Checked = Profile.AutoExport;
+            chkAutoImport.Checked = Profile.AutoImport;
+            chkExportDiscard.Checked = Profile.ExportDiscard;
+
+            this.Text = "Edit Profile";
+        }
+
         #region Event Handlers
 
         private void ProfileDlg_Load( object sender, EventArgs e ) {
-            txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
+
             RefreshIdList();
+            if( editMode ) {
+                InitializeEditMode();
+            } else {
+                txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
+            }
         }
 
         private void cmdBrowse_Click( object sender, EventArgs e ) {
@@ -60,13 +90,31 @@ namespace Depressurizer {
         }
 
         private void cmdOk_Click( object sender, EventArgs e ) {
-            if( CreateProfile() ) {
+            if( Apply() ) {
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 this.Close();
             }
         }
 
         #endregion
+
+        private bool Apply() {
+            if( editMode ) {
+                return SaveProfile();
+            } else {
+                return CreateProfile();
+            }
+        }
+
+        private bool SaveProfile() {
+            Profile.CommunityName = txtCommunityName.Text;
+            Profile.AccountID = cmbAccountID.Text;
+            Profile.AutoDownload = chkAutoDownload.Checked;
+            Profile.AutoExport = chkAutoExport.Checked;
+            Profile.AutoImport = chkAutoImport.Checked;
+            Profile.ExportDiscard = chkExportDiscard.Checked;
+            return true;
+        }
 
         private bool CreateProfile() {
             FileInfo file;
