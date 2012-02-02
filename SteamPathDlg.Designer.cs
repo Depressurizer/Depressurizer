@@ -1,0 +1,97 @@
+﻿namespace Depressurizer {
+    partial class SteamPathDlg {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose( bool disposing ) {
+            if( disposing && ( components != null ) ) {
+                components.Dispose();
+            }
+            base.Dispose( disposing );
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
+            this.txtPath = new System.Windows.Forms.TextBox();
+            this.cmdBrowse = new System.Windows.Forms.Button();
+            this.cmdOk = new System.Windows.Forms.Button();
+            this.lblPathLabel = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // txtPath
+            // 
+            this.txtPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPath.Location = new System.Drawing.Point(12, 25);
+            this.txtPath.Name = "txtPath";
+            this.txtPath.Size = new System.Drawing.Size(357, 20);
+            this.txtPath.TabIndex = 0;
+            // 
+            // cmdBrowse
+            // 
+            this.cmdBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowse.Location = new System.Drawing.Point(375, 23);
+            this.cmdBrowse.Name = "cmdBrowse";
+            this.cmdBrowse.Size = new System.Drawing.Size(75, 23);
+            this.cmdBrowse.TabIndex = 1;
+            this.cmdBrowse.Text = "Browse...";
+            this.cmdBrowse.UseVisualStyleBackColor = true;
+            this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
+            // 
+            // cmdOk
+            // 
+            this.cmdOk.Location = new System.Drawing.Point(194, 51);
+            this.cmdOk.Name = "cmdOk";
+            this.cmdOk.Size = new System.Drawing.Size(75, 23);
+            this.cmdOk.TabIndex = 2;
+            this.cmdOk.Text = "OK";
+            this.cmdOk.UseVisualStyleBackColor = true;
+            this.cmdOk.Click += new System.EventHandler(this.cmdOk_Click);
+            // 
+            // lblPathLabel
+            // 
+            this.lblPathLabel.AutoSize = true;
+            this.lblPathLabel.Location = new System.Drawing.Point(9, 9);
+            this.lblPathLabel.Name = "lblPathLabel";
+            this.lblPathLabel.Size = new System.Drawing.Size(175, 13);
+            this.lblPathLabel.TabIndex = 3;
+            this.lblPathLabel.Text = "Locate the Steam installation folder:";
+            // 
+            // SteamPathDlg
+            // 
+            this.AcceptButton = this.cmdOk;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(462, 84);
+            this.ControlBox = false;
+            this.Controls.Add(this.lblPathLabel);
+            this.Controls.Add(this.cmdOk);
+            this.Controls.Add(this.cmdBrowse);
+            this.Controls.Add(this.txtPath);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Name = "SteamPathDlg";
+            this.Text = "Steam Path";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox txtPath;
+        private System.Windows.Forms.Button cmdBrowse;
+        private System.Windows.Forms.Button cmdOk;
+        private System.Windows.Forms.Label lblPathLabel;
+    }
+}
