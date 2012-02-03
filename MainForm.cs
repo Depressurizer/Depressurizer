@@ -495,12 +495,44 @@ namespace Depressurizer {
                 if( dlg.ImportNow ) {
                     UpdateProfileImport( false );
                 }
+                if( dlg.SetStartup ) {
+                    settings.StartupAction = StartupAction.Load;
+                    settings.ProfileToLoad = currentProfile.FilePath;
+                    settings.Save();
+                }
 
                 FillCategoryList();
                 FillGameList();
                 Cursor = Cursors.Default;
             }
         }
+
+        void EditProfile() {
+            if( ProfileLoaded ) {
+                ProfileDlg dlg = new ProfileDlg( currentProfile );
+                if( dlg.ShowDialog() == DialogResult.OK ) {
+                    bool refresh = false;
+                    if( dlg.DownloadNow ) {
+                        UpdateProfileDownload( false );
+                        refresh = true;
+                    }
+                    if( dlg.ImportNow ) {
+                        UpdateProfileImport( false );
+                        refresh = true;
+                    }
+                    if( dlg.SetStartup ) {
+                        settings.StartupAction = StartupAction.Load;
+                        settings.ProfileToLoad = currentProfile.FilePath;
+                        settings.Save();
+                    }
+                    if( refresh ) {
+                        FillCategoryList();
+                        FillGameList();
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Prompts user for a profile file to load, then loads it.
@@ -727,25 +759,7 @@ namespace Depressurizer {
         }
 
         private void menu_Profile_Edit_Click( object sender, EventArgs e ) {
-            if( ProfileLoaded ) {
-                ProfileDlg dlg = new ProfileDlg( currentProfile );
-                if( dlg.ShowDialog() == DialogResult.OK ) {
-                    bool refresh = false;
-                    if( dlg.DownloadNow ) {
-                        UpdateProfileDownload( false );
-                        refresh = true;
-                    }
-
-                    if( dlg.ImportNow ) {
-                        UpdateProfileImport( false );
-                        refresh = true;
-                    }
-                    if( refresh ) {
-                        FillCategoryList();
-                        FillGameList();
-                    }
-                }
-            }
+            EditProfile();
         }
 
         private void menu_Config_Settings_Click( object sender, EventArgs e ) {
@@ -826,7 +840,7 @@ namespace Depressurizer {
                 e.Cancel = !CheckForUnsaved();
             }
         }
-        #endregion        
+        #endregion
     }
 
     /// <summary>

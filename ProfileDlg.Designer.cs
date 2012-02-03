@@ -49,6 +49,7 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tabOpts = new System.Windows.Forms.TabPage();
+            this.chkSetStartup = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -181,11 +182,12 @@
             // 
             this.grpActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpActions.Controls.Add(this.chkSetStartup);
             this.grpActions.Controls.Add(this.chkActImport);
             this.grpActions.Controls.Add(this.chkActDownload);
             this.grpActions.Location = new System.Drawing.Point(6, 239);
             this.grpActions.Name = "grpActions";
-            this.grpActions.Size = new System.Drawing.Size(614, 68);
+            this.grpActions.Size = new System.Drawing.Size(614, 91);
             this.grpActions.TabIndex = 9;
             this.grpActions.TabStop = false;
             this.grpActions.Text = "Additional Actions";
@@ -217,7 +219,7 @@
             // cmdOk
             // 
             this.cmdOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOk.Location = new System.Drawing.Point(571, 357);
+            this.cmdOk.Location = new System.Drawing.Point(571, 379);
             this.cmdOk.Name = "cmdOk";
             this.cmdOk.Size = new System.Drawing.Size(75, 23);
             this.cmdOk.TabIndex = 10;
@@ -229,7 +231,7 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(490, 357);
+            this.cmdCancel.Location = new System.Drawing.Point(490, 379);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 11;
@@ -321,7 +323,7 @@
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(634, 339);
+            this.tabControl.Size = new System.Drawing.Size(634, 361);
             this.tabControl.TabIndex = 13;
             // 
             // tabMain
@@ -332,7 +334,7 @@
             this.tabMain.Location = new System.Drawing.Point(4, 22);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(626, 313);
+            this.tabMain.Size = new System.Drawing.Size(626, 335);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
             this.tabMain.UseVisualStyleBackColor = true;
@@ -349,13 +351,25 @@
             this.tabOpts.Text = "Options";
             this.tabOpts.UseVisualStyleBackColor = true;
             // 
+            // chkSetStartup
+            // 
+            this.chkSetStartup.AutoSize = true;
+            this.chkSetStartup.Checked = true;
+            this.chkSetStartup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSetStartup.Location = new System.Drawing.Point(9, 67);
+            this.chkSetStartup.Name = "chkSetStartup";
+            this.chkSetStartup.Size = new System.Drawing.Size(245, 17);
+            this.chkSetStartup.TabIndex = 2;
+            this.chkSetStartup.Text = "Set this profile to be loaded on program startup";
+            this.chkSetStartup.UseVisualStyleBackColor = true;
+            // 
             // ProfileDlg
             // 
             this.AcceptButton = this.cmdOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(658, 390);
+            this.ClientSize = new System.Drawing.Size(658, 412);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.cmdCancel);
@@ -363,7 +377,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ProfileDlg";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Profile";
             this.Load += new System.EventHandler(this.ProfileDlg_Load);
             this.grpUserInfo.ResumeLayout(false);
@@ -410,5 +424,6 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabMain;
         private System.Windows.Forms.TabPage tabOpts;
+        private System.Windows.Forms.CheckBox chkSetStartup;
     }
 }

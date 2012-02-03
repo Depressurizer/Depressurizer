@@ -25,6 +25,12 @@ namespace Depressurizer {
             }
         }
 
+        public bool SetStartup {
+            get {
+                return chkSetStartup.Checked;
+            }
+        }
+
         #region Init
 
         public ProfileDlg() {
@@ -46,6 +52,7 @@ namespace Depressurizer {
 
             chkActDownload.Checked = false;
             chkActImport.Checked = false;
+            chkSetStartup.Checked = false;
 
             chkAutoDownload.Checked = Profile.AutoDownload;
             chkAutoExport.Checked = Profile.AutoExport;

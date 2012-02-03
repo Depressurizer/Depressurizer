@@ -81,6 +81,7 @@
             this.Controls.Add(this.txtPath);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SteamPathDlg";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Steam Path";
             this.ResumeLayout(false);
             this.PerformLayout();

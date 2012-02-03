@@ -199,6 +199,7 @@
             this.Controls.Add(this.grpSteamDir);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "OptionsDlg";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.grpSteamDir.ResumeLayout(false);

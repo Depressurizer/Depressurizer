@@ -550,7 +550,6 @@
             this.ShowIcon = false;
             this.Text = "Depressurizer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
-            this.Load += new System.EventHandler(this.FormMain_Load);
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
