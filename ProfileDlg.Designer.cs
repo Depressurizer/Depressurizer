@@ -363,7 +363,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ProfileDlg";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Create Profile";
             this.Load += new System.EventHandler(this.ProfileDlg_Load);
             this.grpUserInfo.ResumeLayout(false);

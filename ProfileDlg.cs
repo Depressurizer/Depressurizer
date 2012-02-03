@@ -25,6 +25,8 @@ namespace Depressurizer {
             }
         }
 
+        #region Init
+
         public ProfileDlg() {
             InitializeComponent();
         }
@@ -52,6 +54,7 @@ namespace Depressurizer {
 
             this.Text = "Edit Profile";
         }
+        #endregion
 
         #region Event Handlers
 
@@ -98,6 +101,7 @@ namespace Depressurizer {
 
         #endregion
 
+        #region Saving
         private bool Apply() {
             if( editMode ) {
                 return SaveProfile();
@@ -151,6 +155,9 @@ namespace Depressurizer {
             this.Profile = profile;
             return true;
         }
+        #endregion
+
+        #region Utility
 
         /// <summary>
         /// Populates the combo box with all located account IDs
@@ -186,5 +193,7 @@ namespace Depressurizer {
                 return new string[0];
             }
         }
+
+        #endregion
     }
 }

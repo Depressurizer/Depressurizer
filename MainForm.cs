@@ -726,6 +726,28 @@ namespace Depressurizer {
             ProfileExport();
         }
 
+        private void menu_Profile_Edit_Click( object sender, EventArgs e ) {
+            if( ProfileLoaded ) {
+                ProfileDlg dlg = new ProfileDlg( currentProfile );
+                if( dlg.ShowDialog() == DialogResult.OK ) {
+                    bool refresh = false;
+                    if( dlg.DownloadNow ) {
+                        UpdateProfileDownload( false );
+                        refresh = true;
+                    }
+
+                    if( dlg.ImportNow ) {
+                        UpdateProfileImport( false );
+                        refresh = true;
+                    }
+                    if( refresh ) {
+                        FillCategoryList();
+                        FillGameList();
+                    }
+                }
+            }
+        }
+
         private void menu_Config_Settings_Click( object sender, EventArgs e ) {
             OptionsDlg dlg = new OptionsDlg();
             dlg.ShowDialog();
@@ -782,12 +804,20 @@ namespace Depressurizer {
             UpdateSelectedStatusText();
         }
 
-        private void FormMain_Load( object sender, EventArgs e ) {
+        private void FormMain_Shown( object sender, EventArgs e ) {
             if( settings.SteamPath == null ) {
                 SteamPathDlg dlg = new SteamPathDlg();
                 dlg.ShowDialog();
                 settings.SteamPath = dlg.Path;
                 settings.Save();
+            }
+            switch( settings.StartupAction ) {
+                case StartupAction.Load:
+                    LoadProfile( settings.ProfileToLoad, false );
+                    break;
+                case StartupAction.Create:
+                    CreateNewProfile();
+                    break;
             }
         }
 
@@ -796,30 +826,7 @@ namespace Depressurizer {
                 e.Cancel = !CheckForUnsaved();
             }
         }
-        #endregion
-
-        private void menu_Profile_Edit_Click( object sender, EventArgs e ) {
-            if( ProfileLoaded ) {
-                ProfileDlg dlg = new ProfileDlg( currentProfile );
-                if( dlg.ShowDialog() == DialogResult.OK ) {
-                    bool refresh = false;
-                    if( dlg.DownloadNow ) {
-                        UpdateProfileDownload( false );
-                        refresh = true;
-                    }
-
-                    if( dlg.ImportNow ) {
-                        UpdateProfileImport( false );
-                        refresh = true;
-                    }
-                    if( refresh ) {
-                        FillCategoryList();
-                        FillGameList();
-                    }
-
-                }
-            }
-        }
+        #endregion        
     }
 
     /// <summary>

@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using Microsoft.Win32;
 
+enum StartupAction {
+    None,
+    Load,
+    Create
+}
+
 namespace Depressurizer {
     class DepSettings : AppSettings {
 
@@ -37,16 +43,16 @@ namespace Depressurizer {
             }
         }
 
-        private bool _loadProfileOnStartup = false;
-        public bool LoadProfileOnStartup {
+        private StartupAction _startupAction = StartupAction.Create;
+        public StartupAction StartupAction {
             get {
                 lock( threadLock ) {
-                    return _loadProfileOnStartup;
+                    return _startupAction;
                 }
             }
             set {
                 lock( threadLock ) {
-                    _loadProfileOnStartup = value;
+                    _startupAction = value;
                     outOfDate = true;
                 }
             }

@@ -22,7 +22,17 @@ namespace Depressurizer {
             DepSettings settings = DepSettings.Instance();
             txtSteamPath.Text = settings.SteamPath;
             txtDefaultProfile.Text = settings.ProfileToLoad;
-            chkLoadProfileOnStart.Checked = settings.LoadProfileOnStartup;
+            switch( settings.StartupAction ) {
+                case StartupAction.Load:
+                    radLoad.Checked = true;
+                    break;
+                case StartupAction.Create:
+                    radCreate.Checked = true;
+                    break;
+                default:
+                    radNone.Checked = true;
+                    break;
+            }
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
         }
 
@@ -30,7 +40,13 @@ namespace Depressurizer {
             DepSettings settings = DepSettings.Instance();
 
             settings.SteamPath = txtSteamPath.Text;
-            settings.LoadProfileOnStartup = chkLoadProfileOnStart.Checked;
+            if( radLoad.Checked ) {
+                settings.StartupAction = StartupAction.Load;
+            } else if( radCreate.Checked ) {
+                settings.StartupAction = StartupAction.Create;
+            } else {
+                settings.StartupAction = StartupAction.None;
+            }
             settings.ProfileToLoad = txtDefaultProfile.Text;
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
             try {

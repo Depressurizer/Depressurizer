@@ -74,18 +74,15 @@ namespace Depressurizer {
 
         private void SetProperty( PropertyInfo propertyInfo, string value ) {
             try {
-                if( propertyInfo.PropertyType == typeof( string ) ) {
+                if( propertyInfo.PropertyType.IsEnum ) {
+                    object eVal = Enum.Parse( propertyInfo.PropertyType, value, true );
+                    propertyInfo.SetValue( this, eVal, null );
+                } else if( propertyInfo.PropertyType == typeof( string ) ) {
                     propertyInfo.SetValue( this, value, null );
                 } else if( propertyInfo.PropertyType == typeof( bool ) ) {
-                    bool val;
-                    if( bool.TryParse( value, out val ) ) {
-                        propertyInfo.SetValue( this, val, null );
-                    }
+                    propertyInfo.SetValue( this, bool.Parse( value ), null );
                 } else if( propertyInfo.PropertyType == typeof( int ) ) {
-                    int val;
-                    if( int.TryParse( value, out val ) ) {
-                        propertyInfo.SetValue( this, val, null );
-                    }
+                    propertyInfo.SetValue( this, int.Parse( value ), null );
                 }
             } catch {
                 // LOG: Log the error
