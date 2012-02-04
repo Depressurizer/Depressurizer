@@ -238,9 +238,10 @@ namespace Depressurizer {
                 foreach( KeyValuePair<string, FileNode> gameNodePair in gameNodeArray ) {
                     int gameId;
                     if( int.TryParse( gameNodePair.Key, out gameId ) ) {
-                        Category cat = null;
-                        bool fav = false;
                         if( gameNodePair.Value != null && gameNodePair.Value.ContainsKey( "tags" ) ) {
+                            Category cat = null;
+                            bool fav = false;
+                            loadedGames++;
                             FileNode tagsNode = gameNodePair.Value["tags"];
                             Dictionary<string, FileNode> tagArray = tagsNode.NodeArray;
                             if( tagArray != null ) {
@@ -255,14 +256,13 @@ namespace Depressurizer {
                                     }
                                 }
                             }
+                            if( !Games.ContainsKey( gameId ) ) {
+                                Game newGame = new Game( gameId, string.Empty );
+                                Games.Add( gameId, newGame );
+                            }
+                            Games[gameId].Category = cat;
+                            Games[gameId].Favorite = fav;
                         }
-                        if( !Games.ContainsKey( gameId ) ) {
-                            Game newGame = new Game( gameId, string.Empty );
-                            Games.Add( gameId, newGame );
-                        }
-                        Games[gameId].Category = cat;
-                        Games[gameId].Favorite = fav;
-                        loadedGames++;
                     }
                 }
             }
