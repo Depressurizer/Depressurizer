@@ -3,6 +3,7 @@ using System.Collections;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Text;
 
 namespace Depressurizer {
     public partial class FormMain : Form {
@@ -32,6 +33,8 @@ namespace Depressurizer {
         bool unsavedChanges = false;
 
         DepSettings settings = DepSettings.Instance();
+
+        StringBuilder statusBuilder = new StringBuilder();
         #endregion
 
         #region Properties
@@ -50,6 +53,24 @@ namespace Depressurizer {
             FillCategoryList();
         }
 
+        public void AddStatus(string s) {
+            statusBuilder.Append( s );
+            statusBuilder.Append( ' ' );
+        }
+
+        public void ClearStatus() {
+            statusBuilder.Clear();
+        }
+
+        public void FlushStatus() {
+            statusMsg.Text = statusBuilder.ToString();
+            statusBuilder.Clear();
+        }
+
+        public void BlankStatus() {
+            statusMsg.Text = string.Empty;
+        }
+
         #region Manual Operations
         /// <summary>
         /// Loads a Steam configuration file and adds its data to the currently loaded game list. Asks the user to select a file, handles the load, and refreshes the UI.
@@ -57,7 +78,7 @@ namespace Depressurizer {
         void ManualImport() {
             if( ProfileLoaded || gameData.Games.Count > 0 ) {
                 if( MessageBox.Show( "This action will add the contents of a Steam config file to the currently loaded game list, and will overwrite the category information for any existing games. If you do not want to do this, close the open profile or gamelist first.\nContinue loading file?",
-                    "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information )
+                    "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information )
                  == DialogResult.No ) {
                     return;
                 }
@@ -70,15 +91,17 @@ namespace Depressurizer {
                 try {
                     int loadedGames = gameData.ImportSteamFile( dlg.FileName );
                     if( loadedGames == 0 ) {
-                        MessageBox.Show( "Warning: No game info found in the specified file." );
+                        MessageBox.Show( "Warning: No game info found in the specified file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning  );
+                        AddStatus( "No games found." );
                     } else {
                         unsavedChanges = true;
-                        statusMsg.Text = string.Format( "Loaded category info for {0} games.", loadedGames );
+                        AddStatus( string.Format( "Imported {0} games.", loadedGames ) );
                         lastSelectedCat = null; // Make sure the game list refreshes
                         FillCategoryList();
                     }
                 } catch( ApplicationException e ) {
-                    MessageBox.Show( e.Message, "File loading error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Import failed." );
                 }
                 Cursor = Cursors.Default;
             }
@@ -95,10 +118,11 @@ namespace Depressurizer {
                 Cursor = Cursors.WaitCursor;
                 try {
                     gameData.SaveSteamFile( dlg.FileName, settings.RemoveExtraEntries );
-                    statusMsg.Text = "File saved.";
+                    AddStatus( "Data exported." );
                     return true;
                 } catch( ApplicationException e ) {
-                    MessageBox.Show( e.Message, "Error saving file", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Export failed." );
                 }
                 Cursor = Cursors.Default;
             }
@@ -112,7 +136,7 @@ namespace Depressurizer {
 
             if( ProfileLoaded || gameData.Games.Count > 0 ) {
                 if( MessageBox.Show( "This action will add the contents of a Steam community game list to the currently loaded game list. If you do not want to do this, close the open game list or profile first.\nContinue loading games?",
-                    "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information )
+                    "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information )
                  == DialogResult.No ) {
                     return;
                 }
@@ -124,14 +148,16 @@ namespace Depressurizer {
                 try {
                     int loadedGames = gameData.LoadGameList( dlg.Value );
                     if( loadedGames == 0 ) {
-                        MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "No data found", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        AddStatus( "No games in download." );
                     } else {
                         unsavedChanges = true;
-                        statusMsg.Text = string.Format( "Loaded {0} games.", loadedGames );
+                        AddStatus( string.Format( "Downloaded {0} games.", loadedGames ) );
                         FillGameList();
                     }
                 } catch( ApplicationException e ) {
-                    MessageBox.Show( e.Message, "Error loading game list data", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Error downloading games." );
                 }
                 Cursor = Cursors.Default;
             }
@@ -219,6 +245,11 @@ namespace Depressurizer {
             lstGames.ListViewItemSorter = new GameListViewItemComparer( sortColumn, sortDirection, sortColumn == 0 );
         }
 
+        /// <summary>
+        /// Updates the entry for the game in the given position in the list.
+        /// </summary>
+        /// <param name="index">List index of the game to update</param>
+        /// <returns>True if game should be in the list, false otherwise.</returns>
         bool UpdateGame( int index ) {
             ListViewItem item = lstGames.Items[index];
             Game g = (Game)item.Tag;
@@ -232,6 +263,9 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Updates list item for every game on the list, removing games that no longer need to be there, but not adding new ones.
+        /// </summary>
         void UpdateGameList() {
             int i = 0;
             lstGames.BeginUpdate();
@@ -242,6 +276,9 @@ namespace Depressurizer {
             UpdateSelectedStatusText();
         }
 
+        /// <summary>
+        /// Updates the list item for every selected item on the list.
+        /// </summary>
         void UpdateGameListSelected() {
             int i = 0;
             lstGames.BeginUpdate();
@@ -252,6 +289,9 @@ namespace Depressurizer {
             UpdateSelectedStatusText();
         }
 
+        /// <summary>
+        /// Updates the text displaying the number of items in the game list
+        /// </summary>
         private void UpdateSelectedStatusText() {
             statusSelection.Text = string.Format( "{0} selected / {1} displayed", lstGames.SelectedItems.Count, lstGames.Items.Count );
         }
@@ -361,6 +401,7 @@ namespace Depressurizer {
                 return;
             }
 
+            AddStatus( "Cleared data." );
             currentProfile = null;
             gameData = new GameData();
             unsavedChanges = false;
@@ -480,6 +521,9 @@ namespace Depressurizer {
 
         #region Profile Management
 
+        /// <summary>
+        /// Prompts user to create a new profile.
+        /// </summary>
         private void CreateNewProfile() {
             ProfileDlg dlg = new ProfileDlg();
             DialogResult res = dlg.ShowDialog();
@@ -487,7 +531,7 @@ namespace Depressurizer {
                 Cursor = Cursors.WaitCursor;
                 currentProfile = dlg.Profile;
                 gameData = currentProfile.GameData;
-
+                AddStatus( "Profile created." );
                 if( dlg.DownloadNow ) {
                     UpdateProfileDownload( false );
                 }
@@ -507,10 +551,14 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Prompts the user to modify the currently loaded profile.
+        /// </summary>
         void EditProfile() {
             if( ProfileLoaded ) {
                 ProfileDlg dlg = new ProfileDlg( currentProfile );
                 if( dlg.ShowDialog() == DialogResult.OK ) {
+                    AddStatus( "Profile edited." );
                     bool refresh = false;
                     if( dlg.DownloadNow ) {
                         UpdateProfileDownload( false );
@@ -529,6 +577,10 @@ namespace Depressurizer {
                         FillCategoryList();
                         FillGameList();
                     }
+                }
+            } else {
+                if( MessageBox.Show( "No profile loaded. Create one now?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) == DialogResult.Yes ) {
+                    CreateNewProfile();
                 }
             }
         }
@@ -561,8 +613,10 @@ namespace Depressurizer {
 
             try {
                 currentProfile = ProfileData.Load( path );
+                AddStatus( "Profile loaded." );
             } catch( ApplicationException e ) {
                 MessageBox.Show( e.Message, "Error loading profile", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                AddStatus( "Failed to load profile." );
                 return;
             }
 
@@ -601,11 +655,7 @@ namespace Depressurizer {
         /// <returns>True if successful, false if there is a failure</returns>
         bool SaveProfile( string path = null ) {
             if( currentProfile.AutoExport ) {
-                try {
-                    currentProfile.ExportSteamData();
-                } catch( ApplicationException e ) {
-                    MessageBox.Show( e.Message, "Error exporting to Steam", MessageBoxButtons.OK, MessageBoxIcon.Error );
-                }
+                ProfileExport();
             }
             try {
                 if( path == null ) {
@@ -613,20 +663,28 @@ namespace Depressurizer {
                 } else {
                     currentProfile.Save( path );
                 }
+                AddStatus( "Profile saved." );
                 unsavedChanges = false;
                 return true;
             } catch( ApplicationException e ) {
                 MessageBox.Show( e.Message, "Error saving profile", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                AddStatus( "Failed to save profile." );
                 return false;
             }
 
         }
 
+        /// <summary>
+        /// Attempts to download game list for the loaded profile.
+        /// </summary>
+        /// <param name="updateUI">If true, will update the UI</param>
         void UpdateProfileDownload( bool updateUI = true ) {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    if( currentProfile.DownloadGameList() > 0 ) {
+                    int count = currentProfile.DownloadGameList();
+                    AddStatus( string.Format( "Downloaded {0} items.", count ) );
+                    if( count > 0 ) {
                         unsavedChanges = true;
                         if( updateUI ) {
                             FillCategoryList();
@@ -637,15 +695,22 @@ namespace Depressurizer {
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
                     MessageBox.Show( e.Message, "Error downloading game list", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    AddStatus( "Download failed." );
                 }
             }
         }
 
+        /// <summary>
+        /// Attempts to import steam categories
+        /// </summary>
+        /// <param name="updateUI"></param>
         void UpdateProfileImport( bool updateUI = true ) {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    if( currentProfile.ImportSteamData() > 0 ) {
+                    int count = currentProfile.ImportSteamData();
+                    AddStatus( string.Format( "Imported {0} items.", count ) );
+                    if(count  > 0 ) {
                         unsavedChanges = true;
                         if( updateUI ) {
                             FillCategoryList();
@@ -656,16 +721,22 @@ namespace Depressurizer {
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
                     MessageBox.Show( e.Message, "Error importing steam data list", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    AddStatus( "Import failed." );
                 }
             }
         }
 
+        /// <summary>
+        /// Attempts to export steam categories
+        /// </summary>
         void ProfileExport() {
             if( currentProfile != null ) {
                 try {
                     currentProfile.ExportSteamData();
+                    AddStatus( "Exported categories." );
                 } catch( ApplicationException e ) {
                     MessageBox.Show( e.Message, "Error exporting to Steam", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Export failed." );
                 }
             }
         }
@@ -681,6 +752,7 @@ namespace Depressurizer {
 
         private void lstCategories_DragDrop( object sender, DragEventArgs e ) {
             if( e.Data.GetDataPresent( typeof( int[] ) ) ) {
+                ClearStatus();
                 Point clientPoint = lstCategories.PointToClient( new Point( e.X, e.Y ) );
                 object dropItem = lstCategories.Items[lstCategories.IndexFromPoint( clientPoint )];
                 if( dropItem is Category ) {
@@ -698,6 +770,7 @@ namespace Depressurizer {
                         unsavedChanges = true;
                     }
                 }
+                FlushStatus();
             }
         }
 
@@ -711,35 +784,51 @@ namespace Depressurizer {
         #endregion
         #region Main menu
         private void menu_File_NewProfile_Click( object sender, EventArgs e ) {
+            ClearStatus();
             CreateNewProfile();
+            FlushStatus();
         }
 
         private void menu_File_LoadProfile_Click( object sender, EventArgs e ) {
+            ClearStatus();
             LoadProfile();
+            FlushStatus();
         }
 
         private void menu_File_SaveProfile_Click( object sender, EventArgs e ) {
+            ClearStatus();
             SaveProfile();
+            FlushStatus();
         }
 
         private void menu_File_SaveProfileAs_Click( object sender, EventArgs e ) {
+            ClearStatus();
             SaveProfileAs();
+            FlushStatus();
         }
 
         private void menu_File_Close_Click( object sender, EventArgs e ) {
+            ClearStatus();
             Unload();
+            FlushStatus();
         }
 
         private void menu_File_Manual_Import_Click( object sender, EventArgs e ) {
+            ClearStatus();
             ManualImport();
+            FlushStatus();
         }
 
         private void menu_File_Manual_Download_Click( object sender, EventArgs e ) {
+            ClearStatus();
             ManualDownload();
+            FlushStatus();
         }
 
         private void menu_File_Manual_Export_Click( object sender, EventArgs e ) {
+            ClearStatus();
             ManualExport();
+            FlushStatus();
         }
 
         private void menu_File_Exit_Click( object sender, EventArgs e ) {
@@ -747,53 +836,73 @@ namespace Depressurizer {
         }
 
         private void menu_Profile_Download_Click( object sender, EventArgs e ) {
+            ClearStatus();
             UpdateProfileDownload();
+            FlushStatus();
         }
 
         private void menu_Profile_Import_Click( object sender, EventArgs e ) {
+            ClearStatus();
             UpdateProfileImport();
+            FlushStatus();
         }
 
         private void menu_Profile_Export_Click( object sender, EventArgs e ) {
+            ClearStatus();
             ProfileExport();
+            FlushStatus();
         }
 
         private void menu_Profile_Edit_Click( object sender, EventArgs e ) {
+            ClearStatus();
             EditProfile();
+            FlushStatus();
         }
 
         private void menu_Config_Settings_Click( object sender, EventArgs e ) {
+            ClearStatus();
             OptionsDlg dlg = new OptionsDlg();
             dlg.ShowDialog();
+            FlushStatus();
         }
 
         #endregion
         #region Buttons
         private void cmdCatAdd_Click( object sender, EventArgs e ) {
+            ClearStatus();
             CreateCategory();
+            FlushStatus();
         }
 
         private void cmdCatRename_Click( object sender, EventArgs e ) {
             if( lstCategories.SelectedItems.Count > 0 ) {
+                ClearStatus();
                 RenameCategory( lstCategories.SelectedItem as Category );
+                FlushStatus();
             }
         }
 
         private void cmdCatDelete_Click( object sender, EventArgs e ) {
             if( lstCategories.SelectedItems.Count > 0 ) {
+                ClearStatus();
                 DeleteCategory( lstCategories.SelectedItem as Category );
+                FlushStatus();
             }
         }
 
         private void cmdGameSetCategory_Click( object sender, EventArgs e ) {
             Category c;
             if( GetSelectedCategoryFromCombo( out c ) ) {
+                ClearStatus();
                 AssignCategoryToSelectedGames( c );
+                FlushStatus();
             }
         }
 
         private void cmdGameSetFavorite_Click( object sender, EventArgs e ) {
+            ClearStatus();
             AssignFavoriteToSelectedGames( GetSelectedFavorite() );
+            FlushStatus();
         }
         #endregion
 
