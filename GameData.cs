@@ -287,16 +287,10 @@ namespace Depressurizer {
             if( discardMissing ) {
                 Dictionary<string, FileNode> gameNodeArray = appListNode.NodeArray;
                 if( gameNodeArray != null ) {
-                    string[] keys = new string[ gameNodeArray.Count ];
-                    gameNodeArray.Keys.CopyTo( keys, 0 );
-                    foreach( string key in keys ) {
+                    foreach( KeyValuePair<string, FileNode> pair in gameNodeArray ) {
                         int gameId;
-                        if( int.TryParse( key, out gameId ) ) {
-                            if( !Games.ContainsKey( gameId ) ) {
-                                gameNodeArray.Remove( key );
-                            }
-                        } else {
-                            gameNodeArray.Remove( key );
+                        if( !( int.TryParse( pair.Key, out gameId ) && Games.ContainsKey( gameId ) ) ) {
+                            pair.Value.RemoveSubnode( "tags" );
                         }
                     }
                 }

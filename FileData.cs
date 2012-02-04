@@ -225,6 +225,9 @@ namespace Depressurizer {
         /// <param name="key">Key of the subnode to remove</param>
         /// <returns>True if node was removed, false if not found</returns>
         public bool RemoveSubnode( string key ) {
+            if( NodeType != ValueType.Array ) {
+                return false;
+            }
             return NodeArray.Remove( key );
         }
 
