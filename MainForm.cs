@@ -53,7 +53,7 @@ namespace Depressurizer {
             FillCategoryList();
         }
 
-        public void AddStatus(string s) {
+        public void AddStatus( string s ) {
             statusBuilder.Append( s );
             statusBuilder.Append( ' ' );
         }
@@ -69,6 +69,15 @@ namespace Depressurizer {
 
         public void BlankStatus() {
             statusMsg.Text = string.Empty;
+        }
+
+        public void MakeChange( bool changes ) {
+            if( unsavedChanges != changes ) {
+                unsavedChanges = changes;
+                UpdateTitle();
+            } else {
+                unsavedChanges = changes;
+            }
         }
 
         #region Manual Operations
@@ -91,10 +100,10 @@ namespace Depressurizer {
                 try {
                     int loadedGames = gameData.ImportSteamFile( dlg.FileName );
                     if( loadedGames == 0 ) {
-                        MessageBox.Show( "Warning: No game info found in the specified file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning  );
+                        MessageBox.Show( "Warning: No game info found in the specified file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games found." );
                     } else {
-                        unsavedChanges = true;
+                        MakeChange( true );
                         AddStatus( string.Format( "Imported {0} games.", loadedGames ) );
                         lastSelectedCat = null; // Make sure the game list refreshes
                         FillCategoryList();
@@ -151,7 +160,7 @@ namespace Depressurizer {
                         MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games in download." );
                     } else {
-                        unsavedChanges = true;
+                        MakeChange(true);
                         AddStatus( string.Format( "Downloaded {0} games.", loadedGames ) );
                         FillGameList();
                     }
@@ -310,7 +319,7 @@ namespace Depressurizer {
                 if( newCat != null ) {
                     FillCategoryList();
                     combCategory.SelectedItem = newCat;
-                    unsavedChanges = true;
+                    MakeChange( true );
                     return newCat;
                 } else {
                     MessageBox.Show( String.Format( "Could not add category '{0}'", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
@@ -331,7 +340,7 @@ namespace Depressurizer {
                     if( gameData.RemoveCategory( c ) ) {
                         FillCategoryList();
                         FillGameList();
-                        unsavedChanges = true;
+                        MakeChange(true);
                         return true;
                     } else {
                         MessageBox.Show( string.Format( "Could not delete category '{0}'.", c.Name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
@@ -353,7 +362,7 @@ namespace Depressurizer {
                     if( ValidateCategoryName( dlg.Value ) && gameData.RenameCategory( c, dlg.Value ) ) {
                         FillCategoryList();
                         UpdateGameList();
-                        unsavedChanges = true;
+                        MakeChange(true);
                         return true;
                     } else {
                         MessageBox.Show( string.Format( "Name '{0}' is already in use.", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
@@ -373,7 +382,7 @@ namespace Depressurizer {
                     ( item.Tag as Game ).Category = cat;
                 }
                 UpdateGameListSelected();
-                unsavedChanges = true;
+                MakeChange(true);
             }
         }
 
@@ -387,7 +396,7 @@ namespace Depressurizer {
                     ( item.Tag as Game ).Favorite = fav;
                 }
                 UpdateGameListSelected();
-                unsavedChanges = true;
+                MakeChange(true);
             }
         }
 
@@ -404,8 +413,8 @@ namespace Depressurizer {
             AddStatus( "Cleared data." );
             currentProfile = null;
             gameData = new GameData();
-            unsavedChanges = false;
-
+            MakeChange(false);
+            UpdateMenuEnabledStates();
             if( updateUI ) {
                 FillCategoryList();
                 FillGameList();
@@ -549,6 +558,7 @@ namespace Depressurizer {
                 FillGameList();
                 Cursor = Cursors.Default;
             }
+            UpdateMenuEnabledStates();
         }
 
         /// <summary>
@@ -559,6 +569,7 @@ namespace Depressurizer {
                 ProfileDlg dlg = new ProfileDlg( currentProfile );
                 if( dlg.ShowDialog() == DialogResult.OK ) {
                     AddStatus( "Profile edited." );
+                    MakeChange(true);
                     bool refresh = false;
                     if( dlg.DownloadNow ) {
                         UpdateProfileDownload( false );
@@ -584,7 +595,6 @@ namespace Depressurizer {
                 }
             }
         }
-
 
         /// <summary>
         /// Prompts user for a profile file to load, then loads it.
@@ -631,6 +641,7 @@ namespace Depressurizer {
 
             FillCategoryList();
             FillGameList();
+            UpdateMenuEnabledStates();
         }
 
         /// <summary>
@@ -664,7 +675,7 @@ namespace Depressurizer {
                     currentProfile.Save( path );
                 }
                 AddStatus( "Profile saved." );
-                unsavedChanges = false;
+                MakeChange( false );
                 return true;
             } catch( ApplicationException e ) {
                 MessageBox.Show( e.Message, "Error saving profile", MessageBoxButtons.OK, MessageBoxIcon.Error );
@@ -685,7 +696,7 @@ namespace Depressurizer {
                     int count = currentProfile.DownloadGameList();
                     AddStatus( string.Format( "Downloaded {0} items.", count ) );
                     if( count > 0 ) {
-                        unsavedChanges = true;
+                        MakeChange(true);
                         if( updateUI ) {
                             FillCategoryList();
                             FillGameList();
@@ -710,8 +721,8 @@ namespace Depressurizer {
                 try {
                     int count = currentProfile.ImportSteamData();
                     AddStatus( string.Format( "Imported {0} items.", count ) );
-                    if(count  > 0 ) {
-                        unsavedChanges = true;
+                    if( count > 0 ) {
+                        MakeChange(true);
                         if( updateUI ) {
                             FillCategoryList();
                             FillGameList();
@@ -758,16 +769,16 @@ namespace Depressurizer {
                 if( dropItem is Category ) {
                     gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), (Category)dropItem );
                     UpdateGameList();
-                    unsavedChanges = true;
+                    MakeChange(true);
                 } else if( dropItem is string ) {
                     if( (string)dropItem == CAT_FAV_NAME ) {
                         gameData.SetGameFavorites( (int[])e.Data.GetData( typeof( int[] ) ), true );
                         UpdateGameList();
-                        unsavedChanges = true;
+                        MakeChange(true);
                     } else if( (string)dropItem == CAT_UNC_NAME ) {
                         gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), null );
                         UpdateGameList();
-                        unsavedChanges = true;
+                        MakeChange(true);
                     }
                 }
                 FlushStatus();
@@ -928,6 +939,7 @@ namespace Depressurizer {
         }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
+            ClearStatus();
             if( settings.SteamPath == null ) {
                 SteamPathDlg dlg = new SteamPathDlg();
                 dlg.ShowDialog();
@@ -942,6 +954,7 @@ namespace Depressurizer {
                     CreateNewProfile();
                     break;
             }
+            FlushStatus();
         }
 
         private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
@@ -950,6 +963,31 @@ namespace Depressurizer {
             }
         }
         #endregion
+
+        void UpdateMenuEnabledStates() {
+            bool enable = ProfileLoaded;
+            menu_File_SaveProfile.Enabled = enable;
+            menu_File_SaveProfileAs.Enabled = enable;
+
+            menu_Profile_Download.Enabled = enable;
+            menu_Profile_Export.Enabled = enable;
+            menu_Profile_Import.Enabled = enable;
+            menu_Profile_Edit.Enabled = enable;
+
+            UpdateTitle();
+        }
+
+        void UpdateTitle() {
+            StringBuilder sb = new StringBuilder( "Depressurizer" );
+            if( ProfileLoaded ) {
+                sb.Append( " - " );
+                sb.Append( Path.GetFileName( currentProfile.FilePath ) );
+            }
+            if( unsavedChanges ) {
+                sb.Append( " *" );
+            }
+            this.Text = sb.ToString();
+        }
     }
 
     /// <summary>
