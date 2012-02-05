@@ -62,9 +62,7 @@
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,12 +98,6 @@
     </Compile>
     <Compile Include="FileData.cs" />
     <Compile Include="GameData.cs" />
-    <None Include="AutoLoadDlg.cs">
-      <SubType>Form</SubType>
-    </None>
-    <None Include="AutoLoadDlg.Designer.cs">
-      <DependentUpon>AutoLoadDlg.cs</DependentUpon>
-    </None>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,9 +133,6 @@
     <EmbeddedResource Include="GetStringDlg.resx">
       <DependentUpon>GetStringDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="AutoLoadDlg.resx">
-      <DependentUpon>AutoLoadDlg.cs</DependentUpon>
-    </None>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -201,12 +190,6 @@
       <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Properties\app.manifest">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

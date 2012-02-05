@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Win32;
-
-enum StartupAction {
-    None,
-    Load,
-    Create
-}
 
 namespace Depressurizer {
+
+    enum StartupAction {
+        None,
+        Load,
+        Create
+    }
+
     class DepSettings : AppSettings {
 
         private static DepSettings instance;
@@ -88,8 +85,9 @@ namespace Depressurizer {
             }
         }
 
-        private DepSettings() : base() {
-            //FilePath = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";
+        private DepSettings()
+            : base() {
+            FilePath = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";
         }
     }
 }

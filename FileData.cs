@@ -58,6 +58,9 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Quick shortcut for casting data to string
+        /// </summary>
         public string NodeString {
             get {
                 return ( NodeType == ValueType.Value ) ? ( NodeData as string ) : null;

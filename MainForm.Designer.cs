@@ -213,38 +213,38 @@
             // menu_Profile_Download
             // 
             this.menu_Profile_Download.Name = "menu_Profile_Download";
-            this.menu_Profile_Download.Size = new System.Drawing.Size(171, 22);
-            this.menu_Profile_Download.Text = "Update Game List";
+            this.menu_Profile_Download.Size = new System.Drawing.Size(183, 22);
+            this.menu_Profile_Download.Text = "Download Game List";
             this.menu_Profile_Download.Click += new System.EventHandler(this.menu_Profile_Download_Click);
             // 
             // menu_Profile_Import
             // 
             this.menu_Profile_Import.Name = "menu_Profile_Import";
-            this.menu_Profile_Import.Size = new System.Drawing.Size(171, 22);
-            this.menu_Profile_Import.Text = "Update Categories";
+            this.menu_Profile_Import.Size = new System.Drawing.Size(183, 22);
+            this.menu_Profile_Import.Text = "Import Config File";
             this.menu_Profile_Import.Click += new System.EventHandler(this.menu_Profile_Import_Click);
             // 
             // menu_Profile_Sep1
             // 
             this.menu_Profile_Sep1.Name = "menu_Profile_Sep1";
-            this.menu_Profile_Sep1.Size = new System.Drawing.Size(168, 6);
+            this.menu_Profile_Sep1.Size = new System.Drawing.Size(180, 6);
             // 
             // menu_Profile_Export
             // 
             this.menu_Profile_Export.Name = "menu_Profile_Export";
-            this.menu_Profile_Export.Size = new System.Drawing.Size(171, 22);
+            this.menu_Profile_Export.Size = new System.Drawing.Size(183, 22);
             this.menu_Profile_Export.Text = "Export Config File";
             this.menu_Profile_Export.Click += new System.EventHandler(this.menu_Profile_Export_Click);
             // 
             // menu_Profile_Sep2
             // 
             this.menu_Profile_Sep2.Name = "menu_Profile_Sep2";
-            this.menu_Profile_Sep2.Size = new System.Drawing.Size(168, 6);
+            this.menu_Profile_Sep2.Size = new System.Drawing.Size(180, 6);
             // 
             // menu_Profile_Edit
             // 
             this.menu_Profile_Edit.Name = "menu_Profile_Edit";
-            this.menu_Profile_Edit.Size = new System.Drawing.Size(171, 22);
+            this.menu_Profile_Edit.Size = new System.Drawing.Size(183, 22);
             this.menu_Profile_Edit.Text = "Edit Profile Info";
             this.menu_Profile_Edit.Click += new System.EventHandler(this.menu_Profile_Edit_Click);
             // 
@@ -259,7 +259,7 @@
             // menu_Config_Settings
             // 
             this.menu_Config_Settings.Name = "menu_Config_Settings";
-            this.menu_Config_Settings.Size = new System.Drawing.Size(125, 22);
+            this.menu_Config_Settings.Size = new System.Drawing.Size(152, 22);
             this.menu_Config_Settings.Text = "Settings...";
             this.menu_Config_Settings.Click += new System.EventHandler(this.menu_Config_Settings_Click);
             // 

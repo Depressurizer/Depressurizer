@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
-using System;
 
 namespace Depressurizer {
     public class ProfileData {
@@ -25,7 +24,7 @@ namespace Depressurizer {
         public bool ExportDiscard = true;
 
         public int ImportSteamData() {
-            string filePath = string.Format( @"{0}\userdata\{1}\7\remote\sharedconfig.vdf", DepSettings.Instance().SteamPath, AccountID );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, DepSettings.Instance().SteamPath, AccountID );
             return GameData.ImportSteamFile( filePath );
         }
 
@@ -34,7 +33,7 @@ namespace Depressurizer {
         }
 
         public void ExportSteamData() {
-            string filePath = string.Format( @"{0}\userdata\{1}\7\remote\sharedconfig.vdf", DepSettings.Instance().SteamPath, AccountID );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, DepSettings.Instance().SteamPath, AccountID );
             GameData.SaveSteamFile( filePath, ExportDiscard );
         }
 

@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.IO;
 using System.Reflection;
+using System.Xml;
 
 namespace Depressurizer {
-    class AppSettings {
+
+    /// <summary>
+    /// Base class for a settings object. Capable of loading and saving values of all public properties.
+    /// </summary>
+    abstract class AppSettings {
 
         protected readonly object threadLock = new object();
 
@@ -19,6 +20,10 @@ namespace Depressurizer {
             FilePath = "Settings.xml";
         }
 
+        /// <summary>
+        /// Saves the contents of this instance to the defined config file.
+        /// </summary>
+        /// <param name="force">If false, will only save if the flag indicates that changes have been made. If true, always saves.</param>
         public void Save( bool force = false ) {
             if( force || outOfDate ) {
                 Type t = this.GetType();
@@ -40,12 +45,14 @@ namespace Depressurizer {
                 try {
                     doc.Save( FilePath );
                 } catch( IOException ) {
-                    // LOG: error
                 }
                 outOfDate = false;
             }
         }
 
+        /// <summary>
+        /// Loads settings from the defined config file.
+        /// </summary>
         public void Load() {
             Type type = this.GetType();
             if( File.Exists( FilePath ) ) {
@@ -64,9 +71,7 @@ namespace Depressurizer {
                         }
                     }
                 } catch( XmlException ) {
-                    // LOG: Error.
                 } catch( IOException ) {
-                    // LOG: Error.
                 }
                 outOfDate = false;
             }
@@ -85,7 +90,6 @@ namespace Depressurizer {
                     propertyInfo.SetValue( this, int.Parse( value ), null );
                 }
             } catch {
-                // LOG: Log the error
             }
         }
     }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConfigFilePath" xml:space="preserve">
+    <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
+  </data>
   <data name="ProfileURL" xml:space="preserve">
     <value>http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1</value>
   </data>

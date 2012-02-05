@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-
 
 namespace Depressurizer {
     public partial class OptionsDlg : Form {
@@ -56,6 +49,7 @@ namespace Depressurizer {
             }
         }
 
+        #region Event handlers
         private void cmdCancel_Click( object sender, EventArgs e ) {
             this.Close();
         }
@@ -80,5 +74,6 @@ namespace Depressurizer {
                 txtDefaultProfile.Text = dlg.FileName;
             }
         }
+        #endregion
     }
 }

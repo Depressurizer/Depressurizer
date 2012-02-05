@@ -61,6 +61,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\7\remote\sharedconfig.vdf.
+        /// </summary>
+        internal static string ConfigFilePath {
+            get {
+                return ResourceManager.GetString("ConfigFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1.
         /// </summary>
         internal static string ProfileURL {
