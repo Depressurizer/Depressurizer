@@ -36,7 +36,7 @@
             this.txtPath.Location = new System.Drawing.Point(12, 25);
             this.txtPath.Name = "txtPath";
             this.txtPath.Size = new System.Drawing.Size(357, 20);
-            this.txtPath.TabIndex = 0;
+            this.txtPath.TabIndex = 1;
             // 
             // cmdBrowse
             // 
@@ -44,7 +44,7 @@
             this.cmdBrowse.Location = new System.Drawing.Point(375, 23);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(75, 23);
-            this.cmdBrowse.TabIndex = 1;
+            this.cmdBrowse.TabIndex = 2;
             this.cmdBrowse.Text = "Browse...";
             this.cmdBrowse.UseVisualStyleBackColor = true;
             this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
@@ -54,7 +54,7 @@
             this.cmdOk.Location = new System.Drawing.Point(194, 51);
             this.cmdOk.Name = "cmdOk";
             this.cmdOk.Size = new System.Drawing.Size(75, 23);
-            this.cmdOk.TabIndex = 2;
+            this.cmdOk.TabIndex = 3;
             this.cmdOk.Text = "OK";
             this.cmdOk.UseVisualStyleBackColor = true;
             this.cmdOk.Click += new System.EventHandler(this.cmdOk_Click);
@@ -65,7 +65,7 @@
             this.lblPathLabel.Location = new System.Drawing.Point(9, 9);
             this.lblPathLabel.Name = "lblPathLabel";
             this.lblPathLabel.Size = new System.Drawing.Size(175, 13);
-            this.lblPathLabel.TabIndex = 3;
+            this.lblPathLabel.TabIndex = 0;
             this.lblPathLabel.Text = "Locate the Steam installation folder:";
             // 
             // SteamPathDlg

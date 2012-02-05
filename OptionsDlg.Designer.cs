@@ -27,15 +27,15 @@
             this.cmdSteamPathBrowse = new System.Windows.Forms.Button();
             this.txtSteamPath = new System.Windows.Forms.TextBox();
             this.grpStartup = new System.Windows.Forms.GroupBox();
+            this.radNone = new System.Windows.Forms.RadioButton();
+            this.radCreate = new System.Windows.Forms.RadioButton();
+            this.radLoad = new System.Windows.Forms.RadioButton();
             this.cmdDefaultProfileBrowse = new System.Windows.Forms.Button();
             this.txtDefaultProfile = new System.Windows.Forms.TextBox();
             this.chkRemoveExtraEntries = new System.Windows.Forms.CheckBox();
             this.cmdAccept = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.grpSaving = new System.Windows.Forms.GroupBox();
-            this.radLoad = new System.Windows.Forms.RadioButton();
-            this.radCreate = new System.Windows.Forms.RadioButton();
-            this.radNone = new System.Windows.Forms.RadioButton();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
@@ -90,13 +90,46 @@
             this.grpStartup.TabStop = false;
             this.grpStartup.Text = "On Startup";
             // 
+            // radNone
+            // 
+            this.radNone.AutoSize = true;
+            this.radNone.Location = new System.Drawing.Point(11, 65);
+            this.radNone.Name = "radNone";
+            this.radNone.Size = new System.Drawing.Size(77, 17);
+            this.radNone.TabIndex = 4;
+            this.radNone.TabStop = true;
+            this.radNone.Text = "Do nothing";
+            this.radNone.UseVisualStyleBackColor = true;
+            // 
+            // radCreate
+            // 
+            this.radCreate.AutoSize = true;
+            this.radCreate.Location = new System.Drawing.Point(11, 42);
+            this.radCreate.Name = "radCreate";
+            this.radCreate.Size = new System.Drawing.Size(87, 17);
+            this.radCreate.TabIndex = 3;
+            this.radCreate.TabStop = true;
+            this.radCreate.Text = "Create profile";
+            this.radCreate.UseVisualStyleBackColor = true;
+            // 
+            // radLoad
+            // 
+            this.radLoad.AutoSize = true;
+            this.radLoad.Location = new System.Drawing.Point(10, 19);
+            this.radLoad.Name = "radLoad";
+            this.radLoad.Size = new System.Drawing.Size(84, 17);
+            this.radLoad.TabIndex = 0;
+            this.radLoad.TabStop = true;
+            this.radLoad.Text = "Load Profile:";
+            this.radLoad.UseVisualStyleBackColor = true;
+            // 
             // cmdDefaultProfileBrowse
             // 
             this.cmdDefaultProfileBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdDefaultProfileBrowse.Location = new System.Drawing.Point(389, 16);
             this.cmdDefaultProfileBrowse.Name = "cmdDefaultProfileBrowse";
             this.cmdDefaultProfileBrowse.Size = new System.Drawing.Size(75, 23);
-            this.cmdDefaultProfileBrowse.TabIndex = 3;
+            this.cmdDefaultProfileBrowse.TabIndex = 2;
             this.cmdDefaultProfileBrowse.Text = "Browse...";
             this.cmdDefaultProfileBrowse.UseVisualStyleBackColor = true;
             this.cmdDefaultProfileBrowse.Click += new System.EventHandler(this.cmdDefaultProfileBrowse_Click);
@@ -108,7 +141,7 @@
             this.txtDefaultProfile.Location = new System.Drawing.Point(101, 18);
             this.txtDefaultProfile.Name = "txtDefaultProfile";
             this.txtDefaultProfile.Size = new System.Drawing.Size(282, 20);
-            this.txtDefaultProfile.TabIndex = 2;
+            this.txtDefaultProfile.TabIndex = 1;
             // 
             // chkRemoveExtraEntries
             // 
@@ -116,7 +149,7 @@
             this.chkRemoveExtraEntries.Location = new System.Drawing.Point(6, 19);
             this.chkRemoveExtraEntries.Name = "chkRemoveExtraEntries";
             this.chkRemoveExtraEntries.Size = new System.Drawing.Size(345, 17);
-            this.chkRemoveExtraEntries.TabIndex = 5;
+            this.chkRemoveExtraEntries.TabIndex = 0;
             this.chkRemoveExtraEntries.Text = "Remove entries for deleted or unknown games in Steam settings file";
             this.chkRemoveExtraEntries.UseVisualStyleBackColor = true;
             // 
@@ -126,7 +159,7 @@
             this.cmdAccept.Location = new System.Drawing.Point(410, 219);
             this.cmdAccept.Name = "cmdAccept";
             this.cmdAccept.Size = new System.Drawing.Size(75, 23);
-            this.cmdAccept.TabIndex = 6;
+            this.cmdAccept.TabIndex = 4;
             this.cmdAccept.Text = "OK";
             this.cmdAccept.UseVisualStyleBackColor = true;
             this.cmdAccept.Click += new System.EventHandler(this.cmdAccept_Click);
@@ -137,7 +170,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(329, 219);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 7;
+            this.cmdCancel.TabIndex = 3;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
@@ -150,42 +183,9 @@
             this.grpSaving.Location = new System.Drawing.Point(12, 168);
             this.grpSaving.Name = "grpSaving";
             this.grpSaving.Size = new System.Drawing.Size(473, 45);
-            this.grpSaving.TabIndex = 9;
+            this.grpSaving.TabIndex = 2;
             this.grpSaving.TabStop = false;
             this.grpSaving.Text = "Manual Saving";
-            // 
-            // radLoad
-            // 
-            this.radLoad.AutoSize = true;
-            this.radLoad.Location = new System.Drawing.Point(10, 19);
-            this.radLoad.Name = "radLoad";
-            this.radLoad.Size = new System.Drawing.Size(84, 17);
-            this.radLoad.TabIndex = 5;
-            this.radLoad.TabStop = true;
-            this.radLoad.Text = "Load Profile:";
-            this.radLoad.UseVisualStyleBackColor = true;
-            // 
-            // radCreate
-            // 
-            this.radCreate.AutoSize = true;
-            this.radCreate.Location = new System.Drawing.Point(11, 42);
-            this.radCreate.Name = "radCreate";
-            this.radCreate.Size = new System.Drawing.Size(87, 17);
-            this.radCreate.TabIndex = 6;
-            this.radCreate.TabStop = true;
-            this.radCreate.Text = "Create profile";
-            this.radCreate.UseVisualStyleBackColor = true;
-            // 
-            // radNone
-            // 
-            this.radNone.AutoSize = true;
-            this.radNone.Location = new System.Drawing.Point(11, 65);
-            this.radNone.Name = "radNone";
-            this.radNone.Size = new System.Drawing.Size(77, 17);
-            this.radNone.TabIndex = 7;
-            this.radNone.TabStop = true;
-            this.radNone.Text = "Do nothing";
-            this.radNone.UseVisualStyleBackColor = true;
             // 
             // OptionsDlg
             // 

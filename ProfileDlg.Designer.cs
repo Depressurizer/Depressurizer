@@ -36,6 +36,7 @@
             this.lblAccIDDesc = new System.Windows.Forms.Label();
             this.grpProfInfo = new System.Windows.Forms.GroupBox();
             this.grpActions = new System.Windows.Forms.GroupBox();
+            this.chkSetStartup = new System.Windows.Forms.CheckBox();
             this.chkActImport = new System.Windows.Forms.CheckBox();
             this.chkActDownload = new System.Windows.Forms.CheckBox();
             this.cmdOk = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tabOpts = new System.Windows.Forms.TabPage();
-            this.chkSetStartup = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -67,7 +67,7 @@
             this.txtFilePath.Location = new System.Drawing.Point(91, 13);
             this.txtFilePath.Name = "txtFilePath";
             this.txtFilePath.Size = new System.Drawing.Size(435, 20);
-            this.txtFilePath.TabIndex = 0;
+            this.txtFilePath.TabIndex = 1;
             // 
             // cmdBrowse
             // 
@@ -75,7 +75,7 @@
             this.cmdBrowse.Location = new System.Drawing.Point(532, 11);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(76, 23);
-            this.cmdBrowse.TabIndex = 1;
+            this.cmdBrowse.TabIndex = 2;
             this.cmdBrowse.Text = "Browse...";
             this.cmdBrowse.UseVisualStyleBackColor = true;
             this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
@@ -86,7 +86,7 @@
             this.lblPath.Location = new System.Drawing.Point(6, 16);
             this.lblPath.Name = "lblPath";
             this.lblPath.Size = new System.Drawing.Size(79, 13);
-            this.lblPath.TabIndex = 2;
+            this.lblPath.TabIndex = 0;
             this.lblPath.Text = "Profile file path:";
             // 
             // cmbAccountID
@@ -97,7 +97,7 @@
             this.cmbAccountID.Location = new System.Drawing.Point(162, 13);
             this.cmbAccountID.Name = "cmbAccountID";
             this.cmbAccountID.Size = new System.Drawing.Size(446, 21);
-            this.cmbAccountID.TabIndex = 3;
+            this.cmbAccountID.TabIndex = 1;
             // 
             // lblAccIDLabel
             // 
@@ -105,7 +105,7 @@
             this.lblAccIDLabel.Location = new System.Drawing.Point(59, 16);
             this.lblAccIDLabel.Name = "lblAccIDLabel";
             this.lblAccIDLabel.Size = new System.Drawing.Size(97, 13);
-            this.lblAccIDLabel.TabIndex = 4;
+            this.lblAccIDLabel.TabIndex = 0;
             this.lblAccIDLabel.Text = "Steam Account ID:";
             // 
             // txtCommunityName
@@ -115,7 +115,7 @@
             this.txtCommunityName.Location = new System.Drawing.Point(162, 84);
             this.txtCommunityName.Name = "txtCommunityName";
             this.txtCommunityName.Size = new System.Drawing.Size(446, 20);
-            this.txtCommunityName.TabIndex = 5;
+            this.txtCommunityName.TabIndex = 4;
             // 
             // lblCommNameLabel
             // 
@@ -123,7 +123,7 @@
             this.lblCommNameLabel.Location = new System.Drawing.Point(6, 87);
             this.lblCommNameLabel.Name = "lblCommNameLabel";
             this.lblCommNameLabel.Size = new System.Drawing.Size(150, 13);
-            this.lblCommNameLabel.TabIndex = 6;
+            this.lblCommNameLabel.TabIndex = 3;
             this.lblCommNameLabel.Text = "Steam Community URL Name:";
             // 
             // grpUserInfo
@@ -139,7 +139,7 @@
             this.grpUserInfo.Location = new System.Drawing.Point(6, 52);
             this.grpUserInfo.Name = "grpUserInfo";
             this.grpUserInfo.Size = new System.Drawing.Size(614, 181);
-            this.grpUserInfo.TabIndex = 7;
+            this.grpUserInfo.TabIndex = 1;
             this.grpUserInfo.TabStop = false;
             this.grpUserInfo.Text = "User Info";
             // 
@@ -150,7 +150,7 @@
             this.lblCommNameDesc.Location = new System.Drawing.Point(159, 107);
             this.lblCommNameDesc.Name = "lblCommNameDesc";
             this.lblCommNameDesc.Size = new System.Drawing.Size(449, 72);
-            this.lblCommNameDesc.TabIndex = 8;
+            this.lblCommNameDesc.TabIndex = 5;
             this.lblCommNameDesc.Text = resources.GetString("lblCommNameDesc.Text");
             // 
             // lblAccIDDesc
@@ -160,7 +160,7 @@
             this.lblAccIDDesc.Location = new System.Drawing.Point(162, 37);
             this.lblAccIDDesc.Name = "lblAccIDDesc";
             this.lblAccIDDesc.Size = new System.Drawing.Size(446, 41);
-            this.lblAccIDDesc.TabIndex = 7;
+            this.lblAccIDDesc.TabIndex = 2;
             this.lblAccIDDesc.Text = "Your account ID should be a number. It determines where Steam stores your setting" +
     "s.\r\nThe list will contain all the IDs with saved info on this computer.";
             // 
@@ -174,7 +174,7 @@
             this.grpProfInfo.Location = new System.Drawing.Point(6, 6);
             this.grpProfInfo.Name = "grpProfInfo";
             this.grpProfInfo.Size = new System.Drawing.Size(614, 40);
-            this.grpProfInfo.TabIndex = 8;
+            this.grpProfInfo.TabIndex = 0;
             this.grpProfInfo.TabStop = false;
             this.grpProfInfo.Text = "Profile Info";
             // 
@@ -188,9 +188,21 @@
             this.grpActions.Location = new System.Drawing.Point(6, 239);
             this.grpActions.Name = "grpActions";
             this.grpActions.Size = new System.Drawing.Size(614, 91);
-            this.grpActions.TabIndex = 9;
+            this.grpActions.TabIndex = 2;
             this.grpActions.TabStop = false;
             this.grpActions.Text = "Additional Actions";
+            // 
+            // chkSetStartup
+            // 
+            this.chkSetStartup.AutoSize = true;
+            this.chkSetStartup.Checked = true;
+            this.chkSetStartup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSetStartup.Location = new System.Drawing.Point(9, 67);
+            this.chkSetStartup.Name = "chkSetStartup";
+            this.chkSetStartup.Size = new System.Drawing.Size(245, 17);
+            this.chkSetStartup.TabIndex = 2;
+            this.chkSetStartup.Text = "Set this profile to be loaded on program startup";
+            this.chkSetStartup.UseVisualStyleBackColor = true;
             // 
             // chkActImport
             // 
@@ -222,7 +234,7 @@
             this.cmdOk.Location = new System.Drawing.Point(571, 379);
             this.cmdOk.Name = "cmdOk";
             this.cmdOk.Size = new System.Drawing.Size(75, 23);
-            this.cmdOk.TabIndex = 10;
+            this.cmdOk.TabIndex = 2;
             this.cmdOk.Text = "OK";
             this.cmdOk.UseVisualStyleBackColor = true;
             this.cmdOk.Click += new System.EventHandler(this.cmdOk_Click);
@@ -234,7 +246,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(490, 379);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 11;
+            this.cmdCancel.TabIndex = 1;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
@@ -324,7 +336,7 @@
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(634, 361);
-            this.tabControl.TabIndex = 13;
+            this.tabControl.TabIndex = 0;
             // 
             // tabMain
             // 
@@ -346,22 +358,10 @@
             this.tabOpts.Location = new System.Drawing.Point(4, 22);
             this.tabOpts.Name = "tabOpts";
             this.tabOpts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOpts.Size = new System.Drawing.Size(626, 313);
+            this.tabOpts.Size = new System.Drawing.Size(626, 335);
             this.tabOpts.TabIndex = 1;
             this.tabOpts.Text = "Options";
             this.tabOpts.UseVisualStyleBackColor = true;
-            // 
-            // chkSetStartup
-            // 
-            this.chkSetStartup.AutoSize = true;
-            this.chkSetStartup.Checked = true;
-            this.chkSetStartup.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSetStartup.Location = new System.Drawing.Point(9, 67);
-            this.chkSetStartup.Name = "chkSetStartup";
-            this.chkSetStartup.Size = new System.Drawing.Size(245, 17);
-            this.chkSetStartup.TabIndex = 2;
-            this.chkSetStartup.Text = "Set this profile to be loaded on program startup";
-            this.chkSetStartup.UseVisualStyleBackColor = true;
             // 
             // ProfileDlg
             // 
