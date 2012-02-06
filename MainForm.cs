@@ -8,11 +8,6 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class FormMain : Form {
         #region Constants
-        // Special names shown in the category list
-        const string CAT_ALL_NAME = "<All>";
-        const string CAT_FAV_NAME = "<Favorite>";
-        const string CAT_UNC_NAME = "<Uncategorized>";
-
         // Special names shown in the category combobox
         const string COMBO_NEWCAT = "Add new...";
         const string COMBO_NONE = "Remove category";
@@ -182,9 +177,9 @@ namespace Depressurizer {
                 bool showAll = false;
                 bool showFav = false;
                 if( catObj is string ) {
-                    if( (string)catObj == CAT_ALL_NAME ) {
+                    if( (string)catObj == UIUtil.CAT_ALL_NAME ) {
                         showAll = true;
-                    } else if( (string)catObj == CAT_FAV_NAME ) {
+                    } else if( (string)catObj == UIUtil.CAT_FAV_NAME ) {
                         showFav = true;
                     }
                 }
@@ -206,7 +201,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="g">The game the new entry should represent.</param>
         private void AddGameToList( Game g ) {
-            string catName = ( g.Category == null ) ? CAT_UNC_NAME : g.Category.Name;
+            string catName = ( g.Category == null ) ? UIUtil.CAT_UNC_NAME : g.Category.Name;
             ListViewItem item = new ListViewItem( new string[] { g.Id.ToString(), g.Name, catName, g.Favorite ? "Y" : "N" } );
             item.Tag = g;
             lstGames.Items.Add( item );
@@ -222,9 +217,9 @@ namespace Depressurizer {
             lstCategories.BeginUpdate();
             object selected = lstCategories.SelectedItem;
             lstCategories.Items.Clear();
-            lstCategories.Items.Add( CAT_ALL_NAME );
-            lstCategories.Items.Add( CAT_FAV_NAME );
-            lstCategories.Items.Add( CAT_UNC_NAME );
+            lstCategories.Items.Add( UIUtil.CAT_ALL_NAME );
+            lstCategories.Items.Add( UIUtil.CAT_FAV_NAME );
+            lstCategories.Items.Add( UIUtil.CAT_UNC_NAME );
             lstCategories.Items.AddRange( catList );
             if( selected == null || !lstCategories.Items.Contains( selected ) ) {
                 lstCategories.SelectedIndex = 0;
@@ -260,7 +255,7 @@ namespace Depressurizer {
             ListViewItem item = lstGames.Items[index];
             Game g = (Game)item.Tag;
             if( ShouldDisplayGame( g ) ) {
-                item.SubItems[2].Text = g.Category == null ? CAT_UNC_NAME : g.Category.Name;
+                item.SubItems[2].Text = g.Category == null ? UIUtil.CAT_UNC_NAME : g.Category.Name;
                 item.SubItems[3].Text = g.Favorite ? "Y" : "N";
                 return true;
             } else {
@@ -342,7 +337,7 @@ namespace Depressurizer {
         /// <returns>The category that was added, or null if the operation was canceled or failed.</returns>
         public Category CreateCategory() {
             GetStringDlg dlg = new GetStringDlg( string.Empty, "Create category", "Enter new category name:", "Create" );
-            if( dlg.ShowDialog() == DialogResult.OK && ValidateCategoryName( dlg.Value ) ) {
+            if( dlg.ShowDialog() == DialogResult.OK && UIUtil.ValidateCategoryName( dlg.Value ) ) {
                 Category newCat = gameData.AddCategory( dlg.Value );
                 if( newCat != null ) {
                     FillCategoryList();
@@ -387,7 +382,7 @@ namespace Depressurizer {
             if( c != null ) {
                 GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( "Rename category: {0}", c.Name ), "Enter new name:", "Rename" );
                 if( dlg.ShowDialog() == DialogResult.OK ) {
-                    if( ValidateCategoryName( dlg.Value ) && gameData.RenameCategory( c, dlg.Value ) ) {
+                    if( UIUtil.ValidateCategoryName( dlg.Value ) && gameData.RenameCategory( c, dlg.Value ) ) {
                         FillCategoryList();
                         UpdateGameList();
                         MakeChange( true );
@@ -465,23 +460,6 @@ namespace Depressurizer {
         }
 
         /// <summary>
-        /// Checks to see if a category name is valid. Does not make sure it isn't already in use. If the name is not valid, displays a warning.
-        /// </summary>
-        /// <param name="name">Name to check</param>
-        /// <returns>True if valid, false otherwise</returns>
-        private static bool ValidateCategoryName( string name ) {
-            if( name == null || name == string.Empty ) {
-                MessageBox.Show( "Category names cannot be empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-                return false;
-            } else if( name == CAT_ALL_NAME || name == CAT_FAV_NAME || name == CAT_UNC_NAME ) {
-                MessageBox.Show( string.Format( "Category name '{0}' is reserved.", name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        /// <summary>
         /// Gets the selected option on the favorite combo box.
         /// </summary>
         /// <returns>True if set to Yes, false otherwise.</returns>
@@ -521,13 +499,13 @@ namespace Depressurizer {
                 return false;
             }
             if( lstCategories.SelectedItem is string ) {
-                if( (string)lstCategories.SelectedItem == CAT_ALL_NAME ) {
+                if( (string)lstCategories.SelectedItem == UIUtil.CAT_ALL_NAME ) {
                     return true;
                 }
-                if( (string)lstCategories.SelectedItem == CAT_FAV_NAME ) {
+                if( (string)lstCategories.SelectedItem == UIUtil.CAT_FAV_NAME ) {
                     return g.Favorite;
                 }
-                if( (string)lstCategories.SelectedItem == CAT_UNC_NAME ) {
+                if( (string)lstCategories.SelectedItem == UIUtil.CAT_UNC_NAME ) {
                     return g.Category == null;
                 }
             } else if( lstCategories.SelectedItem is Category ) {
@@ -814,11 +792,11 @@ namespace Depressurizer {
                     UpdateGameList();
                     MakeChange( true );
                 } else if( dropItem is string ) {
-                    if( (string)dropItem == CAT_FAV_NAME ) {
+                    if( (string)dropItem == UIUtil.CAT_FAV_NAME ) {
                         gameData.SetGameFavorites( (int[])e.Data.GetData( typeof( int[] ) ), true );
                         UpdateGameList();
                         MakeChange( true );
-                    } else if( (string)dropItem == CAT_UNC_NAME ) {
+                    } else if( (string)dropItem == UIUtil.CAT_UNC_NAME ) {
                         gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), null );
                         UpdateGameList();
                         MakeChange( true );
@@ -1006,6 +984,30 @@ namespace Depressurizer {
             }
         }
         #endregion
+    }
+
+    static class UIUtil {
+        // Special names shown in the category list
+        public const string CAT_ALL_NAME = "<All>";
+        public const string CAT_FAV_NAME = "<Favorite>";
+        public const string CAT_UNC_NAME = "<Uncategorized>";
+
+        /// <summary>
+        /// Checks to see if a category name is valid. Does not make sure it isn't already in use. If the name is not valid, displays a warning.
+        /// </summary>
+        /// <param name="name">Name to check</param>
+        /// <returns>True if valid, false otherwise</returns>
+        public static bool ValidateCategoryName( string name ) {
+            if( name == null || name == string.Empty ) {
+                MessageBox.Show( "Category names cannot be empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                return false;
+            } else if( name == CAT_ALL_NAME || name == CAT_FAV_NAME || name == CAT_UNC_NAME ) {
+                MessageBox.Show( string.Format( "Category name '{0}' is reserved.", name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 
     /// <summary>

@@ -77,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
+    <Compile Include="GameDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameDlg.Designer.cs">
+      <DependentUpon>GameDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProfileDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     <Compile Include="SteamPathDlg.Designer.cs">
       <DependentUpon>SteamPathDlg.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GameDlg.resx">
+      <DependentUpon>GameDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProfileDlg.resx">
       <DependentUpon>ProfileDlg.cs</DependentUpon>
     </EmbeddedResource>

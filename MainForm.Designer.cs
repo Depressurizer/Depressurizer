@@ -259,7 +259,7 @@
             // menu_Config_Settings
             // 
             this.menu_Config_Settings.Name = "menu_Config_Settings";
-            this.menu_Config_Settings.Size = new System.Drawing.Size(152, 22);
+            this.menu_Config_Settings.Size = new System.Drawing.Size(125, 22);
             this.menu_Config_Settings.Text = "Settings...";
             this.menu_Config_Settings.Click += new System.EventHandler(this.menu_Config_Settings_Click);
             // 
@@ -401,38 +401,32 @@
             // cmdGameAdd
             // 
             this.cmdGameAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdGameAdd.Enabled = false;
             this.cmdGameAdd.Location = new System.Drawing.Point(2, 357);
             this.cmdGameAdd.Name = "cmdGameAdd";
             this.cmdGameAdd.Size = new System.Drawing.Size(75, 23);
             this.cmdGameAdd.TabIndex = 6;
             this.cmdGameAdd.Text = "Add";
             this.cmdGameAdd.UseVisualStyleBackColor = true;
-            this.cmdGameAdd.Visible = false;
             // 
             // cmdGameRemove
             // 
             this.cmdGameRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdGameRemove.Enabled = false;
             this.cmdGameRemove.Location = new System.Drawing.Point(81, 357);
             this.cmdGameRemove.Name = "cmdGameRemove";
             this.cmdGameRemove.Size = new System.Drawing.Size(75, 23);
             this.cmdGameRemove.TabIndex = 7;
             this.cmdGameRemove.Text = "Remove Game";
             this.cmdGameRemove.UseVisualStyleBackColor = true;
-            this.cmdGameRemove.Visible = false;
             // 
             // cmdGameEdit
             // 
             this.cmdGameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdGameEdit.Enabled = false;
             this.cmdGameEdit.Location = new System.Drawing.Point(3, 331);
             this.cmdGameEdit.Name = "cmdGameEdit";
             this.cmdGameEdit.Size = new System.Drawing.Size(153, 23);
             this.cmdGameEdit.TabIndex = 5;
             this.cmdGameEdit.Text = "Edit Game";
             this.cmdGameEdit.UseVisualStyleBackColor = true;
-            this.cmdGameEdit.Visible = false;
             // 
             // combCategory
             // 
