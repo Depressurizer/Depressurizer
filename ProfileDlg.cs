@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Depressurizer {
     public partial class ProfileDlg : Form {
@@ -72,6 +73,11 @@ namespace Depressurizer {
             chkExportDiscard.Checked = Profile.ExportDiscard;
 
             this.Text = "Edit Profile";
+
+            chkAutoIgnore.Checked = Profile.AutoIgnore;
+            foreach( int i in Profile.IgnoreList ) {
+                lstIgnored.Items.Add( i.ToString() );
+            }
         }
         #endregion
 
@@ -123,20 +129,11 @@ namespace Depressurizer {
         #region Saving
         private bool Apply() {
             if( editMode ) {
-                return SaveProfile();
+                SaveModifiables( Profile );
+                return true;
             } else {
                 return CreateProfile();
             }
-        }
-
-        private bool SaveProfile() {
-            Profile.CommunityName = txtCommunityName.Text;
-            Profile.AccountID = cmbAccountID.Text;
-            Profile.AutoDownload = chkAutoDownload.Checked;
-            Profile.AutoExport = chkAutoExport.Checked;
-            Profile.AutoImport = chkAutoImport.Checked;
-            Profile.ExportDiscard = chkExportDiscard.Checked;
-            return true;
         }
 
         private bool CreateProfile() {
@@ -158,12 +155,9 @@ namespace Depressurizer {
             }
 
             ProfileData profile = new ProfileData();
-            profile.AccountID = cmbAccountID.Text;
-            profile.CommunityName = txtCommunityName.Text;
-            profile.AutoDownload = chkAutoDownload.Checked;
-            profile.AutoExport = chkAutoExport.Checked;
-            profile.AutoImport = chkAutoImport.Checked;
-            profile.ExportDiscard = chkExportDiscard.Checked;
+            
+            SaveModifiables( profile );
+
             try {
                 profile.Save( file.FullName );
             } catch( ApplicationException e ) {
@@ -174,6 +168,28 @@ namespace Depressurizer {
             this.Profile = profile;
             return true;
         }
+
+        void SaveModifiables( ProfileData p ) {
+            p.AccountID = cmbAccountID.Text;
+            p.CommunityName = txtCommunityName.Text;
+            p.AutoDownload = chkAutoDownload.Checked;
+            p.AutoExport = chkAutoExport.Checked;
+            p.AutoImport = chkAutoImport.Checked;
+            p.ExportDiscard = chkExportDiscard.Checked;
+
+            p.AutoIgnore = chkAutoIgnore.Checked;
+
+            SortedSet<int> ignoreSet = new SortedSet<int>();
+            foreach( ListViewItem item in lstIgnored.Items ) {
+                int id;
+                if( int.TryParse( item.Text, out id ) ) {
+                    ignoreSet.Add( id );
+                }
+            }
+            p.IgnoreList = ignoreSet;
+            
+        }
+
         #endregion
 
         #region Utility

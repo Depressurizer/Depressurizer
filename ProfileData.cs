@@ -27,7 +27,7 @@ namespace Depressurizer {
 
         public GameData GameData = new GameData();
 
-        public SortedSet<int> ExclusionList = new SortedSet<int>();
+        public SortedSet<int> IgnoreList = new SortedSet<int>();
 
         public string AccountID = null;
 
@@ -40,6 +40,8 @@ namespace Depressurizer {
         public bool AutoExport = true;
 
         public bool ExportDiscard = true;
+
+        public bool AutoIgnore = true;
 
         public int ImportSteamData() {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, DepSettings.Instance().SteamPath, AccountID );
@@ -63,7 +65,7 @@ namespace Depressurizer {
             profile.FilePath = path;
 
             XmlDocument doc = new XmlDocument();
-            
+
             try {
                 doc.Load( path );
             } catch( Exception e ) {
@@ -80,6 +82,7 @@ namespace Depressurizer {
                 profile.AutoImport = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_import", profile.AutoImport );
                 profile.AutoExport = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_export", profile.AutoExport );
                 profile.ExportDiscard = XmlHelper.GetBooleanFromXmlElement( profileNode, "export_discard", profile.ExportDiscard );
+                profile.AutoIgnore = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_ignore", profile.AutoIgnore );
 
                 XmlNode gameListNode = profileNode.SelectSingleNode( "games" );
                 if( gameListNode != null ) {
@@ -95,7 +98,7 @@ namespace Depressurizer {
                     foreach( XmlNode node in exclusionNodes ) {
                         int id;
                         if( XmlHelper.GetIntFromXmlElement( node, ".", out id ) ) {
-                            profile.ExclusionList.Add( id );
+                            profile.IgnoreList.Add( id );
                         }
                     }
                 }
@@ -129,12 +132,12 @@ namespace Depressurizer {
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
-            
+
             XmlWriter writer;
             try {
                 writer = XmlWriter.Create( path, writeSettings );
-            } catch (Exception e) {
-                throw new ApplicationException( "Error saving profile file: " + e.Message, e );    
+            } catch( Exception e ) {
+                throw new ApplicationException( "Error saving profile file: " + e.Message, e );
             }
             writer.WriteStartElement( "profile" );
 
@@ -150,6 +153,7 @@ namespace Depressurizer {
             writer.WriteElementString( "auto_import", AutoImport.ToString() );
             writer.WriteElementString( "auto_export", AutoExport.ToString() );
             writer.WriteElementString( "export_discard", ExportDiscard.ToString() );
+            writer.WriteElementString( "auto_ignore", AutoIgnore.ToString() );
 
             writer.WriteStartElement( "games" );
 
@@ -177,7 +181,7 @@ namespace Depressurizer {
 
             writer.WriteStartElement( "exclusions" );
 
-            foreach( int i in ExclusionList ) {
+            foreach( int i in IgnoreList ) {
                 writer.WriteElementString( "exclusion", i.ToString() );
             }
 
