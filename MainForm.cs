@@ -797,6 +797,18 @@ namespace Depressurizer {
 
         #endregion
 
+        private void UpdateButtonEnabledStates() {
+            bool gamesSelected = lstGames.SelectedIndices.Count > 0;
+            cmdGameRemove.Enabled = gamesSelected;
+            cmdGameEdit.Enabled = gamesSelected;
+            cmdGameSetCategory.Enabled = gamesSelected;
+            cmdGameSetFavorite.Enabled = gamesSelected;
+
+            bool catSelected = lstCategories.SelectedIndices.Count > 0;
+            cmdCatDelete.Enabled = catSelected;
+            cmdCatRename.Enabled = catSelected;
+        }
+
         #region UI Event Handlers
         #region Drag and drop
 
@@ -965,6 +977,7 @@ namespace Depressurizer {
                 FillGameList();
                 lastSelectedCat = lstCategories.SelectedItem;
             }
+            UpdateButtonEnabledStates();
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
@@ -979,6 +992,7 @@ namespace Depressurizer {
 
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
             UpdateSelectedStatusText();
+            UpdateButtonEnabledStates();
         }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
@@ -998,6 +1012,7 @@ namespace Depressurizer {
                     break;
             }
             FlushStatus();
+            UpdateButtonEnabledStates();
         }
 
         private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
@@ -1081,6 +1096,18 @@ namespace Depressurizer {
                 MakeChange( true );
                 AddStatus( "Added game." );
             }
+        }
+
+        private void lstGames_KeyDown( object sender, KeyEventArgs e ) {
+            ClearStatus();
+            if( e.KeyCode == Keys.Delete ) {
+                RemoveGame();
+            } else if( e.KeyCode == Keys.N && e.Control ) {
+                AddGame();
+            } else if( e.KeyCode == Keys.Enter ) {
+                EditGame();
+            }
+            FlushStatus();
         }
     }
 

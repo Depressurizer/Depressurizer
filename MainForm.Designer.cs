@@ -327,6 +327,7 @@ namespace Depressurizer {
             this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
             this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
+            this.lstCategories.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstCategories_KeyPress);
             // 
             // tableCatButtons
             // 
@@ -505,6 +506,7 @@ namespace Depressurizer {
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
+            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
             // 
             // colGameID
             // 
