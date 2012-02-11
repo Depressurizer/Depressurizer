@@ -20,6 +20,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Depressurizer {
     public partial class ProfileDlg : Form {
@@ -79,6 +80,7 @@ namespace Depressurizer {
             foreach( int i in Profile.IgnoreList ) {
                 lstIgnored.Items.Add( i.ToString() );
             }
+            lstIgnored.Sort();
         }
         #endregion
 
@@ -92,6 +94,8 @@ namespace Depressurizer {
             } else {
                 txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
             }
+
+            lstIgnored.ListViewItemSorter = new IgnoreListViewItemComparer();
         }
 
         private void cmdBrowse_Click( object sender, EventArgs e ) {
@@ -156,7 +160,7 @@ namespace Depressurizer {
             }
 
             ProfileData profile = new ProfileData();
-            
+
             SaveModifiables( profile );
 
             try {
@@ -189,7 +193,7 @@ namespace Depressurizer {
                 }
             }
             p.IgnoreList = ignoreSet;
-            
+
         }
 
         #endregion
@@ -232,5 +236,34 @@ namespace Depressurizer {
         }
 
         #endregion
+
+        private void cmdIgnore_Click( object sender, EventArgs e ) {
+            int id;
+            if( int.TryParse( txtIgnore.Text, out id ) ) {
+                lstIgnored.Items.Add( id.ToString() );
+                txtIgnore.ResetText();
+                lstIgnored.Sort();
+            } else {
+                MessageBox.Show( "Game ID must be an integer.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+            }
+        }
+
+        private void cmdUnignore_Click( object sender, EventArgs e ) {
+            while( lstIgnored.SelectedIndices.Count > 0 ) {
+                lstIgnored.Items.RemoveAt( lstIgnored.SelectedIndices[0] );
+            }
+        }
+    }
+
+    class IgnoreListViewItemComparer : IComparer {
+        public IgnoreListViewItemComparer() { }
+
+        public int Compare( object x, object y ) {
+            int a, b;
+            if( int.TryParse( ( (ListViewItem)x ).Text, out a ) && int.TryParse( ( (ListViewItem)y ).Text, out b ) ) {
+                return ( a - b );
+            }
+            return String.Compare( ( (ListViewItem)x ).Text, ( (ListViewItem)y ).Text );
+        }
     }
 }

@@ -68,6 +68,8 @@ namespace Depressurizer {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tabOpts = new System.Windows.Forms.TabPage();
+            this.grpOtherOpt = new System.Windows.Forms.GroupBox();
+            this.chkOverwriteNames = new System.Windows.Forms.CheckBox();
             this.tabIgnore = new System.Windows.Forms.TabPage();
             this.grpIgnored = new System.Windows.Forms.GroupBox();
             this.cmdIgnore = new System.Windows.Forms.Button();
@@ -76,8 +78,6 @@ namespace Depressurizer {
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
-            this.grpOtherOpt = new System.Windows.Forms.GroupBox();
-            this.chkOverwriteNames = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -86,10 +86,10 @@ namespace Depressurizer {
             this.tabControl.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabOpts.SuspendLayout();
+            this.grpOtherOpt.SuspendLayout();
             this.tabIgnore.SuspendLayout();
             this.grpIgnored.SuspendLayout();
             this.grpIgnoreSettings.SuspendLayout();
-            this.grpOtherOpt.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFilePath
@@ -397,6 +397,28 @@ namespace Depressurizer {
             this.tabOpts.Text = "Options";
             this.tabOpts.UseVisualStyleBackColor = true;
             // 
+            // grpOtherOpt
+            // 
+            this.grpOtherOpt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpOtherOpt.Controls.Add(this.chkOverwriteNames);
+            this.grpOtherOpt.Location = new System.Drawing.Point(6, 148);
+            this.grpOtherOpt.Name = "grpOtherOpt";
+            this.grpOtherOpt.Size = new System.Drawing.Size(523, 45);
+            this.grpOtherOpt.TabIndex = 2;
+            this.grpOtherOpt.TabStop = false;
+            this.grpOtherOpt.Text = "Other Options";
+            // 
+            // chkOverwriteNames
+            // 
+            this.chkOverwriteNames.AutoSize = true;
+            this.chkOverwriteNames.Location = new System.Drawing.Point(6, 19);
+            this.chkOverwriteNames.Name = "chkOverwriteNames";
+            this.chkOverwriteNames.Size = new System.Drawing.Size(241, 17);
+            this.chkOverwriteNames.TabIndex = 0;
+            this.chkOverwriteNames.Text = "Overwrite names when downloading game list";
+            this.chkOverwriteNames.UseVisualStyleBackColor = true;
+            // 
             // tabIgnore
             // 
             this.tabIgnore.Controls.Add(this.grpIgnored);
@@ -433,6 +455,7 @@ namespace Depressurizer {
             this.cmdIgnore.TabIndex = 5;
             this.cmdIgnore.Text = "Ignore";
             this.cmdIgnore.UseVisualStyleBackColor = true;
+            this.cmdIgnore.Click += new System.EventHandler(this.cmdIgnore_Click);
             // 
             // txtIgnore
             // 
@@ -451,17 +474,21 @@ namespace Depressurizer {
             this.cmdUnignore.TabIndex = 3;
             this.cmdUnignore.Text = "Unignore Selected";
             this.cmdUnignore.UseVisualStyleBackColor = true;
+            this.cmdUnignore.Click += new System.EventHandler(this.cmdUnignore_Click);
             // 
             // lstIgnored
             // 
             this.lstIgnored.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstIgnored.FullRowSelect = true;
             this.lstIgnored.Location = new System.Drawing.Point(6, 19);
             this.lstIgnored.Name = "lstIgnored";
             this.lstIgnored.Size = new System.Drawing.Size(175, 304);
+            this.lstIgnored.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstIgnored.TabIndex = 2;
             this.lstIgnored.UseCompatibleStateImageBehavior = false;
+            this.lstIgnored.View = System.Windows.Forms.View.List;
             // 
             // grpIgnoreSettings
             // 
@@ -489,28 +516,6 @@ namespace Depressurizer {
             this.chkAutoIgnore.Text = "Automatically Ignore games when removing them";
             this.chkAutoIgnore.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chkAutoIgnore.UseVisualStyleBackColor = true;
-            // 
-            // grpOtherOpt
-            // 
-            this.grpOtherOpt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpOtherOpt.Controls.Add(this.chkOverwriteNames);
-            this.grpOtherOpt.Location = new System.Drawing.Point(6, 148);
-            this.grpOtherOpt.Name = "grpOtherOpt";
-            this.grpOtherOpt.Size = new System.Drawing.Size(523, 45);
-            this.grpOtherOpt.TabIndex = 2;
-            this.grpOtherOpt.TabStop = false;
-            this.grpOtherOpt.Text = "Other Options";
-            // 
-            // chkOverwriteNames
-            // 
-            this.chkOverwriteNames.AutoSize = true;
-            this.chkOverwriteNames.Location = new System.Drawing.Point(6, 19);
-            this.chkOverwriteNames.Name = "chkOverwriteNames";
-            this.chkOverwriteNames.Size = new System.Drawing.Size(241, 17);
-            this.chkOverwriteNames.TabIndex = 0;
-            this.chkOverwriteNames.Text = "Overwrite names when downloading game list";
-            this.chkOverwriteNames.UseVisualStyleBackColor = true;
             // 
             // ProfileDlg
             // 
@@ -542,12 +547,12 @@ namespace Depressurizer {
             this.tabControl.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabOpts.ResumeLayout(false);
+            this.grpOtherOpt.ResumeLayout(false);
+            this.grpOtherOpt.PerformLayout();
             this.tabIgnore.ResumeLayout(false);
             this.grpIgnored.ResumeLayout(false);
             this.grpIgnored.PerformLayout();
             this.grpIgnoreSettings.ResumeLayout(false);
-            this.grpOtherOpt.ResumeLayout(false);
-            this.grpOtherOpt.PerformLayout();
             this.ResumeLayout(false);
 
         }

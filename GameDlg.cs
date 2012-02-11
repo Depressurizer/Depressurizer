@@ -26,7 +26,7 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class GameDlg : Form {
         GameData Data;
-        Game Game;
+        public Game Game;
 
         bool editMode;
 
@@ -84,6 +84,7 @@ namespace Depressurizer {
                     return;
                 }
                 Game = new Game( id, txtName.Text );
+                Data.Games.Add( id, Game );
             }
             Game.Category = setCat;
             Game.Favorite = chkFavorite.Checked;

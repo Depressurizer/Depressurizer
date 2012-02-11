@@ -1050,15 +1050,36 @@ namespace Depressurizer {
                         }
                     }
                     if( removed > 0 ) {
-                        AddStatus( string.Format( "Removed {0} games.", removed ) );
+                        AddStatus( string.Format( "Removed {0} game{1}.", removed, ( removed == 1 ) ? "" : "s" ) );
                         MakeChange( true );
                     }
                     if( ignored > 0 ) {
-                        AddStatus( string.Format( "Ignored {0} games.", ignored ) );
+                        AddStatus( string.Format( "Ignored {0} game{1}.", ignored, ( ignored == 1 ) ? "" : "s" ) );
                         MakeChange( true );
                     }
                     UpdateGameListSelected();
                 }
+            }
+        }
+
+        private void cmdGameAdd_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AddGame();
+            FlushStatus();
+        }
+
+        private void AddGame() {
+            GameDlg dlg = new GameDlg( gameData, null );
+            if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
+                if( ProfileLoaded ) {
+                    if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
+                        AddStatus( string.Format( "Unignored game {0}.", dlg.Game.Id ) );
+                    }
+                }
+                FillCategoryList();
+                FillGameList();
+                MakeChange( true );
+                AddStatus( "Added game." );
             }
         }
     }

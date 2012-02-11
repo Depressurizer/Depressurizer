@@ -425,6 +425,7 @@ namespace Depressurizer {
             this.cmdGameAdd.TabIndex = 6;
             this.cmdGameAdd.Text = "Add";
             this.cmdGameAdd.UseVisualStyleBackColor = true;
+            this.cmdGameAdd.Click += new System.EventHandler(this.cmdGameAdd_Click);
             // 
             // cmdGameRemove
             // 
