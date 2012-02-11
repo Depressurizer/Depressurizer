@@ -84,7 +84,7 @@ namespace Depressurizer {
             if( res == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    int loadedGames = gameData.ImportSteamFile( dlg.FileName );
+                    int loadedGames = gameData.ImportSteamFile( dlg.FileName, null );
                     if( loadedGames == 0 ) {
                         MessageBox.Show( "Warning: No game info found in the specified file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games found." );
@@ -141,7 +141,7 @@ namespace Depressurizer {
             if( dlg.ShowDialog() == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    int loadedGames = gameData.LoadGameList( dlg.Value, true );
+                    int loadedGames = gameData.LoadGameList( dlg.Value, true, null );
                     if( loadedGames == 0 ) {
                         MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games in download." );
@@ -514,6 +514,9 @@ namespace Depressurizer {
         /// <param name="g">Game to check</param>
         /// <returns>True if it should be displayed, false otherwise</returns>
         private bool ShouldDisplayGame( Game g ) {
+            if( !gameData.Games.ContainsKey( g.Id ) ) {
+                return false;
+            }
             if( lstCategories.SelectedItem == null ) {
                 return false;
             }
@@ -1018,6 +1021,43 @@ namespace Depressurizer {
                     UpdateGame( index );
                     MakeChange( true );
                     AddStatus( "Edited game." );
+                }
+            }
+        }
+
+        private void cmdGameRemove_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            RemoveGame();
+            FlushStatus();
+        }
+
+        private void RemoveGame() {
+            int selectCount = lstGames.SelectedIndices.Count;
+            if( selectCount > 0 ) {
+                if( MessageBox.Show( string.Format( "Remove {0} game{1}?", selectCount, ( selectCount == 1 ) ? "" : "s" ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question )
+                    == DialogResult.Yes ) {
+                    int ignored = 0;
+                    int removed = 0;
+                    foreach( ListViewItem item in lstGames.SelectedItems ) {
+                        Game g = (Game)item.Tag;
+                        if( gameData.Games.Remove( g.Id ) ) {
+                            removed++;
+                        }
+                        if( ProfileLoaded && currentProfile.AutoIgnore ) {
+                            if( currentProfile.IgnoreList.Add( g.Id ) ) {
+                                ignored++;
+                            }
+                        }
+                    }
+                    if( removed > 0 ) {
+                        AddStatus( string.Format( "Removed {0} games.", removed ) );
+                        MakeChange( true );
+                    }
+                    if( ignored > 0 ) {
+                        AddStatus( string.Format( "Ignored {0} games.", ignored ) );
+                        MakeChange( true );
+                    }
+                    UpdateGameListSelected();
                 }
             }
         }

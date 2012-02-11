@@ -435,6 +435,7 @@ namespace Depressurizer {
             this.cmdGameRemove.TabIndex = 7;
             this.cmdGameRemove.Text = "Remove Game";
             this.cmdGameRemove.UseVisualStyleBackColor = true;
+            this.cmdGameRemove.Click += new System.EventHandler(this.cmdGameRemove_Click);
             // 
             // cmdGameEdit
             // 

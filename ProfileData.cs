@@ -47,16 +47,20 @@ namespace Depressurizer {
 
         public int ImportSteamData() {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, DepSettings.Instance().SteamPath, AccountID );
-            return GameData.ImportSteamFile( filePath );
+            return GameData.ImportSteamFile( filePath, IgnoreList );
         }
 
         public int DownloadGameList() {
-            return GameData.LoadGameList( CommunityName, OverwriteOnDownload );
+            return GameData.LoadGameList( CommunityName, OverwriteOnDownload, IgnoreList );
         }
 
         public void ExportSteamData() {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, DepSettings.Instance().SteamPath, AccountID );
             GameData.SaveSteamFile( filePath, ExportDiscard );
+        }
+
+        public bool IgnoreGame( int gameId ) {
+            return IgnoreList.Add( gameId );
         }
 
         #region Saving and Loading
