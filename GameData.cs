@@ -85,10 +85,10 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="id">ID of the game to set</param>
         /// <param name="name">Name to assign to the game</param>
-        private void SetGameName( int id, string name ) {
+        private void SetGameName( int id, string name, bool overWrite ) {
             if( !Games.ContainsKey( id ) ) {
                 Games.Add( id, new Game( id, name ) );
-            } else {
+            } else if( overWrite ) {
                 Games[id].Name = name;
             }
         }
@@ -196,7 +196,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="profileName">Name of the Steam profile to get</param>
         /// <returns>The number of games found in the profile</returns>
-        public int LoadGameList( string profileName ) {
+        public int LoadGameList( string profileName, bool overWrite ) {
             XmlDocument doc = new XmlDocument();
             try {
                 string url = string.Format( Properties.Resources.ProfileURL, profileName );
@@ -217,7 +217,7 @@ namespace Depressurizer {
                 if( appIdNode != null && int.TryParse( appIdNode.InnerText, out appId ) ) {
                     XmlNode nameNode = gameNode["name"];
                     if( nameNode != null ) {
-                        SetGameName( appId, nameNode.InnerText );
+                        SetGameName( appId, nameNode.InnerText, overWrite );
                         loadedGames++;
                     }
                 }

@@ -445,6 +445,7 @@ namespace Depressurizer {
             this.cmdGameEdit.TabIndex = 5;
             this.cmdGameEdit.Text = "Edit Game";
             this.cmdGameEdit.UseVisualStyleBackColor = true;
+            this.cmdGameEdit.Click += new System.EventHandler(this.cmdGameEdit_Click);
             // 
             // combCategory
             // 

@@ -71,6 +71,7 @@ namespace Depressurizer {
             chkAutoExport.Checked = Profile.AutoExport;
             chkAutoImport.Checked = Profile.AutoImport;
             chkExportDiscard.Checked = Profile.ExportDiscard;
+            chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
 
             this.Text = "Edit Profile";
 
@@ -176,6 +177,7 @@ namespace Depressurizer {
             p.AutoExport = chkAutoExport.Checked;
             p.AutoImport = chkAutoImport.Checked;
             p.ExportDiscard = chkExportDiscard.Checked;
+            p.OverwriteOnDownload = chkOverwriteNames.Checked;
 
             p.AutoIgnore = chkAutoIgnore.Checked;
 

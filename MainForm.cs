@@ -141,7 +141,7 @@ namespace Depressurizer {
             if( dlg.ShowDialog() == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    int loadedGames = gameData.LoadGameList( dlg.Value );
+                    int loadedGames = gameData.LoadGameList( dlg.Value, true );
                     if( loadedGames == 0 ) {
                         MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games in download." );
@@ -273,6 +273,7 @@ namespace Depressurizer {
             ListViewItem item = lstGames.Items[index];
             Game g = (Game)item.Tag;
             if( ShouldDisplayGame( g ) ) {
+                item.SubItems[1].Text = g.Name;
                 item.SubItems[2].Text = g.Category == null ? UIUtil.CAT_UNC_NAME : g.Category.Name;
                 item.SubItems[3].Text = g.Favorite ? "Y" : "N";
                 return true;
@@ -1002,6 +1003,24 @@ namespace Depressurizer {
             }
         }
         #endregion
+
+        private void cmdGameEdit_Click( object sender, EventArgs e ) {
+            EditGame();
+        }
+
+        private void EditGame() {
+            if( lstGames.SelectedIndices.Count > 0 ) {
+                int index = lstGames.SelectedIndices[0];
+                Game g = lstGames.Items[index].Tag as Game;
+                GameDlg dlg = new GameDlg( gameData, g );
+                if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
+                    FillCategoryList();
+                    UpdateGame( index );
+                    MakeChange( true );
+                    AddStatus( "Edited game." );
+                }
+            }
+        }
     }
 
     static class UIUtil {

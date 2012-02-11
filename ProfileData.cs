@@ -41,6 +41,8 @@ namespace Depressurizer {
 
         public bool ExportDiscard = true;
 
+        public bool OverwriteOnDownload = false;
+
         public bool AutoIgnore = true;
 
         public int ImportSteamData() {
@@ -49,7 +51,7 @@ namespace Depressurizer {
         }
 
         public int DownloadGameList() {
-            return GameData.LoadGameList( CommunityName );
+            return GameData.LoadGameList( CommunityName, OverwriteOnDownload );
         }
 
         public void ExportSteamData() {
@@ -83,6 +85,7 @@ namespace Depressurizer {
                 profile.AutoExport = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_export", profile.AutoExport );
                 profile.ExportDiscard = XmlHelper.GetBooleanFromXmlElement( profileNode, "export_discard", profile.ExportDiscard );
                 profile.AutoIgnore = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_ignore", profile.AutoIgnore );
+                profile.OverwriteOnDownload = XmlHelper.GetBooleanFromXmlElement( profileNode, "overwrite_names", profile.OverwriteOnDownload );
 
                 XmlNode gameListNode = profileNode.SelectSingleNode( "games" );
                 if( gameListNode != null ) {
@@ -154,6 +157,7 @@ namespace Depressurizer {
             writer.WriteElementString( "auto_export", AutoExport.ToString() );
             writer.WriteElementString( "export_discard", ExportDiscard.ToString() );
             writer.WriteElementString( "auto_ignore", AutoIgnore.ToString() );
+            writer.WriteElementString( "overwrite_names", OverwriteOnDownload.ToString() );
 
             writer.WriteStartElement( "games" );
 

@@ -69,13 +69,15 @@ namespace Depressurizer {
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tabOpts = new System.Windows.Forms.TabPage();
             this.tabIgnore = new System.Windows.Forms.TabPage();
-            this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
-            this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
-            this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnored = new System.Windows.Forms.GroupBox();
-            this.cmdUnignore = new System.Windows.Forms.Button();
-            this.txtIgnore = new System.Windows.Forms.TextBox();
             this.cmdIgnore = new System.Windows.Forms.Button();
+            this.txtIgnore = new System.Windows.Forms.TextBox();
+            this.cmdUnignore = new System.Windows.Forms.Button();
+            this.lstIgnored = new System.Windows.Forms.ListView();
+            this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
+            this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
+            this.grpOtherOpt = new System.Windows.Forms.GroupBox();
+            this.chkOverwriteNames = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -85,8 +87,9 @@ namespace Depressurizer {
             this.tabMain.SuspendLayout();
             this.tabOpts.SuspendLayout();
             this.tabIgnore.SuspendLayout();
-            this.grpIgnoreSettings.SuspendLayout();
             this.grpIgnored.SuspendLayout();
+            this.grpIgnoreSettings.SuspendLayout();
+            this.grpOtherOpt.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFilePath
@@ -383,6 +386,7 @@ namespace Depressurizer {
             // 
             // tabOpts
             // 
+            this.tabOpts.Controls.Add(this.grpOtherOpt);
             this.tabOpts.Controls.Add(this.grpSaveOpt);
             this.tabOpts.Controls.Add(this.grpLoadOpt);
             this.tabOpts.Location = new System.Drawing.Point(4, 22);
@@ -404,44 +408,6 @@ namespace Depressurizer {
             this.tabIgnore.Text = "Ignored Games";
             this.tabIgnore.UseVisualStyleBackColor = true;
             // 
-            // chkAutoIgnore
-            // 
-            this.chkAutoIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkAutoIgnore.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkAutoIgnore.Checked = true;
-            this.chkAutoIgnore.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoIgnore.Location = new System.Drawing.Point(6, 19);
-            this.chkAutoIgnore.Name = "chkAutoIgnore";
-            this.chkAutoIgnore.Size = new System.Drawing.Size(215, 33);
-            this.chkAutoIgnore.TabIndex = 0;
-            this.chkAutoIgnore.Text = "Automatically Ignore games when removing them";
-            this.chkAutoIgnore.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkAutoIgnore.UseVisualStyleBackColor = true;
-            // 
-            // grpIgnoreSettings
-            // 
-            this.grpIgnoreSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpIgnoreSettings.Controls.Add(this.chkAutoIgnore);
-            this.grpIgnoreSettings.Location = new System.Drawing.Point(305, 3);
-            this.grpIgnoreSettings.Name = "grpIgnoreSettings";
-            this.grpIgnoreSettings.Size = new System.Drawing.Size(227, 329);
-            this.grpIgnoreSettings.TabIndex = 1;
-            this.grpIgnoreSettings.TabStop = false;
-            this.grpIgnoreSettings.Text = "Settings";
-            // 
-            // lstIgnored
-            // 
-            this.lstIgnored.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstIgnored.Location = new System.Drawing.Point(6, 19);
-            this.lstIgnored.Name = "lstIgnored";
-            this.lstIgnored.Size = new System.Drawing.Size(175, 304);
-            this.lstIgnored.TabIndex = 2;
-            this.lstIgnored.UseCompatibleStateImageBehavior = false;
-            // 
             // grpIgnored
             // 
             this.grpIgnored.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -458,6 +424,24 @@ namespace Depressurizer {
             this.grpIgnored.TabStop = false;
             this.grpIgnored.Text = "Ignored Games";
             // 
+            // cmdIgnore
+            // 
+            this.cmdIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdIgnore.Location = new System.Drawing.Point(187, 45);
+            this.cmdIgnore.Name = "cmdIgnore";
+            this.cmdIgnore.Size = new System.Drawing.Size(103, 23);
+            this.cmdIgnore.TabIndex = 5;
+            this.cmdIgnore.Text = "Ignore";
+            this.cmdIgnore.UseVisualStyleBackColor = true;
+            // 
+            // txtIgnore
+            // 
+            this.txtIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIgnore.Location = new System.Drawing.Point(187, 19);
+            this.txtIgnore.Name = "txtIgnore";
+            this.txtIgnore.Size = new System.Drawing.Size(103, 20);
+            this.txtIgnore.TabIndex = 4;
+            // 
             // cmdUnignore
             // 
             this.cmdUnignore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -468,23 +452,65 @@ namespace Depressurizer {
             this.cmdUnignore.Text = "Unignore Selected";
             this.cmdUnignore.UseVisualStyleBackColor = true;
             // 
-            // txtIgnore
+            // lstIgnored
             // 
-            this.txtIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIgnore.Location = new System.Drawing.Point(187, 19);
-            this.txtIgnore.Name = "txtIgnore";
-            this.txtIgnore.Size = new System.Drawing.Size(103, 20);
-            this.txtIgnore.TabIndex = 4;
+            this.lstIgnored.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstIgnored.Location = new System.Drawing.Point(6, 19);
+            this.lstIgnored.Name = "lstIgnored";
+            this.lstIgnored.Size = new System.Drawing.Size(175, 304);
+            this.lstIgnored.TabIndex = 2;
+            this.lstIgnored.UseCompatibleStateImageBehavior = false;
             // 
-            // cmdIgnore
+            // grpIgnoreSettings
             // 
-            this.cmdIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdIgnore.Location = new System.Drawing.Point(187, 45);
-            this.cmdIgnore.Name = "cmdIgnore";
-            this.cmdIgnore.Size = new System.Drawing.Size(103, 23);
-            this.cmdIgnore.TabIndex = 5;
-            this.cmdIgnore.Text = "Ignore";
-            this.cmdIgnore.UseVisualStyleBackColor = true;
+            this.grpIgnoreSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpIgnoreSettings.Controls.Add(this.chkAutoIgnore);
+            this.grpIgnoreSettings.Location = new System.Drawing.Point(305, 3);
+            this.grpIgnoreSettings.Name = "grpIgnoreSettings";
+            this.grpIgnoreSettings.Size = new System.Drawing.Size(227, 329);
+            this.grpIgnoreSettings.TabIndex = 1;
+            this.grpIgnoreSettings.TabStop = false;
+            this.grpIgnoreSettings.Text = "Settings";
+            // 
+            // chkAutoIgnore
+            // 
+            this.chkAutoIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAutoIgnore.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkAutoIgnore.Checked = true;
+            this.chkAutoIgnore.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoIgnore.Location = new System.Drawing.Point(6, 19);
+            this.chkAutoIgnore.Name = "chkAutoIgnore";
+            this.chkAutoIgnore.Size = new System.Drawing.Size(215, 33);
+            this.chkAutoIgnore.TabIndex = 0;
+            this.chkAutoIgnore.Text = "Automatically Ignore games when removing them";
+            this.chkAutoIgnore.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkAutoIgnore.UseVisualStyleBackColor = true;
+            // 
+            // grpOtherOpt
+            // 
+            this.grpOtherOpt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpOtherOpt.Controls.Add(this.chkOverwriteNames);
+            this.grpOtherOpt.Location = new System.Drawing.Point(6, 148);
+            this.grpOtherOpt.Name = "grpOtherOpt";
+            this.grpOtherOpt.Size = new System.Drawing.Size(523, 45);
+            this.grpOtherOpt.TabIndex = 2;
+            this.grpOtherOpt.TabStop = false;
+            this.grpOtherOpt.Text = "Other Options";
+            // 
+            // chkOverwriteNames
+            // 
+            this.chkOverwriteNames.AutoSize = true;
+            this.chkOverwriteNames.Location = new System.Drawing.Point(6, 19);
+            this.chkOverwriteNames.Name = "chkOverwriteNames";
+            this.chkOverwriteNames.Size = new System.Drawing.Size(241, 17);
+            this.chkOverwriteNames.TabIndex = 0;
+            this.chkOverwriteNames.Text = "Overwrite names when downloading game list";
+            this.chkOverwriteNames.UseVisualStyleBackColor = true;
             // 
             // ProfileDlg
             // 
@@ -517,9 +543,11 @@ namespace Depressurizer {
             this.tabMain.ResumeLayout(false);
             this.tabOpts.ResumeLayout(false);
             this.tabIgnore.ResumeLayout(false);
-            this.grpIgnoreSettings.ResumeLayout(false);
             this.grpIgnored.ResumeLayout(false);
             this.grpIgnored.PerformLayout();
+            this.grpIgnoreSettings.ResumeLayout(false);
+            this.grpOtherOpt.ResumeLayout(false);
+            this.grpOtherOpt.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -560,5 +588,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ListView lstIgnored;
         private System.Windows.Forms.GroupBox grpIgnoreSettings;
         private System.Windows.Forms.CheckBox chkAutoIgnore;
+        private System.Windows.Forms.GroupBox grpOtherOpt;
+        private System.Windows.Forms.CheckBox chkOverwriteNames;
     }
 }
