@@ -81,8 +81,8 @@ namespace Depressurizer {
             this.cmdGameSetCategory = new System.Windows.Forms.Button();
             this.cmdGameSetFavorite = new System.Windows.Forms.Button();
             this.lstGames = new System.Windows.Forms.ListView();
-            this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFavorite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -500,13 +500,14 @@ namespace Depressurizer {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colGameID,
             this.colTitle,
+            this.colGameID,
             this.colCategory,
             this.colFavorite});
             this.lstGames.FullRowSelect = true;
             this.lstGames.GridLines = true;
             this.lstGames.HideSelection = false;
+            this.lstGames.LabelEdit = true;
             this.lstGames.Location = new System.Drawing.Point(3, 20);
             this.lstGames.Name = "lstGames";
             this.lstGames.Size = new System.Drawing.Size(491, 307);
@@ -514,19 +515,23 @@ namespace Depressurizer {
             this.lstGames.TabIndex = 0;
             this.lstGames.UseCompatibleStateImageBehavior = false;
             this.lstGames.View = System.Windows.Forms.View.Details;
+            this.lstGames.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.lstGames_AfterLabelEdit);
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
+            this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
-            // 
-            // colGameID
-            // 
-            this.colGameID.Text = "Game ID";
             // 
             // colTitle
             // 
+            this.colTitle.DisplayIndex = 1;
             this.colTitle.Text = "Title";
             this.colTitle.Width = 223;
+            // 
+            // colGameID
+            // 
+            this.colGameID.DisplayIndex = 0;
+            this.colGameID.Text = "Game ID";
             // 
             // colCategory
             // 

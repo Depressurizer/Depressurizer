@@ -220,7 +220,7 @@ namespace Depressurizer {
         /// <param name="g">The game the new entry should represent.</param>
         private void AddGameToList( Game g ) {
             string catName = ( g.Category == null ) ? UIUtil.CAT_UNC_NAME : g.Category.Name;
-            ListViewItem item = new ListViewItem( new string[] { g.Id.ToString(), g.Name, catName, g.Favorite ? "Y" : "N" } );
+            ListViewItem item = new ListViewItem( new string[] { g.Name, g.Id.ToString(), catName, g.Favorite ? "Y" : "N" } );
             item.Tag = g;
             lstGames.Items.Add( item );
         }
@@ -261,7 +261,7 @@ namespace Depressurizer {
         /// Updates the game list sorter based on the current values of the sort settings fields.
         /// </summary>
         private void UpdateGameSorter() {
-            lstGames.ListViewItemSorter = new GameListViewItemComparer( sortColumn, sortDirection, sortColumn == 0 );
+            lstGames.ListViewItemSorter = new GameListViewItemComparer( sortColumn, sortDirection, sortColumn == 1 );
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace Depressurizer {
             ListViewItem item = lstGames.Items[index];
             Game g = (Game)item.Tag;
             if( ShouldDisplayGame( g ) ) {
-                item.SubItems[1].Text = g.Name;
+                item.SubItems[0].Text = g.Name;
                 item.SubItems[2].Text = g.Category == null ? UIUtil.CAT_UNC_NAME : g.Category.Name;
                 item.SubItems[3].Text = g.Favorite ? "Y" : "N";
                 return true;
@@ -408,19 +408,25 @@ namespace Depressurizer {
                 if( c != null ) {
                     GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( "Rename category: {0}", c.Name ), "Enter new name:", "Rename" );
                     if( dlg.ShowDialog() == DialogResult.OK ) {
-                        if( UIUtil.ValidateCategoryName( dlg.Value ) && gameData.RenameCategory( c, dlg.Value ) ) {
-                            FillCategoryList();
-                            UpdateGameList();
-                            MakeChange( true );
-                            AddStatus( string.Format( "Category renamed.", c.Name ) );
-                            return true;
-                        } else {
-                            MessageBox.Show( string.Format( "Name '{0}' is already in use.", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-                        }
+                        return RenameCategoryHelper( c, dlg.Value );
                     }
                 }
             }
             return false;
+        }
+
+        public bool RenameCategoryHelper( Category c, string newName ) {
+            if( newName == c.Name ) return true;
+            if( UIUtil.ValidateCategoryName( newName ) && gameData.RenameCategory( c, newName ) ) {
+                FillCategoryList();
+                UpdateGameList();
+                MakeChange( true );
+                AddStatus( string.Format( "Category renamed.", c.Name ) );
+                return true;
+            } else {
+                MessageBox.Show( string.Format( "Name '{0}' is already in use.", newName ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return false;
+            }
         }
 
         /// <summary>
@@ -1111,6 +1117,10 @@ namespace Depressurizer {
                 AddGame();
             } else if( e.KeyCode == Keys.Enter ) {
                 EditGame();
+            } else if( e.KeyCode == Keys.F2 ) {
+                if( lstGames.SelectedItems.Count > 0 ) {
+                    lstGames.SelectedItems[0].BeginEdit();
+                }
             }
             FlushStatus();
         }
@@ -1122,6 +1132,22 @@ namespace Depressurizer {
             } else if( e.KeyCode == Keys.N && e.Control ) {
                 CreateCategory();
             }
+            FlushStatus();
+        }
+
+        private void lstGames_AfterLabelEdit( object sender, LabelEditEventArgs e ) {
+            
+            Game g = lstGames.Items[e.Item].Tag as Game;
+            string oldName = g.Name;
+            if( oldName != e.Label ) {
+                g.Name = e.Label;
+                MakeChange( true );
+            }
+        }
+
+        private void lstGames_DoubleClick( object sender, EventArgs e ) {
+            ClearStatus();
+            EditGame();
             FlushStatus();
         }
     }
