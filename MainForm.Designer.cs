@@ -125,52 +125,58 @@ namespace Depressurizer {
             this.menu_File_Exit});
             this.menu_File.Name = "menu_File";
             this.menu_File.Size = new System.Drawing.Size(37, 20);
-            this.menu_File.Text = "File";
+            this.menu_File.Text = "&File";
             // 
             // menu_File_NewProfile
             // 
             this.menu_File_NewProfile.Name = "menu_File_NewProfile";
-            this.menu_File_NewProfile.Size = new System.Drawing.Size(160, 22);
-            this.menu_File_NewProfile.Text = "New Profile...";
+            this.menu_File_NewProfile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.N)));
+            this.menu_File_NewProfile.Size = new System.Drawing.Size(219, 22);
+            this.menu_File_NewProfile.Text = "&New Profile...";
             this.menu_File_NewProfile.Click += new System.EventHandler(this.menu_File_NewProfile_Click);
             // 
             // menu_File_LoadProfile
             // 
             this.menu_File_LoadProfile.Name = "menu_File_LoadProfile";
-            this.menu_File_LoadProfile.Size = new System.Drawing.Size(160, 22);
-            this.menu_File_LoadProfile.Text = "Load Profile...";
+            this.menu_File_LoadProfile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.L)));
+            this.menu_File_LoadProfile.Size = new System.Drawing.Size(219, 22);
+            this.menu_File_LoadProfile.Text = "&Load Profile...";
             this.menu_File_LoadProfile.Click += new System.EventHandler(this.menu_File_LoadProfile_Click);
             // 
             // menu_File_SaveProfile
             // 
             this.menu_File_SaveProfile.Name = "menu_File_SaveProfile";
-            this.menu_File_SaveProfile.Size = new System.Drawing.Size(160, 22);
-            this.menu_File_SaveProfile.Text = "Save Profile";
+            this.menu_File_SaveProfile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.menu_File_SaveProfile.Size = new System.Drawing.Size(219, 22);
+            this.menu_File_SaveProfile.Text = "&Save Profile";
             this.menu_File_SaveProfile.Click += new System.EventHandler(this.menu_File_SaveProfile_Click);
             // 
             // menu_File_SaveProfileAs
             // 
             this.menu_File_SaveProfileAs.Name = "menu_File_SaveProfileAs";
-            this.menu_File_SaveProfileAs.Size = new System.Drawing.Size(160, 22);
-            this.menu_File_SaveProfileAs.Text = "Save Profile As...";
+            this.menu_File_SaveProfileAs.Size = new System.Drawing.Size(219, 22);
+            this.menu_File_SaveProfileAs.Text = "Save Profile &As...";
             this.menu_File_SaveProfileAs.Click += new System.EventHandler(this.menu_File_SaveProfileAs_Click);
             // 
             // menu_File_Sep1
             // 
             this.menu_File_Sep1.Name = "menu_File_Sep1";
-            this.menu_File_Sep1.Size = new System.Drawing.Size(157, 6);
+            this.menu_File_Sep1.Size = new System.Drawing.Size(216, 6);
             // 
             // menu_File_Close
             // 
             this.menu_File_Close.Name = "menu_File_Close";
-            this.menu_File_Close.Size = new System.Drawing.Size(160, 22);
-            this.menu_File_Close.Text = "Close";
+            this.menu_File_Close.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
+            this.menu_File_Close.Size = new System.Drawing.Size(219, 22);
+            this.menu_File_Close.Text = "&Close";
             this.menu_File_Close.Click += new System.EventHandler(this.menu_File_Close_Click);
             // 
             // menu_File_Sep2
             // 
             this.menu_File_Sep2.Name = "menu_File_Sep2";
-            this.menu_File_Sep2.Size = new System.Drawing.Size(157, 6);
+            this.menu_File_Sep2.Size = new System.Drawing.Size(216, 6);
             // 
             // menu_File_Manual
             // 
@@ -179,40 +185,40 @@ namespace Depressurizer {
             this.menu_File_Manual_Download,
             this.menu_File_Manual_Export});
             this.menu_File_Manual.Name = "menu_File_Manual";
-            this.menu_File_Manual.Size = new System.Drawing.Size(160, 22);
-            this.menu_File_Manual.Text = "Manual";
+            this.menu_File_Manual.Size = new System.Drawing.Size(219, 22);
+            this.menu_File_Manual.Text = "&Manual";
             // 
             // menu_File_Manual_Import
             // 
             this.menu_File_Manual_Import.Name = "menu_File_Manual_Import";
             this.menu_File_Manual_Import.Size = new System.Drawing.Size(192, 22);
-            this.menu_File_Manual_Import.Text = "Import Config File...";
+            this.menu_File_Manual_Import.Text = "&Import Config File...";
             this.menu_File_Manual_Import.Click += new System.EventHandler(this.menu_File_Manual_Import_Click);
             // 
             // menu_File_Manual_Download
             // 
             this.menu_File_Manual_Download.Name = "menu_File_Manual_Download";
             this.menu_File_Manual_Download.Size = new System.Drawing.Size(192, 22);
-            this.menu_File_Manual_Download.Text = "Download Game List...";
+            this.menu_File_Manual_Download.Text = "&Download Game List...";
             this.menu_File_Manual_Download.Click += new System.EventHandler(this.menu_File_Manual_Download_Click);
             // 
             // menu_File_Manual_Export
             // 
             this.menu_File_Manual_Export.Name = "menu_File_Manual_Export";
             this.menu_File_Manual_Export.Size = new System.Drawing.Size(192, 22);
-            this.menu_File_Manual_Export.Text = "Export Config File...";
+            this.menu_File_Manual_Export.Text = "&Export Config File...";
             this.menu_File_Manual_Export.Click += new System.EventHandler(this.menu_File_Manual_Export_Click);
             // 
             // menu_File_Sep3
             // 
             this.menu_File_Sep3.Name = "menu_File_Sep3";
-            this.menu_File_Sep3.Size = new System.Drawing.Size(157, 6);
+            this.menu_File_Sep3.Size = new System.Drawing.Size(216, 6);
             // 
             // menu_File_Exit
             // 
             this.menu_File_Exit.Name = "menu_File_Exit";
-            this.menu_File_Exit.Size = new System.Drawing.Size(160, 22);
-            this.menu_File_Exit.Text = "Exit";
+            this.menu_File_Exit.Size = new System.Drawing.Size(219, 22);
+            this.menu_File_Exit.Text = "E&xit";
             this.menu_File_Exit.Click += new System.EventHandler(this.menu_File_Exit_Click);
             // 
             // menu_Profile
@@ -226,44 +232,48 @@ namespace Depressurizer {
             this.menu_Profile_Edit});
             this.menu_Profile.Name = "menu_Profile";
             this.menu_Profile.Size = new System.Drawing.Size(53, 20);
-            this.menu_Profile.Text = "Profile";
+            this.menu_Profile.Text = "&Profile";
             // 
             // menu_Profile_Download
             // 
             this.menu_Profile_Download.Name = "menu_Profile_Download";
-            this.menu_Profile_Download.Size = new System.Drawing.Size(183, 22);
-            this.menu_Profile_Download.Text = "Download Game List";
+            this.menu_Profile_Download.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.menu_Profile_Download.Size = new System.Drawing.Size(225, 22);
+            this.menu_Profile_Download.Text = "&Download Game List";
             this.menu_Profile_Download.Click += new System.EventHandler(this.menu_Profile_Download_Click);
             // 
             // menu_Profile_Import
             // 
             this.menu_Profile_Import.Name = "menu_Profile_Import";
-            this.menu_Profile_Import.Size = new System.Drawing.Size(183, 22);
-            this.menu_Profile_Import.Text = "Import Config File";
+            this.menu_Profile_Import.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.menu_Profile_Import.Size = new System.Drawing.Size(225, 22);
+            this.menu_Profile_Import.Text = "&Import Config File";
             this.menu_Profile_Import.Click += new System.EventHandler(this.menu_Profile_Import_Click);
             // 
             // menu_Profile_Sep1
             // 
             this.menu_Profile_Sep1.Name = "menu_Profile_Sep1";
-            this.menu_Profile_Sep1.Size = new System.Drawing.Size(180, 6);
+            this.menu_Profile_Sep1.Size = new System.Drawing.Size(222, 6);
             // 
             // menu_Profile_Export
             // 
             this.menu_Profile_Export.Name = "menu_Profile_Export";
-            this.menu_Profile_Export.Size = new System.Drawing.Size(183, 22);
-            this.menu_Profile_Export.Text = "Export Config File";
+            this.menu_Profile_Export.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.menu_Profile_Export.Size = new System.Drawing.Size(225, 22);
+            this.menu_Profile_Export.Text = "&Export Config File";
             this.menu_Profile_Export.Click += new System.EventHandler(this.menu_Profile_Export_Click);
             // 
             // menu_Profile_Sep2
             // 
             this.menu_Profile_Sep2.Name = "menu_Profile_Sep2";
-            this.menu_Profile_Sep2.Size = new System.Drawing.Size(180, 6);
+            this.menu_Profile_Sep2.Size = new System.Drawing.Size(222, 6);
             // 
             // menu_Profile_Edit
             // 
             this.menu_Profile_Edit.Name = "menu_Profile_Edit";
-            this.menu_Profile_Edit.Size = new System.Drawing.Size(183, 22);
-            this.menu_Profile_Edit.Text = "Edit Profile Info";
+            this.menu_Profile_Edit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.menu_Profile_Edit.Size = new System.Drawing.Size(225, 22);
+            this.menu_Profile_Edit.Text = "Edit &Profile Info";
             this.menu_Profile_Edit.Click += new System.EventHandler(this.menu_Profile_Edit_Click);
             // 
             // menu_Config
@@ -277,8 +287,9 @@ namespace Depressurizer {
             // menu_Config_Settings
             // 
             this.menu_Config_Settings.Name = "menu_Config_Settings";
-            this.menu_Config_Settings.Size = new System.Drawing.Size(125, 22);
-            this.menu_Config_Settings.Text = "Settings...";
+            this.menu_Config_Settings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.menu_Config_Settings.Size = new System.Drawing.Size(168, 22);
+            this.menu_Config_Settings.Text = "&Settings...";
             this.menu_Config_Settings.Click += new System.EventHandler(this.menu_Config_Settings_Click);
             // 
             // splitContainer
@@ -327,7 +338,7 @@ namespace Depressurizer {
             this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
             this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
-            this.lstCategories.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstCategories_KeyPress);
+            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
             // 
             // tableCatButtons
             // 

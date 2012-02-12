@@ -362,6 +362,7 @@ namespace Depressurizer {
                     FillCategoryList();
                     combCategory.SelectedItem = newCat;
                     MakeChange( true );
+                    AddStatus( string.Format( "Category '{0}' added.", newCat.Name ) );
                     return newCat;
                 } else {
                     MessageBox.Show( String.Format( "Could not add category '{0}'", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
@@ -375,17 +376,21 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="c">Category to delete.</param>
         /// <returns>True if deletion occurred, false otherwise.</returns>
-        public bool DeleteCategory( Category c ) {
-            if( c != null ) {
-                DialogResult res = MessageBox.Show( string.Format( "Delete category '{0}'?", c.Name ), "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
-                if( res == System.Windows.Forms.DialogResult.Yes ) {
-                    if( gameData.RemoveCategory( c ) ) {
-                        FillCategoryList();
-                        FillGameList();
-                        MakeChange( true );
-                        return true;
-                    } else {
-                        MessageBox.Show( string.Format( "Could not delete category '{0}'.", c.Name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+        public bool DeleteCategory() {
+            if( lstCategories.SelectedItems.Count > 0 ) {
+                Category c = lstCategories.SelectedItem as Category;
+                if( c != null ) {
+                    DialogResult res = MessageBox.Show( string.Format( "Delete category '{0}'?", c.Name ), "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
+                    if( res == System.Windows.Forms.DialogResult.Yes ) {
+                        if( gameData.RemoveCategory( c ) ) {
+                            FillCategoryList();
+                            FillGameList();
+                            MakeChange( true );
+                            AddStatus( string.Format( "Category '{0}' deleted.", c.Name ) );
+                            return true;
+                        } else {
+                            MessageBox.Show( string.Format( "Could not delete category '{0}'.", c.Name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                        }
                     }
                 }
             }
@@ -397,17 +402,21 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="c">Category to rename</param>
         /// <returns>True if category was renamed, false otherwise.</returns>
-        public bool RenameCategory( Category c ) {
-            if( c != null ) {
-                GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( "Rename category: {0}", c.Name ), "Enter new name:", "Rename" );
-                if( dlg.ShowDialog() == DialogResult.OK ) {
-                    if( UIUtil.ValidateCategoryName( dlg.Value ) && gameData.RenameCategory( c, dlg.Value ) ) {
-                        FillCategoryList();
-                        UpdateGameList();
-                        MakeChange( true );
-                        return true;
-                    } else {
-                        MessageBox.Show( string.Format( "Name '{0}' is already in use.", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+        public bool RenameCategory() {
+            if( lstCategories.SelectedItems.Count > 0 ) {
+                Category c = lstCategories.SelectedItem as Category;
+                if( c != null ) {
+                    GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( "Rename category: {0}", c.Name ), "Enter new name:", "Rename" );
+                    if( dlg.ShowDialog() == DialogResult.OK ) {
+                        if( UIUtil.ValidateCategoryName( dlg.Value ) && gameData.RenameCategory( c, dlg.Value ) ) {
+                            FillCategoryList();
+                            UpdateGameList();
+                            MakeChange( true );
+                            AddStatus( string.Format( "Category renamed.", c.Name ) );
+                            return true;
+                        } else {
+                            MessageBox.Show( string.Format( "Name '{0}' is already in use.", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                        }
                     }
                 }
             }
@@ -941,19 +950,15 @@ namespace Depressurizer {
         }
 
         private void cmdCatRename_Click( object sender, EventArgs e ) {
-            if( lstCategories.SelectedItems.Count > 0 ) {
-                ClearStatus();
-                RenameCategory( lstCategories.SelectedItem as Category );
-                FlushStatus();
-            }
+            ClearStatus();
+            RenameCategory();
+            FlushStatus();
         }
 
         private void cmdCatDelete_Click( object sender, EventArgs e ) {
-            if( lstCategories.SelectedItems.Count > 0 ) {
-                ClearStatus();
-                DeleteCategory( lstCategories.SelectedItem as Category );
-                FlushStatus();
-            }
+            ClearStatus();
+            DeleteCategory();
+            FlushStatus();
         }
 
         private void cmdGameSetCategory_Click( object sender, EventArgs e ) {
@@ -1106,6 +1111,16 @@ namespace Depressurizer {
                 AddGame();
             } else if( e.KeyCode == Keys.Enter ) {
                 EditGame();
+            }
+            FlushStatus();
+        }
+
+        private void lstCategories_KeyDown( object sender, KeyEventArgs e ) {
+            ClearStatus();
+            if( e.KeyCode == Keys.Delete ) {
+                DeleteCategory();
+            } else if( e.KeyCode == Keys.N && e.Control ) {
+                CreateCategory();
             }
             FlushStatus();
         }
