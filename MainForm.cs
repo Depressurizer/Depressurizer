@@ -884,6 +884,9 @@ namespace Depressurizer {
             cmdCatRename.Enabled = catSelected;
         }
 
+        bool isDragging;
+        int dragOldCat;
+
         #region UI Event Handlers
         #region Drag and drop
 
@@ -893,6 +896,8 @@ namespace Depressurizer {
 
         private void lstCategories_DragDrop( object sender, DragEventArgs e ) {
             if( e.Data.GetDataPresent( typeof( int[] ) ) ) {
+                lstCategories.SelectedIndex = dragOldCat;
+                isDragging = false;
                 ClearStatus();
                 Point clientPoint = lstCategories.PointToClient( new Point( e.X, e.Y ) );
                 object dropItem = lstCategories.Items[lstCategories.IndexFromPoint( clientPoint )];
@@ -911,6 +916,7 @@ namespace Depressurizer {
                         MakeChange( true );
                     }
                 }
+
                 FlushStatus();
             }
         }
@@ -920,7 +926,10 @@ namespace Depressurizer {
             for( int i = 0; i < lstGames.SelectedItems.Count; i++ ) {
                 selectedGames[i] = ( (Game)lstGames.SelectedItems[i].Tag ).Id;
             }
+            isDragging = true;
+            dragOldCat = lstCategories.SelectedIndex;
             lstGames.DoDragDrop( selectedGames, DragDropEffects.Move );
+            
         }
         #endregion
         #region Main menu
@@ -1062,11 +1071,13 @@ namespace Depressurizer {
         #endregion
 
         private void lstCategories_SelectedIndexChanged( object sender, EventArgs e ) {
-            if( lstCategories.SelectedItem != lastSelectedCat ) {
-                FillGameList();
-                lastSelectedCat = lstCategories.SelectedItem;
+            if( !isDragging ) {
+                if( lstCategories.SelectedItem != lastSelectedCat ) {
+                    FillGameList();
+                    lastSelectedCat = lstCategories.SelectedItem;
+                }
+                UpdateButtonEnabledStates();
             }
-            UpdateButtonEnabledStates();
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
@@ -1161,6 +1172,13 @@ namespace Depressurizer {
             FlushStatus();
         }
         #endregion
+
+        private void lstCategories_DragOver( object sender, DragEventArgs e ) {
+            if( isDragging ) {
+                int index = lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( e.X, e.Y ) ) );
+                lstCategories.SelectedIndex = index;
+            }
+        }
     }
 
     static class UIUtil {
