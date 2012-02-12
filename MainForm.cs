@@ -429,6 +429,66 @@ namespace Depressurizer {
             }
         }
 
+        private void AddGame() {
+            GameDlg dlg = new GameDlg( gameData, null );
+            if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
+                if( ProfileLoaded ) {
+                    if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
+                        AddStatus( string.Format( "Unignored game {0}.", dlg.Game.Id ) );
+                    }
+                }
+                FillCategoryList();
+                FillGameList();
+                MakeChange( true );
+                AddStatus( "Added game." );
+            }
+        }
+
+        private void EditGame() {
+            if( lstGames.SelectedIndices.Count > 0 ) {
+                int index = lstGames.SelectedIndices[0];
+                Game g = lstGames.Items[index].Tag as Game;
+                GameDlg dlg = new GameDlg( gameData, g );
+                if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
+                    FillCategoryList();
+                    UpdateGame( index );
+                    MakeChange( true );
+                    AddStatus( "Edited game." );
+                }
+            }
+        }
+
+        private void RemoveGame() {
+            int selectCount = lstGames.SelectedIndices.Count;
+            if( selectCount > 0 ) {
+                if( MessageBox.Show( string.Format( "Remove {0} game{1}?", selectCount, ( selectCount == 1 ) ? "" : "s" ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question )
+                    == DialogResult.Yes ) {
+                    int ignored = 0;
+                    int removed = 0;
+                    foreach( ListViewItem item in lstGames.SelectedItems ) {
+                        Game g = (Game)item.Tag;
+                        if( gameData.Games.Remove( g.Id ) ) {
+                            removed++;
+                        }
+                        if( ProfileLoaded && currentProfile.AutoIgnore ) {
+                            if( currentProfile.IgnoreList.Add( g.Id ) ) {
+                                ignored++;
+                            }
+                        }
+                    }
+                    if( removed > 0 ) {
+                        AddStatus( string.Format( "Removed {0} game{1}.", removed, ( removed == 1 ) ? "" : "s" ) );
+                        MakeChange( true );
+                    }
+                    if( ignored > 0 ) {
+                        AddStatus( string.Format( "Ignored {0} game{1}.", ignored, ( ignored == 1 ) ? "" : "s" ) );
+                        MakeChange( true );
+                    }
+                    UpdateGameListSelected();
+                }
+            }
+        }
+
         /// <summary>
         /// Assigns the given category to all selected items in the game list.
         /// </summary>
@@ -981,6 +1041,24 @@ namespace Depressurizer {
             AssignFavoriteToSelectedGames( GetSelectedFavorite() );
             FlushStatus();
         }
+
+        private void cmdGameAdd_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AddGame();
+            FlushStatus();
+        }
+
+        private void cmdGameEdit_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            EditGame();
+            FlushStatus();
+        }
+
+        private void cmdGameRemove_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            RemoveGame();
+            FlushStatus();
+        }
         #endregion
 
         private void lstCategories_SelectedIndexChanged( object sender, EventArgs e ) {
@@ -1004,6 +1082,21 @@ namespace Depressurizer {
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
             UpdateSelectedStatusText();
             UpdateButtonEnabledStates();
+        }
+
+        private void lstGames_AfterLabelEdit( object sender, LabelEditEventArgs e ) {
+            Game g = lstGames.Items[e.Item].Tag as Game;
+            string oldName = g.Name;
+            if( oldName != e.Label ) {
+                g.Name = e.Label;
+                MakeChange( true );
+            }
+        }
+
+        private void lstGames_DoubleClick( object sender, EventArgs e ) {
+            ClearStatus();
+            EditGame();
+            FlushStatus();
         }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
@@ -1031,125 +1124,43 @@ namespace Depressurizer {
                 e.Cancel = !CheckForUnsaved();
             }
         }
-        #endregion
-
-        private void cmdGameEdit_Click( object sender, EventArgs e ) {
-            EditGame();
-        }
-
-        private void EditGame() {
-            if( lstGames.SelectedIndices.Count > 0 ) {
-                int index = lstGames.SelectedIndices[0];
-                Game g = lstGames.Items[index].Tag as Game;
-                GameDlg dlg = new GameDlg( gameData, g );
-                if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
-                    FillCategoryList();
-                    UpdateGame( index );
-                    MakeChange( true );
-                    AddStatus( "Edited game." );
-                }
-            }
-        }
-
-        private void cmdGameRemove_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            RemoveGame();
-            FlushStatus();
-        }
-
-        private void RemoveGame() {
-            int selectCount = lstGames.SelectedIndices.Count;
-            if( selectCount > 0 ) {
-                if( MessageBox.Show( string.Format( "Remove {0} game{1}?", selectCount, ( selectCount == 1 ) ? "" : "s" ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question )
-                    == DialogResult.Yes ) {
-                    int ignored = 0;
-                    int removed = 0;
-                    foreach( ListViewItem item in lstGames.SelectedItems ) {
-                        Game g = (Game)item.Tag;
-                        if( gameData.Games.Remove( g.Id ) ) {
-                            removed++;
-                        }
-                        if( ProfileLoaded && currentProfile.AutoIgnore ) {
-                            if( currentProfile.IgnoreList.Add( g.Id ) ) {
-                                ignored++;
-                            }
-                        }
-                    }
-                    if( removed > 0 ) {
-                        AddStatus( string.Format( "Removed {0} game{1}.", removed, ( removed == 1 ) ? "" : "s" ) );
-                        MakeChange( true );
-                    }
-                    if( ignored > 0 ) {
-                        AddStatus( string.Format( "Ignored {0} game{1}.", ignored, ( ignored == 1 ) ? "" : "s" ) );
-                        MakeChange( true );
-                    }
-                    UpdateGameListSelected();
-                }
-            }
-        }
-
-        private void cmdGameAdd_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            AddGame();
-            FlushStatus();
-        }
-
-        private void AddGame() {
-            GameDlg dlg = new GameDlg( gameData, null );
-            if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
-                if( ProfileLoaded ) {
-                    if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
-                        AddStatus( string.Format( "Unignored game {0}.", dlg.Game.Id ) );
-                    }
-                }
-                FillCategoryList();
-                FillGameList();
-                MakeChange( true );
-                AddStatus( "Added game." );
-            }
-        }
 
         private void lstGames_KeyDown( object sender, KeyEventArgs e ) {
             ClearStatus();
-            if( e.KeyCode == Keys.Delete ) {
-                RemoveGame();
-            } else if( e.KeyCode == Keys.N && e.Control ) {
-                AddGame();
-            } else if( e.KeyCode == Keys.Enter ) {
-                EditGame();
-            } else if( e.KeyCode == Keys.F2 ) {
-                if( lstGames.SelectedItems.Count > 0 ) {
-                    lstGames.SelectedItems[0].BeginEdit();
-                }
+            switch( e.KeyCode ) {
+                case Keys.Delete:
+                    RemoveGame();
+                    break;
+                case Keys.N:
+                    if( e.Control ) AddGame();
+                    break;
+                case Keys.Enter:
+                    EditGame();
+                    break;
+                case Keys.F2:
+                    if( lstGames.SelectedItems.Count > 0 ) lstGames.SelectedItems[0].BeginEdit();
+                    break;
             }
             FlushStatus();
         }
 
         private void lstCategories_KeyDown( object sender, KeyEventArgs e ) {
             ClearStatus();
-            if( e.KeyCode == Keys.Delete ) {
-                DeleteCategory();
-            } else if( e.KeyCode == Keys.N && e.Control ) {
-                CreateCategory();
+            switch( e.KeyCode ) {
+                case Keys.Delete:
+                    DeleteCategory();
+                    break;
+                case Keys.N:
+                    if( e.Control ) CreateCategory();
+                    break;
+                case Keys.F2:
+                    RenameCategory();
+                    break;
             }
+
             FlushStatus();
         }
-
-        private void lstGames_AfterLabelEdit( object sender, LabelEditEventArgs e ) {
-            
-            Game g = lstGames.Items[e.Item].Tag as Game;
-            string oldName = g.Name;
-            if( oldName != e.Label ) {
-                g.Name = e.Label;
-                MakeChange( true );
-            }
-        }
-
-        private void lstGames_DoubleClick( object sender, EventArgs e ) {
-            ClearStatus();
-            EditGame();
-            FlushStatus();
-        }
+        #endregion
     }
 
     static class UIUtil {

@@ -282,7 +282,7 @@ namespace Depressurizer {
             this.menu_Config_Settings});
             this.menu_Config.Name = "menu_Config";
             this.menu_Config.Size = new System.Drawing.Size(93, 20);
-            this.menu_Config.Text = "Configuration";
+            this.menu_Config.Text = "&Configuration";
             // 
             // menu_Config_Settings
             // 
@@ -495,7 +495,6 @@ namespace Depressurizer {
             // 
             // lstGames
             // 
-            this.lstGames.AllowDrop = true;
             this.lstGames.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
