@@ -37,7 +37,7 @@ namespace Depressurizer {
         GameData gameData;
 
         // Game list sorting state
-        int sortColumn = 1;
+        int sortColumn = 0;
         int sortDirection = 1;
 
         // Stores last selected category to minimize game list refreshes
@@ -1174,10 +1174,10 @@ namespace Depressurizer {
         void MakeChange( bool changes ) {
             if( unsavedChanges != changes ) {
                 unsavedChanges = changes;
-                UpdateTitle();
             } else {
                 unsavedChanges = changes;
             }
+            UpdateTitle();
         }
 
         /// <summary>
