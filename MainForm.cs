@@ -249,9 +249,7 @@ namespace Depressurizer {
             combCategory.BeginUpdate();
             selected = combCategory.SelectedItem;
             combCategory.Items.Clear();
-            combCategory.Items.Add( COMBO_NEWCAT );
-            combCategory.Items.Add( COMBO_NONE );
-            combCategory.Items.Add( "" );
+            combCategory.Items.Add( UIUtil.CAT_UNC_NAME );
             combCategory.Items.AddRange( catList );
             combCategory.SelectedItem = selected;
             combCategory.EndUpdate();
@@ -568,28 +566,6 @@ namespace Depressurizer {
         /// <returns>True if set to Yes, false otherwise.</returns>
         private bool GetSelectedFavorite() {
             return combFavorite.SelectedItem as string == "Yes";
-        }
-
-        /// <summary>
-        /// Gets the selected category in the category combobox. Creates a new one, complete with user prompt and UI update, if necessary.
-        /// </summary>
-        /// <param name="result">The category created</param>
-        /// <returns>True if there was anything selected at all, false otherwise</returns>
-        public bool GetSelectedCategoryFromCombo( out Category result ) {
-            result = null;
-            if( combCategory.SelectedItem is Category ) {
-                result = combCategory.SelectedItem as Category;
-                return true;
-            } else if( combCategory.SelectedItem is string ) {
-                if( (string)combCategory.SelectedItem == COMBO_NEWCAT ) {
-                    result = CreateCategory();
-                    return result != null;
-                } else if( (string)combCategory.SelectedItem == COMBO_NONE ) {
-                    return true;
-                }
-            }
-            return false;
-
         }
 
         /// <summary>
@@ -1047,8 +1023,9 @@ namespace Depressurizer {
 
         private void cmdGameSetCategory_Click( object sender, EventArgs e ) {
             Category c;
-            if( GetSelectedCategoryFromCombo( out c ) ) {
+            if( UIUtil.StringToCategory( combCategory.Text, gameData, out c ) ) {
                 ClearStatus();
+                FillCategoryList();
                 AssignCategoryToSelectedGames( c );
                 FlushStatus();
             }

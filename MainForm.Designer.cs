@@ -483,7 +483,6 @@ namespace Depressurizer {
             // combCategory
             // 
             this.combCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.combCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combCategory.FormattingEnabled = true;
             this.combCategory.Location = new System.Drawing.Point(243, 333);
             this.combCategory.Name = "combCategory";
@@ -616,27 +615,28 @@ namespace Depressurizer {
             this.contextGameCat_None,
             this.contextGameCat_Sep1});
             this.contextGameCat.Name = "contextGameCat";
+            this.contextGameCat.OwnerItem = this.contextGame_SetCat;
             this.contextGameCat.ShowImageMargin = false;
-            this.contextGameCat.Size = new System.Drawing.Size(128, 76);
+            this.contextGameCat.Size = new System.Drawing.Size(126, 54);
             // 
             // contextGameCat_Create
             // 
             this.contextGameCat_Create.Name = "contextGameCat_Create";
-            this.contextGameCat_Create.Size = new System.Drawing.Size(127, 22);
+            this.contextGameCat_Create.Size = new System.Drawing.Size(125, 22);
             this.contextGameCat_Create.Text = "Create New...";
             this.contextGameCat_Create.Click += new System.EventHandler(this.contextGameCat_Create_Click);
             // 
             // contextGameCat_None
             // 
             this.contextGameCat_None.Name = "contextGameCat_None";
-            this.contextGameCat_None.Size = new System.Drawing.Size(127, 22);
+            this.contextGameCat_None.Size = new System.Drawing.Size(125, 22);
             this.contextGameCat_None.Text = "Uncategorized";
             this.contextGameCat_None.Click += new System.EventHandler(this.contextGameCat_Category_Click);
             // 
             // contextGameCat_Sep1
             // 
             this.contextGameCat_Sep1.Name = "contextGameCat_Sep1";
-            this.contextGameCat_Sep1.Size = new System.Drawing.Size(124, 6);
+            this.contextGameCat_Sep1.Size = new System.Drawing.Size(122, 6);
             // 
             // contextGame_SetFav
             // 
