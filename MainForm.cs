@@ -896,8 +896,7 @@ namespace Depressurizer {
 
         private void lstCategories_DragOver( object sender, DragEventArgs e ) {
             if( isDragging ) {
-                int index = lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( e.X, e.Y ) ) );
-                lstCategories.SelectedIndex = index;
+                lstCategories.SelectedIndex = lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( e.X, e.Y ) ) );
             }
         }
 
@@ -989,6 +988,10 @@ namespace Depressurizer {
 
         #endregion
         #region Context menus
+
+        private void contextCat_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
+            contextCat_Delete.Enabled = contextCat_Rename.Enabled = lstCategories.SelectedItems.Count > 0;
+        }
 
         private void contextGame_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
             bool selectedGames = lstGames.SelectedItems.Count > 0;
@@ -1112,6 +1115,15 @@ namespace Depressurizer {
             }
 
             FlushStatus();
+        }
+
+        private void lstCategories_MouseDown( object sender, MouseEventArgs e ) {
+            if( e.Button == System.Windows.Forms.MouseButtons.Right ) {
+                int index = lstCategories.IndexFromPoint( new Point( e.X, e.Y ) );
+                if( index >= 0 )
+                    lstCategories.SelectedIndex = index;
+
+            }
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {

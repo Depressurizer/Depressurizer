@@ -69,6 +69,10 @@ namespace Depressurizer {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.grpCategories = new System.Windows.Forms.GroupBox();
             this.lstCategories = new System.Windows.Forms.ListBox();
+            this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextCat_Add = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCat_Rename = new System.Windows.Forms.ToolStripMenuItem();
             this.tableCatButtons = new System.Windows.Forms.TableLayoutPanel();
             this.cmdCatAdd = new System.Windows.Forms.Button();
             this.cmdCatDelete = new System.Windows.Forms.Button();
@@ -109,6 +113,7 @@ namespace Depressurizer {
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.grpCategories.SuspendLayout();
+            this.contextCat.SuspendLayout();
             this.tableCatButtons.SuspendLayout();
             this.grpGames.SuspendLayout();
             this.contextGame.SuspendLayout();
@@ -347,6 +352,7 @@ namespace Depressurizer {
             this.lstCategories.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstCategories.ContextMenuStrip = this.contextCat;
             this.lstCategories.FormattingEnabled = true;
             this.lstCategories.IntegralHeight = false;
             this.lstCategories.Location = new System.Drawing.Point(6, 20);
@@ -358,6 +364,39 @@ namespace Depressurizer {
             this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
             this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
             this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
+            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
+            // 
+            // contextCat
+            // 
+            this.contextCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextCat_Add,
+            this.contextCat_Rename,
+            this.contextCat_Delete});
+            this.contextCat.Name = "contextCat";
+            this.contextCat.ShowImageMargin = false;
+            this.contextCat.Size = new System.Drawing.Size(153, 92);
+            this.contextCat.Opening += new System.ComponentModel.CancelEventHandler(this.contextCat_Opening);
+            // 
+            // contextCat_Add
+            // 
+            this.contextCat_Add.Name = "contextCat_Add";
+            this.contextCat_Add.Size = new System.Drawing.Size(152, 22);
+            this.contextCat_Add.Text = "Add Category...";
+            this.contextCat_Add.Click += new System.EventHandler(this.cmdCatAdd_Click);
+            // 
+            // contextCat_Delete
+            // 
+            this.contextCat_Delete.Name = "contextCat_Delete";
+            this.contextCat_Delete.Size = new System.Drawing.Size(152, 22);
+            this.contextCat_Delete.Text = "Delete Category";
+            this.contextCat_Delete.Click += new System.EventHandler(this.cmdCatDelete_Click);
+            // 
+            // contextCat_Rename
+            // 
+            this.contextCat_Rename.Name = "contextCat_Rename";
+            this.contextCat_Rename.Size = new System.Drawing.Size(152, 22);
+            this.contextCat_Rename.Text = "Rename Category...";
+            this.contextCat_Rename.Click += new System.EventHandler(this.cmdCatRename_Click);
             // 
             // tableCatButtons
             // 
@@ -718,6 +757,7 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.grpCategories.ResumeLayout(false);
+            this.contextCat.ResumeLayout(false);
             this.tableCatButtons.ResumeLayout(false);
             this.grpGames.ResumeLayout(false);
             this.contextGame.ResumeLayout(false);
@@ -793,6 +833,10 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextGameCat_Create;
         private System.Windows.Forms.ToolStripMenuItem contextGameCat_None;
         private System.Windows.Forms.ToolStripSeparator contextGameCat_Sep1;
+        private System.Windows.Forms.ContextMenuStrip contextCat;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_Add;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_Delete;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_Rename;
     }
 }
 
