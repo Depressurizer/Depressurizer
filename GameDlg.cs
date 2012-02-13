@@ -67,11 +67,7 @@ namespace Depressurizer {
 
         private void cmdOk_Click( object sender, EventArgs e ) {
             Category setCat = null;
-            if( cmbCategory.Text == string.Empty || cmbCategory.Text == UIUtil.CAT_UNC_NAME ) {
-
-            } else if( UIUtil.ValidateCategoryName( cmbCategory.Text ) ) {
-                setCat = Data.GetCategory( cmbCategory.Text );
-            } else {
+            if( !UIUtil.StringToCategory( cmbCategory.Text, Data, out setCat ) ) {
                 return;
             }
 

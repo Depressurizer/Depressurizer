@@ -938,7 +938,7 @@ namespace Depressurizer {
             isDragging = true;
             dragOldCat = lstCategories.SelectedIndex;
             lstGames.DoDragDrop( selectedGames, DragDropEffects.Move );
-            
+
         }
         #endregion
         #region Main menu
@@ -1136,7 +1136,7 @@ namespace Depressurizer {
                     break;
             }
             FlushStatus();
-            
+
         }
 
         private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
@@ -1254,6 +1254,22 @@ namespace Depressurizer {
             } else {
                 return true;
             }
+        }
+
+        public static bool StringToCategory( string name, GameData data, out Category cat ) {
+            cat = null;
+            if( string.IsNullOrWhiteSpace( name ) ) {
+                return true;
+            }
+            if( name == CAT_FAV_NAME || name == CAT_ALL_NAME ) {
+                MessageBox.Show( string.Format( "Category name '{0}' is reserved.", name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                return false;
+            }
+            if( name != CAT_UNC_NAME ) {
+                cat = data.GetCategory( name );
+            }
+            return true;
+
         }
     }
 
