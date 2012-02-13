@@ -41,6 +41,7 @@ namespace Depressurizer {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menu_File = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_NewProfile = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +86,20 @@ namespace Depressurizer {
             this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFavorite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextGame_Add = new System.Windows.Forms.ToolStripMenuItem();
+            this.cntxtGame_Edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGame_Remove = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGame_Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextGame_SetCat = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGameCat = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextGameCat_Create = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGameCat_None = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGameCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextGame_SetFav = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGameFav = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextGameFav_Yes = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGameFav_No = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
@@ -96,6 +111,9 @@ namespace Depressurizer {
             this.grpCategories.SuspendLayout();
             this.tableCatButtons.SuspendLayout();
             this.grpGames.SuspendLayout();
+            this.contextGame.SuspendLayout();
+            this.contextGameCat.SuspendLayout();
+            this.contextGameFav.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -504,6 +522,7 @@ namespace Depressurizer {
             this.colGameID,
             this.colCategory,
             this.colFavorite});
+            this.lstGames.ContextMenuStrip = this.contextGame;
             this.lstGames.FullRowSelect = true;
             this.lstGames.GridLines = true;
             this.lstGames.HideSelection = false;
@@ -542,6 +561,113 @@ namespace Depressurizer {
             // 
             this.colFavorite.Text = "Favorite";
             this.colFavorite.Width = 52;
+            // 
+            // contextGame
+            // 
+            this.contextGame.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextGame_Add,
+            this.cntxtGame_Edit,
+            this.contextGame_Remove,
+            this.contextGame_Sep1,
+            this.contextGame_SetCat,
+            this.contextGame_SetFav});
+            this.contextGame.Name = "contextGame";
+            this.contextGame.ShowImageMargin = false;
+            this.contextGame.Size = new System.Drawing.Size(142, 120);
+            this.contextGame.Opening += new System.ComponentModel.CancelEventHandler(this.contextGame_Opening);
+            // 
+            // contextGame_Add
+            // 
+            this.contextGame_Add.Name = "contextGame_Add";
+            this.contextGame_Add.Size = new System.Drawing.Size(141, 22);
+            this.contextGame_Add.Text = "Add New Game...";
+            this.contextGame_Add.Click += new System.EventHandler(this.cmdGameAdd_Click);
+            // 
+            // cntxtGame_Edit
+            // 
+            this.cntxtGame_Edit.Name = "cntxtGame_Edit";
+            this.cntxtGame_Edit.Size = new System.Drawing.Size(141, 22);
+            this.cntxtGame_Edit.Text = "Edit Game...";
+            this.cntxtGame_Edit.Click += new System.EventHandler(this.cmdGameEdit_Click);
+            // 
+            // contextGame_Remove
+            // 
+            this.contextGame_Remove.Name = "contextGame_Remove";
+            this.contextGame_Remove.Size = new System.Drawing.Size(141, 22);
+            this.contextGame_Remove.Text = "Remove Game";
+            this.contextGame_Remove.Click += new System.EventHandler(this.cmdGameRemove_Click);
+            // 
+            // contextGame_Sep1
+            // 
+            this.contextGame_Sep1.Name = "contextGame_Sep1";
+            this.contextGame_Sep1.Size = new System.Drawing.Size(138, 6);
+            // 
+            // contextGame_SetCat
+            // 
+            this.contextGame_SetCat.DropDown = this.contextGameCat;
+            this.contextGame_SetCat.Name = "contextGame_SetCat";
+            this.contextGame_SetCat.Size = new System.Drawing.Size(141, 22);
+            this.contextGame_SetCat.Text = "Set Category";
+            // 
+            // contextGameCat
+            // 
+            this.contextGameCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextGameCat_Create,
+            this.contextGameCat_None,
+            this.contextGameCat_Sep1});
+            this.contextGameCat.Name = "contextGameCat";
+            this.contextGameCat.ShowImageMargin = false;
+            this.contextGameCat.Size = new System.Drawing.Size(128, 76);
+            // 
+            // contextGameCat_Create
+            // 
+            this.contextGameCat_Create.Name = "contextGameCat_Create";
+            this.contextGameCat_Create.Size = new System.Drawing.Size(127, 22);
+            this.contextGameCat_Create.Text = "Create New...";
+            this.contextGameCat_Create.Click += new System.EventHandler(this.contextGameCat_Create_Click);
+            // 
+            // contextGameCat_None
+            // 
+            this.contextGameCat_None.Name = "contextGameCat_None";
+            this.contextGameCat_None.Size = new System.Drawing.Size(127, 22);
+            this.contextGameCat_None.Text = "Uncategorized";
+            this.contextGameCat_None.Click += new System.EventHandler(this.contextGameCat_Category_Click);
+            // 
+            // contextGameCat_Sep1
+            // 
+            this.contextGameCat_Sep1.Name = "contextGameCat_Sep1";
+            this.contextGameCat_Sep1.Size = new System.Drawing.Size(124, 6);
+            // 
+            // contextGame_SetFav
+            // 
+            this.contextGame_SetFav.DropDown = this.contextGameFav;
+            this.contextGame_SetFav.Name = "contextGame_SetFav";
+            this.contextGame_SetFav.Size = new System.Drawing.Size(141, 22);
+            this.contextGame_SetFav.Text = "Set Favorite";
+            // 
+            // contextGameFav
+            // 
+            this.contextGameFav.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextGameFav_Yes,
+            this.contextGameFav_No});
+            this.contextGameFav.Name = "contextGameFav";
+            this.contextGameFav.OwnerItem = this.contextGame_SetFav;
+            this.contextGameFav.ShowImageMargin = false;
+            this.contextGameFav.Size = new System.Drawing.Size(68, 48);
+            // 
+            // contextGameFav_Yes
+            // 
+            this.contextGameFav_Yes.Name = "contextGameFav_Yes";
+            this.contextGameFav_Yes.Size = new System.Drawing.Size(67, 22);
+            this.contextGameFav_Yes.Text = "Yes";
+            this.contextGameFav_Yes.Click += new System.EventHandler(this.cntxtGame_SetFav_Yes_Click);
+            // 
+            // contextGameFav_No
+            // 
+            this.contextGameFav_No.Name = "contextGameFav_No";
+            this.contextGameFav_No.Size = new System.Drawing.Size(67, 22);
+            this.contextGameFav_No.Text = "No";
+            this.contextGameFav_No.Click += new System.EventHandler(this.cntxtGame_SetFav_No_Click);
             // 
             // statusStrip
             // 
@@ -583,6 +709,7 @@ namespace Depressurizer {
             this.ShowIcon = false;
             this.Text = "Depressurizer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -593,6 +720,9 @@ namespace Depressurizer {
             this.grpCategories.ResumeLayout(false);
             this.tableCatButtons.ResumeLayout(false);
             this.grpGames.ResumeLayout(false);
+            this.contextGame.ResumeLayout(false);
+            this.contextGameCat.ResumeLayout(false);
+            this.contextGameFav.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -649,6 +779,20 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripSeparator menu_Profile_Sep1;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_Export;
         private System.Windows.Forms.ToolStripSeparator menu_Profile_Sep2;
+        private System.Windows.Forms.ContextMenuStrip contextGame;
+        private System.Windows.Forms.ToolStripMenuItem contextGame_Add;
+        private System.Windows.Forms.ToolStripMenuItem cntxtGame_Edit;
+        private System.Windows.Forms.ToolStripMenuItem contextGame_Remove;
+        private System.Windows.Forms.ToolStripSeparator contextGame_Sep1;
+        private System.Windows.Forms.ToolStripMenuItem contextGame_SetCat;
+        private System.Windows.Forms.ToolStripMenuItem contextGame_SetFav;
+        private System.Windows.Forms.ContextMenuStrip contextGameFav;
+        private System.Windows.Forms.ToolStripMenuItem contextGameFav_Yes;
+        private System.Windows.Forms.ToolStripMenuItem contextGameFav_No;
+        private System.Windows.Forms.ContextMenuStrip contextGameCat;
+        private System.Windows.Forms.ToolStripMenuItem contextGameCat_Create;
+        private System.Windows.Forms.ToolStripMenuItem contextGameCat_None;
+        private System.Windows.Forms.ToolStripSeparator contextGameCat_Sep1;
     }
 }
 

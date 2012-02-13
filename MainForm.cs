@@ -255,6 +255,15 @@ namespace Depressurizer {
             combCategory.Items.AddRange( catList );
             combCategory.SelectedItem = selected;
             combCategory.EndUpdate();
+
+            while( contextGame_SetCat.DropDownItems.Count > 3 ) {
+                contextGame_SetCat.DropDownItems.RemoveAt( 3 );
+            }
+            foreach( Category c in gameData.Categories ) {
+                ToolStripItem item = contextGame_SetCat.DropDownItems.Add( c.Name );
+                item.Tag = c;
+                item.Click += contextGameCat_Category_Click;
+            }
         }
 
         /// <summary>
@@ -1127,7 +1136,7 @@ namespace Depressurizer {
                     break;
             }
             FlushStatus();
-            UpdateButtonEnabledStates();
+            
         }
 
         private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
@@ -1177,6 +1186,49 @@ namespace Depressurizer {
             if( isDragging ) {
                 int index = lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( e.X, e.Y ) ) );
                 lstCategories.SelectedIndex = index;
+            }
+        }
+
+        private void cntxtGame_SetFav_Yes_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AssignFavoriteToSelectedGames( true );
+            FlushStatus();
+        }
+
+        private void cntxtGame_SetFav_No_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AssignFavoriteToSelectedGames( false );
+            FlushStatus();
+        }
+
+        private void contextGame_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
+            bool selectedGames = lstGames.SelectedItems.Count > 0;
+            cntxtGame_Edit.Enabled = selectedGames;
+            contextGame_Remove.Enabled = selectedGames;
+            contextGame_SetCat.Enabled = selectedGames;
+            contextGame_SetFav.Enabled = selectedGames;
+        }
+
+        private void FormMain_Load( object sender, EventArgs e ) {
+            UpdateButtonEnabledStates();
+        }
+
+        private void contextGameCat_Category_Click( object sender, EventArgs e ) {
+            ToolStripItem menuItem = sender as ToolStripItem;
+            if( menuItem != null ) {
+                ClearStatus();
+                Category c = menuItem.Tag as Category;
+                AssignCategoryToSelectedGames( c );
+                FlushStatus();
+            }
+        }
+
+        private void contextGameCat_Create_Click( object sender, EventArgs e ) {
+            Category c = CreateCategory();
+            if( c != null ) {
+                ClearStatus();
+                AssignCategoryToSelectedGames( c );
+                FlushStatus();
             }
         }
     }
