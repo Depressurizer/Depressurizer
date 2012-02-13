@@ -48,16 +48,21 @@ namespace Depressurizer {
         DepSettings settings = DepSettings.Instance();
 
         StringBuilder statusBuilder = new StringBuilder();
-        #endregion
 
+        // Allow visual feedback when dragging over the cat list
+        bool isDragging;
+        int dragOldCat;
+        #endregion
         #region Properties
+        /// <summary>
+        /// Just checks to see if there is currently a profile loaded
+        /// </summary>
         public bool ProfileLoaded {
             get {
                 return currentProfile != null;
             }
         }
         #endregion
-
         public FormMain() {
             gameData = new GameData();
             InitializeComponent();
@@ -65,8 +70,8 @@ namespace Depressurizer {
             UpdateGameSorter();
             FillCategoryList();
         }
-
         #region Manual Operations
+
         /// <summary>
         /// Loads a Steam configuration file and adds its data to the currently loaded game list. Asks the user to select a file, handles the load, and refreshes the UI.
         /// </summary>
@@ -157,484 +162,14 @@ namespace Depressurizer {
                 Cursor = Cursors.Default;
             }
         }
+
         #endregion
-
-        #region UI Updaters
-        /// <summary>
-        /// Adds a string to the status builder
-        /// </summary>
-        /// <param name="s"></param>
-        public void AddStatus( string s ) {
-            statusBuilder.Append( s );
-            statusBuilder.Append( ' ' );
-        }
-
-        /// <summary>
-        /// Empties the status builder
-        /// </summary>
-        public void ClearStatus() {
-            statusBuilder.Clear();
-        }
-
-        /// <summary>
-        /// Sets the status text to the builder text, and clear the builder text.
-        /// </summary>
-        public void FlushStatus() {
-            statusMsg.Text = statusBuilder.ToString();
-            statusBuilder.Clear();
-        }
-
-        /// <summary>
-        /// Completely re-populates the game list based on the current category selection.
-        /// </summary>
-        private void FillGameList() {
-            lstGames.BeginUpdate();
-            lstGames.Items.Clear();
-            if( lstCategories.SelectedItems.Count > 0 ) {
-                object catObj = lstCategories.SelectedItem;
-                bool showAll = false;
-                bool showFav = false;
-                if( catObj is string ) {
-                    if( (string)catObj == UIUtil.CAT_ALL_NAME ) {
-                        showAll = true;
-                    } else if( (string)catObj == UIUtil.CAT_FAV_NAME ) {
-                        showFav = true;
-                    }
-                }
-                Category cat = lstCategories.SelectedItem as Category;
-
-                foreach( Game g in gameData.Games.Values ) {
-                    if( showAll || ( showFav && g.Favorite ) || ( !showFav && g.Category == cat ) ) {
-                        AddGameToList( g );
-                    }
-                }
-                lstGames.Sort();
-            }
-            lstGames.EndUpdate();
-            UpdateSelectedStatusText();
-        }
-
-        /// <summary>
-        /// Adds an entry to the game list representing the given game.
-        /// </summary>
-        /// <param name="g">The game the new entry should represent.</param>
-        private void AddGameToList( Game g ) {
-            string catName = ( g.Category == null ) ? UIUtil.CAT_UNC_NAME : g.Category.Name;
-            ListViewItem item = new ListViewItem( new string[] { g.Name, g.Id.ToString(), catName, g.Favorite ? "Y" : "N" } );
-            item.Tag = g;
-            lstGames.Items.Add( item );
-        }
-
-        /// <summary>
-        /// Completely repopulates the category list and combobox. Maintains selection on both.
-        /// </summary>
-        private void FillCategoryList() {
-            gameData.Categories.Sort();
-            object[] catList = gameData.Categories.ToArray();
-
-            lstCategories.BeginUpdate();
-            object selected = lstCategories.SelectedItem;
-            lstCategories.Items.Clear();
-            lstCategories.Items.Add( UIUtil.CAT_ALL_NAME );
-            lstCategories.Items.Add( UIUtil.CAT_FAV_NAME );
-            lstCategories.Items.Add( UIUtil.CAT_UNC_NAME );
-            lstCategories.Items.AddRange( catList );
-            if( selected == null || !lstCategories.Items.Contains( selected ) ) {
-                lstCategories.SelectedIndex = 0;
-            } else {
-                lstCategories.SelectedItem = selected;
-            }
-            lstCategories.EndUpdate();
-
-            combCategory.BeginUpdate();
-            selected = combCategory.SelectedItem;
-            combCategory.Items.Clear();
-            combCategory.Items.Add( UIUtil.CAT_UNC_NAME );
-            combCategory.Items.AddRange( catList );
-            combCategory.SelectedItem = selected;
-            combCategory.EndUpdate();
-
-            while( contextGame_SetCat.DropDownItems.Count > 3 ) {
-                contextGame_SetCat.DropDownItems.RemoveAt( 3 );
-            }
-            foreach( Category c in gameData.Categories ) {
-                ToolStripItem item = contextGame_SetCat.DropDownItems.Add( c.Name );
-                item.Tag = c;
-                item.Click += contextGameCat_Category_Click;
-            }
-        }
-
-        /// <summary>
-        /// Updates the game list sorter based on the current values of the sort settings fields.
-        /// </summary>
-        private void UpdateGameSorter() {
-            lstGames.ListViewItemSorter = new GameListViewItemComparer( sortColumn, sortDirection, sortColumn == 1 );
-        }
-
-        /// <summary>
-        /// Updates the entry for the game in the given position in the list.
-        /// </summary>
-        /// <param name="index">List index of the game to update</param>
-        /// <returns>True if game should be in the list, false otherwise.</returns>
-        bool UpdateGame( int index ) {
-            ListViewItem item = lstGames.Items[index];
-            Game g = (Game)item.Tag;
-            if( ShouldDisplayGame( g ) ) {
-                item.SubItems[0].Text = g.Name;
-                item.SubItems[2].Text = g.Category == null ? UIUtil.CAT_UNC_NAME : g.Category.Name;
-                item.SubItems[3].Text = g.Favorite ? "Y" : "N";
-                return true;
-            } else {
-                lstGames.Items.RemoveAt( index );
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Updates list item for every game on the list, removing games that no longer need to be there, but not adding new ones.
-        /// </summary>
-        void UpdateGameList() {
-            int i = 0;
-            lstGames.BeginUpdate();
-            while( i < lstGames.Items.Count ) {
-                if( UpdateGame( i ) ) i++;
-            }
-            lstGames.EndUpdate();
-            UpdateSelectedStatusText();
-        }
-
-        /// <summary>
-        /// Updates the list item for every selected item on the list.
-        /// </summary>
-        void UpdateGameListSelected() {
-            int i = 0;
-            lstGames.BeginUpdate();
-            while( i < lstGames.SelectedIndices.Count ) {
-                if( UpdateGame( lstGames.SelectedIndices[i] ) ) i++;
-            }
-            lstGames.EndUpdate();
-            UpdateSelectedStatusText();
-        }
-
-        /// <summary>
-        /// Updates the text displaying the number of items in the game list
-        /// </summary>
-        private void UpdateSelectedStatusText() {
-            statusSelection.Text = string.Format( "{0} selected / {1} displayed", lstGames.SelectedItems.Count, lstGames.Items.Count );
-        }
-
-        /// <summary>
-        /// Runs after the loaded profile might change
-        /// </summary>
-        void UpdateForProfileChange() {
-            bool enable = ProfileLoaded;
-            menu_File_SaveProfile.Enabled = enable;
-            menu_File_SaveProfileAs.Enabled = enable;
-
-            menu_Profile_Download.Enabled = enable;
-            menu_Profile_Export.Enabled = enable;
-            menu_Profile_Import.Enabled = enable;
-            menu_Profile_Edit.Enabled = enable;
-
-            UpdateTitle();
-        }
-
-        /// <summary>
-        /// Updates the window title.
-        /// </summary>
-        void UpdateTitle() {
-            StringBuilder sb = new StringBuilder( "Depressurizer" );
-            if( ProfileLoaded ) {
-                sb.Append( " - " );
-                sb.Append( Path.GetFileName( currentProfile.FilePath ) );
-            }
-            if( unsavedChanges ) {
-                sb.Append( " *" );
-            }
-            this.Text = sb.ToString();
-        }
-        #endregion
-
-        #region Data modifiers
-        /// <summary>
-        /// Creates a new category, first prompting the user for the name to use. If the name is not valid or in use, displays a notification.
-        /// Also updates the UI, and selects the new category in the category combobox.
-        /// </summary>
-        /// <returns>The category that was added, or null if the operation was canceled or failed.</returns>
-        public Category CreateCategory() {
-            GetStringDlg dlg = new GetStringDlg( string.Empty, "Create category", "Enter new category name:", "Create" );
-            if( dlg.ShowDialog() == DialogResult.OK && UIUtil.ValidateCategoryName( dlg.Value ) ) {
-                Category newCat = gameData.AddCategory( dlg.Value );
-                if( newCat != null ) {
-                    FillCategoryList();
-                    combCategory.SelectedItem = newCat;
-                    MakeChange( true );
-                    AddStatus( string.Format( "Category '{0}' added.", newCat.Name ) );
-                    return newCat;
-                } else {
-                    MessageBox.Show( String.Format( "Could not add category '{0}'", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Deletes the given category and updates the UI. Prompts user for confirmation. Will completely rebuild the gamelist.
-        /// </summary>
-        /// <param name="c">Category to delete.</param>
-        /// <returns>True if deletion occurred, false otherwise.</returns>
-        public bool DeleteCategory() {
-            if( lstCategories.SelectedItems.Count > 0 ) {
-                Category c = lstCategories.SelectedItem as Category;
-                if( c != null ) {
-                    DialogResult res = MessageBox.Show( string.Format( "Delete category '{0}'?", c.Name ), "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
-                    if( res == System.Windows.Forms.DialogResult.Yes ) {
-                        if( gameData.RemoveCategory( c ) ) {
-                            FillCategoryList();
-                            FillGameList();
-                            MakeChange( true );
-                            AddStatus( string.Format( "Category '{0}' deleted.", c.Name ) );
-                            return true;
-                        } else {
-                            MessageBox.Show( string.Format( "Could not delete category '{0}'.", c.Name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Renames the given category. Prompts user for a new name. Updates UI. Will display an error if the rename fails.
-        /// </summary>
-        /// <param name="c">Category to rename</param>
-        /// <returns>True if category was renamed, false otherwise.</returns>
-        public bool RenameCategory() {
-            if( lstCategories.SelectedItems.Count > 0 ) {
-                Category c = lstCategories.SelectedItem as Category;
-                if( c != null ) {
-                    GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( "Rename category: {0}", c.Name ), "Enter new name:", "Rename" );
-                    if( dlg.ShowDialog() == DialogResult.OK ) {
-                        return RenameCategoryHelper( c, dlg.Value );
-                    }
-                }
-            }
-            return false;
-        }
-
-        public bool RenameCategoryHelper( Category c, string newName ) {
-            if( newName == c.Name ) return true;
-            if( UIUtil.ValidateCategoryName( newName ) && gameData.RenameCategory( c, newName ) ) {
-                FillCategoryList();
-                UpdateGameList();
-                MakeChange( true );
-                AddStatus( string.Format( "Category renamed.", c.Name ) );
-                return true;
-            } else {
-                MessageBox.Show( string.Format( "Name '{0}' is already in use.", newName ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                return false;
-            }
-        }
-
-        private void AddGame() {
-            GameDlg dlg = new GameDlg( gameData, null );
-            if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
-                if( ProfileLoaded ) {
-                    if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
-                        AddStatus( string.Format( "Unignored game {0}.", dlg.Game.Id ) );
-                    }
-                }
-                FillCategoryList();
-                FillGameList();
-                MakeChange( true );
-                AddStatus( "Added game." );
-            }
-        }
-
-        private void EditGame() {
-            if( lstGames.SelectedIndices.Count > 0 ) {
-                int index = lstGames.SelectedIndices[0];
-                Game g = lstGames.Items[index].Tag as Game;
-                GameDlg dlg = new GameDlg( gameData, g );
-                if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
-                    FillCategoryList();
-                    UpdateGame( index );
-                    MakeChange( true );
-                    AddStatus( "Edited game." );
-                }
-            }
-        }
-
-        private void RemoveGame() {
-            int selectCount = lstGames.SelectedIndices.Count;
-            if( selectCount > 0 ) {
-                if( MessageBox.Show( string.Format( "Remove {0} game{1}?", selectCount, ( selectCount == 1 ) ? "" : "s" ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question )
-                    == DialogResult.Yes ) {
-                    int ignored = 0;
-                    int removed = 0;
-                    foreach( ListViewItem item in lstGames.SelectedItems ) {
-                        Game g = (Game)item.Tag;
-                        if( gameData.Games.Remove( g.Id ) ) {
-                            removed++;
-                        }
-                        if( ProfileLoaded && currentProfile.AutoIgnore ) {
-                            if( currentProfile.IgnoreList.Add( g.Id ) ) {
-                                ignored++;
-                            }
-                        }
-                    }
-                    if( removed > 0 ) {
-                        AddStatus( string.Format( "Removed {0} game{1}.", removed, ( removed == 1 ) ? "" : "s" ) );
-                        MakeChange( true );
-                    }
-                    if( ignored > 0 ) {
-                        AddStatus( string.Format( "Ignored {0} game{1}.", ignored, ( ignored == 1 ) ? "" : "s" ) );
-                        MakeChange( true );
-                    }
-                    UpdateGameListSelected();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Assigns the given category to all selected items in the game list.
-        /// </summary>
-        /// <param name="cat">Category to assign</param>
-        void AssignCategoryToSelectedGames( Category cat ) {
-            if( lstGames.SelectedItems.Count > 0 ) {
-                foreach( ListViewItem item in lstGames.SelectedItems ) {
-                    ( item.Tag as Game ).Category = cat;
-                }
-                UpdateGameListSelected();
-                MakeChange( true );
-            }
-        }
-
-        /// <summary>
-        /// Assigns the given favorite state to all selected items in the game list.
-        /// </summary>
-        /// <param name="fav">True to turn fav on, false to turn it off.</param>
-        void AssignFavoriteToSelectedGames( bool fav ) {
-            if( lstGames.SelectedItems.Count > 0 ) {
-                foreach( ListViewItem item in lstGames.SelectedItems ) {
-                    ( item.Tag as Game ).Favorite = fav;
-                }
-                UpdateGameListSelected();
-                MakeChange( true );
-            }
-        }
-
-        /// <summary>
-        /// Unloads the current profile or game list, making sure the user gets the option to save any changes.
-        /// </summary>
-        /// <param name="updateUI">If true, will redraw the UI. Otherwise, will leave it up to the caller to do so.</param>
-        /// <returns>True if there is now no loaded profile, false otherwise.</returns>
-        void Unload( bool updateUI = true ) {
-            if( !CheckForUnsaved() ) {
-                return;
-            }
-
-            AddStatus( "Cleared data." );
-            currentProfile = null;
-            gameData = new GameData();
-            MakeChange( false );
-            UpdateForProfileChange();
-            if( updateUI ) {
-                FillCategoryList();
-                FillGameList();
-            }
-        }
-        #endregion
-
-        #region Utility
-        /// <summary>
-        /// Sets the unsaved changes flag to the given value and takes the requisite UI updating action
-        /// </summary>
-        /// <param name="changes"></param>
-        public void MakeChange( bool changes ) {
-            if( unsavedChanges != changes ) {
-                unsavedChanges = changes;
-                UpdateTitle();
-            } else {
-                unsavedChanges = changes;
-            }
-        }
-
-        /// <summary>
-        /// Gets the selected option on the favorite combo box.
-        /// </summary>
-        /// <returns>True if set to Yes, false otherwise.</returns>
-        private bool GetSelectedFavorite() {
-            return combFavorite.SelectedItem as string == "Yes";
-        }
-
-        /// <summary>
-        /// Checks to see if a game should currently be displayed, based on the state of the category list.
-        /// </summary>
-        /// <param name="g">Game to check</param>
-        /// <returns>True if it should be displayed, false otherwise</returns>
-        private bool ShouldDisplayGame( Game g ) {
-            if( !gameData.Games.ContainsKey( g.Id ) ) {
-                return false;
-            }
-            if( lstCategories.SelectedItem == null ) {
-                return false;
-            }
-            if( lstCategories.SelectedItem is string ) {
-                if( (string)lstCategories.SelectedItem == UIUtil.CAT_ALL_NAME ) {
-                    return true;
-                }
-                if( (string)lstCategories.SelectedItem == UIUtil.CAT_FAV_NAME ) {
-                    return g.Favorite;
-                }
-                if( (string)lstCategories.SelectedItem == UIUtil.CAT_UNC_NAME ) {
-                    return g.Category == null;
-                }
-            } else if( lstCategories.SelectedItem is Category ) {
-                return g.Category == (Category)lstCategories.SelectedItem;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// If there are any unsaved changes, asks the user if they want to save. Also gives the user the option to cancel the calling action.
-        /// </summary>
-        /// <returns>True if the action should proceed, false otherwise.</returns>
-        private bool CheckForUnsaved() {
-            if( !unsavedChanges ) {
-                return true;
-            }
-
-            DialogResult res = MessageBox.Show( "Unsaved changes will be lost. Save first?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning );
-            if( res == System.Windows.Forms.DialogResult.No ) {
-                // Don't save, just continue
-                return true;
-            }
-            if( res == System.Windows.Forms.DialogResult.Cancel ) {
-                // Don't save, don't continue
-                return false;
-            }
-            if( ProfileLoaded ) {
-                try {
-                    SaveProfile();
-                    return true;
-                } catch( ApplicationException e ) {
-                    MessageBox.Show( "Saving profile data failed: " + e.Message, "Error saving file.", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                    return false;
-                }
-
-            } else {
-                return ManualExport();
-            }
-        }
-        #endregion
-
         #region Profile Management
 
         /// <summary>
         /// Prompts user to create a new profile.
         /// </summary>
-        private void CreateNewProfile() {
+        void CreateProfile() {
             ProfileDlg dlg = new ProfileDlg();
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
@@ -659,7 +194,7 @@ namespace Depressurizer {
                 FillGameList();
                 Cursor = Cursors.Default;
             }
-            UpdateForProfileChange();
+            UpdateEnableStatesForProfileChange();
         }
 
         /// <summary>
@@ -694,7 +229,7 @@ namespace Depressurizer {
                 }
             } else {
                 if( MessageBox.Show( "No profile loaded. Create one now?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) == DialogResult.Yes ) {
-                    CreateNewProfile();
+                    CreateProfile();
                 }
             }
         }
@@ -744,7 +279,7 @@ namespace Depressurizer {
 
             FillCategoryList();
             FillGameList();
-            UpdateForProfileChange();
+            UpdateEnableStatesForProfileChange();
         }
 
         /// <summary>
@@ -856,8 +391,420 @@ namespace Depressurizer {
         }
 
         #endregion
+        #region Data modifiers
 
-        private void UpdateButtonEnabledStates() {
+        /// <summary>
+        /// Creates a new category, first prompting the user for the name to use. If the name is not valid or in use, displays a notification.
+        /// Also updates the UI, and selects the new category in the category combobox.
+        /// </summary>
+        /// <returns>The category that was added, or null if the operation was canceled or failed.</returns>
+        Category CreateCategory() {
+            GetStringDlg dlg = new GetStringDlg( string.Empty, "Create category", "Enter new category name:", "Create" );
+            if( dlg.ShowDialog() == DialogResult.OK && CatUtil.ValidateCategoryName( dlg.Value ) ) {
+                Category newCat = gameData.AddCategory( dlg.Value );
+                if( newCat != null ) {
+                    FillCategoryList();
+                    combCategory.SelectedItem = newCat;
+                    MakeChange( true );
+                    AddStatus( string.Format( "Category '{0}' added.", newCat.Name ) );
+                    return newCat;
+                } else {
+                    MessageBox.Show( String.Format( "Could not add category '{0}'", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Deletes the given category and updates the UI. Prompts user for confirmation. Will completely rebuild the gamelist.
+        /// </summary>
+        /// <param name="c">Category to delete.</param>
+        /// <returns>True if deletion occurred, false otherwise.</returns>
+        bool DeleteCategory() {
+            if( lstCategories.SelectedItems.Count > 0 ) {
+                Category c = lstCategories.SelectedItem as Category;
+                if( c != null ) {
+                    DialogResult res = MessageBox.Show( string.Format( "Delete category '{0}'?", c.Name ), "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
+                    if( res == System.Windows.Forms.DialogResult.Yes ) {
+                        if( gameData.RemoveCategory( c ) ) {
+                            FillCategoryList();
+                            FillGameList();
+                            MakeChange( true );
+                            AddStatus( string.Format( "Category '{0}' deleted.", c.Name ) );
+                            return true;
+                        } else {
+                            MessageBox.Show( string.Format( "Could not delete category '{0}'.", c.Name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Renames the given category. Prompts user for a new name. Updates UI. Will display an error if the rename fails.
+        /// </summary>
+        /// <param name="c">Category to rename</param>
+        /// <returns>True if category was renamed, false otherwise.</returns>
+        bool RenameCategory() {
+            if( lstCategories.SelectedItems.Count > 0 ) {
+                Category c = lstCategories.SelectedItem as Category;
+                if( c != null ) {
+                    GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( "Rename category: {0}", c.Name ), "Enter new name:", "Rename" );
+                    if( dlg.ShowDialog() == DialogResult.OK ) {
+                        return RenameCategoryHelper( c, dlg.Value );
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Renames a category as specified, displaying an error if the operation fails.
+        /// </summary>
+        /// <param name="c">Category to rename</param>
+        /// <param name="newName">Name to change to</param>
+        /// <returns>True if successful, false otherwise.</returns>
+        bool RenameCategoryHelper( Category c, string newName ) {
+            if( newName == c.Name ) return true;
+            if( CatUtil.ValidateCategoryName( newName ) && gameData.RenameCategory( c, newName ) ) {
+                FillCategoryList();
+                UpdateGameList();
+                MakeChange( true );
+                AddStatus( string.Format( "Category renamed.", c.Name ) );
+                return true;
+            } else {
+                MessageBox.Show( string.Format( "Name '{0}' is already in use.", newName ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Adds a new game. Displays the game dialog to the user.
+        /// </summary>
+        void AddGame() {
+            GameDlg dlg = new GameDlg( gameData, null );
+            if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
+                if( ProfileLoaded ) {
+                    if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
+                        AddStatus( string.Format( "Unignored game {0}.", dlg.Game.Id ) );
+                    }
+                }
+                FillCategoryList();
+                FillGameList();
+                MakeChange( true );
+                AddStatus( "Added game." );
+            }
+        }
+
+        /// <summary>
+        /// Edits the first selected game. Displays game dialog.
+        /// </summary>
+        void EditGame() {
+            if( lstGames.SelectedIndices.Count > 0 ) {
+                int index = lstGames.SelectedIndices[0];
+                Game g = lstGames.Items[index].Tag as Game;
+                GameDlg dlg = new GameDlg( gameData, g );
+                if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
+                    FillCategoryList();
+                    UpdateGame( index );
+                    MakeChange( true );
+                    AddStatus( "Edited game." );
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes all selected games. Prompts for confirmation.
+        /// </summary>
+        void RemoveGames() {
+            int selectCount = lstGames.SelectedIndices.Count;
+            if( selectCount > 0 ) {
+                if( MessageBox.Show( string.Format( "Remove {0} game{1}?", selectCount, ( selectCount == 1 ) ? "" : "s" ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question )
+                    == DialogResult.Yes ) {
+                    int ignored = 0;
+                    int removed = 0;
+                    foreach( ListViewItem item in lstGames.SelectedItems ) {
+                        Game g = (Game)item.Tag;
+                        if( gameData.Games.Remove( g.Id ) ) {
+                            removed++;
+                        }
+                        if( ProfileLoaded && currentProfile.AutoIgnore ) {
+                            if( currentProfile.IgnoreList.Add( g.Id ) ) {
+                                ignored++;
+                            }
+                        }
+                    }
+                    if( removed > 0 ) {
+                        AddStatus( string.Format( "Removed {0} game{1}.", removed, ( removed == 1 ) ? "" : "s" ) );
+                        MakeChange( true );
+                    }
+                    if( ignored > 0 ) {
+                        AddStatus( string.Format( "Ignored {0} game{1}.", ignored, ( ignored == 1 ) ? "" : "s" ) );
+                        MakeChange( true );
+                    }
+                    UpdateGameListSelected();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Assigns the given category to all selected items in the game list.
+        /// </summary>
+        /// <param name="cat">Category to assign</param>
+        void AssignCategoryToSelectedGames( Category cat ) {
+            if( lstGames.SelectedItems.Count > 0 ) {
+                foreach( ListViewItem item in lstGames.SelectedItems ) {
+                    ( item.Tag as Game ).Category = cat;
+                }
+                UpdateGameListSelected();
+                MakeChange( true );
+            }
+        }
+
+        /// <summary>
+        /// Assigns the given favorite state to all selected items in the game list.
+        /// </summary>
+        /// <param name="fav">True to turn fav on, false to turn it off.</param>
+        void AssignFavoriteToSelectedGames( bool fav ) {
+            if( lstGames.SelectedItems.Count > 0 ) {
+                foreach( ListViewItem item in lstGames.SelectedItems ) {
+                    ( item.Tag as Game ).Favorite = fav;
+                }
+                UpdateGameListSelected();
+                MakeChange( true );
+            }
+        }
+
+        /// <summary>
+        /// Unloads the current profile or game list, making sure the user gets the option to save any changes.
+        /// </summary>
+        /// <param name="updateUI">If true, will redraw the UI. Otherwise, will leave it up to the caller to do so.</param>
+        /// <returns>True if there is now no loaded profile, false otherwise.</returns>
+        void Unload( bool updateUI = true ) {
+            if( !CheckForUnsaved() ) {
+                return;
+            }
+
+            AddStatus( "Cleared data." );
+            currentProfile = null;
+            gameData = new GameData();
+            MakeChange( false );
+            UpdateEnableStatesForProfileChange();
+            if( updateUI ) {
+                FillCategoryList();
+                FillGameList();
+            }
+        }
+
+        #endregion
+        #region UI Updaters
+        #region Status and text updaters
+        
+        /// <summary>
+        /// Adds a string to the status builder
+        /// </summary>
+        /// <param name="s"></param>
+        public void AddStatus( string s ) {
+            statusBuilder.Append( s );
+            statusBuilder.Append( ' ' );
+        }
+
+        /// <summary>
+        /// Empties the status builder
+        /// </summary>
+        public void ClearStatus() {
+            statusBuilder.Clear();
+        }
+
+        /// <summary>
+        /// Sets the status text to the builder text, and clear the builder text.
+        /// </summary>
+        public void FlushStatus() {
+            statusMsg.Text = statusBuilder.ToString();
+            statusBuilder.Clear();
+        }
+
+        /// <summary>
+        /// Updates the text displaying the number of items in the game list
+        /// </summary>
+        private void UpdateSelectedStatusText() {
+            statusSelection.Text = string.Format( "{0} selected / {1} displayed", lstGames.SelectedItems.Count, lstGames.Items.Count );
+        }
+
+        /// <summary>
+        /// Updates the window title.
+        /// </summary>
+        void UpdateTitle() {
+            StringBuilder sb = new StringBuilder( "Depressurizer" );
+            if( ProfileLoaded ) {
+                sb.Append( " - " );
+                sb.Append( Path.GetFileName( currentProfile.FilePath ) );
+            }
+            if( unsavedChanges ) {
+                sb.Append( " *" );
+            }
+            this.Text = sb.ToString();
+        }
+
+        #endregion
+        #region List updaters
+
+        /// <summary>
+        /// Completely re-populates the game list based on the current category selection.
+        /// </summary>
+        private void FillGameList() {
+            lstGames.BeginUpdate();
+            lstGames.Items.Clear();
+            if( lstCategories.SelectedItems.Count > 0 ) {
+                object catObj = lstCategories.SelectedItem;
+                bool showAll = false;
+                bool showFav = false;
+                if( catObj is string ) {
+                    if( (string)catObj == CatUtil.CAT_ALL_NAME ) {
+                        showAll = true;
+                    } else if( (string)catObj == CatUtil.CAT_FAV_NAME ) {
+                        showFav = true;
+                    }
+                }
+                Category cat = lstCategories.SelectedItem as Category;
+
+                foreach( Game g in gameData.Games.Values ) {
+                    if( showAll || ( showFav && g.Favorite ) || ( !showFav && g.Category == cat ) ) {
+                        AddGameToList( g );
+                    }
+                }
+                lstGames.Sort();
+            }
+            lstGames.EndUpdate();
+            UpdateSelectedStatusText();
+        }
+
+        /// <summary>
+        /// Adds an entry to the game list representing the given game.
+        /// </summary>
+        /// <param name="g">The game the new entry should represent.</param>
+        private void AddGameToList( Game g ) {
+            string catName = ( g.Category == null ) ? CatUtil.CAT_UNC_NAME : g.Category.Name;
+            ListViewItem item = new ListViewItem( new string[] { g.Name, g.Id.ToString(), catName, g.Favorite ? "Y" : "N" } );
+            item.Tag = g;
+            lstGames.Items.Add( item );
+        }
+
+        /// <summary>
+        /// Completely repopulates the category list and combobox. Maintains selection on both.
+        /// </summary>
+        private void FillCategoryList() {
+            gameData.Categories.Sort();
+            object[] catList = gameData.Categories.ToArray();
+
+            lstCategories.BeginUpdate();
+            object selected = lstCategories.SelectedItem;
+            lstCategories.Items.Clear();
+            lstCategories.Items.Add( CatUtil.CAT_ALL_NAME );
+            lstCategories.Items.Add( CatUtil.CAT_FAV_NAME );
+            lstCategories.Items.Add( CatUtil.CAT_UNC_NAME );
+            lstCategories.Items.AddRange( catList );
+            if( selected == null || !lstCategories.Items.Contains( selected ) ) {
+                lstCategories.SelectedIndex = 0;
+            } else {
+                lstCategories.SelectedItem = selected;
+            }
+            lstCategories.EndUpdate();
+
+            combCategory.BeginUpdate();
+            selected = combCategory.SelectedItem;
+            combCategory.Items.Clear();
+            combCategory.Items.Add( CatUtil.CAT_UNC_NAME );
+            combCategory.Items.AddRange( catList );
+            combCategory.SelectedItem = selected;
+            combCategory.EndUpdate();
+
+            while( contextGame_SetCat.DropDownItems.Count > 3 ) {
+                contextGame_SetCat.DropDownItems.RemoveAt( 3 );
+            }
+            foreach( Category c in gameData.Categories ) {
+                ToolStripItem item = contextGame_SetCat.DropDownItems.Add( c.Name );
+                item.Tag = c;
+                item.Click += contextGameCat_Category_Click;
+            }
+        }
+
+        /// <summary>
+        /// Updates the game list sorter based on the current values of the sort settings fields.
+        /// </summary>
+        private void UpdateGameSorter() {
+            lstGames.ListViewItemSorter = new GameListViewItemComparer( sortColumn, sortDirection, sortColumn == 1 );
+        }
+
+        /// <summary>
+        /// Updates the entry for the game in the given position in the list.
+        /// </summary>
+        /// <param name="index">List index of the game to update</param>
+        /// <returns>True if game should be in the list, false otherwise.</returns>
+        bool UpdateGame( int index ) {
+            ListViewItem item = lstGames.Items[index];
+            Game g = (Game)item.Tag;
+            if( ShouldDisplayGame( g ) ) {
+                item.SubItems[0].Text = g.Name;
+                item.SubItems[2].Text = g.Category == null ? CatUtil.CAT_UNC_NAME : g.Category.Name;
+                item.SubItems[3].Text = g.Favorite ? "Y" : "N";
+                return true;
+            } else {
+                lstGames.Items.RemoveAt( index );
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Updates list item for every game on the list, removing games that no longer need to be there, but not adding new ones.
+        /// </summary>
+        void UpdateGameList() {
+            int i = 0;
+            lstGames.BeginUpdate();
+            while( i < lstGames.Items.Count ) {
+                if( UpdateGame( i ) ) i++;
+            }
+            lstGames.EndUpdate();
+            UpdateSelectedStatusText();
+        }
+
+        /// <summary>
+        /// Updates the list item for every selected item on the list.
+        /// </summary>
+        void UpdateGameListSelected() {
+            int i = 0;
+            lstGames.BeginUpdate();
+            while( i < lstGames.SelectedIndices.Count ) {
+                if( UpdateGame( lstGames.SelectedIndices[i] ) ) i++;
+            }
+            lstGames.EndUpdate();
+            UpdateSelectedStatusText();
+        }
+
+        #endregion
+        #region Enabled-state updaters
+
+        /// <summary>
+        /// Runs after the loaded profile might change and sets the enabled states of some interface elements
+        /// </summary>
+        void UpdateEnableStatesForProfileChange() {
+            bool enable = ProfileLoaded;
+            menu_File_SaveProfile.Enabled = enable;
+            menu_File_SaveProfileAs.Enabled = enable;
+
+            menu_Profile_Download.Enabled = enable;
+            menu_Profile_Export.Enabled = enable;
+            menu_Profile_Import.Enabled = enable;
+            menu_Profile_Edit.Enabled = enable;
+
+            UpdateTitle();
+        }
+
+        /// <summary>
+        /// Updates enabled states for all game and category buttons
+        /// </summary>
+        void UpdateButtonEnabledStates() {
             bool gamesSelected = lstGames.SelectedIndices.Count > 0;
             cmdGameRemove.Enabled = gamesSelected;
             cmdGameEdit.Enabled = gamesSelected;
@@ -869,10 +816,40 @@ namespace Depressurizer {
             cmdCatRename.Enabled = catSelected;
         }
 
-        bool isDragging;
-        int dragOldCat;
-
+        #endregion
+        #endregion
         #region UI Event Handlers
+        #region General
+        private void FormMain_Load( object sender, EventArgs e ) {
+            UpdateButtonEnabledStates();
+        }
+
+        private void FormMain_Shown( object sender, EventArgs e ) {
+            ClearStatus();
+            if( settings.SteamPath == null ) {
+                SteamPathDlg dlg = new SteamPathDlg();
+                dlg.ShowDialog();
+                settings.SteamPath = dlg.Path;
+                settings.Save();
+            }
+            switch( settings.StartupAction ) {
+                case StartupAction.Load:
+                    LoadProfile( settings.ProfileToLoad, false );
+                    break;
+                case StartupAction.Create:
+                    CreateProfile();
+                    break;
+            }
+            FlushStatus();
+
+        }
+
+        private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
+            if( e.CloseReason == CloseReason.UserClosing ) {
+                e.Cancel = !CheckForUnsaved();
+            }
+        }
+        #endregion
         #region Drag and drop
 
         private void lstCategories_DragEnter( object sender, DragEventArgs e ) {
@@ -891,11 +868,11 @@ namespace Depressurizer {
                     UpdateGameList();
                     MakeChange( true );
                 } else if( dropItem is string ) {
-                    if( (string)dropItem == UIUtil.CAT_FAV_NAME ) {
+                    if( (string)dropItem == CatUtil.CAT_FAV_NAME ) {
                         gameData.SetGameFavorites( (int[])e.Data.GetData( typeof( int[] ) ), true );
                         UpdateGameList();
                         MakeChange( true );
-                    } else if( (string)dropItem == UIUtil.CAT_UNC_NAME ) {
+                    } else if( (string)dropItem == CatUtil.CAT_UNC_NAME ) {
                         gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), null );
                         UpdateGameList();
                         MakeChange( true );
@@ -916,11 +893,20 @@ namespace Depressurizer {
             lstGames.DoDragDrop( selectedGames, DragDropEffects.Move );
 
         }
+
+        private void lstCategories_DragOver( object sender, DragEventArgs e ) {
+            if( isDragging ) {
+                int index = lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( e.X, e.Y ) ) );
+                lstCategories.SelectedIndex = index;
+            }
+        }
+
         #endregion
         #region Main menu
+
         private void menu_File_NewProfile_Click( object sender, EventArgs e ) {
             ClearStatus();
-            CreateNewProfile();
+            CreateProfile();
             FlushStatus();
         }
 
@@ -1002,7 +988,50 @@ namespace Depressurizer {
         }
 
         #endregion
+        #region Context menus
+
+        private void contextGame_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
+            bool selectedGames = lstGames.SelectedItems.Count > 0;
+            cntxtGame_Edit.Enabled = selectedGames;
+            contextGame_Remove.Enabled = selectedGames;
+            contextGame_SetCat.Enabled = selectedGames;
+            contextGame_SetFav.Enabled = selectedGames;
+        }
+
+        private void contextGame_SetFav_Yes_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AssignFavoriteToSelectedGames( true );
+            FlushStatus();
+        }
+
+        private void contextGame_SetFav_No_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AssignFavoriteToSelectedGames( false );
+            FlushStatus();
+        }
+
+        private void contextGameCat_Create_Click( object sender, EventArgs e ) {
+            Category c = CreateCategory();
+            if( c != null ) {
+                ClearStatus();
+                AssignCategoryToSelectedGames( c );
+                FlushStatus();
+            }
+        }
+
+        private void contextGameCat_Category_Click( object sender, EventArgs e ) {
+            ToolStripItem menuItem = sender as ToolStripItem;
+            if( menuItem != null ) {
+                ClearStatus();
+                Category c = menuItem.Tag as Category;
+                AssignCategoryToSelectedGames( c );
+                FlushStatus();
+            }
+        }
+        
+        #endregion
         #region Buttons
+
         private void cmdCatAdd_Click( object sender, EventArgs e ) {
             ClearStatus();
             CreateCategory();
@@ -1023,7 +1052,7 @@ namespace Depressurizer {
 
         private void cmdGameSetCategory_Click( object sender, EventArgs e ) {
             Category c;
-            if( UIUtil.StringToCategory( combCategory.Text, gameData, out c ) ) {
+            if( CatUtil.StringToCategory( combCategory.Text, gameData, out c ) ) {
                 ClearStatus();
                 FillCategoryList();
                 AssignCategoryToSelectedGames( c );
@@ -1051,10 +1080,12 @@ namespace Depressurizer {
 
         private void cmdGameRemove_Click( object sender, EventArgs e ) {
             ClearStatus();
-            RemoveGame();
+            RemoveGames();
             FlushStatus();
         }
+        
         #endregion
+        #region Assorted list events
 
         private void lstCategories_SelectedIndexChanged( object sender, EventArgs e ) {
             if( !isDragging ) {
@@ -1064,6 +1095,23 @@ namespace Depressurizer {
                 }
                 UpdateButtonEnabledStates();
             }
+        }
+
+        private void lstCategories_KeyDown( object sender, KeyEventArgs e ) {
+            ClearStatus();
+            switch( e.KeyCode ) {
+                case Keys.Delete:
+                    DeleteCategory();
+                    break;
+                case Keys.N:
+                    if( e.Control ) CreateCategory();
+                    break;
+                case Keys.F2:
+                    RenameCategory();
+                    break;
+            }
+
+            FlushStatus();
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
@@ -1095,38 +1143,12 @@ namespace Depressurizer {
             EditGame();
             FlushStatus();
         }
-
-        private void FormMain_Shown( object sender, EventArgs e ) {
-            ClearStatus();
-            if( settings.SteamPath == null ) {
-                SteamPathDlg dlg = new SteamPathDlg();
-                dlg.ShowDialog();
-                settings.SteamPath = dlg.Path;
-                settings.Save();
-            }
-            switch( settings.StartupAction ) {
-                case StartupAction.Load:
-                    LoadProfile( settings.ProfileToLoad, false );
-                    break;
-                case StartupAction.Create:
-                    CreateNewProfile();
-                    break;
-            }
-            FlushStatus();
-
-        }
-
-        private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
-            if( e.CloseReason == CloseReason.UserClosing ) {
-                e.Cancel = !CheckForUnsaved();
-            }
-        }
-
+        
         private void lstGames_KeyDown( object sender, KeyEventArgs e ) {
             ClearStatus();
             switch( e.KeyCode ) {
                 case Keys.Delete:
-                    RemoveGame();
+                    RemoveGames();
                     break;
                 case Keys.N:
                     if( e.Control ) AddGame();
@@ -1140,77 +1162,99 @@ namespace Depressurizer {
             }
             FlushStatus();
         }
-
-        private void lstCategories_KeyDown( object sender, KeyEventArgs e ) {
-            ClearStatus();
-            switch( e.KeyCode ) {
-                case Keys.Delete:
-                    DeleteCategory();
-                    break;
-                case Keys.N:
-                    if( e.Control ) CreateCategory();
-                    break;
-                case Keys.F2:
-                    RenameCategory();
-                    break;
-            }
-
-            FlushStatus();
-        }
+        
         #endregion
+        #endregion
+        #region Utility
 
-        private void lstCategories_DragOver( object sender, DragEventArgs e ) {
-            if( isDragging ) {
-                int index = lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( e.X, e.Y ) ) );
-                lstCategories.SelectedIndex = index;
+        /// <summary>
+        /// Sets the unsaved changes flag to the given value and takes the requisite UI updating action
+        /// </summary>
+        /// <param name="changes"></param>
+        void MakeChange( bool changes ) {
+            if( unsavedChanges != changes ) {
+                unsavedChanges = changes;
+                UpdateTitle();
+            } else {
+                unsavedChanges = changes;
             }
         }
 
-        private void cntxtGame_SetFav_Yes_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            AssignFavoriteToSelectedGames( true );
-            FlushStatus();
-        }
+        /// <summary>
+        /// If there are any unsaved changes, asks the user if they want to save. Also gives the user the option to cancel the calling action.
+        /// </summary>
+        /// <returns>True if the action should proceed, false otherwise.</returns>
+        bool CheckForUnsaved() {
+            if( !unsavedChanges ) {
+                return true;
+            }
 
-        private void cntxtGame_SetFav_No_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            AssignFavoriteToSelectedGames( false );
-            FlushStatus();
-        }
+            DialogResult res = MessageBox.Show( "Unsaved changes will be lost. Save first?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning );
+            if( res == System.Windows.Forms.DialogResult.No ) {
+                // Don't save, just continue
+                return true;
+            }
+            if( res == System.Windows.Forms.DialogResult.Cancel ) {
+                // Don't save, don't continue
+                return false;
+            }
+            if( ProfileLoaded ) {
+                try {
+                    SaveProfile();
+                    return true;
+                } catch( ApplicationException e ) {
+                    MessageBox.Show( "Saving profile data failed: " + e.Message, "Error saving file.", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    return false;
+                }
 
-        private void contextGame_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
-            bool selectedGames = lstGames.SelectedItems.Count > 0;
-            cntxtGame_Edit.Enabled = selectedGames;
-            contextGame_Remove.Enabled = selectedGames;
-            contextGame_SetCat.Enabled = selectedGames;
-            contextGame_SetFav.Enabled = selectedGames;
-        }
-
-        private void FormMain_Load( object sender, EventArgs e ) {
-            UpdateButtonEnabledStates();
-        }
-
-        private void contextGameCat_Category_Click( object sender, EventArgs e ) {
-            ToolStripItem menuItem = sender as ToolStripItem;
-            if( menuItem != null ) {
-                ClearStatus();
-                Category c = menuItem.Tag as Category;
-                AssignCategoryToSelectedGames( c );
-                FlushStatus();
+            } else {
+                return ManualExport();
             }
         }
 
-        private void contextGameCat_Create_Click( object sender, EventArgs e ) {
-            Category c = CreateCategory();
-            if( c != null ) {
-                ClearStatus();
-                AssignCategoryToSelectedGames( c );
-                FlushStatus();
-            }
+        /// <summary>
+        /// Gets the selected option on the favorite combo box.
+        /// </summary>
+        /// <returns>True if set to Yes, false otherwise.</returns>
+        bool GetSelectedFavorite() {
+            return combFavorite.SelectedItem as string == "Yes";
         }
+
+        /// <summary>
+        /// Checks to see if a game should currently be displayed, based on the state of the category list.
+        /// </summary>
+        /// <param name="g">Game to check</param>
+        /// <returns>True if it should be displayed, false otherwise</returns>
+        bool ShouldDisplayGame( Game g ) {
+            if( !gameData.Games.ContainsKey( g.Id ) ) {
+                return false;
+            }
+            if( lstCategories.SelectedItem == null ) {
+                return false;
+            }
+            if( lstCategories.SelectedItem is string ) {
+                if( (string)lstCategories.SelectedItem == CatUtil.CAT_ALL_NAME ) {
+                    return true;
+                }
+                if( (string)lstCategories.SelectedItem == CatUtil.CAT_FAV_NAME ) {
+                    return g.Favorite;
+                }
+                if( (string)lstCategories.SelectedItem == CatUtil.CAT_UNC_NAME ) {
+                    return g.Category == null;
+                }
+            } else if( lstCategories.SelectedItem is Category ) {
+                return g.Category == (Category)lstCategories.SelectedItem;
+            }
+            return false;
+        }
+
+        #endregion
     }
 
-    static class UIUtil {
+    /// <summary>
+    /// A few constants and quick functions for dealing with categories in the context of the UI
+    /// </summary>
+    static class CatUtil {
         // Special names shown in the category list
         public const string CAT_ALL_NAME = "<All>";
         public const string CAT_FAV_NAME = "<Favorite>";
@@ -1233,6 +1277,13 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Gets a category based on a name. Creates the category if necessary. Displays error message on error.
+        /// </summary>
+        /// <param name="name">Name of the category to get</param>
+        /// <param name="data">Game data object we're referencing</param>
+        /// <param name="cat">Resulting category</param>
+        /// <returns>True if successful, false otherwise</returns>
         public static bool StringToCategory( string name, GameData data, out Category cat ) {
             cat = null;
             if( string.IsNullOrWhiteSpace( name ) ) {
@@ -1246,7 +1297,6 @@ namespace Depressurizer {
                 cat = data.GetCategory( name );
             }
             return true;
-
         }
     }
 

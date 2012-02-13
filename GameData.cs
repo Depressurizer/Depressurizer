@@ -250,6 +250,12 @@ namespace Depressurizer {
             return LoadGames( appsNode, ignore );
         }
 
+        /// <summary>
+        /// Loads in games from an node containing a list of games.
+        /// </summary>
+        /// <param name="appsNode">Node containing the game nodes</param>
+        /// <param name="ignore">Set of games to ignore</param>
+        /// <returns>Number of games loaded</returns>
         private int LoadGames( FileNode appsNode, SortedSet<int> ignore ) {
             int loadedGames = 0;
 

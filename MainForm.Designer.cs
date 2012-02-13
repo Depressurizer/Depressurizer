@@ -660,14 +660,14 @@ namespace Depressurizer {
             this.contextGameFav_Yes.Name = "contextGameFav_Yes";
             this.contextGameFav_Yes.Size = new System.Drawing.Size(67, 22);
             this.contextGameFav_Yes.Text = "Yes";
-            this.contextGameFav_Yes.Click += new System.EventHandler(this.cntxtGame_SetFav_Yes_Click);
+            this.contextGameFav_Yes.Click += new System.EventHandler(this.contextGame_SetFav_Yes_Click);
             // 
             // contextGameFav_No
             // 
             this.contextGameFav_No.Name = "contextGameFav_No";
             this.contextGameFav_No.Size = new System.Drawing.Size(67, 22);
             this.contextGameFav_No.Text = "No";
-            this.contextGameFav_No.Click += new System.EventHandler(this.cntxtGame_SetFav_No_Click);
+            this.contextGameFav_No.Click += new System.EventHandler(this.contextGame_SetFav_No_Click);
             // 
             // statusStrip
             // 

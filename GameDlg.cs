@@ -42,7 +42,7 @@ namespace Depressurizer {
         }
 
         private void GameDlg_Load( object sender, EventArgs e ) {
-            cmbCategory.Items.Add( UIUtil.CAT_UNC_NAME );
+            cmbCategory.Items.Add( CatUtil.CAT_UNC_NAME );
             foreach( Category cat in Data.Categories ) {
                 cmbCategory.Items.Add( cat.Name );
             }
@@ -67,7 +67,7 @@ namespace Depressurizer {
 
         private void cmdOk_Click( object sender, EventArgs e ) {
             Category setCat = null;
-            if( !UIUtil.StringToCategory( cmbCategory.Text, Data, out setCat ) ) {
+            if( !CatUtil.StringToCategory( cmbCategory.Text, Data, out setCat ) ) {
                 return;
             }
 
