@@ -200,6 +200,12 @@
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DPLib\DPLib.csproj">
+      <Project>{F21D309B-EA34-42B7-9D29-51D70E4384D4}</Project>
+      <Name>DPLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
