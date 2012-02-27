@@ -110,7 +110,6 @@ namespace Depressurizer {
                         }
                     }
                 }
-
             }
 
             return profile;
