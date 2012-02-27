@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using DPLib;
 
 namespace Depressurizer {
     public class ProfileData {
@@ -81,15 +82,15 @@ namespace Depressurizer {
             XmlNode profileNode = doc.SelectSingleNode( "/profile" );
 
             if( profileNode != null ) {
-                profile.CommunityName = XmlHelper.GetStringFromXmlElement( profileNode, "community_name", null );
-                profile.AccountID = XmlHelper.GetStringFromXmlElement( profileNode, "account_id", null );
+                profile.CommunityName = XmlUtil.GetStringFromNode( profileNode["community_name"], null );
+                profile.AccountID = XmlUtil.GetStringFromNode( profileNode["account_id"], null );
 
-                profile.AutoDownload = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_download", profile.AutoDownload );
-                profile.AutoImport = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_import", profile.AutoImport );
-                profile.AutoExport = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_export", profile.AutoExport );
-                profile.ExportDiscard = XmlHelper.GetBooleanFromXmlElement( profileNode, "export_discard", profile.ExportDiscard );
-                profile.AutoIgnore = XmlHelper.GetBooleanFromXmlElement( profileNode, "auto_ignore", profile.AutoIgnore );
-                profile.OverwriteOnDownload = XmlHelper.GetBooleanFromXmlElement( profileNode, "overwrite_names", profile.OverwriteOnDownload );
+                profile.AutoDownload = XmlUtil.GetBoolFromNode( profileNode["auto_download"], profile.AutoDownload );
+                profile.AutoImport = XmlUtil.GetBoolFromNode( profileNode["auto_import"], profile.AutoImport );
+                profile.AutoExport = XmlUtil.GetBoolFromNode( profileNode["auto_export"], profile.AutoExport );
+                profile.ExportDiscard = XmlUtil.GetBoolFromNode( profileNode["export_discard"], profile.ExportDiscard );
+                profile.AutoIgnore = XmlUtil.GetBoolFromNode( profileNode["auto_ignore"], profile.AutoIgnore );
+                profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode["overwrite_names"], profile.OverwriteOnDownload );
 
                 XmlNode gameListNode = profileNode.SelectSingleNode( "games" );
                 if( gameListNode != null ) {
@@ -104,7 +105,7 @@ namespace Depressurizer {
                     XmlNodeList exclusionNodes = exclusionListNode.SelectNodes( "exclusion" );
                     foreach( XmlNode node in exclusionNodes ) {
                         int id;
-                        if( XmlHelper.GetIntFromXmlElement( node, ".", out id ) ) {
+                        if( XmlUtil.TryGetIntFromNode( node, out id ) ) {
                             profile.IgnoreList.Add( id );
                         }
                     }
@@ -117,13 +118,13 @@ namespace Depressurizer {
 
         private static void AddGameFromXmlNode( XmlNode node, GameData data ) {
             int id;
-            if( XmlHelper.GetIntFromXmlElement( node, "id", out id ) ) {
-                string name = XmlHelper.GetStringFromXmlElement( node, "name", null );
+            if( XmlUtil.TryGetIntFromNode( node["id"], out id ) ) {
+                string name = XmlUtil.GetStringFromNode( node["name"], null );
                 Game game = new Game( id, name );
                 data.Games.Add( id, game );
 
                 string catName;
-                if( XmlHelper.GetStringFromXmlElement( node, "category", out catName ) ) {
+                if( XmlUtil.TryGetStringFromNode( node["category"], out catName ) ) {
                     game.Category = data.GetCategory( catName );
                 }
 
@@ -203,66 +204,5 @@ namespace Depressurizer {
         }
 
         #endregion
-    }
-
-    public static class XmlHelper {
-
-        public static bool GetStringFromXmlElement( XmlNode refNode, string path, out string val ) {
-            if( refNode != null ) {
-                XmlNode node = refNode.SelectSingleNode( path + "/text()" );
-                if( node != null && !string.IsNullOrEmpty( node.InnerText ) ) {
-                    val = node.InnerText;
-                    return true;
-                }
-            }
-            val = null;
-            return false;
-        }
-
-        public static string GetStringFromXmlElement( XmlNode refNode, string path, string defVal ) {
-            string val;
-            if( GetStringFromXmlElement( refNode, path, out val ) ) {
-                return val;
-            }
-            return defVal;
-        }
-
-        public static bool GetIntFromXmlElement( XmlNode refNode, string path, out int val ) {
-            string strVal;
-            if( GetStringFromXmlElement( refNode, path, out strVal ) ) {
-                if( int.TryParse( strVal, out val ) ) {
-                    return true;
-                }
-            }
-            val = 0;
-            return false;
-        }
-
-        public static int GetIntFromXmlElement( XmlNode refNode, string path, int defVal ) {
-            int val;
-            if( GetIntFromXmlElement( refNode, path, out val ) ) {
-                return val;
-            }
-            return defVal;
-        }
-
-        public static bool GetBooleanFromXmlElement( XmlNode refNode, string path, out bool val ) {
-            string strVal;
-            if( GetStringFromXmlElement( refNode, path, out strVal ) ) {
-                if( bool.TryParse( strVal, out val ) ) {
-                    return true;
-                }
-            }
-            val = false;
-            return false;
-        }
-
-        public static bool GetBooleanFromXmlElement( XmlNode refNode, string path, bool defVal ) {
-            bool val;
-            if( GetBooleanFromXmlElement( refNode, path, out val ) ) {
-                return val;
-            }
-            return defVal;
-        }
     }
 }

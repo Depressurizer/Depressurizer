@@ -17,11 +17,11 @@ namespace SteamScrape {
             }
             foreach( XmlNode node in doc.SelectNodes( "/applist/apps/app" ) ) {
                 int appId;
-                if( !XmlUtil.GetIntFromNode( node["appid"], out appId ) ) {
+                if( !XmlUtil.TryGetIntFromNode( node["appid"], out appId ) ) {
                     continue;
                 }
                 string name;
-                XmlUtil.GetStringFromNode( node["name"], out name );
+                XmlUtil.TryGetStringFromNode( node["name"], out name );
 
                 GameDBEntry g = new GameDBEntry();
                 g.Id = appId;
@@ -66,15 +66,15 @@ namespace SteamScrape {
 
             foreach( XmlNode gameNode in doc.SelectNodes( "/gamelist/game" ) ) {
                 int id;
-                if( !XmlUtil.GetIntFromNode( gameNode["id"], out id ) || Games.ContainsKey( id ) ) {
+                if( !XmlUtil.TryGetIntFromNode( gameNode["id"], out id ) || Games.ContainsKey( id ) ) {
                     continue;
                 }
                 GameDBEntry g = new GameDBEntry();
                 g.Id = id;
-                XmlUtil.GetStringFromNode( gameNode["name"], out g.Name );
+                XmlUtil.TryGetStringFromNode( gameNode["name"], out g.Name );
                 XmlNode typeNode = gameNode["type"];
                 string typeString;
-                if( !XmlUtil.GetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType>( typeString, out g.Type ) ) {
+                if( !XmlUtil.TryGetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType>( typeString, out g.Type ) ) {
                 } else {
                     g.Type = AppType.Unknown;
                 }
