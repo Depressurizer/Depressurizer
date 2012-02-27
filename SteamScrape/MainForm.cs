@@ -153,5 +153,17 @@ namespace SteamScrape {
             lstGames.Sort();
         }
 
+        private void cmdDeleteGame_Click( object sender, EventArgs e ) {
+            if( lstGames.SelectedItems.Count > 0 ) {
+                foreach( ListViewItem item in lstGames.SelectedItems ) {
+                    GameDBEntry game = item.Tag as GameDBEntry;
+                    if( game != null ) {
+                        gameList.Games.Remove( game.Id );
+                    }
+                }
+                UpdateSelectedGames();
+            }
+        }
+
     }
 }

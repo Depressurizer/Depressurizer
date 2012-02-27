@@ -99,7 +99,7 @@
             this.lstGames.Location = new System.Drawing.Point(12, 27);
             this.lstGames.Name = "lstGames";
             this.lstGames.Size = new System.Drawing.Size(555, 449);
-            this.lstGames.TabIndex = 1;
+            this.lstGames.TabIndex = 0;
             this.lstGames.UseCompatibleStateImageBehavior = false;
             this.lstGames.View = System.Windows.Forms.View.Details;
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
@@ -131,7 +131,7 @@
             this.cmdUpdateAll.Location = new System.Drawing.Point(573, 453);
             this.cmdUpdateAll.Name = "cmdUpdateAll";
             this.cmdUpdateAll.Size = new System.Drawing.Size(114, 23);
-            this.cmdUpdateAll.TabIndex = 2;
+            this.cmdUpdateAll.TabIndex = 7;
             this.cmdUpdateAll.Text = "Update All";
             this.cmdUpdateAll.UseVisualStyleBackColor = true;
             // 
@@ -141,7 +141,7 @@
             this.cmdFetch.Location = new System.Drawing.Point(573, 27);
             this.cmdFetch.Name = "cmdFetch";
             this.cmdFetch.Size = new System.Drawing.Size(114, 23);
-            this.cmdFetch.TabIndex = 3;
+            this.cmdFetch.TabIndex = 1;
             this.cmdFetch.Text = "Fetch List";
             this.cmdFetch.UseVisualStyleBackColor = true;
             this.cmdFetch.Click += new System.EventHandler(this.cmdFetch_Click);
@@ -152,7 +152,7 @@
             this.cmdUpdateNeeded.Location = new System.Drawing.Point(573, 424);
             this.cmdUpdateNeeded.Name = "cmdUpdateNeeded";
             this.cmdUpdateNeeded.Size = new System.Drawing.Size(114, 23);
-            this.cmdUpdateNeeded.TabIndex = 4;
+            this.cmdUpdateNeeded.TabIndex = 6;
             this.cmdUpdateNeeded.Text = "Udpdate Needed";
             this.cmdUpdateNeeded.UseVisualStyleBackColor = true;
             // 
@@ -171,7 +171,7 @@
             this.cmdEditGame.Location = new System.Drawing.Point(573, 344);
             this.cmdEditGame.Name = "cmdEditGame";
             this.cmdEditGame.Size = new System.Drawing.Size(114, 23);
-            this.cmdEditGame.TabIndex = 6;
+            this.cmdEditGame.TabIndex = 4;
             this.cmdEditGame.Text = "Edit Game";
             this.cmdEditGame.UseVisualStyleBackColor = true;
             this.cmdEditGame.Click += new System.EventHandler(this.cmdEditGame_Click);
@@ -181,16 +181,17 @@
             this.cmdDeleteGame.Location = new System.Drawing.Point(573, 315);
             this.cmdDeleteGame.Name = "cmdDeleteGame";
             this.cmdDeleteGame.Size = new System.Drawing.Size(114, 23);
-            this.cmdDeleteGame.TabIndex = 7;
+            this.cmdDeleteGame.TabIndex = 3;
             this.cmdDeleteGame.Text = "Delete Game";
             this.cmdDeleteGame.UseVisualStyleBackColor = true;
+            this.cmdDeleteGame.Click += new System.EventHandler(this.cmdDeleteGame_Click);
             // 
             // cmdAddGame
             // 
             this.cmdAddGame.Location = new System.Drawing.Point(573, 286);
             this.cmdAddGame.Name = "cmdAddGame";
             this.cmdAddGame.Size = new System.Drawing.Size(114, 23);
-            this.cmdAddGame.TabIndex = 8;
+            this.cmdAddGame.TabIndex = 2;
             this.cmdAddGame.Text = "Add Game";
             this.cmdAddGame.UseVisualStyleBackColor = true;
             this.cmdAddGame.Click += new System.EventHandler(this.cmdAddGame_Click);
