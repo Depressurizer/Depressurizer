@@ -22,6 +22,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using DPLib;
 
 namespace Depressurizer {
     public partial class FormMain : Form {
@@ -37,8 +38,7 @@ namespace Depressurizer {
         GameData gameData;
 
         // Game list sorting state
-        int sortColumn = 0;
-        int sortDirection = 1;
+        MultiColumnListViewComparer listSorter = new MultiColumnListViewComparer();
 
         // Stores last selected category to minimize game list refreshes
         object lastSelectedCat = null;
@@ -67,7 +67,10 @@ namespace Depressurizer {
             gameData = new GameData();
             InitializeComponent();
             combFavorite.SelectedIndex = 0;
-            UpdateGameSorter();
+
+            listSorter.AddIntCol( 1 );
+            lstGames.ListViewItemSorter = listSorter;
+
             FillCategoryList();
         }
         #region Manual Operations
@@ -600,7 +603,7 @@ namespace Depressurizer {
         #endregion
         #region UI Updaters
         #region Status and text updaters
-        
+
         /// <summary>
         /// Adds a string to the status builder
         /// </summary>
@@ -728,13 +731,6 @@ namespace Depressurizer {
                 item.Tag = c;
                 item.Click += contextGameCat_Category_Click;
             }
-        }
-
-        /// <summary>
-        /// Updates the game list sorter based on the current values of the sort settings fields.
-        /// </summary>
-        private void UpdateGameSorter() {
-            lstGames.ListViewItemSorter = new GameListViewItemComparer( sortColumn, sortDirection, sortColumn == 1 );
         }
 
         /// <summary>
@@ -1031,7 +1027,7 @@ namespace Depressurizer {
                 FlushStatus();
             }
         }
-        
+
         #endregion
         #region Buttons
 
@@ -1086,7 +1082,7 @@ namespace Depressurizer {
             RemoveGames();
             FlushStatus();
         }
-        
+
         #endregion
         #region Assorted list events
 
@@ -1127,13 +1123,8 @@ namespace Depressurizer {
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            if( e.Column == this.sortColumn ) {
-                this.sortDirection *= -1;
-            } else {
-                this.sortDirection = 1;
-                this.sortColumn = e.Column;
-            }
-            UpdateGameSorter();
+            listSorter.ColClick( e.Column );
+            lstGames.Sort();
         }
 
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
@@ -1155,7 +1146,7 @@ namespace Depressurizer {
             EditGame();
             FlushStatus();
         }
-        
+
         private void lstGames_KeyDown( object sender, KeyEventArgs e ) {
             ClearStatus();
             switch( e.KeyCode ) {
@@ -1174,7 +1165,7 @@ namespace Depressurizer {
             }
             FlushStatus();
         }
-        
+
         #endregion
         #endregion
         #region Utility
@@ -1309,30 +1300,6 @@ namespace Depressurizer {
                 cat = data.GetCategory( name );
             }
             return true;
-        }
-    }
-
-    /// <summary>
-    /// Implements the manual sorting of ListView items by columns. Supports sorting string representations of integers numerically.
-    /// </summary>
-    class GameListViewItemComparer : IComparer {
-        private int col;
-        private int direction;
-        private bool asInt;
-        public GameListViewItemComparer( int column = 0, int dir = 1, bool asInt = false ) {
-            this.col = column;
-            this.direction = dir;
-            this.asInt = asInt;
-        }
-
-        public int Compare( object x, object y ) {
-            if( asInt ) {
-                int a, b;
-                if( int.TryParse( ( (ListViewItem)x ).SubItems[col].Text, out a ) && int.TryParse( ( (ListViewItem)y ).SubItems[col].Text, out b ) ) {
-                    return direction * ( a - b );
-                }
-            }
-            return direction * String.Compare( ( (ListViewItem)x ).SubItems[col].Text, ( (ListViewItem)y ).SubItems[col].Text );
         }
     }
 }

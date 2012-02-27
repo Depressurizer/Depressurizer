@@ -21,9 +21,7 @@ namespace DPLib {
         }
 
         public void ColClick( int clickedCol ) {
-            if( clickedCol == _col ) {
-                _direction = ( _direction > 0 ) ? -1 : 1;
-            }
+            _direction = ( clickedCol == _col ) ? -_direction : 1;
             _col = clickedCol;
             _asInt = _intCols.Contains( _col );
         }
