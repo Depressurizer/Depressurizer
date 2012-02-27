@@ -21,7 +21,7 @@ using System.IO;
 using System.Reflection;
 using System.Xml;
 
-namespace Depressurizer {
+namespace Rallion {
 
     /// <summary>
     /// Base class for a settings object. Capable of loading and saving values of all public properties.

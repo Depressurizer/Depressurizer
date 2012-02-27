@@ -18,7 +18,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System.Windows.Forms;
 
-namespace Depressurizer {
+namespace Rallion {
     public partial class GetStringDlg : Form {
 
         public string Value {

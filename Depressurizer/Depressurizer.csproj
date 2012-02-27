@@ -76,7 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSettings.cs" />
+    <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="GameDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,16 +90,16 @@
       <DependentUpon>ProfileDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="DepSettings.cs" />
-    <Compile Include="FatalError.cs">
+    <Compile Include="Lib\FatalError.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FatalError.designer.cs">
+    <Compile Include="Lib\FatalError.designer.cs">
       <DependentUpon>FatalError.cs</DependentUpon>
     </Compile>
-    <Compile Include="GetStringDlg.cs">
+    <Compile Include="Lib\GetStringDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GetStringDlg.Designer.cs">
+    <Compile Include="Lib\GetStringDlg.Designer.cs">
       <DependentUpon>GetStringDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="FileData.cs" />
@@ -136,10 +136,10 @@
     <EmbeddedResource Include="ProfileDlg.resx">
       <DependentUpon>ProfileDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FatalError.resx">
+    <EmbeddedResource Include="Lib\FatalError.resx">
       <DependentUpon>FatalError.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GetStringDlg.resx">
+    <EmbeddedResource Include="Lib\GetStringDlg.resx">
       <DependentUpon>GetStringDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -206,6 +206,7 @@
       <Name>DPLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
