@@ -47,7 +47,7 @@ namespace SteamScrape {
                 string page = "";
 
                 using( WebResponse resp = req.GetResponse() ) {
-                    if( resp.ResponseUri.AbsolutePath == @"http://store.steampowered.com" ) {
+                    if( resp.ResponseUri.AbsoluteUri == @"http://store.steampowered.com/" ) {
                         Type = AppType.NotFound;
                         return;
                     } else if( !resp.ResponseUri.AbsolutePath.Contains( "/app/" ) ) {

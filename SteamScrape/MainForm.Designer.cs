@@ -165,6 +165,7 @@
             this.cmdUpdateSelected.TabIndex = 5;
             this.cmdUpdateSelected.Text = "Update Selected";
             this.cmdUpdateSelected.UseVisualStyleBackColor = true;
+            this.cmdUpdateSelected.Click += new System.EventHandler(this.cmdUpdateSelected_Click);
             // 
             // cmdEditGame
             // 

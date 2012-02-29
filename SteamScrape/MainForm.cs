@@ -165,5 +165,20 @@ namespace SteamScrape {
             }
         }
 
+        private void cmdUpdateSelected_Click( object sender, EventArgs e ) {
+            if( lstGames.SelectedItems.Count > 0 ) {
+                Cursor = Cursors.WaitCursor;
+                foreach( int index in lstGames.SelectedIndices ) {
+                    GameDBEntry game = lstGames.Items[index].Tag as GameDBEntry;
+                    if( game != null ) {
+                        game.ScrapeStore();
+                        UpdateGameAtIndex( index );
+                        lstGames.RedrawItems( index, index, false );
+                    }
+                }
+                Cursor = Cursors.Default;
+            }
+        }
+
     }
 }
