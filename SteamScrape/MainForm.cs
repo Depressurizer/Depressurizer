@@ -169,14 +169,20 @@ namespace SteamScrape {
         private void cmdUpdateSelected_Click( object sender, EventArgs e ) {
             if( lstGames.SelectedItems.Count > 0 ) {
                 Cursor = Cursors.WaitCursor;
+
+                Queue<int> gamesToUpdate = new Queue<int>();
+
                 foreach( int index in lstGames.SelectedIndices ) {
                     GameDBEntry game = lstGames.Items[index].Tag as GameDBEntry;
                     if( game != null ) {
-                        game.ScrapeStore();
-                        UpdateGameAtIndex( index );
-                        lstGames.RedrawItems( index, index, false );
+                        gamesToUpdate.Enqueue( game.Id );
                     }
                 }
+                UpdateForm dlg = new UpdateForm( gameList, gamesToUpdate );
+                dlg.ShowDialog();
+
+                UpdateSelectedGames();
+
                 Cursor = Cursors.Default;
             }
         }
