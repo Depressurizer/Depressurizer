@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Windows.Forms;
 using DPLib;
+using System.Collections.Generic;
 
 namespace SteamScrape {
     public partial class MainForm : Form {
@@ -178,6 +179,11 @@ namespace SteamScrape {
                 }
                 Cursor = Cursors.Default;
             }
+        }
+
+        private void cmdUpdateAll_Click( object sender, EventArgs e ) {
+            UpdateForm dlg = new UpdateForm( gameList, new System.Collections.Generic.Queue<int>() );
+            dlg.ShowDialog();
         }
 
     }

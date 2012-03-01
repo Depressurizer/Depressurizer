@@ -134,6 +134,7 @@
             this.cmdUpdateAll.TabIndex = 7;
             this.cmdUpdateAll.Text = "Update All";
             this.cmdUpdateAll.UseVisualStyleBackColor = true;
+            this.cmdUpdateAll.Click += new System.EventHandler(this.cmdUpdateAll_Click);
             // 
             // cmdFetch
             // 

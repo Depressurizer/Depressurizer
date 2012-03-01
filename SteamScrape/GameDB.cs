@@ -23,7 +23,7 @@ using System.Xml;
 using DPLib;
 
 namespace SteamScrape {
-    class GameDB {
+    public class GameDB {
         public Dictionary<int, GameDBEntry> Games = new Dictionary<int, GameDBEntry>();
 
         public void FetchAppList() {

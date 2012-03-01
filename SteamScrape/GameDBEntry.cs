@@ -40,19 +40,25 @@ namespace SteamScrape {
         private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         public void ScrapeStore() {
+            Type = ScrapeStore( Id, out Genre );
+        }
+
+        public static AppType ScrapeStore( int id, out string genre ) {
+            genre = null;
             try {
-                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( @"http://store.steampowered.com/app/{0}/", Id ) );
+                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( @"http://store.steampowered.com/app/{0}/", id ) );
+                // Cookie bypasses the age gate
                 req.CookieContainer = new CookieContainer( 1 );
                 req.CookieContainer.Add( new Cookie( "birthtime", "0", "/", "store.steampowered.com" ) );
                 string page = "";
 
                 using( WebResponse resp = req.GetResponse() ) {
                     if( resp.ResponseUri.AbsoluteUri == @"http://store.steampowered.com/" ) {
-                        Type = AppType.NotFound;
-                        return;
+                        // If we get redirected back to the store front page, the app doesn't really exist.
+                        return AppType.NotFound;
                     } else if( !resp.ResponseUri.AbsolutePath.Contains( "/app/" ) ) {
-                        Type = AppType.Other;
-                        return;
+                        // If we get redirected to something else, the app id exists but doesn't reference something that would show up in the game library
+                        return AppType.Other;
                     }
                     StreamReader sr = new StreamReader( resp.GetResponseStream() );
                     page = sr.ReadToEnd();
@@ -60,22 +66,24 @@ namespace SteamScrape {
 
                 string newCat;
                 if( GetGenreFromPage( page, out newCat ) ) {
-                    Genre = newCat;
+                    genre = newCat;
+                    // We have a genre, but it could be DLC
                     if( GetDLCFromPage( page ) ) {
-                        Type = AppType.DLC;
+                        return AppType.DLC;
                     } else {
-                        Type = AppType.Game;
+                        return AppType.Game;
                     }
                 } else {
-                    Type = AppType.Other;
+                    // If we can't find a genre, return other. Don't know if this ever happens if Steam's working ok.
+                    return AppType.Other;
                 }
             } catch {
-                Type = AppType.Unknown;
+                // Something went wrong. Just return unknown.
+                return AppType.Unknown;
             }
-
         }
 
-        private bool GetGenreFromPage( string page, out string cat ) {
+        private static bool GetGenreFromPage( string page, out string cat ) {
             cat = null;
             Match m = regGenre.Match( page );
             if( m.Success ) {
@@ -90,7 +98,7 @@ namespace SteamScrape {
             return false;
         }
 
-        private bool GetDLCFromPage( string page ) {
+        private static bool GetDLCFromPage( string page ) {
             return regDLC.IsMatch( page );
         }
     }

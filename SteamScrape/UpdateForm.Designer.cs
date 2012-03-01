@@ -45,6 +45,7 @@
             this.cmdStop.TabIndex = 1;
             this.cmdStop.Text = "Stop";
             this.cmdStop.UseVisualStyleBackColor = true;
+            this.cmdStop.Click += new System.EventHandler(this.cmdStop_Click);
             // 
             // UpdateForm
             // 
@@ -57,6 +58,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "UpdateForm";
             this.Text = "Updating Games";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
+            this.Load += new System.EventHandler(this.UpdateForm_Load);
             this.ResumeLayout(false);
 
         }
