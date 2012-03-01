@@ -11,6 +11,8 @@ using System.Threading;
 namespace SteamScrape {
     public partial class UpdateForm : Form {
 
+        object abortLock = new object();
+
         const int THREADS = 3;
         int runningThreads;
 
@@ -69,9 +71,12 @@ namespace SteamScrape {
 
             if( Aborted ) return false;
 
-            lock( game ) {
-                string genre = null;
-                AppType type = GameDBEntry.ScrapeStore( game.Id, out genre );
+            string genre = null;
+            AppType type = GameDBEntry.ScrapeStore( game.Id, out genre );
+
+            // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
+            // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
+            lock( abortLock ) {
                 if( !Aborted ) {
                     game.Type = type;
                     if( type == AppType.Game || type == AppType.DLC ) {
@@ -83,6 +88,7 @@ namespace SteamScrape {
                 }
             }
         }
+
 
         delegate void SimpleDelegate();
 
@@ -114,7 +120,9 @@ namespace SteamScrape {
         }
 
         private void UpdateForm_FormClosing( object sender, FormClosingEventArgs e ) {
-            Aborted = true;
+            lock( abortLock ) {
+                Aborted = true;
+            }
         }
 
         void JobCompleted() {
