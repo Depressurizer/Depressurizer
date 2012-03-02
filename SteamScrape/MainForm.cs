@@ -84,7 +84,9 @@ namespace SteamScrape {
             lstGames.Items.Clear();
 
             foreach( GameDBEntry g in gameList.Games.Values ) {
-                AddGameToList( g );
+                if( ShouldDisplayGame( g ) ) {
+                    AddGameToList( g );
+                }
             }
             lstGames.ListViewItemSorter = listSorter;
             lstGames.EndUpdate();
@@ -113,7 +115,7 @@ namespace SteamScrape {
         bool UpdateGameAtIndex( int index ) {
             ListViewItem item = lstGames.Items[index];
             GameDBEntry game = item.Tag as GameDBEntry;
-            if( game == null || !gameList.Games.ContainsKey( game.Id ) ) {
+            if( game == null || !gameList.Games.ContainsKey( game.Id ) || !ShouldDisplayGame( game ) ) {
                 lstGames.Items.RemoveAt( index );
                 return false;
             } else {
@@ -125,6 +127,17 @@ namespace SteamScrape {
             }
         }
 
+        bool ShouldDisplayGame( GameDBEntry g ) {
+            return
+                chkAll.Checked ||
+                ( g.Type == AppType.DLC && chkDLC.Checked ) ||
+                ( g.Type == AppType.Error && chkError.Checked ) ||
+                ( g.Type == AppType.Game && chkGame.Checked ) ||
+                ( g.Type == AppType.IdRedirect && chkRedirect.Checked ) ||
+                ( g.Type == AppType.NonApp && chkNonApp.Checked ) ||
+                ( g.Type == AppType.NotFound && chkNotFound.Checked ) ||
+                ( g.Type == AppType.Unchecked && chkUnchecked.Checked );
+        }
 
         #endregion
 
@@ -133,6 +146,7 @@ namespace SteamScrape {
         private void MainForm_Load( object sender, EventArgs e ) {
             listSorter.AddIntCol( 1 );
             lstGames.ListViewItemSorter = listSorter;
+            UpdateSelectedStatus();
         }
 
         private void menu_File_Load_Click( object sender, EventArgs e ) {
@@ -167,6 +181,15 @@ namespace SteamScrape {
             this.Cursor = Cursors.Default;
         }
 
+        private void cmdStore_Click( object sender, EventArgs e ) {
+            if( lstGames.SelectedItems.Count > 0 ) {
+                GameDBEntry g = lstGames.SelectedItems[0].Tag as GameDBEntry;
+                if( g != null ) {
+                    System.Diagnostics.Process.Start( string.Format( "http://store.steampowered.com/app/{0}/", g.Id ) );
+                }
+            }
+        }
+
         private void cmdAddGame_Click( object sender, EventArgs e ) {
             GameDBEntryForm dlg = new GameDBEntryForm();
             if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK && dlg.Game != null ) {
@@ -175,6 +198,7 @@ namespace SteamScrape {
                 } else {
                     gameList.Games.Add( dlg.Game.Id, dlg.Game );
                     AddGameToList( dlg.Game );
+                    UpdateSelectedStatus();
                 }
             }
         }
@@ -201,6 +225,7 @@ namespace SteamScrape {
                     }
                 }
                 UpdateSelectedGames();
+                UpdateSelectedStatus();
             }
         }
 
@@ -219,6 +244,7 @@ namespace SteamScrape {
                 UpdateForm dlg = new UpdateForm( gameList, gamesToUpdate );
                 dlg.ShowDialog();
                 RefreshGameList();
+                UpdateSelectedStatus();
 
                 Cursor = Cursors.Default;
             }
@@ -226,12 +252,44 @@ namespace SteamScrape {
 
         private void cmdUpdateError_Click( object sender, EventArgs e ) {
             ScrapeGamesOfType( AppType.Error );
-        }
-        
-        private void cmdUpdateUnchecked_Click( object sender, EventArgs e ) {
-            ScrapeGamesOfType( AppType.Unchecked );
+            UpdateSelectedStatus();
         }
 
+        private void cmdUpdateUnchecked_Click( object sender, EventArgs e ) {
+            ScrapeGamesOfType( AppType.Unchecked );
+            UpdateSelectedStatus();
+        }
+
+        private void cmdUpdateRedirect_Click( object sender, EventArgs e ) {
+            ScrapeGamesOfType( AppType.IdRedirect );
+            UpdateSelectedStatus();
+        }
+
+        private void chkAll_CheckedChanged( object sender, EventArgs e ) {
+            if( chkAll.Checked ) {
+                chkDLC.Checked = chkError.Checked = chkGame.Checked = chkNonApp.Checked = chkNotFound.Checked = chkRedirect.Checked = chkUnchecked.Checked = false;
+            }
+            RefreshGameList();
+            UpdateSelectedStatus();
+        }
+
+        private void chkAny_CheckedChanged( object sender, EventArgs e ) {
+            if( ( (CheckBox)sender ).Checked ) {
+                chkAll.Checked = false;
+            }
+            RefreshGameList();
+            UpdateSelectedStatus();
+        }
+
+
         #endregion
+
+        private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
+            UpdateSelectedStatus();
+        }
+
+        void UpdateSelectedStatus() {
+            statSelected.Text = string.Format( "{0} selected / {1} displayed / {2} total", lstGames.SelectedItems.Count, lstGames.Items.Count, gameList.Games.Count );
+        }
     }
 }

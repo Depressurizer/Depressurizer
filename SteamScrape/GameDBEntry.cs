@@ -47,6 +47,7 @@ namespace SteamScrape {
 
         public static AppType ScrapeStore( int id, out string genre ) {
             genre = null;
+            bool redirect = false;
             try {
                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( @"http://store.steampowered.com/app/{0}/", id ) );
                 // Cookie bypasses the age gate
@@ -63,7 +64,7 @@ namespace SteamScrape {
                         return AppType.NonApp;
                     } else if( resp.ResponseUri.Segments.Length < 3 || !resp.ResponseUri.Segments[2].StartsWith( id.ToString() ) ) {
                         // Redirected to a different app id
-                        return AppType.IdRedirect;
+                        redirect = true;
                     }
                     StreamReader sr = new StreamReader( resp.GetResponseStream() );
                     page = sr.ReadToEnd();
@@ -76,7 +77,7 @@ namespace SteamScrape {
                     if( GetDLCFromPage( page ) ) {
                         return AppType.DLC;
                     } else {
-                        return AppType.Game;
+                        return redirect ? AppType.IdRedirect : AppType.Game;
                     }
                 } else {
                     // The URL looks like an app, but we can't find an error

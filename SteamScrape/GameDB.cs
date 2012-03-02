@@ -59,7 +59,7 @@ namespace SteamScrape {
             writer.WriteStartDocument();
             writer.WriteStartElement( "gamelist" );
             foreach( GameDBEntry g in Games.Values ) {
-                if( saveAll || g.Type == AppType.Game || g.Type == AppType.DLC ) {
+                if( saveAll || g.Type == AppType.Game || g.Type == AppType.DLC || g.Type == AppType.IdRedirect ) {
                     writer.WriteStartElement( "game" );
 
                     writer.WriteElementString( "id", g.Id.ToString() );

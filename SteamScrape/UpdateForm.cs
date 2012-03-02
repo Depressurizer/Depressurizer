@@ -80,7 +80,7 @@ namespace SteamScrape {
             lock( abortLock ) {
                 if( !Aborted ) {
                     game.Type = type;
-                    if( type == AppType.Game || type == AppType.DLC ) {
+                    if( type == AppType.Game || type == AppType.DLC || type == AppType.IdRedirect ) {
                         game.Genre = genre;
                     }
                     
