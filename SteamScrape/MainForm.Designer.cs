@@ -37,9 +37,9 @@
             this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colGenre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.cmdUpdateAll = new System.Windows.Forms.Button();
+            this.cmdUpdateError = new System.Windows.Forms.Button();
             this.cmdFetch = new System.Windows.Forms.Button();
-            this.cmdUpdateNeeded = new System.Windows.Forms.Button();
+            this.cmdUpdateUnchecked = new System.Windows.Forms.Button();
             this.cmdUpdateSelected = new System.Windows.Forms.Button();
             this.cmdEditGame = new System.Windows.Forms.Button();
             this.cmdDeleteGame = new System.Windows.Forms.Button();
@@ -74,45 +74,45 @@
             // menu_File_Load
             // 
             this.menu_File_Load.Name = "menu_File_Load";
-            this.menu_File_Load.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Load.Size = new System.Drawing.Size(148, 22);
             this.menu_File_Load.Text = "Load...";
             this.menu_File_Load.Click += new System.EventHandler(this.menu_File_Load_Click);
             // 
             // menu_File_SaveRaw
             // 
             this.menu_File_SaveRaw.Name = "menu_File_SaveRaw";
-            this.menu_File_SaveRaw.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_SaveRaw.Size = new System.Drawing.Size(148, 22);
             this.menu_File_SaveRaw.Text = "Save Raw...";
             this.menu_File_SaveRaw.Click += new System.EventHandler(this.menu_File_SaveRaw_Click);
             // 
             // menu_File_SavePruned
             // 
             this.menu_File_SavePruned.Name = "menu_File_SavePruned";
-            this.menu_File_SavePruned.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_SavePruned.Size = new System.Drawing.Size(148, 22);
             this.menu_File_SavePruned.Text = "Save Pruned...";
             this.menu_File_SavePruned.Click += new System.EventHandler(this.menu_File_SavePruned_Click);
             // 
             // menu_File_Sep1
             // 
             this.menu_File_Sep1.Name = "menu_File_Sep1";
-            this.menu_File_Sep1.Size = new System.Drawing.Size(149, 6);
+            this.menu_File_Sep1.Size = new System.Drawing.Size(145, 6);
             // 
             // menu_File_Clear
             // 
             this.menu_File_Clear.Name = "menu_File_Clear";
-            this.menu_File_Clear.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Clear.Size = new System.Drawing.Size(148, 22);
             this.menu_File_Clear.Text = "Clear";
             this.menu_File_Clear.Click += new System.EventHandler(this.menu_File_Clear_Click);
             // 
             // menu_File_Sep2
             // 
             this.menu_File_Sep2.Name = "menu_File_Sep2";
-            this.menu_File_Sep2.Size = new System.Drawing.Size(149, 6);
+            this.menu_File_Sep2.Size = new System.Drawing.Size(145, 6);
             // 
             // menu_File_Exit
             // 
             this.menu_File_Exit.Name = "menu_File_Exit";
-            this.menu_File_Exit.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Exit.Size = new System.Drawing.Size(148, 22);
             this.menu_File_Exit.Text = "Exit";
             this.menu_File_Exit.Click += new System.EventHandler(this.menu_File_Exit_Click);
             // 
@@ -157,16 +157,16 @@
             this.colType.Text = "Type";
             this.colType.Width = 87;
             // 
-            // cmdUpdateAll
+            // cmdUpdateError
             // 
-            this.cmdUpdateAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdateAll.Location = new System.Drawing.Point(573, 453);
-            this.cmdUpdateAll.Name = "cmdUpdateAll";
-            this.cmdUpdateAll.Size = new System.Drawing.Size(114, 23);
-            this.cmdUpdateAll.TabIndex = 7;
-            this.cmdUpdateAll.Text = "Update All";
-            this.cmdUpdateAll.UseVisualStyleBackColor = true;
-            this.cmdUpdateAll.Click += new System.EventHandler(this.cmdUpdateAll_Click);
+            this.cmdUpdateError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdUpdateError.Location = new System.Drawing.Point(573, 453);
+            this.cmdUpdateError.Name = "cmdUpdateError";
+            this.cmdUpdateError.Size = new System.Drawing.Size(114, 23);
+            this.cmdUpdateError.TabIndex = 7;
+            this.cmdUpdateError.Text = "Update Error";
+            this.cmdUpdateError.UseVisualStyleBackColor = true;
+            this.cmdUpdateError.Click += new System.EventHandler(this.cmdUpdateError_Click);
             // 
             // cmdFetch
             // 
@@ -179,16 +179,16 @@
             this.cmdFetch.UseVisualStyleBackColor = true;
             this.cmdFetch.Click += new System.EventHandler(this.cmdFetch_Click);
             // 
-            // cmdUpdateNeeded
+            // cmdUpdateUnchecked
             // 
-            this.cmdUpdateNeeded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdateNeeded.Location = new System.Drawing.Point(573, 424);
-            this.cmdUpdateNeeded.Name = "cmdUpdateNeeded";
-            this.cmdUpdateNeeded.Size = new System.Drawing.Size(114, 23);
-            this.cmdUpdateNeeded.TabIndex = 6;
-            this.cmdUpdateNeeded.Text = "Udpdate Needed";
-            this.cmdUpdateNeeded.UseVisualStyleBackColor = true;
-            this.cmdUpdateNeeded.Click += new System.EventHandler(this.cmdUpdateNeeded_Click);
+            this.cmdUpdateUnchecked.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdUpdateUnchecked.Location = new System.Drawing.Point(573, 424);
+            this.cmdUpdateUnchecked.Name = "cmdUpdateUnchecked";
+            this.cmdUpdateUnchecked.Size = new System.Drawing.Size(114, 23);
+            this.cmdUpdateUnchecked.TabIndex = 6;
+            this.cmdUpdateUnchecked.Text = "Update Unchecked";
+            this.cmdUpdateUnchecked.UseVisualStyleBackColor = true;
+            this.cmdUpdateUnchecked.Click += new System.EventHandler(this.cmdUpdateUnchecked_Click);
             // 
             // cmdUpdateSelected
             // 
@@ -240,9 +240,9 @@
             this.Controls.Add(this.cmdDeleteGame);
             this.Controls.Add(this.cmdEditGame);
             this.Controls.Add(this.cmdUpdateSelected);
-            this.Controls.Add(this.cmdUpdateNeeded);
+            this.Controls.Add(this.cmdUpdateUnchecked);
             this.Controls.Add(this.cmdFetch);
-            this.Controls.Add(this.cmdUpdateAll);
+            this.Controls.Add(this.cmdUpdateError);
             this.Controls.Add(this.lstGames);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
@@ -268,9 +268,9 @@
         private System.Windows.Forms.ColumnHeader colID;
         private System.Windows.Forms.ColumnHeader colGenre;
         private System.Windows.Forms.ColumnHeader colType;
-        private System.Windows.Forms.Button cmdUpdateAll;
+        private System.Windows.Forms.Button cmdUpdateError;
         private System.Windows.Forms.Button cmdFetch;
-        private System.Windows.Forms.Button cmdUpdateNeeded;
+        private System.Windows.Forms.Button cmdUpdateUnchecked;
         private System.Windows.Forms.Button cmdUpdateSelected;
         private System.Windows.Forms.Button cmdEditGame;
         private System.Windows.Forms.Button cmdDeleteGame;

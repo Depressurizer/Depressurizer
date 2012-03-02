@@ -94,7 +94,7 @@ namespace SteamScrape {
                 XmlUtil.TryGetStringFromNode( gameNode["name"], out g.Name );
                 string typeString;
                 if( !XmlUtil.TryGetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType>( typeString, out g.Type ) ) {
-                    g.Type = AppType.Unknown;
+                    g.Type = AppType.Unchecked;
                 }
 
                 g.Genre = XmlUtil.GetStringFromNode( gameNode["genre"], null );

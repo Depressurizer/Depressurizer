@@ -31,10 +31,52 @@ namespace SteamScrape {
             InitializeComponent();
         }
 
-        private void MainForm_Load( object sender, EventArgs e ) {
-            listSorter.AddIntCol( 1 );
-            lstGames.ListViewItemSorter = listSorter;
+        void SaveGames( bool raw ) {
+            SaveFileDialog dlg = new SaveFileDialog();
+            DialogResult res = dlg.ShowDialog();
+            if( res == System.Windows.Forms.DialogResult.OK ) {
+                this.Cursor = Cursors.WaitCursor;
+                gameList.SaveToXml( dlg.FileName, raw );
+                this.Cursor = Cursors.Default;
+            }
         }
+
+        void LoadGames() {
+            OpenFileDialog dlg = new OpenFileDialog();
+            DialogResult res = dlg.ShowDialog();
+            if( res == System.Windows.Forms.DialogResult.OK ) {
+                this.Cursor = Cursors.WaitCursor;
+                gameList.LoadFromXml( dlg.FileName );
+                RefreshGameList();
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        void ClearList() {
+            gameList.Games.Clear();
+            RefreshGameList();
+        }
+
+        void ScrapeGamesOfType( AppType type ) {
+            Cursor = Cursors.WaitCursor;
+
+            Queue<int> gamesToUpdate = new Queue<int>();
+
+            foreach( GameDBEntry g in gameList.Games.Values ) {
+                if( g.Type == type ) {
+                    gamesToUpdate.Enqueue( g.Id );
+                }
+            }
+            if( gamesToUpdate.Count > 0 ) {
+                UpdateForm dlg = new UpdateForm( gameList, gamesToUpdate );
+                dlg.ShowDialog();
+                RefreshGameList();
+            }
+
+            Cursor = Cursors.Default;
+        }
+
+        #region UI Updaters
 
         void RefreshGameList() {
             lstGames.BeginUpdate();
@@ -83,30 +125,39 @@ namespace SteamScrape {
             }
         }
 
-        void SaveGames( bool raw ) {
-            SaveFileDialog dlg = new SaveFileDialog();
-            DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
-                this.Cursor = Cursors.WaitCursor;
-                gameList.SaveToXml( dlg.FileName, raw );
-                this.Cursor = Cursors.Default;
-            }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void MainForm_Load( object sender, EventArgs e ) {
+            listSorter.AddIntCol( 1 );
+            lstGames.ListViewItemSorter = listSorter;
         }
 
-        void LoadGames() {
-            OpenFileDialog dlg = new OpenFileDialog();
-            DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
-                this.Cursor = Cursors.WaitCursor;
-                gameList.LoadFromXml( dlg.FileName );
-                RefreshGameList();
-                this.Cursor = Cursors.Default;
-            }
+        private void menu_File_Load_Click( object sender, EventArgs e ) {
+            LoadGames();
         }
 
-        void ClearList() {
-            gameList.Games.Clear();
-            RefreshGameList();
+        private void menu_File_SaveRaw_Click( object sender, EventArgs e ) {
+            SaveGames( true );
+        }
+
+        private void menu_File_SavePruned_Click( object sender, EventArgs e ) {
+            SaveGames( false );
+        }
+
+        private void menu_File_Clear_Click( object sender, EventArgs e ) {
+            ClearList();
+        }
+
+        private void menu_File_Exit_Click( object sender, EventArgs e ) {
+            this.Close();
+        }
+
+        private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
+            listSorter.ColClick( e.Column );
+            lstGames.Sort();
         }
 
         private void cmdFetch_Click( object sender, EventArgs e ) {
@@ -114,18 +165,6 @@ namespace SteamScrape {
             gameList.FetchAppList();
             RefreshGameList();
             this.Cursor = Cursors.Default;
-        }
-
-        private void menu_File_SaveRaw_Click( object sender, EventArgs e ) {
-            SaveGames( true );
-        }
-
-        private void menu_File_Load_Click( object sender, EventArgs e ) {
-            LoadGames();
-        }
-
-        private void menu_File_Exit_Click( object sender, EventArgs e ) {
-            this.Close();
         }
 
         private void cmdAddGame_Click( object sender, EventArgs e ) {
@@ -151,11 +190,6 @@ namespace SteamScrape {
                     }
                 }
             }
-        }
-
-        private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            listSorter.ColClick( e.Column );
-            lstGames.Sort();
         }
 
         private void cmdDeleteGame_Click( object sender, EventArgs e ) {
@@ -190,47 +224,14 @@ namespace SteamScrape {
             }
         }
 
-        private void cmdUpdateAll_Click( object sender, EventArgs e ) {
-            if( gameList.Games.Count > 0 ) {
-                Cursor = Cursors.WaitCursor;
-
-                Queue<int> jobQueue = new Queue<int>( gameList.Games.Keys );
-
-                UpdateForm dlg = new UpdateForm( gameList, jobQueue );
-                dlg.ShowDialog();
-
-                RefreshGameList();
-
-                Cursor = Cursors.Default;
-            }
+        private void cmdUpdateError_Click( object sender, EventArgs e ) {
+            ScrapeGamesOfType( AppType.Error );
+        }
+        
+        private void cmdUpdateUnchecked_Click( object sender, EventArgs e ) {
+            ScrapeGamesOfType( AppType.Unchecked );
         }
 
-        private void menu_File_Clear_Click( object sender, EventArgs e ) {
-            ClearList();
-        }
-
-        private void menu_File_SavePruned_Click( object sender, EventArgs e ) {
-            SaveGames( false );
-        }
-
-        private void cmdUpdateNeeded_Click( object sender, EventArgs e ) {
-            Cursor = Cursors.WaitCursor;
-
-            Queue<int> gamesToUpdate = new Queue<int>();
-
-            foreach( GameDBEntry g in gameList.Games.Values ) {
-                if( g.Type == AppType.Unknown ) {
-                    gamesToUpdate.Enqueue( g.Id );
-                }
-            }
-            if( gamesToUpdate.Count > 0 ) {
-                UpdateForm dlg = new UpdateForm( gameList, gamesToUpdate );
-                dlg.ShowDialog();
-                RefreshGameList();
-            }
-
-            Cursor = Cursors.Default;
-        }
-
+        #endregion
     }
 }

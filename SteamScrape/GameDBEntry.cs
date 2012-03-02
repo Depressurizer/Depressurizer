@@ -23,10 +23,12 @@ using System.Text.RegularExpressions;
 namespace SteamScrape {
 
     public enum AppType {
-        Unknown,
+        Unchecked,
+        Error,
+        IdRedirect,
         Game,
         DLC,
-        Other,
+        NonApp,
         NotFound
     }
 
@@ -53,12 +55,15 @@ namespace SteamScrape {
                 string page = "";
 
                 using( WebResponse resp = req.GetResponse() ) {
-                    if( resp.ResponseUri.AbsoluteUri == @"http://store.steampowered.com/" ) {
-                        // If we get redirected back to the store front page, the app doesn't really exist.
+                    if( resp.ResponseUri.Segments.Length <= 1 ) {
+                        // Redirected to the store front page
                         return AppType.NotFound;
-                    } else if( !resp.ResponseUri.AbsolutePath.Contains( "/app/" ) ) {
-                        // If we get redirected to something else, the app id exists but doesn't reference something that would show up in the game library
-                        return AppType.Other;
+                    } else if( resp.ResponseUri.Segments.Length < 2 || resp.ResponseUri.Segments[1] != "app/" ) {
+                        // Redirected outside of the app path
+                        return AppType.NonApp;
+                    } else if( resp.ResponseUri.Segments.Length < 3 || !resp.ResponseUri.Segments[2].StartsWith( id.ToString() ) ) {
+                        // Redirected to a different app id
+                        return AppType.IdRedirect;
                     }
                     StreamReader sr = new StreamReader( resp.GetResponseStream() );
                     page = sr.ReadToEnd();
@@ -74,12 +79,12 @@ namespace SteamScrape {
                         return AppType.Game;
                     }
                 } else {
-                    // If we can't find a genre, return other. Don't know if this ever happens if Steam's working ok.
-                    return AppType.Other;
+                    // The URL looks like an app, but we can't find an error
+                    return AppType.Error;
                 }
             } catch {
                 // Something went wrong. Just return unknown.
-                return AppType.Unknown;
+                return AppType.Error;
             }
         }
 
