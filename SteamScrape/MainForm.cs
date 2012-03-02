@@ -151,6 +151,7 @@ namespace SteamScrape {
 
         private void menu_File_Load_Click( object sender, EventArgs e ) {
             LoadGames();
+            UpdateSelectedStatus();
         }
 
         private void menu_File_SaveRaw_Click( object sender, EventArgs e ) {
@@ -163,6 +164,7 @@ namespace SteamScrape {
 
         private void menu_File_Clear_Click( object sender, EventArgs e ) {
             ClearList();
+            UpdateSelectedStatus();
         }
 
         private void menu_File_Exit_Click( object sender, EventArgs e ) {
@@ -178,6 +180,7 @@ namespace SteamScrape {
             this.Cursor = Cursors.WaitCursor;
             gameList.FetchAppList();
             RefreshGameList();
+            UpdateSelectedStatus();
             this.Cursor = Cursors.Default;
         }
 
