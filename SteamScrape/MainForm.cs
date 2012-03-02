@@ -83,12 +83,12 @@ namespace SteamScrape {
             }
         }
 
-        void SaveGames() {
+        void SaveGames( bool raw ) {
             SaveFileDialog dlg = new SaveFileDialog();
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 this.Cursor = Cursors.WaitCursor;
-                gameList.SaveToXml( dlg.FileName );
+                gameList.SaveToXml( dlg.FileName, raw );
                 this.Cursor = Cursors.Default;
             }
         }
@@ -104,6 +104,11 @@ namespace SteamScrape {
             }
         }
 
+        void ClearList() {
+            gameList.Games.Clear();
+            RefreshGameList();
+        }
+
         private void cmdFetch_Click( object sender, EventArgs e ) {
             this.Cursor = Cursors.WaitCursor;
             gameList.FetchAppList();
@@ -111,9 +116,8 @@ namespace SteamScrape {
             this.Cursor = Cursors.Default;
         }
 
-        private void menu_File_Save_Click( object sender, EventArgs e ) {
-            SaveGames();
-
+        private void menu_File_SaveRaw_Click( object sender, EventArgs e ) {
+            SaveGames( true );
         }
 
         private void menu_File_Load_Click( object sender, EventArgs e ) {
@@ -180,16 +184,52 @@ namespace SteamScrape {
                 }
                 UpdateForm dlg = new UpdateForm( gameList, gamesToUpdate );
                 dlg.ShowDialog();
-
-                UpdateSelectedGames();
+                RefreshGameList();
 
                 Cursor = Cursors.Default;
             }
         }
 
         private void cmdUpdateAll_Click( object sender, EventArgs e ) {
-            UpdateForm dlg = new UpdateForm( gameList, new System.Collections.Generic.Queue<int>() );
-            dlg.ShowDialog();
+            if( gameList.Games.Count > 0 ) {
+                Cursor = Cursors.WaitCursor;
+
+                Queue<int> jobQueue = new Queue<int>( gameList.Games.Keys );
+
+                UpdateForm dlg = new UpdateForm( gameList, jobQueue );
+                dlg.ShowDialog();
+
+                RefreshGameList();
+
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void menu_File_Clear_Click( object sender, EventArgs e ) {
+            ClearList();
+        }
+
+        private void menu_File_SavePruned_Click( object sender, EventArgs e ) {
+            SaveGames( false );
+        }
+
+        private void cmdUpdateNeeded_Click( object sender, EventArgs e ) {
+            Cursor = Cursors.WaitCursor;
+
+            Queue<int> gamesToUpdate = new Queue<int>();
+
+            foreach( GameDBEntry g in gameList.Games.Values ) {
+                if( g.Type == AppType.Unknown ) {
+                    gamesToUpdate.Enqueue( g.Id );
+                }
+            }
+            if( gamesToUpdate.Count > 0 ) {
+                UpdateForm dlg = new UpdateForm( gameList, gamesToUpdate );
+                dlg.ShowDialog();
+                RefreshGameList();
+            }
+
+            Cursor = Cursors.Default;
         }
 
     }

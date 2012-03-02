@@ -26,7 +26,11 @@
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.menu_File = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Load = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_File_Save = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_File_SaveRaw = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_File_SavePruned = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_File_Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menu_File_Clear = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_File_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.lstGames = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -57,7 +61,11 @@
             // 
             this.menu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_File_Load,
-            this.menu_File_Save,
+            this.menu_File_SaveRaw,
+            this.menu_File_SavePruned,
+            this.menu_File_Sep1,
+            this.menu_File_Clear,
+            this.menu_File_Sep2,
             this.menu_File_Exit});
             this.menu_File.Name = "menu_File";
             this.menu_File.Size = new System.Drawing.Size(37, 20);
@@ -66,21 +74,45 @@
             // menu_File_Load
             // 
             this.menu_File_Load.Name = "menu_File_Load";
-            this.menu_File_Load.Size = new System.Drawing.Size(100, 22);
-            this.menu_File_Load.Text = "Load";
+            this.menu_File_Load.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Load.Text = "Load...";
             this.menu_File_Load.Click += new System.EventHandler(this.menu_File_Load_Click);
             // 
-            // menu_File_Save
+            // menu_File_SaveRaw
             // 
-            this.menu_File_Save.Name = "menu_File_Save";
-            this.menu_File_Save.Size = new System.Drawing.Size(100, 22);
-            this.menu_File_Save.Text = "Save";
-            this.menu_File_Save.Click += new System.EventHandler(this.menu_File_Save_Click);
+            this.menu_File_SaveRaw.Name = "menu_File_SaveRaw";
+            this.menu_File_SaveRaw.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_SaveRaw.Text = "Save Raw...";
+            this.menu_File_SaveRaw.Click += new System.EventHandler(this.menu_File_SaveRaw_Click);
+            // 
+            // menu_File_SavePruned
+            // 
+            this.menu_File_SavePruned.Name = "menu_File_SavePruned";
+            this.menu_File_SavePruned.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_SavePruned.Text = "Save Pruned...";
+            this.menu_File_SavePruned.Click += new System.EventHandler(this.menu_File_SavePruned_Click);
+            // 
+            // menu_File_Sep1
+            // 
+            this.menu_File_Sep1.Name = "menu_File_Sep1";
+            this.menu_File_Sep1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // menu_File_Clear
+            // 
+            this.menu_File_Clear.Name = "menu_File_Clear";
+            this.menu_File_Clear.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Clear.Text = "Clear";
+            this.menu_File_Clear.Click += new System.EventHandler(this.menu_File_Clear_Click);
+            // 
+            // menu_File_Sep2
+            // 
+            this.menu_File_Sep2.Name = "menu_File_Sep2";
+            this.menu_File_Sep2.Size = new System.Drawing.Size(149, 6);
             // 
             // menu_File_Exit
             // 
             this.menu_File_Exit.Name = "menu_File_Exit";
-            this.menu_File_Exit.Size = new System.Drawing.Size(100, 22);
+            this.menu_File_Exit.Size = new System.Drawing.Size(152, 22);
             this.menu_File_Exit.Text = "Exit";
             this.menu_File_Exit.Click += new System.EventHandler(this.menu_File_Exit_Click);
             // 
@@ -156,6 +188,7 @@
             this.cmdUpdateNeeded.TabIndex = 6;
             this.cmdUpdateNeeded.Text = "Udpdate Needed";
             this.cmdUpdateNeeded.UseVisualStyleBackColor = true;
+            this.cmdUpdateNeeded.Click += new System.EventHandler(this.cmdUpdateNeeded_Click);
             // 
             // cmdUpdateSelected
             // 
@@ -214,7 +247,7 @@
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "SteamScrape";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
@@ -228,7 +261,7 @@
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem menu_File;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Load;
-        private System.Windows.Forms.ToolStripMenuItem menu_File_Save;
+        private System.Windows.Forms.ToolStripMenuItem menu_File_SaveRaw;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Exit;
         private System.Windows.Forms.ListView lstGames;
         private System.Windows.Forms.ColumnHeader colName;
@@ -242,6 +275,10 @@
         private System.Windows.Forms.Button cmdEditGame;
         private System.Windows.Forms.Button cmdDeleteGame;
         private System.Windows.Forms.Button cmdAddGame;
+        private System.Windows.Forms.ToolStripMenuItem menu_File_SavePruned;
+        private System.Windows.Forms.ToolStripSeparator menu_File_Sep1;
+        private System.Windows.Forms.ToolStripMenuItem menu_File_Clear;
+        private System.Windows.Forms.ToolStripSeparator menu_File_Sep2;
     }
 }
 

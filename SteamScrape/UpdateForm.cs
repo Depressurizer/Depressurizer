@@ -13,7 +13,7 @@ namespace SteamScrape {
 
         object abortLock = new object();
 
-        const int THREADS = 3;
+        const int MAX_THREADS = 5;
         int runningThreads;
 
         Queue<int> jobs;
@@ -21,6 +21,8 @@ namespace SteamScrape {
 
         int totalJobs;
         int jobsCompleted;
+
+        System.DateTime start;
 
         bool _abort = false;
         bool Aborted {
@@ -68,7 +70,6 @@ namespace SteamScrape {
             if( game == null ) {
                 return false;
             }
-
             if( Aborted ) return false;
 
             string genre = null;
@@ -82,6 +83,7 @@ namespace SteamScrape {
                     if( type == AppType.Game || type == AppType.DLC ) {
                         game.Genre = genre;
                     }
+                    
                     return true;
                 } else {
                     return false;
@@ -131,15 +133,35 @@ namespace SteamScrape {
         }
 
         void UpdateText() {
+            double msElapsed = ( DateTime.Now - start ).TotalMilliseconds;
+            double msPerItem = msElapsed / (double)jobsCompleted;
+            double msRemaining = msPerItem * ( totalJobs - jobsCompleted );
+            TimeSpan timeRemaining = TimeSpan.FromMilliseconds( msRemaining );
+
             lblText.Text = string.Format( "Updating...{0}/{1} complete.", jobsCompleted, totalJobs );
+
+            StringBuilder remainingTimeString = new StringBuilder( "Time Remaining: " );
+            if( timeRemaining.TotalMinutes < 1.0 ) {
+                remainingTimeString.Append( "< 1 minute" );
+            } else {
+                double hours = timeRemaining.TotalHours;
+                if( hours >= 1.0 ) {
+                    remainingTimeString.Append( string.Format("{0:F0}h", hours) );
+                }
+                remainingTimeString.Append( string.Format( "{0:D2}m", timeRemaining.Minutes ) );
+            }
+            lblTime.Text = remainingTimeString.ToString();
         }
 
         private void UpdateForm_Load( object sender, EventArgs e ) {
-            for( int i = 0; i < THREADS; i++ ) {
+            int threadsToRun = Math.Min( MAX_THREADS, jobs.Count );
+            start = DateTime.Now;
+            for( int i = 0; i < MAX_THREADS; i++ ) {
                 Thread t = new Thread( new ThreadStart( RunJobs ) );
                 t.Start();
                 runningThreads++;
             }
+            UpdateText();
         }
     }
 }

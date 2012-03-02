@@ -51,7 +51,7 @@ namespace SteamScrape {
             }
         }
 
-        public void SaveToXml( string path ) {
+        public void SaveToXml( string path, bool saveAll = false ) {
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.CloseOutput = true;
@@ -59,17 +59,19 @@ namespace SteamScrape {
             writer.WriteStartDocument();
             writer.WriteStartElement( "gamelist" );
             foreach( GameDBEntry g in Games.Values ) {
-                writer.WriteStartElement( "game" );
+                if( saveAll || g.Type == AppType.Game || g.Type == AppType.DLC ) {
+                    writer.WriteStartElement( "game" );
 
-                writer.WriteElementString( "id", g.Id.ToString() );
-                if( !string.IsNullOrEmpty( g.Name ) ) {
-                    writer.WriteElementString( "name", g.Name );
+                    writer.WriteElementString( "id", g.Id.ToString() );
+                    if( !string.IsNullOrEmpty( g.Name ) ) {
+                        writer.WriteElementString( "name", g.Name );
+                    }
+                    writer.WriteElementString( "type", g.Type.ToString() );
+                    if( !string.IsNullOrEmpty( g.Genre ) ) {
+                        writer.WriteElementString( "genre", g.Genre );
+                    }
+                    writer.WriteEndElement();
                 }
-                writer.WriteElementString( "type", g.Type.ToString() );
-                if( !string.IsNullOrEmpty( g.Genre ) ) {
-                    writer.WriteElementString( "genre", g.Genre );
-                }
-                writer.WriteEndElement();
             }
             writer.WriteEndElement();
             writer.WriteEndDocument();
@@ -90,12 +92,13 @@ namespace SteamScrape {
                 GameDBEntry g = new GameDBEntry();
                 g.Id = id;
                 XmlUtil.TryGetStringFromNode( gameNode["name"], out g.Name );
-                XmlNode typeNode = gameNode["type"];
                 string typeString;
                 if( !XmlUtil.TryGetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType>( typeString, out g.Type ) ) {
-                } else {
                     g.Type = AppType.Unknown;
                 }
+
+                g.Genre = XmlUtil.GetStringFromNode( gameNode["genre"], null );
+
                 Games.Add( id, g );
             }
         }
