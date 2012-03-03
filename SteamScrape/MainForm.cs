@@ -131,12 +131,14 @@ namespace SteamScrape {
             return
                 chkAll.Checked ||
                 ( g.Type == AppType.DLC && chkDLC.Checked ) ||
-                ( g.Type == AppType.Error && chkError.Checked ) ||
+                ( g.Type == AppType.WebError && chkWebError.Checked ) ||
+                ( g.Type == AppType.SiteError && chkSiteError.Checked ) ||
                 ( g.Type == AppType.Game && chkGame.Checked ) ||
                 ( g.Type == AppType.IdRedirect && chkRedirect.Checked ) ||
                 ( g.Type == AppType.NonApp && chkNonApp.Checked ) ||
                 ( g.Type == AppType.NotFound && chkNotFound.Checked ) ||
-                ( g.Type == AppType.Unchecked && chkUnchecked.Checked );
+                ( g.Type == AppType.Unknown && chkNew.Checked ) ||
+                ( g.Type == AppType.New && chkNew.Checked );
         }
 
         #endregion
@@ -253,13 +255,9 @@ namespace SteamScrape {
             }
         }
 
-        private void cmdUpdateError_Click( object sender, EventArgs e ) {
-            ScrapeGamesOfType( AppType.Error );
-            UpdateSelectedStatus();
-        }
 
         private void cmdUpdateUnchecked_Click( object sender, EventArgs e ) {
-            ScrapeGamesOfType( AppType.Unchecked );
+            ScrapeGamesOfType( AppType.New );
             UpdateSelectedStatus();
         }
 
@@ -270,7 +268,7 @@ namespace SteamScrape {
 
         private void chkAll_CheckedChanged( object sender, EventArgs e ) {
             if( chkAll.Checked ) {
-                chkDLC.Checked = chkError.Checked = chkGame.Checked = chkNonApp.Checked = chkNotFound.Checked = chkRedirect.Checked = chkUnchecked.Checked = false;
+                chkDLC.Checked = chkSiteError.Checked = chkGame.Checked = chkNonApp.Checked = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = false;
             }
             RefreshGameList();
             UpdateSelectedStatus();

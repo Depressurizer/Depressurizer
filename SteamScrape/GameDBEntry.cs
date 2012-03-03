@@ -23,13 +23,15 @@ using System.Text.RegularExpressions;
 namespace SteamScrape {
 
     public enum AppType {
-        Unchecked,
-        Error,
-        IdRedirect,
+        New,
         Game,
         DLC,
+        IdRedirect,
         NonApp,
-        NotFound
+        NotFound,
+        SiteError,
+        WebError,
+        Unknown
     }
 
     public class GameDBEntry {
@@ -38,6 +40,7 @@ namespace SteamScrape {
         public string Genre;
         public AppType Type;
 
+        private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
         private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
@@ -48,12 +51,13 @@ namespace SteamScrape {
         public static AppType ScrapeStore( int id, out string genre ) {
             genre = null;
             bool redirect = false;
+            string page = "";
             try {
                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( @"http://store.steampowered.com/app/{0}/", id ) );
                 // Cookie bypasses the age gate
                 req.CookieContainer = new CookieContainer( 1 );
                 req.CookieContainer.Add( new Cookie( "birthtime", "0", "/", "store.steampowered.com" ) );
-                string page = "";
+
 
                 using( WebResponse resp = req.GetResponse() ) {
                     if( resp.ResponseUri.Segments.Length <= 1 ) {
@@ -63,30 +67,39 @@ namespace SteamScrape {
                         // Redirected outside of the app path
                         return AppType.NonApp;
                     } else if( resp.ResponseUri.Segments.Length < 3 || !resp.ResponseUri.Segments[2].StartsWith( id.ToString() ) ) {
-                        // Redirected to a different app id
+                        // Redirected to a different app id, but we still want to check the genre
                         redirect = true;
                     }
                     StreamReader sr = new StreamReader( resp.GetResponseStream() );
                     page = sr.ReadToEnd();
                 }
+            } catch {
+                // Something went wrong with the download.
+                return AppType.WebError;
+            }
 
+            if( page.Contains( "<title>Site Error</title>" ) ) {
+                return AppType.SiteError;
+            }
+
+
+            // Here we should have an app, but we want to make sure.
+            if( regGamecheck.IsMatch( page ) ) {
                 string newCat;
                 if( GetGenreFromPage( page, out newCat ) ) {
                     genre = newCat;
-                    // We have a genre, but it could be DLC
-                    if( GetDLCFromPage( page ) ) {
-                        return AppType.DLC;
-                    } else {
-                        return redirect ? AppType.IdRedirect : AppType.Game;
-                    }
-                } else {
-                    // The URL looks like an app, but we can't find an error
-                    return AppType.Error;
                 }
-            } catch {
-                // Something went wrong. Just return unknown.
-                return AppType.Error;
+                // We have a genre, but it could be DLC
+                if( GetDLCFromPage( page ) ) {
+                    return AppType.DLC;
+                } else {
+                    return redirect ? AppType.IdRedirect : AppType.Game;
+                }
+            } else {
+                // we don't know what it is.
+                return AppType.Unknown;
             }
+
         }
 
         private static bool GetGenreFromPage( string page, out string cat ) {

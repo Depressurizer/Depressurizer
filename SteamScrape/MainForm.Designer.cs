@@ -37,7 +37,6 @@
             this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colGenre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.cmdUpdateError = new System.Windows.Forms.Button();
             this.cmdFetch = new System.Windows.Forms.Button();
             this.cmdUpdateUnchecked = new System.Windows.Forms.Button();
             this.cmdUpdateSelected = new System.Windows.Forms.Button();
@@ -45,16 +44,17 @@
             this.cmdDeleteGame = new System.Windows.Forms.Button();
             this.cmdAddGame = new System.Windows.Forms.Button();
             this.grpFilter = new System.Windows.Forms.GroupBox();
+            this.Unknown = new System.Windows.Forms.CheckBox();
+            this.chkWebError = new System.Windows.Forms.CheckBox();
             this.chkNonApp = new System.Windows.Forms.CheckBox();
             this.chkRedirect = new System.Windows.Forms.CheckBox();
             this.chkNotFound = new System.Windows.Forms.CheckBox();
             this.chkDLC = new System.Windows.Forms.CheckBox();
             this.chkGame = new System.Windows.Forms.CheckBox();
-            this.chkError = new System.Windows.Forms.CheckBox();
-            this.chkUnchecked = new System.Windows.Forms.CheckBox();
+            this.chkSiteError = new System.Windows.Forms.CheckBox();
+            this.chkNew = new System.Windows.Forms.CheckBox();
             this.chkAll = new System.Windows.Forms.CheckBox();
             this.cmdStore = new System.Windows.Forms.Button();
-            this.cmdUpdateRedirect = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statSelected = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenu.SuspendLayout();
@@ -145,7 +145,7 @@
             this.lstGames.GridLines = true;
             this.lstGames.Location = new System.Drawing.Point(12, 27);
             this.lstGames.Name = "lstGames";
-            this.lstGames.Size = new System.Drawing.Size(525, 417);
+            this.lstGames.Size = new System.Drawing.Size(525, 390);
             this.lstGames.TabIndex = 0;
             this.lstGames.UseCompatibleStateImageBehavior = false;
             this.lstGames.View = System.Windows.Forms.View.Details;
@@ -173,17 +173,6 @@
             this.colType.Text = "Type";
             this.colType.Width = 87;
             // 
-            // cmdUpdateError
-            // 
-            this.cmdUpdateError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdateError.Location = new System.Drawing.Point(543, 396);
-            this.cmdUpdateError.Name = "cmdUpdateError";
-            this.cmdUpdateError.Size = new System.Drawing.Size(114, 23);
-            this.cmdUpdateError.TabIndex = 7;
-            this.cmdUpdateError.Text = "Update Error";
-            this.cmdUpdateError.UseVisualStyleBackColor = true;
-            this.cmdUpdateError.Click += new System.EventHandler(this.cmdUpdateError_Click);
-            // 
             // cmdFetch
             // 
             this.cmdFetch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -198,18 +187,18 @@
             // cmdUpdateUnchecked
             // 
             this.cmdUpdateUnchecked.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdateUnchecked.Location = new System.Drawing.Point(543, 372);
+            this.cmdUpdateUnchecked.Location = new System.Drawing.Point(543, 391);
             this.cmdUpdateUnchecked.Name = "cmdUpdateUnchecked";
             this.cmdUpdateUnchecked.Size = new System.Drawing.Size(114, 23);
             this.cmdUpdateUnchecked.TabIndex = 6;
-            this.cmdUpdateUnchecked.Text = "Update Unchecked";
+            this.cmdUpdateUnchecked.Text = "Update New";
             this.cmdUpdateUnchecked.UseVisualStyleBackColor = true;
             this.cmdUpdateUnchecked.Click += new System.EventHandler(this.cmdUpdateUnchecked_Click);
             // 
             // cmdUpdateSelected
             // 
             this.cmdUpdateSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdateSelected.Location = new System.Drawing.Point(543, 348);
+            this.cmdUpdateSelected.Location = new System.Drawing.Point(543, 367);
             this.cmdUpdateSelected.Name = "cmdUpdateSelected";
             this.cmdUpdateSelected.Size = new System.Drawing.Size(114, 23);
             this.cmdUpdateSelected.TabIndex = 5;
@@ -220,7 +209,7 @@
             // cmdEditGame
             // 
             this.cmdEditGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditGame.Location = new System.Drawing.Point(543, 308);
+            this.cmdEditGame.Location = new System.Drawing.Point(543, 334);
             this.cmdEditGame.Name = "cmdEditGame";
             this.cmdEditGame.Size = new System.Drawing.Size(114, 23);
             this.cmdEditGame.TabIndex = 4;
@@ -231,7 +220,7 @@
             // cmdDeleteGame
             // 
             this.cmdDeleteGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDeleteGame.Location = new System.Drawing.Point(543, 284);
+            this.cmdDeleteGame.Location = new System.Drawing.Point(543, 310);
             this.cmdDeleteGame.Name = "cmdDeleteGame";
             this.cmdDeleteGame.Size = new System.Drawing.Size(114, 23);
             this.cmdDeleteGame.TabIndex = 3;
@@ -242,7 +231,7 @@
             // cmdAddGame
             // 
             this.cmdAddGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAddGame.Location = new System.Drawing.Point(543, 260);
+            this.cmdAddGame.Location = new System.Drawing.Point(543, 286);
             this.cmdAddGame.Name = "cmdAddGame";
             this.cmdAddGame.Size = new System.Drawing.Size(114, 23);
             this.cmdAddGame.TabIndex = 2;
@@ -253,25 +242,49 @@
             // grpFilter
             // 
             this.grpFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpFilter.Controls.Add(this.Unknown);
+            this.grpFilter.Controls.Add(this.chkWebError);
             this.grpFilter.Controls.Add(this.chkNonApp);
             this.grpFilter.Controls.Add(this.chkRedirect);
             this.grpFilter.Controls.Add(this.chkNotFound);
             this.grpFilter.Controls.Add(this.chkDLC);
             this.grpFilter.Controls.Add(this.chkGame);
-            this.grpFilter.Controls.Add(this.chkError);
-            this.grpFilter.Controls.Add(this.chkUnchecked);
+            this.grpFilter.Controls.Add(this.chkSiteError);
+            this.grpFilter.Controls.Add(this.chkNew);
             this.grpFilter.Controls.Add(this.chkAll);
             this.grpFilter.Location = new System.Drawing.Point(547, 56);
             this.grpFilter.Name = "grpFilter";
-            this.grpFilter.Size = new System.Drawing.Size(110, 160);
+            this.grpFilter.Size = new System.Drawing.Size(110, 193);
             this.grpFilter.TabIndex = 8;
             this.grpFilter.TabStop = false;
             this.grpFilter.Text = "Filter";
             // 
+            // Unknown
+            // 
+            this.Unknown.AutoSize = true;
+            this.Unknown.Location = new System.Drawing.Point(6, 172);
+            this.Unknown.Name = "Unknown";
+            this.Unknown.Size = new System.Drawing.Size(72, 17);
+            this.Unknown.TabIndex = 9;
+            this.Unknown.Text = "Unknown";
+            this.Unknown.UseVisualStyleBackColor = true;
+            this.Unknown.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            // 
+            // chkWebError
+            // 
+            this.chkWebError.AutoSize = true;
+            this.chkWebError.Location = new System.Drawing.Point(6, 155);
+            this.chkWebError.Name = "chkWebError";
+            this.chkWebError.Size = new System.Drawing.Size(71, 17);
+            this.chkWebError.TabIndex = 8;
+            this.chkWebError.Text = "WebError";
+            this.chkWebError.UseVisualStyleBackColor = true;
+            this.chkWebError.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            // 
             // chkNonApp
             // 
             this.chkNonApp.AutoSize = true;
-            this.chkNonApp.Location = new System.Drawing.Point(6, 138);
+            this.chkNonApp.Location = new System.Drawing.Point(6, 104);
             this.chkNonApp.Name = "chkNonApp";
             this.chkNonApp.Size = new System.Drawing.Size(65, 17);
             this.chkNonApp.TabIndex = 7;
@@ -282,7 +295,7 @@
             // chkRedirect
             // 
             this.chkRedirect.AutoSize = true;
-            this.chkRedirect.Location = new System.Drawing.Point(6, 121);
+            this.chkRedirect.Location = new System.Drawing.Point(6, 87);
             this.chkRedirect.Name = "chkRedirect";
             this.chkRedirect.Size = new System.Drawing.Size(75, 17);
             this.chkRedirect.TabIndex = 6;
@@ -293,7 +306,7 @@
             // chkNotFound
             // 
             this.chkNotFound.AutoSize = true;
-            this.chkNotFound.Location = new System.Drawing.Point(6, 104);
+            this.chkNotFound.Location = new System.Drawing.Point(6, 121);
             this.chkNotFound.Name = "chkNotFound";
             this.chkNotFound.Size = new System.Drawing.Size(73, 17);
             this.chkNotFound.TabIndex = 5;
@@ -304,7 +317,7 @@
             // chkDLC
             // 
             this.chkDLC.AutoSize = true;
-            this.chkDLC.Location = new System.Drawing.Point(6, 87);
+            this.chkDLC.Location = new System.Drawing.Point(6, 70);
             this.chkDLC.Name = "chkDLC";
             this.chkDLC.Size = new System.Drawing.Size(47, 17);
             this.chkDLC.TabIndex = 4;
@@ -315,7 +328,7 @@
             // chkGame
             // 
             this.chkGame.AutoSize = true;
-            this.chkGame.Location = new System.Drawing.Point(6, 70);
+            this.chkGame.Location = new System.Drawing.Point(6, 53);
             this.chkGame.Name = "chkGame";
             this.chkGame.Size = new System.Drawing.Size(54, 17);
             this.chkGame.TabIndex = 3;
@@ -323,27 +336,27 @@
             this.chkGame.UseVisualStyleBackColor = true;
             this.chkGame.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
             // 
-            // chkError
+            // chkSiteError
             // 
-            this.chkError.AutoSize = true;
-            this.chkError.Location = new System.Drawing.Point(6, 53);
-            this.chkError.Name = "chkError";
-            this.chkError.Size = new System.Drawing.Size(48, 17);
-            this.chkError.TabIndex = 2;
-            this.chkError.Text = "Error";
-            this.chkError.UseVisualStyleBackColor = true;
-            this.chkError.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            this.chkSiteError.AutoSize = true;
+            this.chkSiteError.Location = new System.Drawing.Point(6, 138);
+            this.chkSiteError.Name = "chkSiteError";
+            this.chkSiteError.Size = new System.Drawing.Size(66, 17);
+            this.chkSiteError.TabIndex = 2;
+            this.chkSiteError.Text = "SiteError";
+            this.chkSiteError.UseVisualStyleBackColor = true;
+            this.chkSiteError.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
             // 
-            // chkUnchecked
+            // chkNew
             // 
-            this.chkUnchecked.AutoSize = true;
-            this.chkUnchecked.Location = new System.Drawing.Point(6, 36);
-            this.chkUnchecked.Name = "chkUnchecked";
-            this.chkUnchecked.Size = new System.Drawing.Size(82, 17);
-            this.chkUnchecked.TabIndex = 1;
-            this.chkUnchecked.Text = "Unchecked";
-            this.chkUnchecked.UseVisualStyleBackColor = true;
-            this.chkUnchecked.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            this.chkNew.AutoSize = true;
+            this.chkNew.Location = new System.Drawing.Point(6, 36);
+            this.chkNew.Name = "chkNew";
+            this.chkNew.Size = new System.Drawing.Size(48, 17);
+            this.chkNew.TabIndex = 1;
+            this.chkNew.Text = "New";
+            this.chkNew.UseVisualStyleBackColor = true;
+            this.chkNew.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
             // 
             // chkAll
             // 
@@ -361,7 +374,7 @@
             // cmdStore
             // 
             this.cmdStore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdStore.Location = new System.Drawing.Point(543, 222);
+            this.cmdStore.Location = new System.Drawing.Point(543, 255);
             this.cmdStore.Name = "cmdStore";
             this.cmdStore.Size = new System.Drawing.Size(114, 23);
             this.cmdStore.TabIndex = 9;
@@ -369,22 +382,11 @@
             this.cmdStore.UseVisualStyleBackColor = true;
             this.cmdStore.Click += new System.EventHandler(this.cmdStore_Click);
             // 
-            // cmdUpdateRedirect
-            // 
-            this.cmdUpdateRedirect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdateRedirect.Location = new System.Drawing.Point(543, 421);
-            this.cmdUpdateRedirect.Name = "cmdUpdateRedirect";
-            this.cmdUpdateRedirect.Size = new System.Drawing.Size(114, 23);
-            this.cmdUpdateRedirect.TabIndex = 10;
-            this.cmdUpdateRedirect.Text = "Update Redirect";
-            this.cmdUpdateRedirect.UseVisualStyleBackColor = true;
-            this.cmdUpdateRedirect.Click += new System.EventHandler(this.cmdUpdateRedirect_Click);
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statSelected});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 447);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 420);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(669, 22);
             this.statusStrip1.TabIndex = 11;
@@ -393,7 +395,7 @@
             // statSelected
             // 
             this.statSelected.Name = "statSelected";
-            this.statSelected.Size = new System.Drawing.Size(623, 17);
+            this.statSelected.Size = new System.Drawing.Size(654, 17);
             this.statSelected.Spring = true;
             this.statSelected.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -401,9 +403,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 469);
+            this.ClientSize = new System.Drawing.Size(669, 442);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.cmdUpdateRedirect);
             this.Controls.Add(this.cmdStore);
             this.Controls.Add(this.grpFilter);
             this.Controls.Add(this.cmdAddGame);
@@ -412,11 +413,10 @@
             this.Controls.Add(this.cmdUpdateSelected);
             this.Controls.Add(this.cmdUpdateUnchecked);
             this.Controls.Add(this.cmdFetch);
-            this.Controls.Add(this.cmdUpdateError);
             this.Controls.Add(this.lstGames);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
-            this.MinimumSize = new System.Drawing.Size(685, 507);
+            this.MinimumSize = new System.Drawing.Size(685, 480);
             this.Name = "MainForm";
             this.Text = "SteamScrape";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -443,7 +443,6 @@
         private System.Windows.Forms.ColumnHeader colID;
         private System.Windows.Forms.ColumnHeader colGenre;
         private System.Windows.Forms.ColumnHeader colType;
-        private System.Windows.Forms.Button cmdUpdateError;
         private System.Windows.Forms.Button cmdFetch;
         private System.Windows.Forms.Button cmdUpdateUnchecked;
         private System.Windows.Forms.Button cmdUpdateSelected;
@@ -460,13 +459,14 @@
         private System.Windows.Forms.CheckBox chkNotFound;
         private System.Windows.Forms.CheckBox chkDLC;
         private System.Windows.Forms.CheckBox chkGame;
-        private System.Windows.Forms.CheckBox chkError;
-        private System.Windows.Forms.CheckBox chkUnchecked;
+        private System.Windows.Forms.CheckBox chkSiteError;
+        private System.Windows.Forms.CheckBox chkNew;
         private System.Windows.Forms.CheckBox chkAll;
         private System.Windows.Forms.Button cmdStore;
-        private System.Windows.Forms.Button cmdUpdateRedirect;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statSelected;
+        private System.Windows.Forms.CheckBox Unknown;
+        private System.Windows.Forms.CheckBox chkWebError;
     }
 }
 
