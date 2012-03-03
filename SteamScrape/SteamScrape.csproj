@@ -50,8 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameDBEntry.cs" />
-    <Compile Include="GameDB.cs" />
     <Compile Include="GameDBEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameDB.cs" />
+    <Compile Include="GameDBEntry.cs" />
     <Compile Include="MultiColumnListViewComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlUtil.cs" />

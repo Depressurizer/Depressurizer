@@ -20,7 +20,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace SteamScrape {
+namespace DPLib {
 
     public enum AppType {
         New,

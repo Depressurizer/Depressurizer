@@ -20,9 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
-using DPLib;
 
-namespace SteamScrape {
+namespace DPLib {
     public class GameDB {
         public Dictionary<int, GameDBEntry> Games = new Dictionary<int, GameDBEntry>();
 
