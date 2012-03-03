@@ -27,6 +27,8 @@ namespace SteamScrape {
         GameDB gameList = new GameDB();
         MultiColumnListViewComparer listSorter = new MultiColumnListViewComparer();
 
+        bool filterSuspend = false;
+
         public MainForm() {
             InitializeComponent();
         }
@@ -267,19 +269,28 @@ namespace SteamScrape {
         }
 
         private void chkAll_CheckedChanged( object sender, EventArgs e ) {
-            if( chkAll.Checked ) {
-                chkDLC.Checked = chkSiteError.Checked = chkGame.Checked = chkNonApp.Checked = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = false;
+            if( !filterSuspend ) {
+                filterSuspend = true;
+                if( chkAll.Checked ) {
+                    chkDLC.Checked = chkSiteError.Checked = chkWebError.Checked = chkGame.Checked = chkNonApp.Checked
+                        = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = chkUnknown.Checked = false;
+                }
+                filterSuspend = false;
+                RefreshGameList();
+                UpdateSelectedStatus();
             }
-            RefreshGameList();
-            UpdateSelectedStatus();
         }
 
         private void chkAny_CheckedChanged( object sender, EventArgs e ) {
-            if( ( (CheckBox)sender ).Checked ) {
-                chkAll.Checked = false;
+            if( !filterSuspend ) {
+                filterSuspend = true;
+                if( ( (CheckBox)sender ).Checked ) {
+                    chkAll.Checked = false;
+                }
+                filterSuspend = false;
+                RefreshGameList();
+                UpdateSelectedStatus();
             }
-            RefreshGameList();
-            UpdateSelectedStatus();
         }
 
 

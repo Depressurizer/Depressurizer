@@ -62,7 +62,7 @@ namespace SteamScrape {
             this.cmdDeleteGame = new System.Windows.Forms.Button();
             this.cmdAddGame = new System.Windows.Forms.Button();
             this.grpFilter = new System.Windows.Forms.GroupBox();
-            this.Unknown = new System.Windows.Forms.CheckBox();
+            this.chkUnknown = new System.Windows.Forms.CheckBox();
             this.chkWebError = new System.Windows.Forms.CheckBox();
             this.chkNonApp = new System.Windows.Forms.CheckBox();
             this.chkRedirect = new System.Windows.Forms.CheckBox();
@@ -260,7 +260,7 @@ namespace SteamScrape {
             // grpFilter
             // 
             this.grpFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpFilter.Controls.Add(this.Unknown);
+            this.grpFilter.Controls.Add(this.chkUnknown);
             this.grpFilter.Controls.Add(this.chkWebError);
             this.grpFilter.Controls.Add(this.chkNonApp);
             this.grpFilter.Controls.Add(this.chkRedirect);
@@ -277,16 +277,16 @@ namespace SteamScrape {
             this.grpFilter.TabStop = false;
             this.grpFilter.Text = "Filter";
             // 
-            // Unknown
+            // chkUnknown
             // 
-            this.Unknown.AutoSize = true;
-            this.Unknown.Location = new System.Drawing.Point(6, 172);
-            this.Unknown.Name = "Unknown";
-            this.Unknown.Size = new System.Drawing.Size(72, 17);
-            this.Unknown.TabIndex = 9;
-            this.Unknown.Text = "Unknown";
-            this.Unknown.UseVisualStyleBackColor = true;
-            this.Unknown.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            this.chkUnknown.AutoSize = true;
+            this.chkUnknown.Location = new System.Drawing.Point(6, 172);
+            this.chkUnknown.Name = "chkUnknown";
+            this.chkUnknown.Size = new System.Drawing.Size(72, 17);
+            this.chkUnknown.TabIndex = 9;
+            this.chkUnknown.Text = "Unknown";
+            this.chkUnknown.UseVisualStyleBackColor = true;
+            this.chkUnknown.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
             // 
             // chkWebError
             // 
@@ -483,7 +483,7 @@ namespace SteamScrape {
         private System.Windows.Forms.Button cmdStore;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statSelected;
-        private System.Windows.Forms.CheckBox Unknown;
+        private System.Windows.Forms.CheckBox chkUnknown;
         private System.Windows.Forms.CheckBox chkWebError;
     }
 }
