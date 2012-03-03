@@ -51,7 +51,9 @@ namespace Depressurizer {
                 Text = "Edit Game";
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
-                cmbCategory.Text = Game.Category.Name;
+                if( Game.Category != null ) {
+                    cmbCategory.Text = Game.Category.Name;
+                }
                 chkFavorite.Checked = Game.Favorite;
                 txtId.Enabled = false;
             } else {
