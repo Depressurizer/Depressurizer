@@ -289,6 +289,7 @@ namespace Depressurizer {
                             if( !Games.ContainsKey( gameId ) ) {
                                 Game newGame = new Game( gameId, string.Empty );
                                 Games.Add( gameId, newGame );
+                                newGame.Name = Program.GameDB.GetName( gameId );
                             }
                             Games[gameId].Category = cat;
                             Games[gameId].Favorite = fav;

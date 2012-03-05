@@ -34,12 +34,20 @@ namespace DPLib {
             return Games.ContainsKey( id ) && Games[id].Type == AppType.DLC;
         }
 
-        public string GetGenre( int id, bool firstOnly ) {
+        public string GetName( int id ) {
             if( Games.ContainsKey( id ) ) {
-                if( firstOnly ) {
-                    return Games[id].Genre.Split( genreSep, 1 )[0];
-                } else {
+                return Games[id].Name;
+            } else {
+                return null;
+            }
+        }
+
+        public string GetGenre( int id, bool full ) {
+            if( Games.ContainsKey( id ) ) {
+                if( full ) {
                     return Games[id].Genre;
+                } else {
+                    return Games[id].Genre.Split( genreSep, 1 )[0];
                 }
             } else {
                 return null;
