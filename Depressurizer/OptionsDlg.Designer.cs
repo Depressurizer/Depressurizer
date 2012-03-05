@@ -55,9 +55,12 @@ namespace Depressurizer {
             this.cmdCancel = new System.Windows.Forms.Button();
             this.grpSaving = new System.Windows.Forms.GroupBox();
             this.chkIgnoreDlc = new System.Windows.Forms.CheckBox();
+            this.grpAutocat = new System.Windows.Forms.GroupBox();
+            this.chkFullAutocat = new System.Windows.Forms.CheckBox();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
+            this.grpAutocat.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -68,7 +71,7 @@ namespace Depressurizer {
             this.grpSteamDir.Controls.Add(this.txtSteamPath);
             this.grpSteamDir.Location = new System.Drawing.Point(12, 12);
             this.grpSteamDir.Name = "grpSteamDir";
-            this.grpSteamDir.Size = new System.Drawing.Size(473, 54);
+            this.grpSteamDir.Size = new System.Drawing.Size(477, 54);
             this.grpSteamDir.TabIndex = 0;
             this.grpSteamDir.TabStop = false;
             this.grpSteamDir.Text = "Steam Directory";
@@ -76,7 +79,7 @@ namespace Depressurizer {
             // cmdSteamPathBrowse
             // 
             this.cmdSteamPathBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSteamPathBrowse.Location = new System.Drawing.Point(389, 20);
+            this.cmdSteamPathBrowse.Location = new System.Drawing.Point(393, 20);
             this.cmdSteamPathBrowse.Name = "cmdSteamPathBrowse";
             this.cmdSteamPathBrowse.Size = new System.Drawing.Size(75, 23);
             this.cmdSteamPathBrowse.TabIndex = 1;
@@ -90,7 +93,7 @@ namespace Depressurizer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSteamPath.Location = new System.Drawing.Point(11, 22);
             this.txtSteamPath.Name = "txtSteamPath";
-            this.txtSteamPath.Size = new System.Drawing.Size(372, 20);
+            this.txtSteamPath.Size = new System.Drawing.Size(376, 20);
             this.txtSteamPath.TabIndex = 0;
             // 
             // grpStartup
@@ -104,7 +107,7 @@ namespace Depressurizer {
             this.grpStartup.Controls.Add(this.txtDefaultProfile);
             this.grpStartup.Location = new System.Drawing.Point(12, 72);
             this.grpStartup.Name = "grpStartup";
-            this.grpStartup.Size = new System.Drawing.Size(473, 90);
+            this.grpStartup.Size = new System.Drawing.Size(477, 90);
             this.grpStartup.TabIndex = 1;
             this.grpStartup.TabStop = false;
             this.grpStartup.Text = "On Startup";
@@ -134,7 +137,7 @@ namespace Depressurizer {
             // radLoad
             // 
             this.radLoad.AutoSize = true;
-            this.radLoad.Location = new System.Drawing.Point(10, 19);
+            this.radLoad.Location = new System.Drawing.Point(11, 19);
             this.radLoad.Name = "radLoad";
             this.radLoad.Size = new System.Drawing.Size(84, 17);
             this.radLoad.TabIndex = 0;
@@ -145,7 +148,7 @@ namespace Depressurizer {
             // cmdDefaultProfileBrowse
             // 
             this.cmdDefaultProfileBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDefaultProfileBrowse.Location = new System.Drawing.Point(389, 16);
+            this.cmdDefaultProfileBrowse.Location = new System.Drawing.Point(393, 16);
             this.cmdDefaultProfileBrowse.Name = "cmdDefaultProfileBrowse";
             this.cmdDefaultProfileBrowse.Size = new System.Drawing.Size(75, 23);
             this.cmdDefaultProfileBrowse.TabIndex = 2;
@@ -159,7 +162,7 @@ namespace Depressurizer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDefaultProfile.Location = new System.Drawing.Point(101, 18);
             this.txtDefaultProfile.Name = "txtDefaultProfile";
-            this.txtDefaultProfile.Size = new System.Drawing.Size(282, 20);
+            this.txtDefaultProfile.Size = new System.Drawing.Size(286, 20);
             this.txtDefaultProfile.TabIndex = 1;
             // 
             // chkRemoveExtraEntries
@@ -175,7 +178,7 @@ namespace Depressurizer {
             // cmdAccept
             // 
             this.cmdAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAccept.Location = new System.Drawing.Point(410, 241);
+            this.cmdAccept.Location = new System.Drawing.Point(414, 290);
             this.cmdAccept.Name = "cmdAccept";
             this.cmdAccept.Size = new System.Drawing.Size(75, 23);
             this.cmdAccept.TabIndex = 4;
@@ -186,7 +189,7 @@ namespace Depressurizer {
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCancel.Location = new System.Drawing.Point(329, 241);
+            this.cmdCancel.Location = new System.Drawing.Point(333, 290);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 3;
@@ -200,9 +203,9 @@ namespace Depressurizer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpSaving.Controls.Add(this.chkIgnoreDlc);
             this.grpSaving.Controls.Add(this.chkRemoveExtraEntries);
-            this.grpSaving.Location = new System.Drawing.Point(12, 168);
+            this.grpSaving.Location = new System.Drawing.Point(12, 216);
             this.grpSaving.Name = "grpSaving";
-            this.grpSaving.Size = new System.Drawing.Size(473, 66);
+            this.grpSaving.Size = new System.Drawing.Size(477, 66);
             this.grpSaving.TabIndex = 2;
             this.grpSaving.TabStop = false;
             this.grpSaving.Text = "Manual Operations";
@@ -217,12 +220,33 @@ namespace Depressurizer {
             this.chkIgnoreDlc.Text = "Ignore DLC on import and download";
             this.chkIgnoreDlc.UseVisualStyleBackColor = true;
             // 
+            // grpAutocat
+            // 
+            this.grpAutocat.Controls.Add(this.chkFullAutocat);
+            this.grpAutocat.Location = new System.Drawing.Point(12, 168);
+            this.grpAutocat.Name = "grpAutocat";
+            this.grpAutocat.Size = new System.Drawing.Size(473, 42);
+            this.grpAutocat.TabIndex = 5;
+            this.grpAutocat.TabStop = false;
+            this.grpAutocat.Text = "Auto-Categorization";
+            // 
+            // chkFullAutocat
+            // 
+            this.chkFullAutocat.AutoSize = true;
+            this.chkFullAutocat.Location = new System.Drawing.Point(11, 19);
+            this.chkFullAutocat.Name = "chkFullAutocat";
+            this.chkFullAutocat.Size = new System.Drawing.Size(255, 17);
+            this.chkFullAutocat.TabIndex = 0;
+            this.chkFullAutocat.Text = "Use full genre lists instead of only the main genre";
+            this.chkFullAutocat.UseVisualStyleBackColor = true;
+            // 
             // OptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 274);
+            this.ClientSize = new System.Drawing.Size(501, 323);
             this.ControlBox = false;
+            this.Controls.Add(this.grpAutocat);
             this.Controls.Add(this.grpSaving);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdAccept);
@@ -239,6 +263,8 @@ namespace Depressurizer {
             this.grpStartup.PerformLayout();
             this.grpSaving.ResumeLayout(false);
             this.grpSaving.PerformLayout();
+            this.grpAutocat.ResumeLayout(false);
+            this.grpAutocat.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -259,5 +285,7 @@ namespace Depressurizer {
         private System.Windows.Forms.RadioButton radCreate;
         private System.Windows.Forms.RadioButton radLoad;
         private System.Windows.Forms.CheckBox chkIgnoreDlc;
+        private System.Windows.Forms.GroupBox grpAutocat;
+        private System.Windows.Forms.CheckBox chkFullAutocat;
     }
 }

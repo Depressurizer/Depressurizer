@@ -46,6 +46,7 @@ namespace Depressurizer {
             }
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
             chkIgnoreDlc.Checked = settings.IgnoreDlc;
+            chkFullAutocat.Checked = settings.FullAutocat;
         }
 
         private void SaveFieldsToSettings() {
@@ -62,6 +63,7 @@ namespace Depressurizer {
             settings.ProfileToLoad = txtDefaultProfile.Text;
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
             settings.IgnoreDlc = chkIgnoreDlc.Checked;
+            settings.FullAutocat = chkFullAutocat.Checked;
             try {
                 settings.Save();
             } catch( Exception e ) {

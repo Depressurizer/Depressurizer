@@ -47,12 +47,10 @@ namespace Depressurizer {
         private string _steamPath = null;
         public string SteamPath {
             get {
-                lock( threadLock ) {
-                    return _steamPath;
-                }
+                return _steamPath;
             }
             set {
-                lock( threadLock ) {
+                if( _steamPath != value ) {
                     _steamPath = value;
                     outOfDate = true;
                 }
@@ -62,12 +60,10 @@ namespace Depressurizer {
         private StartupAction _startupAction = StartupAction.Create;
         public StartupAction StartupAction {
             get {
-                lock( threadLock ) {
-                    return _startupAction;
-                }
+                return _startupAction;
             }
             set {
-                lock( threadLock ) {
+                if( _startupAction != value ) {
                     _startupAction = value;
                     outOfDate = true;
                 }
@@ -77,12 +73,10 @@ namespace Depressurizer {
         private string _profileToLoad = null;
         public string ProfileToLoad {
             get {
-                lock( threadLock ) {
-                    return _profileToLoad;
-                }
+                return _profileToLoad;
             }
             set {
-                lock( threadLock ) {
+                if( _profileToLoad != value ) {
                     _profileToLoad = value;
                     outOfDate = true;
                 }
@@ -92,12 +86,10 @@ namespace Depressurizer {
         private bool _removeExtraEntries = true;
         public bool RemoveExtraEntries {
             get {
-                lock( threadLock ) {
-                    return _removeExtraEntries;
-                }
+                return _removeExtraEntries;
             }
             set {
-                lock( threadLock ) {
+                if( _removeExtraEntries != value ) {
                     _removeExtraEntries = value;
                     outOfDate = true;
                 }
@@ -107,13 +99,24 @@ namespace Depressurizer {
         private bool _ignoreDlc = true;
         public bool IgnoreDlc {
             get {
-                lock( threadLock ) {
-                    return _ignoreDlc;
-                }
+                return _ignoreDlc;
             }
             set {
-                lock( threadLock ) {
+                if( _ignoreDlc != value ) {
                     _ignoreDlc = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private bool _fullAutocat = false;
+        public bool FullAutocat {
+            get {
+                return _fullAutocat;
+            }
+            set {
+                if( _fullAutocat != value ) {
+                    _fullAutocat = value;
                     outOfDate = true;
                 }
             }
