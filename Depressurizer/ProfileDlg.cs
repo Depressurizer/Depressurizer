@@ -77,6 +77,7 @@ namespace Depressurizer {
             this.Text = "Edit Profile";
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
+            chkIgnoreDlc.Checked = Profile.IgnoreDlc;
             foreach( int i in Profile.IgnoreList ) {
                 lstIgnored.Items.Add( i.ToString() );
             }
@@ -184,6 +185,7 @@ namespace Depressurizer {
             p.OverwriteOnDownload = chkOverwriteNames.Checked;
 
             p.AutoIgnore = chkAutoIgnore.Checked;
+            p.IgnoreDlc = chkIgnoreDlc.Checked;
 
             SortedSet<int> ignoreSet = new SortedSet<int>();
             foreach( ListViewItem item in lstIgnored.Items ) {

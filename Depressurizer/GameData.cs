@@ -195,7 +195,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="profileName">Name of the Steam profile to get</param>
         /// <returns>The number of games found in the profile</returns>
-        public int LoadGameList( string profileName, bool overWrite, SortedSet<int> ignore ) {
+        public int LoadGameList( string profileName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
             XmlDocument doc = new XmlDocument();
             try {
                 string url = string.Format( Properties.Resources.ProfileURL, profileName );
@@ -214,12 +214,13 @@ namespace Depressurizer {
                 int appId;
                 XmlNode appIdNode = gameNode["appID"];
                 if( appIdNode != null && int.TryParse( appIdNode.InnerText, out appId ) ) {
-                    if( ignore == null || !ignore.Contains( appId ) ) {
-                        XmlNode nameNode = gameNode["name"];
-                        if( nameNode != null ) {
-                            SetGameName( appId, nameNode.InnerText, overWrite );
-                            loadedGames++;
-                        }
+                    if( ( ignore != null && ignore.Contains( appId ) ) || ( ignoreDlc && Program.GameDB.IsDlc( appId ) ) ) {
+                        continue;
+                    }
+                    XmlNode nameNode = gameNode["name"];
+                    if( nameNode != null ) {
+                        SetGameName( appId, nameNode.InnerText, overWrite );
+                        loadedGames++;
                     }
                 }
             }
@@ -231,7 +232,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="filePath">The path of the file to open</param>
         /// <returns>The number of game entries found</returns>
-        public int ImportSteamFile( string filePath, SortedSet<int> ignore ) {
+        public int ImportSteamFile( string filePath, SortedSet<int> ignore, bool ignoreDlc ) {
 
             FileNode dataRoot;
 
@@ -246,7 +247,7 @@ namespace Depressurizer {
             }
 
             FileNode appsNode = dataRoot.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
-            return LoadGames( appsNode, ignore );
+            return LoadGames( appsNode, ignore, ignoreDlc );
         }
 
         /// <summary>
@@ -255,7 +256,7 @@ namespace Depressurizer {
         /// <param name="appsNode">Node containing the game nodes</param>
         /// <param name="ignore">Set of games to ignore</param>
         /// <returns>Number of games loaded</returns>
-        private int LoadGames( FileNode appsNode, SortedSet<int> ignore ) {
+        private int LoadGames( FileNode appsNode, SortedSet<int> ignore, bool ignoreDlc ) {
             int loadedGames = 0;
 
             Dictionary<string, FileNode> gameNodeArray = appsNode.NodeArray;
@@ -263,33 +264,35 @@ namespace Depressurizer {
                 foreach( KeyValuePair<string, FileNode> gameNodePair in gameNodeArray ) {
                     int gameId;
                     if( int.TryParse( gameNodePair.Key, out gameId ) ) {
-                        if( ignore == null || !ignore.Contains( gameId ) ) {
-                            if( gameNodePair.Value != null && gameNodePair.Value.ContainsKey( "tags" ) ) {
-                                Category cat = null;
-                                bool fav = false;
-                                loadedGames++;
-                                FileNode tagsNode = gameNodePair.Value["tags"];
-                                Dictionary<string, FileNode> tagArray = tagsNode.NodeArray;
-                                if( tagArray != null ) {
-                                    foreach( FileNode tag in tagArray.Values ) {
-                                        string tagName = tag.NodeString;
-                                        if( tagName != null ) {
-                                            if( tagName == "favorite" ) {
-                                                fav = true;
-                                            } else {
-                                                cat = GetCategory( tagName );
-                                            }
+                        if( ( ignore != null && ignore.Contains( gameId ) ) || ( ignoreDlc && Program.GameDB.IsDlc( gameId ) ) ) {
+                            continue;
+                        }
+                        if( gameNodePair.Value != null && gameNodePair.Value.ContainsKey( "tags" ) ) {
+                            Category cat = null;
+                            bool fav = false;
+                            loadedGames++;
+                            FileNode tagsNode = gameNodePair.Value["tags"];
+                            Dictionary<string, FileNode> tagArray = tagsNode.NodeArray;
+                            if( tagArray != null ) {
+                                foreach( FileNode tag in tagArray.Values ) {
+                                    string tagName = tag.NodeString;
+                                    if( tagName != null ) {
+                                        if( tagName == "favorite" ) {
+                                            fav = true;
+                                        } else {
+                                            cat = GetCategory( tagName );
                                         }
                                     }
                                 }
-
-                                if( !Games.ContainsKey( gameId ) ) {
-                                    Game newGame = new Game( gameId, string.Empty );
-                                    Games.Add( gameId, newGame );
-                                }
-                                Games[gameId].Category = cat;
-                                Games[gameId].Favorite = fav;
                             }
+
+                            if( !Games.ContainsKey( gameId ) ) {
+                                Game newGame = new Game( gameId, string.Empty );
+                                Games.Add( gameId, newGame );
+                            }
+                            Games[gameId].Category = cat;
+                            Games[gameId].Favorite = fav;
+
                         }
                     }
                 }

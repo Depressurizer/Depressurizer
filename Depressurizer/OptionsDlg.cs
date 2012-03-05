@@ -45,6 +45,7 @@ namespace Depressurizer {
                     break;
             }
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
+            chkIgnoreDlc.Checked = settings.IgnoreDlc;
         }
 
         private void SaveFieldsToSettings() {
@@ -60,6 +61,7 @@ namespace Depressurizer {
             }
             settings.ProfileToLoad = txtDefaultProfile.Text;
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
+            settings.IgnoreDlc = chkIgnoreDlc.Checked;
             try {
                 settings.Save();
             } catch( Exception e ) {

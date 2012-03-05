@@ -54,6 +54,7 @@ namespace Depressurizer {
             this.cmdAccept = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.grpSaving = new System.Windows.Forms.GroupBox();
+            this.chkIgnoreDlc = new System.Windows.Forms.CheckBox();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
@@ -166,15 +167,15 @@ namespace Depressurizer {
             this.chkRemoveExtraEntries.AutoSize = true;
             this.chkRemoveExtraEntries.Location = new System.Drawing.Point(6, 19);
             this.chkRemoveExtraEntries.Name = "chkRemoveExtraEntries";
-            this.chkRemoveExtraEntries.Size = new System.Drawing.Size(345, 17);
+            this.chkRemoveExtraEntries.Size = new System.Drawing.Size(321, 17);
             this.chkRemoveExtraEntries.TabIndex = 0;
-            this.chkRemoveExtraEntries.Text = "Remove entries for deleted or unknown games in Steam settings file";
+            this.chkRemoveExtraEntries.Text = "Remove entries for deleted or unknown games when exporting";
             this.chkRemoveExtraEntries.UseVisualStyleBackColor = true;
             // 
             // cmdAccept
             // 
             this.cmdAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAccept.Location = new System.Drawing.Point(410, 219);
+            this.cmdAccept.Location = new System.Drawing.Point(410, 241);
             this.cmdAccept.Name = "cmdAccept";
             this.cmdAccept.Size = new System.Drawing.Size(75, 23);
             this.cmdAccept.TabIndex = 4;
@@ -185,7 +186,7 @@ namespace Depressurizer {
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCancel.Location = new System.Drawing.Point(329, 219);
+            this.cmdCancel.Location = new System.Drawing.Point(329, 241);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 3;
@@ -197,19 +198,30 @@ namespace Depressurizer {
             // 
             this.grpSaving.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpSaving.Controls.Add(this.chkIgnoreDlc);
             this.grpSaving.Controls.Add(this.chkRemoveExtraEntries);
             this.grpSaving.Location = new System.Drawing.Point(12, 168);
             this.grpSaving.Name = "grpSaving";
-            this.grpSaving.Size = new System.Drawing.Size(473, 45);
+            this.grpSaving.Size = new System.Drawing.Size(473, 66);
             this.grpSaving.TabIndex = 2;
             this.grpSaving.TabStop = false;
-            this.grpSaving.Text = "Manual Saving";
+            this.grpSaving.Text = "Manual Operations";
+            // 
+            // chkIgnoreDlc
+            // 
+            this.chkIgnoreDlc.AutoSize = true;
+            this.chkIgnoreDlc.Location = new System.Drawing.Point(6, 42);
+            this.chkIgnoreDlc.Name = "chkIgnoreDlc";
+            this.chkIgnoreDlc.Size = new System.Drawing.Size(196, 17);
+            this.chkIgnoreDlc.TabIndex = 1;
+            this.chkIgnoreDlc.Text = "Ignore DLC on import and download";
+            this.chkIgnoreDlc.UseVisualStyleBackColor = true;
             // 
             // OptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 252);
+            this.ClientSize = new System.Drawing.Size(497, 274);
             this.ControlBox = false;
             this.Controls.Add(this.grpSaving);
             this.Controls.Add(this.cmdCancel);
@@ -246,5 +258,6 @@ namespace Depressurizer {
         private System.Windows.Forms.RadioButton radNone;
         private System.Windows.Forms.RadioButton radCreate;
         private System.Windows.Forms.RadioButton radLoad;
+        private System.Windows.Forms.CheckBox chkIgnoreDlc;
     }
 }

@@ -24,6 +24,27 @@ using System.Xml;
 namespace DPLib {
     public class GameDB {
         public Dictionary<int, GameDBEntry> Games = new Dictionary<int, GameDBEntry>();
+        static char[] genreSep = new char[] { ',' };
+
+        public bool Contains( int id ) {
+            return Games.ContainsKey( id );
+        }
+
+        public bool IsDlc( int id ) {
+            return Games.ContainsKey( id ) && Games[id].Type == AppType.DLC;
+        }
+
+        public string GetGenre( int id, bool firstOnly ) {
+            if( Games.ContainsKey( id ) ) {
+                if( firstOnly ) {
+                    return Games[id].Genre.Split( genreSep, 1 )[0];
+                } else {
+                    return Games[id].Genre;
+                }
+            } else {
+                return null;
+            }
+        }
 
         public void FetchAppList() {
             XmlDocument doc = new XmlDocument();

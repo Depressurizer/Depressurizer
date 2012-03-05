@@ -92,7 +92,7 @@ namespace Depressurizer {
             if( res == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    int loadedGames = gameData.ImportSteamFile( dlg.FileName, null );
+                    int loadedGames = gameData.ImportSteamFile( dlg.FileName, null, settings.IgnoreDlc );
                     if( loadedGames == 0 ) {
                         MessageBox.Show( "Warning: No game info found in the specified file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games found." );
@@ -108,7 +108,7 @@ namespace Depressurizer {
                 }
                 Cursor = Cursors.Default;
             }
-        }
+        } 
 
         /// <summary>
         /// Saves a Steam configuration file. Asks the user to select the file to save as.
@@ -149,7 +149,7 @@ namespace Depressurizer {
             if( dlg.ShowDialog() == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    int loadedGames = gameData.LoadGameList( dlg.Value, true, null );
+                    int loadedGames = gameData.LoadGameList( dlg.Value, true, null, settings.IgnoreDlc );
                     if( loadedGames == 0 ) {
                         MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games in download." );
@@ -818,6 +818,13 @@ namespace Depressurizer {
         #region General
         private void FormMain_Load( object sender, EventArgs e ) {
             UpdateButtonEnabledStates();
+            try {
+                Program.GameDB = new GameDB();
+                Program.GameDB.LoadFromXml( "GameDB.xml" );
+            } catch( Exception ex ) {
+                MessageBox.Show( "Error loading game database. Local category and DLC data will not be available.\n\n" + ex.Message );
+                Program.GameDB = new GameDB();
+            }
         }
 
         private void FormMain_Shown( object sender, EventArgs e ) {

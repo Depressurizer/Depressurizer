@@ -46,13 +46,15 @@ namespace Depressurizer {
 
         public bool AutoIgnore = true;
 
+        public bool IgnoreDlc = true;
+
         public int ImportSteamData() {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, DepSettings.Instance().SteamPath, AccountID );
-            return GameData.ImportSteamFile( filePath, IgnoreList );
+            return GameData.ImportSteamFile( filePath, IgnoreList, IgnoreDlc );
         }
 
         public int DownloadGameList() {
-            return GameData.LoadGameList( CommunityName, OverwriteOnDownload, IgnoreList );
+            return GameData.LoadGameList( CommunityName, OverwriteOnDownload, IgnoreList, IgnoreDlc );
         }
 
         public void ExportSteamData() {
@@ -91,14 +93,7 @@ namespace Depressurizer {
                 profile.ExportDiscard = XmlUtil.GetBoolFromNode( profileNode["export_discard"], profile.ExportDiscard );
                 profile.AutoIgnore = XmlUtil.GetBoolFromNode( profileNode["auto_ignore"], profile.AutoIgnore );
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode["overwrite_names"], profile.OverwriteOnDownload );
-
-                XmlNode gameListNode = profileNode.SelectSingleNode( "games" );
-                if( gameListNode != null ) {
-                    XmlNodeList gameNodes = gameListNode.SelectNodes( "game" );
-                    foreach( XmlNode node in gameNodes ) {
-                        AddGameFromXmlNode( node, profile.GameData );
-                    }
-                }
+                profile.IgnoreDlc = XmlUtil.GetBoolFromNode( profileNode["ignore_dlc"], profile.IgnoreDlc );
 
                 XmlNode exclusionListNode = profileNode.SelectSingleNode( "exclusions" );
                 if( exclusionListNode != null ) {
@@ -110,21 +105,32 @@ namespace Depressurizer {
                         }
                     }
                 }
+
+                XmlNode gameListNode = profileNode.SelectSingleNode( "games" );
+                if( gameListNode != null ) {
+                    XmlNodeList gameNodes = gameListNode.SelectNodes( "game" );
+                    foreach( XmlNode node in gameNodes ) {
+                        AddGameFromXmlNode( node, profile );
+                    }
+                }
             }
 
             return profile;
         }
 
-        private static void AddGameFromXmlNode( XmlNode node, GameData data ) {
+        private static void AddGameFromXmlNode( XmlNode node, ProfileData profile ) {
             int id;
             if( XmlUtil.TryGetIntFromNode( node["id"], out id ) ) {
+                if( profile.IgnoreList.Contains( id ) || ( profile.IgnoreDlc && Program.GameDB.IsDlc( id ) ) ) {
+                    return;
+                }
                 string name = XmlUtil.GetStringFromNode( node["name"], null );
                 Game game = new Game( id, name );
-                data.Games.Add( id, game );
+                profile.GameData.Games.Add( id, game );
 
                 string catName;
                 if( XmlUtil.TryGetStringFromNode( node["category"], out catName ) ) {
-                    game.Category = data.GetCategory( catName );
+                    game.Category = profile.GameData.GetCategory( catName );
                 }
 
                 game.Favorite = ( node.SelectSingleNode( "favorite" ) != null );
@@ -162,6 +168,7 @@ namespace Depressurizer {
             writer.WriteElementString( "export_discard", ExportDiscard.ToString() );
             writer.WriteElementString( "auto_ignore", AutoIgnore.ToString() );
             writer.WriteElementString( "overwrite_names", OverwriteOnDownload.ToString() );
+            writer.WriteElementString( "ignore_dlc", IgnoreDlc.ToString() );
 
             writer.WriteStartElement( "games" );
 

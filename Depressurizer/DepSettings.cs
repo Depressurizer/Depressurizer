@@ -104,6 +104,21 @@ namespace Depressurizer {
             }
         }
 
+        private bool _ignoreDlc = true;
+        public bool IgnoreDlc {
+            get {
+                lock( threadLock ) {
+                    return _ignoreDlc;
+                }
+            }
+            set {
+                lock( threadLock ) {
+                    _ignoreDlc = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private DepSettings()
             : base() {
             FilePath = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";

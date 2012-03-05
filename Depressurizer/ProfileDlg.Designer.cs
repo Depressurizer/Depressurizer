@@ -78,6 +78,7 @@ namespace Depressurizer {
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
+            this.chkIgnoreDlc = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -494,6 +495,7 @@ namespace Depressurizer {
             // 
             this.grpIgnoreSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpIgnoreSettings.Controls.Add(this.chkIgnoreDlc);
             this.grpIgnoreSettings.Controls.Add(this.chkAutoIgnore);
             this.grpIgnoreSettings.Location = new System.Drawing.Point(305, 3);
             this.grpIgnoreSettings.Name = "grpIgnoreSettings";
@@ -516,6 +518,18 @@ namespace Depressurizer {
             this.chkAutoIgnore.Text = "Automatically Ignore games when removing them";
             this.chkAutoIgnore.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chkAutoIgnore.UseVisualStyleBackColor = true;
+            // 
+            // chkIgnoreDlc
+            // 
+            this.chkIgnoreDlc.AutoSize = true;
+            this.chkIgnoreDlc.Checked = true;
+            this.chkIgnoreDlc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIgnoreDlc.Location = new System.Drawing.Point(6, 58);
+            this.chkIgnoreDlc.Name = "chkIgnoreDlc";
+            this.chkIgnoreDlc.Size = new System.Drawing.Size(115, 17);
+            this.chkIgnoreDlc.TabIndex = 1;
+            this.chkIgnoreDlc.Text = "Also ignore all DLC";
+            this.chkIgnoreDlc.UseVisualStyleBackColor = true;
             // 
             // ProfileDlg
             // 
@@ -553,6 +567,7 @@ namespace Depressurizer {
             this.grpIgnored.ResumeLayout(false);
             this.grpIgnored.PerformLayout();
             this.grpIgnoreSettings.ResumeLayout(false);
+            this.grpIgnoreSettings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -595,5 +610,6 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkAutoIgnore;
         private System.Windows.Forms.GroupBox grpOtherOpt;
         private System.Windows.Forms.CheckBox chkOverwriteNames;
+        private System.Windows.Forms.CheckBox chkIgnoreDlc;
     }
 }
