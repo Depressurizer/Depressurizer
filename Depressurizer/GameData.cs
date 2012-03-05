@@ -181,6 +181,7 @@ namespace Depressurizer {
         /// <param name="name">Name to get the category for</param>
         /// <returns>A category with the given name.</returns>
         public Category GetCategory( string name ) {
+            if( string.IsNullOrEmpty( name ) ) return null;
             foreach( Category c in Categories ) {
                 if( c.Name == name ) return c;
             }

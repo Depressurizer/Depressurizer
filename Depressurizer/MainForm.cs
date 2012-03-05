@@ -23,6 +23,7 @@ using System.Text;
 using System.Windows.Forms;
 using DPLib;
 using Rallion;
+using System.Collections.Generic;
 
 namespace Depressurizer {
     public partial class FormMain : Form {
@@ -108,7 +109,7 @@ namespace Depressurizer {
                 }
                 Cursor = Cursors.Default;
             }
-        } 
+        }
 
         /// <summary>
         /// Saves a Steam configuration file. Asks the user to select the file to save as.
@@ -1257,6 +1258,57 @@ namespace Depressurizer {
             ClearStatus();
             OptionsDlg dlg = new OptionsDlg();
             dlg.ShowDialog();
+            FlushStatus();
+        }
+
+        private void AutocatSelected() {
+            // Check to see if there are any selected items with set categories
+            bool overwrite = true;
+            foreach( ListViewItem item in lstGames.SelectedItems ) {
+                Game g = item.Tag as Game;
+                if( g != null && g.Category != null ) {
+                    overwrite = false;
+                    break;
+                }
+            }
+
+            if( overwrite == false ) {
+                DialogResult res = MessageBox.Show( "Some of the selected games aleady have categories set. Would you like to overwrite these categories?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
+                if( res == System.Windows.Forms.DialogResult.Yes ) overwrite = true;
+            }
+
+            int updated = 0;
+
+            Queue<int> notFound = new Queue<int>();
+
+            foreach( ListViewItem item in lstGames.SelectedItems ) {
+                Game g = item.Tag as Game;
+                if( g != null && ( overwrite || g.Category == null ) ) {
+                    if( Program.GameDB.Contains( g.Id ) ) {
+                        g.Category = gameData.GetCategory( Program.GameDB.GetGenre( g.Id, settings.FullAutocat ) );
+                        updated++;
+                    } else {
+                        notFound.Enqueue( g.Id );
+                    }
+                }
+            }
+
+            AddStatus( string.Format( "Updated {0} categories locally.", updated ) );
+
+            if( notFound.Count > 0 ) {
+                DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
+                if( res == System.Windows.Forms.DialogResult.Yes ) {
+                    //TODO: Add downloading code
+                }
+            }
+
+            FillCategoryList();
+            UpdateGameListSelected();
+        }
+
+        private void cmdAutoCat_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AutocatSelected();
             FlushStatus();
         }
     }

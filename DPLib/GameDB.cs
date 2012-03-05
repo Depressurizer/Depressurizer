@@ -44,10 +44,18 @@ namespace DPLib {
 
         public string GetGenre( int id, bool full ) {
             if( Games.ContainsKey( id ) ) {
-                if( full ) {
-                    return Games[id].Genre;
+                string fullString = Games[id].Genre;
+                if( string.IsNullOrEmpty( fullString ) ) {
+                    return null;
+                } else if( full ) {
+                    return fullString;
                 } else {
-                    return Games[id].Genre.Split( genreSep, 1 )[0];
+                    int index = fullString.IndexOf( ',' );
+                    if( index < 0 ) {
+                        return fullString;
+                    } else {
+                        return fullString.Substring( 0, index );
+                    }
                 }
             } else {
                 return null;

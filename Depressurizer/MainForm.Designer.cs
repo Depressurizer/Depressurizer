@@ -84,7 +84,7 @@ namespace Depressurizer {
             this.cmdCatDelete = new System.Windows.Forms.Button();
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.grpGames = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cmdAutoCat = new System.Windows.Forms.Button();
             this.combFavorite = new System.Windows.Forms.ComboBox();
             this.cmdGameAdd = new System.Windows.Forms.Button();
             this.cmdGameRemove = new System.Windows.Forms.Button();
@@ -503,7 +503,7 @@ namespace Depressurizer {
             // 
             // grpGames
             // 
-            this.grpGames.Controls.Add(this.button1);
+            this.grpGames.Controls.Add(this.cmdAutoCat);
             this.grpGames.Controls.Add(this.combFavorite);
             this.grpGames.Controls.Add(this.cmdGameAdd);
             this.grpGames.Controls.Add(this.cmdGameRemove);
@@ -520,15 +520,16 @@ namespace Depressurizer {
             this.grpGames.TabStop = false;
             this.grpGames.Text = "Games";
             // 
-            // button1
+            // cmdAutoCat
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(464, 313);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Auto-Categorize";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cmdAutoCat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdAutoCat.Location = new System.Drawing.Point(464, 313);
+            this.cmdAutoCat.Name = "cmdAutoCat";
+            this.cmdAutoCat.Size = new System.Drawing.Size(94, 23);
+            this.cmdAutoCat.TabIndex = 8;
+            this.cmdAutoCat.Text = "Auto-Categorize";
+            this.cmdAutoCat.UseVisualStyleBackColor = true;
+            this.cmdAutoCat.Click += new System.EventHandler(this.cmdAutoCat_Click);
             // 
             // combFavorite
             // 
@@ -892,7 +893,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextCat_Add;
         private System.Windows.Forms.ToolStripMenuItem contextCat_Delete;
         private System.Windows.Forms.ToolStripMenuItem contextCat_Rename;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cmdAutoCat;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutonameNeeded;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutonameAll;
