@@ -982,13 +982,6 @@ namespace Depressurizer {
             FlushStatus();
         }
 
-        private void menu_Config_Settings_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            OptionsDlg dlg = new OptionsDlg();
-            dlg.ShowDialog();
-            FlushStatus();
-        }
-
         #endregion
         #region Context menus
 
@@ -1259,6 +1252,13 @@ namespace Depressurizer {
         }
 
         #endregion
+
+        private void menu_Tools_Settings_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            OptionsDlg dlg = new OptionsDlg();
+            dlg.ShowDialog();
+            FlushStatus();
+        }
     }
 
     /// <summary>

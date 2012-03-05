@@ -64,8 +64,14 @@ namespace Depressurizer {
             this.menu_Profile_Export = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Profile_Edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Config = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Config_Settings = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_AutonameNeeded = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_AutonameAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menu_Tools_AutocatNeeded = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_AutocatAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_Sep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.grpCategories = new System.Windows.Forms.GroupBox();
             this.lstCategories = new System.Windows.Forms.ListBox();
@@ -78,8 +84,6 @@ namespace Depressurizer {
             this.cmdCatDelete = new System.Windows.Forms.Button();
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.grpGames = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.combFavorite = new System.Windows.Forms.ComboBox();
             this.cmdGameAdd = new System.Windows.Forms.Button();
@@ -130,10 +134,10 @@ namespace Depressurizer {
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_File,
             this.menu_Profile,
-            this.menu_Config});
+            this.menu_Tools});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(659, 24);
+            this.menuStrip.Size = new System.Drawing.Size(768, 24);
             this.menuStrip.TabIndex = 1;
             // 
             // menu_File
@@ -302,21 +306,60 @@ namespace Depressurizer {
             this.menu_Profile_Edit.Text = "Edit &Profile Info";
             this.menu_Profile_Edit.Click += new System.EventHandler(this.menu_Profile_Edit_Click);
             // 
-            // menu_Config
+            // menu_Tools
             // 
-            this.menu_Config.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menu_Config_Settings});
-            this.menu_Config.Name = "menu_Config";
-            this.menu_Config.Size = new System.Drawing.Size(93, 20);
-            this.menu_Config.Text = "&Configuration";
+            this.menu_Tools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu_Tools_AutonameNeeded,
+            this.menu_Tools_AutonameAll,
+            this.menu_Tools_Sep1,
+            this.menu_Tools_AutocatNeeded,
+            this.menu_Tools_AutocatAll,
+            this.menu_Tools_Sep2,
+            this.menu_Tools_Settings});
+            this.menu_Tools.Name = "menu_Tools";
+            this.menu_Tools.Size = new System.Drawing.Size(48, 20);
+            this.menu_Tools.Text = "Tools";
             // 
-            // menu_Config_Settings
+            // menu_Tools_AutonameNeeded
             // 
-            this.menu_Config_Settings.Name = "menu_Config_Settings";
-            this.menu_Config_Settings.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.menu_Config_Settings.Size = new System.Drawing.Size(168, 22);
-            this.menu_Config_Settings.Text = "&Settings...";
-            this.menu_Config_Settings.Click += new System.EventHandler(this.menu_Config_Settings_Click);
+            this.menu_Tools_AutonameNeeded.Name = "menu_Tools_AutonameNeeded";
+            this.menu_Tools_AutonameNeeded.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_AutonameNeeded.Text = "Auto-Name Unnamed";
+            // 
+            // menu_Tools_AutonameAll
+            // 
+            this.menu_Tools_AutonameAll.Name = "menu_Tools_AutonameAll";
+            this.menu_Tools_AutonameAll.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_AutonameAll.Text = "Auto-Name All";
+            // 
+            // menu_Tools_Sep1
+            // 
+            this.menu_Tools_Sep1.Name = "menu_Tools_Sep1";
+            this.menu_Tools_Sep1.Size = new System.Drawing.Size(199, 6);
+            // 
+            // menu_Tools_AutocatNeeded
+            // 
+            this.menu_Tools_AutocatNeeded.Name = "menu_Tools_AutocatNeeded";
+            this.menu_Tools_AutocatNeeded.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_AutocatNeeded.Text = "Auto-Cat Uncategorized";
+            // 
+            // menu_Tools_AutocatAll
+            // 
+            this.menu_Tools_AutocatAll.Name = "menu_Tools_AutocatAll";
+            this.menu_Tools_AutocatAll.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_AutocatAll.Text = "Auto-Cat All";
+            // 
+            // menu_Tools_Sep2
+            // 
+            this.menu_Tools_Sep2.Name = "menu_Tools_Sep2";
+            this.menu_Tools_Sep2.Size = new System.Drawing.Size(199, 6);
+            // 
+            // menu_Tools_Settings
+            // 
+            this.menu_Tools_Settings.Name = "menu_Tools_Settings";
+            this.menu_Tools_Settings.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_Settings.Text = "Settings...";
+            this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
             // 
             // splitContainer
             // 
@@ -332,9 +375,9 @@ namespace Depressurizer {
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.grpGames);
-            this.splitContainer.Panel2MinSize = 550;
-            this.splitContainer.Size = new System.Drawing.Size(659, 421);
-            this.splitContainer.SplitterDistance = 105;
+            this.splitContainer.Panel2MinSize = 400;
+            this.splitContainer.Size = new System.Drawing.Size(768, 361);
+            this.splitContainer.SplitterDistance = 200;
             this.splitContainer.TabIndex = 0;
             // 
             // grpCategories
@@ -344,7 +387,7 @@ namespace Depressurizer {
             this.grpCategories.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpCategories.Location = new System.Drawing.Point(0, 0);
             this.grpCategories.Name = "grpCategories";
-            this.grpCategories.Size = new System.Drawing.Size(105, 421);
+            this.grpCategories.Size = new System.Drawing.Size(200, 361);
             this.grpCategories.TabIndex = 0;
             this.grpCategories.TabStop = false;
             this.grpCategories.Text = "Categories";
@@ -360,7 +403,7 @@ namespace Depressurizer {
             this.lstCategories.IntegralHeight = false;
             this.lstCategories.Location = new System.Drawing.Point(6, 20);
             this.lstCategories.Name = "lstCategories";
-            this.lstCategories.Size = new System.Drawing.Size(96, 347);
+            this.lstCategories.Size = new System.Drawing.Size(191, 287);
             this.lstCategories.TabIndex = 0;
             this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
@@ -377,7 +420,7 @@ namespace Depressurizer {
             this.contextCat_Delete});
             this.contextCat.Name = "contextCat";
             this.contextCat.ShowImageMargin = false;
-            this.contextCat.Size = new System.Drawing.Size(153, 92);
+            this.contextCat.Size = new System.Drawing.Size(153, 70);
             this.contextCat.Opening += new System.ComponentModel.CancelEventHandler(this.contextCat_Opening);
             // 
             // contextCat_Add
@@ -412,11 +455,11 @@ namespace Depressurizer {
             this.tableCatButtons.Controls.Add(this.cmdCatAdd, 0, 0);
             this.tableCatButtons.Controls.Add(this.cmdCatDelete, 2, 0);
             this.tableCatButtons.Controls.Add(this.cmdCatRename, 1, 0);
-            this.tableCatButtons.Location = new System.Drawing.Point(3, 369);
+            this.tableCatButtons.Location = new System.Drawing.Point(3, 309);
             this.tableCatButtons.Name = "tableCatButtons";
             this.tableCatButtons.RowCount = 1;
             this.tableCatButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableCatButtons.Size = new System.Drawing.Size(102, 29);
+            this.tableCatButtons.Size = new System.Drawing.Size(197, 29);
             this.tableCatButtons.TabIndex = 1;
             // 
             // cmdCatAdd
@@ -426,7 +469,7 @@ namespace Depressurizer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCatAdd.Location = new System.Drawing.Point(3, 3);
             this.cmdCatAdd.Name = "cmdCatAdd";
-            this.cmdCatAdd.Size = new System.Drawing.Size(28, 23);
+            this.cmdCatAdd.Size = new System.Drawing.Size(59, 23);
             this.cmdCatAdd.TabIndex = 0;
             this.cmdCatAdd.Text = "Add";
             this.cmdCatAdd.UseVisualStyleBackColor = true;
@@ -437,9 +480,9 @@ namespace Depressurizer {
             this.cmdCatDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCatDelete.Location = new System.Drawing.Point(71, 3);
+            this.cmdCatDelete.Location = new System.Drawing.Point(133, 3);
             this.cmdCatDelete.Name = "cmdCatDelete";
-            this.cmdCatDelete.Size = new System.Drawing.Size(28, 23);
+            this.cmdCatDelete.Size = new System.Drawing.Size(61, 23);
             this.cmdCatDelete.TabIndex = 2;
             this.cmdCatDelete.Text = "Delete";
             this.cmdCatDelete.UseVisualStyleBackColor = true;
@@ -450,9 +493,9 @@ namespace Depressurizer {
             this.cmdCatRename.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCatRename.Location = new System.Drawing.Point(37, 3);
+            this.cmdCatRename.Location = new System.Drawing.Point(68, 3);
             this.cmdCatRename.Name = "cmdCatRename";
-            this.cmdCatRename.Size = new System.Drawing.Size(28, 23);
+            this.cmdCatRename.Size = new System.Drawing.Size(59, 23);
             this.cmdCatRename.TabIndex = 1;
             this.cmdCatRename.Text = "Rename";
             this.cmdCatRename.UseVisualStyleBackColor = true;
@@ -460,8 +503,6 @@ namespace Depressurizer {
             // 
             // grpGames
             // 
-            this.grpGames.Controls.Add(this.checkBox2);
-            this.grpGames.Controls.Add(this.checkBox1);
             this.grpGames.Controls.Add(this.button1);
             this.grpGames.Controls.Add(this.combFavorite);
             this.grpGames.Controls.Add(this.cmdGameAdd);
@@ -474,41 +515,19 @@ namespace Depressurizer {
             this.grpGames.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpGames.Location = new System.Drawing.Point(0, 0);
             this.grpGames.Name = "grpGames";
-            this.grpGames.Size = new System.Drawing.Size(550, 421);
+            this.grpGames.Size = new System.Drawing.Size(564, 361);
             this.grpGames.TabIndex = 1;
             this.grpGames.TabStop = false;
             this.grpGames.Text = "Games";
             // 
-            // checkBox2
-            // 
-            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(164, 365);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(133, 17);
-            this.checkBox2.TabIndex = 10;
-            this.checkBox2.Text = "Allow update from web";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(164, 348);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(117, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Only uncategorized";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(153, 323);
+            this.button1.Location = new System.Drawing.Point(464, 313);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(144, 23);
+            this.button1.Size = new System.Drawing.Size(94, 23);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Auto-Categorize Selected";
+            this.button1.Text = "Auto-Categorize";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // combFavorite
@@ -519,7 +538,7 @@ namespace Depressurizer {
             this.combFavorite.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.combFavorite.Location = new System.Drawing.Point(392, 350);
+            this.combFavorite.Location = new System.Drawing.Point(390, 290);
             this.combFavorite.Name = "combFavorite";
             this.combFavorite.Size = new System.Drawing.Size(68, 21);
             this.combFavorite.TabIndex = 3;
@@ -527,7 +546,7 @@ namespace Depressurizer {
             // cmdGameAdd
             // 
             this.cmdGameAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdGameAdd.Location = new System.Drawing.Point(2, 348);
+            this.cmdGameAdd.Location = new System.Drawing.Point(2, 288);
             this.cmdGameAdd.Name = "cmdGameAdd";
             this.cmdGameAdd.Size = new System.Drawing.Size(110, 23);
             this.cmdGameAdd.TabIndex = 6;
@@ -538,7 +557,7 @@ namespace Depressurizer {
             // cmdGameRemove
             // 
             this.cmdGameRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdGameRemove.Location = new System.Drawing.Point(2, 373);
+            this.cmdGameRemove.Location = new System.Drawing.Point(2, 313);
             this.cmdGameRemove.Name = "cmdGameRemove";
             this.cmdGameRemove.Size = new System.Drawing.Size(110, 23);
             this.cmdGameRemove.TabIndex = 7;
@@ -549,7 +568,7 @@ namespace Depressurizer {
             // cmdGameEdit
             // 
             this.cmdGameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdGameEdit.Location = new System.Drawing.Point(2, 323);
+            this.cmdGameEdit.Location = new System.Drawing.Point(2, 263);
             this.cmdGameEdit.Name = "cmdGameEdit";
             this.cmdGameEdit.Size = new System.Drawing.Size(110, 23);
             this.cmdGameEdit.TabIndex = 5;
@@ -561,7 +580,7 @@ namespace Depressurizer {
             // 
             this.combCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.combCategory.FormattingEnabled = true;
-            this.combCategory.Location = new System.Drawing.Point(338, 325);
+            this.combCategory.Location = new System.Drawing.Point(336, 265);
             this.combCategory.Name = "combCategory";
             this.combCategory.Size = new System.Drawing.Size(122, 21);
             this.combCategory.TabIndex = 1;
@@ -569,9 +588,9 @@ namespace Depressurizer {
             // cmdGameSetCategory
             // 
             this.cmdGameSetCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdGameSetCategory.Location = new System.Drawing.Point(466, 323);
+            this.cmdGameSetCategory.Location = new System.Drawing.Point(464, 263);
             this.cmdGameSetCategory.Name = "cmdGameSetCategory";
-            this.cmdGameSetCategory.Size = new System.Drawing.Size(78, 23);
+            this.cmdGameSetCategory.Size = new System.Drawing.Size(94, 23);
             this.cmdGameSetCategory.TabIndex = 2;
             this.cmdGameSetCategory.Text = "Set Category";
             this.cmdGameSetCategory.UseVisualStyleBackColor = true;
@@ -580,9 +599,9 @@ namespace Depressurizer {
             // cmdGameSetFavorite
             // 
             this.cmdGameSetFavorite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdGameSetFavorite.Location = new System.Drawing.Point(466, 349);
+            this.cmdGameSetFavorite.Location = new System.Drawing.Point(464, 288);
             this.cmdGameSetFavorite.Name = "cmdGameSetFavorite";
-            this.cmdGameSetFavorite.Size = new System.Drawing.Size(78, 23);
+            this.cmdGameSetFavorite.Size = new System.Drawing.Size(94, 23);
             this.cmdGameSetFavorite.TabIndex = 4;
             this.cmdGameSetFavorite.Text = "Set Favorite";
             this.cmdGameSetFavorite.UseVisualStyleBackColor = true;
@@ -605,7 +624,7 @@ namespace Depressurizer {
             this.lstGames.LabelEdit = true;
             this.lstGames.Location = new System.Drawing.Point(3, 20);
             this.lstGames.Name = "lstGames";
-            this.lstGames.Size = new System.Drawing.Size(541, 299);
+            this.lstGames.Size = new System.Drawing.Size(555, 239);
             this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstGames.TabIndex = 0;
             this.lstGames.UseCompatibleStateImageBehavior = false;
@@ -751,16 +770,16 @@ namespace Depressurizer {
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusMsg,
             this.statusSelection});
-            this.statusStrip.Location = new System.Drawing.Point(0, 423);
+            this.statusStrip.Location = new System.Drawing.Point(0, 363);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(659, 22);
+            this.statusStrip.Size = new System.Drawing.Size(768, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // statusMsg
             // 
             this.statusMsg.Name = "statusMsg";
-            this.statusMsg.Size = new System.Drawing.Size(444, 17);
+            this.statusMsg.Size = new System.Drawing.Size(553, 17);
             this.statusMsg.Spring = true;
             this.statusMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -776,12 +795,12 @@ namespace Depressurizer {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 445);
+            this.ClientSize = new System.Drawing.Size(768, 385);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
-            this.MinimumSize = new System.Drawing.Size(675, 250);
+            this.MinimumSize = new System.Drawing.Size(550, 250);
             this.Name = "FormMain";
             this.ShowIcon = false;
             this.Text = "Depressurizer";
@@ -798,7 +817,6 @@ namespace Depressurizer {
             this.contextCat.ResumeLayout(false);
             this.tableCatButtons.ResumeLayout(false);
             this.grpGames.ResumeLayout(false);
-            this.grpGames.PerformLayout();
             this.contextGame.ResumeLayout(false);
             this.contextGameCat.ResumeLayout(false);
             this.contextGameFav.ResumeLayout(false);
@@ -848,8 +866,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_Import;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_Edit;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep1;
-        private System.Windows.Forms.ToolStripMenuItem menu_Config;
-        private System.Windows.Forms.ToolStripMenuItem menu_Config_Settings;
         private System.Windows.Forms.ToolStripMenuItem menu_File_SaveProfileAs;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Manual;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Manual_Import;
@@ -876,9 +892,15 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextCat_Add;
         private System.Windows.Forms.ToolStripMenuItem contextCat_Delete;
         private System.Windows.Forms.ToolStripMenuItem contextCat_Rename;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutonameNeeded;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutonameAll;
+        private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep1;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutocatNeeded;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutocatAll;
+        private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep2;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools_Settings;
     }
 }
 
