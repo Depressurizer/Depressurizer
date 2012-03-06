@@ -1163,6 +1163,13 @@ namespace Depressurizer {
                 case Keys.F2:
                     if( lstGames.SelectedItems.Count > 0 ) lstGames.SelectedItems[0].BeginEdit();
                     break;
+                case Keys.A:
+                    if( e.Control ) {
+                        foreach( ListViewItem i in lstGames.Items ) {
+                            i.Selected = true;
+                        }
+                    }
+                    break;
             }
             FlushStatus();
         }
