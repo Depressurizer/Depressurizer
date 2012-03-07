@@ -21,17 +21,17 @@ using System.Windows.Forms;
 using DPLib;
 
 namespace SteamScrape {
-    public partial class GameDBEntryForm : Form {
+    public partial class GameDBEntryDialog : Form {
 
         public GameDBEntry Game;
 
         private bool editMode;
 
-        public GameDBEntryForm()
+        public GameDBEntryDialog()
             : this( null ) {
         }
 
-        public GameDBEntryForm( GameDBEntry game ) {
+        public GameDBEntryDialog( GameDBEntry game ) {
             InitializeComponent();
             Game = game;
             editMode = ( game == null ) ? false : true;

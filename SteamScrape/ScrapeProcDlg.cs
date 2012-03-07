@@ -24,11 +24,11 @@ using System.Windows.Forms;
 using DPLib;
 
 namespace SteamScrape {
-    public partial class UpdateForm : Form {
+    public partial class ScrapeProcDlg : Form {
 
         object abortLock = new object();
 
-        const int MAX_THREADS = 5;
+        int threadsToRun = 5;
         int runningThreads;
 
         Queue<int> jobs;
@@ -42,23 +42,42 @@ namespace SteamScrape {
         bool _abort = false;
         bool Aborted {
             get {
-                return _abort;
+                lock( abortLock ) {
+                    return _abort;
+                }
             }
             set {
-                _abort = value;
+                lock( abortLock ) {
+                    _abort = value;
+                }
             }
         }
 
-        public UpdateForm( GameDB games, Queue<int> jobs ) {
+        delegate void SimpleDelegate();
+
+        public ScrapeProcDlg( GameDB games, Queue<int> jobs ) {
+            this.DialogResult = DialogResult.OK;
             InitializeComponent();
             this.jobs = jobs;
             this.games = games;
 
             totalJobs = jobs.Count;
+
+            threadsToRun = Math.Min( threadsToRun, totalJobs );
             jobsCompleted = 0;
         }
 
-        GameDBEntry GetNextGame() {
+        private void UpdateForm_Load( object sender, EventArgs e ) {
+            start = DateTime.Now;
+            for( int i = 0; i < threadsToRun; i++ ) {
+                Thread t = new Thread( new ThreadStart( RunProcess ) );
+                t.Start();
+                runningThreads++;
+            }
+            UpdateText();
+        }
+
+        private GameDBEntry GetNextGame() {
             int gameId;
             lock( jobs ) {
                 if( jobs.Count > 0 ) {
@@ -78,7 +97,7 @@ namespace SteamScrape {
         /// Runs the next job in the queue, in a thread-safe manner. Aborts ASAP if the form is closed.
         /// </summary>
         /// <returns>True if a job was run, false otherwise</returns>
-        bool RunNextJob() {
+        private bool RunNextJob() {
             if( Aborted ) return false;
 
             GameDBEntry game = GetNextGame();
@@ -98,7 +117,6 @@ namespace SteamScrape {
                     if( type == AppType.Game || type == AppType.DLC || type == AppType.IdRedirect ) {
                         game.Genre = genre;
                     }
-                    
                     return true;
                 } else {
                     return false;
@@ -106,24 +124,25 @@ namespace SteamScrape {
             }
         }
 
-
-        delegate void SimpleDelegate();
-
-        void RunJobs() {
+        private void RunProcess() {
             bool running = true;
             while( !Aborted && running ) {
                 running = RunNextJob();
                 if( !Aborted && running ) {
-                    this.Invoke( new SimpleDelegate( JobCompleted ) );
+                    this.Invoke( new SimpleDelegate( OnJobCompletion ) );
                 }
             }
             if( !Aborted ) {
-                this.Invoke( new SimpleDelegate( EndThread ) );
+                this.Invoke( new SimpleDelegate( OnThreadEnd ) );
             }
-
         }
 
-        void EndThread() {
+        private void OnJobCompletion() {
+            jobsCompleted++;
+            UpdateText();
+        }
+
+        private void OnThreadEnd() {
             if( !Aborted ) {
                 runningThreads--;
                 if( runningThreads <= 0 ) {
@@ -133,6 +152,7 @@ namespace SteamScrape {
         }
 
         private void cmdStop_Click( object sender, EventArgs e ) {
+            DialogResult = DialogResult.Abort;
             this.Close();
         }
 
@@ -142,12 +162,7 @@ namespace SteamScrape {
             }
         }
 
-        void JobCompleted() {
-            jobsCompleted++;
-            UpdateText();
-        }
-
-        void UpdateText() {
+        private void UpdateText() {
             double msElapsed = ( DateTime.Now - start ).TotalMilliseconds;
             double msPerItem = msElapsed / (double)jobsCompleted;
             double msRemaining = msPerItem * ( totalJobs - jobsCompleted );
@@ -161,22 +176,11 @@ namespace SteamScrape {
             } else {
                 double hours = timeRemaining.TotalHours;
                 if( hours >= 1.0 ) {
-                    remainingTimeString.Append( string.Format("{0:F0}h", hours) );
+                    remainingTimeString.Append( string.Format( "{0:F0}h", hours ) );
                 }
                 remainingTimeString.Append( string.Format( "{0:D2}m", timeRemaining.Minutes ) );
             }
             lblTime.Text = remainingTimeString.ToString();
-        }
-
-        private void UpdateForm_Load( object sender, EventArgs e ) {
-            int threadsToRun = Math.Min( MAX_THREADS, jobs.Count );
-            start = DateTime.Now;
-            for( int i = 0; i < MAX_THREADS; i++ ) {
-                Thread t = new Thread( new ThreadStart( RunJobs ) );
-                t.Start();
-                runningThreads++;
-            }
-            UpdateText();
         }
     }
 }

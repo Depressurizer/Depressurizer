@@ -50,11 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameDBEntryForm.cs">
+    <Compile Include="GameDBEntryDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameDBEntryForm.Designer.cs">
-      <DependentUpon>GameDBEntryForm.cs</DependentUpon>
+    <Compile Include="GameDBEntryDialog.Designer.cs">
+      <DependentUpon>GameDBEntryDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -64,14 +64,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UpdateForm.cs">
+    <Compile Include="ScrapeProcDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UpdateForm.Designer.cs">
-      <DependentUpon>UpdateForm.cs</DependentUpon>
+    <Compile Include="ScrapeProcDlg.Designer.cs">
+      <DependentUpon>ScrapeProcDlg.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="GameDBEntryForm.resx">
-      <DependentUpon>GameDBEntryForm.cs</DependentUpon>
+    <EmbeddedResource Include="GameDBEntryDialog.resx">
+      <DependentUpon>GameDBEntryDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -85,8 +85,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UpdateForm.resx">
-      <DependentUpon>UpdateForm.cs</DependentUpon>
+    <EmbeddedResource Include="ScrapeProcDlg.resx">
+      <DependentUpon>ScrapeProcDlg.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

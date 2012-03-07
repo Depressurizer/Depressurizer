@@ -70,7 +70,7 @@ namespace SteamScrape {
                 }
             }
             if( gamesToUpdate.Count > 0 ) {
-                UpdateForm dlg = new UpdateForm( gameList, gamesToUpdate );
+                ScrapeProcDlg dlg = new ScrapeProcDlg( gameList, gamesToUpdate );
                 dlg.ShowDialog();
                 RefreshGameList();
             }
@@ -182,7 +182,7 @@ namespace SteamScrape {
 
         private void cmdFetch_Click( object sender, EventArgs e ) {
             this.Cursor = Cursors.WaitCursor;
-            gameList.FetchAppList();
+            gameList.UpdateAppList();
             RefreshGameList();
             UpdateSelectedStatus();
             this.Cursor = Cursors.Default;
@@ -198,7 +198,7 @@ namespace SteamScrape {
         }
 
         private void cmdAddGame_Click( object sender, EventArgs e ) {
-            GameDBEntryForm dlg = new GameDBEntryForm();
+            GameDBEntryDialog dlg = new GameDBEntryDialog();
             if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK && dlg.Game != null ) {
                 if( gameList.Games.ContainsKey( dlg.Game.Id ) ) {
                     MessageBox.Show( "Game with specified ID already exists." );
@@ -214,7 +214,7 @@ namespace SteamScrape {
             if( lstGames.SelectedIndices.Count > 0 ) {
                 GameDBEntry game = lstGames.SelectedItems[0].Tag as GameDBEntry;
                 if( game != null ) {
-                    GameDBEntryForm dlg = new GameDBEntryForm( game );
+                    GameDBEntryDialog dlg = new GameDBEntryDialog( game );
                     DialogResult res = dlg.ShowDialog();
                     if( res == System.Windows.Forms.DialogResult.OK ) {
                         UpdateGameAtIndex( lstGames.SelectedIndices[0] );
@@ -248,7 +248,7 @@ namespace SteamScrape {
                         gamesToUpdate.Enqueue( game.Id );
                     }
                 }
-                UpdateForm dlg = new UpdateForm( gameList, gamesToUpdate );
+                ScrapeProcDlg dlg = new ScrapeProcDlg( gameList, gamesToUpdate );
                 dlg.ShowDialog();
                 RefreshGameList();
                 UpdateSelectedStatus();
