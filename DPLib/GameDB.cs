@@ -62,29 +62,39 @@ namespace DPLib {
             }
         }
 
-        public void FetchAppList() {
+        public static XmlDocument FetchAppList() {
+            // TODO: Exception handling here?
+
             XmlDocument doc = new XmlDocument();
             WebRequest req = WebRequest.Create( @"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml" );
             using( WebResponse resp = req.GetResponse() ) {
-
                 doc.Load( resp.GetResponseStream() );
             }
+            return doc;
+        }
+
+        public void IntegrateAppList( XmlDocument doc ) {
             foreach( XmlNode node in doc.SelectNodes( "/applist/apps/app" ) ) {
                 int appId;
-                if( !XmlUtil.TryGetIntFromNode( node["appid"], out appId ) ) {
-                    continue;
-                }
-                string name;
-                XmlUtil.TryGetStringFromNode( node["name"], out name );
-
-                GameDBEntry g = new GameDBEntry();
-                g.Id = appId;
-                g.Name = name;
-
-                if( !Games.ContainsKey( appId ) ) {
-                    Games.Add( appId, g );
+                if( XmlUtil.TryGetIntFromNode( node["appid"], out appId ) ) {
+                    if( Games.ContainsKey( appId ) ) {
+                        GameDBEntry g = Games[appId];
+                        if( string.IsNullOrEmpty( g.Name ) ) {
+                            g.Name = XmlUtil.GetStringFromNode( node["name"], null );
+                        }
+                    } else {
+                        GameDBEntry g = new GameDBEntry();
+                        g.Id = appId;
+                        g.Name = XmlUtil.GetStringFromNode( node["name"], null );
+                        Games.Add( appId, g );
+                    }
                 }
             }
+        }
+
+        public void UpdateAppList() {
+            XmlDocument doc = FetchAppList();
+            IntegrateAppList( doc );
         }
 
         public void SaveToXml( string path, bool saveAll = false ) {
