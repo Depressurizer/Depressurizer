@@ -25,16 +25,16 @@ using DPLib;
 
 namespace SteamScrape {
     public abstract partial class CancelableDlg : Form {
-
+        #region Fields
         protected object abortLock = new object();
 
-        int threadsToRun = 5;
-        int runningThreads;
+        protected int threadsToRun = 5;
+        protected int runningThreads;
 
         protected int totalJobs = 1;
         protected int jobsCompleted = 0;
 
-        bool _abort = false;
+        private bool _abort = false;
         protected bool Aborted {
             get {
                 lock( abortLock ) {
@@ -50,11 +50,12 @@ namespace SteamScrape {
 
         delegate void SimpleDelegate();
         delegate void TextUpdateDelegate( string s );
+        #endregion
 
+        #region Initialization
         public CancelableDlg( string title = "" ) {
             InitializeComponent();
             this.Text = title;
-
             DialogResult = DialogResult.OK;
         }
 
@@ -67,9 +68,15 @@ namespace SteamScrape {
             }
             UpdateText();
         }
+        #endregion
 
+        #region Methods to override
         protected abstract void RunProcess();
 
+        protected virtual void UpdateText() { }
+        #endregion
+
+        #region Status Updaters
         protected void OnJobCompletion() {
             if( InvokeRequired ) {
                 Invoke( new SimpleDelegate( OnJobCompletion ) );
@@ -91,7 +98,9 @@ namespace SteamScrape {
                 }
             }
         }
+        #endregion
 
+        #region Event Handlers
         private void cmdStop_Click( object sender, EventArgs e ) {
             DialogResult = DialogResult.Abort;
             this.Close();
@@ -102,7 +111,9 @@ namespace SteamScrape {
                 Aborted = true;
             }
         }
+        #endregion
 
+        #region UI Updaters
         protected void SetText( string s ) {
             if( this.InvokeRequired ) {
                 this.Invoke( new TextUpdateDelegate( SetText ), s );
@@ -110,8 +121,6 @@ namespace SteamScrape {
                 lblText.Text = s;
             }
         }
-
-        protected virtual void UpdateText() {}
 
         protected void DisableAbort() {
             if( InvokeRequired ) {
@@ -121,5 +130,6 @@ namespace SteamScrape {
             }
 
         }
+        #endregion
     }
 }
