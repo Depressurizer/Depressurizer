@@ -182,7 +182,11 @@ namespace SteamScrape {
 
         private void cmdFetch_Click( object sender, EventArgs e ) {
             this.Cursor = Cursors.WaitCursor;
-            gameList.UpdateAppList();
+            // gameList.UpdateAppList();
+
+            FetchPrcDlg dlg = new FetchPrcDlg( gameList );
+            dlg.ShowDialog();
+
             RefreshGameList();
             UpdateSelectedStatus();
             this.Cursor = Cursors.Default;

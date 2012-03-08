@@ -1,80 +1,27 @@
-﻿/*
-Copyright 2011, 2012 Steve Labbe.
-
-This file is part of Depressurizer.
-
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Windows.Forms;
 using DPLib;
 
 namespace SteamScrape {
-    public partial class ScrapeProcDlg : Form {
-
-        object abortLock = new object();
-
-        int threadsToRun = 5;
-        int runningThreads;
-
+    class ScrapeProcDlg : CancelableDlg {
         Queue<int> jobs;
         GameDB games;
 
-        int totalJobs;
-        int jobsCompleted;
-
         System.DateTime start;
 
-        bool _abort = false;
-        bool Aborted {
-            get {
-                lock( abortLock ) {
-                    return _abort;
-                }
-            }
-            set {
-                lock( abortLock ) {
-                    _abort = value;
-                }
-            }
-        }
-
-        delegate void SimpleDelegate();
-
-        public ScrapeProcDlg( GameDB games, Queue<int> jobs ) {
-            InitializeComponent();
-            DialogResult = DialogResult.OK;
+        public ScrapeProcDlg( GameDB games, Queue<int> jobs )
+            : base( "Scraping game info" ) {
             this.jobs = jobs;
             this.games = games;
 
             totalJobs = jobs.Count;
-
-            threadsToRun = Math.Min( threadsToRun, totalJobs );
-            jobsCompleted = 0;
         }
 
-        private void UpdateForm_Load( object sender, EventArgs e ) {
+        protected override void UpdateForm_Load( object sender, EventArgs e ) {
             start = DateTime.Now;
-            for( int i = 0; i < threadsToRun; i++ ) {
-                Thread t = new Thread( new ThreadStart( RunProcess ) );
-                t.Start();
-                runningThreads++;
-            }
-            UpdateText();
+            base.UpdateForm_Load( sender, e );
         }
 
         private GameDBEntry GetNextGame() {
@@ -91,6 +38,19 @@ namespace SteamScrape {
                 res = games.Games[gameId];
             }
             return res;
+        }
+
+        protected override void RunProcess() {
+            bool running = true;
+            while( !Aborted && running ) {
+                running = RunNextJob();
+                if( !Aborted && running ) {
+                    OnJobCompletion();
+                }
+            }
+            if( !Aborted ) {
+                OnThreadEnd();
+            }
         }
 
         /// <summary>
@@ -124,45 +84,7 @@ namespace SteamScrape {
             }
         }
 
-        private void RunProcess() {
-            bool running = true;
-            while( !Aborted && running ) {
-                running = RunNextJob();
-                if( !Aborted && running ) {
-                    this.Invoke( new SimpleDelegate( OnJobCompletion ) );
-                }
-            }
-            if( !Aborted ) {
-                this.Invoke( new SimpleDelegate( OnThreadEnd ) );
-            }
-        }
-
-        private void OnJobCompletion() {
-            jobsCompleted++;
-            UpdateText();
-        }
-
-        private void OnThreadEnd() {
-            if( !Aborted ) {
-                runningThreads--;
-                if( runningThreads <= 0 ) {
-                    this.Close();
-                }
-            }
-        }
-
-        private void cmdStop_Click( object sender, EventArgs e ) {
-            DialogResult = DialogResult.Abort;
-            this.Close();
-        }
-
-        private void UpdateForm_FormClosing( object sender, FormClosingEventArgs e ) {
-            lock( abortLock ) {
-                Aborted = true;
-            }
-        }
-
-        private void UpdateText() {
+        protected override void UpdateText() {
             double msElapsed = ( DateTime.Now - start ).TotalMilliseconds;
             double msPerItem = msElapsed / (double)jobsCompleted;
             double msRemaining = msPerItem * ( totalJobs - jobsCompleted );
@@ -181,7 +103,7 @@ namespace SteamScrape {
                 }
                 sb.Append( string.Format( "{0:D2}m", timeRemaining.Minutes ) );
             }
-            lblText.Text = sb.ToString();
+            SetText( sb.ToString() );
         }
     }
 }
