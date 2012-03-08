@@ -56,8 +56,8 @@ namespace SteamScrape {
         delegate void SimpleDelegate();
 
         public ScrapeProcDlg( GameDB games, Queue<int> jobs ) {
-            this.DialogResult = DialogResult.OK;
             InitializeComponent();
+            DialogResult = DialogResult.OK;
             this.jobs = jobs;
             this.games = games;
 
@@ -168,19 +168,20 @@ namespace SteamScrape {
             double msRemaining = msPerItem * ( totalJobs - jobsCompleted );
             TimeSpan timeRemaining = TimeSpan.FromMilliseconds( msRemaining );
 
-            lblText.Text = string.Format( "Updating...{0}/{1} complete.", jobsCompleted, totalJobs );
+            StringBuilder sb = new StringBuilder();
+            sb.Append( string.Format( "Updating...{0}/{1} complete.", jobsCompleted, totalJobs ) );
 
-            StringBuilder remainingTimeString = new StringBuilder( "Time Remaining: " );
+            sb.Append( "\nTime Remaining: " );
             if( timeRemaining.TotalMinutes < 1.0 ) {
-                remainingTimeString.Append( "< 1 minute" );
+                sb.Append( "< 1 minute" );
             } else {
                 double hours = timeRemaining.TotalHours;
                 if( hours >= 1.0 ) {
-                    remainingTimeString.Append( string.Format( "{0:F0}h", hours ) );
+                    sb.Append( string.Format( "{0:F0}h", hours ) );
                 }
-                remainingTimeString.Append( string.Format( "{0:D2}m", timeRemaining.Minutes ) );
+                sb.Append( string.Format( "{0:D2}m", timeRemaining.Minutes ) );
             }
-            lblTime.Text = remainingTimeString.ToString();
+            lblText.Text = sb.ToString();
         }
     }
 }

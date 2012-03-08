@@ -43,7 +43,6 @@ namespace SteamScrape {
         private void InitializeComponent() {
             this.lblText = new System.Windows.Forms.Label();
             this.cmdStop = new System.Windows.Forms.Button();
-            this.lblTime = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblText
@@ -66,26 +65,16 @@ namespace SteamScrape {
             this.cmdStop.UseVisualStyleBackColor = true;
             this.cmdStop.Click += new System.EventHandler(this.cmdStop_Click);
             // 
-            // lblTime
-            // 
-            this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(47, 35);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(89, 13);
-            this.lblTime.TabIndex = 2;
-            this.lblTime.Text = "Time Remaining: ";
-            // 
-            // UpdateForm
+            // ScrapeProcDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(366, 94);
             this.ControlBox = false;
-            this.Controls.Add(this.lblTime);
             this.Controls.Add(this.cmdStop);
             this.Controls.Add(this.lblText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "UpdateForm";
+            this.Name = "ScrapeProcDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Updating Games";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
@@ -99,6 +88,5 @@ namespace SteamScrape {
 
         private System.Windows.Forms.Label lblText;
         private System.Windows.Forms.Button cmdStop;
-        private System.Windows.Forms.Label lblTime;
     }
 }
