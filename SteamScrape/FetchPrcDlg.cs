@@ -19,7 +19,7 @@ namespace SteamScrape {
                     games.IntegrateAppList( d );
                 }
             }
-            OnThreadEnd();
+            OnJobCompletion();
         }
     }
 }

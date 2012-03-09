@@ -48,7 +48,6 @@ namespace SteamScrape {
                     OnJobCompletion();
                 }
             }
-            OnThreadEnd();
         }
 
         /// <summary>

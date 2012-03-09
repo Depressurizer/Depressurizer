@@ -34,6 +34,8 @@ namespace SteamScrape {
         protected int totalJobs = 1;
         protected int jobsCompleted = 0;
 
+        private bool success = false;
+
         private bool _abort = false;
         protected bool Aborted {
             get {
@@ -50,6 +52,7 @@ namespace SteamScrape {
 
         delegate void SimpleDelegate();
         delegate void TextUpdateDelegate( string s );
+        delegate void EndProcDelegate( bool b );
         #endregion
 
         #region Initialization
@@ -83,22 +86,21 @@ namespace SteamScrape {
             } else {
                 jobsCompleted++;
                 UpdateText();
-            }
-        }
-
-        protected void OnThreadEnd() {
-            if( InvokeRequired ) {
-                Invoke( new SimpleDelegate( OnThreadEnd ) );
-            } else {
-                if( !Aborted ) {
-                    runningThreads--;
-                    if( runningThreads <= 0 ) {
-                        this.Close();
-                    }
+                if( jobsCompleted >= totalJobs ) {
+                    EndProcess( true );
                 }
             }
         }
         #endregion
+
+        private void EndProcess( bool success ) {
+            if( InvokeRequired ) {
+                Invoke( new EndProcDelegate( EndProcess ), success );
+            } else {
+                if( success ) this.success = true;
+                this.Close();
+            }
+        }
 
         #region Event Handlers
         private void cmdStop_Click( object sender, EventArgs e ) {
@@ -108,7 +110,7 @@ namespace SteamScrape {
 
         private void UpdateForm_FormClosing( object sender, FormClosingEventArgs e ) {
             lock( abortLock ) {
-                Aborted = true;
+                DialogResult = success ? DialogResult.OK : DialogResult.Abort;
             }
         }
         #endregion
@@ -128,7 +130,6 @@ namespace SteamScrape {
             } else {
                 cmdStop.Enabled = false;
             }
-
         }
         #endregion
     }

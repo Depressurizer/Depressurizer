@@ -185,7 +185,9 @@ namespace SteamScrape {
             // gameList.UpdateAppList();
 
             FetchPrcDlg dlg = new FetchPrcDlg( gameList );
-            dlg.ShowDialog();
+            DialogResult res = dlg.ShowDialog();
+
+            MessageBox.Show( res.ToString() );
 
             RefreshGameList();
             UpdateSelectedStatus();
@@ -253,7 +255,10 @@ namespace SteamScrape {
                     }
                 }
                 ScrapeProcDlg dlg = new ScrapeProcDlg( gameList, gamesToUpdate );
-                dlg.ShowDialog();
+                DialogResult res = dlg.ShowDialog();
+
+                MessageBox.Show( res.ToString() );
+
                 RefreshGameList();
                 UpdateSelectedStatus();
 
