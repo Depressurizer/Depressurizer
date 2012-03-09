@@ -44,9 +44,6 @@ namespace SteamScrape {
             bool stillRunning = true;
             while( !Aborted && stillRunning ) {
                 stillRunning = RunNextJob();
-                if( stillRunning ) {
-                    CompleteJob();
-                }
             }
             EndThread();
         }
@@ -73,6 +70,7 @@ namespace SteamScrape {
                     if( type == AppType.Game || type == AppType.DLC || type == AppType.IdRedirect ) {
                         game.Genre = genre;
                     }
+                    CompleteJob();
                     return true;
                 } else {
                     return false;
