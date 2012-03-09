@@ -13,18 +13,14 @@ namespace SteamScrape {
 
         protected override void RunProcess() {
             XmlDocument d = GameDB.FetchAppList();
-            bool completed = false;
             lock( abortLock ) {
                 if( !Aborted ) {
                     DisableAbort();
                     games.IntegrateAppList( d );
                     CompleteJob();
-                    completed = true;
                 }
             }
-            if( completed ) {
-                EndThread();
-            }
+            EndThread();
         }
     }
 }
