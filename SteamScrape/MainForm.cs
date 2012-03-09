@@ -187,7 +187,11 @@ namespace SteamScrape {
             FetchPrcDlg dlg = new FetchPrcDlg( gameList );
             DialogResult res = dlg.ShowDialog();
 
-            MessageBox.Show( res.ToString() );
+            if( res == System.Windows.Forms.DialogResult.Abort ) {
+                statusMsg.Text = "Aborted list update.";
+            } else {
+                statusMsg.Text = "Updated game list.";
+            }
 
             RefreshGameList();
             UpdateSelectedStatus();
@@ -257,7 +261,11 @@ namespace SteamScrape {
                 ScrapeProcDlg dlg = new ScrapeProcDlg( gameList, gamesToUpdate );
                 DialogResult res = dlg.ShowDialog();
 
-                MessageBox.Show( res.ToString() );
+                if( res == DialogResult.Abort ) {
+                    statusMsg.Text = string.Format( "Aborted. Updated {0} / {1} entries.", dlg.JobsCompleted, dlg.JobsTotal );
+                } else {
+                    statusMsg.Text = string.Format( "Updated {0} entries.", dlg.JobsCompleted );
+                }
 
                 RefreshGameList();
                 UpdateSelectedStatus();

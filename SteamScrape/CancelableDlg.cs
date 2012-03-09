@@ -32,9 +32,17 @@ namespace SteamScrape {
         protected int runningThreads;
 
         protected int totalJobs = 1;
+        public int JobsTotal {
+            get {
+                return totalJobs;
+            }
+        }
         protected int jobsCompleted = 0;
-
-        private bool success = false;
+        public int JobsCompleted {
+            get {
+                return jobsCompleted;
+            }
+        }
 
         private bool _abort = false;
         protected bool Aborted {
@@ -80,37 +88,35 @@ namespace SteamScrape {
         #endregion
 
         #region Status Updaters
-        protected void OnJobCompletion() {
-            if( InvokeRequired ) {
-                Invoke( new SimpleDelegate( OnJobCompletion ) );
-            } else {
+        protected void CompleteJob() {
+            lock( abortLock ) {
                 jobsCompleted++;
-                UpdateText();
-                if( jobsCompleted >= totalJobs ) {
-                    EndProcess( true );
+            }
+            UpdateText();
+        }
+
+        protected void EndThread() {
+            if( InvokeRequired ) {
+                Invoke( new SimpleDelegate( EndThread ) );
+            } else {
+                runningThreads--;
+                if( runningThreads <= 0 ) {
+                    this.Close();
                 }
             }
         }
         #endregion
 
-        private void EndProcess( bool success ) {
-            if( InvokeRequired ) {
-                Invoke( new EndProcDelegate( EndProcess ), success );
-            } else {
-                if( success ) this.success = true;
-                this.Close();
-            }
-        }
-
         #region Event Handlers
         private void cmdStop_Click( object sender, EventArgs e ) {
-            DialogResult = DialogResult.Abort;
+            Aborted = true;
             this.Close();
         }
 
         private void UpdateForm_FormClosing( object sender, FormClosingEventArgs e ) {
             lock( abortLock ) {
-                DialogResult = success ? DialogResult.OK : DialogResult.Abort;
+                Aborted = true;
+                DialogResult = (jobsCompleted >= totalJobs) ? DialogResult.OK : DialogResult.Abort;
             }
         }
         #endregion

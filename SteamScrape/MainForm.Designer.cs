@@ -75,6 +75,7 @@ namespace SteamScrape {
             this.cmdStore = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statSelected = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenu.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -403,6 +404,7 @@ namespace SteamScrape {
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusMsg,
             this.statSelected});
             this.statusStrip1.Location = new System.Drawing.Point(0, 420);
             this.statusStrip1.Name = "statusStrip1";
@@ -413,9 +415,15 @@ namespace SteamScrape {
             // statSelected
             // 
             this.statSelected.Name = "statSelected";
-            this.statSelected.Size = new System.Drawing.Size(654, 17);
-            this.statSelected.Spring = true;
+            this.statSelected.Size = new System.Drawing.Size(0, 17);
             this.statSelected.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // statusMsg
+            // 
+            this.statusMsg.Name = "statusMsg";
+            this.statusMsg.Size = new System.Drawing.Size(623, 17);
+            this.statusMsg.Spring = true;
+            this.statusMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
@@ -485,6 +493,7 @@ namespace SteamScrape {
         private System.Windows.Forms.ToolStripStatusLabel statSelected;
         private System.Windows.Forms.CheckBox chkUnknown;
         private System.Windows.Forms.CheckBox chkWebError;
+        private System.Windows.Forms.ToolStripStatusLabel statusMsg;
     }
 }
 

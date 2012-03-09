@@ -41,22 +41,21 @@ namespace SteamScrape {
         }
 
         protected override void RunProcess() {
-            bool running = true;
-            while( !Aborted && running ) {
-                running = RunNextJob();
-                if( !Aborted && running ) {
-                    OnJobCompletion();
+            bool stillRunning = true;
+            while( !Aborted && stillRunning ) {
+                stillRunning = RunNextJob();
+                if( stillRunning ) {
+                    CompleteJob();
                 }
             }
+            EndThread();
         }
 
         /// <summary>
         /// Runs the next job in the queue, in a thread-safe manner. Aborts ASAP if the form is closed.
         /// </summary>
-        /// <returns>True if a job was run, false otherwise</returns>
+        /// <returns>True if a job was run, false if it was aborted first</returns>
         private bool RunNextJob() {
-            if( Aborted ) return false;
-
             GameDBEntry game = GetNextGame();
             if( game == null ) {
                 return false;
