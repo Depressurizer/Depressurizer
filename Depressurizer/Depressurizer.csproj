@@ -80,6 +80,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBEdit\DBEditDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DBEdit\DBEditDlg.Designer.cs">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBEdit\FetchPrcDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DBEdit\GameDBEntryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DBEdit\GameDBEntryDialog.Designer.cs">
+      <DependentUpon>GameDBEntryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBEdit\ScrapeProcDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameDB.cs" />
+    <Compile Include="GameDBEntry.cs" />
     <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="GameDlg.cs">
       <SubType>Form</SubType>
@@ -87,6 +107,14 @@
     <Compile Include="GameDlg.Designer.cs">
       <DependentUpon>GameDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lib\CancelableDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lib\CancelableDlg.Designer.cs">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lib\MultiColumnListViewComparer.cs" />
+    <Compile Include="Lib\XmlUtil.cs" />
     <Compile Include="ProfileDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,8 +162,17 @@
     <Compile Include="SteamPathDlg.Designer.cs">
       <DependentUpon>SteamPathDlg.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\GameDBEntryDialog.resx">
+      <DependentUpon>GameDBEntryDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameDlg.resx">
       <DependentUpon>GameDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\CancelableDlg.resx">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProfileDlg.resx">
       <DependentUpon>ProfileDlg.cs</DependentUpon>
@@ -203,16 +240,6 @@
       <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DPLib\DPLib.csproj">
-      <Project>{F21D309B-EA34-42B7-9D29-51D70E4384D4}</Project>
-      <Name>DPLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SteamScrape\SteamScrape.csproj">
-      <Project>{4E49AF46-2E5A-41F8-8596-A36FB773A38F}</Project>
-      <Name>SteamScrape</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="GameDB.xml">
