@@ -92,7 +92,7 @@ namespace SteamScrape {
             }
 
             RefreshGameList();
-            UpdateSelectedStatus();
+            UpdateForSelectChange();
             this.Cursor = Cursors.Default;
         }
 
@@ -106,7 +106,7 @@ namespace SteamScrape {
                     gameList.Games.Add( dlg.Game.Id, dlg.Game );
                     AddGameToList( dlg.Game );
                     AddStatusMsg( string.Format( "Added game with ID {0}.", dlg.Game.Id ) );
-                    UpdateSelectedStatus();
+                    UpdateForSelectChange();
                 }
             }
         }
@@ -140,7 +140,7 @@ namespace SteamScrape {
                     }
                     AddStatusMsg( string.Format( "Deleted {0} games.", deleted ) );
                     UpdateSelectedGames();
-                    UpdateSelectedStatus();
+                    UpdateForSelectChange();
                 }
             }
         }
@@ -176,7 +176,7 @@ namespace SteamScrape {
 
                 ScrapeGames( gamesToScrape );
 
-                UpdateSelectedStatus();
+                UpdateForSelectChange();
 
                 Cursor = Cursors.Default;
             }
@@ -266,8 +266,9 @@ namespace SteamScrape {
                 ( g.Type == AppType.New && chkNew.Checked );
         }
 
-        void UpdateSelectedStatus() {
+        void UpdateForSelectChange() {
             statSelected.Text = string.Format( "{0} selected / {1} displayed / {2} total", lstGames.SelectedItems.Count, lstGames.Items.Count, gameList.Games.Count );
+            cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = ( lstGames.SelectedItems.Count >= 1 );
         }
 
         void AddStatusMsg( string s ) {
@@ -289,13 +290,13 @@ namespace SteamScrape {
         private void MainForm_Load( object sender, EventArgs e ) {
             listSorter.AddIntCol( 1 );
             lstGames.ListViewItemSorter = listSorter;
-            UpdateSelectedStatus();
+            UpdateForSelectChange();
         }
 
         private void menu_File_Load_Click( object sender, EventArgs e ) {
             ClearStatusMsg();
             LoadGames();
-            UpdateSelectedStatus();
+            UpdateForSelectChange();
             FlushStatusMsg();
         }
 
@@ -308,7 +309,7 @@ namespace SteamScrape {
         private void menu_File_Clear_Click( object sender, EventArgs e ) {
             ClearStatusMsg();
             ClearList();
-            UpdateSelectedStatus();
+            UpdateForSelectChange();
             FlushStatusMsg();
         }
 
@@ -373,7 +374,7 @@ namespace SteamScrape {
             ClearStatusMsg();
             ScrapeGamesOfType( AppType.New );
             FlushStatusMsg();
-            UpdateSelectedStatus();
+            UpdateForSelectChange();
         }
 
         private void chkAll_CheckedChanged( object sender, EventArgs e ) {
@@ -385,7 +386,7 @@ namespace SteamScrape {
                 }
                 filterSuspend = false;
                 RefreshGameList();
-                UpdateSelectedStatus();
+                UpdateForSelectChange();
             }
         }
 
@@ -397,12 +398,12 @@ namespace SteamScrape {
                 }
                 filterSuspend = false;
                 RefreshGameList();
-                UpdateSelectedStatus();
+                UpdateForSelectChange();
             }
         }
 
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
-            UpdateSelectedStatus();
+            UpdateForSelectChange();
         }
         #endregion
 
