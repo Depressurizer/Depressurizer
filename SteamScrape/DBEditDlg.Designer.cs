@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 namespace SteamScrape {
-    partial class MainForm {
+    partial class DBEditDlg {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -44,8 +44,7 @@ namespace SteamScrape {
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.menu_File = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Load = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_File_SaveRaw = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_File_SavePruned = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_File_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_File_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Sep2 = new System.Windows.Forms.ToolStripSeparator();
@@ -74,8 +73,8 @@ namespace SteamScrape {
             this.chkAll = new System.Windows.Forms.CheckBox();
             this.cmdStore = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.statSelected = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statSelected = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenu.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -95,8 +94,7 @@ namespace SteamScrape {
             // 
             this.menu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_File_Load,
-            this.menu_File_SaveRaw,
-            this.menu_File_SavePruned,
+            this.menu_File_Save,
             this.menu_File_Sep1,
             this.menu_File_Clear,
             this.menu_File_Sep2,
@@ -108,46 +106,43 @@ namespace SteamScrape {
             // menu_File_Load
             // 
             this.menu_File_Load.Name = "menu_File_Load";
-            this.menu_File_Load.Size = new System.Drawing.Size(148, 22);
+            this.menu_File_Load.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.menu_File_Load.Size = new System.Drawing.Size(152, 22);
             this.menu_File_Load.Text = "Load...";
             this.menu_File_Load.Click += new System.EventHandler(this.menu_File_Load_Click);
             // 
-            // menu_File_SaveRaw
+            // menu_File_Save
             // 
-            this.menu_File_SaveRaw.Name = "menu_File_SaveRaw";
-            this.menu_File_SaveRaw.Size = new System.Drawing.Size(148, 22);
-            this.menu_File_SaveRaw.Text = "Save Raw...";
-            this.menu_File_SaveRaw.Click += new System.EventHandler(this.menu_File_SaveRaw_Click);
-            // 
-            // menu_File_SavePruned
-            // 
-            this.menu_File_SavePruned.Name = "menu_File_SavePruned";
-            this.menu_File_SavePruned.Size = new System.Drawing.Size(148, 22);
-            this.menu_File_SavePruned.Text = "Save Pruned...";
-            this.menu_File_SavePruned.Click += new System.EventHandler(this.menu_File_SavePruned_Click);
+            this.menu_File_Save.Name = "menu_File_Save";
+            this.menu_File_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.menu_File_Save.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Save.Text = "Save...";
+            this.menu_File_Save.Click += new System.EventHandler(this.menu_File_Save_Click);
             // 
             // menu_File_Sep1
             // 
             this.menu_File_Sep1.Name = "menu_File_Sep1";
-            this.menu_File_Sep1.Size = new System.Drawing.Size(145, 6);
+            this.menu_File_Sep1.Size = new System.Drawing.Size(149, 6);
             // 
             // menu_File_Clear
             // 
             this.menu_File_Clear.Name = "menu_File_Clear";
-            this.menu_File_Clear.Size = new System.Drawing.Size(148, 22);
+            this.menu_File_Clear.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.menu_File_Clear.Size = new System.Drawing.Size(152, 22);
             this.menu_File_Clear.Text = "Clear";
             this.menu_File_Clear.Click += new System.EventHandler(this.menu_File_Clear_Click);
             // 
             // menu_File_Sep2
             // 
             this.menu_File_Sep2.Name = "menu_File_Sep2";
-            this.menu_File_Sep2.Size = new System.Drawing.Size(145, 6);
+            this.menu_File_Sep2.Size = new System.Drawing.Size(149, 6);
             // 
             // menu_File_Exit
             // 
             this.menu_File_Exit.Name = "menu_File_Exit";
-            this.menu_File_Exit.Size = new System.Drawing.Size(148, 22);
-            this.menu_File_Exit.Text = "Exit";
+            this.menu_File_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.menu_File_Exit.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Exit.Text = "Close";
             this.menu_File_Exit.Click += new System.EventHandler(this.menu_File_Exit_Click);
             // 
             // lstGames
@@ -170,6 +165,7 @@ namespace SteamScrape {
             this.lstGames.View = System.Windows.Forms.View.Details;
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
+            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
             // 
             // colName
             // 
@@ -412,20 +408,20 @@ namespace SteamScrape {
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // statusMsg
+            // 
+            this.statusMsg.Name = "statusMsg";
+            this.statusMsg.Size = new System.Drawing.Size(654, 17);
+            this.statusMsg.Spring = true;
+            this.statusMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // statSelected
             // 
             this.statSelected.Name = "statSelected";
             this.statSelected.Size = new System.Drawing.Size(0, 17);
             this.statSelected.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // statusMsg
-            // 
-            this.statusMsg.Name = "statusMsg";
-            this.statusMsg.Size = new System.Drawing.Size(623, 17);
-            this.statusMsg.Spring = true;
-            this.statusMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // MainForm
+            // DBEditDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -442,9 +438,10 @@ namespace SteamScrape {
             this.Controls.Add(this.lstGames);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(685, 480);
-            this.Name = "MainForm";
-            this.Text = "SteamScrape";
+            this.Name = "DBEditDlg";
+            this.Text = "Database Editor";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
@@ -462,7 +459,7 @@ namespace SteamScrape {
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem menu_File;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Load;
-        private System.Windows.Forms.ToolStripMenuItem menu_File_SaveRaw;
+        private System.Windows.Forms.ToolStripMenuItem menu_File_Save;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Exit;
         private System.Windows.Forms.ListView lstGames;
         private System.Windows.Forms.ColumnHeader colName;
@@ -475,7 +472,6 @@ namespace SteamScrape {
         private System.Windows.Forms.Button cmdEditGame;
         private System.Windows.Forms.Button cmdDeleteGame;
         private System.Windows.Forms.Button cmdAddGame;
-        private System.Windows.Forms.ToolStripMenuItem menu_File_SavePruned;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep1;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Clear;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep2;

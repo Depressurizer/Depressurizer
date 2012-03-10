@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using DPLib;
+using System;
 
 namespace SteamScrape {
     class FetchPrcDlg : CancelableDlg {
@@ -12,13 +13,17 @@ namespace SteamScrape {
         }
 
         protected override void RunProcess() {
-            XmlDocument d = GameDB.FetchAppList();
-            lock( abortLock ) {
-                if( !Aborted ) {
-                    DisableAbort();
-                    games.IntegrateAppList( d );
-                    CompleteJob();
+            try {
+                XmlDocument d = GameDB.FetchAppList();
+                lock( abortLock ) {
+                    if( !Aborted ) {
+                        DisableAbort();
+                        games.IntegrateAppList( d );
+                        CompleteJob();
+                    }
                 }
+            } catch( Exception e ) {
+                this.Error = e;
             }
             EndThread();
         }

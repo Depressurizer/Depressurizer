@@ -58,6 +58,8 @@ namespace SteamScrape {
             }
         }
 
+        public Exception Error { get; protected set; }
+
         delegate void SimpleDelegate();
         delegate void TextUpdateDelegate( string s );
         delegate void EndProcDelegate( bool b );
@@ -73,11 +75,19 @@ namespace SteamScrape {
         protected virtual void UpdateForm_Load( object sender, EventArgs e ) {
             threadsToRun = Math.Min( threadsToRun, totalJobs );
             for( int i = 0; i < threadsToRun; i++ ) {
-                Thread t = new Thread( new ThreadStart( RunProcess ) );
+                Thread t = new Thread( new ThreadStart( RunProcessChecked ) );
                 t.Start();
                 runningThreads++;
             }
             UpdateText();
+        }
+
+        private void RunProcessChecked() {
+            try {
+                RunProcess();
+            } catch( Exception e ) {
+                Error = e;
+            }
         }
         #endregion
 
@@ -116,7 +126,7 @@ namespace SteamScrape {
         private void UpdateForm_FormClosing( object sender, FormClosingEventArgs e ) {
             lock( abortLock ) {
                 Aborted = true;
-                DialogResult = (jobsCompleted >= totalJobs) ? DialogResult.OK : DialogResult.Abort;
+                DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
             }
         }
         #endregion
