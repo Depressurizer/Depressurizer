@@ -209,6 +209,10 @@
       <Project>{F21D309B-EA34-42B7-9D29-51D70E4384D4}</Project>
       <Name>DPLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SteamScrape\SteamScrape.csproj">
+      <Project>{4E49AF46-2E5A-41F8-8596-A36FB773A38F}</Project>
+      <Name>SteamScrape</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="GameDB.xml">

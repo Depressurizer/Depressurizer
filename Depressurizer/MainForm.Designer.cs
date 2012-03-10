@@ -72,6 +72,7 @@ namespace Depressurizer {
             this.menu_Tools_AutocatAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_DBEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.grpCategories = new System.Windows.Forms.GroupBox();
             this.lstCategories = new System.Windows.Forms.ListBox();
@@ -114,6 +115,7 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menu_Tools_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -315,6 +317,8 @@ namespace Depressurizer {
             this.menu_Tools_AutocatNeeded,
             this.menu_Tools_AutocatAll,
             this.menu_Tools_Sep2,
+            this.menu_Tools_DBEdit,
+            this.menu_Tools_Sep3,
             this.menu_Tools_Settings});
             this.menu_Tools.Name = "menu_Tools";
             this.menu_Tools.Size = new System.Drawing.Size(48, 20);
@@ -360,6 +364,13 @@ namespace Depressurizer {
             this.menu_Tools_Settings.Size = new System.Drawing.Size(202, 22);
             this.menu_Tools_Settings.Text = "Settings...";
             this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
+            // 
+            // menu_Tools_DBEdit
+            // 
+            this.menu_Tools_DBEdit.Name = "menu_Tools_DBEdit";
+            this.menu_Tools_DBEdit.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_DBEdit.Text = "Database Editor...";
+            this.menu_Tools_DBEdit.Click += new System.EventHandler(this.menu_Tools_DBEdit_Click);
             // 
             // splitContainer
             // 
@@ -792,6 +803,11 @@ namespace Depressurizer {
             this.statusSelection.Size = new System.Drawing.Size(200, 17);
             this.statusSelection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // menu_Tools_Sep3
+            // 
+            this.menu_Tools_Sep3.Name = "menu_Tools_Sep3";
+            this.menu_Tools_Sep3.Size = new System.Drawing.Size(199, 6);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -902,6 +918,8 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutocatAll;
         private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep2;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_Settings;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools_DBEdit;
+        private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep3;
     }
 }
 

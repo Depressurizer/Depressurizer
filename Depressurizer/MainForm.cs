@@ -1183,11 +1183,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="changes"></param>
         void MakeChange( bool changes ) {
-            if( unsavedChanges != changes ) {
-                unsavedChanges = changes;
-            } else {
-                unsavedChanges = changes;
-            }
+            unsavedChanges = changes;
             UpdateTitle();
         }
 
@@ -1317,6 +1313,11 @@ namespace Depressurizer {
             ClearStatus();
             AutocatSelected();
             FlushStatus();
+        }
+
+        private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
+            SteamScrape.DBEditDlg dlg = new SteamScrape.DBEditDlg();
+            dlg.ShowDialog();
         }
     }
 
