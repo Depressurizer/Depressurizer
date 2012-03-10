@@ -108,7 +108,7 @@ namespace SteamScrape {
             this.menu_File_Load.Name = "menu_File_Load";
             this.menu_File_Load.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.menu_File_Load.Size = new System.Drawing.Size(152, 22);
-            this.menu_File_Load.Text = "Load...";
+            this.menu_File_Load.Text = "&Load...";
             this.menu_File_Load.Click += new System.EventHandler(this.menu_File_Load_Click);
             // 
             // menu_File_Save
@@ -116,7 +116,7 @@ namespace SteamScrape {
             this.menu_File_Save.Name = "menu_File_Save";
             this.menu_File_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.menu_File_Save.Size = new System.Drawing.Size(152, 22);
-            this.menu_File_Save.Text = "Save...";
+            this.menu_File_Save.Text = "&Save...";
             this.menu_File_Save.Click += new System.EventHandler(this.menu_File_Save_Click);
             // 
             // menu_File_Sep1
@@ -129,7 +129,7 @@ namespace SteamScrape {
             this.menu_File_Clear.Name = "menu_File_Clear";
             this.menu_File_Clear.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.menu_File_Clear.Size = new System.Drawing.Size(152, 22);
-            this.menu_File_Clear.Text = "Clear";
+            this.menu_File_Clear.Text = "&Clear";
             this.menu_File_Clear.Click += new System.EventHandler(this.menu_File_Clear_Click);
             // 
             // menu_File_Sep2
@@ -142,7 +142,7 @@ namespace SteamScrape {
             this.menu_File_Exit.Name = "menu_File_Exit";
             this.menu_File_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.menu_File_Exit.Size = new System.Drawing.Size(152, 22);
-            this.menu_File_Exit.Text = "Close";
+            this.menu_File_Exit.Text = "Clos&e";
             this.menu_File_Exit.Click += new System.EventHandler(this.menu_File_Exit_Click);
             // 
             // lstGames
@@ -195,7 +195,7 @@ namespace SteamScrape {
             this.cmdFetch.Name = "cmdFetch";
             this.cmdFetch.Size = new System.Drawing.Size(114, 23);
             this.cmdFetch.TabIndex = 1;
-            this.cmdFetch.Text = "Fetch List";
+            this.cmdFetch.Text = "&Fetch List";
             this.cmdFetch.UseVisualStyleBackColor = true;
             this.cmdFetch.Click += new System.EventHandler(this.cmdFetch_Click);
             // 
@@ -205,8 +205,8 @@ namespace SteamScrape {
             this.cmdUpdateUnchecked.Location = new System.Drawing.Point(543, 391);
             this.cmdUpdateUnchecked.Name = "cmdUpdateUnchecked";
             this.cmdUpdateUnchecked.Size = new System.Drawing.Size(114, 23);
-            this.cmdUpdateUnchecked.TabIndex = 6;
-            this.cmdUpdateUnchecked.Text = "Update New";
+            this.cmdUpdateUnchecked.TabIndex = 8;
+            this.cmdUpdateUnchecked.Text = "Update &New";
             this.cmdUpdateUnchecked.UseVisualStyleBackColor = true;
             this.cmdUpdateUnchecked.Click += new System.EventHandler(this.cmdUpdateUnchecked_Click);
             // 
@@ -216,8 +216,8 @@ namespace SteamScrape {
             this.cmdUpdateSelected.Location = new System.Drawing.Point(543, 367);
             this.cmdUpdateSelected.Name = "cmdUpdateSelected";
             this.cmdUpdateSelected.Size = new System.Drawing.Size(114, 23);
-            this.cmdUpdateSelected.TabIndex = 5;
-            this.cmdUpdateSelected.Text = "Update Selected";
+            this.cmdUpdateSelected.TabIndex = 7;
+            this.cmdUpdateSelected.Text = "&Update Selected";
             this.cmdUpdateSelected.UseVisualStyleBackColor = true;
             this.cmdUpdateSelected.Click += new System.EventHandler(this.cmdUpdateSelected_Click);
             // 
@@ -227,8 +227,8 @@ namespace SteamScrape {
             this.cmdEditGame.Location = new System.Drawing.Point(543, 334);
             this.cmdEditGame.Name = "cmdEditGame";
             this.cmdEditGame.Size = new System.Drawing.Size(114, 23);
-            this.cmdEditGame.TabIndex = 4;
-            this.cmdEditGame.Text = "Edit Game";
+            this.cmdEditGame.TabIndex = 6;
+            this.cmdEditGame.Text = "&Edit Game";
             this.cmdEditGame.UseVisualStyleBackColor = true;
             this.cmdEditGame.Click += new System.EventHandler(this.cmdEditGame_Click);
             // 
@@ -238,8 +238,8 @@ namespace SteamScrape {
             this.cmdDeleteGame.Location = new System.Drawing.Point(543, 310);
             this.cmdDeleteGame.Name = "cmdDeleteGame";
             this.cmdDeleteGame.Size = new System.Drawing.Size(114, 23);
-            this.cmdDeleteGame.TabIndex = 3;
-            this.cmdDeleteGame.Text = "Delete Game";
+            this.cmdDeleteGame.TabIndex = 5;
+            this.cmdDeleteGame.Text = "&Delete Game";
             this.cmdDeleteGame.UseVisualStyleBackColor = true;
             this.cmdDeleteGame.Click += new System.EventHandler(this.cmdDeleteGame_Click);
             // 
@@ -249,8 +249,8 @@ namespace SteamScrape {
             this.cmdAddGame.Location = new System.Drawing.Point(543, 286);
             this.cmdAddGame.Name = "cmdAddGame";
             this.cmdAddGame.Size = new System.Drawing.Size(114, 23);
-            this.cmdAddGame.TabIndex = 2;
-            this.cmdAddGame.Text = "Add Game";
+            this.cmdAddGame.TabIndex = 4;
+            this.cmdAddGame.Text = "&Add Game";
             this.cmdAddGame.UseVisualStyleBackColor = true;
             this.cmdAddGame.Click += new System.EventHandler(this.cmdAddGame_Click);
             // 
@@ -270,7 +270,7 @@ namespace SteamScrape {
             this.grpFilter.Location = new System.Drawing.Point(547, 56);
             this.grpFilter.Name = "grpFilter";
             this.grpFilter.Size = new System.Drawing.Size(110, 193);
-            this.grpFilter.TabIndex = 8;
+            this.grpFilter.TabIndex = 2;
             this.grpFilter.TabStop = false;
             this.grpFilter.Text = "Filter";
             // 
@@ -302,7 +302,7 @@ namespace SteamScrape {
             this.chkNonApp.Location = new System.Drawing.Point(6, 104);
             this.chkNonApp.Name = "chkNonApp";
             this.chkNonApp.Size = new System.Drawing.Size(65, 17);
-            this.chkNonApp.TabIndex = 7;
+            this.chkNonApp.TabIndex = 5;
             this.chkNonApp.Text = "NonApp";
             this.chkNonApp.UseVisualStyleBackColor = true;
             this.chkNonApp.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
@@ -313,7 +313,7 @@ namespace SteamScrape {
             this.chkRedirect.Location = new System.Drawing.Point(6, 87);
             this.chkRedirect.Name = "chkRedirect";
             this.chkRedirect.Size = new System.Drawing.Size(75, 17);
-            this.chkRedirect.TabIndex = 6;
+            this.chkRedirect.TabIndex = 4;
             this.chkRedirect.Text = "IdRedirect";
             this.chkRedirect.UseVisualStyleBackColor = true;
             this.chkRedirect.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
@@ -324,7 +324,7 @@ namespace SteamScrape {
             this.chkNotFound.Location = new System.Drawing.Point(6, 121);
             this.chkNotFound.Name = "chkNotFound";
             this.chkNotFound.Size = new System.Drawing.Size(73, 17);
-            this.chkNotFound.TabIndex = 5;
+            this.chkNotFound.TabIndex = 6;
             this.chkNotFound.Text = "NotFound";
             this.chkNotFound.UseVisualStyleBackColor = true;
             this.chkNotFound.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
@@ -335,7 +335,7 @@ namespace SteamScrape {
             this.chkDLC.Location = new System.Drawing.Point(6, 70);
             this.chkDLC.Name = "chkDLC";
             this.chkDLC.Size = new System.Drawing.Size(47, 17);
-            this.chkDLC.TabIndex = 4;
+            this.chkDLC.TabIndex = 3;
             this.chkDLC.Text = "DLC";
             this.chkDLC.UseVisualStyleBackColor = true;
             this.chkDLC.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
@@ -346,7 +346,7 @@ namespace SteamScrape {
             this.chkGame.Location = new System.Drawing.Point(6, 53);
             this.chkGame.Name = "chkGame";
             this.chkGame.Size = new System.Drawing.Size(54, 17);
-            this.chkGame.TabIndex = 3;
+            this.chkGame.TabIndex = 2;
             this.chkGame.Text = "Game";
             this.chkGame.UseVisualStyleBackColor = true;
             this.chkGame.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
@@ -357,7 +357,7 @@ namespace SteamScrape {
             this.chkSiteError.Location = new System.Drawing.Point(6, 138);
             this.chkSiteError.Name = "chkSiteError";
             this.chkSiteError.Size = new System.Drawing.Size(66, 17);
-            this.chkSiteError.TabIndex = 2;
+            this.chkSiteError.TabIndex = 7;
             this.chkSiteError.Text = "SiteError";
             this.chkSiteError.UseVisualStyleBackColor = true;
             this.chkSiteError.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
@@ -392,8 +392,8 @@ namespace SteamScrape {
             this.cmdStore.Location = new System.Drawing.Point(543, 255);
             this.cmdStore.Name = "cmdStore";
             this.cmdStore.Size = new System.Drawing.Size(114, 23);
-            this.cmdStore.TabIndex = 9;
-            this.cmdStore.Text = "View Store";
+            this.cmdStore.TabIndex = 3;
+            this.cmdStore.Text = "View &Store";
             this.cmdStore.UseVisualStyleBackColor = true;
             this.cmdStore.Click += new System.EventHandler(this.cmdStore_Click);
             // 

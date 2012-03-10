@@ -17,14 +17,10 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Windows.Forms;
-using DPLib;
 using System.Collections.Generic;
 using System.Text;
-using System.Reflection;
-using System.Diagnostics;
-using System.Runtime;
-using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using DPLib;
 
 namespace SteamScrape {
     public partial class DBEditDlg : Form {
