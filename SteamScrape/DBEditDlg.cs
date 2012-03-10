@@ -331,6 +331,27 @@ namespace SteamScrape {
                         }
                     }
                     break;
+                case Keys.Enter:
+                    if( lstGames.SelectedItems.Count > 0 ) {
+                        ClearStatusMsg();
+                        EditSelectedGame();
+                        FlushStatusMsg();
+                    }
+                    break;
+                case Keys.N:
+                    if( e.Modifiers == Keys.Control ) {
+                        ClearStatusMsg();
+                        AddNewGame();
+                        FlushStatusMsg();
+                    }
+                    break;
+                case Keys.Delete:
+                    if( lstGames.SelectedItems.Count > 0 ) {
+                        ClearStatusMsg();
+                        DeleteSelectedGames();
+                        FlushStatusMsg();
+                    }
+                    break;
             }
         }
 
