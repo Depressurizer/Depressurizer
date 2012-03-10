@@ -58,7 +58,6 @@ namespace DPLib {
                 req.CookieContainer = new CookieContainer( 1 );
                 req.CookieContainer.Add( new Cookie( "birthtime", "0", "/", "store.steampowered.com" ) );
 
-
                 using( WebResponse resp = req.GetResponse() ) {
                     if( resp.ResponseUri.Segments.Length <= 1 ) {
                         // Redirected to the store front page

@@ -63,8 +63,6 @@ namespace DPLib {
         }
 
         public static XmlDocument FetchAppList() {
-            // TODO: Exception handling here?
-
             XmlDocument doc = new XmlDocument();
             WebRequest req = WebRequest.Create( @"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml" );
             using( WebResponse resp = req.GetResponse() ) {
@@ -97,7 +95,7 @@ namespace DPLib {
             IntegrateAppList( doc );
         }
 
-        public void SaveToXml( string path, bool saveAll = false ) {
+        public void SaveToXml( string path ) {
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.CloseOutput = true;
@@ -105,19 +103,17 @@ namespace DPLib {
             writer.WriteStartDocument();
             writer.WriteStartElement( "gamelist" );
             foreach( GameDBEntry g in Games.Values ) {
-                if( saveAll || g.Type == AppType.Game || g.Type == AppType.DLC || g.Type == AppType.IdRedirect ) {
-                    writer.WriteStartElement( "game" );
+                writer.WriteStartElement( "game" );
 
-                    writer.WriteElementString( "id", g.Id.ToString() );
-                    if( !string.IsNullOrEmpty( g.Name ) ) {
-                        writer.WriteElementString( "name", g.Name );
-                    }
-                    writer.WriteElementString( "type", g.Type.ToString() );
-                    if( !string.IsNullOrEmpty( g.Genre ) ) {
-                        writer.WriteElementString( "genre", g.Genre );
-                    }
-                    writer.WriteEndElement();
+                writer.WriteElementString( "id", g.Id.ToString() );
+                if( !string.IsNullOrEmpty( g.Name ) ) {
+                    writer.WriteElementString( "name", g.Name );
                 }
+                writer.WriteElementString( "type", g.Type.ToString() );
+                if( !string.IsNullOrEmpty( g.Genre ) ) {
+                    writer.WriteElementString( "genre", g.Genre );
+                }
+                writer.WriteEndElement();
             }
             writer.WriteEndElement();
             writer.WriteEndDocument();
