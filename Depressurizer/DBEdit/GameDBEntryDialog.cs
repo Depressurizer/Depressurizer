@@ -18,9 +18,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
 using System.Windows.Forms;
-using DPLib;
 
-namespace SteamScrape {
+namespace Depressurizer {
     public partial class GameDBEntryDialog : Form {
 
         public GameDBEntry Game;

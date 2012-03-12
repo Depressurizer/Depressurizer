@@ -20,7 +20,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace DPLib {
+namespace Depressurizer {
 
     public enum AppType {
         New,

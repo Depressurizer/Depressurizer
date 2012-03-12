@@ -17,13 +17,10 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using DPLib;
 
-namespace SteamScrape {
+namespace Depressurizer {
     public abstract partial class CancelableDlg : Form {
         #region Fields
         protected object abortLock = new object();

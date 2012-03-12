@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Xml;
 
-namespace DPLib {
+namespace Depressurizer {
     public class GameDB {
         public Dictionary<int, GameDBEntry> Games = new Dictionary<int, GameDBEntry>();
         static char[] genreSep = new char[] { ',' };

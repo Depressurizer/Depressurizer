@@ -19,19 +19,16 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Text;
-using DPLib;
 
-namespace SteamScrape {
+namespace Depressurizer {
     class ScrapeProcDlg : CancelableDlg {
         Queue<int> jobs;
-        GameDB games;
 
         System.DateTime start;
 
         public ScrapeProcDlg( GameDB games, Queue<int> jobs )
             : base( "Scraping game info" ) {
             this.jobs = jobs;
-            this.games = games;
 
             totalJobs = jobs.Count;
         }
@@ -51,8 +48,8 @@ namespace SteamScrape {
                 }
             }
             GameDBEntry res = null;
-            lock( games ) {
-                res = games.Games[gameId];
+            lock( Program.GameDB ) {
+                res = Program.GameDB.Games[gameId];
             }
             return res;
         }

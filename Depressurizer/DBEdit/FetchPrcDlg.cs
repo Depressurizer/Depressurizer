@@ -18,15 +18,11 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System.Xml;
-using DPLib;
 
-namespace SteamScrape {
+namespace Depressurizer {
     class FetchPrcDlg : CancelableDlg {
-        GameDB games;
-
-        public FetchPrcDlg( GameDB games )
+        public FetchPrcDlg()
             : base( "Updating Game List" ) {
-            this.games = games;
             SetText( "Downloading game list..." );
         }
 
@@ -36,7 +32,7 @@ namespace SteamScrape {
                 lock( abortLock ) {
                     if( !Aborted ) {
                         DisableAbort();
-                        games.IntegrateAppList( d );
+                        Program.GameDB.IntegrateAppList( d );
                         CompleteJob();
                     }
                 }

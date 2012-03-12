@@ -17,13 +17,12 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using DPLib;
 using Rallion;
-using System.Collections.Generic;
 
 namespace Depressurizer {
     public partial class FormMain : Form {
@@ -1316,7 +1315,7 @@ namespace Depressurizer {
         }
 
         private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
-            SteamScrape.DBEditDlg dlg = new SteamScrape.DBEditDlg();
+            Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
             dlg.ShowDialog();
         }
     }

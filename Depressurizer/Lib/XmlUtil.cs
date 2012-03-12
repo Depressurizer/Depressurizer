@@ -18,7 +18,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System.Xml;
 
-namespace DPLib {
+namespace Depressurizer {
     public static class XmlUtil {
         public static string GetStringFromNode( XmlNode node, string defaultValue ) {
             string result;

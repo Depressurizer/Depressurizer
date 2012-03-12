@@ -20,12 +20,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
-using DPLib;
 
-namespace SteamScrape {
+namespace Depressurizer {
     public partial class DBEditDlg : Form {
 
-        GameDB gameList = new GameDB();
         MultiColumnListViewComparer listSorter = new MultiColumnListViewComparer();
 
         bool filterSuspend = false;
@@ -43,7 +41,7 @@ namespace SteamScrape {
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 this.Cursor = Cursors.WaitCursor;
-                gameList.SaveToXml( dlg.FileName );
+                Program.GameDB.SaveToXml( dlg.FileName );
                 AddStatusMsg( "File saved." );
                 this.Cursor = Cursors.Default;
             }
@@ -54,7 +52,7 @@ namespace SteamScrape {
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 this.Cursor = Cursors.WaitCursor;
-                gameList.LoadFromXml( dlg.FileName );
+                Program.GameDB.LoadFromXml( dlg.FileName );
                 RefreshGameList();
                 AddStatusMsg( "File loaded." );
                 this.Cursor = Cursors.Default;
@@ -64,7 +62,7 @@ namespace SteamScrape {
         void ClearList() {
             if( MessageBox.Show( "Are you sure you want to clear all data?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
                 == DialogResult.Yes ) {
-                gameList.Games.Clear();
+                Program.GameDB.Games.Clear();
                 AddStatusMsg( "Cleared all data." );
                 RefreshGameList();
             }
@@ -73,7 +71,7 @@ namespace SteamScrape {
         private void FetchList() {
             this.Cursor = Cursors.WaitCursor;
 
-            FetchPrcDlg dlg = new FetchPrcDlg( gameList );
+            FetchPrcDlg dlg = new FetchPrcDlg();
             DialogResult res = dlg.ShowDialog();
 
             if( dlg.Error != null ) {
@@ -95,11 +93,11 @@ namespace SteamScrape {
         void AddNewGame() {
             GameDBEntryDialog dlg = new GameDBEntryDialog();
             if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK && dlg.Game != null ) {
-                if( gameList.Games.ContainsKey( dlg.Game.Id ) ) {
+                if( Program.GameDB.Games.ContainsKey( dlg.Game.Id ) ) {
                     MessageBox.Show( "Game with specified ID already exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                     AddStatusMsg( string.Format( "Failed to add game with ID {0}.", dlg.Game.Id ) );
                 } else {
-                    gameList.Games.Add( dlg.Game.Id, dlg.Game );
+                    Program.GameDB.Games.Add( dlg.Game.Id, dlg.Game );
                     AddGameToList( dlg.Game );
                     AddStatusMsg( string.Format( "Added game with ID {0}.", dlg.Game.Id ) );
                     UpdateForSelectChange();
@@ -130,7 +128,7 @@ namespace SteamScrape {
                     foreach( ListViewItem item in lstGames.SelectedItems ) {
                         GameDBEntry game = item.Tag as GameDBEntry;
                         if( game != null ) {
-                            gameList.Games.Remove( game.Id );
+                            Program.GameDB.Games.Remove( game.Id );
                             deleted++;
                         }
                     }
@@ -146,7 +144,7 @@ namespace SteamScrape {
 
             Queue<int> gamesToScrape = new Queue<int>();
 
-            foreach( GameDBEntry g in gameList.Games.Values ) {
+            foreach( GameDBEntry g in Program.GameDB.Games.Values ) {
                 if( g.Type == type ) {
                     gamesToScrape.Enqueue( g.Id );
                 }
@@ -180,7 +178,7 @@ namespace SteamScrape {
 
         private void ScrapeGames( Queue<int> gamesToScrape ) {
             if( gamesToScrape.Count > 0 ) {
-                ScrapeProcDlg dlg = new ScrapeProcDlg( gameList, gamesToScrape );
+                ScrapeProcDlg dlg = new ScrapeProcDlg( Program.GameDB, gamesToScrape );
                 DialogResult res = dlg.ShowDialog();
 
                 if( res == DialogResult.Abort ) {
@@ -204,7 +202,7 @@ namespace SteamScrape {
             lstGames.ListViewItemSorter = null;
             lstGames.Items.Clear();
 
-            foreach( GameDBEntry g in gameList.Games.Values ) {
+            foreach( GameDBEntry g in Program.GameDB.Games.Values ) {
                 if( ShouldDisplayGame( g ) ) {
                     AddGameToList( g );
                 }
@@ -236,7 +234,7 @@ namespace SteamScrape {
         bool UpdateGameAtIndex( int index ) {
             ListViewItem item = lstGames.Items[index];
             GameDBEntry game = item.Tag as GameDBEntry;
-            if( game == null || !gameList.Games.ContainsKey( game.Id ) || !ShouldDisplayGame( game ) ) {
+            if( game == null || !Program.GameDB.Games.ContainsKey( game.Id ) || !ShouldDisplayGame( game ) ) {
                 lstGames.Items.RemoveAt( index );
                 return false;
             } else {
@@ -263,7 +261,7 @@ namespace SteamScrape {
         }
 
         void UpdateForSelectChange() {
-            statSelected.Text = string.Format( "{0} selected / {1} displayed / {2} total", lstGames.SelectedItems.Count, lstGames.Items.Count, gameList.Games.Count );
+            statSelected.Text = string.Format( "{0} selected / {1} displayed / {2} total", lstGames.SelectedItems.Count, lstGames.Items.Count, Program.GameDB.Games.Count );
             cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = ( lstGames.SelectedItems.Count >= 1 );
         }
 

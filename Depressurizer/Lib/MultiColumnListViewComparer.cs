@@ -21,7 +21,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace DPLib {
+namespace Depressurizer {
     /// <summary>
     /// Implements the manual sorting of ListView items by columns. Supports sorting string representations of integers numerically.
     /// </summary>
