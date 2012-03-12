@@ -71,7 +71,8 @@ namespace Depressurizer {
             return doc;
         }
 
-        public void IntegrateAppList( XmlDocument doc ) {
+        public int IntegrateAppList( XmlDocument doc ) {
+            int added = 0;
             foreach( XmlNode node in doc.SelectNodes( "/applist/apps/app" ) ) {
                 int appId;
                 if( XmlUtil.TryGetIntFromNode( node["appid"], out appId ) ) {
@@ -85,9 +86,11 @@ namespace Depressurizer {
                         g.Id = appId;
                         g.Name = XmlUtil.GetStringFromNode( node["name"], null );
                         Games.Add( appId, g );
+                        added++;
                     }
                 }
             }
+            return added;
         }
 
         public void UpdateAppList() {

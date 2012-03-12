@@ -21,18 +21,22 @@ using System.Xml;
 
 namespace Depressurizer {
     class FetchPrcDlg : CancelableDlg {
+        public int Added { get; private set; }
+
         public FetchPrcDlg()
             : base( "Updating Game List" ) {
             SetText( "Downloading game list..." );
+            Added = 0;
         }
 
         protected override void RunProcess() {
             try {
+                Added = 0;
                 XmlDocument d = GameDB.FetchAppList();
                 lock( abortLock ) {
                     if( !Aborted ) {
                         DisableAbort();
-                        Program.GameDB.IntegrateAppList( d );
+                        Added = Program.GameDB.IntegrateAppList( d );
                         CompleteJob();
                     }
                 }

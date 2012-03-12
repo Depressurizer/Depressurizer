@@ -1317,6 +1317,8 @@ namespace Depressurizer {
         private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
             Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
             dlg.ShowDialog();
+            Program.GameDB.LoadFromXml( "GameDB.xml" );
+
         }
     }
 

@@ -93,16 +93,21 @@ namespace Depressurizer {
         }
 
         protected override void UpdateText() {
-            double msElapsed = ( DateTime.Now - start ).TotalMilliseconds;
-            double msPerItem = msElapsed / (double)jobsCompleted;
-            double msRemaining = msPerItem * ( totalJobs - jobsCompleted );
-            TimeSpan timeRemaining = TimeSpan.FromMilliseconds( msRemaining );
+            TimeSpan timeRemaining = TimeSpan.Zero;
+            if( jobsCompleted > 0 ) {
+                double msElapsed = ( DateTime.Now - start ).TotalMilliseconds;
+                double msPerItem = msElapsed / (double)jobsCompleted;
+                double msRemaining = msPerItem * ( totalJobs - jobsCompleted );
+                timeRemaining = TimeSpan.FromMilliseconds( msRemaining );
+            }
 
             StringBuilder sb = new StringBuilder();
             sb.Append( string.Format( "Updating...{0}/{1} complete.", jobsCompleted, totalJobs ) );
 
             sb.Append( "\nTime Remaining: " );
-            if( timeRemaining.TotalMinutes < 1.0 ) {
+            if( timeRemaining == TimeSpan.Zero ) {
+                sb.Append( "Unknown" );
+            } else if( timeRemaining.TotalMinutes < 1.0 ) {
                 sb.Append( "< 1 minute" );
             } else {
                 double hours = timeRemaining.TotalHours;

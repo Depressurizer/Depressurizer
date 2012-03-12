@@ -24,6 +24,15 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class DBEditDlg : Form {
 
+        bool _unsavedChanges;
+        bool UnsavedChanges {
+            get {
+                return _unsavedChanges;
+            }
+            set {
+                _unsavedChanges = value;
+            }
+        }
         MultiColumnListViewComparer listSorter = new MultiColumnListViewComparer();
 
         bool filterSuspend = false;
@@ -36,34 +45,65 @@ namespace Depressurizer {
 
         #region Actions
 
-        void SaveGames() {
+        void SaveAs() {
             SaveFileDialog dlg = new SaveFileDialog();
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
-                this.Cursor = Cursors.WaitCursor;
-                Program.GameDB.SaveToXml( dlg.FileName );
-                AddStatusMsg( "File saved." );
-                this.Cursor = Cursors.Default;
+                if( Save( dlg.FileName ) ) {
+                    AddStatusMsg( "File saved." );
+                } else {
+                    AddStatusMsg( "Save failed." );
+                }
             }
         }
 
-        void LoadGames() {
-            OpenFileDialog dlg = new OpenFileDialog();
-            DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
-                this.Cursor = Cursors.WaitCursor;
-                Program.GameDB.LoadFromXml( dlg.FileName );
-                RefreshGameList();
-                AddStatusMsg( "File loaded." );
+        bool SaveDB() {
+            if( Save( "GameDB.xml" ) ) {
+                AddStatusMsg( "Database saved." );
+                UnsavedChanges = false;
+                return true;
+            } else {
+                AddStatusMsg( "Database save failed." );
+                return false;
+            }
+        }
+
+        bool Save( string filename ) {
+            this.Cursor = Cursors.WaitCursor;
+            try {
+                Program.GameDB.SaveToXml( filename );
+            } catch( Exception e ) {
+                MessageBox.Show( string.Format( "Error saving file: \n\n{0}", e.Message ) );
                 this.Cursor = Cursors.Default;
+                return false;
+            }
+            this.Cursor = Cursors.Default;
+            return true;
+        }
+
+        void LoadGames() {
+            if( CheckForUnsaved() ) {
+                OpenFileDialog dlg = new OpenFileDialog();
+                DialogResult res = dlg.ShowDialog();
+                if( res == System.Windows.Forms.DialogResult.OK ) {
+                    this.Cursor = Cursors.WaitCursor;
+                    Program.GameDB.LoadFromXml( dlg.FileName );
+                    RefreshGameList();
+                    AddStatusMsg( "File loaded." );
+                    UnsavedChanges = true;
+                    this.Cursor = Cursors.Default;
+                }
             }
         }
 
         void ClearList() {
             if( MessageBox.Show( "Are you sure you want to clear all data?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
                 == DialogResult.Yes ) {
-                Program.GameDB.Games.Clear();
-                AddStatusMsg( "Cleared all data." );
+                if( Program.GameDB.Games.Count > 0 ) {
+                    UnsavedChanges = true;
+                    Program.GameDB.Games.Clear();
+                    AddStatusMsg( "Cleared all data." );
+                }
                 RefreshGameList();
             }
         }
@@ -81,7 +121,8 @@ namespace Depressurizer {
                 if( res == System.Windows.Forms.DialogResult.Abort ) {
                     AddStatusMsg( "Aborted list update." );
                 } else {
-                    AddStatusMsg( "Updated game list." );
+                    AddStatusMsg( string.Format( "Updated game list, added {0} games.", dlg.Added ) );
+                    UnsavedChanges = true;
                 }
             }
 
@@ -100,6 +141,7 @@ namespace Depressurizer {
                     Program.GameDB.Games.Add( dlg.Game.Id, dlg.Game );
                     AddGameToList( dlg.Game );
                     AddStatusMsg( string.Format( "Added game with ID {0}.", dlg.Game.Id ) );
+                    UnsavedChanges = true;
                     UpdateForSelectChange();
                 }
             }
@@ -114,6 +156,7 @@ namespace Depressurizer {
                     if( res == System.Windows.Forms.DialogResult.OK ) {
                         UpdateGameAtIndex( lstGames.SelectedIndices[0] );
                         AddStatusMsg( string.Format( "Edited game with ID {0}", game.Id ) );
+                        UnsavedChanges = true;
                     }
                 }
             }
@@ -133,7 +176,10 @@ namespace Depressurizer {
                         }
                     }
                     AddStatusMsg( string.Format( "Deleted {0} games.", deleted ) );
-                    UpdateSelectedGames();
+                    if( deleted > 0 ) {
+                        UnsavedChanges = true;
+                        UpdateSelectedGames();
+                    }
                     UpdateForSelectChange();
                 }
             }
@@ -186,7 +232,7 @@ namespace Depressurizer {
                 } else {
                     AddStatusMsg( string.Format( "Updated {0} entries.", dlg.JobsCompleted ) );
                 }
-
+                UnsavedChanges = true;
                 RefreshGameList();
             } else {
                 AddStatusMsg( "No games to scrape." );
@@ -284,6 +330,7 @@ namespace Depressurizer {
         private void MainForm_Load( object sender, EventArgs e ) {
             listSorter.AddIntCol( 1 );
             lstGames.ListViewItemSorter = listSorter;
+            RefreshGameList();
             UpdateForSelectChange();
         }
 
@@ -296,7 +343,13 @@ namespace Depressurizer {
 
         private void menu_File_Save_Click( object sender, EventArgs e ) {
             ClearStatusMsg();
-            SaveGames();
+            SaveDB();
+            FlushStatusMsg();
+        }
+
+        private void menu_File_SaveAs_Click( object sender, EventArgs e ) {
+            ClearStatusMsg();
+            SaveAs();
             FlushStatusMsg();
         }
 
@@ -427,5 +480,33 @@ namespace Depressurizer {
                 System.Diagnostics.Process.Start( string.Format( "http://store.steampowered.com/app/{0}/", game.Id ) );
             }
         }
+
+        /// <summary>
+        /// If there are any unsaved changes, asks the user if they want to save. Also gives the user the option to cancel the calling action.
+        /// </summary>
+        /// <returns>True if the action should proceed, false otherwise.</returns>
+        bool CheckForUnsaved() {
+            if( !UnsavedChanges ) {
+                return true;
+            }
+
+            DialogResult res = MessageBox.Show( "There are unsaved changes. Save to the game database first?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning );
+            if( res == System.Windows.Forms.DialogResult.No ) {
+                // Don't save, just continue
+                return true;
+            }
+            if( res == System.Windows.Forms.DialogResult.Cancel ) {
+                // Don't save, don't continue
+                return false;
+            }
+            return SaveDB();
+        }
+
+        private void DBEditDlg_FormClosing( object sender, FormClosingEventArgs e ) {
+            if( !CheckForUnsaved() ) {
+                e.Cancel = true;
+            }
+        }
+
     }
 }

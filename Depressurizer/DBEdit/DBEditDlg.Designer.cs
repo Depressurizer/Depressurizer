@@ -43,8 +43,9 @@ namespace Depressurizer {
         private void InitializeComponent() {
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.menu_File = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_File_Load = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Save = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_File_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_File_Load = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_File_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Sep2 = new System.Windows.Forms.ToolStripSeparator();
@@ -93,8 +94,9 @@ namespace Depressurizer {
             // menu_File
             // 
             this.menu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menu_File_Load,
             this.menu_File_Save,
+            this.menu_File_SaveAs,
+            this.menu_File_Load,
             this.menu_File_Sep1,
             this.menu_File_Clear,
             this.menu_File_Sep2,
@@ -103,45 +105,54 @@ namespace Depressurizer {
             this.menu_File.Size = new System.Drawing.Size(37, 20);
             this.menu_File.Text = "File";
             // 
-            // menu_File_Load
-            // 
-            this.menu_File_Load.Name = "menu_File_Load";
-            this.menu_File_Load.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.menu_File_Load.Size = new System.Drawing.Size(152, 22);
-            this.menu_File_Load.Text = "&Load...";
-            this.menu_File_Load.Click += new System.EventHandler(this.menu_File_Load_Click);
-            // 
             // menu_File_Save
             // 
             this.menu_File_Save.Name = "menu_File_Save";
             this.menu_File_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.menu_File_Save.Size = new System.Drawing.Size(152, 22);
-            this.menu_File_Save.Text = "&Save...";
+            this.menu_File_Save.Size = new System.Drawing.Size(195, 22);
+            this.menu_File_Save.Text = "&Save Database";
             this.menu_File_Save.Click += new System.EventHandler(this.menu_File_Save_Click);
+            // 
+            // menu_File_SaveAs
+            // 
+            this.menu_File_SaveAs.Name = "menu_File_SaveAs";
+            this.menu_File_SaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.menu_File_SaveAs.Size = new System.Drawing.Size(195, 22);
+            this.menu_File_SaveAs.Text = "Save &As...";
+            this.menu_File_SaveAs.Click += new System.EventHandler(this.menu_File_SaveAs_Click);
+            // 
+            // menu_File_Load
+            // 
+            this.menu_File_Load.Name = "menu_File_Load";
+            this.menu_File_Load.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.menu_File_Load.Size = new System.Drawing.Size(195, 22);
+            this.menu_File_Load.Text = "&Load...";
+            this.menu_File_Load.Click += new System.EventHandler(this.menu_File_Load_Click);
             // 
             // menu_File_Sep1
             // 
             this.menu_File_Sep1.Name = "menu_File_Sep1";
-            this.menu_File_Sep1.Size = new System.Drawing.Size(149, 6);
+            this.menu_File_Sep1.Size = new System.Drawing.Size(192, 6);
             // 
             // menu_File_Clear
             // 
             this.menu_File_Clear.Name = "menu_File_Clear";
             this.menu_File_Clear.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.menu_File_Clear.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Clear.Size = new System.Drawing.Size(195, 22);
             this.menu_File_Clear.Text = "&Clear";
             this.menu_File_Clear.Click += new System.EventHandler(this.menu_File_Clear_Click);
             // 
             // menu_File_Sep2
             // 
             this.menu_File_Sep2.Name = "menu_File_Sep2";
-            this.menu_File_Sep2.Size = new System.Drawing.Size(149, 6);
+            this.menu_File_Sep2.Size = new System.Drawing.Size(192, 6);
             // 
             // menu_File_Exit
             // 
             this.menu_File_Exit.Name = "menu_File_Exit";
             this.menu_File_Exit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.menu_File_Exit.Size = new System.Drawing.Size(152, 22);
+            this.menu_File_Exit.Size = new System.Drawing.Size(195, 22);
             this.menu_File_Exit.Text = "Clos&e";
             this.menu_File_Exit.Click += new System.EventHandler(this.menu_File_Exit_Click);
             // 
@@ -442,6 +453,7 @@ namespace Depressurizer {
             this.MinimumSize = new System.Drawing.Size(685, 480);
             this.Name = "DBEditDlg";
             this.Text = "Database Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DBEditDlg_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
@@ -490,6 +502,7 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkUnknown;
         private System.Windows.Forms.CheckBox chkWebError;
         private System.Windows.Forms.ToolStripStatusLabel statusMsg;
+        private System.Windows.Forms.ToolStripMenuItem menu_File_SaveAs;
     }
 }
 
