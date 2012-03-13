@@ -47,6 +47,10 @@ namespace Depressurizer {
 
         void SaveAs() {
             SaveFileDialog dlg = new SaveFileDialog();
+            dlg.DefaultExt = "xml";
+            dlg.AddExtension = true;
+            dlg.CheckFileExists = true;
+            dlg.Filter = "XML Files (*.xml)|*.xml|All Files|*.*";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 if( Save( dlg.FileName ) ) {
@@ -84,6 +88,10 @@ namespace Depressurizer {
         void LoadGames() {
             if( CheckForUnsaved() ) {
                 OpenFileDialog dlg = new OpenFileDialog();
+                dlg.DefaultExt = "xml";
+                dlg.AddExtension = true;
+                dlg.CheckFileExists = true;
+                dlg.Filter = "XML Files (*.xml)|*.xml|All Files|*.*";
                 DialogResult res = dlg.ShowDialog();
                 if( res == System.Windows.Forms.DialogResult.OK ) {
                     this.Cursor = Cursors.WaitCursor;

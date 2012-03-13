@@ -247,7 +247,7 @@ namespace Depressurizer {
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
             dlg.CheckFileExists = true;
-            dlg.Filter = "Profiles (*.profile)|*.profile";
+            dlg.Filter = "Profiles|*.profile|All Files|*.*";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 LoadProfile( dlg.FileName, false );
@@ -293,7 +293,7 @@ namespace Depressurizer {
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
             dlg.CheckPathExists = true;
-            dlg.Filter = "Profiles (*.profile)|*.profile";
+            dlg.Filter = "Profiles5|*.profile|All Files|*.*";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 SaveProfile( dlg.FileName );
