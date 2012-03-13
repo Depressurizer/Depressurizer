@@ -293,7 +293,7 @@ namespace Depressurizer {
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
             dlg.CheckPathExists = true;
-            dlg.Filter = "Profiles5|*.profile|All Files|*.*";
+            dlg.Filter = "Profiles|*.profile|All Files|*.*";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 SaveProfile( dlg.FileName );
@@ -1097,20 +1097,23 @@ namespace Depressurizer {
         }
 
         private void lstCategories_KeyDown( object sender, KeyEventArgs e ) {
-            ClearStatus();
             switch( e.KeyCode ) {
                 case Keys.Delete:
+                    ClearStatus();
                     DeleteCategory();
+                    FlushStatus();
                     break;
                 case Keys.N:
-                    if( e.Control ) CreateCategory();
+                    ClearStatus();
+                    if( e.Modifiers == Keys.Control ) CreateCategory();
+                    FlushStatus();
                     break;
                 case Keys.F2:
+                    ClearStatus();
                     RenameCategory();
+                    FlushStatus();
                     break;
             }
-
-            FlushStatus();
         }
 
         private void lstCategories_MouseDown( object sender, MouseEventArgs e ) {
