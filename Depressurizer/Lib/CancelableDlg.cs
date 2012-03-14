@@ -95,16 +95,16 @@ namespace Depressurizer {
         #endregion
 
         #region Status Updaters
-        protected void CompleteJob() {
+        protected void OnJobCompletion() {
             lock( abortLock ) {
                 jobsCompleted++;
             }
             UpdateText();
         }
 
-        protected void EndThread() {
+        protected void OnThreadCompletion() {
             if( InvokeRequired ) {
-                Invoke( new SimpleDelegate( EndThread ) );
+                Invoke( new SimpleDelegate( OnThreadCompletion ) );
             } else {
                 runningThreads--;
                 if( runningThreads <= 0 ) {

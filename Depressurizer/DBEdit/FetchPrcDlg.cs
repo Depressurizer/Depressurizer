@@ -37,13 +37,13 @@ namespace Depressurizer {
                     if( !Aborted ) {
                         DisableAbort();
                         Added = Program.GameDB.IntegrateAppList( d );
-                        CompleteJob();
+                        OnJobCompletion();
                     }
                 }
             } catch( Exception e ) {
                 this.Error = e;
             }
-            EndThread();
+            OnThreadCompletion();
         }
     }
 }

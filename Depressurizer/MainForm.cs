@@ -149,7 +149,7 @@ namespace Depressurizer {
             if( dlg.ShowDialog() == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    int loadedGames = gameData.LoadGameList( dlg.Value, true, null, settings.IgnoreDlc );
+                    int loadedGames = gameData.DownloadGameList( dlg.Value, true, null, settings.IgnoreDlc );
                     if( loadedGames == 0 ) {
                         MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games in download." );
@@ -600,6 +600,51 @@ namespace Depressurizer {
             }
         }
 
+        private void AutocatSelected() {
+            // Check to see if there are any selected items with set categories
+            bool overwrite = true;
+            foreach( ListViewItem item in lstGames.SelectedItems ) {
+                Game g = item.Tag as Game;
+                if( g != null && g.Category != null ) {
+                    overwrite = false;
+                    break;
+                }
+            }
+
+            if( overwrite == false ) {
+                DialogResult res = MessageBox.Show( "Some of the selected games aleady have categories set. Would you like to overwrite these categories?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
+                if( res == System.Windows.Forms.DialogResult.Yes ) overwrite = true;
+            }
+
+            int updated = 0;
+
+            Queue<int> notFound = new Queue<int>();
+
+            foreach( ListViewItem item in lstGames.SelectedItems ) {
+                Game g = item.Tag as Game;
+                if( g != null && ( overwrite || g.Category == null ) ) {
+                    if( Program.GameDB.Contains( g.Id ) ) {
+                        g.Category = gameData.GetCategory( Program.GameDB.GetGenre( g.Id, settings.FullAutocat ) );
+                        updated++;
+                    } else {
+                        notFound.Enqueue( g.Id );
+                    }
+                }
+            }
+
+            AddStatus( string.Format( "Updated {0} categories locally.", updated ) );
+
+            if( notFound.Count > 0 ) {
+                DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
+                if( res == System.Windows.Forms.DialogResult.Yes ) {
+                    //TODO: Add downloading code
+                }
+            }
+
+            FillCategoryList();
+            UpdateGameListSelected();
+        }
+
         #endregion
         #region UI Updaters
         #region Status and text updaters
@@ -982,6 +1027,20 @@ namespace Depressurizer {
             FlushStatus();
         }
 
+        private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
+            Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
+            dlg.ShowDialog();
+            Program.GameDB.LoadFromXml( "GameDB.xml" );
+
+        }
+
+        private void menu_Tools_Settings_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            OptionsDlg dlg = new OptionsDlg();
+            dlg.ShowDialog();
+            FlushStatus();
+        }
+
         #endregion
         #region Context menus
 
@@ -1062,6 +1121,12 @@ namespace Depressurizer {
         private void cmdGameSetFavorite_Click( object sender, EventArgs e ) {
             ClearStatus();
             AssignFavoriteToSelectedGames( GetSelectedFavorite() );
+            FlushStatus();
+        }
+
+        private void cmdAutoCat_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AutocatSelected();
             FlushStatus();
         }
 
@@ -1258,71 +1323,6 @@ namespace Depressurizer {
         }
 
         #endregion
-
-        private void menu_Tools_Settings_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            OptionsDlg dlg = new OptionsDlg();
-            dlg.ShowDialog();
-            FlushStatus();
-        }
-
-        private void AutocatSelected() {
-            // Check to see if there are any selected items with set categories
-            bool overwrite = true;
-            foreach( ListViewItem item in lstGames.SelectedItems ) {
-                Game g = item.Tag as Game;
-                if( g != null && g.Category != null ) {
-                    overwrite = false;
-                    break;
-                }
-            }
-
-            if( overwrite == false ) {
-                DialogResult res = MessageBox.Show( "Some of the selected games aleady have categories set. Would you like to overwrite these categories?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
-                if( res == System.Windows.Forms.DialogResult.Yes ) overwrite = true;
-            }
-
-            int updated = 0;
-
-            Queue<int> notFound = new Queue<int>();
-
-            foreach( ListViewItem item in lstGames.SelectedItems ) {
-                Game g = item.Tag as Game;
-                if( g != null && ( overwrite || g.Category == null ) ) {
-                    if( Program.GameDB.Contains( g.Id ) ) {
-                        g.Category = gameData.GetCategory( Program.GameDB.GetGenre( g.Id, settings.FullAutocat ) );
-                        updated++;
-                    } else {
-                        notFound.Enqueue( g.Id );
-                    }
-                }
-            }
-
-            AddStatus( string.Format( "Updated {0} categories locally.", updated ) );
-
-            if( notFound.Count > 0 ) {
-                DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
-                if( res == System.Windows.Forms.DialogResult.Yes ) {
-                    //TODO: Add downloading code
-                }
-            }
-
-            FillCategoryList();
-            UpdateGameListSelected();
-        }
-
-        private void cmdAutoCat_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            AutocatSelected();
-            FlushStatus();
-        }
-
-        private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
-            Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
-            dlg.ShowDialog();
-            Program.GameDB.LoadFromXml( "GameDB.xml" );
-
-        }
     }
 
     /// <summary>

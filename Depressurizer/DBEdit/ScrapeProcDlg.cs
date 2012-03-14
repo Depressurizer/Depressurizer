@@ -59,7 +59,7 @@ namespace Depressurizer {
             while( !Aborted && stillRunning ) {
                 stillRunning = RunNextJob();
             }
-            EndThread();
+            OnThreadCompletion();
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Depressurizer {
             if( Aborted ) return false;
 
             string genre = null;
-            AppType type = GameDBEntry.ScrapeStore( game.Id, out genre );
+            AppType type = GameDB.ScrapeStore( game.Id, out genre );
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
@@ -84,7 +84,7 @@ namespace Depressurizer {
                     if( type == AppType.Game || type == AppType.DLC || type == AppType.IdRedirect ) {
                         game.Genre = genre;
                     }
-                    CompleteJob();
+                    OnJobCompletion();
                     return true;
                 } else {
                     return false;

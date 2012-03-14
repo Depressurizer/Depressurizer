@@ -196,7 +196,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="profileName">Name of the Steam profile to get</param>
         /// <returns>The number of games found in the profile</returns>
-        public int LoadGameList( string profileName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
+        public int DownloadGameList( string profileName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
             XmlDocument doc = new XmlDocument();
             try {
                 string url = string.Format( Properties.Resources.ProfileURL, profileName );
@@ -248,7 +248,7 @@ namespace Depressurizer {
             }
 
             TextVdfFileNode appsNode = dataRoot.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
-            return LoadGames( appsNode, ignore, ignoreDlc );
+            return GetDataFromVdf( appsNode, ignore, ignoreDlc );
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace Depressurizer {
         /// <param name="appsNode">Node containing the game nodes</param>
         /// <param name="ignore">Set of games to ignore</param>
         /// <returns>Number of games loaded</returns>
-        private int LoadGames( TextVdfFileNode appsNode, SortedSet<int> ignore, bool ignoreDlc ) {
+        private int GetDataFromVdf( TextVdfFileNode appsNode, SortedSet<int> ignore, bool ignoreDlc ) {
             int loadedGames = 0;
 
             Dictionary<string, TextVdfFileNode> gameNodeArray = appsNode.NodeArray;

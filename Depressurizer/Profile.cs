@@ -53,7 +53,7 @@ namespace Depressurizer {
         }
 
         public int DownloadGameList() {
-            return GameData.LoadGameList( CommunityName, OverwriteOnDownload, IgnoreList, IgnoreDlc );
+            return GameData.DownloadGameList( CommunityName, OverwriteOnDownload, IgnoreList, IgnoreDlc );
         }
 
         public void ExportSteamData() {

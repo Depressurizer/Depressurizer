@@ -116,6 +116,12 @@ namespace Depressurizer {
             }
         }
 
+        void VisitStorePage( GameDBEntry game ) {
+            if( game != null ) {
+                System.Diagnostics.Process.Start( string.Format( "http://store.steampowered.com/app/{0}/", game.Id ) );
+            }
+        }
+
         private void FetchList() {
             this.Cursor = Cursors.WaitCursor;
 
@@ -481,13 +487,13 @@ namespace Depressurizer {
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
             UpdateForSelectChange();
         }
-        #endregion
 
-        void VisitStorePage( GameDBEntry game ) {
-            if( game != null ) {
-                System.Diagnostics.Process.Start( string.Format( "http://store.steampowered.com/app/{0}/", game.Id ) );
+        private void DBEditDlg_FormClosing( object sender, FormClosingEventArgs e ) {
+            if( !CheckForUnsaved() ) {
+                e.Cancel = true;
             }
         }
+        #endregion
 
         /// <summary>
         /// If there are any unsaved changes, asks the user if they want to save. Also gives the user the option to cancel the calling action.
@@ -509,12 +515,5 @@ namespace Depressurizer {
             }
             return SaveDB();
         }
-
-        private void DBEditDlg_FormClosing( object sender, FormClosingEventArgs e ) {
-            if( !CheckForUnsaved() ) {
-                e.Cancel = true;
-            }
-        }
-
     }
 }
