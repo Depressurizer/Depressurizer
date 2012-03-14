@@ -235,11 +235,11 @@ namespace Depressurizer {
         /// <returns>The number of game entries found</returns>
         public int ImportSteamFile( string filePath, SortedSet<int> ignore, bool ignoreDlc ) {
 
-            FileNode dataRoot;
+            TextVdfFileNode dataRoot;
 
             try {
                 using( StreamReader reader = new StreamReader( filePath, false ) ) {
-                    dataRoot = FileNode.Load( reader, true );
+                    dataRoot = TextVdfFileNode.Load( reader, true );
                 }
             } catch( ParseException e ) {
                 throw new ApplicationException( "Error parsing Steam config file: " + e.Message, e );
@@ -247,7 +247,7 @@ namespace Depressurizer {
                 throw new ApplicationException( "Error opening Steam config file: " + e.Message, e );
             }
 
-            FileNode appsNode = dataRoot.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
+            TextVdfFileNode appsNode = dataRoot.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
             return LoadGames( appsNode, ignore, ignoreDlc );
         }
 
@@ -257,12 +257,12 @@ namespace Depressurizer {
         /// <param name="appsNode">Node containing the game nodes</param>
         /// <param name="ignore">Set of games to ignore</param>
         /// <returns>Number of games loaded</returns>
-        private int LoadGames( FileNode appsNode, SortedSet<int> ignore, bool ignoreDlc ) {
+        private int LoadGames( TextVdfFileNode appsNode, SortedSet<int> ignore, bool ignoreDlc ) {
             int loadedGames = 0;
 
-            Dictionary<string, FileNode> gameNodeArray = appsNode.NodeArray;
+            Dictionary<string, TextVdfFileNode> gameNodeArray = appsNode.NodeArray;
             if( gameNodeArray != null ) {
-                foreach( KeyValuePair<string, FileNode> gameNodePair in gameNodeArray ) {
+                foreach( KeyValuePair<string, TextVdfFileNode> gameNodePair in gameNodeArray ) {
                     int gameId;
                     if( int.TryParse( gameNodePair.Key, out gameId ) ) {
                         if( ( ignore != null && ignore.Contains( gameId ) ) || ( ignoreDlc && Program.GameDB.IsDlc( gameId ) ) ) {
@@ -272,10 +272,10 @@ namespace Depressurizer {
                             Category cat = null;
                             bool fav = false;
                             loadedGames++;
-                            FileNode tagsNode = gameNodePair.Value["tags"];
-                            Dictionary<string, FileNode> tagArray = tagsNode.NodeArray;
+                            TextVdfFileNode tagsNode = gameNodePair.Value["tags"];
+                            Dictionary<string, TextVdfFileNode> tagArray = tagsNode.NodeArray;
                             if( tagArray != null ) {
-                                foreach( FileNode tag in tagArray.Values ) {
+                                foreach( TextVdfFileNode tag in tagArray.Values ) {
                                     string tagName = tag.NodeString;
                                     if( tagName != null ) {
                                         if( tagName == "favorite" ) {
@@ -308,19 +308,19 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="path">Full path of the steam config file to save</param>
         public void SaveSteamFile( string filePath, bool discardMissing ) {
-            FileNode fileData = new FileNode();
+            TextVdfFileNode fileData = new TextVdfFileNode();
             try {
                 using( StreamReader reader = new StreamReader( filePath, false ) ) {
-                    fileData = FileNode.Load( reader, true );
+                    fileData = TextVdfFileNode.Load( reader, true );
                 }
             } catch { }
 
-            FileNode appListNode = fileData.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
+            TextVdfFileNode appListNode = fileData.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
 
             if( discardMissing ) {
-                Dictionary<string, FileNode> gameNodeArray = appListNode.NodeArray;
+                Dictionary<string, TextVdfFileNode> gameNodeArray = appListNode.NodeArray;
                 if( gameNodeArray != null ) {
-                    foreach( KeyValuePair<string, FileNode> pair in gameNodeArray ) {
+                    foreach( KeyValuePair<string, TextVdfFileNode> pair in gameNodeArray ) {
                         int gameId;
                         if( !( int.TryParse( pair.Key, out gameId ) && Games.ContainsKey( gameId ) ) ) {
                             pair.Value.RemoveSubnode( "tags" );
@@ -330,24 +330,24 @@ namespace Depressurizer {
             }
 
             foreach( Game game in Games.Values ) {
-                FileNode gameNode = appListNode[game.Id.ToString()];
+                TextVdfFileNode gameNode = appListNode[game.Id.ToString()];
                 gameNode.RemoveSubnode( "tags" );
                 if( game.Category != null || game.Favorite ) {
-                    FileNode tagsNode = gameNode["tags"];
+                    TextVdfFileNode tagsNode = gameNode["tags"];
                     int key = 0;
                     if( game.Category != null ) {
-                        tagsNode[key.ToString()] = new FileNode( game.Category.Name );
+                        tagsNode[key.ToString()] = new TextVdfFileNode( game.Category.Name );
                         key++;
                     }
                     if( game.Favorite ) {
-                        tagsNode[key.ToString()] = new FileNode( "favorite" );
+                        tagsNode[key.ToString()] = new TextVdfFileNode( "favorite" );
                     }
                 }
             }
 
             appListNode.CleanTree();
 
-            FileNode fullFile = new FileNode();
+            TextVdfFileNode fullFile = new TextVdfFileNode();
             fullFile["UserLocalConfigStore"] = fileData;
             try {
                 FileStream fStream = File.Open( filePath, FileMode.Create, FileAccess.Write, FileShare.None );

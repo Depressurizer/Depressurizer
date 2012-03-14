@@ -32,7 +32,7 @@ namespace Depressurizer {
     /// <summary>
     /// Represents a single node in a Steam config file
     /// </summary>
-    public class FileNode {
+    public class TextVdfFileNode {
         public ValueType NodeType;
         // Can be a string or a FileNode, depending on value type.
         public Object NodeData;
@@ -43,14 +43,14 @@ namespace Depressurizer {
         /// <param name="key">Key to look for or set</param>
         /// <returns></returns>
         /// <exception cref="ApplicationException">Thrown if used on a value node.</exception>
-        public FileNode this[string key] {
+        public TextVdfFileNode this[string key] {
             get {
                 if( this.NodeType == ValueType.Value ) {
                     throw new ApplicationException( string.Format( "Node is a value, not an array. Cannot get key {0}", key ) );
                 }
-                Dictionary<string, FileNode> arrayData = (Dictionary<string, FileNode>)NodeData;
+                Dictionary<string, TextVdfFileNode> arrayData = (Dictionary<string, TextVdfFileNode>)NodeData;
                 if( !arrayData.ContainsKey( key ) ) {
-                    arrayData.Add( key, new FileNode() );
+                    arrayData.Add( key, new TextVdfFileNode() );
                 }
                 return arrayData[key];
             }
@@ -58,7 +58,7 @@ namespace Depressurizer {
                 if( this.NodeType == ValueType.Value ) {
                     throw new Exception( string.Format( "Node is a value, not an array. Cannot set key {0}", key ) );
                 }
-                Dictionary<string, FileNode> arrayData = (Dictionary<string, FileNode>)NodeData;
+                Dictionary<string, TextVdfFileNode> arrayData = (Dictionary<string, TextVdfFileNode>)NodeData;
                 if( !arrayData.ContainsKey( key ) ) {
                     arrayData.Add( key, value );
                 } else {
@@ -70,9 +70,9 @@ namespace Depressurizer {
         /// <summary>
         /// Quick shortcut for casting data to a a dictionary
         /// </summary>
-        public Dictionary<string, FileNode> NodeArray {
+        public Dictionary<string, TextVdfFileNode> NodeArray {
             get {
-                return ( NodeType == ValueType.Array ) ? ( NodeData as Dictionary<string, FileNode> ) : null;
+                return ( NodeType == ValueType.Array ) ? ( NodeData as Dictionary<string, TextVdfFileNode> ) : null;
             }
         }
 
@@ -88,16 +88,16 @@ namespace Depressurizer {
         /// <summary>
         /// Creates a new array-type node
         /// </summary>
-        public FileNode() {
+        public TextVdfFileNode() {
             NodeType = ValueType.Array;
-            NodeData = new Dictionary<string, FileNode>();
+            NodeData = new Dictionary<string, TextVdfFileNode>();
         }
 
         /// <summary>
         /// Creates a new value-type node
         /// </summary>
         /// <param name="value">Value of the string</param>
-        public FileNode( string value ) {
+        public TextVdfFileNode( string value ) {
             NodeType = ValueType.Value;
             NodeData = value;
         }
@@ -208,16 +208,16 @@ namespace Depressurizer {
         /// <param name="create">If true, will create any nodes it does not find along the path.</param>
         /// <param name="index">Start index of the arg array</param>
         /// <returns>The FileNode at the given location, or null if the location was not found / created</returns>
-        public FileNode GetNodeAt( string[] args, bool create = true, int index = 0 ) {
+        public TextVdfFileNode GetNodeAt( string[] args, bool create = true, int index = 0 ) {
             if( index >= args.Length ) {
                 return this;
             }
             if( this.NodeType == ValueType.Array ) {
-                Dictionary<String, FileNode> data = (Dictionary<String, FileNode>)NodeData;
+                Dictionary<String, TextVdfFileNode> data = (Dictionary<String, TextVdfFileNode>)NodeData;
                 if( ContainsKey( args[index] ) ) {
                     return data[args[index]].GetNodeAt( args, create, index + 1 );
                 } else if( create ) {
-                    FileNode newNode = new FileNode();
+                    TextVdfFileNode newNode = new TextVdfFileNode();
                     data.Add( args[index], newNode );
                     return newNode.GetNodeAt( args, create, index + 1 );
                 }
@@ -234,7 +234,7 @@ namespace Depressurizer {
             if( NodeType != ValueType.Array ) {
                 return false;
             }
-            return ( (Dictionary<string, FileNode>)NodeData ).ContainsKey( key );
+            return ( (Dictionary<string, TextVdfFileNode>)NodeData ).ContainsKey( key );
         }
 
         #endregion
@@ -256,7 +256,7 @@ namespace Depressurizer {
         /// Removes any array nodes without any value-type children
         /// </summary>
         public void CleanTree() {
-            Dictionary<string, FileNode> nodes = NodeArray;
+            Dictionary<string, TextVdfFileNode> nodes = NodeArray;
             if( nodes != null ) {
                 string[] keys = nodes.Keys.ToArray<string>();
                 foreach( string key in keys ) {
@@ -276,8 +276,8 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="stream">Stream to load from</param>
         /// <returns>FileNode representing the contents of the stream.</returns>
-        public static FileNode Load( StreamReader stream, bool useFirstAsRoot = false ) {
-            FileNode thisLevel = useFirstAsRoot ? null : new FileNode();
+        public static TextVdfFileNode Load( StreamReader stream, bool useFirstAsRoot = false ) {
+            TextVdfFileNode thisLevel = useFirstAsRoot ? null : new TextVdfFileNode();
 
             SkipWhitespace( stream );
 
@@ -298,9 +298,9 @@ namespace Depressurizer {
 
                 // Get value
                 nextChar = (char)stream.Read();
-                FileNode newNode;
+                TextVdfFileNode newNode;
                 if( nextChar == '"' ) {
-                    newNode = new FileNode( GetStringToken( stream ) );
+                    newNode = new TextVdfFileNode( GetStringToken( stream ) );
                 } else if( nextChar == '{' ) {
                     newNode = Load( stream );
                 } else {
@@ -323,8 +323,8 @@ namespace Depressurizer {
         /// <param name="indent">Indentation level of each line.</param>
         public void Save( StreamWriter stream, int indent = 0 ) {
             if( NodeType == ValueType.Array ) {
-                Dictionary<string, FileNode> data = NodeArray;
-                foreach( KeyValuePair<string, FileNode> entry in data ) {
+                Dictionary<string, TextVdfFileNode> data = NodeArray;
+                foreach( KeyValuePair<string, TextVdfFileNode> entry in data ) {
                     if( entry.Value.NodeType == ValueType.Array ) {
                         WriteWhitespace( stream, indent );
                         WriteFormattedString( stream, entry.Key );

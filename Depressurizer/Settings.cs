@@ -27,13 +27,13 @@ namespace Depressurizer {
         Create
     }
 
-    class DepSettings : AppSettings {
+    class Settings : AppSettings {
 
-        private static DepSettings instance;
+        private static Settings instance;
 
-        public static DepSettings Instance() {
+        public static Settings Instance() {
             if( instance == null ) {
-                instance = new DepSettings();
+                instance = new Settings();
             }
             return instance;
         }
@@ -122,7 +122,7 @@ namespace Depressurizer {
             }
         }
 
-        private DepSettings()
+        private Settings()
             : base() {
             FilePath = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";
         }

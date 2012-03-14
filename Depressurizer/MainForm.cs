@@ -33,7 +33,7 @@ namespace Depressurizer {
         #endregion
         #region Fields
         // Stores currently loaded profile
-        ProfileData currentProfile;
+        Profile currentProfile;
         // Stores all actual game data
         GameData gameData;
 
@@ -45,7 +45,7 @@ namespace Depressurizer {
 
         bool unsavedChanges = false;
 
-        DepSettings settings = DepSettings.Instance();
+        Settings settings = Settings.Instance();
 
         StringBuilder statusBuilder = new StringBuilder();
 
@@ -263,7 +263,7 @@ namespace Depressurizer {
             if( checkForChanges && !CheckForUnsaved() ) return;
 
             try {
-                currentProfile = ProfileData.Load( path );
+                currentProfile = Profile.Load( path );
                 AddStatus( "Profile loaded." );
             } catch( ApplicationException e ) {
                 MessageBox.Show( e.Message, "Error loading profile", MessageBoxButtons.OK, MessageBoxIcon.Warning );

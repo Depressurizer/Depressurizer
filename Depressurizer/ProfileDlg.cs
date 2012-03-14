@@ -24,7 +24,7 @@ using System.Windows.Forms;
 
 namespace Depressurizer {
     public partial class ProfileDlg : Form {
-        public ProfileData Profile;
+        public Profile Profile;
         private bool editMode = false;
 
         public bool DownloadNow {
@@ -51,7 +51,7 @@ namespace Depressurizer {
             InitializeComponent();
         }
 
-        public ProfileDlg( ProfileData profile )
+        public ProfileDlg( Profile profile )
             : this() {
             Profile = profile;
             editMode = true;
@@ -160,7 +160,7 @@ namespace Depressurizer {
                 }
             }
 
-            ProfileData profile = new ProfileData();
+            Profile profile = new Profile();
 
             SaveModifiables( profile );
 
@@ -175,7 +175,7 @@ namespace Depressurizer {
             return true;
         }
 
-        void SaveModifiables( ProfileData p ) {
+        void SaveModifiables( Profile p ) {
             p.AccountID = cmbAccountID.Text;
             p.CommunityName = txtCommunityName.Text;
             p.AutoDownload = chkAutoDownload.Checked;
@@ -222,7 +222,7 @@ namespace Depressurizer {
         /// <returns>An array of located IDs</returns>
         private string[] GetSteamIds() {
             try {
-                DirectoryInfo dir = new DirectoryInfo( DepSettings.Instance().SteamPath + "\\userdata" );
+                DirectoryInfo dir = new DirectoryInfo( Settings.Instance().SteamPath + "\\userdata" );
                 if( dir.Exists ) {
                     DirectoryInfo[] userDirs = dir.GetDirectories();
                     string[] result = new string[userDirs.Length];

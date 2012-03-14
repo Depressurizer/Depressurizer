@@ -32,7 +32,7 @@ namespace Depressurizer {
         static void Main() {
             FatalError.InitializeHandler();
 
-            DepSettings settings = DepSettings.Instance();
+            Settings settings = Settings.Instance();
             settings.Load();
 
             Application.EnableVisualStyles();

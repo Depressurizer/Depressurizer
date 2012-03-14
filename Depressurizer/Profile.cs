@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Xml;
 
 namespace Depressurizer {
-    public class ProfileData {
+    public class Profile {
 
         public string FilePath = null;
 
@@ -48,7 +48,7 @@ namespace Depressurizer {
         public bool IgnoreDlc = true;
 
         public int ImportSteamData() {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, DepSettings.Instance().SteamPath, AccountID );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, AccountID );
             return GameData.ImportSteamFile( filePath, IgnoreList, IgnoreDlc );
         }
 
@@ -57,7 +57,7 @@ namespace Depressurizer {
         }
 
         public void ExportSteamData() {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, DepSettings.Instance().SteamPath, AccountID );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, AccountID );
             GameData.SaveSteamFile( filePath, ExportDiscard );
         }
 
@@ -67,8 +67,8 @@ namespace Depressurizer {
 
         #region Saving and Loading
 
-        public static ProfileData Load( string path ) {
-            ProfileData profile = new ProfileData();
+        public static Profile Load( string path ) {
+            Profile profile = new Profile();
 
             profile.FilePath = path;
 
@@ -117,7 +117,7 @@ namespace Depressurizer {
             return profile;
         }
 
-        private static void AddGameFromXmlNode( XmlNode node, ProfileData profile ) {
+        private static void AddGameFromXmlNode( XmlNode node, Profile profile ) {
             int id;
             if( XmlUtil.TryGetIntFromNode( node["id"], out id ) ) {
                 if( profile.IgnoreList.Contains( id ) || ( profile.IgnoreDlc && Program.GameDB.IsDlc( id ) ) ) {
