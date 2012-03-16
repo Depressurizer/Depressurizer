@@ -191,12 +191,7 @@ namespace Depressurizer {
         }
         #endregion
 
-        /// <summary>
-        /// Loads game info from the given Steam profile
-        /// </summary>
-        /// <param name="profileName">Name of the Steam profile to get</param>
-        /// <returns>The number of games found in the profile</returns>
-        public int DownloadGameList( string profileName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
+        public static XmlDocument FetchGameList( string profileName ) {
             XmlDocument doc = new XmlDocument();
             try {
                 string url = string.Format( Properties.Resources.ProfileURL, profileName );
@@ -204,11 +199,13 @@ namespace Depressurizer {
                 WebResponse response = req.GetResponse();
                 doc.Load( response.GetResponseStream() );
                 response.Close();
-
+                return doc;
             } catch( Exception e ) {
                 throw new ApplicationException( "Failed to download profile data: " + e.Message, e );
             }
+        }
 
+        public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
             int loadedGames = 0;
             XmlNodeList gameNodes = doc.SelectNodes( "/gamesList/games/game" );
             foreach( XmlNode gameNode in gameNodes ) {
@@ -226,6 +223,16 @@ namespace Depressurizer {
                 }
             }
             return loadedGames;
+        }
+
+        /// <summary>
+        /// Loads game info from the given Steam profile
+        /// </summary>
+        /// <param name="profileName">Name of the Steam profile to get</param>
+        /// <returns>The number of games found in the profile</returns>
+        public int DownloadGameList( string profileName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            XmlDocument doc = GameData.FetchGameList( profileName );
+            return IntegrateXmlGameList( doc, overWrite, ignore, ignoreDlc );
         }
 
         /// <summary>

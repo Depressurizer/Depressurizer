@@ -22,13 +22,18 @@ using System.Text;
 using Rallion;
 
 namespace Depressurizer {
-    class DbScrapeDlg : CancelableDlg {
+    class DataScrapeDlg : CancelableDlg {
         Queue<int> jobs;
+        GameData data;
 
         System.DateTime start;
 
-        public DbScrapeDlg( Queue<int> jobs )
+        Dictionary<int, string> scrapeResults;
+
+        public DataScrapeDlg( Queue<int> jobs, GameData data )
             : base( "Scraping game info" ) {
+            scrapeResults = new Dictionary<int, string>();
+            this.data = data;
             this.jobs = jobs;
             this.totalJobs = jobs.Count;
         }
@@ -38,7 +43,7 @@ namespace Depressurizer {
             base.UpdateForm_Load( sender, e );
         }
 
-        private GameDBEntry GetNextGame() {
+        private Game GetNextGame() {
             int gameId;
             lock( jobs ) {
                 if( jobs.Count > 0 ) {
@@ -47,9 +52,9 @@ namespace Depressurizer {
                     return null;
                 }
             }
-            GameDBEntry res = null;
-            lock( Program.GameDB ) {
-                res = Program.GameDB.Games[gameId];
+            Game res = null;
+            lock( data ) {
+                res = data.Games[gameId];
             }
             return res;
         }
@@ -67,7 +72,7 @@ namespace Depressurizer {
         /// </summary>
         /// <returns>True if a job was run, false if it was aborted first</returns>
         private bool RunNextJob() {
-            GameDBEntry game = GetNextGame();
+            Game game = GetNextGame();
             if( game == null ) {
                 return false;
             }
@@ -80,10 +85,7 @@ namespace Depressurizer {
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
             lock( abortLock ) {
                 if( !Stopped ) {
-                    game.Type = type;
-                    if( type == AppType.Game || type == AppType.DLC || type == AppType.IdRedirect ) {
-                        game.Genre = genre;
-                    }
+                    scrapeResults.Add( game.Id, genre );
                     OnJobCompletion();
                     return true;
                 } else {
@@ -91,6 +93,14 @@ namespace Depressurizer {
                 }
             }
         }
+
+        protected override void Finish() {
+            SetText( "Finishing up..." );
+            foreach( KeyValuePair<int, string> pair in scrapeResults ) {
+                data.Games[pair.Key].Category = data.GetCategory( pair.Value );
+            }
+        }
+
 
         protected override void UpdateText() {
             TimeSpan timeRemaining = TimeSpan.Zero;

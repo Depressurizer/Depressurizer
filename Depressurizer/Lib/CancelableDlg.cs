@@ -20,8 +20,8 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public abstract partial class CancelableDlg : Form {
+namespace Rallion {
+    public partial class CancelableDlg : Form {
         #region Fields
         protected object abortLock = new object();
 
@@ -42,7 +42,7 @@ namespace Depressurizer {
         }
 
         private bool _abort = false;
-        protected bool Aborted {
+        protected bool Stopped {
             get {
                 lock( abortLock ) {
                     return _abort;
@@ -89,9 +89,11 @@ namespace Depressurizer {
         #endregion
 
         #region Methods to override
-        protected abstract void RunProcess();
+        protected virtual void RunProcess() { }
 
         protected virtual void UpdateText() { }
+
+        protected virtual void Finish() { }
         #endregion
 
         #region Status Updaters
@@ -116,15 +118,16 @@ namespace Depressurizer {
 
         #region Event Handlers
         private void cmdStop_Click( object sender, EventArgs e ) {
-            Aborted = true;
+            Stopped = true;
             this.Close();
         }
 
         private void UpdateForm_FormClosing( object sender, FormClosingEventArgs e ) {
             lock( abortLock ) {
-                Aborted = true;
-                DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
+                Stopped = true;
             }
+            DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
+            Finish();
         }
         #endregion
 

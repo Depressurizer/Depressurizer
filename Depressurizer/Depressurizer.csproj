@@ -80,6 +80,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataScrapeDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DBEdit\DBEditDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +163,9 @@
     </Compile>
     <Compile Include="SteamPathDlg.Designer.cs">
       <DependentUpon>SteamPathDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateProfileDlg.cs">
+      <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="DBEdit\DBEditDlg.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>

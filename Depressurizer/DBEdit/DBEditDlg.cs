@@ -238,7 +238,7 @@ namespace Depressurizer {
 
         private void ScrapeGames( Queue<int> gamesToScrape ) {
             if( gamesToScrape.Count > 0 ) {
-                ScrapeProcDlg dlg = new ScrapeProcDlg( Program.GameDB, gamesToScrape );
+                DbScrapeDlg dlg = new DbScrapeDlg( gamesToScrape );
                 DialogResult res = dlg.ShowDialog();
 
                 if( res == DialogResult.Abort ) {

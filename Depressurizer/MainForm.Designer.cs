@@ -65,14 +65,12 @@ namespace Depressurizer {
             this.menu_Profile_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Profile_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Tools_AutonameNeeded = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutonameAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Tools_Sep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.menu_Tools_AutocatNeeded = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutocatAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep2 = new System.Windows.Forms.ToolStripSeparator();
-            this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_DBEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_Sep3 = new System.Windows.Forms.ToolStripSeparator();
+            this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.grpCategories = new System.Windows.Forms.GroupBox();
             this.lstCategories = new System.Windows.Forms.ListBox();
@@ -115,7 +113,6 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.menu_Tools_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -311,10 +308,7 @@ namespace Depressurizer {
             // menu_Tools
             // 
             this.menu_Tools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menu_Tools_AutonameNeeded,
             this.menu_Tools_AutonameAll,
-            this.menu_Tools_Sep1,
-            this.menu_Tools_AutocatNeeded,
             this.menu_Tools_AutocatAll,
             this.menu_Tools_Sep2,
             this.menu_Tools_DBEdit,
@@ -324,53 +318,43 @@ namespace Depressurizer {
             this.menu_Tools.Size = new System.Drawing.Size(48, 20);
             this.menu_Tools.Text = "Tools";
             // 
-            // menu_Tools_AutonameNeeded
-            // 
-            this.menu_Tools_AutonameNeeded.Name = "menu_Tools_AutonameNeeded";
-            this.menu_Tools_AutonameNeeded.Size = new System.Drawing.Size(202, 22);
-            this.menu_Tools_AutonameNeeded.Text = "Auto-Name Unnamed";
-            // 
             // menu_Tools_AutonameAll
             // 
             this.menu_Tools_AutonameAll.Name = "menu_Tools_AutonameAll";
-            this.menu_Tools_AutonameAll.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_AutonameAll.Size = new System.Drawing.Size(165, 22);
             this.menu_Tools_AutonameAll.Text = "Auto-Name All";
-            // 
-            // menu_Tools_Sep1
-            // 
-            this.menu_Tools_Sep1.Name = "menu_Tools_Sep1";
-            this.menu_Tools_Sep1.Size = new System.Drawing.Size(199, 6);
-            // 
-            // menu_Tools_AutocatNeeded
-            // 
-            this.menu_Tools_AutocatNeeded.Name = "menu_Tools_AutocatNeeded";
-            this.menu_Tools_AutocatNeeded.Size = new System.Drawing.Size(202, 22);
-            this.menu_Tools_AutocatNeeded.Text = "Auto-Cat Uncategorized";
+            this.menu_Tools_AutonameAll.Click += new System.EventHandler(this.menu_Tools_AutonameAll_Click);
             // 
             // menu_Tools_AutocatAll
             // 
             this.menu_Tools_AutocatAll.Name = "menu_Tools_AutocatAll";
-            this.menu_Tools_AutocatAll.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_AutocatAll.Size = new System.Drawing.Size(165, 22);
             this.menu_Tools_AutocatAll.Text = "Auto-Cat All";
+            this.menu_Tools_AutocatAll.Click += new System.EventHandler(this.menu_Tools_AutocatAll_Click);
             // 
             // menu_Tools_Sep2
             // 
             this.menu_Tools_Sep2.Name = "menu_Tools_Sep2";
-            this.menu_Tools_Sep2.Size = new System.Drawing.Size(199, 6);
-            // 
-            // menu_Tools_Settings
-            // 
-            this.menu_Tools_Settings.Name = "menu_Tools_Settings";
-            this.menu_Tools_Settings.Size = new System.Drawing.Size(202, 22);
-            this.menu_Tools_Settings.Text = "Settings...";
-            this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
+            this.menu_Tools_Sep2.Size = new System.Drawing.Size(162, 6);
             // 
             // menu_Tools_DBEdit
             // 
             this.menu_Tools_DBEdit.Name = "menu_Tools_DBEdit";
-            this.menu_Tools_DBEdit.Size = new System.Drawing.Size(202, 22);
+            this.menu_Tools_DBEdit.Size = new System.Drawing.Size(165, 22);
             this.menu_Tools_DBEdit.Text = "Database Editor...";
             this.menu_Tools_DBEdit.Click += new System.EventHandler(this.menu_Tools_DBEdit_Click);
+            // 
+            // menu_Tools_Sep3
+            // 
+            this.menu_Tools_Sep3.Name = "menu_Tools_Sep3";
+            this.menu_Tools_Sep3.Size = new System.Drawing.Size(162, 6);
+            // 
+            // menu_Tools_Settings
+            // 
+            this.menu_Tools_Settings.Name = "menu_Tools_Settings";
+            this.menu_Tools_Settings.Size = new System.Drawing.Size(165, 22);
+            this.menu_Tools_Settings.Text = "Settings...";
+            this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
             // 
             // splitContainer
             // 
@@ -803,11 +787,6 @@ namespace Depressurizer {
             this.statusSelection.Size = new System.Drawing.Size(200, 17);
             this.statusSelection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // menu_Tools_Sep3
-            // 
-            this.menu_Tools_Sep3.Name = "menu_Tools_Sep3";
-            this.menu_Tools_Sep3.Size = new System.Drawing.Size(199, 6);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -911,10 +890,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextCat_Rename;
         private System.Windows.Forms.Button cmdAutoCat;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools;
-        private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutonameNeeded;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutonameAll;
-        private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep1;
-        private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutocatNeeded;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_AutocatAll;
         private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep2;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_Settings;

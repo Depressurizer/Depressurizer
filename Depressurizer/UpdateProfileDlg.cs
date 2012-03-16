@@ -17,27 +17,42 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using Rallion;
 
 namespace Depressurizer {
-    class FetchPrcDlg : CancelableDlg {
+
+    class UpdateProfileDlg : CancelableDlg {
         public int Added { get; private set; }
 
-        public FetchPrcDlg()
-            : base( "Updating Game List" ) {
-            SetText( "Downloading game list..." );
+        private string profileName;
+        private GameData data;
+
+        private bool overwrite;
+        private SortedSet<int> ignore;
+        private bool ignoreDlc;
+
+        public UpdateProfileDlg( GameData data, string profileName, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
+            : base( "Updating game list..." ) {
             Added = 0;
+            this.data = data;
+            this.profileName = profileName;
+            this.overwrite = overwrite;
+            this.ignore = ignore;
+            this.ignoreDlc = ignoreDlc;
+
+            SetText( "Downloading game list..." );
         }
 
         protected override void RunProcess() {
             try {
                 Added = 0;
-                XmlDocument d = GameDB.FetchAppList();
+                XmlDocument d = GameData.FetchGameList( profileName );
                 lock( abortLock ) {
                     if( !Stopped ) {
                         DisableAbort();
-                        Added = Program.GameDB.IntegrateAppList( d );
+                        Added = data.IntegrateXmlGameList( d, overwrite, ignore, ignoreDlc );
                         OnJobCompletion();
                     }
                 }
@@ -46,5 +61,8 @@ namespace Depressurizer {
             }
             OnThreadCompletion();
         }
+
+
+
     }
 }

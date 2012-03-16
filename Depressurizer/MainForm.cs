@@ -149,14 +149,21 @@ namespace Depressurizer {
             if( dlg.ShowDialog() == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    int loadedGames = gameData.DownloadGameList( dlg.Value, true, null, settings.IgnoreDlc );
-                    if( loadedGames == 0 ) {
-                        MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                        AddStatus( "No games in download." );
+                    UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, dlg.Value, true, null, settings.IgnoreDlc );
+                    DialogResult res = updateDlg.ShowDialog();
+
+                    if( res == System.Windows.Forms.DialogResult.Abort ) {
+                        AddStatus( "Download aborted." );
                     } else {
-                        MakeChange( true );
-                        AddStatus( string.Format( "Downloaded {0} games.", loadedGames ) );
-                        FillGameList();
+                        int loadedGames = updateDlg.Added;
+                        if( loadedGames == 0 ) {
+                            MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                            AddStatus( "No games in download." );
+                        } else {
+                            MakeChange( true );
+                            AddStatus( string.Format( "Downloaded {0} games.", loadedGames ) );
+                            FillGameList();
+                        }
                     }
                 } catch( ApplicationException e ) {
                     MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
@@ -334,13 +341,20 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    int count = currentProfile.DownloadGameList();
-                    AddStatus( string.Format( "Downloaded {0} items.", count ) );
-                    if( count > 0 ) {
-                        MakeChange( true );
-                        if( updateUI ) {
-                            FillCategoryList();
-                            FillGameList();
+                    UpdateProfileDlg dlg = new UpdateProfileDlg( gameData, currentProfile.CommunityName, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
+                    DialogResult res = dlg.ShowDialog();
+
+                    if( res == System.Windows.Forms.DialogResult.Abort ) {
+                        AddStatus( "Update aborted." );
+                    } else {
+                        int count = dlg.Added;
+                        AddStatus( string.Format( "Downloaded {0} new items.", count ) );
+                        if( count > 0 ) {
+                            MakeChange( true );
+                            if( updateUI ) {
+                                FillCategoryList();
+                                FillGameList();
+                            }
                         }
                     }
                     if( updateUI ) Cursor = Cursors.Default;
@@ -600,14 +614,29 @@ namespace Depressurizer {
             }
         }
 
-        private void AutocatSelected() {
+        private void Autocategorize( bool selectedOnly ) {
             // Check to see if there are any selected items with set categories
             bool overwrite = true;
-            foreach( ListViewItem item in lstGames.SelectedItems ) {
-                Game g = item.Tag as Game;
-                if( g != null && g.Category != null ) {
-                    overwrite = false;
-                    break;
+            List<Game> gamesToUpdate = new List<Game>();
+
+            if( selectedOnly ) {
+                foreach( ListViewItem item in lstGames.SelectedItems ) {
+                    Game g = item.Tag as Game;
+                    if( g != null ) {
+                        if( g.Category != null ) {
+                            overwrite = false;
+                        }
+                        gamesToUpdate.Add( g );
+                    }
+                }
+            } else {
+                foreach( Game g in gameData.Games.Values ) {
+                    if( g != null ) {
+                        if( g.Category != null ) {
+                            overwrite = false;
+                        }
+                        gamesToUpdate.Add( g );
+                    }
                 }
             }
 
@@ -620,8 +649,7 @@ namespace Depressurizer {
 
             Queue<int> notFound = new Queue<int>();
 
-            foreach( ListViewItem item in lstGames.SelectedItems ) {
-                Game g = item.Tag as Game;
+            foreach( Game g in gamesToUpdate ) {
                 if( g != null && ( overwrite || g.Category == null ) ) {
                     if( Program.GameDB.Contains( g.Id ) ) {
                         g.Category = gameData.GetCategory( Program.GameDB.GetGenre( g.Id, settings.FullAutocat ) );
@@ -637,12 +665,37 @@ namespace Depressurizer {
             if( notFound.Count > 0 ) {
                 DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
-                    //TODO: Add downloading code
+                    DataScrapeDlg scrapeDlg = new DataScrapeDlg( notFound, gameData );
+                    scrapeDlg.ShowDialog();
+                    AddStatus( string.Format( "Updated {0} categories from store.", scrapeDlg.JobsCompleted ) );
                 }
             }
 
             FillCategoryList();
-            UpdateGameListSelected();
+            FillGameList();
+        }
+
+        private void AutonameAll() {
+            DialogResult res = MessageBox.Show( "Do you want to overwrite existing names? Saying \"No\" will only rename games that do not have a name set.", "Overwrite?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2 );
+            bool overwrite = false;
+
+            if( res == DialogResult.Cancel ) {
+                AddStatus( "Autoname canceled." );
+                return;
+            } else if ( res == DialogResult.Yes ) {
+                overwrite = true;
+            }
+
+            int named = 0;
+            foreach( Game g in gameData.Games.Values ) {
+                if( overwrite || string.IsNullOrEmpty( g.Name ) ) {
+                    g.Name = Program.GameDB.GetName( g.Id );
+                    named++;
+                }
+            }
+            AddStatus( string.Format( "Autonamed {0} games.", named ) );
+
+            FillGameList();
         }
 
         #endregion
@@ -1126,7 +1179,7 @@ namespace Depressurizer {
 
         private void cmdAutoCat_Click( object sender, EventArgs e ) {
             ClearStatus();
-            AutocatSelected();
+            Autocategorize( true );
             FlushStatus();
         }
 
@@ -1323,6 +1376,18 @@ namespace Depressurizer {
         }
 
         #endregion
+
+        private void menu_Tools_AutocatAll_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            Autocategorize( false );
+            FlushStatus();
+        }
+
+        private void menu_Tools_AutonameAll_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AutonameAll();
+            FlushStatus();
+        }
     }
 
     /// <summary>
