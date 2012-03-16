@@ -158,6 +158,27 @@ namespace Depressurizer {
                 Games[gameIDs[i]].Favorite = fav;
             }
         }
+
+        public int RemoveEmptyCategories() {
+            Dictionary<Category, int> counts = new Dictionary<Category, int>();
+            foreach( Category c in Categories ) {
+                counts.Add( c, 0 );
+            }
+            foreach( Game g in Games.Values ) {
+                if( g.Category != null && counts.ContainsKey( g.Category ) ) {
+                    counts[g.Category] = counts[g.Category] + 1;
+                }
+            }
+            int removed = 0;
+            foreach( KeyValuePair<Category, int> pair in counts ) {
+                if( pair.Value == 0 ) {
+                    if( Categories.Remove( pair.Key ) ) {
+                        removed++;
+                    }
+                }
+            }
+            return removed;
+        }
         #endregion
 
         #region Accessors

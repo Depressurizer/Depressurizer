@@ -160,7 +160,7 @@ namespace Depressurizer {
         }
 
         #endregion
-        
+
         private void DownloadProfileData( string name, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
             UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, name, overwrite, ignore, ignoreDlc );
             DialogResult res = updateDlg.ShowDialog();
@@ -1079,6 +1079,18 @@ namespace Depressurizer {
             FlushStatus();
         }
 
+        private void menu_Tools_AutocatAll_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            Autocategorize( false );
+            FlushStatus();
+        }
+
+        private void menu_Tools_AutonameAll_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            AutonameAll();
+            FlushStatus();
+        }
+
         private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
             Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
             dlg.ShowDialog();
@@ -1376,15 +1388,21 @@ namespace Depressurizer {
 
         #endregion
 
-        private void menu_Tools_AutocatAll_Click( object sender, EventArgs e ) {
+        private void menu_Tools_RemoveEmpty_Click( object sender, EventArgs e ) {
             ClearStatus();
-            Autocategorize( false );
+            RemoveEmptyCats();
             FlushStatus();
         }
 
-        private void menu_Tools_AutonameAll_Click( object sender, EventArgs e ) {
+        void RemoveEmptyCats() {
+            int count = gameData.RemoveEmptyCategories();
+            AddStatus( string.Format( "Removed {0} empty categories.", count ) );
+            FillCategoryList();
+        }
+
+        private void contectCat_RemoveEmpty_Click( object sender, EventArgs e ) {
             ClearStatus();
-            AutonameAll();
+            RemoveEmptyCats();
             FlushStatus();
         }
     }

@@ -67,6 +67,7 @@ namespace Depressurizer {
             this.menu_Tools = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutonameAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutocatAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Tools_DBEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep3 = new System.Windows.Forms.ToolStripSeparator();
@@ -113,6 +114,8 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.contectCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -310,6 +313,7 @@ namespace Depressurizer {
             this.menu_Tools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_Tools_AutonameAll,
             this.menu_Tools_AutocatAll,
+            this.menu_Tools_RemoveEmpty,
             this.menu_Tools_Sep2,
             this.menu_Tools_DBEdit,
             this.menu_Tools_Sep3,
@@ -321,38 +325,45 @@ namespace Depressurizer {
             // menu_Tools_AutonameAll
             // 
             this.menu_Tools_AutonameAll.Name = "menu_Tools_AutonameAll";
-            this.menu_Tools_AutonameAll.Size = new System.Drawing.Size(165, 22);
+            this.menu_Tools_AutonameAll.Size = new System.Drawing.Size(213, 22);
             this.menu_Tools_AutonameAll.Text = "Auto-Name All";
             this.menu_Tools_AutonameAll.Click += new System.EventHandler(this.menu_Tools_AutonameAll_Click);
             // 
             // menu_Tools_AutocatAll
             // 
             this.menu_Tools_AutocatAll.Name = "menu_Tools_AutocatAll";
-            this.menu_Tools_AutocatAll.Size = new System.Drawing.Size(165, 22);
+            this.menu_Tools_AutocatAll.Size = new System.Drawing.Size(213, 22);
             this.menu_Tools_AutocatAll.Text = "Auto-Cat All";
             this.menu_Tools_AutocatAll.Click += new System.EventHandler(this.menu_Tools_AutocatAll_Click);
+            // 
+            // menu_Tools_RemoveEmpty
+            // 
+            this.menu_Tools_RemoveEmpty.Name = "menu_Tools_RemoveEmpty";
+            this.menu_Tools_RemoveEmpty.Size = new System.Drawing.Size(213, 22);
+            this.menu_Tools_RemoveEmpty.Text = "Remove Empty Categories";
+            this.menu_Tools_RemoveEmpty.Click += new System.EventHandler(this.menu_Tools_RemoveEmpty_Click);
             // 
             // menu_Tools_Sep2
             // 
             this.menu_Tools_Sep2.Name = "menu_Tools_Sep2";
-            this.menu_Tools_Sep2.Size = new System.Drawing.Size(162, 6);
+            this.menu_Tools_Sep2.Size = new System.Drawing.Size(210, 6);
             // 
             // menu_Tools_DBEdit
             // 
             this.menu_Tools_DBEdit.Name = "menu_Tools_DBEdit";
-            this.menu_Tools_DBEdit.Size = new System.Drawing.Size(165, 22);
+            this.menu_Tools_DBEdit.Size = new System.Drawing.Size(213, 22);
             this.menu_Tools_DBEdit.Text = "Database Editor...";
             this.menu_Tools_DBEdit.Click += new System.EventHandler(this.menu_Tools_DBEdit_Click);
             // 
             // menu_Tools_Sep3
             // 
             this.menu_Tools_Sep3.Name = "menu_Tools_Sep3";
-            this.menu_Tools_Sep3.Size = new System.Drawing.Size(162, 6);
+            this.menu_Tools_Sep3.Size = new System.Drawing.Size(210, 6);
             // 
             // menu_Tools_Settings
             // 
             this.menu_Tools_Settings.Name = "menu_Tools_Settings";
-            this.menu_Tools_Settings.Size = new System.Drawing.Size(165, 22);
+            this.menu_Tools_Settings.Size = new System.Drawing.Size(213, 22);
             this.menu_Tools_Settings.Text = "Settings...";
             this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
             // 
@@ -412,30 +423,32 @@ namespace Depressurizer {
             this.contextCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextCat_Add,
             this.contextCat_Rename,
-            this.contextCat_Delete});
+            this.contextCat_Delete,
+            this.contextCat_Sep1,
+            this.contectCat_RemoveEmpty});
             this.contextCat.Name = "contextCat";
             this.contextCat.ShowImageMargin = false;
-            this.contextCat.Size = new System.Drawing.Size(153, 70);
+            this.contextCat.Size = new System.Drawing.Size(189, 120);
             this.contextCat.Opening += new System.ComponentModel.CancelEventHandler(this.contextCat_Opening);
             // 
             // contextCat_Add
             // 
             this.contextCat_Add.Name = "contextCat_Add";
-            this.contextCat_Add.Size = new System.Drawing.Size(152, 22);
+            this.contextCat_Add.Size = new System.Drawing.Size(188, 22);
             this.contextCat_Add.Text = "Add Category...";
             this.contextCat_Add.Click += new System.EventHandler(this.cmdCatAdd_Click);
             // 
             // contextCat_Rename
             // 
             this.contextCat_Rename.Name = "contextCat_Rename";
-            this.contextCat_Rename.Size = new System.Drawing.Size(152, 22);
+            this.contextCat_Rename.Size = new System.Drawing.Size(188, 22);
             this.contextCat_Rename.Text = "Rename Category...";
             this.contextCat_Rename.Click += new System.EventHandler(this.cmdCatRename_Click);
             // 
             // contextCat_Delete
             // 
             this.contextCat_Delete.Name = "contextCat_Delete";
-            this.contextCat_Delete.Size = new System.Drawing.Size(152, 22);
+            this.contextCat_Delete.Size = new System.Drawing.Size(188, 22);
             this.contextCat_Delete.Text = "Delete Category";
             this.contextCat_Delete.Click += new System.EventHandler(this.cmdCatDelete_Click);
             // 
@@ -707,7 +720,6 @@ namespace Depressurizer {
             this.contextGameCat_None,
             this.contextGameCat_Sep1});
             this.contextGameCat.Name = "contextGameCat";
-            this.contextGameCat.OwnerItem = this.contextGame_SetCat;
             this.contextGameCat.ShowImageMargin = false;
             this.contextGameCat.Size = new System.Drawing.Size(126, 54);
             // 
@@ -743,7 +755,6 @@ namespace Depressurizer {
             this.contextGameFav_Yes,
             this.contextGameFav_No});
             this.contextGameFav.Name = "contextGameFav";
-            this.contextGameFav.OwnerItem = this.contextGame_SetFav;
             this.contextGameFav.ShowImageMargin = false;
             this.contextGameFav.Size = new System.Drawing.Size(68, 48);
             // 
@@ -786,6 +797,18 @@ namespace Depressurizer {
             this.statusSelection.Name = "statusSelection";
             this.statusSelection.Size = new System.Drawing.Size(200, 17);
             this.statusSelection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // contextCat_Sep1
+            // 
+            this.contextCat_Sep1.Name = "contextCat_Sep1";
+            this.contextCat_Sep1.Size = new System.Drawing.Size(185, 6);
+            // 
+            // contectCat_RemoveEmpty
+            // 
+            this.contectCat_RemoveEmpty.Name = "contectCat_RemoveEmpty";
+            this.contectCat_RemoveEmpty.Size = new System.Drawing.Size(188, 22);
+            this.contectCat_RemoveEmpty.Text = "Remove Empty Categories";
+            this.contectCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
             // 
             // FormMain
             // 
@@ -896,6 +919,9 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_Settings;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_DBEdit;
         private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep3;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools_RemoveEmpty;
+        private System.Windows.Forms.ToolStripSeparator contextCat_Sep1;
+        private System.Windows.Forms.ToolStripMenuItem contectCat_RemoveEmpty;
     }
 }
 
