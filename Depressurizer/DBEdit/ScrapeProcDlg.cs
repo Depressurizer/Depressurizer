@@ -24,13 +24,20 @@ using Rallion;
 namespace Depressurizer {
     class DbScrapeDlg : CancelableDlg {
         Queue<int> jobs;
+        List<GameDBEntry> results;
 
         System.DateTime start;
 
-        public DbScrapeDlg( Queue<int> jobs )
-            : base( "Scraping game info" ) {
+        bool fullGenre;
+
+        public DbScrapeDlg( Queue<int> jobs, bool fullGenre )
+            : base( "Scraping game info", true ) {
             this.jobs = jobs;
             this.totalJobs = jobs.Count;
+
+            this.fullGenre = fullGenre;
+
+            results = new List<GameDBEntry>();
         }
 
         protected override void UpdateForm_Load( object sender, EventArgs e ) {
@@ -38,20 +45,14 @@ namespace Depressurizer {
             base.UpdateForm_Load( sender, e );
         }
 
-        private GameDBEntry GetNextGame() {
-            int gameId;
+        private int GetNextGameId() {
             lock( jobs ) {
                 if( jobs.Count > 0 ) {
-                    gameId = jobs.Dequeue();
+                    return jobs.Dequeue();
                 } else {
-                    return null;
+                    return 0;
                 }
             }
-            GameDBEntry res = null;
-            lock( Program.GameDB ) {
-                res = Program.GameDB.Games[gameId];
-            }
-            return res;
         }
 
         protected override void RunProcess() {
@@ -67,27 +68,41 @@ namespace Depressurizer {
         /// </summary>
         /// <returns>True if a job was run, false if it was aborted first</returns>
         private bool RunNextJob() {
-            GameDBEntry game = GetNextGame();
-            if( game == null ) {
+            int id = GetNextGameId();
+            if( id == 0 ) {
                 return false;
             }
             if( Stopped ) return false;
 
             string genre = null;
-            AppType type = GameDB.ScrapeStore( game.Id, out genre );
+            AppType type = GameDB.ScrapeStore( id, out genre );
+
+            GameDBEntry newGame = new GameDBEntry();
+            newGame.Id = id;
+            newGame.Genre = fullGenre ? genre : GameDB.TruncateGenre( genre );
+            newGame.Type = type;
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
             lock( abortLock ) {
                 if( !Stopped ) {
-                    game.Type = type;
-                    if( type == AppType.Game || type == AppType.DLC || type == AppType.IdRedirect ) {
-                        game.Genre = genre;
-                    }
+                    results.Add( newGame );
                     OnJobCompletion();
                     return true;
                 } else {
                     return false;
+                }
+            }
+        }
+
+        protected override void Finish() {
+            if( !Canceled ) {
+                SetText( "Applying data...");
+
+                foreach( GameDBEntry g in results ) {
+                    GameDBEntry current = Program.GameDB.Games[g.Id];
+                    current.Genre = g.Genre;
+                    current.Type = g.Type;
                 }
             }
         }

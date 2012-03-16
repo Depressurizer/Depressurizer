@@ -29,12 +29,14 @@ namespace Depressurizer {
         private string profileName;
         private GameData data;
 
+        XmlDocument doc;
+
         private bool overwrite;
         private SortedSet<int> ignore;
         private bool ignoreDlc;
 
         public UpdateProfileDlg( GameData data, string profileName, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
-            : base( "Updating game list..." ) {
+            : base( "Updating game list...", true ) {
             Added = 0;
             this.data = data;
             this.profileName = profileName;
@@ -48,21 +50,21 @@ namespace Depressurizer {
         protected override void RunProcess() {
             try {
                 Added = 0;
-                XmlDocument d = GameData.FetchGameList( profileName );
-                lock( abortLock ) {
-                    if( !Stopped ) {
-                        DisableAbort();
-                        Added = data.IntegrateXmlGameList( d, overwrite, ignore, ignoreDlc );
-                        OnJobCompletion();
-                    }
-                }
+                doc = GameData.FetchGameList( profileName );
             } catch( Exception e ) {
                 this.Error = e;
             }
             OnThreadCompletion();
         }
 
+        protected override void Finish() {
+            if( !Canceled ) {
+                SetText( "Finishing download..." );
 
+                Added = data.IntegrateXmlGameList( doc, overwrite, ignore, ignoreDlc );
+                OnJobCompletion();
+            }
+        }
 
     }
 }

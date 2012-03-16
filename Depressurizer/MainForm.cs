@@ -149,22 +149,8 @@ namespace Depressurizer {
             if( dlg.ShowDialog() == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, dlg.Value, true, null, settings.IgnoreDlc );
-                    DialogResult res = updateDlg.ShowDialog();
+                    DownloadProfileData( dlg.Value, true, null, settings.IgnoreDlc );
 
-                    if( res == System.Windows.Forms.DialogResult.Abort ) {
-                        AddStatus( "Download aborted." );
-                    } else {
-                        int loadedGames = updateDlg.Added;
-                        if( loadedGames == 0 ) {
-                            MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                            AddStatus( "No games in download." );
-                        } else {
-                            MakeChange( true );
-                            AddStatus( string.Format( "Downloaded {0} games.", loadedGames ) );
-                            FillGameList();
-                        }
-                    }
                 } catch( ApplicationException e ) {
                     MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                     AddStatus( "Error downloading games." );
@@ -174,6 +160,27 @@ namespace Depressurizer {
         }
 
         #endregion
+        
+        private void DownloadProfileData( string name, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, name, overwrite, ignore, ignoreDlc );
+            DialogResult res = updateDlg.ShowDialog();
+
+            if( res == DialogResult.Abort || res == DialogResult.Cancel ) {
+                AddStatus( "Download aborted." );
+            } else {
+                int loadedGames = updateDlg.Added;
+                if( loadedGames == 0 ) {
+                    MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    AddStatus( "No games in download." );
+                } else {
+                    MakeChange( true );
+                    AddStatus( string.Format( "Downloaded {0} new games.", loadedGames ) );
+                    FillCategoryList();
+                    FillGameList();
+                }
+            }
+        }
+
         #region Profile Management
 
         /// <summary>
@@ -341,28 +348,13 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    UpdateProfileDlg dlg = new UpdateProfileDlg( gameData, currentProfile.CommunityName, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
-                    DialogResult res = dlg.ShowDialog();
-
-                    if( res == System.Windows.Forms.DialogResult.Abort ) {
-                        AddStatus( "Update aborted." );
-                    } else {
-                        int count = dlg.Added;
-                        AddStatus( string.Format( "Downloaded {0} new items.", count ) );
-                        if( count > 0 ) {
-                            MakeChange( true );
-                            if( updateUI ) {
-                                FillCategoryList();
-                                FillGameList();
-                            }
-                        }
-                    }
-                    if( updateUI ) Cursor = Cursors.Default;
+                    DownloadProfileData( currentProfile.CommunityName, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
                     MessageBox.Show( e.Message, "Error downloading game list", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                     AddStatus( "Download failed." );
                 }
+                if( updateUI ) Cursor = Cursors.Default;
             }
         }
 
@@ -666,8 +658,15 @@ namespace Depressurizer {
                 DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
                     DataScrapeDlg scrapeDlg = new DataScrapeDlg( notFound, gameData );
-                    scrapeDlg.ShowDialog();
-                    AddStatus( string.Format( "Updated {0} categories from store.", scrapeDlg.JobsCompleted ) );
+                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
+
+                    if( scrapeRes == DialogResult.Cancel ) {
+                        AddStatus( string.Format( "Canceled web update.", scrapeDlg.JobsTotal ) );
+                    } else if( scrapeRes == DialogResult.Abort ) {
+                        AddStatus( string.Format( "Updated {0} / {1} via web and aborted.", scrapeDlg.JobsCompleted, scrapeDlg.JobsTotal ) );
+                    } else {
+                        AddStatus( string.Format( "Updated {0} via web.", scrapeDlg.JobsCompleted ) );
+                    }
                 }
             }
 
@@ -682,7 +681,7 @@ namespace Depressurizer {
             if( res == DialogResult.Cancel ) {
                 AddStatus( "Autoname canceled." );
                 return;
-            } else if ( res == DialogResult.Yes ) {
+            } else if( res == DialogResult.Yes ) {
                 overwrite = true;
             }
 

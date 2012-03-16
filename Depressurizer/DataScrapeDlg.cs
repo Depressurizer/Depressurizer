@@ -31,7 +31,7 @@ namespace Depressurizer {
         Dictionary<int, string> scrapeResults;
 
         public DataScrapeDlg( Queue<int> jobs, GameData data )
-            : base( "Scraping game info" ) {
+            : base( "Scraping game info", true ) {
             scrapeResults = new Dictionary<int, string>();
             this.data = data;
             this.jobs = jobs;
@@ -95,9 +95,12 @@ namespace Depressurizer {
         }
 
         protected override void Finish() {
-            SetText( "Finishing up..." );
-            foreach( KeyValuePair<int, string> pair in scrapeResults ) {
-                data.Games[pair.Key].Category = data.GetCategory( pair.Value );
+            if( !this.Canceled ) {
+                SetText( "Finishing up..." );
+
+                foreach( KeyValuePair<int, string> pair in scrapeResults ) {
+                    data.Games[pair.Key].Category = data.GetCategory( pair.Value );
+                }
             }
         }
 

@@ -41,19 +41,21 @@ namespace Rallion {
             }
         }
 
-        private bool _abort = false;
+        private bool _stopped = false;
         protected bool Stopped {
             get {
                 lock( abortLock ) {
-                    return _abort;
+                    return _stopped;
                 }
             }
             set {
                 lock( abortLock ) {
-                    _abort = value;
+                    _stopped = value;
                 }
             }
         }
+
+        protected bool Canceled { get; private set; }
 
         public Exception Error { get; protected set; }
 
@@ -63,10 +65,12 @@ namespace Rallion {
         #endregion
 
         #region Initialization
-        public CancelableDlg( string title = "" ) {
+        public CancelableDlg( string title, bool stopButton ) {
             InitializeComponent();
             this.Text = title;
-            DialogResult = DialogResult.OK;
+            Canceled = false;
+
+            cmdStop.Enabled = cmdStop.Visible = stopButton;
         }
 
         protected virtual void UpdateForm_Load( object sender, EventArgs e ) {
@@ -119,6 +123,7 @@ namespace Rallion {
         #region Event Handlers
         private void cmdStop_Click( object sender, EventArgs e ) {
             Stopped = true;
+            DisableAbort();
             this.Close();
         }
 
@@ -126,8 +131,16 @@ namespace Rallion {
             lock( abortLock ) {
                 Stopped = true;
             }
+            DisableAbort();
             DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
             Finish();
+            if( jobsCompleted >= totalJobs ) {
+                DialogResult = DialogResult.OK;
+            } else if( Canceled ) {
+                DialogResult = DialogResult.Cancel;
+            } else {
+                DialogResult = DialogResult.Abort;
+            }
         }
         #endregion
 
@@ -144,9 +157,16 @@ namespace Rallion {
             if( InvokeRequired ) {
                 Invoke( new SimpleDelegate( DisableAbort ) );
             } else {
-                cmdStop.Enabled = false;
+                cmdStop.Enabled = cmdCancel.Enabled = false;
             }
         }
         #endregion
+
+        private void cmdCancel_Click( object sender, EventArgs e ) {
+            Stopped = true;
+            Canceled = true;
+            DisableAbort();
+            this.Close();
+        }
     }
 }

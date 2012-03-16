@@ -78,15 +78,19 @@ namespace Depressurizer {
                 } else if( full ) {
                     return fullString;
                 } else {
-                    int index = fullString.IndexOf( ',' );
-                    if( index < 0 ) {
-                        return fullString;
-                    } else {
-                        return fullString.Substring( 0, index );
-                    }
+                    return TruncateGenre( fullString );
                 }
             } else {
                 return null;
+            }
+        }
+
+        public static string TruncateGenre( string fullString ) {
+            int index = fullString.IndexOf( ',' );
+            if( index < 0 ) {
+                return fullString;
+            } else {
+                return fullString.Substring( 0, index );
             }
         }
         #endregion

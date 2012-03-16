@@ -132,8 +132,8 @@ namespace Depressurizer {
                 MessageBox.Show( string.Format( "An error occurred while updating the game list:\n\n{0}", dlg.Error.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 AddStatusMsg( "Error updating game list." );
             } else {
-                if( res == System.Windows.Forms.DialogResult.Abort ) {
-                    AddStatusMsg( "Aborted list update." );
+                if( res == DialogResult.Cancel || res == DialogResult.Abort ) {
+                    AddStatusMsg( "Canceled list update." );
                 } else {
                     AddStatusMsg( string.Format( "Updated game list, added {0} games.", dlg.Added ) );
                     UnsavedChanges = true;
@@ -238,10 +238,12 @@ namespace Depressurizer {
 
         private void ScrapeGames( Queue<int> gamesToScrape ) {
             if( gamesToScrape.Count > 0 ) {
-                DbScrapeDlg dlg = new DbScrapeDlg( gamesToScrape );
+                DbScrapeDlg dlg = new DbScrapeDlg( gamesToScrape, Settings.Instance().FullAutocat );
                 DialogResult res = dlg.ShowDialog();
 
-                if( res == DialogResult.Abort ) {
+                if( res == DialogResult.Cancel ) {
+                    AddStatusMsg( "Update canceled." );
+                } else if( res == DialogResult.Abort ) {
                     AddStatusMsg( string.Format( "Aborted. Updated {0} / {1} entries.", dlg.JobsCompleted, dlg.JobsTotal ) );
                 } else {
                     AddStatusMsg( string.Format( "Updated {0} entries.", dlg.JobsCompleted ) );

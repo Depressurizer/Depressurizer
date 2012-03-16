@@ -43,6 +43,7 @@ namespace Rallion {
         private void InitializeComponent() {
             this.lblText = new System.Windows.Forms.Label();
             this.cmdStop = new System.Windows.Forms.Button();
+            this.cmdCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblText
@@ -57,7 +58,7 @@ namespace Rallion {
             // cmdStop
             // 
             this.cmdStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdStop.Location = new System.Drawing.Point(146, 59);
+            this.cmdStop.Location = new System.Drawing.Point(198, 59);
             this.cmdStop.Name = "cmdStop";
             this.cmdStop.Size = new System.Drawing.Size(75, 23);
             this.cmdStop.TabIndex = 1;
@@ -65,16 +66,27 @@ namespace Rallion {
             this.cmdStop.UseVisualStyleBackColor = true;
             this.cmdStop.Click += new System.EventHandler(this.cmdStop_Click);
             // 
-            // ScrapeProcDlg
+            // cmdCancel
+            // 
+            this.cmdCancel.Location = new System.Drawing.Point(279, 59);
+            this.cmdCancel.Name = "cmdCancel";
+            this.cmdCancel.Size = new System.Drawing.Size(75, 23);
+            this.cmdCancel.TabIndex = 2;
+            this.cmdCancel.Text = "Cancel";
+            this.cmdCancel.UseVisualStyleBackColor = true;
+            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            // 
+            // CancelableDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(366, 94);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdStop);
             this.Controls.Add(this.lblText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "ScrapeProcDlg";
+            this.Name = "CancelableDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Updating Games";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
@@ -88,5 +100,6 @@ namespace Rallion {
 
         private System.Windows.Forms.Label lblText;
         private System.Windows.Forms.Button cmdStop;
+        private System.Windows.Forms.Button cmdCancel;
     }
 }

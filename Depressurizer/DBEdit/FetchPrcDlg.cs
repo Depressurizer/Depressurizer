@@ -23,9 +23,10 @@ using Rallion;
 namespace Depressurizer {
     class FetchPrcDlg : CancelableDlg {
         public int Added { get; private set; }
+        XmlDocument doc;
 
         public FetchPrcDlg()
-            : base( "Updating Game List" ) {
+            : base( "Updating Game List", false ) {
             SetText( "Downloading game list..." );
             Added = 0;
         }
@@ -33,18 +34,20 @@ namespace Depressurizer {
         protected override void RunProcess() {
             try {
                 Added = 0;
-                XmlDocument d = GameDB.FetchAppList();
-                lock( abortLock ) {
-                    if( !Stopped ) {
-                        DisableAbort();
-                        Added = Program.GameDB.IntegrateAppList( d );
-                        OnJobCompletion();
-                    }
-                }
+                doc = GameDB.FetchAppList();
             } catch( Exception e ) {
                 this.Error = e;
             }
             OnThreadCompletion();
+        }
+
+        protected override void Finish() {
+            SetText( "Finishing download..." );
+
+            if( !this.Canceled && doc != null ) {
+                Added = Program.GameDB.IntegrateAppList( doc );
+                OnJobCompletion();
+            }
         }
     }
 }
