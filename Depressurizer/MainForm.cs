@@ -697,6 +697,12 @@ namespace Depressurizer {
             FillGameList();
         }
 
+        void RemoveEmptyCats() {
+            int count = gameData.RemoveEmptyCategories();
+            AddStatus( string.Format( "Removed {0} empty categories.", count ) );
+            FillCategoryList();
+        }
+
         #endregion
         #region UI Updaters
         #region Status and text updaters
@@ -1091,6 +1097,12 @@ namespace Depressurizer {
             FlushStatus();
         }
 
+        private void menu_Tools_RemoveEmpty_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            RemoveEmptyCats();
+            FlushStatus();
+        }
+
         private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
             Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
             dlg.ShowDialog();
@@ -1109,7 +1121,14 @@ namespace Depressurizer {
         #region Context menus
 
         private void contextCat_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
-            contextCat_Delete.Enabled = contextCat_Rename.Enabled = lstCategories.SelectedItems.Count > 0;
+            bool selectedCat = lstCategories.SelectedItems.Count > 0 && lstCategories.SelectedItem as Category != null;
+            contextCat_Delete.Enabled = contextCat_Rename.Enabled = selectedCat;
+        }
+
+        private void contectCat_RemoveEmpty_Click( object sender, EventArgs e ) {
+            ClearStatus();
+            RemoveEmptyCats();
+            FlushStatus();
         }
 
         private void contextGame_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
@@ -1118,6 +1137,7 @@ namespace Depressurizer {
             contextGame_Remove.Enabled = selectedGames;
             contextGame_SetCat.Enabled = selectedGames;
             contextGame_SetFav.Enabled = selectedGames;
+            contextGame_VisitStore.Enabled = selectedGames;
         }
 
         private void contextGame_SetFav_Yes_Click( object sender, EventArgs e ) {
@@ -1149,6 +1169,10 @@ namespace Depressurizer {
                 AssignCategoryToSelectedGames( c );
                 FlushStatus();
             }
+        }
+
+        private void contextGame_VisitStore_Click( object sender, EventArgs e ) {
+            VisitSelectedGameStorePage();
         }
 
         #endregion
@@ -1388,22 +1412,15 @@ namespace Depressurizer {
 
         #endregion
 
-        private void menu_Tools_RemoveEmpty_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            RemoveEmptyCats();
-            FlushStatus();
-        }
+        void VisitSelectedGameStorePage() {
+            if( lstGames.SelectedIndices.Count > 0 ) {
+                int index = lstGames.SelectedIndices[0];
+                Game g = lstGames.Items[index].Tag as Game;
 
-        void RemoveEmptyCats() {
-            int count = gameData.RemoveEmptyCategories();
-            AddStatus( string.Format( "Removed {0} empty categories.", count ) );
-            FillCategoryList();
-        }
-
-        private void contectCat_RemoveEmpty_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            RemoveEmptyCats();
-            FlushStatus();
+                if( g != null ) {
+                    System.Diagnostics.Process.Start( string.Format( "http://store.steampowered.com/app/{0}/", g.Id ) );
+                }
+            }
         }
     }
 

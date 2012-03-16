@@ -79,6 +79,8 @@ namespace Depressurizer {
             this.contextCat_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Rename = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
             this.tableCatButtons = new System.Windows.Forms.TableLayoutPanel();
             this.cmdCatAdd = new System.Windows.Forms.Button();
             this.cmdCatDelete = new System.Windows.Forms.Button();
@@ -114,8 +116,8 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.contectCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGame_VisitStore = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGame_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -425,7 +427,7 @@ namespace Depressurizer {
             this.contextCat_Rename,
             this.contextCat_Delete,
             this.contextCat_Sep1,
-            this.contectCat_RemoveEmpty});
+            this.contextCat_RemoveEmpty});
             this.contextCat.Name = "contextCat";
             this.contextCat.ShowImageMargin = false;
             this.contextCat.Size = new System.Drawing.Size(189, 120);
@@ -451,6 +453,18 @@ namespace Depressurizer {
             this.contextCat_Delete.Size = new System.Drawing.Size(188, 22);
             this.contextCat_Delete.Text = "Delete Category";
             this.contextCat_Delete.Click += new System.EventHandler(this.cmdCatDelete_Click);
+            // 
+            // contextCat_Sep1
+            // 
+            this.contextCat_Sep1.Name = "contextCat_Sep1";
+            this.contextCat_Sep1.Size = new System.Drawing.Size(185, 6);
+            // 
+            // contectCat_RemoveEmpty
+            // 
+            this.contextCat_RemoveEmpty.Name = "contectCat_RemoveEmpty";
+            this.contextCat_RemoveEmpty.Size = new System.Drawing.Size(188, 22);
+            this.contextCat_RemoveEmpty.Text = "Remove Empty Categories";
+            this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
             // 
             // tableCatButtons
             // 
@@ -674,10 +688,12 @@ namespace Depressurizer {
             this.contextGame_Remove,
             this.contextGame_Sep1,
             this.contextGame_SetCat,
-            this.contextGame_SetFav});
+            this.contextGame_SetFav,
+            this.contextGame_Sep2,
+            this.contextGame_VisitStore});
             this.contextGame.Name = "contextGame";
             this.contextGame.ShowImageMargin = false;
-            this.contextGame.Size = new System.Drawing.Size(142, 120);
+            this.contextGame.Size = new System.Drawing.Size(142, 170);
             this.contextGame.Opening += new System.ComponentModel.CancelEventHandler(this.contextGame_Opening);
             // 
             // contextGame_Add
@@ -720,6 +736,7 @@ namespace Depressurizer {
             this.contextGameCat_None,
             this.contextGameCat_Sep1});
             this.contextGameCat.Name = "contextGameCat";
+            this.contextGameCat.OwnerItem = this.contextGame_SetCat;
             this.contextGameCat.ShowImageMargin = false;
             this.contextGameCat.Size = new System.Drawing.Size(126, 54);
             // 
@@ -798,17 +815,17 @@ namespace Depressurizer {
             this.statusSelection.Size = new System.Drawing.Size(200, 17);
             this.statusSelection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // contextCat_Sep1
+            // contextGame_VisitStore
             // 
-            this.contextCat_Sep1.Name = "contextCat_Sep1";
-            this.contextCat_Sep1.Size = new System.Drawing.Size(185, 6);
+            this.contextGame_VisitStore.Name = "contextGame_VisitStore";
+            this.contextGame_VisitStore.Size = new System.Drawing.Size(141, 22);
+            this.contextGame_VisitStore.Text = "Visit Store Page";
+            this.contextGame_VisitStore.Click += new System.EventHandler(this.contextGame_VisitStore_Click);
             // 
-            // contectCat_RemoveEmpty
+            // contextGame_Sep2
             // 
-            this.contectCat_RemoveEmpty.Name = "contectCat_RemoveEmpty";
-            this.contectCat_RemoveEmpty.Size = new System.Drawing.Size(188, 22);
-            this.contectCat_RemoveEmpty.Text = "Remove Empty Categories";
-            this.contectCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
+            this.contextGame_Sep2.Name = "contextGame_Sep2";
+            this.contextGame_Sep2.Size = new System.Drawing.Size(138, 6);
             // 
             // FormMain
             // 
@@ -921,7 +938,9 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep3;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_RemoveEmpty;
         private System.Windows.Forms.ToolStripSeparator contextCat_Sep1;
-        private System.Windows.Forms.ToolStripMenuItem contectCat_RemoveEmpty;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_RemoveEmpty;
+        private System.Windows.Forms.ToolStripSeparator contextGame_Sep2;
+        private System.Windows.Forms.ToolStripMenuItem contextGame_VisitStore;
     }
 }
 
