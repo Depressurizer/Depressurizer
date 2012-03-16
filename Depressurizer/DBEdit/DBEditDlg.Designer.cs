@@ -452,6 +452,9 @@ namespace Depressurizer {
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(685, 480);
             this.Name = "DBEditDlg";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Database Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DBEditDlg_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);

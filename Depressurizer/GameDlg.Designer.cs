@@ -158,6 +158,7 @@ namespace Depressurizer {
             this.Controls.Add(this.txtId);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "GameDlg";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Game";
             this.Load += new System.EventHandler(this.GameDlg_Load);

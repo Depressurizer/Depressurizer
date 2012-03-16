@@ -148,7 +148,7 @@ namespace Depressurizer {
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
-            // GameDBEntryForm
+            // GameDBEntryDialog
             // 
             this.AcceptButton = this.cmdSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -167,7 +167,8 @@ namespace Depressurizer {
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblId);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "GameDBEntryForm";
+            this.Name = "GameDBEntryDialog";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Game";
             this.Load += new System.EventHandler(this.GameDBEntryForm_Load);

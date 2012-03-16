@@ -50,39 +50,39 @@ namespace Rallion {
             // lblValue
             // 
             this.lblValue.AutoSize = true;
-            this.lblValue.Location = new System.Drawing.Point( 12, 9 );
+            this.lblValue.Location = new System.Drawing.Point(12, 9);
             this.lblValue.Name = "lblValue";
-            this.lblValue.Size = new System.Drawing.Size( 64, 13 );
+            this.lblValue.Size = new System.Drawing.Size(64, 13);
             this.lblValue.TabIndex = 0;
             this.lblValue.Text = "Enter value:";
             // 
             // txtValue
             // 
-            this.txtValue.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.txtValue.Location = new System.Drawing.Point( 12, 25 );
+            this.txtValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtValue.Location = new System.Drawing.Point(12, 25);
             this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size( 258, 20 );
+            this.txtValue.Size = new System.Drawing.Size(258, 20);
             this.txtValue.TabIndex = 1;
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
+            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point( 12, 51 );
+            this.cmdCancel.Location = new System.Drawing.Point(12, 51);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size( 75, 23 );
+            this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 2;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
             // cmdOk
             // 
-            this.cmdOk.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.cmdOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOk.Location = new System.Drawing.Point( 195, 51 );
+            this.cmdOk.Location = new System.Drawing.Point(195, 51);
             this.cmdOk.Name = "cmdOk";
-            this.cmdOk.Size = new System.Drawing.Size( 75, 23 );
+            this.cmdOk.Size = new System.Drawing.Size(75, 23);
             this.cmdOk.TabIndex = 3;
             this.cmdOk.Text = "OK";
             this.cmdOk.UseVisualStyleBackColor = true;
@@ -90,20 +90,21 @@ namespace Rallion {
             // GetStringDlg
             // 
             this.AcceptButton = this.cmdOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size( 282, 86 );
+            this.ClientSize = new System.Drawing.Size(282, 86);
             this.ControlBox = false;
-            this.Controls.Add( this.cmdOk );
-            this.Controls.Add( this.cmdCancel );
-            this.Controls.Add( this.txtValue );
-            this.Controls.Add( this.lblValue );
+            this.Controls.Add(this.cmdOk);
+            this.Controls.Add(this.cmdCancel);
+            this.Controls.Add(this.txtValue);
+            this.Controls.Add(this.lblValue);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "GetStringDlg";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter Value";
-            this.ResumeLayout( false );
+            this.ResumeLayout(false);
             this.PerformLayout();
 
         }
