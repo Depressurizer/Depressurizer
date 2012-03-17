@@ -191,7 +191,7 @@ namespace Depressurizer {
                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( Properties.Resources.SteamStoreURL, id ) );
                 // Cookie bypasses the age gate
                 req.CookieContainer = new CookieContainer( 1 );
-            //    req.CookieContainer.Add( new Cookie( "birthtime", "-2208959999", "/", "store.steampowered.com" ) );
+                req.CookieContainer.Add( new Cookie( "birthtime", "-2208959999", "/", "store.steampowered.com" ) );
 
                 using( WebResponse resp = req.GetResponse() ) {
                     if( resp.ResponseUri.Segments.Length <= 1 ) {
