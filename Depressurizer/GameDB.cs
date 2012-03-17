@@ -85,14 +85,6 @@ namespace Depressurizer {
             }
         }
 
-        public static string TruncateGenre( string fullString ) {
-            int index = fullString.IndexOf( ',' );
-            if( index < 0 ) {
-                return fullString;
-            } else {
-                return fullString.Substring( 0, index );
-            }
-        }
         #endregion
 
         #region Operations
@@ -196,10 +188,10 @@ namespace Depressurizer {
             bool redirect = false;
             string page = "";
             try {
-                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( @"http://store.steampowered.com/app/{0}/", id ) );
+                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( Properties.Resources.SteamStoreURL, id ) );
                 // Cookie bypasses the age gate
                 req.CookieContainer = new CookieContainer( 1 );
-                req.CookieContainer.Add( new Cookie( "birthtime", "0", "/", "store.steampowered.com" ) );
+            //    req.CookieContainer.Add( new Cookie( "birthtime", "-2208959999", "/", "store.steampowered.com" ) );
 
                 using( WebResponse resp = req.GetResponse() ) {
                     if( resp.ResponseUri.Segments.Length <= 1 ) {
@@ -260,6 +252,16 @@ namespace Depressurizer {
 
         private static bool GetDLCFromPage( string page ) {
             return regDLC.IsMatch( page );
+        }
+
+        public static string TruncateGenre( string fullString ) {
+            if( fullString == null ) return null;
+            int index = fullString.IndexOf( ',' );
+            if( index < 0 ) {
+                return fullString;
+            } else {
+                return fullString.Substring( 0, index );
+            }
         }
 
         #endregion

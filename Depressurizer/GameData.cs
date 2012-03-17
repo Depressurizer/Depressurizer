@@ -227,6 +227,7 @@ namespace Depressurizer {
         }
 
         public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            if( doc == null ) return 0;
             int loadedGames = 0;
             XmlNodeList gameNodes = doc.SelectNodes( "/gamesList/games/game" );
             foreach( XmlNode gameNode in gameNodes ) {

@@ -32,19 +32,14 @@ namespace Depressurizer {
         }
 
         protected override void RunProcess() {
-            try {
-                Added = 0;
-                doc = GameDB.FetchAppList();
-            } catch( Exception e ) {
-                this.Error = e;
-            }
+            Added = 0;
+            doc = GameDB.FetchAppList();
             OnThreadCompletion();
         }
 
         protected override void Finish() {
-            SetText( "Finishing download..." );
-
-            if( !this.Canceled && doc != null ) {
+            if( !this.Canceled && doc != null && Error == null ) {
+                SetText( "Finishing download..." );
                 Added = Program.GameDB.IntegrateAppList( doc );
                 OnJobCompletion();
             }

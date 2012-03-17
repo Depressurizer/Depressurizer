@@ -118,7 +118,7 @@ namespace Depressurizer {
 
         void VisitStorePage( GameDBEntry game ) {
             if( game != null ) {
-                System.Diagnostics.Process.Start( string.Format( "http://store.steampowered.com/app/{0}/", game.Id ) );
+                System.Diagnostics.Process.Start( string.Format( Properties.Resources.SteamStoreURL, game.Id ) );
             }
         }
 
@@ -238,8 +238,13 @@ namespace Depressurizer {
 
         private void ScrapeGames( Queue<int> gamesToScrape ) {
             if( gamesToScrape.Count > 0 ) {
-                DbScrapeDlg dlg = new DbScrapeDlg( gamesToScrape, Settings.Instance().FullAutocat );
+                DbScrapeDlg dlg = new DbScrapeDlg( gamesToScrape );
                 DialogResult res = dlg.ShowDialog();
+
+                if( dlg.Error != null ) {
+                    AddStatusMsg( "Error updating games." );
+                    MessageBox.Show( string.Format( "An error occurred while updating games:\n\n{0}", dlg.Error.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                }
 
                 if( res == DialogResult.Cancel ) {
                     AddStatusMsg( "Update canceled." );
@@ -248,8 +253,10 @@ namespace Depressurizer {
                 } else {
                     AddStatusMsg( string.Format( "Updated {0} entries.", dlg.JobsCompleted ) );
                 }
-                UnsavedChanges = true;
-                RefreshGameList();
+                if( dlg.JobsCompleted > 0 ) {
+                    UnsavedChanges = true;
+                    RefreshGameList();
+                }
             } else {
                 AddStatusMsg( "No games to scrape." );
             }

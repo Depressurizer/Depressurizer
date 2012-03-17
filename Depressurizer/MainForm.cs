@@ -165,18 +165,23 @@ namespace Depressurizer {
             UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, name, overwrite, ignore, ignoreDlc );
             DialogResult res = updateDlg.ShowDialog();
 
-            if( res == DialogResult.Abort || res == DialogResult.Cancel ) {
-                AddStatus( "Download aborted." );
+            if( updateDlg.Error != null ) {
+                AddStatus( "Error downloading profile data." );
+                MessageBox.Show( string.Format( "There was an error downloading the profile data: \n\n{0}", updateDlg.Error.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             } else {
-                int loadedGames = updateDlg.Added;
-                if( loadedGames == 0 ) {
-                    MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                    AddStatus( "No games in download." );
+                if( res == DialogResult.Abort || res == DialogResult.Cancel ) {
+                    AddStatus( "Download aborted." );
                 } else {
-                    MakeChange( true );
-                    AddStatus( string.Format( "Downloaded {0} new games.", loadedGames ) );
-                    FillCategoryList();
-                    FillGameList();
+                    int loadedGames = updateDlg.Added;
+                    if( loadedGames == 0 ) {
+                        MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        AddStatus( "No games in download." );
+                    } else {
+                        MakeChange( true );
+                        AddStatus( string.Format( "Downloaded {0} new games.", loadedGames ) );
+                        FillCategoryList();
+                        FillGameList();
+                    }
                 }
             }
         }
@@ -657,15 +662,21 @@ namespace Depressurizer {
             if( notFound.Count > 0 ) {
                 DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
-                    DataScrapeDlg scrapeDlg = new DataScrapeDlg( notFound, gameData );
+                    DataScrapeDlg scrapeDlg = new DataScrapeDlg( notFound, gameData, settings.FullAutocat );
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
                     if( scrapeRes == DialogResult.Cancel ) {
                         AddStatus( string.Format( "Canceled web update.", scrapeDlg.JobsTotal ) );
-                    } else if( scrapeRes == DialogResult.Abort ) {
-                        AddStatus( string.Format( "Updated {0} / {1} via web and aborted.", scrapeDlg.JobsCompleted, scrapeDlg.JobsTotal ) );
                     } else {
-                        AddStatus( string.Format( "Updated {0} via web.", scrapeDlg.JobsCompleted ) );
+                        if( scrapeRes == DialogResult.Abort ) {
+                            AddStatus( string.Format( "Updated {0} / {1} via web and aborted.", scrapeDlg.JobsCompleted, scrapeDlg.JobsTotal ) );
+                        } else {
+                            AddStatus( string.Format( "Updated {0} via web.", scrapeDlg.JobsCompleted ) );
+                        }
+                        if( scrapeDlg.Failures > 0 ) {
+                            MessageBox.Show( string.Format( "Failed to load store pages for {0} games.", scrapeDlg.Failures ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                            AddStatus( string.Format( "Errors occurred on {0} games.", scrapeDlg.Failures ) );
+                        }
                     }
                 }
             }
@@ -1418,7 +1429,7 @@ namespace Depressurizer {
                 Game g = lstGames.Items[index].Tag as Game;
 
                 if( g != null ) {
-                    System.Diagnostics.Process.Start( string.Format( "http://store.steampowered.com/app/{0}/", g.Id ) );
+                    System.Diagnostics.Process.Start( string.Format( Properties.Resources.SteamStoreURL, g.Id ) );
                 }
             }
         }

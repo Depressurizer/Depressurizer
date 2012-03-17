@@ -28,14 +28,10 @@ namespace Depressurizer {
 
         System.DateTime start;
 
-        bool fullGenre;
-
-        public DbScrapeDlg( Queue<int> jobs, bool fullGenre )
+        public DbScrapeDlg( Queue<int> jobs )
             : base( "Scraping game info", true ) {
             this.jobs = jobs;
             this.totalJobs = jobs.Count;
-
-            this.fullGenre = fullGenre;
 
             results = new List<GameDBEntry>();
         }
@@ -79,7 +75,7 @@ namespace Depressurizer {
 
             GameDBEntry newGame = new GameDBEntry();
             newGame.Id = id;
-            newGame.Genre = fullGenre ? genre : GameDB.TruncateGenre( genre );
+            newGame.Genre = genre;
             newGame.Type = type;
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
@@ -97,12 +93,16 @@ namespace Depressurizer {
 
         protected override void Finish() {
             if( !Canceled ) {
-                SetText( "Applying data...");
+                SetText( "Applying data..." );
 
-                foreach( GameDBEntry g in results ) {
-                    GameDBEntry current = Program.GameDB.Games[g.Id];
-                    current.Genre = g.Genre;
-                    current.Type = g.Type;
+                if( results != null ) {
+                    foreach( GameDBEntry g in results ) {
+                        if( Program.GameDB.Contains( g.Id ) ) {
+                            GameDBEntry current = Program.GameDB.Games[g.Id];
+                            current.Genre = g.Genre;
+                            current.Type = g.Type;
+                        }
+                    }
                 }
             }
         }

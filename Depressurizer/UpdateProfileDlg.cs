@@ -48,19 +48,14 @@ namespace Depressurizer {
         }
 
         protected override void RunProcess() {
-            try {
-                Added = 0;
-                doc = GameData.FetchGameList( profileName );
-            } catch( Exception e ) {
-                this.Error = e;
-            }
+            Added = 0;
+            doc = GameData.FetchGameList( profileName );
             OnThreadCompletion();
         }
 
         protected override void Finish() {
-            if( !Canceled ) {
+            if( !Canceled && Error == null && doc != null ) {
                 SetText( "Finishing download..." );
-
                 Added = data.IntegrateXmlGameList( doc, overwrite, ignore, ignoreDlc );
                 OnJobCompletion();
             }

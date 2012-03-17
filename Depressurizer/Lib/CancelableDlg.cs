@@ -87,7 +87,11 @@ namespace Rallion {
             try {
                 RunProcess();
             } catch( Exception e ) {
-                Error = e;
+                lock( abortLock ) {
+                    Stopped = true;
+                    Error = e;
+                }
+                Invoke( new SimpleDelegate( Close ) );
             }
         }
         #endregion

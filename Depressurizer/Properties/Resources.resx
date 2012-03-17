@@ -123,4 +123,7 @@
   <data name="ProfileURL" xml:space="preserve">
     <value>http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1</value>
   </data>
+  <data name="SteamStoreURL" xml:space="preserve">
+    <value>http://store.steampowered.com/app/{0}/</value>
+  </data>
 </root>

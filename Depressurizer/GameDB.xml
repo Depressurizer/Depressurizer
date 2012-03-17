@@ -32857,4 +32857,823 @@
     <name>ValveTestApp208140</name>
     <type>NotFound</type>
   </game>
+  <game>
+    <id>480</id>
+    <name>Spacewar</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>6130</id>
+    <name>Shank Demo</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>7430</id>
+    <name>Wik Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>7790</id>
+    <name>NBA 2K9 Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>8670</id>
+    <name>RACE 07 Demo - Crowne Plaza Raceway edition</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>10640</id>
+    <name>Empire: Total War Naval Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>11600</id>
+    <name>Counter-Strike Online</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>15060</id>
+    <name>Rayman 2 - The Great Escape</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>16140</id>
+    <name>Virtual Villagers: A New Home Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>16150</id>
+    <name>Virtual Villagers 2: The Lost Children Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>17535</id>
+    <name>D.I.P.R.I.P. Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>18310</id>
+    <name>Spectraball - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie</genre>
+  </game>
+  <game>
+    <id>19320</id>
+    <name>Space Ark</name>
+    <type>Game</type>
+    <genre>Action, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>19330</id>
+    <name>Space Ark - Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>21020</id>
+    <name>Watchmen: The End Is Nigh Demo</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>21040</id>
+    <name>Watchmen: The End Is Nigh Part 2 Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>21216</id>
+    <name>Gotham City Impostors Unlock: Premium Card Pack 3</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>23160</id>
+    <name>Mole Control - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Adventure, Casual, Indie</genre>
+  </game>
+  <game>
+    <id>23170</id>
+    <name>KrissX - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie</genre>
+  </game>
+  <game>
+    <id>23180</id>
+    <name>Fluttabyes - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie</genre>
+  </game>
+  <game>
+    <id>23320</id>
+    <name>Yosumin! Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual</genre>
+  </game>
+  <game>
+    <id>24920</id>
+    <name>Dragon Age: Origins Character Creator</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>26810</id>
+    <name>Braid Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>26910</id>
+    <name>Crayon Physics Deluxe Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Casual</genre>
+  </game>
+  <game>
+    <id>27040</id>
+    <name>The Path - Prologue</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Adventure</genre>
+  </game>
+  <game>
+    <id>27930</id>
+    <name>Booster Trooper Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>29200</id>
+    <name>Osmos Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie, Family</genre>
+  </game>
+  <game>
+    <id>31950</id>
+    <name>Nancy Drew: The Creature of Kapu Cave Demo</name>
+    <type>IdRedirect</type>
+    <genre>Family, Adventure</genre>
+  </game>
+  <game>
+    <id>31970</id>
+    <name>Nancy Drew: The White Wolf of Icicle Creek Demo</name>
+    <type>IdRedirect</type>
+    <genre>Family, Adventure</genre>
+  </game>
+  <game>
+    <id>32010</id>
+    <name>Raycatcher Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie</genre>
+  </game>
+  <game>
+    <id>33400</id>
+    <name>Zeit² Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>33970</id>
+    <name>ARMA 2: Operation Arrowhead Demo</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>34050</id>
+    <name>Napoleon: Total War Demo</name>
+    <type>Game</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>34660</id>
+    <name>Massive Assault Network 2 - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>36710</id>
+    <name>The Scourge Project: Episode 1 and 2 Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Action</genre>
+  </game>
+  <game>
+    <id>36920</id>
+    <name>All Aspects of Warfare - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>36930</id>
+    <name>Angle of Attack - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>37810</id>
+    <name>QuantZ Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie</genre>
+  </game>
+  <game>
+    <id>38750</id>
+    <name>EDGE Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>40006</id>
+    <name>Fallen Earth F2P Trash the Hermit Crab Code</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>41015</id>
+    <name>Serious Sam HD: The Second Encounter Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>41760</id>
+    <name>Cargo! - The quest for gravity Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>41810</id>
+    <name>Gratuitous Space Battles - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>42510</id>
+    <name>Dogfighter Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>42750</id>
+    <name>Call of Duty: Modern Warfare 3 - Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>43210</id>
+    <name>The Haunted: Hells Reach Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>44300</id>
+    <name>DiRT 2 - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Racing</genre>
+  </game>
+  <game>
+    <id>46610</id>
+    <name>Swarm Arena Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Casual, Indie</genre>
+  </game>
+  <game>
+    <id>48010</id>
+    <name>LIMBO Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Adventure</genre>
+  </game>
+  <game>
+    <id>48280</id>
+    <name>Might and Magic Heroes VI Demo</name>
+    <type>IdRedirect</type>
+    <genre>RPG, Strategy</genre>
+  </game>
+  <game>
+    <id>49460</id>
+    <name>Magic: The Gathering - Duels of the Planeswalkers Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>50669</id>
+    <name>Darksiders II</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>55010</id>
+    <name>Flotilla Demo</name>
+    <type>IdRedirect</type>
+    <genre>Adventure, Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>55050</id>
+    <name>Atom Zombie Smasher Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>55370</id>
+    <name>Saints Row: The Third - Initiation Station</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>57310</id>
+    <name>Amnesia: The Dark Descent Demo </name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure, Indie</genre>
+  </game>
+  <game>
+    <id>57610</id>
+    <name>Disciples III: Renaissance - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>57630</id>
+    <name>Patrician IV - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>58410</id>
+    <name>Turba Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie</genre>
+  </game>
+  <game>
+    <id>63220</id>
+    <name>Monday Night Combat Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>65760</id>
+    <name>Pound of Ground Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>72780</id>
+    <name>Brink Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>73060</id>
+    <name>Defenders of Ardania</name>
+    <type>Game</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>81472</id>
+    <name>Stacking Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81473</id>
+    <name>Stacking PC Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81474</id>
+    <name>Fowl Space Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81475</id>
+    <name>Cubemen Trailer 3</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81478</id>
+    <name>Rayman Origins Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81479</id>
+    <name>All Zombies Must Die Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81480</id>
+    <name>Nexuiz Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81485</id>
+    <name>DCUO Battle for Earth Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>90110</id>
+    <name>Hegemony: Philip of Macedon - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>90520</id>
+    <name>Guardians Of Graxia Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>90810</id>
+    <name>Crasher Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>91110</id>
+    <name>SkyDrift Demo</name>
+    <type>IdRedirect</type>
+    <genre>Racing, Indie</genre>
+  </game>
+  <game>
+    <id>91830</id>
+    <name>Ancients of Ooga - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie</genre>
+  </game>
+  <game>
+    <id>95310</id>
+    <name>Capsized - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>95510</id>
+    <name>Your Doodles Are Bugged! - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Indie</genre>
+  </game>
+  <game>
+    <id>98220</id>
+    <name>Frozen Synapse - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>99920</id>
+    <name>Spiral Knights Preview</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>104300</id>
+    <name>Dwarfs Demo</name>
+    <type>IdRedirect</type>
+    <genre>Family, Strategy, Casual, Indie</genre>
+  </game>
+  <game>
+    <id>107210</id>
+    <name>Space Pirates and Zombies Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>107400</id>
+    <name>ARMA 2: Free</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>111030</id>
+    <name>The Clockwork Man: The Hidden World Demo</name>
+    <type>IdRedirect</type>
+    <genre>Adventure, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>111610</id>
+    <name>Serious Sam Double D Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>111710</id>
+    <name>Nuclear Dawn - Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>113420</id>
+    <name>Fallen Earth</name>
+    <type>Game</type>
+    <genre>Free to Play, RPG, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>115110</id>
+    <name>Stacking</name>
+    <type>Game</type>
+    <genre>Adventure, Indie</genre>
+  </game>
+  <game>
+    <id>200030</id>
+    <name>Hard Reset - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Action</genre>
+  </game>
+  <game>
+    <id>200400</id>
+    <name>Wasteland Angel - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>200570</id>
+    <name>Blocks That Matter Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Casual</genre>
+  </game>
+  <game>
+    <id>201170</id>
+    <name>Astro Tripper Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>201680</id>
+    <name>Dungeon Defenders Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>202390</id>
+    <name>Vessel Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Action, Strategy</genre>
+  </game>
+  <game>
+    <id>203249</id>
+    <name>Risen 2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203530</id>
+    <name>Fortune Summoners Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>203670</id>
+    <name>Defenders of Ardania Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>204140</id>
+    <name>All Zombies Must Die!</name>
+    <type>Game</type>
+    <genre>Action, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>204410</id>
+    <name>The Darkness II Demo</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>204680</id>
+    <name>Shank 2 Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure, Indie</genre>
+  </game>
+  <game>
+    <id>204880</id>
+    <name>Sins of a Solar Empire: Rebellion Beta</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205790</id>
+    <name>Dota 2 Test</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206290</id>
+    <name>Unstoppable Gorg Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>206310</id>
+    <name>Crusader Kings II Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206743</id>
+    <name>WWTBAM_DLC_Startrek</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206744</id>
+    <name>WWTBAM_DLC_Southpark</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206747</id>
+    <name>WWTBAM_DLC_Movies</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206748</id>
+    <name>WWTBAM_DLC_Sport</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206749</id>
+    <name>WWTBAM_DLC_Trivia</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207060</id>
+    <name>MLB 2K12</name>
+    <type>Game</type>
+    <genre>Sports</genre>
+  </game>
+  <game>
+    <id>207250</id>
+    <name>Cubemen</name>
+    <type>Game</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>207420</id>
+    <name>Wizorb</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Indie</genre>
+  </game>
+  <game>
+    <id>207790</id>
+    <name>Jane's Advanced Strike Fighters</name>
+    <type>Game</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>208540</id>
+    <name>Dungeon Defenders Lucky Community Costume Pack</name>
+    <type>DLC</type>
+    <genre>Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>208610</id>
+    <name>ValveTestApp208610</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208620</id>
+    <name>ValveTestApp208620</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208630</id>
+    <name>ValveTestApp208630</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208640</id>
+    <name>ValveTestApp208640</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208650</id>
+    <name>ValveTestApp208650</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208690</id>
+    <name>ValveTestApp208690</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208750</id>
+    <name>ValveTestApp208750</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>58645</id>
+    <name>ValveTestApp58645</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208770</id>
+    <name>ValveTestApp208770</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208790</id>
+    <name>ValveTestApp208790</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208810</id>
+    <name>ValveTestApp208810</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208860</id>
+    <name>ValveTestApp208860</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>65733</id>
+    <name>Take On Helicopters Hinds</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205859</id>
+    <name>Yesterday Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208850</id>
+    <name>ValveTestApp208850</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208910</id>
+    <name>ValveTestApp208910</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208911</id>
+    <name>ValveTestApp208911</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208930</id>
+    <name>ValveTestApp208930</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208980</id>
+    <name>ValveTestApp208980</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208981</id>
+    <name>ValveTestApp208981</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208982</id>
+    <name>ValveTestApp208982</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209000</id>
+    <name>ValveTestApp209000</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81476</id>
+    <name>City of Heroes Freedom Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81477</id>
+    <name>City of Heroes Freedom F2P Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81481</id>
+    <name>Myst V Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81482</id>
+    <name>Assassins Creed III Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81484</id>
+    <name>Total War Shogun 2 Samurai Reveal</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81486</id>
+    <name>Hegemony Gold Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81487</id>
+    <name>Dungeon Defenders Quest for the Lost Eternia Shards Part 2 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>207115</id>
+    <name>ValveTestApp207115</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209020</id>
+    <name>ValveTestApp209020</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209040</id>
+    <name>ValveTestApp209040</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209060</id>
+    <name>ValveTestApp209060</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209080</id>
+    <name>ValveTestApp209080</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>65254</id>
+    <name>Railworks 3 E18 Passenger Add-On</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>65255</id>
+    <name>Railworks 3 Settle to Carlisle</name>
+    <type>NotFound</type>
+  </game>
 </gamelist>

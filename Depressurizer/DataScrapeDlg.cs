@@ -28,14 +28,20 @@ namespace Depressurizer {
 
         System.DateTime start;
 
+        bool fullGenre;
+
+        public int Failures { get; private set; }
+
         Dictionary<int, string> scrapeResults;
 
-        public DataScrapeDlg( Queue<int> jobs, GameData data )
+        public DataScrapeDlg( Queue<int> jobs, GameData data, bool fullGenre )
             : base( "Scraping game info", true ) {
             scrapeResults = new Dictionary<int, string>();
             this.data = data;
             this.jobs = jobs;
             this.totalJobs = jobs.Count;
+
+            this.fullGenre = fullGenre;
         }
 
         protected override void UpdateForm_Load( object sender, EventArgs e ) {
@@ -60,6 +66,8 @@ namespace Depressurizer {
         }
 
         protected override void RunProcess() {
+            Failures = 0;
+
             bool stillRunning = true;
             while( !Stopped && stillRunning ) {
                 stillRunning = RunNextJob();
@@ -80,6 +88,10 @@ namespace Depressurizer {
 
             string genre = null;
             AppType type = GameDB.ScrapeStore( game.Id, out genre );
+            if( type == AppType.WebError ) {
+                Failures++;
+            }
+            if( !fullGenre ) genre = GameDB.TruncateGenre( genre );
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
@@ -98,8 +110,10 @@ namespace Depressurizer {
             if( !this.Canceled ) {
                 SetText( "Finishing up..." );
 
-                foreach( KeyValuePair<int, string> pair in scrapeResults ) {
-                    data.Games[pair.Key].Category = data.GetCategory( pair.Value );
+                if( scrapeResults != null ) {
+                    foreach( KeyValuePair<int, string> pair in scrapeResults ) {
+                        data.Games[pair.Key].Category = data.GetCategory( pair.Value );
+                    }
                 }
             }
         }
