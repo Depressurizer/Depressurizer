@@ -42,6 +42,7 @@ namespace Depressurizer {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menu_File = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_NewProfile = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,11 +114,11 @@ namespace Depressurizer {
             this.contextGameFav = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGameFav_Yes = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGameFav_No = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGame_Sep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextGame_VisitStore = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contextGame_VisitStore = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextGame_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -430,7 +431,7 @@ namespace Depressurizer {
             this.contextCat_RemoveEmpty});
             this.contextCat.Name = "contextCat";
             this.contextCat.ShowImageMargin = false;
-            this.contextCat.Size = new System.Drawing.Size(189, 120);
+            this.contextCat.Size = new System.Drawing.Size(189, 98);
             this.contextCat.Opening += new System.ComponentModel.CancelEventHandler(this.contextCat_Opening);
             // 
             // contextCat_Add
@@ -459,9 +460,9 @@ namespace Depressurizer {
             this.contextCat_Sep1.Name = "contextCat_Sep1";
             this.contextCat_Sep1.Size = new System.Drawing.Size(185, 6);
             // 
-            // contectCat_RemoveEmpty
+            // contextCat_RemoveEmpty
             // 
-            this.contextCat_RemoveEmpty.Name = "contectCat_RemoveEmpty";
+            this.contextCat_RemoveEmpty.Name = "contextCat_RemoveEmpty";
             this.contextCat_RemoveEmpty.Size = new System.Drawing.Size(188, 22);
             this.contextCat_RemoveEmpty.Text = "Remove Empty Categories";
             this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
@@ -693,7 +694,7 @@ namespace Depressurizer {
             this.contextGame_VisitStore});
             this.contextGame.Name = "contextGame";
             this.contextGame.ShowImageMargin = false;
-            this.contextGame.Size = new System.Drawing.Size(142, 170);
+            this.contextGame.Size = new System.Drawing.Size(142, 148);
             this.contextGame.Opening += new System.ComponentModel.CancelEventHandler(this.contextGame_Opening);
             // 
             // contextGame_Add
@@ -772,6 +773,7 @@ namespace Depressurizer {
             this.contextGameFav_Yes,
             this.contextGameFav_No});
             this.contextGameFav.Name = "contextGameFav";
+            this.contextGameFav.OwnerItem = this.contextGame_SetFav;
             this.contextGameFav.ShowImageMargin = false;
             this.contextGameFav.Size = new System.Drawing.Size(68, 48);
             // 
@@ -788,6 +790,18 @@ namespace Depressurizer {
             this.contextGameFav_No.Size = new System.Drawing.Size(67, 22);
             this.contextGameFav_No.Text = "No";
             this.contextGameFav_No.Click += new System.EventHandler(this.contextGame_SetFav_No_Click);
+            // 
+            // contextGame_Sep2
+            // 
+            this.contextGame_Sep2.Name = "contextGame_Sep2";
+            this.contextGame_Sep2.Size = new System.Drawing.Size(138, 6);
+            // 
+            // contextGame_VisitStore
+            // 
+            this.contextGame_VisitStore.Name = "contextGame_VisitStore";
+            this.contextGame_VisitStore.Size = new System.Drawing.Size(141, 22);
+            this.contextGame_VisitStore.Text = "Visit Store Page";
+            this.contextGame_VisitStore.Click += new System.EventHandler(this.contextGame_VisitStore_Click);
             // 
             // statusStrip
             // 
@@ -815,18 +829,6 @@ namespace Depressurizer {
             this.statusSelection.Size = new System.Drawing.Size(200, 17);
             this.statusSelection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // contextGame_VisitStore
-            // 
-            this.contextGame_VisitStore.Name = "contextGame_VisitStore";
-            this.contextGame_VisitStore.Size = new System.Drawing.Size(141, 22);
-            this.contextGame_VisitStore.Text = "Visit Store Page";
-            this.contextGame_VisitStore.Click += new System.EventHandler(this.contextGame_VisitStore_Click);
-            // 
-            // contextGame_Sep2
-            // 
-            this.contextGame_Sep2.Name = "contextGame_Sep2";
-            this.contextGame_Sep2.Size = new System.Drawing.Size(138, 6);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -835,10 +837,10 @@ namespace Depressurizer {
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(550, 250);
             this.Name = "FormMain";
-            this.ShowIcon = false;
             this.Text = "Depressurizer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
