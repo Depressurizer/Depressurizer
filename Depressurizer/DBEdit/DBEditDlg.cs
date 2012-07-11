@@ -325,7 +325,7 @@ namespace Depressurizer {
                 ( g.Type == AppType.IdRedirect && chkRedirect.Checked ) ||
                 ( g.Type == AppType.NonApp && chkNonApp.Checked ) ||
                 ( g.Type == AppType.NotFound && chkNotFound.Checked ) ||
-                ( g.Type == AppType.Unknown && chkNew.Checked ) ||
+                ( g.Type == AppType.Unknown && chkUnknown.Checked ) ||
                 ( g.Type == AppType.New && chkNew.Checked );
         }
 

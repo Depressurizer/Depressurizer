@@ -168,6 +168,7 @@ namespace Depressurizer {
             this.colType});
             this.lstGames.FullRowSelect = true;
             this.lstGames.GridLines = true;
+            this.lstGames.HideSelection = false;
             this.lstGames.Location = new System.Drawing.Point(12, 27);
             this.lstGames.Name = "lstGames";
             this.lstGames.Size = new System.Drawing.Size(525, 390);
