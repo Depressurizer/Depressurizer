@@ -107,15 +107,17 @@ namespace Depressurizer {
             foreach( XmlNode node in doc.SelectNodes( "/applist/apps/app" ) ) {
                 int appId;
                 if( XmlUtil.TryGetIntFromNode( node["appid"], out appId ) ) {
+                    string gameName = XmlUtil.GetStringFromNode( node["name"], null );
                     if( Games.ContainsKey( appId ) ) {
                         GameDBEntry g = Games[appId];
-                        if( string.IsNullOrEmpty( g.Name ) ) {
-                            g.Name = XmlUtil.GetStringFromNode( node["name"], null );
+                        if( string.IsNullOrEmpty( g.Name ) || g.Name != gameName ) {
+                            g.Name = gameName;
+                            g.Type = AppType.New;
                         }
                     } else {
                         GameDBEntry g = new GameDBEntry();
                         g.Id = appId;
-                        g.Name = XmlUtil.GetStringFromNode( node["name"], null );
+                        g.Name = gameName;
                         Games.Add( appId, g );
                         added++;
                     }
@@ -183,10 +185,14 @@ namespace Depressurizer {
         private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
         private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
-        public static AppType ScrapeStore( int id, out string genre ) {
+        public static AppType ScrapeStore( int id, out string genre, bool alreadyRedirected = false ) {
             genre = null;
-            bool redirect = false;
+            bool redirect = alreadyRedirected;
             string page = "";
+
+            AppType resType = AppType.New;
+            int redirectTarget = 0;
+
             try {
                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( Properties.Resources.SteamStoreURL, id ) );
                 // Cookie bypasses the age gate
@@ -197,6 +203,21 @@ namespace Depressurizer {
                     if( resp.ResponseUri.Segments.Length <= 1 ) {
                         // Redirected to the store front page
                         return AppType.NotFound;
+                    } else if( resp.ResponseUri.Segments.Length >= 2 && resp.ResponseUri.Segments[1] == "agecheck/" ) {
+                        if( !alreadyRedirected && resp.ResponseUri.Segments.Length >= 4 && !resp.ResponseUri.Segments[3].StartsWith( id.ToString() ) ) {
+                            // So we got an age check that didn't match
+                            int newId;
+                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out newId ) ) {
+                                resp.Close();
+                                return ScrapeStore( newId, out genre, true );
+                            } else {
+                            // Age check with no numeric id?
+                                return AppType.Unknown;
+                            }
+                        } else {
+                            // Age check with no redirect?
+                            return AppType.Unknown;
+                        }
                     } else if( resp.ResponseUri.Segments.Length < 2 || resp.ResponseUri.Segments[1] != "app/" ) {
                         // Redirected outside of the app path
                         return AppType.NonApp;
@@ -211,6 +232,8 @@ namespace Depressurizer {
                 // Something went wrong with the download.
                 return AppType.WebError;
             }
+
+
 
             if( page.Contains( "<title>Site Error</title>" ) ) {
                 return AppType.SiteError;
