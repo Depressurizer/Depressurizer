@@ -326,7 +326,8 @@ namespace Depressurizer {
                 ( g.Type == AppType.NonApp && chkNonApp.Checked ) ||
                 ( g.Type == AppType.NotFound && chkNotFound.Checked ) ||
                 ( g.Type == AppType.Unknown && chkUnknown.Checked ) ||
-                ( g.Type == AppType.New && chkNew.Checked );
+                ( g.Type == AppType.New && chkNew.Checked ) ||
+                ( g.Type == AppType.AgeGated && chkAgeGate.Checked );
         }
 
         void UpdateForSelectChange() {
@@ -473,7 +474,7 @@ namespace Depressurizer {
                 filterSuspend = true;
                 if( chkAll.Checked ) {
                     chkDLC.Checked = chkSiteError.Checked = chkWebError.Checked = chkGame.Checked = chkNonApp.Checked
-                        = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = chkUnknown.Checked = false;
+                        = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = chkUnknown.Checked = chkAgeGate.Checked = false;
                 }
                 filterSuspend = false;
                 RefreshGameList();

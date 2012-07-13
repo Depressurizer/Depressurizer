@@ -76,6 +76,7 @@ namespace Depressurizer {
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statSelected = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chkAgeGate = new System.Windows.Forms.CheckBox();
             this.mainMenu.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -171,7 +172,7 @@ namespace Depressurizer {
             this.lstGames.HideSelection = false;
             this.lstGames.Location = new System.Drawing.Point(12, 27);
             this.lstGames.Name = "lstGames";
-            this.lstGames.Size = new System.Drawing.Size(525, 390);
+            this.lstGames.Size = new System.Drawing.Size(525, 405);
             this.lstGames.TabIndex = 0;
             this.lstGames.UseCompatibleStateImageBehavior = false;
             this.lstGames.View = System.Windows.Forms.View.Details;
@@ -214,7 +215,7 @@ namespace Depressurizer {
             // cmdUpdateUnchecked
             // 
             this.cmdUpdateUnchecked.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdateUnchecked.Location = new System.Drawing.Point(543, 391);
+            this.cmdUpdateUnchecked.Location = new System.Drawing.Point(543, 406);
             this.cmdUpdateUnchecked.Name = "cmdUpdateUnchecked";
             this.cmdUpdateUnchecked.Size = new System.Drawing.Size(114, 23);
             this.cmdUpdateUnchecked.TabIndex = 8;
@@ -225,7 +226,7 @@ namespace Depressurizer {
             // cmdUpdateSelected
             // 
             this.cmdUpdateSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUpdateSelected.Location = new System.Drawing.Point(543, 367);
+            this.cmdUpdateSelected.Location = new System.Drawing.Point(543, 382);
             this.cmdUpdateSelected.Name = "cmdUpdateSelected";
             this.cmdUpdateSelected.Size = new System.Drawing.Size(114, 23);
             this.cmdUpdateSelected.TabIndex = 7;
@@ -236,7 +237,7 @@ namespace Depressurizer {
             // cmdEditGame
             // 
             this.cmdEditGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEditGame.Location = new System.Drawing.Point(543, 334);
+            this.cmdEditGame.Location = new System.Drawing.Point(543, 350);
             this.cmdEditGame.Name = "cmdEditGame";
             this.cmdEditGame.Size = new System.Drawing.Size(114, 23);
             this.cmdEditGame.TabIndex = 6;
@@ -247,7 +248,7 @@ namespace Depressurizer {
             // cmdDeleteGame
             // 
             this.cmdDeleteGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDeleteGame.Location = new System.Drawing.Point(543, 310);
+            this.cmdDeleteGame.Location = new System.Drawing.Point(543, 326);
             this.cmdDeleteGame.Name = "cmdDeleteGame";
             this.cmdDeleteGame.Size = new System.Drawing.Size(114, 23);
             this.cmdDeleteGame.TabIndex = 5;
@@ -258,7 +259,7 @@ namespace Depressurizer {
             // cmdAddGame
             // 
             this.cmdAddGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAddGame.Location = new System.Drawing.Point(543, 286);
+            this.cmdAddGame.Location = new System.Drawing.Point(543, 302);
             this.cmdAddGame.Name = "cmdAddGame";
             this.cmdAddGame.Size = new System.Drawing.Size(114, 23);
             this.cmdAddGame.TabIndex = 4;
@@ -269,6 +270,7 @@ namespace Depressurizer {
             // grpFilter
             // 
             this.grpFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpFilter.Controls.Add(this.chkAgeGate);
             this.grpFilter.Controls.Add(this.chkUnknown);
             this.grpFilter.Controls.Add(this.chkWebError);
             this.grpFilter.Controls.Add(this.chkNonApp);
@@ -281,7 +283,7 @@ namespace Depressurizer {
             this.grpFilter.Controls.Add(this.chkAll);
             this.grpFilter.Location = new System.Drawing.Point(547, 56);
             this.grpFilter.Name = "grpFilter";
-            this.grpFilter.Size = new System.Drawing.Size(110, 193);
+            this.grpFilter.Size = new System.Drawing.Size(110, 209);
             this.grpFilter.TabIndex = 2;
             this.grpFilter.TabStop = false;
             this.grpFilter.Text = "Filter";
@@ -289,7 +291,7 @@ namespace Depressurizer {
             // chkUnknown
             // 
             this.chkUnknown.AutoSize = true;
-            this.chkUnknown.Location = new System.Drawing.Point(6, 172);
+            this.chkUnknown.Location = new System.Drawing.Point(6, 189);
             this.chkUnknown.Name = "chkUnknown";
             this.chkUnknown.Size = new System.Drawing.Size(72, 17);
             this.chkUnknown.TabIndex = 9;
@@ -300,7 +302,7 @@ namespace Depressurizer {
             // chkWebError
             // 
             this.chkWebError.AutoSize = true;
-            this.chkWebError.Location = new System.Drawing.Point(6, 155);
+            this.chkWebError.Location = new System.Drawing.Point(6, 172);
             this.chkWebError.Name = "chkWebError";
             this.chkWebError.Size = new System.Drawing.Size(71, 17);
             this.chkWebError.TabIndex = 8;
@@ -366,7 +368,7 @@ namespace Depressurizer {
             // chkSiteError
             // 
             this.chkSiteError.AutoSize = true;
-            this.chkSiteError.Location = new System.Drawing.Point(6, 138);
+            this.chkSiteError.Location = new System.Drawing.Point(6, 155);
             this.chkSiteError.Name = "chkSiteError";
             this.chkSiteError.Size = new System.Drawing.Size(66, 17);
             this.chkSiteError.TabIndex = 7;
@@ -401,7 +403,7 @@ namespace Depressurizer {
             // cmdStore
             // 
             this.cmdStore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdStore.Location = new System.Drawing.Point(543, 255);
+            this.cmdStore.Location = new System.Drawing.Point(543, 271);
             this.cmdStore.Name = "cmdStore";
             this.cmdStore.Size = new System.Drawing.Size(114, 23);
             this.cmdStore.TabIndex = 3;
@@ -414,7 +416,7 @@ namespace Depressurizer {
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusMsg,
             this.statSelected});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 420);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 435);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(669, 22);
             this.statusStrip1.TabIndex = 11;
@@ -433,11 +435,22 @@ namespace Depressurizer {
             this.statSelected.Size = new System.Drawing.Size(0, 17);
             this.statSelected.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // chkAgeGate
+            // 
+            this.chkAgeGate.AutoSize = true;
+            this.chkAgeGate.Location = new System.Drawing.Point(6, 138);
+            this.chkAgeGate.Name = "chkAgeGate";
+            this.chkAgeGate.Size = new System.Drawing.Size(68, 17);
+            this.chkAgeGate.TabIndex = 10;
+            this.chkAgeGate.Text = "AgeGate";
+            this.chkAgeGate.UseVisualStyleBackColor = true;
+            this.chkAgeGate.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            // 
             // DBEditDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 442);
+            this.ClientSize = new System.Drawing.Size(669, 457);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cmdStore);
             this.Controls.Add(this.grpFilter);
@@ -451,7 +464,7 @@ namespace Depressurizer {
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(685, 480);
+            this.MinimumSize = new System.Drawing.Size(685, 495);
             this.Name = "DBEditDlg";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -507,6 +520,7 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkWebError;
         private System.Windows.Forms.ToolStripStatusLabel statusMsg;
         private System.Windows.Forms.ToolStripMenuItem menu_File_SaveAs;
+        private System.Windows.Forms.CheckBox chkAgeGate;
     }
 }
 

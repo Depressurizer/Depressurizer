@@ -32,6 +32,7 @@ namespace Depressurizer {
         IdRedirect,
         NonApp,
         NotFound,
+        AgeGated,
         SiteError,
         WebError,
         Unknown
@@ -185,13 +186,13 @@ namespace Depressurizer {
         private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
         private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
-        public static AppType ScrapeStore( int id, out string genre, bool alreadyRedirected = false ) {
+        public static AppType ScrapeStore( int id, out string genre, int redirectCount = 0 ) {
             genre = null;
-            bool redirect = alreadyRedirected;
+            bool redirect = (redirectCount > 0);
             string page = "";
 
-            AppType resType = AppType.New;
             int redirectTarget = 0;
+            bool needsRedirect = false;
 
             try {
                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( Properties.Resources.SteamStoreURL, id ) );
@@ -204,19 +205,17 @@ namespace Depressurizer {
                         // Redirected to the store front page
                         return AppType.NotFound;
                     } else if( resp.ResponseUri.Segments.Length >= 2 && resp.ResponseUri.Segments[1] == "agecheck/" ) {
-                        if( !alreadyRedirected && resp.ResponseUri.Segments.Length >= 4 && !resp.ResponseUri.Segments[3].StartsWith( id.ToString() ) ) {
-                            // So we got an age check that didn't match
-                            int newId;
-                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out newId ) ) {
-                                resp.Close();
-                                return ScrapeStore( newId, out genre, true );
+                        if( redirectCount <= 3 && resp.ResponseUri.Segments.Length >= 4 && !resp.ResponseUri.Segments[3].StartsWith( id.ToString() ) ) {
+                            // We got an age check for a different ID than we requested
+                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out redirectTarget ) ) {
+                                needsRedirect = true;
                             } else {
-                            // Age check with no numeric id?
-                                return AppType.Unknown;
+                            // Age check without numeric id
+                                return AppType.AgeGated;
                             }
                         } else {
-                            // Age check with no redirect?
-                            return AppType.Unknown;
+                            // Age check with no redirect
+                            return AppType.AgeGated;
                         }
                     } else if( resp.ResponseUri.Segments.Length < 2 || resp.ResponseUri.Segments[1] != "app/" ) {
                         // Redirected outside of the app path
@@ -225,15 +224,20 @@ namespace Depressurizer {
                         // Redirected to a different app id, but we still want to check the genre
                         redirect = true;
                     }
-                    StreamReader sr = new StreamReader( resp.GetResponseStream() );
-                    page = sr.ReadToEnd();
+
+                    if( !needsRedirect ) {
+                        StreamReader sr = new StreamReader( resp.GetResponseStream() );
+                        page = sr.ReadToEnd();
+                    }
                 }
             } catch {
                 // Something went wrong with the download.
                 return AppType.WebError;
             }
 
-
+            if( needsRedirect ) {
+                return ScrapeStore( redirectTarget, out genre, redirectCount + 1 );
+            }
 
             if( page.Contains( "<title>Site Error</title>" ) ) {
                 return AppType.SiteError;
