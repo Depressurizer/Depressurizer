@@ -487,17 +487,20 @@
   <game>
     <id>919</id>
     <name>Dark Messiah: Warrior</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>920</id>
     <name>Dark Messiah: Assassin</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>921</id>
     <name>Dark Messiah: Wizard</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>922</id>
@@ -847,7 +850,8 @@
   <game>
     <id>992</id>
     <name>Company of Heroes: Opposing Fronts</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy</genre>
   </game>
   <game>
     <id>994</id>
@@ -1191,12 +1195,14 @@
   <game>
     <id>2120</id>
     <name>Dark Messiah Singleplayer Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>2130</id>
     <name>Dark Messiah Might and Magic Multi-Player</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>2145</id>
@@ -1349,7 +1355,8 @@
   <game>
     <id>2510</id>
     <name>Shadowgrounds Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>2520</id>
@@ -1697,7 +1704,8 @@
   <game>
     <id>3210</id>
     <name>Painkiller Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>3220</id>
@@ -1726,7 +1734,8 @@
   <game>
     <id>3280</id>
     <name>Painkiller Overdose Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>3290</id>
@@ -2601,7 +2610,8 @@
   <game>
     <id>5000</id>
     <name>Painkiller Overdose Teaser</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5001</id>
@@ -2946,12 +2956,14 @@
   <game>
     <id>5071</id>
     <name>Dawn of War II: E3 Gameplay</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>5072</id>
     <name>Dawn of War II: Teaser</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>5073</id>
@@ -2966,22 +2978,23 @@
   <game>
     <id>5075</id>
     <name>Dawn of War II: The Tyranids</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>5076</id>
     <name>Far Cry 2: E3 Gameplay</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>5077</id>
     <name>Far Cry 2: Enemies</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>5078</id>
     <name>Far Cry 2 GamePlay Movie</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>5079</id>
@@ -3246,7 +3259,8 @@
   <game>
     <id>5132</id>
     <name>Red Faction: Guerrila Multiplayer Gameplay</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5133</id>
@@ -3341,7 +3355,8 @@
   <game>
     <id>5152</id>
     <name>Grand Theft Auto IV</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>5153</id>
@@ -3726,22 +3741,26 @@
   <game>
     <id>5238</id>
     <name>RFG Tools of Destruction 1</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5239</id>
     <name>RFG Tools of Destruction 2</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5240</id>
     <name>RFG Tools of Destruction 3</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5241</id>
     <name>RFG Tools of Destruction 4</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5242</id>
@@ -3786,7 +3805,8 @@
   <game>
     <id>5250</id>
     <name>RFG Dev Diary</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5251</id>
@@ -3801,17 +3821,17 @@
   <game>
     <id>5253</id>
     <name>Call of Duty: World at War - Map Pack</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>5254</id>
     <name>Call of Duty: World at War - Verruckt</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>5255</id>
     <name>Call of Duty: World at War - Zombies</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>5256</id>
@@ -3851,22 +3871,26 @@
   <game>
     <id>5263</id>
     <name>Prototype Story Montage</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>5265</id>
     <name>RFG Tools of Destruction 6</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5266</id>
     <name>Red Faction Guerrilla Story</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5267</id>
     <name>Red Faction Guerrilla Storyline Video</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5268</id>
@@ -3896,7 +3920,8 @@
   <game>
     <id>5273</id>
     <name>Splinter Cell Conviction E3 Gameplay</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5274</id>
@@ -3976,7 +4001,8 @@
   <game>
     <id>5289</id>
     <name>Prototype Intro</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>5290</id>
@@ -3991,7 +4017,7 @@
   <game>
     <id>5292</id>
     <name>Ghostbusters: Rule2 Traps</name>
-    <type>NonApp</type>
+    <type>NotFound</type>
   </game>
   <game>
     <id>5293</id>
@@ -4021,12 +4047,14 @@
   <game>
     <id>5298</id>
     <name>Dawn of War II - Tyranids vs. Eldar</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>5299</id>
     <name>Dawn of War II - Space Marines vs. Orks</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>5300</id>
@@ -4286,7 +4314,8 @@
   <game>
     <id>5365</id>
     <name>Assassins Creed 2 Developer Diary</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>5366</id>
@@ -4301,7 +4330,8 @@
   <game>
     <id>5368</id>
     <name>Dawn of War 2 - Last Stand</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>5369</id>
@@ -4486,7 +4516,8 @@
   <game>
     <id>5419</id>
     <name>Tom Clancy's Splinter Cell Conviction - Numbers</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5420</id>
@@ -4586,7 +4617,8 @@
   <game>
     <id>5457</id>
     <name>Dawn of War II - The Last Stand Developer Diary</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>5459</id>
@@ -4616,12 +4648,14 @@
   <game>
     <id>5464</id>
     <name>Tom Clancy's Splinter Cell - Conviction TGS Walk-Thru Video</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5465</id>
     <name>AvP - Alien Gameplay</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5467</id>
@@ -4746,7 +4780,8 @@
   <game>
     <id>5497</id>
     <name>Serious Sam Supermercial</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5499</id>
@@ -4951,7 +4986,8 @@
   <game>
     <id>5543</id>
     <name>Kane &amp; Lynch 2 Bowling for Shanghai Video</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5544</id>
@@ -5461,7 +5497,8 @@
   <game>
     <id>5648</id>
     <name>Serious Sam HD The Second Encounter Announcement Video</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5649</id>
@@ -5511,17 +5548,20 @@
   <game>
     <id>5658</id>
     <name>Splinter Cell Conviction Multiplayer Part 3</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5659</id>
     <name>Splinter Cell Conviction Multiplayer Part 2</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5660</id>
     <name>Splinter Cell Conviction Multiplayer Part 1</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5661</id>
@@ -5661,12 +5701,14 @@
   <game>
     <id>5688</id>
     <name>Serious Sam HD The Second Encounter Launch Video</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5689</id>
     <name>Serious Sam HD The Second Encounter - House of Sam Video</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5690</id>
@@ -5761,12 +5803,14 @@
   <game>
     <id>5710</id>
     <name>Fallout: New Vegas</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>5711</id>
     <name>Fallout: New Vegas</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>5712</id>
@@ -5891,7 +5935,8 @@
   <game>
     <id>5738</id>
     <name>Fallout New Vegas trailer</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>5739</id>
@@ -5901,12 +5946,14 @@
   <game>
     <id>5740</id>
     <name>Homefront Teaser trailer</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5741</id>
     <name>Homefront Back Story trailer</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5742</id>
@@ -5926,27 +5973,32 @@
   <game>
     <id>5745</id>
     <name>KL2 Arcade Mode (French)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5746</id>
     <name>KL2 Arcade Mode (German)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5747</id>
     <name>KL2 Arcade Mode (Italian)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5748</id>
     <name>KL2 Arcade Mode (Spanish)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5749</id>
     <name>KL2 Arcade Mode (English)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5750</id>
@@ -5956,27 +6008,32 @@
   <game>
     <id>5751</id>
     <name>KL2 Cops Robbers Mode (French)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5752</id>
     <name>KL2 Cops Robbers Mode (Italian)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5753</id>
     <name>KL2 Cops Robbers Mode (Spanish)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5754</id>
     <name>KL2 Cops Robbers Mode (English)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5755</id>
     <name>KL2 Cops Robbers Mode (German)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5756</id>
@@ -5986,27 +6043,32 @@
   <game>
     <id>5757</id>
     <name>KL2 Fragile Alliance Mode (French)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5758</id>
     <name>KL2 Fragile Alliance Mode (German)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5759</id>
     <name>KL2 Fragile Alliance Mode (Italian)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5760</id>
     <name>KL2 Fragile Alliance Mode (Spanish)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5761</id>
     <name>KL2 Fragile Alliance Mode (English)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5762</id>
@@ -6016,62 +6078,74 @@
   <game>
     <id>5763</id>
     <name>KL2 She Better Be Worth It (French)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5764</id>
     <name>KL2 She Better Be Worth It (German)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5765</id>
     <name>KL2 She Better Be Worth It (Italian)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5766</id>
     <name>KL2 She Better Be Worth It (Russian)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5767</id>
     <name>KL2 She Better Be Worth It (Spanish)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5768</id>
     <name>KL2 She Better Be Worth It (English)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5769</id>
     <name>KL2 Undercover Cop Mode (French)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5770</id>
     <name>KL2 Undercover Cop Mode (German)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5771</id>
     <name>KL2 Undercover Cop Mode (Italian)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5772</id>
     <name>KL2 Undercover Cop Mode (Spanish)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5773</id>
     <name>KL2 Undercover Cop Mode (English)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5774</id>
     <name>KL2 Undercover Cop Mode - English (PEGI)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5775</id>
@@ -6276,22 +6350,26 @@
   <game>
     <id>5817</id>
     <name>Medal of Honor - Limited Edition</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5818</id>
     <name>Medal of Honor - WOLF</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5819</id>
     <name>Medal of Honor - MISSIONS</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5820</id>
     <name>Medal of Honor - Announce Long</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5821</id>
@@ -6301,7 +6379,8 @@
   <game>
     <id>5822</id>
     <name>Medal of Honor - E3MP</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5823</id>
@@ -6376,7 +6455,8 @@
   <game>
     <id>5837</id>
     <name>Mafia II - Boom Boom</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5838</id>
@@ -6461,37 +6541,44 @@
   <game>
     <id>5854</id>
     <name>Kane &amp; Lynch 2 - Focus on the Job - PEGI (EN)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5855</id>
     <name>Kane &amp; Lynch 2 - Focus on the Job - ESRB (EN)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5856</id>
     <name>Kane &amp; Lynch 2 - Focus on the Job (FR)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5857</id>
     <name>Kane &amp; Lynch 2 - Focus on the Job (IT)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5858</id>
     <name>Kane &amp; Lynch 2 - Focus on the Job (ES)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5859</id>
     <name>Kane &amp; Lynch 2 - Focus on the Job (DE)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5860</id>
     <name>Kane &amp; Lynch 2 - You Think You Can Kill Me (DE)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5861</id>
@@ -6511,22 +6598,26 @@
   <game>
     <id>5864</id>
     <name>Kane &amp; Lynch 2 - You Think You Can Kill Me (ESRB) (EN)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5865</id>
     <name>Kane &amp; Lynch 2 - You Think You Can Kill Me (IT)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5866</id>
     <name>Kane &amp; Lynch 2 - You Think You Can Kill Me (ES)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5867</id>
     <name>Kane &amp; Lynch 2 - You Think You Can Kill Me (FR)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5868</id>
@@ -6576,22 +6667,26 @@
   <game>
     <id>5877</id>
     <name>Kane &amp; Lynch 2 - Most Notorious Criminals (ES)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5878</id>
     <name>Kane &amp; Lynch 2 - Most Notorious Criminals (ESRB) (EN)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5879</id>
     <name>Kane &amp; Lynch 2 - Most Notorious Criminals (DE)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5880</id>
     <name>Kane &amp; Lynch 2 - Most Notorious Criminals (PEGI) (EN)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5881</id>
@@ -6716,7 +6811,8 @@
   <game>
     <id>5907</id>
     <name>Space Marine</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5908</id>
@@ -6731,7 +6827,8 @@
   <game>
     <id>5910</id>
     <name>Call of Duty - Black OPS Multiplayer Teaser</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5911</id>
@@ -6741,7 +6838,8 @@
   <game>
     <id>5912</id>
     <name>MOH - Fallen Angel</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5913</id>
@@ -6857,12 +6955,14 @@
   <game>
     <id>5940</id>
     <name>MOH - Part 4</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5941</id>
     <name>MOH - Part 3</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5942</id>
@@ -6882,7 +6982,8 @@
   <game>
     <id>5945</id>
     <name>MOH - Part 5</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>5946</id>
@@ -7193,7 +7294,8 @@
   <game>
     <id>6129</id>
     <name>Shank pre-order</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
   </game>
   <game>
     <id>6200</id>
@@ -7443,7 +7545,7 @@
   <game>
     <id>6930</id>
     <name>Just Cause Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>6940</id>
@@ -7454,7 +7556,7 @@
   <game>
     <id>6950</id>
     <name>Hitman: Blood Money Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>6980</id>
@@ -7501,7 +7603,7 @@
   <game>
     <id>7080</id>
     <name>Infernal Demo</name>
-    <type>NonApp</type>
+    <type>NotFound</type>
   </game>
   <game>
     <id>7110</id>
@@ -7681,7 +7783,8 @@
   <game>
     <id>7710</id>
     <name>Bioshock Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>7730</id>
@@ -7866,7 +7969,8 @@
   <game>
     <id>8090</id>
     <name>Conflict: Denied Ops Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>8100</id>
@@ -8090,7 +8194,7 @@
   </game>
   <game>
     <id>8650</id>
-    <name>SteamApp8650</name>
+    <name>RACE 07: Andy Priaulx Crowne Plaza Raceway</name>
     <type>DLC</type>
     <genre>Racing</genre>
   </game>
@@ -8348,7 +8452,8 @@
   <game>
     <id>9219</id>
     <name>Rage</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>9240</id>
@@ -8363,22 +8468,26 @@
   <game>
     <id>9300</id>
     <name>Company of Heroes Singleplayer Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy</genre>
   </game>
   <game>
     <id>9310</id>
     <name>Warhammer 40,000: Dawn of War – Winter Assault</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>9320</id>
     <name>Dawn of War Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>9330</id>
     <name>Dawn of War Winter Assault Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>9340</id>
@@ -8411,7 +8520,8 @@
   <game>
     <id>9440</id>
     <name>Warhammer 40,000: Dawn of War – Soulstorm Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>9450</id>
@@ -9109,12 +9219,13 @@
   <game>
     <id>11210</id>
     <name>Alpha Prime Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>11220</id>
     <name>Shadowgrounds Survivor Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>11230</id>
@@ -9390,17 +9501,17 @@
   </game>
   <game>
     <id>12230</id>
-    <name>Grand Theft Auto 3</name>
+    <name>Grand Theft Auto III</name>
     <type>NotFound</type>
   </game>
   <game>
     <id>12240</id>
-    <name>GTA 3: Vice City Mac</name>
+    <name>Grand Theft Auto: Vice City</name>
     <type>NotFound</type>
   </game>
   <game>
     <id>12250</id>
-    <name>GTA 3: San Andreas Mac</name>
+    <name>Grand Theft Auto: San Andreas</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -9731,7 +9842,8 @@
   <game>
     <id>12890</id>
     <name>Operation Flashpoint: Dragon Rising - Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>12900</id>
@@ -10171,7 +10283,8 @@
   <game>
     <id>15680</id>
     <name>Warhammer® 40,000™: Dawn of War® II - Single Player Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>15700</id>
@@ -10475,7 +10588,8 @@
   <game>
     <id>16420</id>
     <name>F.E.A.R. 2: Project Origin Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>16450</id>
@@ -10492,12 +10606,14 @@
   <game>
     <id>16470</id>
     <name>F.E.A.R. 2: Project Origin Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>16475</id>
     <name>F.E.A.R. 2: Project Origin Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>16479</id>
@@ -10748,7 +10864,8 @@
   <game>
     <id>17340</id>
     <name>Crysis Wars</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>17390</id>
@@ -10969,7 +11086,8 @@
   <game>
     <id>18010</id>
     <name>Penny Arcade Adventures: On the Rain-Slick Precipice of Darkness, Episode One Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Adventure, RPG</genre>
   </game>
   <game>
     <id>18020</id>
@@ -10980,7 +11098,8 @@
   <game>
     <id>18030</id>
     <name>Penny Arcade Adventures: On the Rain-Slick Precipice of Darkness, Episode Two Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Adventure, RPG</genre>
   </game>
   <game>
     <id>18040</id>
@@ -11514,7 +11633,7 @@
   </game>
   <game>
     <id>20570</id>
-    <name>Warhammer® 40,000™: Dawn of War® II – Chaos Rising™</name>
+    <name>Warhammer® 40,000™: Dawn of War® II - Chaos Rising™</name>
     <type>Game</type>
     <genre>Strategy</genre>
   </game>
@@ -11583,7 +11702,7 @@
   </game>
   <game>
     <id>20920</id>
-    <name>The Witcher 2</name>
+    <name>The Witcher 2: Assassins of Kings Enhanced Edition</name>
     <type>Game</type>
     <genre>RPG</genre>
   </game>
@@ -11656,7 +11775,8 @@
   <game>
     <id>21110</id>
     <name>F.E.A.R.: Extraction Point</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>21119</id>
@@ -11666,7 +11786,8 @@
   <game>
     <id>21120</id>
     <name>F.E.A.R.: Perseus Mandate</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>21130</id>
@@ -12042,7 +12163,7 @@
   <game>
     <id>22140</id>
     <name>Penumbra: Requiem</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
   </game>
   <game>
     <id>22150</id>
@@ -12142,7 +12263,7 @@
   </game>
   <game>
     <id>22350</id>
-    <name>Brink</name>
+    <name>BRINK</name>
     <type>Game</type>
     <genre>Action</genre>
   </game>
@@ -12277,7 +12398,8 @@
   <game>
     <id>22490</id>
     <name>Fallout: New Vegas</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>22500</id>
@@ -14449,7 +14571,8 @@
   <game>
     <id>28020</id>
     <name>Kane &amp; Lynch 2: Dog Days Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>28050</id>
@@ -15471,7 +15594,8 @@
   <game>
     <id>33290</id>
     <name>Call of Juarez: Bound in Blood Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>33310</id>
@@ -15608,7 +15732,7 @@
   </game>
   <game>
     <id>33457</id>
-    <name>Driver San Francisco - Deluxe Key - Mac</name>
+    <name>  Driver San Francisco - Deluxe Key - Mac</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -15818,7 +15942,8 @@
   <game>
     <id>33910</id>
     <name>ARMA 2</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy, Simulation</genre>
   </game>
   <game>
     <id>33919</id>
@@ -15828,7 +15953,8 @@
   <game>
     <id>33920</id>
     <name>ARMA 2 Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy, Simulation</genre>
   </game>
   <game>
     <id>33930</id>
@@ -15883,7 +16009,8 @@
   <game>
     <id>34019</id>
     <name>Alpha Protocol</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>34030</id>
@@ -16646,7 +16773,8 @@
   <game>
     <id>35110</id>
     <name>Just Cause 2 Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>35130</id>
@@ -16803,7 +16931,8 @@
   <game>
     <id>35490</id>
     <name>The Ball Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure, Indie</genre>
   </game>
   <game>
     <id>35500</id>
@@ -17860,7 +17989,8 @@
   <game>
     <id>39530</id>
     <name>Painkiller: Black Edition</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>39540</id>
@@ -18096,7 +18226,8 @@
   <game>
     <id>40310</id>
     <name>Risen - Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>RPG</genre>
   </game>
   <game>
     <id>40320</id>
@@ -18142,18 +18273,20 @@
   </game>
   <game>
     <id>40391</id>
-    <name>Risen 2: DLC 1</name>
-    <type>NotFound</type>
+    <name>Risen 2 - Pirate's Clothes</name>
+    <type>DLC</type>
   </game>
   <game>
     <id>40392</id>
-    <name>Risen 2: DLC 2</name>
-    <type>NotFound</type>
+    <name>Risen 2 - Treasure Isle</name>
+    <type>DLC</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>40393</id>
-    <name>Risen 2: DLC 3</name>
-    <type>NotFound</type>
+    <name>Risen 2 - Air Temple</name>
+    <type>DLC</type>
+    <genre>RPG</genre>
   </game>
   <game>
     <id>40400</id>
@@ -18343,7 +18476,8 @@
   <game>
     <id>41020</id>
     <name>Serious Sam HD: The First Encounter Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>41030</id>
@@ -18734,17 +18868,19 @@
   <game>
     <id>42680</id>
     <name>Call of Duty: Modern Warfare 3</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>42690</id>
     <name>Call of Duty: Modern Warfare 3 - Multiplayer</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>42695</id>
-    <name>ValveTestApp42690 DLC1</name>
-    <type>NotFound</type>
+    <name>Call of Duty: Modern Warfare 3 - Collection 1</name>
+    <type>DLC</type>
   </game>
   <game>
     <id>42696</id>
@@ -18765,7 +18901,8 @@
   <game>
     <id>42710</id>
     <name>Call of Duty: Black Ops - Multiplayer</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>42715</id>
@@ -18813,7 +18950,7 @@
   </game>
   <game>
     <id>42729</id>
-    <name>Call of Duty: Black Ops Rezurrection (Preorder) DLC</name>
+    <name>Call of Duty: Modern Warfare Collection #1 (Preorder) DLC</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -19347,7 +19484,7 @@
   </game>
   <game>
     <id>45310</id>
-    <name>Wings of Prey - Demo</name>
+    <name>Wings of Prey Demo</name>
     <type>IdRedirect</type>
     <genre>Simulation</genre>
   </game>
@@ -20031,7 +20168,8 @@
   <game>
     <id>47760</id>
     <name>Mass Effect 2 Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>RPG</genre>
   </game>
   <game>
     <id>47770</id>
@@ -20069,7 +20207,8 @@
   <game>
     <id>47830</id>
     <name>Medal of Honor(TM) Multiplayer</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>47842</id>
@@ -20113,7 +20252,8 @@
   <game>
     <id>47889</id>
     <name>Battlefield Bad Company 2: Vietnam Pre-order</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>47890</id>
@@ -20278,7 +20418,7 @@
   </game>
   <game>
     <id>48140</id>
-    <name>The Settlers 7: Paths to a Kingdom - Demo</name>
+    <name>The Settlers 7: Paths to a Kingdom The Two Kings DLC #4</name>
     <type>DLC</type>
     <genre>Strategy</genre>
   </game>
@@ -20318,7 +20458,8 @@
   <game>
     <id>48173</id>
     <name>Assassin's Creed II - Unlockable Content Key</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>48180</id>
@@ -21231,7 +21372,8 @@
   <game>
     <id>50280</id>
     <name>Mafia II - Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>50310</id>
@@ -21242,7 +21384,8 @@
   <game>
     <id>50400</id>
     <name>Mafia II - JAPAN</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>50409</id>
@@ -21379,7 +21522,8 @@
   <game>
     <id>50640</id>
     <name>Darksiders</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>50800</id>
@@ -21843,13 +21987,15 @@
   </game>
   <game>
     <id>55391</id>
-    <name>ValveTestApp55391</name>
-    <type>NotFound</type>
+    <name>Saints Row: The Third - Penthouse Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>55392</id>
-    <name>ValveTestApp55392</name>
-    <type>NotFound</type>
+    <name>Saints Row: The Third - Witches and Wieners Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>55393</id>
@@ -21875,13 +22021,15 @@
   </game>
   <game>
     <id>55397</id>
-    <name>ValveTestApp55397</name>
-    <type>NotFound</type>
+    <name>Saints Row: The Third Steelport Gangs Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>55398</id>
-    <name>ValveTestApp55398</name>
-    <type>NotFound</type>
+    <name>Saints Row: The Third - Special Ops Vehicle Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>55399</id>
@@ -21901,7 +22049,8 @@
   <game>
     <id>55410</id>
     <name>Warhammer 40,000: Space Marine Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>55470</id>
@@ -21942,7 +22091,8 @@
   <game>
     <id>56400</id>
     <name>Warhammer® 40,000™: Dawn of War® II – Retribution™</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>56431</id>
@@ -23091,7 +23241,7 @@
   </game>
   <game>
     <id>65222</id>
-    <name>RailWorks 2 GWR56xx</name>
+    <name>RailWorks 3 GWR56xx</name>
     <type>DLC</type>
     <genre>Simulation</genre>
   </game>
@@ -24050,12 +24200,14 @@
   <game>
     <id>72771</id>
     <name>Fallout New Vegas Honest Hearts</name>
-    <type>NonApp</type>
+    <type>DLC</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>72772</id>
     <name>Fallout New Vegas Old World Blues</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>72773</id>
@@ -24082,7 +24234,8 @@
   <game>
     <id>72869</id>
     <name>The Elder Scrolls V: Skyrim</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>RPG</genre>
   </game>
   <game>
     <id>72900</id>
@@ -24550,7 +24703,8 @@
   <game>
     <id>80404</id>
     <name>MOH - Accolade 2</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80405</id>
@@ -24805,7 +24959,8 @@
   <game>
     <id>80455</id>
     <name>Red Orchestra 2 - Heroes of Stalingrad</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80456</id>
@@ -24865,7 +25020,8 @@
   <game>
     <id>80467</id>
     <name>Battlefield Bad Company 2 - VIP Map Pack 7</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80468</id>
@@ -24880,12 +25036,14 @@
   <game>
     <id>80470</id>
     <name>Homefront - Dev Diary 2</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80471</id>
     <name>Homefront - Dev Diary 1 (ESRB)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80472</id>
@@ -25070,7 +25228,8 @@
   <game>
     <id>80515</id>
     <name>Home Front Developer Diary 3</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80516</id>
@@ -25575,7 +25734,7 @@
   <game>
     <id>80618</id>
     <name>Total War SHOGUN 2 - CG Intro (EN) (PEGI)</name>
-    <type>NonApp</type>
+    <type>WebError</type>
   </game>
   <game>
     <id>80619</id>
@@ -25695,12 +25854,14 @@
   <game>
     <id>80642</id>
     <name>Assassins Creed Brotherhood - Multiplayer</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>80643</id>
     <name>Assassins Creed Brotherhood - Story</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>80644</id>
@@ -25740,7 +25901,8 @@
   <game>
     <id>80654</id>
     <name>FNV Dead Money - DLC</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>80655</id>
@@ -26235,7 +26397,8 @@
   <game>
     <id>80768</id>
     <name>The Ball Portal</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure, Indie</genre>
   </game>
   <game>
     <id>80769</id>
@@ -26370,7 +26533,8 @@
   <game>
     <id>80797</id>
     <name>Space Marine Developer Diary 1</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80798</id>
@@ -26695,7 +26859,8 @@
   <game>
     <id>80867</id>
     <name>Dead Island - Tragedy Hits Paradise (ESRB)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>80868</id>
@@ -26855,7 +27020,8 @@
   <game>
     <id>80900</id>
     <name>Dead Island - Begins (ESRB)</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>80901</id>
@@ -27000,7 +27166,8 @@
   <game>
     <id>80929</id>
     <name>Killing Floor Summer Sideshow</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80930</id>
@@ -27065,7 +27232,8 @@
   <game>
     <id>80943</id>
     <name>Space Marine Combat System</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>80944</id>
@@ -27225,7 +27393,8 @@
   <game>
     <id>80975</id>
     <name>Fallout New Vegas: Old World Blues</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>80976</id>
@@ -27390,7 +27559,8 @@
   <game>
     <id>81008</id>
     <name>Hard Reset Teaser</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
   </game>
   <game>
     <id>81009</id>
@@ -27465,17 +27635,20 @@
   <game>
     <id>81023</id>
     <name>Space Marine Developer Diary 3</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>81024</id>
     <name>Rage - Blake Griffin</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>81025</id>
     <name>Rage - Making of Wasteland</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>81026</id>
@@ -27495,12 +27668,14 @@
   <game>
     <id>81029</id>
     <name>Rage - Making of Legacy</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>81030</id>
     <name>Rage - Making of Arsenal</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>81031</id>
@@ -27525,7 +27700,8 @@
   <game>
     <id>81036</id>
     <name>Rage - The Sound and The Art</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>81037</id>
@@ -28835,7 +29011,8 @@
   <game>
     <id>81312</id>
     <name>Jagged Alliance - Back in Action Teaser ESRB</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy, RPG, Simulation</genre>
   </game>
   <game>
     <id>81313</id>
@@ -28955,7 +29132,8 @@
   <game>
     <id>81336</id>
     <name>Saints Row: The Third Warrior Pack</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>81337</id>
@@ -29080,7 +29258,7 @@
   <game>
     <id>81361</id>
     <name>Total War: SHOGUN 2 Fall of the Samurai ESRB 1</name>
-    <type>NonApp</type>
+    <type>NotFound</type>
   </game>
   <game>
     <id>81362</id>
@@ -29673,8 +29851,9 @@
   </game>
   <game>
     <id>91609</id>
-    <name>ValveTestApp91609</name>
-    <type>NotFound</type>
+    <name>Sanctum: Yogscave DLC</name>
+    <type>DLC</type>
+    <genre>Action, Strategy, Indie, Casual</genre>
   </game>
   <game>
     <id>91610</id>
@@ -29707,7 +29886,7 @@
   </game>
   <game>
     <id>91616</id>
-    <name>SanctumChristmasDLC</name>
+    <name>Sanctum: Christmas DLC</name>
     <type>DLC</type>
     <genre>Action, Strategy, Indie, Casual</genre>
   </game>
@@ -30635,7 +30814,8 @@
   <game>
     <id>99870</id>
     <name>Bulletstorm Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>99890</id>
@@ -30744,12 +30924,12 @@
   </game>
   <game>
     <id>102028</id>
-    <name>DNF_DLC01</name>
+    <name>Hail to the Icons Parody Pack Mac</name>
     <type>NotFound</type>
   </game>
   <game>
     <id>102029</id>
-    <name>DNF_DLC03</name>
+    <name>The Doctor Who Cloned Me Mac</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -30829,13 +31009,15 @@
   </game>
   <game>
     <id>102510</id>
-    <name>ValveTestApp102510 DLC</name>
-    <type>NotFound</type>
+    <name> Kingdoms of Amalur: Reckoning - Legend of Dead Kel</name>
+    <type>DLC</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>102511</id>
-    <name>ValveTestApp102511 DLC</name>
-    <type>NotFound</type>
+    <name>Kingdoms of Amalur: Reckoning - Teeth Of Naros</name>
+    <type>DLC</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>102600</id>
@@ -30883,7 +31065,7 @@
   </game>
   <game>
     <id>102629</id>
-    <name>Orcs Must Die! (Preorder)</name>
+    <name>Orcs Must Die! 2 Preorder</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -30979,7 +31161,7 @@
   </game>
   <game>
     <id>104700</id>
-    <name>Super MNC Invitational</name>
+    <name>Super Monday Night Combat</name>
     <type>Game</type>
     <genre>Free to Play, Action, Strategy, Indie, Sports</genre>
   </game>
@@ -31091,7 +31273,8 @@
   <game>
     <id>106000</id>
     <name>The Cursed Crusade</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>106010</id>
@@ -31165,7 +31348,8 @@
   <game>
     <id>107430</id>
     <name>ARMA X: Anniversary Edition</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy, Simulation</genre>
   </game>
   <game>
     <id>107600</id>
@@ -31226,18 +31410,21 @@
   </game>
   <game>
     <id>108230</id>
-    <name>ValveTestApp108230</name>
-    <type>NotFound</type>
+    <name>Ticket to Ride - Europe</name>
+    <type>DLC</type>
+    <genre>Strategy, Indie, Casual</genre>
   </game>
   <game>
     <id>108231</id>
-    <name>ValveTestApp108231</name>
-    <type>NotFound</type>
+    <name>Ticket to Ride - Switzerland</name>
+    <type>DLC</type>
+    <genre>Strategy, Indie, Casual</genre>
   </game>
   <game>
     <id>108232</id>
-    <name>ValveTestApp108232</name>
-    <type>NotFound</type>
+    <name>Ticket to Ride - USA 1910</name>
+    <type>DLC</type>
+    <genre>Strategy, Indie, Casual</genre>
   </game>
   <game>
     <id>108500</id>
@@ -31323,9 +31510,9 @@
   </game>
   <game>
     <id>110800</id>
-    <name>L.A. Noire: The Complete Edition</name>
+    <name>L.A. Noire</name>
     <type>Game</type>
-    <genre>Strategy, Adventure</genre>
+    <genre>Adventure, Strategy</genre>
   </game>
   <game>
     <id>110809</id>
@@ -31334,8 +31521,9 @@
   </game>
   <game>
     <id>110810</id>
-    <name>LA Noire Complete Edition</name>
-    <type>NotFound</type>
+    <name>L.A. Noire: DLC Bundle</name>
+    <type>DLC</type>
+    <genre>Adventure, Strategy</genre>
   </game>
   <game>
     <id>111000</id>
@@ -31405,7 +31593,7 @@
   </game>
   <game>
     <id>113200</id>
-    <name>The Binding Of Isaac</name>
+    <name>The Binding of Isaac</name>
     <type>Game</type>
     <genre>Action, Adventure, RPG, Indie</genre>
   </game>
@@ -31543,7 +31731,7 @@
   </game>
   <game>
     <id>200323</id>
-    <name>ValveTestApp200323</name>
+    <name>Sniper Scope for Devastator</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -31775,7 +31963,8 @@
   <game>
     <id>201060</id>
     <name>DUNGEONS - The Dark Lord (Steam Special Edition) Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy, RPG, Simulation</genre>
   </game>
   <game>
     <id>201090</id>
@@ -31850,7 +32039,8 @@
   <game>
     <id>201330</id>
     <name>Max Payne</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>201480</id>
@@ -31949,7 +32139,7 @@
   </game>
   <game>
     <id>201890</id>
-    <name>Nuclear Dawn Authoring Tools Beta</name>
+    <name>Nuclear Dawn Authoring Tools</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -31980,27 +32170,27 @@
   </game>
   <game>
     <id>202192</id>
-    <name>ValveTestApp202192</name>
+    <name>Street Racer Pack</name>
     <type>NotFound</type>
   </game>
   <game>
     <id>202193</id>
-    <name>ValveTestApp202193</name>
+    <name>Police Protection Pack</name>
     <type>NotFound</type>
   </game>
   <game>
     <id>202194</id>
-    <name>ValveTestApp202194</name>
+    <name>Martial Arts Pack</name>
     <type>NotFound</type>
   </game>
   <game>
     <id>202195</id>
-    <name>ValveTestApp202195</name>
+    <name>Deep Undercover Pack</name>
     <type>NotFound</type>
   </game>
   <game>
     <id>202196</id>
-    <name>ValveTestApp202196</name>
+    <name>GSP Pack</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -32084,7 +32274,8 @@
   <game>
     <id>202570</id>
     <name>Max Payne</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>202651</id>
@@ -32226,8 +32417,9 @@
   </game>
   <game>
     <id>203774</id>
-    <name>English Music Pack</name>
-    <type>NotFound</type>
+    <name>Songs of Albion</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>203775</id>
@@ -32248,7 +32440,8 @@
   <game>
     <id>203970</id>
     <name>Kingdoms of Amalur: Reckoning Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
   </game>
   <game>
     <id>203990</id>
@@ -32446,7 +32639,8 @@
   <game>
     <id>204920</id>
     <name>Jagged Alliance - Back in Action Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Strategy, RPG, Simulation</genre>
   </game>
   <game>
     <id>204940</id>
@@ -32527,7 +32721,7 @@
   </game>
   <game>
     <id>206410</id>
-    <name>Crazy Machine Elements</name>
+    <name>Crazy Machines Elements</name>
     <type>Game</type>
     <genre>Strategy, Casual</genre>
   </game>
@@ -32545,7 +32739,7 @@
   </game>
   <game>
     <id>206710</id>
-    <name>Cities In Motion DLC</name>
+    <name>Cities In Motion - Design Dreams DLC</name>
     <type>DLC</type>
     <genre>Simulation</genre>
   </game>
@@ -32702,8 +32896,9 @@
   </game>
   <game>
     <id>208030</id>
-    <name>ValveTestApp208030</name>
-    <type>NotFound</type>
+    <name>Moon Breakers</name>
+    <type>Game</type>
+    <genre>Free to Play, Action, Indie, Simulation</genre>
   </game>
   <game>
     <id>115119</id>
@@ -32712,13 +32907,14 @@
   </game>
   <game>
     <id>208050</id>
-    <name>ValveTestApp208050</name>
+    <name>Sniper Elite V2 Dedicated Server</name>
     <type>NotFound</type>
   </game>
   <game>
     <id>208070</id>
-    <name>ValveTestApp208070</name>
-    <type>NotFound</type>
+    <name>Waveform Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
   </game>
   <game>
     <id>208090</id>
@@ -32782,13 +32978,15 @@
   </game>
   <game>
     <id>47936</id>
-    <name>Sims 3 Showtime Katy Perry Key</name>
-    <type>NotFound</type>
+    <name>The Sims 3 - Showtime Katy Perry Collectors Edition</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
   </game>
   <game>
     <id>208110</id>
-    <name>ValveTestApp208110</name>
-    <type>NotFound</type>
+    <name>Myst V</name>
+    <type>Game</type>
+    <genre>Adventure, Casual</genre>
   </game>
   <game>
     <id>208130</id>
@@ -32797,18 +32995,21 @@
   </game>
   <game>
     <id>204284</id>
-    <name>ValveTestApp204284</name>
-    <type>NotFound</type>
+    <name>Anno 2070 - The Central Statistical Package</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>204285</id>
-    <name>ValveTestApp204285</name>
-    <type>NotFound</type>
+    <name>Anno 2070 - The Crisis Response Package</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>204286</id>
-    <name>ValveTestApp204286</name>
-    <type>NotFound</type>
+    <name>Anno 2070 - The Distrust Series Package</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>81468</id>
@@ -32854,8 +33055,9 @@
   </game>
   <game>
     <id>208140</id>
-    <name>ValveTestApp208140</name>
-    <type>NotFound</type>
+    <name>Endless Space</name>
+    <type>Game</type>
+    <genre>Strategy, Indie</genre>
   </game>
   <game>
     <id>480</id>
@@ -32865,7 +33067,8 @@
   <game>
     <id>6130</id>
     <name>Shank Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Indie</genre>
   </game>
   <game>
     <id>7430</id>
@@ -32934,7 +33137,8 @@
   <game>
     <id>21020</id>
     <name>Watchmen: The End Is Nigh Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>21040</id>
@@ -33032,7 +33236,8 @@
   <game>
     <id>33970</id>
     <name>ARMA 2: Operation Arrowhead Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy, Simulation</genre>
   </game>
   <game>
     <id>34050</id>
@@ -33145,7 +33350,7 @@
   </game>
   <game>
     <id>50669</id>
-    <name>Darksiders II</name>
+    <name>Darksiders II Preorder</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -33319,7 +33524,8 @@
   <game>
     <id>107400</id>
     <name>ARMA 2: Free</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action, Strategy, Simulation</genre>
   </game>
   <game>
     <id>111030</id>
@@ -33412,7 +33618,8 @@
   <game>
     <id>204410</id>
     <name>The Darkness II Demo</name>
-    <type>NonApp</type>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
   </game>
   <game>
     <id>204680</id>
@@ -33422,8 +33629,9 @@
   </game>
   <game>
     <id>204880</id>
-    <name>Sins of a Solar Empire: Rebellion Beta</name>
-    <type>NotFound</type>
+    <name>Sins of a Solar Empire: Rebellion</name>
+    <type>Game</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>205790</id>
@@ -33458,8 +33666,8 @@
   </game>
   <game>
     <id>206748</id>
-    <name>WWTBAM_DLC_Sport</name>
-    <type>NotFound</type>
+    <name>Who Wants to Be a Millionaire - Sports</name>
+    <type>SiteError</type>
   </game>
   <game>
     <id>206749</id>
@@ -33503,18 +33711,21 @@
   </game>
   <game>
     <id>208620</id>
-    <name>ValveTestApp208620</name>
-    <type>NotFound</type>
+    <name>Midnight Mysteries 2: Salem Witch Trials</name>
+    <type>Game</type>
+    <genre>Adventure, Casual</genre>
   </game>
   <game>
     <id>208630</id>
-    <name>ValveTestApp208630</name>
-    <type>NotFound</type>
+    <name>Midnight Mysteries 3: Devil on the Mississippi</name>
+    <type>Game</type>
+    <genre>Adventure, Casual</genre>
   </game>
   <game>
     <id>208640</id>
-    <name>ValveTestApp208640</name>
-    <type>NotFound</type>
+    <name>Midnight Mysteries 4: Haunted Houdini</name>
+    <type>Game</type>
+    <genre>Adventure, Casual</genre>
   </game>
   <game>
     <id>208650</id>
@@ -33533,8 +33744,9 @@
   </game>
   <game>
     <id>58645</id>
-    <name>ValveTestApp58645</name>
-    <type>NotFound</type>
+    <name>Wargame: European Escalation - New Battlefields</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
   </game>
   <game>
     <id>208770</id>
@@ -33553,8 +33765,9 @@
   </game>
   <game>
     <id>208860</id>
-    <name>ValveTestApp208860</name>
-    <type>NotFound</type>
+    <name>Mad Riders</name>
+    <type>Game</type>
+    <genre>Simulation, Racing</genre>
   </game>
   <game>
     <id>65733</id>
@@ -33578,7 +33791,7 @@
   </game>
   <game>
     <id>208911</id>
-    <name>ValveTestApp208911</name>
+    <name>Shoot Many Robots DLC 1</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -33593,12 +33806,13 @@
   </game>
   <game>
     <id>208981</id>
-    <name>ValveTestApp208981</name>
-    <type>NotFound</type>
+    <name>Dismal Swamp DLC</name>
+    <type>DLC</type>
+    <genre>Action, Adventure</genre>
   </game>
   <game>
     <id>208982</id>
-    <name>ValveTestApp208982</name>
+    <name>Limited Edition</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -33643,7 +33857,7 @@
   </game>
   <game>
     <id>207115</id>
-    <name>ValveTestApp207115</name>
+    <name>Ridge Racer Unbounded DLC 5</name>
     <type>NotFound</type>
   </game>
   <game>
@@ -33653,8 +33867,9 @@
   </game>
   <game>
     <id>209040</id>
-    <name>ValveTestApp209040</name>
-    <type>NotFound</type>
+    <name>Ridge Racer™ Unbounded Demo</name>
+    <type>IdRedirect</type>
+    <genre>Racing</genre>
   </game>
   <game>
     <id>209060</id>
@@ -33674,6 +33889,4459 @@
   <game>
     <id>65255</id>
     <name>Railworks 3 Settle to Carlisle</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>4931</id>
+    <name>Natural Selection 2 - PAX DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>21510</id>
+    <name>Pyroblazer Demo</name>
+    <type>IdRedirect</type>
+    <genre>Racing</genre>
+  </game>
+  <game>
+    <id>34250</id>
+    <name>Total War: Shogun 2 Dev</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>34930</id>
+    <name>Razor2: Hidden Skies - Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Casual, Indie</genre>
+  </game>
+  <game>
+    <id>41019</id>
+    <name>Serious Sam HD: The Second Encounter - Legend of the Beast DLC</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>73230</id>
+    <name>Majesty Gold HD</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81488</id>
+    <name>Take On Helicopters  Hinds  Trailer 2</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81489</id>
+    <name>YS The Oath in Felghana</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81490</id>
+    <name>Crazy Machine Elements Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81491</id>
+    <name>Lunar Flight Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81492</id>
+    <name>Waveform Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81493</id>
+    <name>City of Heroes Issues 22 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>96400</id>
+    <name>Shoot Many Robots</name>
+    <type>Game</type>
+    <genre>Action, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>96419</id>
+    <name>Shoot Many Robots Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>102850</id>
+    <name>WARP</name>
+    <type>Game</type>
+    <genre>Indie, Adventure, Action</genre>
+  </game>
+  <game>
+    <id>105430</id>
+    <name>Age of Empires Online</name>
+    <type>Game</type>
+    <genre>Strategy, RPG, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>108100</id>
+    <name>Adam's Venture Episode 1: The Search For The Lost Garden</name>
+    <type>Game</type>
+    <genre>Indie, Adventure, Action</genre>
+  </game>
+  <game>
+    <id>109500</id>
+    <name>Fowl Space</name>
+    <type>Game</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>110630</id>
+    <name>Mutant Storm Reloaded</name>
+    <type>Game</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>200630</id>
+    <name>Gettysburg: Armored Warfare</name>
+    <type>Game</type>
+    <genre>Strategy, Action</genre>
+  </game>
+  <game>
+    <id>201273</id>
+    <name>Total War: SHOGUN 2 - Fall of the Samurai - Saga Faction Pack DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201274</id>
+    <name>Total War: SHOGUN 2 - Fall of the Samurai - Obama Faction Pack DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201275</id>
+    <name>Total War: SHOGUN 2 - Fall of the Samurai - Tsu Faction Pack DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201278</id>
+    <name>Total War: SHOGUN 2 - Fall of the Samurai Soundtrack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201951</id>
+    <name>Age of Empires Online DLC: Bountiful Bushes: Empire Extras </name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201952</id>
+    <name>Age of Empires Online DLC: Ornate Ornaments: Empire Extras </name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201953</id>
+    <name>Age of Empires Online DLC: Premium Egyptian Civilization Pack  </name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201954</id>
+    <name>Age of Empires Online DLC: Premium Greek Civilization Pack</name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201955</id>
+    <name>Age of Empires Online DLC: Windy’s Wild Widgets Store</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201956</id>
+    <name>Age of Empires Online DLC: Glorious Gardening: Empire Extras</name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201957</id>
+    <name>Age of Empires Online DLC: Startling Statuary: Empire Extras</name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201958</id>
+    <name>Age of Empires Online DLC: Defense of Crete Booster Pack</name>
+    <type>DLC</type>
+    <genre>Strategy, Free to Play, RPG</genre>
+  </game>
+  <game>
+    <id>201959</id>
+    <name>Age of Empires Online DLC: Special Launch Offer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201960</id>
+    <name>Age of Empires Online DLC: Seasons Pass 1</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201961</id>
+    <name>Age of Empires Online DLC: Tantalizing Topiary: Empire Extras</name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201962</id>
+    <name>Age of Empires Online DLC: Pro Persian Civilization</name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201963</id>
+    <name>Age of Empires Online DLC: Special Pro Persia Launch Bundle</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201964</id>
+    <name>Age of Empires Online DLC: Skirmish Booster Pack</name>
+    <type>DLC</type>
+    <genre>Free to Play, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>201965</id>
+    <name>Age of Empires Online DLC: Premium Celtic Civilization Pack</name>
+    <type>DLC</type>
+    <genre>RPG, Strategy, Free to Play</genre>
+  </game>
+  <game>
+    <id>202310</id>
+    <name>Ridge Racer™ Unbounded</name>
+    <type>Game</type>
+    <genre>Racing</genre>
+  </game>
+  <game>
+    <id>203769</id>
+    <name>Binary Domain Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203850</id>
+    <name>Microsoft Flight</name>
+    <type>Game</type>
+    <genre>Free to Play, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>203871</id>
+    <name>Microsoft Flight - Hawaiian Adventure Pack</name>
+    <type>DLC</type>
+    <genre>Free to Play, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>203872</id>
+    <name>Microsoft Flight - Maule M-7-260C</name>
+    <type>DLC</type>
+    <genre>Free to Play, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>203873</id>
+    <name>Microsoft Flight - North American P-51 Mustang</name>
+    <type>DLC</type>
+    <genre>Free to Play, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>203874</id>
+    <name>Microsoft Flight - Mitsubishi A6M2 Zero</name>
+    <type>DLC</type>
+    <genre>Free to Play, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>204180</id>
+    <name>Waveform</name>
+    <type>Game</type>
+    <genre>Indie, Action</genre>
+  </game>
+  <game>
+    <id>204560</id>
+    <name>Confrontation</name>
+    <type>Game</type>
+    <genre>Action, Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>204579</id>
+    <name>Confrontation Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205180</id>
+    <name>Planescape Torment</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205840</id>
+    <name>Yesterday</name>
+    <type>Game</type>
+    <genre>Adventure</genre>
+  </game>
+  <game>
+    <id>206180</id>
+    <name>Baldurs Gate</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206610</id>
+    <name>3SwitcheD</name>
+    <type>Game</type>
+    <genre>Strategy, Casual</genre>
+  </game>
+  <game>
+    <id>206745</id>
+    <name>WWTBAM_DLC_Football</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206746</id>
+    <name>WWTBAM_DLC_Music</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206940</id>
+    <name>Icewind Dale</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206950</id>
+    <name>Icewind Dale 2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206960</id>
+    <name>Temple of Elemental Evil</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206970</id>
+    <name>Baldurs Gate 2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207150</id>
+    <name>Stellar Impact</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207320</id>
+    <name>Ys: The Oath in Felghana</name>
+    <type>Game</type>
+    <genre>Action, Adventure, RPG</genre>
+  </game>
+  <game>
+    <id>207430</id>
+    <name>Hack, Slash, Loot</name>
+    <type>Game</type>
+    <genre>RPG, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>207490</id>
+    <name>Rayman Origins</name>
+    <type>Game</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>207710</id>
+    <name>Bumbledore</name>
+    <type>Game</type>
+    <genre>Strategy, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>208541</id>
+    <name>Dungeon Defenders - Series EV Hero DLC</name>
+    <type>DLC</type>
+    <genre>Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>208542</id>
+    <name>Dungeon Defenders - Karathiki Jungle Mission Pack </name>
+    <type>DLC</type>
+    <genre>Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>208831</id>
+    <name>Magic 2013 Deck Pack 2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208832</id>
+    <name>Magic 2013 Deck Pack 3</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208833</id>
+    <name>Red-White Deck Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208834</id>
+    <name>Red-White Foil Conversion</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208835</id>
+    <name>Blue-Black Deck Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208836</id>
+    <name>Blue-Black Foil Conversion</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208837</id>
+    <name>Red-Green Deck Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208838</id>
+    <name>Red-Green Foil Conversion</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208839</id>
+    <name>Black-White Deck Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208840</id>
+    <name>Black-White Foil Conversion</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208841</id>
+    <name>Green-Blue Deck Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208842</id>
+    <name>Green-Blue Foil Conversion</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208843</id>
+    <name>Five-Color Deck Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208844</id>
+    <name>Five-Color Foil Conversion</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208881</id>
+    <name>ValveTestApp208881</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209320</id>
+    <name>ValveTestApp209320</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209330</id>
+    <name>A Valley Without Wind</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>209370</id>
+    <name>Analogue: A Hate Story</name>
+    <type>Game</type>
+    <genre>Indie</genre>
+  </game>
+  <game>
+    <id>207189</id>
+    <name>Legend of Grimrock Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209460</id>
+    <name>ValveTestApp209460</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209470</id>
+    <name>ValveTestApp209470</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81496</id>
+    <name>Saints Row The Third The Trouble with Clones Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81497</id>
+    <name>Fall of the Samurai Story ESRB Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81498</id>
+    <name>Fall of the Samurai Announcement ESRB Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81499</id>
+    <name>Yesterday Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>96819</id>
+    <name>Nexuiz Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209480</id>
+    <name>ValveTestApp209480</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209500</id>
+    <name>The Witcher Mac Depot Range</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>38185</id>
+    <name>ValveTestApp38185</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>31713</id>
+    <name>IGW - Scorched Earth DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209520</id>
+    <name>ValveTestApp209520</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>200059</id>
+    <name>Naval War Arctic Circle Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209540</id>
+    <name>ValveTestApp209540</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81503</id>
+    <name>Mutant Storm Reloaded Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>209550</id>
+    <name>ValveTestApp209550</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209570</id>
+    <name>ValveTestApp209570</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209590</id>
+    <name>ValveTestApp209590</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81502</id>
+    <name>Adams Venture Episode 1 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81504</id>
+    <name>Game of Thrones Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81506</id>
+    <name>Age of Empires Online Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81507</id>
+    <name>Toki Tori 2 Teaser Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>42697</id>
+    <name>ValveTestApp42697</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209610</id>
+    <name>Roller Coaster Rampage</name>
+    <type>Game</type>
+    <genre>Indie, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>209630</id>
+    <name>ValveTestApp209630</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209650</id>
+    <name>ValveTestApp209650</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>42698</id>
+    <name>ValveTestApp42698</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209670</id>
+    <name>ValveTestApp209670</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81514</id>
+    <name>Gettysburg Release Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81513</id>
+    <name>Stellar Impact Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81508</id>
+    <name>Sleeping Dogs Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81509</id>
+    <name>Sleeping Dogs Live Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81510</id>
+    <name>Shoot Many Robots Meet the Enemies Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81511</id>
+    <name>Shoot Many Robots Customize Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81512</id>
+    <name>Shoot Many Robots Launch Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>209690</id>
+    <name>Fieldrunners</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209660</id>
+    <name>ValveTestApp209660</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209710</id>
+    <name>ValveTestApp209710</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81515</id>
+    <name>Age of Empires Online Overview Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81516</id>
+    <name>Age of Empires Online Skirmish Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81517</id>
+    <name>Confrontation Teaser Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81519</id>
+    <name>Legend of Grimrock Launch Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>209730</id>
+    <name>ValveTestApp209730</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209750</id>
+    <name>Cannon Fodder 3</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>1515</id>
+    <name>ValveTestApp1515</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>1535</id>
+    <name>ValveTestApp1535</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>202524</id>
+    <name>Dungeon Defenders Penny Arcade Costume Pack</name>
+    <type>DLC</type>
+    <genre>Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>1507</id>
+    <name>ValveTestApp1507-do-not-use</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>1528</id>
+    <name>ValveTestApp1528-do-not-use</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209770</id>
+    <name>ValveTestApp209770</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209771</id>
+    <name>Darwinia Soundtrack DLC retail</name>
+    <type>DLC</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>209772</id>
+    <name>DEFCON Sountrack DLC retail</name>
+    <type>DLC</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>81523</id>
+    <name>Fireburst Trailer 1</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81522</id>
+    <name>Fireburst Trailer 2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204079</id>
+    <name>Superbrothers: Sword &amp; Sworcery EP Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209810</id>
+    <name>ValveTestApp209810</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209811</id>
+    <name>ValveTestApp209811</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209814</id>
+    <name>ValveTestApp209814</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209812</id>
+    <name>ValveTestApp209812</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209813</id>
+    <name>ValveTestApp209813</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209830</id>
+    <name>Lone Survivor</name>
+    <type>Game</type>
+    <genre>Action, Adventure, RPG, Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>81520</id>
+    <name>Risen 2 Dark Waters CGI Trailer PEGI English</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81521</id>
+    <name>Risen 2 Dark Waters CGI Trailer ESRB</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81524</id>
+    <name>Risen 2 Dark Waters CGI Trailer PEGI German</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81525</id>
+    <name>Risen 2 Dark Waters Trailer 2 USK</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81526</id>
+    <name>Risen 2 Dark Waters Trailer 2 PEGI Ger</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81527</id>
+    <name>Risen 2 Dark Waters Trailer 2 PEGI ESP</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81528</id>
+    <name>Risen 2 Dark Waters Trailer 2 PEGI ITA</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81529</id>
+    <name>Risen 2 Dark Waters Trailer 2 PEGI France</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>209850</id>
+    <name>ValveTestApp209850</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204287</id>
+    <name>The Silent Running Package</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>204288</id>
+    <name>The Nordamark Line Package</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>204289</id>
+    <name>The E.V.E. Package</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>209870</id>
+    <name>Blacklight: Retribution</name>
+    <type>Game</type>
+    <genre>Free to Play, Action</genre>
+  </game>
+  <game>
+    <id>201569</id>
+    <name>WWE Wrestlefest</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204879</id>
+    <name>Men of War: Condemned Heroes Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209890</id>
+    <name>ValveTestApp209890</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>201719</id>
+    <name>DiRT Showdown</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209910</id>
+    <name>ValveTestApp209910</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209930</id>
+    <name>ValveTestApp209930</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>65256</id>
+    <name>Railworks 2 4VEP Add-On</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>65257</id>
+    <name>Railworks 3 Easter Rail Tour 2012</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>81531</id>
+    <name>Dungeon Defenders Series EV Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>209950</id>
+    <name>ValveTestApp209950</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>63391</id>
+    <name>Sniper Elite V2 - Hitler Mission</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>63392</id>
+    <name>Sniper Elite V2 - Rifle Pack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209990</id>
+    <name>SOLSurvivalGerman</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207165</id>
+    <name>Stellar Impact - Game Activation Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207166</id>
+    <name>Stellar Impact – Support Ship</name>
+    <type>DLC</type>
+    <genre>Action, Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>207167</id>
+    <name>Stellar Impact - Carrier Ship</name>
+    <type>DLC</type>
+    <genre>Action, Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>207168</id>
+    <name>Stellar Impact - Artillery Ship</name>
+    <type>DLC</type>
+    <genre>Action, Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>210010</id>
+    <name>ValveTestApp210010</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210030</id>
+    <name>ValveTestApp210030</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210130</id>
+    <name>Hegemony Gold: Wars of Ancient Greece</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>81533</id>
+    <name>Forsaken World Nightfall Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81530</id>
+    <name>City of Heroes Issue 22 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81542</id>
+    <name>Retro City Rampage Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81532</id>
+    <name>English Country Tune Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81534</id>
+    <name>Game of Thrones Epic Plot Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81535</id>
+    <name>Age of Empires Online Celts Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81536</id>
+    <name>Microsoft Flight Launch Trailer PEGI French</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81537</id>
+    <name>Microsoft Flight Launch Trailer PEGI German</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81538</id>
+    <name>Microsoft Flight Launch Trailer PEGI Italian</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81539</id>
+    <name>Microsoft Flight Launch Trailer PEGI Spanish</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81540</id>
+    <name>Microsoft Flight Launch Trailer PEGI</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81541</id>
+    <name>Microsoft Flight Trailer ESRB</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>210150</id>
+    <name>Pole Position 2012</name>
+    <type>Game</type>
+    <genre>Action, Strategy, Simulation, Racing</genre>
+  </game>
+  <game>
+    <id>98420</id>
+    <name>ValveTestApp98420</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210170</id>
+    <name>ValveTestApp210170</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210190</id>
+    <name>ValveTestApp210190</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206782</id>
+    <name>Men of War Condemned Heroes Prima Guide</name>
+    <type>Game</type>
+    <genre>Action, Strategy</genre>
+  </game>
+  <game>
+    <id>203878</id>
+    <name>ValveTestApp203878</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203879</id>
+    <name>ValveTestApp203879</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210230</id>
+    <name>Nancy Drew: Tomb of the Lost Queen</name>
+    <type>Game</type>
+    <genre>Adventure</genre>
+  </game>
+  <game>
+    <id>210250</id>
+    <name>ValveTestApp210250</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>21222</id>
+    <name>Gotham City Impostors Mega XP Boost - Solo</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>21223</id>
+    <name>Gotham City Impostors Mega XP Boost - Team</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>21224</id>
+    <name>Gotham City Impostors Costume Coin Boost - Solo</name>
+    <type>DLC</type>
+  </game>
+  <game>
+    <id>47426</id>
+    <name>Stronghold 3 Blackstaff Campaign</name>
+    <type>DLC</type>
+    <genre>Strategy, Simulation</genre>
+  </game>
+  <game>
+    <id>210290</id>
+    <name>Naval War: Arctic Circle Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>208983</id>
+    <name>blades-of-time-swamp-macos</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208984</id>
+    <name>blades-of-time-extended-macos</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210350</id>
+    <name>Max Payne</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208543</id>
+    <name>Dungeon Defenders - City in the Cliffs Mission Pack</name>
+    <type>DLC</type>
+    <genre>Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>210011</id>
+    <name>ValveTestApp210011</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210012</id>
+    <name>ValveTestApp210012</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210013</id>
+    <name>ValveTestApp210013</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210014</id>
+    <name>ValveTestApp210014</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210015</id>
+    <name>ValveTestApp210015</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210016</id>
+    <name>ValveTestApp210016</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206712</id>
+    <name>Cities in Motion: Ulm City</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>206713</id>
+    <name>cim-mac-ulm</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210017</id>
+    <name>Resident Evil: Operation Raccoon City - Elite Weapons</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210018</id>
+    <name>Resident Evil: Operation Raccoon City - Classic Weapons</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210019</id>
+    <name>Resident Evil: Operation Raccoon City - Weapon stash + Wolfpack Uniforms</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210370</id>
+    <name>ValveTestApp210370</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210390</id>
+    <name>Adam's Venture Episode 2: Solomon's Secret</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Indie</genre>
+  </game>
+  <game>
+    <id>210410</id>
+    <name>Max Payne 2 DE</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210430</id>
+    <name>Max Payne 2 IT</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>644</id>
+    <name>Portal 2 Publishing Tool</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>761</id>
+    <name>Steam Cloud - Videos</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>765</id>
+    <name>Indie Game Workshop</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>766</id>
+    <name>Steam Workshop</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>1840</id>
+    <name>Source Filmmaker</name>
+    <type>Game</type>
+  </game>
+  <game>
+    <id>3838</id>
+    <name>Psychonauts Original Soundtrack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>3839</id>
+    <name>Psychonauts Original Cinematic Score</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>10279</id>
+    <name>Disciples Reincarnation Pre-order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>12260</id>
+    <name>Max Payne 2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>16190</id>
+    <name>Virtual Villagers 3: The Secret City Demo</name>
+    <type>IdRedirect</type>
+    <genre>Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>16870</id>
+    <name>Sid Meier's Civilization V - Gods and Kings</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>16879</id>
+    <name>Civ V Gods and Kings Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>17080</id>
+    <name>Tribes: Ascend</name>
+    <type>Game</type>
+    <genre>Free to Play, Action</genre>
+  </game>
+  <game>
+    <id>17095</id>
+    <name>Tribes: Ascend - Steam Starter Pack</name>
+    <type>DLC</type>
+    <genre>Free to Play, Action</genre>
+  </game>
+  <game>
+    <id>20828</id>
+    <name>Shatter Soundtrack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>21202</id>
+    <name>Gotham City Impostors Rodeo Pirate Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>21219</id>
+    <name>Gotham City Impostors Premium Card Pack 6</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>21220</id>
+    <name>Gotham City Impostors Premium Card Pack 7</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>21221</id>
+    <name>Gotham City Impostors Steamy Punk Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>38743</id>
+    <name>Cube PDF</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>40390</id>
+    <name>Risen 2 - Dark Waters</name>
+    <type>Game</type>
+    <genre>RPG</genre>
+  </game>
+  <game>
+    <id>42170</id>
+    <name>Krater</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>42179</id>
+    <name>Krater Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>44600</id>
+    <name>GTR - FIA GT Racing Game</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>48231</id>
+    <name>Might &amp; Magic ® Heroes ® VI - Pirates of the Savage Sea Adventure Pack</name>
+    <type>DLC</type>
+    <genre>Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>48705</id>
+    <name>Mount &amp; Blade: Warband - Napoleonic Wars</name>
+    <type>DLC</type>
+    <genre>Action, RPG</genre>
+  </game>
+  <game>
+    <id>49539</id>
+    <name>Borderlands 2 Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>50300</id>
+    <name>Spec Ops: The Line</name>
+    <type>Game</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>50513</id>
+    <name>Burn Zombie Burn Soundtrack</name>
+    <type>DLC</type>
+  </game>
+  <game>
+    <id>58230</id>
+    <name>MacGuffin's Curse</name>
+    <type>Game</type>
+    <genre>Adventure, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>58240</id>
+    <name>MacGuffin's Curse Demo</name>
+    <type>IdRedirect</type>
+    <genre>Adventure, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>63380</id>
+    <name>Sniper Elite V2</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>63399</id>
+    <name>Sniper Elite V2 Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>65258</id>
+    <name>RailWorks 3 Settle Steam Specials</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>65259</id>
+    <name>SD75 Add-On</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>65530</id>
+    <name>SpellForce 2 - Faith in Destiny</name>
+    <type>Game</type>
+    <genre>Strategy, RPG</genre>
+  </game>
+  <game>
+    <id>71420</id>
+    <name>London 2012: The Official Video Game of the Olympic Games</name>
+    <type>Game</type>
+    <genre>Casual, Simulation, Racing, Sports</genre>
+  </game>
+  <game>
+    <id>71439</id>
+    <name>London 2012: The Official Video Game of the Olympic Games</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>73088</id>
+    <name>The Sword of Islam</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>73099</id>
+    <name>Mirror Crystal Cavern Hideout</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>73110</id>
+    <name>Volcano Hideout</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81494</id>
+    <name>Gunes of Icarus Online Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81543</id>
+    <name>Retro City Rampage Cereal Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81544</id>
+    <name>Condemned Heroes Prima Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81545</id>
+    <name>MacGuffins Curse Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81546</id>
+    <name>Sins of a Solar Empire Rebellion Teaser</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81547</id>
+    <name>Krater Teaser</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81548</id>
+    <name>Krater Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81549</id>
+    <name>Guns of Icarus Online Game Play Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81550</id>
+    <name>Hack Slash and Loot Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81551</id>
+    <name>Botanicula Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81552</id>
+    <name>Sniper Elite V2 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81553</id>
+    <name>DiRT Showdown Announcement</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81554</id>
+    <name>DiRT Showdown What Goes on Tour</name>
+    <type>WebError</type>
+  </game>
+  <game>
+    <id>81555</id>
+    <name>DiRT Showdown Destruction</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81556</id>
+    <name>DiRT Showdown  8 ball</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81557</id>
+    <name>Avernum Escape From the Pit Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81558</id>
+    <name>World of Battles Morning Star Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81559</id>
+    <name>World of Battles Morning Star Gameplay Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81560</id>
+    <name>Insanely Twisted Shadow Planet Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81561</id>
+    <name>Insanely Twisted Shadow Planet Hunter Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81562</id>
+    <name>Revelations 2012</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81563</id>
+    <name>McGuffins Curse Trailer HD</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81564</id>
+    <name>Avernum_Escape_From_the_Pit_Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81565</id>
+    <name>Port Royale 3 Teaser Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81566</id>
+    <name>Avernum EFTP Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81567</id>
+    <name>Max Payne 3 Multiplayer</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81568</id>
+    <name>Max Payne 3 Design and Tech Video 3</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81569</id>
+    <name>Max Payne 3 Design and Tech Video 2</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81570</id>
+    <name>Noitu Love 2 Devolution</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81571</id>
+    <name>Superbrothers Sword and Sworcery EP Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81572</id>
+    <name>Streetfighter X Tekken Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81573</id>
+    <name>Deep Black Trailer 2</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81574</id>
+    <name>McGuffins Curse Tailer </name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81575</id>
+    <name>McGuffins Curse Tailer HD2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81576</id>
+    <name>Revelations 2012 Battlegrounds Tutorial</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81577</id>
+    <name>Revelations 2012 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81578</id>
+    <name>Deep Black Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81579</id>
+    <name>The Walking Dead Teaser</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81580</id>
+    <name>The Walking Dead Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Adventure</genre>
+  </game>
+  <game>
+    <id>81582</id>
+    <name>SuperMNC Overview Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81585</id>
+    <name>Lone Survivor Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure, RPG, Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>81586</id>
+    <name>RIFT Infernal Dawn Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81587</id>
+    <name>Sonic 4 Episode II ESRB Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81588</id>
+    <name>Sonic 4 Episode II PEGI Trailer</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81589</id>
+    <name>Fall of the Samurai Acclaim ESRB Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81590</id>
+    <name>A Valley Without Wind Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81591</id>
+    <name>Resident Evil Operation Raccoon City</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81592</id>
+    <name>To The Moon Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81593</id>
+    <name>Prototype 2 Trailer 1</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>81594</id>
+    <name>Prototype 2 Trailer 2</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>81595</id>
+    <name>Toy Soldier Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81596</id>
+    <name>Toy Soldier Gameplay Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81597</id>
+    <name>Serious Sam 3 Mac Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81598</id>
+    <name>Call of Duty Modern Warfare 3 Collection 1 Trailer</name>
+    <type>DLC</type>
+  </game>
+  <game>
+    <id>81599</id>
+    <name>Max Payne 3 TV Spot </name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81600</id>
+    <name>Max Payne 3 Design and Tech Video 4</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81601</id>
+    <name>Max Payne 3 TV Spot Int</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81602</id>
+    <name>SHOGUN 2 Fall of the Samurai Acclaim Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81603</id>
+    <name>SHOGUN 2 Fall of the Samurai Multiplayer Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81604</id>
+    <name>Port Royale 3 Trailer DE</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81605</id>
+    <name>Port Royale 3 Trailer UK</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81606</id>
+    <name>Port Royale 3 Trailer EN</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81607</id>
+    <name>Fireburst Trailer 3</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81608</id>
+    <name>Tiny and Big in Grandpas Leftovers Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81609</id>
+    <name>Torchlight II Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81610</id>
+    <name>Warlock Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81611</id>
+    <name>Dungeon Defenders Aquanos Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81612</id>
+    <name>Fall of the Samurai Interview Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81613</id>
+    <name>Portal 2 DLC 2 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81614</id>
+    <name>Saints Row The Third Steelport Gangs Pack Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81615</id>
+    <name>AS2 Conscription</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81616</id>
+    <name>Offsrping Fling</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81617</id>
+    <name>War of Immortals Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81618</id>
+    <name>Toy Soldiers Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81619</id>
+    <name>The Dream Machine Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81620</id>
+    <name>Orion Dino Beatdown Vid Doc World of Hurt</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81621</id>
+    <name>Orion Dino Beatdown Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81622</id>
+    <name>Orion Dino Beatdown Teaser</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81623</id>
+    <name>Sleeping Dogs Driving Vignette</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>81624</id>
+    <name>Sleeping Dogs Undercover Hong Kong Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>81625</id>
+    <name>Port Royale 3 Trailer DE New</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81626</id>
+    <name>Call of Duty Black Ops 2 Reveal Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81627</id>
+    <name>The Walking Dead Story Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Adventure</genre>
+  </game>
+  <game>
+    <id>81628</id>
+    <name>Port Royale 3 Trailer EN New</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81629</id>
+    <name>Port Royale 3 Trailer UK New</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81630</id>
+    <name>DiRT Showdown  Demo Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81632</id>
+    <name>Endless Space Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81633</id>
+    <name>Iron Grip Warlord Scorched Earth DLC Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81634</id>
+    <name>Revelations 2012 Trailer New</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81635</id>
+    <name>Gratuitous Tank Battles Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81636</id>
+    <name>Total War SHOGUN 2 Dragon War Battle Pack Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81637</id>
+    <name>Saints Row The Third Steelport Gangs Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81638</id>
+    <name>Moon Breakers Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81639</id>
+    <name>Alan Wakes American Nightmare Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81640</id>
+    <name>Dynamite Jack Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81641</id>
+    <name>Magical Diary Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81642</id>
+    <name>Ravaged Trailed</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81643</id>
+    <name>3D Coat Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81644</id>
+    <name>Super MNC Steam Trading Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81645</id>
+    <name>Offsrping Fling Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81646</id>
+    <name>War Inc Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81647</id>
+    <name>Serious Sam HD LOB DLC Trailer</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81648</id>
+    <name>Dead Hungry Diner Teaser</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81649</id>
+    <name>Dead Hungry Diner Gameplay</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81650</id>
+    <name>Cities in Motion Paris Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81663</id>
+    <name>Ghost Recon Future Soldier Announcement Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81664</id>
+    <name>Ghost Recon Future Soldier E3 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81674</id>
+    <name>Ticket to Ride Trailer EN</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81675</id>
+    <name>Ticket to Ride Trailer DE</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81676</id>
+    <name>Ticket to Ride Trailer FR</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81677</id>
+    <name>Iron Front Liberation 1944 Infantry Trailer EN</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81678</id>
+    <name>Metro Last Light Enter the Metro Teaser </name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81679</id>
+    <name>EVE Online Inferno Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81680</id>
+    <name>Indie Game the Movie Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81681</id>
+    <name>Dungeon Defenders Summoner Hero Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81682</id>
+    <name>Swords and Soldiers Sausage DLC Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81683</id>
+    <name>Metro Last Light Short Film US</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81684</id>
+    <name>Metro Last Light Short Film France</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81685</id>
+    <name>Metro Last Light Short Film Benelux</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81686</id>
+    <name>Metro Last Light Short Film Spain</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81687</id>
+    <name>Metro Last Light Short Film United Kingdom</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81688</id>
+    <name>Metro Last Light Short Film Germany</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81689</id>
+    <name>Metro Last Light Short Film Australia</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81690</id>
+    <name>Red Orchestra 2 GOTY Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81691</id>
+    <name>Red Orchestra 2 GOTY Dev Diary</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81692</id>
+    <name>Sniper Ghost Warrior 2 Sarajevo Trailer</name>
+    <type>WebError</type>
+  </game>
+  <game>
+    <id>81693</id>
+    <name>Ghost Recon Future Soldier PrePurchase Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81694</id>
+    <name>Iron Front Liberation 1944 Infantry Trailer INT</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81695</id>
+    <name>Iron Front Liberation 1944 Airforce Trailer INT</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81696</id>
+    <name>Iron Front Liberation 1944 Airforce Trailer EN</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81697</id>
+    <name>Fieldrunners Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81698</id>
+    <name>the Binding of Isaac Wrath of the Lamb Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81699</id>
+    <name>Sleeping Dogs 101 Trailer</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81700</id>
+    <name>Sleeping Dogs 101 ESRB Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>81701</id>
+    <name>Tiny and Big in Grandpas Leftovers Trailer 2</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81702</id>
+    <name>Frozen Synapse Red DLC Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81703</id>
+    <name>Krater Tribute Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81704</id>
+    <name>Fall of the Samurai Clan Packs Trailer</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81705</id>
+    <name>Ys Origin Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81706</id>
+    <name>Lord of the Rings Online FR</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81707</id>
+    <name>Lord of the Rings Online UK</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81708</id>
+    <name>Lord of the Rings Online US</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81709</id>
+    <name>Lord of the Rings Online DE</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81710</id>
+    <name>Quantum Conundrum E3 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81711</id>
+    <name>Fall of the Samurai Clan Packs Trailer ESRB</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81712</id>
+    <name>Iron Grip Warlord Scorched Earth Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81713</id>
+    <name>Dark Souls Trailer ESRB</name>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
+  </game>
+  <game>
+    <id>81714</id>
+    <name>Dark Souls Trailer USK</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81715</id>
+    <name>London 2012 Announce Trailer France</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81716</id>
+    <name>Dark Souls Trailer PEGI</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81717</id>
+    <name>Atooms to Moolecules Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81718</id>
+    <name>Dark Souls Trailer PC Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action, RPG</genre>
+  </game>
+  <game>
+    <id>81719</id>
+    <name>BeatBuddy Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81720</id>
+    <name>Divo Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81721</id>
+    <name>Max Payne 3 Launch Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81722</id>
+    <name>Militant Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81723</id>
+    <name>Imagine Earth Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81724</id>
+    <name>Blackwells Asylum</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81725</id>
+    <name>Symphony Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81726</id>
+    <name>Trash TV Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81727</id>
+    <name>The White Laboratory Traiiler</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81728</id>
+    <name>Thunder Wheels Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81729</id>
+    <name>Cannon Fodder 3 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81730</id>
+    <name>Bang Bang Racing Teaser</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81731</id>
+    <name>Bang Bang Racing Vantage Point Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81732</id>
+    <name>Splice Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81733</id>
+    <name>Plutonic Repulse</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81734</id>
+    <name>Bioshock Infinite E3 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81735</id>
+    <name>Blackwells Asylum Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81736</id>
+    <name>South Park The Stick of Truth Reveal Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81737</id>
+    <name>Spec Ops The Line TV Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>81738</id>
+    <name>Risen 2 Air Temple Trailer PEGI</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81739</id>
+    <name>Risen 2 Air Temple Trailer ESRB</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81740</id>
+    <name>Risen 2 Air Temple Trailer ES</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81741</id>
+    <name>Risen 2 Air Temple Trailer FR</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81742</id>
+    <name>Risen 2 Air Temple Trailer IT</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81743</id>
+    <name>Rune Trailer 1</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81744</id>
+    <name>Rune Trailer 2</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81745</id>
+    <name>Sins of a Solar Empire Rebellion Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81746</id>
+    <name>Krater Release Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81747</id>
+    <name>Divine Divinity Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81748</id>
+    <name>Dungeon Fighter Online Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81749</id>
+    <name>Fray Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81750</id>
+    <name>Dead Hungry Diner Zen Master Guide</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81751</id>
+    <name>Dead Hungry Diner Patch Featurette</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81752</id>
+    <name>London 2012 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81753</id>
+    <name>Roller Coaster Rampage Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81754</id>
+    <name>London 2012 Trailer German</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81755</id>
+    <name>London 2012 Trailer Italian</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81756</id>
+    <name>London 2012 Trailer United Kingdom</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81757</id>
+    <name>London 2012 Trailer Spanish</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81758</id>
+    <name>London 2012 Trailer French</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81759</id>
+    <name>London 2012 Trailer Australia</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81760</id>
+    <name>London 2012 Trailer International</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81761</id>
+    <name>SpellForce II Faith in Destiny Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81762</id>
+    <name>Roller Coaster Rampage Trailer 2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81763</id>
+    <name>Civilization V Gods and Kings Lead Your Civ Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81764</id>
+    <name>A Valley Without Wind Update Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81765</id>
+    <name>Stoked Big Air Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81766</id>
+    <name>LEGO Batman 2 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81767</id>
+    <name>Napoleon Total War DLC Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81768</id>
+    <name>Tiny and Big Trailer 3</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81769</id>
+    <name>Tiny and Big Trailer 4</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81770</id>
+    <name>DC Universe Online The Last Laugh Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81771</id>
+    <name>Magic the Gathering 2013</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81772</id>
+    <name>PAM Abandoned Sawmill</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81773</id>
+    <name>Dynasty Warrior Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81774</id>
+    <name>Vindictus Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81775</id>
+    <name>Vindictus Episode 10 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81776</id>
+    <name>Dark Eye Trailer PEGI</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81777</id>
+    <name>Dark Eye Story DE</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81778</id>
+    <name>Dark Eye Story ENG</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81779</id>
+    <name>Dark Eye PC Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81780</id>
+    <name>Pro Cycling Manager 2012</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81781</id>
+    <name>On the Rain Slick Precipice of Darkness 3 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81782</id>
+    <name>LEGO Batman 2 Trailer 2 Danish</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81783</id>
+    <name>LEGO Batman 2 Trailer 2 Russian</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81784</id>
+    <name>LEGO Batman 2 Trailer 2 Italian</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81785</id>
+    <name>LEGO Batman 2 Trailer 2 English</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81786</id>
+    <name>LEGO Batman 2 Trailer 2 German</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81787</id>
+    <name>LEGO Batman 2 Trailer 2 Spanish</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81788</id>
+    <name>LEGO Batman 2 Trailer 2 Polish</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81789</id>
+    <name>LEGO Batman 2 Trailer 2 Swedish</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81790</id>
+    <name>LEGO Batman 2 Trailer 2 French</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81791</id>
+    <name>LEGO Batman 2 Trailer 2 Dutch</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81792</id>
+    <name>Tribes Ascend Gameplay English</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81793</id>
+    <name>Tribes ascend Llama Island Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81794</id>
+    <name>Tribes Ascend Announcement Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81795</id>
+    <name>Tribes Ascend Focus Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81796</id>
+    <name>Tribes Ascend Gameplay German</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81797</id>
+    <name>Saints Row The Third Witches and Wieners Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81798</id>
+    <name>Meet the Pyro</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81799</id>
+    <name>LEGO Batman 2 Trailer 2 ESRB</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81800</id>
+    <name>Team Fortress 2: Meet the Pyro</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81801</id>
+    <name>The Political Machine Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81802</id>
+    <name>Adams Venture Episode 2 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81803</id>
+    <name>Adams Venture Episode 3 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81804</id>
+    <name>Dungeon Fighter Online Promo Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81805</id>
+    <name>Combat Arms Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81806</id>
+    <name>The Walking Dead Episode 2 Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Adventure</genre>
+  </game>
+  <game>
+    <id>81807</id>
+    <name>Atlantica Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81808</id>
+    <name>Blacklight Retribution Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81809</id>
+    <name>Microsoft Flight Alaska Trailer ESRB</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81810</id>
+    <name>Microsoft Flight Alaska Trailer PEGI</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81811</id>
+    <name>Combat Arms Video Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81812</id>
+    <name>Krater Rave Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81813</id>
+    <name>Transformers Fall of Cybertron Our World Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81814</id>
+    <name>Killing Floor Summer Sideshow Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81815</id>
+    <name>Hero Academy _ TF2 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81816</id>
+    <name>Endless Space Exterminate Resistance Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81817</id>
+    <name>Super MNC Turbocross Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81818</id>
+    <name>Total War Rome II PEGI UK</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81821</id>
+    <name>Legends of Pegasus Gameplay Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81822</id>
+    <name>Legends of Pegasus Gameplay Trailer UK</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81823</id>
+    <name>Legends of Pegasus Trailer PEGI</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81824</id>
+    <name>Legends of Pegasus Trailer ESRB</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81825</id>
+    <name>Legends of Pegasus Gameplay Trailer DE</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>81826</id>
+    <name>Orcs Must Die 2 Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81833</id>
+    <name>Foreign Legion Multi Massacre Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>81834</id>
+    <name>MicroVolts Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81840</id>
+    <name>Inversion Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>81841</id>
+    <name>Inversion Launch Trailer</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>90207</id>
+    <name>Farming Classics</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>91330</id>
+    <name>Iron Front : Liberation 1944</name>
+    <type>Game</type>
+    <genre>Action, Strategy, Simulation</genre>
+  </game>
+  <game>
+    <id>92621</id>
+    <name>Xotic DLC: Temple Crypt Expansion Pack</name>
+    <type>DLC</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>92622</id>
+    <name>Xotic DLC: Warp Field Expansion Pack</name>
+    <type>DLC</type>
+    <genre>Action, Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>94300</id>
+    <name>The Dream Machine</name>
+    <type>Game</type>
+    <genre>Adventure, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>94303</id>
+    <name>chapter3_depot</name>
+    <type>DLC</type>
+    <genre>Adventure, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>96300</id>
+    <name>Ravaged Beta</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>96800</id>
+    <name>Nexuiz</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>97330</id>
+    <name>Magic: The Gathering - Duels of the Planeswalkers 2013</name>
+    <type>Game</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>97349</id>
+    <name>Magic 2013 Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>98211</id>
+    <name>Frozen Synapse Red DLC</name>
+    <type>DLC</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>98212</id>
+    <name>FrozenSynapseRedSoundtrack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>98213</id>
+    <name>FrozenSynapseRedSoundtrackFLAC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>98214</id>
+    <name>FrozenSynapseRedMac</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>98300</id>
+    <name>Toy Soldiers</name>
+    <type>Game</type>
+    <genre>Action, Strategy, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>104900</id>
+    <name>ORION: Dino Beatdown</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Indie, Casual, Racing</genre>
+  </game>
+  <game>
+    <id>105200</id>
+    <name>Reign of Thunder (Beta)</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>108200</id>
+    <name>Ticket to Ride</name>
+    <type>Game</type>
+    <genre>Strategy, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>108800</id>
+    <name>Crysis 2 Maximum Edition</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>109400</id>
+    <name>MicroVolts</name>
+    <type>Game</type>
+    <genre>Free to Play, Action</genre>
+  </game>
+  <game>
+    <id>113204</id>
+    <name>Binding of Isaac: Wrath of the Lamb</name>
+    <type>DLC</type>
+    <genre>Action, Adventure, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>113205</id>
+    <name>The Binding Of Isaac - Wrath of the Lamb</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>113900</id>
+    <name>World of Battles</name>
+    <type>Game</type>
+    <genre>Free to Play, Strategy, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>115339</id>
+    <name>Prototype 2 Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>200010</id>
+    <name>Quantum Conundrum</name>
+    <type>Game</type>
+    <genre>Strategy, Platformer, Casual</genre>
+  </game>
+  <game>
+    <id>200019</id>
+    <name>Quantum Conundrum Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>200050</id>
+    <name>Naval War: Arctic Circle</name>
+    <type>Game</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>200240</id>
+    <name>Batman: Arkham City Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>200300</id>
+    <name>Defenders of Ardania - Battlemagic DLC</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>200310</id>
+    <name>Defenders of Ardania - Conjurer's Tricks DLC</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>200396</id>
+    <name>Oil Rush DLC TD</name>
+    <type>DLC</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>200397</id>
+    <name>Oil Rush OST</name>
+    <type>DLC</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>200729</id>
+    <name>Torchlight II Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>200891</id>
+    <name>Batman Arkham City: Harley Quinn</name>
+    <type>DLC</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>201070</id>
+    <name>Revelations 2012</name>
+    <type>Game</type>
+    <genre>Action, Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>201276</id>
+    <name>Total War: SHOGUN 2 - Fall of the Samurai - Sendai Faction Pack DLC</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>201277</id>
+    <name>Total War: SHOGUN 2 - Dragon War Battle Pack</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>201700</id>
+    <name>DiRT Showdown</name>
+    <type>Game</type>
+    <genre>Action, Racing, Sports</genre>
+  </game>
+  <game>
+    <id>202188</id>
+    <name>Sleeping Dogs Prima Guide Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>202189</id>
+    <name>Sleeping Dogs Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>202197</id>
+    <name>Limited Edition Pack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>202198</id>
+    <name>Territory Pack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>202370</id>
+    <name>Scarygirl</name>
+    <type>Game</type>
+    <genre>Action, Platformer</genre>
+  </game>
+  <game>
+    <id>202690</id>
+    <name>Hegemony Gold: Wars of Ancient Greece</name>
+    <type>Game</type>
+    <genre>Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>202730</id>
+    <name>Dynamite Jack</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Indie</genre>
+  </game>
+  <game>
+    <id>202750</id>
+    <name>Alan Wake's American Nightmare</name>
+    <type>Game</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>202769</id>
+    <name>Alan Wakes American Nightmare Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>202900</id>
+    <name>Max Payne 2 FR</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>202920</id>
+    <name>Total War: Shogun 2 - TEd</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>202989</id>
+    <name>Call of Duty: Black Ops 2 - Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203159</id>
+    <name>Hitman Absolution Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203181</id>
+    <name>FUBAR Pack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203182</id>
+    <name>ValveTestApp203182</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203183</id>
+    <name>ValveTestApp203183</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203184</id>
+    <name>ValveTestApp203184</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203189</id>
+    <name>Spec Ops The Line Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203344</id>
+    <name>Jagged Alliance: Back in Action - Shades of Red DLC</name>
+    <type>DLC</type>
+    <genre>Strategy, RPG, Simulation</genre>
+  </game>
+  <game>
+    <id>203345</id>
+    <name>Jagged Alliance: Back in Action - Point Blank DLC</name>
+    <type>DLC</type>
+    <genre>Strategy, RPG, Simulation</genre>
+  </game>
+  <game>
+    <id>203630</id>
+    <name>Warlock - Master of the Arcane</name>
+    <type>Game</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>203649</id>
+    <name>Warlock - Master of the Arcane Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203650</id>
+    <name>SONIC THE HEDGEHOG 4 Episode II</name>
+    <type>Game</type>
+    <genre>Adventure, Platformer</genre>
+  </game>
+  <game>
+    <id>203659</id>
+    <name>Sonic the Hedgehog 4 - EP 2 Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203733</id>
+    <name>QUBEOST</name>
+    <type>DLC</type>
+  </game>
+  <game>
+    <id>203750</id>
+    <name>Binary Domain</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>203765</id>
+    <name>Binary Domain - Dan Marshall Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>203766</id>
+    <name>Binary Domain - Multiplayer Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>203776</id>
+    <name>Ruler Designer</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>203777</id>
+    <name>Songs of the Holy Land</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>203813</id>
+    <name>Dear Esther OST</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>203830</id>
+    <name>The Dark Eye: Chains of Satinav</name>
+    <type>Game</type>
+    <genre>Adventure</genre>
+  </game>
+  <game>
+    <id>203875</id>
+    <name>Microsoft Flight: Alaskan Wilderness Pack</name>
+    <type>DLC</type>
+    <genre>Free to Play, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>203876</id>
+    <name>Microsoft Flight: P-40</name>
+    <type>DLC</type>
+    <genre>Free to Play, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>203877</id>
+    <name>Microsoft Flight: F4U Corsair</name>
+    <type>DLC</type>
+    <genre>Free to Play, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>204060</id>
+    <name>Superbrothers: Sword &amp; Sworcery EP</name>
+    <type>Game</type>
+    <genre>Adventure, Indie</genre>
+  </game>
+  <game>
+    <id>204075</id>
+    <name>Superbrothers: Sword &amp; Sworcery EP - Soundtrack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204100</id>
+    <name>Max Payne 3</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>204106</id>
+    <name>Classic Max Character DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204107</id>
+    <name>Pill Bottle Item DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204108</id>
+    <name>Special Edition Pack DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204119</id>
+    <name>Max Payne 3 Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204182</id>
+    <name>Waveform DLC</name>
+    <type>DLC</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>204350</id>
+    <name>Serious Sam 2 Editor</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204387</id>
+    <name>Dungeon Defenders: Etherian Festival of Love</name>
+    <type>DLC</type>
+    <genre>Action, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>204388</id>
+    <name>Dungeon Defenders - President's Day Surprise </name>
+    <type>DLC</type>
+    <genre>Action, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>204731</id>
+    <name>Krater Soundtrack</name>
+    <type>DLC</type>
+  </game>
+  <game>
+    <id>204732</id>
+    <name>Krater - Dr. Cerebro DLC</name>
+    <type>DLC</type>
+    <genre>Action, Adventure, Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>204733</id>
+    <name>Krater - Vanity</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204760</id>
+    <name>Deep Black : Reloaded</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>204860</id>
+    <name>Men of War: Condemned Heroes</name>
+    <type>Game</type>
+    <genre>Action, Strategy</genre>
+  </game>
+  <game>
+    <id>204902</id>
+    <name>Quantum Conundrum Soundtrack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>204980</id>
+    <name>Spec Ops: The Line Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>205252</id>
+    <name>3DMark Vantage Advanced</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205279</id>
+    <name>3DMark11 Advanced</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205370</id>
+    <name>Airline Tycoon 2 Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Simulation</genre>
+  </game>
+  <game>
+    <id>205530</id>
+    <name>Gratuitous Tank Battles</name>
+    <type>Game</type>
+    <genre>Strategy, Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>205550</id>
+    <name>Foreign Legion: Multi Massacre</name>
+    <type>Game</type>
+    <genre>Action, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>205599</id>
+    <name>Legends of Pegasus Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205610</id>
+    <name>Port Royale 3</name>
+    <type>Game</type>
+    <genre>Action, Strategy, Simulation</genre>
+  </game>
+  <game>
+    <id>205619</id>
+    <name>Port Royale 3 Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205630</id>
+    <name>Tropico 4: Modern Times</name>
+    <type>DLC</type>
+    <genre>Strategy, Simulation</genre>
+  </game>
+  <game>
+    <id>205700</id>
+    <name>Quantum Conundrum Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Platformer, Casual</genre>
+  </game>
+  <game>
+    <id>205730</id>
+    <name>Insanely Twisted Shadow Planet</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>205739</id>
+    <name>Insanely Twisted Shadow Planet Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205829</id>
+    <name>Jagged Alliance - Crossfire Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205910</id>
+    <name>Tiny and Big: Grandpa's Leftovers</name>
+    <type>Game</type>
+    <genre>Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>205928</id>
+    <name>Tiny and Big Soundtrack Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205929</id>
+    <name>Tiny and Big Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>205949</id>
+    <name>Hitman Sniper Challenge</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206020</id>
+    <name>Avernum 4</name>
+    <type>Game</type>
+    <genre>RPG, Indie</genre>
+  </game>
+  <game>
+    <id>206040</id>
+    <name>Avernum 5</name>
+    <type>Game</type>
+    <genre>RPG, Indie</genre>
+  </game>
+  <game>
+    <id>206060</id>
+    <name>Avernum 6</name>
+    <type>Game</type>
+    <genre>RPG, Indie</genre>
+  </game>
+  <game>
+    <id>206415</id>
+    <name>Crazy Machines Elements DLC - Gadget Fun &amp; Tricky Riddles</name>
+    <type>DLC</type>
+    <genre>Strategy, Casual</genre>
+  </game>
+  <game>
+    <id>206416</id>
+    <name>Crazy Machines Elements DLC - Collision Course &amp; Mental Activity</name>
+    <type>DLC</type>
+    <genre>Strategy, Casual</genre>
+  </game>
+  <game>
+    <id>206480</id>
+    <name>Dungeons &amp; Dragons Online®</name>
+    <type>Game</type>
+    <genre>Free to Play, Action, RPG, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>206500</id>
+    <name>AirMech</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206550</id>
+    <name>Warlock - Master of the Arcane DLC: Pre-order Pack</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>206560</id>
+    <name>Warlock - Master of the Arcane DLC 1: Power of Serpent</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>206714</id>
+    <name>Cities in Motion: Paris</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>206715</id>
+    <name>Cities in Motion: Paris</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>206730</id>
+    <name>Dead Hungry Diner Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Casual</genre>
+  </game>
+  <game>
+    <id>206740</id>
+    <name>Who Wants To Be A Millionaire? Special Editions</name>
+    <type>SiteError</type>
+  </game>
+  <game>
+    <id>206783</id>
+    <name>The Witcher 2 Enhanced Edition Prima Official Strategy Guide</name>
+    <type>Game</type>
+    <genre>RPG</genre>
+  </game>
+  <game>
+    <id>206784</id>
+    <name>Game of Thrones Prima Official Strategy Guide</name>
+    <type>Game</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>206786</id>
+    <name>Tom Clancy’s Ghost Recon Future Soldier eGuide</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>206881</id>
+    <name>Airline Tycoon 2: Honey Airlines DLC</name>
+    <type>DLC</type>
+    <genre>Strategy, Simulation</genre>
+  </game>
+  <game>
+    <id>206882</id>
+    <name>Airline Tycoon 2: Falcon Airlines</name>
+    <type>DLC</type>
+    <genre>Strategy, Simulation</genre>
+  </game>
+  <game>
+    <id>206989</id>
+    <name>War of the Roses Alpha Coming Soon</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207020</id>
+    <name>Bang Bang Racing</name>
+    <type>Game</type>
+    <genre>Racing</genre>
+  </game>
+  <game>
+    <id>207080</id>
+    <name>Indie Game: The Movie</name>
+    <type>Game</type>
+    <genre>Indie</genre>
+  </game>
+  <game>
+    <id>207099</id>
+    <name>Indie Game: The Movie Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207130</id>
+    <name>All Zombies Must Die Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>207170</id>
+    <name>Legend of Grimrock</name>
+    <type>Game</type>
+    <genre>Adventure, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>207190</id>
+    <name>Fireburst</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Racing</genre>
+  </game>
+  <game>
+    <id>207270</id>
+    <name>DiRT Showdown Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Racing, Sports</genre>
+  </game>
+  <game>
+    <id>207350</id>
+    <name>Ys Origin</name>
+    <type>Game</type>
+    <genre>Action, Adventure, RPG, Platformer</genre>
+  </game>
+  <game>
+    <id>207530</id>
+    <name>Noitu Love 2 Devolution</name>
+    <type>Game</type>
+    <genre>Action, Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>207559</id>
+    <name>World of Mercenaries Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207610</id>
+    <name>The Walking Dead</name>
+    <type>Game</type>
+    <genre>Adventure</genre>
+  </game>
+  <game>
+    <id>207650</id>
+    <name>A Virus Named TOM</name>
+    <type>Game</type>
+    <genre>Action, Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>207670</id>
+    <name>AVSEQ</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207690</id>
+    <name>Botanicula</name>
+    <type>Game</type>
+    <genre>Adventure, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>207730</id>
+    <name>Arena Wars 2</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>207970</id>
+    <name>Bang Bang Racing Demo</name>
+    <type>IdRedirect</type>
+    <genre>Racing</genre>
+  </game>
+  <game>
+    <id>208010</id>
+    <name>Noitu Love 2 Devolution Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>208152</id>
+    <name>Endless Space - Admiral Preorder ES Award Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208153</id>
+    <name>Endless Space -Emperor Preorder Dev Team Award Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208154</id>
+    <name>Endless Space -Emperor Preorder ES Award Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208155</id>
+    <name>Endless Space - Emperor Edition Preorder Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208156</id>
+    <name>Endless Space - Admiral Edition Preorder Key</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208280</id>
+    <name>Railworks DLC range</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>208281</id>
+    <name>Railworks 3 BR 143 Pack</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>208284</id>
+    <name>Railworks 3 Class 67 Diamond Jubilee</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>208287</id>
+    <name>Railworks 3 4CIG Southern EMU</name>
+    <type>DLC</type>
+    <genre>Simulation</genre>
+  </game>
+  <game>
+    <id>208300</id>
+    <name>Railworks 3 LegacyAssetsEU</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208301</id>
+    <name>Railworks 3 LegacyRouteOP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208302</id>
+    <name>Railworks 3 LegacyRouteBT</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208303</id>
+    <name>Railworks 3 LegacyRouteNY</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208304</id>
+    <name>Railworks 3 LegacyRouteHS</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208305</id>
+    <name>Railworks 3 LegacyRoutesFictional</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208306</id>
+    <name>Railworks 3 LegacyAssetsUS</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208307</id>
+    <name>Railworks 3 LegacyRouteCP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208311</id>
+    <name>Railworks 3 LegacyScenariosOP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208312</id>
+    <name>Railworks 3 LegacyScenariosBT</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208313</id>
+    <name>Railworks 3 LegacyScenariosNY</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208314</id>
+    <name>Railworks 3 LegacyScenariosHS</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208315</id>
+    <name>Railworks 3 LegacyScenariosFictional</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208316</id>
+    <name>Railworks 3 LegacyAssetsFoliage</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208317</id>
+    <name>Railworks 3 LegacyScenariosCP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208400</id>
+    <name>Avernum: Escape From the Pit</name>
+    <type>Game</type>
+    <genre>Strategy, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>208600</id>
+    <name>Lunar Flight</name>
+    <type>Game</type>
+    <genre>Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>208670</id>
+    <name>Blades of Time</name>
+    <type>Game</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>208730</id>
+    <name>Game of Thrones </name>
+    <type>Game</type>
+    <genre>Action, RPG</genre>
+  </game>
+  <game>
+    <id>208909</id>
+    <name>Mad Riders Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>208985</id>
+    <name>Blades of Time Dismal Swamp German DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209100</id>
+    <name>Resident Evil™: Operation Raccoon City</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>209109</id>
+    <name>Resident Evil Operation Raccoon City Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209120</id>
+    <name>Street Fighter X Tekken</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>209129</id>
+    <name>Street Fighter X Tekken Pre-order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209230</id>
+    <name>Sherlock Holmes and The Hound of The Baskervilles</name>
+    <type>Game</type>
+    <genre>Adventure, Casual</genre>
+  </game>
+  <game>
+    <id>209360</id>
+    <name>AZMD! Scorepocalypse </name>
+    <type>Game</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>209362</id>
+    <name>AZMD soundtrack</name>
+    <type>DLC</type>
+  </game>
+  <game>
+    <id>209373</id>
+    <name>Analogue: A Hate Story Soundtrack</name>
+    <type>DLC</type>
+  </game>
+  <game>
+    <id>209375</id>
+    <name>Analogue costume pack DLC</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209390</id>
+    <name>Dungeonbowl</name>
+    <type>Game</type>
+    <genre>Strategy, Sports</genre>
+  </game>
+  <game>
+    <id>209790</id>
+    <name>Splice</name>
+    <type>Game</type>
+    <genre>Indie, Casual</genre>
+  </game>
+  <game>
+    <id>209793</id>
+    <name>SpliceSoundtrack</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209799</id>
+    <name>Splice Pre-Purchase</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>209872</id>
+    <name>Blacklight Starter Pack</name>
+    <type>DLC</type>
+    <genre>Free to Play, Action</genre>
+  </game>
+  <game>
+    <id>210310</id>
+    <name>Binary Domain Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>210450</id>
+    <name>Civilization V: Gods &amp; Kings Mac</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>210470</id>
+    <name>Sniper Elite V2 Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>210490</id>
+    <name>Fray</name>
+    <type>Game</type>
+    <genre>Action, Strategy, Indie</genre>
+  </game>
+  <game>
+    <id>210510</id>
+    <name>Swords and Soldiers HD: Super Saucy Sausage Fest</name>
+    <type>DLC</type>
+    <genre>Action, Strategy, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>210720</id>
+    <name>Blades of Time Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>210740</id>
+    <name>Analogue: A Hate Story Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie</genre>
+  </game>
+  <game>
+    <id>210840</id>
+    <name>Warlock - Master of the Arcane Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>210932</id>
+    <name>Killing Floor - Urban Nightmare Character Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>210933</id>
+    <name>Killing Floor - Harold Lott Character Pack</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>210950</id>
+    <name>Rune Classic</name>
+    <type>Game</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>210990</id>
+    <name>Pro Cycling Manager 2012</name>
+    <type>Game</type>
+    <genre>Simulation, Sports</genre>
+  </game>
+  <game>
+    <id>211010</id>
+    <name>Alien Shooter 2 Conscription</name>
+    <type>Game</type>
+    <genre>Action, Indie</genre>
+  </game>
+  <game>
+    <id>211090</id>
+    <name>A Valley Without Wind Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, Adventure, Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>211129</id>
+    <name>The Political Machine Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>211140</id>
+    <name>DYNASTY WARRIORS 7 with Xtreme Legends</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>211200</id>
+    <name>Beyond Oasis</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211201</id>
+    <name>Dynamite Headdy</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211202</id>
+    <name>Golden Axe 3</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211203</id>
+    <name>Phantasy Star 2</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211204</id>
+    <name>Phantasy Star 3</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211205</id>
+    <name>Phantasy Star 4</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211206</id>
+    <name>Streets of Rage 3</name>
+    <type>Game</type>
+    <genre>Action, Platformer</genre>
+  </game>
+  <game>
+    <id>211207</id>
+    <name>The Revenge of Shinobi</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211208</id>
+    <name>Vectorman 2</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211209</id>
+    <name>Wonder Boy in Monster World</name>
+    <type>Game</type>
+    <genre>Platformer</genre>
+  </game>
+  <game>
+    <id>211340</id>
+    <name>Magical Diary</name>
+    <type>Game</type>
+    <genre>Adventure, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>211360</id>
+    <name>Offspring Fling!</name>
+    <type>Game</type>
+    <genre>Adventure, Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>211380</id>
+    <name>Shoot Many Robots: Arena Kings</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>211440</id>
+    <name>Adventures of Shuggy</name>
+    <type>Game</type>
+    <genre>Indie, Platformer</genre>
+  </game>
+  <game>
+    <id>211600</id>
+    <name>Thief Gold</name>
+    <type>Game</type>
+    <genre>Action, Simulation</genre>
+  </game>
+  <game>
+    <id>211740</id>
+    <name>Thief 2</name>
+    <type>Game</type>
+    <genre>Action, Simulation</genre>
+  </game>
+  <game>
+    <id>211780</id>
+    <name>Conflict Desert Storm</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>211800</id>
+    <name>Dead Hungry Diner</name>
+    <type>Game</type>
+    <genre>Indie, Casual</genre>
+  </game>
+  <game>
+    <id>212050</id>
+    <name>Resonance</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212090</id>
+    <name>Endless Space VIP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212160</id>
+    <name>Vindictus</name>
+    <type>Game</type>
+    <genre>Free to Play, Action, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>212180</id>
+    <name>Combat Arms</name>
+    <type>Game</type>
+    <genre>Free to Play, Action</genre>
+  </game>
+  <game>
+    <id>212220</id>
+    <name>Dungeon Fighter Online</name>
+    <type>Game</type>
+    <genre>Free to Play, Action, RPG, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>212240</id>
+    <name>Atlantica</name>
+    <type>Game</type>
+    <genre>Free to Play, Action, Strategy, RPG, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>212330</id>
+    <name>Sherlock Holmes versus Jack the Ripper additional language depots</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212350</id>
+    <name>The Dream Machine Demo</name>
+    <type>IdRedirect</type>
+    <genre>Adventure, Indie, Casual</genre>
+  </game>
+  <game>
+    <id>212410</id>
+    <name>Inversion™</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>212419</id>
+    <name>Inversion Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212432</id>
+    <name>Debundle LegacyAssetsEU</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212433</id>
+    <name>Debundle LegacyAssetsUS</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212434</id>
+    <name>Debundle LegacyRouteOP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212438</id>
+    <name>Debundle LegacyRouteCP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212440</id>
+    <name>Debundle LegacyScenariosOP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212441</id>
+    <name>Debundle LegacyScenariosBT</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212442</id>
+    <name>Debundle LegacyScenariosNY</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212444</id>
+    <name>Debundle LegacyScenariosCP</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212445</id>
+    <name>Debundle LegacyScenariosFictional</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212447</id>
+    <name>Debundle IoW</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212500</id>
+    <name>The Lord of the Rings Online™</name>
+    <type>Game</type>
+    <genre>Free to Play, RPG, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>212530</id>
+    <name>Moon Breakers - Rookie Bundle</name>
+    <type>DLC</type>
+    <genre>Free to Play, Action, Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>212531</id>
+    <name>Moon Breakers - Flyboy Bundle</name>
+    <type>DLC</type>
+    <genre>Free to Play, Action, Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>212532</id>
+    <name>Moon Breakers - Big Cheese Bundle </name>
+    <type>DLC</type>
+    <genre>Free to Play, Action, Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>212541</id>
+    <name>Red Orchestra 2: Heroes of Stalingrad - Single Player</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212542</id>
+    <name>Red Orchestra 2 - Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212630</id>
+    <name>Tom Clancy's Ghost Recon Future Soldier</name>
+    <type>Game</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>212679</id>
+    <name>Tom Clancy's Ghost Recon Future Soldier Preorder</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>212860</id>
+    <name>Splice Demo</name>
+    <type>IdRedirect</type>
+    <genre>Indie, Casual</genre>
+  </game>
+  <game>
+    <id>213030</id>
+    <name>Penny Arcade's On the Rain-Slick Precipice of Darkness 3</name>
+    <type>Game</type>
+    <genre>RPG, Indie</genre>
+  </game>
+  <game>
+    <id>213040</id>
+    <name>ORION: Dino Beatdown Dedicated Server</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>213174</id>
+    <name>The Lord of the Rings Online™ Steam Pack</name>
+    <type>DLC</type>
+    <genre>Free to Play, RPG, Massively Multiplayer</genre>
+  </game>
+  <game>
+    <id>213330</id>
+    <name>LEGO Batman 2</name>
+    <type>Game</type>
+    <genre>Action, Adventure</genre>
+  </game>
+  <game>
+    <id>213370</id>
+    <name>Max Payne 3 Season Pass</name>
+    <type>DLC</type>
+    <genre>Action</genre>
+  </game>
+  <game>
+    <id>213390</id>
+    <name>Atooms to Moolecules</name>
+    <type>Game</type>
+    <genre>Indie</genre>
+  </game>
+  <game>
+    <id>213410</id>
+    <name>BeatBuddy</name>
+    <type>Game</type>
+    <genre>Indie</genre>
+  </game>
+  <game>
+    <id>213450</id>
+    <name>Imagine Earth</name>
+    <type>Game</type>
+    <genre>Indie, Casual, Simulation</genre>
+  </game>
+  <game>
+    <id>213570</id>
+    <name>Trash TV</name>
+    <type>Game</type>
+    <genre>Indie</genre>
+  </game>
+  <game>
+    <id>213630</id>
+    <name>Portal 2 - Educational Build</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>213910</id>
+    <name>Sid Meier's Civilization V: Gods &amp; Kings Demo</name>
+    <type>DLC</type>
+    <genre>Strategy</genre>
+  </game>
+  <game>
+    <id>214050</id>
+    <name>Sanctum Beta</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214070</id>
+    <name>Gratuitous Tank Battles Demo</name>
+    <type>IdRedirect</type>
+    <genre>Strategy, Indie, Simulation</genre>
+  </game>
+  <game>
+    <id>214170</id>
+    <name>Divine Divinity</name>
+    <type>Game</type>
+    <genre>RPG</genre>
+  </game>
+  <game>
+    <id>214289</id>
+    <name>Mensa Academy WW Pre-Order</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214310</id>
+    <name>Adam's Venture Episode 3: Revelations</name>
+    <type>Game</type>
+    <genre>Action, Adventure, Indie</genre>
+  </game>
+  <game>
+    <id>214645</id>
+    <name>Call of Duty Black Ops First Strike MP OSX</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214646</id>
+    <name>Call of Duty Black Ops First Strike OSX</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214647</id>
+    <name>Call of Duty Black Ops Escalation MP OSX</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214648</id>
+    <name>Call of Duty Black Ops Escalation OSX</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214649</id>
+    <name>Call of Duty Black Ops Rezurrection OSX</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214652</id>
+    <name>Call of Duty Black Ops Annihilation mp OSX</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214653</id>
+    <name>Call of Duty Black Ops Annihilation OSX</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214820</id>
+    <name>E.Y.E: Divine Cybermancy Demo</name>
+    <type>IdRedirect</type>
+    <genre>Action, RPG, Indie</genre>
+  </game>
+  <game>
+    <id>214983</id>
+    <name>Peace in Our Time</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>215690</id>
+    <name>ValveTestApp215690</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81845</id>
+    <name>SFM Demo</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>215970</id>
+    <name>ValveTestApp215970</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>215971</id>
+    <name>ValveTestApp215971</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>215972</id>
+    <name>ValveTestApp215972</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>215990</id>
+    <name>DC Universe Online Power Bundle</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>213151</id>
+    <name>ValveTestApp213151</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>213152</id>
+    <name>ValveTestApp213152</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>213153</id>
+    <name>ValveTestApp213153</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>213154</id>
+    <name>ValveTestApp213154</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>213155</id>
+    <name>ValveTestApp213155</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81848</id>
+    <name>Source FilmMaker Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81846</id>
+    <name>Hard Reset Exile Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81847</id>
+    <name>Source FilmMaker Demo Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81819</id>
+    <name>Total War Rome II PEGI International Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81820</id>
+    <name>Total War Rome II PEGI Russia Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81827</id>
+    <name>Total War Rome II USK Germany Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81828</id>
+    <name>Total War Rome II PEGI Italy Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81829</id>
+    <name>Total War Rome II OFCL Australia Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81830</id>
+    <name>Total War Rome II PEGI France Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81831</id>
+    <name>Total War Rome II PEGI Spain Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81832</id>
+    <name>The Secret World ESRB Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81835</id>
+    <name>The Secret World PEGI Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81836</id>
+    <name>Killing Floor Summer Sideshow 2012 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81837</id>
+    <name>Dracula Origin Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81838</id>
+    <name>Dungeonbowl Trailer</name>
+    <type>NonApp</type>
+  </game>
+  <game>
+    <id>81839</id>
+    <name>Bullet Run trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81842</id>
+    <name>Dungeon Defenders Quest 4 Trailer</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81843</id>
+    <name>Source Filmmaker Introduction</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>81844</id>
+    <name>SFM Intro</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>214292</id>
+    <name>MicroVolts - Micro Bundle</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>216010</id>
+    <name>Brawl Busters - Buster Bundle</name>
+    <type>NotFound</type>
+  </game>
+  <game>
+    <id>106021</id>
+    <name>Pandora Saga: Weapons of Balance Starter Pack</name>
     <type>NotFound</type>
   </game>
 </gamelist>
