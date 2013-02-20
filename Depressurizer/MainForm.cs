@@ -166,19 +166,21 @@ namespace Depressurizer {
             DialogResult res = updateDlg.ShowDialog();
 
             if( updateDlg.Error != null ) {
-                AddStatus( "Error downloading profile data." );
+                AddStatus( string.Format( "Error downloading profile data via {0}.", updateDlg.UseHtml ? "HTML" : "XML" ) );
                 MessageBox.Show( string.Format( "There was an error downloading the profile data: \n\n{0}", updateDlg.Error.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             } else {
                 if( res == DialogResult.Abort || res == DialogResult.Cancel ) {
                     AddStatus( "Download aborted." );
                 } else {
-                    int loadedGames = updateDlg.Added;
-                    if( loadedGames == 0 ) {
+                    if( updateDlg.Failover ) {
+                        AddStatus( "XML download failed." );
+                    }
+                    if( updateDlg.Fetched == 0 ) {
                         MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games in download." );
                     } else {
                         MakeChange( true );
-                        AddStatus( string.Format( "Downloaded {0} new games.", loadedGames ) );
+                        AddStatus( string.Format( "Downloaded {0} games, {1} new, via {2}.", updateDlg.Fetched, updateDlg.Added, updateDlg.UseHtml ? "HTML" : "XML" ) );
                         FillCategoryList();
                         FillGameList();
                     }
@@ -658,6 +660,7 @@ namespace Depressurizer {
             }
 
             AddStatus( string.Format( "Updated {0} categories locally.", updated ) );
+            if( updated > 0 ) MakeChange( true );
 
             if( notFound.Count > 0 ) {
                 DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
@@ -677,6 +680,7 @@ namespace Depressurizer {
                             MessageBox.Show( string.Format( "Failed to load store pages for {0} games.", scrapeDlg.Failures ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                             AddStatus( string.Format( "Errors occurred on {0} games.", scrapeDlg.Failures ) );
                         }
+                        if( scrapeDlg.JobsCompleted > 0 ) MakeChange( true );
                     }
                 }
             }
@@ -704,6 +708,9 @@ namespace Depressurizer {
                 }
             }
             AddStatus( string.Format( "Autonamed {0} games.", named ) );
+            if( named > 0 ) {
+                MakeChange( true );
+            }
 
             FillGameList();
         }

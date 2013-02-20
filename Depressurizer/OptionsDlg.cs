@@ -44,6 +44,17 @@ namespace Depressurizer {
                     radNone.Checked = true;
                     break;
             }
+            switch (settings.ListSource) {
+                case GameListSource.XmlPreferred:
+                    cmbDatSrc.SelectedIndex = 0;
+                    break;
+                case GameListSource.XmlOnly:
+                    cmbDatSrc.SelectedIndex = 1;
+                    break;
+                case GameListSource.WebsiteOnly:
+                    cmbDatSrc.SelectedIndex = 2;
+                    break;
+            }
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
             chkIgnoreDlc.Checked = settings.IgnoreDlc;
             chkFullAutocat.Checked = settings.FullAutocat;
@@ -60,6 +71,19 @@ namespace Depressurizer {
             } else {
                 settings.StartupAction = StartupAction.None;
             }
+
+            switch( cmbDatSrc.SelectedIndex ) {
+                case 0:
+                    settings.ListSource = GameListSource.XmlPreferred;
+                    break;
+                case 1:
+                    settings.ListSource = GameListSource.XmlOnly;
+                    break;
+                case 2:
+                    settings.ListSource = GameListSource.WebsiteOnly;
+                    break;
+            }
+
             settings.ProfileToLoad = txtDefaultProfile.Text;
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
             settings.IgnoreDlc = chkIgnoreDlc.Checked;

@@ -27,6 +27,12 @@ namespace Depressurizer {
         Create
     }
 
+    enum GameListSource {
+        XmlPreferred,
+        XmlOnly,
+        WebsiteOnly
+    }
+
     class Settings : AppSettings {
 
         private static Settings instance;
@@ -117,6 +123,19 @@ namespace Depressurizer {
             set {
                 if( _fullAutocat != value ) {
                     _fullAutocat = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private GameListSource _listSource = GameListSource.XmlPreferred;
+        public GameListSource ListSource {
+            get {
+                return _listSource;
+            }
+            set {
+                if( _listSource != value ) {
+                    _listSource = value;
                     outOfDate = true;
                 }
             }

@@ -51,11 +51,11 @@ namespace Depressurizer {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, AccountID );
             return GameData.ImportSteamFile( filePath, IgnoreList, IgnoreDlc );
         }
-
+        /*
         public int DownloadGameList() {
             return GameData.DownloadGameList( CommunityName, OverwriteOnDownload, IgnoreList, IgnoreDlc );
         }
-
+        */
         public void ExportSteamData() {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, AccountID );
             GameData.SaveSteamFile( filePath, ExportDiscard );

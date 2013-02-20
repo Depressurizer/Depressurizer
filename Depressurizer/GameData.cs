@@ -18,8 +18,10 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace Depressurizer {
@@ -84,12 +86,16 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="id">ID of the game to set</param>
         /// <param name="name">Name to assign to the game</param>
-        private void SetGameName( int id, string name, bool overWrite ) {
+        /// <returns>True if game was not already in the list, false otherwise</returns>
+        private bool SetGameName( int id, string name, bool overWrite ) {
             if( !Games.ContainsKey( id ) ) {
                 Games.Add( id, new Game( id, name ) );
-            } else if( overWrite ) {
+                return true;
+            }
+            if( overWrite ) {
                 Games[id].Name = name;
             }
+            return false;
         }
 
         /// <summary>
@@ -212,10 +218,10 @@ namespace Depressurizer {
         }
         #endregion
 
-        public static XmlDocument FetchGameList( string profileName ) {
+        public static XmlDocument FetchXmlGameList( string profileName ) {
             XmlDocument doc = new XmlDocument();
             try {
-                string url = string.Format( Properties.Resources.ProfileURL, profileName );
+                string url = string.Format( Properties.Resources.XmlProfileURL, profileName );
                 WebRequest req = HttpWebRequest.Create( url );
                 WebResponse response = req.GetResponse();
                 doc.Load( response.GetResponseStream() );
@@ -226,7 +232,32 @@ namespace Depressurizer {
             }
         }
 
-        public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
+        public static string FetchHtmlGameList( string profileName ) {
+            try {
+                string result = "";
+                string url = string.Format( Properties.Resources.HtmlProfileURL, profileName );
+                WebRequest req = HttpWebRequest.Create( url );
+                using( WebResponse response = req.GetResponse() ) {
+                    StreamReader sr = new StreamReader( response.GetResponseStream() );
+                    result = sr.ReadToEnd();
+                }
+
+                return result;
+            } catch( Exception e ) {
+                throw new ApplicationException( "Failed to download profile data: " + e.Message, e );
+            }
+        }
+
+        /// <summary>
+        /// Integrates list of games from an XmlDocument into the loaded game list.
+        /// </summary>
+        /// <param name="doc">The XmlDocument containing the new game list</param>
+        /// <param name="overWrite">If true, overwrite the names of games already in the list.</param>
+        /// <param name="ignore">A set of item IDs to ignore.</param>
+        /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
+        /// <returns>Returns the number of games successfully processed and not ignored.</returns>
+        public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out int newItems ) {
+            newItems = 0;
             if( doc == null ) return 0;
             int loadedGames = 0;
             XmlNodeList gameNodes = doc.SelectNodes( "/gamesList/games/game" );
@@ -234,27 +265,66 @@ namespace Depressurizer {
                 int appId;
                 XmlNode appIdNode = gameNode["appID"];
                 if( appIdNode != null && int.TryParse( appIdNode.InnerText, out appId ) ) {
-                    if( ( ignore != null && ignore.Contains( appId ) ) || ( ignoreDlc && Program.GameDB.IsDlc( appId ) ) ) {
-                        continue;
-                    }
                     XmlNode nameNode = gameNode["name"];
                     if( nameNode != null ) {
-                        SetGameName( appId, nameNode.InnerText, overWrite );
-                        loadedGames++;
+                        bool isNew;
+                        bool added = IntegrateGame( appId, nameNode.InnerText, overWrite, ignore, ignoreDlc, out isNew );
+                        if( added ) {
+                            loadedGames++;
+                            if( isNew ) {
+                                newItems++;
+                            }
+                        }
                     }
                 }
             }
             return loadedGames;
         }
 
-        /// <summary>
-        /// Loads game info from the given Steam profile
-        /// </summary>
-        /// <param name="profileName">Name of the Steam profile to get</param>
-        /// <returns>The number of games found in the profile</returns>
-        public int DownloadGameList( string profileName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            XmlDocument doc = GameData.FetchGameList( profileName );
-            return IntegrateXmlGameList( doc, overWrite, ignore, ignoreDlc );
+        public int IntegrateHtmlGameList( string page, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out int newItems ) {
+            newItems = 0;
+            int totalItems = 0;
+
+            Regex srch = new Regex( "\"appid\":([0-9]+),\"name\":\"([^\"]+)\"" );
+            MatchCollection matches = srch.Matches( page );
+            foreach( Match m in matches ) {
+                if( m.Groups.Count < 3 ) continue;
+                string appIdString = m.Groups[1].Value;
+                string appName = m.Groups[2].Value;
+
+                int appId;
+                if( appName != null && appIdString != null && int.TryParse( appIdString, out appId ) ) {
+                    appName = ProcessUnicode( appName );
+                    bool isNew;
+                    bool added = IntegrateGame( appId, appName, overWrite, ignore, ignoreDlc, out isNew );
+                    if( added ) {
+                        totalItems++;
+                        if( isNew ) {
+                            newItems++;
+                        }
+                    }
+                }
+            }
+
+            return totalItems;
+        }
+
+        private static Regex rxUnicode = new Regex( @"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled );
+
+        public string ProcessUnicode( string val ) {
+            return rxUnicode.Replace(
+                val,
+                m => ( (char)int.Parse( m.Groups["Value"].Value, NumberStyles.HexNumber ) ).ToString()
+            );
+        }
+
+        public bool IntegrateGame( int appId, string appName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out bool isNew ) {
+            isNew = false;
+            if( ( ignore != null && ignore.Contains( appId ) ) || ( ignoreDlc && Program.GameDB.IsDlc( appId ) ) ) {
+                return false;
+            }
+            isNew = SetGameName( appId, appName, overWrite );
+            return true;
         }
 
         /// <summary>
