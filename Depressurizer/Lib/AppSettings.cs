@@ -71,7 +71,7 @@ namespace Rallion {
         /// <summary>
         /// Loads settings from the defined config file.
         /// </summary>
-        public void Load() {
+        public virtual void Load() {
             Type type = this.GetType();
             if( File.Exists( FilePath ) ) {
                 XmlDocument doc = new XmlDocument();

@@ -23,6 +23,7 @@ using Rallion;
 namespace Depressurizer {
     static class Program {
 
+        public static AppLogger Logger;
         public static GameDB GameDB;
 
         /// <summary>
@@ -32,12 +33,19 @@ namespace Depressurizer {
         static void Main() {
             FatalError.InitializeHandler();
 
+            Logger = new AppLogger();
+            Logger.BeginSession( true );
+
             Settings settings = Settings.Instance();
             settings.Load();
+
+            Logger.Write( LoggerLevel.Info, "Program initialized. Logging level set to {0}.", Logger.Level );
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
             Application.Run( new FormMain() );
+
+            Logger.Write( LoggerLevel.Info, "Program closing." );
         }
     }
 }

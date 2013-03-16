@@ -141,9 +141,28 @@ namespace Depressurizer {
             }
         }
 
+        private LoggerLevel _logLevel = LoggerLevel.None;
+        public LoggerLevel LogLevel {
+            get {
+                return _logLevel;
+            }
+            set {
+                if( _logLevel != value ) {
+                    _logLevel = value;
+                    outOfDate = true;
+                    Program.Logger.Level = value;
+                }
+            }
+        }
+
         private Settings()
             : base() {
             FilePath = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";
+        }
+
+        public override void Load() {
+            base.Load();
+         //   Program.Logger.Level = LogLevel;
         }
     }
 }
