@@ -67,7 +67,7 @@ namespace Depressurizer {
 
         protected override void RunProcess() {
             Failures = 0;
-
+            Program.Logger.Write( LoggerLevel.Info, "Initiating Steam Store data scrape. {0} jobs to complete.", jobs.Count );
             bool stillRunning = true;
             while( !Stopped && stillRunning ) {
                 stillRunning = RunNextJob();
@@ -110,6 +110,8 @@ namespace Depressurizer {
             if( !this.Canceled ) {
                 SetText( "Finishing up..." );
 
+                Program.Logger.Write( LoggerLevel.Info, "Scrape completed. {0} failures. {1} results. Merging results into game data.", this.Failures, scrapeResults.Count );
+                
                 if( scrapeResults != null ) {
                     foreach( KeyValuePair<int, string> pair in scrapeResults ) {
                         data.Games[pair.Key].Category = data.GetCategory( pair.Value );

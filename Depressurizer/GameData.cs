@@ -23,6 +23,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Rallion;
 
 namespace Depressurizer {
     /// <summary>
@@ -222,12 +223,15 @@ namespace Depressurizer {
             XmlDocument doc = new XmlDocument();
             try {
                 string url = string.Format( Properties.Resources.XmlProfileURL, profileName );
+                Program.Logger.Write( LoggerLevel.Info, "Attempting to downloaded XML game list from URL {0}", url );
                 WebRequest req = HttpWebRequest.Create( url );
                 WebResponse response = req.GetResponse();
                 doc.Load( response.GetResponseStream() );
                 response.Close();
+                Program.Logger.Write( LoggerLevel.Info, "Successfully downloaded XML game list.", url );
                 return doc;
             } catch( Exception e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Exception when downloading XML game list:\n{0}",  e.Message );
                 throw new ApplicationException( "Failed to download profile data: " + e.Message, e );
             }
         }
@@ -236,14 +240,16 @@ namespace Depressurizer {
             try {
                 string result = "";
                 string url = string.Format( Properties.Resources.HtmlProfileURL, profileName );
+                Program.Logger.Write( LoggerLevel.Info, "Attempting to downloaded HTML game list from URL {0}", url );
                 WebRequest req = HttpWebRequest.Create( url );
                 using( WebResponse response = req.GetResponse() ) {
                     StreamReader sr = new StreamReader( response.GetResponseStream() );
                     result = sr.ReadToEnd();
                 }
-
+                Program.Logger.Write( LoggerLevel.Info, "Successfully downloaded HTML game list.", url );
                 return result;
             } catch( Exception e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Exception when downloading HTML game list:\n{0}", e.Message );
                 throw new ApplicationException( "Failed to download profile data: " + e.Message, e );
             }
         }
@@ -257,6 +263,7 @@ namespace Depressurizer {
         /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
         /// <returns>Returns the number of games successfully processed and not ignored.</returns>
         public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out int newItems ) {
+            //TODO: Add debug option to save a copy of the file
             newItems = 0;
             if( doc == null ) return 0;
             int loadedGames = 0;
@@ -278,10 +285,12 @@ namespace Depressurizer {
                     }
                 }
             }
+            Program.Logger.Write( LoggerLevel.Info, "Integrated XML data into game list. {0} total items, {1} new.", loadedGames, newItems );
             return loadedGames;
         }
 
         public int IntegrateHtmlGameList( string page, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out int newItems ) {
+            //TODO: Add debug option to save a copy of the file
             newItems = 0;
             int totalItems = 0;
 
@@ -305,7 +314,7 @@ namespace Depressurizer {
                     }
                 }
             }
-
+            Program.Logger.Write( LoggerLevel.Info, "Integrated HTML data into game list. {0} total items, {1} new.", totalItems, newItems );
             return totalItems;
         }
 
@@ -321,9 +330,11 @@ namespace Depressurizer {
         public bool IntegrateGame( int appId, string appName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out bool isNew ) {
             isNew = false;
             if( ( ignore != null && ignore.Contains( appId ) ) || ( ignoreDlc && Program.GameDB.IsDlc( appId ) ) ) {
+                Program.Logger.Write( LoggerLevel.Verbose, "Skipped integrating game: {0} - {1}.", appId, appName );
                 return false;
             }
             isNew = SetGameName( appId, appName, overWrite );
+            Program.Logger.Write( LoggerLevel.Verbose, "Integrated game into game list: {0} - {1}. New: {2}", appId, appName, isNew );
             return true;
         }
 
@@ -333,7 +344,7 @@ namespace Depressurizer {
         /// <param name="filePath">The path of the file to open</param>
         /// <returns>The number of game entries found</returns>
         public int ImportSteamFile( string filePath, SortedSet<int> ignore, bool ignoreDlc ) {
-
+            Program.Logger.Write( LoggerLevel.Info, "Opening Steam config file: {0}", filePath );
             TextVdfFileNode dataRoot;
 
             try {
@@ -341,13 +352,17 @@ namespace Depressurizer {
                     dataRoot = TextVdfFileNode.Load( reader, true );
                 }
             } catch( ParseException e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Error parsing Steam config file: {0}", e.Message );
                 throw new ApplicationException( "Error parsing Steam config file: " + e.Message, e );
             } catch( IOException e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Error opening Steam config file: {0}", e.Message );
                 throw new ApplicationException( "Error opening Steam config file: " + e.Message, e );
             }
 
             TextVdfFileNode appsNode = dataRoot.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
-            return GetDataFromVdf( appsNode, ignore, ignoreDlc );
+            int count = GetDataFromVdf( appsNode, ignore, ignoreDlc );
+            Program.Logger.Write( LoggerLevel.Info, "Steam config file loaded. {0} items found.", count );
+            return count;
         }
 
         /// <summary>
@@ -365,6 +380,7 @@ namespace Depressurizer {
                     int gameId;
                     if( int.TryParse( gameNodePair.Key, out gameId ) ) {
                         if( ( ignore != null && ignore.Contains( gameId ) ) || ( ignoreDlc && Program.GameDB.IsDlc( gameId ) ) ) {
+                            Program.Logger.Write( LoggerLevel.Verbose, "Skipped processing game {0} from Steam config.", gameId );
                             continue;
                         }
                         if( gameNodePair.Value != null && gameNodePair.Value.ContainsKey( "tags" ) ) {
@@ -390,10 +406,11 @@ namespace Depressurizer {
                                 Game newGame = new Game( gameId, string.Empty );
                                 Games.Add( gameId, newGame );
                                 newGame.Name = Program.GameDB.GetName( gameId );
+                                Program.Logger.Write( LoggerLevel.Verbose, "Added new game found in Steam config: {0} - {1}", gameId, newGame.Name );
                             }
                             Games[gameId].Category = cat;
                             Games[gameId].Favorite = fav;
-
+                            Program.Logger.Write( LoggerLevel.Verbose, "Processed game from Steam config: {0}, Cat: {1}, Fav: {2}", gameId, ( cat == null ) ? "~none~" : cat.ToString(), fav );
                         }
                     }
                 }
@@ -407,12 +424,16 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="path">Full path of the steam config file to save</param>
         public void SaveSteamFile( string filePath, bool discardMissing ) {
+            Program.Logger.Write( LoggerLevel.Info, "Saving Steam config file: {0}.", filePath );
+
             TextVdfFileNode fileData = new TextVdfFileNode();
             try {
                 using( StreamReader reader = new StreamReader( filePath, false ) ) {
                     fileData = TextVdfFileNode.Load( reader, true );
                 }
-            } catch { }
+            } catch( Exception e ) {
+                Program.Logger.Write( LoggerLevel.Warning, "Loading existing Steam config failed: {0}", e.Message );
+            }
 
             TextVdfFileNode appListNode = fileData.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
 
@@ -422,6 +443,7 @@ namespace Depressurizer {
                     foreach( KeyValuePair<string, TextVdfFileNode> pair in gameNodeArray ) {
                         int gameId;
                         if( !( int.TryParse( pair.Key, out gameId ) && Games.ContainsKey( gameId ) ) ) {
+                            Program.Logger.Write( LoggerLevel.Verbose, "Removing game {0} category info from Steam config file.", gameId );
                             pair.Value.RemoveSubnode( "tags" );
                         }
                     }
@@ -429,6 +451,7 @@ namespace Depressurizer {
             }
 
             foreach( Game game in Games.Values ) {
+                Program.Logger.Write( LoggerLevel.Verbose, "Adding game {0} to config file.", game.Id );
                 TextVdfFileNode gameNode = appListNode[game.Id.ToString()];
                 gameNode.RemoveSubnode( "tags" );
                 if( game.Category != null || game.Favorite ) {
@@ -444,8 +467,10 @@ namespace Depressurizer {
                 }
             }
 
+            Program.Logger.Write( LoggerLevel.Verbose, "Cleaning up steam config tree before writing to disk." );
             appListNode.CleanTree();
 
+            Program.Logger.Write( LoggerLevel.Info, "Writing to disk..." );
             TextVdfFileNode fullFile = new TextVdfFileNode();
             fullFile["UserLocalConfigStore"] = fileData;
             try {
@@ -455,10 +480,13 @@ namespace Depressurizer {
                 }
                 fStream.Close();
             } catch( ArgumentException e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Error saving steam config file: {0}", e.ToString() );
                 throw new ApplicationException( "Failed to save Steam config file: Invalid path specified.", e );
             } catch( IOException e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Error saving steam config file: {0}", e.ToString() );
                 throw new ApplicationException( "Failed to save Steam config file: " + e.Message, e );
             } catch( UnauthorizedAccessException e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Error saving steam config file: {0}", e.ToString() );
                 throw new ApplicationException( "Access denied on Steam config file: " + e.Message, e );
             }
         }

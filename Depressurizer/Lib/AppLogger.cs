@@ -413,7 +413,6 @@ namespace Rallion {
         /// <param name="stepsIn">Which backup we're currently looking at (0 means the file itself, 1+ means that backup</param>
         /// <param name="stepsTotal">How many backups to max out at</param>
         private void DisplaceFile( string baseFile, int stepsIn, int stepsTotal ) {
-            // OPTIMIZE: make this non-recursive
             string thisFile = GetBackupFileName( baseFile, stepsIn );
             if( !File.Exists( thisFile ) ) return;
             if( stepsIn >= stepsTotal ) {

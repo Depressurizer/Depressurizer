@@ -88,6 +88,8 @@ namespace Depressurizer {
 
         #endregion
 
+        //TODO: Add logging below this line
+
         #region Operations
         public void UpdateAppList() {
             XmlDocument doc = FetchAppList();
