@@ -82,6 +82,20 @@ namespace Rallion {
             }
         }
 
+        private string _dateFormat;
+        public string DateFormat {
+            get {
+                lock( threadLock ) {
+                    return _dateFormat;
+                }
+            }
+            set {
+                lock( threadLock ) {
+                    _dateFormat = value;
+                }
+            }
+        }
+
         private string _filePath;
         /// <summary>
         /// Path in which to place created log files
@@ -340,6 +354,7 @@ namespace Rallion {
 
             FilePath = String.Empty;
             FileNameTemplate = "Log_:d-:t.log";
+            DateFormat = "o";
 
             AllowAppend = true;
             MaxFileDuration = new TimeSpan( 0 );
@@ -547,7 +562,10 @@ namespace Rallion {
         public void Write( LoggerLevel lev, string message, params object[] args ) {
             lock( threadLock ) {
                 if( IsActiveSession && Level >= lev ) {
-                    string fullMessage = string.Format( "{0} - {1}: {2}" + Environment.NewLine, DateTime.Now.ToString( "o" ), LevTxt[(int)lev], string.Format( message, args ) );
+                    string fullMessage = string.Format( "{0} - {1}: {2}" + Environment.NewLine,
+                        DateTime.Now.ToString( DateFormat ),
+                        LevTxt[(int)lev],
+                        string.Format( message, args ) );
                     if( !CanWriteToFile( fullMessage ) ) {
                         BeginSession( true );
                     }

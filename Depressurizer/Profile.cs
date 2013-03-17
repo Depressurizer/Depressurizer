@@ -19,7 +19,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
-// TODO: log this file
+using Rallion;
+
 namespace Depressurizer {
     public class Profile {
 
@@ -68,6 +69,7 @@ namespace Depressurizer {
         #region Saving and Loading
 
         public static Profile Load( string path ) {
+            Program.Logger.Write( LoggerLevel.Info, "Loading profile from file: {0}", path );
             Profile profile = new Profile();
 
             profile.FilePath = path;
@@ -77,6 +79,7 @@ namespace Depressurizer {
             try {
                 doc.Load( path );
             } catch( Exception e ) {
+                Program.Logger.Write( LoggerLevel.Warning, "Failed to load profile: {0}", e.Message );
                 throw new ApplicationException( "Error loading profile: " + e.Message, e );
             }
 
@@ -113,7 +116,7 @@ namespace Depressurizer {
                     }
                 }
             }
-
+            Program.Logger.Write( LoggerLevel.Info, "Profile loaded." );
             return profile;
         }
 
@@ -141,6 +144,7 @@ namespace Depressurizer {
         }
 
         public bool Save( string path ) {
+            Program.Logger.Write( LoggerLevel.Info, "Saving profile: {0}", path );
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
@@ -149,6 +153,7 @@ namespace Depressurizer {
             try {
                 writer = XmlWriter.Create( path, writeSettings );
             } catch( Exception e ) {
+                Program.Logger.Write( LoggerLevel.Warning, "Failed to open profile file for writing: {0}", e.Message );
                 throw new ApplicationException( "Error saving profile file: " + e.Message, e );
             }
             writer.WriteStartElement( "profile" );
@@ -205,6 +210,7 @@ namespace Depressurizer {
 
             writer.Close();
             FilePath = path;
+            Program.Logger.Write( LoggerLevel.Info, "Profile save complete." );
             return true;
         }
 

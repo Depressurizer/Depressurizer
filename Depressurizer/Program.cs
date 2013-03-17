@@ -34,6 +34,7 @@ namespace Depressurizer {
             FatalError.InitializeHandler();
 
             Logger = new AppLogger();
+            Logger.DateFormat = "HH:mm:ss'.'ffffff";
             Logger.BeginSession( true );
 
             Settings settings = Settings.Instance();

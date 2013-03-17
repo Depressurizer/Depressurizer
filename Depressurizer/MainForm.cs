@@ -23,7 +23,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Rallion;
-// TODO: Go through and look for anything I would want to log, maybe nothing?
+
 namespace Depressurizer {
     public partial class FormMain : Form {
         #region Constants
