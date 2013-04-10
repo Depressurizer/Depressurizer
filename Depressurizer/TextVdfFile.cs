@@ -90,7 +90,7 @@ namespace Depressurizer {
         /// </summary>
         public TextVdfFileNode() {
             NodeType = ValueType.Array;
-            NodeData = new Dictionary<string, TextVdfFileNode>();
+            NodeData = new Dictionary<string, TextVdfFileNode>( StringComparer.OrdinalIgnoreCase );
         }
 
         /// <summary>
