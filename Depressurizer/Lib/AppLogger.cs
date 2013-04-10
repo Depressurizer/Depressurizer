@@ -239,6 +239,24 @@ namespace Rallion {
             }
         }
 
+        private bool _autoSessionStart;
+        /// <summary>
+        /// Whether or not to automatically start a session if a Write call is made without one currently active.
+        /// A session will only be started if the current logging level would result in a write.
+        /// </summary>
+        public bool AutoSessionStart {
+            get {
+                lock( threadLock ) {
+                    return _autoSessionStart;
+                }
+            }
+            set {
+                lock( threadLock ) {
+                    _autoSessionStart = value;
+                }
+            }
+        }
+
         #endregion
 
         #region Information
@@ -364,6 +382,8 @@ namespace Rallion {
 
             UseOriginalCreationTime = true;
             UseTotalLineCount = true;
+
+            AutoSessionStart = true;
 
             //Status
             LogFile = null;
@@ -561,18 +581,26 @@ namespace Rallion {
         /// <param name="args">Format parameters</param>
         public void Write( LoggerLevel lev, string message, params object[] args ) {
             lock( threadLock ) {
-                if( IsActiveSession && Level >= lev ) {
-                    string fullMessage = string.Format( "{0} - {1}: {2}" + Environment.NewLine,
-                        DateTime.Now.ToString( DateFormat ),
-                        LevTxt[(int)lev],
-                        string.Format( message, args ) );
-                    if( !CanWriteToFile( fullMessage ) ) {
-                        BeginSession( true );
+                if( Level >= lev ) {
+                    if( AutoSessionStart && !IsActiveSession ) {
+                        BeginSession();
                     }
-                    byte[] output = new UTF8Encoding().GetBytes( fullMessage );
-                    outputStream.Write( output, 0, fullMessage.Length );
-                    outputStream.Flush();
-                    CurrentFileRecords++;
+                    if( IsActiveSession ) {
+                        string fullMessage = string.Format( "{0} - {1}: {2}{3}",
+                            DateTime.Now.ToString( DateFormat ),
+                            LevTxt[(int)lev],
+                            string.Format( message, args ),
+                            Environment.NewLine );
+                        if( !CanWriteToFile( fullMessage ) ) {
+                            BeginSession( true );
+                        }
+                        
+                        byte[] output = new UTF8Encoding().GetBytes( fullMessage );
+                        //byte[] output = fullMessage.ToCharArray();
+                        outputStream.Write( output, 0, output.Length );
+                        outputStream.Flush();
+                        CurrentFileRecords++;
+                    }
                 }
             }
         }

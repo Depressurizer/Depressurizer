@@ -34,8 +34,8 @@ namespace Depressurizer {
             FatalError.InitializeHandler();
 
             Logger = new AppLogger();
+            Logger.Level = LoggerLevel.None;
             Logger.DateFormat = "HH:mm:ss'.'ffffff";
-            Logger.BeginSession( true );
 
             Settings settings = Settings.Instance();
             settings.Load();
@@ -47,6 +47,7 @@ namespace Depressurizer {
             Application.Run( new FormMain() );
 
             Logger.Write( LoggerLevel.Info, "Program closing." );
+            Logger.EndSession();
         }
     }
 }

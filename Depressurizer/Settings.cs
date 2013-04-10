@@ -147,10 +147,10 @@ namespace Depressurizer {
                 return _logLevel;
             }
             set {
+                Program.Logger.Level = value;
                 if( _logLevel != value ) {
                     _logLevel = value;
                     outOfDate = true;
-                    Program.Logger.Level = value;
                 }
             }
         }
