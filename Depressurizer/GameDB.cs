@@ -236,7 +236,7 @@ namespace Depressurizer {
                         return AppType.NonApp;
                     } else if( resp.ResponseUri.Segments.Length < 3 || !resp.ResponseUri.Segments[2].StartsWith( id.ToString() ) ) {
                         // Redirected to a different app id, but we still want to check the genre
-                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirected to another app id ({1})", id, resp.ResponseUri.Segments[2] );
+                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirected to another app id ({1})", id, resp.ResponseUri.Segments.Length >= 3 ? resp.ResponseUri.Segments[2] : "unknown" );
                         redirect = true;
                     }
 
