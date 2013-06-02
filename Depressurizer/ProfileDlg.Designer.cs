@@ -41,17 +41,15 @@ namespace Depressurizer {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfileDlg));
             this.txtFilePath = new System.Windows.Forms.TextBox();
             this.cmdBrowse = new System.Windows.Forms.Button();
             this.lblPath = new System.Windows.Forms.Label();
-            this.cmbAccountID = new System.Windows.Forms.ComboBox();
-            this.lblAccIDLabel = new System.Windows.Forms.Label();
-            this.txtCommunityName = new System.Windows.Forms.TextBox();
-            this.lblCommNameLabel = new System.Windows.Forms.Label();
             this.grpUserInfo = new System.Windows.Forms.GroupBox();
-            this.lblCommNameDesc = new System.Windows.Forms.Label();
-            this.lblAccIDDesc = new System.Windows.Forms.Label();
+            this.lblUserStatus = new System.Windows.Forms.Label();
+            this.cmdUserScrape = new System.Windows.Forms.Button();
+            this.txtUserID = new System.Windows.Forms.TextBox();
+            this.chkManualUser = new System.Windows.Forms.CheckBox();
+            this.lstUsers = new System.Windows.Forms.ListBox();
             this.grpProfInfo = new System.Windows.Forms.GroupBox();
             this.grpActions = new System.Windows.Forms.GroupBox();
             this.chkSetStartup = new System.Windows.Forms.CheckBox();
@@ -77,8 +75,8 @@ namespace Depressurizer {
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
-            this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
             this.chkIgnoreDlc = new System.Windows.Forms.CheckBox();
+            this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -99,13 +97,13 @@ namespace Depressurizer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFilePath.Location = new System.Drawing.Point(91, 13);
             this.txtFilePath.Name = "txtFilePath";
-            this.txtFilePath.Size = new System.Drawing.Size(344, 20);
+            this.txtFilePath.Size = new System.Drawing.Size(330, 20);
             this.txtFilePath.TabIndex = 1;
             // 
             // cmdBrowse
             // 
             this.cmdBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowse.Location = new System.Drawing.Point(441, 11);
+            this.cmdBrowse.Location = new System.Drawing.Point(427, 11);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(76, 23);
             this.cmdBrowse.TabIndex = 2;
@@ -122,80 +120,76 @@ namespace Depressurizer {
             this.lblPath.TabIndex = 0;
             this.lblPath.Text = "Profile file path:";
             // 
-            // cmbAccountID
-            // 
-            this.cmbAccountID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbAccountID.FormattingEnabled = true;
-            this.cmbAccountID.Location = new System.Drawing.Point(162, 13);
-            this.cmbAccountID.Name = "cmbAccountID";
-            this.cmbAccountID.Size = new System.Drawing.Size(355, 21);
-            this.cmbAccountID.TabIndex = 1;
-            // 
-            // lblAccIDLabel
-            // 
-            this.lblAccIDLabel.AutoSize = true;
-            this.lblAccIDLabel.Location = new System.Drawing.Point(59, 16);
-            this.lblAccIDLabel.Name = "lblAccIDLabel";
-            this.lblAccIDLabel.Size = new System.Drawing.Size(97, 13);
-            this.lblAccIDLabel.TabIndex = 0;
-            this.lblAccIDLabel.Text = "Steam Account ID:";
-            // 
-            // txtCommunityName
-            // 
-            this.txtCommunityName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCommunityName.Location = new System.Drawing.Point(162, 84);
-            this.txtCommunityName.Name = "txtCommunityName";
-            this.txtCommunityName.Size = new System.Drawing.Size(355, 20);
-            this.txtCommunityName.TabIndex = 4;
-            // 
-            // lblCommNameLabel
-            // 
-            this.lblCommNameLabel.AutoSize = true;
-            this.lblCommNameLabel.Location = new System.Drawing.Point(6, 87);
-            this.lblCommNameLabel.Name = "lblCommNameLabel";
-            this.lblCommNameLabel.Size = new System.Drawing.Size(150, 13);
-            this.lblCommNameLabel.TabIndex = 3;
-            this.lblCommNameLabel.Text = "Steam Community URL Name:";
-            // 
             // grpUserInfo
             // 
-            this.grpUserInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpUserInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpUserInfo.Controls.Add(this.lblCommNameDesc);
-            this.grpUserInfo.Controls.Add(this.lblAccIDDesc);
-            this.grpUserInfo.Controls.Add(this.lblAccIDLabel);
-            this.grpUserInfo.Controls.Add(this.lblCommNameLabel);
-            this.grpUserInfo.Controls.Add(this.txtCommunityName);
-            this.grpUserInfo.Controls.Add(this.cmbAccountID);
+            this.grpUserInfo.Controls.Add(this.lblUserStatus);
+            this.grpUserInfo.Controls.Add(this.cmdUserScrape);
+            this.grpUserInfo.Controls.Add(this.txtUserID);
+            this.grpUserInfo.Controls.Add(this.chkManualUser);
+            this.grpUserInfo.Controls.Add(this.lstUsers);
             this.grpUserInfo.Location = new System.Drawing.Point(6, 52);
             this.grpUserInfo.Name = "grpUserInfo";
-            this.grpUserInfo.Size = new System.Drawing.Size(523, 181);
+            this.grpUserInfo.Size = new System.Drawing.Size(509, 163);
             this.grpUserInfo.TabIndex = 1;
             this.grpUserInfo.TabStop = false;
-            this.grpUserInfo.Text = "User Info";
+            this.grpUserInfo.Text = "Select User";
             // 
-            // lblCommNameDesc
+            // lblUserStatus
             // 
-            this.lblCommNameDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblUserStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUserStatus.AutoSize = true;
+            this.lblUserStatus.Location = new System.Drawing.Point(34, 109);
+            this.lblUserStatus.Name = "lblUserStatus";
+            this.lblUserStatus.Size = new System.Drawing.Size(348, 13);
+            this.lblUserStatus.TabIndex = 4;
+            this.lblUserStatus.Text = "Press Update Names to get user names for the account numbers above.";
+            // 
+            // cmdUserScrape
+            // 
+            this.cmdUserScrape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdUserScrape.Location = new System.Drawing.Point(388, 104);
+            this.cmdUserScrape.Name = "cmdUserScrape";
+            this.cmdUserScrape.Size = new System.Drawing.Size(115, 23);
+            this.cmdUserScrape.TabIndex = 3;
+            this.cmdUserScrape.Text = "Update Names";
+            this.cmdUserScrape.UseVisualStyleBackColor = true;
+            // 
+            // txtUserID
+            // 
+            this.txtUserID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCommNameDesc.Location = new System.Drawing.Point(159, 107);
-            this.lblCommNameDesc.Name = "lblCommNameDesc";
-            this.lblCommNameDesc.Size = new System.Drawing.Size(358, 72);
-            this.lblCommNameDesc.TabIndex = 5;
-            this.lblCommNameDesc.Text = resources.GetString("lblCommNameDesc.Text");
+            this.txtUserID.Enabled = false;
+            this.txtUserID.Location = new System.Drawing.Point(181, 133);
+            this.txtUserID.Name = "txtUserID";
+            this.txtUserID.Size = new System.Drawing.Size(322, 20);
+            this.txtUserID.TabIndex = 2;
             // 
-            // lblAccIDDesc
+            // chkManualUser
             // 
-            this.lblAccIDDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.chkManualUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkManualUser.AutoSize = true;
+            this.chkManualUser.Location = new System.Drawing.Point(9, 136);
+            this.chkManualUser.Name = "chkManualUser";
+            this.chkManualUser.Size = new System.Drawing.Size(166, 17);
+            this.chkManualUser.TabIndex = 1;
+            this.chkManualUser.Text = "Manually enter Community ID:";
+            this.chkManualUser.UseVisualStyleBackColor = true;
+            this.chkManualUser.CheckedChanged += new System.EventHandler(this.chkManualUser_CheckedChanged);
+            // 
+            // lstUsers
+            // 
+            this.lstUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAccIDDesc.Location = new System.Drawing.Point(162, 37);
-            this.lblAccIDDesc.Name = "lblAccIDDesc";
-            this.lblAccIDDesc.Size = new System.Drawing.Size(355, 41);
-            this.lblAccIDDesc.TabIndex = 2;
-            this.lblAccIDDesc.Text = "Your account ID should be a number. It determines where Steam stores your setting" +
-    "s.\r\nThe list will contain all the IDs with saved info on this computer.";
+            this.lstUsers.FormattingEnabled = true;
+            this.lstUsers.Location = new System.Drawing.Point(6, 19);
+            this.lstUsers.Name = "lstUsers";
+            this.lstUsers.Size = new System.Drawing.Size(497, 82);
+            this.lstUsers.TabIndex = 0;
+            this.lstUsers.SelectedIndexChanged += new System.EventHandler(this.lstUsers_SelectedIndexChanged);
             // 
             // grpProfInfo
             // 
@@ -206,21 +200,21 @@ namespace Depressurizer {
             this.grpProfInfo.Controls.Add(this.lblPath);
             this.grpProfInfo.Location = new System.Drawing.Point(6, 6);
             this.grpProfInfo.Name = "grpProfInfo";
-            this.grpProfInfo.Size = new System.Drawing.Size(523, 40);
+            this.grpProfInfo.Size = new System.Drawing.Size(509, 40);
             this.grpProfInfo.TabIndex = 0;
             this.grpProfInfo.TabStop = false;
             this.grpProfInfo.Text = "Profile Info";
             // 
             // grpActions
             // 
-            this.grpActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpActions.Controls.Add(this.chkSetStartup);
             this.grpActions.Controls.Add(this.chkActImport);
             this.grpActions.Controls.Add(this.chkActDownload);
-            this.grpActions.Location = new System.Drawing.Point(6, 239);
+            this.grpActions.Location = new System.Drawing.Point(6, 221);
             this.grpActions.Name = "grpActions";
-            this.grpActions.Size = new System.Drawing.Size(523, 91);
+            this.grpActions.Size = new System.Drawing.Size(509, 91);
             this.grpActions.TabIndex = 2;
             this.grpActions.TabStop = false;
             this.grpActions.Text = "Additional Actions";
@@ -264,7 +258,7 @@ namespace Depressurizer {
             // cmdOk
             // 
             this.cmdOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOk.Location = new System.Drawing.Point(480, 379);
+            this.cmdOk.Location = new System.Drawing.Point(466, 361);
             this.cmdOk.Name = "cmdOk";
             this.cmdOk.Size = new System.Drawing.Size(75, 23);
             this.cmdOk.TabIndex = 2;
@@ -276,7 +270,7 @@ namespace Depressurizer {
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(399, 379);
+            this.cmdCancel.Location = new System.Drawing.Point(385, 361);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 1;
@@ -369,7 +363,7 @@ namespace Depressurizer {
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(543, 361);
+            this.tabControl.Size = new System.Drawing.Size(529, 343);
             this.tabControl.TabIndex = 0;
             // 
             // tabMain
@@ -380,7 +374,7 @@ namespace Depressurizer {
             this.tabMain.Location = new System.Drawing.Point(4, 22);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(535, 335);
+            this.tabMain.Size = new System.Drawing.Size(521, 317);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
             this.tabMain.UseVisualStyleBackColor = true;
@@ -393,7 +387,7 @@ namespace Depressurizer {
             this.tabOpts.Location = new System.Drawing.Point(4, 22);
             this.tabOpts.Name = "tabOpts";
             this.tabOpts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOpts.Size = new System.Drawing.Size(535, 335);
+            this.tabOpts.Size = new System.Drawing.Size(521, 317);
             this.tabOpts.TabIndex = 1;
             this.tabOpts.Text = "Options";
             this.tabOpts.UseVisualStyleBackColor = true;
@@ -426,7 +420,7 @@ namespace Depressurizer {
             this.tabIgnore.Controls.Add(this.grpIgnoreSettings);
             this.tabIgnore.Location = new System.Drawing.Point(4, 22);
             this.tabIgnore.Name = "tabIgnore";
-            this.tabIgnore.Size = new System.Drawing.Size(535, 335);
+            this.tabIgnore.Size = new System.Drawing.Size(521, 317);
             this.tabIgnore.TabIndex = 2;
             this.tabIgnore.Text = "Ignored Games";
             this.tabIgnore.UseVisualStyleBackColor = true;
@@ -504,6 +498,18 @@ namespace Depressurizer {
             this.grpIgnoreSettings.TabStop = false;
             this.grpIgnoreSettings.Text = "Settings";
             // 
+            // chkIgnoreDlc
+            // 
+            this.chkIgnoreDlc.AutoSize = true;
+            this.chkIgnoreDlc.Checked = true;
+            this.chkIgnoreDlc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIgnoreDlc.Location = new System.Drawing.Point(6, 58);
+            this.chkIgnoreDlc.Name = "chkIgnoreDlc";
+            this.chkIgnoreDlc.Size = new System.Drawing.Size(115, 17);
+            this.chkIgnoreDlc.TabIndex = 1;
+            this.chkIgnoreDlc.Text = "Also ignore all DLC";
+            this.chkIgnoreDlc.UseVisualStyleBackColor = true;
+            // 
             // chkAutoIgnore
             // 
             this.chkAutoIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -519,25 +525,13 @@ namespace Depressurizer {
             this.chkAutoIgnore.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chkAutoIgnore.UseVisualStyleBackColor = true;
             // 
-            // chkIgnoreDlc
-            // 
-            this.chkIgnoreDlc.AutoSize = true;
-            this.chkIgnoreDlc.Checked = true;
-            this.chkIgnoreDlc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIgnoreDlc.Location = new System.Drawing.Point(6, 58);
-            this.chkIgnoreDlc.Name = "chkIgnoreDlc";
-            this.chkIgnoreDlc.Size = new System.Drawing.Size(115, 17);
-            this.chkIgnoreDlc.TabIndex = 1;
-            this.chkIgnoreDlc.Text = "Also ignore all DLC";
-            this.chkIgnoreDlc.UseVisualStyleBackColor = true;
-            // 
             // ProfileDlg
             // 
             this.AcceptButton = this.cmdOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(567, 412);
+            this.ClientSize = new System.Drawing.Size(553, 394);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.cmdCancel);
@@ -577,13 +571,7 @@ namespace Depressurizer {
         private System.Windows.Forms.TextBox txtFilePath;
         private System.Windows.Forms.Button cmdBrowse;
         private System.Windows.Forms.Label lblPath;
-        private System.Windows.Forms.ComboBox cmbAccountID;
-        private System.Windows.Forms.Label lblAccIDLabel;
-        private System.Windows.Forms.TextBox txtCommunityName;
-        private System.Windows.Forms.Label lblCommNameLabel;
         private System.Windows.Forms.GroupBox grpUserInfo;
-        private System.Windows.Forms.Label lblCommNameDesc;
-        private System.Windows.Forms.Label lblAccIDDesc;
         private System.Windows.Forms.GroupBox grpProfInfo;
         private System.Windows.Forms.GroupBox grpActions;
         private System.Windows.Forms.CheckBox chkActImport;
@@ -611,5 +599,10 @@ namespace Depressurizer {
         private System.Windows.Forms.GroupBox grpOtherOpt;
         private System.Windows.Forms.CheckBox chkOverwriteNames;
         private System.Windows.Forms.CheckBox chkIgnoreDlc;
+        private System.Windows.Forms.Label lblUserStatus;
+        private System.Windows.Forms.Button cmdUserScrape;
+        private System.Windows.Forms.TextBox txtUserID;
+        private System.Windows.Forms.CheckBox chkManualUser;
+        private System.Windows.Forms.ListBox lstUsers;
     }
 }

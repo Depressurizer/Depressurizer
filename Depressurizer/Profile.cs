@@ -30,9 +30,7 @@ namespace Depressurizer {
 
         public SortedSet<int> IgnoreList = new SortedSet<int>();
 
-        public string AccountID = null;
-
-        public string CommunityName = null;
+        public Int64 AccountID64 = 0;
 
         public bool AutoDownload = true;
 
@@ -49,16 +47,12 @@ namespace Depressurizer {
         public bool IgnoreDlc = true;
 
         public int ImportSteamData() {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, AccountID );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( AccountID64 ) );
             return GameData.ImportSteamFile( filePath, IgnoreList, IgnoreDlc );
         }
-        /*
-        public int DownloadGameList() {
-            return GameData.DownloadGameList( CommunityName, OverwriteOnDownload, IgnoreList, IgnoreDlc );
-        }
-        */
+
         public void ExportSteamData() {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, AccountID );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( AccountID64 ) );
             GameData.SaveSteamFile( filePath, ExportDiscard );
         }
 
@@ -86,8 +80,16 @@ namespace Depressurizer {
             XmlNode profileNode = doc.SelectSingleNode( "/profile" );
 
             if( profileNode != null ) {
-                profile.CommunityName = XmlUtil.GetStringFromNode( profileNode["community_name"], null );
-                profile.AccountID = XmlUtil.GetStringFromNode( profileNode["account_id"], null );
+
+                Int64 accId = XmlUtil.GetInt64FromNode( profileNode["account_id_64"], 0 );
+                if( accId == 0 ) {
+                    string oldAcc = XmlUtil.GetStringFromNode( profileNode["account_id"], null );
+                    if( oldAcc != null ) {
+                        accId = DirNametoID64( oldAcc );
+                    }
+                }
+
+                profile.AccountID64 = accId;
 
                 profile.AutoDownload = XmlUtil.GetBoolFromNode( profileNode["auto_download"], profile.AutoDownload );
                 profile.AutoImport = XmlUtil.GetBoolFromNode( profileNode["auto_import"], profile.AutoImport );
@@ -158,13 +160,7 @@ namespace Depressurizer {
             }
             writer.WriteStartElement( "profile" );
 
-            if( AccountID != null ) {
-                writer.WriteElementString( "account_id", AccountID );
-            }
-
-            if( CommunityName != null ) {
-                writer.WriteElementString( "community_name", CommunityName );
-            }
+            writer.WriteElementString( "account_id_64", AccountID64.ToString() );
 
             writer.WriteElementString( "auto_download", AutoDownload.ToString() );
             writer.WriteElementString( "auto_import", AutoImport.ToString() );
@@ -215,5 +211,18 @@ namespace Depressurizer {
         }
 
         #endregion
+
+        public static Int64 DirNametoID64( string cId ) {
+            Int64 res;
+            if( Int64.TryParse( cId, out res ) ) {
+                return ( res + 0x0110000100000000 );
+            }
+            return 0;
+        }
+
+        public static string ID64toDirName( Int64 id ) {
+            return ( id - 0x0110000100000000 ).ToString();
+        }
+
     }
 }

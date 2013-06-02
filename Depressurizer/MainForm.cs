@@ -145,24 +145,30 @@ namespace Depressurizer {
                 }
             }
 
-            GetStringDlg dlg = new GetStringDlg( "", "Download game list", "Enter custom URL name:", "Download game list" );
+            GetStringDlg dlg = new GetStringDlg( "", "Download game list", "Enter 64-bit Steam ID:", "Download game list" );
             if( dlg.ShowDialog() == DialogResult.OK ) {
-                Cursor = Cursors.WaitCursor;
-                try {
-                    DownloadProfileData( dlg.Value, true, null, settings.IgnoreDlc );
+                
+                Int64 id = 0;
+                if( !Int64.TryParse( dlg.Value, out id ) ) {
+                    MessageBox.Show( "Must enter a valid 64-bit number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                } else {
+                    Cursor = Cursors.WaitCursor;
+                    try {
+                        DownloadProfileData( id, true, null, settings.IgnoreDlc );
 
-                } catch( ApplicationException e ) {
-                    MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
-                    AddStatus( "Error downloading games." );
+                    } catch( ApplicationException e ) {
+                        MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                        AddStatus( "Error downloading games." );
+                    }
+                    Cursor = Cursors.Default;
                 }
-                Cursor = Cursors.Default;
             }
         }
 
         #endregion
 
-        private void DownloadProfileData( string name, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, name, overwrite, ignore, ignoreDlc );
+        private void DownloadProfileData( Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, accountId, overwrite, ignore, ignoreDlc );
             DialogResult res = updateDlg.ShowDialog();
 
             if( updateDlg.Error != null ) {
@@ -355,7 +361,7 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    DownloadProfileData( currentProfile.CommunityName, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
+                    DownloadProfileData( currentProfile.AccountID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
                     MessageBox.Show( e.Message, "Error downloading game list", MessageBoxButtons.OK, MessageBoxIcon.Warning );

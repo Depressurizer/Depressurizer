@@ -30,7 +30,7 @@ namespace Depressurizer {
         public bool UseHtml { get; private set; }
         public bool Failover { get; private set; }
 
-        private string profileName;
+        private Int64 accountId;
         private GameData data;
 
         XmlDocument doc;
@@ -40,7 +40,7 @@ namespace Depressurizer {
         private SortedSet<int> ignore;
         private bool ignoreDlc;
 
-        public UpdateProfileDlg( GameData data, string profileName, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
+        public UpdateProfileDlg( GameData data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
             : base( "Updating game list...", true ) {
             Added = 0;
             Fetched = 0;
@@ -48,7 +48,7 @@ namespace Depressurizer {
             Failover = false;
 
             this.data = data;
-            this.profileName = profileName;
+            this.accountId = accountId;
             this.overwrite = overwrite;
             this.ignore = ignore;
             this.ignoreDlc = ignoreDlc;
@@ -75,17 +75,18 @@ namespace Depressurizer {
 
         protected void FetchXml() {
             UseHtml = false;
-            doc = GameData.FetchXmlGameList( profileName );
+            doc = GameData.FetchXmlGameList( accountId );
         }
 
         protected void FetchHtml() {
             UseHtml = true;
-            htmlDoc = GameData.FetchHtmlGameList( profileName );
+            htmlDoc = GameData.FetchHtmlGameList( accountId );
         }
 
         protected void FetchXmlPref() {
             try {
                 FetchXml();
+
                 return;
             } catch( Exception ) { }
             Failover = true;

@@ -23,6 +23,7 @@ using System.IO;
 using System.Windows.Forms;
 
 namespace Depressurizer {
+
     public partial class ProfileDlg : Form {
         public Profile Profile;
         private bool editMode = false;
@@ -61,8 +62,7 @@ namespace Depressurizer {
             txtFilePath.Text = Profile.FilePath;
             grpProfInfo.Enabled = false;
 
-            txtCommunityName.Text = Profile.CommunityName;
-            cmbAccountID.Text = Profile.AccountID;
+            txtUserID.Text = Profile.AccountID64.ToString();
 
             chkActDownload.Checked = false;
             chkActImport.Checked = false;
@@ -89,7 +89,7 @@ namespace Depressurizer {
 
         private void ProfileDlg_Load( object sender, EventArgs e ) {
 
-            RefreshIdList();
+            LoadShortIds();
             if( editMode ) {
                 InitializeEditMode();
             } else {
@@ -135,14 +135,21 @@ namespace Depressurizer {
         #region Saving
         private bool Apply() {
             if( editMode ) {
-                SaveModifiables( Profile );
-                return true;
+                if( ValidateEntries() ) {
+                    SaveModifiables( Profile );
+                    return true;
+                }
+                return false;
             } else {
                 return CreateProfile();
             }
         }
 
         private bool CreateProfile() {
+            if( !ValidateEntries() ) {
+                return false;
+            }
+
             FileInfo file;
             try {
                 file = new FileInfo( txtFilePath.Text );
@@ -175,9 +182,18 @@ namespace Depressurizer {
             return true;
         }
 
+        bool ValidateEntries() {
+            Int64 id;
+            if( !Int64.TryParse( txtUserID.Text, out id ) ) {
+                MessageBox.Show( "Account ID must be a number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return false;
+            }
+            return true;
+        }
+
         void SaveModifiables( Profile p ) {
-            p.AccountID = cmbAccountID.Text;
-            p.CommunityName = txtCommunityName.Text;
+            p.AccountID64 = Int64.Parse( txtUserID.Text );
+
             p.AutoDownload = chkAutoDownload.Checked;
             p.AutoExport = chkAutoExport.Checked;
             p.AutoImport = chkAutoImport.Checked;
@@ -205,15 +221,23 @@ namespace Depressurizer {
         /// <summary>
         /// Populates the combo box with all located account IDs
         /// </summary>
-        private void RefreshIdList() {
-            cmbAccountID.BeginUpdate();
-            cmbAccountID.Items.Clear();
-            cmbAccountID.ResetText();
-            cmbAccountID.Items.AddRange( GetSteamIds() );
-            if( cmbAccountID.Items.Count > 0 ) {
-                cmbAccountID.SelectedIndex = 0;
+        private void LoadShortIds() {
+            lstUsers.BeginUpdate();
+
+            lstUsers.Items.Clear();
+
+            string[] ids = GetSteamIds();
+
+            if( ids.Length == 0 && !editMode ) {
+                MessageBox.Show( "No account information was found in your Steam installation folder. You must enter your 64-bit account ID manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                chkManualUser.Checked = true;
             }
-            cmbAccountID.EndUpdate();
+
+            foreach( string id in ids ) {
+                lstUsers.Items.Add( new UserRecord( id ) );
+            }
+
+            lstUsers.EndUpdate();
         }
 
         /// <summary>
@@ -253,6 +277,32 @@ namespace Depressurizer {
         private void cmdUnignore_Click( object sender, EventArgs e ) {
             while( lstIgnored.SelectedIndices.Count > 0 ) {
                 lstIgnored.Items.RemoveAt( lstIgnored.SelectedIndices[0] );
+            }
+        }
+
+        private void lstUsers_SelectedIndexChanged( object sender, EventArgs e ) {
+            UserRecord u = (UserRecord)( lstUsers.SelectedItem );
+            txtUserID.Text = Profile.DirNametoID64( u.DirName ).ToString();
+        }
+
+        private void chkManualUser_CheckedChanged( object sender, EventArgs e ) {
+            txtUserID.Enabled = chkManualUser.Checked;
+        }
+    }
+
+    public class UserRecord {
+        public string DirName;
+        public string DisplayName;
+
+        public UserRecord( string dir ) {
+            DirName = dir;
+        }
+
+        public override string ToString() {
+            if( DisplayName == null ) {
+                return DirName;
+            } else {
+                return String.Format( "{0} - {1}", DirName, DisplayName );
             }
         }
     }

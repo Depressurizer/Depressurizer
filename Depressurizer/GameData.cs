@@ -219,10 +219,10 @@ namespace Depressurizer {
         }
         #endregion
 
-        public static XmlDocument FetchXmlGameList( string profileName ) {
+        public static XmlDocument FetchXmlGameList( Int64 accountId ) {
             XmlDocument doc = new XmlDocument();
             try {
-                string url = string.Format( Properties.Resources.XmlProfileURL, profileName );
+                string url = string.Format( Properties.Resources.XmlProfileURL, accountId );
                 Program.Logger.Write( LoggerLevel.Info, "Attempting to downloaded XML game list from URL {0}", url );
                 WebRequest req = HttpWebRequest.Create( url );
                 WebResponse response = req.GetResponse();
@@ -236,10 +236,10 @@ namespace Depressurizer {
             }
         }
 
-        public static string FetchHtmlGameList( string profileName ) {
+        public static string FetchHtmlGameList( Int64 accountId ) {
             try {
                 string result = "";
-                string url = string.Format( Properties.Resources.HtmlProfileURL, profileName );
+                string url = string.Format( Properties.Resources.HtmlProfileURL, accountId );
                 Program.Logger.Write( LoggerLevel.Info, "Attempting to downloaded HTML game list from URL {0}", url );
                 WebRequest req = HttpWebRequest.Create( url );
                 using( WebResponse response = req.GetResponse() ) {
@@ -263,7 +263,6 @@ namespace Depressurizer {
         /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
         /// <returns>Returns the number of games successfully processed and not ignored.</returns>
         public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out int newItems ) {
-            //TODO: Add debug option to save a copy of the file
             newItems = 0;
             if( doc == null ) return 0;
             int loadedGames = 0;
@@ -290,7 +289,6 @@ namespace Depressurizer {
         }
 
         public int IntegrateHtmlGameList( string page, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out int newItems ) {
-            //TODO: Add debug option to save a copy of the file
             newItems = 0;
             int totalItems = 0;
 

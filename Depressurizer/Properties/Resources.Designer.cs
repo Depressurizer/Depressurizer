@@ -70,7 +70,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all.
+        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all.
         /// </summary>
         internal static string HtmlProfileURL {
             get {
@@ -88,7 +88,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1.
+        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1.
         /// </summary>
         internal static string XmlProfileURL {
             get {
