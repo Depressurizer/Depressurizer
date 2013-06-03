@@ -30,6 +30,10 @@ namespace Depressurizer {
     public partial class ProfileDlg : Form {
         public Profile Profile;
         private bool editMode = false;
+        private bool skipUserClear = false;
+
+        private ThreadLocker currentThreadLock = new ThreadLocker();
+        private int currentThreadCount = 0;
 
         public bool DownloadNow {
             get {
@@ -48,6 +52,9 @@ namespace Depressurizer {
                 return chkSetStartup.Checked;
             }
         }
+
+        delegate void UpdateDelegate( int i, string s );
+        delegate void SimpleDelegate();
 
         #region Init
 
@@ -97,6 +104,7 @@ namespace Depressurizer {
                 InitializeEditMode();
             } else {
                 txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
+                ThreadedNameUpdate();
             }
 
             lstIgnored.ListViewItemSorter = new IgnoreListViewItemComparer();
@@ -150,14 +158,44 @@ namespace Depressurizer {
             }
         }
 
+        private void cmdUserUpdate_Click( object sender, EventArgs e ) {
+            ThreadedNameUpdate();
+        }
+
+        private void cmdUserUpdateCancel_Click( object sender, EventArgs e ) {
+            if( currentThreadCount > 0 ) {
+                lock( currentThreadLock ) {
+                    currentThreadLock.Aborted = true;
+                }
+                SetUpdateInterfaceStopping();
+            }
+        }
+
         private void lstUsers_SelectedIndexChanged( object sender, EventArgs e ) {
-            UserRecord u = (UserRecord)( lstUsers.SelectedItem );
-            txtUserID.Text = Profile.DirNametoID64( u.DirName ).ToString();
+            UserRecord u = lstUsers.SelectedItem as UserRecord;
+            if( u != null ) {
+                skipUserClear = true;
+                txtUserID.Text = Profile.DirNametoID64( u.DirName ).ToString();
+                skipUserClear = false;
+            }
         }
 
         private void chkManualUser_CheckedChanged( object sender, EventArgs e ) {
             txtUserID.Enabled = chkManualUser.Checked;
         }
+
+        private void txtUserID_TextChanged( object sender, EventArgs e ) {
+            if( !skipUserClear ) {
+                lstUsers.ClearSelected();
+            }
+        }
+
+        private void ProfileDlg_FormClosing( object sender, FormClosingEventArgs e ) {
+            lock( currentThreadLock ) {
+                currentThreadLock.Aborted = true;
+            }
+        }
+
         #endregion
 
         #region Saving
@@ -291,6 +329,7 @@ namespace Depressurizer {
 
         #endregion
 
+        #region Display name update
         public string GetDisplayName( Int64 accountId ) {
             try {
                 XmlDocument doc = new XmlDocument();
@@ -309,7 +348,106 @@ namespace Depressurizer {
             return null;
         }
 
-        private void cmdUserScrape_Click( object sender, EventArgs e ) {
+        private void ThreadedNameUpdate() {
+            if( currentThreadCount > 0 ) return;
+
+            int maxThreads = 1;
+
+            Queue<UpdateJob> q = new Queue<UpdateJob>();
+            for( int i = 0; i < lstUsers.Items.Count; i++ ) {
+                UserRecord r = lstUsers.Items[i] as UserRecord;
+                if( r != null ) {
+                    q.Enqueue( new UpdateJob( i, r.DirName ) );
+                }
+            }
+
+            int threads = ( maxThreads > q.Count ) ? maxThreads : q.Count;
+
+            if( threads > 0 ) {
+                currentThreadLock = new ThreadLocker();
+                SetUpdateInterfaceRunning();
+                for( int i = 0; i < threads; i++ ) {
+                    Thread t = new Thread( this.RunNameUpdateThread );
+                    currentThreadCount++;
+                    t.Start( new UpdateData( q, currentThreadLock ) );
+                }
+            }
+        }
+
+        private void RunNameUpdateThread( object d ) {
+            UpdateData data = (UpdateData)d;
+            bool abort = false;
+            do {
+                UpdateJob job = null;
+                lock( data.jobs ) {
+                    if( data.jobs.Count > 0 ) {
+                        job = data.jobs.Dequeue();
+                    } else {
+                        abort = true;
+                    }
+                }
+                if( job != null ) {
+                    string name = GetDisplayName( Profile.DirNametoID64( job.dir ) );
+
+                    lock( data.tLock ) {
+                        if( data.tLock.Aborted ) abort = true;
+                        else {
+                            UpdateDisplayNameInList( job.index, name );
+                        }
+                    }
+                }
+            } while( !abort );
+            OnNameUpdateThreadTerminate();
+        }
+
+        private void UpdateDisplayNameInList( int index, string name ) {
+            if( this.InvokeRequired ) {
+                Invoke( new UpdateDelegate( UpdateDisplayNameInList ), new object[] { index, name } );
+            } else {
+                UserRecord u = lstUsers.Items[index] as UserRecord;
+                if( u != null ) {
+                    if( name == null ) {
+                        name = "?";
+                    }
+                    u.DisplayName = name;
+
+                    lstUsers.Items.RemoveAt( index );
+                    lstUsers.Items.Insert( index, u );
+                }
+            }
+        }
+
+        private void OnNameUpdateThreadTerminate() {
+            if( InvokeRequired ) {
+                Invoke( new SimpleDelegate( OnNameUpdateThreadTerminate ) );
+            } else {
+                currentThreadCount--;
+                if( currentThreadCount == 0 ) {
+                    SetUpdateInterfaceNormal();
+                }
+            }
+        }
+
+        private void SetUpdateInterfaceNormal() {
+            cmdUserUpdate.Enabled = true;
+            cmdUserUpdateCancel.Enabled = false;
+            lblUserStatus.Text = "Click Update to get display names for the account numbers above.";
+        }
+
+        private void SetUpdateInterfaceRunning() {
+            cmdUserUpdate.Enabled = false;
+            cmdUserUpdateCancel.Enabled = true;
+            lblUserStatus.Text = "Updating names...";
+        }
+
+        private void SetUpdateInterfaceStopping() {
+            cmdUserUpdate.Enabled = false;
+            cmdUserUpdateCancel.Enabled = false;
+            lblUserStatus.Text = "Cancelling...";
+        }
+
+        /*
+        private void NonthreadedNameUpdate() {
             for( int i = 0; i < lstUsers.Items.Count; i++ ) {
                 UserRecord u = lstUsers.Items[i] as UserRecord;
                 if( u != null ) {
@@ -324,23 +462,61 @@ namespace Depressurizer {
                 lstUsers.Items.Insert( i, u );
             }
         }
-    }
+        */
+        #endregion
+        
+        #region Utility structures
 
-    public class UserRecord {
-        public string DirName;
-        public string DisplayName;
+        public class UserRecord {
+            public string DirName;
+            public string DisplayName;
 
-        public UserRecord( string dir ) {
-            DirName = dir;
-        }
+            public UserRecord( string dir ) {
+                DirName = dir;
+            }
 
-        public override string ToString() {
-            if( DisplayName == null ) {
-                return DirName;
-            } else {
-                return String.Format( "{0} - {1}", DirName, DisplayName );
+            public override string ToString() {
+                if( DisplayName == null ) {
+                    return DirName;
+                } else {
+                    return String.Format( "{0} - {1}", DirName, DisplayName );
+                }
             }
         }
+
+        public class ThreadLocker {
+            private bool _abort = false;
+
+            public bool Aborted {
+                get {
+                    return _abort;
+                }
+                set {
+                    _abort = value;
+                }
+            }
+        }
+
+        public class UpdateJob {
+            public int index;
+            public string dir;
+
+            public UpdateJob( int i, string d ) {
+                index = i; dir = d;
+            }
+        }
+
+        public class UpdateData {
+            public Queue<UpdateJob> jobs;
+            public ThreadLocker tLock;
+
+            public UpdateData( Queue<UpdateJob> q, ThreadLocker l ) {
+                jobs = q; tLock = l;
+            }
+        }
+
+        #endregion
+
     }
 
     class IgnoreListViewItemComparer : IComparer {

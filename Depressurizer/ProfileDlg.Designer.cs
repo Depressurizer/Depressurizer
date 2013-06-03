@@ -45,8 +45,9 @@ namespace Depressurizer {
             this.cmdBrowse = new System.Windows.Forms.Button();
             this.lblPath = new System.Windows.Forms.Label();
             this.grpUserInfo = new System.Windows.Forms.GroupBox();
+            this.cmdUserUpdateCancel = new System.Windows.Forms.Button();
             this.lblUserStatus = new System.Windows.Forms.Label();
-            this.cmdUserScrape = new System.Windows.Forms.Button();
+            this.cmdUserUpdate = new System.Windows.Forms.Button();
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.chkManualUser = new System.Windows.Forms.CheckBox();
             this.lstUsers = new System.Windows.Forms.ListBox();
@@ -125,8 +126,9 @@ namespace Depressurizer {
             this.grpUserInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpUserInfo.Controls.Add(this.cmdUserUpdateCancel);
             this.grpUserInfo.Controls.Add(this.lblUserStatus);
-            this.grpUserInfo.Controls.Add(this.cmdUserScrape);
+            this.grpUserInfo.Controls.Add(this.cmdUserUpdate);
             this.grpUserInfo.Controls.Add(this.txtUserID);
             this.grpUserInfo.Controls.Add(this.chkManualUser);
             this.grpUserInfo.Controls.Add(this.lstUsers);
@@ -137,26 +139,38 @@ namespace Depressurizer {
             this.grpUserInfo.TabStop = false;
             this.grpUserInfo.Text = "Select User";
             // 
+            // cmdUserUpdateCancel
+            // 
+            this.cmdUserUpdateCancel.Enabled = false;
+            this.cmdUserUpdateCancel.Location = new System.Drawing.Point(428, 104);
+            this.cmdUserUpdateCancel.Name = "cmdUserUpdateCancel";
+            this.cmdUserUpdateCancel.Size = new System.Drawing.Size(75, 23);
+            this.cmdUserUpdateCancel.TabIndex = 5;
+            this.cmdUserUpdateCancel.Text = "Cancel";
+            this.cmdUserUpdateCancel.UseVisualStyleBackColor = true;
+            this.cmdUserUpdateCancel.Click += new System.EventHandler(this.cmdUserUpdateCancel_Click);
+            // 
             // lblUserStatus
             // 
-            this.lblUserStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblUserStatus.AutoSize = true;
-            this.lblUserStatus.Location = new System.Drawing.Point(34, 109);
+            this.lblUserStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUserStatus.Location = new System.Drawing.Point(6, 109);
             this.lblUserStatus.Name = "lblUserStatus";
-            this.lblUserStatus.Size = new System.Drawing.Size(348, 13);
+            this.lblUserStatus.Size = new System.Drawing.Size(334, 13);
             this.lblUserStatus.TabIndex = 4;
-            this.lblUserStatus.Text = "Press Update Names to get user names for the account numbers above.";
+            this.lblUserStatus.Text = "Press Update to get display names for the account numbers above.";
+            this.lblUserStatus.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // cmdUserScrape
+            // cmdUserUpdate
             // 
-            this.cmdUserScrape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUserScrape.Location = new System.Drawing.Point(388, 104);
-            this.cmdUserScrape.Name = "cmdUserScrape";
-            this.cmdUserScrape.Size = new System.Drawing.Size(115, 23);
-            this.cmdUserScrape.TabIndex = 3;
-            this.cmdUserScrape.Text = "Update Names";
-            this.cmdUserScrape.UseVisualStyleBackColor = true;
-            this.cmdUserScrape.Click += new System.EventHandler(this.cmdUserScrape_Click);
+            this.cmdUserUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdUserUpdate.Location = new System.Drawing.Point(346, 104);
+            this.cmdUserUpdate.Name = "cmdUserUpdate";
+            this.cmdUserUpdate.Size = new System.Drawing.Size(76, 23);
+            this.cmdUserUpdate.TabIndex = 3;
+            this.cmdUserUpdate.Text = "Update";
+            this.cmdUserUpdate.UseVisualStyleBackColor = true;
+            this.cmdUserUpdate.Click += new System.EventHandler(this.cmdUserUpdate_Click);
             // 
             // txtUserID
             // 
@@ -167,6 +181,7 @@ namespace Depressurizer {
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(322, 20);
             this.txtUserID.TabIndex = 2;
+            this.txtUserID.TextChanged += new System.EventHandler(this.txtUserID_TextChanged);
             // 
             // chkManualUser
             // 
@@ -542,6 +557,7 @@ namespace Depressurizer {
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Profile";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProfileDlg_FormClosing);
             this.Load += new System.EventHandler(this.ProfileDlg_Load);
             this.grpUserInfo.ResumeLayout(false);
             this.grpUserInfo.PerformLayout();
@@ -601,9 +617,10 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkOverwriteNames;
         private System.Windows.Forms.CheckBox chkIgnoreDlc;
         private System.Windows.Forms.Label lblUserStatus;
-        private System.Windows.Forms.Button cmdUserScrape;
+        private System.Windows.Forms.Button cmdUserUpdate;
         private System.Windows.Forms.TextBox txtUserID;
         private System.Windows.Forms.CheckBox chkManualUser;
         private System.Windows.Forms.ListBox lstUsers;
+        private System.Windows.Forms.Button cmdUserUpdateCancel;
     }
 }
