@@ -21,6 +21,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Threading;
+using System.Net;
+using System.Xml;
 
 namespace Depressurizer {
 
@@ -130,6 +133,31 @@ namespace Depressurizer {
             }
         }
 
+        private void cmdIgnore_Click( object sender, EventArgs e ) {
+            int id;
+            if( int.TryParse( txtIgnore.Text, out id ) ) {
+                lstIgnored.Items.Add( id.ToString() );
+                txtIgnore.ResetText();
+                lstIgnored.Sort();
+            } else {
+                MessageBox.Show( "Game ID must be an integer.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+            }
+        }
+
+        private void cmdUnignore_Click( object sender, EventArgs e ) {
+            while( lstIgnored.SelectedIndices.Count > 0 ) {
+                lstIgnored.Items.RemoveAt( lstIgnored.SelectedIndices[0] );
+            }
+        }
+
+        private void lstUsers_SelectedIndexChanged( object sender, EventArgs e ) {
+            UserRecord u = (UserRecord)( lstUsers.SelectedItem );
+            txtUserID.Text = Profile.DirNametoID64( u.DirName ).ToString();
+        }
+
+        private void chkManualUser_CheckedChanged( object sender, EventArgs e ) {
+            txtUserID.Enabled = chkManualUser.Checked;
+        }
         #endregion
 
         #region Saving
@@ -229,7 +257,7 @@ namespace Depressurizer {
             string[] ids = GetSteamIds();
 
             if( ids.Length == 0 && !editMode ) {
-                MessageBox.Show( "No account information was found in your Steam installation folder. You must enter your 64-bit account ID manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                MessageBox.Show( "No account configuration information was found in your Steam installation folder. You must enter your 64-bit account ID manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                 chkManualUser.Checked = true;
             }
 
@@ -263,30 +291,38 @@ namespace Depressurizer {
 
         #endregion
 
-        private void cmdIgnore_Click( object sender, EventArgs e ) {
-            int id;
-            if( int.TryParse( txtIgnore.Text, out id ) ) {
-                lstIgnored.Items.Add( id.ToString() );
-                txtIgnore.ResetText();
-                lstIgnored.Sort();
-            } else {
-                MessageBox.Show( "Game ID must be an integer.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+        public string GetDisplayName( Int64 accountId ) {
+            try {
+                XmlDocument doc = new XmlDocument();
+                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( "http://www.steamcommunity.com/profiles/{0}?xml=true", accountId ) );
+                using( WebResponse resp = req.GetResponse() ) {
+                    doc.Load( resp.GetResponseStream() );
+                }
+                XmlNode nameNode = doc.SelectSingleNode( "profile/steamID" );
+                if( nameNode != null ) {
+                    return nameNode.InnerText;
+                }
+            } catch( Exception e ) {
+                Program.Logger.Write( Rallion.LoggerLevel.Warning, "Exception raised when trying to scrape profile name for account {0}:", accountId );
+                Program.Logger.Write( Rallion.LoggerLevel.Warning, e.Message );
             }
+            return null;
         }
 
-        private void cmdUnignore_Click( object sender, EventArgs e ) {
-            while( lstIgnored.SelectedIndices.Count > 0 ) {
-                lstIgnored.Items.RemoveAt( lstIgnored.SelectedIndices[0] );
+        private void cmdUserScrape_Click( object sender, EventArgs e ) {
+            for( int i = 0; i < lstUsers.Items.Count; i++ ) {
+                UserRecord u = lstUsers.Items[i] as UserRecord;
+                if( u != null ) {
+                    string name = GetDisplayName( Profile.DirNametoID64( u.DirName ) );
+                    if( name == null ) {
+                        u.DisplayName = "?";
+                    } else {
+                        u.DisplayName = name;
+                    }
+                }
+                lstUsers.Items.RemoveAt( i );
+                lstUsers.Items.Insert( i, u );
             }
-        }
-
-        private void lstUsers_SelectedIndexChanged( object sender, EventArgs e ) {
-            UserRecord u = (UserRecord)( lstUsers.SelectedItem );
-            txtUserID.Text = Profile.DirNametoID64( u.DirName ).ToString();
-        }
-
-        private void chkManualUser_CheckedChanged( object sender, EventArgs e ) {
-            txtUserID.Enabled = chkManualUser.Checked;
         }
     }
 

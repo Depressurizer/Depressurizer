@@ -156,6 +156,7 @@ namespace Depressurizer {
             this.cmdUserScrape.TabIndex = 3;
             this.cmdUserScrape.Text = "Update Names";
             this.cmdUserScrape.UseVisualStyleBackColor = true;
+            this.cmdUserScrape.Click += new System.EventHandler(this.cmdUserScrape_Click);
             // 
             // txtUserID
             // 
