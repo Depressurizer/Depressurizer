@@ -105,6 +105,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameDB.cs" />
+    <Compile Include="GetSteamIDDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Lib\AppLogger.cs" />
     <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="GameDlg.cs">
@@ -231,22 +234,22 @@
   <ItemGroup>
     <PublishFile Include="Depressurizer.exe.config">
       <Visible>False</Visible>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Depressurizer.exe.manifest">
       <Visible>False</Visible>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
   </ItemGroup>

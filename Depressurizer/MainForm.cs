@@ -1442,7 +1442,7 @@ namespace Depressurizer {
                 Game g = lstGames.Items[index].Tag as Game;
 
                 if( g != null ) {
-                    System.Diagnostics.Process.Start( string.Format( Properties.Resources.SteamStoreURL, g.Id ) );
+                    System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, g.Id ) );
                 }
             }
         }

@@ -30,7 +30,6 @@ namespace Depressurizer {
     public partial class ProfileDlg : Form {
         public Profile Profile;
         private bool editMode = false;
-        private bool skipUserClear = false;
 
         private ThreadLocker currentThreadLock = new ThreadLocker();
         private int currentThreadCount = 0;
@@ -72,8 +71,6 @@ namespace Depressurizer {
             txtFilePath.Text = Profile.FilePath;
             grpProfInfo.Enabled = false;
 
-            txtUserID.Text = Profile.AccountID64.ToString();
-
             chkActDownload.Checked = false;
             chkActImport.Checked = false;
             chkSetStartup.Checked = false;
@@ -92,7 +89,39 @@ namespace Depressurizer {
                 lstIgnored.Items.Add( i.ToString() );
             }
             lstIgnored.Sort();
+
+
+            bool found = SelectUserInList( Profile.AccountID64 );
+            if( found ) {
+                radSelUserFromList.Checked = true;
+            } else {
+                radSelUserByID.Checked = true;
+                txtUserID.Text = Profile.AccountID64.ToString();
+            }
         }
+
+        private bool SelectUserInList( Int64 accountId ) {
+            string profDirName = Profile.ID64toDirName( accountId );
+
+            for( int i = 0; i < lstUsers.Items.Count; i++ ) {
+                UserRecord r = lstUsers.Items[i] as UserRecord;
+                if( r != null && r.DirName == profDirName ) {
+                    lstUsers.SelectedIndex = i;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool SelectUserInList( string accountId ) {
+            Int64 val;
+            if( Int64.TryParse( accountId, out val ) ) {
+                return SelectUserInList( val );
+            }
+            return false;
+        }
+
         #endregion
 
         #region Event Handlers
@@ -104,7 +133,14 @@ namespace Depressurizer {
                 InitializeEditMode();
             } else {
                 txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
-                ThreadedNameUpdate();
+
+                if( lstUsers.Items.Count == 0 ) {
+                    MessageBox.Show( "No account configuration information was found in your Steam installation folder. You must enter your 64-bit account ID OR your Custom URL name manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                    radSelUserByURL.Checked = true;
+                } else {
+                    radSelUserFromList.Checked = true;
+                }
+                StartThreadedNameUpdate();
             }
 
             lstIgnored.ListViewItemSorter = new IgnoreListViewItemComparer();
@@ -159,7 +195,7 @@ namespace Depressurizer {
         }
 
         private void cmdUserUpdate_Click( object sender, EventArgs e ) {
-            ThreadedNameUpdate();
+            StartThreadedNameUpdate();
         }
 
         private void cmdUserUpdateCancel_Click( object sender, EventArgs e ) {
@@ -174,20 +210,14 @@ namespace Depressurizer {
         private void lstUsers_SelectedIndexChanged( object sender, EventArgs e ) {
             UserRecord u = lstUsers.SelectedItem as UserRecord;
             if( u != null ) {
-                skipUserClear = true;
                 txtUserID.Text = Profile.DirNametoID64( u.DirName ).ToString();
-                skipUserClear = false;
             }
-        }
-
-        private void chkManualUser_CheckedChanged( object sender, EventArgs e ) {
-            txtUserID.Enabled = chkManualUser.Checked;
         }
 
         private void txtUserID_TextChanged( object sender, EventArgs e ) {
-            if( !skipUserClear ) {
-                lstUsers.ClearSelected();
-            }
+            //    if( !skipUserClear ) {
+            //        lstUsers.ClearSelected();
+            //    }
         }
 
         private void ProfileDlg_FormClosing( object sender, FormClosingEventArgs e ) {
@@ -200,6 +230,21 @@ namespace Depressurizer {
 
         #region Saving
         private bool Apply() {
+            if( radSelUserByURL.Checked ) {
+                GetSteamIDDlg dlg = new GetSteamIDDlg( txtUserUrl.Text );
+                dlg.ShowDialog();
+
+                if( dlg.DialogResult == System.Windows.Forms.DialogResult.Cancel ) {
+                    return false;
+                }
+
+                if( dlg.Success == false || dlg.SteamID == 0 ) {
+                    MessageBox.Show( this, "Could not find the Steam profile specified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    return false;
+                }
+
+                txtUserID.Text = dlg.SteamID.ToString();
+            }
             if( editMode ) {
                 if( ValidateEntries() ) {
                     SaveModifiables( Profile );
@@ -294,11 +339,6 @@ namespace Depressurizer {
 
             string[] ids = GetSteamIds();
 
-            if( ids.Length == 0 && !editMode ) {
-                MessageBox.Show( "No account configuration information was found in your Steam installation folder. You must enter your 64-bit account ID manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-                chkManualUser.Checked = true;
-            }
-
             foreach( string id in ids ) {
                 lstUsers.Items.Add( new UserRecord( id ) );
             }
@@ -348,7 +388,7 @@ namespace Depressurizer {
             return null;
         }
 
-        private void ThreadedNameUpdate() {
+        private void StartThreadedNameUpdate() {
             if( currentThreadCount > 0 ) return;
 
             int maxThreads = 1;
@@ -367,14 +407,14 @@ namespace Depressurizer {
                 currentThreadLock = new ThreadLocker();
                 SetUpdateInterfaceRunning();
                 for( int i = 0; i < threads; i++ ) {
-                    Thread t = new Thread( this.RunNameUpdateThread );
+                    Thread t = new Thread( this.NameUpdateThread );
                     currentThreadCount++;
                     t.Start( new UpdateData( q, currentThreadLock ) );
                 }
             }
         }
 
-        private void RunNameUpdateThread( object d ) {
+        private void NameUpdateThread( object d ) {
             UpdateData data = (UpdateData)d;
             bool abort = false;
             do {
@@ -404,8 +444,10 @@ namespace Depressurizer {
             if( this.InvokeRequired ) {
                 Invoke( new UpdateDelegate( UpdateDisplayNameInList ), new object[] { index, name } );
             } else {
+                
                 UserRecord u = lstUsers.Items[index] as UserRecord;
                 if( u != null ) {
+                    bool selected = lstUsers.SelectedIndex == index;
                     if( name == null ) {
                         name = "?";
                     }
@@ -413,6 +455,7 @@ namespace Depressurizer {
 
                     lstUsers.Items.RemoveAt( index );
                     lstUsers.Items.Insert( index, u );
+                    if( selected ) lstUsers.SelectedIndex = index;
                 }
             }
         }
@@ -464,7 +507,7 @@ namespace Depressurizer {
         }
         */
         #endregion
-        
+
         #region Utility structures
 
         public class UserRecord {
@@ -516,6 +559,17 @@ namespace Depressurizer {
         }
 
         #endregion
+
+        private void radSelUser_CheckedChanged( object sender, EventArgs e ) {
+            lstUsers.Enabled = radSelUserFromList.Checked;
+            lstUsers.SelectedItem = null;
+            txtUserID.Enabled = radSelUserByID.Checked;
+            txtUserUrl.Enabled = radSelUserByURL.Checked;
+
+            if( radSelUserFromList.Checked ) {
+                SelectUserInList( txtUserID.Text );
+            }
+        }
 
     }
 

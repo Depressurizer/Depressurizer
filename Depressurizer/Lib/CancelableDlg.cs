@@ -65,6 +65,7 @@ namespace Rallion {
         #endregion
 
         #region Initialization
+
         public CancelableDlg( string title, bool stopButton ) {
             InitializeComponent();
             this.Text = title;
@@ -136,7 +137,7 @@ namespace Rallion {
                 Stopped = true;
             }
             DisableAbort();
-            DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
+            //DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
             Finish();
             if( jobsCompleted >= totalJobs ) {
                 DialogResult = DialogResult.OK;

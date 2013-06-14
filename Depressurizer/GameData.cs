@@ -222,7 +222,7 @@ namespace Depressurizer {
         public static XmlDocument FetchXmlGameList( Int64 accountId ) {
             XmlDocument doc = new XmlDocument();
             try {
-                string url = string.Format( Properties.Resources.XmlProfileURL, accountId );
+                string url = string.Format( Properties.Resources.UrlGameListXml, accountId );
                 Program.Logger.Write( LoggerLevel.Info, "Attempting to downloaded XML game list from URL {0}", url );
                 WebRequest req = HttpWebRequest.Create( url );
                 WebResponse response = req.GetResponse();
@@ -239,7 +239,7 @@ namespace Depressurizer {
         public static string FetchHtmlGameList( Int64 accountId ) {
             try {
                 string result = "";
-                string url = string.Format( Properties.Resources.HtmlProfileURL, accountId );
+                string url = string.Format( Properties.Resources.UrlGameListHtml, accountId );
                 Program.Logger.Write( LoggerLevel.Info, "Attempting to downloaded HTML game list from URL {0}", url );
                 WebRequest req = HttpWebRequest.Create( url );
                 using( WebResponse response = req.GetResponse() ) {

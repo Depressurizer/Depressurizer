@@ -118,7 +118,7 @@ namespace Depressurizer {
 
         void VisitStorePage( GameDBEntry game ) {
             if( game != null ) {
-                System.Diagnostics.Process.Start( string.Format( Properties.Resources.SteamStoreURL, game.Id ) );
+                System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, game.Id ) );
             }
         }
 

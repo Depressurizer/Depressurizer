@@ -120,13 +120,16 @@
   <data name="ConfigFilePath" xml:space="preserve">
     <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
   </data>
-  <data name="HtmlProfileURL" xml:space="preserve">
+  <data name="UrlCustomProfileXml" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}?xml=1</value>
+  </data>
+  <data name="UrlGameListHtml" xml:space="preserve">
     <value>http://steamcommunity.com/profiles/{0}/games?tab=all</value>
   </data>
-  <data name="SteamStoreURL" xml:space="preserve">
-    <value>http://store.steampowered.com/app/{0}/</value>
-  </data>
-  <data name="XmlProfileURL" xml:space="preserve">
+  <data name="UrlGameListXml" xml:space="preserve">
     <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
+  </data>
+  <data name="UrlSteamStore" xml:space="preserve">
+    <value>http://store.steampowered.com/app/{0}/</value>
   </data>
 </root>

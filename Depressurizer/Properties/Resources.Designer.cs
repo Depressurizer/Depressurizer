@@ -70,29 +70,38 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all.
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}?xml=1.
         /// </summary>
-        internal static string HtmlProfileURL {
+        internal static string UrlCustomProfileXml {
             get {
-                return ResourceManager.GetString("HtmlProfileURL", resourceCulture);
+                return ResourceManager.GetString("UrlCustomProfileXml", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://store.steampowered.com/app/{0}/.
+        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all.
         /// </summary>
-        internal static string SteamStoreURL {
+        internal static string UrlGameListHtml {
             get {
-                return ResourceManager.GetString("SteamStoreURL", resourceCulture);
+                return ResourceManager.GetString("UrlGameListHtml", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1.
         /// </summary>
-        internal static string XmlProfileURL {
+        internal static string UrlGameListXml {
             get {
-                return ResourceManager.GetString("XmlProfileURL", resourceCulture);
+                return ResourceManager.GetString("UrlGameListXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://store.steampowered.com/app/{0}/.
+        /// </summary>
+        internal static string UrlSteamStore {
+            get {
+                return ResourceManager.GetString("UrlSteamStore", resourceCulture);
             }
         }
     }

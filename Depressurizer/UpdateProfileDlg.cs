@@ -96,6 +96,7 @@ namespace Depressurizer {
         protected override void Finish() {
             if( !Canceled && Error == null && ( UseHtml ? ( htmlDoc != null ) : ( doc != null ) ) ) {
                 SetText( "Finishing download..." );
+                //TODO: did I mess this up? check it.
                 if( UseHtml ) {
                     int newItems;
                     Fetched = data.IntegrateHtmlGameList( htmlDoc, overwrite, ignore, ignoreDlc, out newItems );
