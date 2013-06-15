@@ -1446,6 +1446,15 @@ namespace Depressurizer {
                 }
             }
         }
+
+        private void lstGames_ItemSelectionChanged( object sender, ListViewItemSelectionChangedEventArgs e ) {
+            if( e.IsSelected ) {
+                Game g = e.Item.Tag as Game;
+                if( g != null ) {
+                    combFavorite.SelectedIndex = g.Favorite ? 0 : 1;
+                }
+            }
+        }
     }
 
     /// <summary>

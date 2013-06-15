@@ -656,6 +656,7 @@ namespace Depressurizer {
             this.lstGames.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.lstGames_AfterLabelEdit);
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
+            this.lstGames.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstGames_ItemSelectionChanged);
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
