@@ -231,7 +231,7 @@ namespace Depressurizer {
                 Program.Logger.Write( LoggerLevel.Info, "Successfully downloaded XML game list.", url );
                 return doc;
             } catch( Exception e ) {
-                Program.Logger.Write( LoggerLevel.Error, "Exception when downloading XML game list:\n{0}",  e.Message );
+                Program.Logger.Write( LoggerLevel.Error, "Exception when downloading XML game list:\n{0}", e.Message );
                 throw new ApplicationException( "Failed to download profile data: " + e.Message, e );
             }
         }
@@ -472,7 +472,9 @@ namespace Depressurizer {
             TextVdfFileNode fullFile = new TextVdfFileNode();
             fullFile["UserLocalConfigStore"] = fileData;
             try {
-                FileStream fStream = File.Open( filePath, FileMode.Create, FileAccess.Write, FileShare.None );
+                FileInfo f = new FileInfo( filePath );
+                f.Directory.Create();
+                FileStream fStream = f.Open( FileMode.Create, FileAccess.Write, FileShare.None );
                 using( StreamWriter writer = new StreamWriter( fStream ) ) {
                     fullFile.Save( writer );
                 }
