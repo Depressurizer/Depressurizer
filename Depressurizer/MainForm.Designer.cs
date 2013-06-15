@@ -549,7 +549,7 @@ namespace Depressurizer {
             this.cmdAutoCat.Location = new System.Drawing.Point(464, 313);
             this.cmdAutoCat.Name = "cmdAutoCat";
             this.cmdAutoCat.Size = new System.Drawing.Size(94, 23);
-            this.cmdAutoCat.TabIndex = 8;
+            this.cmdAutoCat.TabIndex = 5;
             this.cmdAutoCat.Text = "Auto-Categorize";
             this.cmdAutoCat.UseVisualStyleBackColor = true;
             this.cmdAutoCat.Click += new System.EventHandler(this.cmdAutoCat_Click);
@@ -573,7 +573,7 @@ namespace Depressurizer {
             this.cmdGameAdd.Location = new System.Drawing.Point(2, 288);
             this.cmdGameAdd.Name = "cmdGameAdd";
             this.cmdGameAdd.Size = new System.Drawing.Size(110, 23);
-            this.cmdGameAdd.TabIndex = 6;
+            this.cmdGameAdd.TabIndex = 7;
             this.cmdGameAdd.Text = "Add Game";
             this.cmdGameAdd.UseVisualStyleBackColor = true;
             this.cmdGameAdd.Click += new System.EventHandler(this.cmdGameAdd_Click);
@@ -584,7 +584,7 @@ namespace Depressurizer {
             this.cmdGameRemove.Location = new System.Drawing.Point(2, 313);
             this.cmdGameRemove.Name = "cmdGameRemove";
             this.cmdGameRemove.Size = new System.Drawing.Size(110, 23);
-            this.cmdGameRemove.TabIndex = 7;
+            this.cmdGameRemove.TabIndex = 8;
             this.cmdGameRemove.Text = "Remove Selected";
             this.cmdGameRemove.UseVisualStyleBackColor = true;
             this.cmdGameRemove.Click += new System.EventHandler(this.cmdGameRemove_Click);
@@ -595,7 +595,7 @@ namespace Depressurizer {
             this.cmdGameEdit.Location = new System.Drawing.Point(2, 263);
             this.cmdGameEdit.Name = "cmdGameEdit";
             this.cmdGameEdit.Size = new System.Drawing.Size(110, 23);
-            this.cmdGameEdit.TabIndex = 5;
+            this.cmdGameEdit.TabIndex = 6;
             this.cmdGameEdit.Text = "Edit Game";
             this.cmdGameEdit.UseVisualStyleBackColor = true;
             this.cmdGameEdit.Click += new System.EventHandler(this.cmdGameEdit_Click);

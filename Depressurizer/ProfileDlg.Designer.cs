@@ -150,7 +150,7 @@ namespace Depressurizer {
             this.txtUserUrl.Location = new System.Drawing.Point(201, 159);
             this.txtUserUrl.Name = "txtUserUrl";
             this.txtUserUrl.Size = new System.Drawing.Size(343, 20);
-            this.txtUserUrl.TabIndex = 9;
+            this.txtUserUrl.TabIndex = 0;
             // 
             // radSelUserByURL
             // 
@@ -158,7 +158,7 @@ namespace Depressurizer {
             this.radSelUserByURL.Location = new System.Drawing.Point(6, 160);
             this.radSelUserByURL.Name = "radSelUserByURL";
             this.radSelUserByURL.Size = new System.Drawing.Size(189, 17);
-            this.radSelUserByURL.TabIndex = 8;
+            this.radSelUserByURL.TabIndex = 7;
             this.radSelUserByURL.TabStop = true;
             this.radSelUserByURL.Text = "Manually enter Custom URL name:";
             this.radSelUserByURL.UseVisualStyleBackColor = true;
@@ -170,7 +170,7 @@ namespace Depressurizer {
             this.radSelUserByID.Location = new System.Drawing.Point(6, 134);
             this.radSelUserByID.Name = "radSelUserByID";
             this.radSelUserByID.Size = new System.Drawing.Size(173, 17);
-            this.radSelUserByID.TabIndex = 7;
+            this.radSelUserByID.TabIndex = 5;
             this.radSelUserByID.TabStop = true;
             this.radSelUserByID.Text = "Manually enter 64-bit Steam ID:";
             this.radSelUserByID.UseVisualStyleBackColor = true;
@@ -182,7 +182,7 @@ namespace Depressurizer {
             this.radSelUserFromList.Location = new System.Drawing.Point(6, 19);
             this.radSelUserFromList.Name = "radSelUserFromList";
             this.radSelUserFromList.Size = new System.Drawing.Size(222, 17);
-            this.radSelUserFromList.TabIndex = 6;
+            this.radSelUserFromList.TabIndex = 0;
             this.radSelUserFromList.TabStop = true;
             this.radSelUserFromList.Text = "Select from users found on local machine:";
             this.radSelUserFromList.UseVisualStyleBackColor = true;
@@ -194,7 +194,7 @@ namespace Depressurizer {
             this.cmdUserUpdateCancel.Location = new System.Drawing.Point(469, 104);
             this.cmdUserUpdateCancel.Name = "cmdUserUpdateCancel";
             this.cmdUserUpdateCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdUserUpdateCancel.TabIndex = 5;
+            this.cmdUserUpdateCancel.TabIndex = 4;
             this.cmdUserUpdateCancel.Text = "Cancel";
             this.cmdUserUpdateCancel.UseVisualStyleBackColor = true;
             this.cmdUserUpdateCancel.Click += new System.EventHandler(this.cmdUserUpdateCancel_Click);
@@ -204,7 +204,7 @@ namespace Depressurizer {
             this.lblUserStatus.Location = new System.Drawing.Point(6, 109);
             this.lblUserStatus.Name = "lblUserStatus";
             this.lblUserStatus.Size = new System.Drawing.Size(375, 13);
-            this.lblUserStatus.TabIndex = 4;
+            this.lblUserStatus.TabIndex = 2;
             this.lblUserStatus.Text = "Press Update to get display names for the account numbers above.";
             this.lblUserStatus.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -224,7 +224,7 @@ namespace Depressurizer {
             this.txtUserID.Location = new System.Drawing.Point(201, 133);
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(343, 20);
-            this.txtUserID.TabIndex = 2;
+            this.txtUserID.TabIndex = 6;
             this.txtUserID.TextChanged += new System.EventHandler(this.txtUserID_TextChanged);
             // 
             // lstUsers
@@ -233,7 +233,7 @@ namespace Depressurizer {
             this.lstUsers.Location = new System.Drawing.Point(22, 42);
             this.lstUsers.Name = "lstUsers";
             this.lstUsers.Size = new System.Drawing.Size(522, 56);
-            this.lstUsers.TabIndex = 0;
+            this.lstUsers.TabIndex = 1;
             this.lstUsers.SelectedIndexChanged += new System.EventHandler(this.lstUsers_SelectedIndexChanged);
             // 
             // grpProfInfo
@@ -482,7 +482,7 @@ namespace Depressurizer {
             this.grpIgnored.Location = new System.Drawing.Point(3, 3);
             this.grpIgnored.Name = "grpIgnored";
             this.grpIgnored.Size = new System.Drawing.Size(296, 329);
-            this.grpIgnored.TabIndex = 3;
+            this.grpIgnored.TabIndex = 0;
             this.grpIgnored.TabStop = false;
             this.grpIgnored.Text = "Ignored Games";
             // 
@@ -492,7 +492,7 @@ namespace Depressurizer {
             this.cmdIgnore.Location = new System.Drawing.Point(187, 45);
             this.cmdIgnore.Name = "cmdIgnore";
             this.cmdIgnore.Size = new System.Drawing.Size(103, 23);
-            this.cmdIgnore.TabIndex = 5;
+            this.cmdIgnore.TabIndex = 2;
             this.cmdIgnore.Text = "Ignore";
             this.cmdIgnore.UseVisualStyleBackColor = true;
             this.cmdIgnore.Click += new System.EventHandler(this.cmdIgnore_Click);
@@ -503,7 +503,7 @@ namespace Depressurizer {
             this.txtIgnore.Location = new System.Drawing.Point(187, 19);
             this.txtIgnore.Name = "txtIgnore";
             this.txtIgnore.Size = new System.Drawing.Size(103, 20);
-            this.txtIgnore.TabIndex = 4;
+            this.txtIgnore.TabIndex = 1;
             // 
             // cmdUnignore
             // 
@@ -526,7 +526,7 @@ namespace Depressurizer {
             this.lstIgnored.Name = "lstIgnored";
             this.lstIgnored.Size = new System.Drawing.Size(175, 304);
             this.lstIgnored.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lstIgnored.TabIndex = 2;
+            this.lstIgnored.TabIndex = 0;
             this.lstIgnored.UseCompatibleStateImageBehavior = false;
             this.lstIgnored.View = System.Windows.Forms.View.List;
             // 
