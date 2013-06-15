@@ -23,7 +23,7 @@ using System.Text;
 namespace Rallion {
 
     public enum LoggerLevel {
-        None = -1,
+        None,
         Error,
         Warning,
         Info,
@@ -39,7 +39,7 @@ namespace Rallion {
         #region Internals
         private FileStream outputStream;
         private readonly object threadLock = new object();
-        private static string[] LevTxt = { " ERR", "WARN", "INFO", "VERB" };
+        private static string[] LevTxt = { "", " ERR", "WARN", "INFO", "VERB" };
         #endregion
 
         #region Configuration

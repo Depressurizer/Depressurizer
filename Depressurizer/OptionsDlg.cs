@@ -18,6 +18,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
 using System.Windows.Forms;
+using Rallion;
 
 namespace Depressurizer {
     public partial class OptionsDlg : Form {
@@ -26,6 +27,9 @@ namespace Depressurizer {
         }
 
         private void OptionsForm_Load( object sender, EventArgs e ) {
+            string[] levels = Enum.GetNames( typeof(LoggerLevel) );
+            cmbLogLevel.Items.AddRange( levels );
+            
             FillFieldsFromSettings();
         }
 
@@ -55,6 +59,9 @@ namespace Depressurizer {
                     cmbDatSrc.SelectedIndex = 2;
                     break;
             }
+            
+            cmbLogLevel.SelectedIndex = (int)settings.LogLevel;
+            
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
             chkIgnoreDlc.Checked = settings.IgnoreDlc;
             chkFullAutocat.Checked = settings.FullAutocat;
@@ -88,6 +95,9 @@ namespace Depressurizer {
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
             settings.IgnoreDlc = chkIgnoreDlc.Checked;
             settings.FullAutocat = chkFullAutocat.Checked;
+
+            settings.LogLevel = (LoggerLevel)cmbLogLevel.SelectedIndex;
+
             try {
                 settings.Save();
             } catch( Exception e ) {
