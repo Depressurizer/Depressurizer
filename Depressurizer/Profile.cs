@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.IO;
 using Rallion;
 
 namespace Depressurizer {
@@ -150,7 +151,7 @@ namespace Depressurizer {
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
-
+            
             XmlWriter writer;
             try {
                 writer = XmlWriter.Create( path, writeSettings );

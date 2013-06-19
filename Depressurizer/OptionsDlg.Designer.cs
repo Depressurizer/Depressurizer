@@ -61,8 +61,13 @@ namespace Depressurizer {
             this.cmbDatSrc = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
-            this.grpLogging = new System.Windows.Forms.GroupBox();
+            this.tabLogging = new System.Windows.Forms.TabPage();
             this.cmbLogLevel = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numLogSize = new System.Windows.Forms.NumericUpDown();
+            this.numLogBackup = new System.Windows.Forms.NumericUpDown();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
@@ -70,7 +75,9 @@ namespace Depressurizer {
             this.grpDatSrc.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
-            this.grpLogging.SuspendLayout();
+            this.tabLogging.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -188,7 +195,7 @@ namespace Depressurizer {
             // cmdAccept
             // 
             this.cmdAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAccept.Location = new System.Drawing.Point(481, 443);
+            this.cmdAccept.Location = new System.Drawing.Point(481, 384);
             this.cmdAccept.Name = "cmdAccept";
             this.cmdAccept.Size = new System.Drawing.Size(75, 23);
             this.cmdAccept.TabIndex = 2;
@@ -199,7 +206,7 @@ namespace Depressurizer {
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCancel.Location = new System.Drawing.Point(400, 443);
+            this.cmdCancel.Location = new System.Drawing.Point(400, 384);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 1;
@@ -283,15 +290,15 @@ namespace Depressurizer {
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabGeneral);
+            this.tabControl.Controls.Add(this.tabLogging);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(544, 425);
+            this.tabControl.Size = new System.Drawing.Size(544, 366);
             this.tabControl.TabIndex = 0;
             // 
             // tabGeneral
             // 
-            this.tabGeneral.Controls.Add(this.grpLogging);
             this.tabGeneral.Controls.Add(this.grpSteamDir);
             this.tabGeneral.Controls.Add(this.grpDatSrc);
             this.tabGeneral.Controls.Add(this.grpStartup);
@@ -300,22 +307,26 @@ namespace Depressurizer {
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneral.Size = new System.Drawing.Size(536, 399);
+            this.tabGeneral.Size = new System.Drawing.Size(536, 340);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
-            // grpLogging
+            // tabLogging
             // 
-            this.grpLogging.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpLogging.Controls.Add(this.cmbLogLevel);
-            this.grpLogging.Location = new System.Drawing.Point(6, 340);
-            this.grpLogging.Name = "grpLogging";
-            this.grpLogging.Size = new System.Drawing.Size(524, 50);
-            this.grpLogging.TabIndex = 5;
-            this.grpLogging.TabStop = false;
-            this.grpLogging.Text = "Program Logging Level";
+            this.tabLogging.Controls.Add(this.numLogBackup);
+            this.tabLogging.Controls.Add(this.numLogSize);
+            this.tabLogging.Controls.Add(this.label3);
+            this.tabLogging.Controls.Add(this.label2);
+            this.tabLogging.Controls.Add(this.label1);
+            this.tabLogging.Controls.Add(this.cmbLogLevel);
+            this.tabLogging.Location = new System.Drawing.Point(4, 22);
+            this.tabLogging.Name = "tabLogging";
+            this.tabLogging.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLogging.Size = new System.Drawing.Size(536, 340);
+            this.tabLogging.TabIndex = 1;
+            this.tabLogging.Text = "Logging";
+            this.tabLogging.UseVisualStyleBackColor = true;
             // 
             // cmbLogLevel
             // 
@@ -323,16 +334,78 @@ namespace Depressurizer {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbLogLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLogLevel.FormattingEnabled = true;
-            this.cmbLogLevel.Location = new System.Drawing.Point(11, 19);
+            this.cmbLogLevel.Location = new System.Drawing.Point(130, 6);
             this.cmbLogLevel.Name = "cmbLogLevel";
-            this.cmbLogLevel.Size = new System.Drawing.Size(507, 21);
-            this.cmbLogLevel.TabIndex = 0;
+            this.cmbLogLevel.Size = new System.Drawing.Size(120, 21);
+            this.cmbLogLevel.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Logging Level: ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(101, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Max file size (bytes):";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Backups to keep:";
+            // 
+            // numLogSize
+            // 
+            this.numLogSize.Increment = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numLogSize.Location = new System.Drawing.Point(130, 33);
+            this.numLogSize.Maximum = new decimal(new int[] {
+            20000000,
+            0,
+            0,
+            0});
+            this.numLogSize.Minimum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numLogSize.Name = "numLogSize";
+            this.numLogSize.Size = new System.Drawing.Size(120, 20);
+            this.numLogSize.TabIndex = 5;
+            this.numLogSize.ThousandsSeparator = true;
+            this.numLogSize.Value = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            // 
+            // numLogBackup
+            // 
+            this.numLogBackup.Location = new System.Drawing.Point(130, 59);
+            this.numLogBackup.Name = "numLogBackup";
+            this.numLogBackup.Size = new System.Drawing.Size(120, 20);
+            this.numLogBackup.TabIndex = 6;
             // 
             // OptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 476);
+            this.ClientSize = new System.Drawing.Size(568, 417);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.cmdCancel);
@@ -354,7 +427,10 @@ namespace Depressurizer {
             this.grpDatSrc.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
-            this.grpLogging.ResumeLayout(false);
+            this.tabLogging.ResumeLayout(false);
+            this.tabLogging.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -381,7 +457,12 @@ namespace Depressurizer {
         private System.Windows.Forms.ComboBox cmbDatSrc;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabGeneral;
-        private System.Windows.Forms.GroupBox grpLogging;
+        private System.Windows.Forms.TabPage tabLogging;
+        private System.Windows.Forms.NumericUpDown numLogBackup;
+        private System.Windows.Forms.NumericUpDown numLogSize;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbLogLevel;
     }
 }

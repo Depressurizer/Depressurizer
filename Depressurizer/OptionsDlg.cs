@@ -60,11 +60,13 @@ namespace Depressurizer {
                     break;
             }
             
-            cmbLogLevel.SelectedIndex = (int)settings.LogLevel;
-            
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
             chkIgnoreDlc.Checked = settings.IgnoreDlc;
             chkFullAutocat.Checked = settings.FullAutocat;
+
+            cmbLogLevel.SelectedIndex = (int)settings.LogLevel;
+            numLogSize.Value = settings.LogSize;
+            numLogBackup.Value = settings.LogBackups;
         }
 
         private void SaveFieldsToSettings() {
@@ -97,6 +99,8 @@ namespace Depressurizer {
             settings.FullAutocat = chkFullAutocat.Checked;
 
             settings.LogLevel = (LoggerLevel)cmbLogLevel.SelectedIndex;
+            settings.LogSize = (int)numLogSize.Value;
+            settings.LogBackups = (int)numLogBackup.Value;
 
             try {
                 settings.Save();

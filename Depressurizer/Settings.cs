@@ -141,7 +141,7 @@ namespace Depressurizer {
             }
         }
 
-        private LoggerLevel _logLevel = LoggerLevel.None;
+        private LoggerLevel _logLevel = LoggerLevel.Info;
         public LoggerLevel LogLevel {
             get {
                 return _logLevel;
@@ -150,6 +150,34 @@ namespace Depressurizer {
                 Program.Logger.Level = value;
                 if( _logLevel != value ) {
                     _logLevel = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private int _logSize = 2000000;
+        public int LogSize {
+            get {
+                return _logSize;
+            }
+            set {
+                Program.Logger.MaxFileSize = value;
+                if( _logSize != value ) {
+                    _logSize = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private int _logBackups = 1;
+        public int LogBackups {
+            get {
+                return _logBackups;
+            }
+            set {
+                Program.Logger.MaxBackup = value;
+                if( _logBackups != value ) {
+                    _logBackups = value;
                     outOfDate = true;
                 }
             }

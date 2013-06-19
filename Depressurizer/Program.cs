@@ -37,6 +37,10 @@ namespace Depressurizer {
             Logger.Level = LoggerLevel.None;
             Logger.DateFormat = "HH:mm:ss'.'ffffff";
 
+            Logger.MaxFileSize = 2000000;
+            Logger.MaxBackup = 1;
+            Logger.FileNameTemplate = "Depressurizer.log";
+
             Settings settings = Settings.Instance();
             settings.Load();
 
