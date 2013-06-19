@@ -218,39 +218,64 @@ namespace Depressurizer {
             return newCat;
         }
         #endregion
+        public static XmlDocument FetchXmlGameList( string customUrl ) {
+            return FetchXmlFromUrl( string.Format( Properties.Resources.UrlCustomGameListXml, customUrl ) );
+        }
 
-        public static XmlDocument FetchXmlGameList( Int64 accountId ) {
+        public static XmlDocument FetchXmlGameList( Int64 steamId ) {
+            return FetchXmlFromUrl( string.Format( Properties.Resources.UrlGameListXml, steamId ) );
+        }
+
+        public static XmlDocument FetchXmlFromUrl( string url ) {
             XmlDocument doc = new XmlDocument();
             try {
-                string url = string.Format( Properties.Resources.UrlGameListXml, accountId );
                 Program.Logger.Write( LoggerLevel.Info, "Attempting to downloaded XML game list from URL {0}", url );
                 WebRequest req = HttpWebRequest.Create( url );
                 WebResponse response = req.GetResponse();
+                if( response.ResponseUri.Segments.Length < 4 ) {
+                    throw new ProfileAccessException( "The specified profile is not public." );
+                }
                 doc.Load( response.GetResponseStream() );
                 response.Close();
                 Program.Logger.Write( LoggerLevel.Info, "Successfully downloaded XML game list.", url );
                 return doc;
+            } catch( ProfileAccessException e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Profile is not public." );
+                throw e;
             } catch( Exception e ) {
                 Program.Logger.Write( LoggerLevel.Error, "Exception when downloading XML game list:\n{0}", e.Message );
-                throw new ApplicationException( "Failed to download profile data: " + e.Message, e );
+                throw new ApplicationException( e.Message, e );
             }
         }
 
+        public static string FetchHtmlGameList( string customUrl ) {
+            return FetchHtmlFromUrl( string.Format( Properties.Resources.UrlCustomGameListHtml, customUrl ) );
+        }
         public static string FetchHtmlGameList( Int64 accountId ) {
+            return FetchHtmlFromUrl( string.Format( Properties.Resources.UrlGameListHtml, accountId ) );
+        }
+
+        public static string FetchHtmlFromUrl( string url ) {
             try {
                 string result = "";
-                string url = string.Format( Properties.Resources.UrlGameListHtml, accountId );
+                
                 Program.Logger.Write( LoggerLevel.Info, "Attempting to downloaded HTML game list from URL {0}", url );
                 WebRequest req = HttpWebRequest.Create( url );
                 using( WebResponse response = req.GetResponse() ) {
+                    if( response.ResponseUri.Segments.Length < 4 ) {
+                       throw new ProfileAccessException( "The specified profile is not public." );
+                    }
                     StreamReader sr = new StreamReader( response.GetResponseStream() );
                     result = sr.ReadToEnd();
                 }
                 Program.Logger.Write( LoggerLevel.Info, "Successfully downloaded HTML game list.", url );
                 return result;
+            } catch( ProfileAccessException e ) {
+                Program.Logger.Write( LoggerLevel.Error, "Profile is not public." );
+                throw e;
             } catch( Exception e ) {
                 Program.Logger.Write( LoggerLevel.Error, "Exception when downloading HTML game list:\n{0}", e.Message );
-                throw new ApplicationException( "Failed to download profile data: " + e.Message, e );
+                throw new ApplicationException( e.Message, e );
             }
         }
 
@@ -490,5 +515,9 @@ namespace Depressurizer {
                 throw new ApplicationException( "Access denied on Steam config file: " + e.Message, e );
             }
         }
+    }
+
+    class ProfileAccessException : ApplicationException {
+        public ProfileAccessException( string m ) : base( m ) { }
     }
 }

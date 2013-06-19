@@ -144,7 +144,7 @@ namespace Depressurizer {
                     return;
                 }
             }
-
+            /*
             GetStringDlg dlg = new GetStringDlg( "", "Download game list", "Enter 64-bit Steam ID:", "Download game list" );
             if( dlg.ShowDialog() == DialogResult.OK ) {
                 
@@ -163,12 +163,36 @@ namespace Depressurizer {
                     Cursor = Cursors.Default;
                 }
             }
+             */
+            DlgManualDownload dlg = new DlgManualDownload();
+            if( dlg.ShowDialog() == DialogResult.OK ) {
+
+                try {
+                    if( dlg.Custom ) {
+                        DownloadProfileData( dlg.UrlVal, true, null, settings.IgnoreDlc );
+                    } else {
+                        DownloadProfileData( dlg.IdVal, true, null, settings.IgnoreDlc );
+                    }
+                } catch( ApplicationException e ) {
+                    MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Error downloading games." );
+                }
+            }
         }
 
         #endregion
 
-        private void DownloadProfileData( Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, accountId, overwrite, ignore, ignoreDlc );
+        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, steamId, overwrite, ignore, ignoreDlc );
+            DownloadProfileDataHelper( updateDlg );
+        }
+
+        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, customUrl, overwrite, ignore, ignoreDlc );
+            DownloadProfileDataHelper( updateDlg );
+        }
+
+        private void DownloadProfileDataHelper( UpdateProfileDlg updateDlg ) {
             DialogResult res = updateDlg.ShowDialog();
 
             if( updateDlg.Error != null ) {
@@ -182,6 +206,7 @@ namespace Depressurizer {
                         AddStatus( "XML download failed." );
                     }
                     if( updateDlg.Fetched == 0 ) {
+                        //TODO: this message needs to be changed.
                         MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games in download." );
                     } else {
@@ -361,7 +386,7 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    DownloadProfileData( currentProfile.AccountID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
+                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
                     MessageBox.Show( e.Message, "Error downloading game list", MessageBoxButtons.OK, MessageBoxIcon.Warning );

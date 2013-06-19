@@ -91,12 +91,12 @@ namespace Depressurizer {
             lstIgnored.Sort();
 
 
-            bool found = SelectUserInList( Profile.AccountID64 );
+            bool found = SelectUserInList( Profile.SteamID64 );
             if( found ) {
                 radSelUserFromList.Checked = true;
             } else {
                 radSelUserByID.Checked = true;
-                txtUserID.Text = Profile.AccountID64.ToString();
+                txtUserID.Text = Profile.SteamID64.ToString();
             }
         }
 
@@ -303,7 +303,7 @@ namespace Depressurizer {
         }
 
         void SaveModifiables( Profile p ) {
-            p.AccountID64 = Int64.Parse( txtUserID.Text );
+            p.SteamID64 = Int64.Parse( txtUserID.Text );
 
             p.AutoDownload = chkAutoDownload.Checked;
             p.AutoExport = chkAutoExport.Checked;

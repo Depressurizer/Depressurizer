@@ -104,6 +104,12 @@
     <Compile Include="DBEdit\ScrapeProcDlg.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DlgManualDownload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgManualDownload.Designer.cs">
+      <DependentUpon>DlgManualDownload.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameDB.cs" />
     <Compile Include="GetSteamIDDlg.cs">
       <SubType>Form</SubType>
@@ -180,6 +186,9 @@
     <EmbeddedResource Include="DBEdit\GameDBEntryDialog.resx">
       <DependentUpon>GameDBEntryDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgManualDownload.resx">
+      <DependentUpon>DlgManualDownload.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameDlg.resx">
       <DependentUpon>GameDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -234,22 +243,22 @@
   <ItemGroup>
     <PublishFile Include="Depressurizer.exe.config">
       <Visible>False</Visible>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Depressurizer.exe.manifest">
       <Visible>False</Visible>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
   </ItemGroup>

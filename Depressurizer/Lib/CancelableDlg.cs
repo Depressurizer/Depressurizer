@@ -92,7 +92,8 @@ namespace Rallion {
                     Stopped = true;
                     Error = e;
                 }
-                Invoke( new SimpleDelegate( Close ) );
+                Invoke( new SimpleDelegate( Finish ) );
+                Invoke( new SimpleDelegate( this.Close ) );
             }
         }
         #endregion

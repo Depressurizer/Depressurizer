@@ -31,7 +31,7 @@ namespace Depressurizer {
 
         public SortedSet<int> IgnoreList = new SortedSet<int>();
 
-        public Int64 AccountID64 = 0;
+        public Int64 SteamID64 = 0;
 
         public bool AutoDownload = true;
 
@@ -48,12 +48,12 @@ namespace Depressurizer {
         public bool IgnoreDlc = true;
 
         public int ImportSteamData() {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( AccountID64 ) );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
             return GameData.ImportSteamFile( filePath, IgnoreList, IgnoreDlc );
         }
 
         public void ExportSteamData() {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( AccountID64 ) );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
             GameData.SaveSteamFile( filePath, ExportDiscard );
         }
 
@@ -82,7 +82,7 @@ namespace Depressurizer {
 
             if( profileNode != null ) {
 
-                Int64 accId = XmlUtil.GetInt64FromNode( profileNode["account_id_64"], 0 );
+                Int64 accId = XmlUtil.GetInt64FromNode( profileNode["steam_id_64"], 0 );
                 if( accId == 0 ) {
                     string oldAcc = XmlUtil.GetStringFromNode( profileNode["account_id"], null );
                     if( oldAcc != null ) {
@@ -90,7 +90,7 @@ namespace Depressurizer {
                     }
                 }
 
-                profile.AccountID64 = accId;
+                profile.SteamID64 = accId;
 
                 profile.AutoDownload = XmlUtil.GetBoolFromNode( profileNode["auto_download"], profile.AutoDownload );
                 profile.AutoImport = XmlUtil.GetBoolFromNode( profileNode["auto_import"], profile.AutoImport );
@@ -161,7 +161,7 @@ namespace Depressurizer {
             }
             writer.WriteStartElement( "profile" );
 
-            writer.WriteElementString( "account_id_64", AccountID64.ToString() );
+            writer.WriteElementString( "steam_id_64", SteamID64.ToString() );
 
             writer.WriteElementString( "auto_download", AutoDownload.ToString() );
             writer.WriteElementString( "auto_import", AutoImport.ToString() );

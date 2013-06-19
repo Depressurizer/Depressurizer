@@ -70,6 +70,24 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all.
+        /// </summary>
+        internal static string UrlCustomGameListHtml {
+            get {
+                return ResourceManager.GetString("UrlCustomGameListHtml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1.
+        /// </summary>
+        internal static string UrlCustomGameListXml {
+            get {
+                return ResourceManager.GetString("UrlCustomGameListXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}?xml=1.
         /// </summary>
         internal static string UrlCustomProfileXml {
