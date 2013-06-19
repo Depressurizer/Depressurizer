@@ -183,16 +183,16 @@ namespace Depressurizer {
         #endregion
 
         private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, steamId, overwrite, ignore, ignoreDlc );
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore, ignoreDlc );
             DownloadProfileDataHelper( updateDlg );
         }
 
         private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, customUrl, overwrite, ignore, ignoreDlc );
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore, ignoreDlc );
             DownloadProfileDataHelper( updateDlg );
         }
 
-        private void DownloadProfileDataHelper( UpdateProfileDlg updateDlg ) {
+        private void DownloadProfileDataHelper( CDlgUpdateProfile updateDlg ) {
             DialogResult res = updateDlg.ShowDialog();
 
             if( updateDlg.Error != null ) {
@@ -225,7 +225,7 @@ namespace Depressurizer {
         /// Prompts user to create a new profile.
         /// </summary>
         void CreateProfile() {
-            ProfileDlg dlg = new ProfileDlg();
+            DlgProfile dlg = new DlgProfile();
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
@@ -257,7 +257,7 @@ namespace Depressurizer {
         /// </summary>
         void EditProfile() {
             if( ProfileLoaded ) {
-                ProfileDlg dlg = new ProfileDlg( currentProfile );
+                DlgProfile dlg = new DlgProfile( currentProfile );
                 if( dlg.ShowDialog() == DialogResult.OK ) {
                     AddStatus( "Profile edited." );
                     MakeChange( true );
@@ -530,7 +530,7 @@ namespace Depressurizer {
         /// Adds a new game. Displays the game dialog to the user.
         /// </summary>
         void AddGame() {
-            GameDlg dlg = new GameDlg( gameData, null );
+            DlgGame dlg = new DlgGame( gameData, null );
             if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
                 if( ProfileLoaded ) {
                     if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
@@ -551,7 +551,7 @@ namespace Depressurizer {
             if( lstGames.SelectedIndices.Count > 0 ) {
                 int index = lstGames.SelectedIndices[0];
                 Game g = lstGames.Items[index].Tag as Game;
-                GameDlg dlg = new GameDlg( gameData, g );
+                DlgGame dlg = new DlgGame( gameData, g );
                 if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
                     FillCategoryList();
                     UpdateGame( index );
@@ -696,7 +696,7 @@ namespace Depressurizer {
             if( notFound.Count > 0 ) {
                 DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
-                    DataScrapeDlg scrapeDlg = new DataScrapeDlg( notFound, gameData, settings.FullAutocat );
+                    CDlgDataScrape scrapeDlg = new CDlgDataScrape( notFound, gameData, settings.FullAutocat );
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
                     if( scrapeRes == DialogResult.Cancel ) {
@@ -982,7 +982,7 @@ namespace Depressurizer {
         private void FormMain_Shown( object sender, EventArgs e ) {
             ClearStatus();
             if( settings.SteamPath == null ) {
-                SteamPathDlg dlg = new SteamPathDlg();
+                DlgSteamPath dlg = new DlgSteamPath();
                 dlg.ShowDialog();
                 settings.SteamPath = dlg.Path;
                 settings.Save();
@@ -1161,7 +1161,7 @@ namespace Depressurizer {
 
         private void menu_Tools_Settings_Click( object sender, EventArgs e ) {
             ClearStatus();
-            OptionsDlg dlg = new OptionsDlg();
+            DlgOptions dlg = new DlgOptions();
             dlg.ShowDialog();
             FlushStatus();
         }

@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 namespace Depressurizer {
-    partial class OptionsDlg {
+    partial class DlgOptions {
         /// <summary>
         /// Required designer variable.
         /// </summary>

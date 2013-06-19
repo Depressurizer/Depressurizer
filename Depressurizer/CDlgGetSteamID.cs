@@ -22,13 +22,13 @@ using System.Xml;
 using Rallion;
 
 namespace Depressurizer {
-    class GetSteamIDDlg : CancelableDlg {
+    class CDlgGetSteamID : CancelableDlg {
 
         public Int64 SteamID { get; private set; }
         private string customUrlName;
         public bool Success { get; private set; }
 
-        public GetSteamIDDlg( string customUrl )
+        public CDlgGetSteamID( string customUrl )
             : base( "Getting Steam ID...", false ) {
             SteamID = 0;
             Success = false;

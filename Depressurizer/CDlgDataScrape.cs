@@ -22,7 +22,7 @@ using System.Text;
 using Rallion;
 
 namespace Depressurizer {
-    class DataScrapeDlg : CancelableDlg {
+    class CDlgDataScrape : CancelableDlg {
         Queue<int> jobs;
         GameData data;
 
@@ -34,7 +34,7 @@ namespace Depressurizer {
 
         Dictionary<int, string> scrapeResults;
 
-        public DataScrapeDlg( Queue<int> jobs, GameData data, bool fullGenre )
+        public CDlgDataScrape( Queue<int> jobs, GameData data, bool fullGenre )
             : base( "Scraping game info", true ) {
             scrapeResults = new Dictionary<int, string>();
             this.data = data;

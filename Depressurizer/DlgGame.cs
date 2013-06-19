@@ -18,17 +18,17 @@ using System;
 using System.Windows.Forms;
 
 namespace Depressurizer {
-    public partial class GameDlg : Form {
+    public partial class DlgGame : Form {
         GameData Data;
         public Game Game;
 
         bool editMode;
 
-        private GameDlg() {
+        private DlgGame() {
             InitializeComponent();
         }
 
-        public GameDlg( GameData data, Game game = null )
+        public DlgGame( GameData data, Game game = null )
             : this() {
             this.Data = data;
             Game = game;

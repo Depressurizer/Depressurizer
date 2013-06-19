@@ -27,7 +27,7 @@ using System.Xml;
 
 namespace Depressurizer {
 
-    public partial class ProfileDlg : Form {
+    public partial class DlgProfile : Form {
         public Profile Profile;
         private bool editMode = false;
 
@@ -57,11 +57,11 @@ namespace Depressurizer {
 
         #region Init
 
-        public ProfileDlg() {
+        public DlgProfile() {
             InitializeComponent();
         }
 
-        public ProfileDlg( Profile profile )
+        public DlgProfile( Profile profile )
             : this() {
             Profile = profile;
             editMode = true;
@@ -231,7 +231,7 @@ namespace Depressurizer {
         #region Saving
         private bool Apply() {
             if( radSelUserByURL.Checked ) {
-                GetSteamIDDlg dlg = new GetSteamIDDlg( txtUserUrl.Text );
+                CDlgGetSteamID dlg = new CDlgGetSteamID( txtUserUrl.Text );
                 dlg.ShowDialog();
 
                 if( dlg.DialogResult == System.Windows.Forms.DialogResult.Cancel ) {

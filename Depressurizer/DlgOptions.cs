@@ -21,8 +21,8 @@ using System.Windows.Forms;
 using Rallion;
 
 namespace Depressurizer {
-    public partial class OptionsDlg : Form {
-        public OptionsDlg() {
+    public partial class DlgOptions : Form {
+        public DlgOptions() {
             InitializeComponent();
         }
 

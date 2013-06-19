@@ -22,14 +22,14 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace Depressurizer {
-    public partial class SteamPathDlg : Form {
+    public partial class DlgSteamPath : Form {
         public string Path {
             get {
                 return txtPath.Text.Trim().TrimEnd( new char[] { '\\' } );
             }
         }
         
-        public SteamPathDlg() {
+        public DlgSteamPath() {
             InitializeComponent();
             txtPath.Text = GetSteamPath();
         }

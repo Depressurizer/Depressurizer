@@ -23,7 +23,7 @@ using Rallion;
 
 namespace Depressurizer {
 
-    class UpdateProfileDlg : CancelableDlg {
+    class CDlgUpdateProfile : CancelableDlg {
         public int Fetched { get; private set; }
         public int Added { get; private set; }
 
@@ -42,7 +42,7 @@ namespace Depressurizer {
         private SortedSet<int> ignore;
         private bool ignoreDlc;
 
-        public UpdateProfileDlg( GameData data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
+        public CDlgUpdateProfile( GameData data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
             : base( "Updating game list...", true ) {
             custom = false;
             this.SteamId = accountId;
@@ -61,7 +61,7 @@ namespace Depressurizer {
             SetText( "Downloading game list..." );
         }
 
-        public UpdateProfileDlg( GameData data, string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
+        public CDlgUpdateProfile( GameData data, string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
             : base( "Updating game list...", true ) {
             custom = true;
             this.customUrl = customUrl;
