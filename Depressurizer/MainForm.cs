@@ -206,8 +206,7 @@ namespace Depressurizer {
                         AddStatus( "XML download failed." );
                     }
                     if( updateDlg.Fetched == 0 ) {
-                        //TODO: this message needs to be changed.
-                        MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                         AddStatus( "No games in download." );
                     } else {
                         MakeChange( true );
