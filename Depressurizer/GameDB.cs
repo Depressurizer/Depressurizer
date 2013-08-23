@@ -23,6 +23,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Rallion;
+using System.IO.Compression;
 
 namespace Depressurizer {
 
@@ -43,6 +44,34 @@ namespace Depressurizer {
         public int Id;
         public string Name;
         public string Genre;
+
+        /* New stuff:
+        // Basics:
+        public string Developer;
+        public string Publisher;
+        public DateTime SteamRelease;
+        // Metacritic:
+        public string MC_Url;
+        public int MC_Score;
+        public string MC_Genre;
+        public int MC_Year;
+        // Steam sidebar:
+        public bool SB_SinglePlayer;
+        public bool SB_MultiPlayer;
+        public bool SB_MultiPlayerCrossPlat;
+        public bool SB_CoOp;
+        public bool SB_LocalCoOp;
+        public bool SB_Achievements;
+        public bool SB_Leaderboards;
+        public bool SB_Stats;
+        public bool SB_Cloud;
+        public bool SB_TradingCards;
+        public bool SB_LevelEditor;
+        public bool SB_Workshop;
+        public bool SB_FullController;
+        public bool SB_PartialController;
+        */
+
         public AppType Type;
 
         public void ScrapeStore() {
@@ -133,58 +162,100 @@ namespace Depressurizer {
         #endregion
 
         #region Serialization
-        public void SaveToXml( string path ) {
+
+        public void Save( string path ) {
+            Save( path, path.EndsWith( ".gz" ) );
+        }
+
+        public void Save( string path, bool compress ) {
             Program.Logger.Write( LoggerLevel.Info, "Saving GameDB to {0}", path );
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.CloseOutput = true;
-            XmlWriter writer = XmlWriter.Create( path, settings );
-            writer.WriteStartDocument();
-            writer.WriteStartElement( "gamelist" );
-            foreach( GameDBEntry g in Games.Values ) {
-                writer.WriteStartElement( "game" );
 
-                writer.WriteElementString( "id", g.Id.ToString() );
-                if( !string.IsNullOrEmpty( g.Name ) ) {
-                    writer.WriteElementString( "name", g.Name );
+            Stream stream = null;
+            try {
+                stream = new FileStream( path, FileMode.Create );
+
+                if( compress ) {
+                    stream = new GZipStream( stream, CompressionMode.Compress );
                 }
-                writer.WriteElementString( "type", g.Type.ToString() );
-                if( !string.IsNullOrEmpty( g.Genre ) ) {
-                    writer.WriteElementString( "genre", g.Genre );
+
+                XmlWriter writer = XmlWriter.Create( stream, settings );
+                writer.WriteStartDocument();
+                writer.WriteStartElement( "gamelist" );
+                foreach( GameDBEntry g in Games.Values ) {
+                    writer.WriteStartElement( "game" );
+
+                    writer.WriteElementString( "id", g.Id.ToString() );
+                    if( !string.IsNullOrEmpty( g.Name ) ) {
+                        writer.WriteElementString( "name", g.Name );
+                    }
+                    writer.WriteElementString( "type", g.Type.ToString() );
+                    if( !string.IsNullOrEmpty( g.Genre ) ) {
+                        writer.WriteElementString( "genre", g.Genre );
+                    }
+                    writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
+                writer.WriteEndDocument();
+                writer.Close();
+            } catch( Exception e ) {
+                throw e;
+            } finally {
+                if( stream != null ) {
+                    stream.Close();
+                }
             }
-            writer.WriteEndElement();
-            writer.WriteEndDocument();
-            writer.Close();
             Program.Logger.Write( LoggerLevel.Info, "GameDB saved." );
         }
 
-        public void LoadFromXml( string path ) {
+        public void Load( string path ) {
+            Load( path, path.EndsWith( ".gz" ) );
+        }
+
+
+        public void Load( string path, bool compress ) {
             Program.Logger.Write( LoggerLevel.Info, "Loading GameDB from {0}", path );
             XmlDocument doc = new XmlDocument();
-            doc.Load( path );
-            Program.Logger.Write( LoggerLevel.Info, "GameDB XML document parsed." );
-            Games.Clear();
 
-            foreach( XmlNode gameNode in doc.SelectNodes( "/gamelist/game" ) ) {
-                int id;
-                if( !XmlUtil.TryGetIntFromNode( gameNode["id"], out id ) || Games.ContainsKey( id ) ) {
-                    continue;
-                }
-                GameDBEntry g = new GameDBEntry();
-                g.Id = id;
-                XmlUtil.TryGetStringFromNode( gameNode["name"], out g.Name );
-                string typeString;
-                if( !XmlUtil.TryGetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType>( typeString, out g.Type ) ) {
-                    g.Type = AppType.New;
+            Stream stream = null;
+            try {
+                stream = new FileStream( path, FileMode.Open );
+                if( compress ) {
+                    stream = new GZipStream( stream, CompressionMode.Decompress );
                 }
 
-                g.Genre = XmlUtil.GetStringFromNode( gameNode["genre"], null );
+                doc.Load( stream );
 
-                Games.Add( id, g );
+                Program.Logger.Write( LoggerLevel.Info, "GameDB XML document parsed." );
+                Games.Clear();
+
+                foreach( XmlNode gameNode in doc.SelectNodes( "/gamelist/game" ) ) {
+                    int id;
+                    if( !XmlUtil.TryGetIntFromNode( gameNode["id"], out id ) || Games.ContainsKey( id ) ) {
+                        continue;
+                    }
+                    GameDBEntry g = new GameDBEntry();
+                    g.Id = id;
+                    XmlUtil.TryGetStringFromNode( gameNode["name"], out g.Name );
+                    string typeString;
+                    if( !XmlUtil.TryGetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType>( typeString, out g.Type ) ) {
+                        g.Type = AppType.New;
+                    }
+
+                    g.Genre = XmlUtil.GetStringFromNode( gameNode["genre"], null );
+
+                    Games.Add( id, g );
+                }
+                Program.Logger.Write( LoggerLevel.Info, "GameDB XML processed, load complete." );
+            } catch( Exception e ) {
+                throw e;
+            } finally {
+                if( stream != null ) {
+                    stream.Close();
+                }
             }
-            Program.Logger.Write( LoggerLevel.Info, "GameDB XML processed, load complete." );
         }
         #endregion
 
@@ -197,7 +268,7 @@ namespace Depressurizer {
         public static AppType ScrapeStore( int id, out string genre, int redirectCount = 0 ) {
             Program.Logger.Write( LoggerLevel.Verbose, "Initiating store scrape for game id {0}", id );
             genre = null;
-            bool redirect = (redirectCount > 0);
+            bool redirect = ( redirectCount > 0 );
             string page = "";
 
             int redirectTarget = 0;
@@ -221,7 +292,7 @@ namespace Depressurizer {
                                 Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Hit age check for id {1}", id, redirectTarget );
                                 needsRedirect = true;
                             } else {
-                            // Age check without numeric id
+                                // Age check without numeric id
                                 Program.Logger.Write( LoggerLevel.Warning, "Scraping {0}: Stuck at age gate, redirect with no number (URL: {1})", id, resp.ResponseUri );
                                 return AppType.AgeGated;
                             }
@@ -268,7 +339,10 @@ namespace Depressurizer {
                 if( GetGenreFromPage( page, out newCat ) ) {
                     genre = newCat;
                 }
-                // We have a genre, but it could be DLC
+
+                //TODO: This is where all further scraping must go.
+
+                // Check whethe it's DLC and return appropriately
                 if( GetDLCFromPage( page ) ) {
                     Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Parsed. DLC. Genre: {1}", id, genre );
                     return AppType.DLC;

@@ -144,26 +144,7 @@ namespace Depressurizer {
                     return;
                 }
             }
-            /*
-            GetStringDlg dlg = new GetStringDlg( "", "Download game list", "Enter 64-bit Steam ID:", "Download game list" );
-            if( dlg.ShowDialog() == DialogResult.OK ) {
-                
-                Int64 id = 0;
-                if( !Int64.TryParse( dlg.Value, out id ) ) {
-                    MessageBox.Show( "Must enter a valid 64-bit number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
-                } else {
-                    Cursor = Cursors.WaitCursor;
-                    try {
-                        DownloadProfileData( id, true, null, settings.IgnoreDlc );
-
-                    } catch( ApplicationException e ) {
-                        MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
-                        AddStatus( "Error downloading games." );
-                    }
-                    Cursor = Cursors.Default;
-                }
-            }
-             */
+            
             DlgManualDownload dlg = new DlgManualDownload();
             if( dlg.ShowDialog() == DialogResult.OK ) {
 
@@ -215,6 +196,22 @@ namespace Depressurizer {
                         FillGameList();
                     }
                 }
+            }
+        }
+
+        private void LoadGameDB() {
+            try {
+                Program.GameDB = new GameDB();
+                if( File.Exists( "GameDB.xml.gz" ) ) {
+                    Program.GameDB.Load( "GameDB.xml.gz" );
+                } else if( File.Exists( "GameDB.xml" ) ) {
+                    Program.GameDB.Load( "GameDB.xml" );
+                } else {
+                    throw new ApplicationException( "GameDB file does not exist." );
+                }
+            } catch( Exception ex ) {
+                MessageBox.Show( "Error loading game database. Local category and DLC data will not be available.\n\n" + ex.Message );
+                Program.GameDB = new GameDB();
             }
         }
 
@@ -969,13 +966,7 @@ namespace Depressurizer {
         #region General
         private void FormMain_Load( object sender, EventArgs e ) {
             UpdateButtonEnabledStates();
-            try {
-                Program.GameDB = new GameDB();
-                Program.GameDB.LoadFromXml( "GameDB.xml" );
-            } catch( Exception ex ) {
-                MessageBox.Show( "Error loading game database. Local category and DLC data will not be available.\n\n" + ex.Message );
-                Program.GameDB = new GameDB();
-            }
+            LoadGameDB();
         }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
@@ -1154,8 +1145,7 @@ namespace Depressurizer {
         private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
             Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
             dlg.ShowDialog();
-            Program.GameDB.LoadFromXml( "GameDB.xml" );
-
+            LoadGameDB();
         }
 
         private void menu_Tools_Settings_Click( object sender, EventArgs e ) {

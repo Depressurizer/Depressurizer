@@ -47,10 +47,10 @@ namespace Depressurizer {
 
         void SaveAs() {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.DefaultExt = "xml";
+            dlg.DefaultExt = "gz";
             dlg.AddExtension = true;
-            dlg.CheckFileExists = true;
-            dlg.Filter = "XML Files (*.xml)|*.xml|All Files|*.*";
+            dlg.CheckFileExists = false;
+            dlg.Filter = "GZip Files (*.gz)|*.gz|XML Files (*.xml)|*.xml|All Files|*.*";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 if( Save( dlg.FileName ) ) {
@@ -62,7 +62,7 @@ namespace Depressurizer {
         }
 
         bool SaveDB() {
-            if( Save( "GameDB.xml" ) ) {
+            if( Save( "GameDB.xml.gz" ) ) {
                 AddStatusMsg( "Database saved." );
                 UnsavedChanges = false;
                 return true;
@@ -75,7 +75,7 @@ namespace Depressurizer {
         bool Save( string filename ) {
             this.Cursor = Cursors.WaitCursor;
             try {
-                Program.GameDB.SaveToXml( filename );
+                Program.GameDB.Save( filename );
             } catch( Exception e ) {
                 MessageBox.Show( string.Format( "Error saving file: \n\n{0}", e.Message ) );
                 this.Cursor = Cursors.Default;
@@ -88,14 +88,14 @@ namespace Depressurizer {
         void LoadGames() {
             if( CheckForUnsaved() ) {
                 OpenFileDialog dlg = new OpenFileDialog();
-                dlg.DefaultExt = "xml";
+                dlg.DefaultExt = "gz";
                 dlg.AddExtension = true;
                 dlg.CheckFileExists = true;
-                dlg.Filter = "XML Files (*.xml)|*.xml|All Files|*.*";
+                dlg.Filter = "GZip Files (*.gz)|*.gz|XML Files (*.xml)|*.xml|All Files|*.*";
                 DialogResult res = dlg.ShowDialog();
                 if( res == System.Windows.Forms.DialogResult.OK ) {
                     this.Cursor = Cursors.WaitCursor;
-                    Program.GameDB.LoadFromXml( dlg.FileName );
+                    Program.GameDB.Load( dlg.FileName );
                     RefreshGameList();
                     AddStatusMsg( "File loaded." );
                     UnsavedChanges = true;
