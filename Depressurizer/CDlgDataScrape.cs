@@ -85,12 +85,13 @@ namespace Depressurizer {
                 return false;
             }
             if( Stopped ) return false;
-
-            string genre = null;
-            AppType type = GameDB.ScrapeStore( game.Id, out genre );
+            // TODO: Make sure this gets Totally Revamped when multiple cat options are put in place.
+            GameDBEntry dbEntry = new GameDBEntry();
+            AppType type = dbEntry.ScrapeStore( game.Id );
             if( type == AppType.WebError ) {
                 Failures++;
             }
+            string genre = dbEntry.Genre;
             if( !fullGenre ) genre = GameDB.TruncateGenre( genre );
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.

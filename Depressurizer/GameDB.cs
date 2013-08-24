@@ -41,41 +41,188 @@ namespace Depressurizer {
     }
 
     public class GameDBEntry {
+        /*
+        public static string[] AttrNames = {
+                                               "Single-Player",
+                                               "Multi-Player",
+                                               "Cross-Platform Multiplayer",
+                                               "Co-Op Multiplayer",
+                                               "Local Co-Op Multiplayer",
+                                                "Achievements",
+                                                "Leaderboards",
+                                                "Stats",
+                                                "Steam Cloud",
+                                                "Trading Cards",
+                                                "Level Editor",
+                                                "Steam Workshop",
+                                                "Full Controller Support",
+                                                "Partial Controller Support",
+
+                                        };
+        */
         public int Id;
         public string Name;
         public string Genre;
 
-        /* New stuff:
+        // New stuff:
         // Basics:
-        public string Developer;
-        public string Publisher;
-        public DateTime SteamRelease;
+        public string Developer = null;
+        public string Publisher = null;
+        //public DateTime SteamRelease = DateTime.MinValue;
         // Metacritic:
-        public string MC_Url;
-        public int MC_Score;
-        public string MC_Genre;
-        public int MC_Year;
+        public string MC_Url = null;
+        public int MC_Score = -1;
+        public string MC_Genre = null;
+        public int MC_Year = -1;
         // Steam sidebar:
-        public bool SB_SinglePlayer;
-        public bool SB_MultiPlayer;
-        public bool SB_MultiPlayerCrossPlat;
-        public bool SB_CoOp;
-        public bool SB_LocalCoOp;
-        public bool SB_Achievements;
-        public bool SB_Leaderboards;
-        public bool SB_Stats;
-        public bool SB_Cloud;
-        public bool SB_TradingCards;
-        public bool SB_LevelEditor;
-        public bool SB_Workshop;
-        public bool SB_FullController;
-        public bool SB_PartialController;
+        /*
+        public bool SB_SinglePlayer = false;
+        public bool SB_MultiPlayer = false;
+        public bool SB_MultiPlayerCrossPlat = false;
+        public bool SB_CoOp = false;
+        public bool SB_LocalCoOp = false;
+        public bool SB_Achievements = false;
+        public bool SB_Leaderboards = false;
+        public bool SB_Stats = false;
+        public bool SB_Cloud = false;
+        public bool SB_TradingCards = false;
+        public bool SB_LevelEditor = false;
+        public bool SB_Workshop = false;
+        public bool SB_FullController = false;
+        public bool SB_PartialController = false;
         */
+        public List<string> Flags = new List<string>();
 
         public AppType Type;
 
-        public void ScrapeStore() {
-            Type = GameDB.ScrapeStore( Id, out Genre );
+
+        private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
+        private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+
+        public AppType ScrapeStore() {
+            return ScrapeStore( this.Id );
+        }
+
+        public AppType ScrapeStore( int id, int redirectCount = 0 ) {
+            Program.Logger.Write( LoggerLevel.Verbose, "Initiating store scrape for game id {0}", id );
+            Id = id;
+
+            bool redirect = ( redirectCount > 0 );
+            string page = "";
+
+            int redirectTarget = 0;
+            bool needsRedirect = false;
+
+            try {
+                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( Properties.Resources.UrlSteamStore, id ) );
+                // Cookie bypasses the age gate
+                req.CookieContainer = new CookieContainer( 1 );
+                req.CookieContainer.Add( new Cookie( "birthtime", "-2208959999", "/", "store.steampowered.com" ) );
+
+                using( WebResponse resp = req.GetResponse() ) {
+                    if( resp.ResponseUri.Segments.Length <= 1 ) {
+                        // Redirected to the store front page
+                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirected to main store page", id );
+                        Type = AppType.NotFound;
+                        return Type;
+                    } else if( resp.ResponseUri.Segments.Length >= 2 && resp.ResponseUri.Segments[1] == "agecheck/" ) {
+                        if( redirectCount <= 3 && resp.ResponseUri.Segments.Length >= 4 && !resp.ResponseUri.Segments[3].StartsWith( id.ToString() ) ) {
+                            // We got an age check for a different ID than we requested
+                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out redirectTarget ) ) {
+                                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Hit age check for id {1}", id, redirectTarget );
+                                needsRedirect = true;
+                            } else {
+                                // Age check without numeric id
+                                Program.Logger.Write( LoggerLevel.Warning, "Scraping {0}: Stuck at age gate, redirect with no number (URL: {1})", id, resp.ResponseUri );
+                                Type = AppType.AgeGated;
+                                return Type;
+                            }
+                        } else {
+                            // Age check with no redirect
+                            Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Age check with no redirect, or too many redirects (on #{1})", id, redirectCount );
+                            Type = AppType.AgeGated;
+                            return Type;
+                        }
+                    } else if( resp.ResponseUri.Segments.Length < 2 || resp.ResponseUri.Segments[1] != "app/" ) {
+                        // Redirected outside of the app path
+                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirected to a non-app URL", id );
+                        Type = AppType.NonApp;
+                        return Type;
+                    } else if( resp.ResponseUri.Segments.Length < 3 || !resp.ResponseUri.Segments[2].StartsWith( id.ToString() ) ) {
+                        // Redirected to a different app id, but we still want to check the genre
+                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirected to another app id ({1})", id, resp.ResponseUri.Segments.Length >= 3 ? resp.ResponseUri.Segments[2] : "unknown" );
+                        redirect = true;
+                    }
+
+                    if( !needsRedirect ) {
+                        StreamReader sr = new StreamReader( resp.GetResponseStream() );
+                        page = sr.ReadToEnd();
+                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Page read", id );
+                    }
+                }
+            } catch( Exception e ) {
+                // Something went wrong with the download.
+                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Page read failed. {1}", id, e.Message );
+                Type = AppType.WebError;
+                return Type;
+            }
+
+            if( needsRedirect ) {
+                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirecting to {1}", id, redirectTarget );
+                return ScrapeStore( redirectTarget, redirectCount + 1 );
+            }
+
+            if( page.Contains( "<title>Site Error</title>" ) ) {
+                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Received Site Error", id );
+                Type = AppType.SiteError;
+                return Type;
+            }
+
+            // Here we should have an app, but we want to make sure.
+            if( regGamecheck.IsMatch( page ) ) {
+                string newCat;
+                if( GetGenreFromPage( page, out newCat ) ) {
+                    Genre = newCat;
+                }
+
+                //TODO: This is where all further scraping must go.
+
+                // Check whethe it's DLC and return appropriately
+                if( GetDLCFromPage( page ) ) {
+                    Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Parsed. DLC. Genre: {1}", id, Genre );
+                    Type = AppType.DLC;
+                    return Type;
+                } else {
+                    Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Parsed. Genre: {1}. Redirect: {2}", id, Genre, redirect );
+                    Type = redirect ? AppType.IdRedirect : AppType.Game;
+                    return Type;
+                }
+            } else {
+                // we don't know what it is.
+                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Could not parse info from page", id );
+                Type = AppType.Unknown;
+                return Type;
+            }
+        }
+
+        private static bool GetGenreFromPage( string page, out string cat ) {
+            cat = null;
+            Match m = regGenre.Match( page );
+            if( m.Success ) {
+                int genres = m.Groups[2].Captures.Count;
+                string[] array = new string[genres];
+                for( int i = 0; i < genres; i++ ) {
+                    array[i] = m.Groups[2].Captures[i].Value;
+                }
+                cat = string.Join( ", ", array );
+                return true;
+            }
+            return false;
+        }
+
+        private static bool GetDLCFromPage( string page ) {
+            return regDLC.IsMatch( page );
         }
 
     }
@@ -195,6 +342,20 @@ namespace Depressurizer {
                     if( !string.IsNullOrEmpty( g.Genre ) ) {
                         writer.WriteElementString( "genre", g.Genre );
                     }
+                    if( !string.IsNullOrEmpty( g.Developer ) ) {
+                        writer.WriteElementString( "developer", g.Developer );
+                    }
+                    if( !string.IsNullOrEmpty( g.Publisher ) ) {
+                        writer.WriteElementString( "publisher", g.Publisher );
+                    }
+                    foreach( string s in g.Flags ) {
+                        writer.WriteElementString( "flag", s );
+                    }
+                    if( !string.IsNullOrEmpty( g.MC_Url ) ) {
+                        writer.WriteElementString( "mcUrl", g.MC_Url );
+                    }
+
+                    // TODO: Save steam date, MC extras
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
@@ -246,6 +407,21 @@ namespace Depressurizer {
 
                     g.Genre = XmlUtil.GetStringFromNode( gameNode["genre"], null );
 
+                    g.Developer = XmlUtil.GetStringFromNode( gameNode["developer"], null );
+                    g.Publisher = XmlUtil.GetStringFromNode( gameNode["publisher"], null );
+
+                    foreach( XmlNode n in gameNode.SelectNodes( "flag" ) ) {
+                        string fName = XmlUtil.GetStringFromNode( n, null );
+                        if( !string.IsNullOrEmpty( fName ) ) {
+                            g.Flags.Add( fName );
+                        }
+                    }
+
+                    g.MC_Url = XmlUtil.GetStringFromNode( gameNode["mcUrl"], null );
+
+
+                    // TODO: Load Steam date, MC extras
+
                     Games.Add( id, g );
                 }
                 Program.Logger.Write( LoggerLevel.Info, "GameDB XML processed, load complete." );
@@ -261,120 +437,8 @@ namespace Depressurizer {
 
         #region Statics
 
-        private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
-        private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        
 
-        public static AppType ScrapeStore( int id, out string genre, int redirectCount = 0 ) {
-            Program.Logger.Write( LoggerLevel.Verbose, "Initiating store scrape for game id {0}", id );
-            genre = null;
-            bool redirect = ( redirectCount > 0 );
-            string page = "";
-
-            int redirectTarget = 0;
-            bool needsRedirect = false;
-
-            try {
-                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( Properties.Resources.UrlSteamStore, id ) );
-                // Cookie bypasses the age gate
-                req.CookieContainer = new CookieContainer( 1 );
-                req.CookieContainer.Add( new Cookie( "birthtime", "-2208959999", "/", "store.steampowered.com" ) );
-
-                using( WebResponse resp = req.GetResponse() ) {
-                    if( resp.ResponseUri.Segments.Length <= 1 ) {
-                        // Redirected to the store front page
-                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirected to main store page", id );
-                        return AppType.NotFound;
-                    } else if( resp.ResponseUri.Segments.Length >= 2 && resp.ResponseUri.Segments[1] == "agecheck/" ) {
-                        if( redirectCount <= 3 && resp.ResponseUri.Segments.Length >= 4 && !resp.ResponseUri.Segments[3].StartsWith( id.ToString() ) ) {
-                            // We got an age check for a different ID than we requested
-                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out redirectTarget ) ) {
-                                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Hit age check for id {1}", id, redirectTarget );
-                                needsRedirect = true;
-                            } else {
-                                // Age check without numeric id
-                                Program.Logger.Write( LoggerLevel.Warning, "Scraping {0}: Stuck at age gate, redirect with no number (URL: {1})", id, resp.ResponseUri );
-                                return AppType.AgeGated;
-                            }
-                        } else {
-                            // Age check with no redirect
-                            Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Age check with no redirect, or too many redirects (on #{1})", id, redirectCount );
-                            return AppType.AgeGated;
-                        }
-                    } else if( resp.ResponseUri.Segments.Length < 2 || resp.ResponseUri.Segments[1] != "app/" ) {
-                        // Redirected outside of the app path
-                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirected to a non-app URL", id );
-                        return AppType.NonApp;
-                    } else if( resp.ResponseUri.Segments.Length < 3 || !resp.ResponseUri.Segments[2].StartsWith( id.ToString() ) ) {
-                        // Redirected to a different app id, but we still want to check the genre
-                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirected to another app id ({1})", id, resp.ResponseUri.Segments.Length >= 3 ? resp.ResponseUri.Segments[2] : "unknown" );
-                        redirect = true;
-                    }
-
-                    if( !needsRedirect ) {
-                        StreamReader sr = new StreamReader( resp.GetResponseStream() );
-                        page = sr.ReadToEnd();
-                        Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Page read", id );
-                    }
-                }
-            } catch( Exception e ) {
-                // Something went wrong with the download.
-                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Page read failed. {1}", id, e.Message );
-                return AppType.WebError;
-            }
-
-            if( needsRedirect ) {
-                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Redirecting to {1}", id, redirectTarget );
-                return ScrapeStore( redirectTarget, out genre, redirectCount + 1 );
-            }
-
-            if( page.Contains( "<title>Site Error</title>" ) ) {
-                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Received Site Error", id );
-                return AppType.SiteError;
-            }
-
-            // Here we should have an app, but we want to make sure.
-            if( regGamecheck.IsMatch( page ) ) {
-                string newCat;
-                if( GetGenreFromPage( page, out newCat ) ) {
-                    genre = newCat;
-                }
-
-                //TODO: This is where all further scraping must go.
-
-                // Check whethe it's DLC and return appropriately
-                if( GetDLCFromPage( page ) ) {
-                    Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Parsed. DLC. Genre: {1}", id, genre );
-                    return AppType.DLC;
-                } else {
-                    Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Parsed. Genre: {1}. Redirect: {2}", id, genre, redirect );
-                    return redirect ? AppType.IdRedirect : AppType.Game;
-                }
-            } else {
-                // we don't know what it is.
-                Program.Logger.Write( LoggerLevel.Verbose, "Scraping {0}: Could not parse info from page", id );
-                return AppType.Unknown;
-            }
-        }
-
-        private static bool GetGenreFromPage( string page, out string cat ) {
-            cat = null;
-            Match m = regGenre.Match( page );
-            if( m.Success ) {
-                int genres = m.Groups[2].Captures.Count;
-                string[] array = new string[genres];
-                for( int i = 0; i < genres; i++ ) {
-                    array[i] = m.Groups[2].Captures[i].Value;
-                }
-                cat = string.Join( ", ", array );
-                return true;
-            }
-            return false;
-        }
-
-        private static bool GetDLCFromPage( string page ) {
-            return regDLC.IsMatch( page );
-        }
 
         public static string TruncateGenre( string fullString ) {
             if( fullString == null ) return null;

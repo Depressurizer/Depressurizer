@@ -70,13 +70,8 @@ namespace Depressurizer {
             }
             if( Stopped ) return false;
 
-            string genre = null;
-            AppType type = GameDB.ScrapeStore( id, out genre );
-
             GameDBEntry newGame = new GameDBEntry();
-            newGame.Id = id;
-            newGame.Genre = genre;
-            newGame.Type = type;
+            newGame.ScrapeStore( id );
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
