@@ -99,6 +99,7 @@ namespace Depressurizer {
         private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
         private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regFlags = new Regex( "<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><img[^>]*></div>\\s*<div class=\\\"name\\\">([^<]*)</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         public AppType ScrapeStore() {
             return ScrapeStore( this.Id );
@@ -184,6 +185,11 @@ namespace Depressurizer {
                 string newCat;
                 if( GetGenreFromPage( page, out newCat ) ) {
                     Genre = newCat;
+                }
+
+                foreach( Match ma in regFlags.Matches( page ) ) {
+                    string flag = ma.Groups[1].Captures[0].Value;
+                    if( !string.IsNullOrWhiteSpace( flag ) ) this.Flags.Add( flag );
                 }
 
                 //TODO: This is where all further scraping must go.
@@ -332,6 +338,7 @@ namespace Depressurizer {
                 writer.WriteStartDocument();
                 writer.WriteStartElement( "gamelist" );
                 foreach( GameDBEntry g in Games.Values ) {
+
                     writer.WriteStartElement( "game" );
 
                     writer.WriteElementString( "id", g.Id.ToString() );
@@ -412,9 +419,7 @@ namespace Depressurizer {
 
                     foreach( XmlNode n in gameNode.SelectNodes( "flag" ) ) {
                         string fName = XmlUtil.GetStringFromNode( n, null );
-                        if( !string.IsNullOrEmpty( fName ) ) {
-                            g.Flags.Add( fName );
-                        }
+                        if( !string.IsNullOrEmpty( fName ) ) g.Flags.Add( fName );
                     }
 
                     g.MC_Url = XmlUtil.GetStringFromNode( gameNode["mcUrl"], null );
@@ -437,7 +442,7 @@ namespace Depressurizer {
 
         #region Statics
 
-        
+
 
 
         public static string TruncateGenre( string fullString ) {

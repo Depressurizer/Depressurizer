@@ -93,9 +93,11 @@ namespace Depressurizer {
                 if( results != null ) {
                     foreach( GameDBEntry g in results ) {
                         if( Program.GameDB.Contains( g.Id ) ) {
-                            GameDBEntry current = Program.GameDB.Games[g.Id];
-                            current.Genre = g.Genre;
-                            current.Type = g.Type;
+                            g.Name = Program.GameDB.Games[g.Id].Name;
+                            Program.GameDB.Games[g.Id] = g;
+                            //GameDBEntry current = Program.GameDB.Games[g.Id];
+                            //current.Genre = g.Genre;
+                            //current.Type = g.Type;
                         }
                     }
                 }
