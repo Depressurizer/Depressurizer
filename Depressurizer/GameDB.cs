@@ -68,7 +68,7 @@ namespace Depressurizer {
         // Basics:
         public string Developer = null;
         public string Publisher = null;
-        //public DateTime SteamRelease = DateTime.MinValue;
+        public DateTime SteamRelease = DateTime.MinValue;
         // Metacritic:
         public string MC_Url = null;
         public int MC_Score = -1;
@@ -100,6 +100,10 @@ namespace Depressurizer {
         private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
         private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regFlags = new Regex( "<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><img[^>]*></div>\\s*<div class=\\\"name\\\">([^<]*)</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regDeveloper = new Regex( "<b>Developer:</b>\\s*<a href=\\\"http://store.steampowered.com/search/\\?developer=[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regPublisher = new Regex( "<b>Publisher:</b>\\s*<a href=\\\"http://store.steampowered.com/publisher[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regRelDate = new Regex( "<b>Release Date:</b>\\s*([^<]*)<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regMetalink = new Regex( "<div id=\\\"game_area_metalink\\\">\\s*<a href=\\\"http://www.metacritic.com/game/pc/([^\\\"]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         public AppType ScrapeStore() {
             return ScrapeStore( this.Id );
@@ -182,17 +186,11 @@ namespace Depressurizer {
 
             // Here we should have an app, but we want to make sure.
             if( regGamecheck.IsMatch( page ) ) {
-                string newCat;
-                if( GetGenreFromPage( page, out newCat ) ) {
-                    Genre = newCat;
-                }
 
-                foreach( Match ma in regFlags.Matches( page ) ) {
-                    string flag = ma.Groups[1].Captures[0].Value;
-                    if( !string.IsNullOrWhiteSpace( flag ) ) this.Flags.Add( flag );
-                }
-
-                //TODO: This is where all further scraping must go.
+                GetGenreFromPage( page );
+                GetOtherFromPage( page );
+                GetMetalinkFromSteam( page );
+                //TODO: add metacritic scrape
 
                 // Check whethe it's DLC and return appropriately
                 if( GetDLCFromPage( page ) ) {
@@ -212,8 +210,7 @@ namespace Depressurizer {
             }
         }
 
-        private static bool GetGenreFromPage( string page, out string cat ) {
-            cat = null;
+        private bool GetGenreFromPage( string page ) {
             Match m = regGenre.Match( page );
             if( m.Success ) {
                 int genres = m.Groups[2].Captures.Count;
@@ -221,10 +218,39 @@ namespace Depressurizer {
                 for( int i = 0; i < genres; i++ ) {
                     array[i] = m.Groups[2].Captures[i].Value;
                 }
-                cat = string.Join( ", ", array );
+                this.Genre = string.Join( ", ", array );
                 return true;
             }
             return false;
+        }
+
+        private void GetOtherFromPage( string page ) {
+            foreach( Match ma in regFlags.Matches( page ) ) {
+                string flag = ma.Groups[1].Captures[0].Value;
+                if( !string.IsNullOrWhiteSpace( flag ) ) this.Flags.Add( flag );
+            }
+
+            Match m = regDeveloper.Match( page );
+            if( m.Success ) {
+                this.Developer = m.Groups[1].Captures[0].Value;
+            }
+
+            m = regPublisher.Match( page );
+            if( m.Success ) {
+                this.Publisher = m.Groups[1].Captures[0].Value;
+            }
+
+            m = regRelDate.Match( page );
+            if( m.Success ) {
+                this.SteamRelease = DateTime.Parse( m.Groups[1].Captures[0].Value );
+            }
+        }
+
+        private void GetMetalinkFromSteam( string page ) {
+            Match m = regMetalink.Match( page );
+            if( m.Success ) {
+                this.MC_Url = m.Groups[1].Captures[0].Value;
+            }
         }
 
         private static bool GetDLCFromPage( string page ) {
@@ -361,8 +387,11 @@ namespace Depressurizer {
                     if( !string.IsNullOrEmpty( g.MC_Url ) ) {
                         writer.WriteElementString( "mcUrl", g.MC_Url );
                     }
+                    if( g.SteamRelease != DateTime.MinValue ) {
+                        writer.WriteElementString( "steamDate", ( (int)( g.SteamRelease.ToOADate() ) ).ToString() );
+                    }
 
-                    // TODO: Save steam date, MC extras
+                    // TODO: Save MC extras
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
@@ -417,6 +446,11 @@ namespace Depressurizer {
                     g.Developer = XmlUtil.GetStringFromNode( gameNode["developer"], null );
                     g.Publisher = XmlUtil.GetStringFromNode( gameNode["publisher"], null );
 
+                    int steamDate = XmlUtil.GetIntFromNode( gameNode["steamDate"], 0 );
+                    if( steamDate > 0 ) {
+                        g.SteamRelease = DateTime.FromOADate( steamDate );
+                    }
+
                     foreach( XmlNode n in gameNode.SelectNodes( "flag" ) ) {
                         string fName = XmlUtil.GetStringFromNode( n, null );
                         if( !string.IsNullOrEmpty( fName ) ) g.Flags.Add( fName );
@@ -425,7 +459,7 @@ namespace Depressurizer {
                     g.MC_Url = XmlUtil.GetStringFromNode( gameNode["mcUrl"], null );
 
 
-                    // TODO: Load Steam date, MC extras
+                    // TODO: Load MC extras
 
                     Games.Add( id, g );
                 }
