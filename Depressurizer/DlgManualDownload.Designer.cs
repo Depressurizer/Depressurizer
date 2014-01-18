@@ -41,6 +41,7 @@ namespace Depressurizer {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DlgManualDownload));
             this.radId = new System.Windows.Forms.RadioButton();
             this.radUrl = new System.Windows.Forms.RadioButton();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -51,73 +52,48 @@ namespace Depressurizer {
             // 
             // radId
             // 
-            this.radId.AutoSize = true;
-            this.radId.Location = new System.Drawing.Point(26, 41);
+            resources.ApplyResources(this.radId, "radId");
             this.radId.Name = "radId";
-            this.radId.Size = new System.Drawing.Size(101, 17);
-            this.radId.TabIndex = 0;
-            this.radId.Text = "64-bit Steam ID ";
             this.radId.UseVisualStyleBackColor = true;
             // 
             // radUrl
             // 
-            this.radUrl.AutoSize = true;
+            resources.ApplyResources(this.radUrl, "radUrl");
             this.radUrl.Checked = true;
-            this.radUrl.Location = new System.Drawing.Point(26, 22);
             this.radUrl.Name = "radUrl";
-            this.radUrl.Size = new System.Drawing.Size(113, 17);
-            this.radUrl.TabIndex = 1;
             this.radUrl.TabStop = true;
-            this.radUrl.Text = "custom URL name";
             this.radUrl.UseVisualStyleBackColor = true;
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(12, 91);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 2;
-            this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
             // cmdOk
             // 
-            this.cmdOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOk.Location = new System.Drawing.Point(271, 91);
+            resources.ApplyResources(this.cmdOk, "cmdOk");
             this.cmdOk.Name = "cmdOk";
-            this.cmdOk.Size = new System.Drawing.Size(75, 23);
-            this.cmdOk.TabIndex = 3;
-            this.cmdOk.Text = "OK";
             this.cmdOk.UseVisualStyleBackColor = true;
             this.cmdOk.Click += new System.EventHandler(this.cmdOk_Click);
             // 
             // txtEntry
             // 
-            this.txtEntry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEntry.Location = new System.Drawing.Point(12, 65);
+            resources.ApplyResources(this.txtEntry, "txtEntry");
             this.txtEntry.Name = "txtEntry";
-            this.txtEntry.Size = new System.Drawing.Size(334, 20);
-            this.txtEntry.TabIndex = 4;
             // 
             // lblEnter
             // 
-            this.lblEnter.AutoSize = true;
-            this.lblEnter.Location = new System.Drawing.Point(12, 6);
+            resources.ApplyResources(this.lblEnter, "lblEnter");
             this.lblEnter.Name = "lblEnter";
-            this.lblEnter.Size = new System.Drawing.Size(82, 13);
-            this.lblEnter.TabIndex = 5;
-            this.lblEnter.Text = "Enter either the:";
             // 
             // DlgManualDownload
             // 
             this.AcceptButton = this.cmdOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(358, 126);
             this.ControlBox = false;
             this.Controls.Add(this.lblEnter);
             this.Controls.Add(this.txtEntry);
@@ -130,8 +106,6 @@ namespace Depressurizer {
             this.MinimizeBox = false;
             this.Name = "DlgManualDownload";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Manual Download";
             this.ResumeLayout(false);
             this.PerformLayout();
 

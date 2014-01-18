@@ -41,6 +41,7 @@ namespace Depressurizer {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DlgOptions));
             this.grpSteamDir = new System.Windows.Forms.GroupBox();
             this.cmdSteamPathBrowse = new System.Windows.Forms.Button();
             this.txtSteamPath = new System.Windows.Forms.TextBox();
@@ -61,13 +62,15 @@ namespace Depressurizer {
             this.cmbDatSrc = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.grpLanguage = new System.Windows.Forms.GroupBox();
+            this.cmbLanguage = new System.Windows.Forms.ComboBox();
             this.tabLogging = new System.Windows.Forms.TabPage();
-            this.cmbLogLevel = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numLogSize = new System.Windows.Forms.NumericUpDown();
             this.numLogBackup = new System.Windows.Forms.NumericUpDown();
+            this.numLogSize = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbLogLevel = new System.Windows.Forms.ComboBox();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
@@ -75,305 +78,204 @@ namespace Depressurizer {
             this.grpDatSrc.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
+            this.grpLanguage.SuspendLayout();
             this.tabLogging.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
             this.SuspendLayout();
             // 
             // grpSteamDir
             // 
-            this.grpSteamDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpSteamDir, "grpSteamDir");
             this.grpSteamDir.Controls.Add(this.cmdSteamPathBrowse);
             this.grpSteamDir.Controls.Add(this.txtSteamPath);
-            this.grpSteamDir.Location = new System.Drawing.Point(6, 6);
             this.grpSteamDir.Name = "grpSteamDir";
-            this.grpSteamDir.Size = new System.Drawing.Size(524, 54);
-            this.grpSteamDir.TabIndex = 0;
             this.grpSteamDir.TabStop = false;
-            this.grpSteamDir.Text = "Steam Directory";
             // 
             // cmdSteamPathBrowse
             // 
-            this.cmdSteamPathBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSteamPathBrowse.Location = new System.Drawing.Point(440, 20);
+            resources.ApplyResources(this.cmdSteamPathBrowse, "cmdSteamPathBrowse");
             this.cmdSteamPathBrowse.Name = "cmdSteamPathBrowse";
-            this.cmdSteamPathBrowse.Size = new System.Drawing.Size(75, 23);
-            this.cmdSteamPathBrowse.TabIndex = 1;
-            this.cmdSteamPathBrowse.Text = "Browse...";
             this.cmdSteamPathBrowse.UseVisualStyleBackColor = true;
             this.cmdSteamPathBrowse.Click += new System.EventHandler(this.cmdSteamPathBrowse_Click);
             // 
             // txtSteamPath
             // 
-            this.txtSteamPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSteamPath.Location = new System.Drawing.Point(11, 22);
+            resources.ApplyResources(this.txtSteamPath, "txtSteamPath");
             this.txtSteamPath.Name = "txtSteamPath";
-            this.txtSteamPath.Size = new System.Drawing.Size(423, 20);
-            this.txtSteamPath.TabIndex = 0;
             // 
             // grpStartup
             // 
-            this.grpStartup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpStartup, "grpStartup");
             this.grpStartup.Controls.Add(this.radNone);
             this.grpStartup.Controls.Add(this.radCreate);
             this.grpStartup.Controls.Add(this.radLoad);
             this.grpStartup.Controls.Add(this.cmdDefaultProfileBrowse);
             this.grpStartup.Controls.Add(this.txtDefaultProfile);
-            this.grpStartup.Location = new System.Drawing.Point(6, 66);
             this.grpStartup.Name = "grpStartup";
-            this.grpStartup.Size = new System.Drawing.Size(524, 90);
-            this.grpStartup.TabIndex = 1;
             this.grpStartup.TabStop = false;
-            this.grpStartup.Text = "On Startup";
             // 
             // radNone
             // 
-            this.radNone.AutoSize = true;
-            this.radNone.Location = new System.Drawing.Point(11, 65);
+            resources.ApplyResources(this.radNone, "radNone");
             this.radNone.Name = "radNone";
-            this.radNone.Size = new System.Drawing.Size(77, 17);
-            this.radNone.TabIndex = 4;
             this.radNone.TabStop = true;
-            this.radNone.Text = "Do nothing";
             this.radNone.UseVisualStyleBackColor = true;
             // 
             // radCreate
             // 
-            this.radCreate.AutoSize = true;
-            this.radCreate.Location = new System.Drawing.Point(11, 42);
+            resources.ApplyResources(this.radCreate, "radCreate");
             this.radCreate.Name = "radCreate";
-            this.radCreate.Size = new System.Drawing.Size(87, 17);
-            this.radCreate.TabIndex = 3;
             this.radCreate.TabStop = true;
-            this.radCreate.Text = "Create profile";
             this.radCreate.UseVisualStyleBackColor = true;
             // 
             // radLoad
             // 
-            this.radLoad.AutoSize = true;
-            this.radLoad.Location = new System.Drawing.Point(11, 19);
+            resources.ApplyResources(this.radLoad, "radLoad");
             this.radLoad.Name = "radLoad";
-            this.radLoad.Size = new System.Drawing.Size(84, 17);
-            this.radLoad.TabIndex = 0;
             this.radLoad.TabStop = true;
-            this.radLoad.Text = "Load Profile:";
             this.radLoad.UseVisualStyleBackColor = true;
             // 
             // cmdDefaultProfileBrowse
             // 
-            this.cmdDefaultProfileBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDefaultProfileBrowse.Location = new System.Drawing.Point(440, 16);
+            resources.ApplyResources(this.cmdDefaultProfileBrowse, "cmdDefaultProfileBrowse");
             this.cmdDefaultProfileBrowse.Name = "cmdDefaultProfileBrowse";
-            this.cmdDefaultProfileBrowse.Size = new System.Drawing.Size(75, 23);
-            this.cmdDefaultProfileBrowse.TabIndex = 2;
-            this.cmdDefaultProfileBrowse.Text = "Browse...";
             this.cmdDefaultProfileBrowse.UseVisualStyleBackColor = true;
             this.cmdDefaultProfileBrowse.Click += new System.EventHandler(this.cmdDefaultProfileBrowse_Click);
             // 
             // txtDefaultProfile
             // 
-            this.txtDefaultProfile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDefaultProfile.Location = new System.Drawing.Point(101, 18);
+            resources.ApplyResources(this.txtDefaultProfile, "txtDefaultProfile");
             this.txtDefaultProfile.Name = "txtDefaultProfile";
-            this.txtDefaultProfile.Size = new System.Drawing.Size(333, 20);
-            this.txtDefaultProfile.TabIndex = 1;
             // 
             // chkRemoveExtraEntries
             // 
-            this.chkRemoveExtraEntries.AutoSize = true;
-            this.chkRemoveExtraEntries.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.chkRemoveExtraEntries, "chkRemoveExtraEntries");
             this.chkRemoveExtraEntries.Name = "chkRemoveExtraEntries";
-            this.chkRemoveExtraEntries.Size = new System.Drawing.Size(321, 17);
-            this.chkRemoveExtraEntries.TabIndex = 0;
-            this.chkRemoveExtraEntries.Text = "Remove entries for deleted or unknown games when exporting";
             this.chkRemoveExtraEntries.UseVisualStyleBackColor = true;
             // 
             // cmdAccept
             // 
-            this.cmdAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAccept.Location = new System.Drawing.Point(481, 384);
+            resources.ApplyResources(this.cmdAccept, "cmdAccept");
             this.cmdAccept.Name = "cmdAccept";
-            this.cmdAccept.Size = new System.Drawing.Size(75, 23);
-            this.cmdAccept.TabIndex = 2;
-            this.cmdAccept.Text = "OK";
             this.cmdAccept.UseVisualStyleBackColor = true;
             this.cmdAccept.Click += new System.EventHandler(this.cmdAccept_Click);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCancel.Location = new System.Drawing.Point(400, 384);
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 1;
-            this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // grpSaving
             // 
-            this.grpSaving.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpSaving, "grpSaving");
             this.grpSaving.Controls.Add(this.chkIgnoreDlc);
             this.grpSaving.Controls.Add(this.chkRemoveExtraEntries);
-            this.grpSaving.Location = new System.Drawing.Point(6, 268);
             this.grpSaving.Name = "grpSaving";
-            this.grpSaving.Size = new System.Drawing.Size(524, 66);
-            this.grpSaving.TabIndex = 4;
             this.grpSaving.TabStop = false;
-            this.grpSaving.Text = "Manual Operations";
             // 
             // chkIgnoreDlc
             // 
-            this.chkIgnoreDlc.AutoSize = true;
-            this.chkIgnoreDlc.Location = new System.Drawing.Point(6, 42);
+            resources.ApplyResources(this.chkIgnoreDlc, "chkIgnoreDlc");
             this.chkIgnoreDlc.Name = "chkIgnoreDlc";
-            this.chkIgnoreDlc.Size = new System.Drawing.Size(196, 17);
-            this.chkIgnoreDlc.TabIndex = 1;
-            this.chkIgnoreDlc.Text = "Ignore DLC on import and download";
             this.chkIgnoreDlc.UseVisualStyleBackColor = true;
             // 
             // grpAutocat
             // 
+            resources.ApplyResources(this.grpAutocat, "grpAutocat");
             this.grpAutocat.Controls.Add(this.chkFullAutocat);
-            this.grpAutocat.Location = new System.Drawing.Point(6, 162);
             this.grpAutocat.Name = "grpAutocat";
-            this.grpAutocat.Size = new System.Drawing.Size(650, 42);
-            this.grpAutocat.TabIndex = 2;
             this.grpAutocat.TabStop = false;
-            this.grpAutocat.Text = "Auto-Categorization";
             // 
             // chkFullAutocat
             // 
-            this.chkFullAutocat.AutoSize = true;
-            this.chkFullAutocat.Location = new System.Drawing.Point(11, 19);
+            resources.ApplyResources(this.chkFullAutocat, "chkFullAutocat");
             this.chkFullAutocat.Name = "chkFullAutocat";
-            this.chkFullAutocat.Size = new System.Drawing.Size(255, 17);
-            this.chkFullAutocat.TabIndex = 0;
-            this.chkFullAutocat.Text = "Use full genre lists instead of only the main genre";
             this.chkFullAutocat.UseVisualStyleBackColor = true;
             // 
             // grpDatSrc
             // 
-            this.grpDatSrc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpDatSrc, "grpDatSrc");
             this.grpDatSrc.Controls.Add(this.cmbDatSrc);
-            this.grpDatSrc.Location = new System.Drawing.Point(6, 210);
             this.grpDatSrc.Name = "grpDatSrc";
-            this.grpDatSrc.Size = new System.Drawing.Size(524, 52);
-            this.grpDatSrc.TabIndex = 3;
             this.grpDatSrc.TabStop = false;
-            this.grpDatSrc.Text = "Profile Data Source";
             // 
             // cmbDatSrc
             // 
-            this.cmbDatSrc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmbDatSrc, "cmbDatSrc");
             this.cmbDatSrc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDatSrc.FormattingEnabled = true;
             this.cmbDatSrc.Items.AddRange(new object[] {
-            "Prefer XML",
-            "Use XML Only",
-            "Use HTML Only"});
-            this.cmbDatSrc.Location = new System.Drawing.Point(11, 19);
+            resources.GetString("cmbDatSrc.Items"),
+            resources.GetString("cmbDatSrc.Items1"),
+            resources.GetString("cmbDatSrc.Items2")});
             this.cmbDatSrc.Name = "cmbDatSrc";
-            this.cmbDatSrc.Size = new System.Drawing.Size(507, 21);
-            this.cmbDatSrc.TabIndex = 0;
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Controls.Add(this.tabGeneral);
             this.tabControl.Controls.Add(this.tabLogging);
-            this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(544, 366);
-            this.tabControl.TabIndex = 0;
             // 
             // tabGeneral
             // 
+            resources.ApplyResources(this.tabGeneral, "tabGeneral");
+            this.tabGeneral.Controls.Add(this.grpLanguage);
             this.tabGeneral.Controls.Add(this.grpSteamDir);
             this.tabGeneral.Controls.Add(this.grpDatSrc);
             this.tabGeneral.Controls.Add(this.grpStartup);
             this.tabGeneral.Controls.Add(this.grpAutocat);
             this.tabGeneral.Controls.Add(this.grpSaving);
-            this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneral.Size = new System.Drawing.Size(536, 340);
-            this.tabGeneral.TabIndex = 0;
-            this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // grpLanguage
+            // 
+            resources.ApplyResources(this.grpLanguage, "grpLanguage");
+            this.grpLanguage.Controls.Add(this.cmbLanguage);
+            this.grpLanguage.Name = "grpLanguage";
+            this.grpLanguage.TabStop = false;
+            // 
+            // cmbLanguage
+            // 
+            resources.ApplyResources(this.cmbLanguage, "cmbLanguage");
+            this.cmbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLanguage.FormattingEnabled = true;
+            this.cmbLanguage.Items.AddRange(new object[] {
+            resources.GetString("cmbLanguage.Items"),
+            resources.GetString("cmbLanguage.Items1"),
+            resources.GetString("cmbLanguage.Items2")});
+            this.cmbLanguage.Name = "cmbLanguage";
             // 
             // tabLogging
             // 
+            resources.ApplyResources(this.tabLogging, "tabLogging");
             this.tabLogging.Controls.Add(this.numLogBackup);
             this.tabLogging.Controls.Add(this.numLogSize);
             this.tabLogging.Controls.Add(this.label3);
             this.tabLogging.Controls.Add(this.label2);
             this.tabLogging.Controls.Add(this.label1);
             this.tabLogging.Controls.Add(this.cmbLogLevel);
-            this.tabLogging.Location = new System.Drawing.Point(4, 22);
             this.tabLogging.Name = "tabLogging";
-            this.tabLogging.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLogging.Size = new System.Drawing.Size(536, 340);
-            this.tabLogging.TabIndex = 1;
-            this.tabLogging.Text = "Logging";
             this.tabLogging.UseVisualStyleBackColor = true;
             // 
-            // cmbLogLevel
+            // numLogBackup
             // 
-            this.cmbLogLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbLogLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbLogLevel.FormattingEnabled = true;
-            this.cmbLogLevel.Location = new System.Drawing.Point(130, 6);
-            this.cmbLogLevel.Name = "cmbLogLevel";
-            this.cmbLogLevel.Size = new System.Drawing.Size(120, 21);
-            this.cmbLogLevel.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Logging Level: ";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Max file size (bytes):";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Backups to keep:";
+            resources.ApplyResources(this.numLogBackup, "numLogBackup");
+            this.numLogBackup.Name = "numLogBackup";
             // 
             // numLogSize
             // 
+            resources.ApplyResources(this.numLogSize, "numLogSize");
             this.numLogSize.Increment = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.numLogSize.Location = new System.Drawing.Point(130, 33);
             this.numLogSize.Maximum = new decimal(new int[] {
             20000000,
             0,
@@ -385,36 +287,45 @@ namespace Depressurizer {
             0,
             0});
             this.numLogSize.Name = "numLogSize";
-            this.numLogSize.Size = new System.Drawing.Size(120, 20);
-            this.numLogSize.TabIndex = 5;
-            this.numLogSize.ThousandsSeparator = true;
             this.numLogSize.Value = new decimal(new int[] {
             5000,
             0,
             0,
             0});
             // 
-            // numLogBackup
+            // label3
             // 
-            this.numLogBackup.Location = new System.Drawing.Point(130, 59);
-            this.numLogBackup.Name = "numLogBackup";
-            this.numLogBackup.Size = new System.Drawing.Size(120, 20);
-            this.numLogBackup.TabIndex = 6;
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
             // 
-            // OptionsDlg
+            // label2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // cmbLogLevel
+            // 
+            resources.ApplyResources(this.cmbLogLevel, "cmbLogLevel");
+            this.cmbLogLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLogLevel.FormattingEnabled = true;
+            this.cmbLogLevel.Name = "cmbLogLevel";
+            // 
+            // DlgOptions
+            // 
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 417);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdAccept);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "OptionsDlg";
+            this.Name = "DlgOptions";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Settings";
             this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.grpSteamDir.ResumeLayout(false);
             this.grpSteamDir.PerformLayout();
@@ -427,10 +338,11 @@ namespace Depressurizer {
             this.grpDatSrc.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
+            this.grpLanguage.ResumeLayout(false);
             this.tabLogging.ResumeLayout(false);
             this.tabLogging.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -464,5 +376,7 @@ namespace Depressurizer {
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbLogLevel;
+        private System.Windows.Forms.GroupBox grpLanguage;
+        private System.Windows.Forms.ComboBox cmbLanguage;
     }
 }

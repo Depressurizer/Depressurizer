@@ -86,6 +86,11 @@
     <Compile Include="CDlgDataScrape.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GlobalStrings.es.Designer.cs">
+      <DependentUpon>GlobalStrings.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DBEdit\DBEditDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +118,11 @@
     <Compile Include="GameDB.cs" />
     <Compile Include="CDlgGetSteamID.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Lib\AppLogger.cs" />
     <Compile Include="Lib\AppSettings.cs" />
@@ -180,11 +190,28 @@
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="GlobalStrings.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.es.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.es.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DBEditDlg.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.es.resx">
+      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.es.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgManualDownload.es.resx">
+      <DependentUpon>DlgManualDownload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgManualDownload.resx">
       <DependentUpon>DlgManualDownload.cs</DependentUpon>
@@ -192,17 +219,42 @@
     <EmbeddedResource Include="DlgGame.resx">
       <DependentUpon>DlgGame.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgOptions.es.resx">
+      <DependentUpon>DlgOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.es.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgSteamPath.es.resx">
+      <DependentUpon>DlgSteamPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\CancelableDlg.es.resx">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lib\CancelableDlg.resx">
       <DependentUpon>CancelableDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgProfile.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgFatalError.es.resx">
+      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgFatalError.resx">
       <DependentUpon>DlgFatalError.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.es.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.es.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -221,7 +273,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 y x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

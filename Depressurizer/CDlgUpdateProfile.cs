@@ -43,7 +43,8 @@ namespace Depressurizer {
         private bool ignoreDlc;
 
         public CDlgUpdateProfile( GameData data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
-            : base( "Updating game list...", true ) {
+            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        {
             custom = false;
             this.SteamId = accountId;
             
@@ -58,11 +59,12 @@ namespace Depressurizer {
             this.ignore = ignore;
             this.ignoreDlc = ignoreDlc;
 
-            SetText( "Downloading game list..." );
+            SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
         public CDlgUpdateProfile( GameData data, string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
-            : base( "Updating game list...", true ) {
+            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        {
             custom = true;
             this.customUrl = customUrl;
 
@@ -77,7 +79,7 @@ namespace Depressurizer {
             this.ignore = ignore;
             this.ignoreDlc = ignoreDlc;
 
-            SetText( "Downloading game list..." );
+            SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
         protected override void RunProcess() {
@@ -129,7 +131,7 @@ namespace Depressurizer {
 
         protected override void Finish() {
             if( !Canceled && Error == null && ( UseHtml ? ( htmlDoc != null ) : ( doc != null ) ) ) {
-                SetText( "Finishing download..." );
+                SetText(GlobalStrings.CDlgFetch_FinishingDownload);
                 if( UseHtml ) {
                     int newItems;
                     Fetched = data.IntegrateHtmlGameList( htmlDoc, overwrite, ignore, ignoreDlc, out newItems );

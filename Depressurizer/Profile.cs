@@ -64,7 +64,7 @@ namespace Depressurizer {
         #region Saving and Loading
 
         public static Profile Load( string path ) {
-            Program.Logger.Write( LoggerLevel.Info, "Loading profile from file: {0}", path );
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_LoadingProfile, path);
             Profile profile = new Profile();
 
             profile.FilePath = path;
@@ -74,8 +74,8 @@ namespace Depressurizer {
             try {
                 doc.Load( path );
             } catch( Exception e ) {
-                Program.Logger.Write( LoggerLevel.Warning, "Failed to load profile: {0}", e.Message );
-                throw new ApplicationException( "Error loading profile: " + e.Message, e );
+                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToLoadProfile, e.Message);
+                throw new ApplicationException(GlobalStrings.Profile_ErrorLoadingProfile + e.Message, e);
             }
 
             XmlNode profileNode = doc.SelectSingleNode( "/profile" );
@@ -119,7 +119,7 @@ namespace Depressurizer {
                     }
                 }
             }
-            Program.Logger.Write( LoggerLevel.Info, "Profile loaded." );
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded);
             return profile;
         }
 
@@ -147,7 +147,7 @@ namespace Depressurizer {
         }
 
         public bool Save( string path ) {
-            Program.Logger.Write( LoggerLevel.Info, "Saving profile: {0}", path );
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_SavingProfile, path);
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
@@ -156,8 +156,8 @@ namespace Depressurizer {
             try {
                 writer = XmlWriter.Create( path, writeSettings );
             } catch( Exception e ) {
-                Program.Logger.Write( LoggerLevel.Warning, "Failed to open profile file for writing: {0}", e.Message );
-                throw new ApplicationException( "Error saving profile file: " + e.Message, e );
+                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToOpenProfileFile, e.Message);
+                throw new ApplicationException(GlobalStrings.Profile_ErrorSavingProfileFile + e.Message, e);
             }
             writer.WriteStartElement( "profile" );
 
@@ -207,7 +207,7 @@ namespace Depressurizer {
 
             writer.Close();
             FilePath = path;
-            Program.Logger.Write( LoggerLevel.Info, "Profile save complete." );
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_ProfileSaveComplete);
             return true;
         }
 

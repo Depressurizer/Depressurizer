@@ -44,13 +44,13 @@ namespace Depressurizer {
             Settings settings = Settings.Instance();
             settings.Load();
 
-            Logger.Write( LoggerLevel.Info, "Program initialized. Logging level set to {0}.", Logger.Level );
+            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
             Application.Run( new FormMain() );
 
-            Logger.Write( LoggerLevel.Info, "Program closing." );
+            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
             Logger.EndSession();
         }
     }

@@ -22,6 +22,7 @@ using Rallion;
 
 namespace Depressurizer {
     public partial class DlgOptions : Form {
+
         public DlgOptions() {
             InitializeComponent();
         }
@@ -67,6 +68,19 @@ namespace Depressurizer {
             cmbLogLevel.SelectedIndex = (int)settings.LogLevel;
             numLogSize.Value = settings.LogSize;
             numLogBackup.Value = settings.LogBackups;
+
+            switch (settings.UserLang)
+            {
+                case UserLanguage.en:
+                    cmbLanguage.SelectedIndex = 1;
+                    break;
+                case UserLanguage.es:
+                    cmbLanguage.SelectedIndex = 2;
+                    break;
+                default:
+                    cmbLanguage.SelectedIndex = 0;
+                    break;
+            }
         }
 
         private void SaveFieldsToSettings() {
@@ -102,10 +116,23 @@ namespace Depressurizer {
             settings.LogSize = (int)numLogSize.Value;
             settings.LogBackups = (int)numLogBackup.Value;
 
+            switch (cmbLanguage.SelectedIndex)
+            {
+                case 0:
+                    settings.UserLang = UserLanguage.windows;
+                    break;
+                case 1:
+                    settings.UserLang = UserLanguage.en;
+                    break;
+                case 2:
+                    settings.UserLang = UserLanguage.es;
+                    break;
+            }
+
             try {
                 settings.Save();
             } catch( Exception e ) {
-                MessageBox.Show( "Error saving settings file: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

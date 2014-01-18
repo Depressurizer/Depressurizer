@@ -41,6 +41,7 @@ namespace Rallion {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FatalError));
             this.lblMessage = new System.Windows.Forms.Label();
             this.cmdClose = new System.Windows.Forms.Button();
             this.cmdSave = new System.Windows.Forms.Button();
@@ -58,64 +59,40 @@ namespace Rallion {
             // 
             // lblMessage
             // 
-            this.lblMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMessage.Location = new System.Drawing.Point(12, 9);
+            resources.ApplyResources(this.lblMessage, "lblMessage");
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(444, 43);
-            this.lblMessage.TabIndex = 0;
-            this.lblMessage.Text = "This program has encountered a fatal error and needs to close.";
-            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // cmdClose
             // 
-            this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmdClose, "cmdClose");
             this.cmdClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdClose.Location = new System.Drawing.Point(381, 55);
             this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(75, 23);
-            this.cmdClose.TabIndex = 2;
-            this.cmdClose.Text = "OK";
             this.cmdClose.UseVisualStyleBackColor = true;
             // 
             // cmdSave
             // 
-            this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSave.Location = new System.Drawing.Point(322, 223);
+            resources.ApplyResources(this.cmdSave, "cmdSave");
             this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(116, 23);
-            this.cmdSave.TabIndex = 7;
-            this.cmdSave.Text = "Save to File";
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
             // cmdCopy
             // 
-            this.cmdCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCopy.Location = new System.Drawing.Point(200, 223);
+            resources.ApplyResources(this.cmdCopy, "cmdCopy");
             this.cmdCopy.Name = "cmdCopy";
-            this.cmdCopy.Size = new System.Drawing.Size(116, 23);
-            this.cmdCopy.TabIndex = 6;
-            this.cmdCopy.Text = "Copy to Clipboard";
             this.cmdCopy.UseVisualStyleBackColor = true;
             this.cmdCopy.Click += new System.EventHandler(this.cmdCopy_Click);
             // 
             // cmdShow
             // 
-            this.cmdShow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdShow.Location = new System.Drawing.Point(300, 55);
+            resources.ApplyResources(this.cmdShow, "cmdShow");
             this.cmdShow.Name = "cmdShow";
-            this.cmdShow.Size = new System.Drawing.Size(75, 23);
-            this.cmdShow.TabIndex = 1;
-            this.cmdShow.Text = "More Info";
             this.cmdShow.UseVisualStyleBackColor = true;
             this.cmdShow.Click += new System.EventHandler(this.cmdShow_Click);
             // 
             // grpMoreInfo
             // 
-            this.grpMoreInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpMoreInfo, "grpMoreInfo");
             this.grpMoreInfo.Controls.Add(this.txtTrace);
             this.grpMoreInfo.Controls.Add(this.txtErrMsg);
             this.grpMoreInfo.Controls.Add(this.txtErrType);
@@ -124,82 +101,48 @@ namespace Rallion {
             this.grpMoreInfo.Controls.Add(this.lblErrType);
             this.grpMoreInfo.Controls.Add(this.cmdCopy);
             this.grpMoreInfo.Controls.Add(this.cmdSave);
-            this.grpMoreInfo.Location = new System.Drawing.Point(12, 84);
             this.grpMoreInfo.Name = "grpMoreInfo";
-            this.grpMoreInfo.Size = new System.Drawing.Size(444, 252);
-            this.grpMoreInfo.TabIndex = 3;
             this.grpMoreInfo.TabStop = false;
-            this.grpMoreInfo.Text = "Error Details";
             // 
             // txtTrace
             // 
-            this.txtTrace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTrace.Location = new System.Drawing.Point(92, 91);
-            this.txtTrace.Multiline = true;
+            resources.ApplyResources(this.txtTrace, "txtTrace");
             this.txtTrace.Name = "txtTrace";
             this.txtTrace.ReadOnly = true;
-            this.txtTrace.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtTrace.Size = new System.Drawing.Size(346, 126);
-            this.txtTrace.TabIndex = 5;
             // 
             // txtErrMsg
             // 
-            this.txtErrMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtErrMsg.Location = new System.Drawing.Point(92, 45);
-            this.txtErrMsg.Multiline = true;
+            resources.ApplyResources(this.txtErrMsg, "txtErrMsg");
             this.txtErrMsg.Name = "txtErrMsg";
             this.txtErrMsg.ReadOnly = true;
-            this.txtErrMsg.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtErrMsg.Size = new System.Drawing.Size(346, 40);
-            this.txtErrMsg.TabIndex = 3;
             // 
             // txtErrType
             // 
-            this.txtErrType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtErrType.Location = new System.Drawing.Point(92, 19);
+            resources.ApplyResources(this.txtErrType, "txtErrType");
             this.txtErrType.Name = "txtErrType";
             this.txtErrType.ReadOnly = true;
-            this.txtErrType.Size = new System.Drawing.Size(346, 20);
-            this.txtErrType.TabIndex = 1;
             // 
             // lblTrace
             // 
-            this.lblTrace.AutoSize = true;
-            this.lblTrace.Location = new System.Drawing.Point(17, 94);
+            resources.ApplyResources(this.lblTrace, "lblTrace");
             this.lblTrace.Name = "lblTrace";
-            this.lblTrace.Size = new System.Drawing.Size(69, 13);
-            this.lblTrace.TabIndex = 4;
-            this.lblTrace.Text = "Stack Trace:";
             // 
             // lblErrMsg
             // 
-            this.lblErrMsg.AutoSize = true;
-            this.lblErrMsg.Location = new System.Drawing.Point(8, 48);
+            resources.ApplyResources(this.lblErrMsg, "lblErrMsg");
             this.lblErrMsg.Name = "lblErrMsg";
-            this.lblErrMsg.Size = new System.Drawing.Size(78, 13);
-            this.lblErrMsg.TabIndex = 2;
-            this.lblErrMsg.Text = "Error Message:";
             // 
             // lblErrType
             // 
-            this.lblErrType.AutoSize = true;
-            this.lblErrType.Location = new System.Drawing.Point(27, 22);
+            resources.ApplyResources(this.lblErrType, "lblErrType");
             this.lblErrType.Name = "lblErrType";
-            this.lblErrType.Size = new System.Drawing.Size(59, 13);
-            this.lblErrType.TabIndex = 0;
-            this.lblErrType.Text = "Error Type:";
             // 
             // FatalError
             // 
             this.AcceptButton = this.cmdClose;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdClose;
-            this.ClientSize = new System.Drawing.Size(468, 348);
             this.ControlBox = false;
             this.Controls.Add(this.grpMoreInfo);
             this.Controls.Add(this.cmdShow);
@@ -208,8 +151,6 @@ namespace Rallion {
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FatalError";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Fatal Error";
             this.Load += new System.EventHandler(this.FatalError_Load);
             this.grpMoreInfo.ResumeLayout(false);
             this.grpMoreInfo.PerformLayout();

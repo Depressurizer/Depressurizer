@@ -46,7 +46,7 @@ namespace Depressurizer {
         public TextVdfFileNode this[string key] {
             get {
                 if( this.NodeType == ValueType.Value ) {
-                    throw new ApplicationException( string.Format( "Node is a value, not an array. Cannot get key {0}", key ) );
+                    throw new ApplicationException(string.Format(GlobalStrings.TextVdfFile_CanNotGetKey, key));
                 }
                 Dictionary<string, TextVdfFileNode> arrayData = (Dictionary<string, TextVdfFileNode>)NodeData;
                 if( !arrayData.ContainsKey( key ) ) {
@@ -56,7 +56,7 @@ namespace Depressurizer {
             }
             set {
                 if( this.NodeType == ValueType.Value ) {
-                    throw new Exception( string.Format( "Node is a value, not an array. Cannot set key {0}", key ) );
+                    throw new Exception(string.Format(GlobalStrings.TextVdfFile_CanNotSetKey, key));
                 }
                 Dictionary<string, TextVdfFileNode> arrayData = (Dictionary<string, TextVdfFileNode>)NodeData;
                 if( !arrayData.ContainsKey( key ) ) {
@@ -146,7 +146,7 @@ namespace Depressurizer {
             } while( !stringDone && !stream.EndOfStream );
             if( !stringDone ) {
                 if( stream.EndOfStream ) {
-                    throw new ParseException( "Unexpected end-of-file reached: Unterminated string." );
+                    throw new ParseException(GlobalStrings.TextVdfFile_UnexpectedEOF);
                 }
             }
             return sb.ToString();
@@ -292,7 +292,7 @@ namespace Depressurizer {
                 } else if( nextChar == '"' ) {
                     key = GetStringToken( stream );
                 } else {
-                    throw new ParseException( string.Format( "Unexpected character '{0}' found when expecting key.", nextChar ) );
+                    throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextChar));
                 }
                 SkipWhitespace( stream );
 
@@ -304,7 +304,7 @@ namespace Depressurizer {
                 } else if( nextChar == '{' ) {
                     newNode = Load( stream );
                 } else {
-                    throw new ParseException( string.Format( "Unexpected character '{0}' found when expecting value.", nextChar ) );
+                    throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterValue, nextChar));
                 }
 
                 if( useFirstAsRoot ) {

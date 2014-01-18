@@ -21,6 +21,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer;
 
 namespace Rallion {
 
@@ -106,8 +107,8 @@ namespace Rallion {
 
             string appName = Application.ProductName;
 
-            this.Text = string.Format( "{0} - Fatal Error", appName );
-            lblMessage.Text = string.Format( "A fatal error has occurred in {0}. The program will now terminate.", appName );
+            this.Text = string.Format(GlobalStrings.DlgFatalError_FatalError, appName);
+            lblMessage.Text = string.Format(GlobalStrings.DlgFatalError_FatalErrorOcurred, appName);
 
             FillFields();
 
@@ -193,10 +194,10 @@ namespace Rallion {
                     string data = string.Format( "{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine, ex.StackTrace );
                     fstr.Write( data );
                     fstr.Close();
-                    MessageBox.Show( "Error information saved." );
+                    MessageBox.Show(GlobalStrings.DlgFatalError_ErrorInformationSaved);
                 }
             } catch {
-                MessageBox.Show( "Could not save error information." );
+                MessageBox.Show(GlobalStrings.DlgFatalError_CouldNotSaveErrorInformation);
             }
         }
 
@@ -209,11 +210,11 @@ namespace Rallion {
                 t.SetApartmentState( ApartmentState.STA );
                 t.Start();
             } else {
-                string dMsg = "Could not copy to clipboard.";
+                string dMsg = GlobalStrings.DlgFatalError_CouldNotCopyClipboard;
                 try {
                     string data = string.Format( "{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine, ex.StackTrace );
                     Clipboard.SetText( data );
-                    dMsg = "Clipboard updated.";
+                    dMsg = GlobalStrings.DlgFatalError_ClipboardUpdated;
 
                 } finally {
                     if( this.InvokeRequired ) {

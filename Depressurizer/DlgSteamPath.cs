@@ -36,7 +36,7 @@ namespace Depressurizer {
 
         private void cmdOk_Click( object sender, EventArgs e ) {
             if( !Directory.Exists( Path ) ) {
-                DialogResult res = MessageBox.Show( "That path does not exist. Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2 );
+                DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if( res == System.Windows.Forms.DialogResult.No ) {
                     return;
                 }

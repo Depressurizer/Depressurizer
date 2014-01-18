@@ -41,6 +41,7 @@ namespace Rallion {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GetStringDlg));
             this.lblValue = new System.Windows.Forms.Label();
             this.txtValue = new System.Windows.Forms.TextBox();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -49,51 +50,34 @@ namespace Rallion {
             // 
             // lblValue
             // 
-            this.lblValue.AutoSize = true;
-            this.lblValue.Location = new System.Drawing.Point(12, 9);
+            resources.ApplyResources(this.lblValue, "lblValue");
             this.lblValue.Name = "lblValue";
-            this.lblValue.Size = new System.Drawing.Size(64, 13);
-            this.lblValue.TabIndex = 0;
-            this.lblValue.Text = "Enter value:";
             // 
             // txtValue
             // 
-            this.txtValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtValue.Location = new System.Drawing.Point(12, 25);
+            resources.ApplyResources(this.txtValue, "txtValue");
             this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(258, 20);
-            this.txtValue.TabIndex = 1;
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(12, 51);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 2;
-            this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
             // cmdOk
             // 
-            this.cmdOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmdOk, "cmdOk");
             this.cmdOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOk.Location = new System.Drawing.Point(195, 51);
             this.cmdOk.Name = "cmdOk";
-            this.cmdOk.Size = new System.Drawing.Size(75, 23);
-            this.cmdOk.TabIndex = 3;
-            this.cmdOk.Text = "OK";
             this.cmdOk.UseVisualStyleBackColor = true;
             // 
             // GetStringDlg
             // 
             this.AcceptButton = this.cmdOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(282, 86);
             this.ControlBox = false;
             this.Controls.Add(this.cmdOk);
             this.Controls.Add(this.cmdCancel);
@@ -102,8 +86,6 @@ namespace Rallion {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "GetStringDlg";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Enter Value";
             this.ResumeLayout(false);
             this.PerformLayout();
 

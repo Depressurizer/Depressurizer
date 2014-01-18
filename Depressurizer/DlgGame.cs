@@ -42,7 +42,7 @@ namespace Depressurizer {
             }
 
             if( editMode ) {
-                Text = "Edit Game";
+                Text = GlobalStrings.DlgGame_EditGame;
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
                 if( Game.Category != null ) {
@@ -51,7 +51,7 @@ namespace Depressurizer {
                 chkFavorite.Checked = Game.Favorite;
                 txtId.Enabled = false;
             } else {
-                Text = "Create Game";
+                Text = GlobalStrings.DlgGame_CreateGame;
                 cmbCategory.SelectedIndex = 0;
             }
         }
@@ -72,7 +72,7 @@ namespace Depressurizer {
             } else {
                 int id;
                 if( !int.TryParse( txtId.Text, out id ) ) {
-                    MessageBox.Show( "Game ID must be an integer.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 Game = new Game( id, txtName.Text );

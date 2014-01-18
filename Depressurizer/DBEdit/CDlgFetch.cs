@@ -26,8 +26,9 @@ namespace Depressurizer {
         XmlDocument doc;
 
         public FetchPrcDlg()
-            : base( "Updating Game List", false ) {
-            SetText( "Downloading game list..." );
+            : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
+        {
+            SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
             Added = 0;
         }
 
@@ -39,7 +40,7 @@ namespace Depressurizer {
 
         protected override void Finish() {
             if( !this.Canceled && doc != null && Error == null ) {
-                SetText( "Finishing download..." );
+                SetText(GlobalStrings.CDlgFetch_FinishingDownload);
                 Added = Program.GameDB.IntegrateAppList( doc );
                 OnJobCompletion();
             }

@@ -117,6 +117,798 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cmdFetch.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;statusMsg.Name" xml:space="preserve">
+    <value>statusMsg</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="cmdUpdateUnchecked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 23</value>
+  </data>
+  <data name="menu_File_Save.Text" xml:space="preserve">
+    <value>&amp;Save Database</value>
+  </data>
+  <data name="&gt;&gt;chkWebError.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colName.Name" xml:space="preserve">
+    <value>colName</value>
+  </data>
+  <data name="&gt;&gt;chkAll.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="chkRedirect.Text" xml:space="preserve">
+    <value>IdRedirect</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateUnchecked.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkRedirect.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="chkNew.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 36</value>
+  </data>
+  <data name="chkSiteError.Text" xml:space="preserve">
+    <value>SiteError</value>
+  </data>
+  <data name="chkWebError.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 172</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;cmdEditGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="statSelected.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;cmdStore.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;chkAll.Name" xml:space="preserve">
+    <value>chkAll</value>
+  </data>
+  <data name="&gt;&gt;grpFilter.Name" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="&gt;&gt;chkAgeGate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkGame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 53</value>
+  </data>
+  <data name="chkUnknown.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkDLC.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 27</value>
+  </data>
+  <data name="&gt;&gt;chkNonApp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cmdEditGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="cmdUpdateUnchecked.Text" xml:space="preserve">
+    <value>Update &amp;New</value>
+  </data>
+  <data name="&gt;&gt;cmdAddGame.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;chkSiteError.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_File_Save.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="chkAll.Text" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="cmdUpdateUnchecked.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="chkNew.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="&gt;&gt;chkDLC.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkAgeGate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkUnknown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lstGames.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="colID.DisplayIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Database Editor</value>
+  </data>
+  <data name="&gt;&gt;chkNotFound.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mainMenu.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkNonApp.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;colName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkDLC.Name" xml:space="preserve">
+    <value>chkDLC</value>
+  </data>
+  <data name="chkUnknown.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;cmdStore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkSiteError.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Load.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkNonApp.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="&gt;&gt;chkNotFound.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;colGenre.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="chkNew.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cmdAddGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdStore.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;chkGame.Name" xml:space="preserve">
+    <value>chkGame</value>
+  </data>
+  <data name="&gt;&gt;colID.Name" xml:space="preserve">
+    <value>colID</value>
+  </data>
+  <data name="menu_File_Exit.Text" xml:space="preserve">
+    <value>Clos&amp;e</value>
+  </data>
+  <data name="menu_File_Load.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="chkDLC.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 70</value>
+  </data>
+  <data name="cmdAddGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 23</value>
+  </data>
+  <data name="&gt;&gt;cmdFetch.Name" xml:space="preserve">
+    <value>cmdFetch</value>
+  </data>
+  <data name="mainMenu.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;grpFilter.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cmdAddGame.Name" xml:space="preserve">
+    <value>cmdAddGame</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkNew.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 17</value>
+  </data>
+  <data name="chkAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="statusStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="chkDLC.Text" xml:space="preserve">
+    <value>DLC</value>
+  </data>
+  <data name="cmdAddGame.Text" xml:space="preserve">
+    <value>&amp;Add Game</value>
+  </data>
+  <data name="chkNotFound.Text" xml:space="preserve">
+    <value>NotFound</value>
+  </data>
+  <data name="&gt;&gt;chkAgeGate.Name" xml:space="preserve">
+    <value>chkAgeGate</value>
+  </data>
+  <data name="grpFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="cmdDeleteGame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 326</value>
+  </data>
+  <data name="&gt;&gt;cmdDeleteGame.Name" xml:space="preserve">
+    <value>cmdDeleteGame</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Exit.Name" xml:space="preserve">
+    <value>menu_File_Exit</value>
+  </data>
+  <data name="chkNotFound.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 17</value>
+  </data>
+  <data name="cmdStore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkAgeGate.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="chkGame.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkUnknown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 189</value>
+  </data>
+  <data name="&gt;&gt;chkNotFound.Name" xml:space="preserve">
+    <value>chkNotFound</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mainMenu.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;chkSiteError.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="&gt;&gt;mainMenu.Name" xml:space="preserve">
+    <value>mainMenu</value>
+  </data>
+  <data name="chkNonApp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 104</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Load.Name" xml:space="preserve">
+    <value>menu_File_Load</value>
+  </data>
+  <data name="&gt;&gt;chkSiteError.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;chkRedirect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkWebError.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DBEditDlg</value>
+  </data>
+  <data name="&gt;&gt;chkUnknown.Name" xml:space="preserve">
+    <value>chkUnknown</value>
+  </data>
+  <data name="chkDLC.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="grpFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 209</value>
+  </data>
+  <data name="colGenre.Width" type="System.Int32, mscorlib">
+    <value>105</value>
+  </data>
+  <data name="chkRedirect.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateSelected.Name" xml:space="preserve">
+    <value>cmdUpdateSelected</value>
+  </data>
+  <data name="mainMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>669, 24</value>
+  </data>
+  <data name="cmdUpdateSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 382</value>
+  </data>
+  <data name="&gt;&gt;menu_File.Name" xml:space="preserve">
+    <value>menu_File</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateUnchecked.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="menu_File_SaveAs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="chkNonApp.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="chkNotFound.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkAgeGate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 138</value>
+  </data>
+  <data name="&gt;&gt;chkNew.Name" xml:space="preserve">
+    <value>chkNew</value>
+  </data>
+  <data name="&gt;&gt;chkNotFound.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="chkUnknown.Text" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="menu_File_Exit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Alt+F4</value>
+  </data>
+  <data name="&gt;&gt;cmdDeleteGame.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="grpFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>547, 56</value>
+  </data>
+  <data name="chkSiteError.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 17</value>
+  </data>
+  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 435</value>
+  </data>
+  <data name="&gt;&gt;chkRedirect.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateSelected.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="menu_File_SaveAs.Text" xml:space="preserve">
+    <value>Save &amp;As...</value>
+  </data>
+  <data name="chkAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 17</value>
+  </data>
+  <data name="&gt;&gt;chkDLC.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="colName.DisplayIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep1.Name" xml:space="preserve">
+    <value>menu_File_Sep1</value>
+  </data>
+  <data name="&gt;&gt;cmdEditGame.Name" xml:space="preserve">
+    <value>cmdEditGame</value>
+  </data>
+  <data name="&gt;&gt;chkRedirect.Name" xml:space="preserve">
+    <value>chkRedirect</value>
+  </data>
+  <data name="&gt;&gt;menu_File.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkSiteError.Name" xml:space="preserve">
+    <value>chkSiteError</value>
+  </data>
+  <data name="chkSiteError.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;chkNew.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdAddGame.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateUnchecked.Name" xml:space="preserve">
+    <value>cmdUpdateUnchecked</value>
+  </data>
+  <data name="chkSiteError.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 155</value>
+  </data>
+  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>525, 405</value>
+  </data>
+  <data name="colGenre.Text" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="&gt;&gt;chkAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 6</value>
+  </data>
+  <data name="chkGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 17</value>
+  </data>
+  <data name="colType.Width" type="System.Int32, mscorlib">
+    <value>87</value>
+  </data>
+  <data name="chkUnknown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 17</value>
+  </data>
+  <data name="menu_File_SaveAs.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Mayús.+S</value>
+  </data>
+  <data name="&gt;&gt;menu_File_SaveAs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkNotFound.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 121</value>
+  </data>
+  <data name="&gt;&gt;cmdEditGame.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;chkWebError.Name" xml:space="preserve">
+    <value>chkWebError</value>
+  </data>
+  <data name="&gt;&gt;cmdEditGame.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmdEditGame.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="cmdDeleteGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 23</value>
+  </data>
+  <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>669, 22</value>
+  </data>
+  <data name="&gt;&gt;cmdAddGame.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;colGenre.Name" xml:space="preserve">
+    <value>colGenre</value>
+  </data>
+  <data name="cmdUpdateSelected.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmdDeleteGame.Text" xml:space="preserve">
+    <value>&amp;Delete Game</value>
+  </data>
+  <data name="chkAll.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>654, 17</value>
+  </data>
+  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="chkNew.Text" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="menu_File_Clear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="cmdEditGame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 350</value>
+  </data>
+  <data name="cmdUpdateSelected.Text" xml:space="preserve">
+    <value>&amp;Update Selected</value>
+  </data>
+  <data name="cmdFetch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="cmdStore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 271</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Save.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>669, 457</value>
+  </data>
+  <data name="cmdFetch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 23</value>
+  </data>
+  <data name="&gt;&gt;grpFilter.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;colType.Name" xml:space="preserve">
+    <value>colType</value>
+  </data>
+  <data name="&gt;&gt;chkNew.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="cmdStore.Text" xml:space="preserve">
+    <value>View &amp;Store</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Clear.Name" xml:space="preserve">
+    <value>menu_File_Clear</value>
+  </data>
+  <data name="&gt;&gt;cmdFetch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep2.Name" xml:space="preserve">
+    <value>menu_File_Sep2</value>
+  </data>
+  <data name="menu_File_Save.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+S</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateUnchecked.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cmdEditGame.Text" xml:space="preserve">
+    <value>&amp;Edit Game</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateSelected.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="grpFilter.Text" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdEditGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 23</value>
+  </data>
+  <data name="&gt;&gt;chkNonApp.Name" xml:space="preserve">
+    <value>chkNonApp</value>
+  </data>
+  <data name="chkWebError.Text" xml:space="preserve">
+    <value>WebError</value>
+  </data>
+  <data name="colName.Width" type="System.Int32, mscorlib">
+    <value>266</value>
+  </data>
+  <data name="chkNonApp.Text" xml:space="preserve">
+    <value>NonApp</value>
+  </data>
+  <data name="cmdDeleteGame.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="cmdFetch.Text" xml:space="preserve">
+    <value>&amp;Fetch List</value>
+  </data>
+  <data name="colID.Text" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="statSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 17</value>
+  </data>
+  <data name="&gt;&gt;chkNew.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="&gt;&gt;chkGame.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="chkRedirect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 17</value>
+  </data>
+  <data name="cmdFetch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 27</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
+    <value>lstGames</value>
+  </data>
+  <data name="&gt;&gt;statSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpFilter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mainMenu.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="menu_File.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="cmdStore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 23</value>
+  </data>
+  <data name="&gt;&gt;statSelected.Name" xml:space="preserve">
+    <value>statSelected</value>
+  </data>
+  <data name="cmdAddGame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 302</value>
+  </data>
+  <data name="&gt;&gt;cmdStore.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cmdFetch.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="chkWebError.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 17</value>
+  </data>
+  <data name="&gt;&gt;menu_File_SaveAs.Name" xml:space="preserve">
+    <value>menu_File_SaveAs</value>
+  </data>
+  <data name="cmdAddGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="cmdUpdateSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 23</value>
+  </data>
+  <data name="statusStrip1.Text" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;chkWebError.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="chkGame.Text" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="cmdUpdateSelected.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Clear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="grpFilter.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cmdFetch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mainMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdStore.Name" xml:space="preserve">
+    <value>cmdStore</value>
+  </data>
+  <data name="&gt;&gt;chkGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkAgeGate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;chkAll.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mainMenu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="cmdUpdateUnchecked.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 406</value>
+  </data>
+  <data name="chkDLC.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 17</value>
+  </data>
+  <data name="&gt;&gt;chkGame.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="menu_File_Clear.Text" xml:space="preserve">
+    <value>&amp;Clear</value>
+  </data>
+  <data name="chkAgeGate.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="cmdUpdateUnchecked.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;chkNonApp.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="chkRedirect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 87</value>
+  </data>
+  <data name="chkAgeGate.Text" xml:space="preserve">
+    <value>AgeGate</value>
+  </data>
+  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="chkNotFound.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="menu_File_Load.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+L</value>
+  </data>
+  <data name="menu_File_Clear.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+C</value>
+  </data>
+  <data name="&gt;&gt;cmdDeleteGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_File_Load.Text" xml:space="preserve">
+    <value>&amp;Load...</value>
+  </data>
+  <data name="colName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Save.Name" xml:space="preserve">
+    <value>menu_File_Save</value>
+  </data>
+  <data name="&gt;&gt;chkDLC.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="colType.Text" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="chkNonApp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 17</value>
+  </data>
+  <data name="&gt;&gt;cmdDeleteGame.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkAgeGate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 17</value>
+  </data>
+  <data name="&gt;&gt;chkUnknown.Parent" xml:space="preserve">
+    <value>grpFilter</value>
+  </data>
+  <data name="&gt;&gt;statusMsg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkGame.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="chkWebError.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 6</value>
+  </data>
+  <data name="chkWebError.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkAll.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Exit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdDeleteGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chkRedirect.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;chkUnknown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>685, 495</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="mainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

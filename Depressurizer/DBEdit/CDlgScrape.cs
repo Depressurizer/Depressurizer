@@ -29,7 +29,8 @@ namespace Depressurizer {
         System.DateTime start;
 
         public DbScrapeDlg( Queue<int> jobs )
-            : base( "Scraping game info", true ) {
+            : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
+        {
             this.jobs = jobs;
             this.totalJobs = jobs.Count;
 
@@ -88,7 +89,7 @@ namespace Depressurizer {
 
         protected override void Finish() {
             if( !Canceled ) {
-                SetText( "Applying data..." );
+                SetText(GlobalStrings.CDlgScrape_ApplyingData);
 
                 if( results != null ) {
                     foreach( GameDBEntry g in results ) {
@@ -111,13 +112,13 @@ namespace Depressurizer {
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.Append( string.Format( "Updating...{0}/{1} complete.", jobsCompleted, totalJobs ) );
+            sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, jobsCompleted, totalJobs));
 
-            sb.Append( "\nTime Remaining: " );
+            sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
             if( timeRemaining == TimeSpan.Zero ) {
-                sb.Append( "Unknown" );
+                sb.Append(GlobalStrings.CDlgScrape_Unknown);
             } else if( timeRemaining.TotalMinutes < 1.0 ) {
-                sb.Append( "< 1 minute" );
+                sb.Append(GlobalStrings.CDlgScrape_1minute);
             } else {
                 double hours = timeRemaining.TotalHours;
                 if( hours >= 1.0 ) {

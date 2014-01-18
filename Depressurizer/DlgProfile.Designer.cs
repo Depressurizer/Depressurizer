@@ -41,6 +41,7 @@ namespace Depressurizer {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DlgProfile));
             this.txtFilePath = new System.Windows.Forms.TextBox();
             this.cmdBrowse = new System.Windows.Forms.Button();
             this.lblPath = new System.Windows.Forms.Label();
@@ -97,38 +98,24 @@ namespace Depressurizer {
             // 
             // txtFilePath
             // 
-            this.txtFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFilePath.Location = new System.Drawing.Point(91, 13);
+            resources.ApplyResources(this.txtFilePath, "txtFilePath");
             this.txtFilePath.Name = "txtFilePath";
-            this.txtFilePath.Size = new System.Drawing.Size(371, 20);
-            this.txtFilePath.TabIndex = 1;
             // 
             // cmdBrowse
             // 
-            this.cmdBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowse.Location = new System.Drawing.Point(468, 11);
+            resources.ApplyResources(this.cmdBrowse, "cmdBrowse");
             this.cmdBrowse.Name = "cmdBrowse";
-            this.cmdBrowse.Size = new System.Drawing.Size(76, 23);
-            this.cmdBrowse.TabIndex = 2;
-            this.cmdBrowse.Text = "Browse...";
             this.cmdBrowse.UseVisualStyleBackColor = true;
             this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
             // 
             // lblPath
             // 
-            this.lblPath.AutoSize = true;
-            this.lblPath.Location = new System.Drawing.Point(6, 16);
+            resources.ApplyResources(this.lblPath, "lblPath");
             this.lblPath.Name = "lblPath";
-            this.lblPath.Size = new System.Drawing.Size(79, 13);
-            this.lblPath.TabIndex = 0;
-            this.lblPath.Text = "Profile file path:";
             // 
             // grpUserInfo
             // 
-            this.grpUserInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpUserInfo, "grpUserInfo");
             this.grpUserInfo.Controls.Add(this.txtUserUrl);
             this.grpUserInfo.Controls.Add(this.radSelUserByURL);
             this.grpUserInfo.Controls.Add(this.radSelUserByID);
@@ -138,454 +125,296 @@ namespace Depressurizer {
             this.grpUserInfo.Controls.Add(this.cmdUserUpdate);
             this.grpUserInfo.Controls.Add(this.txtUserID);
             this.grpUserInfo.Controls.Add(this.lstUsers);
-            this.grpUserInfo.Location = new System.Drawing.Point(6, 52);
             this.grpUserInfo.Name = "grpUserInfo";
-            this.grpUserInfo.Size = new System.Drawing.Size(550, 189);
-            this.grpUserInfo.TabIndex = 1;
             this.grpUserInfo.TabStop = false;
-            this.grpUserInfo.Text = "Select User";
             // 
             // txtUserUrl
             // 
-            this.txtUserUrl.Location = new System.Drawing.Point(201, 159);
+            resources.ApplyResources(this.txtUserUrl, "txtUserUrl");
             this.txtUserUrl.Name = "txtUserUrl";
-            this.txtUserUrl.Size = new System.Drawing.Size(343, 20);
-            this.txtUserUrl.TabIndex = 0;
             // 
             // radSelUserByURL
             // 
-            this.radSelUserByURL.AutoSize = true;
-            this.radSelUserByURL.Location = new System.Drawing.Point(6, 160);
+            resources.ApplyResources(this.radSelUserByURL, "radSelUserByURL");
             this.radSelUserByURL.Name = "radSelUserByURL";
-            this.radSelUserByURL.Size = new System.Drawing.Size(189, 17);
-            this.radSelUserByURL.TabIndex = 7;
             this.radSelUserByURL.TabStop = true;
-            this.radSelUserByURL.Text = "Manually enter Custom URL name:";
             this.radSelUserByURL.UseVisualStyleBackColor = true;
             this.radSelUserByURL.CheckedChanged += new System.EventHandler(this.radSelUser_CheckedChanged);
             // 
             // radSelUserByID
             // 
-            this.radSelUserByID.AutoSize = true;
-            this.radSelUserByID.Location = new System.Drawing.Point(6, 134);
+            resources.ApplyResources(this.radSelUserByID, "radSelUserByID");
             this.radSelUserByID.Name = "radSelUserByID";
-            this.radSelUserByID.Size = new System.Drawing.Size(173, 17);
-            this.radSelUserByID.TabIndex = 5;
             this.radSelUserByID.TabStop = true;
-            this.radSelUserByID.Text = "Manually enter 64-bit Steam ID:";
             this.radSelUserByID.UseVisualStyleBackColor = true;
             this.radSelUserByID.CheckedChanged += new System.EventHandler(this.radSelUser_CheckedChanged);
             // 
             // radSelUserFromList
             // 
-            this.radSelUserFromList.AutoSize = true;
-            this.radSelUserFromList.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.radSelUserFromList, "radSelUserFromList");
             this.radSelUserFromList.Name = "radSelUserFromList";
-            this.radSelUserFromList.Size = new System.Drawing.Size(222, 17);
-            this.radSelUserFromList.TabIndex = 0;
             this.radSelUserFromList.TabStop = true;
-            this.radSelUserFromList.Text = "Select from users found on local machine:";
             this.radSelUserFromList.UseVisualStyleBackColor = true;
             this.radSelUserFromList.CheckedChanged += new System.EventHandler(this.radSelUser_CheckedChanged);
             // 
             // cmdUserUpdateCancel
             // 
-            this.cmdUserUpdateCancel.Enabled = false;
-            this.cmdUserUpdateCancel.Location = new System.Drawing.Point(469, 104);
+            resources.ApplyResources(this.cmdUserUpdateCancel, "cmdUserUpdateCancel");
             this.cmdUserUpdateCancel.Name = "cmdUserUpdateCancel";
-            this.cmdUserUpdateCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdUserUpdateCancel.TabIndex = 4;
-            this.cmdUserUpdateCancel.Text = "Cancel";
             this.cmdUserUpdateCancel.UseVisualStyleBackColor = true;
             this.cmdUserUpdateCancel.Click += new System.EventHandler(this.cmdUserUpdateCancel_Click);
             // 
             // lblUserStatus
             // 
-            this.lblUserStatus.Location = new System.Drawing.Point(6, 109);
+            resources.ApplyResources(this.lblUserStatus, "lblUserStatus");
             this.lblUserStatus.Name = "lblUserStatus";
-            this.lblUserStatus.Size = new System.Drawing.Size(375, 13);
-            this.lblUserStatus.TabIndex = 2;
-            this.lblUserStatus.Text = "Press Update to get display names for the account numbers above.";
-            this.lblUserStatus.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // cmdUserUpdate
             // 
-            this.cmdUserUpdate.Location = new System.Drawing.Point(387, 104);
+            resources.ApplyResources(this.cmdUserUpdate, "cmdUserUpdate");
             this.cmdUserUpdate.Name = "cmdUserUpdate";
-            this.cmdUserUpdate.Size = new System.Drawing.Size(76, 23);
-            this.cmdUserUpdate.TabIndex = 3;
-            this.cmdUserUpdate.Text = "Update";
             this.cmdUserUpdate.UseVisualStyleBackColor = true;
             this.cmdUserUpdate.Click += new System.EventHandler(this.cmdUserUpdate_Click);
             // 
             // txtUserID
             // 
-            this.txtUserID.Enabled = false;
-            this.txtUserID.Location = new System.Drawing.Point(201, 133);
+            resources.ApplyResources(this.txtUserID, "txtUserID");
             this.txtUserID.Name = "txtUserID";
-            this.txtUserID.Size = new System.Drawing.Size(343, 20);
-            this.txtUserID.TabIndex = 6;
             this.txtUserID.TextChanged += new System.EventHandler(this.txtUserID_TextChanged);
             // 
             // lstUsers
             // 
+            resources.ApplyResources(this.lstUsers, "lstUsers");
             this.lstUsers.FormattingEnabled = true;
-            this.lstUsers.Location = new System.Drawing.Point(22, 42);
             this.lstUsers.Name = "lstUsers";
-            this.lstUsers.Size = new System.Drawing.Size(522, 56);
-            this.lstUsers.TabIndex = 1;
             this.lstUsers.SelectedIndexChanged += new System.EventHandler(this.lstUsers_SelectedIndexChanged);
             // 
             // grpProfInfo
             // 
-            this.grpProfInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpProfInfo, "grpProfInfo");
             this.grpProfInfo.Controls.Add(this.txtFilePath);
             this.grpProfInfo.Controls.Add(this.cmdBrowse);
             this.grpProfInfo.Controls.Add(this.lblPath);
-            this.grpProfInfo.Location = new System.Drawing.Point(6, 6);
             this.grpProfInfo.Name = "grpProfInfo";
-            this.grpProfInfo.Size = new System.Drawing.Size(550, 40);
-            this.grpProfInfo.TabIndex = 0;
             this.grpProfInfo.TabStop = false;
-            this.grpProfInfo.Text = "Profile Info";
             // 
             // grpActions
             // 
-            this.grpActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpActions, "grpActions");
             this.grpActions.Controls.Add(this.chkSetStartup);
             this.grpActions.Controls.Add(this.chkActImport);
             this.grpActions.Controls.Add(this.chkActDownload);
-            this.grpActions.Location = new System.Drawing.Point(6, 247);
             this.grpActions.Name = "grpActions";
-            this.grpActions.Size = new System.Drawing.Size(550, 91);
-            this.grpActions.TabIndex = 2;
             this.grpActions.TabStop = false;
-            this.grpActions.Text = "Additional Actions";
             // 
             // chkSetStartup
             // 
-            this.chkSetStartup.AutoSize = true;
+            resources.ApplyResources(this.chkSetStartup, "chkSetStartup");
             this.chkSetStartup.Checked = true;
             this.chkSetStartup.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSetStartup.Location = new System.Drawing.Point(9, 67);
             this.chkSetStartup.Name = "chkSetStartup";
-            this.chkSetStartup.Size = new System.Drawing.Size(245, 17);
-            this.chkSetStartup.TabIndex = 2;
-            this.chkSetStartup.Text = "Set this profile to be loaded on program startup";
             this.chkSetStartup.UseVisualStyleBackColor = true;
             // 
             // chkActImport
             // 
-            this.chkActImport.AutoSize = true;
+            resources.ApplyResources(this.chkActImport, "chkActImport");
             this.chkActImport.Checked = true;
             this.chkActImport.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkActImport.Location = new System.Drawing.Point(9, 44);
             this.chkActImport.Name = "chkActImport";
-            this.chkActImport.Size = new System.Drawing.Size(209, 17);
-            this.chkActImport.TabIndex = 1;
-            this.chkActImport.Text = "Import categories from Steam right now";
             this.chkActImport.UseVisualStyleBackColor = true;
             // 
             // chkActDownload
             // 
-            this.chkActDownload.AutoSize = true;
+            resources.ApplyResources(this.chkActDownload, "chkActDownload");
             this.chkActDownload.Checked = true;
             this.chkActDownload.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkActDownload.Location = new System.Drawing.Point(9, 20);
             this.chkActDownload.Name = "chkActDownload";
-            this.chkActDownload.Size = new System.Drawing.Size(259, 17);
-            this.chkActDownload.TabIndex = 0;
-            this.chkActDownload.Text = "Download game list from community site right now";
             this.chkActDownload.UseVisualStyleBackColor = true;
             // 
             // cmdOk
             // 
-            this.cmdOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOk.Location = new System.Drawing.Point(507, 387);
+            resources.ApplyResources(this.cmdOk, "cmdOk");
             this.cmdOk.Name = "cmdOk";
-            this.cmdOk.Size = new System.Drawing.Size(75, 23);
-            this.cmdOk.TabIndex = 2;
-            this.cmdOk.Text = "OK";
             this.cmdOk.UseVisualStyleBackColor = true;
             this.cmdOk.Click += new System.EventHandler(this.cmdOk_Click);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(426, 387);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 1;
-            this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // grpLoadOpt
             // 
-            this.grpLoadOpt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpLoadOpt, "grpLoadOpt");
             this.grpLoadOpt.Controls.Add(this.chkAutoImport);
             this.grpLoadOpt.Controls.Add(this.chkAutoDownload);
-            this.grpLoadOpt.Location = new System.Drawing.Point(6, 6);
-            this.grpLoadOpt.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.grpLoadOpt.Name = "grpLoadOpt";
-            this.grpLoadOpt.Size = new System.Drawing.Size(523, 65);
-            this.grpLoadOpt.TabIndex = 0;
             this.grpLoadOpt.TabStop = false;
-            this.grpLoadOpt.Text = "Profile Loading Options";
             // 
             // chkAutoImport
             // 
-            this.chkAutoImport.AutoSize = true;
-            this.chkAutoImport.Location = new System.Drawing.Point(6, 42);
+            resources.ApplyResources(this.chkAutoImport, "chkAutoImport");
             this.chkAutoImport.Name = "chkAutoImport";
-            this.chkAutoImport.Size = new System.Drawing.Size(265, 17);
-            this.chkAutoImport.TabIndex = 1;
-            this.chkAutoImport.Text = "Automatically import categories from Steam on load";
             this.chkAutoImport.UseVisualStyleBackColor = true;
             // 
             // chkAutoDownload
             // 
-            this.chkAutoDownload.AutoSize = true;
+            resources.ApplyResources(this.chkAutoDownload, "chkAutoDownload");
             this.chkAutoDownload.Checked = true;
             this.chkAutoDownload.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoDownload.Location = new System.Drawing.Point(6, 19);
             this.chkAutoDownload.Name = "chkAutoDownload";
-            this.chkAutoDownload.Size = new System.Drawing.Size(329, 17);
-            this.chkAutoDownload.TabIndex = 0;
-            this.chkAutoDownload.Text = "Automatically download game list from Steam Community on load";
             this.chkAutoDownload.UseVisualStyleBackColor = true;
             // 
             // grpSaveOpt
             // 
-            this.grpSaveOpt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpSaveOpt, "grpSaveOpt");
             this.grpSaveOpt.Controls.Add(this.chkExportDiscard);
             this.grpSaveOpt.Controls.Add(this.chkAutoExport);
-            this.grpSaveOpt.Location = new System.Drawing.Point(6, 77);
-            this.grpSaveOpt.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.grpSaveOpt.Name = "grpSaveOpt";
-            this.grpSaveOpt.Size = new System.Drawing.Size(523, 65);
-            this.grpSaveOpt.TabIndex = 1;
             this.grpSaveOpt.TabStop = false;
-            this.grpSaveOpt.Text = "Profile Saving Options";
             // 
             // chkExportDiscard
             // 
-            this.chkExportDiscard.AutoSize = true;
+            resources.ApplyResources(this.chkExportDiscard, "chkExportDiscard");
             this.chkExportDiscard.Checked = true;
             this.chkExportDiscard.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExportDiscard.Location = new System.Drawing.Point(6, 42);
             this.chkExportDiscard.Name = "chkExportDiscard";
-            this.chkExportDiscard.Size = new System.Drawing.Size(370, 17);
-            this.chkExportDiscard.TabIndex = 1;
-            this.chkExportDiscard.Text = "Remove entries for deleted or unknown games in Steam configuration file";
             this.chkExportDiscard.UseVisualStyleBackColor = true;
             // 
             // chkAutoExport
             // 
-            this.chkAutoExport.AutoSize = true;
+            resources.ApplyResources(this.chkAutoExport, "chkAutoExport");
             this.chkAutoExport.Checked = true;
             this.chkAutoExport.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoExport.Location = new System.Drawing.Point(6, 19);
             this.chkAutoExport.Name = "chkAutoExport";
-            this.chkAutoExport.Size = new System.Drawing.Size(305, 17);
-            this.chkAutoExport.TabIndex = 0;
-            this.chkAutoExport.Text = "Automatically save categories to Steam when saving profile";
             this.chkAutoExport.UseVisualStyleBackColor = true;
             // 
             // tabControl
             // 
-            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Controls.Add(this.tabMain);
             this.tabControl.Controls.Add(this.tabOpts);
             this.tabControl.Controls.Add(this.tabIgnore);
-            this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(570, 369);
-            this.tabControl.TabIndex = 0;
             // 
             // tabMain
             // 
+            resources.ApplyResources(this.tabMain, "tabMain");
             this.tabMain.Controls.Add(this.grpProfInfo);
             this.tabMain.Controls.Add(this.grpUserInfo);
             this.tabMain.Controls.Add(this.grpActions);
-            this.tabMain.Location = new System.Drawing.Point(4, 22);
             this.tabMain.Name = "tabMain";
-            this.tabMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMain.Size = new System.Drawing.Size(562, 343);
-            this.tabMain.TabIndex = 0;
-            this.tabMain.Text = "Main";
             this.tabMain.UseVisualStyleBackColor = true;
             // 
             // tabOpts
             // 
+            resources.ApplyResources(this.tabOpts, "tabOpts");
             this.tabOpts.Controls.Add(this.grpOtherOpt);
             this.tabOpts.Controls.Add(this.grpSaveOpt);
             this.tabOpts.Controls.Add(this.grpLoadOpt);
-            this.tabOpts.Location = new System.Drawing.Point(4, 22);
             this.tabOpts.Name = "tabOpts";
-            this.tabOpts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOpts.Size = new System.Drawing.Size(562, 343);
-            this.tabOpts.TabIndex = 1;
-            this.tabOpts.Text = "Options";
             this.tabOpts.UseVisualStyleBackColor = true;
             // 
             // grpOtherOpt
             // 
-            this.grpOtherOpt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpOtherOpt, "grpOtherOpt");
             this.grpOtherOpt.Controls.Add(this.chkOverwriteNames);
-            this.grpOtherOpt.Location = new System.Drawing.Point(6, 148);
             this.grpOtherOpt.Name = "grpOtherOpt";
-            this.grpOtherOpt.Size = new System.Drawing.Size(523, 45);
-            this.grpOtherOpt.TabIndex = 2;
             this.grpOtherOpt.TabStop = false;
-            this.grpOtherOpt.Text = "Other Options";
             // 
             // chkOverwriteNames
             // 
-            this.chkOverwriteNames.AutoSize = true;
-            this.chkOverwriteNames.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.chkOverwriteNames, "chkOverwriteNames");
             this.chkOverwriteNames.Name = "chkOverwriteNames";
-            this.chkOverwriteNames.Size = new System.Drawing.Size(241, 17);
-            this.chkOverwriteNames.TabIndex = 0;
-            this.chkOverwriteNames.Text = "Overwrite names when downloading game list";
             this.chkOverwriteNames.UseVisualStyleBackColor = true;
             // 
             // tabIgnore
             // 
+            resources.ApplyResources(this.tabIgnore, "tabIgnore");
             this.tabIgnore.Controls.Add(this.grpIgnored);
             this.tabIgnore.Controls.Add(this.grpIgnoreSettings);
-            this.tabIgnore.Location = new System.Drawing.Point(4, 22);
             this.tabIgnore.Name = "tabIgnore";
-            this.tabIgnore.Size = new System.Drawing.Size(562, 343);
-            this.tabIgnore.TabIndex = 2;
-            this.tabIgnore.Text = "Ignored Games";
             this.tabIgnore.UseVisualStyleBackColor = true;
             // 
             // grpIgnored
             // 
-            this.grpIgnored.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpIgnored, "grpIgnored");
             this.grpIgnored.Controls.Add(this.cmdIgnore);
             this.grpIgnored.Controls.Add(this.txtIgnore);
             this.grpIgnored.Controls.Add(this.cmdUnignore);
             this.grpIgnored.Controls.Add(this.lstIgnored);
-            this.grpIgnored.Location = new System.Drawing.Point(3, 3);
             this.grpIgnored.Name = "grpIgnored";
-            this.grpIgnored.Size = new System.Drawing.Size(296, 329);
-            this.grpIgnored.TabIndex = 0;
             this.grpIgnored.TabStop = false;
-            this.grpIgnored.Text = "Ignored Games";
             // 
             // cmdIgnore
             // 
-            this.cmdIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdIgnore.Location = new System.Drawing.Point(187, 45);
+            resources.ApplyResources(this.cmdIgnore, "cmdIgnore");
             this.cmdIgnore.Name = "cmdIgnore";
-            this.cmdIgnore.Size = new System.Drawing.Size(103, 23);
-            this.cmdIgnore.TabIndex = 2;
-            this.cmdIgnore.Text = "Ignore";
             this.cmdIgnore.UseVisualStyleBackColor = true;
             this.cmdIgnore.Click += new System.EventHandler(this.cmdIgnore_Click);
             // 
             // txtIgnore
             // 
-            this.txtIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIgnore.Location = new System.Drawing.Point(187, 19);
+            resources.ApplyResources(this.txtIgnore, "txtIgnore");
             this.txtIgnore.Name = "txtIgnore";
-            this.txtIgnore.Size = new System.Drawing.Size(103, 20);
-            this.txtIgnore.TabIndex = 1;
             // 
             // cmdUnignore
             // 
-            this.cmdUnignore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUnignore.Location = new System.Drawing.Point(187, 300);
+            resources.ApplyResources(this.cmdUnignore, "cmdUnignore");
             this.cmdUnignore.Name = "cmdUnignore";
-            this.cmdUnignore.Size = new System.Drawing.Size(103, 23);
-            this.cmdUnignore.TabIndex = 3;
-            this.cmdUnignore.Text = "Unignore Selected";
             this.cmdUnignore.UseVisualStyleBackColor = true;
             this.cmdUnignore.Click += new System.EventHandler(this.cmdUnignore_Click);
             // 
             // lstIgnored
             // 
-            this.lstIgnored.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.lstIgnored, "lstIgnored");
             this.lstIgnored.FullRowSelect = true;
-            this.lstIgnored.Location = new System.Drawing.Point(6, 19);
             this.lstIgnored.Name = "lstIgnored";
-            this.lstIgnored.Size = new System.Drawing.Size(175, 304);
             this.lstIgnored.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lstIgnored.TabIndex = 0;
             this.lstIgnored.UseCompatibleStateImageBehavior = false;
             this.lstIgnored.View = System.Windows.Forms.View.List;
             // 
             // grpIgnoreSettings
             // 
-            this.grpIgnoreSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.grpIgnoreSettings, "grpIgnoreSettings");
             this.grpIgnoreSettings.Controls.Add(this.chkIgnoreDlc);
             this.grpIgnoreSettings.Controls.Add(this.chkAutoIgnore);
-            this.grpIgnoreSettings.Location = new System.Drawing.Point(305, 3);
             this.grpIgnoreSettings.Name = "grpIgnoreSettings";
-            this.grpIgnoreSettings.Size = new System.Drawing.Size(227, 329);
-            this.grpIgnoreSettings.TabIndex = 1;
             this.grpIgnoreSettings.TabStop = false;
-            this.grpIgnoreSettings.Text = "Settings";
             // 
             // chkIgnoreDlc
             // 
-            this.chkIgnoreDlc.AutoSize = true;
+            resources.ApplyResources(this.chkIgnoreDlc, "chkIgnoreDlc");
             this.chkIgnoreDlc.Checked = true;
             this.chkIgnoreDlc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIgnoreDlc.Location = new System.Drawing.Point(6, 58);
             this.chkIgnoreDlc.Name = "chkIgnoreDlc";
-            this.chkIgnoreDlc.Size = new System.Drawing.Size(115, 17);
-            this.chkIgnoreDlc.TabIndex = 1;
-            this.chkIgnoreDlc.Text = "Also ignore all DLC";
             this.chkIgnoreDlc.UseVisualStyleBackColor = true;
             // 
             // chkAutoIgnore
             // 
-            this.chkAutoIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkAutoIgnore.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            resources.ApplyResources(this.chkAutoIgnore, "chkAutoIgnore");
             this.chkAutoIgnore.Checked = true;
             this.chkAutoIgnore.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoIgnore.Location = new System.Drawing.Point(6, 19);
             this.chkAutoIgnore.Name = "chkAutoIgnore";
-            this.chkAutoIgnore.Size = new System.Drawing.Size(215, 33);
-            this.chkAutoIgnore.TabIndex = 0;
-            this.chkAutoIgnore.Text = "Automatically Ignore games when removing them";
-            this.chkAutoIgnore.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chkAutoIgnore.UseVisualStyleBackColor = true;
             // 
-            // ProfileDlg
+            // DlgProfile
             // 
             this.AcceptButton = this.cmdOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(594, 420);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOk);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "ProfileDlg";
+            this.Name = "DlgProfile";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Create Profile";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProfileDlg_FormClosing);
             this.Load += new System.EventHandler(this.ProfileDlg_Load);
             this.grpUserInfo.ResumeLayout(false);
