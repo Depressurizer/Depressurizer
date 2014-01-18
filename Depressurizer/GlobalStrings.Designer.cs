@@ -662,6 +662,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Edit Profile.
+        /// </summary>
+        internal static string DlgProfile_EditProfile {
+            get {
+                return ResourceManager.GetString("DlgProfile_EditProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Exception raised when trying to scrape profile name for account {0}:.
         /// </summary>
         internal static string DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName {

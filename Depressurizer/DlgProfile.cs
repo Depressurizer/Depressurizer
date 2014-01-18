@@ -81,7 +81,7 @@ namespace Depressurizer {
             chkExportDiscard.Checked = Profile.ExportDiscard;
             chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
 
-            this.Text = "Edit Profile";
+            this.Text = GlobalStrings.DlgProfile_EditProfile;
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
             chkIgnoreDlc.Checked = Profile.IgnoreDlc;

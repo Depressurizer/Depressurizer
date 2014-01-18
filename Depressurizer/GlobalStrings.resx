@@ -782,4 +782,7 @@ Continue loading file?</value>
   <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
     <value>Unexpected end-of-file reached: Unterminated string.</value>
   </data>
+  <data name="DlgProfile_EditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
 </root>

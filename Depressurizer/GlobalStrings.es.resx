@@ -784,4 +784,7 @@ Tiempo Restante:</value>
   <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
     <value>Alcanzado final de fichero inesperadamente: cadena sin finalizar.</value>
   </data>
+  <data name="DlgProfile_EditProfile" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
 </root>
