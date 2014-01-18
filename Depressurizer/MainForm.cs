@@ -50,6 +50,10 @@ namespace Depressurizer {
         // Allow visual feedback when dragging over the cat list
         bool isDragging;
         int dragOldCat;
+
+        // jpodadera. Used to reload resources of main form while switching language
+        private int originalWidth, originalHeight;
+
         #endregion
         #region Properties
         /// <summary>
@@ -979,6 +983,9 @@ namespace Depressurizer {
         private void FormMain_Load( object sender, EventArgs e ) {
             UpdateButtonEnabledStates();
             LoadGameDB();
+            // jpodadera. Save original width and height
+            originalHeight = this.Height;
+            originalWidth = this.Width;
         }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
@@ -1160,6 +1167,12 @@ namespace Depressurizer {
             LoadGameDB();
         }
 
+        /// <summary>
+        /// jpodadera. Recursive function to reload resources of new language for a menu item and its childs
+        /// </summary>
+        /// <param name="item"></param> Item menu to reload resources
+        /// <param name="resources"></param> Resource manager
+        /// <param name="newCulture"></param> Culture of language to load
         private void changeLanguageToolStripItems(ToolStripItem item, ComponentResourceManager resources, CultureInfo newCulture)
         {
             if (item != null)
@@ -1173,6 +1186,12 @@ namespace Depressurizer {
             }
         }
         
+        /// <summary>
+        /// jpodadera. Recursive function to reload resources of new language for a control and its childs 
+        /// </summary>
+        /// <param name="c"></param> Control to reload resources
+        /// <param name="resources"></param> Resource manager
+        /// <param name="newCulture"></param> Culture of language to load
         private void changeLanguageControls(Control c, ComponentResourceManager resources, CultureInfo newCulture)
         {
             if (c != null)
@@ -1184,6 +1203,8 @@ namespace Depressurizer {
                 }
                 else if (c.GetType() == typeof(ListView))
                 {
+                    // jpodadera. Because a framework bug, names of ColumnHeader objects are empty. 
+                    // Resolved by saving names to Tag property.
                     foreach (ColumnHeader cHeader in (c as ListView).Columns)
                         resources.ApplyResources(cHeader, cHeader.Tag.ToString(), newCulture);
                 }
@@ -1199,15 +1220,31 @@ namespace Depressurizer {
         private void menu_Tools_Settings_Click( object sender, EventArgs e ) {
             ClearStatus();
             DlgOptions dlg = new DlgOptions();
+
+            // jpodadera. Save culture of actual language
             CultureInfo actualCulture = Thread.CurrentThread.CurrentUICulture;
+
             dlg.ShowDialog();
 
+            // jpodadera. If language has been changed, reload resources of main window
             if (actualCulture.Name != Thread.CurrentThread.CurrentUICulture.Name)
             {
                 ComponentResourceManager resources = new ComponentResourceManager(typeof(FormMain));
                 resources.ApplyResources(this, this.Name, Thread.CurrentThread.CurrentUICulture);
+
+                // jpodadera. Save actual size and recover original size before reload resources of controls
+                int actualWidth = this.Width;
+                int actualHeight = this.Height;
+                this.Width = this.originalWidth;
+                this.Height = this.originalHeight;
+
                 changeLanguageControls(this, resources, Thread.CurrentThread.CurrentUICulture);
+
+                // jpodadera. Recover previous size
+                this.Width = actualWidth;
+                this.Height = actualHeight;
                 
+                // reload new strings for status bar
                 UpdateSelectedStatusText();
             }
 
