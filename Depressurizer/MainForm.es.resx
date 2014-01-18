@@ -160,6 +160,18 @@
   <data name="grpCategories.Text" xml:space="preserve">
     <value>Categorías</value>
   </data>
+  <data name="chkGroupCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>328, 316</value>
+  </data>
+  <data name="chkGroupCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 17</value>
+  </data>
+  <data name="chkGroupCategory.Text" xml:space="preserve">
+    <value>Agrupar por categoría</value>
+  </data>
+  <data name="chkFavorite.Location" type="System.Drawing.Point, System.Drawing">
+    <value>435, 293</value>
+  </data>
   <data name="cmdGameLaunch.Text" xml:space="preserve">
     <value>Lanzar Juego</value>
   </data>
@@ -174,6 +186,9 @@
   </data>
   <data name="cmdGameEdit.Text" xml:space="preserve">
     <value>Editar Juego</value>
+  </data>
+  <data name="combCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>328, 265</value>
   </data>
   <data name="cmdGameSetCategory.Text" xml:space="preserve">
     <value>Mod. Categoría</value>

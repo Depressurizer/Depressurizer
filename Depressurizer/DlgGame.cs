@@ -75,8 +75,17 @@ namespace Depressurizer {
                     MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                Game = new Game( id, txtName.Text );
-                Data.Games.Add( id, Game );
+                // jpodadera. Control if Game ID already exists to avoid exceptions
+                if (Data.Games.ContainsKey(id))
+                {
+                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    Game = new Game(id, txtName.Text);
+                    Data.Games.Add(id, Game);
+                }
             }
             Game.Category = setCat;
             Game.Favorite = chkFavorite.Checked;

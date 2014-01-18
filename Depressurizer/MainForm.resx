@@ -117,149 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="splitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;cmdAutoCat.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;statusStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 24</value>
+  <data name="grpGames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>564, 361</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="chkGroupCategory.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_Sep2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextGame_Sep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkFavorite.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="statusStrip.Text" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lstCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <metadata name="contextCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>642, 17</value>
-  </metadata>
-  <data name="contextCat_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+  <data name="&gt;&gt;menu_Profile_Export.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="contextCat_Add.Text" xml:space="preserve">
-    <value>Add Category...</value>
+  <data name="colFavorite.Width" type="System.Int32, mscorlib">
+    <value>52</value>
   </data>
-  <data name="contextCat_Rename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+  <data name="cmdGameEdit.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
-  <data name="contextCat_Rename.Text" xml:space="preserve">
-    <value>Rename Category...</value>
+  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
-  <data name="contextCat_Delete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_Delete.Text" xml:space="preserve">
-    <value>Delete Category</value>
-  </data>
-  <data name="contextCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="contextCat_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
-    <value>Remove Empty Categories</value>
-  </data>
-  <data name="contextCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 98</value>
-  </data>
-  <data name="&gt;&gt;contextCat.Name" xml:space="preserve">
-    <value>contextCat</value>
-  </data>
-  <data name="&gt;&gt;contextCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lstCategories.IntegralHeight" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="lstCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 20</value>
-  </data>
-  <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 287</value>
-  </data>
-  <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lstCategories.Name" xml:space="preserve">
-    <value>lstCategories</value>
-  </data>
-  <data name="&gt;&gt;lstCategories.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lstCategories.Parent" xml:space="preserve">
-    <value>grpCategories</value>
-  </data>
-  <data name="&gt;&gt;lstCategories.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tableCatButtons.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="tableCatButtons.ColumnCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="cmdCatAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="cmdCatAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="cmdCatAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 23</value>
-  </data>
-  <data name="cmdCatAdd.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="cmdCatAdd.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Name" xml:space="preserve">
-    <value>cmdCatAdd</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cmdCatDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="cmdCatDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>133, 3</value>
-  </data>
-  <data name="cmdCatDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 23</value>
-  </data>
-  <data name="cmdCatDelete.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="cmdCatDelete.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Name" xml:space="preserve">
-    <value>cmdCatDelete</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cmdCatRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="cmdCatRename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 3</value>
-  </data>
-  <data name="cmdCatRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 23</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
   </data>
   <data name="cmdCatRename.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -267,806 +168,464 @@
   <data name="cmdCatRename.Text" xml:space="preserve">
     <value>Rename</value>
   </data>
-  <data name="&gt;&gt;cmdCatRename.Name" xml:space="preserve">
-    <value>cmdCatRename</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tableCatButtons.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 309</value>
-  </data>
-  <data name="tableCatButtons.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tableCatButtons.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 29</value>
-  </data>
-  <data name="tableCatButtons.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tableCatButtons.Name" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;tableCatButtons.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableCatButtons.Parent" xml:space="preserve">
-    <value>grpCategories</value>
-  </data>
-  <data name="&gt;&gt;tableCatButtons.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tableCatButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33,33333,Percent,33,33333,Percent,33,33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="grpCategories.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="grpCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="grpCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 361</value>
-  </data>
-  <data name="grpCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="grpCategories.Text" xml:space="preserve">
-    <value>Categories</value>
-  </data>
-  <data name="&gt;&gt;grpCategories.Name" xml:space="preserve">
-    <value>grpCategories</value>
-  </data>
-  <data name="&gt;&gt;grpCategories.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpCategories.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;grpCategories.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel1.Parent" xml:space="preserve">
-    <value>splitContainer</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="chkFavorite.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="chkFavorite.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkFavorite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>443, 293</value>
-  </data>
-  <data name="chkFavorite.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkFavorite.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;chkFavorite.Name" xml:space="preserve">
-    <value>chkFavorite</value>
-  </data>
-  <data name="&gt;&gt;chkFavorite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkFavorite.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;chkFavorite.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cmdGameLaunch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="cmdGameLaunch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 263</value>
-  </data>
-  <data name="cmdGameLaunch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="cmdGameLaunch.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="cmdGameLaunch.Text" xml:space="preserve">
-    <value>Start Game</value>
-  </data>
-  <data name="&gt;&gt;cmdGameLaunch.Name" xml:space="preserve">
-    <value>cmdGameLaunch</value>
-  </data>
-  <data name="&gt;&gt;cmdGameLaunch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameLaunch.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameLaunch.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cmdAutoCat.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdAutoCat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>464, 313</value>
-  </data>
-  <data name="cmdAutoCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 23</value>
-  </data>
-  <data name="cmdAutoCat.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="cmdAutoCat.Text" xml:space="preserve">
-    <value>Auto-Categorize</value>
-  </data>
-  <data name="&gt;&gt;cmdAutoCat.Name" xml:space="preserve">
-    <value>cmdAutoCat</value>
-  </data>
-  <data name="&gt;&gt;cmdAutoCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdAutoCat.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdAutoCat.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cmdGameAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="cmdGameAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 288</value>
-  </data>
-  <data name="cmdGameAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="cmdGameAdd.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="cmdGameAdd.Text" xml:space="preserve">
-    <value>Add Game</value>
-  </data>
-  <data name="&gt;&gt;cmdGameAdd.Name" xml:space="preserve">
-    <value>cmdGameAdd</value>
-  </data>
-  <data name="&gt;&gt;cmdGameAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameAdd.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameAdd.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="cmdGameRemove.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="cmdGameRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 313</value>
-  </data>
-  <data name="cmdGameRemove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="cmdGameRemove.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="cmdGameRemove.Text" xml:space="preserve">
-    <value>Remove Selected</value>
-  </data>
-  <data name="&gt;&gt;cmdGameRemove.Name" xml:space="preserve">
-    <value>cmdGameRemove</value>
-  </data>
-  <data name="&gt;&gt;cmdGameRemove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameRemove.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameRemove.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="cmdGameEdit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="cmdGameEdit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 263</value>
-  </data>
-  <data name="cmdGameEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="cmdGameEdit.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="cmdGameEdit.Text" xml:space="preserve">
-    <value>Edit Game</value>
-  </data>
-  <data name="&gt;&gt;cmdGameEdit.Name" xml:space="preserve">
-    <value>cmdGameEdit</value>
-  </data>
-  <data name="&gt;&gt;cmdGameEdit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameEdit.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameEdit.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="combCategory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="combCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 265</value>
-  </data>
-  <data name="combCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 21</value>
-  </data>
-  <data name="combCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;combCategory.Name" xml:space="preserve">
-    <value>combCategory</value>
-  </data>
-  <data name="&gt;&gt;combCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;combCategory.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;combCategory.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="cmdGameSetCategory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdGameSetCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>464, 263</value>
-  </data>
-  <data name="cmdGameSetCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 23</value>
-  </data>
-  <data name="cmdGameSetCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="cmdGameSetCategory.Text" xml:space="preserve">
-    <value>Set Category</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetCategory.Name" xml:space="preserve">
-    <value>cmdGameSetCategory</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetCategory.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetCategory.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="cmdGameSetFavorite.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdGameSetFavorite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>464, 288</value>
-  </data>
-  <data name="cmdGameSetFavorite.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 23</value>
-  </data>
-  <data name="cmdGameSetFavorite.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="cmdGameSetFavorite.Text" xml:space="preserve">
-    <value>Set Favorite</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetFavorite.Name" xml:space="preserve">
-    <value>cmdGameSetFavorite</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetFavorite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetFavorite.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetFavorite.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="lstGames.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="colGameID.Text" xml:space="preserve">
-    <value>Game ID</value>
-  </data>
-  <data name="colTitle.Text" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="colTitle.Width" type="System.Int32, mscorlib">
-    <value>286</value>
-  </data>
-  <data name="colCategory.Text" xml:space="preserve">
-    <value>Category</value>
-  </data>
-  <data name="colCategory.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="colFavorite.Text" xml:space="preserve">
-    <value>Favorite</value>
-  </data>
-  <data name="colFavorite.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="colFavorite.Width" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <metadata name="contextGame.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>234, 17</value>
-  </metadata>
-  <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
-  </data>
-  <data name="contextGame_Add.Text" xml:space="preserve">
-    <value>Add New Game...</value>
-  </data>
-  <data name="cntxtGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
-  </data>
-  <data name="cntxtGame_Edit.Text" xml:space="preserve">
-    <value>Edit Game...</value>
-  </data>
-  <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
-  </data>
-  <data name="contextGame_Remove.Text" xml:space="preserve">
-    <value>Remove Game</value>
-  </data>
-  <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 6</value>
-  </data>
-  <metadata name="contextGameCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>500, 17</value>
-  </metadata>
-  <data name="contextGameCat_Create.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
-  </data>
-  <data name="contextGameCat_Create.Text" xml:space="preserve">
-    <value>Create New...</value>
-  </data>
-  <data name="contextGameCat_None.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
-  </data>
-  <data name="contextGameCat_None.Text" xml:space="preserve">
-    <value>Uncategorized</value>
-  </data>
-  <data name="contextGameCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 6</value>
-  </data>
-  <data name="contextGameCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 54</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat.Name" xml:space="preserve">
-    <value>contextGameCat</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_SetCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
-  </data>
-  <data name="contextGame_SetCat.Text" xml:space="preserve">
-    <value>Set Category</value>
-  </data>
-  <metadata name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>358, 17</value>
-  </metadata>
-  <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 22</value>
-  </data>
-  <data name="contextGameFav_Yes.Text" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 22</value>
-  </data>
-  <data name="contextGameFav_No.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 48</value>
-  </data>
-  <data name="&gt;&gt;contextGameFav.Name" xml:space="preserve">
-    <value>contextGameFav</value>
-  </data>
-  <data name="&gt;&gt;contextGameFav.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
-  </data>
-  <data name="contextGame_SetFav.Text" xml:space="preserve">
-    <value>Set Favorite</value>
-  </data>
-  <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 6</value>
+  <data name="&gt;&gt;menu_Profile_Export.Name" xml:space="preserve">
+    <value>menu_Profile_Export</value>
   </data>
   <data name="contextGame_VisitStore.Size" type="System.Drawing.Size, System.Drawing">
     <value>141, 22</value>
   </data>
-  <data name="contextGame_VisitStore.Text" xml:space="preserve">
-    <value>Visit Store Page</value>
+  <data name="&gt;&gt;menu_File_SaveProfile.Name" xml:space="preserve">
+    <value>menu_File_SaveProfile</value>
   </data>
-  <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 6</value>
+  <data name="menu_File_NewProfile.Text" xml:space="preserve">
+    <value>&amp;New Profile...</value>
   </data>
-  <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cntxtGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
     <value>141, 22</value>
   </data>
-  <data name="contextGame_LaunchGame.Text" xml:space="preserve">
+  <data name="&gt;&gt;contextGame_LaunchGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextCat_Delete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextGameCat_None.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 22</value>
+  </data>
+  <data name="&gt;&gt;cmdGameAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameSetFavorite.Name" xml:space="preserve">
+    <value>cmdGameSetFavorite</value>
+  </data>
+  <data name="contextCat_Delete.Text" xml:space="preserve">
+    <value>Delete Category</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Manual_Import.Name" xml:space="preserve">
+    <value>menu_File_Manual_Import</value>
+  </data>
+  <data name="&gt;&gt;colFavorite.Name" xml:space="preserve">
+    <value>colFavorite</value>
+  </data>
+  <data name="contextGame_SetCat.Text" xml:space="preserve">
+    <value>Set Category</value>
+  </data>
+  <data name="grpCategories.Text" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="&gt;&gt;contextGameCat_Sep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_Settings.Name" xml:space="preserve">
+    <value>menu_Tools_Settings</value>
+  </data>
+  <data name="menu_Profile_Edit.Text" xml:space="preserve">
+    <value>Edit &amp;Profile Info</value>
+  </data>
+  <data name="grpGames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="contextGame_Remove.Text" xml:space="preserve">
+    <value>Remove Game</value>
+  </data>
+  <data name="contextGame_SetCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="&gt;&gt;cmdCatAdd.Name" xml:space="preserve">
+    <value>cmdCatAdd</value>
+  </data>
+  <data name="contextCat_Rename.Text" xml:space="preserve">
+    <value>Rename Category...</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Manual_Export.Name" xml:space="preserve">
+    <value>menu_File_Manual_Export</value>
+  </data>
+  <data name="&gt;&gt;statusSelection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;cmdCatRename.Parent" xml:space="preserve">
+    <value>tableCatButtons</value>
+  </data>
+  <data name="colTitle.Width" type="System.Int32, mscorlib">
+    <value>286</value>
+  </data>
+  <data name="&gt;&gt;contextCat_Sep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextCat_RemoveEmpty.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdGameLaunch.Text" xml:space="preserve">
     <value>Start Game</value>
   </data>
-  <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 176</value>
+  <data name="&gt;&gt;menu_File_Sep2.Name" xml:space="preserve">
+    <value>menu_File_Sep2</value>
   </data>
-  <data name="&gt;&gt;contextGame.Name" xml:space="preserve">
-    <value>contextGame</value>
+  <data name="&gt;&gt;cmdAutoCat.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;contextGame.Type" xml:space="preserve">
+  <data name="&gt;&gt;tableCatButtons.Name" xml:space="preserve">
+    <value>tableCatButtons</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Manual.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatDelete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatDelete.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cmdCatAdd.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cmdCatAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 23</value>
+  </data>
+  <data name="&gt;&gt;contextGame_Add.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 20</value>
+  <data name="combCategory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>555, 239</value>
+  <data name="&gt;&gt;contextGame_Remove.Name" xml:space="preserve">
+    <value>contextGame_Remove</value>
   </data>
-  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;menu_Tools_AutocatAll.Name" xml:space="preserve">
+    <value>menu_Tools_AutocatAll</value>
+  </data>
+  <data name="grpGames.Text" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="&gt;&gt;cmdGameRemove.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="colGameID.Text" xml:space="preserve">
+    <value>Game ID</value>
+  </data>
+  <data name="menu_File.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="cmdGameSetCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatRename.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_Profile_Export.Text" xml:space="preserve">
+    <value>&amp;Export Config File</value>
+  </data>
+  <data name="&gt;&gt;cntxtGame_Edit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_File_LoadProfile.Text" xml:space="preserve">
+    <value>&amp;Load Profile...</value>
+  </data>
+  <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cmdGameSetFavorite.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lstCategories.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 20</value>
+  </data>
+  <data name="&gt;&gt;tableCatButtons.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
+    <value>Remove Empty Categories</value>
+  </data>
+  <data name="&gt;&gt;statusMsg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextGame_Sep3.Name" xml:space="preserve">
+    <value>contextGame_Sep3</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile.Name" xml:space="preserve">
+    <value>menu_Profile</value>
+  </data>
+  <data name="splitContainer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="cntxtGame_Edit.Text" xml:space="preserve">
+    <value>Edit Game...</value>
+  </data>
+  <data name="&gt;&gt;chkGroupCategory.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;menu_File_SaveProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_File_Manual_Export.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="&gt;&gt;cmdGameRemove.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 287</value>
+  </data>
+  <data name="&gt;&gt;contextGameCat.Name" xml:space="preserve">
+    <value>contextGameCat</value>
+  </data>
+  <data name="menu_Tools_DBEdit.Text" xml:space="preserve">
+    <value>Database Editor...</value>
+  </data>
+  <data name="&gt;&gt;combCategory.Name" xml:space="preserve">
+    <value>combCategory</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Download.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_Profile_Import.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+I</value>
+  </data>
+  <data name="&gt;&gt;contextCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpGames.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;menu_File_LoadProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_Profile_Edit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="menu_File_NewProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Mayús.+N</value>
+  </data>
+  <data name="contextGameFav_Yes.Text" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="&gt;&gt;cmdGameEdit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpGames.Name" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;chkGroupCategory.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
     <value>lstGames</value>
   </data>
-  <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="colFavorite.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
   </data>
-  <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
-    <value>grpGames</value>
+  <data name="cmdGameAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="cmdGameEdit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="grpGames.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>553, 17</value>
   </data>
-  <data name="grpGames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="grpGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>564, 361</value>
-  </data>
-  <data name="grpGames.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="grpGames.Text" xml:space="preserve">
-    <value>Games</value>
-  </data>
-  <data name="&gt;&gt;grpGames.Name" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;grpGames.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpGames.Parent" xml:space="preserve">
-    <value>splitContainer.Panel2</value>
-  </data>
-  <data name="&gt;&gt;grpGames.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
-    <value>splitContainer.Panel2</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel2.Parent" xml:space="preserve">
-    <value>splitContainer</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Panel2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="splitContainer.Panel2MinSize" type="System.Int32, mscorlib">
-    <value>400</value>
-  </data>
-  <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 361</value>
-  </data>
-  <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>200</value>
-  </data>
-  <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Name" xml:space="preserve">
-    <value>splitContainer</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="menu_File_NewProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Mayús.+N</value>
-  </data>
-  <data name="menu_File_NewProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
-  </data>
-  <data name="menu_File_NewProfile.Text" xml:space="preserve">
-    <value>&amp;New Profile...</value>
-  </data>
-  <data name="menu_File_LoadProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Mayús.+L</value>
-  </data>
-  <data name="menu_File_LoadProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
-  </data>
-  <data name="menu_File_LoadProfile.Text" xml:space="preserve">
-    <value>&amp;Load Profile...</value>
-  </data>
-  <data name="menu_File_SaveProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+S</value>
-  </data>
-  <data name="menu_File_SaveProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
-  </data>
-  <data name="menu_File_SaveProfile.Text" xml:space="preserve">
-    <value>&amp;Save Profile</value>
-  </data>
-  <data name="menu_File_SaveProfileAs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
-  </data>
-  <data name="menu_File_SaveProfileAs.Text" xml:space="preserve">
-    <value>Save Profile &amp;As...</value>
-  </data>
-  <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 6</value>
-  </data>
-  <data name="menu_File_Close.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+F4</value>
-  </data>
-  <data name="menu_File_Close.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
-  </data>
-  <data name="menu_File_Close.Text" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
-  <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 6</value>
-  </data>
-  <data name="menu_File_Manual_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 22</value>
-  </data>
-  <data name="menu_File_Manual_Import.Text" xml:space="preserve">
-    <value>&amp;Import Config File...</value>
-  </data>
-  <data name="menu_File_Manual_Download.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 22</value>
-  </data>
-  <data name="menu_File_Manual_Download.Text" xml:space="preserve">
-    <value>&amp;Download Game List...</value>
-  </data>
-  <data name="menu_File_Manual_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 22</value>
-  </data>
-  <data name="menu_File_Manual_Export.Text" xml:space="preserve">
-    <value>&amp;Export Config File...</value>
-  </data>
-  <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
-  </data>
-  <data name="menu_File_Manual.Text" xml:space="preserve">
-    <value>&amp;Manual</value>
-  </data>
-  <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 6</value>
-  </data>
-  <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
-  </data>
-  <data name="menu_File_Exit.Text" xml:space="preserve">
-    <value>E&amp;xit</value>
-  </data>
-  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="menu_File.Text" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <data name="menu_Profile_Download.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+D</value>
-  </data>
-  <data name="menu_Profile_Download.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
-  </data>
-  <data name="menu_Profile_Download.Text" xml:space="preserve">
-    <value>&amp;Download Game List</value>
-  </data>
-  <data name="menu_Profile_Import.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+I</value>
-  </data>
-  <data name="menu_Profile_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
-  </data>
-  <data name="menu_Profile_Import.Text" xml:space="preserve">
-    <value>&amp;Import Config File</value>
-  </data>
-  <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 6</value>
-  </data>
-  <data name="menu_Profile_Export.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+E</value>
-  </data>
-  <data name="menu_Profile_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
-  </data>
-  <data name="menu_Profile_Export.Text" xml:space="preserve">
-    <value>&amp;Export Config File</value>
-  </data>
-  <data name="menu_Profile_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 6</value>
-  </data>
-  <data name="menu_Profile_Edit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+P</value>
-  </data>
-  <data name="menu_Profile_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
-  </data>
-  <data name="menu_Profile_Edit.Text" xml:space="preserve">
-    <value>Edit &amp;Profile Info</value>
-  </data>
-  <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 20</value>
-  </data>
-  <data name="menu_Profile.Text" xml:space="preserve">
-    <value>&amp;Profile</value>
+  <data name="contextGameCat_None.Text" xml:space="preserve">
+    <value>Uncategorized</value>
   </data>
   <data name="menu_Tools_AutonameAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>213, 22</value>
   </data>
-  <data name="menu_Tools_AutonameAll.Text" xml:space="preserve">
-    <value>Auto-Name All</value>
+  <data name="&gt;&gt;menu_File_Manual_Export.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="menu_Tools_AutocatAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
+  <data name="menu_File_Manual_Import.Text" xml:space="preserve">
+    <value>&amp;Import Config File...</value>
   </data>
-  <data name="menu_Tools_AutocatAll.Text" xml:space="preserve">
-    <value>Auto-Cat All</value>
+  <data name="&gt;&gt;menu_File_Close.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="menu_Tools_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
+  <data name="&gt;&gt;cmdGameAdd.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="menu_Tools_RemoveEmpty.Text" xml:space="preserve">
-    <value>Remove Empty Categories</value>
-  </data>
-  <data name="menu_Tools_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 6</value>
-  </data>
-  <data name="menu_Tools_DBEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
-  </data>
-  <data name="menu_Tools_DBEdit.Text" xml:space="preserve">
-    <value>Database Editor...</value>
-  </data>
-  <data name="menu_Tools_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 6</value>
-  </data>
-  <data name="menu_Tools_Settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
-  </data>
-  <data name="menu_Tools_Settings.Text" xml:space="preserve">
-    <value>Settings...</value>
-  </data>
-  <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 20</value>
-  </data>
-  <data name="menu_Tools.Text" xml:space="preserve">
-    <value>Tools</value>
-  </data>
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 24</value>
-  </data>
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
-    <value>menuStrip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <metadata name="statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>125, 17</value>
-  </metadata>
-  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>553, 17</value>
-  </data>
-  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="statusSelection.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="statusSelection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 17</value>
-  </data>
-  <data name="statusSelection.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
+  <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 6</value>
   </data>
   <data name="statusStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 363</value>
   </data>
-  <data name="statusStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>768, 22</value>
+  <data name="menu_File_SaveProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+S</value>
   </data>
-  <data name="statusStrip.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;contextGameCat_Sep1.Name" xml:space="preserve">
+    <value>contextGameCat_Sep1</value>
+  </data>
+  <data name="cmdCatDelete.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="statusStrip.Text" xml:space="preserve">
-    <value>statusStrip1</value>
+  <data name="&gt;&gt;menu_Tools_Sep2.Name" xml:space="preserve">
+    <value>menu_Tools_Sep2</value>
   </data>
-  <data name="&gt;&gt;statusStrip.Name" xml:space="preserve">
-    <value>statusStrip</value>
+  <data name="menu_File_NewProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
   </data>
-  <data name="&gt;&gt;statusStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="grpCategories.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;statusStrip.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="menu_Tools_Sep3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 6</value>
   </data>
-  <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 22</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>es</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+  <data name="cmdGameSetCategory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>768, 385</value>
+  <data name="combCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>336, 265</value>
+  </data>
+  <data name="lstGames.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_Tools_RemoveEmpty.Text" xml:space="preserve">
+    <value>Remove Empty Categories</value>
+  </data>
+  <data name="cmdGameRemove.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 313</value>
+  </data>
+  <data name="tableCatButtons.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 29</value>
+  </data>
+  <data name="menu_Profile_Import.Text" xml:space="preserve">
+    <value>&amp;Import Config File</value>
+  </data>
+  <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 176</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep3.Name" xml:space="preserve">
+    <value>menu_File_Sep3</value>
+  </data>
+  <data name="menu_Profile_Download.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+D</value>
+  </data>
+  <data name="chkFavorite.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="cmdCatAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_Sep3.Name" xml:space="preserve">
+    <value>menu_Tools_Sep3</value>
+  </data>
+  <data name="&gt;&gt;cmdGameAdd.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;contextCat_Add.Name" xml:space="preserve">
+    <value>contextCat_Add</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav_No.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_Tools_Settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 22</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Edit.Name" xml:space="preserve">
+    <value>menu_Profile_Edit</value>
+  </data>
+  <data name="menu_Tools_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 22</value>
+  </data>
+  <data name="&gt;&gt;grpCategories.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="&gt;&gt;colGameID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>550, 250</value>
+  </data>
+  <data name="&gt;&gt;cmdGameSetCategory.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="cmdGameSetCategory.Text" xml:space="preserve">
+    <value>Set Category</value>
+  </data>
+  <data name="grpGames.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="&gt;&gt;contextCat.Name" xml:space="preserve">
+    <value>contextCat</value>
+  </data>
+  <data name="&gt;&gt;contextGame_Sep3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatAdd.Parent" xml:space="preserve">
+    <value>tableCatButtons</value>
+  </data>
+  <data name="&gt;&gt;colCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Edit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 24</value>
+  </data>
+  <data name="chkFavorite.Location" type="System.Drawing.Point, System.Drawing">
+    <value>443, 293</value>
+  </data>
+  <data name="contextGame_SetFav.Text" xml:space="preserve">
+    <value>Set Favorite</value>
+  </data>
+  <data name="&gt;&gt;cmdGameSetCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkGroupCategory.Text" xml:space="preserve">
+    <value>Group by category</value>
+  </data>
+  <data name="menu_Profile.Text" xml:space="preserve">
+    <value>&amp;Profile</value>
+  </data>
+  <data name="tableCatButtons.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 309</value>
+  </data>
+  <data name="&gt;&gt;menu_File.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatAdd.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;contextGame_VisitStore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkFavorite.Name" xml:space="preserve">
+    <value>chkFavorite</value>
+  </data>
+  <data name="menu_Profile_Edit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+P</value>
+  </data>
+  <data name="&gt;&gt;cmdGameSetFavorite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1204,346 +763,811 @@
         rEEAAKxBAACsQQAArEEAAKxBAACsQQAArEE=
 </value>
   </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>550, 250</value>
+  <data name="&gt;&gt;lstCategories.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Depressurizer</value>
+  <data name="&gt;&gt;chkFavorite.Parent" xml:space="preserve">
+    <value>grpGames</value>
   </data>
-  <data name="&gt;&gt;contextCat_Add.Name" xml:space="preserve">
-    <value>contextCat_Add</value>
+  <data name="menu_File_SaveProfile.Text" xml:space="preserve">
+    <value>&amp;Save Profile</value>
   </data>
-  <data name="&gt;&gt;contextCat_Add.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="statusStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;contextCat_Rename.Name" xml:space="preserve">
-    <value>contextCat_Rename</value>
+  <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
   </data>
-  <data name="&gt;&gt;contextCat_Rename.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 48</value>
   </data>
-  <data name="&gt;&gt;contextCat_Delete.Name" xml:space="preserve">
-    <value>contextCat_Delete</value>
-  </data>
-  <data name="&gt;&gt;contextCat_Delete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextCat_Sep1.Name" xml:space="preserve">
-    <value>contextCat_Sep1</value>
-  </data>
-  <data name="&gt;&gt;contextCat_Sep1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextCat_RemoveEmpty.Name" xml:space="preserve">
-    <value>contextCat_RemoveEmpty</value>
-  </data>
-  <data name="&gt;&gt;contextCat_RemoveEmpty.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colGameID.Name" xml:space="preserve">
-    <value>colGameID</value>
-  </data>
-  <data name="&gt;&gt;colGameID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colTitle.Name" xml:space="preserve">
-    <value>colTitle</value>
-  </data>
-  <data name="&gt;&gt;colTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colCategory.Name" xml:space="preserve">
-    <value>colCategory</value>
-  </data>
-  <data name="&gt;&gt;colCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colFavorite.Name" xml:space="preserve">
-    <value>colFavorite</value>
-  </data>
-  <data name="&gt;&gt;colFavorite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Add.Name" xml:space="preserve">
-    <value>contextGame_Add</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Add.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cntxtGame_Edit.Name" xml:space="preserve">
-    <value>cntxtGame_Edit</value>
-  </data>
-  <data name="&gt;&gt;cntxtGame_Edit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Remove.Name" xml:space="preserve">
-    <value>contextGame_Remove</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Remove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Sep1.Name" xml:space="preserve">
-    <value>contextGame_Sep1</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Sep1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_SetCat.Name" xml:space="preserve">
-    <value>contextGame_SetCat</value>
-  </data>
-  <data name="&gt;&gt;contextGame_SetCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_Create.Name" xml:space="preserve">
-    <value>contextGameCat_Create</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_Create.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_None.Name" xml:space="preserve">
-    <value>contextGameCat_None</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_None.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_Sep1.Name" xml:space="preserve">
-    <value>contextGameCat_Sep1</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_Sep1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_SetFav.Name" xml:space="preserve">
-    <value>contextGame_SetFav</value>
+  <data name="statusSelection.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;contextGame_SetFav.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;contextGameFav_Yes.Name" xml:space="preserve">
-    <value>contextGameFav_Yes</value>
-  </data>
   <data name="&gt;&gt;contextGameFav_Yes.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;contextGameFav_No.Name" xml:space="preserve">
-    <value>contextGameFav_No</value>
+  <data name="&gt;&gt;cmdGameEdit.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="&gt;&gt;contextGameFav_No.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Sep2.Name" xml:space="preserve">
-    <value>contextGame_Sep2</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Sep2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_VisitStore.Name" xml:space="preserve">
-    <value>contextGame_VisitStore</value>
-  </data>
-  <data name="&gt;&gt;contextGame_VisitStore.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Sep3.Name" xml:space="preserve">
-    <value>contextGame_Sep3</value>
-  </data>
-  <data name="&gt;&gt;contextGame_Sep3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGame_LaunchGame.Name" xml:space="preserve">
-    <value>contextGame_LaunchGame</value>
-  </data>
-  <data name="&gt;&gt;contextGame_LaunchGame.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File.Name" xml:space="preserve">
-    <value>menu_File</value>
-  </data>
-  <data name="&gt;&gt;menu_File.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_NewProfile.Name" xml:space="preserve">
-    <value>menu_File_NewProfile</value>
-  </data>
-  <data name="&gt;&gt;menu_File_NewProfile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_LoadProfile.Name" xml:space="preserve">
-    <value>menu_File_LoadProfile</value>
-  </data>
-  <data name="&gt;&gt;menu_File_LoadProfile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_SaveProfile.Name" xml:space="preserve">
-    <value>menu_File_SaveProfile</value>
-  </data>
-  <data name="&gt;&gt;menu_File_SaveProfile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_SaveProfileAs.Name" xml:space="preserve">
-    <value>menu_File_SaveProfileAs</value>
-  </data>
-  <data name="&gt;&gt;menu_File_SaveProfileAs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Sep1.Name" xml:space="preserve">
-    <value>menu_File_Sep1</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Sep1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Close.Name" xml:space="preserve">
-    <value>menu_File_Close</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Close.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Sep2.Name" xml:space="preserve">
-    <value>menu_File_Sep2</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Sep2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Manual.Name" xml:space="preserve">
-    <value>menu_File_Manual</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Manual.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Manual_Import.Name" xml:space="preserve">
-    <value>menu_File_Manual_Import</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Manual_Import.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
   <data name="&gt;&gt;menu_File_Manual_Download.Name" xml:space="preserve">
     <value>menu_File_Manual_Download</value>
   </data>
-  <data name="&gt;&gt;menu_File_Manual_Download.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="menu_Tools_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 6</value>
   </data>
-  <data name="&gt;&gt;menu_File_Manual_Export.Name" xml:space="preserve">
-    <value>menu_File_Manual_Export</value>
+  <data name="&gt;&gt;cntxtGame_Edit.Name" xml:space="preserve">
+    <value>cntxtGame_Edit</value>
   </data>
-  <data name="&gt;&gt;menu_File_Manual_Export.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Sep3.Name" xml:space="preserve">
-    <value>menu_File_Sep3</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Sep3.Type" xml:space="preserve">
+  <data name="&gt;&gt;contextGame_Sep2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menu_File_Exit.Name" xml:space="preserve">
-    <value>menu_File_Exit</value>
-  </data>
-  <data name="&gt;&gt;menu_File_Exit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile.Name" xml:space="preserve">
-    <value>menu_Profile</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Download.Name" xml:space="preserve">
-    <value>menu_Profile_Download</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Download.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Import.Name" xml:space="preserve">
-    <value>menu_Profile_Import</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Import.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Sep1.Name" xml:space="preserve">
-    <value>menu_Profile_Sep1</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Sep1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Export.Name" xml:space="preserve">
-    <value>menu_Profile_Export</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Export.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="menu_File_Manual_Download.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
   </data>
   <data name="&gt;&gt;menu_Profile_Sep2.Name" xml:space="preserve">
     <value>menu_Profile_Sep2</value>
   </data>
-  <data name="&gt;&gt;menu_Profile_Sep2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Edit.Name" xml:space="preserve">
-    <value>menu_Profile_Edit</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Edit.Type" xml:space="preserve">
+  <data name="&gt;&gt;menu_Tools_RemoveEmpty.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameLaunch.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav.Name" xml:space="preserve">
+    <value>contextGameFav</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Import.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_Profile_Download.Text" xml:space="preserve">
+    <value>&amp;Download Game List</value>
+  </data>
+  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Manual.Name" xml:space="preserve">
+    <value>menu_File_Manual</value>
+  </data>
+  <data name="&gt;&gt;menu_File_LoadProfile.Name" xml:space="preserve">
+    <value>menu_File_LoadProfile</value>
+  </data>
+  <data name="menu_File_SaveProfileAs.Text" xml:space="preserve">
+    <value>Save Profile &amp;As...</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="cmdAutoCat.Text" xml:space="preserve">
+    <value>Auto-Categorize</value>
+  </data>
+  <data name="&gt;&gt;cmdGameLaunch.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;contextCat_Add.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colCategory.Name" xml:space="preserve">
+    <value>colCategory</value>
+  </data>
+  <data name="menu_Profile_Import.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="cmdGameAdd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 288</value>
+  </data>
+  <data name="menu_File_Manual_Export.Text" xml:space="preserve">
+    <value>&amp;Export Config File...</value>
+  </data>
+  <data name="&gt;&gt;contextCat_Delete.Name" xml:space="preserve">
+    <value>contextCat_Delete</value>
+  </data>
+  <data name="&gt;&gt;chkGroupCategory.Name" xml:space="preserve">
+    <value>chkGroupCategory</value>
+  </data>
+  <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="menu_File_Manual_Import.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Manual_Download.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextGame.Name" xml:space="preserve">
+    <value>contextGame</value>
+  </data>
+  <data name="&gt;&gt;contextCat_Sep1.Name" xml:space="preserve">
+    <value>contextCat_Sep1</value>
+  </data>
+  <data name="&gt;&gt;tableCatButtons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_File_SaveProfileAs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdGameRemove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="menu_Profile_Export.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+E</value>
+  </data>
+  <data name="cmdGameSetCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 23</value>
+  </data>
+  <data name="&gt;&gt;menu_File_NewProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdGameRemove.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;contextGame_SetCat.Name" xml:space="preserve">
+    <value>contextGame_SetCat</value>
+  </data>
+  <data name="&gt;&gt;contextGameCat_Create.Name" xml:space="preserve">
+    <value>contextGameCat_Create</value>
+  </data>
+  <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 22</value>
+  </data>
+  <data name="menu_File_Manual.Text" xml:space="preserve">
+    <value>&amp;Manual</value>
+  </data>
+  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 20</value>
+  </data>
+  <data name="combCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cmdGameRemove.Text" xml:space="preserve">
+    <value>Remove Selected</value>
+  </data>
+  <data name="menu_File_SaveProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="cmdCatRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep1.Name" xml:space="preserve">
+    <value>menu_File_Sep1</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="cmdGameAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="statusSelection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 17</value>
+  </data>
+  <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="colCategory.Text" xml:space="preserve">
+    <value>Category</value>
   </data>
   <data name="&gt;&gt;menu_Tools.Name" xml:space="preserve">
     <value>menu_Tools</value>
   </data>
-  <data name="&gt;&gt;menu_Tools.Type" xml:space="preserve">
+  <data name="tableCatButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33,33333,Percent,33,33333,Percent,33,33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Sep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>768, 24</value>
+  </data>
+  <data name="&gt;&gt;combCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdCatAdd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Manual_Import.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdGameSetFavorite.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="chkGroupCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>336, 317</value>
+  </data>
+  <data name="menu_Tools_Settings.Text" xml:space="preserve">
+    <value>Settings...</value>
+  </data>
+  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cmdGameRemove.Name" xml:space="preserve">
+    <value>cmdGameRemove</value>
+  </data>
+  <data name="chkFavorite.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="cmdGameEdit.Text" xml:space="preserve">
+    <value>Edit Game</value>
+  </data>
+  <data name="&gt;&gt;grpCategories.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_File_LoadProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Mayús.+L</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Exit.Name" xml:space="preserve">
+    <value>menu_File_Exit</value>
+  </data>
+  <data name="contextGameCat_Create.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 22</value>
+  </data>
+  <data name="contextGameCat_Create.Text" xml:space="preserve">
+    <value>Create New...</value>
+  </data>
+  <data name="chkGroupCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 17</value>
   </data>
   <data name="&gt;&gt;menu_Tools_AutonameAll.Name" xml:space="preserve">
     <value>menu_Tools_AutonameAll</value>
   </data>
-  <data name="&gt;&gt;menu_Tools_AutonameAll.Type" xml:space="preserve">
+  <data name="cmdGameSetCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>464, 263</value>
+  </data>
+  <data name="&gt;&gt;contextGameCat_None.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menu_Tools_AutocatAll.Name" xml:space="preserve">
-    <value>menu_Tools_AutocatAll</value>
+  <data name="tableCatButtons.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;menu_Tools_AutocatAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Tools_RemoveEmpty.Name" xml:space="preserve">
-    <value>menu_Tools_RemoveEmpty</value>
-  </data>
-  <data name="&gt;&gt;menu_Tools_RemoveEmpty.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Tools_Sep2.Name" xml:space="preserve">
-    <value>menu_Tools_Sep2</value>
-  </data>
-  <data name="&gt;&gt;menu_Tools_Sep2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Tools_DBEdit.Name" xml:space="preserve">
-    <value>menu_Tools_DBEdit</value>
+  <data name="&gt;&gt;cmdGameSetCategory.Name" xml:space="preserve">
+    <value>cmdGameSetCategory</value>
   </data>
   <data name="&gt;&gt;menu_Tools_DBEdit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menu_Tools_Sep3.Name" xml:space="preserve">
-    <value>menu_Tools_Sep3</value>
+  <data name="chkFavorite.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
   </data>
-  <data name="&gt;&gt;menu_Tools_Sep3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;cmdGameAdd.Name" xml:space="preserve">
+    <value>cmdGameAdd</value>
   </data>
-  <data name="&gt;&gt;menu_Tools_Settings.Name" xml:space="preserve">
-    <value>menu_Tools_Settings</value>
+  <data name="&gt;&gt;grpCategories.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
   </data>
-  <data name="&gt;&gt;menu_Tools_Settings.Type" xml:space="preserve">
+  <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;contextCat_Delete.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;statusMsg.Name" xml:space="preserve">
-    <value>statusMsg</value>
+  <data name="contextCat_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
   </data>
-  <data name="&gt;&gt;statusMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="cmdAutoCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 23</value>
   </data>
-  <data name="&gt;&gt;statusSelection.Name" xml:space="preserve">
-    <value>statusSelection</value>
+  <data name="cmdCatRename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 23</value>
   </data>
-  <data name="&gt;&gt;statusSelection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;menu_Tools_RemoveEmpty.Name" xml:space="preserve">
+    <value>menu_Tools_RemoveEmpty</value>
+  </data>
+  <data name="&gt;&gt;statusStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="chkGroupCategory.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;cmdGameSetCategory.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="menu_File_Close.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="&gt;&gt;contextCat_Rename.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colFavorite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="statusSelection.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextCat_Add.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="cmdGameRemove.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;grpGames.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameSetFavorite.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;statusStrip.Name" xml:space="preserve">
+    <value>statusStrip</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;statusSelection.Name" xml:space="preserve">
+    <value>statusSelection</value>
   </data>
+  <data name="colFavorite.Text" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;cmdGameEdit.Name" xml:space="preserve">
+    <value>cmdGameEdit</value>
+  </data>
+  <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 6</value>
+  </data>
+  <data name="&gt;&gt;menu_File_SaveProfileAs.Name" xml:space="preserve">
+    <value>menu_File_SaveProfileAs</value>
+  </data>
+  <data name="menu_Tools_AutonameAll.Text" xml:space="preserve">
+    <value>Auto-Name All</value>
+  </data>
+  <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="&gt;&gt;menu_File.Name" xml:space="preserve">
+    <value>menu_File</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav_Yes.Name" xml:space="preserve">
+    <value>contextGameFav_Yes</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="combCategory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 21</value>
+  </data>
+  <data name="&gt;&gt;cmdCatRename.Name" xml:space="preserve">
+    <value>cmdCatRename</value>
+  </data>
+  <data name="&gt;&gt;contextGame_SetFav.Name" xml:space="preserve">
+    <value>contextGame_SetFav</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Close.Name" xml:space="preserve">
+    <value>menu_File_Close</value>
+  </data>
+  <data name="&gt;&gt;chkGroupCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusMsg.Name" xml:space="preserve">
+    <value>statusMsg</value>
+  </data>
+  <data name="&gt;&gt;colTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tableCatButtons.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;grpGames.Parent" xml:space="preserve">
+    <value>splitContainer.Panel2</value>
+  </data>
+  <data name="cmdGameAdd.Text" xml:space="preserve">
+    <value>Add Game</value>
+  </data>
+  <data name="contextGame_LaunchGame.Text" xml:space="preserve">
+    <value>Start Game</value>
+  </data>
+  <data name="splitContainer.Panel2MinSize" type="System.Int32, mscorlib">
+    <value>400</value>
+  </data>
+  <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>222, 6</value>
+  </data>
+  <data name="menu_Tools_AutocatAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 22</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_DBEdit.Name" xml:space="preserve">
+    <value>menu_Tools_DBEdit</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Panel2.Parent" xml:space="preserve">
+    <value>splitContainer</value>
+  </data>
+  <data name="&gt;&gt;contextGame_Sep1.Name" xml:space="preserve">
+    <value>contextGame_Sep1</value>
+  </data>
+  <data name="statusStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>768, 22</value>
+  </data>
+  <data name="menu_Tools_AutocatAll.Text" xml:space="preserve">
+    <value>Auto-Cat All</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Exit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGameFav_No.Text" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_Add.Text" xml:space="preserve">
+    <value>Add New Game...</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Sep1.Name" xml:space="preserve">
+    <value>menu_Profile_Sep1</value>
+  </data>
+  <data name="cmdCatDelete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="contextGameCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 54</value>
+  </data>
+  <data name="cmdAutoCat.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="menu_File_Close.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+F4</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Name" xml:space="preserve">
+    <value>splitContainer</value>
+  </data>
+  <data name="cmdGameSetFavorite.Text" xml:space="preserve">
+    <value>Set Favorite</value>
+  </data>
+  <data name="&gt;&gt;grpCategories.Name" xml:space="preserve">
+    <value>grpCategories</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameLaunch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdAutoCat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>464, 313</value>
+  </data>
+  <data name="&gt;&gt;colGameID.Name" xml:space="preserve">
+    <value>colGameID</value>
+  </data>
+  <data name="&gt;&gt;menu_File_NewProfile.Name" xml:space="preserve">
+    <value>menu_File_NewProfile</value>
+  </data>
+  <data name="cmdAutoCat.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="cmdCatDelete.Location" type="System.Drawing.Point, System.Drawing">
+    <value>133, 3</value>
+  </data>
+  <data name="&gt;&gt;cmdGameSetFavorite.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="cmdGameEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="&gt;&gt;chkFavorite.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cmdAutoCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="grpCategories.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_Settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 6</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cmdGameLaunch.Name" xml:space="preserve">
+    <value>cmdGameLaunch</value>
+  </data>
+  <data name="&gt;&gt;cmdCatDelete.Parent" xml:space="preserve">
+    <value>tableCatButtons</value>
+  </data>
+  <data name="&gt;&gt;lstCategories.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cmdGameEdit.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;cmdCatAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>768, 361</value>
+  </data>
+  <data name="menu_File_LoadProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="cmdGameSetFavorite.Location" type="System.Drawing.Point, System.Drawing">
+    <value>464, 288</value>
+  </data>
+  <data name="menu_File_Manual_Download.Text" xml:space="preserve">
+    <value>&amp;Download Game List...</value>
+  </data>
+  <data name="&gt;&gt;contextGame_SetCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameRemove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="contextCat_Add.Text" xml:space="preserve">
+    <value>Add Category...</value>
+  </data>
+  <data name="menu_Tools.Text" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 6</value>
+  </data>
+  <data name="&gt;&gt;chkFavorite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lstCategories.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="cmdCatDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 23</value>
+  </data>
+  <data name="contextCat_Rename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_AutonameAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatDelete.Name" xml:space="preserve">
+    <value>cmdCatDelete</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Download.Name" xml:space="preserve">
+    <value>menu_Profile_Download</value>
+  </data>
+  <data name="cmdGameLaunch.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="menu_File_Close.Text" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="colCategory.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="contextGameCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 6</value>
+  </data>
+  <data name="&gt;&gt;combCategory.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;contextGameCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;combCategory.Parent" xml:space="preserve">
+    <value>grpGames</value>
+  </data>
+  <data name="&gt;&gt;lstCategories.Name" xml:space="preserve">
+    <value>lstCategories</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Import.Name" xml:space="preserve">
+    <value>menu_Profile_Import</value>
+  </data>
+  <data name="cmdGameAdd.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="tableCatButtons.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="menu_File_Exit.Text" xml:space="preserve">
+    <value>E&amp;xit</value>
+  </data>
+  <data name="&gt;&gt;contextGameCat_Create.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>768, 385</value>
+  </data>
+  <data name="&gt;&gt;lstCategories.Parent" xml:space="preserve">
+    <value>grpCategories</value>
+  </data>
+  <data name="&gt;&gt;contextCat_RemoveEmpty.Name" xml:space="preserve">
+    <value>contextCat_RemoveEmpty</value>
+  </data>
+  <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 6</value>
+  </data>
+  <data name="&gt;&gt;contextGame_Add.Name" xml:space="preserve">
+    <value>contextGame_Add</value>
+  </data>
+  <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="menu_Profile_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>222, 6</value>
+  </data>
+  <data name="&gt;&gt;colTitle.Name" xml:space="preserve">
+    <value>colTitle</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Depressurizer</value>
+  </data>
+  <data name="&gt;&gt;cmdAutoCat.Name" xml:space="preserve">
+    <value>cmdAutoCat</value>
+  </data>
+  <data name="&gt;&gt;contextGame_Sep2.Name" xml:space="preserve">
+    <value>contextGame_Sep2</value>
+  </data>
+  <data name="menu_Profile_Export.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="&gt;&gt;contextCat_Rename.Name" xml:space="preserve">
+    <value>contextCat_Rename</value>
+  </data>
+  <data name="cmdGameEdit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 263</value>
+  </data>
+  <data name="menu_Profile_Download.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="contextGame_VisitStore.Text" xml:space="preserve">
+    <value>Visit Store Page</value>
+  </data>
+  <data name="cmdGameSetFavorite.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 23</value>
+  </data>
+  <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 20</value>
+  </data>
+  <data name="menu_File_SaveProfileAs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="&gt;&gt;contextGame_LaunchGame.Name" xml:space="preserve">
+    <value>contextGame_LaunchGame</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_AutocatAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="colTitle.Text" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="grpCategories.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
+    <value>splitContainer.Panel2</value>
+  </data>
+  <data name="&gt;&gt;tableCatButtons.Parent" xml:space="preserve">
+    <value>grpCategories</value>
+  </data>
+  <data name="menu_Tools_DBEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 22</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;contextGame_Remove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdGameLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>118, 263</value>
+  </data>
+  <data name="&gt;&gt;contextGameCat_None.Name" xml:space="preserve">
+    <value>contextGameCat_None</value>
+  </data>
+  <data name="grpCategories.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 361</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav_No.Name" xml:space="preserve">
+    <value>contextGameFav_No</value>
+  </data>
+  <data name="cmdGameLaunch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Sep2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>555, 239</value>
+  </data>
+  <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
+    <value>200</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="grpGames.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableCatButtons.ColumnCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;contextGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 6</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_Sep3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmdCatDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="cmdCatRename.Location" type="System.Drawing.Point, System.Drawing">
+    <value>68, 3</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Panel1.Parent" xml:space="preserve">
+    <value>splitContainer</value>
+  </data>
+  <data name="contextCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 98</value>
+  </data>
+  <data name="&gt;&gt;cmdCatRename.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cmdGameLaunch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 23</value>
+  </data>
+  <data name="&gt;&gt;splitContainer.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextGame_VisitStore.Name" xml:space="preserve">
+    <value>contextGame_VisitStore</value>
+  </data>
+  <data name="contextCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 6</value>
+  </data>
+  <data name="cmdCatAdd.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;menu_File_Sep3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="contextGame.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>234, 17</value>
+  </metadata>
+  <metadata name="contextCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>642, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>358, 17</value>
+  </metadata>
+  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="contextGameCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>500, 17</value>
+  </metadata>
+  <metadata name="statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>125, 17</value>
+  </metadata>
 </root>

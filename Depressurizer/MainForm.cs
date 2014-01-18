@@ -53,6 +53,8 @@ namespace Depressurizer {
 
         // jpodadera. Used to reload resources of main form while switching language
         private int originalWidth, originalHeight;
+        // jpodadera. Used to hide and show Category column in ListView of games
+        private int originalCatColumnWidth;
 
         #endregion
         #region Properties
@@ -74,7 +76,9 @@ namespace Depressurizer {
 
             listSorter.AddIntCol( 1 );
             lstGames.ListViewItemSorter = listSorter;
-
+            // jpodadera. Save width of category column
+            originalCatColumnWidth = lstGames.Columns[2].Width;
+            
             FillCategoryList();
         }
         #region Manual Operations
@@ -852,6 +856,7 @@ namespace Depressurizer {
             ListViewItem item = new ListViewItem(new string[] { g.Id.ToString(), g.Name, catName, g.Favorite ? "X" : String.Empty });
             item.Tag = g;
             lstGames.Items.Add(item);
+            AssignItemToGroup(item);
         }
 
         /// <summary>
@@ -891,6 +896,7 @@ namespace Depressurizer {
                 item.Tag = c;
                 item.Click += contextGameCat_Category_Click;
             }
+            FillGameListGroups();
         }
 
         /// <summary>
@@ -902,11 +908,12 @@ namespace Depressurizer {
             ListViewItem item = lstGames.Items[index];
             Game g = (Game)item.Tag;
             if( ShouldDisplayGame( g ) ) {
-                item.SubItems[0].Text = g.Name;
+                item.SubItems[1].Text = g.Name;
                 item.SubItems[2].Text = g.Category == null ? CatUtil.CAT_UNC_NAME : g.Category.Name;
                 // jpodadera. Change favorite column contents from Y-N to X or blank
                 //item.SubItems[3].Text = g.Favorite ? GlobalStrings.MainForm_FirstLetterYes : GlobalStrings.MainForm_FirstLetterNo;
                 item.SubItems[3].Text = g.Favorite ? "X" : String.Empty;
+                AssignItemToGroup(item);
                 return true;
             } else {
                 lstGames.Items.RemoveAt( index );
@@ -938,6 +945,51 @@ namespace Depressurizer {
             }
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
+        }
+
+
+        /// <summary>
+        /// jpodadera. Create groups in list of games
+        /// </summary>
+        private void FillGameListGroups()
+        {
+            lstGames.Groups.Clear();
+            if (chkGroupCategory.Checked)
+            {
+                lstGames.Columns[2].Width = 0;
+                lstGames.Groups.Add(new ListViewGroup(CatUtil.CAT_UNC_NAME));
+                foreach (Category c in gameData.Categories)
+                    lstGames.Groups.Add(new ListViewGroup(c.Name));
+            }
+            else
+            {
+                lstGames.Columns[2].Width = originalCatColumnWidth;
+            }
+        }
+
+        private void AssignItemToGroup(ListViewItem item)
+        {
+            Game game = (Game) item.Tag;
+            if (game != null)
+            {
+                item.Group = null;
+                if (chkGroupCategory.Checked)
+                {
+                    string gameCat;
+                    if (game.Category == null)
+                        gameCat = CatUtil.CAT_UNC_NAME;
+                    else
+                        gameCat = game.Category.Name;
+                    foreach (ListViewGroup group in lstGames.Groups)
+                    {
+                        if (gameCat == group.Header)
+                        {
+                            item.Group = group;
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         #endregion
@@ -986,7 +1038,7 @@ namespace Depressurizer {
             // jpodadera. Save original width and height
             originalHeight = this.Height;
             originalWidth = this.Width;
-        }
+         }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
             ClearStatus();
@@ -1593,9 +1645,10 @@ namespace Depressurizer {
             }
         }
 
-        private void launchGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void chkGroupCategory_CheckedChanged(object sender, EventArgs e)
         {
-         
+            FillGameListGroups();
+            UpdateGameList();
         }
 
     }
