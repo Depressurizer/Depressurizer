@@ -55,6 +55,7 @@ namespace Depressurizer {
         private int originalWidth, originalHeight;
         // jpodadera. Used to hide and show Category column in ListView of games
         private int originalCatColumnWidth;
+        private ColumnHeader colCategoryPointer;
 
         #endregion
         #region Properties
@@ -78,6 +79,7 @@ namespace Depressurizer {
             lstGames.ListViewItemSorter = listSorter;
             // jpodadera. Save width of category column
             originalCatColumnWidth = lstGames.Columns[2].Width;
+            colCategoryPointer = lstGames.Columns[2];
             
             FillCategoryList();
         }
@@ -853,7 +855,15 @@ namespace Depressurizer {
 
             // jpodadera. Change favorite column contents from Y-N to X or blank
             //ListViewItem item = new ListViewItem(new string[] { g.Name, g.Id.ToString(), catName, g.Favorite ? GlobalStrings.MainForm_FirstLetterYes : GlobalStrings.MainForm_FirstLetterNo });
-            ListViewItem item = new ListViewItem(new string[] { g.Id.ToString(), g.Name, catName, g.Favorite ? "X" : String.Empty });
+            ListViewItem item;
+            if (chkGroupCategory.Checked)
+            {
+                item = new ListViewItem(new string[] { g.Id.ToString(), g.Name, g.Favorite ? "X" : String.Empty });
+            }
+            else
+            {
+                item = new ListViewItem(new string[] { g.Id.ToString(), g.Name, catName, g.Favorite ? "X" : String.Empty });
+            }
             item.Tag = g;
             lstGames.Items.Add(item);
             AssignItemToGroup(item);
@@ -909,11 +919,18 @@ namespace Depressurizer {
             Game g = (Game)item.Tag;
             if( ShouldDisplayGame( g ) ) {
                 item.SubItems[1].Text = g.Name;
-                item.SubItems[2].Text = g.Category == null ? CatUtil.CAT_UNC_NAME : g.Category.Name;
-                // jpodadera. Change favorite column contents from Y-N to X or blank
-                //item.SubItems[3].Text = g.Favorite ? GlobalStrings.MainForm_FirstLetterYes : GlobalStrings.MainForm_FirstLetterNo;
-                item.SubItems[3].Text = g.Favorite ? "X" : String.Empty;
-                AssignItemToGroup(item);
+                if (chkGroupCategory.Checked)
+                {
+                    item.SubItems[2].Text = g.Favorite ? "X" : String.Empty;
+                    AssignItemToGroup(item);
+                }
+                else
+                {
+                    item.SubItems[2].Text = g.Category == null ? CatUtil.CAT_UNC_NAME : g.Category.Name;
+                    // jpodadera. Change favorite column contents from Y-N to X or blank
+                    //item.SubItems[3].Text = g.Favorite ? GlobalStrings.MainForm_FirstLetterYes : GlobalStrings.MainForm_FirstLetterNo;
+                    item.SubItems[3].Text = g.Favorite ? "X" : String.Empty;
+                }
                 return true;
             } else {
                 lstGames.Items.RemoveAt( index );
@@ -956,14 +973,21 @@ namespace Depressurizer {
             lstGames.Groups.Clear();
             if (chkGroupCategory.Checked)
             {
-                lstGames.Columns[2].Width = 0;
+                if (lstGames.Columns.Contains(colCategoryPointer))
+                {
+                    lstGames.Columns.Remove(colCategoryPointer);
+                }
                 lstGames.Groups.Add(new ListViewGroup(CatUtil.CAT_UNC_NAME));
                 foreach (Category c in gameData.Categories)
                     lstGames.Groups.Add(new ListViewGroup(c.Name));
             }
             else
             {
-                lstGames.Columns[2].Width = originalCatColumnWidth;
+                if (!lstGames.Columns.Contains(colCategoryPointer))
+                {
+                    lstGames.Columns.Insert(2, colCategoryPointer);
+                    colCategoryPointer.Width = originalCatColumnWidth;
+                }
             }
         }
 
@@ -1648,7 +1672,7 @@ namespace Depressurizer {
         private void chkGroupCategory_CheckedChanged(object sender, EventArgs e)
         {
             FillGameListGroups();
-            UpdateGameList();
+            FillGameList();
         }
 
     }

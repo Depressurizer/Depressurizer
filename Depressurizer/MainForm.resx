@@ -793,6 +793,9 @@
   <data name="&gt;&gt;cmdGameEdit.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="chkGroupCategory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
