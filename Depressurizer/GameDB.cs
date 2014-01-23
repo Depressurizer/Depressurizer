@@ -99,11 +99,21 @@ namespace Depressurizer {
 
         private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
-        private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        private static Regex regFlags = new Regex( "<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><img[^>]*></div>\\s*<div class=\\\"name\\\">([^<]*)</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        private static Regex regDeveloper = new Regex( "<b>Developer:</b>\\s*<a href=\\\"http://store.steampowered.com/search/\\?developer=[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        private static Regex regPublisher1 = new Regex("<b>Publisher:</b>\\s*<a href=\\\"http://store.steampowered.com/publisher[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex regPublisher2 = new Regex("<b>Publisher:</b>\\s*<a href=\\\"http://store.steampowered.com/search/\\?publisher=[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        // jpodadera. Repaired regular expressions
+        //private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regDLC = new Regex("<div class=\\\"name\\\"><a href=[^>]*>Downloadable Content</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        //private static Regex regFlags = new Regex("<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><img[^>]*></div>\\s*<div class=\\\"name\\\">([^<]*)</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regFlags = new Regex("<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><a href=[^>]*><img[^>]*></a></div>\\s*<div class=\\\"name\\\"><a href=[^>]*>([^<]*)</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        // jpodadera. More general regular expressions. Check http://store.steampowered.com/app/96300
+        //private static Regex regDeveloper = new Regex("<b>Developer:</b>\\s*<a href=\\\"http://store.steampowered.com/search/\\?developer=[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regDeveloper = new Regex("<b>Developer:</b>\\s*<a[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        // jpodadera. Some games has more than one publisher. Check http://store.steampowered.com/app/96300
+        //private static Regex regPublisher = new Regex("<b>Publisher:</b>\\s*<a href=\\\"http://store.steampowered.com/publisher[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regPublishers = new Regex("<b>Publisher:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         private static Regex regRelDate = new Regex( "<b>Release Date:</b>\\s*([^<]*)<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regMetalink = new Regex( "<div id=\\\"game_area_metalink\\\">\\s*<a href=\\\"http://www.metacritic.com/game/pc/([^\\\"]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
@@ -249,21 +259,18 @@ namespace Depressurizer {
                 this.Developer = m.Groups[1].Captures[0].Value;
             }
 
-            m = regPublisher1.Match( page );
+            // jpodadera. Some games has more than one publisher. Check http://store.steampowered.com/app/96300
+            m = regPublishers.Match(page);
             if (m.Success)
             {
-                this.Publisher = m.Groups[1].Captures[0].Value;
-            }
-            else
-                // jpodadera
-                // alternative for publisher. Check http://store.steampowered.com/app/96300
-            {
-                m = regPublisher2.Match(page);
-                if (m.Success)
+                List<string> publishers = new List<string>();
+                foreach (Capture cap in m.Groups[2].Captures)
                 {
-                    this.Publisher = m.Groups[1].Captures[0].Value;
+                    publishers.Add(cap.Value);
                 }
+                this.Publisher = string.Join(", ", publishers);
             }
+
 
             m = regRelDate.Match( page );
             if( m.Success ) {
@@ -286,8 +293,10 @@ namespace Depressurizer {
             }
         }
 
-        private static bool GetDLCFromPage( string page ) {
-            return regDLC.IsMatch( page );
+        private bool GetDLCFromPage( string page ) {
+            //return regDLC.IsMatch( page );
+            // jpodadera. Check flags
+            return this.Flags.Contains("Downloadable Content");
         }
 
     }

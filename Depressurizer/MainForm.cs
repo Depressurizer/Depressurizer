@@ -895,7 +895,14 @@ namespace Depressurizer {
             combCategory.Items.Clear();
             combCategory.Items.Add( CatUtil.CAT_UNC_NAME );
             combCategory.Items.AddRange( catList );
-            combCategory.SelectedItem = selected;
+            if (selected != null)
+            {
+                combCategory.SelectedItem = selected;
+            }
+            else
+            {
+                combCategory.SelectedIndex = 0;
+            }
             combCategory.EndUpdate();
 
             while( contextGame_SetCat.DropDownItems.Count > 3 ) {
