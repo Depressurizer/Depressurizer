@@ -75,8 +75,11 @@ namespace Depressurizer {
             //combFavorite.SelectedIndex = 0;
             chkFavorite.Checked = false;
 
-            listSorter.AddIntCol( 1 );
+            listSorter.AddIntCol( 0 );
+            listSorter.AddRevCol( 3 );
+            listSorter.SetSortCol( 1, 1 );
             lstGames.ListViewItemSorter = listSorter;
+
             // jpodadera. Save width of category column
             originalCatColumnWidth = lstGames.Columns[2].Width;
             colCategoryPointer = lstGames.Columns[2];
@@ -705,7 +708,10 @@ namespace Depressurizer {
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
                     CDlgDataScrape scrapeDlg = new CDlgDataScrape( notFound, gameData, settings.FullAutocat );
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
-
+                    if( scrapeDlg.Error != null ) {
+                        Program.Logger.Write( LoggerLevel.Error, "Exception while running autocat scrape: {0}", scrapeDlg.Error.Message );
+                        
+                    }
                     if( scrapeRes == DialogResult.Cancel ) {
                         AddStatus(string.Format(GlobalStrings.MainForm_CanceledWebUpdate, scrapeDlg.JobsTotal));
                     } else {
@@ -840,8 +846,9 @@ namespace Depressurizer {
                     }
                 }
 
-                lstGames.Sort();
+                
             }
+            lstGames.Sort();
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
         }
@@ -977,9 +984,12 @@ namespace Depressurizer {
         /// </summary>
         private void FillGameListGroups()
         {
+            lstGames.BeginUpdate();
             lstGames.Groups.Clear();
             if (chkGroupCategory.Checked)
             {
+                listSorter.AddRevCol( 2 );
+                listSorter.RemoveRevCol( 3 );
                 if (lstGames.Columns.Contains(colCategoryPointer))
                 {
                     lstGames.Columns.Remove(colCategoryPointer);
@@ -990,12 +1000,15 @@ namespace Depressurizer {
             }
             else
             {
+                listSorter.AddRevCol( 3 );
+                listSorter.RemoveRevCol( 2 );
                 if (!lstGames.Columns.Contains(colCategoryPointer))
                 {
                     lstGames.Columns.Insert(2, colCategoryPointer);
                     colCategoryPointer.Width = originalCatColumnWidth;
                 }
             }
+            lstGames.EndUpdate();
         }
 
         private void AssignItemToGroup(ListViewItem item)
@@ -1507,7 +1520,7 @@ namespace Depressurizer {
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            listSorter.ColClick( e.Column );
+            listSorter.SetSortCol( e.Column );
             lstGames.Sort();
         }
 
@@ -1678,6 +1691,9 @@ namespace Depressurizer {
 
         private void chkGroupCategory_CheckedChanged(object sender, EventArgs e)
         {
+            if( chkGroupCategory.Checked && listSorter.GetSortCol() == 3 ) listSorter.SetSortCol( 2, listSorter.GetSortDir() );
+            else if( !chkGroupCategory.Checked && listSorter.GetSortCol() == 2 ) listSorter.SetSortCol(3, listSorter.GetSortDir() );
+
             FillGameListGroups();
             FillGameList();
         }

@@ -409,7 +409,7 @@
     <value>225, 22</value>
   </data>
   <data name="menu_File_NewProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Mayús.+N</value>
+    <value>Ctrl+Alt+N</value>
   </data>
   <data name="contextGameFav_Yes.Text" xml:space="preserve">
     <value>Yes</value>
@@ -1004,7 +1004,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="menu_File_LoadProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Mayús.+L</value>
+    <value>Ctrl+Alt+L</value>
   </data>
   <data name="&gt;&gt;menu_File_Exit.Name" xml:space="preserve">
     <value>menu_File_Exit</value>
