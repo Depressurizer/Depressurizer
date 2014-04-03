@@ -135,6 +135,9 @@
   <data name="UrlGameListXml" xml:space="preserve">
     <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
   </data>
+  <data name="UrlMetacritic" xml:space="preserve">
+    <value>http://www.metacritic.com/game/pc/{0}</value>
+  </data>
   <data name="UrlSteamStore" xml:space="preserve">
     <value>http://store.steampowered.com/app/{0}/</value>
   </data>

@@ -75,6 +75,7 @@ namespace Depressurizer {
             // jpodadera. Changed combo to checkbox to set favorite value
             //combFavorite.SelectedIndex = 0;
             chkFavorite.Checked = false;
+            chkGroupCategory.Checked = Settings.Instance().GroupView;
 
             listSorter.AddIntCol( 0 );
             listSorter.AddRevCol( 3 );
@@ -1717,6 +1718,8 @@ namespace Depressurizer {
 
             FillGameListGroups();
             FillGameList();
+
+            Settings.Instance().GroupView = chkGroupCategory.Checked;
         }
 
     }

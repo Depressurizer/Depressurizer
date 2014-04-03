@@ -232,6 +232,19 @@ namespace Depressurizer {
             Thread.CurrentThread.CurrentUICulture = newCulture;
         }
 
+        private bool _groupView = false;
+        public bool GroupView {
+            get {
+                return _groupView;
+            }
+            set {
+                if( _groupView != value ) {
+                    _groupView = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private Settings()
             : base() {
             FilePath = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";
