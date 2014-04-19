@@ -98,7 +98,12 @@ namespace Depressurizer {
 
 
         private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
+        
+        // Very specific, requires testing:
+        private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>\\s*Title:\\s*</b>[^<]*<br>\\s*<b>\\s*Genre:\\s*</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
+        
+        // Works, but might pick up weird stuff in REALLY specific circumstances
+        // private static Regex regGenre = new Regex( "<b>\\s*Genre:\\s*</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
 
         // jpodadera. Repaired regular expressions
         //private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
@@ -235,7 +240,7 @@ namespace Depressurizer {
         }
 
         private bool GetGenreFromPage( string page ) {
-            Match m = regGenre.Match( page );
+            Match m = regGenre.Match( page );            
             if( m.Success ) {
                 int genres = m.Groups[2].Captures.Count;
                 string[] array = new string[genres];
@@ -245,6 +250,7 @@ namespace Depressurizer {
                 this.Genre = string.Join( ", ", array );
                 return true;
             }
+            Program.Logger.Write( LoggerLevel.Warning, GlobalStrings.GameDB_ScrapingGenreFailed, this.Id );
             return false;
         }
 

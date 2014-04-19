@@ -785,4 +785,7 @@ Continue loading file?</value>
   <data name="DlgProfile_EditProfile" xml:space="preserve">
     <value>Edit Profile</value>
   </data>
+  <data name="GameDB_ScrapingGenreFailed" xml:space="preserve">
+    <value>Scraping {0}: No genres found</value>
+  </data>
 </root>
