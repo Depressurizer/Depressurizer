@@ -50,8 +50,6 @@ namespace Depressurizer {
             Application.SetCompatibleTextRenderingDefault( false );
             Application.Run( new FormMain() );
 
-            settings.Save();
-
             Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
             Logger.EndSession();
         }

@@ -343,6 +343,11 @@ namespace Depressurizer {
 
         private static Regex rxUnicode = new Regex( @"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled );
 
+        /// <summary>
+        /// Searches a string for HTML unicode entities ('\u####') and replaces them with actual unicode characters.
+        /// </summary>
+        /// <param name="val">The string to process</param>
+        /// <returns>The processed string</returns>
         public string ProcessUnicode( string val ) {
             return rxUnicode.Replace(
                 val,

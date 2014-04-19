@@ -29,10 +29,8 @@ namespace Depressurizer {
         private int _col;
         private int _direction;
         private bool _asInt;
-        private bool _rev;
 
         private HashSet<int> _intCols = new HashSet<int>();
-        private HashSet<int> _revCols = new HashSet<int>();
 
         public MultiColumnListViewComparer( int column = 0, int dir = 1 ) {
             this._col = column;
@@ -40,60 +38,24 @@ namespace Depressurizer {
             this._asInt = _intCols.Contains( _col );
         }
 
-        public void SetSortCol( int clickedCol, int forceDir = 0 ) {
-
-            if( forceDir == 0 ) {
-                if( clickedCol == _col ) {
-                    _direction = -_direction;
-                } else {
-                    _direction = 1;
-                }
-            } else {
-                _direction = forceDir;
-            }
-
+        public void ColClick( int clickedCol ) {
+            _direction = ( clickedCol == _col ) ? -_direction : 1;
             _col = clickedCol;
             _asInt = _intCols.Contains( _col );
-            _rev = _revCols.Contains( _col );
-        }
-
-        public int GetSortCol() {
-            return _col;
-        }
-
-        public int GetSortDir() {
-            return _direction;
         }
 
         public void AddIntCol( int col ) {
             _intCols.Add( col );
-            _asInt = _intCols.Contains( _col );
-        }
-
-        public void RemoveIntCol( int col ) {
-            _intCols.Remove( col );
-            _asInt = _intCols.Contains( _col );
-        }
-
-        public void AddRevCol( int col ) {
-            _revCols.Add( col );
-            _rev = _revCols.Contains( _col );
-        }
-
-        public void RemoveRevCol( int col ) {
-            _revCols.Remove( col );
-            _rev = _revCols.Contains( _col );
         }
 
         public int Compare( object x, object y ) {
-            int dir = _direction * ( _rev ? -1 : 1 );
             if( _asInt ) {
                 int a, b;
                 if( int.TryParse( ( (ListViewItem)x ).SubItems[_col].Text, out a ) && int.TryParse( ( (ListViewItem)y ).SubItems[_col].Text, out b ) ) {
-                    return dir * ( a - b );
+                    return _direction * ( a - b );
                 }
             }
-            return dir * String.Compare( ( (ListViewItem)x ).SubItems[_col].Text, ( (ListViewItem)y ).SubItems[_col].Text );
+            return _direction * String.Compare( ( (ListViewItem)x ).SubItems[_col].Text, ( (ListViewItem)y ).SubItems[_col].Text );
         }
     }
 }

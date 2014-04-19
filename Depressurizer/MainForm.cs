@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -53,7 +52,7 @@ namespace Depressurizer {
         int dragOldCat;
 
         // jpodadera. Used to reload resources of main form while switching language
-        private int originalWidth, originalHeight, originalSplitDistance;
+        private int originalWidth, originalHeight;
         // jpodadera. Used to hide and show Category column in ListView of games
         private int originalCatColumnWidth;
         private ColumnHeader colCategoryPointer;
@@ -75,13 +74,9 @@ namespace Depressurizer {
             // jpodadera. Changed combo to checkbox to set favorite value
             //combFavorite.SelectedIndex = 0;
             chkFavorite.Checked = false;
-            chkGroupCategory.Checked = Settings.Instance().GroupView;
 
-            listSorter.AddIntCol( 0 );
-            listSorter.AddRevCol( 3 );
-            listSorter.SetSortCol( 1, 1 );
+            listSorter.AddIntCol( 1 );
             lstGames.ListViewItemSorter = listSorter;
-
             // jpodadera. Save width of category column
             originalCatColumnWidth = lstGames.Columns[2].Width;
             colCategoryPointer = lstGames.Columns[2];
@@ -710,10 +705,7 @@ namespace Depressurizer {
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
                     CDlgDataScrape scrapeDlg = new CDlgDataScrape( notFound, gameData, settings.FullAutocat );
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
-                    if( scrapeDlg.Error != null ) {
-                        Program.Logger.Write( LoggerLevel.Error, "Exception while running autocat scrape: {0}", scrapeDlg.Error.Message );
-                        
-                    }
+
                     if( scrapeRes == DialogResult.Cancel ) {
                         AddStatus(string.Format(GlobalStrings.MainForm_CanceledWebUpdate, scrapeDlg.JobsTotal));
                     } else {
@@ -848,9 +840,8 @@ namespace Depressurizer {
                     }
                 }
 
-                
+                lstGames.Sort();
             }
-            lstGames.Sort();
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
         }
@@ -986,12 +977,9 @@ namespace Depressurizer {
         /// </summary>
         private void FillGameListGroups()
         {
-            lstGames.BeginUpdate();
             lstGames.Groups.Clear();
             if (chkGroupCategory.Checked)
             {
-                listSorter.AddRevCol( 2 );
-                listSorter.RemoveRevCol( 3 );
                 if (lstGames.Columns.Contains(colCategoryPointer))
                 {
                     lstGames.Columns.Remove(colCategoryPointer);
@@ -1002,15 +990,12 @@ namespace Depressurizer {
             }
             else
             {
-                listSorter.AddRevCol( 3 );
-                listSorter.RemoveRevCol( 2 );
                 if (!lstGames.Columns.Contains(colCategoryPointer))
                 {
                     lstGames.Columns.Insert(2, colCategoryPointer);
                     colCategoryPointer.Width = originalCatColumnWidth;
                 }
             }
-            lstGames.EndUpdate();
         }
 
         private void AssignItemToGroup(ListViewItem item)
@@ -1084,7 +1069,6 @@ namespace Depressurizer {
             // jpodadera. Save original width and height
             originalHeight = this.Height;
             originalWidth = this.Width;
-            originalSplitDistance = splitContainer.SplitterDistance;
          }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
@@ -1331,36 +1315,20 @@ namespace Depressurizer {
                 ComponentResourceManager resources = new ComponentResourceManager(typeof(FormMain));
                 resources.ApplyResources(this, this.Name, Thread.CurrentThread.CurrentUICulture);
 
-                // If the window is maximized, un-maximize it
-                bool maximized = false;
-                if( this.WindowState == FormWindowState.Maximized ) {
-                    maximized = true;
-                    this.WindowState = FormWindowState.Normal;
-                }
-
-                // Save actual sizes and recover original size before reload resources of controls
+                // jpodadera. Save actual size and recover original size before reload resources of controls
                 int actualWidth = this.Width;
                 int actualHeight = this.Height;
-                int actualSplitDistance = splitContainer.SplitterDistance;
-
                 this.Width = this.originalWidth;
                 this.Height = this.originalHeight;
-                splitContainer.SplitterDistance = originalSplitDistance;
 
                 changeLanguageControls(this, resources, Thread.CurrentThread.CurrentUICulture);
 
-                // Recover previous size
+                // jpodadera. Recover previous size
                 this.Width = actualWidth;
                 this.Height = actualHeight;
-                splitContainer.SplitterDistance = actualSplitDistance;
                 
                 // reload new strings for status bar
                 UpdateSelectedStatusText();
-
-                // Re-maximize if it was maximized before
-                if( maximized ) {
-                    this.WindowState = FormWindowState.Maximized;
-                }
             }
 
             FlushStatus();
@@ -1539,10 +1507,7 @@ namespace Depressurizer {
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            listSorter.SetSortCol( e.Column );
-
-            
-            lstGames.SetSortIcon( e.Column, (listSorter.GetSortDir() == 1) ? SortOrder.Ascending : SortOrder.Descending );
+            listSorter.ColClick( e.Column );
             lstGames.Sort();
         }
 
@@ -1713,13 +1678,8 @@ namespace Depressurizer {
 
         private void chkGroupCategory_CheckedChanged(object sender, EventArgs e)
         {
-            if( chkGroupCategory.Checked && listSorter.GetSortCol() == 3 ) listSorter.SetSortCol( 2, listSorter.GetSortDir() );
-            else if( !chkGroupCategory.Checked && listSorter.GetSortCol() == 2 ) listSorter.SetSortCol(3, listSorter.GetSortDir() );
-
             FillGameListGroups();
             FillGameList();
-
-            Settings.Instance().GroupView = chkGroupCategory.Checked;
         }
 
     }
@@ -1770,89 +1730,6 @@ namespace Depressurizer {
                 cat = data.GetCategory( name );
             }
             return true;
-        }
-    }
-
-    /// <summary>
-    /// This allows drawing sorting arrows on the columns in the ListView.
-    /// </summary>
-    [EditorBrowsable( EditorBrowsableState.Never )]
-    public static class ListViewExtensions {
-        [StructLayout( LayoutKind.Sequential )]
-        public struct HDITEM {
-            public Mask mask;
-            public int cxy;
-            [MarshalAs( UnmanagedType.LPTStr )]
-            public string pszText;
-            public IntPtr hbm;
-            public int cchTextMax;
-            public Format fmt;
-            public IntPtr lParam;
-            // _WIN32_IE >= 0x0300 
-            public int iImage;
-            public int iOrder;
-            // _WIN32_IE >= 0x0500
-            public uint type;
-            public IntPtr pvFilter;
-            // _WIN32_WINNT >= 0x0600
-            public uint state;
-
-            [Flags]
-            public enum Mask {
-                Format = 0x4,       // HDI_FORMAT
-            };
-
-            [Flags]
-            public enum Format {
-                SortDown = 0x200,   // HDF_SORTDOWN
-                SortUp = 0x400,     // HDF_SORTUP
-            };
-        };
-
-        public const int LVM_FIRST = 0x1000;
-        public const int LVM_GETHEADER = LVM_FIRST + 31;
-
-        public const int HDM_FIRST = 0x1200;
-        public const int HDM_GETITEM = HDM_FIRST + 11;
-        public const int HDM_SETITEM = HDM_FIRST + 12;
-
-        [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
-        public static extern IntPtr SendMessage( IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam );
-
-        [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
-        public static extern IntPtr SendMessage( IntPtr hWnd, UInt32 msg, IntPtr wParam, ref HDITEM lParam );
-
-        public static void SetSortIcon( this ListView listViewControl, int columnIndex, SortOrder order ) {
-            IntPtr columnHeader = SendMessage( listViewControl.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero );
-            for( int columnNumber = 0; columnNumber <= listViewControl.Columns.Count - 1; columnNumber++ ) {
-                var columnPtr = new IntPtr( columnNumber );
-                var item = new HDITEM {
-                    mask = HDITEM.Mask.Format
-                };
-
-                if( SendMessage( columnHeader, HDM_GETITEM, columnPtr, ref item ) == IntPtr.Zero ) {
-                    throw new Win32Exception();
-                }
-
-                if( order != SortOrder.None && columnNumber == columnIndex ) {
-                    switch( order ) {
-                        case SortOrder.Ascending:
-                            item.fmt &= ~HDITEM.Format.SortDown;
-                            item.fmt |= HDITEM.Format.SortUp;
-                            break;
-                        case SortOrder.Descending:
-                            item.fmt &= ~HDITEM.Format.SortUp;
-                            item.fmt |= HDITEM.Format.SortDown;
-                            break;
-                    }
-                } else {
-                    item.fmt &= ~HDITEM.Format.SortDown & ~HDITEM.Format.SortUp;
-                }
-
-                if( SendMessage( columnHeader, HDM_SETITEM, columnPtr, ref item ) == IntPtr.Zero ) {
-                    throw new Win32Exception();
-                }
-            }
         }
     }
 }

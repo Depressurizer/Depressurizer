@@ -522,8 +522,6 @@ namespace Rallion {
                     IsActiveSession = true;
                 } catch( IOException ) {
                     IsActiveSession = false;
-                } catch( UnauthorizedAccessException ) {
-                    IsActiveSession = false;
                 }
                 return IsActiveSession;
             }
