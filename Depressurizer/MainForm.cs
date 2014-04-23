@@ -1,21 +1,4 @@
-﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
-
-This file is part of Depressurizer.
-
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -160,9 +143,9 @@ namespace Depressurizer {
 
                 try {
                     if( dlg.Custom ) {
-                        DownloadProfileData( dlg.UrlVal, true, null, settings.IgnoreDlc );
+                        DownloadProfileData( dlg.UrlVal, true, null, settings.IgnoreDlc, settings.IgnoreExternal );
                     } else {
-                        DownloadProfileData( dlg.IdVal, true, null, settings.IgnoreDlc );
+                        DownloadProfileData( dlg.IdVal, true, null, settings.IgnoreDlc, settings.IgnoreExternal );
                     }
                 } catch( ApplicationException e ) {
                     MessageBox.Show(e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -173,13 +156,13 @@ namespace Depressurizer {
 
         #endregion
 
-        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore, ignoreDlc );
+        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal ) {
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore, ignoreDlc, ignoreExternal );
             DownloadProfileDataHelper( updateDlg );
         }
 
-        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore, ignoreDlc );
+        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal ) {
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore, ignoreDlc, ignoreExternal );
             DownloadProfileDataHelper( updateDlg );
         }
 
@@ -201,7 +184,14 @@ namespace Depressurizer {
                         AddStatus(GlobalStrings.MainForm_NoGamesInDownload);
                     } else {
                         MakeChange( true );
-                        AddStatus(string.Format(GlobalStrings.MainForm_DownloadedGames, updateDlg.Fetched, updateDlg.Added, updateDlg.UseHtml ? "HTML" : "XML"));
+                        if (currentProfile.IgnoreExternal)
+                        {
+                            AddStatus(string.Format(GlobalStrings.MainForm_DownloadedGames, updateDlg.Fetched, updateDlg.Added, updateDlg.UseHtml ? "HTML" : "XML"));
+                        }
+                        else
+                        {
+                            AddStatus(string.Format(GlobalStrings.MainForm_DownloadedGamesWithExternal, updateDlg.Fetched, updateDlg.Added, updateDlg.Removed, updateDlg.UseHtml ? "HTML" : "XML"));
+                        }
                         FillCategoryList();
                         FillGameList();
                     }
@@ -393,7 +383,7 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
+                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc, currentProfile.IgnoreExternal );
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
                     MessageBox.Show(e.Message, GlobalStrings.MainForm_ErrorDownloadingGameList, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -659,7 +649,8 @@ namespace Depressurizer {
             if( selectedOnly ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     Game g = item.Tag as Game;
-                    if( g != null ) {
+                    // jpodadera. Exclude shorcut games.
+                    if((g != null) && (g.Id > 0)) {
                         if( g.Category != null ) {
                             overwrite = false;
                         }
@@ -668,11 +659,13 @@ namespace Depressurizer {
                 }
             } else {
                 foreach( Game g in gameData.Games.Values ) {
-                    if( g != null ) {
+                    // jpodadera. Exclude shorcut games.
+                    if ((g != null) && (g.Id > 0))
+                    {
                         if( g.Category != null ) {
                             overwrite = false;
                         }
-                        gamesToUpdate.Add( g );
+                        gamesToUpdate.Add(g);
                     }
                 }
             }
@@ -854,17 +847,21 @@ namespace Depressurizer {
             string catName = ( g.Category == null ) ? CatUtil.CAT_UNC_NAME : g.Category.Name;
 
             // jpodadera. Change favorite column contents from Y-N to X or blank
-            //ListViewItem item = new ListViewItem(new string[] { g.Name, g.Id.ToString(), catName, g.Favorite ? GlobalStrings.MainForm_FirstLetterYes : GlobalStrings.MainForm_FirstLetterNo });
             ListViewItem item;
+            // jpodadera. Shortcut games do not show internal identifier
+            string strId = (g.Id < 0) ? GlobalStrings.MainForm_External : g.Id.ToString();
             if (chkGroupCategory.Checked)
             {
-                item = new ListViewItem(new string[] { g.Id.ToString(), g.Name, g.Favorite ? "X" : String.Empty });
+                item = new ListViewItem(new string[] { strId, g.Name, g.Favorite ? "X" : String.Empty });
             }
             else
             {
-                item = new ListViewItem(new string[] { g.Id.ToString(), g.Name, catName, g.Favorite ? "X" : String.Empty });
+                item = new ListViewItem(new string[] { strId, g.Name, catName, g.Favorite ? "X" : String.Empty });
             }
             item.Tag = g;
+            // jpodadera. Shortcut games show with italic font. 
+            if (g.Id < 0)
+                item.Font = new Font(item.Font, item.Font.Style | FontStyle.Italic);
             lstGames.Items.Add(item);
             AssignItemToGroup(item);
         }
@@ -1648,7 +1645,18 @@ namespace Depressurizer {
         {
             if (g != null)
             {
-                System.Diagnostics.Process.Start("steam://rungameid/" + g.Id.ToString());
+                string gameIdentifier;
+                if (g.Id < 0)
+                {   // External game
+                    ulong externalId = ((ulong)g.Id << 32) + 0X2000000;
+                    gameIdentifier = externalId.ToString();
+                }
+                else
+                {
+                    // Steam game
+                    gameIdentifier = g.Id.ToString();
+                }                    
+                System.Diagnostics.Process.Start("steam://rungameid/" + gameIdentifier);
             }
         }
 

@@ -154,6 +154,12 @@
   <data name="cmdCancel.Text" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="chkIgnoreExternal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>245, 17</value>
+  </data>
+  <data name="chkIgnoreExternal.Text" xml:space="preserve">
+    <value>Ignorar juegos externos al importar y descargar</value>
+  </data>
   <data name="chkIgnoreDlc.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 17</value>
   </data>
@@ -223,6 +229,9 @@
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Nivel de registro: </value>
+  </data>
+  <data name="tabLogging.Size" type="System.Drawing.Size, System.Drawing">
+    <value>536, 363</value>
   </data>
   <data name="tabLogging.Text" xml:space="preserve">
     <value>Registro</value>

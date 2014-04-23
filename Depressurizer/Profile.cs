@@ -47,14 +47,18 @@ namespace Depressurizer {
 
         public bool IgnoreDlc = true;
 
+        // jpodadera. Ignored non-Steam games
+        public bool IgnoreExternal = true;
+
         public int ImportSteamData() {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            return GameData.ImportSteamFile( filePath, IgnoreList, IgnoreDlc );
+            //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
+            return GameData.ImportSteamFile(SteamID64, IgnoreList, IgnoreDlc, IgnoreExternal);
         }
 
         public void ExportSteamData() {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            GameData.SaveSteamFile( filePath, ExportDiscard );
+            GameData.SaveSteamFile(SteamID64, ExportDiscard);
+            //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
+            //GameData.SaveSteamFile( filePath, ExportDiscard );
         }
 
         public bool IgnoreGame( int gameId ) {
@@ -99,6 +103,9 @@ namespace Depressurizer {
                 profile.AutoIgnore = XmlUtil.GetBoolFromNode( profileNode["auto_ignore"], profile.AutoIgnore );
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode["overwrite_names"], profile.OverwriteOnDownload );
                 profile.IgnoreDlc = XmlUtil.GetBoolFromNode( profileNode["ignore_dlc"], profile.IgnoreDlc );
+
+                // jpodadera. Ignored non-Steam games
+                profile.IgnoreExternal = XmlUtil.GetBoolFromNode(profileNode["ignore_external"], profile.IgnoreExternal);
 
                 XmlNode exclusionListNode = profileNode.SelectSingleNode( "exclusions" );
                 if( exclusionListNode != null ) {
@@ -170,6 +177,9 @@ namespace Depressurizer {
             writer.WriteElementString( "auto_ignore", AutoIgnore.ToString() );
             writer.WriteElementString( "overwrite_names", OverwriteOnDownload.ToString() );
             writer.WriteElementString( "ignore_dlc", IgnoreDlc.ToString() );
+
+            // jpodadera. Ignored non-Steam games
+            writer.WriteElementString("ignore_external", IgnoreExternal.ToString() );
 
             writer.WriteStartElement( "games" );
 

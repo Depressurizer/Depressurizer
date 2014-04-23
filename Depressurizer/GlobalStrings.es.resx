@@ -787,4 +787,28 @@ Tiempo Restante:</value>
   <data name="DlgProfile_EditProfile" xml:space="preserve">
     <value>Editar Perfil</value>
   </data>
+  <data name="GameData_ErrorParsingScreenshots" xml:space="preserve">
+    <value>Error procesando identificador en el fichero Screenshots.vdf para el juego '{0}'</value>
+  </data>
+  <data name="GameData_IntegratedShortCuts" xml:space="preserve">
+    <value>Añadidos juegos externos en la lista de juegos. {0} entradas totales, {1} nuevas, {2} eliminadas.</value>
+  </data>
+  <data name="GameData_ErrorRemovingGame" xml:space="preserve">
+    <value>No se pudo eliminar juego: {0} - {1}.</value>
+  </data>
+  <data name="GameData_ErrorRemovingSteamGame" xml:space="preserve">
+    <value>Solo se pueden eliminar juegos externos con identificador negativo: {0}</value>
+  </data>
+  <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
+    <value>Eliminado juego de la lista de juegos: {0} - {1}.</value>
+  </data>
+  <data name="MainForm_DownloadedGamesWithExternal" xml:space="preserve">
+    <value>Descargados {0} juegos, {1} nuevos, {2} externos eliminados, vía {3}.</value>
+  </data>
+  <data name="GameData_SavingShortcutConfigFile" xml:space="preserve">
+    <value>Guardando fichero de juegos externos de Steam: {0}.</value>
+  </data>
+  <data name="MainForm_External" xml:space="preserve">
+    <value>Externo</value>
+  </data>
 </root>

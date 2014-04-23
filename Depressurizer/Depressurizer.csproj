@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VdfFile\BinaryVdfFileNode.cs" />
     <Compile Include="CDlgDataScrape.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,7 +160,7 @@
     <Compile Include="Lib\DlgGetString.Designer.cs">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </Compile>
-    <Compile Include="TextVdfFile.cs" />
+    <Compile Include="VdfFile\TextVdfFile.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -190,6 +191,7 @@
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="VdfFile\VdfFileNode.cs" />
     <EmbeddedResource Include="GlobalStrings.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalStrings.es.Designer.cs</LastGenOutput>
@@ -265,6 +267,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgSteamPath.resx">
       <DependentUpon>DlgSteamPath.cs</DependentUpon>

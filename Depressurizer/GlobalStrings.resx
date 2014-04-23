@@ -785,4 +785,28 @@ Continue loading file?</value>
   <data name="DlgProfile_EditProfile" xml:space="preserve">
     <value>Edit Profile</value>
   </data>
+  <data name="GameData_ErrorParsingScreenshots" xml:space="preserve">
+    <value>Error parsing gameId from Screenshots.vdf file for game '{0}'</value>
+  </data>
+  <data name="GameData_IntegratedShortCuts" xml:space="preserve">
+    <value>Integrated external games into game list. {0} total items, {1} new, {2} removed.</value>
+  </data>
+  <data name="GameData_ErrorRemovingGame" xml:space="preserve">
+    <value>Couldn't remove game: {0} - {1}.</value>
+  </data>
+  <data name="GameData_ErrorRemovingSteamGame" xml:space="preserve">
+    <value>Only external games with negative identifier can be removed: {0}</value>
+  </data>
+  <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
+    <value>Removed game from game list: {0} - {1}.</value>
+  </data>
+  <data name="MainForm_DownloadedGamesWithExternal" xml:space="preserve">
+    <value>Downloaded {0} games, {1} new, {2} external removed, via {3}.</value>
+  </data>
+  <data name="GameData_SavingShortcutConfigFile" xml:space="preserve">
+    <value>Saving Steam shortcuts config file: {0}.</value>
+  </data>
+  <data name="MainForm_External" xml:space="preserve">
+    <value>External</value>
+  </data>
 </root>

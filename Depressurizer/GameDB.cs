@@ -1,21 +1,4 @@
-﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
-
-This file is part of Depressurizer.
-
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
+﻿
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -98,7 +81,9 @@ namespace Depressurizer {
 
 
         private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        private static Regex regGenre = new Regex( "<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
+        // jpodadera. Repaired regular expressions
+        //private static Regex regGenre = new Regex("<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
 
         // jpodadera. Repaired regular expressions
         //private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
@@ -306,15 +291,18 @@ namespace Depressurizer {
         static char[] genreSep = new char[] { ',' };
 
         #region Accessors
-        public bool Contains( int id ) {
+        public bool Contains(int id)
+        {
             return Games.ContainsKey( id );
         }
 
-        public bool IsDlc( int id ) {
+        public bool IsDlc(int id)
+        {
             return Games.ContainsKey( id ) && Games[id].Type == AppType.DLC;
         }
 
-        public string GetName( int id ) {
+        public string GetName(int id)
+        {
             if( Games.ContainsKey( id ) ) {
                 return Games[id].Name;
             } else {
@@ -322,7 +310,8 @@ namespace Depressurizer {
             }
         }
 
-        public string GetGenre( int id, bool full ) {
+        public string GetGenre(int id, bool full)
+        {
             if( Games.ContainsKey( id ) ) {
                 string fullString = Games[id].Genre;
                 if( string.IsNullOrEmpty( fullString ) ) {

@@ -55,6 +55,7 @@ namespace Depressurizer {
             this.cmdAccept = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.grpSaving = new System.Windows.Forms.GroupBox();
+            this.chkIgnoreExternal = new System.Windows.Forms.CheckBox();
             this.chkIgnoreDlc = new System.Windows.Forms.CheckBox();
             this.grpAutocat = new System.Windows.Forms.GroupBox();
             this.chkFullAutocat = new System.Windows.Forms.CheckBox();
@@ -171,10 +172,17 @@ namespace Depressurizer {
             // grpSaving
             // 
             resources.ApplyResources(this.grpSaving, "grpSaving");
+            this.grpSaving.Controls.Add(this.chkIgnoreExternal);
             this.grpSaving.Controls.Add(this.chkIgnoreDlc);
             this.grpSaving.Controls.Add(this.chkRemoveExtraEntries);
             this.grpSaving.Name = "grpSaving";
             this.grpSaving.TabStop = false;
+            // 
+            // chkIgnoreExternal
+            // 
+            resources.ApplyResources(this.chkIgnoreExternal, "chkIgnoreExternal");
+            this.chkIgnoreExternal.Name = "chkIgnoreExternal";
+            this.chkIgnoreExternal.UseVisualStyleBackColor = true;
             // 
             // chkIgnoreDlc
             // 
@@ -378,5 +386,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ComboBox cmbLogLevel;
         private System.Windows.Forms.GroupBox grpLanguage;
         private System.Windows.Forms.ComboBox cmbLanguage;
+        private System.Windows.Forms.CheckBox chkIgnoreExternal;
     }
 }

@@ -125,9 +125,6 @@
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
   </data>
-  <data name="chkOverwriteNames.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="chkAutoImport.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -137,9 +134,6 @@
   </data>
   <data name="txtUserUrl.Location" type="System.Drawing.Point, System.Drawing">
     <value>201, 159</value>
-  </data>
-  <data name="&gt;&gt;tabOpts.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="cmdIgnore.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 23</value>
@@ -153,14 +147,17 @@
   <data name="&gt;&gt;tabMain.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;cmdCancel.Name" xml:space="preserve">
+    <value>cmdCancel</value>
+  </data>
   <data name="grpIgnored.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="cmdUserUpdate.Size" type="System.Drawing.Size, System.Drawing">
     <value>76, 23</value>
   </data>
-  <data name="cmdIgnore.Text" xml:space="preserve">
-    <value>Ignore</value>
+  <data name="&gt;&gt;chkActDownload.Name" xml:space="preserve">
+    <value>chkActDownload</value>
   </data>
   <data name="grpActions.Text" xml:space="preserve">
     <value>Additional Actions</value>
@@ -188,12 +185,6 @@
   </data>
   <data name="&gt;&gt;txtIgnore.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;txtUserUrl.Name" xml:space="preserve">
-    <value>txtUserUrl</value>
-  </data>
-  <data name="grpOtherOpt.Text" xml:space="preserve">
-    <value>Other Options</value>
   </data>
   <data name="&gt;&gt;lstIgnored.Name" xml:space="preserve">
     <value>lstIgnored</value>
@@ -291,16 +282,13 @@
   <data name="txtIgnore.Location" type="System.Drawing.Point, System.Drawing">
     <value>187, 19</value>
   </data>
-  <data name="chkAutoDownload.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="chkAutoIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="&gt;&gt;tabOpts.Name" xml:space="preserve">
     <value>tabOpts</value>
   </data>
-  <data name="&gt;&gt;radSelUserByURL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdIgnore.ZOrder" xml:space="preserve">
+  <data name="chkAutoIgnore.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="&gt;&gt;lblPath.Name" xml:space="preserve">
@@ -314,6 +302,9 @@
   </data>
   <data name="&gt;&gt;grpIgnoreSettings.Parent" xml:space="preserve">
     <value>tabIgnore</value>
+  </data>
+  <data name="&gt;&gt;txtUserID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="grpSaveOpt.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 77</value>
@@ -363,8 +354,14 @@
   <data name="tabIgnore.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
+  <data name="&gt;&gt;cmdUnignore.Name" xml:space="preserve">
+    <value>cmdUnignore</value>
+  </data>
   <data name="chkAutoExport.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="lstUsers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 56</value>
   </data>
   <data name="radSelUserByID.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -372,17 +369,14 @@
   <data name="grpLoadOpt.Size" type="System.Drawing.Size, System.Drawing">
     <value>523, 65</value>
   </data>
-  <data name="chkAutoImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 17</value>
+  <data name="cmdIgnore.Text" xml:space="preserve">
+    <value>Ignore</value>
   </data>
   <data name="cmdBrowse.Text" xml:space="preserve">
     <value>Browse...</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
-  </data>
-  <data name="chkAutoIgnore.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="&gt;&gt;grpIgnored.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -392,6 +386,9 @@
   </data>
   <data name="&gt;&gt;chkActImport.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkIgnoreExternal.Name" xml:space="preserve">
+    <value>chkIgnoreExternal</value>
   </data>
   <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>570, 369</value>
@@ -417,6 +414,9 @@
   <data name="&gt;&gt;cmdBrowse.Parent" xml:space="preserve">
     <value>grpProfInfo</value>
   </data>
+  <data name="chkIgnoreExternal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 81</value>
+  </data>
   <data name="cmdOk.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
@@ -432,7 +432,7 @@
   <data name="grpOtherOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="grpActions.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;cmdUnignore.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="&gt;&gt;cmdUserUpdate.Type" xml:space="preserve">
@@ -444,8 +444,8 @@
   <data name="&gt;&gt;chkExportDiscard.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="chkAutoExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 17</value>
+  <data name="chkIgnoreExternal.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;cmdCancel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -455,6 +455,9 @@
   </data>
   <data name="&gt;&gt;grpOtherOpt.Name" xml:space="preserve">
     <value>grpOtherOpt</value>
+  </data>
+  <data name="chkActDownload.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 20</value>
   </data>
   <data name="&gt;&gt;txtUserID.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -477,8 +480,8 @@
   <data name="radSelUserByURL.Text" xml:space="preserve">
     <value>Manually enter Custom URL name:</value>
   </data>
-  <data name="grpSaveOpt.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;radSelUserByURL.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tabMain.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
@@ -516,6 +519,9 @@
   <data name="cmdUserUpdate.Text" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="&gt;&gt;chkAutoImport.Name" xml:space="preserve">
+    <value>chkAutoImport</value>
+  </data>
   <data name="&gt;&gt;chkIgnoreDlc.Parent" xml:space="preserve">
     <value>grpIgnoreSettings</value>
   </data>
@@ -546,9 +552,6 @@
   <data name="lblPath.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="chkAutoIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
   <data name="&gt;&gt;lblUserStatus.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
@@ -564,11 +567,14 @@
   <data name="&gt;&gt;grpActions.Name" xml:space="preserve">
     <value>grpActions</value>
   </data>
+  <data name="&gt;&gt;lblUserStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="cmdOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="&gt;&gt;chkAutoIgnore.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -606,8 +612,8 @@
   <data name="&gt;&gt;tabIgnore.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="chkActDownload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 20</value>
+  <data name="tabIgnore.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
@@ -618,14 +624,20 @@
   <data name="cmdUserUpdateCancel.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="chkIgnoreExternal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 17</value>
+  </data>
   <data name="&gt;&gt;grpSaveOpt.Name" xml:space="preserve">
     <value>grpSaveOpt</value>
   </data>
   <data name="chkSetStartup.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 67</value>
   </data>
-  <data name="grpActions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="&gt;&gt;chkIgnoreExternal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chkAutoExport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>305, 17</value>
   </data>
   <data name="&gt;&gt;radSelUserByID.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -645,8 +657,8 @@
   <data name="chkOverwriteNames.Text" xml:space="preserve">
     <value>Overwrite names when downloading game list</value>
   </data>
-  <data name="&gt;&gt;txtUserID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tabIgnore.Parent" xml:space="preserve">
+    <value>tabControl</value>
   </data>
   <data name="grpSaveOpt.Size" type="System.Drawing.Size, System.Drawing">
     <value>523, 65</value>
@@ -657,11 +669,14 @@
   <data name="&gt;&gt;chkOverwriteNames.Name" xml:space="preserve">
     <value>chkOverwriteNames</value>
   </data>
-  <data name="&gt;&gt;grpLoadOpt.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="cmdUserUpdate.Location" type="System.Drawing.Point, System.Drawing">
     <value>387, 104</value>
+  </data>
+  <data name="&gt;&gt;chkIgnoreExternal.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;grpActions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="grpOtherOpt.Size" type="System.Drawing.Size, System.Drawing">
     <value>523, 45</value>
@@ -678,6 +693,9 @@
   <data name="&gt;&gt;grpOtherOpt.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="radSelUserFromList.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="chkActImport.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 44</value>
   </data>
@@ -693,8 +711,8 @@
   <data name="cmdOk.Location" type="System.Drawing.Point, System.Drawing">
     <value>507, 387</value>
   </data>
-  <data name="&gt;&gt;chkActDownload.Name" xml:space="preserve">
-    <value>chkActDownload</value>
+  <data name="&gt;&gt;tabOpts.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="grpIgnored.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -711,20 +729,20 @@
   <data name="&gt;&gt;lstIgnored.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="chkIgnoreExternal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="chkActDownload.Text" xml:space="preserve">
     <value>Download game list from community site right now</value>
   </data>
   <data name="chkAutoExport.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
   </data>
-  <data name="grpIgnored.Text" xml:space="preserve">
-    <value>Ignored Games</value>
-  </data>
   <data name="grpIgnored.Size" type="System.Drawing.Size, System.Drawing">
     <value>296, 329</value>
   </data>
-  <data name="&gt;&gt;tabIgnore.Parent" xml:space="preserve">
-    <value>tabControl</value>
+  <data name="chkAutoImport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 17</value>
   </data>
   <data name="tabMain.Size" type="System.Drawing.Size, System.Drawing">
     <value>562, 343</value>
@@ -759,9 +777,6 @@
   <data name="radSelUserByURL.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="lblUserStatus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
   <data name="&gt;&gt;chkAutoDownload.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -774,11 +789,11 @@
   <data name="&gt;&gt;chkActDownload.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="grpProfInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
   <data name="chkAutoExport.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="radSelUserByID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 134</value>
   </data>
   <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
     <value>tabControl</value>
@@ -801,20 +816,20 @@
   <data name="cmdCancel.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="&gt;&gt;chkAutoImport.Name" xml:space="preserve">
-    <value>chkAutoImport</value>
+  <data name="chkAutoDownload.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="grpSaveOpt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 0, 3</value>
-  </data>
-  <data name="cmdUserUpdateCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
   </data>
   <data name="chkAutoIgnore.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopLeft</value>
   </data>
   <data name="&gt;&gt;cmdOk.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="&gt;&gt;chkSetStartup.Name" xml:space="preserve">
+    <value>chkSetStartup</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgProfile</value>
@@ -834,11 +849,11 @@
   <data name="chkActDownload.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;chkSetStartup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="grpActions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
   </data>
-  <data name="chkAutoIgnore.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
+  <data name="&gt;&gt;grpLoadOpt.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;tabIgnore.Name" xml:space="preserve">
     <value>tabIgnore</value>
@@ -855,8 +870,17 @@
   <data name="txtFilePath.Location" type="System.Drawing.Point, System.Drawing">
     <value>91, 13</value>
   </data>
+  <data name="chkIgnoreExternal.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="&gt;&gt;cmdUserUpdateCancel.Name" xml:space="preserve">
     <value>cmdUserUpdateCancel</value>
+  </data>
+  <data name="&gt;&gt;grpLoadOpt.Name" xml:space="preserve">
+    <value>grpLoadOpt</value>
+  </data>
+  <data name="&gt;&gt;tabOpts.Parent" xml:space="preserve">
+    <value>tabControl</value>
   </data>
   <data name="&gt;&gt;grpIgnored.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -873,9 +897,6 @@
   <data name="cmdUnignore.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="grpIgnoreSettings.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
   <data name="&gt;&gt;grpUserInfo.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
@@ -887,12 +908,6 @@
   </data>
   <data name="txtUserID.Location" type="System.Drawing.Point, System.Drawing">
     <value>201, 133</value>
-  </data>
-  <data name="grpProfInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="tabIgnore.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
   </data>
   <data name="&gt;&gt;lblPath.Parent" xml:space="preserve">
     <value>grpProfInfo</value>
@@ -908,6 +923,9 @@
   </data>
   <data name="cmdBrowse.Location" type="System.Drawing.Point, System.Drawing">
     <value>468, 11</value>
+  </data>
+  <data name="chkIgnoreExternal.Text" xml:space="preserve">
+    <value>Ignore external games</value>
   </data>
   <data name="&gt;&gt;cmdUserUpdate.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -939,11 +957,14 @@
   <data name="txtFilePath.Size" type="System.Drawing.Size, System.Drawing">
     <value>371, 20</value>
   </data>
+  <data name="chkAutoIgnore.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
   <data name="txtUserUrl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;cmdUnignore.Name" xml:space="preserve">
-    <value>cmdUnignore</value>
+  <data name="grpActions.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="txtUserID.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -951,8 +972,11 @@
   <data name="&gt;&gt;tabControl.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="radSelUserFromList.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;chkSetStartup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="grpIgnored.Text" xml:space="preserve">
+    <value>Ignored Games</value>
   </data>
   <data name="cmdCancel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -965,6 +989,9 @@
   </data>
   <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>426, 387</value>
+  </data>
+  <data name="&gt;&gt;chkIgnoreExternal.Parent" xml:space="preserve">
+    <value>grpIgnoreSettings</value>
   </data>
   <data name="&gt;&gt;tabMain.Parent" xml:space="preserve">
     <value>tabControl</value>
@@ -981,11 +1008,11 @@
   <data name="grpProfInfo.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;lblUserStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tabIgnore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>562, 343</value>
   </data>
-  <data name="&gt;&gt;cmdUnignore.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="grpOtherOpt.Text" xml:space="preserve">
+    <value>Other Options</value>
   </data>
   <data name="&gt;&gt;cmdOk.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1020,11 +1047,8 @@
   <data name="&gt;&gt;grpSaveOpt.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;chkAutoIgnore.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;chkIgnoreDlc.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;tabMain.Name" xml:space="preserve">
     <value>tabMain</value>
@@ -1053,6 +1077,9 @@
   <data name="txtIgnore.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;chkAutoImport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="txtFilePath.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -1062,8 +1089,8 @@
   <data name="radSelUserByURL.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 160</value>
   </data>
-  <data name="&gt;&gt;tabOpts.Parent" xml:space="preserve">
-    <value>tabControl</value>
+  <data name="&gt;&gt;grpActions.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="chkActDownload.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1071,8 +1098,8 @@
   <data name="&gt;&gt;chkExportDiscard.Parent" xml:space="preserve">
     <value>grpSaveOpt</value>
   </data>
-  <data name="&gt;&gt;grpActions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;chkAutoIgnore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="grpIgnoreSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>227, 329</value>
@@ -1080,17 +1107,20 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>594, 420</value>
   </data>
-  <data name="&gt;&gt;chkSetStartup.Name" xml:space="preserve">
-    <value>chkSetStartup</value>
+  <data name="grpProfInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
   </data>
   <data name="chkExportDiscard.Size" type="System.Drawing.Size, System.Drawing">
     <value>370, 17</value>
   </data>
-  <data name="&gt;&gt;grpLoadOpt.Name" xml:space="preserve">
-    <value>grpLoadOpt</value>
+  <data name="grpSaveOpt.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;chkAutoImport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="lblUserStatus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="grpProfInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="&gt;&gt;lstIgnored.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1100,6 +1130,9 @@
   </data>
   <data name="&gt;&gt;lstUsers.Parent" xml:space="preserve">
     <value>grpUserInfo</value>
+  </data>
+  <data name="&gt;&gt;lstUsers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabOpts.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1113,11 +1146,11 @@
   <data name="&gt;&gt;chkSetStartup.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="radSelUserByID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 134</value>
+  <data name="grpIgnoreSettings.Text" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="&gt;&gt;lstUsers.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;cmdIgnore.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="chkIgnoreDlc.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 58</value>
@@ -1130,9 +1163,6 @@
   </data>
   <data name="&gt;&gt;cmdBrowse.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpActions.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="&gt;&gt;radSelUserByURL.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1170,8 +1200,8 @@
   <data name="&gt;&gt;chkSetStartup.Parent" xml:space="preserve">
     <value>grpActions</value>
   </data>
-  <data name="tabIgnore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>562, 343</value>
+  <data name="&gt;&gt;txtUserUrl.Name" xml:space="preserve">
+    <value>txtUserUrl</value>
   </data>
   <data name="cmdIgnore.Location" type="System.Drawing.Point, System.Drawing">
     <value>187, 45</value>
@@ -1179,8 +1209,8 @@
   <data name="&gt;&gt;lstUsers.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="lstUsers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 56</value>
+  <data name="chkOverwriteNames.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="chkExportDiscard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1194,8 +1224,8 @@
   <data name="&gt;&gt;cmdCancel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;cmdCancel.Name" xml:space="preserve">
-    <value>cmdCancel</value>
+  <data name="cmdUserUpdateCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

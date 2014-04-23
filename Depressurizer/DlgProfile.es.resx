@@ -238,6 +238,12 @@
   <data name="grpIgnored.Text" xml:space="preserve">
     <value>Juegos ignorados</value>
   </data>
+  <data name="chkIgnoreExternal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 17</value>
+  </data>
+  <data name="chkIgnoreExternal.Text" xml:space="preserve">
+    <value>Ignorar juegos externos</value>
+  </data>
   <data name="chkIgnoreDlc.Size" type="System.Drawing.Size, System.Drawing">
     <value>128, 17</value>
   </data>

@@ -80,6 +80,7 @@ namespace Depressurizer {
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
+            this.chkIgnoreExternal = new System.Windows.Forms.CheckBox();
             this.chkIgnoreDlc = new System.Windows.Forms.CheckBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
@@ -381,10 +382,19 @@ namespace Depressurizer {
             // grpIgnoreSettings
             // 
             resources.ApplyResources(this.grpIgnoreSettings, "grpIgnoreSettings");
+            this.grpIgnoreSettings.Controls.Add(this.chkIgnoreExternal);
             this.grpIgnoreSettings.Controls.Add(this.chkIgnoreDlc);
             this.grpIgnoreSettings.Controls.Add(this.chkAutoIgnore);
             this.grpIgnoreSettings.Name = "grpIgnoreSettings";
             this.grpIgnoreSettings.TabStop = false;
+            // 
+            // chkIgnoreExternal
+            // 
+            resources.ApplyResources(this.chkIgnoreExternal, "chkIgnoreExternal");
+            this.chkIgnoreExternal.Checked = true;
+            this.chkIgnoreExternal.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIgnoreExternal.Name = "chkIgnoreExternal";
+            this.chkIgnoreExternal.UseVisualStyleBackColor = true;
             // 
             // chkIgnoreDlc
             // 
@@ -483,5 +493,6 @@ namespace Depressurizer {
         private System.Windows.Forms.RadioButton radSelUserByURL;
         private System.Windows.Forms.RadioButton radSelUserByID;
         private System.Windows.Forms.RadioButton radSelUserFromList;
+        private System.Windows.Forms.CheckBox chkIgnoreExternal;
     }
 }

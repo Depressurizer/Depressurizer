@@ -126,6 +126,23 @@ namespace Depressurizer {
             }
         }
 
+        private bool _ignoreExternal = true;
+        public bool IgnoreExternal
+        {
+            get
+            {
+                return _ignoreExternal;
+            }
+            set
+            {
+                if (_ignoreExternal != value)
+                {
+                    _ignoreExternal = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private bool _fullAutocat = false;
         public bool FullAutocat {
             get {

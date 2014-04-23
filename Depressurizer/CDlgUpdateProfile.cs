@@ -26,11 +26,12 @@ namespace Depressurizer {
     class CDlgUpdateProfile : CancelableDlg {
         public int Fetched { get; private set; }
         public int Added { get; private set; }
+        public int Removed { get; private set; }
 
         public bool UseHtml { get; private set; }
         public bool Failover { get; private set; }
 
-        private Int64 SteamId;
+        private Int64 SteamId = 0;
         private string customUrl;
         private bool custom;
         private GameData data;
@@ -42,7 +43,10 @@ namespace Depressurizer {
         private SortedSet<int> ignore;
         private bool ignoreDlc;
 
-        public CDlgUpdateProfile( GameData data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
+        //jpodadera. Non-Steam games
+        private bool ignoreExternal;
+
+        public CDlgUpdateProfile( GameData data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal )
             : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = false;
@@ -59,10 +63,13 @@ namespace Depressurizer {
             this.ignore = ignore;
             this.ignoreDlc = ignoreDlc;
 
+            //jpodadera. Non-Steam games
+            this.ignoreExternal = ignoreExternal;
+
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        public CDlgUpdateProfile( GameData data, string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
+        public CDlgUpdateProfile( GameData data, string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal )
             : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = true;
@@ -78,6 +85,9 @@ namespace Depressurizer {
             this.overwrite = overwrite;
             this.ignore = ignore;
             this.ignoreDlc = ignoreDlc;
+
+            //jpodadera. Non-Steam games
+            this.ignoreExternal = ignoreExternal;
 
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
@@ -141,6 +151,18 @@ namespace Depressurizer {
                     Fetched = data.IntegrateXmlGameList( doc, overwrite, ignore, ignoreDlc, out newItems );
                     Added = newItems;
                 }
+
+                //jpodadera. Non-Steam games
+                if ((!ignoreExternal) && (SteamId != 0))
+                {
+                    int newItems, removedItems;
+                    Fetched += data.IntegrateNonSteamGameList(SteamId, overwrite, ignore, out newItems, out removedItems);
+                    Added += newItems;
+                    Removed = removedItems;
+                }
+                else
+                    Removed = 0;
+
                 OnJobCompletion();
             }
         }

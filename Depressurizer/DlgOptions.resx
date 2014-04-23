@@ -144,7 +144,7 @@
     <value>130, 6</value>
   </data>
   <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>544, 366</value>
+    <value>544, 389</value>
   </data>
   <data name="cmdSteamPathBrowse.Location" type="System.Drawing.Point, System.Drawing">
     <value>440, 20</value>
@@ -170,8 +170,11 @@
   <data name="&gt;&gt;cmdSteamPathBrowse.Parent" xml:space="preserve">
     <value>grpSteamDir</value>
   </data>
-  <data name="&gt;&gt;cmbLogLevel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="radLoad.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkIgnoreExternal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 17</value>
   </data>
   <data name="&gt;&gt;txtSteamPath.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -197,8 +200,11 @@
   <data name="cmdDefaultProfileBrowse.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="radLoad.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="grpAutocat.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cmdAccept.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="grpAutocat.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 162</value>
@@ -220,13 +226,16 @@
     <value>Top, Right</value>
   </data>
   <data name="&gt;&gt;chkRemoveExtraEntries.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="cmdSteamPathBrowse.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>568, 417</value>
+    <value>568, 440</value>
+  </data>
+  <data name="chkIgnoreExternal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="grpDatSrc.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 210</value>
@@ -235,7 +244,7 @@
     <value>tabControl</value>
   </data>
   <data name="grpSaving.Size" type="System.Drawing.Size, System.Drawing">
-    <value>524, 66</value>
+    <value>524, 89</value>
   </data>
   <data name="&gt;&gt;grpDatSrc.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -276,8 +285,14 @@
   <data name="txtSteamPath.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 22</value>
   </data>
+  <data name="chkIgnoreExternal.Text" xml:space="preserve">
+    <value>Ignore external games on import and download</value>
+  </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
+  </data>
+  <data name="tabLogging.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="tabGeneral.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -309,8 +324,8 @@
   <data name="&gt;&gt;cmbLogLevel.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="tabGeneral.Text" xml:space="preserve">
-    <value>General</value>
+  <data name="&gt;&gt;grpLanguage.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -327,17 +342,14 @@
   <data name="&gt;&gt;txtDefaultProfile.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tabLogging.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+  <data name="&gt;&gt;cmbLogLevel.Parent" xml:space="preserve">
+    <value>tabLogging</value>
   </data>
   <data name="chkIgnoreDlc.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="&gt;&gt;tabGeneral.Name" xml:space="preserve">
     <value>tabGeneral</value>
-  </data>
-  <data name="&gt;&gt;cmdAccept.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="cmdSteamPathBrowse.Text" xml:space="preserve">
     <value>Browse...</value>
@@ -352,7 +364,7 @@
     <value>Auto-Categorization</value>
   </data>
   <data name="cmdAccept.Location" type="System.Drawing.Point, System.Drawing">
-    <value>481, 384</value>
+    <value>481, 407</value>
   </data>
   <data name="radCreate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -369,6 +381,9 @@
   <data name="cmdAccept.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tabLogging</value>
+  </data>
   <data name="&gt;&gt;radLoad.Parent" xml:space="preserve">
     <value>grpStartup</value>
   </data>
@@ -382,7 +397,7 @@
     <value>cmdSteamPathBrowse</value>
   </data>
   <data name="tabGeneral.Size" type="System.Drawing.Size, System.Drawing">
-    <value>536, 340</value>
+    <value>536, 363</value>
   </data>
   <data name="radNone.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 65</value>
@@ -438,8 +453,8 @@
   <data name="chkFullAutocat.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 13</value>
+  <data name="chkIgnoreExternal.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="chkIgnoreDlc.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 17</value>
@@ -504,17 +519,17 @@
   <data name="&gt;&gt;grpSteamDir.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
   <data name="&gt;&gt;txtSteamPath.Parent" xml:space="preserve">
     <value>grpSteamDir</value>
   </data>
   <data name="tabLogging.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;grpLanguage.Parent" xml:space="preserve">
-    <value>tabGeneral</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;chkIgnoreExternal.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -522,8 +537,8 @@
   <data name="txtDefaultProfile.Size" type="System.Drawing.Size, System.Drawing">
     <value>333, 20</value>
   </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>tabLogging</value>
+  <data name="numLogBackup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 20</value>
   </data>
   <data name="&gt;&gt;cmbDatSrc.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -550,7 +565,7 @@
     <value>True</value>
   </data>
   <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 384</value>
+    <value>400, 407</value>
   </data>
   <data name="&gt;&gt;txtSteamPath.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -569,6 +584,12 @@
   </data>
   <data name="cmbLanguage.Items2" xml:space="preserve">
     <value>Spanish</value>
+  </data>
+  <data name="&gt;&gt;chkIgnoreExternal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Logging Level: </value>
   </data>
   <data name="&gt;&gt;chkRemoveExtraEntries.Parent" xml:space="preserve">
     <value>grpSaving</value>
@@ -603,17 +624,20 @@
   <data name="&gt;&gt;grpLanguage.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="cmbDatSrc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 21</value>
+  <data name="&gt;&gt;chkIgnoreExternal.Name" xml:space="preserve">
+    <value>chkIgnoreExternal</value>
   </data>
   <data name="&gt;&gt;grpSteamDir.Parent" xml:space="preserve">
     <value>tabGeneral</value>
   </data>
-  <data name="&gt;&gt;cmbLogLevel.Parent" xml:space="preserve">
-    <value>tabLogging</value>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="tabLogging.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
+  </data>
+  <data name="cmbDatSrc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 21</value>
   </data>
   <data name="numLogSize.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -623,9 +647,6 @@
   </data>
   <data name="txtSteamPath.Size" type="System.Drawing.Size, System.Drawing">
     <value>423, 20</value>
-  </data>
-  <data name="cmbLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="cmbDatSrc.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 19</value>
@@ -644,9 +665,6 @@
   </data>
   <data name="&gt;&gt;cmbLogLevel.Name" xml:space="preserve">
     <value>cmbLogLevel</value>
-  </data>
-  <data name="numLogBackup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 20</value>
   </data>
   <data name="radNone.Text" xml:space="preserve">
     <value>Do nothing</value>
@@ -675,6 +693,9 @@
   <data name="radLoad.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 13</value>
+  </data>
   <data name="grpStartup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -687,8 +708,8 @@
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
     <value>tabLogging</value>
   </data>
-  <data name="grpAutocat.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;chkIgnoreExternal.Parent" xml:space="preserve">
+    <value>grpSaving</value>
   </data>
   <data name="&gt;&gt;grpSteamDir.Name" xml:space="preserve">
     <value>grpSteamDir</value>
@@ -723,6 +744,9 @@
   <data name="chkRemoveExtraEntries.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="cmdAccept.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 61</value>
   </data>
@@ -741,8 +765,8 @@
   <data name="&gt;&gt;cmdCancel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
+  <data name="cmbLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="grpSteamDir.Text" xml:space="preserve">
     <value>Steam Directory</value>
@@ -753,14 +777,17 @@
   <data name="&gt;&gt;cmdAccept.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Logging Level: </value>
+  <data name="tabGeneral.Text" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="cmdAccept.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
   <data name="cmbDatSrc.Items1" xml:space="preserve">
     <value>Use XML Only</value>
+  </data>
+  <data name="&gt;&gt;cmbLogLevel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="cmbLogLevel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -777,8 +804,8 @@
   <data name="&gt;&gt;grpStartup.Parent" xml:space="preserve">
     <value>tabGeneral</value>
   </data>
-  <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
-    <value>tabControl</value>
+  <data name="&gt;&gt;numLogSize.Name" xml:space="preserve">
+    <value>numLogSize</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -823,7 +850,7 @@
     <value>5</value>
   </data>
   <data name="&gt;&gt;chkIgnoreDlc.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;numLogSize.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -855,8 +882,8 @@
   <data name="radCreate.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 17</value>
   </data>
-  <data name="cmdAccept.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="chkIgnoreExternal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 66</value>
   </data>
   <data name="grpSaving.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 268</value>
@@ -867,9 +894,6 @@
   <data name="&gt;&gt;grpDatSrc.Name" xml:space="preserve">
     <value>grpDatSrc</value>
   </data>
-  <data name="&gt;&gt;numLogSize.Name" xml:space="preserve">
-    <value>numLogSize</value>
-  </data>
   <data name="numLogSize.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 20</value>
   </data>
@@ -878,6 +902,9 @@
   </data>
   <data name="chkIgnoreDlc.Text" xml:space="preserve">
     <value>Ignore DLC on import and download</value>
+  </data>
+  <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
+    <value>tabControl</value>
   </data>
   <data name="grpDatSrc.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 52</value>
@@ -897,6 +924,9 @@
   <data name="radNone.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 17</value>
   </data>
+  <data name="chkIgnoreExternal.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
   <data name="grpDatSrc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -905,5 +935,8 @@
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>es</value>
   </metadata>
 </root>

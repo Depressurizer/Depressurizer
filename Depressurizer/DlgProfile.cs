@@ -85,6 +85,10 @@ namespace Depressurizer {
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
             chkIgnoreDlc.Checked = Profile.IgnoreDlc;
+
+            // jpodadera. Ignored non-Steam games
+            chkIgnoreExternal.Checked = Profile.IgnoreExternal;
+
             foreach( int i in Profile.IgnoreList ) {
                 lstIgnored.Items.Add( i.ToString() );
             }
@@ -313,6 +317,9 @@ namespace Depressurizer {
 
             p.AutoIgnore = chkAutoIgnore.Checked;
             p.IgnoreDlc = chkIgnoreDlc.Checked;
+
+            // jpodadera. Ignored non-Steam games
+            p.IgnoreExternal = chkIgnoreExternal.Checked;
 
             SortedSet<int> ignoreSet = new SortedSet<int>();
             foreach( ListViewItem item in lstIgnored.Items ) {
