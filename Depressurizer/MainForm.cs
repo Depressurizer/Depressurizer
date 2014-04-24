@@ -34,8 +34,9 @@ namespace Depressurizer {
         bool isDragging;
         int dragOldCat;
 
-        // jpodadera. Used to reload resources of main form while switching language
-        private int originalWidth, originalHeight;
+        // Used to reload resources of main form while switching language
+        private int originalWidth, originalHeight, originalSplitDistance;
+
         // jpodadera. Used to hide and show Category column in ListView of games
         private int originalCatColumnWidth;
         private ColumnHeader colCategoryPointer;
@@ -1080,6 +1081,7 @@ namespace Depressurizer {
             // jpodadera. Save original width and height
             originalHeight = this.Height;
             originalWidth = this.Width;
+            originalSplitDistance = this.splitContainer.SplitterDistance;
          }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
@@ -1326,18 +1328,37 @@ namespace Depressurizer {
                 ComponentResourceManager resources = new ComponentResourceManager(typeof(FormMain));
                 resources.ApplyResources(this, this.Name, Thread.CurrentThread.CurrentUICulture);
 
+                // If the window is maximized, un-maximize it
+                bool maximized = false;
+                if( this.WindowState == FormWindowState.Maximized ) {
+                    maximized = true;
+                    this.WindowState = FormWindowState.Normal;
+                }
+
                 // jpodadera. Save actual size and recover original size before reload resources of controls
                 int actualWidth = this.Width;
                 int actualHeight = this.Height;
+                int actualSplitDistance = this.splitContainer.SplitterDistance;
+
                 this.Width = this.originalWidth;
                 this.Height = this.originalHeight;
+                this.splitContainer.SplitterDistance = originalSplitDistance;
 
                 changeLanguageControls(this, resources, Thread.CurrentThread.CurrentUICulture);
 
                 // jpodadera. Recover previous size
                 this.Width = actualWidth;
                 this.Height = actualHeight;
-                
+                splitContainer.SplitterDistance = actualSplitDistance;
+
+                // Re-maximize if it was maximized before
+                if( maximized ) {
+                    this.WindowState = FormWindowState.Maximized;
+                }
+
+                FillGameList();
+                FillCategoryList();
+
                 // reload new strings for status bar
                 UpdateSelectedStatusText();
             }
