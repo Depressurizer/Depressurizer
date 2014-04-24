@@ -57,6 +57,7 @@ namespace Depressurizer {
             InitializeComponent();
 
             chkFavorite.Checked = false;
+            chkGroupCategory.Checked = Settings.Instance().GroupView;
 
             // Set up list sorting
             listSorter.AddIntCol( 0 );
@@ -1728,6 +1729,8 @@ namespace Depressurizer {
 
             FillGameListGroups();
             FillGameList();
+
+            settings.GroupView = chkGroupCategory.Checked;
         }
 
     }
