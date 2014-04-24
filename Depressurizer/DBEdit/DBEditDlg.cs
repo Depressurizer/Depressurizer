@@ -389,7 +389,7 @@ namespace Depressurizer {
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            listSorter.ColClick( e.Column );
+            listSorter.SetSortCol( e.Column );
             lstGames.Sort();
         }
 

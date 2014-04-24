@@ -202,6 +202,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DBEditDlg.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.es.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
@@ -260,6 +261,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgOptions.resx">
       <DependentUpon>DlgOptions.cs</DependentUpon>

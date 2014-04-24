@@ -847,7 +847,7 @@
     <value>17, 17</value>
   </metadata>
   <data name="menu_File_NewProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Mayús.+N</value>
+    <value>Ctrl+Alt+N</value>
   </data>
   <data name="menu_File_NewProfile.Size" type="System.Drawing.Size, System.Drawing">
     <value>233, 22</value>
@@ -856,7 +856,7 @@
     <value>&amp;New Profile...</value>
   </data>
   <data name="menu_File_LoadProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Mayús.+L</value>
+    <value>Ctrl+Alt+L</value>
   </data>
   <data name="menu_File_LoadProfile.Size" type="System.Drawing.Size, System.Drawing">
     <value>233, 22</value>

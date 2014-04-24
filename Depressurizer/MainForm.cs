@@ -54,12 +54,15 @@ namespace Depressurizer {
         public FormMain() {
             gameData = new GameData();
             InitializeComponent();
-            // jpodadera. Changed combo to checkbox to set favorite value
-            //combFavorite.SelectedIndex = 0;
+
             chkFavorite.Checked = false;
 
-            listSorter.AddIntCol( 1 );
+            // Set up list sorting
+            listSorter.AddIntCol( 0 );
+            listSorter.AddRevCol( 3 );
+            listSorter.SetSortCol( 1, 1 );
             lstGames.ListViewItemSorter = listSorter;
+            
             // jpodadera. Save width of category column
             originalCatColumnWidth = lstGames.Columns[2].Width;
             colCategoryPointer = lstGames.Columns[2];
@@ -974,9 +977,14 @@ namespace Depressurizer {
         /// </summary>
         private void FillGameListGroups()
         {
+            lstGames.BeginUpdate();
             lstGames.Groups.Clear();
             if (chkGroupCategory.Checked)
             {
+                // Switch reverse sort column
+                listSorter.AddRevCol( 2 );
+                listSorter.RemoveRevCol( 3 );
+
                 if (lstGames.Columns.Contains(colCategoryPointer))
                 {
                     lstGames.Columns.Remove(colCategoryPointer);
@@ -987,12 +995,17 @@ namespace Depressurizer {
             }
             else
             {
+                // Switch reverse sort column
+                listSorter.AddRevCol( 3 );
+                listSorter.RemoveRevCol( 2 );
+
                 if (!lstGames.Columns.Contains(colCategoryPointer))
                 {
                     lstGames.Columns.Insert(2, colCategoryPointer);
                     colCategoryPointer.Width = originalCatColumnWidth;
                 }
             }
+            lstGames.EndUpdate();
         }
 
         private void AssignItemToGroup(ListViewItem item)
@@ -1504,7 +1517,7 @@ namespace Depressurizer {
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            listSorter.ColClick( e.Column );
+            listSorter.SetSortCol( e.Column );
             lstGames.Sort();
         }
 
@@ -1686,6 +1699,10 @@ namespace Depressurizer {
 
         private void chkGroupCategory_CheckedChanged(object sender, EventArgs e)
         {
+            // Because the columns are going to change, switch the sort column if needed
+            if( chkGroupCategory.Checked && listSorter.GetSortCol() == 3 ) listSorter.SetSortCol( 2, listSorter.GetSortDir() );
+            else if( !chkGroupCategory.Checked && listSorter.GetSortCol() == 2 ) listSorter.SetSortCol( 3, listSorter.GetSortDir() );
+
             FillGameListGroups();
             FillGameList();
         }

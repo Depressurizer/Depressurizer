@@ -556,7 +556,7 @@
     <value>72, 17</value>
   </data>
   <data name="menu_File_SaveAs.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Mayús.+S</value>
+    <value>Ctrl+Alt+S</value>
   </data>
   <data name="&gt;&gt;menu_File_SaveAs.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
