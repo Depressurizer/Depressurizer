@@ -354,6 +354,7 @@ namespace Depressurizer {
         private void MainForm_Load( object sender, EventArgs e ) {
             listSorter.AddIntCol( 1 );
             lstGames.ListViewItemSorter = listSorter;
+            lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
             RefreshGameList();
             UpdateForSelectChange();
         }
@@ -390,6 +391,7 @@ namespace Depressurizer {
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
             listSorter.SetSortCol( e.Column );
+            lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
             lstGames.Sort();
         }
 

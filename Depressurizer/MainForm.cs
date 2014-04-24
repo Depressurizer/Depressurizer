@@ -62,7 +62,8 @@ namespace Depressurizer {
             listSorter.AddRevCol( 3 );
             listSorter.SetSortCol( 1, 1 );
             lstGames.ListViewItemSorter = listSorter;
-            
+            lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
+
             // jpodadera. Save width of category column
             originalCatColumnWidth = lstGames.Columns[2].Width;
             colCategoryPointer = lstGames.Columns[2];
@@ -1518,6 +1519,7 @@ namespace Depressurizer {
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
             listSorter.SetSortCol( e.Column );
+            lstGames.SetSortIcon( e.Column, ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
             lstGames.Sort();
         }
 
