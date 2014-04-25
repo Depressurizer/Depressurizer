@@ -38,15 +38,18 @@ namespace Depressurizer {
         private void GameDlg_Load( object sender, EventArgs e ) {
             cmbCategory.Items.Add( GlobalStrings.MainForm_Uncategorized );
             foreach( Category cat in Data.Categories ) {
-                cmbCategory.Items.Add( cat.Name );
+                cmbCategory.Items.Add( cat );
             }
 
             if( editMode ) {
                 Text = GlobalStrings.DlgGame_EditGame;
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
-                if( Game.Category != null ) {
-                    cmbCategory.Text = Game.Category.Name;
+                if( Game.Category == null ) {
+                    cmbCategory.SelectedIndex = 0;
+                } else {
+                    //cmbCategory.Text = Game.Category.Name;
+                    cmbCategory.SelectedItem = Game.Category;
                 }
                 chkFavorite.Checked = Game.Favorite;
                 txtId.Enabled = false;
@@ -63,6 +66,7 @@ namespace Depressurizer {
 
         private void cmdOk_Click( object sender, EventArgs e ) {
             Category setCat = null;
+
             if( !CatUtil.StringToCategory( cmbCategory.Text, Data, out setCat ) ) {
                 return;
             }
