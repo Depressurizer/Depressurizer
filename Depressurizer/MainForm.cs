@@ -813,6 +813,7 @@ namespace Depressurizer {
                 FillGameList();
             } else {
                 UpdateGameList();
+                lstGames.Sort();
             }
         }
 
@@ -830,6 +831,7 @@ namespace Depressurizer {
                 } else {
                     UpdateGameList();
                 }
+                lstGames.Sort();
             }
         }
 
