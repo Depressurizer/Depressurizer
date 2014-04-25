@@ -822,9 +822,9 @@ namespace Depressurizer {
                 bool showAll = false;
                 bool showFav = false;
                 if( catObj is string ) {
-                    if( (string)catObj == CatUtil.CAT_ALL_NAME ) {
+                    if( (string)catObj == GlobalStrings.MainForm_All ) {
                         showAll = true;
-                    } else if( (string)catObj == CatUtil.CAT_FAV_NAME ) {
+                    } else if( (string)catObj == GlobalStrings.MainForm_Favorite ) {
                         showFav = true;
                     }
                 }
@@ -850,7 +850,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="g">The game the new entry should represent.</param>
         private void AddGameToList( Game g ) {
-            string catName = ( g.Category == null ) ? CatUtil.CAT_UNC_NAME : g.Category.Name;
+            string catName = ( g.Category == null ) ? GlobalStrings.MainForm_Uncategorized : g.Category.Name;
 
             // jpodadera. Change favorite column contents from Y-N to X or blank
             ListViewItem item;
@@ -881,12 +881,15 @@ namespace Depressurizer {
 
             lstCategories.BeginUpdate();
             object selected = lstCategories.SelectedItem;
+            int selectedIndex = lstCategories.SelectedIndex;
             lstCategories.Items.Clear();
-            lstCategories.Items.Add( CatUtil.CAT_ALL_NAME );
-            lstCategories.Items.Add( CatUtil.CAT_FAV_NAME );
-            lstCategories.Items.Add( CatUtil.CAT_UNC_NAME );
+            lstCategories.Items.Add( GlobalStrings.MainForm_All );
+            lstCategories.Items.Add( GlobalStrings.MainForm_Favorite );
+            lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
             lstCategories.Items.AddRange( catList );
-            if( selected == null || !lstCategories.Items.Contains( selected ) ) {
+            if( selected is string ) {
+                lstCategories.SelectedIndex = selectedIndex;
+            } else if( selected == null || !lstCategories.Items.Contains( selected ) ) {
                 lstCategories.SelectedIndex = 0;
             } else {
                 lstCategories.SelectedItem = selected;
@@ -896,14 +899,11 @@ namespace Depressurizer {
             combCategory.BeginUpdate();
             selected = combCategory.SelectedItem;
             combCategory.Items.Clear();
-            combCategory.Items.Add( CatUtil.CAT_UNC_NAME );
+            combCategory.Items.Add( GlobalStrings.MainForm_Uncategorized );
             combCategory.Items.AddRange( catList );
-            if (selected != null)
-            {
+            if ( !(selected is string) && selected != null) {
                 combCategory.SelectedItem = selected;
-            }
-            else
-            {
+            } else {
                 combCategory.SelectedIndex = 0;
             }
             combCategory.EndUpdate();
@@ -936,7 +936,7 @@ namespace Depressurizer {
                 }
                 else
                 {
-                    item.SubItems[2].Text = g.Category == null ? CatUtil.CAT_UNC_NAME : g.Category.Name;
+                    item.SubItems[2].Text = g.Category == null ? GlobalStrings.MainForm_Uncategorized : g.Category.Name;
                     // jpodadera. Change favorite column contents from Y-N to X or blank
                     //item.SubItems[3].Text = g.Favorite ? GlobalStrings.MainForm_FirstLetterYes : GlobalStrings.MainForm_FirstLetterNo;
                     item.SubItems[3].Text = g.Favorite ? "X" : String.Empty;
@@ -992,7 +992,7 @@ namespace Depressurizer {
                 {
                     lstGames.Columns.Remove(colCategoryPointer);
                 }
-                lstGames.Groups.Add(new ListViewGroup(CatUtil.CAT_UNC_NAME));
+                lstGames.Groups.Add( new ListViewGroup( GlobalStrings.MainForm_Uncategorized ) );
                 foreach (Category c in gameData.Categories)
                     lstGames.Groups.Add(new ListViewGroup(c.Name));
             }
@@ -1021,7 +1021,7 @@ namespace Depressurizer {
                 {
                     string gameCat;
                     if (game.Category == null)
-                        gameCat = CatUtil.CAT_UNC_NAME;
+                        gameCat = GlobalStrings.MainForm_Uncategorized;
                     else
                         gameCat = game.Category.Name;
                     foreach (ListViewGroup group in lstGames.Groups)
@@ -1129,11 +1129,11 @@ namespace Depressurizer {
                     UpdateGameList();
                     MakeChange( true );
                 } else if( dropItem is string ) {
-                    if( (string)dropItem == CatUtil.CAT_FAV_NAME ) {
+                    if( (string)dropItem == GlobalStrings.MainForm_Favorite ) {
                         gameData.SetGameFavorites( (int[])e.Data.GetData( typeof( int[] ) ), true );
                         UpdateGameList();
                         MakeChange( true );
-                    } else if( (string)dropItem == CatUtil.CAT_UNC_NAME ) {
+                    } else if( (string)dropItem == GlobalStrings.MainForm_Uncategorized ) {
                         gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), null );
                         UpdateGameList();
                         MakeChange( true );
@@ -1357,8 +1357,11 @@ namespace Depressurizer {
                     this.WindowState = FormWindowState.Maximized;
                 }
 
-                FillGameList();
                 FillCategoryList();
+
+                FillCategoryList();
+                FillGameList();
+                
 
                 // reload new strings for status bar
                 UpdateSelectedStatusText();
@@ -1659,13 +1662,13 @@ namespace Depressurizer {
                 return false;
             }
             if( lstCategories.SelectedItem is string ) {
-                if( (string)lstCategories.SelectedItem == CatUtil.CAT_ALL_NAME ) {
+                if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_All ) {
                     return true;
                 }
-                if( (string)lstCategories.SelectedItem == CatUtil.CAT_FAV_NAME ) {
+                if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_Favorite ) {
                     return g.Favorite;
                 }
-                if( (string)lstCategories.SelectedItem == CatUtil.CAT_UNC_NAME ) {
+                if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_Uncategorized ) {
                     return g.Category == null;
                 }
             } else if( lstCategories.SelectedItem is Category ) {
@@ -1740,9 +1743,9 @@ namespace Depressurizer {
     /// </summary>
     static class CatUtil {
         // Special names shown in the category list
-        public static string CAT_ALL_NAME = GlobalStrings.MainForm_All;
-        public static string CAT_FAV_NAME = GlobalStrings.MainForm_Favorite;
-        public static string CAT_UNC_NAME = GlobalStrings.MainForm_Uncategorized;
+        //public static string CAT_ALL_NAME = GlobalStrings.MainForm_All;
+        //public static string CAT_FAV_NAME = GlobalStrings.MainForm_Favorite;
+        //public static string CAT_UNC_NAME = GlobalStrings.MainForm_Uncategorized;
 
         /// <summary>
         /// Checks to see if a category name is valid. Does not make sure it isn't already in use. If the name is not valid, displays a warning.
@@ -1752,9 +1755,6 @@ namespace Depressurizer {
         public static bool ValidateCategoryName( string name ) {
             if( name == null || name == string.Empty ) {
                 MessageBox.Show(GlobalStrings.MainForm_CategoryNamesNotEmpty, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            } else if( name == CAT_ALL_NAME || name == CAT_FAV_NAME || name == CAT_UNC_NAME ) {
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_CategoryNameReserved, name), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             } else {
                 return true;
@@ -1773,11 +1773,7 @@ namespace Depressurizer {
             if( string.IsNullOrWhiteSpace( name ) ) {
                 return true;
             }
-            if( name == CAT_FAV_NAME || name == CAT_ALL_NAME ) {
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_CategoryNameReserved, name), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return false;
-            }
-            if( name != CAT_UNC_NAME ) {
+            if( name != GlobalStrings.MainForm_Uncategorized ) {
                 cat = data.GetCategory( name );
             }
             return true;

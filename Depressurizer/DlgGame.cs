@@ -36,7 +36,7 @@ namespace Depressurizer {
         }
 
         private void GameDlg_Load( object sender, EventArgs e ) {
-            cmbCategory.Items.Add( CatUtil.CAT_UNC_NAME );
+            cmbCategory.Items.Add( GlobalStrings.MainForm_Uncategorized );
             foreach( Category cat in Data.Categories ) {
                 cmbCategory.Items.Add( cat.Name );
             }
