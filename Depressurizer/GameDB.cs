@@ -25,25 +25,7 @@ namespace Depressurizer {
     }
 
     public class GameDBEntry {
-        /*
-        public static string[] AttrNames = {
-                                               "Single-Player",
-                                               "Multi-Player",
-                                               "Cross-Platform Multiplayer",
-                                               "Co-Op Multiplayer",
-                                               "Local Co-Op Multiplayer",
-                                                "Achievements",
-                                                "Leaderboards",
-                                                "Stats",
-                                                "Steam Cloud",
-                                                "Trading Cards",
-                                                "Level Editor",
-                                                "Steam Workshop",
-                                                "Full Controller Support",
-                                                "Partial Controller Support",
 
-                                        };
-        */
         public int Id;
         public string Name;
         public string Genre;
@@ -58,45 +40,21 @@ namespace Depressurizer {
         public int MC_Score = -1;
         public string MC_Genre = null;
         public int MC_Year = -1;
-        // Steam sidebar:
-        /*
-        public bool SB_SinglePlayer = false;
-        public bool SB_MultiPlayer = false;
-        public bool SB_MultiPlayerCrossPlat = false;
-        public bool SB_CoOp = false;
-        public bool SB_LocalCoOp = false;
-        public bool SB_Achievements = false;
-        public bool SB_Leaderboards = false;
-        public bool SB_Stats = false;
-        public bool SB_Cloud = false;
-        public bool SB_TradingCards = false;
-        public bool SB_LevelEditor = false;
-        public bool SB_Workshop = false;
-        public bool SB_FullController = false;
-        public bool SB_PartialController = false;
-        */
+
         public List<string> Flags = new List<string>();
 
         public AppType Type;
 
 
         private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        // jpodadera. Repaired regular expressions
-        //private static Regex regGenre = new Regex("<div class=\\\"glance_details\\\">\\s*<div>\\s*Genre:\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>\\s*</div>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
 
-        // jpodadera. Repaired regular expressions
-        //private static Regex regDLC = new Regex( "<div class=\\\"name\\\">Downloadable Content</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        private static Regex regDLC = new Regex("<div class=\\\"name\\\"><a href=[^>]*>Downloadable Content</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        //private static Regex regFlags = new Regex("<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><img[^>]*></div>\\s*<div class=\\\"name\\\">([^<]*)</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        //private static Regex regDLC = new Regex("<div class=\\\"name\\\"><a href=[^>]*>Downloadable Content</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex regFlags = new Regex("<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><a href=[^>]*><img[^>]*></a></div>\\s*<div class=\\\"name\\\"><a href=[^>]*>([^<]*)</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        // jpodadera. More general regular expressions. Check http://store.steampowered.com/app/96300
-        //private static Regex regDeveloper = new Regex("<b>Developer:</b>\\s*<a href=\\\"http://store.steampowered.com/search/\\?developer=[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex regDeveloper = new Regex("<b>Developer:</b>\\s*<a[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        // jpodadera. Some games has more than one publisher. Check http://store.steampowered.com/app/96300
-        //private static Regex regPublisher = new Regex("<b>Publisher:</b>\\s*<a href=\\\"http://store.steampowered.com/publisher[^\\\"]*\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex regPublishers = new Regex("<b>Publisher:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private static Regex regRelDate = new Regex( "<b>Release Date:</b>\\s*([^<]*)<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
@@ -259,7 +217,6 @@ namespace Depressurizer {
 
             m = regRelDate.Match( page );
             if( m.Success ) {
-                // jpodadera
                 // Fail with other cultures (like spanish and italian) because release date is scraped in english. Check: http://store.steampowered.com/app/72904/
                 // Day of realease may be missing: http://store.steampowered.com/app/61510/
                 // Or Steam may place what they want... http://store.steampowered.com/app/264040/
@@ -279,8 +236,6 @@ namespace Depressurizer {
         }
 
         private bool GetDLCFromPage( string page ) {
-            //return regDLC.IsMatch( page );
-            // jpodadera. Check flags
             return this.Flags.Contains("Downloadable Content");
         }
 
@@ -367,6 +322,23 @@ namespace Depressurizer {
                 }
             }
             Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
+            return added;
+        }
+
+        public int MergeGameDB( GameDB merge, bool overwriteGenres, out int genresUpdated ) {
+            genresUpdated = 0;
+            int added = 0;
+            foreach( GameDBEntry mEntry in merge.Games.Values ) {
+                if( this.Games.ContainsKey( mEntry.Id ) ) {
+                    if( overwriteGenres || string.IsNullOrEmpty(this.Games[mEntry.Id].Genre) ) {
+                        this.Games[mEntry.Id].Genre = mEntry.Genre;
+                        genresUpdated++;
+                    }
+                } else {
+                    this.Games.Add( mEntry.Id, mEntry );
+                    added++;
+                }
+            }
             return added;
         }
         #endregion

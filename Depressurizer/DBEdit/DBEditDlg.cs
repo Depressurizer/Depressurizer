@@ -527,5 +527,22 @@ namespace Depressurizer {
             }
             return SaveDB();
         }
+
+        private void MergeGenres() {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = "gz";
+            dlg.AddExtension = true;
+            dlg.CheckFileExists = true;
+            dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
+            DialogResult res = dlg.ShowDialog();
+            if( res == System.Windows.Forms.DialogResult.OK ) {
+                GameDB mDb = new GameDB();
+                mDb.Load( dlg.FileName );
+                int updated;
+                int added = Program.GameDB.MergeGameDB( mDb, false, out updated );
+                RefreshGameList();
+                UnsavedChanges = true;
+            }
+        }
     }
 }
