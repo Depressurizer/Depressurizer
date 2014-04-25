@@ -69,8 +69,8 @@ namespace Depressurizer {
             // jpodadera. Save width of category column
             originalCatColumnWidth = lstGames.Columns[2].Width;
             colCategoryPointer = lstGames.Columns[2];
-            
-            FillCategoryList();
+
+            FullListRefresh();
         }
         #region Manual Operations
 
@@ -99,7 +99,7 @@ namespace Depressurizer {
                         MakeChange( true );
                         AddStatus(string.Format(GlobalStrings.MainForm_ImportedGames, loadedGames));
                         lastSelectedCat = null; // Make sure the game list refreshes
-                        FillCategoryList();
+                        FullListRefresh();
                     }
                 } catch( ApplicationException e ) {
                     MessageBox.Show(e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -198,8 +198,8 @@ namespace Depressurizer {
                         {
                             AddStatus(string.Format(GlobalStrings.MainForm_DownloadedGamesWithExternal, updateDlg.Fetched, updateDlg.Added, updateDlg.Removed, updateDlg.UseHtml ? "HTML" : "XML"));
                         }
-                        FillCategoryList();
-                        FillGameList();
+
+                        FullListRefresh();
                     }
                 }
             }
@@ -247,8 +247,8 @@ namespace Depressurizer {
                     settings.Save();
                 }
 
-                FillCategoryList();
-                FillGameList();
+                FullListRefresh();
+
                 Cursor = Cursors.Default;
             }
             UpdateEnableStatesForProfileChange();
@@ -280,8 +280,7 @@ namespace Depressurizer {
                     }
                     Cursor = Cursors.Default;
                     if( refresh ) {
-                        FillCategoryList();
-                        FillGameList();
+                        FullListRefresh();
                     }
                 }
             } else {
@@ -335,8 +334,8 @@ namespace Depressurizer {
                 UpdateProfileImport();
             }
 
-            FillCategoryList();
-            FillGameList();
+            FullListRefresh();
+
             UpdateEnableStatesForProfileChange();
         }
 
@@ -412,8 +411,7 @@ namespace Depressurizer {
                     if( count > 0 ) {
                         MakeChange( true );
                         if( updateUI ) {
-                            FillCategoryList();
-                            FillGameList();
+                            FullListRefresh();
                         }
                     }
                     if( updateUI ) Cursor = Cursors.Default;
@@ -453,7 +451,7 @@ namespace Depressurizer {
             if( dlg.ShowDialog() == DialogResult.OK && CatUtil.ValidateCategoryName( dlg.Value ) ) {
                 Category newCat = gameData.AddCategory( dlg.Value );
                 if( newCat != null ) {
-                    FillCategoryList();
+                    OnCategoryChange();
                     combCategory.SelectedItem = newCat;
                     MakeChange( true );
                     AddStatus(string.Format(GlobalStrings.MainForm_CategoryAdded, newCat.Name));
@@ -477,8 +475,7 @@ namespace Depressurizer {
                     DialogResult res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteCategory, c.Name), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if( res == System.Windows.Forms.DialogResult.Yes ) {
                         if( gameData.RemoveCategory( c ) ) {
-                            FillCategoryList();
-                            FillGameList();
+                            FullListRefresh(); // Full refresh might not always be necessary
                             MakeChange( true );
                             AddStatus(string.Format(GlobalStrings.MainForm_CategoryDeleted, c.Name));
                             return true;
@@ -518,8 +515,7 @@ namespace Depressurizer {
         bool RenameCategoryHelper( Category c, string newName ) {
             if( newName == c.Name ) return true;
             if( CatUtil.ValidateCategoryName( newName ) && gameData.RenameCategory( c, newName ) ) {
-                FillCategoryList();
-                UpdateGameList();
+                OnCategoryChange();
                 MakeChange( true );
                 AddStatus(string.Format(GlobalStrings.MainForm_CategoryRenamed, c.Name));
                 return true;
@@ -540,8 +536,7 @@ namespace Depressurizer {
                         AddStatus(string.Format(GlobalStrings.MainForm_UnignoredGame, dlg.Game.Id));
                     }
                 }
-                FillCategoryList();
-                FillGameList();
+                FullListRefresh(); //overkill. only need to change one cat and one game at most. could be replaced with a cat refresh then adding the game if in ungrouped mode
                 MakeChange( true );
                 AddStatus(GlobalStrings.MainForm_AddedGame);
             }
@@ -556,8 +551,7 @@ namespace Depressurizer {
                 Game g = lstGames.Items[index].Tag as Game;
                 DlgGame dlg = new DlgGame( gameData, g );
                 if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
-                    FillCategoryList();
-                    UpdateGame( index );
+                    OnGameChange( true, true );
                     MakeChange( true );
                     AddStatus(GlobalStrings.MainForm_EditedGame);
                 }
@@ -593,7 +587,7 @@ namespace Depressurizer {
                         AddStatus(string.Format(GlobalStrings.MainForm_IgnoredGame, ignored, (ignored == 1) ? "" : "s"));
                         MakeChange( true );
                     }
-                    UpdateGameListSelected();
+                    OnGameChange( false, true );
                 }
             }
         }
@@ -607,7 +601,7 @@ namespace Depressurizer {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     ( item.Tag as Game ).Category = cat;
                 }
-                UpdateGameListSelected();
+                OnGameChange( true, true );
                 MakeChange( true );
             }
         }
@@ -621,7 +615,7 @@ namespace Depressurizer {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     ( item.Tag as Game ).Favorite = fav;
                 }
-                UpdateGameListSelected();
+                OnGameChange( false, true );
                 MakeChange( true );
             }
         }
@@ -642,8 +636,7 @@ namespace Depressurizer {
             MakeChange( false );
             UpdateEnableStatesForProfileChange();
             if( updateUI ) {
-                FillCategoryList();
-                FillGameList();
+                FullListRefresh();
             }
         }
 
@@ -722,8 +715,7 @@ namespace Depressurizer {
                 }
             }
 
-            FillCategoryList();
-            FillGameList();
+            FullListRefresh();
         }
 
         private void AutonameAll() {
@@ -749,13 +741,13 @@ namespace Depressurizer {
                 MakeChange( true );
             }
 
-            FillGameList();
+            UpdateGameList();
         }
 
         void RemoveEmptyCats() {
             int count = gameData.RemoveEmptyCategories();
             AddStatus(string.Format(GlobalStrings.MainForm_RemovedEmptyCategories, count));
-            FillCategoryList();
+            OnCategoryChange();
         }
 
         #endregion
@@ -812,7 +804,57 @@ namespace Depressurizer {
         #region List updaters
 
         /// <summary>
+        /// Does all list-updating that should be done when adding, removing, or renaming a category.
+        /// </summary>
+        private void OnCategoryChange() {
+            FillCategoryList();
+            if( chkGroupCategory.Checked ) {
+                FillGameListGroups();
+                FillGameList();
+            } else {
+                UpdateGameList();
+            }
+        }
+
+        /// <summary>
+        /// Does all list-updating that should be done when modifying one or more existing game entry.
+        /// </summary>
+        /// <param name="catCreationPossible">True if it's possible that a new category was added for the game.</param>
+        /// <param name="limitToSelection">If true, only update entries for selected games instead of all of them</param>
+        private void OnGameChange( bool catCreationPossible, bool limitToSelection ) {
+            if( catCreationPossible ) {
+                OnCategoryChange();
+            } else {
+                if( limitToSelection ) {
+                    UpdateGameListSelected();
+                } else {
+                    UpdateGameList();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Does all list updating that's required if the filter changes (category selection changes).
+        /// </summary>
+        private void OnViewChange(bool groupToggle) {
+            if( groupToggle ) {
+                FillGameListGroups();
+            }
+            FillGameList();
+        }
+
+        /// <summary>
+        /// Completely regenerates both the category and game lists
+        /// </summary>
+        private void FullListRefresh() {
+            FillCategoryList();
+            FillGameListGroups();
+            FillGameList();
+        }
+
+        /// <summary>
         /// Completely re-populates the game list based on the current category selection.
+        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillGameList() {
             lstGames.BeginUpdate();
@@ -874,6 +916,7 @@ namespace Depressurizer {
 
         /// <summary>
         /// Completely repopulates the category list and combobox. Maintains selection on both.
+        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillCategoryList() {
             gameData.Categories.Sort();
@@ -916,11 +959,11 @@ namespace Depressurizer {
                 item.Tag = c;
                 item.Click += contextGameCat_Category_Click;
             }
-            FillGameListGroups();
         }
 
         /// <summary>
         /// Updates the entry for the game in the given position in the list.
+        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         /// <param name="index">List index of the game to update</param>
         /// <returns>True if game should be in the list, false otherwise.</returns>
@@ -950,6 +993,7 @@ namespace Depressurizer {
 
         /// <summary>
         /// Updates list item for every game on the list, removing games that no longer need to be there, but not adding new ones.
+        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         void UpdateGameList() {
             int i = 0;
@@ -963,6 +1007,7 @@ namespace Depressurizer {
 
         /// <summary>
         /// Updates the list item for every selected item on the list.
+        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         void UpdateGameListSelected() {
             int i = 0;
@@ -974,9 +1019,9 @@ namespace Depressurizer {
             UpdateSelectedStatusText();
         }
 
-
         /// <summary>
         /// jpodadera. Create groups in list of games
+        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillGameListGroups()
         {
@@ -1126,16 +1171,16 @@ namespace Depressurizer {
                 object dropItem = lstCategories.Items[lstCategories.IndexFromPoint( clientPoint )];
                 if( dropItem is Category ) {
                     gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), (Category)dropItem );
-                    UpdateGameList();
+                    OnGameChange( false, true );
                     MakeChange( true );
                 } else if( dropItem is string ) {
                     if( (string)dropItem == GlobalStrings.MainForm_Favorite ) {
                         gameData.SetGameFavorites( (int[])e.Data.GetData( typeof( int[] ) ), true );
-                        UpdateGameList();
+                        OnGameChange( false, true );
                         MakeChange( true );
                     } else if( (string)dropItem == GlobalStrings.MainForm_Uncategorized ) {
                         gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), null );
-                        UpdateGameList();
+                        OnGameChange( false, true );
                         MakeChange( true );
                     }
                 }
@@ -1357,11 +1402,7 @@ namespace Depressurizer {
                     this.WindowState = FormWindowState.Maximized;
                 }
 
-                FillCategoryList();
-
-                FillCategoryList();
-                FillGameList();
-                
+                FullListRefresh();
 
                 // reload new strings for status bar
                 UpdateSelectedStatusText();
@@ -1453,7 +1494,6 @@ namespace Depressurizer {
             Category c;
             if( CatUtil.StringToCategory( combCategory.Text, gameData, out c ) ) {
                 ClearStatus();
-                FillCategoryList();
                 AssignCategoryToSelectedGames( c );
                 FlushStatus();
             }
@@ -1506,7 +1546,7 @@ namespace Depressurizer {
         private void lstCategories_SelectedIndexChanged( object sender, EventArgs e ) {
             if( !isDragging ) {
                 if( lstCategories.SelectedItem != lastSelectedCat ) {
-                    FillGameList();
+                    OnViewChange( false );
                     lastSelectedCat = lstCategories.SelectedItem;
                 }
                 UpdateButtonEnabledStates();
@@ -1730,8 +1770,7 @@ namespace Depressurizer {
             if( chkGroupCategory.Checked && listSorter.GetSortCol() == 3 ) listSorter.SetSortCol( 2, listSorter.GetSortDir() );
             else if( !chkGroupCategory.Checked && listSorter.GetSortCol() == 2 ) listSorter.SetSortCol( 3, listSorter.GetSortDir() );
 
-            FillGameListGroups();
-            FillGameList();
+            FullListRefresh();
 
             settings.GroupView = chkGroupCategory.Checked;
         }

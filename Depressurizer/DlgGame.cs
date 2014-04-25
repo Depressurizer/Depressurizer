@@ -70,7 +70,7 @@ namespace Depressurizer {
             if( !CatUtil.StringToCategory( cmbCategory.Text, Data, out setCat ) ) {
                 return;
             }
-
+            
             if( editMode ) {
                 Game.Name = txtName.Text;
             } else {
