@@ -69,6 +69,8 @@ namespace Depressurizer {
         #region Fields
         public Dictionary<int, Game> Games;
         public List<Category> Categories;
+
+        private static Regex rxUnicode = new Regex( @"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled );
         #endregion
 
         public GameData() {
@@ -100,6 +102,28 @@ namespace Depressurizer {
                 Games[id].Name = name;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Removes a game from the game list.
+        /// </summary>
+        /// <param name="appId">Id of game to remove.</param>
+        /// <returns>True if game was removed, false otherwise</returns>
+        private bool RemoveGame( int appId ) {
+            bool removed = false;
+            if( appId < 0 ) {
+                if( Games.ContainsKey( appId ) ) {
+                    Game removedGame = Games[appId];
+                    removed = Games.Remove( appId );
+                    if( removed )
+                        Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_RemovedGameFromGameList, appId, removedGame.Name );
+                    else
+                        Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorRemovingGame, appId, removedGame.Name );
+                    return removed;
+                }
+            } else
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorRemovingSteamGame, appId );
+            return removed;
         }
 
         /// <summary>
@@ -171,6 +195,10 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Remove all empty categories from the category list.
+        /// </summary>
+        /// <returns>Number of categories removed</returns>
         public int RemoveEmptyCategories() {
             Dictionary<Category, int> counts = new Dictionary<Category, int>();
             foreach( Category c in Categories ) {
@@ -223,14 +251,31 @@ namespace Depressurizer {
             return newCat;
         }
         #endregion
+
+        #region Profile Data Fetching
+        /// <summary>
+        /// Grabs the XML game list for the given account and reads it into an XmlDocument.
+        /// </summary>
+        /// <param name="customUrl">The custom name for the account</param>
+        /// <returns>Fetched XML page as an XmlDocument</returns>
         public static XmlDocument FetchXmlGameList( string customUrl ) {
             return FetchXmlFromUrl( string.Format( Properties.Resources.UrlCustomGameListXml, customUrl ) );
         }
 
+        /// <summary>
+        /// Grabs the XML game list for the given account and reads it into an XmlDocument.
+        /// </summary>
+        /// <param name="accountId">The 64-bit account ID</param>
+        /// <returns>Fetched XML page as an XmlDocument</returns>
         public static XmlDocument FetchXmlGameList( Int64 steamId ) {
             return FetchXmlFromUrl( string.Format( Properties.Resources.UrlGameListXml, steamId ) );
         }
 
+        /// <summary>
+        /// Fetches an XML game list and loads it into an XML document.
+        /// </summary>
+        /// <param name="url">The URL to fetch</param>
+        /// <returns>Fetched XML page as an XmlDocument</returns>
         public static XmlDocument FetchXmlFromUrl( string url ) {
             XmlDocument doc = new XmlDocument();
             try {
@@ -253,13 +298,30 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Grabs the HTML game list for the given account and returns its full text.
+        /// </summary>
+        /// <param name="customUrl">The custom name for the account</param>
+        /// <returns>Full text of the HTTP response</returns>
         public static string FetchHtmlGameList( string customUrl ) {
             return FetchHtmlFromUrl( string.Format( Properties.Resources.UrlCustomGameListHtml, customUrl ) );
         }
+
+        /// <summary>
+        /// Grabs the HTML game list for the given account and returns its full text.
+        /// </summary>
+        /// <param name="accountId">The 64-bit account ID</param>
+        /// <returns>Full text of the HTTP response</returns>
         public static string FetchHtmlGameList( Int64 accountId ) {
             return FetchHtmlFromUrl( string.Format( Properties.Resources.UrlGameListHtml, accountId ) );
         }
 
+        /// <summary>
+        /// Fetches an HTML game list and returns the full page text.
+        /// Mostly just grabs the given HTTP response, except that it throws an errors if the profile is not public, and writes approrpriate log entries.
+        /// </summary>
+        /// <param name="url">The URL to fetch</param>
+        /// <returns>The full text of the HTML page</returns>
         public static string FetchHtmlFromUrl( string url ) {
             try {
                 string result = "";
@@ -283,7 +345,9 @@ namespace Depressurizer {
                 throw new ApplicationException( e.Message, e );
             }
         }
+        #endregion
 
+        #region Profile Data Integrating
         /// <summary>
         /// Integrates list of games from an XmlDocument into the loaded game list.
         /// </summary>
@@ -291,6 +355,7 @@ namespace Depressurizer {
         /// <param name="overWrite">If true, overwrite the names of games already in the list.</param>
         /// <param name="ignore">A set of item IDs to ignore.</param>
         /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
+        /// <param name="newItems">The number of new items actually added</param>
         /// <returns>Returns the number of games successfully processed and not ignored.</returns>
         public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out int newItems ) {
             newItems = 0;
@@ -318,6 +383,15 @@ namespace Depressurizer {
             return loadedGames;
         }
 
+        /// <summary>
+        /// Integrates list of games from an HTML page into the loaded game list.
+        /// </summary>
+        /// <param name="page">The full text of the page to load</param>
+        /// <param name="overWrite">If true, overwrite the names of games already in the list.</param>
+        /// <param name="ignore">A set of item IDs to ignore. Can be null.</param>
+        /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
+        /// <param name="newItems">The number of new items actually added</param>
+        /// <returns>Returns the number of games successfully processed and not ignored.</returns>
         public int IntegrateHtmlGameList( string page, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out int newItems ) {
             newItems = 0;
             int totalItems = 0;
@@ -346,8 +420,6 @@ namespace Depressurizer {
             return totalItems;
         }
 
-        private static Regex rxUnicode = new Regex( @"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled );
-
         /// <summary>
         /// Searches a string for HTML unicode entities ('\u####') and replaces them with actual unicode characters.
         /// </summary>
@@ -360,6 +432,16 @@ namespace Depressurizer {
             );
         }
 
+        /// <summary>
+        /// Adds a new game to the database, or updates an existing game with new information.
+        /// </summary>
+        /// <param name="appId">App ID to add or update</param>
+        /// <param name="appName">Name of app to add, or update to</param>
+        /// <param name="overWrite">If true, will overwrite any existing games. If false, will fail if the game already exists.</param>
+        /// <param name="ignore">Set of games to ignore. Can be null. If the game is in this list, no action will be taken.</param>
+        /// <param name="ignoreDlc">If true, ignore the game if it is marked as DLC in the loaded database.</param>
+        /// <param name="isNew">If true, a new game was added. If false, an existing game was updated, or the operation failed.</param>
+        /// <returns>True if the game was integrated, false otherwise.</returns>
         private bool IntegrateGame(int appId, string appName, bool overWrite, SortedSet<int> ignore, bool ignoreDlc, out bool isNew)
         {
             isNew = false;
@@ -371,28 +453,9 @@ namespace Depressurizer {
             Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_IntegratedGameIntoGameList, appId, appName, isNew);
             return true;
         }
+        #endregion     
 
-        private bool RemoveGame(int appId)
-        {
-            bool removed = false;
-            if (appId < 0)
-            {
-                if (Games.ContainsKey(appId))
-                {
-                    Game removedGame = Games[appId]; 
-                    removed = Games.Remove(appId);
-                    if (removed)
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_RemovedGameFromGameList, appId, removedGame.Name);
-                    else
-                        Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorRemovingGame, appId, removedGame.Name);
-                    return removed;
-                }
-            }
-            else
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorRemovingSteamGame, appId);
-            return removed;
-        }
-
+        #region Steam config file handling
         /// <summary>
         /// Loads category info from the given steam config file.
         /// </summary>
@@ -424,6 +487,9 @@ namespace Depressurizer {
         /// Loads category info from the steam config file for the given Steam user.
         /// </summary>
         /// <param name="SteamId">Identifier of Steam user</param>
+        /// <param name="ignore">Set of games to ignore</param>
+        /// <param name="ignoreDlc">If true, ignore games marked as DLC in the database</param>
+        /// <param name="ignoreExternal">If false, also load non-steam games</param>
         /// <returns>The number of game entries found</returns>
         public int ImportSteamFile(long SteamId, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal)
         {
@@ -436,7 +502,104 @@ namespace Depressurizer {
             return result;
         }
 
-        private int ImportNonSteamGames(long SteamId, SortedSet<int> ignore)
+        /// <summary>
+        /// Writes category information out Steam user config file for Steam games and external games.
+        /// </summary>
+        /// <param name="SteamId">Identifier of Steam user</param>
+        /// <param name="discardMissing">Delete category information for games not present in game list</param>
+        public void SaveSteamFile( long SteamId, bool discardMissing ) {
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
+            SaveSteamFile( filePath, discardMissing );
+            SaveShortcutGames( SteamId, discardMissing );
+        }
+
+        /// <summary>
+        /// Writes category information out to a steam config file. Also saves any other settings that had been loaded, to avoid setting loss.
+        /// </summary>
+        /// <param name="path">Full path of the steam config file to save</param>
+        public void SaveSteamFile( string filePath, bool discardMissing ) {
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath );
+
+            TextVdfFileNode fileData = new TextVdfFileNode();
+            try {
+                using( StreamReader reader = new StreamReader( filePath, false ) ) {
+                    fileData = TextVdfFileNode.Load( reader, true );
+                }
+            } catch( Exception e ) {
+                Program.Logger.Write( LoggerLevel.Warning, GlobalStrings.GameData_LoadingErrorSteamConfig, e.Message );
+            }
+
+            VdfFileNode appListNode = fileData.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
+
+            if( discardMissing ) {
+                Dictionary<string, VdfFileNode> gameNodeArray = appListNode.NodeArray;
+                if( gameNodeArray != null ) {
+                    foreach( KeyValuePair<string, VdfFileNode> pair in gameNodeArray ) {
+                        int gameId;
+                        if( !( int.TryParse( pair.Key, out gameId ) && Games.ContainsKey( gameId ) ) ) {
+                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_RemovingGameCategoryFromSteamConfig, gameId );
+                            pair.Value.RemoveSubnode( "tags" );
+                        }
+                    }
+                }
+            }
+
+            foreach( Game game in Games.Values ) {
+                if( game.Id > 0 ) // External games have negative identifier
+                {
+                    Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile, game.Id );
+                    VdfFileNode gameNode = (VdfFileNode)appListNode[game.Id.ToString()];
+                    gameNode.RemoveSubnode( "tags" );
+                    if( game.Category != null || game.Favorite ) {
+                        VdfFileNode tagsNode = (VdfFileNode)gameNode["tags"];
+                        int key = 0;
+                        if( game.Category != null ) {
+                            tagsNode[key.ToString()] = new TextVdfFileNode( game.Category.Name );
+                            key++;
+                        }
+                        if( game.Favorite ) {
+                            tagsNode[key.ToString()] = new TextVdfFileNode( "favorite" );
+                        }
+                    }
+                }
+            }
+
+            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_CleaningUpSteamConfigTree );
+            appListNode.CleanTree();
+
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_WritingToDisk );
+            TextVdfFileNode fullFile = new TextVdfFileNode();
+            fullFile["UserLocalConfigStore"] = fileData;
+            try {
+                FileInfo f = new FileInfo( filePath );
+                f.Directory.Create();
+                FileStream fStream = f.Open( FileMode.Create, FileAccess.Write, FileShare.None );
+                using( StreamWriter writer = new StreamWriter( fStream ) ) {
+                    fullFile.Save( writer );
+                }
+                fStream.Close();
+            } catch( ArgumentException e ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString() );
+                throw new ApplicationException( GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e );
+            } catch( IOException e ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString() );
+                throw new ApplicationException( GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e );
+            } catch( UnauthorizedAccessException e ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString() );
+                throw new ApplicationException( GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e );
+            }
+        }
+        #endregion
+
+        #region Non-Steam game file handling
+
+        /// <summary>
+        /// Loads all non-steam games into the game list and sets their categories to match the loaded config file
+        /// </summary>
+        /// <param name="SteamId">64-bit ID of the account to load</param>
+        /// <param name="ignore">Set of game IDs to ignore</param>
+        /// <returns>Number of games loaded</returns>
+        private int ImportNonSteamGames( long SteamId, SortedSet<int> ignore )
         {
             int result = 0;
             string filePath = string.Format(Properties.Resources.ShortCutsFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName(SteamId));
@@ -465,6 +628,7 @@ namespace Depressurizer {
                         fStream.Close();
                     }
                 }
+
                 if (dataRoot != null)
                 {
                     VdfFileNode shortcutsNode = dataRoot.GetNodeAt(new string[] { "shortcuts" }, false);
@@ -583,98 +747,6 @@ namespace Depressurizer {
             }
 
             return loadedGames;
-        }
-
-        /// <summary>
-        /// Writes category information out Steam user config file for Steam games and external games.
-        /// </summary>
-        /// <param name="SteamId">Identifier of Steam user</param>
-        /// <param name="discardMissing">Delete category information for games not present in game list</param>
-        public void SaveSteamFile(long SteamId, bool discardMissing)
-        {
-            string filePath = string.Format(Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName(SteamId));
-            SaveSteamFile(filePath, discardMissing);
-            SaveShortcutGames(SteamId, discardMissing);
-        }
-
-        /// <summary>
-        /// Writes category information out to a steam config file. Also saves any other settings that had been loaded, to avoid setting loss.
-        /// </summary>
-        /// <param name="path">Full path of the steam config file to save</param>
-        public void SaveSteamFile( string filePath, bool discardMissing ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath);
-
-            TextVdfFileNode fileData = new TextVdfFileNode();
-            try {
-                using( StreamReader reader = new StreamReader( filePath, false ) ) {
-                    fileData = TextVdfFileNode.Load( reader, true );
-                }
-            } catch( Exception e ) {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.GameData_LoadingErrorSteamConfig, e.Message);
-            }
-
-            VdfFileNode appListNode = fileData.GetNodeAt(new string[] { "Software", "Valve", "Steam", "apps" }, true);
-
-            if( discardMissing ) {
-                Dictionary<string, VdfFileNode> gameNodeArray = appListNode.NodeArray;
-                if( gameNodeArray != null ) {
-                    foreach( KeyValuePair<string, VdfFileNode> pair in gameNodeArray ) {
-                        int gameId;
-                        if( !( int.TryParse( pair.Key, out gameId ) && Games.ContainsKey( gameId ) ) ) {
-                            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_RemovingGameCategoryFromSteamConfig, gameId);
-                            pair.Value.RemoveSubnode( "tags" );
-                        }
-                    }
-                }
-            }
-
-            foreach( Game game in Games.Values ) {
-                if (game.Id > 0) // External games have negative identifier
-                {
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
-                    VdfFileNode gameNode = (VdfFileNode)appListNode[game.Id.ToString()];
-                    gameNode.RemoveSubnode("tags");
-                    if (game.Category != null || game.Favorite)
-                    {
-                        VdfFileNode tagsNode = (VdfFileNode)gameNode["tags"];
-                        int key = 0;
-                        if (game.Category != null)
-                        {
-                            tagsNode[key.ToString()] = new TextVdfFileNode(game.Category.Name);
-                            key++;
-                        }
-                        if (game.Favorite)
-                        {
-                            tagsNode[key.ToString()] = new TextVdfFileNode("favorite");
-                        }
-                    }
-                }
-            }
-
-            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_CleaningUpSteamConfigTree);
-            appListNode.CleanTree();
-
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_WritingToDisk);
-            TextVdfFileNode fullFile = new TextVdfFileNode();
-            fullFile["UserLocalConfigStore"] = fileData;
-            try {
-                FileInfo f = new FileInfo( filePath );
-                f.Directory.Create();
-                FileStream fStream = f.Open( FileMode.Create, FileAccess.Write, FileShare.None );
-                using( StreamWriter writer = new StreamWriter( fStream ) ) {
-                    fullFile.Save( writer );
-                }
-                fStream.Close();
-            } catch( ArgumentException e ) {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
-            } catch( IOException e ) {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e);
-            } catch( UnauthorizedAccessException e ) {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e);
-            }
         }
 
         /// <summary>
@@ -845,6 +917,7 @@ namespace Depressurizer {
 
         /// <summary>
         /// Integrate external games defined by Steam user. Only external games with identifier in screenshot.vdf file are included in game DB.
+        /// Does not also load categories.
         /// </summary>
         /// <param name="SteamId">Identifier of Steam user</param>
         /// <param name="overWrite">Overwrite actual contents of game DB</param>
@@ -935,6 +1008,7 @@ namespace Depressurizer {
 
             return loadedGames;
         }
+        #endregion
     }
 
     class ProfileAccessException : ApplicationException {
