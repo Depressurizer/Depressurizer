@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
+Copyright 2011, 2012 Steve Labbe.
 
 This file is part of Depressurizer.
 
@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "Depressurizer" )]
-[assembly: AssemblyCopyright( "Copyright © 2011-2014" )]
+[assembly: AssemblyCopyright( "Copyright ©  2011" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -50,5 +50,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "0.4.5.1" )]
-[assembly: AssemblyFileVersion( "0.4.5.1" )]
+[assembly: AssemblyVersion( "0.4.1" )]
+[assembly: AssemblyFileVersion( "0.4.1" )]

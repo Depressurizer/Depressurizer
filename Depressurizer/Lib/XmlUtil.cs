@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
+Copyright 2011, 2012 Steve Labbe.
 
 This file is part of Depressurizer.
 
@@ -16,7 +16,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
-using System;
 using System.Xml;
 
 namespace Depressurizer {
@@ -47,22 +46,6 @@ namespace Depressurizer {
             if( node != null ) {
                 XmlNode textNode = node.SelectSingleNode( "text()" );
                 if( textNode != null && int.TryParse( textNode.InnerText, out value ) ) {
-                    return true;
-                }
-            }
-            value = 0;
-            return false;
-        }
-
-        public static Int64 GetInt64FromNode( XmlNode node, Int64 defaultValue ) {
-            Int64 result;
-            return TryGetInt64FromNode( node, out result ) ? result : defaultValue;
-        }
-
-        public static bool TryGetInt64FromNode( XmlNode node, out Int64 value ) {
-            if( node != null ) {
-                XmlNode textNode = node.SelectSingleNode( "text()" );
-                if( textNode != null && Int64.TryParse( textNode.InnerText, out value ) ) {
                     return true;
                 }
             }
