@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
+Copyright 2011, 2012 Steve Labbe.
 
 This file is part of Depressurizer.
 
@@ -47,27 +47,27 @@ namespace Depressurizer {
 
         void SaveAs() {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.DefaultExt = "gz";
+            dlg.DefaultExt = "xml";
             dlg.AddExtension = true;
-            dlg.CheckFileExists = false;
-            dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter; 
+            dlg.CheckFileExists = true;
+            dlg.Filter = "XML Files (*.xml)|*.xml|All Files|*.*";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 if( Save( dlg.FileName ) ) {
-                    AddStatusMsg( GlobalStrings.DBEditDlg_FileSaved );
+                    AddStatusMsg( "File saved." );
                 } else {
-                    AddStatusMsg( GlobalStrings.DBEditDlg_SaveFailed );
+                    AddStatusMsg( "Save failed." );
                 }
             }
         }
 
         bool SaveDB() {
-            if( Save( "GameDB.xml.gz" ) ) {
-                AddStatusMsg( GlobalStrings.DBEditDlg_DatabaseSaved );
+            if( Save( "GameDB.xml" ) ) {
+                AddStatusMsg( "Database saved." );
                 UnsavedChanges = false;
                 return true;
             } else {
-                AddStatusMsg(GlobalStrings.DBEditDlg_DatabaseSaveFailed);
+                AddStatusMsg( "Database save failed." );
                 return false;
             }
         }
@@ -75,9 +75,9 @@ namespace Depressurizer {
         bool Save( string filename ) {
             this.Cursor = Cursors.WaitCursor;
             try {
-                Program.GameDB.Save( filename );
+                Program.GameDB.SaveToXml( filename );
             } catch( Exception e ) {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorSavingFile, e.Message));
+                MessageBox.Show( string.Format( "Error saving file: \n\n{0}", e.Message ) );
                 this.Cursor = Cursors.Default;
                 return false;
             }
@@ -88,16 +88,16 @@ namespace Depressurizer {
         void LoadGames() {
             if( CheckForUnsaved() ) {
                 OpenFileDialog dlg = new OpenFileDialog();
-                dlg.DefaultExt = "gz";
+                dlg.DefaultExt = "xml";
                 dlg.AddExtension = true;
                 dlg.CheckFileExists = true;
-                dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
+                dlg.Filter = "XML Files (*.xml)|*.xml|All Files|*.*";
                 DialogResult res = dlg.ShowDialog();
                 if( res == System.Windows.Forms.DialogResult.OK ) {
                     this.Cursor = Cursors.WaitCursor;
-                    Program.GameDB.Load( dlg.FileName );
+                    Program.GameDB.LoadFromXml( dlg.FileName );
                     RefreshGameList();
-                    AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
+                    AddStatusMsg( "File loaded." );
                     UnsavedChanges = true;
                     this.Cursor = Cursors.Default;
                 }
@@ -105,12 +105,12 @@ namespace Depressurizer {
         }
 
         void ClearList() {
-            if (MessageBox.Show(GlobalStrings.DBEditDlg_AreYouSureToClear, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
+            if( MessageBox.Show( "Are you sure you want to clear all data?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
                 == DialogResult.Yes ) {
                 if( Program.GameDB.Games.Count > 0 ) {
                     UnsavedChanges = true;
                     Program.GameDB.Games.Clear();
-                    AddStatusMsg(GlobalStrings.DBEditDlg_ClearedAllData);
+                    AddStatusMsg( "Cleared all data." );
                 }
                 RefreshGameList();
             }
@@ -118,7 +118,7 @@ namespace Depressurizer {
 
         void VisitStorePage( GameDBEntry game ) {
             if( game != null ) {
-                System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, game.Id ) );
+                System.Diagnostics.Process.Start( string.Format( Properties.Resources.SteamStoreURL, game.Id ) );
             }
         }
 
@@ -129,13 +129,13 @@ namespace Depressurizer {
             DialogResult res = dlg.ShowDialog();
 
             if( dlg.Error != null ) {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGameList);
+                MessageBox.Show( string.Format( "An error occurred while updating the game list:\n\n{0}", dlg.Error.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                AddStatusMsg( "Error updating game list." );
             } else {
                 if( res == DialogResult.Cancel || res == DialogResult.Abort ) {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_CanceledListUpdate);
+                    AddStatusMsg( "Canceled list update." );
                 } else {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedGameList, dlg.Added));
+                    AddStatusMsg( string.Format( "Updated game list, added {0} games.", dlg.Added ) );
                     UnsavedChanges = true;
                 }
             }
@@ -149,12 +149,12 @@ namespace Depressurizer {
             GameDBEntryDialog dlg = new GameDBEntryDialog();
             if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK && dlg.Game != null ) {
                 if( Program.GameDB.Games.ContainsKey( dlg.Game.Id ) ) {
-                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));
+                    MessageBox.Show( "Game with specified ID already exists.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    AddStatusMsg( string.Format( "Failed to add game with ID {0}.", dlg.Game.Id ) );
                 } else {
                     Program.GameDB.Games.Add( dlg.Game.Id, dlg.Game );
                     AddGameToList( dlg.Game );
-                    AddStatusMsg( string.Format(GlobalStrings.DBEditDlg_AddedGame, dlg.Game.Id ) );
+                    AddStatusMsg( string.Format( "Added game with ID {0}.", dlg.Game.Id ) );
                     UnsavedChanges = true;
                     UpdateForSelectChange();
                 }
@@ -169,7 +169,7 @@ namespace Depressurizer {
                     DialogResult res = dlg.ShowDialog();
                     if( res == System.Windows.Forms.DialogResult.OK ) {
                         UpdateGameAtIndex( lstGames.SelectedIndices[0] );
-                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_EditedGame, game.Id));
+                        AddStatusMsg( string.Format( "Edited game with ID {0}", game.Id ) );
                         UnsavedChanges = true;
                     }
                 }
@@ -178,8 +178,8 @@ namespace Depressurizer {
 
         void DeleteSelectedGames() {
             if( lstGames.SelectedItems.Count > 0 ) {
-                DialogResult res = MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_AreYouSureDeleteGames, lstGames.SelectedItems.Count),
-                    GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                DialogResult res = MessageBox.Show( string.Format( "Delete {0} games from the database?", lstGames.SelectedItems.Count ),
+                    "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
                     int deleted = 0;
                     foreach( ListViewItem item in lstGames.SelectedItems ) {
@@ -189,7 +189,7 @@ namespace Depressurizer {
                             deleted++;
                         }
                     }
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_DeletedGames, deleted));
+                    AddStatusMsg( string.Format( "Deleted {0} games.", deleted ) );
                     if( deleted > 0 ) {
                         UnsavedChanges = true;
                         UpdateSelectedGames();
@@ -242,23 +242,23 @@ namespace Depressurizer {
                 DialogResult res = dlg.ShowDialog();
 
                 if( dlg.Error != null ) {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGames);
-                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    AddStatusMsg( "Error updating games." );
+                    MessageBox.Show( string.Format( "An error occurred while updating games:\n\n{0}", dlg.Error.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 }
 
                 if( res == DialogResult.Cancel ) {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
+                    AddStatusMsg( "Update canceled." );
                 } else if( res == DialogResult.Abort ) {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dlg.JobsCompleted, dlg.JobsTotal));
+                    AddStatusMsg( string.Format( "Aborted. Updated {0} / {1} entries.", dlg.JobsCompleted, dlg.JobsTotal ) );
                 } else {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dlg.JobsCompleted));
+                    AddStatusMsg( string.Format( "Updated {0} entries.", dlg.JobsCompleted ) );
                 }
                 if( dlg.JobsCompleted > 0 ) {
                     UnsavedChanges = true;
                     RefreshGameList();
                 }
             } else {
-                AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
+                AddStatusMsg( "No games to scrape." );
             }
         }
 
@@ -325,13 +325,12 @@ namespace Depressurizer {
                 ( g.Type == AppType.IdRedirect && chkRedirect.Checked ) ||
                 ( g.Type == AppType.NonApp && chkNonApp.Checked ) ||
                 ( g.Type == AppType.NotFound && chkNotFound.Checked ) ||
-                ( g.Type == AppType.Unknown && chkUnknown.Checked ) ||
-                ( g.Type == AppType.New && chkNew.Checked ) ||
-                ( g.Type == AppType.AgeGated && chkAgeGate.Checked );
+                ( g.Type == AppType.Unknown && chkNew.Checked ) ||
+                ( g.Type == AppType.New && chkNew.Checked );
         }
 
         void UpdateForSelectChange() {
-            statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedItems.Count, lstGames.Items.Count, Program.GameDB.Games.Count);
+            statSelected.Text = string.Format( "{0} selected / {1} displayed / {2} total", lstGames.SelectedItems.Count, lstGames.Items.Count, Program.GameDB.Games.Count );
             cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = ( lstGames.SelectedItems.Count >= 1 );
         }
 
@@ -354,7 +353,6 @@ namespace Depressurizer {
         private void MainForm_Load( object sender, EventArgs e ) {
             listSorter.AddIntCol( 1 );
             lstGames.ListViewItemSorter = listSorter;
-            lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
             RefreshGameList();
             UpdateForSelectChange();
         }
@@ -390,8 +388,7 @@ namespace Depressurizer {
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            listSorter.SetSortCol( e.Column );
-            lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
+            listSorter.ColClick( e.Column );
             lstGames.Sort();
         }
 
@@ -476,7 +473,7 @@ namespace Depressurizer {
                 filterSuspend = true;
                 if( chkAll.Checked ) {
                     chkDLC.Checked = chkSiteError.Checked = chkWebError.Checked = chkGame.Checked = chkNonApp.Checked
-                        = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = chkUnknown.Checked = chkAgeGate.Checked = false;
+                        = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = chkUnknown.Checked = false;
                 }
                 filterSuspend = false;
                 RefreshGameList();
@@ -516,7 +513,7 @@ namespace Depressurizer {
                 return true;
             }
 
-            DialogResult res = MessageBox.Show(GlobalStrings.DBEditDlg_UnsavedChangesSave, GlobalStrings.DBEditDlg_UnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            DialogResult res = MessageBox.Show( "There are unsaved changes. Save to the game database first?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning );
             if( res == System.Windows.Forms.DialogResult.No ) {
                 // Don't save, just continue
                 return true;
@@ -526,23 +523,6 @@ namespace Depressurizer {
                 return false;
             }
             return SaveDB();
-        }
-
-        private void MergeGenres() {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = "gz";
-            dlg.AddExtension = true;
-            dlg.CheckFileExists = true;
-            dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
-            DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
-                GameDB mDb = new GameDB();
-                mDb.Load( dlg.FileName );
-                int updated;
-                int added = Program.GameDB.MergeGameDB( mDb, false, out updated );
-                RefreshGameList();
-                UnsavedChanges = true;
-            }
         }
     }
 }

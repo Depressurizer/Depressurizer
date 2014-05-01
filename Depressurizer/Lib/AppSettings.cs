@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
+Copyright 2011, 2012 Steve Labbe.
 
 This file is part of Depressurizer.
 
@@ -71,7 +71,7 @@ namespace Rallion {
         /// <summary>
         /// Loads settings from the defined config file.
         /// </summary>
-        public virtual void Load() {
+        public void Load() {
             Type type = this.GetType();
             if( File.Exists( FilePath ) ) {
                 XmlDocument doc = new XmlDocument();

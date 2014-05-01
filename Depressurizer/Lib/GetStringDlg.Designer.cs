@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 namespace Rallion {
-    partial class CancelableDlg {
+    partial class GetStringDlg {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -41,57 +41,69 @@ namespace Rallion {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.lblText = new System.Windows.Forms.Label();
-            this.cmdStop = new System.Windows.Forms.Button();
+            this.lblValue = new System.Windows.Forms.Label();
+            this.txtValue = new System.Windows.Forms.TextBox();
             this.cmdCancel = new System.Windows.Forms.Button();
+            this.cmdOk = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lblText
+            // lblValue
             // 
-            this.lblText.AutoSize = true;
-            this.lblText.Location = new System.Drawing.Point(30, 15);
-            this.lblText.Name = "lblText";
-            this.lblText.Size = new System.Drawing.Size(52, 13);
-            this.lblText.TabIndex = 0;
-            this.lblText.Text = "Starting...";
+            this.lblValue.AutoSize = true;
+            this.lblValue.Location = new System.Drawing.Point(12, 9);
+            this.lblValue.Name = "lblValue";
+            this.lblValue.Size = new System.Drawing.Size(64, 13);
+            this.lblValue.TabIndex = 0;
+            this.lblValue.Text = "Enter value:";
             // 
-            // cmdStop
+            // txtValue
             // 
-            this.cmdStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdStop.Location = new System.Drawing.Point(198, 59);
-            this.cmdStop.Name = "cmdStop";
-            this.cmdStop.Size = new System.Drawing.Size(75, 23);
-            this.cmdStop.TabIndex = 1;
-            this.cmdStop.Text = "Stop";
-            this.cmdStop.UseVisualStyleBackColor = true;
-            this.cmdStop.Click += new System.EventHandler(this.cmdStop_Click);
+            this.txtValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtValue.Location = new System.Drawing.Point(12, 25);
+            this.txtValue.Name = "txtValue";
+            this.txtValue.Size = new System.Drawing.Size(258, 20);
+            this.txtValue.TabIndex = 1;
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Location = new System.Drawing.Point(279, 59);
+            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cmdCancel.Location = new System.Drawing.Point(12, 51);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 2;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
-            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
-            // CancelableDlg
+            // cmdOk
             // 
+            this.cmdOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.cmdOk.Location = new System.Drawing.Point(195, 51);
+            this.cmdOk.Name = "cmdOk";
+            this.cmdOk.Size = new System.Drawing.Size(75, 23);
+            this.cmdOk.TabIndex = 3;
+            this.cmdOk.Text = "OK";
+            this.cmdOk.UseVisualStyleBackColor = true;
+            // 
+            // GetStringDlg
+            // 
+            this.AcceptButton = this.cmdOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 94);
+            this.CancelButton = this.cmdCancel;
+            this.ClientSize = new System.Drawing.Size(282, 86);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdOk);
             this.Controls.Add(this.cmdCancel);
-            this.Controls.Add(this.cmdStop);
-            this.Controls.Add(this.lblText);
+            this.Controls.Add(this.txtValue);
+            this.Controls.Add(this.lblValue);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "CancelableDlg";
+            this.Name = "GetStringDlg";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Updating Games";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
-            this.Load += new System.EventHandler(this.UpdateForm_Load);
+            this.Text = "Enter Value";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,8 +111,9 @@ namespace Rallion {
 
         #endregion
 
-        private System.Windows.Forms.Label lblText;
-        private System.Windows.Forms.Button cmdStop;
+        private System.Windows.Forms.Label lblValue;
+        private System.Windows.Forms.TextBox txtValue;
         private System.Windows.Forms.Button cmdCancel;
+        private System.Windows.Forms.Button cmdOk;
     }
 }
