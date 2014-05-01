@@ -497,7 +497,8 @@ namespace Depressurizer {
             int result = ImportSteamFile(filePath, ignore, ignoreDlc);
             if (!ignoreExternal)
             {
-                result += ImportNonSteamGames(SteamId, ignore);
+                int newItems, removedItems;
+                result += ImportNonSteamGames(SteamId, true, ignore, true, false, out newItems, out removedItems);
             }
             return result;
         }
@@ -593,6 +594,7 @@ namespace Depressurizer {
 
         #region Non-Steam game file handling
 
+        /* this had too much in common with the other loading function to maintain both
         /// <summary>
         /// Loads all non-steam games into the game list and sets their categories to match the loaded config file
         /// </summary>
@@ -694,6 +696,7 @@ namespace Depressurizer {
             }
             return result;
         }
+        */
 
         /// <summary>
         /// Loads in games from an node containing a list of games.
@@ -888,7 +891,9 @@ namespace Depressurizer {
                     {
                         int gameId = (int)(ulongId >> 32);
                         string gameName = (string)shortcutPair.Value.NodeData;
-                        shortcutGames.Add(gameName, gameId);
+                        if( !shortcutGames.ContainsKey( gameName ) ) {
+                            shortcutGames.Add(gameName, gameId);
+                        }
                     }
                     else
                     {
@@ -924,12 +929,19 @@ namespace Depressurizer {
         /// <param name="ignore">List of identifiers of games to be ignored</param>
         /// <param name="newItems">Returns number of new games integrated</param>
         /// <returns>Returns number of external games located</returns>
-        public int IntegrateNonSteamGameList(long SteamId, bool overWrite, SortedSet<int> ignore, out int newItems, out int removedItems)
+        public int ImportNonSteamGames(long SteamId, bool overWrite, SortedSet<int> ignore, bool loadCategories, bool removeOthers, out int newItems, out int removedItems)
         {
             newItems = 0;
             removedItems = 0;
             if (SteamId <= 0) return 0;
             int loadedGames = 0;
+
+            SortedSet<int> existingNonSteamGames = new SortedSet<int>();
+            if( removeOthers ) {
+                foreach( int id in Games.Keys ) {
+                    if( id < 0 ) existingNonSteamGames.Add( id );
+                }
+            }
 
             Dictionary<string, int> shortcutgames;
             if (LoadShortcutGames(SteamId, out shortcutgames))
@@ -966,15 +978,43 @@ namespace Depressurizer {
                                     loadedGames++;
                                     if (isNew)
                                         newItems++;
+                                    
+                                    if( loadCategories ) {
+                                        Game gameEntry = this.Games[shortcutgames[gameName]];
+                                        string cat0 = null, cat1 = null;
+                                        VdfFileNode tagsNode = attrGame.GetNodeAt( new string[] { "tags" }, false );
+                                        if( ( tagsNode != null ) && ( tagsNode.NodeType == ValueType.Array ) &&
+                                            ( tagsNode.NodeArray.Count > 0 ) && ( tagsNode.NodeArray.ContainsKey( "0" ) ) ) {
+                                            VdfFileNode vdfCat = tagsNode.NodeArray["0"];
+                                            if( vdfCat.NodeType == ValueType.Value ) {
+                                                cat0 = vdfCat.NodeData.ToString();
+                                            }
+                                            if( tagsNode.NodeArray.ContainsKey( "1" ) ) {
+                                                vdfCat = tagsNode.NodeArray["1"];
+                                                if( vdfCat.NodeType == ValueType.Value ) {
+                                                    cat1 = vdfCat.NodeData.ToString();
+                                                }
+                                            }
+                                        }
+                                        gameEntry.Favorite = ( ( cat0 == "favorite" ) || ( cat1 == "favorite" ) );
+                                        if( cat0 != "favorite" ) {
+                                            gameEntry.Category = GetCategory( cat0 );
+                                        } else {
+                                            gameEntry.Category = GetCategory( cat1 );
+                                        }
+
+                                    }
+                                    
                                 }
+                                existingNonSteamGames.Remove(shortcutgames[gameName]);
                                 shortcutgames.Remove(gameName);
                             }
                         }
                     }
                     // Remove external games which have been deleted from Steam client
-                    foreach (KeyValuePair<string, int> shortcutpair in shortcutgames)
+                    foreach (int idToRemove in existingNonSteamGames)
                     {
-                        if (RemoveGame(shortcutpair.Value))
+                        if (RemoveGame(idToRemove))
                             removedItems++;
                     }
                 }
