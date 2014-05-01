@@ -37,22 +37,16 @@ namespace Depressurizer {
             Logger.Level = LoggerLevel.None;
             Logger.DateFormat = "HH:mm:ss'.'ffffff";
 
-            Logger.MaxFileSize = 2000000;
-            Logger.MaxBackup = 1;
-            Logger.FileNameTemplate = "Depressurizer.log";
-
             Settings settings = Settings.Instance();
             settings.Load();
 
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
+            Logger.Write( LoggerLevel.Info, "Program initialized. Logging level set to {0}.", Logger.Level );
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
             Application.Run( new FormMain() );
 
-            settings.Save();
-
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
+            Logger.Write( LoggerLevel.Info, "Program closing." );
             Logger.EndSession();
         }
     }

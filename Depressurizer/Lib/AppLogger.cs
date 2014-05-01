@@ -23,7 +23,7 @@ using System.Text;
 namespace Rallion {
 
     public enum LoggerLevel {
-        None,
+        None = -1,
         Error,
         Warning,
         Info,
@@ -39,7 +39,7 @@ namespace Rallion {
         #region Internals
         private FileStream outputStream;
         private readonly object threadLock = new object();
-        private static string[] LevTxt = { "", " ERR", "WARN", "INFO", "VERB" };
+        private static string[] LevTxt = { " ERR", "WARN", "INFO", "VERB" };
         #endregion
 
         #region Configuration
@@ -521,8 +521,6 @@ namespace Rallion {
                     outputStream = new FileStream( LogFile.FullName, FileMode.Append, FileAccess.Write, FileShare.Read );
                     IsActiveSession = true;
                 } catch( IOException ) {
-                    IsActiveSession = false;
-                } catch( UnauthorizedAccessException ) {
                     IsActiveSession = false;
                 }
                 return IsActiveSession;
