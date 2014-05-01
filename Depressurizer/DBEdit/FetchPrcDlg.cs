@@ -17,27 +17,32 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Windows.Forms;
+using System.Xml;
 using Rallion;
 
 namespace Depressurizer {
-    static class Program {
+    class FetchPrcDlg : CancelableDlg {
+        public int Added { get; private set; }
+        XmlDocument doc;
 
-        public static GameDB GameDB;
+        public FetchPrcDlg()
+            : base( "Updating Game List", false ) {
+            SetText( "Downloading game list..." );
+            Added = 0;
+        }
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main() {
-            FatalError.InitializeHandler();
+        protected override void RunProcess() {
+            Added = 0;
+            doc = GameDB.FetchAppList();
+            OnThreadCompletion();
+        }
 
-            Settings settings = Settings.Instance();
-            settings.Load();
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault( false );
-            Application.Run( new FormMain() );
+        protected override void Finish() {
+            if( !this.Canceled && doc != null && Error == null ) {
+                SetText( "Finishing download..." );
+                Added = Program.GameDB.IntegrateAppList( doc );
+                OnJobCompletion();
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
+Copyright 2011, 2012 Steve Labbe.
 
 This file is part of Depressurizer.
 
@@ -19,8 +19,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using System.IO;
-using Rallion;
 
 namespace Depressurizer {
     public class Profile {
@@ -31,7 +29,9 @@ namespace Depressurizer {
 
         public SortedSet<int> IgnoreList = new SortedSet<int>();
 
-        public Int64 SteamID64 = 0;
+        public string AccountID = null;
+
+        public string CommunityName = null;
 
         public bool AutoDownload = true;
 
@@ -47,18 +47,18 @@ namespace Depressurizer {
 
         public bool IgnoreDlc = true;
 
-        // jpodadera. Ignored non-Steam games
-        public bool IgnoreExternal = true;
-
         public int ImportSteamData() {
-            //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            return GameData.ImportSteamFile(SteamID64, IgnoreList, IgnoreDlc, IgnoreExternal);
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, AccountID );
+            return GameData.ImportSteamFile( filePath, IgnoreList, IgnoreDlc );
         }
-
+        /*
+        public int DownloadGameList() {
+            return GameData.DownloadGameList( CommunityName, OverwriteOnDownload, IgnoreList, IgnoreDlc );
+        }
+        */
         public void ExportSteamData() {
-            GameData.SaveSteamFile(SteamID64, ExportDiscard);
-            //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            //GameData.SaveSteamFile( filePath, ExportDiscard );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, AccountID );
+            GameData.SaveSteamFile( filePath, ExportDiscard );
         }
 
         public bool IgnoreGame( int gameId ) {
@@ -68,7 +68,6 @@ namespace Depressurizer {
         #region Saving and Loading
 
         public static Profile Load( string path ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_LoadingProfile, path);
             Profile profile = new Profile();
 
             profile.FilePath = path;
@@ -78,23 +77,14 @@ namespace Depressurizer {
             try {
                 doc.Load( path );
             } catch( Exception e ) {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToLoadProfile, e.Message);
-                throw new ApplicationException(GlobalStrings.Profile_ErrorLoadingProfile + e.Message, e);
+                throw new ApplicationException( "Error loading profile: " + e.Message, e );
             }
 
             XmlNode profileNode = doc.SelectSingleNode( "/profile" );
 
             if( profileNode != null ) {
-
-                Int64 accId = XmlUtil.GetInt64FromNode( profileNode["steam_id_64"], 0 );
-                if( accId == 0 ) {
-                    string oldAcc = XmlUtil.GetStringFromNode( profileNode["account_id"], null );
-                    if( oldAcc != null ) {
-                        accId = DirNametoID64( oldAcc );
-                    }
-                }
-
-                profile.SteamID64 = accId;
+                profile.CommunityName = XmlUtil.GetStringFromNode( profileNode["community_name"], null );
+                profile.AccountID = XmlUtil.GetStringFromNode( profileNode["account_id"], null );
 
                 profile.AutoDownload = XmlUtil.GetBoolFromNode( profileNode["auto_download"], profile.AutoDownload );
                 profile.AutoImport = XmlUtil.GetBoolFromNode( profileNode["auto_import"], profile.AutoImport );
@@ -103,9 +93,6 @@ namespace Depressurizer {
                 profile.AutoIgnore = XmlUtil.GetBoolFromNode( profileNode["auto_ignore"], profile.AutoIgnore );
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode["overwrite_names"], profile.OverwriteOnDownload );
                 profile.IgnoreDlc = XmlUtil.GetBoolFromNode( profileNode["ignore_dlc"], profile.IgnoreDlc );
-
-                // jpodadera. Ignored non-Steam games
-                profile.IgnoreExternal = XmlUtil.GetBoolFromNode(profileNode["ignore_external"], profile.IgnoreExternal);
 
                 XmlNode exclusionListNode = profileNode.SelectSingleNode( "exclusions" );
                 if( exclusionListNode != null ) {
@@ -126,7 +113,7 @@ namespace Depressurizer {
                     }
                 }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded);
+
             return profile;
         }
 
@@ -154,21 +141,25 @@ namespace Depressurizer {
         }
 
         public bool Save( string path ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_SavingProfile, path);
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
-            
+
             XmlWriter writer;
             try {
                 writer = XmlWriter.Create( path, writeSettings );
             } catch( Exception e ) {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToOpenProfileFile, e.Message);
-                throw new ApplicationException(GlobalStrings.Profile_ErrorSavingProfileFile + e.Message, e);
+                throw new ApplicationException( "Error saving profile file: " + e.Message, e );
             }
             writer.WriteStartElement( "profile" );
 
-            writer.WriteElementString( "steam_id_64", SteamID64.ToString() );
+            if( AccountID != null ) {
+                writer.WriteElementString( "account_id", AccountID );
+            }
+
+            if( CommunityName != null ) {
+                writer.WriteElementString( "community_name", CommunityName );
+            }
 
             writer.WriteElementString( "auto_download", AutoDownload.ToString() );
             writer.WriteElementString( "auto_import", AutoImport.ToString() );
@@ -177,9 +168,6 @@ namespace Depressurizer {
             writer.WriteElementString( "auto_ignore", AutoIgnore.ToString() );
             writer.WriteElementString( "overwrite_names", OverwriteOnDownload.ToString() );
             writer.WriteElementString( "ignore_dlc", IgnoreDlc.ToString() );
-
-            // jpodadera. Ignored non-Steam games
-            writer.WriteElementString("ignore_external", IgnoreExternal.ToString() );
 
             writer.WriteStartElement( "games" );
 
@@ -217,23 +205,9 @@ namespace Depressurizer {
 
             writer.Close();
             FilePath = path;
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_ProfileSaveComplete);
             return true;
         }
 
         #endregion
-
-        public static Int64 DirNametoID64( string cId ) {
-            Int64 res;
-            if( Int64.TryParse( cId, out res ) ) {
-                return ( res + 0x0110000100000000 );
-            }
-            return 0;
-        }
-
-        public static string ID64toDirName( Int64 id ) {
-            return ( id - 0x0110000100000000 ).ToString();
-        }
-
     }
 }

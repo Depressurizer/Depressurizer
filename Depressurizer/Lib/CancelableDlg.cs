@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
+Copyright 2011, 2012 Steve Labbe.
 
 This file is part of Depressurizer.
 
@@ -65,7 +65,6 @@ namespace Rallion {
         #endregion
 
         #region Initialization
-
         public CancelableDlg( string title, bool stopButton ) {
             InitializeComponent();
             this.Text = title;
@@ -92,10 +91,7 @@ namespace Rallion {
                     Stopped = true;
                     Error = e;
                 }
-                if( IsHandleCreated ) {
-                    Invoke( new SimpleDelegate( Finish ) );
-                    Invoke( new SimpleDelegate( this.Close ) );
-                }
+                Invoke( new SimpleDelegate( Close ) );
             }
         }
         #endregion
@@ -140,7 +136,7 @@ namespace Rallion {
                 Stopped = true;
             }
             DisableAbort();
-            //DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
+            DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
             Finish();
             if( jobsCompleted >= totalJobs ) {
                 DialogResult = DialogResult.OK;

@@ -1,17 +1,36 @@
-﻿
+﻿/*
+Copyright 2011, 2012 Steve Labbe.
+
+This file is part of Depressurizer.
+
+Depressurizer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Depressurizer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+*/
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using Rallion;
 
 namespace Depressurizer {
     public partial class FormMain : Form {
+        #region Constants
+        // Special names shown in the category combobox
+        const string COMBO_NEWCAT = "Add new...";
+        const string COMBO_NONE = "Remove category";
+        #endregion
         #region Fields
         // Stores currently loaded profile
         Profile currentProfile;
@@ -33,14 +52,6 @@ namespace Depressurizer {
         // Allow visual feedback when dragging over the cat list
         bool isDragging;
         int dragOldCat;
-
-        // Used to reload resources of main form while switching language
-        private int originalWidth, originalHeight, originalSplitDistance;
-
-        // jpodadera. Used to hide and show Category column in ListView of games
-        private int originalCatColumnWidth;
-        private ColumnHeader colCategoryPointer;
-
         #endregion
         #region Properties
         /// <summary>
@@ -55,22 +66,12 @@ namespace Depressurizer {
         public FormMain() {
             gameData = new GameData();
             InitializeComponent();
+            combFavorite.SelectedIndex = 0;
 
-            chkFavorite.Checked = false;
-            chkGroupCategory.Checked = Settings.Instance().GroupView;
-
-            // Set up list sorting
-            listSorter.AddIntCol( 0 );
-            listSorter.AddRevCol( 3 );
-            listSorter.SetSortCol( 1, 1 );
+            listSorter.AddIntCol( 1 );
             lstGames.ListViewItemSorter = listSorter;
-            lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
 
-            // jpodadera. Save width of category column
-            originalCatColumnWidth = lstGames.Columns[2].Width;
-            colCategoryPointer = lstGames.Columns[2];
-
-            FullListRefresh();
+            FillCategoryList();
         }
         #region Manual Operations
 
@@ -79,8 +80,8 @@ namespace Depressurizer {
         /// </summary>
         void ManualImport() {
             if( ProfileLoaded || gameData.Games.Count > 0 ) {
-                if (MessageBox.Show(GlobalStrings.MainForm_AddContentsOfSteamConfigFile,
-                    GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                if( MessageBox.Show( "This action will add the contents of a Steam config file to the currently loaded game list, and will overwrite the category information for any existing games. If you do not want to do this, close the open profile or gamelist first.\nContinue loading file?",
+                    "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information )
                  == DialogResult.No ) {
                     return;
                 }
@@ -93,17 +94,17 @@ namespace Depressurizer {
                 try {
                     int loadedGames = gameData.ImportSteamFile( dlg.FileName, null, settings.IgnoreDlc );
                     if( loadedGames == 0 ) {
-                        MessageBox.Show(GlobalStrings.MainForm_NoGameInfoFound, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        AddStatus(GlobalStrings.MainForm_NoGamesFound);
+                        MessageBox.Show( "Warning: No game info found in the specified file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        AddStatus( "No games found." );
                     } else {
                         MakeChange( true );
-                        AddStatus(string.Format(GlobalStrings.MainForm_ImportedGames, loadedGames));
+                        AddStatus( string.Format( "Imported {0} games.", loadedGames ) );
                         lastSelectedCat = null; // Make sure the game list refreshes
-                        FullListRefresh();
+                        FillCategoryList();
                     }
                 } catch( ApplicationException e ) {
-                    MessageBox.Show(e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    AddStatus(GlobalStrings.MainForm_ImportFailed);
+                    MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Import failed." );
                 }
                 Cursor = Cursors.Default;
             }
@@ -120,11 +121,11 @@ namespace Depressurizer {
                 Cursor = Cursors.WaitCursor;
                 try {
                     gameData.SaveSteamFile( dlg.FileName, settings.RemoveExtraEntries );
-                    AddStatus(GlobalStrings.MainForm_DataExported);
+                    AddStatus( "Data exported." );
                     return true;
                 } catch( ApplicationException e ) {
-                    MessageBox.Show(e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    AddStatus(GlobalStrings.MainForm_ExportFailed);
+                    MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Export failed." );
                 }
                 Cursor = Cursors.Default;
             }
@@ -137,87 +138,53 @@ namespace Depressurizer {
         public void ManualDownload() {
 
             if( ProfileLoaded || gameData.Games.Count > 0 ) {
-                if (MessageBox.Show(GlobalStrings.MainForm_AddContentsOfSteamCommunity,
-                    GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                if( MessageBox.Show( "This action will add the contents of a Steam community game list to the currently loaded game list. If you do not want to do this, close the open game list or profile first.\nContinue loading games?",
+                    "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information )
                  == DialogResult.No ) {
                     return;
                 }
             }
-            
-            DlgManualDownload dlg = new DlgManualDownload();
-            if( dlg.ShowDialog() == DialogResult.OK ) {
 
+            GetStringDlg dlg = new GetStringDlg( "", "Download game list", "Enter custom URL name:", "Download game list" );
+            if( dlg.ShowDialog() == DialogResult.OK ) {
+                Cursor = Cursors.WaitCursor;
                 try {
-                    if( dlg.Custom ) {
-                        DownloadProfileData( dlg.UrlVal, true, null, settings.IgnoreDlc, settings.IgnoreExternal );
-                    } else {
-                        DownloadProfileData( dlg.IdVal, true, null, settings.IgnoreDlc, settings.IgnoreExternal );
-                    }
+                    DownloadProfileData( dlg.Value, true, null, settings.IgnoreDlc );
+
                 } catch( ApplicationException e ) {
-                    MessageBox.Show(e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    AddStatus(GlobalStrings.MainForm_ErrorDownloadingGames);
+                    MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Error downloading games." );
                 }
+                Cursor = Cursors.Default;
             }
         }
 
         #endregion
 
-        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore, ignoreDlc, ignoreExternal );
-            DownloadProfileDataHelper( updateDlg );
-        }
-
-        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore, ignoreDlc, ignoreExternal );
-            DownloadProfileDataHelper( updateDlg );
-        }
-
-        private void DownloadProfileDataHelper( CDlgUpdateProfile updateDlg ) {
+        private void DownloadProfileData( string name, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            UpdateProfileDlg updateDlg = new UpdateProfileDlg( gameData, name, overwrite, ignore, ignoreDlc );
             DialogResult res = updateDlg.ShowDialog();
 
             if( updateDlg.Error != null ) {
-                AddStatus(string.Format(GlobalStrings.MainForm_ErrorDownloadingProfileData, updateDlg.UseHtml ? "HTML" : "XML"));
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorDowloadingProfile, updateDlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AddStatus( string.Format( "Error downloading profile data via {0}.", updateDlg.UseHtml ? "HTML" : "XML" ) );
+                MessageBox.Show( string.Format( "There was an error downloading the profile data: \n\n{0}", updateDlg.Error.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             } else {
                 if( res == DialogResult.Abort || res == DialogResult.Cancel ) {
-                    AddStatus(GlobalStrings.MainForm_DownloadAborted);
+                    AddStatus( "Download aborted." );
                 } else {
                     if( updateDlg.Failover ) {
-                        AddStatus(GlobalStrings.MainForm_XMLDownloadFailed);
+                        AddStatus( "XML download failed." );
                     }
                     if( updateDlg.Fetched == 0 ) {
-                        MessageBox.Show(GlobalStrings.MainForm_NoGameDataFound, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        AddStatus(GlobalStrings.MainForm_NoGamesInDownload);
+                        MessageBox.Show( "No game data found. Please make sure the custom URL name is spelled correctly, and that the profile is public.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        AddStatus( "No games in download." );
                     } else {
                         MakeChange( true );
-                        if (currentProfile.IgnoreExternal)
-                        {
-                            AddStatus(string.Format(GlobalStrings.MainForm_DownloadedGames, updateDlg.Fetched, updateDlg.Added, updateDlg.UseHtml ? "HTML" : "XML"));
-                        }
-                        else
-                        {
-                            AddStatus(string.Format(GlobalStrings.MainForm_DownloadedGamesWithExternal, updateDlg.Fetched, updateDlg.Added, updateDlg.Removed, updateDlg.UseHtml ? "HTML" : "XML"));
-                        }
-
-                        FullListRefresh();
+                        AddStatus( string.Format( "Downloaded {0} games, {1} new, via {2}.", updateDlg.Fetched, updateDlg.Added, updateDlg.UseHtml ? "HTML" : "XML" ) );
+                        FillCategoryList();
+                        FillGameList();
                     }
                 }
-            }
-        }
-
-        private void LoadGameDB() {
-            try {
-                Program.GameDB = new GameDB();
-                if( File.Exists( "GameDB.xml.gz" ) ) {
-                    Program.GameDB.Load( "GameDB.xml.gz" );
-                } else if( File.Exists( "GameDB.xml" ) ) {
-                    Program.GameDB.Load( "GameDB.xml" );
-                } else {
-                    throw new ApplicationException(GlobalStrings.MainForm_GameDBFileNotExist);
-                }
-            } catch( Exception ex ) {
-                MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + ex.Message);
-                Program.GameDB = new GameDB();
             }
         }
 
@@ -227,13 +194,13 @@ namespace Depressurizer {
         /// Prompts user to create a new profile.
         /// </summary>
         void CreateProfile() {
-            DlgProfile dlg = new DlgProfile();
+            ProfileDlg dlg = new ProfileDlg();
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 currentProfile = dlg.Profile;
                 gameData = currentProfile.GameData;
-                AddStatus(GlobalStrings.MainForm_ProfileCreated);
+                AddStatus( "Profile created." );
                 if( dlg.DownloadNow ) {
                     UpdateProfileDownload( false );
                 }
@@ -247,8 +214,8 @@ namespace Depressurizer {
                     settings.Save();
                 }
 
-                FullListRefresh();
-
+                FillCategoryList();
+                FillGameList();
                 Cursor = Cursors.Default;
             }
             UpdateEnableStatesForProfileChange();
@@ -259,9 +226,9 @@ namespace Depressurizer {
         /// </summary>
         void EditProfile() {
             if( ProfileLoaded ) {
-                DlgProfile dlg = new DlgProfile( currentProfile );
+                ProfileDlg dlg = new ProfileDlg( currentProfile );
                 if( dlg.ShowDialog() == DialogResult.OK ) {
-                    AddStatus(GlobalStrings.MainForm_ProfileEdited);
+                    AddStatus( "Profile edited." );
                     MakeChange( true );
                     Cursor = Cursors.WaitCursor;
                     bool refresh = false;
@@ -280,12 +247,12 @@ namespace Depressurizer {
                     }
                     Cursor = Cursors.Default;
                     if( refresh ) {
-                        FullListRefresh();
+                        FillCategoryList();
+                        FillGameList();
                     }
                 }
             } else {
-                if (MessageBox.Show(GlobalStrings.MainForm_NoProfileLoaded, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
+                if( MessageBox.Show( "No profile loaded. Create one now?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) == DialogResult.Yes ) {
                     CreateProfile();
                 }
             }
@@ -301,7 +268,7 @@ namespace Depressurizer {
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
             dlg.CheckFileExists = true;
-            dlg.Filter = GlobalStrings.DlgProfile_Filter;
+            dlg.Filter = "Profiles|*.profile|All Files|*.*";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 LoadProfile( dlg.FileName, false );
@@ -318,10 +285,10 @@ namespace Depressurizer {
 
             try {
                 currentProfile = Profile.Load( path );
-                AddStatus(GlobalStrings.MainForm_ProfileLoaded);
+                AddStatus( "Profile loaded." );
             } catch( ApplicationException e ) {
-                MessageBox.Show(e.Message, GlobalStrings.MainForm_ErrorLoadingProfile, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                AddStatus(GlobalStrings.MainForm_FailedLoadProfile);
+                MessageBox.Show( e.Message, "Error loading profile", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                AddStatus( "Failed to load profile." );
                 return;
             }
 
@@ -334,8 +301,8 @@ namespace Depressurizer {
                 UpdateProfileImport();
             }
 
-            FullListRefresh();
-
+            FillCategoryList();
+            FillGameList();
             UpdateEnableStatesForProfileChange();
         }
 
@@ -347,7 +314,7 @@ namespace Depressurizer {
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
             dlg.CheckPathExists = true;
-            dlg.Filter = GlobalStrings.DlgProfile_Filter;
+            dlg.Filter = "Profiles|*.profile|All Files|*.*";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 SaveProfile( dlg.FileName );
@@ -369,12 +336,12 @@ namespace Depressurizer {
                 } else {
                     currentProfile.Save( path );
                 }
-                AddStatus(GlobalStrings.MainForm_ProfileSaved);
+                AddStatus( "Profile saved." );
                 MakeChange( false );
                 return true;
             } catch( ApplicationException e ) {
-                MessageBox.Show(e.Message, GlobalStrings.MainForm_ErrorSavingProfile, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                AddStatus(GlobalStrings.MainForm_FailedSaveProfile);
+                MessageBox.Show( e.Message, "Error saving profile", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                AddStatus( "Failed to save profile." );
                 return false;
             }
 
@@ -388,11 +355,11 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc, currentProfile.IgnoreExternal );
+                    DownloadProfileData( currentProfile.CommunityName, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
-                    MessageBox.Show(e.Message, GlobalStrings.MainForm_ErrorDownloadingGameList, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    AddStatus(GlobalStrings.MainForm_DownloadFailed);
+                    MessageBox.Show( e.Message, "Error downloading game list", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    AddStatus( "Download failed." );
                 }
                 if( updateUI ) Cursor = Cursors.Default;
             }
@@ -407,18 +374,19 @@ namespace Depressurizer {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
                     int count = currentProfile.ImportSteamData();
-                    AddStatus(string.Format(GlobalStrings.MainForm_ImportedItems, count));
+                    AddStatus( string.Format( "Imported {0} items.", count ) );
                     if( count > 0 ) {
                         MakeChange( true );
                         if( updateUI ) {
-                            FullListRefresh();
+                            FillCategoryList();
+                            FillGameList();
                         }
                     }
                     if( updateUI ) Cursor = Cursors.Default;
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
-                    MessageBox.Show(e.Message, GlobalStrings.MainForm_ErrorImportingSteamDataList, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    AddStatus(GlobalStrings.MainForm_ImportFailed);
+                    MessageBox.Show( e.Message, "Error importing steam data list", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    AddStatus( "Import failed." );
                 }
             }
         }
@@ -430,10 +398,10 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 try {
                     currentProfile.ExportSteamData();
-                    AddStatus(GlobalStrings.MainForm_ExportedCategories);
+                    AddStatus( "Exported categories." );
                 } catch( ApplicationException e ) {
-                    MessageBox.Show(e.Message, GlobalStrings.MainForm_ErrorExportingToSteam, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    AddStatus(GlobalStrings.MainForm_ExportFailed);
+                    MessageBox.Show( e.Message, "Error exporting to Steam", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                    AddStatus( "Export failed." );
                 }
             }
         }
@@ -447,17 +415,17 @@ namespace Depressurizer {
         /// </summary>
         /// <returns>The category that was added, or null if the operation was canceled or failed.</returns>
         Category CreateCategory() {
-            GetStringDlg dlg = new GetStringDlg(string.Empty, GlobalStrings.MainForm_CreateCategory, GlobalStrings.MainForm_EnterNewCategoryName, GlobalStrings.MainForm_Create);
+            GetStringDlg dlg = new GetStringDlg( string.Empty, "Create category", "Enter new category name:", "Create" );
             if( dlg.ShowDialog() == DialogResult.OK && CatUtil.ValidateCategoryName( dlg.Value ) ) {
                 Category newCat = gameData.AddCategory( dlg.Value );
                 if( newCat != null ) {
-                    OnCategoryChange();
+                    FillCategoryList();
                     combCategory.SelectedItem = newCat;
                     MakeChange( true );
-                    AddStatus(string.Format(GlobalStrings.MainForm_CategoryAdded, newCat.Name));
+                    AddStatus( string.Format( "Category '{0}' added.", newCat.Name ) );
                     return newCat;
                 } else {
-                    MessageBox.Show(String.Format(GlobalStrings.MainForm_CouldNotAddCategory, dlg.Value), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show( String.Format( "Could not add category '{0}'", dlg.Value ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                 }
             }
             return null;
@@ -472,15 +440,16 @@ namespace Depressurizer {
             if( lstCategories.SelectedItems.Count > 0 ) {
                 Category c = lstCategories.SelectedItem as Category;
                 if( c != null ) {
-                    DialogResult res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteCategory, c.Name), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult res = MessageBox.Show( string.Format( "Delete category '{0}'?", c.Name ), "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
                     if( res == System.Windows.Forms.DialogResult.Yes ) {
                         if( gameData.RemoveCategory( c ) ) {
-                            FullListRefresh(); // Full refresh might not always be necessary
+                            FillCategoryList();
+                            FillGameList();
                             MakeChange( true );
-                            AddStatus(string.Format(GlobalStrings.MainForm_CategoryDeleted, c.Name));
+                            AddStatus( string.Format( "Category '{0}' deleted.", c.Name ) );
                             return true;
                         } else {
-                            MessageBox.Show(string.Format(GlobalStrings.MainForm_CouldNotDeleteCategory, c.Name), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            MessageBox.Show( string.Format( "Could not delete category '{0}'.", c.Name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                         }
                     }
                 }
@@ -497,7 +466,7 @@ namespace Depressurizer {
             if( lstCategories.SelectedItems.Count > 0 ) {
                 Category c = lstCategories.SelectedItem as Category;
                 if( c != null ) {
-                    GetStringDlg dlg = new GetStringDlg(c.Name, string.Format(GlobalStrings.MainForm_RenameCategory, c.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
+                    GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( "Rename category: {0}", c.Name ), "Enter new name:", "Rename" );
                     if( dlg.ShowDialog() == DialogResult.OK ) {
                         return RenameCategoryHelper( c, dlg.Value );
                     }
@@ -515,12 +484,13 @@ namespace Depressurizer {
         bool RenameCategoryHelper( Category c, string newName ) {
             if( newName == c.Name ) return true;
             if( CatUtil.ValidateCategoryName( newName ) && gameData.RenameCategory( c, newName ) ) {
-                OnCategoryChange();
+                FillCategoryList();
+                UpdateGameList();
                 MakeChange( true );
-                AddStatus(string.Format(GlobalStrings.MainForm_CategoryRenamed, c.Name));
+                AddStatus( string.Format( "Category renamed.", c.Name ) );
                 return true;
             } else {
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_NameIsInUse, newName), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show( string.Format( "Name '{0}' is already in use.", newName ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 return false;
             }
         }
@@ -529,16 +499,17 @@ namespace Depressurizer {
         /// Adds a new game. Displays the game dialog to the user.
         /// </summary>
         void AddGame() {
-            DlgGame dlg = new DlgGame( gameData, null );
+            GameDlg dlg = new GameDlg( gameData, null );
             if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
                 if( ProfileLoaded ) {
                     if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
-                        AddStatus(string.Format(GlobalStrings.MainForm_UnignoredGame, dlg.Game.Id));
+                        AddStatus( string.Format( "Unignored game {0}.", dlg.Game.Id ) );
                     }
                 }
-                FullListRefresh(); //overkill. only need to change one cat and one game at most. could be replaced with a cat refresh then adding the game if in ungrouped mode
+                FillCategoryList();
+                FillGameList();
                 MakeChange( true );
-                AddStatus(GlobalStrings.MainForm_AddedGame);
+                AddStatus( "Added game." );
             }
         }
 
@@ -549,11 +520,12 @@ namespace Depressurizer {
             if( lstGames.SelectedIndices.Count > 0 ) {
                 int index = lstGames.SelectedIndices[0];
                 Game g = lstGames.Items[index].Tag as Game;
-                DlgGame dlg = new DlgGame( gameData, g );
+                GameDlg dlg = new GameDlg( gameData, g );
                 if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
-                    OnGameChange( true, true );
+                    FillCategoryList();
+                    UpdateGame( index );
                     MakeChange( true );
-                    AddStatus(GlobalStrings.MainForm_EditedGame);
+                    AddStatus( "Edited game." );
                 }
             }
         }
@@ -564,7 +536,7 @@ namespace Depressurizer {
         void RemoveGames() {
             int selectCount = lstGames.SelectedIndices.Count;
             if( selectCount > 0 ) {
-                if (MessageBox.Show(string.Format(GlobalStrings.MainForm_RemoveGame, selectCount, (selectCount == 1) ? "" : "s"), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                if( MessageBox.Show( string.Format( "Remove {0} game{1}?", selectCount, ( selectCount == 1 ) ? "" : "s" ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question )
                     == DialogResult.Yes ) {
                     int ignored = 0;
                     int removed = 0;
@@ -580,14 +552,14 @@ namespace Depressurizer {
                         }
                     }
                     if( removed > 0 ) {
-                        AddStatus(string.Format(GlobalStrings.MainForm_RemovedGame, removed, (removed == 1) ? "" : "s"));
+                        AddStatus( string.Format( "Removed {0} game{1}.", removed, ( removed == 1 ) ? "" : "s" ) );
                         MakeChange( true );
                     }
                     if( ignored > 0 ) {
-                        AddStatus(string.Format(GlobalStrings.MainForm_IgnoredGame, ignored, (ignored == 1) ? "" : "s"));
+                        AddStatus( string.Format( "Ignored {0} game{1}.", ignored, ( ignored == 1 ) ? "" : "s" ) );
                         MakeChange( true );
                     }
-                    OnGameChange( false, true );
+                    UpdateGameListSelected();
                 }
             }
         }
@@ -601,7 +573,7 @@ namespace Depressurizer {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     ( item.Tag as Game ).Category = cat;
                 }
-                OnGameChange( true, true );
+                UpdateGameListSelected();
                 MakeChange( true );
             }
         }
@@ -615,7 +587,7 @@ namespace Depressurizer {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     ( item.Tag as Game ).Favorite = fav;
                 }
-                OnGameChange( false, true );
+                UpdateGameListSelected();
                 MakeChange( true );
             }
         }
@@ -630,13 +602,14 @@ namespace Depressurizer {
                 return;
             }
 
-            AddStatus(GlobalStrings.MainForm_ClearedData);
+            AddStatus( "Cleared data." );
             currentProfile = null;
             gameData = new GameData();
             MakeChange( false );
             UpdateEnableStatesForProfileChange();
             if( updateUI ) {
-                FullListRefresh();
+                FillCategoryList();
+                FillGameList();
             }
         }
 
@@ -648,8 +621,7 @@ namespace Depressurizer {
             if( selectedOnly ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     Game g = item.Tag as Game;
-                    // jpodadera. Exclude shorcut games.
-                    if((g != null) && (g.Id > 0)) {
+                    if( g != null ) {
                         if( g.Category != null ) {
                             overwrite = false;
                         }
@@ -658,19 +630,17 @@ namespace Depressurizer {
                 }
             } else {
                 foreach( Game g in gameData.Games.Values ) {
-                    // jpodadera. Exclude shorcut games.
-                    if ((g != null) && (g.Id > 0))
-                    {
+                    if( g != null ) {
                         if( g.Category != null ) {
                             overwrite = false;
                         }
-                        gamesToUpdate.Add(g);
+                        gamesToUpdate.Add( g );
                     }
                 }
             }
 
             if( overwrite == false ) {
-                DialogResult res = MessageBox.Show(GlobalStrings.MainForm_SomeSelectedGameHaveCategories, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                DialogResult res = MessageBox.Show( "Some of the selected games aleady have categories set. Would you like to overwrite these categories?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
                 if( res == System.Windows.Forms.DialogResult.Yes ) overwrite = true;
             }
 
@@ -689,41 +659,42 @@ namespace Depressurizer {
                 }
             }
 
-            AddStatus(string.Format(GlobalStrings.MainForm_UpdatedCategories, updated));
+            AddStatus( string.Format( "Updated {0} categories locally.", updated ) );
             if( updated > 0 ) MakeChange( true );
 
             if( notFound.Count > 0 ) {
-                DialogResult res = MessageBox.Show(string.Format(GlobalStrings.MainForm_GamesNotFoundInGameDB, notFound.Count), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                DialogResult res = MessageBox.Show( string.Format( "{0} games not found in the local database. Check the Steam Store for these game genres?", notFound.Count ), "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
-                    CDlgDataScrape scrapeDlg = new CDlgDataScrape( notFound, gameData, settings.FullAutocat );
+                    DataScrapeDlg scrapeDlg = new DataScrapeDlg( notFound, gameData, settings.FullAutocat );
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
                     if( scrapeRes == DialogResult.Cancel ) {
-                        AddStatus(string.Format(GlobalStrings.MainForm_CanceledWebUpdate, scrapeDlg.JobsTotal));
+                        AddStatus( string.Format( "Canceled web update.", scrapeDlg.JobsTotal ) );
                     } else {
                         if( scrapeRes == DialogResult.Abort ) {
-                            AddStatus(string.Format(GlobalStrings.MainForm_UpdatedViaWebAndAborted, scrapeDlg.JobsCompleted, scrapeDlg.JobsTotal));
+                            AddStatus( string.Format( "Updated {0} / {1} via web and aborted.", scrapeDlg.JobsCompleted, scrapeDlg.JobsTotal ) );
                         } else {
-                            AddStatus(string.Format(GlobalStrings.MainForm_UpdatedViaWeb, scrapeDlg.JobsCompleted));
+                            AddStatus( string.Format( "Updated {0} via web.", scrapeDlg.JobsCompleted ) );
                         }
                         if( scrapeDlg.Failures > 0 ) {
-                            MessageBox.Show(string.Format(GlobalStrings.MainForm_FailedToLoadStorePages, scrapeDlg.Failures), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            AddStatus(string.Format(GlobalStrings.MainForm_ErrorOcurredOnGames, scrapeDlg.Failures));
+                            MessageBox.Show( string.Format( "Failed to load store pages for {0} games.", scrapeDlg.Failures ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                            AddStatus( string.Format( "Errors occurred on {0} games.", scrapeDlg.Failures ) );
                         }
                         if( scrapeDlg.JobsCompleted > 0 ) MakeChange( true );
                     }
                 }
             }
 
-            FullListRefresh();
+            FillCategoryList();
+            FillGameList();
         }
 
         private void AutonameAll() {
-            DialogResult res = MessageBox.Show(GlobalStrings.MainForm_OverwriteExistingNames, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            DialogResult res = MessageBox.Show( "Do you want to overwrite existing names? Saying \"No\" will only rename games that do not have a name set.", "Overwrite?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2 );
             bool overwrite = false;
 
             if( res == DialogResult.Cancel ) {
-                AddStatus(GlobalStrings.MainForm_AutonameCanceled);
+                AddStatus( "Autoname canceled." );
                 return;
             } else if( res == DialogResult.Yes ) {
                 overwrite = true;
@@ -736,18 +707,18 @@ namespace Depressurizer {
                     named++;
                 }
             }
-            AddStatus(string.Format(GlobalStrings.MainForm_AutonamedGames, named));
+            AddStatus( string.Format( "Autonamed {0} games.", named ) );
             if( named > 0 ) {
                 MakeChange( true );
             }
 
-            UpdateGameList();
+            FillGameList();
         }
 
         void RemoveEmptyCats() {
             int count = gameData.RemoveEmptyCategories();
-            AddStatus(string.Format(GlobalStrings.MainForm_RemovedEmptyCategories, count));
-            OnCategoryChange();
+            AddStatus( string.Format( "Removed {0} empty categories.", count ) );
+            FillCategoryList();
         }
 
         #endregion
@@ -782,7 +753,7 @@ namespace Depressurizer {
         /// Updates the text displaying the number of items in the game list
         /// </summary>
         private void UpdateSelectedStatusText() {
-            statusSelection.Text = string.Format(GlobalStrings.MainForm_SelectedDisplayed, lstGames.SelectedItems.Count, lstGames.Items.Count);
+            statusSelection.Text = string.Format( "{0} selected / {1} displayed", lstGames.SelectedItems.Count, lstGames.Items.Count );
         }
 
         /// <summary>
@@ -804,59 +775,7 @@ namespace Depressurizer {
         #region List updaters
 
         /// <summary>
-        /// Does all list-updating that should be done when adding, removing, or renaming a category.
-        /// </summary>
-        private void OnCategoryChange() {
-            FillCategoryList();
-            if( chkGroupCategory.Checked ) {
-                FillGameListGroups();
-                FillGameList();
-            } else {
-                UpdateGameList();
-                lstGames.Sort();
-            }
-        }
-
-        /// <summary>
-        /// Does all list-updating that should be done when modifying one or more existing game entry.
-        /// </summary>
-        /// <param name="catCreationPossible">True if it's possible that a new category was added for the game.</param>
-        /// <param name="limitToSelection">If true, only update entries for selected games instead of all of them</param>
-        private void OnGameChange( bool catCreationPossible, bool limitToSelection ) {
-            if( catCreationPossible ) {
-                OnCategoryChange();
-            } else {
-                if( limitToSelection ) {
-                    UpdateGameListSelected();
-                } else {
-                    UpdateGameList();
-                }
-                lstGames.Sort();
-            }
-        }
-
-        /// <summary>
-        /// Does all list updating that's required if the filter changes (category selection changes).
-        /// </summary>
-        private void OnViewChange(bool groupToggle) {
-            if( groupToggle ) {
-                FillGameListGroups();
-            }
-            FillGameList();
-        }
-
-        /// <summary>
-        /// Completely regenerates both the category and game lists
-        /// </summary>
-        private void FullListRefresh() {
-            FillCategoryList();
-            FillGameListGroups();
-            FillGameList();
-        }
-
-        /// <summary>
         /// Completely re-populates the game list based on the current category selection.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillGameList() {
             lstGames.BeginUpdate();
@@ -866,23 +785,19 @@ namespace Depressurizer {
                 bool showAll = false;
                 bool showFav = false;
                 if( catObj is string ) {
-                    if( (string)catObj == GlobalStrings.MainForm_All ) {
+                    if( (string)catObj == CatUtil.CAT_ALL_NAME ) {
                         showAll = true;
-                    } else if( (string)catObj == GlobalStrings.MainForm_Favorite ) {
+                    } else if( (string)catObj == CatUtil.CAT_FAV_NAME ) {
                         showFav = true;
                     }
                 }
-
                 Category cat = lstCategories.SelectedItem as Category;
 
-                foreach (Game g in gameData.Games.Values)
-                {
-                    if (showAll || (showFav && g.Favorite) || (!showFav && g.Category == cat))
-                    {
-                        AddGameToList(g);
+                foreach( Game g in gameData.Games.Values ) {
+                    if( showAll || ( showFav && g.Favorite ) || ( !showFav && g.Category == cat ) ) {
+                        AddGameToList( g );
                     }
                 }
-
                 lstGames.Sort();
             }
             lstGames.EndUpdate();
@@ -894,31 +809,14 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="g">The game the new entry should represent.</param>
         private void AddGameToList( Game g ) {
-            string catName = ( g.Category == null ) ? GlobalStrings.MainForm_Uncategorized : g.Category.Name;
-
-            // jpodadera. Change favorite column contents from Y-N to X or blank
-            ListViewItem item;
-            // jpodadera. Shortcut games do not show internal identifier
-            string strId = (g.Id < 0) ? GlobalStrings.MainForm_External : g.Id.ToString();
-            if (chkGroupCategory.Checked)
-            {
-                item = new ListViewItem(new string[] { strId, g.Name, g.Favorite ? "X" : String.Empty });
-            }
-            else
-            {
-                item = new ListViewItem(new string[] { strId, g.Name, catName, g.Favorite ? "X" : String.Empty });
-            }
+            string catName = ( g.Category == null ) ? CatUtil.CAT_UNC_NAME : g.Category.Name;
+            ListViewItem item = new ListViewItem( new string[] { g.Name, g.Id.ToString(), catName, g.Favorite ? "Y" : "N" } );
             item.Tag = g;
-            // jpodadera. Shortcut games show with italic font. 
-            if (g.Id < 0)
-                item.Font = new Font(item.Font, item.Font.Style | FontStyle.Italic);
-            lstGames.Items.Add(item);
-            AssignItemToGroup(item);
+            lstGames.Items.Add( item );
         }
 
         /// <summary>
         /// Completely repopulates the category list and combobox. Maintains selection on both.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillCategoryList() {
             gameData.Categories.Sort();
@@ -926,15 +824,12 @@ namespace Depressurizer {
 
             lstCategories.BeginUpdate();
             object selected = lstCategories.SelectedItem;
-            int selectedIndex = lstCategories.SelectedIndex;
             lstCategories.Items.Clear();
-            lstCategories.Items.Add( GlobalStrings.MainForm_All );
-            lstCategories.Items.Add( GlobalStrings.MainForm_Favorite );
-            lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
+            lstCategories.Items.Add( CatUtil.CAT_ALL_NAME );
+            lstCategories.Items.Add( CatUtil.CAT_FAV_NAME );
+            lstCategories.Items.Add( CatUtil.CAT_UNC_NAME );
             lstCategories.Items.AddRange( catList );
-            if( selected is string ) {
-                lstCategories.SelectedIndex = selectedIndex;
-            } else if( selected == null || !lstCategories.Items.Contains( selected ) ) {
+            if( selected == null || !lstCategories.Items.Contains( selected ) ) {
                 lstCategories.SelectedIndex = 0;
             } else {
                 lstCategories.SelectedItem = selected;
@@ -944,13 +839,9 @@ namespace Depressurizer {
             combCategory.BeginUpdate();
             selected = combCategory.SelectedItem;
             combCategory.Items.Clear();
-            combCategory.Items.Add( GlobalStrings.MainForm_Uncategorized );
+            combCategory.Items.Add( CatUtil.CAT_UNC_NAME );
             combCategory.Items.AddRange( catList );
-            if ( !(selected is string) && selected != null) {
-                combCategory.SelectedItem = selected;
-            } else {
-                combCategory.SelectedIndex = 0;
-            }
+            combCategory.SelectedItem = selected;
             combCategory.EndUpdate();
 
             while( contextGame_SetCat.DropDownItems.Count > 3 ) {
@@ -965,7 +856,6 @@ namespace Depressurizer {
 
         /// <summary>
         /// Updates the entry for the game in the given position in the list.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         /// <param name="index">List index of the game to update</param>
         /// <returns>True if game should be in the list, false otherwise.</returns>
@@ -973,19 +863,9 @@ namespace Depressurizer {
             ListViewItem item = lstGames.Items[index];
             Game g = (Game)item.Tag;
             if( ShouldDisplayGame( g ) ) {
-                item.SubItems[1].Text = g.Name;
-                if (chkGroupCategory.Checked)
-                {
-                    item.SubItems[2].Text = g.Favorite ? "X" : String.Empty;
-                    AssignItemToGroup(item);
-                }
-                else
-                {
-                    item.SubItems[2].Text = g.Category == null ? GlobalStrings.MainForm_Uncategorized : g.Category.Name;
-                    // jpodadera. Change favorite column contents from Y-N to X or blank
-                    //item.SubItems[3].Text = g.Favorite ? GlobalStrings.MainForm_FirstLetterYes : GlobalStrings.MainForm_FirstLetterNo;
-                    item.SubItems[3].Text = g.Favorite ? "X" : String.Empty;
-                }
+                item.SubItems[0].Text = g.Name;
+                item.SubItems[2].Text = g.Category == null ? CatUtil.CAT_UNC_NAME : g.Category.Name;
+                item.SubItems[3].Text = g.Favorite ? "Y" : "N";
                 return true;
             } else {
                 lstGames.Items.RemoveAt( index );
@@ -995,7 +875,6 @@ namespace Depressurizer {
 
         /// <summary>
         /// Updates list item for every game on the list, removing games that no longer need to be there, but not adding new ones.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         void UpdateGameList() {
             int i = 0;
@@ -1009,7 +888,6 @@ namespace Depressurizer {
 
         /// <summary>
         /// Updates the list item for every selected item on the list.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         void UpdateGameListSelected() {
             int i = 0;
@@ -1019,68 +897,6 @@ namespace Depressurizer {
             }
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
-        }
-
-        /// <summary>
-        /// jpodadera. Create groups in list of games
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
-        /// </summary>
-        private void FillGameListGroups()
-        {
-            lstGames.BeginUpdate();
-            lstGames.Groups.Clear();
-            if (chkGroupCategory.Checked)
-            {
-                // Switch reverse sort column
-                listSorter.AddRevCol( 2 );
-                listSorter.RemoveRevCol( 3 );
-
-                if (lstGames.Columns.Contains(colCategoryPointer))
-                {
-                    lstGames.Columns.Remove(colCategoryPointer);
-                }
-                lstGames.Groups.Add( new ListViewGroup( GlobalStrings.MainForm_Uncategorized ) );
-                foreach (Category c in gameData.Categories)
-                    lstGames.Groups.Add(new ListViewGroup(c.Name));
-            }
-            else
-            {
-                // Switch reverse sort column
-                listSorter.AddRevCol( 3 );
-                listSorter.RemoveRevCol( 2 );
-
-                if (!lstGames.Columns.Contains(colCategoryPointer))
-                {
-                    lstGames.Columns.Insert(2, colCategoryPointer);
-                    colCategoryPointer.Width = originalCatColumnWidth;
-                }
-            }
-            lstGames.EndUpdate();
-        }
-
-        private void AssignItemToGroup(ListViewItem item)
-        {
-            Game game = (Game) item.Tag;
-            if (game != null)
-            {
-                item.Group = null;
-                if (chkGroupCategory.Checked)
-                {
-                    string gameCat;
-                    if (game.Category == null)
-                        gameCat = GlobalStrings.MainForm_Uncategorized;
-                    else
-                        gameCat = game.Category.Name;
-                    foreach (ListViewGroup group in lstGames.Groups)
-                    {
-                        if (gameCat == group.Header)
-                        {
-                            item.Group = group;
-                            break;
-                        }
-                    }
-                }
-            }
         }
 
         #endregion
@@ -1111,8 +927,6 @@ namespace Depressurizer {
             cmdGameEdit.Enabled = gamesSelected;
             cmdGameSetCategory.Enabled = gamesSelected;
             cmdGameSetFavorite.Enabled = gamesSelected;
-            cmdGameLaunch.Enabled = lstGames.SelectedIndices.Count == 1;
-            contextGame_LaunchGame.Enabled = cmdGameLaunch.Enabled;
 
             bool catSelected = lstCategories.SelectedIndices.Count > 0;
             cmdCatDelete.Enabled = catSelected;
@@ -1125,17 +939,19 @@ namespace Depressurizer {
         #region General
         private void FormMain_Load( object sender, EventArgs e ) {
             UpdateButtonEnabledStates();
-            LoadGameDB();
-            // jpodadera. Save original width and height
-            originalHeight = this.Height;
-            originalWidth = this.Width;
-            originalSplitDistance = this.splitContainer.SplitterDistance;
-         }
+            try {
+                Program.GameDB = new GameDB();
+                Program.GameDB.LoadFromXml( "GameDB.xml" );
+            } catch( Exception ex ) {
+                MessageBox.Show( "Error loading game database. Local category and DLC data will not be available.\n\n" + ex.Message );
+                Program.GameDB = new GameDB();
+            }
+        }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
             ClearStatus();
             if( settings.SteamPath == null ) {
-                DlgSteamPath dlg = new DlgSteamPath();
+                SteamPathDlg dlg = new SteamPathDlg();
                 dlg.ShowDialog();
                 settings.SteamPath = dlg.Path;
                 settings.Save();
@@ -1173,16 +989,16 @@ namespace Depressurizer {
                 object dropItem = lstCategories.Items[lstCategories.IndexFromPoint( clientPoint )];
                 if( dropItem is Category ) {
                     gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), (Category)dropItem );
-                    OnGameChange( false, true );
+                    UpdateGameList();
                     MakeChange( true );
                 } else if( dropItem is string ) {
-                    if( (string)dropItem == GlobalStrings.MainForm_Favorite ) {
+                    if( (string)dropItem == CatUtil.CAT_FAV_NAME ) {
                         gameData.SetGameFavorites( (int[])e.Data.GetData( typeof( int[] ) ), true );
-                        OnGameChange( false, true );
+                        UpdateGameList();
                         MakeChange( true );
-                    } else if( (string)dropItem == GlobalStrings.MainForm_Uncategorized ) {
+                    } else if( (string)dropItem == CatUtil.CAT_UNC_NAME ) {
                         gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), null );
-                        OnGameChange( false, true );
+                        UpdateGameList();
                         MakeChange( true );
                     }
                 }
@@ -1308,108 +1124,14 @@ namespace Depressurizer {
         private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
             Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
             dlg.ShowDialog();
-            LoadGameDB();
-        }
+            Program.GameDB.LoadFromXml( "GameDB.xml" );
 
-        /// <summary>
-        /// jpodadera. Recursive function to reload resources of new language for a menu item and its childs
-        /// </summary>
-        /// <param name="item"></param> Item menu to reload resources
-        /// <param name="resources"></param> Resource manager
-        /// <param name="newCulture"></param> Culture of language to load
-        private void changeLanguageToolStripItems(ToolStripItem item, ComponentResourceManager resources, CultureInfo newCulture)
-        {
-            if (item != null)
-            {
-                if (item is ToolStripDropDownItem)
-                {
-                    foreach (ToolStripItem childItem in (item as ToolStripDropDownItem).DropDownItems)
-                        changeLanguageToolStripItems(childItem, resources, newCulture);
-                }
-                resources.ApplyResources(item, item.Name, newCulture);
-            }
-        }
-        
-        /// <summary>
-        /// jpodadera. Recursive function to reload resources of new language for a control and its childs 
-        /// </summary>
-        /// <param name="c"></param> Control to reload resources
-        /// <param name="resources"></param> Resource manager
-        /// <param name="newCulture"></param> Culture of language to load
-        private void changeLanguageControls(Control c, ComponentResourceManager resources, CultureInfo newCulture)
-        {
-            if (c != null)
-            {
-                if (c.GetType() == typeof(MenuStrip))
-                {
-                    foreach (ToolStripDropDownItem mItem in (c as MenuStrip).Items)
-                        changeLanguageToolStripItems(mItem, resources, newCulture);
-                }
-                else if (c.GetType() == typeof(ListView))
-                {
-                    // jpodadera. Because a framework bug, names of ColumnHeader objects are empty. 
-                    // Resolved by saving names to Tag property.
-                    foreach (ColumnHeader cHeader in (c as ListView).Columns)
-                        resources.ApplyResources(cHeader, cHeader.Tag.ToString(), newCulture);
-                }
-                else
-                {
-                    foreach (Control childControl in c.Controls)
-                        changeLanguageControls(childControl, resources, newCulture);
-                }
-                resources.ApplyResources(c, c.Name, newCulture);
-            }
         }
 
         private void menu_Tools_Settings_Click( object sender, EventArgs e ) {
             ClearStatus();
-            DlgOptions dlg = new DlgOptions();
-
-            // jpodadera. Save culture of actual language
-            CultureInfo actualCulture = Thread.CurrentThread.CurrentUICulture;
-
+            OptionsDlg dlg = new OptionsDlg();
             dlg.ShowDialog();
-
-            // jpodadera. If language has been changed, reload resources of main window
-            if (actualCulture.Name != Thread.CurrentThread.CurrentUICulture.Name)
-            {
-                ComponentResourceManager resources = new ComponentResourceManager(typeof(FormMain));
-                resources.ApplyResources(this, this.Name, Thread.CurrentThread.CurrentUICulture);
-
-                // If the window is maximized, un-maximize it
-                bool maximized = false;
-                if( this.WindowState == FormWindowState.Maximized ) {
-                    maximized = true;
-                    this.WindowState = FormWindowState.Normal;
-                }
-
-                // jpodadera. Save actual size and recover original size before reload resources of controls
-                int actualWidth = this.Width;
-                int actualHeight = this.Height;
-                int actualSplitDistance = this.splitContainer.SplitterDistance;
-
-                this.Width = this.originalWidth;
-                this.Height = this.originalHeight;
-                this.splitContainer.SplitterDistance = originalSplitDistance;
-
-                changeLanguageControls(this, resources, Thread.CurrentThread.CurrentUICulture);
-
-                // jpodadera. Recover previous size
-                this.Width = actualWidth;
-                this.Height = actualHeight;
-                splitContainer.SplitterDistance = actualSplitDistance;
-
-                // Re-maximize if it was maximized before
-                if( maximized ) {
-                    this.WindowState = FormWindowState.Maximized;
-                }
-
-                FullListRefresh();
-
-                // reload new strings for status bar
-                UpdateSelectedStatusText();
-            }
-
             FlushStatus();
         }
 
@@ -1496,6 +1218,7 @@ namespace Depressurizer {
             Category c;
             if( CatUtil.StringToCategory( combCategory.Text, gameData, out c ) ) {
                 ClearStatus();
+                FillCategoryList();
                 AssignCategoryToSelectedGames( c );
                 FlushStatus();
             }
@@ -1531,24 +1254,13 @@ namespace Depressurizer {
             FlushStatus();
         }
 
-        private void cmdGameLaunch_Click(object sender, EventArgs e)
-        {
-            ClearStatus();
-            if (lstGames.SelectedItems.Count > 0)
-            {
-                Game g = lstGames.SelectedItems[0].Tag as Game;
-                LaunchGame(g);
-            }
-            FlushStatus();
-        }
-
         #endregion
         #region Assorted list events
 
         private void lstCategories_SelectedIndexChanged( object sender, EventArgs e ) {
             if( !isDragging ) {
                 if( lstCategories.SelectedItem != lastSelectedCat ) {
-                    OnViewChange( false );
+                    FillGameList();
                     lastSelectedCat = lstCategories.SelectedItem;
                 }
                 UpdateButtonEnabledStates();
@@ -1585,8 +1297,7 @@ namespace Depressurizer {
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            listSorter.SetSortCol( e.Column );
-            lstGames.SetSortIcon( e.Column, ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
+            listSorter.ColClick( e.Column );
             lstGames.Sort();
         }
 
@@ -1658,7 +1369,7 @@ namespace Depressurizer {
                 return true;
             }
 
-            DialogResult res = MessageBox.Show(GlobalStrings.MainForm_UnsavedChangesWillBeLost, GlobalStrings.MainForm_UnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            DialogResult res = MessageBox.Show( "Unsaved changes will be lost. Save first?", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning );
             if( res == System.Windows.Forms.DialogResult.No ) {
                 // Don't save, just continue
                 return true;
@@ -1672,7 +1383,7 @@ namespace Depressurizer {
                     SaveProfile();
                     return true;
                 } catch( ApplicationException e ) {
-                    MessageBox.Show(GlobalStrings.MainForm_SavingProfileDataFailed + e.Message, GlobalStrings.MainForm_ErrorSavingFile, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show( "Saving profile data failed: " + e.Message, "Error saving file.", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                     return false;
                 }
 
@@ -1686,9 +1397,7 @@ namespace Depressurizer {
         /// </summary>
         /// <returns>True if set to Yes, false otherwise.</returns>
         bool GetSelectedFavorite() {
-            // jpodadera. Changed combo to checkbox to set favorite value
-            //return combFavorite.SelectedItem as string == GlobalStrings.MainForm_Yes;
-            return chkFavorite.Checked;
+            return combFavorite.SelectedItem as string == "Yes";
         }
 
         /// <summary>
@@ -1704,42 +1413,19 @@ namespace Depressurizer {
                 return false;
             }
             if( lstCategories.SelectedItem is string ) {
-                if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_All ) {
+                if( (string)lstCategories.SelectedItem == CatUtil.CAT_ALL_NAME ) {
                     return true;
                 }
-                if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_Favorite ) {
+                if( (string)lstCategories.SelectedItem == CatUtil.CAT_FAV_NAME ) {
                     return g.Favorite;
                 }
-                if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_Uncategorized ) {
+                if( (string)lstCategories.SelectedItem == CatUtil.CAT_UNC_NAME ) {
                     return g.Category == null;
                 }
             } else if( lstCategories.SelectedItem is Category ) {
                 return g.Category == (Category)lstCategories.SelectedItem;
             }
             return false;
-        }
-
-        /// <summary>
-        /// Launchs selected game
-        /// <param name="g">Game to launch</param>
-        /// </summary>
-        void LaunchGame( Game g )
-        {
-            if (g != null)
-            {
-                string gameIdentifier;
-                if (g.Id < 0)
-                {   // External game
-                    ulong externalId = ((ulong)g.Id << 32) + 0X2000000;
-                    gameIdentifier = externalId.ToString();
-                }
-                else
-                {
-                    // Steam game
-                    gameIdentifier = g.Id.ToString();
-                }                    
-                System.Diagnostics.Process.Start("steam://rungameid/" + gameIdentifier);
-            }
         }
 
         #endregion
@@ -1750,33 +1436,10 @@ namespace Depressurizer {
                 Game g = lstGames.Items[index].Tag as Game;
 
                 if( g != null ) {
-                    System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, g.Id ) );
+                    System.Diagnostics.Process.Start( string.Format( Properties.Resources.SteamStoreURL, g.Id ) );
                 }
             }
         }
-
-        private void lstGames_ItemSelectionChanged( object sender, ListViewItemSelectionChangedEventArgs e ) {
-            if( e.IsSelected ) {
-                Game g = e.Item.Tag as Game;
-                if( g != null ) {
-                    // jpodadera. Changed combo to checkbox to set favorite value
-                    //combFavorite.SelectedIndex = g.Favorite ? 0 : 1;
-                    chkFavorite.Checked = !g.Favorite;
-                }
-            }
-        }
-
-        private void chkGroupCategory_CheckedChanged(object sender, EventArgs e)
-        {
-            // Because the columns are going to change, switch the sort column if needed
-            if( chkGroupCategory.Checked && listSorter.GetSortCol() == 3 ) listSorter.SetSortCol( 2, listSorter.GetSortDir() );
-            else if( !chkGroupCategory.Checked && listSorter.GetSortCol() == 2 ) listSorter.SetSortCol( 3, listSorter.GetSortDir() );
-
-            FullListRefresh();
-
-            settings.GroupView = chkGroupCategory.Checked;
-        }
-
     }
 
     /// <summary>
@@ -1784,9 +1447,9 @@ namespace Depressurizer {
     /// </summary>
     static class CatUtil {
         // Special names shown in the category list
-        //public static string CAT_ALL_NAME = GlobalStrings.MainForm_All;
-        //public static string CAT_FAV_NAME = GlobalStrings.MainForm_Favorite;
-        //public static string CAT_UNC_NAME = GlobalStrings.MainForm_Uncategorized;
+        public const string CAT_ALL_NAME = "<All>";
+        public const string CAT_FAV_NAME = "<Favorite>";
+        public const string CAT_UNC_NAME = "<Uncategorized>";
 
         /// <summary>
         /// Checks to see if a category name is valid. Does not make sure it isn't already in use. If the name is not valid, displays a warning.
@@ -1795,7 +1458,10 @@ namespace Depressurizer {
         /// <returns>True if valid, false otherwise</returns>
         public static bool ValidateCategoryName( string name ) {
             if( name == null || name == string.Empty ) {
-                MessageBox.Show(GlobalStrings.MainForm_CategoryNamesNotEmpty, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show( "Category names cannot be empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                return false;
+            } else if( name == CAT_ALL_NAME || name == CAT_FAV_NAME || name == CAT_UNC_NAME ) {
+                MessageBox.Show( string.Format( "Category name '{0}' is reserved.", name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                 return false;
             } else {
                 return true;
@@ -1814,7 +1480,11 @@ namespace Depressurizer {
             if( string.IsNullOrWhiteSpace( name ) ) {
                 return true;
             }
-            if( name != GlobalStrings.MainForm_Uncategorized ) {
+            if( name == CAT_FAV_NAME || name == CAT_ALL_NAME ) {
+                MessageBox.Show( string.Format( "Category name '{0}' is reserved.", name ), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                return false;
+            }
+            if( name != CAT_UNC_NAME ) {
                 cat = data.GetCategory( name );
             }
             return true;
