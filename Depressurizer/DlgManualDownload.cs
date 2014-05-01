@@ -36,7 +36,7 @@ namespace Depressurizer {
                     DialogResult = DialogResult.OK;
                     Close();
                 } else {
-                    MessageBox.Show(this, GlobalStrings.DlgManualDownload_IfIDSelectedMustBeNumber);
+                    MessageBox.Show( this, "If ID is selected, entry must be a number." );
                 }
             } else {
                 Custom = true;

@@ -50,7 +50,7 @@ namespace Depressurizer {
                 cmbType.SelectedItem = Game.Type;
 
             } else {
-                cmdSave.Text = GlobalStrings.DlgGameDBEntry_Add;
+                cmdSave.Text = "Add";
                 cmbType.SelectedIndex = 0;
             }
         }
@@ -61,7 +61,7 @@ namespace Depressurizer {
             }
             if( !editMode ) {
                 if( !int.TryParse( txtId.Text, out Game.Id ) ) {
-                    MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger);
+                    MessageBox.Show( "App ID must be an integer." );
                     return false;
                 }
             }

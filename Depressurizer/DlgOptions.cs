@@ -22,7 +22,6 @@ using Rallion;
 
 namespace Depressurizer {
     public partial class DlgOptions : Form {
-
         public DlgOptions() {
             InitializeComponent();
         }
@@ -65,25 +64,9 @@ namespace Depressurizer {
             chkIgnoreDlc.Checked = settings.IgnoreDlc;
             chkFullAutocat.Checked = settings.FullAutocat;
 
-            //jpodadera. Non-Steam games
-            chkIgnoreExternal.Checked = settings.IgnoreExternal;
-
             cmbLogLevel.SelectedIndex = (int)settings.LogLevel;
             numLogSize.Value = settings.LogSize;
             numLogBackup.Value = settings.LogBackups;
-
-            switch (settings.UserLang)
-            {
-                case UserLanguage.en:
-                    cmbLanguage.SelectedIndex = 1;
-                    break;
-                case UserLanguage.es:
-                    cmbLanguage.SelectedIndex = 2;
-                    break;
-                default:
-                    cmbLanguage.SelectedIndex = 0;
-                    break;
-            }
         }
 
         private void SaveFieldsToSettings() {
@@ -114,30 +97,15 @@ namespace Depressurizer {
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
             settings.IgnoreDlc = chkIgnoreDlc.Checked;
             settings.FullAutocat = chkFullAutocat.Checked;
-            //jpodadera. Non-Steam games
-            settings.IgnoreExternal = chkIgnoreExternal.Checked;
 
             settings.LogLevel = (LoggerLevel)cmbLogLevel.SelectedIndex;
             settings.LogSize = (int)numLogSize.Value;
             settings.LogBackups = (int)numLogBackup.Value;
 
-            switch (cmbLanguage.SelectedIndex)
-            {
-                case 0:
-                    settings.UserLang = UserLanguage.windows;
-                    break;
-                case 1:
-                    settings.UserLang = UserLanguage.en;
-                    break;
-                case 2:
-                    settings.UserLang = UserLanguage.es;
-                    break;
-            }
-
             try {
                 settings.Save();
             } catch( Exception e ) {
-                MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( "Error saving settings file: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
             }
         }
 

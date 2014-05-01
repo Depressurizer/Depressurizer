@@ -29,13 +29,12 @@ namespace Depressurizer {
         public bool Success { get; private set; }
 
         public CDlgGetSteamID( string customUrl )
-            : base(GlobalStrings.CDlgGetSteamID_GettingSteamID, false)
-        {
+            : base( "Getting Steam ID...", false ) {
             SteamID = 0;
             Success = false;
             customUrlName = customUrl;
 
-            SetText(GlobalStrings.CDlgGetSteamID_GettingIDFromURL);
+            SetText( "Getting Steam ID from Custom URL..." );
         }
 
         protected override void RunProcess() {
@@ -43,15 +42,15 @@ namespace Depressurizer {
 
             try {
                 string url = string.Format( Properties.Resources.UrlCustomProfileXml, customUrlName );
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.CDlgGetSteamID_AttemptingDownloadXMLProfile, customUrlName, url);
+                Program.Logger.Write( LoggerLevel.Info, "Attempting to download XML profile page for custom URL name {0}: {1}", customUrlName, url );
                 WebRequest req = HttpWebRequest.Create( url );
                 WebResponse response = req.GetResponse();
                 doc.Load( response.GetResponseStream() );
                 response.Close();
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.CDlgGetSteamID_XMLProfileDownloaded);
+                Program.Logger.Write( LoggerLevel.Info, "Successfully downloaded XML profile." );
             } catch( Exception e ) {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.CDlgGetSteamID_ExceptionDownloadingXMLProfile, e.Message);
-                throw new ApplicationException(GlobalStrings.CDlgGetSteamID_FailedToDownloadProfile + e.Message, e);
+                Program.Logger.Write( LoggerLevel.Error, "Exception when downloading XML profile:\n{0}", e.Message );
+                throw new ApplicationException( "Failed to download profile data: " + e.Message, e );
             }
 
             XmlNode idNode = doc.SelectSingleNode( "/profile/steamID64" );

@@ -17,10 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Threading;
-using System.Windows.Forms;
 using Rallion;
 
 namespace Depressurizer {
@@ -35,13 +31,6 @@ namespace Depressurizer {
         XmlPreferred,
         XmlOnly,
         WebsiteOnly
-    }
-
-    enum UserLanguage
-    {
-        windows,
-        en,
-        es
     }
 
     class Settings : AppSettings {
@@ -126,23 +115,6 @@ namespace Depressurizer {
             }
         }
 
-        private bool _ignoreExternal = true;
-        public bool IgnoreExternal
-        {
-            get
-            {
-                return _ignoreExternal;
-            }
-            set
-            {
-                if (_ignoreExternal != value)
-                {
-                    _ignoreExternal = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
         private bool _fullAutocat = false;
         public bool FullAutocat {
             get {
@@ -210,58 +182,6 @@ namespace Depressurizer {
                 }
             }
         }
-
-        private UserLanguage _userLanguage = UserLanguage.windows;
-        public UserLanguage UserLang
-        {
-            get
-            {
-                return _userLanguage;
-            }
-            set
-            {
-                if (_userLanguage != value)
-                {
-                    _userLanguage = value;
-                    outOfDate = true;
-                    changeLanguage(_userLanguage);
-                }
-            }
-        }
-
-        private void changeLanguage(UserLanguage userLanguage)
-        {
-            CultureInfo newCulture;
-
-            switch (userLanguage)
-            {
-                case UserLanguage.en:
-                    newCulture = new CultureInfo("en");
-                    break;
-                case UserLanguage.es:
-                    newCulture = new CultureInfo("es");
-                    break;
-                default:
-                    newCulture = Thread.CurrentThread.CurrentCulture;
-                    break;
-            }
-
-            Thread.CurrentThread.CurrentUICulture = newCulture;
-        }
-
-        private bool _groupView = false;
-        public bool GroupView {
-            get {
-                return _groupView;
-            }
-            set {
-                if( _groupView != value ) {
-                    _groupView = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
 
         private Settings()
             : base() {

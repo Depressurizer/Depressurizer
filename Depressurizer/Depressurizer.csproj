@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>0.4.5.1</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.4.2.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -83,14 +83,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VdfFile\BinaryVdfFileNode.cs" />
     <Compile Include="CDlgDataScrape.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GlobalStrings.es.Designer.cs">
-      <DependentUpon>GlobalStrings.es.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="DBEdit\DBEditDlg.cs">
       <SubType>Form</SubType>
@@ -119,11 +113,6 @@
     <Compile Include="GameDB.cs" />
     <Compile Include="CDlgGetSteamID.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GlobalStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Lib\AppLogger.cs" />
     <Compile Include="Lib\AppSettings.cs" />
@@ -160,7 +149,7 @@
     <Compile Include="Lib\DlgGetString.Designer.cs">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </Compile>
-    <Compile Include="VdfFile\TextVdfFile.cs" />
+    <Compile Include="TextVdfFile.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -191,30 +180,11 @@
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VdfFile\VdfFileNode.cs" />
-    <EmbeddedResource Include="GlobalStrings.es.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalStrings.es.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DBEditDlg.es.resx">
-      <DependentUpon>DBEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DBEditDlg.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.es.resx">
-      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgGame.es.resx">
-      <DependentUpon>DlgGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.es.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgManualDownload.resx">
       <DependentUpon>DlgManualDownload.cs</DependentUpon>
@@ -222,46 +192,20 @@
     <EmbeddedResource Include="DlgGame.resx">
       <DependentUpon>DlgGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgOptions.es.resx">
-      <DependentUpon>DlgOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgProfile.es.resx">
-      <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.es.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GlobalStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\CancelableDlg.es.resx">
-      <DependentUpon>CancelableDlg.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Lib\CancelableDlg.resx">
       <DependentUpon>CancelableDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgProfile.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.es.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgFatalError.resx">
       <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgGetString.es.resx">
-      <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.es.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgOptions.resx">
       <DependentUpon>DlgOptions.cs</DependentUpon>
@@ -269,7 +213,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgSteamPath.resx">
       <DependentUpon>DlgSteamPath.cs</DependentUpon>

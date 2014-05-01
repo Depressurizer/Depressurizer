@@ -47,18 +47,14 @@ namespace Depressurizer {
 
         public bool IgnoreDlc = true;
 
-        // jpodadera. Ignored non-Steam games
-        public bool IgnoreExternal = true;
-
         public int ImportSteamData() {
-            //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            return GameData.ImportSteamFile(SteamID64, IgnoreList, IgnoreDlc, IgnoreExternal);
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
+            return GameData.ImportSteamFile( filePath, IgnoreList, IgnoreDlc );
         }
 
         public void ExportSteamData() {
-            GameData.SaveSteamFile(SteamID64, ExportDiscard);
-            //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            //GameData.SaveSteamFile( filePath, ExportDiscard );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
+            GameData.SaveSteamFile( filePath, ExportDiscard );
         }
 
         public bool IgnoreGame( int gameId ) {
@@ -68,7 +64,7 @@ namespace Depressurizer {
         #region Saving and Loading
 
         public static Profile Load( string path ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_LoadingProfile, path);
+            Program.Logger.Write( LoggerLevel.Info, "Loading profile from file: {0}", path );
             Profile profile = new Profile();
 
             profile.FilePath = path;
@@ -78,8 +74,8 @@ namespace Depressurizer {
             try {
                 doc.Load( path );
             } catch( Exception e ) {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToLoadProfile, e.Message);
-                throw new ApplicationException(GlobalStrings.Profile_ErrorLoadingProfile + e.Message, e);
+                Program.Logger.Write( LoggerLevel.Warning, "Failed to load profile: {0}", e.Message );
+                throw new ApplicationException( "Error loading profile: " + e.Message, e );
             }
 
             XmlNode profileNode = doc.SelectSingleNode( "/profile" );
@@ -104,9 +100,6 @@ namespace Depressurizer {
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode["overwrite_names"], profile.OverwriteOnDownload );
                 profile.IgnoreDlc = XmlUtil.GetBoolFromNode( profileNode["ignore_dlc"], profile.IgnoreDlc );
 
-                // jpodadera. Ignored non-Steam games
-                profile.IgnoreExternal = XmlUtil.GetBoolFromNode(profileNode["ignore_external"], profile.IgnoreExternal);
-
                 XmlNode exclusionListNode = profileNode.SelectSingleNode( "exclusions" );
                 if( exclusionListNode != null ) {
                     XmlNodeList exclusionNodes = exclusionListNode.SelectNodes( "exclusion" );
@@ -126,7 +119,7 @@ namespace Depressurizer {
                     }
                 }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded);
+            Program.Logger.Write( LoggerLevel.Info, "Profile loaded." );
             return profile;
         }
 
@@ -154,7 +147,7 @@ namespace Depressurizer {
         }
 
         public bool Save( string path ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_SavingProfile, path);
+            Program.Logger.Write( LoggerLevel.Info, "Saving profile: {0}", path );
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
@@ -163,8 +156,8 @@ namespace Depressurizer {
             try {
                 writer = XmlWriter.Create( path, writeSettings );
             } catch( Exception e ) {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToOpenProfileFile, e.Message);
-                throw new ApplicationException(GlobalStrings.Profile_ErrorSavingProfileFile + e.Message, e);
+                Program.Logger.Write( LoggerLevel.Warning, "Failed to open profile file for writing: {0}", e.Message );
+                throw new ApplicationException( "Error saving profile file: " + e.Message, e );
             }
             writer.WriteStartElement( "profile" );
 
@@ -177,9 +170,6 @@ namespace Depressurizer {
             writer.WriteElementString( "auto_ignore", AutoIgnore.ToString() );
             writer.WriteElementString( "overwrite_names", OverwriteOnDownload.ToString() );
             writer.WriteElementString( "ignore_dlc", IgnoreDlc.ToString() );
-
-            // jpodadera. Ignored non-Steam games
-            writer.WriteElementString("ignore_external", IgnoreExternal.ToString() );
 
             writer.WriteStartElement( "games" );
 
@@ -217,7 +207,7 @@ namespace Depressurizer {
 
             writer.Close();
             FilePath = path;
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_ProfileSaveComplete);
+            Program.Logger.Write( LoggerLevel.Info, "Profile save complete." );
             return true;
         }
 

@@ -35,8 +35,7 @@ namespace Depressurizer {
         Dictionary<int, string> scrapeResults;
 
         public CDlgDataScrape( Queue<int> jobs, GameData data, bool fullGenre )
-            : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
-        {
+            : base( "Scraping game info", true ) {
             scrapeResults = new Dictionary<int, string>();
             this.data = data;
             this.jobs = jobs;
@@ -68,7 +67,7 @@ namespace Depressurizer {
 
         protected override void RunProcess() {
             Failures = 0;
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.CDlgDataScrape_InitiatingSteamStoreDataScrape, jobs.Count);
+            Program.Logger.Write( LoggerLevel.Info, "Initiating Steam Store data scrape. {0} jobs to complete.", jobs.Count );
             bool stillRunning = true;
             while( !Stopped && stillRunning ) {
                 stillRunning = RunNextJob();
@@ -86,13 +85,12 @@ namespace Depressurizer {
                 return false;
             }
             if( Stopped ) return false;
-            // TODO: Make sure this gets Totally Revamped when multiple cat options are put in place.
-            GameDBEntry dbEntry = new GameDBEntry();
-            AppType type = dbEntry.ScrapeStore( game.Id );
+
+            string genre = null;
+            AppType type = GameDB.ScrapeStore( game.Id, out genre );
             if( type == AppType.WebError ) {
                 Failures++;
             }
-            string genre = dbEntry.Genre;
             if( !fullGenre ) genre = GameDB.TruncateGenre( genre );
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
@@ -110,9 +108,9 @@ namespace Depressurizer {
 
         protected override void Finish() {
             if( !this.Canceled ) {
-                SetText(GlobalStrings.CDlgDataScrape_FinishingUp);
+                SetText( "Finishing up..." );
 
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.CDlgDataScrape_ScrapeCompleted, this.Failures, scrapeResults.Count);
+                Program.Logger.Write( LoggerLevel.Info, "Scrape completed. {0} failures. {1} results. Merging results into game data.", this.Failures, scrapeResults.Count );
                 
                 if( scrapeResults != null ) {
                     foreach( KeyValuePair<int, string> pair in scrapeResults ) {
@@ -133,13 +131,13 @@ namespace Depressurizer {
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, jobsCompleted, totalJobs));
+            sb.Append( string.Format( "Updating...{0}/{1} complete.", jobsCompleted, totalJobs ) );
 
-            sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
+            sb.Append( "\nTime Remaining: " );
             if( timeRemaining == TimeSpan.Zero ) {
-                sb.Append(GlobalStrings.CDlgScrape_Unknown);
+                sb.Append( "Unknown" );
             } else if( timeRemaining.TotalMinutes < 1.0 ) {
-                sb.Append(GlobalStrings.CDlgScrape_1minute);
+                sb.Append( "< 1 minute" );
             } else {
                 double hours = timeRemaining.TotalHours;
                 if( hours >= 1.0 ) {

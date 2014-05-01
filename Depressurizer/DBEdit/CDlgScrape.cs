@@ -29,8 +29,7 @@ namespace Depressurizer {
         System.DateTime start;
 
         public DbScrapeDlg( Queue<int> jobs )
-            : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
-        {
+            : base( "Scraping game info", true ) {
             this.jobs = jobs;
             this.totalJobs = jobs.Count;
 
@@ -71,8 +70,13 @@ namespace Depressurizer {
             }
             if( Stopped ) return false;
 
+            string genre = null;
+            AppType type = GameDB.ScrapeStore( id, out genre );
+
             GameDBEntry newGame = new GameDBEntry();
-            newGame.ScrapeStore( id );
+            newGame.Id = id;
+            newGame.Genre = genre;
+            newGame.Type = type;
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
@@ -89,13 +93,14 @@ namespace Depressurizer {
 
         protected override void Finish() {
             if( !Canceled ) {
-                SetText(GlobalStrings.CDlgScrape_ApplyingData);
+                SetText( "Applying data..." );
 
                 if( results != null ) {
                     foreach( GameDBEntry g in results ) {
                         if( Program.GameDB.Contains( g.Id ) ) {
-                            g.Name = Program.GameDB.Games[g.Id].Name;
-                            Program.GameDB.Games[g.Id] = g;
+                            GameDBEntry current = Program.GameDB.Games[g.Id];
+                            current.Genre = g.Genre;
+                            current.Type = g.Type;
                         }
                     }
                 }
@@ -112,13 +117,13 @@ namespace Depressurizer {
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, jobsCompleted, totalJobs));
+            sb.Append( string.Format( "Updating...{0}/{1} complete.", jobsCompleted, totalJobs ) );
 
-            sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
+            sb.Append( "\nTime Remaining: " );
             if( timeRemaining == TimeSpan.Zero ) {
-                sb.Append(GlobalStrings.CDlgScrape_Unknown);
+                sb.Append( "Unknown" );
             } else if( timeRemaining.TotalMinutes < 1.0 ) {
-                sb.Append(GlobalStrings.CDlgScrape_1minute);
+                sb.Append( "< 1 minute" );
             } else {
                 double hours = timeRemaining.TotalHours;
                 if( hours >= 1.0 ) {

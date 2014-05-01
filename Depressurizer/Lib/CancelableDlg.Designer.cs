@@ -41,7 +41,6 @@ namespace Rallion {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CancelableDlg));
             this.lblText = new System.Windows.Forms.Label();
             this.cmdStop = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -49,27 +48,39 @@ namespace Rallion {
             // 
             // lblText
             // 
-            resources.ApplyResources(this.lblText, "lblText");
+            this.lblText.AutoSize = true;
+            this.lblText.Location = new System.Drawing.Point(30, 15);
             this.lblText.Name = "lblText";
+            this.lblText.Size = new System.Drawing.Size(52, 13);
+            this.lblText.TabIndex = 0;
+            this.lblText.Text = "Starting...";
             // 
             // cmdStop
             // 
-            resources.ApplyResources(this.cmdStop, "cmdStop");
+            this.cmdStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdStop.Location = new System.Drawing.Point(198, 59);
             this.cmdStop.Name = "cmdStop";
+            this.cmdStop.Size = new System.Drawing.Size(75, 23);
+            this.cmdStop.TabIndex = 1;
+            this.cmdStop.Text = "Stop";
             this.cmdStop.UseVisualStyleBackColor = true;
             this.cmdStop.Click += new System.EventHandler(this.cmdStop_Click);
             // 
             // cmdCancel
             // 
-            resources.ApplyResources(this.cmdCancel, "cmdCancel");
+            this.cmdCancel.Location = new System.Drawing.Point(279, 59);
             this.cmdCancel.Name = "cmdCancel";
+            this.cmdCancel.Size = new System.Drawing.Size(75, 23);
+            this.cmdCancel.TabIndex = 2;
+            this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // CancelableDlg
             // 
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(366, 94);
             this.ControlBox = false;
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdStop);
@@ -77,6 +88,8 @@ namespace Rallion {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "CancelableDlg";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Updating Games";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
             this.Load += new System.EventHandler(this.UpdateForm_Load);
             this.ResumeLayout(false);

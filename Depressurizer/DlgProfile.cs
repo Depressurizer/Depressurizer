@@ -81,14 +81,10 @@ namespace Depressurizer {
             chkExportDiscard.Checked = Profile.ExportDiscard;
             chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
 
-            this.Text = GlobalStrings.DlgProfile_EditProfile;
+            this.Text = "Edit Profile";
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
             chkIgnoreDlc.Checked = Profile.IgnoreDlc;
-
-            // jpodadera. Ignored non-Steam games
-            chkIgnoreExternal.Checked = Profile.IgnoreExternal;
-
             foreach( int i in Profile.IgnoreList ) {
                 lstIgnored.Items.Add( i.ToString() );
             }
@@ -139,7 +135,7 @@ namespace Depressurizer {
                 txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
 
                 if( lstUsers.Items.Count == 0 ) {
-                    MessageBox.Show(GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show( "No account configuration information was found in your Steam installation folder. You must enter your 64-bit account ID OR your Custom URL name manually.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                     radSelUserByURL.Checked = true;
                 } else {
                     radSelUserFromList.Checked = true;
@@ -162,7 +158,7 @@ namespace Depressurizer {
 
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
-            dlg.Filter = GlobalStrings.DlgProfile_Filter;
+            dlg.Filter = "Profiles (*.profile)|*.profile";
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 txtFilePath.Text = dlg.FileName;
@@ -188,7 +184,7 @@ namespace Depressurizer {
                 txtIgnore.ResetText();
                 lstIgnored.Sort();
             } else {
-                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show( "Game ID must be an integer.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning );
             }
         }
 
@@ -243,7 +239,7 @@ namespace Depressurizer {
                 }
 
                 if( dlg.Success == false || dlg.SteamID == 0 ) {
-                    MessageBox.Show(this, GlobalStrings.DlgProfile_CouldNotFindSteamProfile, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show( this, "Could not find the Steam profile specified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                     return false;
                 }
 
@@ -269,7 +265,7 @@ namespace Depressurizer {
             try {
                 file = new FileInfo( txtFilePath.Text );
             } catch {
-                MessageBox.Show(GlobalStrings.DlgProfile_YouMustEnterValidProfilePath, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( "You must enter a valid profile file path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return false;
             }
 
@@ -277,7 +273,7 @@ namespace Depressurizer {
                 try {
                     file.Directory.Create();
                 } catch {
-                    MessageBox.Show(GlobalStrings.DlgProfile_FailedToCreateParentDirectory, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show( "Failed to create parent directory of profile file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                     return false;
                 }
             }
@@ -289,7 +285,7 @@ namespace Depressurizer {
             try {
                 profile.Save( file.FullName );
             } catch( ApplicationException e ) {
-                MessageBox.Show(e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return false;
             }
 
@@ -300,7 +296,7 @@ namespace Depressurizer {
         bool ValidateEntries() {
             Int64 id;
             if( !Int64.TryParse( txtUserID.Text, out id ) ) {
-                MessageBox.Show(GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( "Account ID must be a number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return false;
             }
             return true;
@@ -317,9 +313,6 @@ namespace Depressurizer {
 
             p.AutoIgnore = chkAutoIgnore.Checked;
             p.IgnoreDlc = chkIgnoreDlc.Checked;
-
-            // jpodadera. Ignored non-Steam games
-            p.IgnoreExternal = chkIgnoreExternal.Checked;
 
             SortedSet<int> ignoreSet = new SortedSet<int>();
             foreach( ListViewItem item in lstIgnored.Items ) {
@@ -389,7 +382,7 @@ namespace Depressurizer {
                     return nameNode.InnerText;
                 }
             } catch( Exception e ) {
-                Program.Logger.Write(Rallion.LoggerLevel.Warning, GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
+                Program.Logger.Write( Rallion.LoggerLevel.Warning, "Exception raised when trying to scrape profile name for account {0}:", accountId );
                 Program.Logger.Write( Rallion.LoggerLevel.Warning, e.Message );
             }
             return null;
@@ -481,19 +474,19 @@ namespace Depressurizer {
         private void SetUpdateInterfaceNormal() {
             cmdUserUpdate.Enabled = true;
             cmdUserUpdateCancel.Enabled = false;
-            lblUserStatus.Text = GlobalStrings.DlgProfile_ClickUpdateToDisplayNames;
+            lblUserStatus.Text = "Click Update to get display names for the account numbers above.";
         }
 
         private void SetUpdateInterfaceRunning() {
             cmdUserUpdate.Enabled = false;
             cmdUserUpdateCancel.Enabled = true;
-            lblUserStatus.Text = GlobalStrings.DlgProfile_UpdatingNames;
+            lblUserStatus.Text = "Updating names...";
         }
 
         private void SetUpdateInterfaceStopping() {
             cmdUserUpdate.Enabled = false;
             cmdUserUpdateCancel.Enabled = false;
-            lblUserStatus.Text = GlobalStrings.DlgProfile_Cancelling;
+            lblUserStatus.Text = "Cancelling...";
         }
 
         /*
