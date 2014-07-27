@@ -787,6 +787,7 @@ Continue loading file?</value>
   </data>
   <data name="GameData_ErrorParsingScreenshots" xml:space="preserve">
     <value>Error parsing gameId from Screenshots.vdf file for game '{0}'</value>
+    <comment>probably no longer needed</comment>
   </data>
   <data name="GameData_IntegratedShortCuts" xml:space="preserve">
     <value>Integrated external games into game list. {0} total items, {1} new, {2} removed.</value>

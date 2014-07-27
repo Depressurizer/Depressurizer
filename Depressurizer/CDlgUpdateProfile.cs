@@ -156,7 +156,7 @@ namespace Depressurizer {
                 if ((!ignoreExternal) && (SteamId != 0))
                 {
                     int newItems, removedItems;
-                    Fetched += data.ImportNonSteamGames(SteamId, overwrite, ignore, false, true, out newItems, out removedItems);
+                    Fetched += data.ImportNonSteamGames(SteamId, overwrite, out newItems, out removedItems);
                     Added += newItems;
                     Removed = removedItems;
                 }

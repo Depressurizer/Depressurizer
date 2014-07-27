@@ -1161,6 +1161,8 @@ namespace Depressurizer {
         #region Drag and drop
 
         private void lstCategories_DragEnter( object sender, DragEventArgs e ) {
+            isDragging = true;
+            dragOldCat = lstCategories.SelectedIndex;
             e.Effect = DragDropEffects.Move;
         }
 
@@ -1196,10 +1198,10 @@ namespace Depressurizer {
             for( int i = 0; i < lstGames.SelectedItems.Count; i++ ) {
                 selectedGames[i] = ( (Game)lstGames.SelectedItems[i].Tag ).Id;
             }
-            isDragging = true;
-            dragOldCat = lstCategories.SelectedIndex;
+            //isDragging = true;
+            //dragOldCat = lstCategories.SelectedIndex;
             lstGames.DoDragDrop( selectedGames, DragDropEffects.Move );
-
+            
         }
 
         private void lstCategories_DragOver( object sender, DragEventArgs e ) {
@@ -1775,6 +1777,11 @@ namespace Depressurizer {
             FullListRefresh();
 
             settings.GroupView = chkGroupCategory.Checked;
+        }
+
+        private void lstCategories_DragLeave( object sender, EventArgs e ) {
+            isDragging = false;
+            lstCategories.SelectedIndex = dragOldCat;
         }
 
     }

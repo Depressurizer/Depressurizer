@@ -304,7 +304,7 @@
     <value>1</value>
   </data>
   <data name="tableCatButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33,33333,Percent,33,33333,Percent,33,33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="grpCategories.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -850,7 +850,7 @@
     <value>Ctrl+Alt+N</value>
   </data>
   <data name="menu_File_NewProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
+    <value>210, 22</value>
   </data>
   <data name="menu_File_NewProfile.Text" xml:space="preserve">
     <value>&amp;New Profile...</value>
@@ -859,7 +859,7 @@
     <value>Ctrl+Alt+L</value>
   </data>
   <data name="menu_File_LoadProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
+    <value>210, 22</value>
   </data>
   <data name="menu_File_LoadProfile.Text" xml:space="preserve">
     <value>&amp;Load Profile...</value>
@@ -868,31 +868,31 @@
     <value>Ctrl+S</value>
   </data>
   <data name="menu_File_SaveProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
+    <value>210, 22</value>
   </data>
   <data name="menu_File_SaveProfile.Text" xml:space="preserve">
     <value>&amp;Save Profile</value>
   </data>
   <data name="menu_File_SaveProfileAs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
+    <value>210, 22</value>
   </data>
   <data name="menu_File_SaveProfileAs.Text" xml:space="preserve">
     <value>Save Profile &amp;As...</value>
   </data>
   <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 6</value>
+    <value>207, 6</value>
   </data>
   <data name="menu_File_Close.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+F4</value>
   </data>
   <data name="menu_File_Close.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
+    <value>210, 22</value>
   </data>
   <data name="menu_File_Close.Text" xml:space="preserve">
     <value>&amp;Close</value>
   </data>
   <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 6</value>
+    <value>207, 6</value>
   </data>
   <data name="menu_File_Manual_Import.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 22</value>
@@ -913,16 +913,16 @@
     <value>&amp;Export Config File...</value>
   </data>
   <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
+    <value>210, 22</value>
   </data>
   <data name="menu_File_Manual.Text" xml:space="preserve">
     <value>&amp;Manual</value>
   </data>
   <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 6</value>
+    <value>207, 6</value>
   </data>
   <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 22</value>
+    <value>210, 22</value>
   </data>
   <data name="menu_File_Exit.Text" xml:space="preserve">
     <value>E&amp;xit</value>
