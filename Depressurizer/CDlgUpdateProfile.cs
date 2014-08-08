@@ -34,7 +34,7 @@ namespace Depressurizer {
         private Int64 SteamId = 0;
         private string customUrl;
         private bool custom;
-        private GameData data;
+        private GameList data;
 
         XmlDocument doc;
         string htmlDoc;
@@ -46,7 +46,7 @@ namespace Depressurizer {
         //jpodadera. Non-Steam games
         private bool ignoreExternal;
 
-        public CDlgUpdateProfile( GameData data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal )
+        public CDlgUpdateProfile( GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal )
             : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = false;
@@ -69,7 +69,7 @@ namespace Depressurizer {
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        public CDlgUpdateProfile( GameData data, string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal )
+        public CDlgUpdateProfile( GameList data, string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal )
             : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = true;
@@ -113,18 +113,18 @@ namespace Depressurizer {
         protected void FetchXml() {
             UseHtml = false;
             if( custom ) {
-                doc = GameData.FetchXmlGameList( customUrl );
+                doc = GameList.FetchXmlGameList( customUrl );
             } else {
-                doc = GameData.FetchXmlGameList( SteamId );
+                doc = GameList.FetchXmlGameList( SteamId );
             }
         }
 
         protected void FetchHtml() {
             UseHtml = true;
             if( custom ) {
-                htmlDoc = GameData.FetchHtmlGameList( customUrl );
+                htmlDoc = GameList.FetchHtmlGameList( customUrl );
             } else {
-                htmlDoc = GameData.FetchHtmlGameList( SteamId );
+                htmlDoc = GameList.FetchHtmlGameList( SteamId );
             }
         }
 
@@ -156,7 +156,7 @@ namespace Depressurizer {
                 if ((!ignoreExternal) && (SteamId != 0))
                 {
                     int newItems, removedItems;
-                    Fetched += data.ImportNonSteamGames(SteamId, overwrite, out newItems, out removedItems);
+                    Fetched += data.ImportSteamShortcuts(SteamId, overwrite, out newItems, out removedItems);
                     Added += newItems;
                     Removed = removedItems;
                 }

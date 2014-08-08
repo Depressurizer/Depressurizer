@@ -24,7 +24,7 @@ using Rallion;
 namespace Depressurizer {
     class CDlgDataScrape : CancelableDlg {
         Queue<int> jobs;
-        GameData data;
+        GameList data;
 
         System.DateTime start;
 
@@ -34,7 +34,7 @@ namespace Depressurizer {
 
         Dictionary<int, string> scrapeResults;
 
-        public CDlgDataScrape( Queue<int> jobs, GameData data, bool fullGenre )
+        public CDlgDataScrape( Queue<int> jobs, GameList data, bool fullGenre )
             : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
             scrapeResults = new Dictionary<int, string>();
@@ -50,7 +50,7 @@ namespace Depressurizer {
             base.UpdateForm_Load( sender, e );
         }
 
-        private Game GetNextGame() {
+        private GameInfo GetNextGame() {
             int gameId;
             lock( jobs ) {
                 if( jobs.Count > 0 ) {
@@ -59,7 +59,7 @@ namespace Depressurizer {
                     return null;
                 }
             }
-            Game res = null;
+            GameInfo res = null;
             lock( data ) {
                 res = data.Games[gameId];
             }
@@ -81,7 +81,7 @@ namespace Depressurizer {
         /// </summary>
         /// <returns>True if a job was run, false if it was aborted first</returns>
         private bool RunNextJob() {
-            Game game = GetNextGame();
+            GameInfo game = GetNextGame();
             if( game == null ) {
                 return false;
             }

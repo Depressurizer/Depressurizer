@@ -27,7 +27,7 @@ namespace Depressurizer {
 
         public string FilePath = null;
 
-        public GameData GameData = new GameData();
+        public GameList GameData = new GameList();
 
         public SortedSet<int> IgnoreList = new SortedSet<int>();
 
@@ -52,11 +52,11 @@ namespace Depressurizer {
 
         public int ImportSteamData() {
             //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            return GameData.ImportSteamFile(SteamID64, IgnoreList, IgnoreDlc, IgnoreExternal);
+            return GameData.ImportSteamConfigFile(SteamID64, IgnoreList, IgnoreDlc, IgnoreExternal);
         }
 
         public void ExportSteamData() {
-            GameData.SaveSteamFile(SteamID64, ExportDiscard);
+            GameData.ExportSteamConfigFile(SteamID64, ExportDiscard);
             //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
             //GameData.SaveSteamFile( filePath, ExportDiscard );
         }
@@ -137,7 +137,7 @@ namespace Depressurizer {
                     return;
                 }
                 string name = XmlUtil.GetStringFromNode( node["name"], null );
-                Game game = new Game( id, name );
+                GameInfo game = new GameInfo( id, name );
                 profile.GameData.Games.Add( id, game );
 
                 string catName;
@@ -183,7 +183,7 @@ namespace Depressurizer {
 
             writer.WriteStartElement( "games" );
 
-            foreach( Game g in GameData.Games.Values ) {
+            foreach( GameInfo g in GameData.Games.Values ) {
                 writer.WriteStartElement( "game" );
 
                 writer.WriteElementString( "id", g.Id.ToString() );

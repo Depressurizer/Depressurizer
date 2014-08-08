@@ -16,7 +16,7 @@ namespace Depressurizer {
         // Stores currently loaded profile
         Profile currentProfile;
         // Stores all actual game data
-        GameData gameData;
+        GameList gameData;
 
         // Game list sorting state
         MultiColumnListViewComparer listSorter = new MultiColumnListViewComparer();
@@ -53,7 +53,7 @@ namespace Depressurizer {
         }
         #endregion
         public FormMain() {
-            gameData = new GameData();
+            gameData = new GameList();
             InitializeComponent();
 
             chkFavorite.Checked = false;
@@ -91,7 +91,7 @@ namespace Depressurizer {
             if( res == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    int loadedGames = gameData.ImportSteamFile( dlg.FileName, null, settings.IgnoreDlc );
+                    int loadedGames = gameData.ImportSteamConfigFile( dlg.FileName, null, settings.IgnoreDlc );
                     if( loadedGames == 0 ) {
                         MessageBox.Show(GlobalStrings.MainForm_NoGameInfoFound, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         AddStatus(GlobalStrings.MainForm_NoGamesFound);
@@ -119,7 +119,7 @@ namespace Depressurizer {
             if( res == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    gameData.SaveSteamFile( dlg.FileName, settings.RemoveExtraEntries );
+                    gameData.ExportSteamConfigFile( dlg.FileName, settings.RemoveExtraEntries );
                     AddStatus(GlobalStrings.MainForm_DataExported);
                     return true;
                 } catch( ApplicationException e ) {
@@ -548,7 +548,7 @@ namespace Depressurizer {
         void EditGame() {
             if( lstGames.SelectedIndices.Count > 0 ) {
                 int index = lstGames.SelectedIndices[0];
-                Game g = lstGames.Items[index].Tag as Game;
+                GameInfo g = lstGames.Items[index].Tag as GameInfo;
                 DlgGame dlg = new DlgGame( gameData, g );
                 if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
                     OnGameChange( true, true );
@@ -569,7 +569,7 @@ namespace Depressurizer {
                     int ignored = 0;
                     int removed = 0;
                     foreach( ListViewItem item in lstGames.SelectedItems ) {
-                        Game g = (Game)item.Tag;
+                        GameInfo g = (GameInfo)item.Tag;
                         if( gameData.Games.Remove( g.Id ) ) {
                             removed++;
                         }
@@ -599,7 +599,7 @@ namespace Depressurizer {
         void AssignCategoryToSelectedGames( Category cat ) {
             if( lstGames.SelectedItems.Count > 0 ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
-                    ( item.Tag as Game ).Category = cat;
+                    ( item.Tag as GameInfo ).Category = cat;
                 }
                 OnGameChange( true, true );
                 MakeChange( true );
@@ -613,7 +613,7 @@ namespace Depressurizer {
         void AssignFavoriteToSelectedGames( bool fav ) {
             if( lstGames.SelectedItems.Count > 0 ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
-                    ( item.Tag as Game ).Favorite = fav;
+                    ( item.Tag as GameInfo ).Favorite = fav;
                 }
                 OnGameChange( false, true );
                 MakeChange( true );
@@ -632,7 +632,7 @@ namespace Depressurizer {
 
             AddStatus(GlobalStrings.MainForm_ClearedData);
             currentProfile = null;
-            gameData = new GameData();
+            gameData = new GameList();
             MakeChange( false );
             UpdateEnableStatesForProfileChange();
             if( updateUI ) {
@@ -643,11 +643,11 @@ namespace Depressurizer {
         private void Autocategorize( bool selectedOnly ) {
             // Check to see if there are any selected items with set categories
             bool overwrite = true;
-            List<Game> gamesToUpdate = new List<Game>();
+            List<GameInfo> gamesToUpdate = new List<GameInfo>();
 
             if( selectedOnly ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
-                    Game g = item.Tag as Game;
+                    GameInfo g = item.Tag as GameInfo;
                     // jpodadera. Exclude shorcut games.
                     if((g != null) && (g.Id > 0)) {
                         if( g.Category != null ) {
@@ -657,7 +657,7 @@ namespace Depressurizer {
                     }
                 }
             } else {
-                foreach( Game g in gameData.Games.Values ) {
+                foreach( GameInfo g in gameData.Games.Values ) {
                     // jpodadera. Exclude shorcut games.
                     if ((g != null) && (g.Id > 0))
                     {
@@ -678,7 +678,7 @@ namespace Depressurizer {
 
             Queue<int> notFound = new Queue<int>();
 
-            foreach( Game g in gamesToUpdate ) {
+            foreach( GameInfo g in gamesToUpdate ) {
                 if( g != null && ( overwrite || g.Category == null ) ) {
                     if( Program.GameDB.Contains( g.Id ) ) {
                         g.Category = gameData.GetCategory( Program.GameDB.GetGenre( g.Id, settings.FullAutocat ) );
@@ -730,7 +730,7 @@ namespace Depressurizer {
             }
 
             int named = 0;
-            foreach( Game g in gameData.Games.Values ) {
+            foreach( GameInfo g in gameData.Games.Values ) {
                 if( overwrite || string.IsNullOrEmpty( g.Name ) ) {
                     g.Name = Program.GameDB.GetName( g.Id );
                     named++;
@@ -875,7 +875,7 @@ namespace Depressurizer {
 
                 Category cat = lstCategories.SelectedItem as Category;
 
-                foreach (Game g in gameData.Games.Values)
+                foreach (GameInfo g in gameData.Games.Values)
                 {
                     if (showAll || (showFav && g.Favorite) || (!showFav && g.Category == cat))
                     {
@@ -893,7 +893,7 @@ namespace Depressurizer {
         /// Adds an entry to the game list representing the given game.
         /// </summary>
         /// <param name="g">The game the new entry should represent.</param>
-        private void AddGameToList( Game g ) {
+        private void AddGameToList( GameInfo g ) {
             string catName = ( g.Category == null ) ? GlobalStrings.MainForm_Uncategorized : g.Category.Name;
 
             // jpodadera. Change favorite column contents from Y-N to X or blank
@@ -971,7 +971,7 @@ namespace Depressurizer {
         /// <returns>True if game should be in the list, false otherwise.</returns>
         bool UpdateGame( int index ) {
             ListViewItem item = lstGames.Items[index];
-            Game g = (Game)item.Tag;
+            GameInfo g = (GameInfo)item.Tag;
             if( ShouldDisplayGame( g ) ) {
                 item.SubItems[1].Text = g.Name;
                 if (chkGroupCategory.Checked)
@@ -1060,7 +1060,7 @@ namespace Depressurizer {
 
         private void AssignItemToGroup(ListViewItem item)
         {
-            Game game = (Game) item.Tag;
+            GameInfo game = (GameInfo) item.Tag;
             if (game != null)
             {
                 item.Group = null;
@@ -1196,7 +1196,7 @@ namespace Depressurizer {
         private void lstGames_ItemDrag( object sender, ItemDragEventArgs e ) {
             int[] selectedGames = new int[lstGames.SelectedItems.Count];
             for( int i = 0; i < lstGames.SelectedItems.Count; i++ ) {
-                selectedGames[i] = ( (Game)lstGames.SelectedItems[i].Tag ).Id;
+                selectedGames[i] = ( (GameInfo)lstGames.SelectedItems[i].Tag ).Id;
             }
             //isDragging = true;
             //dragOldCat = lstCategories.SelectedIndex;
@@ -1538,7 +1538,7 @@ namespace Depressurizer {
             ClearStatus();
             if (lstGames.SelectedItems.Count > 0)
             {
-                Game g = lstGames.SelectedItems[0].Tag as Game;
+                GameInfo g = lstGames.SelectedItems[0].Tag as GameInfo;
                 LaunchGame(g);
             }
             FlushStatus();
@@ -1598,7 +1598,7 @@ namespace Depressurizer {
         }
 
         private void lstGames_AfterLabelEdit( object sender, LabelEditEventArgs e ) {
-            Game g = lstGames.Items[e.Item].Tag as Game;
+            GameInfo g = lstGames.Items[e.Item].Tag as GameInfo;
             string oldName = g.Name;
             if( oldName != e.Label ) {
                 g.Name = e.Label;
@@ -1698,7 +1698,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="g">Game to check</param>
         /// <returns>True if it should be displayed, false otherwise</returns>
-        bool ShouldDisplayGame( Game g ) {
+        bool ShouldDisplayGame( GameInfo g ) {
             if( !gameData.Games.ContainsKey( g.Id ) ) {
                 return false;
             }
@@ -1725,7 +1725,7 @@ namespace Depressurizer {
         /// Launchs selected game
         /// <param name="g">Game to launch</param>
         /// </summary>
-        void LaunchGame( Game g )
+        void LaunchGame( GameInfo g )
         {
             if (g != null)
             {
@@ -1749,7 +1749,7 @@ namespace Depressurizer {
         void VisitSelectedGameStorePage() {
             if( lstGames.SelectedIndices.Count > 0 ) {
                 int index = lstGames.SelectedIndices[0];
-                Game g = lstGames.Items[index].Tag as Game;
+                GameInfo g = lstGames.Items[index].Tag as GameInfo;
 
                 if( g != null ) {
                     System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, g.Id ) );
@@ -1759,7 +1759,7 @@ namespace Depressurizer {
 
         private void lstGames_ItemSelectionChanged( object sender, ListViewItemSelectionChangedEventArgs e ) {
             if( e.IsSelected ) {
-                Game g = e.Item.Tag as Game;
+                GameInfo g = e.Item.Tag as GameInfo;
                 if( g != null ) {
                     // jpodadera. Changed combo to checkbox to set favorite value
                     //combFavorite.SelectedIndex = g.Favorite ? 0 : 1;
@@ -1816,7 +1816,7 @@ namespace Depressurizer {
         /// <param name="data">Game data object we're referencing</param>
         /// <param name="cat">Resulting category</param>
         /// <returns>True if successful, false otherwise</returns>
-        public static bool StringToCategory( string name, GameData data, out Category cat ) {
+        public static bool StringToCategory( string name, GameList data, out Category cat ) {
             cat = null;
             if( string.IsNullOrWhiteSpace( name ) ) {
                 return true;

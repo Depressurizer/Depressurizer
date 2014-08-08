@@ -19,8 +19,8 @@ using System.Windows.Forms;
 
 namespace Depressurizer {
     public partial class DlgGame : Form {
-        GameData Data;
-        public Game Game;
+        GameList Data;
+        public GameInfo Game;
 
         bool editMode;
 
@@ -28,7 +28,7 @@ namespace Depressurizer {
             InitializeComponent();
         }
 
-        public DlgGame( GameData data, Game game = null )
+        public DlgGame( GameList data, GameInfo game = null )
             : this() {
             this.Data = data;
             Game = game;
@@ -87,7 +87,7 @@ namespace Depressurizer {
                 }
                 else
                 {
-                    Game = new Game(id, txtName.Text);
+                    Game = new GameInfo(id, txtName.Text);
                     Data.Games.Add(id, Game);
                 }
             }
