@@ -406,7 +406,7 @@ Time Remaining:</value>
     <value>Opening Steam config file: {0}</value>
   </data>
   <data name="GameData_ProcessedGame" xml:space="preserve">
-    <value>Processed game from Steam config: {0}, Cat: {1}, Fav: {2}</value>
+    <value>Processed game from Steam config: {0}, Cat: {1}</value>
   </data>
   <data name="GameData_ProfileNotPublic" xml:space="preserve">
     <value>Profile is not public.</value>

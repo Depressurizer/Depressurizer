@@ -407,7 +407,7 @@ Tiempo Restante:</value>
     <value>Abriendo el fichero de configuración de Steam: {0}</value>
   </data>
   <data name="GameData_ProcessedGame" xml:space="preserve">
-    <value>Juegos procesados desde la configuración de Steam: {0}, Cat: {1}, Fav: {2}</value>
+    <value>Juegos procesados desde la configuración de Steam: {0}, Cat: {1}</value>
   </data>
   <data name="GameData_ProfileNotPublic" xml:space="preserve">
     <value>El perfil no es público.</value>

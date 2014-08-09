@@ -952,7 +952,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Processed game from Steam config: {0}, Cat: {1}, Fav: {2}.
+        ///   Looks up a localized string similar to Processed game from Steam config: {0}, Cat: {1}.
         /// </summary>
         internal static string GameData_ProcessedGame {
             get {

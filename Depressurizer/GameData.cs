@@ -17,8 +17,10 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -28,15 +30,19 @@ using Rallion;
 
 namespace Depressurizer {
     /// <summary>
-    /// Represents a single game
+    /// Represents a single game and its categories.
     /// </summary>
     public class GameInfo {
+        #region Fields
         public string Name;
-        public int Id;
-        public Category Category;
-        public bool Favorite;
+        public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
+        
+        public SortedSet<Category> Categories;
 
         private string _launchStr = null;
+        /// <summary>
+        /// ID String to use to launch this game. Uses the ID for steam games, but non-steam game IDs need to be set.
+        /// </summary>
         public string LaunchString {
             get {
                 if( Id > 0 ) return Id.ToString();
@@ -47,13 +53,87 @@ namespace Depressurizer {
                 _launchStr = value;
             }
         }
+        #endregion
 
+        /// <summary>
+        /// Construct a new GameInfo with no categories set.
+        /// </summary>
+        /// <param name="id">ID of the new game. Positive means it's the game's Steam ID, negative means it's a non-steam game.</param>
+        /// <param name="name">Game title</param>
         public GameInfo( int id, string name ) {
             Id = id;
             Name = name;
-            Category = null;
-            Favorite = false;
+            Categories = new SortedSet<Category>();
         }
+
+        #region Category Modifiers
+        /// <summary>
+        /// Adds a single category to this game. Does nothing if the category is already attached.
+        /// </summary>
+        /// <param name="newCat">Category to add</param>
+        public void AddCategory( Category newCat ) {
+            Categories.Add( newCat );
+        }
+
+        /// <summary>
+        /// Adds a list of categories to this game. Skips categories that are already attached.
+        /// </summary>
+        /// <param name="newCats">A list of categories to add</param>
+        public void AddCategory( IEnumerable<Category> newCats) {
+            Categories.UnionWith( newCats );
+        }
+
+        /// <summary>
+        /// Removes a single category from this game. Does nothing if the category is not attached to this game.
+        /// </summary>
+        /// <param name="remCat">Category to remove</param>
+        public void RemoveCategory( Category remCat ) {
+            Categories.Remove( remCat );
+        }
+
+        /// <summary>
+        /// Removes a list of categories from this game. Skips categories that are not attached to this game.
+        /// </summary>
+        /// <param name="remCats">Categories to remove</param>
+        public void RemoveCategory( IEnumerable<Category> remCats ) {
+            Categories.ExceptWith( remCats );
+        }
+
+        /// <summary>
+        /// Removes all categories from this game.
+        /// </summary>
+        public void ClearCategories() {
+            Categories.Clear();
+        }
+
+        /// <summary>
+        /// Remove all categories attached to this game except for the specified list
+        /// </summary>
+        /// <param name="exceptions">List of categories to leave in place</param>
+        public void ClearCategoriesExcept( IEnumerable<Category> exceptions ) {
+            Categories.IntersectWith( exceptions );
+        }
+
+        /// <summary>
+        /// Sets the categories for this game to exactly match the given list. Missing categories will be added and extra ones will be removed.
+        /// </summary>
+        /// <param name="cats">Set of categories to apply to this game</param>
+        public void SetCategories( IEnumerable<Category> cats ) {
+            ClearCategories();
+            AddCategory(cats);
+        }
+        #endregion
+
+        #region Accessors
+        /// <summary>
+        /// Check whether the game includes the given category
+        /// </summary>
+        /// <param name="c">Category to look for</param>
+        /// <returns>True if category is found</returns>
+        public bool ContainsCategory( Category c ) {
+            return Categories.Contains( c );
+        }
+        #endregion
     }
 
     /// <summary>
@@ -71,7 +151,19 @@ namespace Depressurizer {
         }
 
         public int CompareTo( object o ) {
-            //TODO: make 'favorite' come first, and maybe fix that string sorting thing
+            if( o == null ) return 1;
+
+            Category otherCat = o as Category;
+            if( o == null ) throw new ArgumentException( "Object is not a Category");
+
+            if( Name == otherCat.Name ) return 0;
+
+            if( Name == null ) return -1;
+            if( otherCat.Name == null) return 1;
+
+            if( Name == "favorite") return -1;
+            if( otherCat.Name == "favorite" ) return 1;
+            // TODO: Look into making the sort order match the Steam sort order
             return Name.CompareTo( ( o as Category ).Name );
         }
     }
@@ -84,20 +176,135 @@ namespace Depressurizer {
         public Dictionary<int, GameInfo> Games;
         public List<Category> Categories;
 
+        private Category favoriteCategory;
+
         private static Regex rxUnicode = new Regex( @"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled );
         #endregion
 
         public GameList() {
             Games = new Dictionary<int, GameInfo>();
             Categories = new List<Category>();
+            favoriteCategory = new Category( "favorite" );
+            Categories.Add( favoriteCategory );
         }
 
-        #region Modifiers
+        #region Category management
+
+        /// <summary>
+        /// Checks to see if a category with the given name exists
+        /// </summary>
+        /// <param name="name">Name of the category to look for</param>
+        /// <returns>True if the name is found, false otherwise</returns>
+        public bool CategoryExists( string name ) {
+            foreach( Category c in Categories ) {
+                if( c.Name == name ) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the category with the given name. If the category does not exist, creates it.
+        /// </summary>
+        /// <param name="name">Name to get the category for</param>
+        /// <returns>A category with the given name. Null if any error is encountered.</returns>
+        public Category GetCategory( string name ) {
+            // Categories must have a name
+            if( string.IsNullOrEmpty( name ) ) return null;
+            // Look for a matching category in the list and return if found
+            foreach( Category c in Categories ) {
+                if( c.Name == name ) return c;
+            }
+            // Create a new category and return it
+            Category newCat = new Category( name );
+            Categories.Add( newCat );
+            return newCat;
+        }
+
+        /// <summary>
+        /// Adds a new category to the list.
+        /// </summary>
+        /// <param name="name">Name of the category to add</param>
+        /// <returns>The added category. Returns null if the category already exists.</returns>
+        public Category AddCategory( string name ) {
+            if( string.IsNullOrEmpty( name ) || CategoryExists( name ) ) {
+                return null;
+            } else {
+                Category newCat = new Category( name );
+                Categories.Add( newCat );
+                return newCat;
+            }
+        }
+
+        /// <summary>
+        /// Removes the given category.
+        /// </summary>
+        /// <param name="c">Category to remove.</param>
+        /// <returns>True if removal was successful, false if it was not in the list anyway</returns>
+        public bool RemoveCategory( Category c ) {
+            // Can't remove favorite category
+            if( c.Name == "favorite" ) return false;
+
+            if( Categories.Remove( c ) ) {
+                foreach( GameInfo g in Games.Values ) {
+                    g.RemoveCategory( c );
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Renames the given category.
+        /// </summary>
+        /// <param name="c">Category to rename.</param>
+        /// <param name="newName">Name to assign to the new category.</param>
+        /// <returns>True if rename was successful, false otherwise (if name was in use already)</returns>
+        public bool RenameCategory( Category c, string newName ) {
+            if( c == favoriteCategory ) return false;
+            if( !CategoryExists( newName ) ) {
+                c.Name = newName;
+                Categories.Sort();
+                return true;
+            }
+            return false;
+        }
+        
+        /// <summary>
+        /// Remove all empty categories from the category list.
+        /// </summary>
+        /// <returns>Number of categories removed</returns>
+        public int RemoveEmptyCategories() {
+            Dictionary<Category, int> counts = new Dictionary<Category, int>();
+            foreach( Category c in Categories ) {
+                if( c != favoriteCategory ) {
+                    counts.Add( c, 0 );
+                }
+            }
+            foreach( GameInfo g in Games.Values ) {
+                foreach( Category c in g.Categories ) {
+                    if( counts.ContainsKey(c) ) counts[c]++;
+                }
+            }
+            int removed = 0;
+            foreach( KeyValuePair<Category, int> pair in counts ) {
+                if( pair.Value == 0 ) {
+                    if( Categories.Remove( pair.Key ) ) {
+                        removed++;
+                    }
+                }
+            }
+            return removed;
+        }
+        #endregion
+
+        #region General Modifiers
         public void Clear() {
             Games.Clear();
             Categories.Clear();
         }
-
+        
         /// <summary>
         /// Sets the name of the given game ID, and adds the game to the list if it doesn't already exist.
         /// </summary>
@@ -138,127 +345,116 @@ namespace Depressurizer {
         }
 
         /// <summary>
-        /// Adds a new category to the list.
+        /// Sets a game's categories to a particular set
         /// </summary>
-        /// <param name="name">Name of the category to add</param>
-        /// <returns>The added category. Returns null if the category already exists.</returns>
-        public Category AddCategory( string name ) {
-            if( CategoryExists( name ) ) {
-                return null;
-            } else {
-                Category newCat = new Category( name );
-                Categories.Add( newCat );
-                return newCat;
-            }
+        /// <param name="gameID">Game ID to modify</param>
+        /// <param name="catSet">Set of categories to apply</param>
+        /// <param name="preserveFavorites">If true, will not remove "favorite" category</param>
+        public void SetGameCategories( int gameID, IEnumerable<Category> catSet, bool preserveFavorites ) {
+            GameInfo g = Games[gameID];
+            bool reAddFav = preserveFavorites && g.ContainsCategory( favoriteCategory );
+            g.SetCategories( catSet );
+            if( reAddFav ) g.AddCategory( favoriteCategory );
         }
 
         /// <summary>
-        /// Removes the given category.
+        /// Sets multiple games' categories to a particular set
         /// </summary>
-        /// <param name="c">Category to remove.</param>
-        /// <returns>True if removal was successful, false if it was not in the list anyway</returns>
-        public bool RemoveCategory( Category c ) {
-            if( Categories.Remove( c ) ) {
-                foreach( GameInfo g in Games.Values ) {
-                    if( g.Category == c ) g.Category = null;
-                }
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Renames the given category.
-        /// </summary>
-        /// <param name="c">Category to rename.</param>
-        /// <param name="newName">Name to assign to the new category.</param>
-        /// <returns>True if rename was successful, false otherwise (if name was in use already)</returns>
-        public bool RenameCategory( Category c, string newName ) {
-            if( !CategoryExists( newName ) ) {
-                c.Name = newName;
-                Categories.Sort();
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Sets the categories for the given list of game IDs to the same thing
-        /// </summary>
-        /// <param name="gameIDs">Array of game IDs.</param>
-        /// <param name="newCat">Category to assign</param>
-        public void SetGameCategories( int[] gameIDs, Category newCat ) {
+        /// <param name="gameID">Game IDs to modify</param>
+        /// <param name="catSet">Set of categories to apply</param>
+        /// <param name="preserveFavorites">If true, will not remove "favorite" category</param>
+        public void SetGameCategories( int[] gameIDs, IEnumerable<Category> catSet, bool preserveFavorites ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
-                Games[gameIDs[i]].Category = newCat;
+                SetGameCategories( i, catSet, preserveFavorites );
             }
         }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+
         /// <summary>
-        /// Sets the fav state for the given list of game IDs to the same thing
+        /// Adds a single category to a single game
         /// </summary>
-        /// <param name="gameIDs">Array of game IDs.</param>
-        /// <param name="newCat">Fav state to assign</param>
-        public void SetGameFavorites( int[] gameIDs, bool fav ) {
+        /// <param name="gameID">Game ID to add category to</param>
+        /// <param name="c">Category to add</param>
+        public void AddGameCategory( int gameID, Category c ) {
+            GameInfo g = Games[gameID];
+            g.AddCategory( c );
+        }
+
+        /// <summary>
+        /// Adds a single category to each member of a list of games
+        /// </summary>
+        /// <param name="gameIDs">List of game IDs to add to</param>
+        /// <param name="c">Category to add</param>
+        public void AddGameCategory( int[] gameIDs, Category c) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
-                Games[gameIDs[i]].Favorite = fav;
+                AddGameCategory( i, c );
             }
         }
 
         /// <summary>
-        /// Remove all empty categories from the category list.
+        /// Adds a set of categories to a single game
         /// </summary>
-        /// <returns>Number of categories removed</returns>
-        public int RemoveEmptyCategories() {
-            Dictionary<Category, int> counts = new Dictionary<Category, int>();
-            foreach( Category c in Categories ) {
-                counts.Add( c, 0 );
-            }
-            foreach( GameInfo g in Games.Values ) {
-                if( g.Category != null && counts.ContainsKey( g.Category ) ) {
-                    counts[g.Category] = counts[g.Category] + 1;
-                }
-            }
-            int removed = 0;
-            foreach( KeyValuePair<Category, int> pair in counts ) {
-                if( pair.Value == 0 ) {
-                    if( Categories.Remove( pair.Key ) ) {
-                        removed++;
-                    }
-                }
-            }
-            return removed;
-        }
-        #endregion
-
-        #region Accessors
-        /// <summary>
-        /// Checks to see if a category with the given name exists
-        /// </summary>
-        /// <param name="name">Name of the category to look for</param>
-        /// <returns>True if the name is found, false otherwise</returns>
-        public bool CategoryExists( string name ) {
-            foreach( Category c in Categories ) {
-                if( c.Name == name ) {
-                    return true;
-                }
-            }
-            return false;
+        /// <param name="gameID">Game ID to add to</param>
+        /// <param name="cats">Categories to add</param>
+        public void AddGameCategory( int gameID, IEnumerable<Category> cats ) {
+            GameInfo g = Games[gameID];
+            g.AddCategory( cats );
         }
 
         /// <summary>
-        /// Gets the category with the given name. If the category does not exist, creates it.
+        /// Adds a set of game categories to each member of a list of games
         /// </summary>
-        /// <param name="name">Name to get the category for</param>
-        /// <returns>A category with the given name.</returns>
-        public Category GetCategory( string name ) {
-            if( string.IsNullOrEmpty( name ) ) return null;
-            foreach( Category c in Categories ) {
-                if( c.Name == name ) return c;
+        /// <param name="gameIDs">List of game IDs to add to</param>
+        /// <param name="cats">Categories to add</param>
+        public void AddGameCategory( int[] gameIDs, IEnumerable<Category> cats ) {
+            for( int i = 0; i < gameIDs.Length; i++ ) {
+                AddGameCategory( i, cats );
             }
-            Category newCat = new Category( name );
-            Categories.Add( newCat );
-            return newCat;
         }
+
+        /// <summary>
+        /// Removes a single category from a single game.
+        /// </summary>
+        /// <param name="gameID">Game ID to remove from</param>
+        /// <param name="c">Category to remove</param>
+        public void RemoveGameCategory( int gameID, Category c ) {
+            GameInfo g = Games[gameID];
+            g.RemoveCategory( c );
+        }
+
+        /// <summary>
+        /// Removes a single category from each member of a list of games
+        /// </summary>
+        /// <param name="gameIDs">List of game IDs to remove from</param>
+        /// <param name="c">Category to remove</param>
+        public void RemoveGameCategory( int[] gameIDs, Category c ) {
+            for( int i = 0; i < gameIDs.Length; i++ ) {
+                RemoveGameCategory( i, c );
+            }
+        }
+
+        /// <summary>
+        /// Removes a set of categories from a single game
+        /// </summary>
+        /// <param name="gameID">Game ID to remove from</param>
+        /// <param name="cats">Set of categories to remove</param>
+        public void RemoveGameCategory( int gameID, IEnumerable<Category> cats ) {
+            GameInfo g = Games[gameID];
+            g.RemoveCategory( cats );
+        }
+
+        /// <summary>
+        /// Removes a set of categories from a set of games
+        /// </summary>
+        /// <param name="gameIDs">List of game IDs to remove from</param>
+        /// <param name="cats">Set of categories to remove</param>
+        public void RemoveGameCategory( int[] gameIDs, IEnumerable<Category> cats ) {
+            for( int i = 0; i < gameIDs.Length; i++ ) {
+                RemoveGameCategory( i, cats );
+            }
+        }
+
         #endregion
 
         #region Profile Data Fetching
@@ -464,35 +660,37 @@ namespace Depressurizer {
                             continue;
                         }
                         if( gameNodePair.Value != null && gameNodePair.Value.ContainsKey( "tags" ) ) {
-                            Category cat = null;
-                            bool fav = false;
+                            SortedSet<Category> cats = new SortedSet<Category>();
+
                             loadedGames++;
+
                             VdfFileNode tagsNode = gameNodePair.Value["tags"];
                             Dictionary<string, VdfFileNode> tagArray = tagsNode.NodeArray;
                             if( tagArray != null ) {
                                 foreach( VdfFileNode tag in tagArray.Values ) {
                                     string tagName = tag.NodeString;
                                     if( tagName != null ) {
-                                        if( tagName == "favorite" ) {
-                                            fav = true;
-                                        } else if( cat == null ) {
-                                            cat = GetCategory( tagName );
-                                        }
+                                        Category c = GetCategory( tagName );
+                                        if( c != null ) cats.Add( c );
                                     }
                                 }
                             }
 
+                            // Add the game to the list if it doesn't exist already
                             if( !Games.ContainsKey( gameId ) ) {
                                 GameInfo newGame = new GameInfo( gameId, string.Empty );
                                 Games.Add( gameId, newGame );
                                 newGame.Name = Program.GameDB.GetName( gameId );
                                 Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId, newGame.Name );
                             }
-                            if( cat != null ) {
-                                Games[gameId].Category = cat;
+
+                            //TODO: Integrating VDF data: overwriting existing categories may need attention
+                            if( cats.Count > 0 ) {
+                                this.SetGameCategories( gameId, cats, false );
                             }
-                            Games[gameId].Favorite = fav;
-                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, ( cat == null ) ? "~none~" : cat.ToString(), fav );
+
+                            //TODO: Don't think SortedSet.ToString() does what I hope
+                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, ( cats.Count == 0 ) ? "~" : cats.ToString() );
                         }
                     }
                 }
@@ -602,6 +800,7 @@ namespace Depressurizer {
 
             VdfFileNode appListNode = fileData.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
 
+            // Run through all Delete category data for any games not found in the GameList
             if( discardMissing ) {
                 Dictionary<string, VdfFileNode> gameNodeArray = appListNode.NodeArray;
                 if( gameNodeArray != null ) {
@@ -616,24 +815,23 @@ namespace Depressurizer {
             }
 
             foreach( GameInfo game in Games.Values ) {
-                if( game.Id > 0 ) // External games have negative identifier
-                {
+                if( game.Id > 0 ) { // External games have negative identifier
                     Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile, game.Id );
                     VdfFileNode gameNode = (VdfFileNode)appListNode[game.Id.ToString()];
-                    gameNode.RemoveSubnode( "tags" );
-                    if( game.Category != null || game.Favorite ) {
-                        VdfFileNode tagsNode = (VdfFileNode)gameNode["tags"];
-                        int key = 0;
-                        if( game.Category != null ) {
-                            tagsNode[key.ToString()] = new TextVdfFileNode( game.Category.Name );
-                            key++;
-                        }
-                        if( game.Favorite ) {
-                            tagsNode[key.ToString()] = new TextVdfFileNode( "favorite" );
-                        }
+
+                    VdfFileNode tagsNode = (VdfFileNode)gameNode["tags"];
+
+                    Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
+                    if( tags != null ) tags.Clear();
+
+                    int key = 0;
+                    foreach( Category c in game.Categories ) {
+                        tagsNode[key.ToString()] = new TextVdfFileNode( c.Name );
+                        key++;
                     }
                 }
             }
+        
 
             Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_CleaningUpSteamConfigTree );
             appListNode.CleanTree();
@@ -715,15 +913,15 @@ namespace Depressurizer {
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile, game.Id );
 
                         VdfFileNode tagsNode = nodeGame.GetNodeAt( new string[] { "tags" }, true );
-                        tagsNode.NodeArray.Clear();
+                        Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
+                        if( tags != null ) {
+                            tags.Clear();
+                        }
 
                         int index = 0;
-                        if( game.Category != null ) {
-                            tagsNode.NodeArray.Add( index.ToString(), new BinaryVdfFileNode( game.Category.Name ) );
+                        foreach( Category c in game.Categories ) {
+                            tagsNode[index.ToString()] = new BinaryVdfFileNode( c.Name );
                             index++;
-                        }
-                        if( game.Favorite ) {
-                            tagsNode.NodeArray.Add( index.ToString(), new BinaryVdfFileNode( "favorite" ) );
                         }
                     }
                 }
@@ -919,7 +1117,7 @@ namespace Depressurizer {
             game.LaunchString = launchIds[gameName];
 
             int oldShortcutId = FindMatchingShortcut( gameId, gameNode, oldShortcuts, launchIds );
-            bool oldCatSet = ( oldShortcutId != -1 ) && oldShortcuts[oldShortcutId].Category != null;
+            bool oldCatSet = ( oldShortcutId != -1 ) && oldShortcuts[oldShortcutId].Categories.Count > 0;
             if( oldShortcutId == -1 ) newGames++;
 
             VdfFileNode tagsNode = gameNode.GetNodeAt( new string[] { "tags" }, false );
@@ -930,19 +1128,12 @@ namespace Depressurizer {
                 // Fill in categories from the Steam shortcut file
                 foreach( KeyValuePair<string, VdfFileNode> tag in tagsNode.NodeArray ) {
                     string tagName = tag.Value.NodeString;
-                    if( tagName != null ) {
-                        if( tagName == "favorite" ) {
-                            game.Favorite = true;
-                        } else {
-                            game.Category = this.GetCategory( tagName );
-                        }
-                    }
+                    game.AddCategory( this.GetCategory( tagName ) );
                 }
 
             } else if( oldShortcutId >= 0 && oldShortcutId < oldShortcuts.Count ) {
                 // Fill in categories from the game list
-                game.Category = oldShortcuts[oldShortcutId].Category;
-                game.Favorite = oldShortcuts[oldShortcutId].Favorite;
+                game.SetCategories( oldShortcuts[oldShortcutId].Categories);
             }
 
             if( oldShortcutId != -1 ) oldShortcuts.RemoveAt( oldShortcutId );
