@@ -177,6 +177,9 @@ namespace Depressurizer {
         public List<Category> Categories;
 
         private Category favoriteCategory;
+        public Category FavoriteCategory {
+            get { return favoriteCategory; }
+        }
 
         private static Regex rxUnicode = new Regex( @"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled );
         #endregion
@@ -368,8 +371,6 @@ namespace Depressurizer {
                 SetGameCategories( i, catSet, preserveFavorites );
             }
         }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
 
         /// <summary>
         /// Adds a single category to a single game
@@ -684,7 +685,7 @@ namespace Depressurizer {
                                 Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId, newGame.Name );
                             }
 
-                            //TODO: Integrating VDF data: overwriting existing categories may need attention
+                            //TODO: Integrating VDF data: overwriting existing categories (use existing or use imported?) may need attention
                             if( cats.Count > 0 ) {
                                 this.SetGameCategories( gameId, cats, false );
                             }

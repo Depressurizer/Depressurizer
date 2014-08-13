@@ -77,7 +77,7 @@ namespace Depressurizer
                         sb.Append((char)nextByte);
                     }
                 }
-                catch (EndOfStreamException e)
+                catch (EndOfStreamException)
                 {
                     endOfStream = true;
                 }
@@ -149,7 +149,7 @@ namespace Depressurizer
                 {
                     nextByte = stream.ReadByte();
                 }
-                catch (EndOfStreamException e)
+                catch (EndOfStreamException)
                 {
                     endOfStream = true;
                     nextByte = 8;

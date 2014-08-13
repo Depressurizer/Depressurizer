@@ -25,6 +25,8 @@ using Rallion;
 namespace Depressurizer {
     public class Profile {
 
+        public const int VERSION = 1;
+
         public string FilePath = null;
 
         public GameList GameData = new GameList();
@@ -85,6 +87,7 @@ namespace Depressurizer {
             XmlNode profileNode = doc.SelectSingleNode( "/profile" );
 
             if( profileNode != null ) {
+                int profileVersion = XmlUtil.GetIntFromNode( profileNode.Attributes["version"], 0 );
 
                 Int64 accId = XmlUtil.GetInt64FromNode( profileNode["steam_id_64"], 0 );
                 if( accId == 0 ) {
@@ -122,7 +125,7 @@ namespace Depressurizer {
                 if( gameListNode != null ) {
                     XmlNodeList gameNodes = gameListNode.SelectNodes( "game" );
                     foreach( XmlNode node in gameNodes ) {
-                        AddGameFromXmlNode( node, profile );
+                        AddGameFromXmlNode( node, profile, profileVersion );
                     }
                 }
             }
@@ -130,7 +133,7 @@ namespace Depressurizer {
             return profile;
         }
 
-        private static void AddGameFromXmlNode( XmlNode node, Profile profile ) {
+        private static void AddGameFromXmlNode( XmlNode node, Profile profile, int profileVersion ) {
             int id;
             if( XmlUtil.TryGetIntFromNode( node["id"], out id ) ) {
                 if( profile.IgnoreList.Contains( id ) || ( profile.IgnoreDlc && Program.GameDB.IsDlc( id ) ) ) {
@@ -140,12 +143,26 @@ namespace Depressurizer {
                 GameInfo game = new GameInfo( id, name );
                 profile.GameData.Games.Add( id, game );
 
-                string catName;
-                if( XmlUtil.TryGetStringFromNode( node["category"], out catName ) ) {
-                    game.Category = profile.GameData.GetCategory( catName );
+                if( profileVersion < 1 ) {
+                    string catName;
+                    if( XmlUtil.TryGetStringFromNode( node["category"], out catName ) ) {
+                        game.AddCategory( profile.GameData.GetCategory( catName ) );
+                    }
+                    if( ( node.SelectSingleNode( "favorite" ) != null ) ) {
+                        game.AddCategory( profile.GameData.FavoriteCategory );
+                    }
+                } else {
+                    XmlNode catListNode = node.SelectSingleNode( "categories" );
+                    if( catListNode != null ) {
+                        XmlNodeList catNodes = catListNode.SelectNodes( "category" );
+                        foreach( XmlNode cNode in catNodes ) {
+                            string cat;
+                            if( XmlUtil.TryGetStringFromNode( cNode, out cat ) ) {
+                                game.AddCategory( profile.GameData.GetCategory( cat ) );
+                            }
+                        }
+                    }
                 }
-
-                game.Favorite = ( node.SelectSingleNode( "favorite" ) != null );
             }
         }
 
@@ -167,6 +184,8 @@ namespace Depressurizer {
                 throw new ApplicationException(GlobalStrings.Profile_ErrorSavingProfileFile + e.Message, e);
             }
             writer.WriteStartElement( "profile" );
+
+            writer.WriteAttributeString( "version", VERSION.ToString() );
 
             writer.WriteElementString( "steam_id_64", SteamID64.ToString() );
 
@@ -192,13 +211,11 @@ namespace Depressurizer {
                     writer.WriteElementString( "name", g.Name );
                 }
 
-                if( g.Category != null ) {
-                    writer.WriteElementString( "category", g.Category.Name );
+                writer.WriteStartElement( "categories" );
+                foreach( Category c in g.Categories ) {
+                    writer.WriteElementString( "category", c.Name );
                 }
-
-                if( g.Favorite ) {
-                    writer.WriteElementString( "favorite", true.ToString() );
-                }
+                writer.WriteEndElement();
 
                 writer.WriteEndElement();
             }

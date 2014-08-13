@@ -45,6 +45,8 @@ namespace Depressurizer {
                 Text = GlobalStrings.DlgGame_EditGame;
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
+                // TODO: URGENT: Code cut out for compilation
+                /*
                 if( Game.Category == null ) {
                     cmbCategory.SelectedIndex = 0;
                 } else {
@@ -52,6 +54,7 @@ namespace Depressurizer {
                     cmbCategory.SelectedItem = Game.Category;
                 }
                 chkFavorite.Checked = Game.Favorite;
+                */
                 txtId.Enabled = false;
             } else {
                 Text = GlobalStrings.DlgGame_CreateGame;
@@ -91,8 +94,11 @@ namespace Depressurizer {
                     Data.Games.Add(id, Game);
                 }
             }
+            // TODO: URGENT: Code cut out for compilation
+            /*
             Game.Category = setCat;
             Game.Favorite = chkFavorite.Checked;
+            */
             DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
