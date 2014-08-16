@@ -37,10 +37,6 @@ namespace Depressurizer {
         // Used to reload resources of main form while switching language
         private int originalWidth, originalHeight, originalSplitDistance;
 
-        // jpodadera. Used to hide and show Category column in ListView of games
-        private int originalCatColumnWidth;
-        private ColumnHeader colCategoryPointer;
-
         #endregion
         #region Properties
         /// <summary>
@@ -57,7 +53,6 @@ namespace Depressurizer {
             InitializeComponent();
 
             chkFavorite.Checked = false;
-            chkGroupCategory.Checked = Settings.Instance().GroupView;
 
             // Set up list sorting
             listSorter.AddIntCol( 0 );
@@ -65,10 +60,6 @@ namespace Depressurizer {
             listSorter.SetSortCol( 1, 1 );
             lstGames.ListViewItemSorter = listSorter;
             lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
-
-            // jpodadera. Save width of category column
-            originalCatColumnWidth = lstGames.Columns[2].Width;
-            colCategoryPointer = lstGames.Columns[2];
 
             FullListRefresh();
         }
@@ -808,13 +799,9 @@ namespace Depressurizer {
         /// </summary>
         private void OnCategoryChange() {
             FillCategoryList();
-            if( chkGroupCategory.Checked ) {
-                FillGameListGroups();
-                FillGameList();
-            } else {
-                UpdateGameList();
-                lstGames.Sort();
-            }
+
+            UpdateGameList();
+            lstGames.Sort();
         }
 
         /// <summary>
@@ -838,10 +825,7 @@ namespace Depressurizer {
         /// <summary>
         /// Does all list updating that's required if the filter changes (category selection changes).
         /// </summary>
-        private void OnViewChange(bool groupToggle) {
-            if( groupToggle ) {
-                FillGameListGroups();
-            }
+        private void OnViewChange() {
             FillGameList();
         }
 
@@ -850,7 +834,6 @@ namespace Depressurizer {
         /// </summary>
         private void FullListRefresh() {
             FillCategoryList();
-            FillGameListGroups();
             FillGameList();
         }
 
@@ -896,24 +879,20 @@ namespace Depressurizer {
         private void AddGameToList( GameInfo g ) {
             string catName = ( g.Category == null ) ? GlobalStrings.MainForm_Uncategorized : g.Category.Name;
 
-            // jpodadera. Change favorite column contents from Y-N to X or blank
+            // Change favorite column contents from Y-N to X or blank
             ListViewItem item;
-            // jpodadera. Shortcut games do not show internal identifier
+            
+            // Shortcut games do not show internal identifier
             string strId = (g.Id < 0) ? GlobalStrings.MainForm_External : g.Id.ToString();
-            if (chkGroupCategory.Checked)
-            {
-                item = new ListViewItem(new string[] { strId, g.Name, g.Favorite ? "X" : String.Empty });
-            }
-            else
-            {
-                item = new ListViewItem(new string[] { strId, g.Name, catName, g.Favorite ? "X" : String.Empty });
-            }
+
+            item = new ListViewItem(new string[] { strId, g.Name, catName, g.Favorite ? "X" : String.Empty });
+            
             item.Tag = g;
-            // jpodadera. Shortcut games show with italic font. 
+
+            // Shortcut games show with italic font. 
             if (g.Id < 0)
                 item.Font = new Font(item.Font, item.Font.Style | FontStyle.Italic);
             lstGames.Items.Add(item);
-            AssignItemToGroup(item);
         }
 
         /// <summary>
@@ -974,18 +953,8 @@ namespace Depressurizer {
             GameInfo g = (GameInfo)item.Tag;
             if( ShouldDisplayGame( g ) ) {
                 item.SubItems[1].Text = g.Name;
-                if (chkGroupCategory.Checked)
-                {
-                    item.SubItems[2].Text = g.Favorite ? "X" : String.Empty;
-                    AssignItemToGroup(item);
-                }
-                else
-                {
-                    item.SubItems[2].Text = g.Category == null ? GlobalStrings.MainForm_Uncategorized : g.Category.Name;
-                    // jpodadera. Change favorite column contents from Y-N to X or blank
-                    //item.SubItems[3].Text = g.Favorite ? GlobalStrings.MainForm_FirstLetterYes : GlobalStrings.MainForm_FirstLetterNo;
-                    item.SubItems[3].Text = g.Favorite ? "X" : String.Empty;
-                }
+                item.SubItems[2].Text = g.Category == null ? GlobalStrings.MainForm_Uncategorized : g.Category.Name;
+                item.SubItems[3].Text = g.Favorite ? "X" : String.Empty;
                 return true;
             } else {
                 lstGames.Items.RemoveAt( index );
@@ -1019,68 +988,6 @@ namespace Depressurizer {
             }
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
-        }
-
-        /// <summary>
-        /// jpodadera. Create groups in list of games
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
-        /// </summary>
-        private void FillGameListGroups()
-        {
-            lstGames.BeginUpdate();
-            lstGames.Groups.Clear();
-            if (chkGroupCategory.Checked)
-            {
-                // Switch reverse sort column
-                listSorter.AddRevCol( 2 );
-                listSorter.RemoveRevCol( 3 );
-
-                if (lstGames.Columns.Contains(colCategoryPointer))
-                {
-                    lstGames.Columns.Remove(colCategoryPointer);
-                }
-                lstGames.Groups.Add( new ListViewGroup( GlobalStrings.MainForm_Uncategorized ) );
-                foreach (Category c in gameData.Categories)
-                    lstGames.Groups.Add(new ListViewGroup(c.Name));
-            }
-            else
-            {
-                // Switch reverse sort column
-                listSorter.AddRevCol( 3 );
-                listSorter.RemoveRevCol( 2 );
-
-                if (!lstGames.Columns.Contains(colCategoryPointer))
-                {
-                    lstGames.Columns.Insert(2, colCategoryPointer);
-                    colCategoryPointer.Width = originalCatColumnWidth;
-                }
-            }
-            lstGames.EndUpdate();
-        }
-
-        private void AssignItemToGroup(ListViewItem item)
-        {
-            GameInfo game = (GameInfo) item.Tag;
-            if (game != null)
-            {
-                item.Group = null;
-                if (chkGroupCategory.Checked)
-                {
-                    string gameCat;
-                    if (game.Category == null)
-                        gameCat = GlobalStrings.MainForm_Uncategorized;
-                    else
-                        gameCat = game.Category.Name;
-                    foreach (ListViewGroup group in lstGames.Groups)
-                    {
-                        if (gameCat == group.Header)
-                        {
-                            item.Group = group;
-                            break;
-                        }
-                    }
-                }
-            }
         }
 
         #endregion
@@ -1550,7 +1457,7 @@ namespace Depressurizer {
         private void lstCategories_SelectedIndexChanged( object sender, EventArgs e ) {
             if( !isDragging ) {
                 if( lstCategories.SelectedItem != lastSelectedCat ) {
-                    OnViewChange( false );
+                    OnViewChange();
                     lastSelectedCat = lstCategories.SelectedItem;
                 }
                 UpdateButtonEnabledStates();
@@ -1768,6 +1675,7 @@ namespace Depressurizer {
             }
         }
 
+        /* Remove all grouping-related code for now
         private void chkGroupCategory_CheckedChanged(object sender, EventArgs e)
         {
             // Because the columns are going to change, switch the sort column if needed
@@ -1778,7 +1686,7 @@ namespace Depressurizer {
 
             settings.GroupView = chkGroupCategory.Checked;
         }
-
+        */
         private void lstCategories_DragLeave( object sender, EventArgs e ) {
             isDragging = false;
             lstCategories.SelectedIndex = dragOldCat;
