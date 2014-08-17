@@ -79,7 +79,7 @@ namespace Depressurizer {
         /// Adds a list of categories to this game. Skips categories that are already attached.
         /// </summary>
         /// <param name="newCats">A list of categories to add</param>
-        public void AddCategory( IEnumerable<Category> newCats) {
+        public void AddCategory( ICollection<Category> newCats) {
             Categories.UnionWith( newCats );
         }
 
@@ -95,7 +95,7 @@ namespace Depressurizer {
         /// Removes a list of categories from this game. Skips categories that are not attached to this game.
         /// </summary>
         /// <param name="remCats">Categories to remove</param>
-        public void RemoveCategory( IEnumerable<Category> remCats ) {
+        public void RemoveCategory( ICollection<Category> remCats ) {
             Categories.ExceptWith( remCats );
         }
 
@@ -110,15 +110,30 @@ namespace Depressurizer {
         /// Remove all categories attached to this game except for the specified list
         /// </summary>
         /// <param name="exceptions">List of categories to leave in place</param>
-        public void ClearCategoriesExcept( IEnumerable<Category> exceptions ) {
+        public void ClearCategoriesExcept( ICollection<Category> exceptions ) {
             Categories.IntersectWith( exceptions );
+        }
+
+        /// <summary>
+        /// Remove all categories attached to this game except for the specified one
+        /// </summary>
+        /// <param name="c">Category to leave in place</param>
+        public void ClearCategoriesExcept( Category c ) {
+            bool restore = false;
+            if( Categories.Contains( c ) ) {
+                restore = true;
+            }
+            Categories.Clear();
+            if( restore ) {
+                Categories.Add( c );
+            }
         }
 
         /// <summary>
         /// Sets the categories for this game to exactly match the given list. Missing categories will be added and extra ones will be removed.
         /// </summary>
         /// <param name="cats">Set of categories to apply to this game</param>
-        public void SetCategories( IEnumerable<Category> cats ) {
+        public void SetCategories( ICollection<Category> cats ) {
             ClearCategories();
             AddCategory(cats);
         }
@@ -132,6 +147,66 @@ namespace Depressurizer {
         /// <returns>True if category is found</returns>
         public bool ContainsCategory( Category c ) {
             return Categories.Contains( c );
+        }
+
+        /// <summary>
+        /// Check to see if the game has any categories at all
+        /// </summary>
+        /// <returns>True if the category set is not empty</returns>
+        public bool HasCategories() {
+            return Categories.Count > 0;
+        }
+
+        /// <summary>
+        /// Check to see if the game has any categories at all, besides the given category
+        /// </summary>
+        /// <param name="c">Category to except from the check</param>
+        /// <returns>True if the game has any categories set besides c</returns>
+        public bool HasCategoriesExcept( Category c ) {
+            if( Categories.Count == 0 ) return false;
+            if( Categories.Count == 1 && Categories.Contains( c ) ) return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Check to see if the game has any categories set that do not exist in the given list
+        /// </summary>
+        /// <param name="except">List of games to exclude from the  check</param>
+        /// <returns>True if the game has any categories that do not exist in the list</returns>
+        public bool HasCategoriesExcept( ICollection<Category> except ) {
+            if( Categories.Count == 0 ) return false;
+            foreach( Category c in Categories ) {
+                if( !except.Contains( c ) ) return true;
+            }
+            return false;
+        }
+
+        public string GetCatString( string ifEmpty = "" ) {
+            string result = "";
+            bool first = true;
+            foreach( Category c in Categories ) {
+                if( first ) {
+                    result += ", ";
+                }
+                result += c.Name;
+                first = false;
+            }
+            return first ? ifEmpty : result;
+        }
+
+        public string GetCatStringExcept( Category except, string ifEmpty = "" ) {
+            string result = "";
+            bool first = true;
+            foreach( Category c in Categories ) {
+                if( c != except ) {
+                if( first ) {
+                    result += ", ";
+                }
+                result += c.Name;
+                first = false;
+                }
+            }
+            return first ? ifEmpty : result;
         }
         #endregion
     }
@@ -353,7 +428,7 @@ namespace Depressurizer {
         /// <param name="gameID">Game ID to modify</param>
         /// <param name="catSet">Set of categories to apply</param>
         /// <param name="preserveFavorites">If true, will not remove "favorite" category</param>
-        public void SetGameCategories( int gameID, IEnumerable<Category> catSet, bool preserveFavorites ) {
+        public void SetGameCategories( int gameID, ICollection<Category> catSet, bool preserveFavorites ) {
             GameInfo g = Games[gameID];
             bool reAddFav = preserveFavorites && g.ContainsCategory( favoriteCategory );
             g.SetCategories( catSet );
@@ -366,7 +441,7 @@ namespace Depressurizer {
         /// <param name="gameID">Game IDs to modify</param>
         /// <param name="catSet">Set of categories to apply</param>
         /// <param name="preserveFavorites">If true, will not remove "favorite" category</param>
-        public void SetGameCategories( int[] gameIDs, IEnumerable<Category> catSet, bool preserveFavorites ) {
+        public void SetGameCategories( int[] gameIDs, ICollection<Category> catSet, bool preserveFavorites ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
                 SetGameCategories( i, catSet, preserveFavorites );
             }
@@ -398,7 +473,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="gameID">Game ID to add to</param>
         /// <param name="cats">Categories to add</param>
-        public void AddGameCategory( int gameID, IEnumerable<Category> cats ) {
+        public void AddGameCategory( int gameID, ICollection<Category> cats ) {
             GameInfo g = Games[gameID];
             g.AddCategory( cats );
         }
@@ -408,7 +483,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="gameIDs">List of game IDs to add to</param>
         /// <param name="cats">Categories to add</param>
-        public void AddGameCategory( int[] gameIDs, IEnumerable<Category> cats ) {
+        public void AddGameCategory( int[] gameIDs, ICollection<Category> cats ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
                 AddGameCategory( i, cats );
             }
@@ -440,7 +515,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="gameID">Game ID to remove from</param>
         /// <param name="cats">Set of categories to remove</param>
-        public void RemoveGameCategory( int gameID, IEnumerable<Category> cats ) {
+        public void RemoveGameCategory( int gameID, ICollection<Category> cats ) {
             GameInfo g = Games[gameID];
             g.RemoveCategory( cats );
         }
@@ -450,9 +525,22 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="gameIDs">List of game IDs to remove from</param>
         /// <param name="cats">Set of categories to remove</param>
-        public void RemoveGameCategory( int[] gameIDs, IEnumerable<Category> cats ) {
+        public void RemoveGameCategory( int[] gameIDs, ICollection<Category> cats ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
                 RemoveGameCategory( i, cats );
+            }
+        }
+
+        public void ClearGameCategories( int gameID, bool preserveFavorite ) {
+            GameInfo g = Games[gameID];
+            bool addFav = preserveFavorite && g.ContainsCategory( FavoriteCategory );
+            g.ClearCategories();
+            if( addFav ) g.AddCategory( FavoriteCategory );
+        }
+
+        public void ClearGameCategories( int[] gameIDs, bool preserveFavorite ) {
+            for( int i = 0; i < gameIDs.Length; i++ ) {
+                ClearGameCategories( i, preserveFavorite );
             }
         }
 

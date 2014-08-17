@@ -83,8 +83,6 @@ namespace Depressurizer {
             this.contextGame_SetCat = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGameCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGameCat_Create = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextGameCat_None = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextGameCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextGame_SetFav = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGameFav = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGameFav_Yes = new System.Windows.Forms.ToolStripMenuItem();
@@ -454,11 +452,8 @@ namespace Depressurizer {
             // contextGameCat
             // 
             this.contextGameCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextGameCat_Create,
-            this.contextGameCat_None,
-            this.contextGameCat_Sep1});
+            this.contextGameCat_Create});
             this.contextGameCat.Name = "contextGameCat";
-            this.contextGameCat.OwnerItem = this.contextGame_SetCat;
             this.contextGameCat.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameCat, "contextGameCat");
             // 
@@ -467,17 +462,6 @@ namespace Depressurizer {
             this.contextGameCat_Create.Name = "contextGameCat_Create";
             resources.ApplyResources(this.contextGameCat_Create, "contextGameCat_Create");
             this.contextGameCat_Create.Click += new System.EventHandler(this.contextGameCat_Create_Click);
-            // 
-            // contextGameCat_None
-            // 
-            this.contextGameCat_None.Name = "contextGameCat_None";
-            resources.ApplyResources(this.contextGameCat_None, "contextGameCat_None");
-            this.contextGameCat_None.Click += new System.EventHandler(this.contextGameCat_Category_Click);
-            // 
-            // contextGameCat_Sep1
-            // 
-            this.contextGameCat_Sep1.Name = "contextGameCat_Sep1";
-            resources.ApplyResources(this.contextGameCat_Sep1, "contextGameCat_Sep1");
             // 
             // contextGame_SetFav
             // 
@@ -843,8 +827,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextGameFav_No;
         private System.Windows.Forms.ContextMenuStrip contextGameCat;
         private System.Windows.Forms.ToolStripMenuItem contextGameCat_Create;
-        private System.Windows.Forms.ToolStripMenuItem contextGameCat_None;
-        private System.Windows.Forms.ToolStripSeparator contextGameCat_Sep1;
         private System.Windows.Forms.ContextMenuStrip contextCat;
         private System.Windows.Forms.ToolStripMenuItem contextCat_Add;
         private System.Windows.Forms.ToolStripMenuItem contextCat_Delete;

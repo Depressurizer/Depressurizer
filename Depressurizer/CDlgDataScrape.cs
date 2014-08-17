@@ -116,7 +116,8 @@ namespace Depressurizer {
                 
                 if( scrapeResults != null ) {
                     foreach( KeyValuePair<int, string> pair in scrapeResults ) {
-                        data.Games[pair.Key].Category = data.GetCategory( pair.Value );
+                        // TODO: Multicat check
+                        data.Games[pair.Key].AddCategory( data.GetCategory( pair.Value ) );
                     }
                 }
             }

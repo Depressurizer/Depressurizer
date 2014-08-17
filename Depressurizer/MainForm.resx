@@ -802,22 +802,13 @@
     <value>500, 17</value>
   </metadata>
   <data name="contextGameCat_Create.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="contextGameCat_Create.Text" xml:space="preserve">
     <value>Create New...</value>
   </data>
-  <data name="contextGameCat_None.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
-  </data>
-  <data name="contextGameCat_None.Text" xml:space="preserve">
-    <value>Uncategorized</value>
-  </data>
-  <data name="contextGameCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 6</value>
-  </data>
   <data name="contextGameCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 54</value>
+    <value>120, 26</value>
   </data>
   <data name="&gt;&gt;contextGameCat.Name" xml:space="preserve">
     <value>contextGameCat</value>
@@ -829,7 +820,7 @@
     <value>141, 22</value>
   </data>
   <data name="contextGame_SetCat.Text" xml:space="preserve">
-    <value>Set Category</value>
+    <value>Add Category</value>
   </data>
   <metadata name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>358, 17</value>
@@ -1455,18 +1446,6 @@
   </data>
   <data name="&gt;&gt;contextGameCat_Create.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_None.Name" xml:space="preserve">
-    <value>contextGameCat_None</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_None.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_Sep1.Name" xml:space="preserve">
-    <value>contextGameCat_Sep1</value>
-  </data>
-  <data name="&gt;&gt;contextGameCat_Sep1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;contextGame_SetFav.Name" xml:space="preserve">
     <value>contextGame_SetFav</value>

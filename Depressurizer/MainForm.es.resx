@@ -251,7 +251,7 @@
     <value>165, 22</value>
   </data>
   <data name="contextGame_SetCat.Text" xml:space="preserve">
-    <value>Establecer Categoría</value>
+    <value>Añadir Categoría</value>
   </data>
   <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 22</value>

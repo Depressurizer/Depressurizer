@@ -262,6 +262,18 @@ namespace Depressurizer {
             }
         }
 
+        private bool _singleCatMode = false;
+        public bool SingleCatMode {
+            get {
+                return _singleCatMode;
+            }
+            set {
+                if( _singleCatMode != value ) {
+                    _singleCatMode = value;
+                    outOfDate = true;
+                }
+            }
+        }
 
         private Settings()
             : base() {
