@@ -933,7 +933,7 @@ namespace Depressurizer {
             int selectedIndex = lstCategories.SelectedIndex;
             lstCategories.Items.Clear();
             lstCategories.Items.Add( GlobalStrings.MainForm_All );
-            lstCategories.Items.Add( GlobalStrings.MainForm_Favorite );
+            //lstCategories.Items.Add( GlobalStrings.MainForm_Favorite );
             lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
             lstCategories.Items.AddRange( catList );
             if( selected is string ) {
@@ -957,13 +957,16 @@ namespace Depressurizer {
             }
             combCategory.EndUpdate();
 
-            while( contextGame_SetCat.DropDownItems.Count > 3 ) {
-                contextGame_SetCat.DropDownItems.RemoveAt( 3 );
-            }
+            //TODO: This will have to be a bit different for single cat mode
+            contextGame_SetCat.DropDownItems.Clear();
+            contextGame_SetCat.DropDownItems.Add( contextGameCat_Create );
+            
             foreach( Category c in gameData.Categories ) {
-                ToolStripItem item = contextGame_SetCat.DropDownItems.Add( c.Name );
-                item.Tag = c;
-                item.Click += contextGameCat_Category_Click;
+                if( c != gameData.FavoriteCategory ) {
+                    ToolStripItem item = contextGame_SetCat.DropDownItems.Add( c.Name );
+                    item.Tag = c;
+                    item.Click += contextGameCat_Category_Click;
+                }
             }
         }
 

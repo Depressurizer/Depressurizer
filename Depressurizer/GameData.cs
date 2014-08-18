@@ -199,7 +199,7 @@ namespace Depressurizer {
             bool first = true;
             foreach( Category c in Categories ) {
                 if( c != except ) {
-                if( first ) {
+                if( !first ) {
                     result += ", ";
                 }
                 result += c.Name;
@@ -443,7 +443,7 @@ namespace Depressurizer {
         /// <param name="preserveFavorites">If true, will not remove "favorite" category</param>
         public void SetGameCategories( int[] gameIDs, ICollection<Category> catSet, bool preserveFavorites ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
-                SetGameCategories( i, catSet, preserveFavorites );
+                SetGameCategories( gameIDs[i], catSet, preserveFavorites );
             }
         }
 
@@ -464,7 +464,7 @@ namespace Depressurizer {
         /// <param name="c">Category to add</param>
         public void AddGameCategory( int[] gameIDs, Category c) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
-                AddGameCategory( i, c );
+                AddGameCategory( gameIDs[i], c );
             }
         }
 
@@ -485,7 +485,7 @@ namespace Depressurizer {
         /// <param name="cats">Categories to add</param>
         public void AddGameCategory( int[] gameIDs, ICollection<Category> cats ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
-                AddGameCategory( i, cats );
+                AddGameCategory( gameIDs[i], cats );
             }
         }
 
@@ -506,7 +506,7 @@ namespace Depressurizer {
         /// <param name="c">Category to remove</param>
         public void RemoveGameCategory( int[] gameIDs, Category c ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
-                RemoveGameCategory( i, c );
+                RemoveGameCategory( gameIDs[i], c );
             }
         }
 
