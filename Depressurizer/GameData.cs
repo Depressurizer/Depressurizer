@@ -422,6 +422,14 @@ namespace Depressurizer {
             return removed;
         }
 
+        public void SetGameCategories( int gameID, Category cat, bool preserveFavorites ) {
+            SetGameCategories( gameID, new List<Category>() { cat }, preserveFavorites );
+        }
+
+        public void SetGameCategories( int[] gameIDs, Category cat, bool preserveFavorites ) {
+            SetGameCategories( gameIDs, new List<Category>() { cat }, preserveFavorites );
+        }
+
         /// <summary>
         /// Sets a game's categories to a particular set
         /// </summary>

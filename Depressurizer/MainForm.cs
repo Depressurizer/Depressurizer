@@ -1095,10 +1095,25 @@ namespace Depressurizer {
         #endregion
         #region Drag and drop
 
+        private void SetDragDropEffect( DragEventArgs e ) {
+            if( settings.SingleCatMode /*|| (e.KeyState & 4) == 4*/ ) { // Commented segment: SHIFT
+                e.Effect = DragDropEffects.Move;
+            } else if( ( e.KeyState & 8 ) == 8 ) { // CTRL
+                e.Effect = DragDropEffects.Link;
+            } else {
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private int GetCategoryIndexAtPoint( int x, int y ) {
+            return lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( x, y ) ) );
+        }
+
         private void lstCategories_DragEnter( object sender, DragEventArgs e ) {
             isDragging = true;
             dragOldCat = lstCategories.SelectedIndex;
-            e.Effect = DragDropEffects.Move;
+
+            SetDragDropEffect( e );
         }
 
         private void lstCategories_DragDrop( object sender, DragEventArgs e ) {
@@ -1106,10 +1121,19 @@ namespace Depressurizer {
                 lstCategories.SelectedIndex = dragOldCat;
                 isDragging = false;
                 ClearStatus();
-                Point clientPoint = lstCategories.PointToClient( new Point( e.X, e.Y ) );
-                object dropItem = lstCategories.Items[lstCategories.IndexFromPoint( clientPoint )];
+                object dropItem = lstCategories.Items[GetCategoryIndexAtPoint( e.X, e.Y )];
+
+                SetDragDropEffect( e );
+
                 if( dropItem is Category ) {
-                    gameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), (Category)dropItem );
+                    Category dropCat = (Category)dropItem;
+                    if( e.Effect == DragDropEffects.Move ) {
+                        gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), dropCat, true );
+                    } else if( e.Effect == DragDropEffects.Link ) {
+                        gameData.RemoveGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
+                    } else if( e.Effect == DragDropEffects.Copy ) {
+                        gameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
+                    }                    
                     OnGameChange( false, true );
                     MakeChange( true );
                 } else if( dropItem is string ) {
@@ -1129,16 +1153,15 @@ namespace Depressurizer {
             for( int i = 0; i < lstGames.SelectedItems.Count; i++ ) {
                 selectedGames[i] = ( (GameInfo)lstGames.SelectedItems[i].Tag ).Id;
             }
-            //isDragging = true;
-            //dragOldCat = lstCategories.SelectedIndex;
-            lstGames.DoDragDrop( selectedGames, DragDropEffects.Move );
-
+            lstGames.DoDragDrop( selectedGames, DragDropEffects.Move | DragDropEffects.Copy | DragDropEffects.Link );
         }
 
         private void lstCategories_DragOver( object sender, DragEventArgs e ) {
-            if( isDragging ) {
-                lstCategories.SelectedIndex = lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( e.X, e.Y ) ) );
+            if( isDragging ) { // This shouldn't get called if this is false, but the OnSelectChange method is tied to this variable so do the check
+                lstCategories.SelectedIndex = GetCategoryIndexAtPoint( e.X, e.Y );
             }
+
+            SetDragDropEffect( e );
         }
 
         #endregion
