@@ -80,9 +80,9 @@ namespace Depressurizer {
             this.cntxtGame_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Remove = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Sep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.contextGame_SetCat = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextGameCat = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextGameCat_Create = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGame_AddCat = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGameAddCat = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextGameAddCat_Create = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_SetFav = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGameFav = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGameFav_Yes = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,6 +124,8 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.removeCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGameRemCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -135,7 +137,7 @@ namespace Depressurizer {
             this.panel1.SuspendLayout();
             this.panelSingleCatMode.SuspendLayout();
             this.contextGame.SuspendLayout();
-            this.contextGameCat.SuspendLayout();
+            this.contextGameAddCat.SuspendLayout();
             this.contextGameFav.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -409,7 +411,8 @@ namespace Depressurizer {
             this.cntxtGame_Edit,
             this.contextGame_Remove,
             this.contextGame_Sep1,
-            this.contextGame_SetCat,
+            this.contextGame_AddCat,
+            this.removeCategoryToolStripMenuItem,
             this.contextGame_SetFav,
             this.contextGame_Sep2,
             this.contextGame_VisitStore,
@@ -445,23 +448,24 @@ namespace Depressurizer {
             // 
             // contextGame_SetCat
             // 
-            this.contextGame_SetCat.DropDown = this.contextGameCat;
-            this.contextGame_SetCat.Name = "contextGame_SetCat";
-            resources.ApplyResources(this.contextGame_SetCat, "contextGame_SetCat");
+            this.contextGame_AddCat.DropDown = this.contextGameAddCat;
+            this.contextGame_AddCat.Name = "contextGame_SetCat";
+            resources.ApplyResources(this.contextGame_AddCat, "contextGame_SetCat");
             // 
-            // contextGameCat
+            // contextGameAddCat
             // 
-            this.contextGameCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextGameCat_Create});
-            this.contextGameCat.Name = "contextGameCat";
-            this.contextGameCat.ShowImageMargin = false;
-            resources.ApplyResources(this.contextGameCat, "contextGameCat");
+            this.contextGameAddCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextGameAddCat_Create});
+            this.contextGameAddCat.Name = "contextGameCat";
+            this.contextGameAddCat.OwnerItem = this.contextGame_AddCat;
+            this.contextGameAddCat.ShowImageMargin = false;
+            resources.ApplyResources(this.contextGameAddCat, "contextGameAddCat");
             // 
             // contextGameCat_Create
             // 
-            this.contextGameCat_Create.Name = "contextGameCat_Create";
-            resources.ApplyResources(this.contextGameCat_Create, "contextGameCat_Create");
-            this.contextGameCat_Create.Click += new System.EventHandler(this.contextGameCat_Create_Click);
+            this.contextGameAddCat_Create.Name = "contextGameCat_Create";
+            resources.ApplyResources(this.contextGameAddCat_Create, "contextGameCat_Create");
+            this.contextGameAddCat_Create.Click += new System.EventHandler(this.contextGameAddCat_Create_Click);
             // 
             // contextGame_SetFav
             // 
@@ -475,7 +479,6 @@ namespace Depressurizer {
             this.contextGameFav_Yes,
             this.contextGameFav_No});
             this.contextGameFav.Name = "contextGameFav";
-            this.contextGameFav.OwnerItem = this.contextGame_SetFav;
             this.contextGameFav.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameFav, "contextGameFav");
             // 
@@ -735,6 +738,18 @@ namespace Depressurizer {
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
             // 
+            // removeCategoryToolStripMenuItem
+            // 
+            this.removeCategoryToolStripMenuItem.DropDown = this.contextGameRemCat;
+            this.removeCategoryToolStripMenuItem.Name = "removeCategoryToolStripMenuItem";
+            resources.ApplyResources(this.removeCategoryToolStripMenuItem, "removeCategoryToolStripMenuItem");
+            // 
+            // contextGameRemCat
+            // 
+            this.contextGameRemCat.Name = "contextGameRemCat";
+            this.contextGameRemCat.ShowImageMargin = false;
+            resources.ApplyResources(this.contextGameRemCat, "contextGameRemCat");
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -759,7 +774,7 @@ namespace Depressurizer {
             this.panelSingleCatMode.ResumeLayout(false);
             this.panelSingleCatMode.PerformLayout();
             this.contextGame.ResumeLayout(false);
-            this.contextGameCat.ResumeLayout(false);
+            this.contextGameAddCat.ResumeLayout(false);
             this.contextGameFav.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -820,13 +835,13 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem cntxtGame_Edit;
         private System.Windows.Forms.ToolStripMenuItem contextGame_Remove;
         private System.Windows.Forms.ToolStripSeparator contextGame_Sep1;
-        private System.Windows.Forms.ToolStripMenuItem contextGame_SetCat;
+        private System.Windows.Forms.ToolStripMenuItem contextGame_AddCat;
         private System.Windows.Forms.ToolStripMenuItem contextGame_SetFav;
         private System.Windows.Forms.ContextMenuStrip contextGameFav;
         private System.Windows.Forms.ToolStripMenuItem contextGameFav_Yes;
         private System.Windows.Forms.ToolStripMenuItem contextGameFav_No;
-        private System.Windows.Forms.ContextMenuStrip contextGameCat;
-        private System.Windows.Forms.ToolStripMenuItem contextGameCat_Create;
+        private System.Windows.Forms.ContextMenuStrip contextGameAddCat;
+        private System.Windows.Forms.ToolStripMenuItem contextGameAddCat_Create;
         private System.Windows.Forms.ContextMenuStrip contextCat;
         private System.Windows.Forms.ToolStripMenuItem contextCat_Add;
         private System.Windows.Forms.ToolStripMenuItem contextCat_Delete;
@@ -853,6 +868,8 @@ namespace Depressurizer {
         private System.Windows.Forms.ListView lstCatAssign;
         private System.Windows.Forms.Panel panelSingleCatMode;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem removeCategoryToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextGameRemCat;
     }
 }
 

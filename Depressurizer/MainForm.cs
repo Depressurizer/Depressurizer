@@ -611,6 +611,17 @@ namespace Depressurizer {
             }
         }
 
+        void RemoveCategoryFromSelectedGames( Category cat ) {
+            if( lstGames.SelectedItems.Count > 0 ) {
+                foreach( ListViewItem item in lstGames.SelectedItems ) {
+                    GameInfo g = item.Tag as GameInfo;
+                    if( g != null ) g.RemoveCategory( cat );
+                }
+                OnGameChange( true, true );
+                MakeChange( true );
+            }
+        }
+
         /// <summary>
         /// Assigns the given favorite state to all selected items in the game list.
         /// </summary>
@@ -957,15 +968,21 @@ namespace Depressurizer {
             }
             combCategory.EndUpdate();
 
-            //TODO: This will have to be a bit different for single cat mode
-            contextGame_SetCat.DropDownItems.Clear();
-            contextGame_SetCat.DropDownItems.Add( contextGameCat_Create );
-            
+            // TODO: Also fill in context menu for removing games
+            contextGameAddCat.Items.Clear();
+            contextGameAddCat.Items.Add( contextGameAddCat_Create );
+
+            contextGameRemCat.Items.Clear();
+
             foreach( Category c in gameData.Categories ) {
                 if( c != gameData.FavoriteCategory ) {
-                    ToolStripItem item = contextGame_SetCat.DropDownItems.Add( c.Name );
+                    ToolStripItem item = contextGame_AddCat.DropDownItems.Add( c.Name );
                     item.Tag = c;
-                    item.Click += contextGameCat_Category_Click;
+                    item.Click += contextGameAddCat_Category_Click;
+
+                    item = contextGameRemCat.Items.Add( c.Name );
+                    item.Tag = c;
+                    item.Click += contextGameRemCat_Category_Click;
                 }
             }
         }
@@ -1376,7 +1393,7 @@ namespace Depressurizer {
             bool selectedGames = lstGames.SelectedItems.Count > 0;
             cntxtGame_Edit.Enabled = selectedGames;
             contextGame_Remove.Enabled = selectedGames;
-            contextGame_SetCat.Enabled = selectedGames;
+            contextGame_AddCat.Enabled = selectedGames;
             contextGame_SetFav.Enabled = selectedGames;
             contextGame_VisitStore.Enabled = selectedGames;
         }
@@ -1393,7 +1410,7 @@ namespace Depressurizer {
             FlushStatus();
         }
 
-        private void contextGameCat_Create_Click( object sender, EventArgs e ) {
+        private void contextGameAddCat_Create_Click( object sender, EventArgs e ) {
             Category c = CreateCategory();
             if( c != null ) {
                 ClearStatus();
@@ -1402,12 +1419,22 @@ namespace Depressurizer {
             }
         }
 
-        private void contextGameCat_Category_Click( object sender, EventArgs e ) {
+        private void contextGameAddCat_Category_Click( object sender, EventArgs e ) {
             ToolStripItem menuItem = sender as ToolStripItem;
             if( menuItem != null ) {
                 ClearStatus();
                 Category c = menuItem.Tag as Category;
                 AddCategoryToSelectedGames( c );
+                FlushStatus();
+            }
+        }
+
+        private void contextGameRemCat_Category_Click( object sender, EventArgs e ) {
+            ToolStripItem menuItem = sender as ToolStripItem;
+            if( menuItem != null ) {
+                ClearStatus();
+                Category c = menuItem.Tag as Category;
+                RemoveCategoryFromSelectedGames( c );
                 FlushStatus();
             }
         }

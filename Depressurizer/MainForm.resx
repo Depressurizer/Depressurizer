@@ -778,49 +778,67 @@
     <value>234, 17</value>
   </metadata>
   <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="contextGame_Add.Text" xml:space="preserve">
     <value>Add New Game...</value>
   </data>
   <data name="cntxtGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="cntxtGame_Edit.Text" xml:space="preserve">
     <value>Edit Game...</value>
   </data>
   <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="contextGame_Remove.Text" xml:space="preserve">
     <value>Remove Game</value>
   </data>
   <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 6</value>
+    <value>140, 6</value>
   </data>
-  <metadata name="contextGameCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="contextGameAddCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>500, 17</value>
   </metadata>
   <data name="contextGameCat_Create.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+    <value>127, 22</value>
   </data>
   <data name="contextGameCat_Create.Text" xml:space="preserve">
     <value>Create New...</value>
   </data>
-  <data name="contextGameCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 26</value>
+  <data name="contextGameAddCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 48</value>
   </data>
-  <data name="&gt;&gt;contextGameCat.Name" xml:space="preserve">
-    <value>contextGameCat</value>
+  <data name="&gt;&gt;contextGameAddCat.Name" xml:space="preserve">
+    <value>contextGameAddCat</value>
   </data>
-  <data name="&gt;&gt;contextGameCat.Type" xml:space="preserve">
+  <data name="&gt;&gt;contextGameAddCat.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="contextGame_SetCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="contextGame_SetCat.Text" xml:space="preserve">
     <value>Add Category</value>
+  </data>
+  <metadata name="contextGameRemCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>752, 17</value>
+  </metadata>
+  <data name="contextGameRemCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 4</value>
+  </data>
+  <data name="&gt;&gt;contextGameRemCat.Name" xml:space="preserve">
+    <value>contextGameRemCat</value>
+  </data>
+  <data name="&gt;&gt;contextGameRemCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="removeCategoryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="removeCategoryToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove Category</value>
   </data>
   <metadata name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>358, 17</value>
@@ -847,31 +865,31 @@
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="contextGame_SetFav.Text" xml:space="preserve">
     <value>Set Favorite</value>
   </data>
   <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 6</value>
+    <value>140, 6</value>
   </data>
   <data name="contextGame_VisitStore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="contextGame_VisitStore.Text" xml:space="preserve">
     <value>Visit Store Page</value>
   </data>
   <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 6</value>
+    <value>140, 6</value>
   </data>
   <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>143, 22</value>
   </data>
   <data name="contextGame_LaunchGame.Text" xml:space="preserve">
     <value>Start Game</value>
   </data>
   <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 176</value>
+    <value>144, 220</value>
   </data>
   <data name="&gt;&gt;contextGame.Name" xml:space="preserve">
     <value>contextGame</value>
@@ -961,7 +979,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -1162,7 +1180,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <metadata name="statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>125, 17</value>
@@ -1204,7 +1222,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1674,6 +1692,12 @@
   </data>
   <data name="&gt;&gt;statusSelection.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;removeCategoryToolStripMenuItem.Name" xml:space="preserve">
+    <value>removeCategoryToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;removeCategoryToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>
