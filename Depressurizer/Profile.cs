@@ -87,7 +87,14 @@ namespace Depressurizer {
             XmlNode profileNode = doc.SelectSingleNode( "/profile" );
 
             if( profileNode != null ) {
-                int profileVersion = XmlUtil.GetIntFromNode( profileNode.Attributes["version"], 0 );
+
+                XmlAttribute versionAttr = profileNode.Attributes["version"];
+                int profileVersion = 0;
+                if( versionAttr != null ) {
+                    if( !int.TryParse( versionAttr.Value, out profileVersion ) ) {
+                        profileVersion = 0;
+                    }
+                }
 
                 Int64 accId = XmlUtil.GetInt64FromNode( profileNode["steam_id_64"], 0 );
                 if( accId == 0 ) {
