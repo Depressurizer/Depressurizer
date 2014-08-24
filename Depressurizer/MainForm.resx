@@ -348,7 +348,7 @@
   <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>100</value>
   </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="panelMultiCatMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
@@ -370,7 +370,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>panel1</value>
+    <value>panelMultiCatMode</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -451,30 +451,30 @@
     <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lstCatAssign.Parent" xml:space="preserve">
-    <value>panel1</value>
+    <value>panelMultiCatMode</value>
   </data>
   <data name="&gt;&gt;lstCatAssign.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="panelMultiCatMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>520, 276</value>
   </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="panelMultiCatMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>276, 171</value>
   </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+  <data name="panelMultiCatMode.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
   </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
+  <data name="&gt;&gt;panelMultiCatMode.Name" xml:space="preserve">
+    <value>panelMultiCatMode</value>
   </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+  <data name="&gt;&gt;panelMultiCatMode.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;panelMultiCatMode.Parent" xml:space="preserve">
     <value>grpGames</value>
   </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;panelMultiCatMode.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="panelSingleCatMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -801,14 +801,14 @@
   <metadata name="contextGameAddCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>500, 17</value>
   </metadata>
-  <data name="contextGameCat_Create.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 22</value>
+  <data name="contextGameAddCat_Create.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 22</value>
   </data>
-  <data name="contextGameCat_Create.Text" xml:space="preserve">
+  <data name="contextGameAddCat_Create.Text" xml:space="preserve">
     <value>Create New...</value>
   </data>
   <data name="contextGameAddCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 48</value>
+    <value>120, 26</value>
   </data>
   <data name="&gt;&gt;contextGameAddCat.Name" xml:space="preserve">
     <value>contextGameAddCat</value>
@@ -816,10 +816,10 @@
   <data name="&gt;&gt;contextGameAddCat.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="contextGame_SetCat.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="contextGame_AddCat.Size" type="System.Drawing.Size, System.Drawing">
     <value>143, 22</value>
   </data>
-  <data name="contextGame_SetCat.Text" xml:space="preserve">
+  <data name="contextGame_AddCat.Text" xml:space="preserve">
     <value>Add Category</value>
   </data>
   <metadata name="contextGameRemCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -889,7 +889,7 @@
     <value>Start Game</value>
   </data>
   <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 220</value>
+    <value>144, 198</value>
   </data>
   <data name="&gt;&gt;contextGame.Name" xml:space="preserve">
     <value>contextGame</value>
@@ -1148,6 +1148,12 @@
   </data>
   <data name="menu_Tools_Sep3.Size" type="System.Drawing.Size, System.Drawing">
     <value>210, 6</value>
+  </data>
+  <data name="menu_Tools_SingleCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>213, 22</value>
+  </data>
+  <data name="menu_Tools_SingleCat.Text" xml:space="preserve">
+    <value>Single Category Mode</value>
   </data>
   <data name="menu_Tools_Settings.Size" type="System.Drawing.Size, System.Drawing">
     <value>213, 22</value>
@@ -1453,16 +1459,22 @@
   <data name="&gt;&gt;contextGame_Sep1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;contextGame_SetCat.Name" xml:space="preserve">
-    <value>contextGame_SetCat</value>
+  <data name="&gt;&gt;contextGame_AddCat.Name" xml:space="preserve">
+    <value>contextGame_AddCat</value>
   </data>
-  <data name="&gt;&gt;contextGame_SetCat.Type" xml:space="preserve">
+  <data name="&gt;&gt;contextGame_AddCat.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;contextGameCat_Create.Name" xml:space="preserve">
-    <value>contextGameCat_Create</value>
+  <data name="&gt;&gt;contextGameAddCat_Create.Name" xml:space="preserve">
+    <value>contextGameAddCat_Create</value>
   </data>
-  <data name="&gt;&gt;contextGameCat_Create.Type" xml:space="preserve">
+  <data name="&gt;&gt;contextGameAddCat_Create.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;removeCategoryToolStripMenuItem.Name" xml:space="preserve">
+    <value>removeCategoryToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;removeCategoryToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;contextGame_SetFav.Name" xml:space="preserve">
@@ -1675,6 +1687,12 @@
   <data name="&gt;&gt;menu_Tools_Sep3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;menu_Tools_SingleCat.Name" xml:space="preserve">
+    <value>menu_Tools_SingleCat</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_SingleCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;menu_Tools_Settings.Name" xml:space="preserve">
     <value>menu_Tools_Settings</value>
   </data>
@@ -1692,12 +1710,6 @@
   </data>
   <data name="&gt;&gt;statusSelection.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;removeCategoryToolStripMenuItem.Name" xml:space="preserve">
-    <value>removeCategoryToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;removeCategoryToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>

@@ -1071,6 +1071,17 @@ namespace Depressurizer {
             cmdCatRename.Enabled = catSelected;
         }
 
+        /// <summary>
+        /// Update UI to match current state of the SingleCatMode setting
+        /// </summary>
+        private void UpdateUIForSingleCat() {
+            bool sCat = settings.SingleCatMode;
+            menu_Tools_SingleCat.Checked = sCat;
+
+            panelMultiCatMode.Enabled = panelMultiCatMode.Visible = !sCat;
+            panelSingleCatMode.Enabled = panelSingleCatMode.Visible = sCat;
+        }
+
         #endregion
         #endregion
         #region UI Event Handlers
@@ -1082,6 +1093,8 @@ namespace Depressurizer {
             originalHeight = this.Height;
             originalWidth = this.Width;
             originalSplitDistance = this.splitContainer.SplitterDistance;
+
+            UpdateUIForSingleCat();
         }
 
         private void FormMain_Shown( object sender, EventArgs e ) {
@@ -1150,7 +1163,7 @@ namespace Depressurizer {
                         gameData.RemoveGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
                     } else if( e.Effect == DragDropEffects.Copy ) {
                         gameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
-                    }                    
+                    }
                     OnGameChange( false, true );
                     MakeChange( true );
                 } else if( dropItem is string ) {
@@ -1282,6 +1295,11 @@ namespace Depressurizer {
             Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
             dlg.ShowDialog();
             LoadGameDB();
+        }
+
+        private void menu_Tools_SingleCat_Click( object sender, EventArgs e ) {
+            settings.SingleCatMode = !settings.SingleCatMode;
+            UpdateUIForSingleCat();
         }
 
         /// <summary>
@@ -1742,7 +1760,6 @@ namespace Depressurizer {
             isDragging = false;
             lstCategories.SelectedIndex = dragOldCat;
         }
-
     }
 
     /// <summary>

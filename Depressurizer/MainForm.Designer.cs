@@ -57,7 +57,7 @@ namespace Depressurizer {
             this.cmdCatDelete = new System.Windows.Forms.Button();
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.grpGames = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelMultiCatMode = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.lstCatAssign = new System.Windows.Forms.ListView();
             this.panelSingleCatMode = new System.Windows.Forms.Panel();
@@ -83,6 +83,8 @@ namespace Depressurizer {
             this.contextGame_AddCat = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGameAddCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGameAddCat_Create = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextGameRemCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_SetFav = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGameFav = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGameFav_Yes = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,12 +122,11 @@ namespace Depressurizer {
             this.menu_Tools_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Tools_DBEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep3 = new System.Windows.Forms.ToolStripSeparator();
+            this.menu_Tools_SingleCat = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.removeCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextGameRemCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -134,7 +135,7 @@ namespace Depressurizer {
             this.contextCat.SuspendLayout();
             this.tableCatButtons.SuspendLayout();
             this.grpGames.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelMultiCatMode.SuspendLayout();
             this.panelSingleCatMode.SuspendLayout();
             this.contextGame.SuspendLayout();
             this.contextGameAddCat.SuspendLayout();
@@ -252,7 +253,7 @@ namespace Depressurizer {
             // 
             // grpGames
             // 
-            this.grpGames.Controls.Add(this.panel1);
+            this.grpGames.Controls.Add(this.panelMultiCatMode);
             this.grpGames.Controls.Add(this.panelSingleCatMode);
             this.grpGames.Controls.Add(this.cmdGameLaunch);
             this.grpGames.Controls.Add(this.cmdGameAdd);
@@ -263,12 +264,12 @@ namespace Depressurizer {
             this.grpGames.Name = "grpGames";
             this.grpGames.TabStop = false;
             // 
-            // panel1
+            // panelMultiCatMode
             // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.lstCatAssign);
-            this.panel1.Name = "panel1";
+            resources.ApplyResources(this.panelMultiCatMode, "panelMultiCatMode");
+            this.panelMultiCatMode.Controls.Add(this.button1);
+            this.panelMultiCatMode.Controls.Add(this.lstCatAssign);
+            this.panelMultiCatMode.Name = "panelMultiCatMode";
             // 
             // button1
             // 
@@ -446,11 +447,11 @@ namespace Depressurizer {
             this.contextGame_Sep1.Name = "contextGame_Sep1";
             resources.ApplyResources(this.contextGame_Sep1, "contextGame_Sep1");
             // 
-            // contextGame_SetCat
+            // contextGame_AddCat
             // 
             this.contextGame_AddCat.DropDown = this.contextGameAddCat;
-            this.contextGame_AddCat.Name = "contextGame_SetCat";
-            resources.ApplyResources(this.contextGame_AddCat, "contextGame_SetCat");
+            this.contextGame_AddCat.Name = "contextGame_AddCat";
+            resources.ApplyResources(this.contextGame_AddCat, "contextGame_AddCat");
             // 
             // contextGameAddCat
             // 
@@ -461,11 +462,24 @@ namespace Depressurizer {
             this.contextGameAddCat.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameAddCat, "contextGameAddCat");
             // 
-            // contextGameCat_Create
+            // contextGameAddCat_Create
             // 
-            this.contextGameAddCat_Create.Name = "contextGameCat_Create";
-            resources.ApplyResources(this.contextGameAddCat_Create, "contextGameCat_Create");
+            this.contextGameAddCat_Create.Name = "contextGameAddCat_Create";
+            resources.ApplyResources(this.contextGameAddCat_Create, "contextGameAddCat_Create");
             this.contextGameAddCat_Create.Click += new System.EventHandler(this.contextGameAddCat_Create_Click);
+            // 
+            // removeCategoryToolStripMenuItem
+            // 
+            this.removeCategoryToolStripMenuItem.DropDown = this.contextGameRemCat;
+            this.removeCategoryToolStripMenuItem.Name = "removeCategoryToolStripMenuItem";
+            resources.ApplyResources(this.removeCategoryToolStripMenuItem, "removeCategoryToolStripMenuItem");
+            // 
+            // contextGameRemCat
+            // 
+            this.contextGameRemCat.Name = "contextGameRemCat";
+            this.contextGameRemCat.OwnerItem = this.removeCategoryToolStripMenuItem;
+            this.contextGameRemCat.ShowImageMargin = false;
+            resources.ApplyResources(this.contextGameRemCat, "contextGameRemCat");
             // 
             // contextGame_SetFav
             // 
@@ -479,6 +493,7 @@ namespace Depressurizer {
             this.contextGameFav_Yes,
             this.contextGameFav_No});
             this.contextGameFav.Name = "contextGameFav";
+            this.contextGameFav.OwnerItem = this.contextGame_SetFav;
             this.contextGameFav.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameFav, "contextGameFav");
             // 
@@ -674,6 +689,7 @@ namespace Depressurizer {
             this.menu_Tools_Sep2,
             this.menu_Tools_DBEdit,
             this.menu_Tools_Sep3,
+            this.menu_Tools_SingleCat,
             this.menu_Tools_Settings});
             this.menu_Tools.Name = "menu_Tools";
             resources.ApplyResources(this.menu_Tools, "menu_Tools");
@@ -712,6 +728,12 @@ namespace Depressurizer {
             this.menu_Tools_Sep3.Name = "menu_Tools_Sep3";
             resources.ApplyResources(this.menu_Tools_Sep3, "menu_Tools_Sep3");
             // 
+            // menu_Tools_SingleCat
+            // 
+            this.menu_Tools_SingleCat.Name = "menu_Tools_SingleCat";
+            resources.ApplyResources(this.menu_Tools_SingleCat, "menu_Tools_SingleCat");
+            this.menu_Tools_SingleCat.Click += new System.EventHandler(this.menu_Tools_SingleCat_Click);
+            // 
             // menu_Tools_Settings
             // 
             this.menu_Tools_Settings.Name = "menu_Tools_Settings";
@@ -738,18 +760,6 @@ namespace Depressurizer {
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
             // 
-            // removeCategoryToolStripMenuItem
-            // 
-            this.removeCategoryToolStripMenuItem.DropDown = this.contextGameRemCat;
-            this.removeCategoryToolStripMenuItem.Name = "removeCategoryToolStripMenuItem";
-            resources.ApplyResources(this.removeCategoryToolStripMenuItem, "removeCategoryToolStripMenuItem");
-            // 
-            // contextGameRemCat
-            // 
-            this.contextGameRemCat.Name = "contextGameRemCat";
-            this.contextGameRemCat.ShowImageMargin = false;
-            resources.ApplyResources(this.contextGameRemCat, "contextGameRemCat");
-            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -770,7 +780,7 @@ namespace Depressurizer {
             this.contextCat.ResumeLayout(false);
             this.tableCatButtons.ResumeLayout(false);
             this.grpGames.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panelMultiCatMode.ResumeLayout(false);
             this.panelSingleCatMode.ResumeLayout(false);
             this.panelSingleCatMode.PerformLayout();
             this.contextGame.ResumeLayout(false);
@@ -864,12 +874,13 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextGame_LaunchGame;
         private System.Windows.Forms.CheckBox chkFavorite;
         private System.Windows.Forms.ColumnHeader colCategory;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelMultiCatMode;
         private System.Windows.Forms.ListView lstCatAssign;
         private System.Windows.Forms.Panel panelSingleCatMode;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem removeCategoryToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextGameRemCat;
+        private System.Windows.Forms.ToolStripMenuItem menu_Tools_SingleCat;
     }
 }
 
