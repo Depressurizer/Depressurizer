@@ -843,7 +843,7 @@ namespace Depressurizer {
         /// Does all list-updating that should be done when adding, removing, or renaming a category.
         /// </summary>
         private void OnCategoryChange() {
-            FillCategoryList();
+            FillAllCategoryLists();
 
             UpdateGameList();
             lstGames.Sort();
@@ -878,7 +878,7 @@ namespace Depressurizer {
         /// Completely regenerates both the category and game lists
         /// </summary>
         private void FullListRefresh() {
-            FillCategoryList();
+            FillAllCategoryLists();
             FillGameList();
         }
 
@@ -935,7 +935,7 @@ namespace Depressurizer {
         /// Completely repopulates the category list and combobox. Maintains selection on both.
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
-        private void FillCategoryList() {
+        private void FillAllCategoryLists() {
             gameData.Categories.Sort();
             object[] catList = gameData.Categories.ToArray();
 
@@ -968,7 +968,6 @@ namespace Depressurizer {
             }
             combCategory.EndUpdate();
 
-            // TODO: Also fill in context menu for removing games
             contextGameAddCat.Items.Clear();
             contextGameAddCat.Items.Add( contextGameAddCat_Create );
 
@@ -983,6 +982,47 @@ namespace Depressurizer {
                     item = contextGameRemCat.Items.Add( c.Name );
                     item.Tag = c;
                     item.Click += contextGameRemCat_Category_Click;
+                }
+            }
+
+            FillMultiCatList();
+        }
+
+        void FillMultiCatList() {
+            lstMultiCat.Items.Clear();
+
+            foreach( Category c in gameData.Categories ) {
+                ListViewItem item = new ListViewItem( c.Name );
+                item.Tag = c;
+                item.StateImageIndex = 0;
+                lstMultiCat.Items.Add( item );
+            }
+        }
+
+        void UpdateMultiCatCheckStates() {
+            bool first = true;
+            foreach( ListViewItem item in lstMultiCat.Items ) {
+                item.StateImageIndex = 0;
+            }
+
+            foreach( ListViewItem gameItem in lstGames.SelectedItems ) {
+                GameInfo game = gameItem.Tag as GameInfo;
+                if( game != null ) {
+                    foreach( ListViewItem catItem in lstMultiCat.Items ) {
+                        Category cat = catItem.Tag as Category;
+                        if( cat != null ) {
+                            if( first ) {
+                                catItem.StateImageIndex = game.ContainsCategory( cat ) ? 1 : 0;
+                            } else {
+                                if( game.ContainsCategory( cat ) ) {
+                                    if( catItem.StateImageIndex == 0 ) catItem.StateImageIndex = 2;
+                                } else {
+                                    if( catItem.StateImageIndex == 1 ) catItem.StateImageIndex = 2;
+                                }
+                            }
+                        }
+                    }
+                    first = false;
                 }
             }
         }
@@ -1094,6 +1134,8 @@ namespace Depressurizer {
             originalWidth = this.Width;
             originalSplitDistance = this.splitContainer.SplitterDistance;
 
+            //imglistTriState.Images.Add(Image.FromFile)
+
             UpdateUIForSingleCat();
         }
 
@@ -1158,7 +1200,11 @@ namespace Depressurizer {
                 if( dropItem is Category ) {
                     Category dropCat = (Category)dropItem;
                     if( e.Effect == DragDropEffects.Move ) {
-                        gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), dropCat, true );
+                        if( dropCat == gameData.FavoriteCategory ) {
+                            gameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
+                        } else {
+                            gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), dropCat, true );
+                        }
                     } else if( e.Effect == DragDropEffects.Link ) {
                         gameData.RemoveGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
                     } else if( e.Effect == DragDropEffects.Copy ) {
@@ -1624,6 +1670,21 @@ namespace Depressurizer {
             FlushStatus();
         }
 
+        private void lstMultiCat_ItemActivate( object sender, EventArgs e ) {
+            if( lstMultiCat.SelectedItems.Count == 0 ) return;
+            ListViewItem item = lstMultiCat.SelectedItems[0];
+
+            if( item.StateImageIndex == 0 ) {
+                item.StateImageIndex = 1;
+            } else if( item.StateImageIndex == 1 ) {
+                item.StateImageIndex = 0;
+            } else if( item.StateImageIndex == 2 ) {
+                item.StateImageIndex = 1;
+            }
+
+            lstMultiCat.SelectedItems.Clear();
+        }
+
         #endregion
         #endregion
         #region Utility
@@ -1744,21 +1805,14 @@ namespace Depressurizer {
             }
         }
 
-        /* Remove all grouping-related code for now
-        private void chkGroupCategory_CheckedChanged(object sender, EventArgs e)
-        {
-            // Because the columns are going to change, switch the sort column if needed
-            if( chkGroupCategory.Checked && listSorter.GetSortCol() == 3 ) listSorter.SetSortCol( 2, listSorter.GetSortDir() );
-            else if( !chkGroupCategory.Checked && listSorter.GetSortCol() == 2 ) listSorter.SetSortCol( 3, listSorter.GetSortDir() );
-
-            FullListRefresh();
-
-            settings.GroupView = chkGroupCategory.Checked;
-        }
-        */
         private void lstCategories_DragLeave( object sender, EventArgs e ) {
             isDragging = false;
             lstCategories.SelectedIndex = dragOldCat;
+        }
+
+        private void button1_Click( object sender, EventArgs e ) {
+            //temporary, for testing
+            UpdateMultiCatCheckStates();
         }
     }
 

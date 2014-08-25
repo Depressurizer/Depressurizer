@@ -375,13 +375,10 @@
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="lstCatAssign.Alignment" type="System.Windows.Forms.ListViewAlignment, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="lstCatAssign.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="lstMultiCat.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
   </data>
-  <data name="lstCatAssign.Items" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="lstMultiCat.Items" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkMAwAAAFFTeXN0
@@ -399,7 +396,7 @@
         CAMAAAADAAAACw==
 </value>
   </data>
-  <data name="lstCatAssign.Items1" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="lstMultiCat.Items1" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkMAwAAAFFTeXN0
@@ -417,7 +414,7 @@
         CAMAAAADAAAACw==
 </value>
   </data>
-  <data name="lstCatAssign.Items2" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="lstMultiCat.Items2" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkMAwAAAFFTeXN0
@@ -435,32 +432,79 @@
         AwAAAAs=
 </value>
   </data>
-  <data name="lstCatAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 3</value>
+  <data name="lstMultiCat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 3</value>
   </data>
-  <data name="lstCatAssign.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="lstMultiCat.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 129</value>
   </data>
-  <data name="lstCatAssign.TabIndex" type="System.Int32, mscorlib">
+  <metadata name="imglistTriState.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>918, 17</value>
+  </metadata>
+  <data name="imglistTriState.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB6
+        CAAAAk1TRnQBSQFMAgEBAwEAATABAAEwAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
+        AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
+        AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
+        AWYDAAGZAwABzAIAATMDAAIzAgABMwFmAgABMwGZAgABMwHMAgABMwH/AgABZgMAAWYBMwIAAmYCAAFm
+        AZkCAAFmAcwCAAFmAf8CAAGZAwABmQEzAgABmQFmAgACmQIAAZkBzAIAAZkB/wIAAcwDAAHMATMCAAHM
+        AWYCAAHMAZkCAALMAgABzAH/AgAB/wFmAgAB/wGZAgAB/wHMAQABMwH/AgAB/wEAATMBAAEzAQABZgEA
+        ATMBAAGZAQABMwEAAcwBAAEzAQAB/wEAAf8BMwIAAzMBAAIzAWYBAAIzAZkBAAIzAcwBAAIzAf8BAAEz
+        AWYCAAEzAWYBMwEAATMCZgEAATMBZgGZAQABMwFmAcwBAAEzAWYB/wEAATMBmQIAATMBmQEzAQABMwGZ
+        AWYBAAEzApkBAAEzAZkBzAEAATMBmQH/AQABMwHMAgABMwHMATMBAAEzAcwBZgEAATMBzAGZAQABMwLM
+        AQABMwHMAf8BAAEzAf8BMwEAATMB/wFmAQABMwH/AZkBAAEzAf8BzAEAATMC/wEAAWYDAAFmAQABMwEA
+        AWYBAAFmAQABZgEAAZkBAAFmAQABzAEAAWYBAAH/AQABZgEzAgABZgIzAQABZgEzAWYBAAFmATMBmQEA
+        AWYBMwHMAQABZgEzAf8BAAJmAgACZgEzAQADZgEAAmYBmQEAAmYBzAEAAWYBmQIAAWYBmQEzAQABZgGZ
+        AWYBAAFmApkBAAFmAZkBzAEAAWYBmQH/AQABZgHMAgABZgHMATMBAAFmAcwBmQEAAWYCzAEAAWYBzAH/
+        AQABZgH/AgABZgH/ATMBAAFmAf8BmQEAAWYB/wHMAQABzAEAAf8BAAH/AQABzAEAApkCAAGZATMBmQEA
+        AZkBAAGZAQABmQEAAcwBAAGZAwABmQIzAQABmQEAAWYBAAGZATMBzAEAAZkBAAH/AQABmQFmAgABmQFm
+        ATMBAAGZATMBZgEAAZkBZgGZAQABmQFmAcwBAAGZATMB/wEAApkBMwEAApkBZgEAA5kBAAKZAcwBAAKZ
+        Af8BAAGZAcwCAAGZAcwBMwEAAWYBzAFmAQABmQHMAZkBAAGZAswBAAGZAcwB/wEAAZkB/wIAAZkB/wEz
+        AQABmQHMAWYBAAGZAf8BmQEAAZkB/wHMAQABmQL/AQABzAMAAZkBAAEzAQABzAEAAWYBAAHMAQABmQEA
+        AcwBAAHMAQABmQEzAgABzAIzAQABzAEzAWYBAAHMATMBmQEAAcwBMwHMAQABzAEzAf8BAAHMAWYCAAHM
+        AWYBMwEAAZkCZgEAAcwBZgGZAQABzAFmAcwBAAGZAWYB/wEAAcwBmQIAAcwBmQEzAQABzAGZAWYBAAHM
+        ApkBAAHMAZkBzAEAAcwBmQH/AQACzAIAAswBMwEAAswBZgEAAswBmQEAA8wBAALMAf8BAAHMAf8CAAHM
+        Af8BMwEAAZkB/wFmAQABzAH/AZkBAAHMAf8BzAEAAcwC/wEAAcwBAAEzAQAB/wEAAWYBAAH/AQABmQEA
+        AcwBMwIAAf8CMwEAAf8BMwFmAQAB/wEzAZkBAAH/ATMBzAEAAf8BMwH/AQAB/wFmAgAB/wFmATMBAAHM
+        AmYBAAH/AWYBmQEAAf8BZgHMAQABzAFmAf8BAAH/AZkCAAH/AZkBMwEAAf8BmQFmAQAB/wKZAQAB/wGZ
+        AcwBAAH/AZkB/wEAAf8BzAIAAf8BzAEzAQAB/wHMAWYBAAH/AcwBmQEAAf8CzAEAAf8BzAH/AQAC/wEz
+        AQABzAH/AWYBAAL/AZkBAAL/AcwBAAJmAf8BAAFmAf8BZgEAAWYC/wEAAf8CZgEAAf8BZgH/AQAC/wFm
+        AQABIQEAAaUBAANfAQADdwEAA4YBAAOWAQADywEAA7IBAAPXAQAD3QEAA+MBAAPqAQAD8QEAA/gBAAHw
+        AfsB/wEAAaQCoAEAA4ADAAH/AgAB/wMAAv8BAAH/AwAB/wEAAf8BAAL/AgAD/4QAC/8FAAv/BQAL/xUA
+        C/8FAAP/AgAG/wUAAf8J7wH/FQAL/wUAAv8DAAb/BQAB/wnvAf8VAAv/BQAB/wUABf8FAAH/Ce8B/xUA
+        C/8FAAH/AgAB/wMABP8FAAH/Ce8B/xUAC/8FAAH/AQAD/wMAA/8FAAH/Ce8B/xUAC/8FAAb/AwAC/wUA
+        Af8J7wH/FQAL/wUAB/8DAAH/BQAB/wnvAf8VAAv/BQAI/wIAAf8FAAH/Ce8B/xUAC/8FAAn/AQAB/wUA
+        Af8J7wH/FQAL/wUAC/8FAAv/0gABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEA
+        Bv8CAAHAAQEBwAEBAcABAQIAAcABAQHAAQEBwAEBAgABwAEBAcABAQHAAQECAAHAAQEBwAEBAcABAQIA
+        AcABAQHAAQEBwAEBAgABwAEBAcABAQHAAQECAAHAAQEBwAEBAcABAQIAAcABAQHAAQEBwAEBAgABwAEB
+        AcABAQHAAQECAAHAAQEBwAEBAcABAQIAAcABAQHAAQEBwAEBAgABwAEBAcABAQHAAQECAAHAAQEBwAEB
+        AcABAQIABv8CAAb/AgAL
+</value>
+  </data>
+  <data name="lstMultiCat.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;lstCatAssign.Name" xml:space="preserve">
-    <value>lstCatAssign</value>
+  <data name="&gt;&gt;lstMultiCat.Name" xml:space="preserve">
+    <value>lstMultiCat</value>
   </data>
-  <data name="&gt;&gt;lstCatAssign.Type" xml:space="preserve">
+  <data name="&gt;&gt;lstMultiCat.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lstCatAssign.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lstMultiCat.Parent" xml:space="preserve">
     <value>panelMultiCatMode</value>
   </data>
-  <data name="&gt;&gt;lstCatAssign.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lstMultiCat.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="panelMultiCatMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>520, 276</value>
+    <value>516, 276</value>
   </data>
   <data name="panelMultiCatMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 171</value>
+    <value>280, 171</value>
   </data>
   <data name="panelMultiCatMode.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -616,7 +660,7 @@
     <value>False</value>
   </data>
   <data name="panelSingleCatMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>280, 364</value>
+    <value>234, 367</value>
   </data>
   <data name="panelSingleCatMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>234, 83</value>
@@ -1410,6 +1454,12 @@
   </data>
   <data name="&gt;&gt;contextCat_RemoveEmpty.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;imglistTriState.Name" xml:space="preserve">
+    <value>imglistTriState</value>
+  </data>
+  <data name="&gt;&gt;imglistTriState.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;colGameID.Name" xml:space="preserve">
     <value>colGameID</value>
