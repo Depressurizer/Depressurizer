@@ -274,8 +274,6 @@ namespace Depressurizer {
             // 
             this.lstMultiCat.Activation = System.Windows.Forms.ItemActivation.OneClick;
             resources.ApplyResources(this.lstMultiCat, "lstMultiCat");
-            this.lstMultiCat.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lstMultiCat.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.lstMultiCat.MultiSelect = false;
             this.lstMultiCat.Name = "lstMultiCat";
             this.lstMultiCat.StateImageList = this.imglistTriState;

@@ -583,7 +583,7 @@ namespace Depressurizer {
         /// Assigns the given category to all selected items in the game list, removing other categories
         /// </summary>
         /// <param name="cat">Category to assign</param>
-        void AssignSingleCategoryToSelectedGames( Category cat ) {
+        void AssignSingleCategoryToSelectedGames( Category cat, bool refreshCatList ) {
             if( lstGames.SelectedItems.Count > 0 ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     GameInfo g = item.Tag as GameInfo;
@@ -595,18 +595,18 @@ namespace Depressurizer {
                         }
                     }
                 }
-                OnGameChange( true, true );
+                OnGameChange( refreshCatList, true );
                 MakeChange( true );
             }
         }
 
-        void AddCategoryToSelectedGames( Category cat ) {
+        void AddCategoryToSelectedGames( Category cat, bool refreshCatList ) {
             if( lstGames.SelectedItems.Count > 0 ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     GameInfo g = item.Tag as GameInfo;
                     if( g != null ) g.AddCategory( cat );
                 }
-                OnGameChange( true, true );
+                OnGameChange( refreshCatList, true );
                 MakeChange( true );
             }
         }
@@ -1494,7 +1494,7 @@ namespace Depressurizer {
             Category c = CreateCategory();
             if( c != null ) {
                 ClearStatus();
-                AddCategoryToSelectedGames( c );
+                AddCategoryToSelectedGames( c, true );
                 FlushStatus();
             }
         }
@@ -1504,7 +1504,7 @@ namespace Depressurizer {
             if( menuItem != null ) {
                 ClearStatus();
                 Category c = menuItem.Tag as Category;
-                AddCategoryToSelectedGames( c );
+                AddCategoryToSelectedGames( c, false );
                 FlushStatus();
             }
         }
@@ -1548,7 +1548,7 @@ namespace Depressurizer {
             Category c;
             if( CatUtil.StringToCategory( combCategory.Text, gameData, out c ) ) {
                 ClearStatus();
-                AssignSingleCategoryToSelectedGames( c );
+                AssignSingleCategoryToSelectedGames( c, true );
                 FlushStatus();
             }
         }
@@ -1593,7 +1593,7 @@ namespace Depressurizer {
         }
 
         #endregion
-        #region Assorted list events
+        #region List events
 
         private void lstCategories_SelectedIndexChanged( object sender, EventArgs e ) {
             if( !isDragging ) {
@@ -1702,12 +1702,18 @@ namespace Depressurizer {
 
         void HandleMultiCatItemActivation( ListViewItem item ) {
             if( item != null ) {
-                if( item.StateImageIndex == 0 ) {
+                if( item.StateImageIndex == 0 || item.StateImageIndex == 2) {
                     item.StateImageIndex = 1;
+                    Category cat = item.Tag as Category;
+                    if( cat != null ) {
+                        AddCategoryToSelectedGames( cat, false );
+                    }
                 } else if( item.StateImageIndex == 1 ) {
                     item.StateImageIndex = 0;
-                } else if( item.StateImageIndex == 2 ) {
-                    item.StateImageIndex = 1;
+                    Category cat = item.Tag as Category;
+                    if( cat != null ) {
+                        RemoveCategoryFromSelectedGames( cat );
+                    }
                 }
             }
         }
