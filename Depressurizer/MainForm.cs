@@ -906,6 +906,7 @@ namespace Depressurizer {
             }
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
+            UpdateMultiCatCheckStates();
         }
 
         /// <summary>
@@ -997,6 +998,8 @@ namespace Depressurizer {
                 item.StateImageIndex = 0;
                 lstMultiCat.Items.Add( item );
             }
+
+            UpdateMultiCatCheckStates();
         }
 
         void UpdateMultiCatCheckStates() {
@@ -1005,24 +1008,39 @@ namespace Depressurizer {
                 item.StateImageIndex = 0;
             }
 
-            foreach( ListViewItem gameItem in lstGames.SelectedItems ) {
-                GameInfo game = gameItem.Tag as GameInfo;
-                if( game != null ) {
-                    foreach( ListViewItem catItem in lstMultiCat.Items ) {
-                        Category cat = catItem.Tag as Category;
-                        if( cat != null ) {
-                            if( first ) {
-                                catItem.StateImageIndex = game.ContainsCategory( cat ) ? 1 : 0;
-                            } else {
-                                if( game.ContainsCategory( cat ) ) {
-                                    if( catItem.StateImageIndex == 0 ) catItem.StateImageIndex = 2;
-                                } else {
-                                    if( catItem.StateImageIndex == 1 ) catItem.StateImageIndex = 2;
-                                }
-                            }
+            if( lstGames.SelectedItems.Count == 0 ) {
+                lstMultiCat.Enabled = false;
+            } else {
+                lstMultiCat.Enabled = true;
+                foreach( ListViewItem gameItem in lstGames.SelectedItems ) {
+                    GameInfo game = gameItem.Tag as GameInfo;
+                    if( game != null ) {
+                        AddGameToMultiCatCheckStates( game, first );
+                        first = false;
+                    }
+                }
+            }
+        }
+
+        void ClearMultiCatCheckStates() {
+            foreach( ListViewItem item in lstMultiCat.Items ) {
+                item.StateImageIndex = 0;
+            }
+        }
+
+        void AddGameToMultiCatCheckStates( GameInfo game, bool first ) {
+            foreach( ListViewItem catItem in lstMultiCat.Items ) {
+                Category cat = catItem.Tag as Category;
+                if( cat != null ) {
+                    if( first ) {
+                        catItem.StateImageIndex = game.ContainsCategory( cat ) ? 1 : 0;
+                    } else {
+                        if( game.ContainsCategory( cat ) ) {
+                            if( catItem.StateImageIndex == 0 ) catItem.StateImageIndex = 2;
+                        } else {
+                            if( catItem.StateImageIndex == 1 ) catItem.StateImageIndex = 2;
                         }
                     }
-                    first = false;
                 }
             }
         }
@@ -1133,8 +1151,6 @@ namespace Depressurizer {
             originalHeight = this.Height;
             originalWidth = this.Width;
             originalSplitDistance = this.splitContainer.SplitterDistance;
-
-            //imglistTriState.Images.Add(Image.FromFile)
 
             UpdateUIForSingleCat();
         }
@@ -1627,6 +1643,7 @@ namespace Depressurizer {
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
             UpdateSelectedStatusText();
             UpdateButtonEnabledStates();
+            UpdateMultiCatCheckStates();
         }
 
         private void lstGames_AfterLabelEdit( object sender, LabelEditEventArgs e ) {
@@ -1670,19 +1687,29 @@ namespace Depressurizer {
             FlushStatus();
         }
 
-        private void lstMultiCat_ItemActivate( object sender, EventArgs e ) {
-            if( lstMultiCat.SelectedItems.Count == 0 ) return;
-            ListViewItem item = lstMultiCat.SelectedItems[0];
+        private void lstMultiCat_MouseDown( object sender, MouseEventArgs e ) {
+            ListViewItem i = lstMultiCat.GetItemAt( e.X, e.Y );
+            HandleMultiCatItemActivation( i );
+        }
 
-            if( item.StateImageIndex == 0 ) {
-                item.StateImageIndex = 1;
-            } else if( item.StateImageIndex == 1 ) {
-                item.StateImageIndex = 0;
-            } else if( item.StateImageIndex == 2 ) {
-                item.StateImageIndex = 1;
+        private void lstMultiCat_KeyPress( object sender, KeyPressEventArgs e ) {
+            if( e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Space ) {
+                if( lstMultiCat.SelectedItems.Count == 0 ) return;
+                ListViewItem item = lstMultiCat.SelectedItems[0];
+                HandleMultiCatItemActivation( item );
             }
+        }
 
-            lstMultiCat.SelectedItems.Clear();
+        void HandleMultiCatItemActivation( ListViewItem item ) {
+            if( item != null ) {
+                if( item.StateImageIndex == 0 ) {
+                    item.StateImageIndex = 1;
+                } else if( item.StateImageIndex == 1 ) {
+                    item.StateImageIndex = 0;
+                } else if( item.StateImageIndex == 2 ) {
+                    item.StateImageIndex = 1;
+                }
+            }
         }
 
         #endregion
@@ -1808,11 +1835,6 @@ namespace Depressurizer {
         private void lstCategories_DragLeave( object sender, EventArgs e ) {
             isDragging = false;
             lstCategories.SelectedIndex = dragOldCat;
-        }
-
-        private void button1_Click( object sender, EventArgs e ) {
-            //temporary, for testing
-            UpdateMultiCatCheckStates();
         }
     }
 

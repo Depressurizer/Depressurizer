@@ -58,7 +58,6 @@ namespace Depressurizer {
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.grpGames = new System.Windows.Forms.GroupBox();
             this.panelMultiCatMode = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.lstMultiCat = new System.Windows.Forms.ListView();
             this.imglistTriState = new System.Windows.Forms.ImageList(this.components);
             this.panelSingleCatMode = new System.Windows.Forms.Panel();
@@ -268,40 +267,30 @@ namespace Depressurizer {
             // panelMultiCatMode
             // 
             resources.ApplyResources(this.panelMultiCatMode, "panelMultiCatMode");
-            this.panelMultiCatMode.Controls.Add(this.button1);
             this.panelMultiCatMode.Controls.Add(this.lstMultiCat);
             this.panelMultiCatMode.Name = "panelMultiCatMode";
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lstMultiCat
             // 
             this.lstMultiCat.Activation = System.Windows.Forms.ItemActivation.OneClick;
             resources.ApplyResources(this.lstMultiCat, "lstMultiCat");
-            this.lstMultiCat.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("lstMultiCat.Items"))),
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("lstMultiCat.Items1"))),
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("lstMultiCat.Items2")))});
+            this.lstMultiCat.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lstMultiCat.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.lstMultiCat.MultiSelect = false;
             this.lstMultiCat.Name = "lstMultiCat";
             this.lstMultiCat.StateImageList = this.imglistTriState;
             this.lstMultiCat.UseCompatibleStateImageBehavior = false;
             this.lstMultiCat.View = System.Windows.Forms.View.SmallIcon;
-            this.lstMultiCat.ItemActivate += new System.EventHandler(this.lstMultiCat_ItemActivate);
-            this.lstMultiCat.Click += new System.EventHandler(this.lstMultiCat_ItemActivate);
+            this.lstMultiCat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstMultiCat_KeyPress);
+            this.lstMultiCat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstMultiCat_MouseDown);
             // 
             // imglistTriState
             // 
             this.imglistTriState.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistTriState.ImageStream")));
             this.imglistTriState.TransparentColor = System.Drawing.Color.Transparent;
-            this.imglistTriState.Images.SetKeyName(0, "Unchecked");
-            this.imglistTriState.Images.SetKeyName(1, "Checked");
-            this.imglistTriState.Images.SetKeyName(2, "Indeterminate");
+            this.imglistTriState.Images.SetKeyName(0, "tscbUnchecked.png");
+            this.imglistTriState.Images.SetKeyName(1, "tscbChecked.png");
+            this.imglistTriState.Images.SetKeyName(2, "tscbIndeterminate.png");
             // 
             // panelSingleCatMode
             // 
@@ -331,7 +320,7 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.chkFavorite, "chkFavorite");
             this.chkFavorite.Name = "chkFavorite";
-            this.chkFavorite.UseVisualStyleBackColor = true;
+            this.chkFavorite.UseVisualStyleBackColor = false;
             // 
             // combCategory
             // 
@@ -890,7 +879,6 @@ namespace Depressurizer {
         private System.Windows.Forms.Panel panelMultiCatMode;
         private System.Windows.Forms.ListView lstMultiCat;
         private System.Windows.Forms.Panel panelSingleCatMode;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem removeCategoryToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextGameRemCat;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_SingleCat;
