@@ -46,11 +46,12 @@ namespace Depressurizer {
             this.lblId = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.lblCategory = new System.Windows.Forms.Label();
             this.chkFavorite = new System.Windows.Forms.CheckBox();
             this.cmdOk = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
+            this.txtCategory = new System.Windows.Forms.TextBox();
+            this.chkHidden = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtId
@@ -72,12 +73,6 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.txtName, "txtName");
             this.txtName.Name = "txtName";
-            // 
-            // cmbCategory
-            // 
-            resources.ApplyResources(this.cmbCategory, "cmbCategory");
-            this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Name = "cmbCategory";
             // 
             // lblCategory
             // 
@@ -105,6 +100,18 @@ namespace Depressurizer {
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
+            // txtCategory
+            // 
+            resources.ApplyResources(this.txtCategory, "txtCategory");
+            this.txtCategory.Name = "txtCategory";
+            this.txtCategory.ReadOnly = true;
+            // 
+            // chkHidden
+            // 
+            resources.ApplyResources(this.chkHidden, "chkHidden");
+            this.chkHidden.Name = "chkHidden";
+            this.chkHidden.UseVisualStyleBackColor = true;
+            // 
             // DlgGame
             // 
             this.AcceptButton = this.cmdOk;
@@ -112,11 +119,12 @@ namespace Depressurizer {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ControlBox = false;
+            this.Controls.Add(this.chkHidden);
+            this.Controls.Add(this.txtCategory);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOk);
             this.Controls.Add(this.chkFavorite);
             this.Controls.Add(this.lblCategory);
-            this.Controls.Add(this.cmbCategory);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblId);
@@ -136,10 +144,11 @@ namespace Depressurizer {
         private System.Windows.Forms.Label lblId;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.ComboBox cmbCategory;
         private System.Windows.Forms.Label lblCategory;
         private System.Windows.Forms.CheckBox chkFavorite;
         private System.Windows.Forms.Button cmdOk;
         private System.Windows.Forms.Button cmdCancel;
+        private System.Windows.Forms.TextBox txtCategory;
+        private System.Windows.Forms.CheckBox chkHidden;
     }
 }

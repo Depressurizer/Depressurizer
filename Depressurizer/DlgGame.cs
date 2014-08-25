@@ -36,29 +36,16 @@ namespace Depressurizer {
         }
 
         private void GameDlg_Load( object sender, EventArgs e ) {
-            cmbCategory.Items.Add( GlobalStrings.MainForm_Uncategorized );
-            foreach( Category cat in Data.Categories ) {
-                cmbCategory.Items.Add( cat );
-            }
-
             if( editMode ) {
                 Text = GlobalStrings.DlgGame_EditGame;
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
-                // TODO: URGENT: Code cut out for compilation
-                /*
-                if( Game.Category == null ) {
-                    cmbCategory.SelectedIndex = 0;
-                } else {
-                    //cmbCategory.Text = Game.Category.Name;
-                    cmbCategory.SelectedItem = Game.Category;
-                }
-                chkFavorite.Checked = Game.Favorite;
-                */
-                txtId.Enabled = false;
+                txtCategory.Text = Game.GetCatStringExcept( Data.FavoriteCategory );
+                chkFavorite.Checked = Game.ContainsCategory( Data.FavoriteCategory );
+                txtId.ReadOnly = true;
+                //TODO: handle hidden
             } else {
                 Text = GlobalStrings.DlgGame_CreateGame;
-                cmbCategory.SelectedIndex = 0;
             }
         }
 
@@ -67,13 +54,7 @@ namespace Depressurizer {
             this.Close();
         }
 
-        private void cmdOk_Click( object sender, EventArgs e ) {
-            Category setCat = null;
-
-            if( !CatUtil.StringToCategory( cmbCategory.Text, Data, out setCat ) ) {
-                return;
-            }
-            
+        private void cmdOk_Click( object sender, EventArgs e ) {           
             if( editMode ) {
                 Game.Name = txtName.Text;
             } else {
@@ -94,11 +75,12 @@ namespace Depressurizer {
                     Data.Games.Add(id, Game);
                 }
             }
-            // TODO: URGENT: Code cut out for compilation
-            /*
-            Game.Category = setCat;
-            Game.Favorite = chkFavorite.Checked;
-            */
+
+            if( chkFavorite.Checked ) Game.AddCategory( Data.FavoriteCategory );
+            else Game.RemoveCategory( Data.FavoriteCategory );
+
+            //TODO: Save hidden status
+
             DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
