@@ -781,7 +781,6 @@ namespace Depressurizer {
                                 Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId, newGame.Name );
                             }
 
-                            //TODO: Integrating VDF data: overwriting existing categories (use existing or use imported?) may need attention
                             if( cats.Count > 0 ) {
                                 this.SetGameCategories( gameId, cats, false );
                             }

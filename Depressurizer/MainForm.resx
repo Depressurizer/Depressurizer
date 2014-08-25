@@ -348,375 +348,14 @@
   <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>100</value>
   </data>
-  <data name="panelMultiCatMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="splitGame.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="lstMultiCat.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Right</value>
+  <data name="splitGame.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="lstMultiCat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 3</value>
-  </data>
-  <data name="lstMultiCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 129</value>
-  </data>
-  <metadata name="imglistTriState.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>918, 17</value>
-  </metadata>
-  <data name="imglistTriState.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAATgBAAE4AQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
-        AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
-        AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
-        AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
-        AWYDAAGZAwABzAIAATMDAAIzAgABMwFmAgABMwGZAgABMwHMAgABMwH/AgABZgMAAWYBMwIAAmYCAAFm
-        AZkCAAFmAcwCAAFmAf8CAAGZAwABmQEzAgABmQFmAgACmQIAAZkBzAIAAZkB/wIAAcwDAAHMATMCAAHM
-        AWYCAAHMAZkCAALMAgABzAH/AgAB/wFmAgAB/wGZAgAB/wHMAQABMwH/AgAB/wEAATMBAAEzAQABZgEA
-        ATMBAAGZAQABMwEAAcwBAAEzAQAB/wEAAf8BMwIAAzMBAAIzAWYBAAIzAZkBAAIzAcwBAAIzAf8BAAEz
-        AWYCAAEzAWYBMwEAATMCZgEAATMBZgGZAQABMwFmAcwBAAEzAWYB/wEAATMBmQIAATMBmQEzAQABMwGZ
-        AWYBAAEzApkBAAEzAZkBzAEAATMBmQH/AQABMwHMAgABMwHMATMBAAEzAcwBZgEAATMBzAGZAQABMwLM
-        AQABMwHMAf8BAAEzAf8BMwEAATMB/wFmAQABMwH/AZkBAAEzAf8BzAEAATMC/wEAAWYDAAFmAQABMwEA
-        AWYBAAFmAQABZgEAAZkBAAFmAQABzAEAAWYBAAH/AQABZgEzAgABZgIzAQABZgEzAWYBAAFmATMBmQEA
-        AWYBMwHMAQABZgEzAf8BAAJmAgACZgEzAQADZgEAAmYBmQEAAmYBzAEAAWYBmQIAAWYBmQEzAQABZgGZ
-        AWYBAAFmApkBAAFmAZkBzAEAAWYBmQH/AQABZgHMAgABZgHMATMBAAFmAcwBmQEAAWYCzAEAAWYBzAH/
-        AQABZgH/AgABZgH/ATMBAAFmAf8BmQEAAWYB/wHMAQABzAEAAf8BAAH/AQABzAEAApkCAAGZATMBmQEA
-        AZkBAAGZAQABmQEAAcwBAAGZAwABmQIzAQABmQEAAWYBAAGZATMBzAEAAZkBAAH/AQABmQFmAgABmQFm
-        ATMBAAGZATMBZgEAAZkBZgGZAQABmQFmAcwBAAGZATMB/wEAApkBMwEAApkBZgEAA5kBAAKZAcwBAAKZ
-        Af8BAAGZAcwCAAGZAcwBMwEAAWYBzAFmAQABmQHMAZkBAAGZAswBAAGZAcwB/wEAAZkB/wIAAZkB/wEz
-        AQABmQHMAWYBAAGZAf8BmQEAAZkB/wHMAQABmQL/AQABzAMAAZkBAAEzAQABzAEAAWYBAAHMAQABmQEA
-        AcwBAAHMAQABmQEzAgABzAIzAQABzAEzAWYBAAHMATMBmQEAAcwBMwHMAQABzAEzAf8BAAHMAWYCAAHM
-        AWYBMwEAAZkCZgEAAcwBZgGZAQABzAFmAcwBAAGZAWYB/wEAAcwBmQIAAcwBmQEzAQABzAGZAWYBAAHM
-        ApkBAAHMAZkBzAEAAcwBmQH/AQACzAIAAswBMwEAAswBZgEAAswBmQEAA8wBAALMAf8BAAHMAf8CAAHM
-        Af8BMwEAAZkB/wFmAQABzAH/AZkBAAHMAf8BzAEAAcwC/wEAAcwBAAEzAQAB/wEAAWYBAAH/AQABmQEA
-        AcwBMwIAAf8CMwEAAf8BMwFmAQAB/wEzAZkBAAH/ATMBzAEAAf8BMwH/AQAB/wFmAgAB/wFmATMBAAHM
-        AmYBAAH/AWYBmQEAAf8BZgHMAQABzAFmAf8BAAH/AZkCAAH/AZkBMwEAAf8BmQFmAQAB/wKZAQAB/wGZ
-        AcwBAAH/AZkB/wEAAf8BzAIAAf8BzAEzAQAB/wHMAWYBAAH/AcwBmQEAAf8CzAEAAf8BzAH/AQAC/wEz
-        AQABzAH/AWYBAAL/AZkBAAL/AcwBAAJmAf8BAAFmAf8BZgEAAWYC/wEAAf8CZgEAAf8BZgH/AQAC/wFm
-        AQABIQEAAaUBAANfAQADdwEAA4YBAAOWAQADywEAA7IBAAPXAQAD3QEAA+MBAAPqAQAD8QEAA/gBAAHw
-        AfsB/wEAAaQCoAEAA4ADAAH/AgAB/wMAAv8BAAH/AwAB/wEAAf8BAAL/AgAD/5cAAf8MAAv/JwAB/wEA
-        Af8LAAH/Ce8B/yYAAf8DAAH/CgAB/wnvAf8lAAH/BQAB/wkAAf8J7wH/JQAB/wIAAf8DAAH/CAAB/wnv
-        Af8lAAH/AQAB/wEAAf8DAAH/BwAB/wnvAf8lAAL/AwAB/wMAAf8GAAH/Ce8B/ysAAf8DAAH/BQAB/wnv
-        Af8sAAH/AgAB/wUAAf8J7wH/LQAB/wEAAf8FAAH/Ce8B/y4AAv8FAAv/0gABQgFNAT4HAAE+AwABKAMA
-        AUADAAEQAwABAQEAAQEFAAGAFwAD/wEABv8CAAHAAQEBwAEBAcABAQIAAd8B/QHdAf0BwAEBAgAB3wH9
-        AdgB/QHAAQECAAHfAf0B0AF9AcABAQIAAd8B/QHAAT0BwAEBAgAB3wH9AcABHQHAAQECAAHfAf0BwgEN
-        AcABAQIAAd8B/QHHAQUBwAEBAgAB3wH9Ad8BgQHAAQECAAHfAf0B3wHBAcABAQIAAd8B/QHfAeEBwAEB
-        AgAB3wH9Ad8B8QHAAQECAAHAAQEBwAEBAcABAQIABv8CAAb/AgAL
-</value>
-  </data>
-  <data name="lstMultiCat.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lstMultiCat.Name" xml:space="preserve">
-    <value>lstMultiCat</value>
-  </data>
-  <data name="&gt;&gt;lstMultiCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lstMultiCat.Parent" xml:space="preserve">
-    <value>panelMultiCatMode</value>
-  </data>
-  <data name="&gt;&gt;lstMultiCat.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panelMultiCatMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>516, 276</value>
-  </data>
-  <data name="panelMultiCatMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 171</value>
-  </data>
-  <data name="panelMultiCatMode.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;panelMultiCatMode.Name" xml:space="preserve">
-    <value>panelMultiCatMode</value>
-  </data>
-  <data name="&gt;&gt;panelMultiCatMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelMultiCatMode.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;panelMultiCatMode.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panelSingleCatMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdGameSetFavorite.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdGameSetFavorite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>137, 32</value>
-  </data>
-  <data name="cmdGameSetFavorite.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 23</value>
-  </data>
-  <data name="cmdGameSetFavorite.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="cmdGameSetFavorite.Text" xml:space="preserve">
-    <value>Set Favorite</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetFavorite.Name" xml:space="preserve">
-    <value>cmdGameSetFavorite</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetFavorite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetFavorite.Parent" xml:space="preserve">
-    <value>panelSingleCatMode</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetFavorite.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cmdGameSetCategory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdGameSetCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>137, 7</value>
-  </data>
-  <data name="cmdGameSetCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 23</value>
-  </data>
-  <data name="cmdGameSetCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="cmdGameSetCategory.Text" xml:space="preserve">
-    <value>Set Category</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetCategory.Name" xml:space="preserve">
-    <value>cmdGameSetCategory</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetCategory.Parent" xml:space="preserve">
-    <value>panelSingleCatMode</value>
-  </data>
-  <data name="&gt;&gt;cmdGameSetCategory.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="chkFavorite.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="chkFavorite.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkFavorite.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="chkFavorite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>116, 37</value>
-  </data>
-  <data name="chkFavorite.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkFavorite.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;chkFavorite.Name" xml:space="preserve">
-    <value>chkFavorite</value>
-  </data>
-  <data name="&gt;&gt;chkFavorite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkFavorite.Parent" xml:space="preserve">
-    <value>panelSingleCatMode</value>
-  </data>
-  <data name="&gt;&gt;chkFavorite.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="combCategory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="combCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 9</value>
-  </data>
-  <data name="combCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 21</value>
-  </data>
-  <data name="combCategory.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;combCategory.Name" xml:space="preserve">
-    <value>combCategory</value>
-  </data>
-  <data name="&gt;&gt;combCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;combCategory.Parent" xml:space="preserve">
-    <value>panelSingleCatMode</value>
-  </data>
-  <data name="&gt;&gt;combCategory.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="cmdAutoCat.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmdAutoCat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>137, 57</value>
-  </data>
-  <data name="cmdAutoCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 23</value>
-  </data>
-  <data name="cmdAutoCat.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="cmdAutoCat.Text" xml:space="preserve">
-    <value>Auto-Categorize</value>
-  </data>
-  <data name="&gt;&gt;cmdAutoCat.Name" xml:space="preserve">
-    <value>cmdAutoCat</value>
-  </data>
-  <data name="&gt;&gt;cmdAutoCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdAutoCat.Parent" xml:space="preserve">
-    <value>panelSingleCatMode</value>
-  </data>
-  <data name="&gt;&gt;cmdAutoCat.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="panelSingleCatMode.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="panelSingleCatMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>234, 367</value>
-  </data>
-  <data name="panelSingleCatMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 83</value>
-  </data>
-  <data name="panelSingleCatMode.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="panelSingleCatMode.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;panelSingleCatMode.Name" xml:space="preserve">
-    <value>panelSingleCatMode</value>
-  </data>
-  <data name="&gt;&gt;panelSingleCatMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelSingleCatMode.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;panelSingleCatMode.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cmdGameLaunch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="cmdGameLaunch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>118, 375</value>
-  </data>
-  <data name="cmdGameLaunch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="cmdGameLaunch.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="cmdGameLaunch.Text" xml:space="preserve">
-    <value>Start Game</value>
-  </data>
-  <data name="&gt;&gt;cmdGameLaunch.Name" xml:space="preserve">
-    <value>cmdGameLaunch</value>
-  </data>
-  <data name="&gt;&gt;cmdGameLaunch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameLaunch.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameLaunch.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cmdGameAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="cmdGameAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 400</value>
-  </data>
-  <data name="cmdGameAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="cmdGameAdd.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="cmdGameAdd.Text" xml:space="preserve">
-    <value>Add Game</value>
-  </data>
-  <data name="&gt;&gt;cmdGameAdd.Name" xml:space="preserve">
-    <value>cmdGameAdd</value>
-  </data>
-  <data name="&gt;&gt;cmdGameAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameAdd.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameAdd.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="cmdGameRemove.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="cmdGameRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 425</value>
-  </data>
-  <data name="cmdGameRemove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="cmdGameRemove.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="cmdGameRemove.Text" xml:space="preserve">
-    <value>Remove Selected</value>
-  </data>
-  <data name="&gt;&gt;cmdGameRemove.Name" xml:space="preserve">
-    <value>cmdGameRemove</value>
-  </data>
-  <data name="&gt;&gt;cmdGameRemove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameRemove.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameRemove.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="cmdGameEdit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="cmdGameEdit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 375</value>
-  </data>
-  <data name="cmdGameEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 23</value>
-  </data>
-  <data name="cmdGameEdit.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="cmdGameEdit.Text" xml:space="preserve">
-    <value>Edit Game</value>
-  </data>
-  <data name="&gt;&gt;cmdGameEdit.Name" xml:space="preserve">
-    <value>cmdGameEdit</value>
-  </data>
-  <data name="&gt;&gt;cmdGameEdit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdGameEdit.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;cmdGameEdit.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="lstGames.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="splitGame.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
   </data>
   <data name="colGameID.Text" xml:space="preserve">
     <value>Game ID</value>
@@ -865,11 +504,14 @@
   <data name="&gt;&gt;contextGame.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="lstGames.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 20</value>
+    <value>3, 16</value>
   </data>
   <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>799, 250</value>
+    <value>802, 322</value>
   </data>
   <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -884,7 +526,7 @@
     <value>grpGames</value>
   </data>
   <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>0</value>
   </data>
   <data name="grpGames.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -893,7 +535,7 @@
     <value>0, 0</value>
   </data>
   <data name="grpGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>808, 473</value>
+    <value>808, 341</value>
   </data>
   <data name="grpGames.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -908,9 +550,385 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;grpGames.Parent" xml:space="preserve">
-    <value>splitContainer.Panel2</value>
+    <value>splitGame.Panel1</value>
   </data>
   <data name="&gt;&gt;grpGames.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Panel1.Name" xml:space="preserve">
+    <value>splitGame.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Panel1.Parent" xml:space="preserve">
+    <value>splitGame</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="splitGame.Panel1MinSize" type="System.Int32, mscorlib">
+    <value>128</value>
+  </data>
+  <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>95, 29</value>
+  </data>
+  <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 21</value>
+  </data>
+  <data name="cmbAutoCatType.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Name" xml:space="preserve">
+    <value>cmbAutoCatType</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkHidden.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkHidden.Location" type="System.Drawing.Point, System.Drawing">
+    <value>95, 56</value>
+  </data>
+  <data name="chkHidden.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 17</value>
+  </data>
+  <data name="chkHidden.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="chkHidden.Text" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="&gt;&gt;chkHidden.Name" xml:space="preserve">
+    <value>chkHidden</value>
+  </data>
+  <data name="&gt;&gt;chkHidden.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkHidden.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;chkHidden.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cmdAddCatAndAssign.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="cmdAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
+    <value>661, 80</value>
+  </data>
+  <data name="cmdAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 23</value>
+  </data>
+  <data name="cmdAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cmdAddCatAndAssign.Text" xml:space="preserve">
+    <value>Add Category and Assign</value>
+  </data>
+  <data name="&gt;&gt;cmdAddCatAndAssign.Name" xml:space="preserve">
+    <value>cmdAddCatAndAssign</value>
+  </data>
+  <data name="&gt;&gt;cmdAddCatAndAssign.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdAddCatAndAssign.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;cmdAddCatAndAssign.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cmdAutoCat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>95, 3</value>
+  </data>
+  <data name="cmdAutoCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 23</value>
+  </data>
+  <data name="cmdAutoCat.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="cmdAutoCat.Text" xml:space="preserve">
+    <value>Auto-Categorize</value>
+  </data>
+  <data name="&gt;&gt;cmdAutoCat.Name" xml:space="preserve">
+    <value>cmdAutoCat</value>
+  </data>
+  <data name="&gt;&gt;cmdAutoCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdAutoCat.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;cmdAutoCat.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="txtAddCatAndAssign.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="txtAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
+    <value>275, 82</value>
+  </data>
+  <data name="txtAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
+    <value>380, 20</value>
+  </data>
+  <data name="txtAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txtAddCatAndAssign.Name" xml:space="preserve">
+    <value>txtAddCatAndAssign</value>
+  </data>
+  <data name="&gt;&gt;txtAddCatAndAssign.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtAddCatAndAssign.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;txtAddCatAndAssign.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="chkFavorite.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkFavorite.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 56</value>
+  </data>
+  <data name="chkFavorite.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
+  </data>
+  <data name="chkFavorite.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="chkFavorite.Text" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="&gt;&gt;chkFavorite.Name" xml:space="preserve">
+    <value>chkFavorite</value>
+  </data>
+  <data name="&gt;&gt;chkFavorite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkFavorite.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;chkFavorite.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lstMultiCat.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="lstMultiCat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>275, 3</value>
+  </data>
+  <data name="lstMultiCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 73</value>
+  </data>
+  <metadata name="imglistTriState.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>918, 17</value>
+  </metadata>
+  <data name="imglistTriState.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
+        CAAAAk1TRnQBSQFMAgEBAwEAAVABAAFQAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
+        AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
+        AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
+        AWYDAAGZAwABzAIAATMDAAIzAgABMwFmAgABMwGZAgABMwHMAgABMwH/AgABZgMAAWYBMwIAAmYCAAFm
+        AZkCAAFmAcwCAAFmAf8CAAGZAwABmQEzAgABmQFmAgACmQIAAZkBzAIAAZkB/wIAAcwDAAHMATMCAAHM
+        AWYCAAHMAZkCAALMAgABzAH/AgAB/wFmAgAB/wGZAgAB/wHMAQABMwH/AgAB/wEAATMBAAEzAQABZgEA
+        ATMBAAGZAQABMwEAAcwBAAEzAQAB/wEAAf8BMwIAAzMBAAIzAWYBAAIzAZkBAAIzAcwBAAIzAf8BAAEz
+        AWYCAAEzAWYBMwEAATMCZgEAATMBZgGZAQABMwFmAcwBAAEzAWYB/wEAATMBmQIAATMBmQEzAQABMwGZ
+        AWYBAAEzApkBAAEzAZkBzAEAATMBmQH/AQABMwHMAgABMwHMATMBAAEzAcwBZgEAATMBzAGZAQABMwLM
+        AQABMwHMAf8BAAEzAf8BMwEAATMB/wFmAQABMwH/AZkBAAEzAf8BzAEAATMC/wEAAWYDAAFmAQABMwEA
+        AWYBAAFmAQABZgEAAZkBAAFmAQABzAEAAWYBAAH/AQABZgEzAgABZgIzAQABZgEzAWYBAAFmATMBmQEA
+        AWYBMwHMAQABZgEzAf8BAAJmAgACZgEzAQADZgEAAmYBmQEAAmYBzAEAAWYBmQIAAWYBmQEzAQABZgGZ
+        AWYBAAFmApkBAAFmAZkBzAEAAWYBmQH/AQABZgHMAgABZgHMATMBAAFmAcwBmQEAAWYCzAEAAWYBzAH/
+        AQABZgH/AgABZgH/ATMBAAFmAf8BmQEAAWYB/wHMAQABzAEAAf8BAAH/AQABzAEAApkCAAGZATMBmQEA
+        AZkBAAGZAQABmQEAAcwBAAGZAwABmQIzAQABmQEAAWYBAAGZATMBzAEAAZkBAAH/AQABmQFmAgABmQFm
+        ATMBAAGZATMBZgEAAZkBZgGZAQABmQFmAcwBAAGZATMB/wEAApkBMwEAApkBZgEAA5kBAAKZAcwBAAKZ
+        Af8BAAGZAcwCAAGZAcwBMwEAAWYBzAFmAQABmQHMAZkBAAGZAswBAAGZAcwB/wEAAZkB/wIAAZkB/wEz
+        AQABmQHMAWYBAAGZAf8BmQEAAZkB/wHMAQABmQL/AQABzAMAAZkBAAEzAQABzAEAAWYBAAHMAQABmQEA
+        AcwBAAHMAQABmQEzAgABzAIzAQABzAEzAWYBAAHMATMBmQEAAcwBMwHMAQABzAEzAf8BAAHMAWYCAAHM
+        AWYBMwEAAZkCZgEAAcwBZgGZAQABzAFmAcwBAAGZAWYB/wEAAcwBmQIAAcwBmQEzAQABzAGZAWYBAAHM
+        ApkBAAHMAZkBzAEAAcwBmQH/AQACzAIAAswBMwEAAswBZgEAAswBmQEAA8wBAALMAf8BAAHMAf8CAAHM
+        Af8BMwEAAZkB/wFmAQABzAH/AZkBAAHMAf8BzAEAAcwC/wEAAcwBAAEzAQAB/wEAAWYBAAH/AQABmQEA
+        AcwBMwIAAf8CMwEAAf8BMwFmAQAB/wEzAZkBAAH/ATMBzAEAAf8BMwH/AQAB/wFmAgAB/wFmATMBAAHM
+        AmYBAAH/AWYBmQEAAf8BZgHMAQABzAFmAf8BAAH/AZkCAAH/AZkBMwEAAf8BmQFmAQAB/wKZAQAB/wGZ
+        AcwBAAH/AZkB/wEAAf8BzAIAAf8BzAEzAQAB/wHMAWYBAAH/AcwBmQEAAf8CzAEAAf8BzAH/AQAC/wEz
+        AQABzAH/AWYBAAL/AZkBAAL/AcwBAAJmAf8BAAFmAf8BZgEAAWYC/wEAAf8CZgEAAf8BZgH/AQAC/wFm
+        AQABIQEAAaUBAANfAQADdwEAA4YBAAOWAQADywEAA7IBAAPXAQAD3QEAA+MBAAPqAQAD8QEAA/gBAAHw
+        AfsB/wEAAaQCoAEAA4ADAAH/AgAB/wMAAv8BAAH/AwAB/wEAAf8BAAL/AgAD/5cAAf8MAAv/JwAB/wEA
+        Af8LAAH/Ce8B/yYAAf8DAAH/CgAB/wnvAf8lAAH/BQAB/wkAAf8J7wH/JQAB/wIAAf8DAAH/CAAB/wnv
+        Af8lAAH/AQAB/wEAAf8DAAH/BwAB/wnvAf8lAAL/AwAB/wMAAf8GAAH/Ce8B/ysAAf8DAAH/BQAB/wnv
+        Af8sAAH/AgAB/wUAAf8J7wH/LQAB/wEAAf8FAAH/Ce8B/y4AAv8FAAv/0gABQgFNAT4HAAE+AwABKAMA
+        AUADAAEQAwABAQEAAQEFAAGAFwAD/wEABv8CAAHAAQEBwAEBAcABAQIAAd8B/QHdAf0BwAEBAgAB3wH9
+        AdgB/QHAAQECAAHfAf0B0AF9AcABAQIAAd8B/QHAAT0BwAEBAgAB3wH9AcABHQHAAQECAAHfAf0BwgEN
+        AcABAQIAAd8B/QHHAQUBwAEBAgAB3wH9Ad8BgQHAAQECAAHfAf0B3wHBAcABAQIAAd8B/QHfAeEBwAEB
+        AgAB3wH9Ad8B8QHAAQECAAHAAQEBwAEBAcABAQIABv8CAAb/AgAL
+</value>
+  </data>
+  <data name="lstMultiCat.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lstMultiCat.Name" xml:space="preserve">
+    <value>lstMultiCat</value>
+  </data>
+  <data name="&gt;&gt;lstMultiCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstMultiCat.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;lstMultiCat.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="cmdGameRemove.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="cmdGameRemove.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 80</value>
+  </data>
+  <data name="cmdGameRemove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
+  </data>
+  <data name="cmdGameRemove.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="cmdGameRemove.Text" xml:space="preserve">
+    <value>Remove Game</value>
+  </data>
+  <data name="&gt;&gt;cmdGameRemove.Name" xml:space="preserve">
+    <value>cmdGameRemove</value>
+  </data>
+  <data name="&gt;&gt;cmdGameRemove.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameRemove.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;cmdGameRemove.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cmdGameAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="cmdGameAdd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 54</value>
+  </data>
+  <data name="cmdGameAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
+  </data>
+  <data name="cmdGameAdd.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="cmdGameAdd.Text" xml:space="preserve">
+    <value>Add Game</value>
+  </data>
+  <data name="&gt;&gt;cmdGameAdd.Name" xml:space="preserve">
+    <value>cmdGameAdd</value>
+  </data>
+  <data name="&gt;&gt;cmdGameAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameAdd.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;cmdGameAdd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="cmdGameEdit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="cmdGameEdit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 28</value>
+  </data>
+  <data name="cmdGameEdit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
+  </data>
+  <data name="cmdGameEdit.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="cmdGameEdit.Text" xml:space="preserve">
+    <value>Edit Game</value>
+  </data>
+  <data name="&gt;&gt;cmdGameEdit.Name" xml:space="preserve">
+    <value>cmdGameEdit</value>
+  </data>
+  <data name="&gt;&gt;cmdGameEdit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameEdit.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;cmdGameEdit.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="cmdGameLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="cmdGameLaunch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 23</value>
+  </data>
+  <data name="cmdGameLaunch.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="cmdGameLaunch.Text" xml:space="preserve">
+    <value>Start Game</value>
+  </data>
+  <data name="&gt;&gt;cmdGameLaunch.Name" xml:space="preserve">
+    <value>cmdGameLaunch</value>
+  </data>
+  <data name="&gt;&gt;cmdGameLaunch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdGameLaunch.Parent" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;cmdGameLaunch.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Panel2.Name" xml:space="preserve">
+    <value>splitGame.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Panel2.Parent" xml:space="preserve">
+    <value>splitGame</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitGame.Panel2MinSize" type="System.Int32, mscorlib">
+    <value>128</value>
+  </data>
+  <data name="splitGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>808, 473</value>
+  </data>
+  <data name="splitGame.SplitterDistance" type="System.Int32, mscorlib">
+    <value>341</value>
+  </data>
+  <data name="splitGame.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Name" xml:space="preserve">
+    <value>splitGame</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitGame.Parent" xml:space="preserve">
+    <value>splitContainer.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitGame.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
@@ -1379,12 +1397,6 @@
   <data name="&gt;&gt;contextCat_RemoveEmpty.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;imglistTriState.Name" xml:space="preserve">
-    <value>imglistTriState</value>
-  </data>
-  <data name="&gt;&gt;imglistTriState.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;colGameID.Name" xml:space="preserve">
     <value>colGameID</value>
   </data>
@@ -1492,6 +1504,12 @@
   </data>
   <data name="&gt;&gt;contextGame_LaunchGame.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;imglistTriState.Name" xml:space="preserve">
+    <value>imglistTriState</value>
+  </data>
+  <data name="&gt;&gt;imglistTriState.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;menu_File.Name" xml:space="preserve">
     <value>menu_File</value>

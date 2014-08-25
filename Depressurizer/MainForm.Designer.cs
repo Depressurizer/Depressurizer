@@ -56,20 +56,8 @@ namespace Depressurizer {
             this.cmdCatAdd = new System.Windows.Forms.Button();
             this.cmdCatDelete = new System.Windows.Forms.Button();
             this.cmdCatRename = new System.Windows.Forms.Button();
+            this.splitGame = new System.Windows.Forms.SplitContainer();
             this.grpGames = new System.Windows.Forms.GroupBox();
-            this.panelMultiCatMode = new System.Windows.Forms.Panel();
-            this.lstMultiCat = new System.Windows.Forms.ListView();
-            this.imglistTriState = new System.Windows.Forms.ImageList(this.components);
-            this.panelSingleCatMode = new System.Windows.Forms.Panel();
-            this.cmdGameSetFavorite = new System.Windows.Forms.Button();
-            this.cmdGameSetCategory = new System.Windows.Forms.Button();
-            this.chkFavorite = new System.Windows.Forms.CheckBox();
-            this.combCategory = new System.Windows.Forms.ComboBox();
-            this.cmdAutoCat = new System.Windows.Forms.Button();
-            this.cmdGameLaunch = new System.Windows.Forms.Button();
-            this.cmdGameAdd = new System.Windows.Forms.Button();
-            this.cmdGameRemove = new System.Windows.Forms.Button();
-            this.cmdGameEdit = new System.Windows.Forms.Button();
             this.lstGames = new System.Windows.Forms.ListView();
             this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -93,6 +81,18 @@ namespace Depressurizer {
             this.contextGame_VisitStore = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.contextGame_LaunchGame = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbAutoCatType = new System.Windows.Forms.ComboBox();
+            this.chkHidden = new System.Windows.Forms.CheckBox();
+            this.cmdAddCatAndAssign = new System.Windows.Forms.Button();
+            this.cmdAutoCat = new System.Windows.Forms.Button();
+            this.txtAddCatAndAssign = new System.Windows.Forms.TextBox();
+            this.chkFavorite = new System.Windows.Forms.CheckBox();
+            this.lstMultiCat = new System.Windows.Forms.ListView();
+            this.imglistTriState = new System.Windows.Forms.ImageList(this.components);
+            this.cmdGameRemove = new System.Windows.Forms.Button();
+            this.cmdGameAdd = new System.Windows.Forms.Button();
+            this.cmdGameEdit = new System.Windows.Forms.Button();
+            this.cmdGameLaunch = new System.Windows.Forms.Button();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menu_File = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_NewProfile = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,9 +134,11 @@ namespace Depressurizer {
             this.grpCategories.SuspendLayout();
             this.contextCat.SuspendLayout();
             this.tableCatButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitGame)).BeginInit();
+            this.splitGame.Panel1.SuspendLayout();
+            this.splitGame.Panel2.SuspendLayout();
+            this.splitGame.SuspendLayout();
             this.grpGames.SuspendLayout();
-            this.panelMultiCatMode.SuspendLayout();
-            this.panelSingleCatMode.SuspendLayout();
             this.contextGame.SuspendLayout();
             this.contextGameAddCat.SuspendLayout();
             this.contextGameFav.SuspendLayout();
@@ -155,7 +157,7 @@ namespace Depressurizer {
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.grpGames);
+            this.splitContainer.Panel2.Controls.Add(this.splitGame);
             // 
             // grpCategories
             // 
@@ -251,125 +253,45 @@ namespace Depressurizer {
             this.cmdCatRename.UseVisualStyleBackColor = true;
             this.cmdCatRename.Click += new System.EventHandler(this.cmdCatRename_Click);
             // 
+            // splitGame
+            // 
+            resources.ApplyResources(this.splitGame, "splitGame");
+            this.splitGame.Name = "splitGame";
+            // 
+            // splitGame.Panel1
+            // 
+            this.splitGame.Panel1.Controls.Add(this.grpGames);
+            // 
+            // splitGame.Panel2
+            // 
+            this.splitGame.Panel2.Controls.Add(this.cmbAutoCatType);
+            this.splitGame.Panel2.Controls.Add(this.chkHidden);
+            this.splitGame.Panel2.Controls.Add(this.cmdAddCatAndAssign);
+            this.splitGame.Panel2.Controls.Add(this.cmdAutoCat);
+            this.splitGame.Panel2.Controls.Add(this.txtAddCatAndAssign);
+            this.splitGame.Panel2.Controls.Add(this.chkFavorite);
+            this.splitGame.Panel2.Controls.Add(this.lstMultiCat);
+            this.splitGame.Panel2.Controls.Add(this.cmdGameRemove);
+            this.splitGame.Panel2.Controls.Add(this.cmdGameAdd);
+            this.splitGame.Panel2.Controls.Add(this.cmdGameEdit);
+            this.splitGame.Panel2.Controls.Add(this.cmdGameLaunch);
+            // 
             // grpGames
             // 
-            this.grpGames.Controls.Add(this.panelMultiCatMode);
-            this.grpGames.Controls.Add(this.panelSingleCatMode);
-            this.grpGames.Controls.Add(this.cmdGameLaunch);
-            this.grpGames.Controls.Add(this.cmdGameAdd);
-            this.grpGames.Controls.Add(this.cmdGameRemove);
-            this.grpGames.Controls.Add(this.cmdGameEdit);
             this.grpGames.Controls.Add(this.lstGames);
             resources.ApplyResources(this.grpGames, "grpGames");
             this.grpGames.Name = "grpGames";
             this.grpGames.TabStop = false;
             // 
-            // panelMultiCatMode
-            // 
-            resources.ApplyResources(this.panelMultiCatMode, "panelMultiCatMode");
-            this.panelMultiCatMode.Controls.Add(this.lstMultiCat);
-            this.panelMultiCatMode.Name = "panelMultiCatMode";
-            // 
-            // lstMultiCat
-            // 
-            this.lstMultiCat.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            resources.ApplyResources(this.lstMultiCat, "lstMultiCat");
-            this.lstMultiCat.MultiSelect = false;
-            this.lstMultiCat.Name = "lstMultiCat";
-            this.lstMultiCat.StateImageList = this.imglistTriState;
-            this.lstMultiCat.UseCompatibleStateImageBehavior = false;
-            this.lstMultiCat.View = System.Windows.Forms.View.SmallIcon;
-            this.lstMultiCat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstMultiCat_KeyPress);
-            this.lstMultiCat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstMultiCat_MouseDown);
-            // 
-            // imglistTriState
-            // 
-            this.imglistTriState.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistTriState.ImageStream")));
-            this.imglistTriState.TransparentColor = System.Drawing.Color.Transparent;
-            this.imglistTriState.Images.SetKeyName(0, "tscbUnchecked.png");
-            this.imglistTriState.Images.SetKeyName(1, "tscbChecked.png");
-            this.imglistTriState.Images.SetKeyName(2, "tscbIndeterminate.png");
-            // 
-            // panelSingleCatMode
-            // 
-            resources.ApplyResources(this.panelSingleCatMode, "panelSingleCatMode");
-            this.panelSingleCatMode.Controls.Add(this.cmdGameSetFavorite);
-            this.panelSingleCatMode.Controls.Add(this.cmdGameSetCategory);
-            this.panelSingleCatMode.Controls.Add(this.chkFavorite);
-            this.panelSingleCatMode.Controls.Add(this.combCategory);
-            this.panelSingleCatMode.Controls.Add(this.cmdAutoCat);
-            this.panelSingleCatMode.Name = "panelSingleCatMode";
-            // 
-            // cmdGameSetFavorite
-            // 
-            resources.ApplyResources(this.cmdGameSetFavorite, "cmdGameSetFavorite");
-            this.cmdGameSetFavorite.Name = "cmdGameSetFavorite";
-            this.cmdGameSetFavorite.UseVisualStyleBackColor = true;
-            this.cmdGameSetFavorite.Click += new System.EventHandler(this.cmdGameSetFavorite_Click);
-            // 
-            // cmdGameSetCategory
-            // 
-            resources.ApplyResources(this.cmdGameSetCategory, "cmdGameSetCategory");
-            this.cmdGameSetCategory.Name = "cmdGameSetCategory";
-            this.cmdGameSetCategory.UseVisualStyleBackColor = true;
-            this.cmdGameSetCategory.Click += new System.EventHandler(this.cmdGameSetCategory_Click);
-            // 
-            // chkFavorite
-            // 
-            resources.ApplyResources(this.chkFavorite, "chkFavorite");
-            this.chkFavorite.Name = "chkFavorite";
-            this.chkFavorite.UseVisualStyleBackColor = false;
-            // 
-            // combCategory
-            // 
-            resources.ApplyResources(this.combCategory, "combCategory");
-            this.combCategory.FormattingEnabled = true;
-            this.combCategory.Name = "combCategory";
-            // 
-            // cmdAutoCat
-            // 
-            resources.ApplyResources(this.cmdAutoCat, "cmdAutoCat");
-            this.cmdAutoCat.Name = "cmdAutoCat";
-            this.cmdAutoCat.UseVisualStyleBackColor = true;
-            this.cmdAutoCat.Click += new System.EventHandler(this.cmdAutoCat_Click);
-            // 
-            // cmdGameLaunch
-            // 
-            resources.ApplyResources(this.cmdGameLaunch, "cmdGameLaunch");
-            this.cmdGameLaunch.Name = "cmdGameLaunch";
-            this.cmdGameLaunch.UseVisualStyleBackColor = true;
-            this.cmdGameLaunch.Click += new System.EventHandler(this.cmdGameLaunch_Click);
-            // 
-            // cmdGameAdd
-            // 
-            resources.ApplyResources(this.cmdGameAdd, "cmdGameAdd");
-            this.cmdGameAdd.Name = "cmdGameAdd";
-            this.cmdGameAdd.UseVisualStyleBackColor = true;
-            this.cmdGameAdd.Click += new System.EventHandler(this.cmdGameAdd_Click);
-            // 
-            // cmdGameRemove
-            // 
-            resources.ApplyResources(this.cmdGameRemove, "cmdGameRemove");
-            this.cmdGameRemove.Name = "cmdGameRemove";
-            this.cmdGameRemove.UseVisualStyleBackColor = true;
-            this.cmdGameRemove.Click += new System.EventHandler(this.cmdGameRemove_Click);
-            // 
-            // cmdGameEdit
-            // 
-            resources.ApplyResources(this.cmdGameEdit, "cmdGameEdit");
-            this.cmdGameEdit.Name = "cmdGameEdit";
-            this.cmdGameEdit.UseVisualStyleBackColor = true;
-            this.cmdGameEdit.Click += new System.EventHandler(this.cmdGameEdit_Click);
-            // 
             // lstGames
             // 
-            resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colGameID,
             this.colTitle,
             this.colCategory,
             this.colFavorite});
             this.lstGames.ContextMenuStrip = this.contextGame;
+            resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.FullRowSelect = true;
             this.lstGames.GridLines = true;
             this.lstGames.HideSelection = false;
@@ -377,10 +299,8 @@ namespace Depressurizer {
             this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstGames.UseCompatibleStateImageBehavior = false;
             this.lstGames.View = System.Windows.Forms.View.Details;
-            this.lstGames.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.lstGames_AfterLabelEdit);
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
-            this.lstGames.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lstGames_ItemSelectionChanged);
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
@@ -530,6 +450,91 @@ namespace Depressurizer {
             this.contextGame_LaunchGame.Name = "contextGame_LaunchGame";
             resources.ApplyResources(this.contextGame_LaunchGame, "contextGame_LaunchGame");
             this.contextGame_LaunchGame.Click += new System.EventHandler(this.cmdGameLaunch_Click);
+            // 
+            // cmbAutoCatType
+            // 
+            this.cmbAutoCatType.FormattingEnabled = true;
+            resources.ApplyResources(this.cmbAutoCatType, "cmbAutoCatType");
+            this.cmbAutoCatType.Name = "cmbAutoCatType";
+            // 
+            // chkHidden
+            // 
+            resources.ApplyResources(this.chkHidden, "chkHidden");
+            this.chkHidden.Name = "chkHidden";
+            this.chkHidden.UseVisualStyleBackColor = true;
+            // 
+            // cmdAddCatAndAssign
+            // 
+            resources.ApplyResources(this.cmdAddCatAndAssign, "cmdAddCatAndAssign");
+            this.cmdAddCatAndAssign.Name = "cmdAddCatAndAssign";
+            this.cmdAddCatAndAssign.UseVisualStyleBackColor = true;
+            // 
+            // cmdAutoCat
+            // 
+            resources.ApplyResources(this.cmdAutoCat, "cmdAutoCat");
+            this.cmdAutoCat.Name = "cmdAutoCat";
+            this.cmdAutoCat.UseVisualStyleBackColor = true;
+            this.cmdAutoCat.Click += new System.EventHandler(this.cmdAutoCat_Click);
+            // 
+            // txtAddCatAndAssign
+            // 
+            resources.ApplyResources(this.txtAddCatAndAssign, "txtAddCatAndAssign");
+            this.txtAddCatAndAssign.Name = "txtAddCatAndAssign";
+            // 
+            // chkFavorite
+            // 
+            resources.ApplyResources(this.chkFavorite, "chkFavorite");
+            this.chkFavorite.Name = "chkFavorite";
+            this.chkFavorite.UseVisualStyleBackColor = false;
+            this.chkFavorite.CheckedChanged += new System.EventHandler(this.chkFavorite_CheckedChanged);
+            // 
+            // lstMultiCat
+            // 
+            this.lstMultiCat.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            resources.ApplyResources(this.lstMultiCat, "lstMultiCat");
+            this.lstMultiCat.MultiSelect = false;
+            this.lstMultiCat.Name = "lstMultiCat";
+            this.lstMultiCat.StateImageList = this.imglistTriState;
+            this.lstMultiCat.UseCompatibleStateImageBehavior = false;
+            this.lstMultiCat.View = System.Windows.Forms.View.SmallIcon;
+            this.lstMultiCat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstMultiCat_KeyPress);
+            this.lstMultiCat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstMultiCat_MouseDown);
+            // 
+            // imglistTriState
+            // 
+            this.imglistTriState.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistTriState.ImageStream")));
+            this.imglistTriState.TransparentColor = System.Drawing.Color.Transparent;
+            this.imglistTriState.Images.SetKeyName(0, "tscbUnchecked.png");
+            this.imglistTriState.Images.SetKeyName(1, "tscbChecked.png");
+            this.imglistTriState.Images.SetKeyName(2, "tscbIndeterminate.png");
+            // 
+            // cmdGameRemove
+            // 
+            resources.ApplyResources(this.cmdGameRemove, "cmdGameRemove");
+            this.cmdGameRemove.Name = "cmdGameRemove";
+            this.cmdGameRemove.UseVisualStyleBackColor = true;
+            this.cmdGameRemove.Click += new System.EventHandler(this.cmdGameRemove_Click);
+            // 
+            // cmdGameAdd
+            // 
+            resources.ApplyResources(this.cmdGameAdd, "cmdGameAdd");
+            this.cmdGameAdd.Name = "cmdGameAdd";
+            this.cmdGameAdd.UseVisualStyleBackColor = true;
+            this.cmdGameAdd.Click += new System.EventHandler(this.cmdGameAdd_Click);
+            // 
+            // cmdGameEdit
+            // 
+            resources.ApplyResources(this.cmdGameEdit, "cmdGameEdit");
+            this.cmdGameEdit.Name = "cmdGameEdit";
+            this.cmdGameEdit.UseVisualStyleBackColor = true;
+            this.cmdGameEdit.Click += new System.EventHandler(this.cmdGameEdit_Click);
+            // 
+            // cmdGameLaunch
+            // 
+            resources.ApplyResources(this.cmdGameLaunch, "cmdGameLaunch");
+            this.cmdGameLaunch.Name = "cmdGameLaunch";
+            this.cmdGameLaunch.UseVisualStyleBackColor = true;
+            this.cmdGameLaunch.Click += new System.EventHandler(this.cmdGameLaunch_Click);
             // 
             // menuStrip
             // 
@@ -779,10 +784,12 @@ namespace Depressurizer {
             this.grpCategories.ResumeLayout(false);
             this.contextCat.ResumeLayout(false);
             this.tableCatButtons.ResumeLayout(false);
+            this.splitGame.Panel1.ResumeLayout(false);
+            this.splitGame.Panel2.ResumeLayout(false);
+            this.splitGame.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitGame)).EndInit();
+            this.splitGame.ResumeLayout(false);
             this.grpGames.ResumeLayout(false);
-            this.panelMultiCatMode.ResumeLayout(false);
-            this.panelSingleCatMode.ResumeLayout(false);
-            this.panelSingleCatMode.PerformLayout();
             this.contextGame.ResumeLayout(false);
             this.contextGameAddCat.ResumeLayout(false);
             this.contextGameFav.ResumeLayout(false);
@@ -814,9 +821,6 @@ namespace Depressurizer {
         private System.Windows.Forms.Button cmdGameAdd;
         private System.Windows.Forms.Button cmdGameRemove;
         private System.Windows.Forms.Button cmdGameEdit;
-        private System.Windows.Forms.ComboBox combCategory;
-        private System.Windows.Forms.Button cmdGameSetCategory;
-        private System.Windows.Forms.Button cmdGameSetFavorite;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep2;
         private System.Windows.Forms.ListBox lstCategories;
         private System.Windows.Forms.StatusStrip statusStrip;
@@ -874,13 +878,16 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextGame_LaunchGame;
         private System.Windows.Forms.CheckBox chkFavorite;
         private System.Windows.Forms.ColumnHeader colCategory;
-        private System.Windows.Forms.Panel panelMultiCatMode;
         private System.Windows.Forms.ListView lstMultiCat;
-        private System.Windows.Forms.Panel panelSingleCatMode;
         private System.Windows.Forms.ToolStripMenuItem removeCategoryToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextGameRemCat;
         private System.Windows.Forms.ToolStripMenuItem menu_Tools_SingleCat;
         private System.Windows.Forms.ImageList imglistTriState;
+        private System.Windows.Forms.SplitContainer splitGame;
+        private System.Windows.Forms.Button cmdAddCatAndAssign;
+        private System.Windows.Forms.TextBox txtAddCatAndAssign;
+        private System.Windows.Forms.ComboBox cmbAutoCatType;
+        private System.Windows.Forms.CheckBox chkHidden;
     }
 }
 
