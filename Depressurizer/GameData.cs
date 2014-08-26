@@ -236,10 +236,10 @@ namespace Depressurizer {
             if( Name == null ) return -1;
             if( otherCat.Name == null ) return 1;
 
-            if( Name == "favorite" ) return -1;
-            if( otherCat.Name == "favorite" ) return 1;
-            // TODO: Look into making the sort order match the Steam sort order
-            return Name.CompareTo( ( o as Category ).Name );
+            if( String.Equals( Name, "favorite", StringComparison.OrdinalIgnoreCase ) ) return -1;
+            if( String.Equals( otherCat.Name, "favorite", StringComparison.OrdinalIgnoreCase ) ) return 1;
+
+            return String.CompareOrdinal( Name, otherCat.Name );
         }
     }
 
@@ -275,7 +275,8 @@ namespace Depressurizer {
         /// <returns>True if the name is found, false otherwise</returns>
         public bool CategoryExists( string name ) {
             foreach( Category c in Categories ) {
-                if( c.Name == name ) {
+                //if( c.Name == name ) {
+                if( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) {
                     return true;
                 }
             }
@@ -292,7 +293,7 @@ namespace Depressurizer {
             if( string.IsNullOrEmpty( name ) ) return null;
             // Look for a matching category in the list and return if found
             foreach( Category c in Categories ) {
-                if( c.Name == name ) return c;
+                if( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) return c;
             }
             // Create a new category and return it
             Category newCat = new Category( name );
