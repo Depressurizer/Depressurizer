@@ -256,6 +256,7 @@ namespace Depressurizer {
             // splitGame
             // 
             resources.ApplyResources(this.splitGame, "splitGame");
+            this.splitGame.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitGame.Name = "splitGame";
             // 
             // splitGame.Panel1
@@ -468,6 +469,7 @@ namespace Depressurizer {
             resources.ApplyResources(this.cmdAddCatAndAssign, "cmdAddCatAndAssign");
             this.cmdAddCatAndAssign.Name = "cmdAddCatAndAssign";
             this.cmdAddCatAndAssign.UseVisualStyleBackColor = true;
+            this.cmdAddCatAndAssign.Click += new System.EventHandler(this.cmdAddCatAndAssign_Click);
             // 
             // cmdAutoCat
             // 
@@ -492,11 +494,12 @@ namespace Depressurizer {
             // 
             this.lstMultiCat.Activation = System.Windows.Forms.ItemActivation.OneClick;
             resources.ApplyResources(this.lstMultiCat, "lstMultiCat");
+            this.lstMultiCat.AutoArrange = false;
             this.lstMultiCat.MultiSelect = false;
             this.lstMultiCat.Name = "lstMultiCat";
             this.lstMultiCat.StateImageList = this.imglistTriState;
             this.lstMultiCat.UseCompatibleStateImageBehavior = false;
-            this.lstMultiCat.View = System.Windows.Forms.View.SmallIcon;
+            this.lstMultiCat.View = System.Windows.Forms.View.List;
             this.lstMultiCat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstMultiCat_KeyPress);
             this.lstMultiCat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstMultiCat_MouseDown);
             // 

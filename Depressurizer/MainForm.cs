@@ -578,31 +578,20 @@ namespace Depressurizer {
             }
         }
 
-        /// <summary>
-        /// Assigns the given category to all selected items in the game list, removing other categories
-        /// </summary>
-        /// <param name="cat">Category to assign</param>
-        void AssignSingleCategoryToSelectedGames( Category cat, bool refreshCatList ) {
+        void AddCategoryToSelectedGames( Category cat, bool refreshCatList, bool forceClearOthers ) {
             if( lstGames.SelectedItems.Count > 0 ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     GameInfo g = item.Tag as GameInfo;
                     if( g != null ) {
-                        g.ClearCategoriesExcept( gameData.FavoriteCategory );
-                        if( cat != null ) {
+                        if( forceClearOthers || settings.SingleCatMode ) {
+                            g.ClearCategoriesExcept( gameData.FavoriteCategory );
+                            if( cat != null ) {
+                                g.AddCategory( cat );
+                            }
+                        } else {
                             g.AddCategory( cat );
                         }
                     }
-                }
-                OnGameChange( refreshCatList, true );
-                MakeChange( true );
-            }
-        }
-
-        void AddCategoryToSelectedGames( Category cat, bool refreshCatList ) {
-            if( lstGames.SelectedItems.Count > 0 ) {
-                foreach( ListViewItem item in lstGames.SelectedItems ) {
-                    GameInfo g = item.Tag as GameInfo;
-                    if( g != null ) g.AddCategory( cat );
                 }
                 OnGameChange( refreshCatList, true );
                 MakeChange( true );
@@ -1494,7 +1483,7 @@ namespace Depressurizer {
             Category c = CreateCategory();
             if( c != null ) {
                 ClearStatus();
-                AddCategoryToSelectedGames( c, true );
+                AddCategoryToSelectedGames( c, true, false );
                 FlushStatus();
             }
         }
@@ -1504,7 +1493,7 @@ namespace Depressurizer {
             if( menuItem != null ) {
                 ClearStatus();
                 Category c = menuItem.Tag as Category;
-                AddCategoryToSelectedGames( c, false );
+                AddCategoryToSelectedGames( c, false, false );
                 FlushStatus();
             }
         }
@@ -1575,6 +1564,14 @@ namespace Depressurizer {
                 LaunchGame( g );
             }
             FlushStatus();
+        }
+
+        private void cmdAddCatAndAssign_Click( object sender, EventArgs e ) {
+            if( CatUtil.ValidateCategoryName( txtAddCatAndAssign.Text ) ) {
+                Category cat = gameData.GetCategory( txtAddCatAndAssign.Text );
+                AddCategoryToSelectedGames( cat, true, false );
+                txtAddCatAndAssign.Clear();
+            }
         }
 
         #endregion
@@ -1675,11 +1672,11 @@ namespace Depressurizer {
 
         void HandleMultiCatItemActivation( ListViewItem item ) {
             if( item != null ) {
-                if( item.StateImageIndex == 0 || item.StateImageIndex == 2) {
+                if( item.StateImageIndex == 0 || item.StateImageIndex == 2 ) {
                     item.StateImageIndex = 1;
                     Category cat = item.Tag as Category;
                     if( cat != null ) {
-                        AddCategoryToSelectedGames( cat, false );
+                        AddCategoryToSelectedGames( cat, false, false );
                     }
                 } else if( item.StateImageIndex == 1 ) {
                     item.StateImageIndex = 0;
@@ -1809,7 +1806,7 @@ namespace Depressurizer {
 
         private void chkFavorite_CheckedChanged( object sender, EventArgs e ) {
             if( chkFavorite.CheckState == CheckState.Checked ) {
-                AddCategoryToSelectedGames( gameData.FavoriteCategory, false );
+                AddCategoryToSelectedGames( gameData.FavoriteCategory, false, false );
             } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
                 RemoveCategoryFromSelectedGames( gameData.FavoriteCategory );
             }
@@ -1822,7 +1819,6 @@ namespace Depressurizer {
     static class CatUtil {
         // Special names shown in the category list
         //public static string CAT_ALL_NAME = GlobalStrings.MainForm_All;
-        //public static string CAT_FAV_NAME = GlobalStrings.MainForm_Favorite;
         //public static string CAT_UNC_NAME = GlobalStrings.MainForm_Uncategorized;
 
         /// <summary>
@@ -1837,24 +1833,6 @@ namespace Depressurizer {
             } else {
                 return true;
             }
-        }
-
-        /// <summary>
-        /// Gets a category based on a name. Creates the category if necessary. Displays error message on error.
-        /// </summary>
-        /// <param name="name">Name of the category to get</param>
-        /// <param name="data">Game data object we're referencing</param>
-        /// <param name="cat">Resulting category</param>
-        /// <returns>True if successful, false otherwise</returns>
-        public static bool StringToCategory( string name, GameList data, out Category cat ) {
-            cat = null;
-            if( string.IsNullOrWhiteSpace( name ) ) {
-                return true;
-            }
-            if( name != GlobalStrings.MainForm_Uncategorized ) {
-                cat = data.GetCategory( name );
-            }
-            return true;
         }
     }
 }

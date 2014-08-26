@@ -36,7 +36,7 @@ namespace Depressurizer {
         #region Fields
         public string Name;
         public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
-        
+
         public SortedSet<Category> Categories;
 
         private string _launchStr = null;
@@ -72,14 +72,14 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="newCat">Category to add</param>
         public void AddCategory( Category newCat ) {
-            Categories.Add( newCat );
+            if( newCat != null ) Categories.Add( newCat );
         }
 
         /// <summary>
         /// Adds a list of categories to this game. Skips categories that are already attached.
         /// </summary>
         /// <param name="newCats">A list of categories to add</param>
-        public void AddCategory( ICollection<Category> newCats) {
+        public void AddCategory( ICollection<Category> newCats ) {
             Categories.UnionWith( newCats );
         }
 
@@ -135,7 +135,7 @@ namespace Depressurizer {
         /// <param name="cats">Set of categories to apply to this game</param>
         public void SetCategories( ICollection<Category> cats ) {
             ClearCategories();
-            AddCategory(cats);
+            AddCategory( cats );
         }
         #endregion
 
@@ -199,11 +199,11 @@ namespace Depressurizer {
             bool first = true;
             foreach( Category c in Categories ) {
                 if( c != except ) {
-                if( !first ) {
-                    result += ", ";
-                }
-                result += c.Name;
-                first = false;
+                    if( !first ) {
+                        result += ", ";
+                    }
+                    result += c.Name;
+                    first = false;
                 }
             }
             return first ? ifEmpty : result;
@@ -229,14 +229,14 @@ namespace Depressurizer {
             if( o == null ) return 1;
 
             Category otherCat = o as Category;
-            if( o == null ) throw new ArgumentException( "Object is not a Category");
+            if( o == null ) throw new ArgumentException( "Object is not a Category" );
 
             if( Name == otherCat.Name ) return 0;
 
             if( Name == null ) return -1;
-            if( otherCat.Name == null) return 1;
+            if( otherCat.Name == null ) return 1;
 
-            if( Name == "favorite") return -1;
+            if( Name == "favorite" ) return -1;
             if( otherCat.Name == "favorite" ) return 1;
             // TODO: Look into making the sort order match the Steam sort order
             return Name.CompareTo( ( o as Category ).Name );
@@ -348,7 +348,7 @@ namespace Depressurizer {
             }
             return false;
         }
-        
+
         /// <summary>
         /// Remove all empty categories from the category list.
         /// </summary>
@@ -362,7 +362,7 @@ namespace Depressurizer {
             }
             foreach( GameInfo g in Games.Values ) {
                 foreach( Category c in g.Categories ) {
-                    if( counts.ContainsKey(c) ) counts[c]++;
+                    if( counts.ContainsKey( c ) ) counts[c]++;
                 }
             }
             int removed = 0;
@@ -382,7 +382,7 @@ namespace Depressurizer {
             Games.Clear();
             Categories.Clear();
         }
-        
+
         /// <summary>
         /// Sets the name of the given game ID, and adds the game to the list if it doesn't already exist.
         /// </summary>
@@ -470,7 +470,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="gameIDs">List of game IDs to add to</param>
         /// <param name="c">Category to add</param>
-        public void AddGameCategory( int[] gameIDs, Category c) {
+        public void AddGameCategory( int[] gameIDs, Category c ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
                 AddGameCategory( gameIDs[i], c );
             }
@@ -927,7 +927,7 @@ namespace Depressurizer {
                     }
                 }
             }
-        
+
 
             Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_CleaningUpSteamConfigTree );
             appListNode.CleanTree();
@@ -1229,7 +1229,7 @@ namespace Depressurizer {
 
             } else if( oldShortcutId >= 0 && oldShortcutId < oldShortcuts.Count ) {
                 // Fill in categories from the game list
-                game.SetCategories( oldShortcuts[oldShortcutId].Categories);
+                game.SetCategories( oldShortcuts[oldShortcutId].Categories );
             }
 
             if( oldShortcutId != -1 ) oldShortcuts.RemoveAt( oldShortcutId );

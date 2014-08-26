@@ -175,7 +175,7 @@
     <value>6, 20</value>
   </data>
   <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 399</value>
+    <value>230, 399</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -205,7 +205,7 @@
     <value>3, 3</value>
   </data>
   <data name="cmdCatAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 23</value>
+    <value>72, 23</value>
   </data>
   <data name="cmdCatAdd.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -229,10 +229,10 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="cmdCatDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 3</value>
+    <value>159, 3</value>
   </data>
   <data name="cmdCatDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 23</value>
+    <value>74, 23</value>
   </data>
   <data name="cmdCatDelete.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -256,10 +256,10 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="cmdCatRename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 3</value>
+    <value>81, 3</value>
   </data>
   <data name="cmdCatRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 23</value>
+    <value>72, 23</value>
   </data>
   <data name="cmdCatRename.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -286,7 +286,7 @@
     <value>1</value>
   </data>
   <data name="tableCatButtons.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 29</value>
+    <value>236, 29</value>
   </data>
   <data name="tableCatButtons.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -313,7 +313,7 @@
     <value>0, 0</value>
   </data>
   <data name="grpCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>284, 473</value>
+    <value>239, 473</value>
   </data>
   <data name="grpCategories.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -511,7 +511,7 @@
     <value>3, 16</value>
   </data>
   <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>802, 322</value>
+    <value>847, 322</value>
   </data>
   <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -535,7 +535,7 @@
     <value>0, 0</value>
   </data>
   <data name="grpGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>808, 341</value>
+    <value>853, 341</value>
   </data>
   <data name="grpGames.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -622,7 +622,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="cmdAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>661, 80</value>
+    <value>706, 80</value>
   </data>
   <data name="cmdAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
     <value>141, 23</value>
@@ -676,7 +676,7 @@
     <value>275, 82</value>
   </data>
   <data name="txtAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 20</value>
+    <value>425, 20</value>
   </data>
   <data name="txtAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -727,7 +727,7 @@
     <value>275, 3</value>
   </data>
   <data name="lstMultiCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>527, 73</value>
+    <value>572, 73</value>
   </data>
   <metadata name="imglistTriState.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>918, 17</value>
@@ -737,7 +737,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAVABAAFQAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAVgBAAFYAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -911,7 +911,7 @@
     <value>128</value>
   </data>
   <data name="splitGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>808, 473</value>
+    <value>853, 473</value>
   </data>
   <data name="splitGame.SplitterDistance" type="System.Int32, mscorlib">
     <value>341</value>
@@ -950,7 +950,7 @@
     <value>1096, 473</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>284</value>
+    <value>239</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1362,7 +1362,7 @@
 </value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>550, 250</value>
+    <value>600, 350</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Depressurizer</value>
