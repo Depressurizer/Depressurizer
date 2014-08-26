@@ -117,36 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="contextCat_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
   <data name="contextCat_Add.Text" xml:space="preserve">
     <value>Añadir Categoría...</value>
-  </data>
-  <data name="contextCat_Rename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
   </data>
   <data name="contextCat_Rename.Text" xml:space="preserve">
     <value>Renombrar Categoría...</value>
   </data>
-  <data name="contextCat_Delete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
   <data name="contextCat_Delete.Text" xml:space="preserve">
     <value>Borrar Categoría</value>
   </data>
-  <data name="contextCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 6</value>
-  </data>
-  <data name="contextCat_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 22</value>
-  </data>
   <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
     <value>Borrar Categorías Vacías</value>
-  </data>
-  <data name="contextCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 98</value>
   </data>
   <data name="cmdCatAdd.Text" xml:space="preserve">
     <value>Añadir</value>
@@ -160,17 +141,8 @@
   <data name="grpCategories.Text" xml:space="preserve">
     <value>Categorías</value>
   </data>
-  <data name="chkGroupCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 316</value>
-  </data>
-  <data name="chkGroupCategory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 17</value>
-  </data>
   <data name="chkGroupCategory.Text" xml:space="preserve">
     <value>Agrupar por categoría</value>
-  </data>
-  <data name="chkFavorite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>435, 293</value>
   </data>
   <data name="cmdGameLaunch.Text" xml:space="preserve">
     <value>Lanzar Juego</value>
@@ -186,9 +158,6 @@
   </data>
   <data name="cmdGameEdit.Text" xml:space="preserve">
     <value>Editar Juego</value>
-  </data>
-  <data name="combCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>328, 265</value>
   </data>
   <data name="cmdGameSetCategory.Text" xml:space="preserve">
     <value>Mod. Categoría</value>
@@ -208,243 +177,103 @@
   <data name="colFavorite.Text" xml:space="preserve">
     <value>Favorito</value>
   </data>
-  <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
   <data name="contextGame_Add.Text" xml:space="preserve">
     <value>Añadir Nuevo Juego...</value>
-  </data>
-  <data name="cntxtGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
   </data>
   <data name="cntxtGame_Edit.Text" xml:space="preserve">
     <value>Editar Juego...</value>
   </data>
-  <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
   <data name="contextGame_Remove.Text" xml:space="preserve">
     <value>Eliminar Juego</value>
-  </data>
-  <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
-  </data>
-  <data name="contextGameCat_Create.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 22</value>
   </data>
   <data name="contextGameCat_Create.Text" xml:space="preserve">
     <value>Crear Nueva...</value>
   </data>
-  <data name="contextGameCat_None.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 22</value>
-  </data>
   <data name="contextGameCat_None.Text" xml:space="preserve">
     <value>Sin Categoría</value>
-  </data>
-  <data name="contextGameCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 6</value>
-  </data>
-  <data name="contextGameCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 54</value>
-  </data>
-  <data name="contextGame_SetCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
   </data>
   <data name="contextGame_SetCat.Text" xml:space="preserve">
     <value>Añadir Categoría</value>
   </data>
-  <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 22</value>
-  </data>
   <data name="contextGameFav_Yes.Text" xml:space="preserve">
     <value>Sí</value>
-  </data>
-  <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 22</value>
-  </data>
-  <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 48</value>
-  </data>
-  <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
   </data>
   <data name="contextGame_SetFav.Text" xml:space="preserve">
     <value>Establecer Favorito</value>
   </data>
-  <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
-  </data>
-  <data name="contextGame_VisitStore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
   <data name="contextGame_VisitStore.Text" xml:space="preserve">
     <value>Visitar en Tienda</value>
-  </data>
-  <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
-  </data>
-  <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
   </data>
   <data name="contextGame_LaunchGame.Text" xml:space="preserve">
     <value>Lanzar Juego</value>
   </data>
-  <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 176</value>
-  </data>
   <data name="grpGames.Text" xml:space="preserve">
     <value>Juegos</value>
-  </data>
-  <data name="menu_File_NewProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 22</value>
   </data>
   <data name="menu_File_NewProfile.Text" xml:space="preserve">
     <value>&amp;Nuevo Perfil...</value>
   </data>
-  <data name="menu_File_LoadProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 22</value>
-  </data>
   <data name="menu_File_LoadProfile.Text" xml:space="preserve">
     <value>&amp;Leer Perfil...</value>
-  </data>
-  <data name="menu_File_SaveProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 22</value>
   </data>
   <data name="menu_File_SaveProfile.Text" xml:space="preserve">
     <value>&amp;Guardar Perfil</value>
   </data>
-  <data name="menu_File_SaveProfileAs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 22</value>
-  </data>
   <data name="menu_File_SaveProfileAs.Text" xml:space="preserve">
     <value>Guardar Perfil &amp;Como...</value>
-  </data>
-  <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 6</value>
-  </data>
-  <data name="menu_File_Close.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 22</value>
   </data>
   <data name="menu_File_Close.Text" xml:space="preserve">
     <value>C&amp;errar</value>
   </data>
-  <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 6</value>
-  </data>
-  <data name="menu_File_Manual_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 22</value>
-  </data>
   <data name="menu_File_Manual_Import.Text" xml:space="preserve">
     <value>&amp;Importar Fichero Configuración...</value>
-  </data>
-  <data name="menu_File_Manual_Download.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 22</value>
   </data>
   <data name="menu_File_Manual_Download.Text" xml:space="preserve">
     <value>&amp;Descargar Lista de Juegos...</value>
   </data>
-  <data name="menu_File_Manual_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 22</value>
-  </data>
   <data name="menu_File_Manual_Export.Text" xml:space="preserve">
     <value>&amp;Exportar Fichero de Configuración...</value>
-  </data>
-  <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 22</value>
-  </data>
-  <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 6</value>
-  </data>
-  <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 22</value>
   </data>
   <data name="menu_File_Exit.Text" xml:space="preserve">
     <value>&amp;Salir</value>
   </data>
-  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 20</value>
-  </data>
   <data name="menu_File.Text" xml:space="preserve">
     <value>&amp;Fichero</value>
-  </data>
-  <data name="menu_Profile_Download.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
   </data>
   <data name="menu_Profile_Download.Text" xml:space="preserve">
     <value>&amp;Descargar Lista de Juegos</value>
   </data>
-  <data name="menu_Profile_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
   <data name="menu_Profile_Import.Text" xml:space="preserve">
     <value>&amp;Importar Fichero de Configuración</value>
-  </data>
-  <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 6</value>
-  </data>
-  <data name="menu_Profile_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
   </data>
   <data name="menu_Profile_Export.Text" xml:space="preserve">
     <value>&amp;Exportar Fichero de Configuración</value>
   </data>
-  <data name="menu_Profile_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 6</value>
-  </data>
-  <data name="menu_Profile_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 22</value>
-  </data>
   <data name="menu_Profile_Edit.Text" xml:space="preserve">
     <value>Editar Información de &amp;Perfil</value>
-  </data>
-  <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 20</value>
   </data>
   <data name="menu_Profile.Text" xml:space="preserve">
     <value>&amp;Perfil</value>
   </data>
-  <data name="menu_Tools_AutonameAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 22</value>
-  </data>
   <data name="menu_Tools_AutonameAll.Text" xml:space="preserve">
     <value>Auto-Nombrar Todo</value>
-  </data>
-  <data name="menu_Tools_AutocatAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 22</value>
   </data>
   <data name="menu_Tools_AutocatAll.Text" xml:space="preserve">
     <value>Auto-Cat Todo</value>
   </data>
-  <data name="menu_Tools_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 22</value>
-  </data>
   <data name="menu_Tools_RemoveEmpty.Text" xml:space="preserve">
     <value>Eliminar Categorías Vacías</value>
-  </data>
-  <data name="menu_Tools_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 6</value>
-  </data>
-  <data name="menu_Tools_DBEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 22</value>
   </data>
   <data name="menu_Tools_DBEdit.Text" xml:space="preserve">
     <value>Editor de base de datos...</value>
   </data>
-  <data name="menu_Tools_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 6</value>
-  </data>
-  <data name="menu_Tools_Settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 22</value>
-  </data>
   <data name="menu_Tools_Settings.Text" xml:space="preserve">
     <value>Configuración...</value>
-  </data>
-  <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 20</value>
   </data>
   <data name="menu_Tools.Text" xml:space="preserve">
     <value>Herramientas</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAMAICAAAAEAIACoEAAANgAAABgYAAABACAAiAkAAN4QAAAQEAAAAQAgAGgEAABmGgAAKAAAACAA
