@@ -37,6 +37,8 @@ namespace Depressurizer {
         public string Name;
         public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
 
+        public bool Hidden;
+
         public SortedSet<Category> Categories;
 
         private string _launchStr = null;
@@ -63,6 +65,7 @@ namespace Depressurizer {
         public GameInfo( int id, string name ) {
             Id = id;
             Name = name;
+            Hidden = false;
             Categories = new SortedSet<Category>();
         }
 
@@ -181,6 +184,11 @@ namespace Depressurizer {
             return false;
         }
 
+        /// <summary>
+        /// Gets a string listing the game's assigned categories.
+        /// </summary>
+        /// <param name="ifEmpty">Value to return if there are no categories</param>
+        /// <returns>List of the game's categories, separated by commas.</returns>
         public string GetCatString( string ifEmpty = "" ) {
             string result = "";
             bool first = true;
@@ -194,6 +202,12 @@ namespace Depressurizer {
             return first ? ifEmpty : result;
         }
 
+        /// <summary>
+        /// Gets a string listing the game's assigned categories, omitting the given category from the list if it is found.
+        /// </summary>
+        /// <param name="except">Category to omit</param>
+        /// <param name="ifEmpty">Value to return if there are no categories</param>
+        /// <returns>List of the game's categories, separated by commas.</returns>
         public string GetCatStringExcept( Category except, string ifEmpty = "" ) {
             string result = "";
             bool first = true;
@@ -774,6 +788,13 @@ namespace Depressurizer {
                                 }
                             }
 
+                            bool hidden = false;
+                            if( gameNodePair.Value.ContainsKey( "hidden" ) ) {
+                                VdfFileNode hiddenNode = gameNodePair.Value["hidden"];
+                                hidden = ( hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1 );
+                            }
+                            
+
                             // Add the game to the list if it doesn't exist already
                             if( !Games.ContainsKey( gameId ) ) {
                                 GameInfo newGame = new GameInfo( gameId, string.Empty );
@@ -785,6 +806,7 @@ namespace Depressurizer {
                             if( cats.Count > 0 ) {
                                 this.SetGameCategories( gameId, cats, false );
                             }
+                            Games[gameId].Hidden = hidden;
 
                             //TODO: Don't think SortedSet.ToString() does what I hope
                             Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, ( cats.Count == 0 ) ? "~" : cats.ToString() );
@@ -926,6 +948,12 @@ namespace Depressurizer {
                         tagsNode[key.ToString()] = new TextVdfFileNode( c.Name );
                         key++;
                     }
+
+                    if( game.Hidden ) {
+                        gameNode["hidden"] = new TextVdfFileNode("1");
+                    } else {
+                        gameNode.RemoveSubnode( "hidden" );
+                    }
                 }
             }
 
@@ -1020,6 +1048,8 @@ namespace Depressurizer {
                             tagsNode[index.ToString()] = new BinaryVdfFileNode( c.Name );
                             index++;
                         }
+
+                        nodeGame["hidden"] = new BinaryVdfFileNode( game.Hidden ? 1 : 0 );
                     }
                 }
                 if( dataRoot.NodeType == ValueType.Array ) {
@@ -1231,6 +1261,12 @@ namespace Depressurizer {
             } else if( oldShortcutId >= 0 && oldShortcutId < oldShortcuts.Count ) {
                 // Fill in categories from the game list
                 game.SetCategories( oldShortcuts[oldShortcutId].Categories );
+            }
+
+            game.Hidden = false;
+            if( gameNode.ContainsKey( "hidden" ) ) {
+                VdfFileNode hiddenNode = gameNode["hidden"];
+                game.Hidden = ( hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1 );
             }
 
             if( oldShortcutId != -1 ) oldShortcuts.RemoveAt( oldShortcutId );

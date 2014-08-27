@@ -57,6 +57,7 @@ namespace Depressurizer {
             // Set up list sorting
             listSorter.AddIntCol( 0 );
             listSorter.AddRevCol( 3 );
+            listSorter.AddRevCol( 4 );
             listSorter.SetSortCol( 1, 1 );
             lstGames.ListViewItemSorter = listSorter;
             lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
@@ -630,6 +631,19 @@ namespace Depressurizer {
             }
         }
 
+        void AssignHiddenToSelectedGames( bool hidden ) {
+            if( lstGames.SelectedItems.Count > 0 ) {
+                foreach( ListViewItem item in lstGames.SelectedItems ) {
+                    GameInfo g = item.Tag as GameInfo;
+                    if( g != null ) {
+                        g.Hidden = hidden;
+                    }
+                }
+                OnGameChange( false, true );
+                MakeChange( true );
+            }
+        }
+
         /// <summary>
         /// Unloads the current profile or game list, making sure the user gets the option to save any changes.
         /// </summary>
@@ -903,13 +917,12 @@ namespace Depressurizer {
         private void AddGameToList( GameInfo g ) {
             string catName = g.GetCatStringExcept( gameData.FavoriteCategory, GlobalStrings.MainForm_Uncategorized );
 
-            // Change favorite column contents from Y-N to X or blank
             ListViewItem item;
 
             // Shortcut games do not show internal identifier
             string strId = ( g.Id < 0 ) ? GlobalStrings.MainForm_External : g.Id.ToString();
 
-            item = new ListViewItem( new string[] { strId, g.Name, catName, g.ContainsCategory( gameData.FavoriteCategory ) ? "X" : String.Empty } );
+            item = new ListViewItem( new string[] { strId, g.Name, catName, g.ContainsCategory( gameData.FavoriteCategory ) ? "X" : String.Empty, g.Hidden ? "X" : String.Empty } );
 
             item.Tag = g;
 
@@ -1024,14 +1037,19 @@ namespace Depressurizer {
         void AddGameToCheckboxStates( GameInfo game, bool first ) {
             if( first ) {
                 chkFavorite.CheckState = game.ContainsCategory( gameData.FavoriteCategory ) ? CheckState.Checked : CheckState.Unchecked;
+                chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
             } else {
                 if( game.ContainsCategory( gameData.FavoriteCategory ) ) {
                     if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
                 } else {
                     if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
                 }
+                if( game.Hidden ) {
+                    if( chkHidden.CheckState == CheckState.Unchecked ) chkHidden.CheckState = CheckState.Indeterminate;
+                } else {
+                    if( chkHidden.CheckState == CheckState.Checked ) chkHidden.CheckState = CheckState.Indeterminate;
+                }
             }
-            //TODO: Hidden checkbox, once hiding is supported
         }
 
         /// <summary>
@@ -1047,6 +1065,7 @@ namespace Depressurizer {
                 item.SubItems[1].Text = g.Name;
                 item.SubItems[2].Text = g.GetCatStringExcept( gameData.FavoriteCategory, GlobalStrings.MainForm_Uncategorized );
                 item.SubItems[3].Text = g.ContainsCategory( gameData.FavoriteCategory ) ? "X" : String.Empty;
+                item.SubItems[4].Text = g.Hidden ? "X" : String.Empty;
                 return true;
             } else {
                 lstGames.Items.RemoveAt( index );
@@ -1809,6 +1828,14 @@ namespace Depressurizer {
                 AddCategoryToSelectedGames( gameData.FavoriteCategory, false, false );
             } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
                 RemoveCategoryFromSelectedGames( gameData.FavoriteCategory );
+            }
+        }
+
+        private void chkHidden_CheckedChanged( object sender, EventArgs e ) {
+            if( chkHidden.CheckState == CheckState.Checked ) {
+                AssignHiddenToSelectedGames( true );
+            } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
+                AssignHiddenToSelectedGames( false );
             }
         }
     }

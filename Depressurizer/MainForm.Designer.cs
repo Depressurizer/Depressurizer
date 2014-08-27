@@ -127,6 +127,7 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.colHidden = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -290,7 +291,8 @@ namespace Depressurizer {
             this.colGameID,
             this.colTitle,
             this.colCategory,
-            this.colFavorite});
+            this.colFavorite,
+            this.colHidden});
             this.lstGames.ContextMenuStrip = this.contextGame;
             resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.FullRowSelect = true;
@@ -463,6 +465,7 @@ namespace Depressurizer {
             resources.ApplyResources(this.chkHidden, "chkHidden");
             this.chkHidden.Name = "chkHidden";
             this.chkHidden.UseVisualStyleBackColor = true;
+            this.chkHidden.CheckedChanged += new System.EventHandler(this.chkHidden_CheckedChanged);
             // 
             // cmdAddCatAndAssign
             // 
@@ -768,6 +771,10 @@ namespace Depressurizer {
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
             // 
+            // colHidden
+            // 
+            resources.ApplyResources(this.colHidden, "colHidden");
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -891,6 +898,7 @@ namespace Depressurizer {
         private System.Windows.Forms.TextBox txtAddCatAndAssign;
         private System.Windows.Forms.ComboBox cmbAutoCatType;
         private System.Windows.Forms.CheckBox chkHidden;
+        private System.Windows.Forms.ColumnHeader colHidden;
     }
 }
 

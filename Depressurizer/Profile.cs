@@ -150,6 +150,8 @@ namespace Depressurizer {
                 GameInfo game = new GameInfo( id, name );
                 profile.GameData.Games.Add( id, game );
 
+                game.Hidden = XmlUtil.GetBoolFromNode( node["hidden"], false );
+
                 if( profileVersion < 1 ) {
                     string catName;
                     if( XmlUtil.TryGetStringFromNode( node["category"], out catName ) ) {
@@ -217,6 +219,8 @@ namespace Depressurizer {
                 if( g.Name != null ) {
                     writer.WriteElementString( "name", g.Name );
                 }
+
+                writer.WriteElementString( "hidden", g.Hidden.ToString() );
 
                 writer.WriteStartElement( "categories" );
                 foreach( Category c in g.Categories ) {

@@ -42,8 +42,9 @@ namespace Depressurizer {
                 txtName.Text = Game.Name;
                 txtCategory.Text = Game.GetCatStringExcept( Data.FavoriteCategory );
                 chkFavorite.Checked = Game.ContainsCategory( Data.FavoriteCategory );
+                chkHidden.Checked = Game.Hidden;
                 txtId.ReadOnly = true;
-                //TODO: handle hidden
+                
             } else {
                 Text = GlobalStrings.DlgGame_CreateGame;
             }
@@ -76,10 +77,12 @@ namespace Depressurizer {
                 }
             }
 
-            if( chkFavorite.Checked ) Game.AddCategory( Data.FavoriteCategory );
-            else Game.RemoveCategory( Data.FavoriteCategory );
-
-            //TODO: Save hidden status
+            if( chkFavorite.Checked ) {
+                Game.AddCategory( Data.FavoriteCategory );
+            } else {
+                Game.RemoveCategory( Data.FavoriteCategory );
+            }
+            Game.Hidden = chkHidden.Checked;
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
