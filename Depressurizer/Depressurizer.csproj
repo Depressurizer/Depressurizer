@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoCat.cs" />
     <Compile Include="VdfFile\BinaryVdfFileNode.cs" />
     <Compile Include="CDlgDataScrape.cs">
       <SubType>Form</SubType>
