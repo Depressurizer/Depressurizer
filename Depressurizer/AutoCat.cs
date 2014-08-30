@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-
+using System.Xml;
 
 namespace Depressurizer {
 
@@ -14,11 +13,17 @@ namespace Depressurizer {
     /// </summary>
     abstract class AutoCat {
 
-        protected GameDB db;
         protected GameList games;
 
-        public AutoCat( GameDB db, GameList games ) {
-            this.db = db;
+        private string name;
+        public string Name {
+            get {
+                return name;
+            }
+        }
+
+        public AutoCat( string name, GameList games ) {
+            this.name = name;
             this.games = games;
         }
 
@@ -34,6 +39,21 @@ namespace Depressurizer {
         /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
         public abstract bool CategorizeGame( int gameId );
 
+        public abstract void ToXml( XmlWriter doc );
+
+        public static AutoCat LoadXml( XmlElement xElement, GameList list, GameDB db ) {
+            string type = xElement.Name;
+
+            AutoCat result = null;
+            switch( type ) {
+                case AutoCatGenre.TypeIdString:
+                    result = AutoCatGenre.LoadXml( xElement, list, db );
+                    break;
+                default:
+                    break;
+            }
+            return result;
+        }
     }
 
     /// <summary>
@@ -41,8 +61,13 @@ namespace Depressurizer {
     /// </summary>
     class AutoCatGenre : AutoCat {
 
+        protected GameDB db;
         protected int maxCategories;
         protected bool removeOtherGenres;
+
+        public const string TypeIdString = "AutoCatGenre";
+
+        private const string XmlName_Name = "Name", XmlName_RemOther = "RemoveOthers", XmlName_MaxCats = "MaxCategories";
 
         private SortedSet<Category> genreCategories;
 
@@ -53,7 +78,9 @@ namespace Depressurizer {
         /// <param name="games">Reference to the GameList to act on</param>
         /// <param name="maxCategories">Maximum number of categories to assign per game. 0 indicates no limit.</param>
         /// <param name="removeOthers">If true, removes any OTHER genre-named categories from each game processed. Will not remove categories that do not match a genre found in the database.</param>
-        public AutoCatGenre( GameDB db, GameList games, int maxCategories, bool removeOthers ) : base( db, games ) {
+        public AutoCatGenre( string name, GameList games, GameDB db, int maxCategories, bool removeOthers )
+            : base( name, games ) {
+            this.db = db;
             this.maxCategories = maxCategories;
             this.removeOtherGenres = removeOthers;
         }
@@ -100,6 +127,24 @@ namespace Depressurizer {
             games.AddGameCategory( gameId, categories );
 
             return true;
+        }
+
+        public override void ToXml( XmlWriter writer ) {
+            writer.WriteStartElement( TypeIdString );
+
+            writer.WriteElementString( XmlName_Name, this.Name );
+            writer.WriteElementString( XmlName_MaxCats, this.maxCategories.ToString() );
+            writer.WriteElementString( XmlName_RemOther, this.removeOtherGenres.ToString() );
+
+            writer.WriteEndElement();
+        }
+
+        public static new AutoCatGenre LoadXml( XmlElement xElement, GameList list, GameDB db ) {
+            string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+            int maxCats = XmlUtil.GetIntFromNode( xElement[XmlName_MaxCats], 0 );
+            bool remOther = XmlUtil.GetBoolFromNode( xElement[XmlName_RemOther], false );
+            AutoCatGenre result = new AutoCatGenre( name, list, db, maxCats, remOther );
+            return result;
         }
     }
 }
