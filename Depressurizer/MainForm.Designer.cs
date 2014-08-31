@@ -63,6 +63,7 @@ namespace Depressurizer {
             this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFavorite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHidden = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.cntxtGame_Edit = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,7 +128,6 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.colHidden = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -327,6 +327,11 @@ namespace Depressurizer {
             // 
             this.colFavorite.Tag = "colFavorite";
             resources.ApplyResources(this.colFavorite, "colFavorite");
+            // 
+            // colHidden
+            // 
+            this.colHidden.Tag = "colHidden";
+            resources.ApplyResources(this.colHidden, "colHidden");
             // 
             // contextGame
             // 
@@ -770,10 +775,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.statusSelection, "statusSelection");
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
-            // 
-            // colHidden
-            // 
-            resources.ApplyResources(this.colHidden, "colHidden");
             // 
             // FormMain
             // 
