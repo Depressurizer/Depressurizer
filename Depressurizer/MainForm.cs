@@ -1041,10 +1041,12 @@ namespace Depressurizer {
                 chkFavorite.CheckState = game.ContainsCategory( gameData.FavoriteCategory ) ? CheckState.Checked : CheckState.Unchecked;
                 chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
             } else {
-                if( game.ContainsCategory( gameData.FavoriteCategory ) ) {
-                    if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
-                } else {
-                    if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
+                if( chkFavorite.CheckState != CheckState.Indeterminate ) {
+                    if( game.ContainsCategory( gameData.FavoriteCategory ) ) {
+                        if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
+                    } else {
+                        if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
+                    }
                 }
                 if( game.Hidden ) {
                     if( chkHidden.CheckState == CheckState.Unchecked ) chkHidden.CheckState = CheckState.Indeterminate;
@@ -1641,12 +1643,6 @@ namespace Depressurizer {
             listSorter.SetSortCol( e.Column );
             lstGames.SetSortIcon( e.Column, ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
             lstGames.Sort();
-        }
-
-        private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
-            //UpdateSelectedStatusText();
-            //UpdateEnabledStatesForGames();
-            //UpdateGameCheckStates();
         }
 
         private void lstGames_SelectionChanged( object sender, EventArgs e ) {
