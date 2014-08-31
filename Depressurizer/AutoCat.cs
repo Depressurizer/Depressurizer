@@ -11,9 +11,10 @@ namespace Depressurizer {
     /// This is a preliminary form, and may change in future versions.
     /// Returning only true / false on a categorization attempt may prove too simplistic.
     /// </summary>
-    abstract class AutoCat {
+    public abstract class AutoCat {
 
         protected GameList games;
+        protected GameDB db;
 
         private string name;
         public string Name {
@@ -22,15 +23,17 @@ namespace Depressurizer {
             }
         }
 
-        public AutoCat( string name, GameList games ) {
+        public AutoCat( string name ) {
             this.name = name;
-            this.games = games;
         }
 
         /// <summary>
-        /// Should be called before any categorizations are done. Should be overridden to perform any necessary database analysis.
+        /// Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis or other preparation.
         /// </summary>
-        public virtual void PreProcess() { }
+        public virtual void PreProcess( GameList games, GameDB db ) {
+            this.games = games;
+            this.db = db;
+        }
 
         /// <summary>
         /// Applies this autocategorization scheme to the game with the given ID.
@@ -39,15 +42,20 @@ namespace Depressurizer {
         /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
         public abstract bool CategorizeGame( int gameId );
 
-        public abstract void ToXml( XmlWriter doc );
+        public virtual void DeProcess() {
+            games = null;
+            db = null;
+        }
 
-        public static AutoCat LoadXml( XmlElement xElement, GameList list, GameDB db ) {
+        public abstract void WriteToXml( XmlWriter writer );
+
+        public static AutoCat LoadACFromXmlElement( XmlElement xElement ) {
             string type = xElement.Name;
 
             AutoCat result = null;
             switch( type ) {
                 case AutoCatGenre.TypeIdString:
-                    result = AutoCatGenre.LoadXml( xElement, list, db );
+                    result = AutoCatGenre.LoadFromXmlElement( xElement );
                     break;
                 default:
                     break;
@@ -59,9 +67,8 @@ namespace Depressurizer {
     /// <summary>
     /// Autocategorization scheme that adds genre categories.
     /// </summary>
-    class AutoCatGenre : AutoCat {
+    public class AutoCatGenre : AutoCat {
 
-        protected GameDB db;
         protected int maxCategories;
         protected bool removeOtherGenres;
 
@@ -78,9 +85,8 @@ namespace Depressurizer {
         /// <param name="games">Reference to the GameList to act on</param>
         /// <param name="maxCategories">Maximum number of categories to assign per game. 0 indicates no limit.</param>
         /// <param name="removeOthers">If true, removes any OTHER genre-named categories from each game processed. Will not remove categories that do not match a genre found in the database.</param>
-        public AutoCatGenre( string name, GameList games, GameDB db, int maxCategories, bool removeOthers )
-            : base( name, games ) {
-            this.db = db;
+        public AutoCatGenre( string name, int maxCategories, bool removeOthers )
+            : base( name ) {
             this.maxCategories = maxCategories;
             this.removeOtherGenres = removeOthers;
         }
@@ -88,7 +94,8 @@ namespace Depressurizer {
         /// <summary>
         /// Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is false.
         /// </summary>
-        public override void PreProcess() {
+        public override void PreProcess( GameList games, GameDB db ) {
+            base.PreProcess( games, db );
             if( removeOtherGenres ) {
                 SortedSet<string> catStrings = new SortedSet<string>();
                 char[] sep = new char[] { ',' };
@@ -108,7 +115,17 @@ namespace Depressurizer {
             }
         }
 
+        public override void DeProcess() {
+            base.DeProcess();
+            this.genreCategories = null;
+        }
+
         public override bool CategorizeGame( int gameId ) {
+            //TODO: L10N: remove string literals
+            if( games == null ) throw new ApplicationException( "AutoCatGenre has no game list." );
+            if( db == null ) throw new ApplicationException( "AutoCatGenre has no game database." );
+            if( games.Games.ContainsKey( gameId ) ) throw new ApplicationException( "AutoCatGenre invoked on a non-existent game." );
+
             if( !db.Contains( gameId ) ) return false;
 
             GameDBEntry dbEntry = db.Games[gameId];
@@ -129,7 +146,7 @@ namespace Depressurizer {
             return true;
         }
 
-        public override void ToXml( XmlWriter writer ) {
+        public override void WriteToXml( XmlWriter writer ) {
             writer.WriteStartElement( TypeIdString );
 
             writer.WriteElementString( XmlName_Name, this.Name );
@@ -139,11 +156,11 @@ namespace Depressurizer {
             writer.WriteEndElement();
         }
 
-        public static new AutoCatGenre LoadXml( XmlElement xElement, GameList list, GameDB db ) {
+        public static AutoCatGenre LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
             int maxCats = XmlUtil.GetIntFromNode( xElement[XmlName_MaxCats], 0 );
             bool remOther = XmlUtil.GetBoolFromNode( xElement[XmlName_RemOther], false );
-            AutoCatGenre result = new AutoCatGenre( name, list, db, maxCats, remOther );
+            AutoCatGenre result = new AutoCatGenre( name, maxCats, remOther );
             return result;
         }
     }
