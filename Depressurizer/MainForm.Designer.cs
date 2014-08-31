@@ -58,7 +58,7 @@ namespace Depressurizer {
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.splitGame = new System.Windows.Forms.SplitContainer();
             this.grpGames = new System.Windows.Forms.GroupBox();
-            this.lstGames = new System.Windows.Forms.ListView();
+            this.lstGames = new Depressurizer.Lib.ExtListView();
             this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -294,14 +294,15 @@ namespace Depressurizer {
             this.colFavorite,
             this.colHidden});
             this.lstGames.ContextMenuStrip = this.contextGame;
-            resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.FullRowSelect = true;
             this.lstGames.GridLines = true;
             this.lstGames.HideSelection = false;
+            resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.Name = "lstGames";
             this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstGames.UseCompatibleStateImageBehavior = false;
             this.lstGames.View = System.Windows.Forms.View.Details;
+            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
@@ -821,14 +822,10 @@ namespace Depressurizer {
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.GroupBox grpCategories;
         private System.Windows.Forms.GroupBox grpGames;
-        private System.Windows.Forms.ListView lstGames;
-        private System.Windows.Forms.ColumnHeader colTitle;
-        private System.Windows.Forms.ColumnHeader colGameID;
         private System.Windows.Forms.TableLayoutPanel tableCatButtons;
         private System.Windows.Forms.Button cmdCatAdd;
         private System.Windows.Forms.Button cmdCatDelete;
         private System.Windows.Forms.Button cmdCatRename;
-        private System.Windows.Forms.ColumnHeader colFavorite;
         private System.Windows.Forms.Button cmdGameAdd;
         private System.Windows.Forms.Button cmdGameRemove;
         private System.Windows.Forms.Button cmdGameEdit;
@@ -888,7 +885,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripSeparator contextGame_Sep3;
         private System.Windows.Forms.ToolStripMenuItem contextGame_LaunchGame;
         private System.Windows.Forms.CheckBox chkFavorite;
-        private System.Windows.Forms.ColumnHeader colCategory;
         private System.Windows.Forms.ListView lstMultiCat;
         private System.Windows.Forms.ToolStripMenuItem removeCategoryToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextGameRemCat;
@@ -899,6 +895,11 @@ namespace Depressurizer {
         private System.Windows.Forms.TextBox txtAddCatAndAssign;
         private System.Windows.Forms.ComboBox cmbAutoCatType;
         private System.Windows.Forms.CheckBox chkHidden;
+        private Depressurizer.Lib.ExtListView lstGames;
+        private System.Windows.Forms.ColumnHeader colGameID;
+        private System.Windows.Forms.ColumnHeader colTitle;
+        private System.Windows.Forms.ColumnHeader colCategory;
+        private System.Windows.Forms.ColumnHeader colFavorite;
         private System.Windows.Forms.ColumnHeader colHidden;
     }
 }

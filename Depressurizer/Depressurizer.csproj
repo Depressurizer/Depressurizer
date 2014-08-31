@@ -87,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoCat.cs" />
+    <Compile Include="Lib\ExtListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="VdfFile\BinaryVdfFileNode.cs" />
     <Compile Include="CDlgDataScrape.cs">
       <SubType>Form</SubType>

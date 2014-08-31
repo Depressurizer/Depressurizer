@@ -1019,15 +1019,17 @@ namespace Depressurizer {
 
         void AddGameToMultiCatCheckStates( GameInfo game, bool first ) {
             foreach( ListViewItem catItem in lstMultiCat.Items ) {
-                Category cat = catItem.Tag as Category;
-                if( cat != null ) {
-                    if( first ) {
-                        catItem.StateImageIndex = game.ContainsCategory( cat ) ? 1 : 0;
-                    } else {
-                        if( game.ContainsCategory( cat ) ) {
-                            if( catItem.StateImageIndex == 0 ) catItem.StateImageIndex = 2;
+                if( catItem.StateImageIndex != 2 ) {
+                    Category cat = catItem.Tag as Category;
+                    if( cat != null ) {
+                        if( first ) {
+                            catItem.StateImageIndex = game.ContainsCategory( cat ) ? 1 : 0;
                         } else {
-                            if( catItem.StateImageIndex == 1 ) catItem.StateImageIndex = 2;
+                            if( game.ContainsCategory( cat ) ) {
+                                if( catItem.StateImageIndex == 0 ) catItem.StateImageIndex = 2;
+                            } else {
+                                if( catItem.StateImageIndex == 1 ) catItem.StateImageIndex = 2;
+                            }
                         }
                     }
                 }
@@ -1642,6 +1644,12 @@ namespace Depressurizer {
         }
 
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
+            //UpdateSelectedStatusText();
+            //UpdateEnabledStatesForGames();
+            //UpdateGameCheckStates();
+        }
+
+        private void lstGames_SelectionChanged( object sender, EventArgs e ) {
             UpdateSelectedStatusText();
             UpdateEnabledStatesForGames();
             UpdateGameCheckStates();
