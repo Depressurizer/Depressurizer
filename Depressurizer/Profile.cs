@@ -33,6 +33,8 @@ namespace Depressurizer {
 
         public SortedSet<int> IgnoreList = new SortedSet<int>();
 
+        public List<AutoCat> AutoCats = new List<AutoCat>();
+
         public Int64 SteamID64 = 0;
 
         public bool AutoDownload = true;
@@ -54,11 +56,11 @@ namespace Depressurizer {
 
         public int ImportSteamData() {
             //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            return GameData.ImportSteamConfigFile(SteamID64, IgnoreList, IgnoreDlc, IgnoreExternal);
+            return GameData.ImportSteamConfigFile( SteamID64, IgnoreList, IgnoreDlc, IgnoreExternal );
         }
 
         public void ExportSteamData() {
-            GameData.ExportSteamConfigFile(SteamID64, ExportDiscard);
+            GameData.ExportSteamConfigFile( SteamID64, ExportDiscard );
             //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
             //GameData.SaveSteamFile( filePath, ExportDiscard );
         }
@@ -70,7 +72,7 @@ namespace Depressurizer {
         #region Saving and Loading
 
         public static Profile Load( string path ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_LoadingProfile, path);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.Profile_LoadingProfile, path );
             Profile profile = new Profile();
 
             profile.FilePath = path;
@@ -80,8 +82,8 @@ namespace Depressurizer {
             try {
                 doc.Load( path );
             } catch( Exception e ) {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToLoadProfile, e.Message);
-                throw new ApplicationException(GlobalStrings.Profile_ErrorLoadingProfile + e.Message, e);
+                Program.Logger.Write( LoggerLevel.Warning, GlobalStrings.Profile_FailedToLoadProfile, e.Message );
+                throw new ApplicationException( GlobalStrings.Profile_ErrorLoadingProfile + e.Message, e );
             }
 
             XmlNode profileNode = doc.SelectSingleNode( "/profile" );
@@ -113,9 +115,7 @@ namespace Depressurizer {
                 profile.AutoIgnore = XmlUtil.GetBoolFromNode( profileNode["auto_ignore"], profile.AutoIgnore );
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode["overwrite_names"], profile.OverwriteOnDownload );
                 profile.IgnoreDlc = XmlUtil.GetBoolFromNode( profileNode["ignore_dlc"], profile.IgnoreDlc );
-
-                // jpodadera. Ignored non-Steam games
-                profile.IgnoreExternal = XmlUtil.GetBoolFromNode(profileNode["ignore_external"], profile.IgnoreExternal);
+                profile.IgnoreExternal = XmlUtil.GetBoolFromNode( profileNode["ignore_external"], profile.IgnoreExternal );
 
                 XmlNode exclusionListNode = profileNode.SelectSingleNode( "exclusions" );
                 if( exclusionListNode != null ) {
@@ -135,8 +135,22 @@ namespace Depressurizer {
                         AddGameFromXmlNode( node, profile, profileVersion );
                     }
                 }
+
+                XmlNode autocatListNode = profileNode.SelectSingleNode( "autocats" );
+                if( autocatListNode != null ) {
+                    XmlNodeList autoCatNodes = autocatListNode.ChildNodes;
+                    foreach( XmlNode node in autoCatNodes ) {
+                        XmlElement autocatElement = node as XmlElement;
+                        if( node != null ) {
+                            AutoCat autocat = AutoCat.LoadACFromXmlElement( autocatElement );
+                            profile.AutoCats.Add( autocat );
+                        }
+                    }
+                } else {
+                    GenerateDefaultAutoCatSet( profile.AutoCats );
+                }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded );
             return profile;
         }
 
@@ -180,17 +194,17 @@ namespace Depressurizer {
         }
 
         public bool Save( string path ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_SavingProfile, path);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.Profile_SavingProfile, path );
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
-            
+
             XmlWriter writer;
             try {
                 writer = XmlWriter.Create( path, writeSettings );
             } catch( Exception e ) {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToOpenProfileFile, e.Message);
-                throw new ApplicationException(GlobalStrings.Profile_ErrorSavingProfileFile + e.Message, e);
+                Program.Logger.Write( LoggerLevel.Warning, GlobalStrings.Profile_FailedToOpenProfileFile, e.Message );
+                throw new ApplicationException( GlobalStrings.Profile_ErrorSavingProfileFile + e.Message, e );
             }
             writer.WriteStartElement( "profile" );
 
@@ -205,9 +219,7 @@ namespace Depressurizer {
             writer.WriteElementString( "auto_ignore", AutoIgnore.ToString() );
             writer.WriteElementString( "overwrite_names", OverwriteOnDownload.ToString() );
             writer.WriteElementString( "ignore_dlc", IgnoreDlc.ToString() );
-
-            // jpodadera. Ignored non-Steam games
-            writer.WriteElementString("ignore_external", IgnoreExternal.ToString() );
+            writer.WriteElementString( "ignore_external", IgnoreExternal.ToString() );
 
             writer.WriteStartElement( "games" );
 
@@ -226,12 +238,20 @@ namespace Depressurizer {
                 foreach( Category c in g.Categories ) {
                     writer.WriteElementString( "category", c.Name );
                 }
-                writer.WriteEndElement();
+                writer.WriteEndElement(); // categories
 
-                writer.WriteEndElement();
+                writer.WriteEndElement(); // game
             }
 
-            writer.WriteEndElement();
+            writer.WriteEndElement(); // games
+
+            writer.WriteStartElement( "autocats" );
+
+            foreach( AutoCat autocat in AutoCats ) {
+                autocat.WriteToXml( writer );
+            }
+
+            writer.WriteEndElement(); //autocats
 
             writer.WriteStartElement( "exclusions" );
 
@@ -239,14 +259,21 @@ namespace Depressurizer {
                 writer.WriteElementString( "exclusion", i.ToString() );
             }
 
-            writer.WriteEndElement();
+            writer.WriteEndElement(); // exclusions
 
-            writer.WriteEndElement();
+            writer.WriteEndElement(); // profile
 
             writer.Close();
             FilePath = path;
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_ProfileSaveComplete);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.Profile_ProfileSaveComplete );
             return true;
+        }
+
+        private static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
+            list.Add( new AutoCatGenre( "Genre, Multi-Cat, With Removal", 0, true ) );
+            list.Add( new AutoCatGenre( "Genre, Multi-Cat, No Removal", 0, false ) );
+            list.Add( new AutoCatGenre( "Genre, Single Cat, With Removal", 1, true ) );
+            list.Add( new AutoCatGenre( "Genre, Single Cat, No Removal", 1, false ) );
         }
 
         #endregion
