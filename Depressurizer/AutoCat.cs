@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Rallion;
 
 namespace Depressurizer {
+    public enum AutoCatResult {
+        Success,
+        Failure,
+        NotInDatabase
+    }
 
     /// <summary>
     /// Abstract base class for autocategorization schemes. Call PreProcess before any set of autocat operations.
@@ -21,6 +27,10 @@ namespace Depressurizer {
             get {
                 return name;
             }
+        }
+
+        public override string ToString() {
+            return Name;
         }
 
         public AutoCat( string name ) {
@@ -40,7 +50,19 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="gameId">The game ID to process</param>
         /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
-        public abstract bool CategorizeGame( int gameId );
+        public virtual AutoCatResult CategorizeGame( int gameId ) {
+            if( games.Games.ContainsKey( gameId ) ) {
+                return CategorizeGame( games.Games[gameId] );
+            }
+            return AutoCatResult.Failure;
+        }
+
+        /// <summary>
+        /// Applies this autocategorization scheme to the game with the given ID.
+        /// </summary>
+        /// <param name="game">The GameInfo object to process</param>
+        /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
+        public abstract AutoCatResult CategorizeGame( GameInfo game );
 
         public virtual void DeProcess() {
             games = null;
@@ -100,9 +122,11 @@ namespace Depressurizer {
                 SortedSet<string> catStrings = new SortedSet<string>();
                 char[] sep = new char[] { ',' };
                 foreach( GameDBEntry dbEntry in db.Games.Values ) {
-                    string[] cats = dbEntry.Genre.Split( sep );
-                    foreach( string cStr in cats ) {
-                        catStrings.Add( cStr );
+                    if( !String.IsNullOrEmpty( dbEntry.Genre ) ) {
+                        string[] cats = dbEntry.Genre.Split( sep );
+                        foreach( string cStr in cats ) {
+                            catStrings.Add( cStr.Trim() );
+                        }
                     }
                 }
 
@@ -120,30 +144,40 @@ namespace Depressurizer {
             this.genreCategories = null;
         }
 
-        public override bool CategorizeGame( int gameId ) {
+        public override AutoCatResult CategorizeGame( GameInfo game ) {
             //TODO: L10N: remove string literals
-            if( games == null ) throw new ApplicationException( "AutoCatGenre has no game list." );
-            if( db == null ) throw new ApplicationException( "AutoCatGenre has no game database." );
-            if( games.Games.ContainsKey( gameId ) ) throw new ApplicationException( "AutoCatGenre invoked on a non-existent game." );
+            if( games == null ) {
+                Program.Logger.Write( LoggerLevel.Error, "Failed to Autocategorize game because gamelist was null." );
+                throw new ApplicationException( "AutoCatGenre has no game list." );
+            }
+            if( db == null ) {
+                Program.Logger.Write( LoggerLevel.Error, "Failed to Autocategorize game because database was null." );
+                throw new ApplicationException( "AutoCatGenre has no game database." );
+            }
+            if( game == null ) {
+                Program.Logger.Write( LoggerLevel.Error, "Failed to Autocategorize game because game was null." );
+                return AutoCatResult.Failure;
+            }
 
-            if( !db.Contains( gameId ) ) return false;
+            if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
 
-            GameDBEntry dbEntry = db.Games[gameId];
+            GameDBEntry dbEntry = db.Games[game.Id];
             string genreString = dbEntry.Genre;
 
             if( removeOtherGenres && genreCategories != null ) {
-                games.RemoveGameCategory( gameId, genreCategories );
+                game.RemoveCategory( genreCategories );
             }
 
-            string[] genreStrings = genreString.Split( new char[] { ',' } );
-            List<Category> categories = new List<Category>();
-            for( int i = 0; ( i < maxCategories || maxCategories == 0 ) && i < genreStrings.Length; i++ ) {
-                categories.Add( games.GetCategory( genreStrings[i] ) );
+            if( !String.IsNullOrEmpty( genreString ) ) {
+                string[] genreStrings = genreString.Split( new char[] { ',' } );
+                List<Category> categories = new List<Category>();
+                for( int i = 0; ( i < maxCategories || maxCategories == 0 ) && i < genreStrings.Length; i++ ) {
+                    categories.Add( games.GetCategory( genreStrings[i].Trim() ) );
+                }
+
+                game.AddCategory( categories );
             }
-
-            games.AddGameCategory( gameId, categories );
-
-            return true;
+            return AutoCatResult.Success;
         }
 
         public override void WriteToXml( XmlWriter writer ) {
