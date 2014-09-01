@@ -327,7 +327,9 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GameDB.xml" />
+    <Content Include="GameDB.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="prgm2.ico" />
   </ItemGroup>
   <ItemGroup>

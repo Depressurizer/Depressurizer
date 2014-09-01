@@ -96,6 +96,8 @@ namespace Depressurizer {
                         if( Program.GameDB.Contains( g.Id ) ) {
                             g.Name = Program.GameDB.Games[g.Id].Name;
                             Program.GameDB.Games[g.Id] = g;
+                        } else {
+                            Program.GameDB.Games.Add( g.Id, g );
                         }
                     }
                 }

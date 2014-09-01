@@ -664,74 +664,72 @@ namespace Depressurizer {
             }
         }
 
-        private void Autocategorize( bool selectedOnly ) {
-            bool singleCat = settings.SingleCatMode;
+        private void Autocategorize( bool selectedOnly, AutoCat autoCat ) {
+            if( autoCat == null ) return;
+
             // Get a list of games to update
-            // While doing so, check to see if there are any selected items with set categories so we can display a dialog asking whether to overwrite them
-            bool overwrite = true;
             List<GameInfo> gamesToUpdate = new List<GameInfo>();
 
             if( selectedOnly ) {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     GameInfo g = item.Tag as GameInfo;
                     if( ( g != null ) && ( g.Id > 0 ) ) {
-                        if( singleCat && !g.HasCategoriesExcept( gameData.FavoriteCategory ) ) {
-                            overwrite = false;
-                        }
                         gamesToUpdate.Add( g );
                     }
                 }
             } else {
                 foreach( GameInfo g in gameData.Games.Values ) {
                     if( ( g != null ) && ( g.Id > 0 ) ) {
-                        if( singleCat && !g.HasCategoriesExcept( gameData.FavoriteCategory ) ) {
-                            overwrite = false;
-                        }
                         gamesToUpdate.Add( g );
                     }
                 }
             }
 
-            if( overwrite == false ) {
-                DialogResult res = MessageBox.Show( GlobalStrings.MainForm_SomeSelectedGameHaveCategories, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
-                if( res == System.Windows.Forms.DialogResult.Yes ) overwrite = true;
-            }
-
             int updated = 0;
 
             // List of games not found in database, so we can try to scrape data for them
-            Queue<int> notFound = new Queue<int>();
+            List<GameInfo> notFound = new List<GameInfo>();
+
+            autoCat.PreProcess( currentProfile.GameData, Program.GameDB );
 
             foreach( GameInfo g in gamesToUpdate ) {
-                if( g != null && ( !singleCat || overwrite || !g.HasCategoriesExcept( gameData.FavoriteCategory ) ) ) {
-                    if( Program.GameDB.Contains( g.Id ) ) {
-                        if( singleCat ) {
-                            g.ClearCategoriesExcept( gameData.FavoriteCategory );
-                            g.AddCategory( gameData.GetCategory( Program.GameDB.GetGenre( g.Id, settings.FullAutocat ) ) );
-                        } else {
-                            if( settings.FullAutocat ) {
-                                string fullCats = Program.GameDB.GetGenre( g.Id, true );
-                                string[] cats = fullCats.Split( new char[] { ',' } );
-                                foreach( string cName in cats ) {
-                                    g.AddCategory( gameData.GetCategory( cName ) );
-                                }
-                            } else {
-                                g.AddCategory( gameData.GetCategory( Program.GameDB.GetGenre( g.Id, false ) ) );
-                            }
-                        }
-                        updated++;
-                    } else {
-                        notFound.Enqueue( g.Id );
-                    }
+                AutoCatResult res = autoCat.CategorizeGame( g );
+                if( res == AutoCatResult.Success ) {
+                    updated++;
+                } else if( res == AutoCatResult.NotInDatabase ) {
+                    notFound.Add( g );
                 }
             }
 
-            AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
-            if( updated > 0 ) MakeChange( true );
-
             if( notFound.Count > 0 ) {
-                DialogResult res = MessageBox.Show( string.Format( GlobalStrings.MainForm_GamesNotFoundInGameDB, notFound.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
-                if( res == System.Windows.Forms.DialogResult.Yes ) {
+                if( MessageBox.Show( string.Format( GlobalStrings.MainForm_GamesNotFoundInGameDB, notFound.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
+                        == System.Windows.Forms.DialogResult.Yes ) {
+                    
+                    Queue<int> jobs = new Queue<int>();
+                    foreach( GameInfo g in notFound ) jobs.Enqueue( g.Id );
+
+                    DbScrapeDlg scrapeDlg = new DbScrapeDlg( jobs );
+                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
+
+                    if( scrapeRes == System.Windows.Forms.DialogResult.Cancel ) {
+                        //TODO: Weird text
+                        AddStatus( string.Format( GlobalStrings.MainForm_CanceledWebUpdate ) );
+                    } else {
+                        //TODO: L10N
+                        AddStatus( string.Format( "Updated {0} database entries.", scrapeDlg.JobsCompleted ) );
+                        foreach( GameInfo g in notFound ) {
+                            AutoCatResult res = autoCat.CategorizeGame( g );
+                            if( res == AutoCatResult.Success ) {
+                                updated++;
+                            }
+                        }
+                    }
+                    //TODO: weird text
+                    AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
+                    AddStatus( string.Format( "Failed to update {0} games.", gamesToUpdate.Count - updated ) );
+                    if( updated > 0 ) MakeChange( true );
+
+                    /* Old code
                     CDlgDataScrape scrapeDlg = new CDlgDataScrape( notFound, gameData, settings.FullAutocat );
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
@@ -749,9 +747,10 @@ namespace Depressurizer {
                         }
                         if( scrapeDlg.JobsCompleted > 0 ) MakeChange( true );
                     }
+                     * */
                 }
             }
-
+            autoCat.DeProcess();
             FullListRefresh();
         }
 
@@ -881,6 +880,7 @@ namespace Depressurizer {
         private void FullListRefresh() {
             FillAllCategoryLists();
             FillGameList();
+            FillAutoCatLists();
         }
 
         /// <summary>
@@ -1103,6 +1103,15 @@ namespace Depressurizer {
             }
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
+        }
+
+        void FillAutoCatLists() {
+            cmbAutoCatType.Items.Clear();
+            if( currentProfile != null ) {
+                foreach( AutoCat ac in currentProfile.AutoCats ) {
+                    cmbAutoCatType.Items.Add( ac );
+                }
+            }
         }
 
         #endregion
@@ -1349,7 +1358,7 @@ namespace Depressurizer {
 
         private void menu_Tools_AutocatAll_Click( object sender, EventArgs e ) {
             ClearStatus();
-            Autocategorize( false );
+            //Autocategorize( false );
             FlushStatus();
         }
 
@@ -1557,9 +1566,12 @@ namespace Depressurizer {
         }
 
         private void cmdAutoCat_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            Autocategorize( true );
-            FlushStatus();
+            AutoCat ac = cmbAutoCatType.SelectedItem as AutoCat;
+            if( ac != null ) {
+                ClearStatus();
+                Autocategorize( true, ac );
+                FlushStatus();
+            }
         }
 
         private void cmdGameAdd_Click( object sender, EventArgs e ) {

@@ -461,6 +461,7 @@ namespace Depressurizer {
             // 
             // cmbAutoCatType
             // 
+            this.cmbAutoCatType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAutoCatType.FormattingEnabled = true;
             resources.ApplyResources(this.cmbAutoCatType, "cmbAutoCatType");
             this.cmbAutoCatType.Name = "cmbAutoCatType";
