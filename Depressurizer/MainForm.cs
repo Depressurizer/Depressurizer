@@ -1,4 +1,4 @@
-﻿
+﻿using Rallion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,6 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Rallion;
 
 namespace Depressurizer {
     public partial class FormMain : Form {

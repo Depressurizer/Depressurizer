@@ -961,13 +961,22 @@ namespace Depressurizer {
             TextVdfFileNode fullFile = new TextVdfFileNode();
             fullFile["UserLocalConfigStore"] = fileData;
             try {
-                FileInfo f = new FileInfo( filePath );
+                Utility.BackupFile( filePath, Settings.Instance().ConfigBackupCount );
+            } catch( Exception e ) {
+                // TODO: string literal
+                Program.Logger.Write( LoggerLevel.Error, "Steam config file backup failed: {0}", e.Message );
+            }
+            try {
+                string filePathTmp = filePath + ".tmp";
+                FileInfo f = new FileInfo( filePathTmp );
                 f.Directory.Create();
                 FileStream fStream = f.Open( FileMode.Create, FileAccess.Write, FileShare.None );
                 using( StreamWriter writer = new StreamWriter( fStream ) ) {
                     fullFile.Save( writer );
                 }
                 fStream.Close();
+                File.Delete( filePath );
+                File.Move( filePathTmp, filePath );
             } catch( ArgumentException e ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString() );
                 throw new ApplicationException( GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e );
@@ -1050,13 +1059,22 @@ namespace Depressurizer {
                 }
                 if( dataRoot.NodeType == ValueType.Array ) {
                     Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SavingShortcutConfigFile, filePath );
-                    BinaryWriter binWriter;
                     try {
-                        fStream = new FileStream( filePath, FileMode.Truncate, FileAccess.ReadWrite, FileShare.ReadWrite );
+                        Utility.BackupFile( filePath, Settings.Instance().ConfigBackupCount );
+                    } catch( Exception e ) {
+                        // TODO: string literal
+                        Program.Logger.Write( LoggerLevel.Error, "Steam shortcut file backup failed: {0}", e.Message );
+                    }
+                    try {
+                        string filePathTmp = filePath + ".tmp";
+                        BinaryWriter binWriter;
+                        fStream = new FileStream( filePathTmp, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite );
                         binWriter = new BinaryWriter( fStream );
                         dataRoot.Save( binWriter );
                         binWriter.Close();
                         fStream.Close();
+                        File.Delete( filePath );
+                        File.Move( filePathTmp, filePath );
                     } catch( ArgumentException e ) {
                         Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString() );
                         throw new ApplicationException( GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e );

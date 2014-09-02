@@ -74,6 +74,19 @@ namespace Depressurizer {
             }
         }
 
+        private int _configBackupCount = 3;
+        public int ConfigBackupCount {
+            get {
+                return _configBackupCount;
+            }
+            set {
+                if( _configBackupCount != value ) {
+                    _configBackupCount = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private StartupAction _startupAction = StartupAction.Create;
         public StartupAction StartupAction {
             get {

@@ -90,6 +90,7 @@
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utility.cs" />
     <Compile Include="VdfFile\BinaryVdfFileNode.cs" />
     <Compile Include="CDlgDataScrape.cs">
       <SubType>Form</SubType>
