@@ -240,7 +240,7 @@ namespace Depressurizer {
 
                 Cursor = Cursors.Default;
             }
-            UpdateEnableStatesForProfileChange();
+            OnProfileChange();
         }
 
         /// <summary>
@@ -324,7 +324,7 @@ namespace Depressurizer {
 
             FullListRefresh();
 
-            UpdateEnableStatesForProfileChange();
+            OnProfileChange();
         }
 
         /// <summary>
@@ -658,7 +658,7 @@ namespace Depressurizer {
             currentProfile = null;
             gameData = new GameList();
             MakeChange( false );
-            UpdateEnableStatesForProfileChange();
+            OnProfileChange();
             if( updateUI ) {
                 FullListRefresh();
             }
@@ -724,13 +724,13 @@ namespace Depressurizer {
                             }
                         }
                     }
-                    //TODO: weird text
-                    AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
-                    AddStatus( string.Format( "Failed to update {0} games.", gamesToUpdate.Count - updated ) );
-                    if( updated > 0 ) MakeChange( true );
                 }
             }
             autoCat.DeProcess();
+            //TODO: weird text
+            AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
+            if( gamesToUpdate.Count > updated ) AddStatus( string.Format( "Failed to update {0} games.", gamesToUpdate.Count - updated ) );
+            if( updated > 0 ) MakeChange( true );
             FullListRefresh();
         }
 
@@ -810,6 +810,10 @@ namespace Depressurizer {
                 sb.Append( " - " );
                 sb.Append( Path.GetFileName( currentProfile.FilePath ) );
             }
+            if( settings.SingleCatMode ) {
+                //TODO: string literals
+                sb.Append( " [Single Category Mode]" );
+            }
             if( unsavedChanges ) {
                 sb.Append( " *" );
             }
@@ -860,7 +864,6 @@ namespace Depressurizer {
         private void FullListRefresh() {
             FillAllCategoryLists();
             FillGameList();
-            FillAutoCatLists();
         }
 
         /// <summary>
@@ -1086,21 +1089,43 @@ namespace Depressurizer {
         }
 
         void FillAutoCatLists() {
+            // Prepare main screen AutoCat dropdown
+            object selected = cmbAutoCatType.SelectedItem;
             cmbAutoCatType.Items.Clear();
+
+            // Prepare main menu list
+            menuToolsAutocat_List.Items.Clear();
+
             if( currentProfile != null ) {
                 foreach( AutoCat ac in currentProfile.AutoCats ) {
+                    // Fill main screen dropdown
                     cmbAutoCatType.Items.Add( ac );
+
+                    // Fill main menu list
+                    ToolStripItem item = menuToolsAutocat_List.Items.Add( ac.Name );
+                    item.Tag = ac;
+                    item.Click += menuToolsAutocat_Item_Click;
                 }
             }
+
+            // Finish main screen dropdown
+            if( selected != null && cmbAutoCatType.Items.Contains( selected ) ) {
+                cmbAutoCatType.SelectedItem = selected;
+            } else if( cmbAutoCatType.Items.Count > 0 ) {
+                cmbAutoCatType.SelectedIndex = 0;
+            }
+
+            // Finish main menu list
+            menu_Tools_AutocatAll.Enabled = menuToolsAutocat_List.Items.Count > 0;
         }
 
         #endregion
-        #region Enabled-state updaters
+        #region UI State updaters
 
         /// <summary>
-        /// Runs after the loaded profile might change and sets the enabled states of some interface elements
+        /// Updates UI after a profile is created, loaded, modified or closed.
         /// </summary>
-        void UpdateEnableStatesForProfileChange() {
+        void OnProfileChange() {
             bool enable = ProfileLoaded;
             menu_File_SaveProfile.Enabled = enable;
             menu_File_SaveProfileAs.Enabled = enable;
@@ -1109,6 +1134,8 @@ namespace Depressurizer {
             menu_Profile_Export.Enabled = enable;
             menu_Profile_Import.Enabled = enable;
             menu_Profile_Edit.Enabled = enable;
+
+            FillAutoCatLists();
 
             UpdateTitle();
         }
@@ -1138,6 +1165,7 @@ namespace Depressurizer {
         private void UpdateUIForSingleCat() {
             bool sCat = settings.SingleCatMode;
             menu_Tools_SingleCat.Checked = sCat;
+            UpdateTitle();
         }
 
         #endregion
@@ -1336,10 +1364,16 @@ namespace Depressurizer {
             FlushStatus();
         }
 
-        private void menu_Tools_AutocatAll_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            //Autocategorize( false );
-            FlushStatus();
+        private void menuToolsAutocat_Item_Click( object sender, EventArgs e ) {
+            ToolStripItem item = sender as ToolStripItem;
+            if( item != null ) {
+                AutoCat autoCat = item.Tag as AutoCat;
+                if( autoCat != null ) {
+                    ClearStatus();
+                    Autocategorize( false, autoCat );
+                    FlushStatus();
+                }
+            }
         }
 
         private void menu_Tools_AutonameAll_Click( object sender, EventArgs e ) {
@@ -1840,10 +1874,6 @@ namespace Depressurizer {
     /// A few constants and quick functions for dealing with categories in the context of the UI
     /// </summary>
     static class CatUtil {
-        // Special names shown in the category list
-        //public static string CAT_ALL_NAME = GlobalStrings.MainForm_All;
-        //public static string CAT_UNC_NAME = GlobalStrings.MainForm_Uncategorized;
-
         /// <summary>
         /// Checks to see if a category name is valid. Does not make sure it isn't already in use. If the name is not valid, displays a warning.
         /// </summary>
