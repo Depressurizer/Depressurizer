@@ -887,24 +887,20 @@ namespace Depressurizer {
         }
 
         /// <summary>
-        /// Writes category information out Steam user config file for Steam games and external games.
+        /// Writes Steam game category information to Steam user config file.
         /// </summary>
-        /// <param name="SteamId">Identifier of Steam user</param>
-        /// <param name="discardMissing">Delete category information for games not present in game list</param>
-        /// <param name="includeShortcuts">If true, also update the shortcuts file.</param>
-        public void ExportSteamConfigFile( long SteamId, bool discardMissing, bool includeShortcuts = true ) {
+        /// <param name="SteamId">Steam ID of user to save the config file for</param>
+        /// <param name="discardMissing">If true, any pre-existing game entries in the file that do not have corresponding entries in the GameList are removed</param>
+        public void ExportSteamConfigFile( long SteamId, bool discardMissing ) {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
             ExportSteamConfigFile( filePath, discardMissing );
-            //TODO: I don't like this being here. See if it can be removed or moved to a separate method.
-            if( includeShortcuts ) {
-                ExportSteamShortcuts( SteamId, discardMissing );
-            }
         }
 
         /// <summary>
-        /// Writes category information out to a steam config file. Also saves any other settings that had been loaded, to avoid setting loss.
+        /// Writes Steam game category information to Steam user config file.
         /// </summary>
-        /// <param name="path">Full path of the steam config file to save</param>
+        /// <param name="filePath">Full path of the steam config file to save</param>
+        /// <param name="discardMissing">If true, any pre-existing game entries in the file that do not have corresponding entries in the GameList are removed</param>
         public void ExportSteamConfigFile( string filePath, bool discardMissing ) {
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath );
 
@@ -993,7 +989,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="SteamId">Identifier of Steam user to save information</param>
         /// <param name="discardMissing">If true, category information in shortcuts.vdf file is removed if game is not in Game list</param>
-        private void ExportSteamShortcuts( long SteamId, bool discardMissing ) {
+        public void ExportSteamShortcuts( long SteamId ) {
             string filePath = string.Format( Properties.Resources.ShortCutsFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath );
             FileStream fStream = null;

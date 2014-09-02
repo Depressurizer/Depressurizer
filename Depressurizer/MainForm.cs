@@ -105,7 +105,7 @@ namespace Depressurizer {
         /// Saves a Steam configuration file. Asks the user to select the file to save as.
         /// </summary>
         /// <returns>True if save was completed, false otherwise</returns>
-        bool ManualExport() {
+        bool ManualExportConfig() {
             SaveFileDialog dlg = new SaveFileDialog();
             DialogResult res = dlg.ShowDialog();
             if( res == DialogResult.OK ) {
@@ -1304,7 +1304,7 @@ namespace Depressurizer {
 
         private void menu_File_Manual_Export_Click( object sender, EventArgs e ) {
             ClearStatus();
-            ManualExport();
+            ManualExportConfig();
             FlushStatus();
         }
 
@@ -1744,7 +1744,7 @@ namespace Depressurizer {
                 }
 
             } else {
-                return ManualExport();
+                return ManualExportConfig();
             }
         }
 

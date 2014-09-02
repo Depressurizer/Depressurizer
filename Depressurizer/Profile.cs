@@ -61,8 +61,9 @@ namespace Depressurizer {
 
         public void ExportSteamData() {
             GameData.ExportSteamConfigFile( SteamID64, ExportDiscard );
-            //string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, ID64toDirName( SteamID64 ) );
-            //GameData.SaveSteamFile( filePath, ExportDiscard );
+            if( !this.IgnoreExternal ) {
+                GameData.ExportSteamShortcuts( this.SteamID64 );
+            }
         }
 
         public bool IgnoreGame( int gameId ) {
