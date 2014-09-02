@@ -104,9 +104,8 @@ namespace Depressurizer {
             this.menu_File_Close = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_File_Manual = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_File_Manual_Import = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_File_Manual_Download = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Manual_Export = new System.Windows.Forms.ToolStripMenuItem();
+            this.shortcutFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile = new System.Windows.Forms.ToolStripMenuItem();
@@ -154,24 +153,26 @@ namespace Depressurizer {
             // 
             // splitContainer.Panel1
             // 
+            resources.ApplyResources(this.splitContainer.Panel1, "splitContainer.Panel1");
             this.splitContainer.Panel1.Controls.Add(this.grpCategories);
             // 
             // splitContainer.Panel2
             // 
+            resources.ApplyResources(this.splitContainer.Panel2, "splitContainer.Panel2");
             this.splitContainer.Panel2.Controls.Add(this.splitGame);
             // 
             // grpCategories
             // 
+            resources.ApplyResources(this.grpCategories, "grpCategories");
             this.grpCategories.Controls.Add(this.lstCategories);
             this.grpCategories.Controls.Add(this.tableCatButtons);
-            resources.ApplyResources(this.grpCategories, "grpCategories");
             this.grpCategories.Name = "grpCategories";
             this.grpCategories.TabStop = false;
             // 
             // lstCategories
             // 
-            this.lstCategories.AllowDrop = true;
             resources.ApplyResources(this.lstCategories, "lstCategories");
+            this.lstCategories.AllowDrop = true;
             this.lstCategories.ContextMenuStrip = this.contextCat;
             this.lstCategories.FormattingEnabled = true;
             this.lstCategories.Name = "lstCategories";
@@ -185,6 +186,7 @@ namespace Depressurizer {
             // 
             // contextCat
             // 
+            resources.ApplyResources(this.contextCat, "contextCat");
             this.contextCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextCat_Add,
             this.contextCat_Rename,
@@ -193,36 +195,35 @@ namespace Depressurizer {
             this.contextCat_RemoveEmpty});
             this.contextCat.Name = "contextCat";
             this.contextCat.ShowImageMargin = false;
-            resources.ApplyResources(this.contextCat, "contextCat");
             this.contextCat.Opening += new System.ComponentModel.CancelEventHandler(this.contextCat_Opening);
             // 
             // contextCat_Add
             // 
-            this.contextCat_Add.Name = "contextCat_Add";
             resources.ApplyResources(this.contextCat_Add, "contextCat_Add");
+            this.contextCat_Add.Name = "contextCat_Add";
             this.contextCat_Add.Click += new System.EventHandler(this.cmdCatAdd_Click);
             // 
             // contextCat_Rename
             // 
-            this.contextCat_Rename.Name = "contextCat_Rename";
             resources.ApplyResources(this.contextCat_Rename, "contextCat_Rename");
+            this.contextCat_Rename.Name = "contextCat_Rename";
             this.contextCat_Rename.Click += new System.EventHandler(this.cmdCatRename_Click);
             // 
             // contextCat_Delete
             // 
-            this.contextCat_Delete.Name = "contextCat_Delete";
             resources.ApplyResources(this.contextCat_Delete, "contextCat_Delete");
+            this.contextCat_Delete.Name = "contextCat_Delete";
             this.contextCat_Delete.Click += new System.EventHandler(this.cmdCatDelete_Click);
             // 
             // contextCat_Sep1
             // 
-            this.contextCat_Sep1.Name = "contextCat_Sep1";
             resources.ApplyResources(this.contextCat_Sep1, "contextCat_Sep1");
+            this.contextCat_Sep1.Name = "contextCat_Sep1";
             // 
             // contextCat_RemoveEmpty
             // 
-            this.contextCat_RemoveEmpty.Name = "contextCat_RemoveEmpty";
             resources.ApplyResources(this.contextCat_RemoveEmpty, "contextCat_RemoveEmpty");
+            this.contextCat_RemoveEmpty.Name = "contextCat_RemoveEmpty";
             this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
             // 
             // tableCatButtons
@@ -262,10 +263,12 @@ namespace Depressurizer {
             // 
             // splitGame.Panel1
             // 
+            resources.ApplyResources(this.splitGame.Panel1, "splitGame.Panel1");
             this.splitGame.Panel1.Controls.Add(this.grpGames);
             // 
             // splitGame.Panel2
             // 
+            resources.ApplyResources(this.splitGame.Panel2, "splitGame.Panel2");
             this.splitGame.Panel2.Controls.Add(this.cmbAutoCatType);
             this.splitGame.Panel2.Controls.Add(this.chkHidden);
             this.splitGame.Panel2.Controls.Add(this.cmdAddCatAndAssign);
@@ -280,13 +283,14 @@ namespace Depressurizer {
             // 
             // grpGames
             // 
-            this.grpGames.Controls.Add(this.lstGames);
             resources.ApplyResources(this.grpGames, "grpGames");
+            this.grpGames.Controls.Add(this.lstGames);
             this.grpGames.Name = "grpGames";
             this.grpGames.TabStop = false;
             // 
             // lstGames
             // 
+            resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colGameID,
             this.colTitle,
@@ -297,7 +301,6 @@ namespace Depressurizer {
             this.lstGames.FullRowSelect = true;
             this.lstGames.GridLines = true;
             this.lstGames.HideSelection = false;
-            resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.Name = "lstGames";
             this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstGames.UseCompatibleStateImageBehavior = false;
@@ -335,6 +338,7 @@ namespace Depressurizer {
             // 
             // contextGame
             // 
+            resources.ApplyResources(this.contextGame, "contextGame");
             this.contextGame.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextGame_Add,
             this.cntxtGame_Edit,
@@ -349,121 +353,120 @@ namespace Depressurizer {
             this.contextGame_LaunchGame});
             this.contextGame.Name = "contextGame";
             this.contextGame.ShowImageMargin = false;
-            resources.ApplyResources(this.contextGame, "contextGame");
             this.contextGame.Opening += new System.ComponentModel.CancelEventHandler(this.contextGame_Opening);
             // 
             // contextGame_Add
             // 
-            this.contextGame_Add.Name = "contextGame_Add";
             resources.ApplyResources(this.contextGame_Add, "contextGame_Add");
+            this.contextGame_Add.Name = "contextGame_Add";
             this.contextGame_Add.Click += new System.EventHandler(this.cmdGameAdd_Click);
             // 
             // cntxtGame_Edit
             // 
-            this.cntxtGame_Edit.Name = "cntxtGame_Edit";
             resources.ApplyResources(this.cntxtGame_Edit, "cntxtGame_Edit");
+            this.cntxtGame_Edit.Name = "cntxtGame_Edit";
             this.cntxtGame_Edit.Click += new System.EventHandler(this.cmdGameEdit_Click);
             // 
             // contextGame_Remove
             // 
-            this.contextGame_Remove.Name = "contextGame_Remove";
             resources.ApplyResources(this.contextGame_Remove, "contextGame_Remove");
+            this.contextGame_Remove.Name = "contextGame_Remove";
             this.contextGame_Remove.Click += new System.EventHandler(this.cmdGameRemove_Click);
             // 
             // contextGame_Sep1
             // 
-            this.contextGame_Sep1.Name = "contextGame_Sep1";
             resources.ApplyResources(this.contextGame_Sep1, "contextGame_Sep1");
+            this.contextGame_Sep1.Name = "contextGame_Sep1";
             // 
             // contextGame_AddCat
             // 
+            resources.ApplyResources(this.contextGame_AddCat, "contextGame_AddCat");
             this.contextGame_AddCat.DropDown = this.contextGameAddCat;
             this.contextGame_AddCat.Name = "contextGame_AddCat";
-            resources.ApplyResources(this.contextGame_AddCat, "contextGame_AddCat");
             // 
             // contextGameAddCat
             // 
+            resources.ApplyResources(this.contextGameAddCat, "contextGameAddCat");
             this.contextGameAddCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextGameAddCat_Create});
             this.contextGameAddCat.Name = "contextGameCat";
             this.contextGameAddCat.OwnerItem = this.contextGame_AddCat;
             this.contextGameAddCat.ShowImageMargin = false;
-            resources.ApplyResources(this.contextGameAddCat, "contextGameAddCat");
             // 
             // contextGameAddCat_Create
             // 
-            this.contextGameAddCat_Create.Name = "contextGameAddCat_Create";
             resources.ApplyResources(this.contextGameAddCat_Create, "contextGameAddCat_Create");
+            this.contextGameAddCat_Create.Name = "contextGameAddCat_Create";
             this.contextGameAddCat_Create.Click += new System.EventHandler(this.contextGameAddCat_Create_Click);
             // 
             // removeCategoryToolStripMenuItem
             // 
+            resources.ApplyResources(this.removeCategoryToolStripMenuItem, "removeCategoryToolStripMenuItem");
             this.removeCategoryToolStripMenuItem.DropDown = this.contextGameRemCat;
             this.removeCategoryToolStripMenuItem.Name = "removeCategoryToolStripMenuItem";
-            resources.ApplyResources(this.removeCategoryToolStripMenuItem, "removeCategoryToolStripMenuItem");
             // 
             // contextGameRemCat
             // 
+            resources.ApplyResources(this.contextGameRemCat, "contextGameRemCat");
             this.contextGameRemCat.Name = "contextGameRemCat";
             this.contextGameRemCat.OwnerItem = this.removeCategoryToolStripMenuItem;
             this.contextGameRemCat.ShowImageMargin = false;
-            resources.ApplyResources(this.contextGameRemCat, "contextGameRemCat");
             // 
             // contextGame_SetFav
             // 
+            resources.ApplyResources(this.contextGame_SetFav, "contextGame_SetFav");
             this.contextGame_SetFav.DropDown = this.contextGameFav;
             this.contextGame_SetFav.Name = "contextGame_SetFav";
-            resources.ApplyResources(this.contextGame_SetFav, "contextGame_SetFav");
             // 
             // contextGameFav
             // 
+            resources.ApplyResources(this.contextGameFav, "contextGameFav");
             this.contextGameFav.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextGameFav_Yes,
             this.contextGameFav_No});
             this.contextGameFav.Name = "contextGameFav";
             this.contextGameFav.OwnerItem = this.contextGame_SetFav;
             this.contextGameFav.ShowImageMargin = false;
-            resources.ApplyResources(this.contextGameFav, "contextGameFav");
             // 
             // contextGameFav_Yes
             // 
-            this.contextGameFav_Yes.Name = "contextGameFav_Yes";
             resources.ApplyResources(this.contextGameFav_Yes, "contextGameFav_Yes");
+            this.contextGameFav_Yes.Name = "contextGameFav_Yes";
             this.contextGameFav_Yes.Click += new System.EventHandler(this.contextGame_SetFav_Yes_Click);
             // 
             // contextGameFav_No
             // 
-            this.contextGameFav_No.Name = "contextGameFav_No";
             resources.ApplyResources(this.contextGameFav_No, "contextGameFav_No");
+            this.contextGameFav_No.Name = "contextGameFav_No";
             this.contextGameFav_No.Click += new System.EventHandler(this.contextGame_SetFav_No_Click);
             // 
             // contextGame_Sep2
             // 
-            this.contextGame_Sep2.Name = "contextGame_Sep2";
             resources.ApplyResources(this.contextGame_Sep2, "contextGame_Sep2");
+            this.contextGame_Sep2.Name = "contextGame_Sep2";
             // 
             // contextGame_VisitStore
             // 
-            this.contextGame_VisitStore.Name = "contextGame_VisitStore";
             resources.ApplyResources(this.contextGame_VisitStore, "contextGame_VisitStore");
+            this.contextGame_VisitStore.Name = "contextGame_VisitStore";
             this.contextGame_VisitStore.Click += new System.EventHandler(this.contextGame_VisitStore_Click);
             // 
             // contextGame_Sep3
             // 
-            this.contextGame_Sep3.Name = "contextGame_Sep3";
             resources.ApplyResources(this.contextGame_Sep3, "contextGame_Sep3");
+            this.contextGame_Sep3.Name = "contextGame_Sep3";
             // 
             // contextGame_LaunchGame
             // 
-            this.contextGame_LaunchGame.Name = "contextGame_LaunchGame";
             resources.ApplyResources(this.contextGame_LaunchGame, "contextGame_LaunchGame");
+            this.contextGame_LaunchGame.Name = "contextGame_LaunchGame";
             this.contextGame_LaunchGame.Click += new System.EventHandler(this.cmdGameLaunch_Click);
             // 
             // cmbAutoCatType
             // 
+            resources.ApplyResources(this.cmbAutoCatType, "cmbAutoCatType");
             this.cmbAutoCatType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAutoCatType.FormattingEnabled = true;
-            resources.ApplyResources(this.cmbAutoCatType, "cmbAutoCatType");
             this.cmbAutoCatType.Name = "cmbAutoCatType";
             // 
             // chkHidden
@@ -501,8 +504,8 @@ namespace Depressurizer {
             // 
             // lstMultiCat
             // 
-            this.lstMultiCat.Activation = System.Windows.Forms.ItemActivation.OneClick;
             resources.ApplyResources(this.lstMultiCat, "lstMultiCat");
+            this.lstMultiCat.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.lstMultiCat.AutoArrange = false;
             this.lstMultiCat.MultiSelect = false;
             this.lstMultiCat.Name = "lstMultiCat";
@@ -550,15 +553,16 @@ namespace Depressurizer {
             // 
             // menuStrip
             // 
+            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_File,
             this.menu_Profile,
             this.menu_Tools});
-            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Name = "menuStrip";
             // 
             // menu_File
             // 
+            resources.ApplyResources(this.menu_File, "menu_File");
             this.menu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_File_NewProfile,
             this.menu_File_LoadProfile,
@@ -571,88 +575,80 @@ namespace Depressurizer {
             this.menu_File_Sep3,
             this.menu_File_Exit});
             this.menu_File.Name = "menu_File";
-            resources.ApplyResources(this.menu_File, "menu_File");
             // 
             // menu_File_NewProfile
             // 
-            this.menu_File_NewProfile.Name = "menu_File_NewProfile";
             resources.ApplyResources(this.menu_File_NewProfile, "menu_File_NewProfile");
+            this.menu_File_NewProfile.Name = "menu_File_NewProfile";
             this.menu_File_NewProfile.Click += new System.EventHandler(this.menu_File_NewProfile_Click);
             // 
             // menu_File_LoadProfile
             // 
-            this.menu_File_LoadProfile.Name = "menu_File_LoadProfile";
             resources.ApplyResources(this.menu_File_LoadProfile, "menu_File_LoadProfile");
+            this.menu_File_LoadProfile.Name = "menu_File_LoadProfile";
             this.menu_File_LoadProfile.Click += new System.EventHandler(this.menu_File_LoadProfile_Click);
             // 
             // menu_File_SaveProfile
             // 
-            this.menu_File_SaveProfile.Name = "menu_File_SaveProfile";
             resources.ApplyResources(this.menu_File_SaveProfile, "menu_File_SaveProfile");
+            this.menu_File_SaveProfile.Name = "menu_File_SaveProfile";
             this.menu_File_SaveProfile.Click += new System.EventHandler(this.menu_File_SaveProfile_Click);
             // 
             // menu_File_SaveProfileAs
             // 
-            this.menu_File_SaveProfileAs.Name = "menu_File_SaveProfileAs";
             resources.ApplyResources(this.menu_File_SaveProfileAs, "menu_File_SaveProfileAs");
+            this.menu_File_SaveProfileAs.Name = "menu_File_SaveProfileAs";
             this.menu_File_SaveProfileAs.Click += new System.EventHandler(this.menu_File_SaveProfileAs_Click);
             // 
             // menu_File_Sep1
             // 
-            this.menu_File_Sep1.Name = "menu_File_Sep1";
             resources.ApplyResources(this.menu_File_Sep1, "menu_File_Sep1");
+            this.menu_File_Sep1.Name = "menu_File_Sep1";
             // 
             // menu_File_Close
             // 
-            this.menu_File_Close.Name = "menu_File_Close";
             resources.ApplyResources(this.menu_File_Close, "menu_File_Close");
+            this.menu_File_Close.Name = "menu_File_Close";
             this.menu_File_Close.Click += new System.EventHandler(this.menu_File_Close_Click);
             // 
             // menu_File_Sep2
             // 
-            this.menu_File_Sep2.Name = "menu_File_Sep2";
             resources.ApplyResources(this.menu_File_Sep2, "menu_File_Sep2");
+            this.menu_File_Sep2.Name = "menu_File_Sep2";
             // 
             // menu_File_Manual
             // 
-            this.menu_File_Manual.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menu_File_Manual_Import,
-            this.menu_File_Manual_Download,
-            this.menu_File_Manual_Export});
-            this.menu_File_Manual.Name = "menu_File_Manual";
             resources.ApplyResources(this.menu_File_Manual, "menu_File_Manual");
-            // 
-            // menu_File_Manual_Import
-            // 
-            this.menu_File_Manual_Import.Name = "menu_File_Manual_Import";
-            resources.ApplyResources(this.menu_File_Manual_Import, "menu_File_Manual_Import");
-            this.menu_File_Manual_Import.Click += new System.EventHandler(this.menu_File_Manual_Import_Click);
-            // 
-            // menu_File_Manual_Download
-            // 
-            this.menu_File_Manual_Download.Name = "menu_File_Manual_Download";
-            resources.ApplyResources(this.menu_File_Manual_Download, "menu_File_Manual_Download");
-            this.menu_File_Manual_Download.Click += new System.EventHandler(this.menu_File_Manual_Download_Click);
+            this.menu_File_Manual.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu_File_Manual_Export,
+            this.shortcutFileToolStripMenuItem});
+            this.menu_File_Manual.Name = "menu_File_Manual";
             // 
             // menu_File_Manual_Export
             // 
-            this.menu_File_Manual_Export.Name = "menu_File_Manual_Export";
             resources.ApplyResources(this.menu_File_Manual_Export, "menu_File_Manual_Export");
+            this.menu_File_Manual_Export.Name = "menu_File_Manual_Export";
             this.menu_File_Manual_Export.Click += new System.EventHandler(this.menu_File_Manual_Export_Click);
+            // 
+            // shortcutFileToolStripMenuItem
+            // 
+            resources.ApplyResources(this.shortcutFileToolStripMenuItem, "shortcutFileToolStripMenuItem");
+            this.shortcutFileToolStripMenuItem.Name = "shortcutFileToolStripMenuItem";
             // 
             // menu_File_Sep3
             // 
-            this.menu_File_Sep3.Name = "menu_File_Sep3";
             resources.ApplyResources(this.menu_File_Sep3, "menu_File_Sep3");
+            this.menu_File_Sep3.Name = "menu_File_Sep3";
             // 
             // menu_File_Exit
             // 
-            this.menu_File_Exit.Name = "menu_File_Exit";
             resources.ApplyResources(this.menu_File_Exit, "menu_File_Exit");
+            this.menu_File_Exit.Name = "menu_File_Exit";
             this.menu_File_Exit.Click += new System.EventHandler(this.menu_File_Exit_Click);
             // 
             // menu_Profile
             // 
+            resources.ApplyResources(this.menu_Profile, "menu_Profile");
             this.menu_Profile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_Profile_Download,
             this.menu_Profile_Import,
@@ -661,44 +657,44 @@ namespace Depressurizer {
             this.menu_Profile_Sep2,
             this.menu_Profile_Edit});
             this.menu_Profile.Name = "menu_Profile";
-            resources.ApplyResources(this.menu_Profile, "menu_Profile");
             // 
             // menu_Profile_Download
             // 
-            this.menu_Profile_Download.Name = "menu_Profile_Download";
             resources.ApplyResources(this.menu_Profile_Download, "menu_Profile_Download");
+            this.menu_Profile_Download.Name = "menu_Profile_Download";
             this.menu_Profile_Download.Click += new System.EventHandler(this.menu_Profile_Download_Click);
             // 
             // menu_Profile_Import
             // 
-            this.menu_Profile_Import.Name = "menu_Profile_Import";
             resources.ApplyResources(this.menu_Profile_Import, "menu_Profile_Import");
+            this.menu_Profile_Import.Name = "menu_Profile_Import";
             this.menu_Profile_Import.Click += new System.EventHandler(this.menu_Profile_Import_Click);
             // 
             // menu_Profile_Sep1
             // 
-            this.menu_Profile_Sep1.Name = "menu_Profile_Sep1";
             resources.ApplyResources(this.menu_Profile_Sep1, "menu_Profile_Sep1");
+            this.menu_Profile_Sep1.Name = "menu_Profile_Sep1";
             // 
             // menu_Profile_Export
             // 
-            this.menu_Profile_Export.Name = "menu_Profile_Export";
             resources.ApplyResources(this.menu_Profile_Export, "menu_Profile_Export");
+            this.menu_Profile_Export.Name = "menu_Profile_Export";
             this.menu_Profile_Export.Click += new System.EventHandler(this.menu_Profile_Export_Click);
             // 
             // menu_Profile_Sep2
             // 
-            this.menu_Profile_Sep2.Name = "menu_Profile_Sep2";
             resources.ApplyResources(this.menu_Profile_Sep2, "menu_Profile_Sep2");
+            this.menu_Profile_Sep2.Name = "menu_Profile_Sep2";
             // 
             // menu_Profile_Edit
             // 
-            this.menu_Profile_Edit.Name = "menu_Profile_Edit";
             resources.ApplyResources(this.menu_Profile_Edit, "menu_Profile_Edit");
+            this.menu_Profile_Edit.Name = "menu_Profile_Edit";
             this.menu_Profile_Edit.Click += new System.EventHandler(this.menu_Profile_Edit_Click);
             // 
             // menu_Tools
             // 
+            resources.ApplyResources(this.menu_Tools, "menu_Tools");
             this.menu_Tools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_Tools_AutonameAll,
             this.menu_Tools_AutocatAll,
@@ -709,66 +705,65 @@ namespace Depressurizer {
             this.menu_Tools_SingleCat,
             this.menu_Tools_Settings});
             this.menu_Tools.Name = "menu_Tools";
-            resources.ApplyResources(this.menu_Tools, "menu_Tools");
             // 
             // menu_Tools_AutonameAll
             // 
-            this.menu_Tools_AutonameAll.Name = "menu_Tools_AutonameAll";
             resources.ApplyResources(this.menu_Tools_AutonameAll, "menu_Tools_AutonameAll");
+            this.menu_Tools_AutonameAll.Name = "menu_Tools_AutonameAll";
             this.menu_Tools_AutonameAll.Click += new System.EventHandler(this.menu_Tools_AutonameAll_Click);
             // 
             // menu_Tools_AutocatAll
             // 
-            this.menu_Tools_AutocatAll.Name = "menu_Tools_AutocatAll";
             resources.ApplyResources(this.menu_Tools_AutocatAll, "menu_Tools_AutocatAll");
+            this.menu_Tools_AutocatAll.Name = "menu_Tools_AutocatAll";
             this.menu_Tools_AutocatAll.Click += new System.EventHandler(this.menu_Tools_AutocatAll_Click);
             // 
             // menu_Tools_RemoveEmpty
             // 
-            this.menu_Tools_RemoveEmpty.Name = "menu_Tools_RemoveEmpty";
             resources.ApplyResources(this.menu_Tools_RemoveEmpty, "menu_Tools_RemoveEmpty");
+            this.menu_Tools_RemoveEmpty.Name = "menu_Tools_RemoveEmpty";
             this.menu_Tools_RemoveEmpty.Click += new System.EventHandler(this.menu_Tools_RemoveEmpty_Click);
             // 
             // menu_Tools_Sep2
             // 
-            this.menu_Tools_Sep2.Name = "menu_Tools_Sep2";
             resources.ApplyResources(this.menu_Tools_Sep2, "menu_Tools_Sep2");
+            this.menu_Tools_Sep2.Name = "menu_Tools_Sep2";
             // 
             // menu_Tools_DBEdit
             // 
-            this.menu_Tools_DBEdit.Name = "menu_Tools_DBEdit";
             resources.ApplyResources(this.menu_Tools_DBEdit, "menu_Tools_DBEdit");
+            this.menu_Tools_DBEdit.Name = "menu_Tools_DBEdit";
             this.menu_Tools_DBEdit.Click += new System.EventHandler(this.menu_Tools_DBEdit_Click);
             // 
             // menu_Tools_Sep3
             // 
-            this.menu_Tools_Sep3.Name = "menu_Tools_Sep3";
             resources.ApplyResources(this.menu_Tools_Sep3, "menu_Tools_Sep3");
+            this.menu_Tools_Sep3.Name = "menu_Tools_Sep3";
             // 
             // menu_Tools_SingleCat
             // 
-            this.menu_Tools_SingleCat.Name = "menu_Tools_SingleCat";
             resources.ApplyResources(this.menu_Tools_SingleCat, "menu_Tools_SingleCat");
+            this.menu_Tools_SingleCat.Name = "menu_Tools_SingleCat";
             this.menu_Tools_SingleCat.Click += new System.EventHandler(this.menu_Tools_SingleCat_Click);
             // 
             // menu_Tools_Settings
             // 
-            this.menu_Tools_Settings.Name = "menu_Tools_Settings";
             resources.ApplyResources(this.menu_Tools_Settings, "menu_Tools_Settings");
+            this.menu_Tools_Settings.Name = "menu_Tools_Settings";
             this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
             // 
             // statusStrip
             // 
+            resources.ApplyResources(this.statusStrip, "statusStrip");
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusMsg,
             this.statusSelection});
-            resources.ApplyResources(this.statusStrip, "statusStrip");
             this.statusStrip.Name = "statusStrip";
             // 
             // statusMsg
             // 
-            this.statusMsg.Name = "statusMsg";
             resources.ApplyResources(this.statusMsg, "statusMsg");
+            this.statusMsg.Name = "statusMsg";
             this.statusMsg.Spring = true;
             // 
             // statusSelection
@@ -846,8 +841,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep1;
         private System.Windows.Forms.ToolStripMenuItem menu_File_SaveProfileAs;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Manual;
-        private System.Windows.Forms.ToolStripMenuItem menu_File_Manual_Import;
-        private System.Windows.Forms.ToolStripMenuItem menu_File_Manual_Download;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Manual_Export;
         private System.Windows.Forms.ToolStripSeparator menu_Profile_Sep1;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_Export;
@@ -901,6 +894,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ColumnHeader colCategory;
         private System.Windows.Forms.ColumnHeader colFavorite;
         private System.Windows.Forms.ColumnHeader colHidden;
+        private System.Windows.Forms.ToolStripMenuItem shortcutFileToolStripMenuItem;
     }
 }
 

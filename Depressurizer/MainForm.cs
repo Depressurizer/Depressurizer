@@ -728,26 +728,6 @@ namespace Depressurizer {
                     AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
                     AddStatus( string.Format( "Failed to update {0} games.", gamesToUpdate.Count - updated ) );
                     if( updated > 0 ) MakeChange( true );
-
-                    /* Old code
-                    CDlgDataScrape scrapeDlg = new CDlgDataScrape( notFound, gameData, settings.FullAutocat );
-                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
-
-                    if( scrapeRes == DialogResult.Cancel ) {
-                        AddStatus( string.Format( GlobalStrings.MainForm_CanceledWebUpdate, scrapeDlg.JobsTotal ) );
-                    } else {
-                        if( scrapeRes == DialogResult.Abort ) {
-                            AddStatus( string.Format( GlobalStrings.MainForm_UpdatedViaWebAndAborted, scrapeDlg.JobsCompleted, scrapeDlg.JobsTotal ) );
-                        } else {
-                            AddStatus( string.Format( GlobalStrings.MainForm_UpdatedViaWeb, scrapeDlg.JobsCompleted ) );
-                        }
-                        if( scrapeDlg.Failures > 0 ) {
-                            MessageBox.Show( string.Format( GlobalStrings.MainForm_FailedToLoadStorePages, scrapeDlg.Failures ), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
-                            AddStatus( string.Format( GlobalStrings.MainForm_ErrorOcurredOnGames, scrapeDlg.Failures ) );
-                        }
-                        if( scrapeDlg.JobsCompleted > 0 ) MakeChange( true );
-                    }
-                     * */
                 }
             }
             autoCat.DeProcess();
