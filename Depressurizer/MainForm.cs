@@ -1506,9 +1506,10 @@ namespace Depressurizer {
 
         private void contextGame_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
             bool selectedGames = lstGames.SelectedItems.Count > 0;
-            cntxtGame_Edit.Enabled = selectedGames;
+            contextGame_Edit.Enabled = selectedGames;
             contextGame_Remove.Enabled = selectedGames;
             contextGame_AddCat.Enabled = selectedGames;
+            contextGame_RemCat.Enabled = selectedGames && contextGameRemCat.Items.Count > 0;
             contextGame_SetFav.Enabled = selectedGames;
             contextGame_VisitStore.Enabled = selectedGames;
         }
