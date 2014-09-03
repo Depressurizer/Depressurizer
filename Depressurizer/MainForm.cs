@@ -890,6 +890,7 @@ namespace Depressurizer {
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
             UpdateGameCheckStates();
+            UpdateEnabledStatesForGames();
         }
 
         /// <summary>
@@ -1428,7 +1429,7 @@ namespace Depressurizer {
                 if( c.GetType() == typeof( MenuStrip ) ) {
                     foreach( ToolStripDropDownItem mItem in ( c as MenuStrip ).Items )
                         changeLanguageToolStripItems( mItem, resources, newCulture );
-                } else if( c.GetType() == typeof( ListView ) ) {
+                } else if( c is ListView ) {
                     // jpodadera. Because a framework bug, names of ColumnHeader objects are empty. 
                     // Resolved by saving names to Tag property.
                     foreach( ColumnHeader cHeader in ( c as ListView ).Columns )
