@@ -33,8 +33,10 @@ namespace Depressurizer {
         bool isDragging;
         int dragOldCat;
 
+        bool ignoreCheckChanges = false;
+
         // Used to reload resources of main form while switching language
-        private int originalWidth, originalHeight, originalSplitDistance;
+        private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary;
 
         #endregion
         #region Properties
@@ -1017,6 +1019,7 @@ namespace Depressurizer {
         }
 
         void AddGameToCheckboxStates( GameInfo game, bool first ) {
+            ignoreCheckChanges = true;
             if( first ) {
                 chkFavorite.CheckState = game.ContainsCategory( gameData.FavoriteCategory ) ? CheckState.Checked : CheckState.Unchecked;
                 chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
@@ -1034,6 +1037,7 @@ namespace Depressurizer {
                     if( chkHidden.CheckState == CheckState.Checked ) chkHidden.CheckState = CheckState.Indeterminate;
                 }
             }
+            ignoreCheckChanges = false;
         }
 
         /// <summary>
@@ -1176,7 +1180,8 @@ namespace Depressurizer {
             // jpodadera. Save original width and height
             originalHeight = this.Height;
             originalWidth = this.Width;
-            originalSplitDistance = this.splitContainer.SplitterDistance;
+            originalSplitDistanceMain = this.splitContainer.SplitterDistance;
+            originalSplitDistanceSecondary = this.splitGame.SplitterDistance;
 
             UpdateUIForSingleCat();
         }
@@ -1460,18 +1465,21 @@ namespace Depressurizer {
                 // jpodadera. Save actual size and recover original size before reload resources of controls
                 int actualWidth = this.Width;
                 int actualHeight = this.Height;
-                int actualSplitDistance = this.splitContainer.SplitterDistance;
+                int actualSplitDistanceMain = this.splitContainer.SplitterDistance;
+                int actualSplitDistanceSecondary = this.splitGame.SplitterDistance;
 
                 this.Width = this.originalWidth;
                 this.Height = this.originalHeight;
-                this.splitContainer.SplitterDistance = originalSplitDistance;
+                this.splitContainer.SplitterDistance = this.originalSplitDistanceMain;
+                this.splitGame.SplitterDistance = this.originalSplitDistanceSecondary;
 
                 changeLanguageControls( this, resources, Thread.CurrentThread.CurrentUICulture );
 
                 // jpodadera. Recover previous size
                 this.Width = actualWidth;
                 this.Height = actualHeight;
-                splitContainer.SplitterDistance = actualSplitDistance;
+                splitContainer.SplitterDistance = actualSplitDistanceMain;
+                splitGame.SplitterDistance = actualSplitDistanceSecondary;
 
                 // Re-maximize if it was maximized before
                 if( maximized ) {
@@ -1852,18 +1860,22 @@ namespace Depressurizer {
         }
 
         private void chkFavorite_CheckedChanged( object sender, EventArgs e ) {
-            if( chkFavorite.CheckState == CheckState.Checked ) {
-                AddCategoryToSelectedGames( gameData.FavoriteCategory, false, false );
-            } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
-                RemoveCategoryFromSelectedGames( gameData.FavoriteCategory );
+            if( !ignoreCheckChanges ) {
+                if( chkFavorite.CheckState == CheckState.Checked ) {
+                    AddCategoryToSelectedGames( gameData.FavoriteCategory, false, false );
+                } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
+                    RemoveCategoryFromSelectedGames( gameData.FavoriteCategory );
+                }
             }
         }
 
         private void chkHidden_CheckedChanged( object sender, EventArgs e ) {
-            if( chkHidden.CheckState == CheckState.Checked ) {
-                AssignHiddenToSelectedGames( true );
-            } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
-                AssignHiddenToSelectedGames( false );
+            if( !ignoreCheckChanges ) {
+                if( chkHidden.CheckState == CheckState.Checked ) {
+                    AssignHiddenToSelectedGames( true );
+                } else if( chkHidden.CheckState == CheckState.Unchecked ) {
+                    AssignHiddenToSelectedGames( false );
+                }
             }
         }
     }

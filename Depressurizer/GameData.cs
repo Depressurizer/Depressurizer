@@ -563,7 +563,7 @@ namespace Depressurizer {
 
         public void ClearGameCategories( int[] gameIDs, bool preserveFavorite ) {
             for( int i = 0; i < gameIDs.Length; i++ ) {
-                ClearGameCategories( i, preserveFavorite );
+                ClearGameCategories( gameIDs[i], preserveFavorite );
             }
         }
 
