@@ -285,6 +285,7 @@ namespace Depressurizer {
             Profile profile = new Profile();
 
             SaveModifiables( profile );
+            Profile.GenerateDefaultAutoCatSet( profile.AutoCats );
 
             try {
                 profile.Save( file.FullName );

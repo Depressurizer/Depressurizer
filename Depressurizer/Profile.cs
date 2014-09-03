@@ -270,7 +270,7 @@ namespace Depressurizer {
             return true;
         }
 
-        private static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
+        public static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
             list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_MultiCat_WithRem, 0, true ) );
             list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_MultiCat_NoRem, 0, false ) );
             list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_SingleCat_WithRem, 1, true ) );
