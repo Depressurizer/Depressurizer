@@ -1648,26 +1648,27 @@ namespace Depressurizer {
 
         private void lstMultiCat_MouseDown( object sender, MouseEventArgs e ) {
             ListViewItem i = lstMultiCat.GetItemAt( e.X, e.Y );
-            HandleMultiCatItemActivation( i );
+            HandleMultiCatItemActivation( i, Control.ModifierKeys == Keys.Shift );
         }
 
         private void lstMultiCat_KeyPress( object sender, KeyPressEventArgs e ) {
+            bool modKey = Control.ModifierKeys == Keys.Shift;
             if( e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Space ) {
                 if( lstMultiCat.SelectedItems.Count == 0 ) return;
                 ListViewItem item = lstMultiCat.SelectedItems[0];
-                HandleMultiCatItemActivation( item );
+                HandleMultiCatItemActivation( item, Control.ModifierKeys == Keys.Shift );
             }
         }
 
-        void HandleMultiCatItemActivation( ListViewItem item ) {
+        void HandleMultiCatItemActivation( ListViewItem item, bool modKey ) {
             if( item != null ) {
-                if( item.StateImageIndex == 0 || item.StateImageIndex == 2 ) {
+                if( item.StateImageIndex == 0 || ( item.StateImageIndex == 2 && modKey ) ) {
                     item.StateImageIndex = 1;
                     Category cat = item.Tag as Category;
                     if( cat != null ) {
                         AddCategoryToSelectedGames( cat, false, false );
                     }
-                } else if( item.StateImageIndex == 1 ) {
+                } else if( item.StateImageIndex == 1 || (item.StateImageIndex == 2 && !modKey) ) {
                     item.StateImageIndex = 0;
                     Category cat = item.Tag as Category;
                     if( cat != null ) {
