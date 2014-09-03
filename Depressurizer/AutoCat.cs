@@ -145,17 +145,16 @@ namespace Depressurizer {
         }
 
         public override AutoCatResult CategorizeGame( GameInfo game ) {
-            //TODO: L10N: remove string literals
             if( games == null ) {
-                Program.Logger.Write( LoggerLevel.Error, "Failed to Autocategorize game because gamelist was null." );
-                throw new ApplicationException( "AutoCatGenre has no game list." );
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
+                throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
             }
             if( db == null ) {
-                Program.Logger.Write( LoggerLevel.Error, "Failed to Autocategorize game because database was null." );
-                throw new ApplicationException( "AutoCatGenre has no game database." );
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull );
+                throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameDB );
             }
             if( game == null ) {
-                Program.Logger.Write( LoggerLevel.Error, "Failed to Autocategorize game because game was null." );
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull );
                 return AutoCatResult.Failure;
             }
 

@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System.Text;
 using Rallion;
 
+// TODO: This entire dialog should no longer be needed.
+
 namespace Depressurizer {
     class CDlgDataScrape : CancelableDlg {
         Queue<int> jobs;
@@ -86,7 +88,7 @@ namespace Depressurizer {
                 return false;
             }
             if( Stopped ) return false;
-            // TODO: Make sure this gets Totally Revamped when multiple cat options are put in place.
+
             GameDBEntry dbEntry = new GameDBEntry();
             AppType type = dbEntry.ScrapeStore( game.Id );
             if( type == AppType.WebError ) {
@@ -116,7 +118,6 @@ namespace Depressurizer {
                 
                 if( scrapeResults != null ) {
                     foreach( KeyValuePair<int, string> pair in scrapeResults ) {
-                        // TODO: Multicat check
                         data.Games[pair.Key].AddCategory( data.GetCategory( pair.Value ) );
                     }
                 }

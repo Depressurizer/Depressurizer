@@ -542,7 +542,7 @@ Continue loading file?</value>
   <data name="MainForm_AutonamedGames" xml:space="preserve">
     <value>Autonamed {0} games.</value>
   </data>
-  <data name="MainForm_CanceledWebUpdate" xml:space="preserve">
+  <data name="MainForm_CanceledDatabaseUpdate" xml:space="preserve">
     <value>Canceled web update.</value>
   </data>
   <data name="MainForm_CategoryAdded" xml:space="preserve">
@@ -675,7 +675,7 @@ Continue loading file?</value>
     <value>Overwrite?</value>
   </data>
   <data name="MainForm_OverwriteExistingNames" xml:space="preserve">
-    <value>Do you want to overwrite existing names? Saying \"No\" will only rename games that do not have a name set.</value>
+    <value>Do you want to overwrite existing names? Saying "No" will only rename games that do not have a name set.</value>
   </data>
   <data name="MainForm_ProfileCreated" xml:space="preserve">
     <value>Profile created.</value>
@@ -726,7 +726,7 @@ Continue loading file?</value>
     <value>Unsaved changes will be lost. Save first?</value>
   </data>
   <data name="MainForm_UpdatedCategories" xml:space="preserve">
-    <value>Updated {0} categories locally.</value>
+    <value>Updated {0} categories.</value>
   </data>
   <data name="MainForm_UpdatedViaWeb" xml:space="preserve">
     <value>Updated {0} via web.</value>
@@ -809,5 +809,50 @@ Continue loading file?</value>
   </data>
   <data name="MainForm_External" xml:space="preserve">
     <value>External</value>
+  </data>
+  <data name="AutoCatGenre_Exception_NoGameDB" xml:space="preserve">
+    <value>AutoCatGenre has no game database.</value>
+  </data>
+  <data name="AutoCatGenre_Exception_NoGameList" xml:space="preserve">
+    <value>AutoCatGenre has no game list.</value>
+  </data>
+  <data name="Category_Exception_ObjectNotCategory" xml:space="preserve">
+    <value>Object is not a Category</value>
+  </data>
+  <data name="Log_AutoCat_DBNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because database was null.</value>
+  </data>
+  <data name="Log_AutoCat_GamelistNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because gamelist was null.</value>
+  </data>
+  <data name="Log_AutoCat_GameNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because game was null.</value>
+  </data>
+  <data name="Log_GameData_ConfigBackupFailed" xml:space="preserve">
+    <value>Steam config file backup failed: {0}</value>
+  </data>
+  <data name="Log_GameData_ShortcutBackupFailed" xml:space="preserve">
+    <value>Steam shortcut file backup failed: {0}</value>
+  </data>
+  <data name="MainForm_FailedToUpdate" xml:space="preserve">
+    <value>Failed to update {0} games.</value>
+  </data>
+  <data name="MainForm_SingleCategoryMode" xml:space="preserve">
+    <value>Single Category Mode</value>
+  </data>
+  <data name="MainForm_UpdatedDatabaseEntries" xml:space="preserve">
+    <value>Updated {0} database entries.</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre_MultiCat_NoRem" xml:space="preserve">
+    <value>Genre, Multi-Cat, No Removal</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre_MultiCat_WithRem" xml:space="preserve">
+    <value>Genre, Multi-Cat, With Removal</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre_SingleCat_NoRem" xml:space="preserve">
+    <value>Genre, Single Cat, No Removal</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre_SingleCat_WithRem" xml:space="preserve">
+    <value>Genre, Single Cat, With Removal</value>
   </data>
 </root>

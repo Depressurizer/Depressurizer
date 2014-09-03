@@ -543,8 +543,8 @@ Tiempo Restante:</value>
   <data name="MainForm_AutonamedGames" xml:space="preserve">
     <value>Autonombrados {0} juegos.</value>
   </data>
-  <data name="MainForm_CanceledWebUpdate" xml:space="preserve">
-    <value>Cancelada actualización web.</value>
+  <data name="MainForm_CanceledDatabaseUpdate" xml:space="preserve">
+    <value>Cancelada actualización base de datos.</value>
   </data>
   <data name="MainForm_CategoryAdded" xml:space="preserve">
     <value>Categoría '{0}' añadida.</value>
@@ -618,9 +618,7 @@ Tiempo Restante:</value>
     <value>Error importando lista de datos de Steam</value>
   </data>
   <data name="MainForm_ErrorLoadingGameDB" xml:space="preserve">
-    <value>Error cargando base de datos de juegos. Categorías locales y datos DLC no estarán disponibles.
-
-</value>
+    <value>Error cargando base de datos de juegos. Categorías locales y datos DLC no estarán disponibles.</value>
   </data>
   <data name="MainForm_ErrorLoadingProfile" xml:space="preserve">
     <value>Error cargando perfil</value>
@@ -728,7 +726,7 @@ Tiempo Restante:</value>
     <value>Los cambios sin guardar se perderán. ¿Guardar primero?</value>
   </data>
   <data name="MainForm_UpdatedCategories" xml:space="preserve">
-    <value>Actualizadas {0} categorías localmente.</value>
+    <value>Actualizadas {0} categorías.</value>
   </data>
   <data name="MainForm_UpdatedViaWeb" xml:space="preserve">
     <value>Actualizado {0} vía web.</value>
@@ -810,5 +808,65 @@ Tiempo Restante:</value>
   </data>
   <data name="MainForm_External" xml:space="preserve">
     <value>Externo</value>
+  </data>
+  <data name="AutoCatGenre_Exception_NoGameDB" xml:space="preserve">
+    <value>AutoCatGenre has no game database.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="AutoCatGenre_Exception_NoGameList" xml:space="preserve">
+    <value>AutoCatGenre has no game list.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Category_Exception_ObjectNotCategory" xml:space="preserve">
+    <value>Object is not a Category</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Log_AutoCat_DBNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because database was null.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Log_AutoCat_GamelistNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because gamelist was null.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Log_AutoCat_GameNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because game was null.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Log_GameData_ConfigBackupFailed" xml:space="preserve">
+    <value>Steam config file backup failed: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Log_GameData_ShortcutBackupFailed" xml:space="preserve">
+    <value>Steam shortcut file backup failed: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_FailedToUpdate" xml:space="preserve">
+    <value>Failed to update {0} games.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_SingleCategoryMode" xml:space="preserve">
+    <value>Single Category Mode</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_UpdatedDatabaseEntries" xml:space="preserve">
+    <value>Updated {0} database entries.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre_MultiCat_NoRem" xml:space="preserve">
+    <value>Genre, Multi-Cat, No Removal</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre_MultiCat_WithRem" xml:space="preserve">
+    <value>Genre, Multi-Cat, With Removal</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre_SingleCat_NoRem" xml:space="preserve">
+    <value>Genre, Single Cat, No Removal</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre_SingleCat_WithRem" xml:space="preserve">
+    <value>Genre, Single Cat, With Removal</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
   </data>
 </root>

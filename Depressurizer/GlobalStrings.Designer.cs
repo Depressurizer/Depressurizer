@@ -61,6 +61,33 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AutoCatGenre has no game database..
+        /// </summary>
+        internal static string AutoCatGenre_Exception_NoGameDB {
+            get {
+                return ResourceManager.GetString("AutoCatGenre_Exception_NoGameDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoCatGenre has no game list..
+        /// </summary>
+        internal static string AutoCatGenre_Exception_NoGameList {
+            get {
+                return ResourceManager.GetString("AutoCatGenre_Exception_NoGameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object is not a Category.
+        /// </summary>
+        internal static string Category_Exception_ObjectNotCategory {
+            get {
+                return ResourceManager.GetString("Category_Exception_ObjectNotCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finishing up....
         /// </summary>
         internal static string CDlgDataScrape_FinishingUp {
@@ -1267,6 +1294,51 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to Autocategorize game because database was null..
+        /// </summary>
+        internal static string Log_AutoCat_DBNull {
+            get {
+                return ResourceManager.GetString("Log_AutoCat_DBNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to Autocategorize game because gamelist was null..
+        /// </summary>
+        internal static string Log_AutoCat_GamelistNull {
+            get {
+                return ResourceManager.GetString("Log_AutoCat_GamelistNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to Autocategorize game because game was null..
+        /// </summary>
+        internal static string Log_AutoCat_GameNull {
+            get {
+                return ResourceManager.GetString("Log_AutoCat_GameNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam config file backup failed: {0}.
+        /// </summary>
+        internal static string Log_GameData_ConfigBackupFailed {
+            get {
+                return ResourceManager.GetString("Log_GameData_ConfigBackupFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam shortcut file backup failed: {0}.
+        /// </summary>
+        internal static string Log_GameData_ShortcutBackupFailed {
+            get {
+                return ResourceManager.GetString("Log_GameData_ShortcutBackupFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This action will add the contents of a Steam community game list to the currently loaded game list. If you do not want to do this, close the open game list or profile first.
         ///Continue loading games?.
         /// </summary>
@@ -1325,9 +1397,9 @@ namespace Depressurizer {
         /// <summary>
         ///   Looks up a localized string similar to Canceled web update..
         /// </summary>
-        internal static string MainForm_CanceledWebUpdate {
+        internal static string MainForm_CanceledDatabaseUpdate {
             get {
-                return ResourceManager.GetString("MainForm_CanceledWebUpdate", resourceCulture);
+                return ResourceManager.GetString("MainForm_CanceledDatabaseUpdate", resourceCulture);
             }
         }
         
@@ -1659,6 +1731,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to update {0} games..
+        /// </summary>
+        internal static string MainForm_FailedToUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_FailedToUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;Favorite&gt;.
         /// </summary>
         internal static string MainForm_Favorite {
@@ -1785,7 +1866,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to overwrite existing names? Saying \&quot;No\&quot; will only rename games that do not have a name set..
+        ///   Looks up a localized string similar to Do you want to overwrite existing names? Saying &quot;No&quot; will only rename games that do not have a name set..
         /// </summary>
         internal static string MainForm_OverwriteExistingNames {
             get {
@@ -1893,6 +1974,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Single Category Mode.
+        /// </summary>
+        internal static string MainForm_SingleCategoryMode {
+            get {
+                return ResourceManager.GetString("MainForm_SingleCategoryMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Some of the selected games already have categories set. Would you like to overwrite these categories?.
         /// </summary>
         internal static string MainForm_SomeSelectedGameHaveCategories {
@@ -1938,11 +2028,20 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updated {0} categories locally..
+        ///   Looks up a localized string similar to Updated {0} categories..
         /// </summary>
         internal static string MainForm_UpdatedCategories {
             get {
                 return ResourceManager.GetString("MainForm_UpdatedCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated {0} database entries..
+        /// </summary>
+        internal static string MainForm_UpdatedDatabaseEntries {
+            get {
+                return ResourceManager.GetString("MainForm_UpdatedDatabaseEntries", resourceCulture);
             }
         }
         
@@ -1979,6 +2078,42 @@ namespace Depressurizer {
         internal static string MainForm_Yes {
             get {
                 return ResourceManager.GetString("MainForm_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre, Multi-Cat, No Removal.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Genre_MultiCat_NoRem {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_MultiCat_NoRem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre, Multi-Cat, With Removal.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Genre_MultiCat_WithRem {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_MultiCat_WithRem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre, Single Cat, No Removal.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Genre_SingleCat_NoRem {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_SingleCat_NoRem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre, Single Cat, With Removal.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Genre_SingleCat_WithRem {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_SingleCat_WithRem", resourceCulture);
             }
         }
         

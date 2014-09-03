@@ -243,7 +243,7 @@ namespace Depressurizer {
             if( o == null ) return 1;
 
             Category otherCat = o as Category;
-            if( o == null ) throw new ArgumentException( "Object is not a Category" );
+            if( o == null ) throw new ArgumentException( GlobalStrings.Category_Exception_ObjectNotCategory );
 
             if( Name == otherCat.Name ) return 0;
 
@@ -963,8 +963,7 @@ namespace Depressurizer {
             try {
                 Utility.BackupFile( filePath, Settings.Instance().ConfigBackupCount );
             } catch( Exception e ) {
-                // TODO: string literal
-                Program.Logger.Write( LoggerLevel.Error, "Steam config file backup failed: {0}", e.Message );
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_GameData_ConfigBackupFailed, e.Message );
             }
             try {
                 string filePathTmp = filePath + ".tmp";
@@ -1062,8 +1061,7 @@ namespace Depressurizer {
                     try {
                         Utility.BackupFile( filePath, Settings.Instance().ConfigBackupCount );
                     } catch( Exception e ) {
-                        // TODO: string literal
-                        Program.Logger.Write( LoggerLevel.Error, "Steam shortcut file backup failed: {0}", e.Message );
+                        Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_GameData_ShortcutBackupFailed, e.Message );
                     }
                     try {
                         string filePathTmp = filePath + ".tmp";

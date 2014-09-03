@@ -711,11 +711,9 @@ namespace Depressurizer {
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
                     if( scrapeRes == System.Windows.Forms.DialogResult.Cancel ) {
-                        //TODO: Weird text
-                        AddStatus( string.Format( GlobalStrings.MainForm_CanceledWebUpdate ) );
+                        AddStatus( string.Format( GlobalStrings.MainForm_CanceledDatabaseUpdate ) );
                     } else {
-                        //TODO: L10N
-                        AddStatus( string.Format( "Updated {0} database entries.", scrapeDlg.JobsCompleted ) );
+                        AddStatus( string.Format( GlobalStrings.MainForm_UpdatedDatabaseEntries, scrapeDlg.JobsCompleted ) );
                         foreach( GameInfo g in notFound ) {
                             AutoCatResult res = autoCat.CategorizeGame( g );
                             if( res == AutoCatResult.Success ) {
@@ -726,9 +724,8 @@ namespace Depressurizer {
                 }
             }
             autoCat.DeProcess();
-            //TODO: weird text
             AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
-            if( gamesToUpdate.Count > updated ) AddStatus( string.Format( "Failed to update {0} games.", gamesToUpdate.Count - updated ) );
+            if( gamesToUpdate.Count > updated ) AddStatus( string.Format( GlobalStrings.MainForm_FailedToUpdate, gamesToUpdate.Count - updated ) );
             if( updated > 0 ) MakeChange( true );
             FullListRefresh();
         }
@@ -810,8 +807,9 @@ namespace Depressurizer {
                 sb.Append( Path.GetFileName( currentProfile.FilePath ) );
             }
             if( settings.SingleCatMode ) {
-                //TODO: string literals
-                sb.Append( " [Single Category Mode]" );
+                sb.Append( " [" );
+                sb.Append( GlobalStrings.MainForm_SingleCategoryMode );
+                sb.Append( "]" );
             }
             if( unsavedChanges ) {
                 sb.Append( " *" );
