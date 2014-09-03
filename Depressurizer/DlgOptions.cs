@@ -62,11 +62,6 @@ namespace Depressurizer {
             }
             
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
-            chkIgnoreDlc.Checked = settings.IgnoreDlc;
-            chkFullAutocat.Checked = settings.FullAutocat;
-
-            //jpodadera. Non-Steam games
-            chkIgnoreExternal.Checked = settings.IgnoreExternal;
 
             cmbLogLevel.SelectedIndex = (int)settings.LogLevel;
             numLogSize.Value = settings.LogSize;
@@ -112,10 +107,6 @@ namespace Depressurizer {
 
             settings.ProfileToLoad = txtDefaultProfile.Text;
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
-            settings.IgnoreDlc = chkIgnoreDlc.Checked;
-            settings.FullAutocat = chkFullAutocat.Checked;
-            //jpodadera. Non-Steam games
-            settings.IgnoreExternal = chkIgnoreExternal.Checked;
 
             settings.LogLevel = (LoggerLevel)cmbLogLevel.SelectedIndex;
             settings.LogSize = (int)numLogSize.Value;

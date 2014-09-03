@@ -92,9 +92,6 @@
     </Compile>
     <Compile Include="Utility.cs" />
     <Compile Include="VdfFile\BinaryVdfFileNode.cs" />
-    <Compile Include="CDlgDataScrape.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>

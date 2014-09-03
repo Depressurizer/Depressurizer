@@ -55,10 +55,6 @@ namespace Depressurizer {
             this.cmdAccept = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.grpSaving = new System.Windows.Forms.GroupBox();
-            this.chkIgnoreExternal = new System.Windows.Forms.CheckBox();
-            this.chkIgnoreDlc = new System.Windows.Forms.CheckBox();
-            this.grpAutocat = new System.Windows.Forms.GroupBox();
-            this.chkFullAutocat = new System.Windows.Forms.CheckBox();
             this.grpDatSrc = new System.Windows.Forms.GroupBox();
             this.cmbDatSrc = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -75,7 +71,6 @@ namespace Depressurizer {
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
-            this.grpAutocat.SuspendLayout();
             this.grpDatSrc.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -172,36 +167,9 @@ namespace Depressurizer {
             // grpSaving
             // 
             resources.ApplyResources(this.grpSaving, "grpSaving");
-            this.grpSaving.Controls.Add(this.chkIgnoreExternal);
-            this.grpSaving.Controls.Add(this.chkIgnoreDlc);
             this.grpSaving.Controls.Add(this.chkRemoveExtraEntries);
             this.grpSaving.Name = "grpSaving";
             this.grpSaving.TabStop = false;
-            // 
-            // chkIgnoreExternal
-            // 
-            resources.ApplyResources(this.chkIgnoreExternal, "chkIgnoreExternal");
-            this.chkIgnoreExternal.Name = "chkIgnoreExternal";
-            this.chkIgnoreExternal.UseVisualStyleBackColor = true;
-            // 
-            // chkIgnoreDlc
-            // 
-            resources.ApplyResources(this.chkIgnoreDlc, "chkIgnoreDlc");
-            this.chkIgnoreDlc.Name = "chkIgnoreDlc";
-            this.chkIgnoreDlc.UseVisualStyleBackColor = true;
-            // 
-            // grpAutocat
-            // 
-            resources.ApplyResources(this.grpAutocat, "grpAutocat");
-            this.grpAutocat.Controls.Add(this.chkFullAutocat);
-            this.grpAutocat.Name = "grpAutocat";
-            this.grpAutocat.TabStop = false;
-            // 
-            // chkFullAutocat
-            // 
-            resources.ApplyResources(this.chkFullAutocat, "chkFullAutocat");
-            this.chkFullAutocat.Name = "chkFullAutocat";
-            this.chkFullAutocat.UseVisualStyleBackColor = true;
             // 
             // grpDatSrc
             // 
@@ -231,43 +199,42 @@ namespace Depressurizer {
             // 
             // tabGeneral
             // 
-            resources.ApplyResources(this.tabGeneral, "tabGeneral");
             this.tabGeneral.Controls.Add(this.grpLanguage);
             this.tabGeneral.Controls.Add(this.grpSteamDir);
             this.tabGeneral.Controls.Add(this.grpDatSrc);
             this.tabGeneral.Controls.Add(this.grpStartup);
-            this.tabGeneral.Controls.Add(this.grpAutocat);
             this.tabGeneral.Controls.Add(this.grpSaving);
+            resources.ApplyResources(this.tabGeneral, "tabGeneral");
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
             // grpLanguage
             // 
-            resources.ApplyResources(this.grpLanguage, "grpLanguage");
             this.grpLanguage.Controls.Add(this.cmbLanguage);
+            resources.ApplyResources(this.grpLanguage, "grpLanguage");
             this.grpLanguage.Name = "grpLanguage";
             this.grpLanguage.TabStop = false;
             // 
             // cmbLanguage
             // 
-            resources.ApplyResources(this.cmbLanguage, "cmbLanguage");
             this.cmbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLanguage.FormattingEnabled = true;
             this.cmbLanguage.Items.AddRange(new object[] {
             resources.GetString("cmbLanguage.Items"),
             resources.GetString("cmbLanguage.Items1"),
             resources.GetString("cmbLanguage.Items2")});
+            resources.ApplyResources(this.cmbLanguage, "cmbLanguage");
             this.cmbLanguage.Name = "cmbLanguage";
             // 
             // tabLogging
             // 
-            resources.ApplyResources(this.tabLogging, "tabLogging");
             this.tabLogging.Controls.Add(this.numLogBackup);
             this.tabLogging.Controls.Add(this.numLogSize);
             this.tabLogging.Controls.Add(this.label3);
             this.tabLogging.Controls.Add(this.label2);
             this.tabLogging.Controls.Add(this.label1);
             this.tabLogging.Controls.Add(this.cmbLogLevel);
+            resources.ApplyResources(this.tabLogging, "tabLogging");
             this.tabLogging.Name = "tabLogging";
             this.tabLogging.UseVisualStyleBackColor = true;
             // 
@@ -278,12 +245,12 @@ namespace Depressurizer {
             // 
             // numLogSize
             // 
-            resources.ApplyResources(this.numLogSize, "numLogSize");
             this.numLogSize.Increment = new decimal(new int[] {
             5000,
             0,
             0,
             0});
+            resources.ApplyResources(this.numLogSize, "numLogSize");
             this.numLogSize.Maximum = new decimal(new int[] {
             20000000,
             0,
@@ -341,8 +308,6 @@ namespace Depressurizer {
             this.grpStartup.PerformLayout();
             this.grpSaving.ResumeLayout(false);
             this.grpSaving.PerformLayout();
-            this.grpAutocat.ResumeLayout(false);
-            this.grpAutocat.PerformLayout();
             this.grpDatSrc.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
@@ -370,9 +335,6 @@ namespace Depressurizer {
         private System.Windows.Forms.RadioButton radNone;
         private System.Windows.Forms.RadioButton radCreate;
         private System.Windows.Forms.RadioButton radLoad;
-        private System.Windows.Forms.CheckBox chkIgnoreDlc;
-        private System.Windows.Forms.GroupBox grpAutocat;
-        private System.Windows.Forms.CheckBox chkFullAutocat;
         private System.Windows.Forms.GroupBox grpDatSrc;
         private System.Windows.Forms.ComboBox cmbDatSrc;
         private System.Windows.Forms.TabControl tabControl;
@@ -386,6 +348,5 @@ namespace Depressurizer {
         private System.Windows.Forms.ComboBox cmbLogLevel;
         private System.Windows.Forms.GroupBox grpLanguage;
         private System.Windows.Forms.ComboBox cmbLanguage;
-        private System.Windows.Forms.CheckBox chkIgnoreExternal;
     }
 }

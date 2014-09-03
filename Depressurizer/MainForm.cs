@@ -68,41 +68,6 @@ namespace Depressurizer {
         #region Manual Operations
 
         /// <summary>
-        /// Loads a Steam configuration file and adds its data to the currently loaded game list. Asks the user to select a file, handles the load, and refreshes the UI.
-        /// </summary>
-        void ManualImport() {
-            if( ProfileLoaded || gameData.Games.Count > 0 ) {
-                if( MessageBox.Show( GlobalStrings.MainForm_AddContentsOfSteamConfigFile,
-                    GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Information )
-                 == DialogResult.No ) {
-                    return;
-                }
-            }
-
-            OpenFileDialog dlg = new OpenFileDialog();
-            DialogResult res = dlg.ShowDialog();
-            if( res == DialogResult.OK ) {
-                Cursor = Cursors.WaitCursor;
-                try {
-                    int loadedGames = gameData.ImportSteamConfigFile( dlg.FileName, null, settings.IgnoreDlc );
-                    if( loadedGames == 0 ) {
-                        MessageBox.Show( GlobalStrings.MainForm_NoGameInfoFound, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                        AddStatus( GlobalStrings.MainForm_NoGamesFound );
-                    } else {
-                        MakeChange( true );
-                        AddStatus( string.Format( GlobalStrings.MainForm_ImportedGames, loadedGames ) );
-                        lastSelectedCat = null; // Make sure the game list refreshes
-                        FullListRefresh();
-                    }
-                } catch( ApplicationException e ) {
-                    MessageBox.Show( e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
-                    AddStatus( GlobalStrings.MainForm_ImportFailed );
-                }
-                Cursor = Cursors.Default;
-            }
-        }
-
-        /// <summary>
         /// Saves a Steam configuration file. Asks the user to select the file to save as.
         /// </summary>
         /// <returns>True if save was completed, false otherwise</returns>
@@ -122,35 +87,6 @@ namespace Depressurizer {
                 Cursor = Cursors.Default;
             }
             return false;
-        }
-
-        /// <summary>
-        /// Loads game list information from a Steam profile and adds to currently loaded game list. Asks user for Steam profile name.
-        /// </summary>
-        public void ManualDownload() {
-
-            if( ProfileLoaded || gameData.Games.Count > 0 ) {
-                if( MessageBox.Show( GlobalStrings.MainForm_AddContentsOfSteamCommunity,
-                    GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Information )
-                 == DialogResult.No ) {
-                    return;
-                }
-            }
-
-            DlgManualDownload dlg = new DlgManualDownload();
-            if( dlg.ShowDialog() == DialogResult.OK ) {
-
-                try {
-                    if( dlg.Custom ) {
-                        DownloadProfileData( dlg.UrlVal, true, null, settings.IgnoreDlc, settings.IgnoreExternal );
-                    } else {
-                        DownloadProfileData( dlg.IdVal, true, null, settings.IgnoreDlc, settings.IgnoreExternal );
-                    }
-                } catch( ApplicationException e ) {
-                    MessageBox.Show( e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
-                    AddStatus( GlobalStrings.MainForm_ErrorDownloadingGames );
-                }
-            }
         }
 
         #endregion
@@ -1327,18 +1263,6 @@ namespace Depressurizer {
         private void menu_File_Close_Click( object sender, EventArgs e ) {
             ClearStatus();
             Unload();
-            FlushStatus();
-        }
-
-        private void menu_File_Manual_Import_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            ManualImport();
-            FlushStatus();
-        }
-
-        private void menu_File_Manual_Download_Click( object sender, EventArgs e ) {
-            ClearStatus();
-            ManualDownload();
             FlushStatus();
         }
 

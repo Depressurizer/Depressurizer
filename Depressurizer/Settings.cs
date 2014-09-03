@@ -126,49 +126,6 @@ namespace Depressurizer {
             }
         }
 
-        private bool _ignoreDlc = true;
-        public bool IgnoreDlc {
-            get {
-                return _ignoreDlc;
-            }
-            set {
-                if( _ignoreDlc != value ) {
-                    _ignoreDlc = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        private bool _ignoreExternal = true;
-        public bool IgnoreExternal
-        {
-            get
-            {
-                return _ignoreExternal;
-            }
-            set
-            {
-                if (_ignoreExternal != value)
-                {
-                    _ignoreExternal = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        private bool _fullAutocat = false;
-        public bool FullAutocat {
-            get {
-                return _fullAutocat;
-            }
-            set {
-                if( _fullAutocat != value ) {
-                    _fullAutocat = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
         private GameListSource _listSource = GameListSource.XmlPreferred;
         public GameListSource ListSource {
             get {
@@ -260,19 +217,6 @@ namespace Depressurizer {
             }
 
             Thread.CurrentThread.CurrentUICulture = newCulture;
-        }
-
-        private bool _groupView = false;
-        public bool GroupView {
-            get {
-                return _groupView;
-            }
-            set {
-                if( _groupView != value ) {
-                    _groupView = value;
-                    outOfDate = true;
-                }
-            }
         }
 
         private bool _singleCatMode = false;
