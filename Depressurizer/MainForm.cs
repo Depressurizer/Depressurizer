@@ -875,13 +875,22 @@ namespace Depressurizer {
             if( lstCategories.SelectedItems.Count > 0 ) {
                 object catObj = lstCategories.SelectedItem;
 
-                bool showAll = ( catObj is string ) && ( (string)catObj == GlobalStrings.MainForm_All );
-
-                Category cat = lstCategories.SelectedItem as Category;
-
-                foreach( GameInfo g in gameData.Games.Values ) {
-                    if( showAll || g.ContainsCategory( cat ) ) {
-                        AddGameToList( g );
+                if( ( catObj is string ) && ( (string)catObj == GlobalStrings.MainForm_All ) ) {
+                    foreach( GameInfo g in gameData.Games.Values ) {
+                            AddGameToList( g );
+                    }
+                } else if( ( catObj is string ) && ( (string)catObj == GlobalStrings.MainForm_Uncategorized ) ) {
+                    foreach( GameInfo g in gameData.Games.Values ) {
+                        if( !g.HasCategoriesExcept( gameData.FavoriteCategory ) ) {
+                            AddGameToList( g );
+                        }
+                    }
+                } else {
+                    Category cat = lstCategories.SelectedItem as Category;
+                    foreach( GameInfo g in gameData.Games.Values ) {
+                        if( g.ContainsCategory( cat ) ) {
+                            AddGameToList( g );
+                        }
                     }
                 }
 
