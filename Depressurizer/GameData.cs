@@ -929,12 +929,17 @@ namespace Depressurizer {
                 }
             }
 
+            // Force appListNode to be an array, we can't do anything if it's a value
+            appListNode.MakeArray();
+
             foreach( GameInfo game in Games.Values ) {
                 if( game.Id > 0 ) { // External games have negative identifier
                     Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile, game.Id );
                     VdfFileNode gameNode = (VdfFileNode)appListNode[game.Id.ToString()];
+                    gameNode.MakeArray();
 
                     VdfFileNode tagsNode = (VdfFileNode)gameNode["tags"];
+                    tagsNode.MakeArray();
 
                     Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
                     if( tags != null ) tags.Clear();

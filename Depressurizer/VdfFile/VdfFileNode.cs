@@ -14,7 +14,7 @@ namespace Depressurizer {
     public abstract class VdfFileNode {
         public ValueType NodeType;
 
-        // Can be an int, string or VdfFileNode (if it's an array of other nodes), depending on value type.
+        // Can be an int, string or Dictionary<string,VdfFileNode>
         public Object NodeData;
 
         /// <summary>
@@ -191,6 +191,12 @@ namespace Depressurizer {
             }
         }
 
+        public void MakeArray() {
+            if( this.NodeType != ValueType.Array ) {
+                this.NodeType = ValueType.Array;
+                this.NodeData = new Dictionary<string,VdfFileNode>(StringComparer.OrdinalIgnoreCase);
+            }
+        }
         #endregion
     }
 }
