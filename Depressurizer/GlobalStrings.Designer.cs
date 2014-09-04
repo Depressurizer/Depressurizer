@@ -1803,6 +1803,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A non-Steam game must have been launched at least once from the Steam client before it can be launched externally..
+        /// </summary>
+        internal static string MainForm_LaunchFailed {
+            get {
+                return ResourceManager.GetString("MainForm_LaunchFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name &apos;{0}&apos; is already in use..
         /// </summary>
         internal static string MainForm_NameIsInUse {

@@ -469,19 +469,19 @@
     <value>358, 17</value>
   </metadata>
   <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 22</value>
+    <value>67, 22</value>
   </data>
   <data name="contextGameFav_Yes.Text" xml:space="preserve">
     <value>Yes</value>
   </data>
   <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 22</value>
+    <value>67, 22</value>
   </data>
   <data name="contextGameFav_No.Text" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 70</value>
+    <value>68, 48</value>
   </data>
   <data name="&gt;&gt;contextGameFav.Name" xml:space="preserve">
     <value>contextGameFav</value>
@@ -514,7 +514,7 @@
     <value>Start Game</value>
   </data>
   <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 220</value>
+    <value>144, 198</value>
   </data>
   <data name="&gt;&gt;contextGame.Name" xml:space="preserve">
     <value>contextGame</value>
@@ -538,7 +538,7 @@
     <value>lstGames</value>
   </data>
   <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.4.5.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
     <value>grpGames</value>
@@ -589,7 +589,7 @@
     <value>128</value>
   </data>
   <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>95, 29</value>
+    <value>95, 26</value>
   </data>
   <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 21</value>
@@ -616,7 +616,7 @@
     <value>NoControl</value>
   </data>
   <data name="chkHidden.Location" type="System.Drawing.Point, System.Drawing">
-    <value>95, 56</value>
+    <value>95, 53</value>
   </data>
   <data name="chkHidden.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 17</value>
@@ -673,7 +673,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdAutoCat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>95, 3</value>
+    <value>95, 0</value>
   </data>
   <data name="cmdAutoCat.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 23</value>
@@ -727,7 +727,7 @@
     <value>NoControl</value>
   </data>
   <data name="chkFavorite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>186, 56</value>
+    <value>186, 53</value>
   </data>
   <data name="chkFavorite.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 17</value>
@@ -754,10 +754,10 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="lstMultiCat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>275, 3</value>
+    <value>275, 0</value>
   </data>
   <data name="lstMultiCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>572, 73</value>
+    <value>572, 76</value>
   </data>
   <metadata name="imglistTriState.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>918, 17</value>
@@ -767,7 +767,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAbgBAAG4AQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAcABAAHAAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -827,7 +827,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdGameRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 80</value>
+    <value>3, 77</value>
   </data>
   <data name="cmdGameRemove.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 23</value>
@@ -857,7 +857,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdGameAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 54</value>
+    <value>3, 51</value>
   </data>
   <data name="cmdGameAdd.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 23</value>
@@ -887,7 +887,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdGameEdit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 28</value>
+    <value>3, 25</value>
   </data>
   <data name="cmdGameEdit.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 23</value>
@@ -914,7 +914,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdGameLaunch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>4, 0</value>
   </data>
   <data name="cmdGameLaunch.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 23</value>
@@ -1403,9 +1403,6 @@
         rEEAAKxBAACsQQAArEEAAKxBAACsQQAArEE=
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 350</value>
   </data>
@@ -1441,6 +1438,36 @@
   </data>
   <data name="&gt;&gt;contextCat_RemoveEmpty.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colGameID.Name" xml:space="preserve">
+    <value>colGameID</value>
+  </data>
+  <data name="&gt;&gt;colGameID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colTitle.Name" xml:space="preserve">
+    <value>colTitle</value>
+  </data>
+  <data name="&gt;&gt;colTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colCategory.Name" xml:space="preserve">
+    <value>colCategory</value>
+  </data>
+  <data name="&gt;&gt;colCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colFavorite.Name" xml:space="preserve">
+    <value>colFavorite</value>
+  </data>
+  <data name="&gt;&gt;colFavorite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colHidden.Name" xml:space="preserve">
+    <value>colHidden</value>
+  </data>
+  <data name="&gt;&gt;colHidden.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;contextGame_Add.Name" xml:space="preserve">
     <value>contextGame_Add</value>
@@ -1711,36 +1738,6 @@
   </data>
   <data name="&gt;&gt;statusSelection.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colGameID.Name" xml:space="preserve">
-    <value>colGameID</value>
-  </data>
-  <data name="&gt;&gt;colGameID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colTitle.Name" xml:space="preserve">
-    <value>colTitle</value>
-  </data>
-  <data name="&gt;&gt;colTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colCategory.Name" xml:space="preserve">
-    <value>colCategory</value>
-  </data>
-  <data name="&gt;&gt;colCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colFavorite.Name" xml:space="preserve">
-    <value>colFavorite</value>
-  </data>
-  <data name="&gt;&gt;colFavorite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;colHidden.Name" xml:space="preserve">
-    <value>colHidden</value>
-  </data>
-  <data name="&gt;&gt;colHidden.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>

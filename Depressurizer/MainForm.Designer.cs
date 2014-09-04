@@ -58,6 +58,12 @@ namespace Depressurizer {
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.splitGame = new System.Windows.Forms.SplitContainer();
             this.grpGames = new System.Windows.Forms.GroupBox();
+            this.lstGames = new Depressurizer.Lib.ExtListView();
+            this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colFavorite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHidden = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Edit = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,12 +127,6 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lstGames = new Depressurizer.Lib.ExtListView();
-            this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colFavorite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colHidden = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -284,6 +284,54 @@ namespace Depressurizer {
             this.grpGames.Name = "grpGames";
             this.grpGames.TabStop = false;
             // 
+            // lstGames
+            // 
+            this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colGameID,
+            this.colTitle,
+            this.colCategory,
+            this.colFavorite,
+            this.colHidden});
+            this.lstGames.ContextMenuStrip = this.contextGame;
+            resources.ApplyResources(this.lstGames, "lstGames");
+            this.lstGames.FullRowSelect = true;
+            this.lstGames.GridLines = true;
+            this.lstGames.HideSelection = false;
+            this.lstGames.Name = "lstGames";
+            this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.lstGames.UseCompatibleStateImageBehavior = false;
+            this.lstGames.View = System.Windows.Forms.View.Details;
+            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
+            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
+            this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
+            this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
+            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
+            // 
+            // colGameID
+            // 
+            this.colGameID.Tag = "colGameID";
+            resources.ApplyResources(this.colGameID, "colGameID");
+            // 
+            // colTitle
+            // 
+            this.colTitle.Tag = "colTitle";
+            resources.ApplyResources(this.colTitle, "colTitle");
+            // 
+            // colCategory
+            // 
+            this.colCategory.Tag = "colCategory";
+            resources.ApplyResources(this.colCategory, "colCategory");
+            // 
+            // colFavorite
+            // 
+            this.colFavorite.Tag = "colFavorite";
+            resources.ApplyResources(this.colFavorite, "colFavorite");
+            // 
+            // colHidden
+            // 
+            this.colHidden.Tag = "colHidden";
+            resources.ApplyResources(this.colHidden, "colHidden");
+            // 
             // contextGame
             // 
             this.contextGame.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -337,6 +385,7 @@ namespace Depressurizer {
             this.contextGameAddCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextGameAddCat_Create});
             this.contextGameAddCat.Name = "contextGameCat";
+            this.contextGameAddCat.OwnerItem = this.contextGame_AddCat;
             this.contextGameAddCat.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameAddCat, "contextGameAddCat");
             // 
@@ -355,6 +404,7 @@ namespace Depressurizer {
             // contextGameRemCat
             // 
             this.contextGameRemCat.Name = "contextGameRemCat";
+            this.contextGameRemCat.OwnerItem = this.contextGame_RemCat;
             this.contextGameRemCat.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameRemCat, "contextGameRemCat");
             // 
@@ -717,54 +767,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.statusSelection, "statusSelection");
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
-            // 
-            // lstGames
-            // 
-            this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colGameID,
-            this.colTitle,
-            this.colCategory,
-            this.colFavorite,
-            this.colHidden});
-            this.lstGames.ContextMenuStrip = this.contextGame;
-            resources.ApplyResources(this.lstGames, "lstGames");
-            this.lstGames.FullRowSelect = true;
-            this.lstGames.GridLines = true;
-            this.lstGames.HideSelection = false;
-            this.lstGames.Name = "lstGames";
-            this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lstGames.UseCompatibleStateImageBehavior = false;
-            this.lstGames.View = System.Windows.Forms.View.Details;
-            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
-            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
-            this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
-            this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
-            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
-            // 
-            // colGameID
-            // 
-            this.colGameID.Tag = "colGameID";
-            resources.ApplyResources(this.colGameID, "colGameID");
-            // 
-            // colTitle
-            // 
-            this.colTitle.Tag = "colTitle";
-            resources.ApplyResources(this.colTitle, "colTitle");
-            // 
-            // colCategory
-            // 
-            this.colCategory.Tag = "colCategory";
-            resources.ApplyResources(this.colCategory, "colCategory");
-            // 
-            // colFavorite
-            // 
-            this.colFavorite.Tag = "colFavorite";
-            resources.ApplyResources(this.colFavorite, "colFavorite");
-            // 
-            // colHidden
-            // 
-            this.colHidden.Tag = "colHidden";
-            resources.ApplyResources(this.colHidden, "colHidden");
             // 
             // FormMain
             // 

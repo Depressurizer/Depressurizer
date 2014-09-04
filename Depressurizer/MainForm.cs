@@ -1766,8 +1766,11 @@ namespace Depressurizer {
             if( g != null ) {
                 string gameIdentifier;
                 if( g.Id < 0 ) {   // External game
-                    ulong externalId = ( (ulong)g.Id << 32 ) + 0X2000000;
-                    gameIdentifier = externalId.ToString();
+                    if( g.LaunchString == null ) {
+                        MessageBox.Show( GlobalStrings.MainForm_LaunchFailed );
+                        return;
+                    }
+                    gameIdentifier = g.LaunchString;
                 } else {
                     // Steam game
                     gameIdentifier = g.Id.ToString();

@@ -855,4 +855,7 @@ Continue loading file?</value>
   <data name="Profile_DefaultAutoCatName_Genre_SingleCat_WithRem" xml:space="preserve">
     <value>Genre, Single Cat, With Removal</value>
   </data>
+  <data name="MainForm_LaunchFailed" xml:space="preserve">
+    <value>A non-Steam game must have been launched at least once from the Steam client before it can be launched externally.</value>
+  </data>
 </root>

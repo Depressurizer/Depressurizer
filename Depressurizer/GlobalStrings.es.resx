@@ -869,4 +869,8 @@ Tiempo Restante:</value>
     <value>Genre, Single Cat, With Removal</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="MainForm_LaunchFailed" xml:space="preserve">
+    <value>A non-Steam game must have been launched at least once from the Steam client before it can be launched externally.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>
