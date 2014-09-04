@@ -55,9 +55,9 @@ namespace Depressurizer {
             return instance;
         }
 
-        public string SettingsVersion {
+        public int SettingsVersion {
             get {
-                return "0.3";
+                return 2;
             }
         }
 
