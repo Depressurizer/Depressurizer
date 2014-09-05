@@ -27,6 +27,8 @@ It also saves your configuration information independently of Steam, providing a
 ### Usage Guide
 
 #### Getting Started
+
+Download the latest versionn of Depressurizer from the [project's Release page](https://github.com/rallion/depressurizer/releases).
 		
 The first time you run Depressurizer, it will ask you for your Steam directory. If it is not automatically and correctly detected, fill this in.
 		
