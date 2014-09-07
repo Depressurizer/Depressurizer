@@ -75,6 +75,9 @@ namespace Depressurizer {
                 case AutoCatGenre.TypeIdString:
                     result = AutoCatGenre.LoadFromXmlElement( xElement );
                     break;
+                case AutoCatFlags.TypeIdString:
+                    result = AutoCatFlags.LoadFromXmlElement( xElement );
+                    break;
                 default:
                     break;
             }
@@ -92,9 +95,8 @@ namespace Depressurizer {
         public bool RemoveOtherGenres { get; set; }
         public string Prefix { get; set; }
 
-        // Type ID used in serialization and maybe elsewhere?
-        public const string TypeIdString = "AutoCatGenre";
         // Serialization keys
+        public const string TypeIdString = "AutoCatGenre";
         private const string
             XmlName_Name = "Name",
             XmlName_RemOther = "RemoveOthers",
@@ -211,5 +213,93 @@ namespace Depressurizer {
             AutoCatGenre result = new AutoCatGenre( name, prefix, maxCats, remOther );
             return result;
         }
+    }
+
+    public class AutoCatFlags : AutoCat {
+
+        // AutoCat configuration
+        public string Prefix { get; set; }
+        public List<string> IncludedFlags { get; set; }
+
+        // Serialization constants
+        public const string TypeIdString = "AutoCatFlags";
+        private const string
+            XmlName_Name = "Name",
+            XmlName_Prefix = "Prefix",
+            XmlName_FlagList = "Flags",
+            XmlName_Flag = "Flag";
+
+        public AutoCatFlags( string name, string prefix, List<string> flags ):base(name) {
+            Prefix = prefix;
+            IncludedFlags = flags;
+        }
+
+        public override AutoCatResult CategorizeGame( GameInfo game ) {
+            if( games == null ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
+                throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
+            }
+            if( db == null ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull );
+                throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameDB );
+            }
+            if( game == null ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull );
+                return AutoCatResult.Failure;
+            }
+
+            if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
+
+            GameDBEntry dbEntry = db.Games[game.Id];
+
+            IEnumerable<string> categories = dbEntry.Flags.Intersect( IncludedFlags );
+
+            foreach( string catString in categories ) {
+                Category c = games.GetCategory( GetProcessedString( catString ) );
+                game.AddCategory( c );
+            }
+            return AutoCatResult.Success;
+        }
+
+        private string GetProcessedString( string baseString ) {
+            if( string.IsNullOrEmpty( Prefix ) ) {
+                return baseString;
+            } else {
+                return Prefix + baseString;
+            }
+        }
+
+        public override void WriteToXml( XmlWriter writer ) {
+            writer.WriteStartElement( TypeIdString );
+
+            writer.WriteElementString( XmlName_Name, Name );
+            writer.WriteElementString( XmlName_Prefix, Prefix );
+
+            writer.WriteStartElement( XmlName_FlagList );
+
+            foreach( string s in IncludedFlags ) {
+                writer.WriteElementString( XmlName_Flag, s );
+            }
+
+            writer.WriteEndElement(); // flag list
+            writer.WriteEndElement(); // type ID string
+        }
+
+        public static AutoCatFlags LoadFromXmlElement( XmlElement xElement ) {
+            string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+            string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
+            List<string> flags = new List<string>();
+
+            XmlElement flagListElement = xElement[XmlName_FlagList];
+            XmlNodeList flagElements = flagListElement.SelectNodes( XmlName_Flag );
+            foreach( XmlNode n in flagElements ) {
+                string flag;
+                if( XmlUtil.TryGetStringFromNode( n, out flag ) ) {
+                    flags.Add( flag );
+                }
+            }
+            return new AutoCatFlags( name, prefix, flags );
+        }
+
     }
 }
