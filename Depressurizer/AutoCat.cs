@@ -28,9 +28,15 @@ namespace Depressurizer {
             return Name;
         }
 
-        public AutoCat( string name ) {
+        protected AutoCat( string name ) {
             Name = name;
         }
+
+        protected AutoCat( AutoCat other ) {
+            Name = other.Name;
+        }
+
+        public abstract AutoCat Clone();
 
         /// <summary>
         /// Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis or other preparation.
@@ -117,6 +123,16 @@ namespace Depressurizer {
             MaxCategories = maxCategories;
             RemoveOtherGenres = removeOthers;
             Prefix = prefix;
+        }
+
+        protected AutoCatGenre( AutoCatGenre other ):base(other) {
+            this.MaxCategories = other.MaxCategories;
+            this.RemoveOtherGenres = other.RemoveOtherGenres;
+            this.Prefix = other.Prefix;
+        }
+
+        public override AutoCat Clone() {
+            return new AutoCatGenre( this );
         }
 
         /// <summary>
@@ -232,6 +248,15 @@ namespace Depressurizer {
         public AutoCatFlags( string name, string prefix, List<string> flags ):base(name) {
             Prefix = prefix;
             IncludedFlags = flags;
+        }
+
+        protected AutoCatFlags( AutoCatFlags other ) : base (other) {
+            this.Prefix = other.Prefix;
+            this.IncludedFlags = new List<string>( other.IncludedFlags );
+        }
+
+        public override AutoCat Clone() {
+            return new AutoCatFlags( this );
         }
 
         public override AutoCatResult CategorizeGame( GameInfo game ) {
