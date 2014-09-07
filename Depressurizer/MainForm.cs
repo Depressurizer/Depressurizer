@@ -1821,9 +1821,9 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats );
                 
-                DialogResult = dlg.ShowDialog();
+                DialogResult res = dlg.ShowDialog();
 
-                if( DialogResult == DialogResult.OK ) {
+                if( res == DialogResult.OK ) {
                     currentProfile.AutoCats = dlg.AutoCatList;
                     FillAutoCatLists();
                 }
