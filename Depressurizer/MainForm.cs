@@ -1816,6 +1816,19 @@ namespace Depressurizer {
                 }
             }
         }
+
+        private void editAutoCatsToolStripMenuItem_Click( object sender, EventArgs e ) {
+            if( currentProfile != null ) {
+                DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats );
+                
+                DialogResult = dlg.ShowDialog();
+
+                if( DialogResult == DialogResult.OK ) {
+                    currentProfile.AutoCats = dlg.AutoCatList;
+                    FillAutoCatLists();
+                }
+            }
+        }
     }
 
     /// <summary>

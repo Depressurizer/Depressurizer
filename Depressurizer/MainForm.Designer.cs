@@ -127,6 +127,7 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.editAutoCatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -644,7 +645,8 @@ namespace Depressurizer {
             this.menu_Profile_Sep1,
             this.menu_Profile_Export,
             this.menu_Profile_Sep2,
-            this.menu_Profile_Edit});
+            this.menu_Profile_Edit,
+            this.editAutoCatsToolStripMenuItem});
             this.menu_Profile.Name = "menu_Profile";
             resources.ApplyResources(this.menu_Profile, "menu_Profile");
             // 
@@ -767,6 +769,12 @@ namespace Depressurizer {
             resources.ApplyResources(this.statusSelection, "statusSelection");
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
+            // 
+            // editAutoCatsToolStripMenuItem
+            // 
+            this.editAutoCatsToolStripMenuItem.Name = "editAutoCatsToolStripMenuItem";
+            resources.ApplyResources(this.editAutoCatsToolStripMenuItem, "editAutoCatsToolStripMenuItem");
+            this.editAutoCatsToolStripMenuItem.Click += new System.EventHandler(this.editAutoCatsToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -891,6 +899,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ColumnHeader colFavorite;
         private System.Windows.Forms.ColumnHeader colHidden;
         private System.Windows.Forms.ContextMenuStrip menuToolsAutocat_List;
+        private System.Windows.Forms.ToolStripMenuItem editAutoCatsToolStripMenuItem;
     }
 }
 
