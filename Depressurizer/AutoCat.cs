@@ -101,13 +101,17 @@ namespace Depressurizer {
         public bool RemoveOtherGenres { get; set; }
         public string Prefix { get; set; }
 
+        public List<string> IgnoredGenres { get; set; }
+
         // Serialization keys
         public const string TypeIdString = "AutoCatGenre";
         private const string
             XmlName_Name = "Name",
             XmlName_RemOther = "RemoveOthers",
             XmlName_MaxCats = "MaxCategories",
-            XmlName_Prefix = "Prefix";
+            XmlName_Prefix = "Prefix",
+            XmlName_IgnoreList = "Ignored",
+            XmlName_IgnoreItem = "Ignore";
 
         private SortedSet<Category> genreCategories;
 
@@ -118,17 +122,19 @@ namespace Depressurizer {
         /// <param name="games">Reference to the GameList to act on</param>
         /// <param name="maxCategories">Maximum number of categories to assign per game. 0 indicates no limit.</param>
         /// <param name="removeOthers">If true, removes any OTHER genre-named categories from each game processed. Will not remove categories that do not match a genre found in the database.</param>
-        public AutoCatGenre( string name, string prefix, int maxCategories, bool removeOthers )
+        public AutoCatGenre( string name, string prefix, int maxCategories, bool removeOthers, List<string> ignore )
             : base( name ) {
             MaxCategories = maxCategories;
             RemoveOtherGenres = removeOthers;
             Prefix = prefix;
+            IgnoredGenres = (ignore == null) ? new List<string>() : ignore;
         }
 
         protected AutoCatGenre( AutoCatGenre other ):base(other) {
             this.MaxCategories = other.MaxCategories;
             this.RemoveOtherGenres = other.RemoveOtherGenres;
             this.Prefix = other.Prefix;
+            this.IgnoredGenres = new List<string>( other.IgnoredGenres );
         }
 
         public override AutoCat Clone() {
@@ -154,7 +160,7 @@ namespace Depressurizer {
 
                 genreCategories = new SortedSet<Category>();
                 foreach( string cStr in catStrings ) {
-                    if( games.CategoryExists( cStr ) ) {
+                    if( games.CategoryExists( cStr ) && !IgnoredGenres.Contains( cStr ) ) {
                         genreCategories.Add( games.GetCategory( cStr ) );
                     }
                 }
@@ -193,7 +199,10 @@ namespace Depressurizer {
                 string[] genreStrings = genreString.Split( new char[] { ',' } );
                 List<Category> categories = new List<Category>();
                 for( int i = 0; ( i < MaxCategories || MaxCategories == 0 ) && i < genreStrings.Length; i++ ) {
-                    categories.Add( games.GetCategory( GetProcessedString( genreStrings[i] ) ) );
+                    string cStr = genreStrings[i].Trim();
+                    if( !IgnoredGenres.Contains( cStr ) ) {
+                        categories.Add( games.GetCategory( GetProcessedString( cStr ) ) );
+                    }
                 }
 
                 game.AddCategory( categories );
@@ -202,7 +211,6 @@ namespace Depressurizer {
         }
 
         private string GetProcessedString( string baseString ) {
-            baseString = baseString.Trim();
             if( string.IsNullOrEmpty( Prefix ) ) {
                 return baseString;
             } else {
@@ -218,6 +226,14 @@ namespace Depressurizer {
             writer.WriteElementString( XmlName_MaxCats, MaxCategories.ToString() );
             writer.WriteElementString( XmlName_RemOther, RemoveOtherGenres.ToString() );
 
+            writer.WriteStartElement( XmlName_IgnoreList );
+
+            foreach( string s in IgnoredGenres ) {
+                writer.WriteElementString( XmlName_IgnoreItem, s );
+            }
+
+            writer.WriteEndElement();
+
             writer.WriteEndElement();
         }
 
@@ -226,7 +242,21 @@ namespace Depressurizer {
             int maxCats = XmlUtil.GetIntFromNode( xElement[XmlName_MaxCats], 0 );
             bool remOther = XmlUtil.GetBoolFromNode( xElement[XmlName_RemOther], false );
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
-            AutoCatGenre result = new AutoCatGenre( name, prefix, maxCats, remOther );
+
+            List<string> ignore = new List<string>();
+
+            XmlElement ignoreListElement = xElement[XmlName_IgnoreList];
+            if( ignoreListElement != null ) {
+                XmlNodeList ignoreNodes = ignoreListElement.SelectNodes( XmlName_IgnoreItem );
+                foreach( XmlNode node in ignoreNodes ) {
+                    string s;
+                    if( XmlUtil.TryGetStringFromNode( node, out s ) ) {
+                        ignore.Add( s );
+                    }
+                }
+            }
+
+            AutoCatGenre result = new AutoCatGenre( name, prefix, maxCats, remOther, ignore );
             return result;
         }
     }
@@ -316,11 +346,13 @@ namespace Depressurizer {
             List<string> flags = new List<string>();
 
             XmlElement flagListElement = xElement[XmlName_FlagList];
-            XmlNodeList flagElements = flagListElement.SelectNodes( XmlName_Flag );
-            foreach( XmlNode n in flagElements ) {
-                string flag;
-                if( XmlUtil.TryGetStringFromNode( n, out flag ) ) {
-                    flags.Add( flag );
+            if( flagListElement != null ) {
+                XmlNodeList flagElements = flagListElement.SelectNodes( XmlName_Flag );
+                foreach( XmlNode n in flagElements ) {
+                    string flag;
+                    if( XmlUtil.TryGetStringFromNode( n, out flag ) ) {
+                        flags.Add( flag );
+                    }
                 }
             }
             return new AutoCatFlags( name, prefix, flags );
