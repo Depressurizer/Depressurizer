@@ -22,23 +22,19 @@ namespace Depressurizer {
         protected GameList games;
         protected GameDB db;
 
-        private string name;
-        public string Name {
-            get {
-                return name;
-            }
-        }
+        public string Name { get; set; }
 
         public override string ToString() {
             return Name;
         }
 
         public AutoCat( string name ) {
-            this.name = name;
+            Name = name;
         }
 
         /// <summary>
         /// Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis or other preparation.
+        /// After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
         public virtual void PreProcess( GameList games, GameDB db ) {
             this.games = games;
@@ -91,12 +87,19 @@ namespace Depressurizer {
     /// </summary>
     public class AutoCatGenre : AutoCat {
 
-        protected int maxCategories;
-        protected bool removeOtherGenres;
+        // Autocat configuration
+        public int MaxCategories { get; set; }
+        public bool RemoveOtherGenres { get; set; }
+        public string Prefix { get; set; }
 
+        // Type ID used in serialization and maybe elsewhere?
         public const string TypeIdString = "AutoCatGenre";
-
-        private const string XmlName_Name = "Name", XmlName_RemOther = "RemoveOthers", XmlName_MaxCats = "MaxCategories";
+        // Serialization keys
+        private const string
+            XmlName_Name = "Name",
+            XmlName_RemOther = "RemoveOthers",
+            XmlName_MaxCats = "MaxCategories",
+            XmlName_Prefix = "Prefix";
 
         private SortedSet<Category> genreCategories;
 
@@ -107,10 +110,11 @@ namespace Depressurizer {
         /// <param name="games">Reference to the GameList to act on</param>
         /// <param name="maxCategories">Maximum number of categories to assign per game. 0 indicates no limit.</param>
         /// <param name="removeOthers">If true, removes any OTHER genre-named categories from each game processed. Will not remove categories that do not match a genre found in the database.</param>
-        public AutoCatGenre( string name, int maxCategories, bool removeOthers )
+        public AutoCatGenre( string name, string prefix, int maxCategories, bool removeOthers )
             : base( name ) {
-            this.maxCategories = maxCategories;
-            this.removeOtherGenres = removeOthers;
+            MaxCategories = maxCategories;
+            RemoveOtherGenres = removeOthers;
+            Prefix = prefix;
         }
 
         /// <summary>
@@ -118,7 +122,7 @@ namespace Depressurizer {
         /// </summary>
         public override void PreProcess( GameList games, GameDB db ) {
             base.PreProcess( games, db );
-            if( removeOtherGenres ) {
+            if( RemoveOtherGenres ) {
                 SortedSet<string> catStrings = new SortedSet<string>();
                 char[] sep = new char[] { ',' };
                 foreach( GameDBEntry dbEntry in db.Games.Values ) {
@@ -163,15 +167,15 @@ namespace Depressurizer {
             GameDBEntry dbEntry = db.Games[game.Id];
             string genreString = dbEntry.Genre;
 
-            if( removeOtherGenres && genreCategories != null ) {
+            if( RemoveOtherGenres && genreCategories != null ) {
                 game.RemoveCategory( genreCategories );
             }
 
             if( !String.IsNullOrEmpty( genreString ) ) {
                 string[] genreStrings = genreString.Split( new char[] { ',' } );
                 List<Category> categories = new List<Category>();
-                for( int i = 0; ( i < maxCategories || maxCategories == 0 ) && i < genreStrings.Length; i++ ) {
-                    categories.Add( games.GetCategory( genreStrings[i].Trim() ) );
+                for( int i = 0; ( i < MaxCategories || MaxCategories == 0 ) && i < genreStrings.Length; i++ ) {
+                    categories.Add( games.GetCategory( GetProcessedString( genreStrings[i] ) ) );
                 }
 
                 game.AddCategory( categories );
@@ -179,12 +183,22 @@ namespace Depressurizer {
             return AutoCatResult.Success;
         }
 
+        private string GetProcessedString( string baseString ) {
+            baseString = baseString.Trim();
+            if( string.IsNullOrEmpty( Prefix ) ) {
+                return baseString;
+            } else {
+                return Prefix + baseString;
+            }
+        }
+
         public override void WriteToXml( XmlWriter writer ) {
             writer.WriteStartElement( TypeIdString );
 
-            writer.WriteElementString( XmlName_Name, this.Name );
-            writer.WriteElementString( XmlName_MaxCats, this.maxCategories.ToString() );
-            writer.WriteElementString( XmlName_RemOther, this.removeOtherGenres.ToString() );
+            writer.WriteElementString( XmlName_Name, Name );
+            if( Prefix != null ) writer.WriteElementString( XmlName_Prefix, Prefix );
+            writer.WriteElementString( XmlName_MaxCats, MaxCategories.ToString() );
+            writer.WriteElementString( XmlName_RemOther, RemoveOtherGenres.ToString() );
 
             writer.WriteEndElement();
         }
@@ -193,7 +207,8 @@ namespace Depressurizer {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
             int maxCats = XmlUtil.GetIntFromNode( xElement[XmlName_MaxCats], 0 );
             bool remOther = XmlUtil.GetBoolFromNode( xElement[XmlName_RemOther], false );
-            AutoCatGenre result = new AutoCatGenre( name, maxCats, remOther );
+            string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
+            AutoCatGenre result = new AutoCatGenre( name, prefix, maxCats, remOther );
             return result;
         }
     }

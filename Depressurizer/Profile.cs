@@ -271,10 +271,10 @@ namespace Depressurizer {
         }
 
         public static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_MultiCat_WithRem, 0, true ) );
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_MultiCat_NoRem, 0, false ) );
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_SingleCat_WithRem, 1, true ) );
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_SingleCat_NoRem, 1, false ) );
+            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_MultiCat_WithRem,null, 0, true ) );
+            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_MultiCat_NoRem, null, 0, false ) );
+            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_SingleCat_WithRem, null, 1, true ) );
+            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_SingleCat_NoRem, null, 1, false ) );
         }
 
         #endregion
