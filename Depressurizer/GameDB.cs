@@ -291,7 +291,7 @@ namespace Depressurizer {
 
         #region Aggregate Accessors
         /// <summary>
-        /// Gets a list of all Steam store genres found in the entire store.
+        /// Gets a list of all Steam store genres found in the entire database.
         /// Only recalculates if necessary.
         /// </summary>
         /// <returns>A set of genres, as strings</returns>
@@ -304,7 +304,7 @@ namespace Depressurizer {
         }
 
         /// <summary>
-        /// Gets a list of all Steam store genres found in the entire store.
+        /// Gets a list of all Steam store genres found in the entire database.
         /// Always recalculates.
         /// </summary>
         /// <returns>A set of genres, as strings</returns>
@@ -326,6 +326,11 @@ namespace Depressurizer {
             return allStoreGenres;
         }
 
+        /// <summary>
+        /// Gets a list of all Steam store flags found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A set of genres, as strings</returns>
         public SortedSet<string> GetAllStoreFlags() {
             if( allStoreFlags == null ) {
                 return CalculateAllStoreFlags();
@@ -334,8 +339,22 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Gets a list of all Steam store flags found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A set of genres, as strings</returns>
         public SortedSet<string> CalculateAllStoreFlags() {
+            if( allStoreFlags == null ) {
+                allStoreFlags = new SortedSet<string>( StringComparer.OrdinalIgnoreCase );
+            } else {
+                allStoreFlags.Clear();
+            }
 
+            foreach( GameDBEntry entry in Games.Values ) {
+                allStoreFlags.UnionWith( entry.Flags );
+            }
+            return allStoreFlags;
         }
 
         #endregion
