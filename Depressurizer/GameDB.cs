@@ -317,9 +317,11 @@ namespace Depressurizer {
 
             foreach( GameDBEntry entry in Games.Values ) {
                 string fullGenreString = entry.Genre;
-                string[] genreStrings = fullGenreString.Split( genreSep );
-                foreach( string s in genreStrings ) {
-                    allStoreGenres.Add( s.Trim() );
+                if( !string.IsNullOrEmpty( fullGenreString ) ) {
+                    string[] genreStrings = fullGenreString.Split( genreSep );
+                    foreach( string s in genreStrings ) {
+                        allStoreGenres.Add( s.Trim() );
+                    }
                 }
             }
 
