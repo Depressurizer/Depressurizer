@@ -147,19 +147,11 @@ namespace Depressurizer {
         public override void PreProcess( GameList games, GameDB db ) {
             base.PreProcess( games, db );
             if( RemoveOtherGenres ) {
-                SortedSet<string> catStrings = new SortedSet<string>();
-                char[] sep = new char[] { ',' };
-                foreach( GameDBEntry dbEntry in db.Games.Values ) {
-                    if( !String.IsNullOrEmpty( dbEntry.Genre ) ) {
-                        string[] cats = dbEntry.Genre.Split( sep );
-                        foreach( string cStr in cats ) {
-                            catStrings.Add( cStr.Trim() );
-                        }
-                    }
-                }
 
+                SortedSet<string> genreStrings = db.GetAllGenres();
                 genreCategories = new SortedSet<Category>();
-                foreach( string cStr in catStrings ) {
+
+                foreach( string cStr in genreStrings ) {
                     if( games.CategoryExists( cStr ) && !IgnoredGenres.Contains( cStr ) ) {
                         genreCategories.Add( games.GetCategory( cStr ) );
                     }
