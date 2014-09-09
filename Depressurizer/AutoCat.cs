@@ -6,6 +6,12 @@ using System.Xml;
 using Rallion;
 
 namespace Depressurizer {
+    public enum AutoCatType {
+        None,
+        Genre,
+        Flags
+    }
+
     public enum AutoCatResult {
         Success,
         Failure,
@@ -89,6 +95,17 @@ namespace Depressurizer {
             }
             return result;
         }
+
+        public static AutoCat Create( AutoCatType type, string name ) {
+            switch( type ) {
+                case AutoCatType.Genre:
+                    return new AutoCatGenre( name );
+                case AutoCatType.Flags:
+                    return new AutoCatFlags( name );
+                default:
+                    return null;
+            }
+        }
     }
 
     /// <summary>
@@ -122,15 +139,16 @@ namespace Depressurizer {
         /// <param name="games">Reference to the GameList to act on</param>
         /// <param name="maxCategories">Maximum number of categories to assign per game. 0 indicates no limit.</param>
         /// <param name="removeOthers">If true, removes any OTHER genre-named categories from each game processed. Will not remove categories that do not match a genre found in the database.</param>
-        public AutoCatGenre( string name, string prefix, int maxCategories, bool removeOthers, List<string> ignore )
+        public AutoCatGenre( string name, string prefix = "", int maxCategories = 0, bool removeOthers = false, List<string> ignore = null )
             : base( name ) {
             MaxCategories = maxCategories;
             RemoveOtherGenres = removeOthers;
             Prefix = prefix;
-            IgnoredGenres = (ignore == null) ? new List<string>() : ignore;
+            IgnoredGenres = ( ignore == null ) ? new List<string>() : ignore;
         }
 
-        protected AutoCatGenre( AutoCatGenre other ):base(other) {
+        protected AutoCatGenre( AutoCatGenre other )
+            : base( other ) {
             this.MaxCategories = other.MaxCategories;
             this.RemoveOtherGenres = other.RemoveOtherGenres;
             this.Prefix = other.Prefix;
@@ -267,12 +285,14 @@ namespace Depressurizer {
             XmlName_FlagList = "Flags",
             XmlName_Flag = "Flag";
 
-        public AutoCatFlags( string name, string prefix, List<string> flags ):base(name) {
+        public AutoCatFlags( string name, string prefix = "", List<string> flags = null )
+            : base( name ) {
             Prefix = prefix;
-            IncludedFlags = flags;
+            IncludedFlags = ( flags == null ) ? ( new List<string>() ) : flags;
         }
 
-        protected AutoCatFlags( AutoCatFlags other ) : base (other) {
+        protected AutoCatFlags( AutoCatFlags other )
+            : base( other ) {
             this.Prefix = other.Prefix;
             this.IncludedFlags = new List<string>( other.IncludedFlags );
         }

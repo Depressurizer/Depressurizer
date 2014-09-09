@@ -11,35 +11,35 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class DlgAutoCatCreate : Form {
         public string SelectedName { get; set; }
-        public Type SelectedType { get; set; }
+        public AutoCatType SelectedType { get; set; }
 
         private string[] typeNames;
-        private Type[] typeObjs;
+        private AutoCatType[] types;
 
-        public DlgAutoCatCreate( string name = null, Type type = null ) {
+        public DlgAutoCatCreate( string name = null, AutoCatType type = AutoCatType.None ) {
             InitializeComponent();
 
             // To add new types to this  dialog, add the name and type to these arrays. The indexes must line up.
             // This method allows adding new types in one place AND allows localization to work properly
             typeNames = new string[] { GlobalStrings.AutoCat_Name_Genre, GlobalStrings.AutoCat_Name_Flags };
-            typeObjs = new Type[] { typeof( AutoCatGenre ), typeof( AutoCatFlags ) };
+            types = new AutoCatType[] { AutoCatType.Genre, AutoCatType.Flags };
 
             SelectedName = name;
             SelectedType = type;
         }
 
-        private string TypeToString( Type t ) {
-            if( t == null ) return null;
-            int index = Array.IndexOf( typeObjs, t );
+        private string TypeToString( AutoCatType t ) {
+            if( t == AutoCatType.None ) return null;
+            int index = Array.IndexOf( types, t );
             if( index >= 0 && index < typeNames.Length ) return typeNames[index];
             return null;
         }
 
-        private Type StringToType( string s ) {
-            if( s == null ) return null;
+        private AutoCatType StringToType( string s ) {
+            if( s == null ) return AutoCatType.None;
             int index = Array.IndexOf( typeNames, s );
-            if( index >= 0 && index < typeObjs.Length ) return typeObjs[index];
-            return null;
+            if( index >= 0 && index < types.Length ) return types[index];
+            return AutoCatType.None;
         }
 
         private void SaveUIToFields() {

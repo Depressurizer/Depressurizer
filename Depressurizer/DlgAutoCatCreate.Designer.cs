@@ -108,6 +108,7 @@
             this.Controls.Add(this.lblName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DlgAutoCatCreate";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create AutoCat";
             this.Load += new System.EventHandler(this.DlgAutoCatCreate_Load);
             this.ResumeLayout(false);
