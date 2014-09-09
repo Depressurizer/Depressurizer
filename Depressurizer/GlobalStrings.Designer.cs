@@ -563,6 +563,60 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AutoCat must have a name..
+        /// </summary>
+        internal static string DlgAutoCat_MustHaveName {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_MustHaveName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is already in use..
+        /// </summary>
+        internal static string DlgAutoCat_NameInUse {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_NameInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        internal static string DlgAutoCat_RenameBoxButton {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_RenameBoxButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        internal static string DlgAutoCat_RenameBoxLabel {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_RenameBoxLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new AutoCat name.
+        /// </summary>
+        internal static string DlgAutoCat_RenameBoxTitle {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_RenameBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select a valid AutoCat type..
+        /// </summary>
+        internal static string DlgAutoCat_SelectValidType {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_SelectValidType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clipboard updated..
         /// </summary>
         internal static string DlgFatalError_ClipboardUpdated {

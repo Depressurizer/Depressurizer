@@ -864,4 +864,22 @@ Continue loading file?</value>
   <data name="AutoCat_Name_Genre" xml:space="preserve">
     <value>Store Genre</value>
   </data>
+  <data name="DlgAutoCat_MustHaveName" xml:space="preserve">
+    <value>AutoCat must have a name.</value>
+  </data>
+  <data name="DlgAutoCat_NameInUse" xml:space="preserve">
+    <value>Name is already in use.</value>
+  </data>
+  <data name="DlgAutoCat_RenameBoxButton" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="DlgAutoCat_RenameBoxLabel" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="DlgAutoCat_RenameBoxTitle" xml:space="preserve">
+    <value>Enter new AutoCat name</value>
+  </data>
+  <data name="DlgAutoCat_SelectValidType" xml:space="preserve">
+    <value>You must select a valid AutoCat type.</value>
+  </data>
 </root>

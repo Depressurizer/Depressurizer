@@ -881,4 +881,28 @@ Tiempo Restante:</value>
     <value>Store Genre</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="DlgAutoCat_MustHaveName" xml:space="preserve">
+    <value>AutoCat must have a name.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DlgAutoCat_NameInUse" xml:space="preserve">
+    <value>Name is already in use.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DlgAutoCat_RenameBoxButton" xml:space="preserve">
+    <value>Rename</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DlgAutoCat_RenameBoxLabel" xml:space="preserve">
+    <value>Name:</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DlgAutoCat_RenameBoxTitle" xml:space="preserve">
+    <value>Enter new AutoCat name</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DlgAutoCat_SelectValidType" xml:space="preserve">
+    <value>You must select a valid AutoCat type.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>

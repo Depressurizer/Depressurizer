@@ -1825,6 +1825,7 @@ namespace Depressurizer {
 
                 if( res == DialogResult.OK ) {
                     currentProfile.AutoCats = dlg.AutoCatList;
+                    MakeChange( true );
                     FillAutoCatLists();
                 }
             }
