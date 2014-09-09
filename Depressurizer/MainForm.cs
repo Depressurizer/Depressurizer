@@ -1045,13 +1045,15 @@ namespace Depressurizer {
 
             if( currentProfile != null ) {
                 foreach( AutoCat ac in currentProfile.AutoCats ) {
-                    // Fill main screen dropdown
-                    cmbAutoCatType.Items.Add( ac );
+                    if( ac != null ) {
+                        // Fill main screen dropdown
+                        cmbAutoCatType.Items.Add( ac );
 
-                    // Fill main menu list
-                    ToolStripItem item = menuToolsAutocat_List.Items.Add( ac.Name );
-                    item.Tag = ac;
-                    item.Click += menuToolsAutocat_Item_Click;
+                        // Fill main menu list
+                        ToolStripItem item = menuToolsAutocat_List.Items.Add( ac.Name );
+                        item.Tag = ac;
+                        item.Click += menuToolsAutocat_Item_Click;
+                    }
                 }
             }
 

@@ -253,6 +253,10 @@ namespace Depressurizer {
             RemoveAutoCat( lstAutoCats.SelectedItem as AutoCat );
         }
 
+        private void cmdRename_Click( object sender, EventArgs e ) {
+            RenameAutoCat( lstAutoCats.SelectedItem as AutoCat );
+        }
+
         #endregion
 
         #region Utility
@@ -263,16 +267,5 @@ namespace Depressurizer {
             return false;
         }
         #endregion
-
-
-
-
-
-        private void cmdRename_Click( object sender, EventArgs e ) {
-            RenameAutoCat( lstAutoCats.SelectedItem as AutoCat );
-        }
-
-
-
     }
 }

@@ -82,7 +82,7 @@
             this.cmdDelete.Location = new System.Drawing.Point(6, 247);
             this.cmdDelete.Name = "cmdDelete";
             this.cmdDelete.Size = new System.Drawing.Size(141, 23);
-            this.cmdDelete.TabIndex = 1;
+            this.cmdDelete.TabIndex = 3;
             this.cmdDelete.Text = "Delete";
             this.cmdDelete.UseVisualStyleBackColor = true;
             this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
@@ -122,7 +122,7 @@
             this.grpList.Location = new System.Drawing.Point(8, 8);
             this.grpList.Name = "grpList";
             this.grpList.Size = new System.Drawing.Size(153, 278);
-            this.grpList.TabIndex = 4;
+            this.grpList.TabIndex = 0;
             this.grpList.TabStop = false;
             this.grpList.Text = "AutoCat List";
             // 
@@ -135,7 +135,7 @@
             this.panEditGenre.Location = new System.Drawing.Point(167, 8);
             this.panEditGenre.Name = "panEditGenre";
             this.panEditGenre.Size = new System.Drawing.Size(493, 278);
-            this.panEditGenre.TabIndex = 5;
+            this.panEditGenre.TabIndex = 1;
             // 
             // grpEditGenre
             // 
@@ -161,7 +161,7 @@
             this.genreLblPrefix.Location = new System.Drawing.Point(25, 22);
             this.genreLblPrefix.Name = "genreLblPrefix";
             this.genreLblPrefix.Size = new System.Drawing.Size(36, 13);
-            this.genreLblPrefix.TabIndex = 11;
+            this.genreLblPrefix.TabIndex = 0;
             this.genreLblPrefix.Text = "Prefix:";
             // 
             // genreTxtPrefix
@@ -169,7 +169,7 @@
             this.genreTxtPrefix.Location = new System.Drawing.Point(67, 19);
             this.genreTxtPrefix.Name = "genreTxtPrefix";
             this.genreTxtPrefix.Size = new System.Drawing.Size(165, 20);
-            this.genreTxtPrefix.TabIndex = 10;
+            this.genreTxtPrefix.TabIndex = 1;
             // 
             // genreTblIgnore
             // 
@@ -185,7 +185,7 @@
             this.genreTblIgnore.RowCount = 1;
             this.genreTblIgnore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.genreTblIgnore.Size = new System.Drawing.Size(482, 30);
-            this.genreTblIgnore.TabIndex = 9;
+            this.genreTblIgnore.TabIndex = 7;
             // 
             // genreCmdUncheckAll
             // 
@@ -220,7 +220,7 @@
             this.genreLstIgnore.Location = new System.Drawing.Point(9, 130);
             this.genreLstIgnore.Name = "genreLstIgnore";
             this.genreLstIgnore.Size = new System.Drawing.Size(477, 114);
-            this.genreLstIgnore.TabIndex = 8;
+            this.genreLstIgnore.TabIndex = 6;
             this.genreLstIgnore.UseCompatibleStateImageBehavior = false;
             this.genreLstIgnore.View = System.Windows.Forms.View.List;
             // 
@@ -239,7 +239,7 @@
             this.genreChkRemoveExisting.Location = new System.Drawing.Point(46, 82);
             this.genreChkRemoveExisting.Name = "genreChkRemoveExisting";
             this.genreChkRemoveExisting.Size = new System.Drawing.Size(186, 17);
-            this.genreChkRemoveExisting.TabIndex = 2;
+            this.genreChkRemoveExisting.TabIndex = 4;
             this.genreChkRemoveExisting.Text = "Remove existing genre categories";
             this.genreChkRemoveExisting.UseVisualStyleBackColor = true;
             // 
@@ -249,7 +249,7 @@
             this.genreLblMacCats.Location = new System.Drawing.Point(64, 47);
             this.genreLblMacCats.Name = "genreLblMacCats";
             this.genreLblMacCats.Size = new System.Drawing.Size(148, 26);
-            this.genreLblMacCats.TabIndex = 1;
+            this.genreLblMacCats.TabIndex = 3;
             this.genreLblMacCats.Text = "Maximum categories to assign\r\n(0 for unlimited)";
             // 
             // genreNumMaxCats
@@ -262,7 +262,7 @@
             0});
             this.genreNumMaxCats.Name = "genreNumMaxCats";
             this.genreNumMaxCats.Size = new System.Drawing.Size(52, 20);
-            this.genreNumMaxCats.TabIndex = 0;
+            this.genreNumMaxCats.TabIndex = 2;
             this.genreNumMaxCats.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.genreNumMaxCats.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
             // 
@@ -285,7 +285,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(423, 292);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(90, 23);
-            this.cmdCancel.TabIndex = 7;
+            this.cmdCancel.TabIndex = 5;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -298,7 +298,7 @@
             this.panEditFlags.Location = new System.Drawing.Point(167, 8);
             this.panEditFlags.Name = "panEditFlags";
             this.panEditFlags.Size = new System.Drawing.Size(493, 278);
-            this.panEditFlags.TabIndex = 8;
+            this.panEditFlags.TabIndex = 1;
             // 
             // flagsGrp
             // 
@@ -361,7 +361,7 @@
             this.flagsLblInclude.Location = new System.Drawing.Point(3, 69);
             this.flagsLblInclude.Name = "flagsLblInclude";
             this.flagsLblInclude.Size = new System.Drawing.Size(79, 13);
-            this.flagsLblInclude.TabIndex = 3;
+            this.flagsLblInclude.TabIndex = 2;
             this.flagsLblInclude.Text = "Included Flags:";
             // 
             // flagsLstIncluded
@@ -373,7 +373,7 @@
             this.flagsLstIncluded.Location = new System.Drawing.Point(6, 85);
             this.flagsLstIncluded.Name = "flagsLstIncluded";
             this.flagsLstIncluded.Size = new System.Drawing.Size(478, 156);
-            this.flagsLstIncluded.TabIndex = 2;
+            this.flagsLstIncluded.TabIndex = 3;
             this.flagsLstIncluded.UseCompatibleStateImageBehavior = false;
             this.flagsLstIncluded.View = System.Windows.Forms.View.List;
             // 
@@ -400,8 +400,8 @@
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(667, 323);
             this.ControlBox = false;
-            this.Controls.Add(this.panEditFlags);
             this.Controls.Add(this.panEditGenre);
+            this.Controls.Add(this.panEditFlags);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.grpList);

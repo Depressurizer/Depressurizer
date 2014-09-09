@@ -114,6 +114,7 @@ namespace Depressurizer {
             this.menu_Profile_Export = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Profile_Edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.editAutoCatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutonameAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutocatAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,7 +128,6 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.editAutoCatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -684,6 +684,12 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Profile_Edit, "menu_Profile_Edit");
             this.menu_Profile_Edit.Click += new System.EventHandler(this.menu_Profile_Edit_Click);
             // 
+            // editAutoCatsToolStripMenuItem
+            // 
+            this.editAutoCatsToolStripMenuItem.Name = "editAutoCatsToolStripMenuItem";
+            resources.ApplyResources(this.editAutoCatsToolStripMenuItem, "editAutoCatsToolStripMenuItem");
+            this.editAutoCatsToolStripMenuItem.Click += new System.EventHandler(this.editAutoCatsToolStripMenuItem_Click);
+            // 
             // menu_Tools
             // 
             this.menu_Tools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -769,12 +775,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.statusSelection, "statusSelection");
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
-            // 
-            // editAutoCatsToolStripMenuItem
-            // 
-            this.editAutoCatsToolStripMenuItem.Name = "editAutoCatsToolStripMenuItem";
-            resources.ApplyResources(this.editAutoCatsToolStripMenuItem, "editAutoCatsToolStripMenuItem");
-            this.editAutoCatsToolStripMenuItem.Click += new System.EventHandler(this.editAutoCatsToolStripMenuItem_Click);
             // 
             // FormMain
             // 
