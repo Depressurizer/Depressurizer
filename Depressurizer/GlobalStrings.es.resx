@@ -873,4 +873,12 @@ Tiempo Restante:</value>
     <value>A non-Steam game must have been launched at least once from the Steam client before it can be launched externally.</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="AutoCat_Name_Flags" xml:space="preserve">
+    <value>Store Flags</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="AutoCat_Name_Genre" xml:space="preserve">
+    <value>Store Genre</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>

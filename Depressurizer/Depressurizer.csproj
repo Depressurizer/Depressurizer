@@ -93,6 +93,12 @@
     <Compile Include="DlgAutoCat.Designer.cs">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>
     </Compile>
+    <Compile Include="DlgAutoCatCreate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAutoCatCreate.Designer.cs">
+      <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -205,6 +211,9 @@
     <Compile Include="VdfFile\VdfFileNode.cs" />
     <EmbeddedResource Include="DlgAutoCat.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCatCreate.resx">
+      <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>

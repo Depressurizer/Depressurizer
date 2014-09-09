@@ -61,6 +61,24 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Store Flags.
+        /// </summary>
+        internal static string AutoCat_Name_Flags {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Flags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Store Genre.
+        /// </summary>
+        internal static string AutoCat_Name_Genre {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Genre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AutoCatGenre has no game database..
         /// </summary>
         internal static string AutoCatGenre_Exception_NoGameDB {

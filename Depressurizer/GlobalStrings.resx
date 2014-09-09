@@ -858,4 +858,10 @@ Continue loading file?</value>
   <data name="MainForm_LaunchFailed" xml:space="preserve">
     <value>A non-Steam game must have been launched at least once from the Steam client before it can be launched externally.</value>
   </data>
+  <data name="AutoCat_Name_Flags" xml:space="preserve">
+    <value>Store Flags</value>
+  </data>
+  <data name="AutoCat_Name_Genre" xml:space="preserve">
+    <value>Store Genre</value>
+  </data>
 </root>
