@@ -144,7 +144,9 @@ namespace Depressurizer {
                         XmlElement autocatElement = node as XmlElement;
                         if( node != null ) {
                             AutoCat autocat = AutoCat.LoadACFromXmlElement( autocatElement );
-                            profile.AutoCats.Add( autocat );
+                            if( autocat != null ) {
+                                profile.AutoCats.Add( autocat );
+                            }
                         }
                     }
                 } else {
