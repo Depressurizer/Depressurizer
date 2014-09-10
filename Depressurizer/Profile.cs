@@ -258,23 +258,25 @@ namespace Depressurizer {
             writer.WriteStartElement( XmlName_GameList );
 
             foreach( GameInfo g in GameData.Games.Values ) {
-                writer.WriteStartElement( XmlName_Game );
+                if( IncludeShortcuts || g.Id > 0 ) { // Don't save shortcuts if we aren't including them
+                    writer.WriteStartElement( XmlName_Game );
 
-                writer.WriteElementString( XmlName_Game_Id, g.Id.ToString() );
+                    writer.WriteElementString( XmlName_Game_Id, g.Id.ToString() );
 
-                if( g.Name != null ) {
-                    writer.WriteElementString( XmlName_Game_Name, g.Name );
+                    if( g.Name != null ) {
+                        writer.WriteElementString( XmlName_Game_Name, g.Name );
+                    }
+
+                    writer.WriteElementString( XmlName_Game_Hidden, g.Hidden.ToString() );
+
+                    writer.WriteStartElement( XmlName_Game_CategoryList );
+                    foreach( Category c in g.Categories ) {
+                        writer.WriteElementString( XmlName_Game_Category, c.Name );
+                    }
+                    writer.WriteEndElement(); // categories
+
+                    writer.WriteEndElement(); // game
                 }
-
-                writer.WriteElementString( XmlName_Game_Hidden, g.Hidden.ToString() );
-
-                writer.WriteStartElement( XmlName_Game_CategoryList );
-                foreach( Category c in g.Categories ) {
-                    writer.WriteElementString( XmlName_Game_Category, c.Name );
-                }
-                writer.WriteEndElement(); // categories
-
-                writer.WriteEndElement(); // game
             }
 
             writer.WriteEndElement(); // games

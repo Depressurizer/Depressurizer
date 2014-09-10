@@ -636,7 +636,7 @@ namespace Depressurizer {
             if( notFound.Count > 0 ) {
                 if( MessageBox.Show( string.Format( GlobalStrings.MainForm_GamesNotFoundInGameDB, notFound.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
                         == System.Windows.Forms.DialogResult.Yes ) {
-                    
+
                     Queue<int> jobs = new Queue<int>();
                     foreach( GameInfo g in notFound ) jobs.Enqueue( g.Id );
 
@@ -804,27 +804,11 @@ namespace Depressurizer {
             lstGames.BeginUpdate();
             lstGames.Items.Clear();
             if( lstCategories.SelectedItems.Count > 0 ) {
-                object catObj = lstCategories.SelectedItem;
-
-                if( ( catObj is string ) && ( (string)catObj == GlobalStrings.MainForm_All ) ) {
-                    foreach( GameInfo g in gameData.Games.Values ) {
-                            AddGameToList( g );
-                    }
-                } else if( ( catObj is string ) && ( (string)catObj == GlobalStrings.MainForm_Uncategorized ) ) {
-                    foreach( GameInfo g in gameData.Games.Values ) {
-                        if( !g.HasCategoriesExcept( gameData.FavoriteCategory ) ) {
-                            AddGameToList( g );
-                        }
-                    }
-                } else {
-                    Category cat = lstCategories.SelectedItem as Category;
-                    foreach( GameInfo g in gameData.Games.Values ) {
-                        if( g.ContainsCategory( cat ) ) {
-                            AddGameToList( g );
-                        }
+                foreach( GameInfo g in gameData.Games.Values ) {
+                    if( ShouldDisplayGame( g ) ) {
+                        AddGameToList( g );
                     }
                 }
-
                 lstGames.Sort();
             }
             lstGames.EndUpdate();
@@ -1665,7 +1649,7 @@ namespace Depressurizer {
                     if( cat != null ) {
                         AddCategoryToSelectedGames( cat, false, false );
                     }
-                } else if( item.StateImageIndex == 1 || (item.StateImageIndex == 2 && !modKey) ) {
+                } else if( item.StateImageIndex == 1 || ( item.StateImageIndex == 2 && !modKey ) ) {
                     item.StateImageIndex = 0;
                     Category cat = item.Tag as Category;
                     if( cat != null ) {
@@ -1736,12 +1720,11 @@ namespace Depressurizer {
         /// <param name="g">Game to check</param>
         /// <returns>True if it should be displayed, false otherwise</returns>
         bool ShouldDisplayGame( GameInfo g ) {
-            if( !gameData.Games.ContainsKey( g.Id ) ) {
-                return false;
-            }
-            if( lstCategories.SelectedItem == null ) {
-                return false;
-            }
+            if( currentProfile == null ) return false;
+            if( !gameData.Games.ContainsKey( g.Id ) ) return false;
+            if( g.Id < 0 && !currentProfile.IncludeShortcuts ) return false;
+            if( lstCategories.SelectedItem == null ) return false;
+
             if( lstCategories.SelectedItem is string ) {
                 if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_All ) {
                     return true;
@@ -1817,7 +1800,7 @@ namespace Depressurizer {
         private void editAutoCatsToolStripMenuItem_Click( object sender, EventArgs e ) {
             if( currentProfile != null ) {
                 DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats );
-                
+
                 DialogResult res = dlg.ShowDialog();
 
                 if( res == DialogResult.OK ) {
