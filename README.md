@@ -1,5 +1,5 @@
 ### Depressurizer
-for v0.5.0
+for v0.5.1.0
 
 -----
 
@@ -9,7 +9,7 @@ Depressurizer is a program aimed at making it a bit easier to manage large Steam
 
 In addition to providing a way to quickly and easily modify games' assigned categories, it also lets you mark them as Favorites or as hidden.
 
-Depressurizer can also autocategorize your games for you. Currently, it does so based on the genres attached to the game in the Steam store.
+Depressurizer can also autocategorize your games for you. Currently, it can do so based on the genres attached to the game in the Steam store as well as the Store flags (like MultiPlayer, Controller Support, etc.)
 
 It also saves your configuration information independently of Steam, providing an automatic backup in the event that Steam loses your configuration.
 
