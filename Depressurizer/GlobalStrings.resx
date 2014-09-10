@@ -843,17 +843,8 @@ Continue loading file?</value>
   <data name="MainForm_UpdatedDatabaseEntries" xml:space="preserve">
     <value>Updated {0} database entries.</value>
   </data>
-  <data name="Profile_DefaultAutoCatName_Genre_MultiCat_NoRem" xml:space="preserve">
-    <value>Genre, Multi-Cat, No Removal</value>
-  </data>
-  <data name="Profile_DefaultAutoCatName_Genre_MultiCat_WithRem" xml:space="preserve">
-    <value>Genre, Multi-Cat, With Removal</value>
-  </data>
-  <data name="Profile_DefaultAutoCatName_Genre_SingleCat_NoRem" xml:space="preserve">
-    <value>Genre, Single Cat, No Removal</value>
-  </data>
-  <data name="Profile_DefaultAutoCatName_Genre_SingleCat_WithRem" xml:space="preserve">
-    <value>Genre, Single Cat, With Removal</value>
+  <data name="Profile_DefaultAutoCatName_Genre" xml:space="preserve">
+    <value>By Genre</value>
   </data>
   <data name="MainForm_LaunchFailed" xml:space="preserve">
     <value>A non-Steam game must have been launched at least once from the Steam client before it can be launched externally.</value>

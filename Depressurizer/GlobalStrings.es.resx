@@ -853,20 +853,8 @@ Tiempo Restante:</value>
     <value>Updated {0} database entries.</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
-  <data name="Profile_DefaultAutoCatName_Genre_MultiCat_NoRem" xml:space="preserve">
-    <value>Genre, Multi-Cat, No Removal</value>
-    <comment>TODO_LOCAL: Requires translation</comment>
-  </data>
-  <data name="Profile_DefaultAutoCatName_Genre_MultiCat_WithRem" xml:space="preserve">
-    <value>Genre, Multi-Cat, With Removal</value>
-    <comment>TODO_LOCAL: Requires translation</comment>
-  </data>
-  <data name="Profile_DefaultAutoCatName_Genre_SingleCat_NoRem" xml:space="preserve">
-    <value>Genre, Single Cat, No Removal</value>
-    <comment>TODO_LOCAL: Requires translation</comment>
-  </data>
-  <data name="Profile_DefaultAutoCatName_Genre_SingleCat_WithRem" xml:space="preserve">
-    <value>Genre, Single Cat, With Removal</value>
+  <data name="Profile_DefaultAutoCatName_Genre" xml:space="preserve">
+    <value>By Genre</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
   <data name="MainForm_LaunchFailed" xml:space="preserve">

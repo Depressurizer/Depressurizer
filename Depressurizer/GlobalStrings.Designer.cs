@@ -2163,38 +2163,11 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genre, Multi-Cat, No Removal.
+        ///   Looks up a localized string similar to By Genre.
         /// </summary>
-        internal static string Profile_DefaultAutoCatName_Genre_MultiCat_NoRem {
+        internal static string Profile_DefaultAutoCatName_Genre {
             get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_MultiCat_NoRem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genre, Multi-Cat, With Removal.
-        /// </summary>
-        internal static string Profile_DefaultAutoCatName_Genre_MultiCat_WithRem {
-            get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_MultiCat_WithRem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genre, Single Cat, No Removal.
-        /// </summary>
-        internal static string Profile_DefaultAutoCatName_Genre_SingleCat_NoRem {
-            get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_SingleCat_NoRem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genre, Single Cat, With Removal.
-        /// </summary>
-        internal static string Profile_DefaultAutoCatName_Genre_SingleCat_WithRem {
-            get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_SingleCat_WithRem", resourceCulture);
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre", resourceCulture);
             }
         }
         
