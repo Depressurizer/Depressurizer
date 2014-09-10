@@ -144,12 +144,15 @@ namespace Depressurizer {
                         XmlElement autocatElement = node as XmlElement;
                         if( node != null ) {
                             AutoCat autocat = AutoCat.LoadACFromXmlElement( autocatElement );
-                            profile.AutoCats.Add( autocat );
+                            if( autocat != null ) {
+                                profile.AutoCats.Add( autocat );
+                            }
                         }
                     }
                 } else {
                     GenerateDefaultAutoCatSet( profile.AutoCats );
                 }
+                profile.AutoCats.Sort();
             }
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded );
             return profile;
@@ -271,10 +274,7 @@ namespace Depressurizer {
         }
 
         public static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_MultiCat_WithRem, 0, true ) );
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_MultiCat_NoRem, 0, false ) );
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_SingleCat_WithRem, 1, true ) );
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre_SingleCat_NoRem, 1, false ) );
+            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre, null, 0, false, null ) );
         }
 
         #endregion

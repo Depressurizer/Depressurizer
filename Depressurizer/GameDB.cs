@@ -242,10 +242,16 @@ namespace Depressurizer {
     }
 
     public class GameDB {
+        // Main Data
         public Dictionary<int, GameDBEntry> Games = new Dictionary<int, GameDBEntry>();
+        // Extra data
+        private SortedSet<string> allStoreGenres;
+        private SortedSet<string> allStoreFlags;
+        // Utility
         static char[] genreSep = new char[] { ',' };
 
         #region Accessors
+
         public bool Contains(int id)
         {
             return Games.ContainsKey( id );
@@ -279,6 +285,78 @@ namespace Depressurizer {
             } else {
                 return null;
             }
+        }
+
+        #endregion
+
+        #region Aggregate Accessors
+        /// <summary>
+        /// Gets a list of all Steam store genres found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A set of genres, as strings</returns>
+        public SortedSet<string> GetAllGenres() {
+            if( allStoreGenres == null ) {
+                return CalculateAllGenres();
+            } else {
+                return allStoreGenres;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store genres found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A set of genres, as strings</returns>
+        public SortedSet<string> CalculateAllGenres() {
+            if( allStoreGenres == null ) {
+                allStoreGenres = new SortedSet<string>( StringComparer.OrdinalIgnoreCase );
+            } else {
+                allStoreGenres.Clear();
+            }
+
+            foreach( GameDBEntry entry in Games.Values ) {
+                string fullGenreString = entry.Genre;
+                if( !string.IsNullOrEmpty( fullGenreString ) ) {
+                    string[] genreStrings = fullGenreString.Split( genreSep );
+                    foreach( string s in genreStrings ) {
+                        allStoreGenres.Add( s.Trim() );
+                    }
+                }
+            }
+
+            return allStoreGenres;
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store flags found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A set of genres, as strings</returns>
+        public SortedSet<string> GetAllStoreFlags() {
+            if( allStoreFlags == null ) {
+                return CalculateAllStoreFlags();
+            } else {
+                return allStoreFlags;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store flags found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A set of genres, as strings</returns>
+        public SortedSet<string> CalculateAllStoreFlags() {
+            if( allStoreFlags == null ) {
+                allStoreFlags = new SortedSet<string>( StringComparer.OrdinalIgnoreCase );
+            } else {
+                allStoreFlags.Clear();
+            }
+
+            foreach( GameDBEntry entry in Games.Values ) {
+                allStoreFlags.UnionWith( entry.Flags );
+            }
+            return allStoreFlags;
         }
 
         #endregion

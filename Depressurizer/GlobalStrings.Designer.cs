@@ -61,6 +61,24 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Store Flags.
+        /// </summary>
+        internal static string AutoCat_Name_Flags {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Flags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Store Genre.
+        /// </summary>
+        internal static string AutoCat_Name_Genre {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Genre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AutoCatGenre has no game database..
         /// </summary>
         internal static string AutoCatGenre_Exception_NoGameDB {
@@ -541,6 +559,78 @@ namespace Depressurizer {
         internal static string DBEditDlg_Warning {
             get {
                 return ResourceManager.GetString("DBEditDlg_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove any pre-existing categories that could potentially be added by this AutoCat.\nRemoves any category that consists of the Prefix followed by one of the unchecked genres below..
+        /// </summary>
+        internal static string DlgAutoCat_Help_Genre_RemoveExisting {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_Genre_RemoveExisting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional. Text prefix placed before the genre name..
+        /// </summary>
+        internal static string DlgAutoCat_Help_Prefix {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoCat must have a name..
+        /// </summary>
+        internal static string DlgAutoCat_MustHaveName {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_MustHaveName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is already in use..
+        /// </summary>
+        internal static string DlgAutoCat_NameInUse {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_NameInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        internal static string DlgAutoCat_RenameBoxButton {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_RenameBoxButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        internal static string DlgAutoCat_RenameBoxLabel {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_RenameBoxLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new AutoCat name.
+        /// </summary>
+        internal static string DlgAutoCat_RenameBoxTitle {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_RenameBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select a valid AutoCat type..
+        /// </summary>
+        internal static string DlgAutoCat_SelectValidType {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_SelectValidType", resourceCulture);
             }
         }
         
@@ -2091,38 +2181,11 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genre, Multi-Cat, No Removal.
+        ///   Looks up a localized string similar to By Genre.
         /// </summary>
-        internal static string Profile_DefaultAutoCatName_Genre_MultiCat_NoRem {
+        internal static string Profile_DefaultAutoCatName_Genre {
             get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_MultiCat_NoRem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genre, Multi-Cat, With Removal.
-        /// </summary>
-        internal static string Profile_DefaultAutoCatName_Genre_MultiCat_WithRem {
-            get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_MultiCat_WithRem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genre, Single Cat, No Removal.
-        /// </summary>
-        internal static string Profile_DefaultAutoCatName_Genre_SingleCat_NoRem {
-            get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_SingleCat_NoRem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genre, Single Cat, With Removal.
-        /// </summary>
-        internal static string Profile_DefaultAutoCatName_Genre_SingleCat_WithRem {
-            get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre_SingleCat_WithRem", resourceCulture);
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre", resourceCulture);
             }
         }
         

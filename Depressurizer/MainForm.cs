@@ -1045,13 +1045,15 @@ namespace Depressurizer {
 
             if( currentProfile != null ) {
                 foreach( AutoCat ac in currentProfile.AutoCats ) {
-                    // Fill main screen dropdown
-                    cmbAutoCatType.Items.Add( ac );
+                    if( ac != null ) {
+                        // Fill main screen dropdown
+                        cmbAutoCatType.Items.Add( ac );
 
-                    // Fill main menu list
-                    ToolStripItem item = menuToolsAutocat_List.Items.Add( ac.Name );
-                    item.Tag = ac;
-                    item.Click += menuToolsAutocat_Item_Click;
+                        // Fill main menu list
+                        ToolStripItem item = menuToolsAutocat_List.Items.Add( ac.Name );
+                        item.Tag = ac;
+                        item.Click += menuToolsAutocat_Item_Click;
+                    }
                 }
             }
 
@@ -1813,6 +1815,20 @@ namespace Depressurizer {
                     AssignHiddenToSelectedGames( true );
                 } else if( chkHidden.CheckState == CheckState.Unchecked ) {
                     AssignHiddenToSelectedGames( false );
+                }
+            }
+        }
+
+        private void editAutoCatsToolStripMenuItem_Click( object sender, EventArgs e ) {
+            if( currentProfile != null ) {
+                DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats );
+                
+                DialogResult res = dlg.ShowDialog();
+
+                if( res == DialogResult.OK ) {
+                    currentProfile.AutoCats = dlg.AutoCatList;
+                    MakeChange( true );
+                    FillAutoCatLists();
                 }
             }
         }
