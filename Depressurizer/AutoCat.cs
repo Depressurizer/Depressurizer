@@ -170,7 +170,7 @@ namespace Depressurizer {
                 genreCategories = new SortedSet<Category>();
 
                 foreach( string cStr in genreStrings ) {
-                    if( games.CategoryExists( cStr ) && !IgnoredGenres.Contains( cStr ) ) {
+                    if( games.CategoryExists( String.IsNullOrEmpty( Prefix ) ? ( cStr ) : ( Prefix + cStr ) ) && !IgnoredGenres.Contains( cStr ) ) {
                         genreCategories.Add( games.GetCategory( cStr ) );
                     }
                 }
