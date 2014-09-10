@@ -873,4 +873,10 @@ Continue loading file?</value>
   <data name="DlgAutoCat_SelectValidType" xml:space="preserve">
     <value>You must select a valid AutoCat type.</value>
   </data>
+  <data name="DlgAutoCat_Help_Genre_RemoveExisting" xml:space="preserve">
+    <value>Remove any pre-existing categories that could potentially be added by this AutoCat.\nRemoves any category that consists of the Prefix followed by one of the unchecked genres below.</value>
+  </data>
+  <data name="DlgAutoCat_Help_Prefix" xml:space="preserve">
+    <value>Optional. Text prefix placed before the genre name.</value>
+  </data>
 </root>

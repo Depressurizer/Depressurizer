@@ -1,13 +1,7 @@
-﻿using System;
+﻿using Rallion;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Rallion;
 
 namespace Depressurizer {
     public partial class DlgAutoCat : Form {
@@ -87,7 +81,7 @@ namespace Depressurizer {
 
             foreach( ListViewItem item in genreLstIgnore.Items ) {
                 item.Checked = ac.IgnoredGenres.Contains( item.Text );
-            }            
+            }
         }
 
         private void FillSettingsUIForFlags( AutoCatFlags ac ) {
@@ -130,7 +124,7 @@ namespace Depressurizer {
 
         private void SaveToAutoCat_Flags( AutoCatFlags ac ) {
             ac.Prefix = flagsTxtPrefix.Text;
-            
+
             ac.IncludedFlags.Clear();
             foreach( ListViewItem i in flagsLstIncluded.Items ) {
                 if( i.Checked ) {
@@ -193,7 +187,7 @@ namespace Depressurizer {
             } while( res == DialogResult.OK && !good );
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 ac.Name = name;
-                int index = lstAutoCats.Items.IndexOf(ac);
+                int index = lstAutoCats.Items.IndexOf( ac );
                 lstAutoCats.Items[index] = ac;
             }
         }
@@ -208,6 +202,10 @@ namespace Depressurizer {
         #region Event Handlers
 
         private void DlgAutoCat_Load( object sender, EventArgs e ) {
+            ttHelp.SetToolTip( genreHelpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.SetToolTip( genreHelpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
+            ttHelp.SetToolTip( flagsHelpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+
             FillAutocatList();
 
             FillGenreList();
@@ -260,7 +258,7 @@ namespace Depressurizer {
         #endregion
 
         #region Utility
-        private bool NameExists(string name) {
+        private bool NameExists( string name ) {
             foreach( AutoCat ac in AutoCatList ) {
                 if( ac.Name == name ) return true;
             }

@@ -563,6 +563,24 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove any pre-existing categories that could potentially be added by this AutoCat.\nRemoves any category that consists of the Prefix followed by one of the unchecked genres below..
+        /// </summary>
+        internal static string DlgAutoCat_Help_Genre_RemoveExisting {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_Genre_RemoveExisting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional. Text prefix placed before the genre name..
+        /// </summary>
+        internal static string DlgAutoCat_Help_Prefix {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AutoCat must have a name..
         /// </summary>
         internal static string DlgAutoCat_MustHaveName {
