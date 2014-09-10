@@ -879,8 +879,7 @@ namespace Depressurizer {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
             int result = ImportSteamConfigFile( filePath, ignore, ignoreDlc );
             if( !ignoreExternal ) {
-                int newItems, removedItems;
-                result += ImportSteamShortcuts( SteamId, true, out newItems, out removedItems );
+                result += ImportSteamShortcuts( SteamId );
             }
             return result;
         }
@@ -1137,18 +1136,16 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="SteamId">The ID64 of the account to load shortcuts for</param>
         /// <param name="overwriteCategories">If true, overwrite categories for found games. If false, only load categories for games without a category already set.</param>
-        /// <param name="newItems">Number of new items added</param>
-        /// <param name="removedItems">Number of old items removed.</param>
         /// <returns>Total number of entries processed</returns>
-        public int ImportSteamShortcuts( long SteamId, bool overwriteCategories, out int newItems, out int removedItems ) {
-            newItems = 0;
-            removedItems = 0;
+        public int ImportSteamShortcuts( long SteamId ) {
             if( SteamId <= 0 ) return 0;
+
             int loadedGames = 0;
 
             string filePath = string.Format( Properties.Resources.ShortCutsFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
             FileStream fStream = null;
             BinaryReader binReader = null;
+
             try {
                 fStream = new FileStream( filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite );
                 binReader = new BinaryReader( fStream );
@@ -1158,31 +1155,33 @@ namespace Depressurizer {
                 VdfFileNode shortcutsNode = dataRoot.GetNodeAt( new string[] { "shortcuts" }, false );
 
                 if( shortcutsNode != null ) {
-                    List<GameInfo> oldShortcutGames = new List<GameInfo>();
+
+                    // Remove existing shortcuts
+                    List<int> oldShortcutIds = new List<int>();
                     foreach( int id in Games.Keys ) {
                         if( id < 0 ) {
-                            oldShortcutGames.Add( Games[id] );
+                            oldShortcutIds.Add( id );
                         }
                     }
-                    foreach( GameInfo g in oldShortcutGames ) {
-                        Games.Remove( g.Id );
+                    foreach( int g in oldShortcutIds ) {
+                        Games.Remove( g );
                     }
 
+                    // Load launch IDs
                     StringDictionary launchIds = null;
                     bool launchIdsLoaded = LoadShortcutLaunchIds( SteamId, out launchIds );
 
+                    // Load shortcuts
                     foreach( KeyValuePair<string, VdfFileNode> shortcutPair in shortcutsNode.NodeArray ) {
                         VdfFileNode nodeGame = shortcutPair.Value;
-                        VdfFileNode nodeName = nodeGame.GetNodeAt( new string[] { "appname" }, false );
 
-                        string gameName = ( nodeName != null ) ? nodeName.NodeString : null;
                         int gameId = -1;
-                        int.TryParse( shortcutPair.Key, out gameId );
-
-                        bool success = IntegrateShortcut( gameId, nodeGame, oldShortcutGames, launchIds, ref newItems );
-                        if( success ) loadedGames++;
+                        if( int.TryParse( shortcutPair.Key, out gameId ) ) {
+                            if( IntegrateShortcut( gameId, nodeGame, launchIds ) ) {
+                                loadedGames++;
+                            }
+                        }
                     }
-                    removedItems = oldShortcutGames.Count;
                 }
             } catch( FileNotFoundException e ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString() );
@@ -1199,7 +1198,7 @@ namespace Depressurizer {
                 }
             }
 
-            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_IntegratedShortCuts, loadedGames, newItems, removedItems );
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_IntegratedShortCuts, loadedGames );
 
             return loadedGames;
         }
@@ -1238,12 +1237,12 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="gameId">ID of the game in the steam config file</param>
         /// <param name="gameNode">Node for the game in the steam config file</param>
-        /// <param name="oldShortcuts">List of un-matched non-steam games from the gamelist before the update</param>
         /// <param name="launchIds">Dictionary of launch ids (name:launchId)</param>
         /// <param name="newGames">Number of NEW games that have been added to the list</param>
         /// <param name="preferSteamCategories">If true, prefers to use the categories from the steam config if there is a conflict. If false, prefers to use the categories from the existing gamelist.</param>
         /// <returns>True if the game was successfully added</returns>
-        private bool IntegrateShortcut( int gameId, VdfFileNode gameNode, List<GameInfo> oldShortcuts, StringDictionary launchIds, ref int newGames, bool preferSteamCategories = true ) {
+        private bool IntegrateShortcut( int gameId, VdfFileNode gameNode, StringDictionary launchIds ) {
+
             VdfFileNode nodeName = gameNode.GetNodeAt( new string[] { "appname" }, false );
             string gameName = ( nodeName != null ) ? nodeName.NodeString : null;
             // The ID of the created game must be negative
@@ -1254,38 +1253,27 @@ namespace Depressurizer {
                 return false;
             }
 
+            //Create the new GameInfo
             GameInfo game = new GameInfo( newId, gameName );
             Games.Add( newId, game );
 
+            // Fill in the LaunchString
             game.LaunchString = launchIds[gameName];
 
-            int oldShortcutId = FindMatchingShortcut( gameId, gameNode, oldShortcuts, launchIds );
-            bool oldCatSet = ( oldShortcutId != -1 ) && oldShortcuts[oldShortcutId].Categories.Count > 0;
-            if( oldShortcutId == -1 ) newGames++;
-
+            // Fill in categories
             VdfFileNode tagsNode = gameNode.GetNodeAt( new string[] { "tags" }, false );
-            bool steamCatSet = ( tagsNode != null && tagsNode.NodeType == ValueType.Array && tagsNode.NodeArray.Count > 0 );
-
-            //fill in categories
-            if( steamCatSet && ( preferSteamCategories || !oldCatSet ) ) {
-                // Fill in categories from the Steam shortcut file
-                foreach( KeyValuePair<string, VdfFileNode> tag in tagsNode.NodeArray ) {
-                    string tagName = tag.Value.NodeString;
-                    game.AddCategory( this.GetCategory( tagName ) );
-                }
-
-            } else if( oldShortcutId >= 0 && oldShortcutId < oldShortcuts.Count ) {
-                // Fill in categories from the game list
-                game.SetCategories( oldShortcuts[oldShortcutId].Categories );
+            foreach( KeyValuePair<string, VdfFileNode> tag in tagsNode.NodeArray ) {
+                string tagName = tag.Value.NodeString;
+                game.AddCategory( this.GetCategory( tagName ) );
             }
 
+            // Fill in Hidden
             game.Hidden = false;
             if( gameNode.ContainsKey( "hidden" ) ) {
                 VdfFileNode hiddenNode = gameNode["hidden"];
                 game.Hidden = ( hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1 );
             }
 
-            if( oldShortcutId != -1 ) oldShortcuts.RemoveAt( oldShortcutId );
             return true;
         }
 

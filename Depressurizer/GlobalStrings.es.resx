@@ -789,7 +789,7 @@ Tiempo Restante:</value>
     <value>Error procesando identificador en el fichero Screenshots.vdf para el juego '{0}'</value>
   </data>
   <data name="GameData_IntegratedShortCuts" xml:space="preserve">
-    <value>Añadidos juegos externos en la lista de juegos. {0} entradas totales, {1} nuevas, {2} eliminadas.</value>
+    <value>Añadidos juegos externos en la lista de juegos. {0} entradas totales.</value>
   </data>
   <data name="GameData_ErrorRemovingGame" xml:space="preserve">
     <value>No se pudo eliminar juego: {0} - {1}.</value>

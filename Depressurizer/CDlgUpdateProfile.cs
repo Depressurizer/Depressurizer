@@ -151,18 +151,6 @@ namespace Depressurizer {
                     Fetched = data.IntegrateXmlGameList( doc, overwrite, ignore, ignoreDlc, out newItems );
                     Added = newItems;
                 }
-
-                //jpodadera. Non-Steam games
-                if ((!ignoreExternal) && (SteamId != 0))
-                {
-                    int newItems, removedItems;
-                    Fetched += data.ImportSteamShortcuts(SteamId, overwrite, out newItems, out removedItems);
-                    Added += newItems;
-                    Removed = removedItems;
-                }
-                else
-                    Removed = 0;
-
                 OnJobCompletion();
             }
         }

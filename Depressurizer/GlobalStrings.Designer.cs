@@ -1033,7 +1033,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Integrated external games into game list. {0} total items, {1} new, {2} removed..
+        ///   Looks up a localized string similar to Integrated external games into game list. {0} total items..
         /// </summary>
         internal static string GameData_IntegratedShortCuts {
             get {
