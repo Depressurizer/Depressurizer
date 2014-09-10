@@ -808,8 +808,7 @@ namespace Depressurizer {
                             }
                             Games[gameId].Hidden = hidden;
 
-                            //TODO: Don't think SortedSet.ToString() does what I hope
-                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, ( cats.Count == 0 ) ? "~" : cats.ToString() );
+                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, cats.Count );
                         }
                     }
                 }

@@ -144,7 +144,6 @@ namespace Depressurizer {
                 if( res == System.Windows.Forms.DialogResult.OK ) {
                     name = dlg.SelectedName;
                     t = dlg.SelectedType;
-                    //TODO: String literals
                     if( string.IsNullOrEmpty( name ) ) {
                         MessageBox.Show( GlobalStrings.DlgAutoCat_MustHaveName );
                         good = false;
@@ -161,9 +160,10 @@ namespace Depressurizer {
                 AutoCat newAutoCat = AutoCat.Create( t, name );
                 if( newAutoCat != null ) {
                     AutoCatList.Add( newAutoCat );
-                    lstAutoCats.Items.Add( newAutoCat );
                 }
             }
+            AutoCatList.Sort();
+            FillAutocatList();
         }
 
         private void RenameAutoCat( AutoCat ac ) {
@@ -187,9 +187,9 @@ namespace Depressurizer {
             } while( res == DialogResult.OK && !good );
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 ac.Name = name;
-                int index = lstAutoCats.Items.IndexOf( ac );
-                lstAutoCats.Items[index] = ac;
             }
+            AutoCatList.Sort();
+            FillAutocatList();
         }
 
         private void RemoveAutoCat( AutoCat ac ) {

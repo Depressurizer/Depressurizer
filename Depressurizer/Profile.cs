@@ -152,6 +152,7 @@ namespace Depressurizer {
                 } else {
                     GenerateDefaultAutoCatSet( profile.AutoCats );
                 }
+                profile.AutoCats.Sort();
             }
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded );
             return profile;

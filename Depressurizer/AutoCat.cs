@@ -23,7 +23,7 @@ namespace Depressurizer {
     /// This is a preliminary form, and may change in future versions.
     /// Returning only true / false on a categorization attempt may prove too simplistic.
     /// </summary>
-    public abstract class AutoCat {
+    public abstract class AutoCat : IComparable {
 
         protected GameList games;
         protected GameDB db;
@@ -43,6 +43,14 @@ namespace Depressurizer {
         }
 
         public abstract AutoCat Clone();
+
+        public int CompareTo( object other ) {
+            if( other is AutoCat ) {
+                return string.Compare( this.Name, ( other as AutoCat ).Name );
+            } else {
+                return 1;
+            }
+        }
 
         /// <summary>
         /// Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis or other preparation.
