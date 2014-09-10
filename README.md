@@ -66,15 +66,31 @@ If you right click on the game list, there are options to add categories, remove
 
 #### Autocategorization
 
-You can autocategorize some of your games by selecting them and clicking the Autocategorize button below the game list. This will use the autocategorization settings selected in the list below the button.
+Autocategorization in Depressurizer is based around different schemes that determine what categories to add to (or remove from) each game. These schemes are configurable, and are referred to as "AutoCats".
 
-You can autocategorize all games by using the "Autocat All" button in the Tools menu.
+You can autocategorize some of your games by selecting them and clicking the Autocategorize button below the game list. This will apply the AutoCat selected in the list below the button.
 
-The current options are combinations of two choices:
+You can autocategorize all games by using the "Autocat All" item in the Tools menu.
 
- - Single genre / Multi genre: Single genre will only apply the FIRST category from the Steam store. Multi genre will assign each game to one category for EACH genre.
+To modify, delete or create new AutoCats, click the "Edit AutoCats..." item in the Profile menu.
 
- - With removal / No removal: Removal will remove OTHER categories that match the names of genres in the Steam store. For example, if a game is marked as an Action game in the Steam store, and it is currently assigned to categories named "RPG" and "FPS", after autocat with removal it will be assigned to "Action" and "FPS". RPG is one of the Steam Store genres, so it was removed. FPS is not a Steam Store genre, so it was not.
+There are currently two types of AutoCat:
+
+ - **Genre**: This type autocategorizes games based on the genres it is assigned in the Steam store. It has several configuration options.
+
+  - *Prefix* (optional): This is just a text prefix added to the beginning of all genre names assigned by this scheme.
+
+  - *Max Categories*: This is the maximum number of categories that will be assigned to each game. If a particular game has more categories, they will be ignored. 0 indicates no maximum.
+
+  - *Remove Others*: This will remove other categories ONLY if they could potentially be added by this scheme. If a game already belongs to a category that has the name of a genre, with the Prefix, it will be removed before new categories are added to it.
+
+  - *Ignored Genres*: If you don't want a particular genre to be added as a category, select it here.
+
+ - **Flags**: This refers to the items on the right-hand side of the Steam Store pages that indicate certain features. For example, all games with the "Local Co-op" feature listed will be placed into a "Local Co-op" category.
+
+  - *Prefix (optional)*: This is just a text prefix added to the beginning of all genre names assigned by this scheme.
+
+  - *Included Flags*: Only the items selected in this list will be used.
 
 #### Definitions of Terms and Procedures
 
