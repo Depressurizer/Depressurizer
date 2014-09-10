@@ -79,15 +79,13 @@ namespace Depressurizer {
             chkAutoExport.Checked = Profile.AutoExport;
             chkAutoImport.Checked = Profile.AutoImport;
             chkExportDiscard.Checked = Profile.ExportDiscard;
+            chkIncludeShortcuts.Checked = Profile.IncludeShortcuts;
             chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
-
+            
             this.Text = GlobalStrings.DlgProfile_EditProfile;
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
             chkIgnoreDlc.Checked = Profile.IgnoreDlc;
-
-            // jpodadera. Ignored non-Steam games
-            chkIgnoreExternal.Checked = Profile.IgnoreExternal;
 
             foreach( int i in Profile.IgnoreList ) {
                 lstIgnored.Items.Add( i.ToString() );
@@ -314,13 +312,11 @@ namespace Depressurizer {
             p.AutoExport = chkAutoExport.Checked;
             p.AutoImport = chkAutoImport.Checked;
             p.ExportDiscard = chkExportDiscard.Checked;
+            p.IncludeShortcuts = chkIncludeShortcuts.Checked;
             p.OverwriteOnDownload = chkOverwriteNames.Checked;
 
             p.AutoIgnore = chkAutoIgnore.Checked;
             p.IgnoreDlc = chkIgnoreDlc.Checked;
-
-            // jpodadera. Ignored non-Steam games
-            p.IgnoreExternal = chkIgnoreExternal.Checked;
 
             SortedSet<int> ignoreSet = new SortedSet<int>();
             foreach( ListViewItem item in lstIgnored.Items ) {

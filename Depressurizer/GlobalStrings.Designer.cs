@@ -1620,15 +1620,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloaded {0} games, {1} new, {2} external removed, via {3}..
-        /// </summary>
-        internal static string MainForm_DownloadedGamesWithExternal {
-            get {
-                return ResourceManager.GetString("MainForm_DownloadedGamesWithExternal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Download failed..
         /// </summary>
         internal static string MainForm_DownloadFailed {

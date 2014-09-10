@@ -801,9 +801,6 @@ Continue loading file?</value>
   <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
     <value>Removed game from game list: {0} - {1}.</value>
   </data>
-  <data name="MainForm_DownloadedGamesWithExternal" xml:space="preserve">
-    <value>Downloaded {0} games, {1} new, {2} external removed, via {3}.</value>
-  </data>
   <data name="GameData_SavingShortcutConfigFile" xml:space="preserve">
     <value>Saving Steam shortcuts config file: {0}.</value>
   </data>

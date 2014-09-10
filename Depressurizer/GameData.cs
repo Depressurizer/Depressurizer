@@ -875,10 +875,10 @@ namespace Depressurizer {
         /// <param name="ignoreDlc">If true, ignore games marked as DLC in the database</param>
         /// <param name="ignoreExternal">If false, also load non-steam games</param>
         /// <returns>The number of game entries found</returns>
-        public int ImportSteamConfigFile( long SteamId, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal ) {
+        public int ImportSteamConfig( long SteamId, SortedSet<int> ignore, bool ignoreDlc, bool includeShortcuts ) {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
             int result = ImportSteamConfigFile( filePath, ignore, ignoreDlc );
-            if( !ignoreExternal ) {
+            if( includeShortcuts ) {
                 result += ImportSteamShortcuts( SteamId );
             }
             return result;
@@ -887,11 +887,15 @@ namespace Depressurizer {
         /// <summary>
         /// Writes Steam game category information to Steam user config file.
         /// </summary>
-        /// <param name="SteamId">Steam ID of user to save the config file for</param>
+        /// <param name="steamId">Steam ID of user to save the config file for</param>
         /// <param name="discardMissing">If true, any pre-existing game entries in the file that do not have corresponding entries in the GameList are removed</param>
-        public void ExportSteamConfigFile( long SteamId, bool discardMissing ) {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
+        /// <param name="includeShortcuts">If true, also saves the Steam shortcut category data</param>
+        public void ExportSteamConfig( long steamId, bool discardMissing, bool includeShortcuts ) {
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( steamId ) );
             ExportSteamConfigFile( filePath, discardMissing );
+            if( includeShortcuts ) {
+                ExportSteamShortcuts( steamId );
+            }
         }
 
         /// <summary>

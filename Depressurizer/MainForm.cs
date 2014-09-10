@@ -91,13 +91,13 @@ namespace Depressurizer {
 
         #endregion
 
-        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore, ignoreDlc, ignoreExternal );
+        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore, ignoreDlc );
             DownloadProfileDataHelper( updateDlg );
         }
 
-        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc, bool ignoreExternal ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore, ignoreDlc, ignoreExternal );
+        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore, ignoreDlc );
             DownloadProfileDataHelper( updateDlg );
         }
 
@@ -119,12 +119,7 @@ namespace Depressurizer {
                         AddStatus( GlobalStrings.MainForm_NoGamesInDownload );
                     } else {
                         MakeChange( true );
-                        if( currentProfile.IgnoreExternal ) {
-                            AddStatus( string.Format( GlobalStrings.MainForm_DownloadedGames, updateDlg.Fetched, updateDlg.Added, updateDlg.UseHtml ? "HTML" : "XML" ) );
-                        } else {
-                            AddStatus( string.Format( GlobalStrings.MainForm_DownloadedGamesWithExternal, updateDlg.Fetched, updateDlg.Added, updateDlg.Removed, updateDlg.UseHtml ? "HTML" : "XML" ) );
-                        }
-
+                        AddStatus( string.Format( GlobalStrings.MainForm_DownloadedGames, updateDlg.Fetched, updateDlg.Added, updateDlg.UseHtml ? "HTML" : "XML" ) );
                         FullListRefresh();
                     }
                 }
@@ -313,7 +308,7 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc, currentProfile.IgnoreExternal );
+                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
                     MessageBox.Show( e.Message, GlobalStrings.MainForm_ErrorDownloadingGameList, MessageBoxButtons.OK, MessageBoxIcon.Warning );

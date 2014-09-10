@@ -800,9 +800,6 @@ Tiempo Restante:</value>
   <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
     <value>Eliminado juego de la lista de juegos: {0} - {1}.</value>
   </data>
-  <data name="MainForm_DownloadedGamesWithExternal" xml:space="preserve">
-    <value>Descargados {0} juegos, {1} nuevos, {2} externos eliminados, vía {3}.</value>
-  </data>
   <data name="GameData_SavingShortcutConfigFile" xml:space="preserve">
     <value>Guardando fichero de juegos externos de Steam: {0}.</value>
   </data>
