@@ -76,6 +76,9 @@
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Depressurizer.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -89,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppInfo.cs" />
     <Compile Include="AutoCat.cs" />
     <Compile Include="DlgAutoCat.cs">
       <SubType>Form</SubType>
@@ -105,6 +109,8 @@
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PackageInfo.cs" />
+    <Compile Include="TESTER.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="VdfFile\BinaryVdfFileNode.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
