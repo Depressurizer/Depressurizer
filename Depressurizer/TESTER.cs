@@ -17,33 +17,39 @@ namespace Depressurizer {
             StreamWriter writeInDbNotGame = new StreamWriter( "InDB_NotGame.txt", false );
             StreamWriter writeNotInDB = new StreamWriter( "NotInDB.txt", false );
             StreamWriter writeNoPackageForLicense = new StreamWriter( "NoPackageFound.txt", false );
+            StreamWriter writeAllPackageApps = new StreamWriter( "AllPackageApps.txt", false );
 
-            PackageInfoCollection pic = new PackageInfoCollection();
-            pic.LoadFromFile( packageInfoPath );
+            Dictionary<int, PackageInfo> packages = PackageInfo.LoadPackages( packageInfoPath );
 
             VdfFileNode vdfFile = VdfFileNode.LoadFromText( new StreamReader( localConfigPath ) );
 
             VdfFileNode licensesNode = vdfFile.GetNodeAt( new string[] {"UserLocalConfigStore","Licenses"}, false );
 
-            List<uint> packageIds = new List<uint>();
+            List<int> ownedPackageIds = new List<int>();
 
             foreach( string key in licensesNode.NodeArray.Keys ) {
-                uint id;
-                if( uint.TryParse( key, out id ) ) {
-                    packageIds.Add( id );
+                int id;
+                if( int.TryParse( key, out id ) ) {
+                    ownedPackageIds.Add( id );
                 } else {
                     writeNonIntPackage.WriteLine( key );
                 }
             }
 
-            SortedSet<uint> appIds = new SortedSet<uint>();
-            foreach( uint packageId in packageIds ) {
-                if( pic.packages.ContainsKey( packageId ) ) {
-                    PackageInfo package = pic.packages[packageId];
-                    foreach( uint appId in package.appIds.Values ) {
+            SortedSet<int> appIds = new SortedSet<int>();
+            foreach( int packageId in ownedPackageIds ) {
+                if( packageId == 0 ) continue;
+
+                if( packages.ContainsKey( packageId ) ) {
+                    PackageInfo package = packages[packageId];
+                    if( package.IsExpired ) {
+                        continue;
+                    }
+                    foreach( int appId in package.appIds ) {
                         if( Program.GameDB.Contains( (int)appId ) ) {
                             if( Program.GameDB.Games[(int)appId].Type == AppType.Game ) {
                                 appIds.Add( appId );
+                                writeAllPackageApps.WriteLine( "App {0} from Package {1}", appId, packageId );
                             } else {
                                 writeInDbNotGame.WriteLine( GetGameString( (int)appId, Program.GameDB ) ); // Game is in database, but isn't a game
                             }
@@ -61,14 +67,18 @@ namespace Depressurizer {
             writeNonIntPackage.Close();
             writeNoPackageForLicense.Close();
             writeNotInDB.Close();
+            writeAllPackageApps.Close();
 
             StreamWriter writeInOldNotNew = new StreamWriter( "InOldNotNew.txt", false );
             StreamWriter writeInNewNotOld = new StreamWriter( "InNewNotOld.txt", false );
+            StreamWriter writeInBoth = new StreamWriter( "InBoth.txt", false );
 
             if( list != null ) {
                 foreach( GameInfo g in list.Games.Values ) {
-                    if( !appIds.Contains( (uint)g.Id ) ) {
+                    if( !appIds.Contains( g.Id ) ) {
                         writeInOldNotNew.WriteLine( string.Format("{0}: {1}", g.Id, g.Name ) );
+                    } else {
+                        writeInBoth.WriteLine( string.Format( "{0}: {1}", g.Id, g.Name ) );
                     }
                 }
                 foreach( uint aId in appIds ) {
@@ -80,6 +90,7 @@ namespace Depressurizer {
 
             writeInOldNotNew.Close();
             writeInNewNotOld.Close();
+            writeInBoth.Close();
         }
 
         public static void TestNewReader() {

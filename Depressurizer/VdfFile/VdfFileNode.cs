@@ -201,6 +201,7 @@ namespace Depressurizer {
         /// <param name="stream">Stream to load from</param>
         /// <returns>FileNode representing the contents of the stream.</returns>
         public static VdfFileNode LoadFromBinary( BinaryReader stream ) {
+            if( stream.BaseStream.Position == stream.BaseStream.Length ) return null;
             VdfFileNode thisLevel = new VdfFileNode();
 
             bool endOfStream = false;
