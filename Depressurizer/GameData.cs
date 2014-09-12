@@ -847,11 +847,11 @@ namespace Depressurizer {
         /// <returns>The number of game entries found</returns>
         public int ImportSteamConfigFile( string filePath, SortedSet<int> ignore, bool ignoreDlc ) {
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_OpeningSteamConfigFile, filePath );
-            TextVdfFileNode dataRoot;
+            VdfFileNode dataRoot;
 
             try {
                 using( StreamReader reader = new StreamReader( filePath, false ) ) {
-                    dataRoot = TextVdfFileNode.Load( reader, true );
+                    dataRoot = VdfFileNode.LoadFromText( reader, true );
                 }
             } catch( ParseException e ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorParsingConfigFileParam, e.Message );
@@ -906,10 +906,10 @@ namespace Depressurizer {
         public void ExportSteamConfigFile( string filePath, bool discardMissing ) {
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath );
 
-            TextVdfFileNode fileData = new TextVdfFileNode();
+            VdfFileNode fileData = new VdfFileNode();
             try {
                 using( StreamReader reader = new StreamReader( filePath, false ) ) {
-                    fileData = TextVdfFileNode.Load( reader, true );
+                    fileData = VdfFileNode.LoadFromText( reader, true );
                 }
             } catch( Exception e ) {
                 Program.Logger.Write( LoggerLevel.Warning, GlobalStrings.GameData_LoadingErrorSteamConfig, e.Message );
@@ -948,12 +948,12 @@ namespace Depressurizer {
 
                     int key = 0;
                     foreach( Category c in game.Categories ) {
-                        tagsNode[key.ToString()] = new TextVdfFileNode( c.Name );
+                        tagsNode[key.ToString()] = new VdfFileNode( c.Name );
                         key++;
                     }
 
                     if( game.Hidden ) {
-                        gameNode["hidden"] = new TextVdfFileNode("1");
+                        gameNode["hidden"] = new VdfFileNode("1");
                     } else {
                         gameNode.RemoveSubnode( "hidden" );
                     }
@@ -965,7 +965,7 @@ namespace Depressurizer {
             appListNode.CleanTree();
 
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_WritingToDisk );
-            TextVdfFileNode fullFile = new TextVdfFileNode();
+            VdfFileNode fullFile = new VdfFileNode();
             fullFile["UserLocalConfigStore"] = fileData;
             try {
                 Utility.BackupFile( filePath, Settings.Instance().ConfigBackupCount );
@@ -978,7 +978,7 @@ namespace Depressurizer {
                 f.Directory.Create();
                 FileStream fStream = f.Open( FileMode.Create, FileAccess.Write, FileShare.None );
                 using( StreamWriter writer = new StreamWriter( fStream ) ) {
-                    fullFile.Save( writer );
+                    fullFile.SaveAsText( writer );
                 }
                 fStream.Close();
                 File.Delete( filePath );
@@ -1009,12 +1009,12 @@ namespace Depressurizer {
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath );
             FileStream fStream = null;
             BinaryReader binReader = null;
-            BinaryVdfFileNode dataRoot = null;
+            VdfFileNode dataRoot = null;
             try {
                 fStream = new FileStream( filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite );
                 binReader = new BinaryReader( fStream );
 
-                dataRoot = BinaryVdfFileNode.Load( binReader );
+                dataRoot = VdfFileNode.LoadFromBinary( binReader );
             } catch( FileNotFoundException e ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString() );
             } catch( IOException e ) {
@@ -1056,11 +1056,11 @@ namespace Depressurizer {
 
                         int index = 0;
                         foreach( Category c in game.Categories ) {
-                            tagsNode[index.ToString()] = new BinaryVdfFileNode( c.Name );
+                            tagsNode[index.ToString()] = new VdfFileNode( c.Name );
                             index++;
                         }
 
-                        nodeGame["hidden"] = new BinaryVdfFileNode( game.Hidden ? 1 : 0 );
+                        nodeGame["hidden"] = new VdfFileNode( game.Hidden ? 1 : 0 );
                     }
                 }
                 if( dataRoot.NodeType == ValueType.Array ) {
@@ -1075,7 +1075,7 @@ namespace Depressurizer {
                         BinaryWriter binWriter;
                         fStream = new FileStream( filePathTmp, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite );
                         binWriter = new BinaryWriter( fStream );
-                        dataRoot.Save( binWriter );
+                        dataRoot.SaveAsBinary( binWriter );
                         binWriter.Close();
                         fStream.Close();
                         File.Delete( filePath );
@@ -1109,7 +1109,7 @@ namespace Depressurizer {
             StreamReader reader = null;
             try {
                 reader = new StreamReader( filePath, false );
-                TextVdfFileNode dataRoot = TextVdfFileNode.Load( reader, true );
+                VdfFileNode dataRoot = VdfFileNode.LoadFromText( reader, true );
 
                 VdfFileNode appsNode = dataRoot.GetNodeAt( new string[] { "shortcutnames" }, false );
 
@@ -1154,7 +1154,7 @@ namespace Depressurizer {
                 fStream = new FileStream( filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite );
                 binReader = new BinaryReader( fStream );
 
-                BinaryVdfFileNode dataRoot = BinaryVdfFileNode.Load( binReader );
+                VdfFileNode dataRoot = VdfFileNode.LoadFromBinary( binReader );
 
                 VdfFileNode shortcutsNode = dataRoot.GetNodeAt( new string[] { "shortcuts" }, false );
 

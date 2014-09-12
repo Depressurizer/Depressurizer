@@ -1762,6 +1762,11 @@ namespace Depressurizer {
         #endregion
 
         void VisitSelectedGameStorePage() {
+
+            //TODO: obviously, no.
+            //TESTER.GetLists(this.gameData);
+            TESTER.TestNewReader();
+            /*
             if( lstGames.SelectedIndices.Count > 0 ) {
                 int index = lstGames.SelectedIndices[0];
                 GameInfo g = lstGames.Items[index].Tag as GameInfo;
@@ -1769,7 +1774,7 @@ namespace Depressurizer {
                 if( g != null ) {
                     System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, g.Id ) );
                 }
-            }
+            }*/
         }
 
         private void lstCategories_DragLeave( object sender, EventArgs e ) {

@@ -112,7 +112,6 @@
     <Compile Include="PackageInfo.cs" />
     <Compile Include="TESTER.cs" />
     <Compile Include="Utility.cs" />
-    <Compile Include="VdfFile\BinaryVdfFileNode.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -186,7 +185,6 @@
     <Compile Include="Lib\DlgGetString.Designer.cs">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </Compile>
-    <Compile Include="VdfFile\TextVdfFile.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

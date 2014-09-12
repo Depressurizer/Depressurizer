@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Depressurizer {
 
@@ -11,17 +12,11 @@ namespace Depressurizer {
         Int
     }
 
-    public abstract class VdfFileNode {
+    public class VdfFileNode {
         public ValueType NodeType;
 
         // Can be an int, string or Dictionary<string,VdfFileNode>
         public Object NodeData;
-
-        /// <summary>
-        /// Create an object of child class. To be implemented by inherited classes.
-        /// </summary>
-        /// <returns></returns>
-        protected abstract VdfFileNode CreateNode();
 
         /// <summary>
         /// Gets or sets the subnode with the given key. Can only be used with an array node. If the subnode does not exist, creates it as an array type.
@@ -36,7 +31,7 @@ namespace Depressurizer {
                 }
                 Dictionary<string, VdfFileNode> arrayData = (Dictionary<string, VdfFileNode>)NodeData;
                 if( !arrayData.ContainsKey( key ) ) {
-                    arrayData.Add( key, CreateNode() );
+                    arrayData.Add( key, new VdfFileNode() );
                 }
                 return arrayData[key];
             }
@@ -83,7 +78,7 @@ namespace Depressurizer {
         /// <summary>
         /// Creates a new array-type node
         /// </summary>
-        protected VdfFileNode() {
+        public VdfFileNode() {
             NodeType = ValueType.Array;
             NodeData = new Dictionary<string, VdfFileNode>( StringComparer.OrdinalIgnoreCase );
         }
@@ -92,7 +87,7 @@ namespace Depressurizer {
         /// Creates a new string-type node
         /// </summary>
         /// <param name="value">Value of the string</param>
-        protected VdfFileNode( string value ) {
+        public VdfFileNode( string value ) {
             NodeType = ValueType.String;
             NodeData = value;
         }
@@ -101,7 +96,7 @@ namespace Depressurizer {
         /// Creates a new integer-type node
         /// </summary>
         /// <param name="value">Value of the integer</param>
-        protected VdfFileNode( int value ) {
+        public VdfFileNode( int value ) {
             NodeType = ValueType.Int;
             NodeData = (Int32)( value );
         }
@@ -140,7 +135,7 @@ namespace Depressurizer {
                 if( ContainsKey( args[index] ) ) {
                     return data[args[index]].GetNodeAt( args, create, index + 1 );
                 } else if( create ) {
-                    VdfFileNode newNode = CreateNode();
+                    VdfFileNode newNode = new VdfFileNode();
                     data.Add( args[index], newNode );
                     return newNode.GetNodeAt( args, create, index + 1 );
                 }
@@ -198,5 +193,330 @@ namespace Depressurizer {
             }
         }
         #endregion
+
+        #region Saving and Loading - Binary
+        /// <summary>
+        /// Loads a FileNode from stream.
+        /// </summary>
+        /// <param name="stream">Stream to load from</param>
+        /// <returns>FileNode representing the contents of the stream.</returns>
+        public static VdfFileNode LoadFromBinary( BinaryReader stream ) {
+            VdfFileNode thisLevel = new VdfFileNode();
+
+            bool endOfStream = false;
+
+            while( !endOfStream ) {
+
+                //SkipWhitespace( stream );
+                byte nextByte;
+                try {
+                    nextByte = stream.ReadByte();
+                } catch( EndOfStreamException ) {
+                    endOfStream = true;
+                    nextByte = 8;
+                }
+                // Get key
+                string key = null;
+                if( endOfStream || nextByte == 8 ) {
+                    break;
+                } else if( nextByte == 0 ) {
+                    key = ReadBin_GetStringToken( stream );
+                    VdfFileNode newNode;
+                    newNode = LoadFromBinary( stream );
+                    thisLevel[key] = newNode;
+                } else if( nextByte == 1 ) {
+                    key = ReadBin_GetStringToken( stream );
+                    thisLevel[key] = new VdfFileNode( ReadBin_GetStringToken( stream ) );
+                } else if( nextByte == 2 ) {
+                    key = ReadBin_GetStringToken( stream );
+                    int val = stream.ReadInt32();
+                    thisLevel[key] = new VdfFileNode( val );
+                } else if( nextByte == 0xFF ) {
+                    return null;
+                } else {
+                    throw new ParseException( string.Format( GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextByte.ToString() ) );
+                }
+            }
+            return thisLevel;
+        }
+
+        /// <summary>
+        /// Writes this FileNode and childs to a stream
+        /// </summary>
+        /// <param name="stream">Stream to write to</param>
+        /// <param name="actualKey">Name of node to write.</param>
+        public void SaveAsBinary( BinaryWriter stream, string actualKey = null ) {
+            switch( NodeType ) {
+                case ValueType.Array:
+                    if( !string.IsNullOrEmpty( actualKey ) )
+                        WriteBin_WriteArrayKey( stream, actualKey );
+                    Dictionary<string, VdfFileNode> data = NodeArray;
+                    foreach( KeyValuePair<string, VdfFileNode> entry in data ) {
+                        ( entry.Value ).SaveAsBinary( stream, entry.Key );
+                    }
+                    WriteBin_WriteEndByte( stream );
+                    break;
+                case ValueType.String:
+                    if( !string.IsNullOrEmpty( actualKey ) )
+                        WriteBin_WriteStringValue( stream, actualKey, NodeString );
+                    break;
+                case ValueType.Int:
+                    if( !string.IsNullOrEmpty( actualKey ) ) {
+                        WriteBin_WriteIntegerValue( stream, actualKey, NodeInt );
+                    }
+                    break;
+            }
+        }
+
+        #region Utility
+
+        /// <summary>
+        /// Reads a from the specified stream until it reaches a string terminator (double quote with no escaping slash).
+        /// The opening double quote should already be read, and the last one will be discarded.
+        /// </summary>
+        /// <param name="stream">The stream to read from. After the operation, the stream position will be just past the closing quote.</param>
+        /// <returns>The string encapsulated by the quotes.</returns>
+        private static string ReadBin_GetStringToken( BinaryReader reader ) {
+            bool endOfStream = false;
+            bool stringDone = false;
+            StringBuilder sb = new StringBuilder();
+            byte nextByte;
+            do {
+                try {
+                    nextByte = reader.ReadByte();
+
+                    if( nextByte == 0 ) {
+                        stringDone = true;
+                    } else {
+                        sb.Append( (char)nextByte );
+                    }
+                } catch( EndOfStreamException ) {
+                    endOfStream = true;
+                }
+            } while( !stringDone && !( endOfStream ) );
+
+            if( !stringDone ) {
+                if( endOfStream ) {
+                    throw new ParseException( GlobalStrings.TextVdfFile_UnexpectedEOF );
+                }
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Writes a array key to a stream, adding start/end bytes.
+        /// </summary>
+        /// <param name="writer">Stream to write to</param>
+        /// <param name="arrayKey">String to write</param>
+        private void WriteBin_WriteArrayKey( BinaryWriter writer, string arrayKey ) {
+            writer.Write( (byte)0 );
+            writer.Write( arrayKey.ToCharArray() );
+            writer.Write( (byte)0 );
+        }
+
+        /// <summary>
+        /// Writes a pair o key and value to a stream, adding star/end and separator bytes
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="pair"></param>
+        private void WriteBin_WriteStringValue( BinaryWriter writer, string key, string val ) {
+            writer.Write( (byte)1 );
+            writer.Write( key.ToCharArray() );
+            writer.Write( (byte)0 );
+            writer.Write( val.ToCharArray() );
+            writer.Write( (byte)0 );
+        }
+
+        private void WriteBin_WriteIntegerValue( BinaryWriter writer, string key, int val ) {
+            writer.Write( (byte)2 );
+            writer.Write( key.ToCharArray() );
+            writer.Write( (byte)0 );
+            writer.Write( val );
+        }
+
+        /// <summary>
+        /// Write an end byte to stream
+        /// </summary>
+        /// <param name="writer"></param>
+        private void WriteBin_WriteEndByte( BinaryWriter writer ) {
+            writer.Write( (byte)8 );
+        }
+
+        #endregion
+        #endregion
+
+        #region Saving and Loading - Text
+
+        /// <summary>
+        /// Loads a FileNode from stream.
+        /// </summary>
+        /// <param name="stream">Stream to load from</param>
+        /// <returns>FileNode representing the contents of the stream.</returns>
+        public static VdfFileNode LoadFromText( StreamReader stream, bool useFirstAsRoot = false ) {
+            VdfFileNode thisLevel = useFirstAsRoot ? null : new VdfFileNode();
+
+            ReadText_SkipWhitespace( stream );
+
+            while( !stream.EndOfStream ) {
+
+                ReadText_SkipWhitespace( stream );
+                // Get key
+                char nextChar = (char)stream.Read();
+                string key = null;
+                if( stream.EndOfStream || nextChar == '}' ) {
+                    break;
+                } else if( nextChar == '"' ) {
+                    key = ReadText_GetStringToken( stream );
+                } else {
+                    throw new ParseException( string.Format( GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextChar ) );
+                }
+                ReadText_SkipWhitespace( stream );
+
+                // Get value
+                nextChar = (char)stream.Read();
+                VdfFileNode newNode;
+                if( nextChar == '"' ) {
+                    newNode = new VdfFileNode( ReadText_GetStringToken( stream ) );
+                } else if( nextChar == '{' ) {
+                    newNode = LoadFromText( stream );
+                } else {
+                    throw new ParseException( string.Format( GlobalStrings.TextVdfFile_UnexpectedCharacterValue, nextChar ) );
+                }
+
+                if( useFirstAsRoot ) {
+                    return newNode;
+                }
+
+                thisLevel[key] = newNode;
+            }
+            return thisLevel;
+        }
+
+        /// <summary>
+        /// Writes this FileNode to a stream
+        /// </summary>
+        /// <param name="stream">Stream to write to</param>
+        /// <param name="indent">Indentation level of each line.</param>
+        public void SaveAsText( StreamWriter stream, int indent = 0 ) {
+            if( NodeType == ValueType.Array ) {
+                Dictionary<string, VdfFileNode> data = NodeArray;
+                foreach( KeyValuePair<string, VdfFileNode> entry in data ) {
+                    if( entry.Value.NodeType == ValueType.Array ) {
+                        WriteText_WriteWhitespace( stream, indent );
+                        WriteText_WriteFormattedString( stream, entry.Key );
+                        stream.WriteLine();
+
+                        WriteText_WriteWhitespace( stream, indent );
+                        stream.WriteLine( '{' );
+
+                        ( entry.Value ).SaveAsText( stream, indent + 1 );
+
+                        WriteText_WriteWhitespace( stream, indent );
+                        stream.WriteLine( '}' );
+                    } else {
+                        WriteText_WriteWhitespace( stream, indent );
+                        WriteText_WriteFormattedString( stream, entry.Key );
+                        stream.Write( "\t\t" );
+
+                        WriteText_WriteFormattedString( stream, entry.Value.NodeData as string );
+                        stream.WriteLine();
+                    }
+                }
+            } else {
+
+            }
+        }
+
+        #region Utility
+
+        /// <summary>
+        /// Reads a from the specified stream until it reaches a string terminator (double quote with no escaping slash).
+        /// The opening double quote should already be read, and the last one will be discarded.
+        /// </summary>
+        /// <param name="stream">The stream to read from. After the operation, the stream position will be just past the closing quote.</param>
+        /// <returns>The string encapsulated by the quotes.</returns>
+        private static string ReadText_GetStringToken( StreamReader stream ) {
+            bool escaped = false;
+            bool stringDone = false;
+            StringBuilder sb = new StringBuilder();
+            char nextChar;
+            do {
+                nextChar = (char)stream.Read();
+                if( escaped ) {
+                    switch( nextChar ) {
+                        case '\\':
+                            sb.Append( '\\' );
+                            break;
+                        case '"':
+                            sb.Append( '"' );
+                            break;
+                        case '\'':
+                            sb.Append( '\'' );
+                            break;
+                    }
+                    escaped = false;
+                } else {
+                    switch( nextChar ) {
+                        case '\\':
+                            escaped = true;
+                            break;
+                        case '"':
+                            stringDone = true;
+                            break;
+                        default:
+                            sb.Append( nextChar );
+                            break;
+                    }
+                }
+            } while( !stringDone && !stream.EndOfStream );
+            if( !stringDone ) {
+                if( stream.EndOfStream ) {
+                    throw new ParseException( GlobalStrings.TextVdfFile_UnexpectedEOF );
+                }
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Advances a stream until the next character is not whitespace
+        /// </summary>
+        /// <param name="stream">The stream to advance</param>
+        private static void ReadText_SkipWhitespace( StreamReader stream ) {
+            char nextChar = (char)stream.Peek();
+            while( nextChar == ' ' || nextChar == '\r' || nextChar == '\n' || nextChar == '\t' ) {
+                stream.Read();
+                nextChar = (char)stream.Peek();
+            }
+        }
+
+        /// <summary>
+        /// Writes a string to a stream, adding start/end quotes and escaping any quotes within the string.
+        /// </summary>
+        /// <param name="stream">Stream to write to</param>
+        /// <param name="s">String to write</param>
+        private void WriteText_WriteFormattedString( StreamWriter stream, string s ) {
+            stream.Write( "\"" );
+            stream.Write( s.Replace( "\"", "\\\"" ) );
+            stream.Write( "\"" );
+        }
+
+        /// <summary>
+        /// Writes the given number of tab characters to a stream
+        /// </summary>
+        /// <param name="stream">Stream to write to</param>
+        /// <param name="indent">Number of tabs</param>
+        private void WriteText_WriteWhitespace( StreamWriter stream, int indent ) {
+            for( int i = 0; i < indent; i++ ) {
+                stream.Write( '\t' );
+            }
+        }
+
+        #endregion
+
+        #endregion
+    }
+    public class ParseException : ApplicationException {
+        public ParseException() : base() { }
+        public ParseException( string message ) : base( message ) { }
     }
 }
