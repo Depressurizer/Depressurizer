@@ -74,7 +74,7 @@ namespace Depressurizer {
         public static Dictionary<int, PackageInfo> LoadPackages( string path ) {
             Dictionary<int, PackageInfo> result = new Dictionary<int, PackageInfo>();
 
-            BinaryReader bReader = new BinaryReader( new FileStream( path, FileMode.Open ) );
+            BinaryReader bReader = new BinaryReader( new FileStream( path, FileMode.Open  ), Encoding.ASCII );
 
             bReader.ReadBytes( 38 );
 
