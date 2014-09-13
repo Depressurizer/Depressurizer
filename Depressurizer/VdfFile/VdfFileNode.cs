@@ -218,7 +218,7 @@ namespace Depressurizer {
                 }
                 // Get key
                 string key = null;
-                if( endOfStream || nextByte == 8 ) {
+                if( endOfStream || nextByte == 8 || stream.BaseStream.Position == stream.BaseStream.Length ) {
                     break;
                 } else if( nextByte == 0 ) {
                     key = ReadBin_GetStringToken( stream );
@@ -270,6 +270,20 @@ namespace Depressurizer {
         }
 
         #region Utility
+
+        public static void ReadBin_SeekTo( BinaryReader stream, byte[] str, long fileLength ) {
+            int indexAt = 0;
+            int goalIndex = str.Length;
+
+            while( indexAt < str.Length && stream.BaseStream.Position < fileLength ) {
+
+                if( stream.ReadByte() == str[indexAt] ) {
+                    indexAt++;
+                } else {
+                    indexAt = 0;
+                }
+            }
+        }
 
         /// <summary>
         /// Reads a from the specified stream until it reaches a string terminator (double quote with no escaping slash).
@@ -418,8 +432,8 @@ namespace Depressurizer {
                         WriteText_WriteWhitespace( stream, indent );
                         WriteText_WriteFormattedString( stream, entry.Key );
                         stream.Write( "\t\t" );
-
-                        WriteText_WriteFormattedString( stream, entry.Value.NodeData as string );
+                        
+                        WriteText_WriteFormattedString( stream, entry.Value.NodeData.ToString() );
                         stream.WriteLine();
                     }
                 }

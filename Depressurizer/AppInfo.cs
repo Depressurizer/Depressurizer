@@ -6,40 +6,64 @@ using System.IO;
 
 namespace Depressurizer {
     class AppInfo {
-        int appId;
-        string name;
-        string type;
-    }
+        public int appId;
+        public string name;
+        public string type;
 
-    class AppInfoList {
-        Dictionary<uint, AppInfo> appList;
-
-        public AppInfoList() {
-            appList = new Dictionary<uint, AppInfo>();
+        public AppInfo( int id, string name = null, string type = null ) {
+            this.appId = id;
+            this.name = name;
+            this.type = type;
         }
 
-        public void LoadFromFile( string path ) {
-            FileStream fStream = File.Open( path, FileMode.Open );
+        public static AppInfo FromVdfNode( VdfFileNode commonNode ) {
+            if( commonNode == null || commonNode.NodeType != ValueType.Array ) return null;
 
-            BinaryReader bReader = new BinaryReader( fStream );
+            VdfFileNode idNode = commonNode.GetNodeAt( new string[] { "gameid" }, false );
+            int id = -1;
+            if( idNode != null ) {
+                if( idNode.NodeType == ValueType.Int ) {
+                    id = idNode.NodeInt;
+                } else if( idNode.NodeType == ValueType.String ) {
+                    if( !int.TryParse( idNode.NodeString, out id ) ) {
+                        id = -1;
+                    }
+                }
+            }
+            if( id >= 0 ) {
+                string name = null;
+                VdfFileNode nameNode = commonNode.GetNodeAt( new string[] { "name" }, false );
+                if( nameNode != null ) name = nameNode.NodeData.ToString();
 
-            // seek to real start
+                string type = null;
+                VdfFileNode typeNode = commonNode.GetNodeAt( new string[] { "type" }, false );
+                if( typeNode != null ) type = typeNode.NodeData.ToString();
 
-            do {
-                int last = bReader.ReadByte();
-                int next = bReader.PeekChar();
+                return new AppInfo( id, name, type );
+            }
+            return null;
+        }
 
-                // if next is \00 and last isn't, new section
-                // exception for inside sections, like depots. then, if last is \00, new section
+        public static Dictionary<int, AppInfo> LoadApps( string path ) {
+            Dictionary<int, AppInfo> result = new Dictionary<int, AppInfo>();
+            BinaryReader bReader = new BinaryReader( new FileStream( path, FileMode.Open, FileAccess.Read ) );
+            long fileLength = bReader.BaseStream.Length;
 
-                // if last is \08 and next is \08, end section
+            byte[] start = new byte[] {0x02, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00};
 
-                // if last is \00, end entry
+            VdfFileNode.ReadBin_SeekTo( bReader, start, fileLength );
 
-                // if last is \01 or \02, new value
-
-                // if next or last is -1, end file
-            } while( true );
+            VdfFileNode node = VdfFileNode.LoadFromBinary( bReader );
+            while( node != null ) {
+                AppInfo app = AppInfo.FromVdfNode( node );
+                if( app != null ) {
+                    result.Add( app.appId, app );
+                }
+                VdfFileNode.ReadBin_SeekTo( bReader, start, fileLength );    
+                node = VdfFileNode.LoadFromBinary( bReader );
+            }
+            bReader.Close();
+            return result;
         }
     }
 }

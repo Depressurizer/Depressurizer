@@ -36,6 +36,8 @@ namespace Depressurizer {
                 }
             }
 
+            Dictionary<int, AppInfo> appList = AppInfo.LoadApps( @"D:\Steam\appcache\appinfo.vdf" );
+
             SortedSet<int> appIds = new SortedSet<int>();
             foreach( int packageId in ownedPackageIds ) {
                 if( packageId == 0 ) continue;
@@ -46,12 +48,12 @@ namespace Depressurizer {
                         continue;
                     }
                     foreach( int appId in package.appIds ) {
-                        if( Program.GameDB.Contains( (int)appId ) ) {
-                            if( Program.GameDB.Games[(int)appId].Type == AppType.Game ) {
+                        if( appList.ContainsKey( appId ) ) {
+                            if( appList[appId].type.Equals( "Game", StringComparison.OrdinalIgnoreCase )) {
                                 appIds.Add( appId );
                                 writeAllPackageApps.WriteLine( "App {0} from Package {1}", appId, packageId );
                             } else {
-                                writeInDbNotGame.WriteLine( GetGameString( (int)appId, Program.GameDB ) ); // Game is in database, but isn't a game
+                                writeInDbNotGame.WriteLine( GetGameString( (int)appId, appList ) ); // Game is in database, but isn't a game
                             }
                         } else {
                             writeNotInDB.WriteLine( appId );
@@ -83,7 +85,7 @@ namespace Depressurizer {
                 }
                 foreach( uint aId in appIds ) {
                     if( !list.Games.ContainsKey((int)aId)) {
-                        writeInNewNotOld.WriteLine( GetGameString( (int)aId, Program.GameDB ) );
+                        writeInNewNotOld.WriteLine( GetGameString( (int)aId, appList ) );
                     }
                 }
             }
@@ -94,23 +96,13 @@ namespace Depressurizer {
         }
 
         public static void TestNewReader() {
-            BinaryReader bReader = new BinaryReader( new FileStream( @"D:\Steam\appcache\packageinfo.vdf", FileMode.Open ) );
-
-            bReader.ReadBytes(38);
-
-            List<VdfFileNode> nodes = new List<VdfFileNode>();
-            VdfFileNode node;
-
-            while( (node = VdfFileNode.LoadFromBinary( bReader )) != null ) {
-                nodes.Add( node );
-                bReader.ReadBytes( 31 );
-            }
+            Dictionary<int, AppInfo> appList = AppInfo.LoadApps( @"D:\Steam\appcache\appinfo.vdf" );
         }
 
-        public static string GetGameString( int id, GameDB db ) {
+        public static string GetGameString( int id, Dictionary<int, AppInfo> appList ) {
             string s = string.Format( "ID: {0} ", id );
-            if( db.Contains( id ) ) {
-                s += string.Format( " {0} ({1})", db.Games[id].Name, db.Games[id].Type.ToString() );
+            if( appList.ContainsKey( id ) ) {
+                s += string.Format( " {0} ({1})", appList[id].name, appList[id].type );
             } else {
                 s += "Not in Database";
             }
