@@ -200,15 +200,14 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="stream">Stream to load from</param>
         /// <returns>FileNode representing the contents of the stream.</returns>
-        public static VdfFileNode LoadFromBinary( BinaryReader stream ) {
-            if( stream.BaseStream.Position == stream.BaseStream.Length ) return null;
+        public static VdfFileNode LoadFromBinary( BinaryReader stream, long streamLength = -1 ) {
+            if( streamLength == -1 ) streamLength = stream.BaseStream.Length;
+            if( stream.BaseStream.Position == streamLength ) return null;
             VdfFileNode thisLevel = new VdfFileNode();
 
             bool endOfStream = false;
 
             while( !endOfStream ) {
-
-                //SkipWhitespace( stream );
                 byte nextByte;
                 try {
                     nextByte = stream.ReadByte();
@@ -218,12 +217,12 @@ namespace Depressurizer {
                 }
                 // Get key
                 string key = null;
-                if( endOfStream || nextByte == 8 || stream.BaseStream.Position == stream.BaseStream.Length ) {
+                if( endOfStream || nextByte == 8 || stream.BaseStream.Position == streamLength ) {
                     break;
                 } else if( nextByte == 0 ) {
                     key = ReadBin_GetStringToken( stream );
                     VdfFileNode newNode;
-                    newNode = LoadFromBinary( stream );
+                    newNode = LoadFromBinary( stream, streamLength );
                     thisLevel[key] = newNode;
                 } else if( nextByte == 1 ) {
                     key = ReadBin_GetStringToken( stream );
@@ -354,7 +353,9 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="stream">The stream to read from. After the operation, the stream position will be just past the closing quote.</param>
         /// <returns>The string encapsulated by the quotes.</returns>
-        private static string ReadBin_GetStringToken( BinaryReader reader ) {
+        private static string ReadBin_GetStringToken( BinaryReader reader, long streamLength = -1 ) {
+            if( streamLength == -1 ) streamLength = reader.BaseStream.Length;
+
             bool endOfStream = false;
             bool stringDone = false;
             StringBuilder sb = new StringBuilder();
@@ -371,7 +372,7 @@ namespace Depressurizer {
                 } catch( EndOfStreamException ) {
                     endOfStream = true;
                 }
-            } while( !stringDone && !( endOfStream ) );
+            } while( !stringDone && !( endOfStream ) && reader.BaseStream.Position < streamLength );
 
             if( !stringDone ) {
                 if( endOfStream ) {
