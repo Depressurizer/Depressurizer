@@ -44,9 +44,11 @@ namespace Depressurizer {
 
         // Metacritic:
         public string MC_Url = null;
+        /*
         public int MC_Score = -1;
         public string MC_Genre = null;
         public int MC_Year = -1;
+        */
 
         public List<string> Flags = new List<string>();
 
@@ -248,6 +250,25 @@ namespace Depressurizer {
         // Utility
         static char[] genreSep = new char[] { ',' };
 
+        private const int VERSION = 1;
+        private const string
+            XmlName_Version = "version",
+            XmlName_GameList = "gamelist",
+            XmlName_Game = "game",
+            XmlName_Game_Id = "id",
+            XmlName_Game_Name = "name",
+            XmlName_Game_LastStoreUpdate = "lastStoreUpdate",
+            XmlName_Game_LastAppInfoUpdate = "lastAppInfoUpdate",
+            XmlName_Game_Type = "type",
+            XmlName_Game_Platforms = "platforms",
+            XmlName_Game_Parent = "parent",
+            XmlName_Game_Genre = "genre",
+            XmlName_Game_Developer = "developer",
+            XmlName_Game_Publisher = "publisher",
+            XmlName_Game_Flag = "flag",
+            XmlName_Game_MCUrl = "mcUrl",
+            XmlName_Game_Date = "steamDate";
+
         #region Accessors
 
         public bool Contains( int id ) {
@@ -421,59 +442,61 @@ namespace Depressurizer {
 
                 XmlWriter writer = XmlWriter.Create( stream, settings );
                 writer.WriteStartDocument();
-                writer.WriteStartElement( "gamelist" );
+                writer.WriteStartElement( XmlName_GameList );
+
+                writer.WriteElementString( XmlName_Version, VERSION.ToString());
+
                 foreach( GameDBEntry g in Games.Values ) {
 
-                    writer.WriteStartElement( "game" );
+                    writer.WriteStartElement( XmlName_Game );
 
-                    writer.WriteElementString( "id", g.Id.ToString() );
+                    writer.WriteElementString( XmlName_Game_Id, g.Id.ToString() );
 
                     if( !string.IsNullOrEmpty( g.Name ) ) {
-                        writer.WriteElementString( "name", g.Name );
+                        writer.WriteElementString( XmlName_Game_Name, g.Name );
                     }
 
-                    if( g.LastStoreScrape > 0 ) writer.WriteElementString( "laststoreupdate", g.LastStoreScrape.ToString() );
-                    if( g.LastAppInfoUpdate > 0 ) writer.WriteElementString( "lastappinfoupdate", g.LastAppInfoUpdate.ToString() );
+                    if( g.LastStoreScrape > 0 ) writer.WriteElementString( XmlName_Game_LastStoreUpdate, g.LastStoreScrape.ToString() );
+                    if( g.LastAppInfoUpdate > 0 ) writer.WriteElementString( XmlName_Game_LastStoreUpdate, g.LastAppInfoUpdate.ToString() );
 
-                    writer.WriteElementString( "type", g.AppType.ToString() );
+                    writer.WriteElementString( XmlName_Game_Type, g.AppType.ToString() );
 
-                    writer.WriteElementString( "platforms", g.Platforms.ToString() );
+                    writer.WriteElementString( XmlName_Game_Platforms, g.Platforms.ToString() );
 
-                    if( g.ParentId >= 0 ) writer.WriteElementString( "parent", g.ParentId.ToString() );
+                    if( g.ParentId >= 0 ) writer.WriteElementString( XmlName_Game_Parent, g.ParentId.ToString() );
 
                     if( g.Genres != null ) {
                         foreach( string str in g.Genres ) {
-                            writer.WriteElementString( "genre", str );
+                            writer.WriteElementString( XmlName_Game_Genre, str );
                         }
                     }
 
                     if( g.Developers != null ) {
                         foreach( string str in g.Developers ) {
-                            writer.WriteElementString( "developer", str );
+                            writer.WriteElementString( XmlName_Game_Developer, str );
                         }
                     }
 
                     if( g.Publishers != null ) {
                         foreach( string str in g.Publishers ) {
-                            writer.WriteElementString( "publisher", str );
+                            writer.WriteElementString( XmlName_Game_Publisher, str );
                         }
                     }
 
                     if( g.Flags != null ) {
                         foreach( string s in g.Flags ) {
-                            writer.WriteElementString( "flag", s );
+                            writer.WriteElementString( XmlName_Game_Flag, s );
                         }
                     }
 
                     if( !string.IsNullOrEmpty( g.MC_Url ) ) {
-                        writer.WriteElementString( "mcUrl", g.MC_Url );
+                        writer.WriteElementString( XmlName_Game_MCUrl, g.MC_Url );
                     }
 
                     if( !string.IsNullOrEmpty( g.SteamReleaseDate ) ) {
-                        writer.WriteElementString( "steamDate", g.SteamReleaseDate );
+                        writer.WriteElementString( XmlName_Game_Date, g.SteamReleaseDate );
                     }
 
-                    // TODO: Save MC extras
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
@@ -493,7 +516,6 @@ namespace Depressurizer {
             Load( path, path.EndsWith( ".gz" ) );
         }
 
-
         public void Load( string path, bool compress ) {
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_LoadingGameDBFrom, path );
             XmlDocument doc = new XmlDocument();
@@ -510,38 +532,78 @@ namespace Depressurizer {
                 Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLParsed );
                 Games.Clear();
 
-                foreach( XmlNode gameNode in doc.SelectNodes( "/gamelist/game" ) ) {
+                XmlNode gameListNode = doc.SelectSingleNode( "/" + XmlName_GameList );
+
+                int fileVersion = XmlUtil.GetIntFromNode( gameListNode[XmlName_Version], 0 );
+
+                foreach( XmlNode gameNode in gameListNode.SelectNodes( XmlName_Game ) ) {
                     int id;
-                    if( !XmlUtil.TryGetIntFromNode( gameNode["id"], out id ) || Games.ContainsKey( id ) ) {
+                    if( !XmlUtil.TryGetIntFromNode( gameNode[XmlName_Game_Id], out id ) || Games.ContainsKey( id ) ) {
                         continue;
                     }
                     GameDBEntry g = new GameDBEntry();
                     g.Id = id;
-                    XmlUtil.TryGetStringFromNode( gameNode["name"], out g.Name );
-                    string typeString;
-                    if( !XmlUtil.TryGetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType_Old>( typeString, out g.Type ) ) {
-                        g.Type = AppType_Old.New;
+                    
+                    g.Name = XmlUtil.GetStringFromNode( gameNode[XmlName_Game_Name], null );
+
+                    if( fileVersion < 1 ) {
+                        g.AppType = AppTypes.Unknown;
+                        string typeString;
+                        if( XmlUtil.TryGetStringFromNode( gameNode[XmlName_Game_Type], out typeString ) ) {
+                            if( typeString == "DLC" ) {
+                                g.AppType = AppTypes.DLC;
+                            } else if( typeString == "Game" ) {
+                                g.AppType = AppTypes.Game;
+                            } else if( typeString == "NonApp" ) {
+                                g.AppType = AppTypes.Other;
+                            }
+                        } 
+                    } else {
+                        g.AppType = XmlUtil.GetEnumFromNode<AppTypes>( gameNode[XmlName_Game_Type], AppTypes.Unknown );
                     }
 
-                    g.Genre = XmlUtil.GetStringFromNode( gameNode["genre"], null );
+                    g.Platforms = XmlUtil.GetEnumFromNode<AppPlatforms>( gameNode[XmlName_Game_Platforms], AppPlatforms.All );
 
-                    g.Developer = XmlUtil.GetStringFromNode( gameNode["developer"], null );
-                    g.Publisher = XmlUtil.GetStringFromNode( gameNode["publisher"], null );
+                    g.ParentId = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_Parent], -1 );
 
-                    int steamDate = XmlUtil.GetIntFromNode( gameNode["steamDate"], 0 );
-                    if( steamDate > 0 ) {
-                        g.SteamRelease = DateTime.FromOADate( steamDate );
+                    if( fileVersion < 1 ) {
+                        List<string> genreList = new List<string>();
+                        string genreString = XmlUtil.GetStringFromNode( gameNode["genre"], null );
+                        if( genreString != null ) {
+                            string[] genStrList = genreString.Split( ',' );
+                            foreach( string s in genStrList ) {
+                                genreList.Add( s.Trim() );
+                            }
+                        }
+                        g.Genres = genreList;
+                    } else {
+                        g.Genres = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Genre ) );
                     }
 
-                    foreach( XmlNode n in gameNode.SelectNodes( "flag" ) ) {
-                        string fName = XmlUtil.GetStringFromNode( n, null );
-                        if( !string.IsNullOrEmpty( fName ) ) g.Flags.Add( fName );
+                    g.Developers = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Developer ) );
+
+                    if( fileVersion < 1 ) {
+                        List<string> pubList = new List<string>();
+                        string pubString = XmlUtil.GetStringFromNode( gameNode["publisher"], null );
+                        if( pubString != null ) {
+                            string[] pubStrList = pubString.Split( ',' );
+                            foreach( string s in pubStrList ) {
+                                pubList.Add( s.Trim() );
+                            }
+                        }
+                        g.Publishers = pubList;
+                    } else {
+                        g.Publishers = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Publisher ) );
                     }
+
+                    g.SteamReleaseDate = XmlUtil.GetStringFromNode( gameNode[XmlName_Game_Date], null);
+
+                    g.Flags = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Flag ) );
 
                     g.MC_Url = XmlUtil.GetStringFromNode( gameNode["mcUrl"], null );
 
-
-                    // TODO: Load MC extras
+                    g.LastAppInfoUpdate = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_LastAppInfoUpdate], 0 );
+                    g.LastStoreScrape = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_LastStoreUpdate], 0 );
 
                     Games.Add( id, g );
                 }
@@ -552,22 +614,6 @@ namespace Depressurizer {
                 if( stream != null ) {
                     stream.Close();
                 }
-            }
-        }
-        #endregion
-
-        #region Statics
-
-
-
-
-        public static string TruncateGenre( string fullString ) {
-            if( fullString == null ) return null;
-            int index = fullString.IndexOf( ',' );
-            if( index < 0 ) {
-                return fullString;
-            } else {
-                return fullString.Substring( 0, index );
             }
         }
 

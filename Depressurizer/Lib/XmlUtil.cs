@@ -18,6 +18,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
 using System.Xml;
+using System.Collections.Generic;
 
 namespace Depressurizer {
     public static class XmlUtil {
@@ -108,6 +109,32 @@ namespace Depressurizer {
             }
             value = false;
             return false;
+        }
+
+        public static TEnum GetEnumFromNode<TEnum>( XmlNode node, TEnum defaultValue ) where TEnum : struct, IComparable, IConvertible, IFormattable {
+            if( node != null ) {
+                XmlNode textNode = node.SelectSingleNode( "text()" );
+                if( textNode != null ) {
+                    string str = textNode.InnerText;
+                    TEnum res = defaultValue;
+                    if( Enum.TryParse<TEnum>( str, out res ) ) {
+                        return res;
+                    }
+                }
+            }
+            return defaultValue;
+        }
+
+        public static List<string> GetStringsFromNodeList( XmlNodeList nodeList ) {
+            List<string> result = new List<string>();
+            foreach( XmlNode node in nodeList ) {
+                string s = GetStringFromNode( node, null );
+                if( s != null ) {
+                    result.Add( s );
+                }
+            }
+            if( result.Count == 0 ) return null;
+            return result;
         }
     }
 }
