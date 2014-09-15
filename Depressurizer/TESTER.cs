@@ -43,7 +43,7 @@ namespace Depressurizer {
                     }
                     foreach( int appId in package.appIds ) {
                         if( appList.ContainsKey( appId ) ) {
-                            if( appList[appId].type == AppType2.Game ) {
+                            if( appList[appId].type == AppTypes.Game ) {
                                 ownedAppIds.Add( appId );
                             } 
                         } 

@@ -11,7 +11,7 @@ using System.Globalization;
 
 namespace Depressurizer {
 
-    public enum AppType {
+    public enum AppType_Old {
         New,
         Game,
         DLC,
@@ -26,15 +26,22 @@ namespace Depressurizer {
 
     public class GameDBEntry {
 
+        #region Fields
         public int Id;
         public string Name;
-        public string Genre;
+        public List<string> Genres = new List<string>();
+
+        public AppTypes AppType = AppTypes.Unknown;
+        public int ParentId = -1;
+
+        public AppPlatforms Platforms = AppPlatforms.All;
 
         // New stuff:
         // Basics:
-        public string Developer = null;
-        public string Publisher = null;
-        public DateTime SteamRelease = DateTime.MinValue;
+        public List<string> Developers = null;
+        public List<string> Publishers = null;
+        public string SteamReleaseDate = null;
+
         // Metacritic:
         public string MC_Url = null;
         public int MC_Score = -1;
@@ -43,188 +50,179 @@ namespace Depressurizer {
 
         public List<string> Flags = new List<string>();
 
-        public AppType Type;
+        public int LastStoreScrape = 0;
+        public int LastAppInfoUpdate = 0;
+        #endregion
 
-
+        #region Regex
+        // If this regex maches a store page, the app is a game
         private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
-
-        //private static Regex regDLC = new Regex("<div class=\\\"name\\\"><a href=[^>]*>Downloadable Content</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex regFlags = new Regex("<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><a href=[^>]*><img[^>]*></a></div>\\s*<div class=\\\"name\\\"><a href=[^>]*>([^<]*)</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-        private static Regex regDeveloper = new Regex("<b>Developer:</b>\\s*<a[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
-        private static Regex regPublishers = new Regex("<b>Publisher:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
+        private static Regex regFlags = new Regex( "<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><a href=[^>]*><img[^>]*></a></div>\\s*<div class=\\\"name\\\"><a href=[^>]*>([^<]*)</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regDeveloper = new Regex( "<b>Developer:</b>\\s*<a[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regPublishers = new Regex( "<b>Publisher:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regRelDate = new Regex( "<b>Release Date:</b>\\s*([^<]*)<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regMetalink = new Regex( "<div id=\\\"game_area_metalink\\\">\\s*<a href=\\\"http://www.metacritic.com/game/pc/([^\\\"]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        #endregion
 
-        public AppType ScrapeStore() {
+        public AppTypes ScrapeStore() {
             return ScrapeStore( this.Id );
         }
 
-        public AppType ScrapeStore( int id, int redirectCount = 0 ) {
-            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_InitiatingStoreScrapeForGame, id);
-            // jpodadera
-            // In case of analizing redirections, this.Id should be kept
-            //Id = id;
+        public AppTypes ScrapeStore( int id ) {
+            AppTypes result = ScrapeStoreHelper( id );
+            SetTypeFromStoreScrape( result );
+            return result;
+        }
 
-            bool redirect = ( redirectCount > 0 );
-
-            // jpodadera
-            // In case of no analizing redirections, this.Id is set
-            if (!redirect)
-                this.Id = id;
+        public AppTypes ScrapeStoreHelper( int id ) {
+            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_InitiatingStoreScrapeForGame, id );
 
             string page = "";
 
-            int redirectTarget = 0;
-            bool needsRedirect = false;
+            int redirectTarget = -1;
+
+            int oldTime = LastStoreScrape;
 
             try {
                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create( string.Format( Properties.Resources.UrlSteamStore, id ) );
+
                 // Cookie bypasses the age gate
                 req.CookieContainer = new CookieContainer( 1 );
                 req.CookieContainer.Add( new Cookie( "birthtime", "-2208959999", "/", "store.steampowered.com" ) );
 
                 using( WebResponse resp = req.GetResponse() ) {
-                    if( resp.ResponseUri.Segments.Length <= 1 ) {
-                        // Redirected to the store front page
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
-                        Type = AppType.NotFound;
-                        return Type;
-                    } else if( resp.ResponseUri.Segments.Length >= 2 && resp.ResponseUri.Segments[1] == "agecheck/" ) {
-                        if( redirectCount <= 3 && resp.ResponseUri.Segments.Length >= 4 && !resp.ResponseUri.Segments[3].StartsWith( id.ToString() ) ) {
-                            // We got an age check for a different ID than we requested
+                    LastStoreScrape = Utility.GetCurrentUTime();
+                    if( resp.ResponseUri.Segments.Length < 2 ) { // If we were redirected to the store front page
+                        Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id );
+                        SetTypeFromStoreScrape( AppTypes.Unknown );
+                        return AppTypes.Unknown;
+
+                    } else if( resp.ResponseUri.Segments[1] == "agecheck/" ) { // If we encountered an age gate (cookies should bypass this, but sometimes they don't seem to)
+                        if( resp.ResponseUri.Segments.Length >= 4 && resp.ResponseUri.Segments[3].TrimEnd( '/' ) != id.ToString() ) { // Age check + redirect
+                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id, resp.ResponseUri.Segments[3].TrimEnd( '/' ) );
                             if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out redirectTarget ) ) {
-                                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id, redirectTarget);
-                                needsRedirect = true;
-                            } else {
-                                // Age check without numeric id
-                                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.GameDB_ScrapingStuckAtAgeCheck, id, resp.ResponseUri);
-                                Type = AppType.AgeGated;
-                                return Type;
+                            } else { // If we got an age check without numeric id (shouldn't happen)
+                                return AppTypes.Unknown;
                             }
-                        } else {
-                            // Age check with no redirect
-                            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingAgeCheckNoRedirect, id, redirectCount);
-                            Type = AppType.AgeGated;
-                            return Type;
+                        } else { // If we got an age check with no redirect
+                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingAgeCheckNoRedirect, id );
+                            return AppTypes.Unknown;
                         }
-                    } else if( resp.ResponseUri.Segments.Length < 2 || resp.ResponseUri.Segments[1] != "app/" ) {
-                        // Redirected outside of the app path
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToNonApp, id);
-                        Type = AppType.NonApp;
-                        return Type;
-                    } else if( resp.ResponseUri.Segments.Length < 3 || !resp.ResponseUri.Segments[2].StartsWith( id.ToString() ) ) {
-                        // Redirected to a different app id, but we still want to check the genre
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToOtherApp, id, resp.ResponseUri.Segments.Length >= 3 ? resp.ResponseUri.Segments[2] : "unknown");
-                        redirect = true;
+                    } else if( resp.ResponseUri.Segments[1] != "app/" ) { // Redirected outside of the app path
+                        Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToNonApp, id );
+                        return AppTypes.Other;
+                    } else if( resp.ResponseUri.Segments.Length < 3 ) { // The URI ends with "/app/" ?
+                        //TODO: Logging: Add log message
+                        return AppTypes.Unknown;
+                    } else if( resp.ResponseUri.Segments[2].TrimEnd( '/' ) != id.ToString() ) { // Redirected to a different app id
+                        Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToOtherApp, id, resp.ResponseUri.Segments[2].TrimEnd( '/' ) );
+                        if( !int.TryParse( resp.ResponseUri.Segments[2].TrimEnd( '/' ), out redirectTarget ) ) { // if new app id is an actual number
+                            return AppTypes.Unknown;
+                        }
                     }
 
-                    if( !needsRedirect ) {
+                    if( redirectTarget == -1 ) {
                         StreamReader sr = new StreamReader( resp.GetResponseStream() );
                         page = sr.ReadToEnd();
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageRead, id);
+                        Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageRead, id );
                     }
                 }
             } catch( Exception e ) {
                 // Something went wrong with the download.
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageReadFailed, id, e.Message);
-                Type = AppType.WebError;
-                return Type;
+                Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageReadFailed, id, e.Message );
+                LastStoreScrape = oldTime;
+                return AppTypes.Unknown;
             }
 
-            if( needsRedirect ) {
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedTo, id, redirectTarget);
-                // jpodadera
-                // Return AppType should be assigned to self object
-                //return ScrapeStore( redirectTarget, redirectCount + 1 );
-                this.Type = ScrapeStore(redirectTarget, redirectCount + 1);
-                return this.Type;
+            if( redirectTarget == -1 ) {
+                return AppTypes.Unknown;
             }
 
             if( page.Contains( "<title>Site Error</title>" ) ) {
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingReceivedSiteError, id);
-                Type = AppType.SiteError;
-                return Type;
+                Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingReceivedSiteError, id );
+                return AppTypes.Unknown;
             }
 
-            // Here we should have an app, but we want to make sure.
-            if( regGamecheck.IsMatch( page ) ) {
+            if( regGamecheck.IsMatch( page ) ) { // Here we should have an app, but make sure.
 
-                GetGenreFromPage( page );
-                GetOtherFromPage( page );
-                GetMetalinkFromSteam( page );
-                //TODO: add metacritic scrape
+                GetAllDataFromPage( page );
 
-                // Check whethe it's DLC and return appropriately
-                if( GetDLCFromPage( page ) ) {
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, Genre);
-                    Type = AppType.DLC;
-                    return Type;
+                // Check whether it's DLC and return appropriately
+                if( IsDLC() ) {
+                    Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, string.Join( ",", Genres ) );
+                    return AppTypes.DLC;
                 } else {
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id, Genre, redirect);
-                    Type = redirect ? AppType.IdRedirect : AppType.Game;
-                    return Type;
+                    Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id, string.Join( ",", Genres ) );
+                    return AppTypes.Game;
                 }
-            } else {
-                // we don't know what it is.
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingCouldNotParse, id);
-                Type = AppType.Unknown;
-                return Type;
+            } else { // The URI is right, but it didn't pass the regex check
+                Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingCouldNotParse, id );
+                return AppTypes.Unknown;
             }
+        }
+
+        private void SetTypeFromStoreScrape( AppTypes typeFromStore ) {
+            if( this.AppType == AppTypes.Unknown || ( typeFromStore != AppTypes.Unknown && LastAppInfoUpdate == 0 ) ) {
+                this.AppType = typeFromStore;
+            }
+        }
+
+        private void GetAllDataFromPage( string page ) {
+            GetGenreFromPage( page );
+            GetFlagsFromPage( page );
+            GetTagsFromPage( page );
+            GetOtherFromPage( page );
+            GetMetalinkFromSteam( page );
         }
 
         private bool GetGenreFromPage( string page ) {
             Match m = regGenre.Match( page );
             if( m.Success ) {
-                int genres = m.Groups[2].Captures.Count;
-                string[] array = new string[genres];
-                for( int i = 0; i < genres; i++ ) {
-                    array[i] = m.Groups[2].Captures[i].Value;
+                int genreCount = m.Groups[2].Captures.Count;
+                Genres = new List<string>();
+                for( int i = 0; i < genreCount; i++ ) {
+                    Genres.Add( m.Groups[2].Captures[i].Value );
                 }
-                this.Genre = string.Join( ", ", array );
                 return true;
             }
             return false;
         }
 
-        private void GetOtherFromPage( string page ) {
+
+        private void GetFlagsFromPage( string page ) {
             foreach( Match ma in regFlags.Matches( page ) ) {
                 string flag = ma.Groups[1].Captures[0].Value;
                 if( !string.IsNullOrWhiteSpace( flag ) ) this.Flags.Add( flag );
             }
+        }
 
+        private void GetTagsFromPage( string page ) {
+            // TODO: IMPLEMENT
+        }
+
+        private void GetOtherFromPage( string page ) {
+            // Get Developer
             Match m = regDeveloper.Match( page );
             if( m.Success ) {
-                this.Developer = m.Groups[1].Captures[0].Value;
+                Developers = new List<string>();
+                Developers.Add( m.Groups[1].Captures[0].Value );
             }
 
-            // jpodadera. Some games has more than one publisher. Check http://store.steampowered.com/app/96300
-            m = regPublishers.Match(page);
-            if (m.Success)
-            {
-                List<string> publishers = new List<string>();
-                foreach (Capture cap in m.Groups[2].Captures)
-                {
-                    publishers.Add(cap.Value);
+            // Get Publishers
+            m = regPublishers.Match( page );
+            if( m.Success ) {
+                Publishers = new List<string>();
+                foreach( Capture cap in m.Groups[2].Captures ) {
+                    Publishers.Add( cap.Value );
                 }
-                this.Publisher = string.Join(", ", publishers);
             }
 
-
+            // Get release date
             m = regRelDate.Match( page );
             if( m.Success ) {
-                // Fail with other cultures (like spanish and italian) because release date is scraped in english. Check: http://store.steampowered.com/app/72904/
-                // Day of realease may be missing: http://store.steampowered.com/app/61510/
-                // Or Steam may place what they want... http://store.steampowered.com/app/264040/
-                DateTime releaseDate;
-                if (DateTime.TryParse(m.Groups[1].Captures[0].Value, new CultureInfo("en"), DateTimeStyles.None, out releaseDate))
-                {
-                    this.SteamRelease = releaseDate;
-                }
+                this.SteamReleaseDate = m.Groups[1].Captures[0].Value;
             }
         }
 
@@ -235,8 +233,8 @@ namespace Depressurizer {
             }
         }
 
-        private bool GetDLCFromPage( string page ) {
-            return this.Flags.Contains("Downloadable Content");
+        private bool IsDLC() {
+            return this.Flags.Contains( "Downloadable Content" );
         }
 
     }
@@ -252,36 +250,18 @@ namespace Depressurizer {
 
         #region Accessors
 
-        public bool Contains(int id)
-        {
+        public bool Contains( int id ) {
             return Games.ContainsKey( id );
         }
 
-        public bool IsDlc(int id)
-        {
-            return Games.ContainsKey( id ) && Games[id].Type == AppType.DLC;
+        //TODO: make sure we don't use this where we shouldn't
+        public bool IsDlc( int id ) {
+            return Games.ContainsKey( id ) && Games[id].AppType == AppTypes.DLC;
         }
 
-        public string GetName(int id)
-        {
+        public string GetName( int id ) {
             if( Games.ContainsKey( id ) ) {
                 return Games[id].Name;
-            } else {
-                return null;
-            }
-        }
-
-        public string GetGenre(int id, bool full)
-        {
-            if( Games.ContainsKey( id ) ) {
-                string fullString = Games[id].Genre;
-                if( string.IsNullOrEmpty( fullString ) ) {
-                    return null;
-                } else if( full ) {
-                    return fullString;
-                } else {
-                    return TruncateGenre( fullString );
-                }
             } else {
                 return null;
             }
@@ -316,12 +296,8 @@ namespace Depressurizer {
             }
 
             foreach( GameDBEntry entry in Games.Values ) {
-                string fullGenreString = entry.Genre;
-                if( !string.IsNullOrEmpty( fullGenreString ) ) {
-                    string[] genreStrings = fullGenreString.Split( genreSep );
-                    foreach( string s in genreStrings ) {
-                        allStoreGenres.Add( s.Trim() );
-                    }
+                if( entry.Genres != null ) {
+                    allStoreGenres.UnionWith( entry.Genres );
                 }
             }
 
@@ -354,7 +330,9 @@ namespace Depressurizer {
             }
 
             foreach( GameDBEntry entry in Games.Values ) {
-                allStoreFlags.UnionWith( entry.Flags );
+                if( entry.Flags != null ) {
+                    allStoreFlags.UnionWith( entry.Flags );
+                }
             }
             return allStoreFlags;
         }
@@ -369,12 +347,12 @@ namespace Depressurizer {
 
         public static XmlDocument FetchAppList() {
             XmlDocument doc = new XmlDocument();
-            Program.Logger.Write(Rallion.LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList);
+            Program.Logger.Write( Rallion.LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList );
             WebRequest req = WebRequest.Create( @"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml" );
             using( WebResponse resp = req.GetResponse() ) {
                 doc.Load( resp.GetResponseStream() );
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_XMLAppListDownloaded);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_XMLAppListDownloaded );
             return doc;
         }
 
@@ -388,7 +366,7 @@ namespace Depressurizer {
                         GameDBEntry g = Games[appId];
                         if( string.IsNullOrEmpty( g.Name ) || g.Name != gameName ) {
                             g.Name = gameName;
-                            g.Type = AppType.New;
+                            g.AppType = AppTypes.Unknown;
                         }
                     } else {
                         GameDBEntry g = new GameDBEntry();
@@ -399,7 +377,7 @@ namespace Depressurizer {
                     }
                 }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_LoadedNewItemsFromAppList, added );
             return added;
         }
 
@@ -408,8 +386,8 @@ namespace Depressurizer {
             int added = 0;
             foreach( GameDBEntry mEntry in merge.Games.Values ) {
                 if( this.Games.ContainsKey( mEntry.Id ) ) {
-                    if( overwriteGenres || string.IsNullOrEmpty(this.Games[mEntry.Id].Genre) ) {
-                        this.Games[mEntry.Id].Genre = mEntry.Genre;
+                    if( overwriteGenres || this.Games[mEntry.Id].Genres == null || this.Games[mEntry.Id].Genres.Count == 0 ) {
+                        this.Games[mEntry.Id].Genres = mEntry.Genres;
                         genresUpdated++;
                     }
                 } else {
@@ -428,7 +406,7 @@ namespace Depressurizer {
         }
 
         public void Save( string path, bool compress ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_SavingGameDBTo, path);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_SavingGameDBTo, path );
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.CloseOutput = true;
@@ -449,27 +427,50 @@ namespace Depressurizer {
                     writer.WriteStartElement( "game" );
 
                     writer.WriteElementString( "id", g.Id.ToString() );
+
                     if( !string.IsNullOrEmpty( g.Name ) ) {
                         writer.WriteElementString( "name", g.Name );
                     }
-                    writer.WriteElementString( "type", g.Type.ToString() );
-                    if( !string.IsNullOrEmpty( g.Genre ) ) {
-                        writer.WriteElementString( "genre", g.Genre );
+
+                    if( g.LastStoreScrape > 0 ) writer.WriteElementString( "laststoreupdate", g.LastStoreScrape.ToString() );
+                    if( g.LastAppInfoUpdate > 0 ) writer.WriteElementString( "lastappinfoupdate", g.LastAppInfoUpdate.ToString() );
+
+                    writer.WriteElementString( "type", g.AppType.ToString() );
+
+                    writer.WriteElementString( "platforms", g.Platforms.ToString() );
+
+                    if( g.ParentId >= 0 ) writer.WriteElementString( "parent", g.ParentId.ToString() );
+
+                    if( g.Genres != null ) {
+                        foreach( string str in g.Genres ) {
+                            writer.WriteElementString( "genre", str );
+                        }
                     }
-                    if( !string.IsNullOrEmpty( g.Developer ) ) {
-                        writer.WriteElementString( "developer", g.Developer );
+
+                    if( g.Developers != null ) {
+                        foreach( string str in g.Developers ) {
+                            writer.WriteElementString( "developer", str );
+                        }
                     }
-                    if( !string.IsNullOrEmpty( g.Publisher ) ) {
-                        writer.WriteElementString( "publisher", g.Publisher );
+
+                    if( g.Publishers != null ) {
+                        foreach( string str in g.Publishers ) {
+                            writer.WriteElementString( "publisher", str );
+                        }
                     }
-                    foreach( string s in g.Flags ) {
-                        writer.WriteElementString( "flag", s );
+
+                    if( g.Flags != null ) {
+                        foreach( string s in g.Flags ) {
+                            writer.WriteElementString( "flag", s );
+                        }
                     }
+
                     if( !string.IsNullOrEmpty( g.MC_Url ) ) {
                         writer.WriteElementString( "mcUrl", g.MC_Url );
                     }
-                    if( g.SteamRelease != DateTime.MinValue ) {
-                        writer.WriteElementString( "steamDate", ( (int)( g.SteamRelease.ToOADate() ) ).ToString() );
+
+                    if( !string.IsNullOrEmpty( g.SteamReleaseDate ) ) {
+                        writer.WriteElementString( "steamDate", g.SteamReleaseDate );
                     }
 
                     // TODO: Save MC extras
@@ -485,7 +486,7 @@ namespace Depressurizer {
                     stream.Close();
                 }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBSaved);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_GameDBSaved );
         }
 
         public void Load( string path ) {
@@ -494,7 +495,7 @@ namespace Depressurizer {
 
 
         public void Load( string path, bool compress ) {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadingGameDBFrom, path);
+            Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_LoadingGameDBFrom, path );
             XmlDocument doc = new XmlDocument();
 
             Stream stream = null;
@@ -506,7 +507,7 @@ namespace Depressurizer {
 
                 doc.Load( stream );
 
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLParsed);
+                Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLParsed );
                 Games.Clear();
 
                 foreach( XmlNode gameNode in doc.SelectNodes( "/gamelist/game" ) ) {
@@ -518,8 +519,8 @@ namespace Depressurizer {
                     g.Id = id;
                     XmlUtil.TryGetStringFromNode( gameNode["name"], out g.Name );
                     string typeString;
-                    if( !XmlUtil.TryGetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType>( typeString, out g.Type ) ) {
-                        g.Type = AppType.New;
+                    if( !XmlUtil.TryGetStringFromNode( gameNode["type"], out typeString ) || !Enum.TryParse<AppType_Old>( typeString, out g.Type ) ) {
+                        g.Type = AppType_Old.New;
                     }
 
                     g.Genre = XmlUtil.GetStringFromNode( gameNode["genre"], null );
@@ -544,7 +545,7 @@ namespace Depressurizer {
 
                     Games.Add( id, g );
                 }
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLProcessed);
+                Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLProcessed );
             } catch( Exception e ) {
                 throw e;
             } finally {

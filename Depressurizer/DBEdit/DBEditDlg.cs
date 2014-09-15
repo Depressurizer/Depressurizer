@@ -199,7 +199,7 @@ namespace Depressurizer {
             }
         }
 
-        void ScrapeGamesOfType( AppType type ) {
+        void ScrapeGamesOfType( AppType_Old type ) {
             Cursor = Cursors.WaitCursor;
 
             Queue<int> gamesToScrape = new Queue<int>();
@@ -318,16 +318,16 @@ namespace Depressurizer {
         bool ShouldDisplayGame( GameDBEntry g ) {
             return
                 chkAll.Checked ||
-                ( g.Type == AppType.DLC && chkDLC.Checked ) ||
-                ( g.Type == AppType.WebError && chkWebError.Checked ) ||
-                ( g.Type == AppType.SiteError && chkSiteError.Checked ) ||
-                ( g.Type == AppType.Game && chkGame.Checked ) ||
-                ( g.Type == AppType.IdRedirect && chkRedirect.Checked ) ||
-                ( g.Type == AppType.NonApp && chkNonApp.Checked ) ||
-                ( g.Type == AppType.NotFound && chkNotFound.Checked ) ||
-                ( g.Type == AppType.Unknown && chkUnknown.Checked ) ||
-                ( g.Type == AppType.New && chkNew.Checked ) ||
-                ( g.Type == AppType.AgeGated && chkAgeGate.Checked );
+                ( g.Type == AppType_Old.DLC && chkDLC.Checked ) ||
+                ( g.Type == AppType_Old.WebError && chkWebError.Checked ) ||
+                ( g.Type == AppType_Old.SiteError && chkSiteError.Checked ) ||
+                ( g.Type == AppType_Old.Game && chkGame.Checked ) ||
+                ( g.Type == AppType_Old.IdRedirect && chkRedirect.Checked ) ||
+                ( g.Type == AppType_Old.NonApp && chkNonApp.Checked ) ||
+                ( g.Type == AppType_Old.NotFound && chkNotFound.Checked ) ||
+                ( g.Type == AppType_Old.Unknown && chkUnknown.Checked ) ||
+                ( g.Type == AppType_Old.New && chkNew.Checked ) ||
+                ( g.Type == AppType_Old.AgeGated && chkAgeGate.Checked );
         }
 
         void UpdateForSelectChange() {
@@ -466,7 +466,7 @@ namespace Depressurizer {
 
         private void cmdUpdateUnchecked_Click( object sender, EventArgs e ) {
             ClearStatusMsg();
-            ScrapeGamesOfType( AppType.New );
+            ScrapeGamesOfType( AppType_Old.New );
             FlushStatusMsg();
             UpdateForSelectChange();
         }

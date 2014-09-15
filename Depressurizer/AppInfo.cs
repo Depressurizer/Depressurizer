@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Depressurizer {
     [Flags]
-    enum AppPlatforms {
+    public enum AppPlatforms {
         None = 0,
         Windows = 1,
         Mac = 1 << 1,
@@ -14,7 +14,7 @@ namespace Depressurizer {
         All = Windows | Mac | Linux
     }
 
-    enum AppType2 {
+    public enum AppTypes {
         Application,
         Demo,
         DLC,
@@ -28,11 +28,11 @@ namespace Depressurizer {
     class AppInfo {
         public int appId;
         public string name;
-        public AppType2 type;
+        public AppTypes type;
 
         public AppPlatforms platforms;
 
-        public AppInfo( int id, string name = null, AppType2 type = AppType2.Unknown, AppPlatforms platforms = AppPlatforms.All ) {
+        public AppInfo( int id, string name = null, AppTypes type = AppTypes.Unknown, AppPlatforms platforms = AppPlatforms.All ) {
             this.appId = id;
             this.name = name;
             this.type = type;
@@ -66,13 +66,13 @@ namespace Depressurizer {
 
                 // Get type
                 string typeStr = null;
-                AppType2 type = AppType2.Unknown;
+                AppTypes type = AppTypes.Unknown;
                 VdfFileNode typeNode = commonNode.GetNodeAt( new string[] { "type" }, false );
                 if( typeNode != null ) typeStr = typeNode.NodeData.ToString();
 
                 if( typeStr != null ) {
-                    if( !Enum.TryParse<AppType2>( typeStr, true, out type ) ) {
-                        type = AppType2.Other;
+                    if( !Enum.TryParse<AppTypes>( typeStr, true, out type ) ) {
+                        type = AppTypes.Other;
                     }
                 }
 

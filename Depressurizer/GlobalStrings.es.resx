@@ -464,7 +464,7 @@ Tiempo Restante:</value>
     <value>Guardando GameDB a {0}</value>
   </data>
   <data name="GameDB_ScrapingAgeCheckNoRedirect" xml:space="preserve">
-    <value>Extrayendo {0}: comprobación de edad si redirección, o demasidas redirecciones (en #{1})</value>
+    <value>Extrayendo {0}: comprobación de edad si redirección</value>
   </data>
   <data name="GameDB_ScrapingCouldNotParse" xml:space="preserve">
     <value>Extrayendo {0}: no se pudo interpretar información de la página</value>
@@ -479,7 +479,7 @@ Tiempo Restante:</value>
     <value>Extrayendo {0}: fallo al leer página. {1}</value>
   </data>
   <data name="GameDB_ScrapingParsed" xml:space="preserve">
-    <value>Extrayendo {0}: Interpretada. Género: {1}. Redirección: {2}</value>
+    <value>Extrayendo {0}: Interpretada. Género: {1}</value>
   </data>
   <data name="GameDB_ScrapingParsedDLC" xml:space="preserve">
     <value>Extrayendo {0}: Interpretada. DLC. Género: {1}</value>
@@ -498,9 +498,6 @@ Tiempo Restante:</value>
   </data>
   <data name="GameDB_ScrapingRedirectedToOtherApp" xml:space="preserve">
     <value>Extrayendo {0}: Redireccionado a otra aplicación ID ({1})</value>
-  </data>
-  <data name="GameDB_ScrapingStuckAtAgeCheck" xml:space="preserve">
-    <value>Extrayendo {0}: Bloqueo en comprobación de edad, redirección sin número (URL: {1})</value>
   </data>
   <data name="GameDB_XMLAppListDownloaded" xml:space="preserve">
     <value>Descargada lista de aplicaciones XML.</value>

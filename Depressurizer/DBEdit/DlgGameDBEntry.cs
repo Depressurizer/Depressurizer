@@ -37,7 +37,7 @@ namespace Depressurizer {
         }
 
         private void GameDBEntryForm_Load( object sender, EventArgs e ) {
-            foreach( object o in Enum.GetValues( typeof( AppType ) ) ) {
+            foreach( object o in Enum.GetValues( typeof( AppType_Old ) ) ) {
                 cmbType.Items.Add( o );
             }
 
@@ -65,7 +65,7 @@ namespace Depressurizer {
                     return false;
                 }
             }
-            Game.Type = (AppType)cmbType.SelectedItem;
+            Game.Type = (AppType_Old)cmbType.SelectedItem;
             Game.Name = txtTitle.Text;
             Game.Genre = txtGenre.Text;
             return true;

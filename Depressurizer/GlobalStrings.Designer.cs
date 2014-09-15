@@ -1258,7 +1258,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Age check with no redirect, or too many redirects (on #{1}).
+        ///   Looks up a localized string similar to Scraping {0}: Age check with no redirect.
         /// </summary>
         internal static string GameDB_ScrapingAgeCheckNoRedirect {
             get {
@@ -1303,7 +1303,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Parsed. Genre: {1}. Redirect: {2}.
+        ///   Looks up a localized string similar to Scraping {0}: Parsed. Genre: {1}.
         /// </summary>
         internal static string GameDB_ScrapingParsed {
             get {
@@ -1362,15 +1362,6 @@ namespace Depressurizer {
         internal static string GameDB_ScrapingRedirectedToOtherApp {
             get {
                 return ResourceManager.GetString("GameDB_ScrapingRedirectedToOtherApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Stuck at age gate, redirect with no number (URL: {1}).
-        /// </summary>
-        internal static string GameDB_ScrapingStuckAtAgeCheck {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingStuckAtAgeCheck", resourceCulture);
             }
         }
         

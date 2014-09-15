@@ -206,20 +206,19 @@ namespace Depressurizer {
 
             if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
 
-            GameDBEntry dbEntry = db.Games[game.Id];
-            string genreString = dbEntry.Genre;
-
             if( RemoveOtherGenres && genreCategories != null ) {
                 game.RemoveCategory( genreCategories );
             }
 
-            if( !String.IsNullOrEmpty( genreString ) ) {
-                string[] genreStrings = genreString.Split( new char[] { ',' } );
+            List<string> genreList = db.Games[game.Id].Genres;
+            if( genreList != null && genreList.Count > 0 ) {
                 List<Category> categories = new List<Category>();
-                for( int i = 0; ( i < MaxCategories || MaxCategories == 0 ) && i < genreStrings.Length; i++ ) {
-                    string cStr = genreStrings[i].Trim();
-                    if( !IgnoredGenres.Contains( cStr ) ) {
-                        categories.Add( games.GetCategory( GetProcessedString( cStr ) ) );
+                int max = MaxCategories;
+                for( int i = 0; i < genreList.Count && (MaxCategories == 0 || i < max); i++ ) {
+                    if( !IgnoredGenres.Contains( genreList[i] ) ) {
+                        categories.Add( games.GetCategory( GetProcessedString( genreList[i] ) ) );
+                    } else {
+                        max++; // ignored genres don't contribute to max
                     }
                 }
 

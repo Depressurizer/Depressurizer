@@ -463,7 +463,7 @@ Time Remaining:</value>
     <value>Saving GameDB to {0}</value>
   </data>
   <data name="GameDB_ScrapingAgeCheckNoRedirect" xml:space="preserve">
-    <value>Scraping {0}: Age check with no redirect, or too many redirects (on #{1})</value>
+    <value>Scraping {0}: Age check with no redirect</value>
   </data>
   <data name="GameDB_ScrapingCouldNotParse" xml:space="preserve">
     <value>Scraping {0}: Could not parse info from page</value>
@@ -478,7 +478,7 @@ Time Remaining:</value>
     <value>Scraping {0}: Page read failed. {1}</value>
   </data>
   <data name="GameDB_ScrapingParsed" xml:space="preserve">
-    <value>Scraping {0}: Parsed. Genre: {1}. Redirect: {2}</value>
+    <value>Scraping {0}: Parsed. Genre: {1}</value>
   </data>
   <data name="GameDB_ScrapingParsedDLC" xml:space="preserve">
     <value>Scraping {0}: Parsed. DLC. Genre: {1}</value>
@@ -497,9 +497,6 @@ Time Remaining:</value>
   </data>
   <data name="GameDB_ScrapingRedirectedToOtherApp" xml:space="preserve">
     <value>Scraping {0}: Redirected to another app id ({1})</value>
-  </data>
-  <data name="GameDB_ScrapingStuckAtAgeCheck" xml:space="preserve">
-    <value>Scraping {0}: Stuck at age gate, redirect with no number (URL: {1})</value>
   </data>
   <data name="GameDB_XMLAppListDownloaded" xml:space="preserve">
     <value>XML App list downloaded.</value>

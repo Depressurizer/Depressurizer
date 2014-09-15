@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System;
 
 namespace Depressurizer {
     public static class Utility {
@@ -25,6 +26,12 @@ namespace Depressurizer {
         private static string BackupFile_GetName( string baseName, int slotNum ) {
             if( slotNum == 0 ) return baseName;
             return string.Format( "{0}.bak_{1}", baseName, slotNum );
+        }
+
+        static DateTime epoch = new DateTime( 1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc );
+
+        public static int GetCurrentUTime() {
+            return (int)((DateTime.UtcNow - epoch).TotalSeconds);
         }
     }
 }
