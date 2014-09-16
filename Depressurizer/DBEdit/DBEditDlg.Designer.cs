@@ -51,51 +51,47 @@ namespace Depressurizer {
             this.menu_File_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.lstGames = new System.Windows.Forms.ListView();
+            this.lstGames = new Depressurizer.Lib.ExtListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colGenre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colScraped = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colAppInfo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmdFetch = new System.Windows.Forms.Button();
-            this.cmdUpdateUnchecked = new System.Windows.Forms.Button();
+            this.cmdUpdateNew = new System.Windows.Forms.Button();
             this.cmdUpdateSelected = new System.Windows.Forms.Button();
             this.cmdEditGame = new System.Windows.Forms.Button();
             this.cmdDeleteGame = new System.Windows.Forms.Button();
             this.cmdAddGame = new System.Windows.Forms.Button();
-            this.grpFilterTypes = new System.Windows.Forms.GroupBox();
-            this.chkFilterTypeUnknown = new System.Windows.Forms.CheckBox();
-            this.chkFilterTypeOther = new System.Windows.Forms.CheckBox();
-            this.chkFilterTypeDLC = new System.Windows.Forms.CheckBox();
-            this.chkFilterTypeGame = new System.Windows.Forms.CheckBox();
-            this.chkFilterTypeAll = new System.Windows.Forms.CheckBox();
+            this.grpTypes = new System.Windows.Forms.GroupBox();
+            this.chkTypeUnknown = new System.Windows.Forms.CheckBox();
+            this.chkTypeOther = new System.Windows.Forms.CheckBox();
+            this.chkTypeDLC = new System.Windows.Forms.CheckBox();
+            this.chkTypeGame = new System.Windows.Forms.CheckBox();
+            this.chkTypeAll = new System.Windows.Forms.CheckBox();
             this.cmdStore = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statSelected = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.grpFilterAppInfo = new System.Windows.Forms.GroupBox();
-            this.radioButton8 = new System.Windows.Forms.RadioButton();
-            this.radioButton9 = new System.Windows.Forms.RadioButton();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
-            this.colScraped = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colAppInfo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmdUpdateAppInfo = new System.Windows.Forms.Button();
+            this.grpWebUpdate = new System.Windows.Forms.GroupBox();
+            this.radWebNo = new System.Windows.Forms.RadioButton();
+            this.radWebSince = new System.Windows.Forms.RadioButton();
+            this.radWebYes = new System.Windows.Forms.RadioButton();
+            this.radWebAll = new System.Windows.Forms.RadioButton();
+            this.dateWeb = new System.Windows.Forms.DateTimePicker();
+            this.grpAppInfo = new System.Windows.Forms.GroupBox();
+            this.radAppNo = new System.Windows.Forms.RadioButton();
+            this.radAppYes = new System.Windows.Forms.RadioButton();
+            this.radAppAll = new System.Windows.Forms.RadioButton();
+            this.chkOwned = new System.Windows.Forms.CheckBox();
             this.mainMenu.SuspendLayout();
-            this.grpFilterTypes.SuspendLayout();
+            this.grpTypes.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.grpFilterAppInfo.SuspendLayout();
+            this.grpWebUpdate.SuspendLayout();
+            this.grpAppInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -175,8 +171,8 @@ namespace Depressurizer {
             this.lstGames.Name = "lstGames";
             this.lstGames.UseCompatibleStateImageBehavior = false;
             this.lstGames.View = System.Windows.Forms.View.Details;
+            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
-            this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
             // 
             // colName
@@ -195,6 +191,18 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.colType, "colType");
             // 
+            // colScraped
+            // 
+            resources.ApplyResources(this.colScraped, "colScraped");
+            // 
+            // colAppInfo
+            // 
+            resources.ApplyResources(this.colAppInfo, "colAppInfo");
+            // 
+            // colParent
+            // 
+            resources.ApplyResources(this.colParent, "colParent");
+            // 
             // cmdFetch
             // 
             resources.ApplyResources(this.cmdFetch, "cmdFetch");
@@ -202,12 +210,12 @@ namespace Depressurizer {
             this.cmdFetch.UseVisualStyleBackColor = true;
             this.cmdFetch.Click += new System.EventHandler(this.cmdFetch_Click);
             // 
-            // cmdUpdateUnchecked
+            // cmdUpdateNew
             // 
-            resources.ApplyResources(this.cmdUpdateUnchecked, "cmdUpdateUnchecked");
-            this.cmdUpdateUnchecked.Name = "cmdUpdateUnchecked";
-            this.cmdUpdateUnchecked.UseVisualStyleBackColor = true;
-            this.cmdUpdateUnchecked.Click += new System.EventHandler(this.cmdUpdateUnchecked_Click);
+            resources.ApplyResources(this.cmdUpdateNew, "cmdUpdateNew");
+            this.cmdUpdateNew.Name = "cmdUpdateNew";
+            this.cmdUpdateNew.UseVisualStyleBackColor = true;
+            this.cmdUpdateNew.Click += new System.EventHandler(this.cmdUpdateUnchecked_Click);
             // 
             // cmdUpdateSelected
             // 
@@ -237,53 +245,53 @@ namespace Depressurizer {
             this.cmdAddGame.UseVisualStyleBackColor = true;
             this.cmdAddGame.Click += new System.EventHandler(this.cmdAddGame_Click);
             // 
-            // grpFilterTypes
+            // grpTypes
             // 
-            resources.ApplyResources(this.grpFilterTypes, "grpFilterTypes");
-            this.grpFilterTypes.Controls.Add(this.chkFilterTypeUnknown);
-            this.grpFilterTypes.Controls.Add(this.chkFilterTypeOther);
-            this.grpFilterTypes.Controls.Add(this.chkFilterTypeDLC);
-            this.grpFilterTypes.Controls.Add(this.chkFilterTypeGame);
-            this.grpFilterTypes.Controls.Add(this.chkFilterTypeAll);
-            this.grpFilterTypes.Name = "grpFilterTypes";
-            this.grpFilterTypes.TabStop = false;
+            resources.ApplyResources(this.grpTypes, "grpTypes");
+            this.grpTypes.Controls.Add(this.chkTypeUnknown);
+            this.grpTypes.Controls.Add(this.chkTypeOther);
+            this.grpTypes.Controls.Add(this.chkTypeDLC);
+            this.grpTypes.Controls.Add(this.chkTypeGame);
+            this.grpTypes.Controls.Add(this.chkTypeAll);
+            this.grpTypes.Name = "grpTypes";
+            this.grpTypes.TabStop = false;
             // 
-            // chkFilterTypeUnknown
+            // chkTypeUnknown
             // 
-            resources.ApplyResources(this.chkFilterTypeUnknown, "chkFilterTypeUnknown");
-            this.chkFilterTypeUnknown.Name = "chkFilterTypeUnknown";
-            this.chkFilterTypeUnknown.UseVisualStyleBackColor = true;
-            this.chkFilterTypeUnknown.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            resources.ApplyResources(this.chkTypeUnknown, "chkTypeUnknown");
+            this.chkTypeUnknown.Name = "chkTypeUnknown";
+            this.chkTypeUnknown.UseVisualStyleBackColor = true;
+            this.chkTypeUnknown.CheckedChanged += new System.EventHandler(this.chkType_CheckedChanged);
             // 
-            // chkFilterTypeOther
+            // chkTypeOther
             // 
-            resources.ApplyResources(this.chkFilterTypeOther, "chkFilterTypeOther");
-            this.chkFilterTypeOther.Name = "chkFilterTypeOther";
-            this.chkFilterTypeOther.UseVisualStyleBackColor = true;
-            this.chkFilterTypeOther.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            resources.ApplyResources(this.chkTypeOther, "chkTypeOther");
+            this.chkTypeOther.Name = "chkTypeOther";
+            this.chkTypeOther.UseVisualStyleBackColor = true;
+            this.chkTypeOther.CheckedChanged += new System.EventHandler(this.chkType_CheckedChanged);
             // 
-            // chkFilterTypeDLC
+            // chkTypeDLC
             // 
-            resources.ApplyResources(this.chkFilterTypeDLC, "chkFilterTypeDLC");
-            this.chkFilterTypeDLC.Name = "chkFilterTypeDLC";
-            this.chkFilterTypeDLC.UseVisualStyleBackColor = true;
-            this.chkFilterTypeDLC.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            resources.ApplyResources(this.chkTypeDLC, "chkTypeDLC");
+            this.chkTypeDLC.Name = "chkTypeDLC";
+            this.chkTypeDLC.UseVisualStyleBackColor = true;
+            this.chkTypeDLC.CheckedChanged += new System.EventHandler(this.chkType_CheckedChanged);
             // 
-            // chkFilterTypeGame
+            // chkTypeGame
             // 
-            resources.ApplyResources(this.chkFilterTypeGame, "chkFilterTypeGame");
-            this.chkFilterTypeGame.Name = "chkFilterTypeGame";
-            this.chkFilterTypeGame.UseVisualStyleBackColor = true;
-            this.chkFilterTypeGame.CheckedChanged += new System.EventHandler(this.chkAny_CheckedChanged);
+            resources.ApplyResources(this.chkTypeGame, "chkTypeGame");
+            this.chkTypeGame.Name = "chkTypeGame";
+            this.chkTypeGame.UseVisualStyleBackColor = true;
+            this.chkTypeGame.CheckedChanged += new System.EventHandler(this.chkType_CheckedChanged);
             // 
-            // chkFilterTypeAll
+            // chkTypeAll
             // 
-            resources.ApplyResources(this.chkFilterTypeAll, "chkFilterTypeAll");
-            this.chkFilterTypeAll.Checked = true;
-            this.chkFilterTypeAll.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFilterTypeAll.Name = "chkFilterTypeAll";
-            this.chkFilterTypeAll.UseVisualStyleBackColor = true;
-            this.chkFilterTypeAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
+            resources.ApplyResources(this.chkTypeAll, "chkTypeAll");
+            this.chkTypeAll.Checked = true;
+            this.chkTypeAll.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTypeAll.Name = "chkTypeAll";
+            this.chkTypeAll.UseVisualStyleBackColor = true;
+            this.chkTypeAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
             // 
             // cmdStore
             // 
@@ -311,146 +319,118 @@ namespace Depressurizer {
             this.statSelected.Name = "statSelected";
             resources.ApplyResources(this.statSelected, "statSelected");
             // 
-            // groupBox1
+            // cmdUpdateAppInfo
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.radioButton7);
-            this.groupBox1.Controls.Add(this.radioButton6);
-            this.groupBox1.Controls.Add(this.radioButton5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
+            resources.ApplyResources(this.cmdUpdateAppInfo, "cmdUpdateAppInfo");
+            this.cmdUpdateAppInfo.Name = "cmdUpdateAppInfo";
+            this.cmdUpdateAppInfo.UseVisualStyleBackColor = true;
+            this.cmdUpdateAppInfo.Click += new System.EventHandler(this.cmdUpdateAppInfo_Click);
             // 
-            // button1
+            // grpWebUpdate
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.grpWebUpdate, "grpWebUpdate");
+            this.grpWebUpdate.Controls.Add(this.radWebNo);
+            this.grpWebUpdate.Controls.Add(this.radWebSince);
+            this.grpWebUpdate.Controls.Add(this.radWebYes);
+            this.grpWebUpdate.Controls.Add(this.radWebAll);
+            this.grpWebUpdate.Controls.Add(this.dateWeb);
+            this.grpWebUpdate.Name = "grpWebUpdate";
+            this.grpWebUpdate.TabStop = false;
             // 
-            // groupBox2
+            // radWebNo
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Controls.Add(this.radioButton4);
-            this.groupBox2.Controls.Add(this.radioButton3);
-            this.groupBox2.Controls.Add(this.radioButton2);
-            this.groupBox2.Controls.Add(this.radioButton1);
-            this.groupBox2.Controls.Add(this.dateTimePicker1);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
+            resources.ApplyResources(this.radWebNo, "radWebNo");
+            this.radWebNo.Name = "radWebNo";
+            this.radWebNo.TabStop = true;
+            this.radWebNo.UseVisualStyleBackColor = true;
+            this.radWebNo.CheckedChanged += new System.EventHandler(this.radWeb_CheckedChanged);
             // 
-            // dateTimePicker1
+            // radWebSince
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            resources.ApplyResources(this.dateTimePicker1, "dateTimePicker1");
-            this.dateTimePicker1.Name = "dateTimePicker1";
+            resources.ApplyResources(this.radWebSince, "radWebSince");
+            this.radWebSince.Name = "radWebSince";
+            this.radWebSince.TabStop = true;
+            this.radWebSince.UseVisualStyleBackColor = true;
+            this.radWebSince.CheckedChanged += new System.EventHandler(this.radWeb_CheckedChanged);
             // 
-            // radioButton1
+            // radWebYes
             // 
-            resources.ApplyResources(this.radioButton1, "radioButton1");
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.radWebYes, "radWebYes");
+            this.radWebYes.Name = "radWebYes";
+            this.radWebYes.TabStop = true;
+            this.radWebYes.UseVisualStyleBackColor = true;
+            this.radWebYes.CheckedChanged += new System.EventHandler(this.radWeb_CheckedChanged);
             // 
-            // radioButton2
+            // radWebAll
             // 
-            resources.ApplyResources(this.radioButton2, "radioButton2");
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.TabStop = true;
-            this.radioButton2.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.radWebAll, "radWebAll");
+            this.radWebAll.Name = "radWebAll";
+            this.radWebAll.TabStop = true;
+            this.radWebAll.UseVisualStyleBackColor = true;
+            this.radWebAll.CheckedChanged += new System.EventHandler(this.radWeb_CheckedChanged);
             // 
-            // radioButton3
+            // dateWeb
             // 
-            resources.ApplyResources(this.radioButton3, "radioButton3");
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.TabStop = true;
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.dateWeb.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            resources.ApplyResources(this.dateWeb, "dateWeb");
+            this.dateWeb.Name = "dateWeb";
             // 
-            // radioButton4
+            // grpAppInfo
             // 
-            resources.ApplyResources(this.radioButton4, "radioButton4");
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.TabStop = true;
-            this.radioButton4.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.grpAppInfo, "grpAppInfo");
+            this.grpAppInfo.Controls.Add(this.radAppNo);
+            this.grpAppInfo.Controls.Add(this.radAppYes);
+            this.grpAppInfo.Controls.Add(this.radAppAll);
+            this.grpAppInfo.Name = "grpAppInfo";
+            this.grpAppInfo.TabStop = false;
             // 
-            // radioButton5
+            // radAppNo
             // 
-            resources.ApplyResources(this.radioButton5, "radioButton5");
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.TabStop = true;
-            this.radioButton5.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.radAppNo, "radAppNo");
+            this.radAppNo.Name = "radAppNo";
+            this.radAppNo.TabStop = true;
+            this.radAppNo.UseVisualStyleBackColor = true;
+            this.radAppNo.CheckedChanged += new System.EventHandler(this.radApp_CheckedChanged);
             // 
-            // radioButton6
+            // radAppYes
             // 
-            resources.ApplyResources(this.radioButton6, "radioButton6");
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.TabStop = true;
-            this.radioButton6.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.radAppYes, "radAppYes");
+            this.radAppYes.Name = "radAppYes";
+            this.radAppYes.TabStop = true;
+            this.radAppYes.UseVisualStyleBackColor = true;
+            this.radAppYes.CheckedChanged += new System.EventHandler(this.radApp_CheckedChanged);
             // 
-            // radioButton7
+            // radAppAll
             // 
-            resources.ApplyResources(this.radioButton7, "radioButton7");
-            this.radioButton7.Name = "radioButton7";
-            this.radioButton7.TabStop = true;
-            this.radioButton7.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.radAppAll, "radAppAll");
+            this.radAppAll.Name = "radAppAll";
+            this.radAppAll.TabStop = true;
+            this.radAppAll.UseVisualStyleBackColor = true;
+            this.radAppAll.CheckedChanged += new System.EventHandler(this.radApp_CheckedChanged);
             // 
-            // grpFilterAppInfo
+            // chkOwned
             // 
-            resources.ApplyResources(this.grpFilterAppInfo, "grpFilterAppInfo");
-            this.grpFilterAppInfo.Controls.Add(this.radioButton10);
-            this.grpFilterAppInfo.Controls.Add(this.radioButton9);
-            this.grpFilterAppInfo.Controls.Add(this.radioButton8);
-            this.grpFilterAppInfo.Name = "grpFilterAppInfo";
-            this.grpFilterAppInfo.TabStop = false;
-            // 
-            // radioButton8
-            // 
-            resources.ApplyResources(this.radioButton8, "radioButton8");
-            this.radioButton8.Name = "radioButton8";
-            this.radioButton8.TabStop = true;
-            this.radioButton8.UseVisualStyleBackColor = true;
-            // 
-            // radioButton9
-            // 
-            resources.ApplyResources(this.radioButton9, "radioButton9");
-            this.radioButton9.Name = "radioButton9";
-            this.radioButton9.TabStop = true;
-            this.radioButton9.UseVisualStyleBackColor = true;
-            this.radioButton9.CheckedChanged += new System.EventHandler(this.radioButton9_CheckedChanged);
-            // 
-            // radioButton10
-            // 
-            resources.ApplyResources(this.radioButton10, "radioButton10");
-            this.radioButton10.Name = "radioButton10";
-            this.radioButton10.TabStop = true;
-            this.radioButton10.UseVisualStyleBackColor = true;
-            // 
-            // colScraped
-            // 
-            resources.ApplyResources(this.colScraped, "colScraped");
-            // 
-            // colAppInfo
-            // 
-            resources.ApplyResources(this.colAppInfo, "colAppInfo");
-            // 
-            // colParent
-            // 
-            resources.ApplyResources(this.colParent, "colParent");
+            resources.ApplyResources(this.chkOwned, "chkOwned");
+            this.chkOwned.Name = "chkOwned";
+            this.chkOwned.UseVisualStyleBackColor = true;
+            this.chkOwned.CheckedChanged += new System.EventHandler(this.chkOwned_CheckedChanged);
             // 
             // DBEditDlg
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.grpFilterAppInfo);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.chkOwned);
+            this.Controls.Add(this.grpAppInfo);
+            this.Controls.Add(this.grpWebUpdate);
+            this.Controls.Add(this.cmdUpdateAppInfo);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cmdStore);
-            this.Controls.Add(this.grpFilterTypes);
+            this.Controls.Add(this.grpTypes);
             this.Controls.Add(this.cmdAddGame);
             this.Controls.Add(this.cmdDeleteGame);
             this.Controls.Add(this.cmdEditGame);
             this.Controls.Add(this.cmdUpdateSelected);
-            this.Controls.Add(this.cmdUpdateUnchecked);
+            this.Controls.Add(this.cmdUpdateNew);
             this.Controls.Add(this.cmdFetch);
             this.Controls.Add(this.lstGames);
             this.Controls.Add(this.mainMenu);
@@ -463,16 +443,14 @@ namespace Depressurizer {
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
-            this.grpFilterTypes.ResumeLayout(false);
-            this.grpFilterTypes.PerformLayout();
+            this.grpTypes.ResumeLayout(false);
+            this.grpTypes.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.grpFilterAppInfo.ResumeLayout(false);
-            this.grpFilterAppInfo.PerformLayout();
+            this.grpWebUpdate.ResumeLayout(false);
+            this.grpWebUpdate.PerformLayout();
+            this.grpAppInfo.ResumeLayout(false);
+            this.grpAppInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -485,13 +463,13 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem menu_File_Load;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Save;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Exit;
-        private System.Windows.Forms.ListView lstGames;
+        private Depressurizer.Lib.ExtListView lstGames;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.ColumnHeader colID;
         private System.Windows.Forms.ColumnHeader colGenre;
         private System.Windows.Forms.ColumnHeader colType;
         private System.Windows.Forms.Button cmdFetch;
-        private System.Windows.Forms.Button cmdUpdateUnchecked;
+        private System.Windows.Forms.Button cmdUpdateNew;
         private System.Windows.Forms.Button cmdUpdateSelected;
         private System.Windows.Forms.Button cmdEditGame;
         private System.Windows.Forms.Button cmdDeleteGame;
@@ -499,35 +477,32 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep1;
         private System.Windows.Forms.ToolStripMenuItem menu_File_Clear;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep2;
-        private System.Windows.Forms.GroupBox grpFilterTypes;
-        private System.Windows.Forms.CheckBox chkFilterTypeOther;
-        private System.Windows.Forms.CheckBox chkFilterTypeDLC;
-        private System.Windows.Forms.CheckBox chkFilterTypeGame;
-        private System.Windows.Forms.CheckBox chkFilterTypeAll;
+        private System.Windows.Forms.GroupBox grpTypes;
+        private System.Windows.Forms.CheckBox chkTypeOther;
+        private System.Windows.Forms.CheckBox chkTypeDLC;
+        private System.Windows.Forms.CheckBox chkTypeGame;
+        private System.Windows.Forms.CheckBox chkTypeAll;
         private System.Windows.Forms.Button cmdStore;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statSelected;
-        private System.Windows.Forms.CheckBox chkFilterTypeUnknown;
+        private System.Windows.Forms.CheckBox chkTypeUnknown;
         private System.Windows.Forms.ToolStripStatusLabel statusMsg;
         private System.Windows.Forms.ToolStripMenuItem menu_File_SaveAs;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton7;
-        private System.Windows.Forms.RadioButton radioButton6;
-        private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.GroupBox grpFilterAppInfo;
-        private System.Windows.Forms.RadioButton radioButton9;
-        private System.Windows.Forms.RadioButton radioButton8;
+        private System.Windows.Forms.Button cmdUpdateAppInfo;
+        private System.Windows.Forms.GroupBox grpWebUpdate;
+        private System.Windows.Forms.RadioButton radWebNo;
+        private System.Windows.Forms.RadioButton radWebSince;
+        private System.Windows.Forms.RadioButton radWebYes;
+        private System.Windows.Forms.RadioButton radWebAll;
+        private System.Windows.Forms.DateTimePicker dateWeb;
+        private System.Windows.Forms.GroupBox grpAppInfo;
+        private System.Windows.Forms.RadioButton radAppYes;
+        private System.Windows.Forms.RadioButton radAppAll;
         private System.Windows.Forms.ColumnHeader colScraped;
         private System.Windows.Forms.ColumnHeader colAppInfo;
         private System.Windows.Forms.ColumnHeader colParent;
-        private System.Windows.Forms.RadioButton radioButton10;
+        private System.Windows.Forms.RadioButton radAppNo;
+        private System.Windows.Forms.CheckBox chkOwned;
     }
 }
 

@@ -31,7 +31,11 @@ namespace Depressurizer {
         static DateTime epoch = new DateTime( 1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc );
 
         public static int GetCurrentUTime() {
-            return (int)((DateTime.UtcNow - epoch).TotalSeconds);
+            return GetUTime( DateTime.UtcNow );
+        }
+
+        public static int GetUTime( DateTime dt ) {
+            return (int)( ( dt - epoch ).TotalSeconds );
         }
     }
 }
