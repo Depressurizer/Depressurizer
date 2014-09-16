@@ -317,15 +317,15 @@ namespace Depressurizer {
 
         bool ShouldDisplayGame( GameDBEntry g ) {
             return
-                chkAll.Checked ||
-                ( g.Type == AppType_Old.DLC && chkDLC.Checked ) ||
+                chkFilterTypeAll.Checked ||
+                ( g.Type == AppType_Old.DLC && chkFilterTypeDLC.Checked ) ||
                 ( g.Type == AppType_Old.WebError && chkWebError.Checked ) ||
                 ( g.Type == AppType_Old.SiteError && chkSiteError.Checked ) ||
-                ( g.Type == AppType_Old.Game && chkGame.Checked ) ||
+                ( g.Type == AppType_Old.Game && chkFilterTypeGame.Checked ) ||
                 ( g.Type == AppType_Old.IdRedirect && chkRedirect.Checked ) ||
-                ( g.Type == AppType_Old.NonApp && chkNonApp.Checked ) ||
+                ( g.Type == AppType_Old.NonApp && chkFilterTypeOther.Checked ) ||
                 ( g.Type == AppType_Old.NotFound && chkNotFound.Checked ) ||
-                ( g.Type == AppType_Old.Unknown && chkUnknown.Checked ) ||
+                ( g.Type == AppType_Old.Unknown && chkFilterTypeUnknown.Checked ) ||
                 ( g.Type == AppType_Old.New && chkNew.Checked ) ||
                 ( g.Type == AppType_Old.AgeGated && chkAgeGate.Checked );
         }
@@ -474,9 +474,9 @@ namespace Depressurizer {
         private void chkAll_CheckedChanged( object sender, EventArgs e ) {
             if( !filterSuspend ) {
                 filterSuspend = true;
-                if( chkAll.Checked ) {
-                    chkDLC.Checked = chkSiteError.Checked = chkWebError.Checked = chkGame.Checked = chkNonApp.Checked
-                        = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = chkUnknown.Checked = chkAgeGate.Checked = false;
+                if( chkFilterTypeAll.Checked ) {
+                    chkFilterTypeDLC.Checked = chkSiteError.Checked = chkWebError.Checked = chkFilterTypeGame.Checked = chkFilterTypeOther.Checked
+                        = chkNotFound.Checked = chkRedirect.Checked = chkNew.Checked = chkFilterTypeUnknown.Checked = chkAgeGate.Checked = false;
                 }
                 filterSuspend = false;
                 RefreshGameList();
@@ -488,7 +488,7 @@ namespace Depressurizer {
             if( !filterSuspend ) {
                 filterSuspend = true;
                 if( ( (CheckBox)sender ).Checked ) {
-                    chkAll.Checked = false;
+                    chkFilterTypeAll.Checked = false;
                 }
                 filterSuspend = false;
                 RefreshGameList();
@@ -543,6 +543,10 @@ namespace Depressurizer {
                 RefreshGameList();
                 UnsavedChanges = true;
             }
+        }
+
+        private void radioButton9_CheckedChanged( object sender, EventArgs e ) {
+
         }
     }
 }
