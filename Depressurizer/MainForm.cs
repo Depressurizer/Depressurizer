@@ -1306,7 +1306,7 @@ namespace Depressurizer {
         }
 
         private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
-            Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg();
+            Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg( gameData );
             dlg.ShowDialog();
             LoadGameDB();
         }

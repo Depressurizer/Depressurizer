@@ -72,7 +72,8 @@ namespace Depressurizer {
             if( Stopped ) return false;
 
             GameDBEntry newGame = new GameDBEntry();
-            newGame.ScrapeStore( id );
+            newGame.Id = id;
+            newGame.ScrapeStore();
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.

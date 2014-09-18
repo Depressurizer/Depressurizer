@@ -34,7 +34,7 @@ namespace Depressurizer {
 
         protected override void RunProcess() {
             Added = 0;
-            doc = GameDB.FetchAppList();
+            doc = GameDB.FetchAppListFromWeb();
             OnThreadCompletion();
         }
 

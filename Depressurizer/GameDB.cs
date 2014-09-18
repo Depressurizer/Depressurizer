@@ -11,19 +11,6 @@ using System.Globalization;
 
 namespace Depressurizer {
 
-    public enum AppType_Old {
-        New,
-        Game,
-        DLC,
-        IdRedirect,
-        NonApp,
-        NotFound,
-        AgeGated,
-        SiteError,
-        WebError,
-        Unknown
-    }
-
     public class GameDBEntry {
 
         #region Fields
@@ -62,23 +49,29 @@ namespace Depressurizer {
 
         private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
         private static Regex regFlags = new Regex( "<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><a href=[^>]*><img[^>]*></a></div>\\s*<div class=\\\"name\\\"><a href=[^>]*>([^<]*)</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
-        private static Regex regDeveloper = new Regex( "<b>Developer:</b>\\s*<a[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regDevelopers = new Regex( "<b>Developer:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regPublishers = new Regex( "<b>Publisher:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regRelDate = new Regex( "<b>Release Date:</b>\\s*([^<]*)<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regMetalink = new Regex( "<div id=\\\"game_area_metalink\\\">\\s*<a href=\\\"http://www.metacritic.com/game/pc/([^\\\"]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         #endregion
 
+        #region Scraping
+        /// <summary>
+        /// Scrapes the store page with this game entry's ID and updates this entry with the information found.
+        /// </summary>
+        /// <returns>The type determined during the scrape</returns>
         public AppTypes ScrapeStore() {
-            return ScrapeStore( this.Id );
-        }
-
-        public AppTypes ScrapeStore( int id ) {
-            AppTypes result = ScrapeStoreHelper( id );
+            AppTypes result = ScrapeStoreHelper( this.Id );
             SetTypeFromStoreScrape( result );
             return result;
         }
 
-        public AppTypes ScrapeStoreHelper( int id ) {
+        /// <summary>
+        /// Private helper function to perform scraping work. Downloads the given store page and updates the entry with all information found.
+        /// </summary>
+        /// <param name="id">The id of the store page to scrape</param>
+        /// <returns>The type determined during the scrape</returns>
+        private AppTypes ScrapeStoreHelper( int id ) {
             Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_InitiatingStoreScrapeForGame, id );
 
             string page = "";
@@ -138,7 +131,8 @@ namespace Depressurizer {
                 return AppTypes.Unknown;
             }
 
-            if( redirectTarget == -1 ) {
+            if( redirectTarget != -1 ) {
+                this.ParentId = redirectTarget;
                 return AppTypes.Unknown;
             }
 
@@ -165,51 +159,47 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Updates the game's type with a type determined during a store scrape. Makes sure that better data (AppInfo type) isn't overwritten with worse data.
+        /// </summary>
+        /// <param name="typeFromStore">Type found from the store scrape</param>
         private void SetTypeFromStoreScrape( AppTypes typeFromStore ) {
             if( this.AppType == AppTypes.Unknown || ( typeFromStore != AppTypes.Unknown && LastAppInfoUpdate == 0 ) ) {
                 this.AppType = typeFromStore;
             }
         }
 
+        /// <summary>
+        /// Applies all data from a steam store page to this entry
+        /// </summary>
+        /// <param name="page">The full result of the HTTP request.</param>
         private void GetAllDataFromPage( string page ) {
-            GetGenreFromPage( page );
-            GetFlagsFromPage( page );
-            GetTagsFromPage( page );
-            GetOtherFromPage( page );
-            GetMetalinkFromSteam( page );
-        }
-
-        private bool GetGenreFromPage( string page ) {
+            // Genres
             Match m = regGenre.Match( page );
             if( m.Success ) {
-                int genreCount = m.Groups[2].Captures.Count;
                 Genres = new List<string>();
-                for( int i = 0; i < genreCount; i++ ) {
-                    Genres.Add( m.Groups[2].Captures[i].Value );
+                foreach( Capture cap in m.Groups[2].Captures ) {
+                    Genres.Add( cap.Value );
                 }
-                return true;
             }
-            return false;
-        }
 
-
-        private void GetFlagsFromPage( string page ) {
-            foreach( Match ma in regFlags.Matches( page ) ) {
-                string flag = ma.Groups[1].Captures[0].Value;
-                if( !string.IsNullOrWhiteSpace( flag ) ) this.Flags.Add( flag );
+            // Flags
+            MatchCollection matches = regFlags.Matches( page );
+            if( matches.Count > 0 ) {
+                Flags = new List<string>();
+                foreach( Match ma in matches ) {
+                    string flag = ma.Groups[1].Captures[0].Value;
+                    if( !string.IsNullOrWhiteSpace( flag ) ) this.Flags.Add( flag );
+                }
             }
-        }
 
-        private void GetTagsFromPage( string page ) {
-            // TODO: IMPLEMENT
-        }
-
-        private void GetOtherFromPage( string page ) {
             // Get Developer
-            Match m = regDeveloper.Match( page );
+            m = regDevelopers.Match( page );
             if( m.Success ) {
                 Developers = new List<string>();
-                Developers.Add( m.Groups[1].Captures[0].Value );
+                foreach( Capture cap in m.Groups[2].Captures ) {
+                    Developers.Add( cap.Value );
+                }
             }
 
             // Get Publishers
@@ -226,15 +216,16 @@ namespace Depressurizer {
             if( m.Success ) {
                 this.SteamReleaseDate = m.Groups[1].Captures[0].Value;
             }
-        }
-
-        private void GetMetalinkFromSteam( string page ) {
-            Match m = regMetalink.Match( page );
+            
+            m = regMetalink.Match( page );
             if( m.Success ) {
                 this.MC_Url = m.Groups[1].Captures[0].Value;
             }
-        }
 
+            // TODO: Tags
+        }
+        #endregion
+        
         private bool IsDLC() {
             return this.Flags.Contains( "Downloadable Content" );
         }
@@ -358,15 +349,21 @@ namespace Depressurizer {
             return allStoreFlags;
         }
 
+        private void ClearAggregates() {
+            allStoreGenres = null;
+            allStoreFlags = null;
+        }
+
+
         #endregion
 
         #region Operations
-        public void UpdateAppList() {
-            XmlDocument doc = FetchAppList();
+        public void UpdateAppListFromWeb() {
+            XmlDocument doc = FetchAppListFromWeb();
             IntegrateAppList( doc );
         }
 
-        public static XmlDocument FetchAppList() {
+        public static XmlDocument FetchAppListFromWeb() {
             XmlDocument doc = new XmlDocument();
             Program.Logger.Write( Rallion.LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList );
             WebRequest req = WebRequest.Create( @"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml" );
@@ -402,22 +399,10 @@ namespace Depressurizer {
             return added;
         }
 
-        public int MergeGameDB( GameDB merge, bool overwriteGenres, out int genresUpdated ) {
-            genresUpdated = 0;
-            int added = 0;
-            foreach( GameDBEntry mEntry in merge.Games.Values ) {
-                if( this.Games.ContainsKey( mEntry.Id ) ) {
-                    if( overwriteGenres || this.Games[mEntry.Id].Genres == null || this.Games[mEntry.Id].Genres.Count == 0 ) {
-                        this.Games[mEntry.Id].Genres = mEntry.Genres;
-                        genresUpdated++;
-                    }
-                } else {
-                    this.Games.Add( mEntry.Id, mEntry );
-                    added++;
-                }
-            }
-            return added;
+        public void UpdateFromAppInfo( string path ) {
+
         }
+
         #endregion
 
         #region Serialization
@@ -531,6 +516,7 @@ namespace Depressurizer {
 
                 Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLParsed );
                 Games.Clear();
+                ClearAggregates();
 
                 XmlNode gameListNode = doc.SelectSingleNode( "/" + XmlName_GameList );
 
