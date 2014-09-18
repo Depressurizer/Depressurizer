@@ -51,14 +51,6 @@ namespace Depressurizer {
             this.menu_File_Clear = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.lstGames = new Depressurizer.Lib.ExtListView();
-            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colGenre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colScraped = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colAppInfo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmdFetch = new System.Windows.Forms.Button();
             this.cmdUpdateNew = new System.Windows.Forms.Button();
             this.cmdUpdateSelected = new System.Windows.Forms.Button();
@@ -87,6 +79,14 @@ namespace Depressurizer {
             this.radAppYes = new System.Windows.Forms.RadioButton();
             this.radAppAll = new System.Windows.Forms.RadioButton();
             this.chkOwned = new System.Windows.Forms.CheckBox();
+            this.lstGames = new Depressurizer.Lib.ExtListView();
+            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colGenre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colScraped = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colAppInfo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mainMenu.SuspendLayout();
             this.grpTypes.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -153,55 +153,6 @@ namespace Depressurizer {
             this.menu_File_Exit.Name = "menu_File_Exit";
             resources.ApplyResources(this.menu_File_Exit, "menu_File_Exit");
             this.menu_File_Exit.Click += new System.EventHandler(this.menu_File_Exit_Click);
-            // 
-            // lstGames
-            // 
-            resources.ApplyResources(this.lstGames, "lstGames");
-            this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colName,
-            this.colID,
-            this.colGenre,
-            this.colType,
-            this.colScraped,
-            this.colAppInfo,
-            this.colParent});
-            this.lstGames.FullRowSelect = true;
-            this.lstGames.GridLines = true;
-            this.lstGames.HideSelection = false;
-            this.lstGames.Name = "lstGames";
-            this.lstGames.UseCompatibleStateImageBehavior = false;
-            this.lstGames.View = System.Windows.Forms.View.Details;
-            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
-            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
-            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
-            // 
-            // colName
-            // 
-            resources.ApplyResources(this.colName, "colName");
-            // 
-            // colID
-            // 
-            resources.ApplyResources(this.colID, "colID");
-            // 
-            // colGenre
-            // 
-            resources.ApplyResources(this.colGenre, "colGenre");
-            // 
-            // colType
-            // 
-            resources.ApplyResources(this.colType, "colType");
-            // 
-            // colScraped
-            // 
-            resources.ApplyResources(this.colScraped, "colScraped");
-            // 
-            // colAppInfo
-            // 
-            resources.ApplyResources(this.colAppInfo, "colAppInfo");
-            // 
-            // colParent
-            // 
-            resources.ApplyResources(this.colParent, "colParent");
             // 
             // cmdFetch
             // 
@@ -341,7 +292,6 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.radWebNo, "radWebNo");
             this.radWebNo.Name = "radWebNo";
-            this.radWebNo.TabStop = true;
             this.radWebNo.UseVisualStyleBackColor = true;
             this.radWebNo.CheckedChanged += new System.EventHandler(this.radWeb_CheckedChanged);
             // 
@@ -349,7 +299,6 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.radWebSince, "radWebSince");
             this.radWebSince.Name = "radWebSince";
-            this.radWebSince.TabStop = true;
             this.radWebSince.UseVisualStyleBackColor = true;
             this.radWebSince.CheckedChanged += new System.EventHandler(this.radWeb_CheckedChanged);
             // 
@@ -357,13 +306,13 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.radWebYes, "radWebYes");
             this.radWebYes.Name = "radWebYes";
-            this.radWebYes.TabStop = true;
             this.radWebYes.UseVisualStyleBackColor = true;
             this.radWebYes.CheckedChanged += new System.EventHandler(this.radWeb_CheckedChanged);
             // 
             // radWebAll
             // 
             resources.ApplyResources(this.radWebAll, "radWebAll");
+            this.radWebAll.Checked = true;
             this.radWebAll.Name = "radWebAll";
             this.radWebAll.TabStop = true;
             this.radWebAll.UseVisualStyleBackColor = true;
@@ -374,6 +323,7 @@ namespace Depressurizer {
             this.dateWeb.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             resources.ApplyResources(this.dateWeb, "dateWeb");
             this.dateWeb.Name = "dateWeb";
+            this.dateWeb.ValueChanged += new System.EventHandler(this.dateWeb_ValueChanged);
             // 
             // grpAppInfo
             // 
@@ -388,7 +338,6 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.radAppNo, "radAppNo");
             this.radAppNo.Name = "radAppNo";
-            this.radAppNo.TabStop = true;
             this.radAppNo.UseVisualStyleBackColor = true;
             this.radAppNo.CheckedChanged += new System.EventHandler(this.radApp_CheckedChanged);
             // 
@@ -396,13 +345,13 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.radAppYes, "radAppYes");
             this.radAppYes.Name = "radAppYes";
-            this.radAppYes.TabStop = true;
             this.radAppYes.UseVisualStyleBackColor = true;
             this.radAppYes.CheckedChanged += new System.EventHandler(this.radApp_CheckedChanged);
             // 
             // radAppAll
             // 
             resources.ApplyResources(this.radAppAll, "radAppAll");
+            this.radAppAll.Checked = true;
             this.radAppAll.Name = "radAppAll";
             this.radAppAll.TabStop = true;
             this.radAppAll.UseVisualStyleBackColor = true;
@@ -411,9 +360,60 @@ namespace Depressurizer {
             // chkOwned
             // 
             resources.ApplyResources(this.chkOwned, "chkOwned");
+            this.chkOwned.Checked = true;
+            this.chkOwned.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkOwned.Name = "chkOwned";
             this.chkOwned.UseVisualStyleBackColor = true;
             this.chkOwned.CheckedChanged += new System.EventHandler(this.chkOwned_CheckedChanged);
+            // 
+            // lstGames
+            // 
+            resources.ApplyResources(this.lstGames, "lstGames");
+            this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colName,
+            this.colID,
+            this.colGenre,
+            this.colType,
+            this.colScraped,
+            this.colAppInfo,
+            this.colParent});
+            this.lstGames.FullRowSelect = true;
+            this.lstGames.GridLines = true;
+            this.lstGames.HideSelection = false;
+            this.lstGames.Name = "lstGames";
+            this.lstGames.UseCompatibleStateImageBehavior = false;
+            this.lstGames.View = System.Windows.Forms.View.Details;
+            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
+            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
+            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
+            // 
+            // colName
+            // 
+            resources.ApplyResources(this.colName, "colName");
+            // 
+            // colID
+            // 
+            resources.ApplyResources(this.colID, "colID");
+            // 
+            // colGenre
+            // 
+            resources.ApplyResources(this.colGenre, "colGenre");
+            // 
+            // colType
+            // 
+            resources.ApplyResources(this.colType, "colType");
+            // 
+            // colScraped
+            // 
+            resources.ApplyResources(this.colScraped, "colScraped");
+            // 
+            // colAppInfo
+            // 
+            resources.ApplyResources(this.colAppInfo, "colAppInfo");
+            // 
+            // colParent
+            // 
+            resources.ApplyResources(this.colParent, "colParent");
             // 
             // DBEditDlg
             // 
