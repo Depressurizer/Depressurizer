@@ -95,8 +95,7 @@ namespace Depressurizer {
                 if( results != null ) {
                     foreach( GameDBEntry g in results ) {
                         if( Program.GameDB.Contains( g.Id ) ) {
-                            g.Name = Program.GameDB.Games[g.Id].Name;
-                            Program.GameDB.Games[g.Id] = g;
+                            Program.GameDB.Games[g.Id].MergeIn( g );
                         } else {
                             Program.GameDB.Games.Add( g.Id, g );
                         }

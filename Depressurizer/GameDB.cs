@@ -16,28 +16,19 @@ namespace Depressurizer {
         #region Fields
         public int Id;
         public string Name;
-        public List<string> Genres = new List<string>();
-
         public AppTypes AppType = AppTypes.Unknown;
         public int ParentId = -1;
-
         public AppPlatforms Platforms = AppPlatforms.All;
 
-        // New stuff:
         // Basics:
+        public List<string> Genres = new List<string>();
+        public List<string> Flags = new List<string>();
         public List<string> Developers = null;
         public List<string> Publishers = null;
         public string SteamReleaseDate = null;
 
         // Metacritic:
         public string MC_Url = null;
-        /*
-        public int MC_Score = -1;
-        public string MC_Genre = null;
-        public int MC_Year = -1;
-        */
-
-        public List<string> Flags = new List<string>();
 
         public int LastStoreScrape = 0;
         public int LastAppInfoUpdate = 0;
@@ -216,7 +207,7 @@ namespace Depressurizer {
             if( m.Success ) {
                 this.SteamReleaseDate = m.Groups[1].Captures[0].Value;
             }
-            
+
             m = regMetalink.Match( page );
             if( m.Success ) {
                 this.MC_Url = m.Groups[1].Captures[0].Value;
@@ -225,7 +216,57 @@ namespace Depressurizer {
             // TODO: Tags
         }
         #endregion
-        
+
+        public void MergeIn( GameDBEntry other ) {
+
+            bool otherNewerForAIFields = other.LastAppInfoUpdate > this.LastAppInfoUpdate || ( this.LastAppInfoUpdate == 0 && other.LastStoreScrape >= this.LastStoreScrape );
+            bool otherNewerForOtherFields = other.LastStoreScrape >= this.LastStoreScrape;
+
+            if( other.AppType != AppTypes.Unknown && ( this.AppType == AppTypes.Unknown || otherNewerForAIFields ) ) {
+                this.AppType = other.AppType;
+            }
+
+            if( other.LastAppInfoUpdate >= this.LastAppInfoUpdate ) {
+                this.Platforms = other.Platforms;
+            }
+
+            if( !string.IsNullOrEmpty( other.Name ) && otherNewerForAIFields ) {
+                this.Name = other.Name;
+            }
+
+            if( other.ParentId > 0 && otherNewerForAIFields ) {
+                this.ParentId = other.ParentId;
+            }
+
+            if( other.Genres != null && other.Genres.Count > 0 && otherNewerForOtherFields ) {
+                this.Genres = other.Genres;
+            }
+
+             if( other.Flags != null && other.Flags.Count > 0 && otherNewerForOtherFields ) {
+                this.Flags = other.Flags;
+            }
+
+            if( other.Developers != null && other.Developers.Count > 0 && otherNewerForAIFields ) {
+                this.Developers = other.Developers;
+            }
+
+            if( other.Publishers != null && other.Publishers.Count > 0 && otherNewerForAIFields ) {
+                this.Publishers = other.Publishers;
+            }
+
+            if( !string.IsNullOrEmpty( other.SteamReleaseDate ) && otherNewerForOtherFields ) {
+                this.SteamReleaseDate = other.SteamReleaseDate;
+            }
+
+            if( !string.IsNullOrEmpty( other.MC_Url ) && otherNewerForOtherFields ) {
+                this.MC_Url = other.MC_Url;
+            }
+
+            if( other.LastStoreScrape > this.LastStoreScrape ) this.LastStoreScrape = other.LastStoreScrape;
+            if( other.LastAppInfoUpdate > this.LastAppInfoUpdate ) this.LastAppInfoUpdate = other.LastAppInfoUpdate;
+
+        }
+
         private bool IsDLC() {
             return this.Flags.Contains( "Downloadable Content" );
         }
@@ -407,7 +448,7 @@ namespace Depressurizer {
         public int UpdateFromAppInfo( string path ) {
             int updated = 0;
 
-            Dictionary<int,AppInfo> appInfos = AppInfo.LoadApps( path );
+            Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps( path );
             int timestamp = Utility.GetCurrentUTime();
 
             foreach( AppInfo aInf in appInfos.Values ) {
@@ -428,7 +469,6 @@ namespace Depressurizer {
                 updated++;
             }
             return updated;
-
         }
 
         #endregion
@@ -457,7 +497,7 @@ namespace Depressurizer {
                 writer.WriteStartDocument();
                 writer.WriteStartElement( XmlName_GameList );
 
-                writer.WriteElementString( XmlName_Version, VERSION.ToString());
+                writer.WriteElementString( XmlName_Version, VERSION.ToString() );
 
                 foreach( GameDBEntry g in Games.Values ) {
 
@@ -557,7 +597,7 @@ namespace Depressurizer {
                     }
                     GameDBEntry g = new GameDBEntry();
                     g.Id = id;
-                    
+
                     g.Name = XmlUtil.GetStringFromNode( gameNode[XmlName_Game_Name], null );
 
                     if( fileVersion < 1 ) {
@@ -571,7 +611,7 @@ namespace Depressurizer {
                             } else if( typeString == "NonApp" ) {
                                 g.AppType = AppTypes.Other;
                             }
-                        } 
+                        }
                     } else {
                         g.AppType = XmlUtil.GetEnumFromNode<AppTypes>( gameNode[XmlName_Game_Type], AppTypes.Unknown );
                     }
@@ -610,11 +650,20 @@ namespace Depressurizer {
                         g.Publishers = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Publisher ) );
                     }
 
-                    g.SteamReleaseDate = XmlUtil.GetStringFromNode( gameNode[XmlName_Game_Date], null);
+                    if( fileVersion < 1 ) {
+                        int steamDate = XmlUtil.GetIntFromNode( gameNode["steamDate"], 0 );
+                        if( steamDate > 0 ) {
+                            g.SteamReleaseDate = DateTime.FromOADate( steamDate ).ToString("MMM d, yyyy");
+                        } else {
+                            g.SteamReleaseDate = null;
+                        }
+                    } else {
+                        g.SteamReleaseDate = XmlUtil.GetStringFromNode( gameNode[XmlName_Game_Date], null );
+                    }
 
                     g.Flags = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Flag ) );
 
-                    g.MC_Url = XmlUtil.GetStringFromNode( gameNode["mcUrl"], null );
+                    g.MC_Url = XmlUtil.GetStringFromNode( gameNode[XmlName_Game_MCUrl], null );
 
                     g.LastAppInfoUpdate = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_LastAppInfoUpdate], 0 );
                     g.LastStoreScrape = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_LastStoreUpdate], 0 );
