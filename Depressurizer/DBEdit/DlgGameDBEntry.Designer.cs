@@ -100,15 +100,15 @@ namespace Depressurizer {
             resources.ApplyResources(this.txtId, "txtId");
             this.txtId.Name = "txtId";
             // 
-            // txtTitle
+            // txtName
             // 
-            resources.ApplyResources(this.txtName, "txtTitle");
-            this.txtName.Name = "txtTitle";
+            resources.ApplyResources(this.txtName, "txtName");
+            this.txtName.Name = "txtName";
             // 
-            // txtGenre
+            // txtGenres
             // 
-            resources.ApplyResources(this.txtGenres, "txtGenre");
-            this.txtGenres.Name = "txtGenre";
+            resources.ApplyResources(this.txtGenres, "txtGenres");
+            this.txtGenres.Name = "txtGenres";
             // 
             // cmbType
             // 

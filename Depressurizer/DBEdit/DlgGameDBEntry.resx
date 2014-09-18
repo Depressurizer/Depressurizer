@@ -153,7 +153,7 @@
     <value>48, 20</value>
   </data>
   <data name="lblTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>6</value>
   </data>
   <data name="lblTitle.Text" xml:space="preserve">
     <value>Name:</value>
@@ -180,7 +180,7 @@
     <value>48, 20</value>
   </data>
   <data name="lblGenre.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>8</value>
   </data>
   <data name="lblGenre.Text" xml:space="preserve">
     <value>Genres:</value>
@@ -214,7 +214,7 @@
     <value>34, 13</value>
   </data>
   <data name="lblType.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="lblType.Text" xml:space="preserve">
     <value>Type:</value>
@@ -238,7 +238,7 @@
     <value>82, 20</value>
   </data>
   <data name="txtId.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;txtId.Name" xml:space="preserve">
     <value>txtId</value>
@@ -252,52 +252,52 @@
   <data name="&gt;&gt;txtId.ZOrder" xml:space="preserve">
     <value>22</value>
   </data>
-  <data name="txtTitle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="txtName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="txtTitle.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="txtName.Location" type="System.Drawing.Point, System.Drawing">
     <value>105, 35</value>
   </data>
-  <data name="txtTitle.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="txtName.Size" type="System.Drawing.Size, System.Drawing">
     <value>444, 20</value>
   </data>
-  <data name="txtTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="txtName.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
-  <data name="&gt;&gt;txtTitle.Name" xml:space="preserve">
-    <value>txtTitle</value>
+  <data name="&gt;&gt;txtName.Name" xml:space="preserve">
+    <value>txtName</value>
   </data>
-  <data name="&gt;&gt;txtTitle.Type" xml:space="preserve">
+  <data name="&gt;&gt;txtName.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;txtTitle.Parent" xml:space="preserve">
+  <data name="&gt;&gt;txtName.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;txtTitle.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;txtName.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
-  <data name="txtGenre.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="txtGenres.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="txtGenre.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="txtGenres.Location" type="System.Drawing.Point, System.Drawing">
     <value>105, 61</value>
   </data>
-  <data name="txtGenre.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="txtGenres.Size" type="System.Drawing.Size, System.Drawing">
     <value>444, 20</value>
   </data>
-  <data name="txtGenre.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="txtGenres.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
-  <data name="&gt;&gt;txtGenre.Name" xml:space="preserve">
-    <value>txtGenre</value>
+  <data name="&gt;&gt;txtGenres.Name" xml:space="preserve">
+    <value>txtGenres</value>
   </data>
-  <data name="&gt;&gt;txtGenre.Type" xml:space="preserve">
+  <data name="&gt;&gt;txtGenres.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;txtGenre.Parent" xml:space="preserve">
+  <data name="&gt;&gt;txtGenres.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;txtGenre.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;txtGenres.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
   <data name="cmbType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -310,7 +310,7 @@
     <value>129, 21</value>
   </data>
   <data name="cmbType.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;cmbType.Name" xml:space="preserve">
     <value>cmbType</value>
@@ -334,7 +334,7 @@
     <value>75, 23</value>
   </data>
   <data name="cmdCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>26</value>
   </data>
   <data name="cmdCancel.Text" xml:space="preserve">
     <value>Cancel</value>
@@ -361,7 +361,7 @@
     <value>75, 23</value>
   </data>
   <data name="cmdSave.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>0</value>
   </data>
   <data name="cmdSave.Text" xml:space="preserve">
     <value>Save</value>
@@ -412,7 +412,7 @@
     <value>35, 13</value>
   </data>
   <data name="lblFlags.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="lblFlags.Text" xml:space="preserve">
     <value>Flags:</value>
@@ -439,7 +439,7 @@
     <value>55, 13</value>
   </data>
   <data name="lblParent.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>2</value>
   </data>
   <data name="lblParent.Text" xml:space="preserve">
     <value>Parent ID:</value>
@@ -463,7 +463,7 @@
     <value>86, 20</value>
   </data>
   <data name="txtParent.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;txtParent.Name" xml:space="preserve">
     <value>txtParent</value>
@@ -487,7 +487,7 @@
     <value>70, 17</value>
   </data>
   <data name="chkPlatWin.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>0</value>
   </data>
   <data name="chkPlatWin.Text" xml:space="preserve">
     <value>Windows</value>
@@ -514,7 +514,7 @@
     <value>47, 17</value>
   </data>
   <data name="chkPlatMac.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+    <value>1</value>
   </data>
   <data name="chkPlatMac.Text" xml:space="preserve">
     <value>Mac</value>
@@ -541,7 +541,7 @@
     <value>51, 17</value>
   </data>
   <data name="chkPlatLinux.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+    <value>2</value>
   </data>
   <data name="chkPlatLinux.Text" xml:space="preserve">
     <value>Linux</value>
@@ -568,7 +568,7 @@
     <value>64, 13</value>
   </data>
   <data name="lblDev.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+    <value>12</value>
   </data>
   <data name="lblDev.Text" xml:space="preserve">
     <value>Developers:</value>
@@ -595,7 +595,7 @@
     <value>58, 13</value>
   </data>
   <data name="lblPub.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+    <value>14</value>
   </data>
   <data name="lblPub.Text" xml:space="preserve">
     <value>Publishers:</value>
@@ -622,7 +622,7 @@
     <value>444, 20</value>
   </data>
   <data name="txtDev.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
+    <value>13</value>
   </data>
   <data name="&gt;&gt;txtDev.Name" xml:space="preserve">
     <value>txtDev</value>
@@ -646,7 +646,7 @@
     <value>444, 20</value>
   </data>
   <data name="txtPub.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
+    <value>15</value>
   </data>
   <data name="&gt;&gt;txtPub.Name" xml:space="preserve">
     <value>txtPub</value>
@@ -670,7 +670,7 @@
     <value>87, 13</value>
   </data>
   <data name="lblMCName.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
+    <value>16</value>
   </data>
   <data name="lblMCName.Text" xml:space="preserve">
     <value>Metacritic Name:</value>
@@ -697,7 +697,7 @@
     <value>284, 20</value>
   </data>
   <data name="txtMCName.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
+    <value>17</value>
   </data>
   <data name="&gt;&gt;txtMCName.Name" xml:space="preserve">
     <value>txtMCName</value>
@@ -721,7 +721,7 @@
     <value>75, 13</value>
   </data>
   <data name="lblRelease.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
+    <value>18</value>
   </data>
   <data name="lblRelease.Text" xml:space="preserve">
     <value>Release Date:</value>
@@ -748,7 +748,7 @@
     <value>150, 95</value>
   </data>
   <data name="grpPlat.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
+    <value>25</value>
   </data>
   <data name="grpPlat.Text" xml:space="preserve">
     <value>Platforms</value>
@@ -775,7 +775,7 @@
     <value>284, 20</value>
   </data>
   <data name="txtRelease.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
+    <value>19</value>
   </data>
   <data name="&gt;&gt;txtRelease.Name" xml:space="preserve">
     <value>txtRelease</value>
@@ -799,7 +799,7 @@
     <value>165, 20</value>
   </data>
   <data name="dateWeb.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
+    <value>21</value>
   </data>
   <data name="&gt;&gt;dateWeb.Name" xml:space="preserve">
     <value>dateWeb</value>
@@ -823,7 +823,7 @@
     <value>165, 20</value>
   </data>
   <data name="dateAppInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
+    <value>23</value>
   </data>
   <data name="&gt;&gt;dateAppInfo.Name" xml:space="preserve">
     <value>dateAppInfo</value>
@@ -847,7 +847,7 @@
     <value>96, 17</value>
   </data>
   <data name="chkWebUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
+    <value>20</value>
   </data>
   <data name="chkWebUpdate.Text" xml:space="preserve">
     <value>Web Updated:</value>
@@ -874,7 +874,7 @@
     <value>113, 17</value>
   </data>
   <data name="chkAppInfoUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
+    <value>22</value>
   </data>
   <data name="chkAppInfoUpdate.Text" xml:space="preserve">
     <value>App Info Updated:</value>
