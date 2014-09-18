@@ -89,14 +89,26 @@ namespace Depressurizer {
         }
 
         public int Compare( object x, object y ) {
+            string strA = ( (ListViewItem)x ).SubItems[_col].Text;
+            string strB = ( (ListViewItem)y ).SubItems[_col].Text;
+
             int dir = _direction * ( _rev ? -1 : 1 );
             if( _asInt ) {
                 int a, b;
-                if( int.TryParse( ( (ListViewItem)x ).SubItems[_col].Text, out a ) && int.TryParse( ( (ListViewItem)y ).SubItems[_col].Text, out b ) ) {
+                if( int.TryParse( strA, out a ) && int.TryParse( strB, out b ) ) {
                     return dir * ( a - b );
                 }
             }
-            return dir * String.Compare( ( (ListViewItem)x ).SubItems[_col].Text, ( (ListViewItem)y ).SubItems[_col].Text );
+            if( string.IsNullOrEmpty( strA ) ) {
+                if( string.IsNullOrEmpty( strB ) ) {
+                    return 0;
+                }
+                return dir;
+            }
+            if( string.IsNullOrEmpty( strB ) ) {
+                return -dir;
+            }
+            return dir * String.Compare( strA, strB );
         }
     }
 

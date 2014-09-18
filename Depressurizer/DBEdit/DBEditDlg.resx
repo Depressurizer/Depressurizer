@@ -945,6 +945,9 @@
   <data name="&gt;&gt;grpAppInfo.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="chkOwned.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="chkOwned.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1008,8 +1011,14 @@
   <data name="colScraped.Text" xml:space="preserve">
     <value>Scraped</value>
   </data>
+  <data name="colScraped.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
   <data name="colAppInfo.Text" xml:space="preserve">
     <value>AppInfo</value>
+  </data>
+  <data name="colAppInfo.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
   </data>
   <data name="colParent.Text" xml:space="preserve">
     <value>Parent</value>

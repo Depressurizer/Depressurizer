@@ -17,7 +17,6 @@ namespace Depressurizer {
 
         public DBEditDlg( GameList owned = null ) {
             InitializeComponent();
-            ( (ToolStripDropDownMenu)menu_File.DropDown ).ShowImageMargin = false;
             ownedList = owned;
         }
 
@@ -318,7 +317,7 @@ namespace Depressurizer {
                 ListViewItem item = new ListViewItem( new string[] { 
                     g.Name,
                     g.Id.ToString(),
-                    string.Join(",",g.Genres),
+                    ( g.Genres!=null ) ? string.Join(",",g.Genres) : "",
                     g.AppType.ToString(),
                     ( g.LastStoreScrape == 0 ) ? "": "X",
                     ( g.LastAppInfoUpdate == 0 ) ? "" : "X",
@@ -447,6 +446,7 @@ namespace Depressurizer {
         private void MainForm_Load( object sender, EventArgs e ) {
             // Initialize list sorting
             listSorter.AddIntCol( 1 );
+            listSorter.AddIntCol( 6 );
             lstGames.ListViewItemSorter = listSorter;
             lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
 

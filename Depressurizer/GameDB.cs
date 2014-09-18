@@ -510,7 +510,7 @@ namespace Depressurizer {
                     }
 
                     if( g.LastStoreScrape > 0 ) writer.WriteElementString( XmlName_Game_LastStoreUpdate, g.LastStoreScrape.ToString() );
-                    if( g.LastAppInfoUpdate > 0 ) writer.WriteElementString( XmlName_Game_LastStoreUpdate, g.LastAppInfoUpdate.ToString() );
+                    if( g.LastAppInfoUpdate > 0 ) writer.WriteElementString( XmlName_Game_LastAppInfoUpdate, g.LastAppInfoUpdate.ToString() );
 
                     writer.WriteElementString( XmlName_Game_Type, g.AppType.ToString() );
 

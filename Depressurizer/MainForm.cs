@@ -57,8 +57,6 @@ namespace Depressurizer {
 
             // Set up list sorting
             listSorter.AddIntCol( 0 );
-            listSorter.AddRevCol( 3 );
-            listSorter.AddRevCol( 4 );
             listSorter.SetSortCol( 1, 1 );
             lstGames.ListViewItemSorter = listSorter;
             lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
