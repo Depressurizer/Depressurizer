@@ -40,12 +40,12 @@ namespace Depressurizer {
                 cmbType.SelectedItem = Game.AppType;
 
                 this.txtName.Text = Game.Name;
-                txtGenres.Text = string.Join( ",", Game.Genres );
-                txtFlags.Text = string.Join( ",", Game.Flags );
-                txtDev.Text = string.Join( ",", Game.Developers );
-                txtPub.Text = string.Join( ",", Game.Publishers );
-                txtMCName.Text = Game.MC_Url;
-                txtRelease.Text = Game.SteamReleaseDate;
+                if( Game.Genres != null ) txtGenres.Text = string.Join( ",", Game.Genres );
+                if( Game.Flags != null ) txtFlags.Text = string.Join( ",", Game.Flags );
+                if( Game.Developers != null ) txtDev.Text = string.Join( ",", Game.Developers );
+                if( Game.Publishers != null ) txtPub.Text = string.Join( ",", Game.Publishers );
+                if( Game.MC_Url != null ) txtMCName.Text = Game.MC_Url;
+                if( Game.SteamReleaseDate != null ) txtRelease.Text = Game.SteamReleaseDate;
                 chkPlatWin.Checked = Game.Platforms.HasFlag( AppPlatforms.Windows );
                 chkPlatMac.Checked = Game.Platforms.HasFlag( AppPlatforms.Mac );
                 chkPlatLinux.Checked = Game.Platforms.HasFlag( AppPlatforms.Linux );

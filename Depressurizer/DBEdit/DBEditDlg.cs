@@ -320,9 +320,9 @@ namespace Depressurizer {
                     g.Id.ToString(),
                     string.Join(",",g.Genres),
                     g.AppType.ToString(),
-                    (g.LastStoreScrape == 0) ? "": "X",
-                    (g.LastAppInfoUpdate == 0 ) ? "" : "X",
-                    (g.ParentId == -1) ? "" : "X" } );
+                    ( g.LastStoreScrape == 0 ) ? "": "X",
+                    ( g.LastAppInfoUpdate == 0 ) ? "" : "X",
+                    ( g.ParentId <= 0 ) ? "" : g.ParentId.ToString() } );
                 item.Tag = g;
                 lstGames.Items.Add( item );
             }
@@ -362,7 +362,7 @@ namespace Depressurizer {
                 item.SubItems[3].Text = g.AppType.ToString();
                 item.SubItems[4].Text = ( g.LastStoreScrape == 0 ) ? "" : "X";
                 item.SubItems[5].Text = ( g.LastAppInfoUpdate == 0 ) ? "" : "X";
-                item.SubItems[6].Text = ( g.ParentId == -1 ) ? "" : "X";
+                item.SubItems[6].Text = ( g.ParentId <= 0 ) ? "" : g.ParentId.ToString();
                 return true;
             }
         }
@@ -376,7 +376,7 @@ namespace Depressurizer {
             if( g == null ) return false;
 
             if( ownedList != null && chkOwned.Checked == true && !ownedList.Games.ContainsKey( g.Id ) ) return false;
-            
+
             if( chkTypeAll.Checked == false ) {
                 switch( g.AppType ) {
                     case AppTypes.Game:
@@ -405,7 +405,7 @@ namespace Depressurizer {
                 if( radAppYes.Checked == true && g.LastAppInfoUpdate <= 0 ) return false;
             }
 
-            return true;    
+            return true;
         }
 
         /// <summary>
@@ -615,8 +615,8 @@ namespace Depressurizer {
             if( !filterSuspend ) {
                 filterSuspend = true;
 
-                chkTypeAll.Checked = ! ( chkTypeDLC.Checked || chkTypeGame.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked );
-                
+                chkTypeAll.Checked = !( chkTypeDLC.Checked || chkTypeGame.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked );
+
                 filterSuspend = false;
                 RefreshGameList();
                 UpdateForSelectChange();
@@ -667,7 +667,16 @@ namespace Depressurizer {
         }
 
         private void cmdUpdateAppInfo_Click( object sender, EventArgs e ) {
-            //TODO: Implement
+            string path = string.Format( Properties.Resources.AppInfoPath, Settings.Instance().SteamPath );
+
+            ClearStatusMsg();
+
+            int updated = Program.GameDB.UpdateFromAppInfo( path );
+            RefreshGameList();
+
+            AddStatusMsg( string.Format( "Updated {0} entries from AppInfo.", updated ) );
+
+            FlushStatusMsg();
         }
     }
 }

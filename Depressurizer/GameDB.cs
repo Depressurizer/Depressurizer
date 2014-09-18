@@ -399,7 +399,35 @@ namespace Depressurizer {
             return added;
         }
 
-        public void UpdateFromAppInfo( string path ) {
+        /// <summary>
+        /// Updated the database with information from the AppInfo cache file.
+        /// </summary>
+        /// <param name="path">Path to the cache file</param>
+        /// <returns>The number of entries integrated into the database.</returns>
+        public int UpdateFromAppInfo( string path ) {
+            int updated = 0;
+
+            Dictionary<int,AppInfo> appInfos = AppInfo.LoadApps( path );
+            int timestamp = Utility.GetCurrentUTime();
+
+            foreach( AppInfo aInf in appInfos.Values ) {
+                GameDBEntry entry;
+                if( !Games.ContainsKey( aInf.Id ) ) {
+                    entry = new GameDBEntry();
+                    entry.Id = aInf.Id;
+                    Games.Add( entry.Id, entry );
+                } else {
+                    entry = Games[aInf.Id];
+                }
+
+                entry.LastAppInfoUpdate = timestamp;
+                entry.AppType = aInf.AppType;
+                entry.Name = aInf.Name;
+                entry.Platforms = aInf.Platforms;
+                entry.ParentId = aInf.Parent;
+                updated++;
+            }
+            return updated;
 
         }
 

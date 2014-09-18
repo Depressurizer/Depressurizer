@@ -61,11 +61,29 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}\appcache\appinfo.vdf.
+        /// </summary>
+        internal static string AppInfoPath {
+            get {
+                return ResourceManager.GetString("AppInfoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}\userdata\{1}\7\remote\sharedconfig.vdf.
         /// </summary>
         internal static string ConfigFilePath {
             get {
                 return ResourceManager.GetString("ConfigFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\appcache\packageinfo.vdf.
+        /// </summary>
+        internal static string PackageInfoPath {
+            get {
+                return ResourceManager.GetString("PackageInfoPath", resourceCulture);
             }
         }
         
