@@ -26,18 +26,18 @@ namespace Depressurizer {
     }
 
     class AppInfo {
-        public int appId;
-        public string name;
-        public AppTypes type;
-
-        public AppPlatforms platforms;
+        public int Id;
+        public string Name;
+        public AppTypes AppType;
+        public AppPlatforms Platforms;
+        public int Parent; // 0 if none
 
         public AppInfo( int id, string name = null, AppTypes type = AppTypes.Unknown, AppPlatforms platforms = AppPlatforms.All ) {
-            this.appId = id;
-            this.name = name;
-            this.type = type;
+            this.Id = id;
+            this.Name = name;
+            this.AppType = type;
 
-            this.platforms = platforms;
+            this.Platforms = platforms;
         }
 
         public static AppInfo FromVdfNode( VdfFileNode commonNode ) {
@@ -56,7 +56,6 @@ namespace Depressurizer {
                     }
                 }
             }
-
 
             if( id >= 0 ) {
                 // Get name
@@ -95,6 +94,12 @@ namespace Depressurizer {
 
                 result = new AppInfo( id, name, type, platforms );
 
+                // Get parent
+                VdfFileNode parentNode = commonNode.GetNodeAt( new string[] { "parent" }, false );
+                if( parentNode != null ) {
+                    result.Parent = parentNode.NodeInt;
+                }
+
             }
             return result;
         }
@@ -113,7 +118,7 @@ namespace Depressurizer {
             while( node != null ) {
                 AppInfo app = AppInfo.FromVdfNode( node );
                 if( app != null ) {
-                    result.Add( app.appId, app );
+                    result.Add( app.Id, app );
                 }
                 VdfFileNode.ReadBin_SeekTo( bReader, start, fileLength );    
                 node = VdfFileNode.LoadFromBinary( bReader, fileLength );

@@ -43,7 +43,7 @@ namespace Depressurizer {
                     }
                     foreach( int appId in package.appIds ) {
                         if( appList.ContainsKey( appId ) ) {
-                            if( appList[appId].type == AppTypes.Game ) {
+                            if( appList[appId].AppType == AppTypes.Game ) {
                                 ownedAppIds.Add( appId );
                             } 
                         } 
@@ -82,7 +82,7 @@ namespace Depressurizer {
         public static string GetGameString( int id, Dictionary<int, AppInfo> appList ) {
             string s = string.Format( "ID: {0} ", id );
             if( appList.ContainsKey( id ) ) {
-                s += string.Format( " {0} ({1})", appList[id].name, appList[id].type );
+                s += string.Format( " {0} ({1})", appList[id].Name, appList[id].AppType );
             } else {
                 s += "Not in Database";
             }

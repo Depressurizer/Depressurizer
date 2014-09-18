@@ -67,11 +67,18 @@ namespace Depressurizer {
         }
 
         /// <summary>
-        /// Quick shortcut for casting data to int
+        /// Quick shortcut for casting data to int. If the node is a string, tries to parse to int. Returns 0 if failure.
         /// </summary>
         public int NodeInt {
             get {
-                return ( NodeType == ValueType.Int ) ? ( (int)NodeData ) : 0;
+                if( NodeType == ValueType.Int )
+                    return ( (int)NodeData );
+                else if( NodeType == ValueType.String ) {
+                    int res = 0;
+                    int.TryParse( NodeString, out res );
+                    return res;
+                }
+                return 0;
             }
         }
 
