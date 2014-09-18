@@ -873,4 +873,7 @@ Continue loading file?</value>
   <data name="DlgAutoCat_Help_Prefix" xml:space="preserve">
     <value>Optional. Text prefix placed before the genre name.</value>
   </data>
+  <data name="DlgGameDBEntry_ParentMustBeInt" xml:space="preserve">
+    <value>Parent must be empty or integer.</value>
+  </data>
 </root>

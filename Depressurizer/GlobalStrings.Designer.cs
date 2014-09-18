@@ -725,6 +725,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parent must be empty or integer..
+        /// </summary>
+        internal static string DlgGameDBEntry_ParentMustBeInt {
+            get {
+                return ResourceManager.GetString("DlgGameDBEntry_ParentMustBeInt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If ID is selected, entry must be a number..
         /// </summary>
         internal static string DlgManualDownload_IfIDSelectedMustBeNumber {

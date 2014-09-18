@@ -35,7 +35,14 @@ namespace Depressurizer {
         }
 
         public static int GetUTime( DateTime dt ) {
-            return (int)( ( dt - epoch ).TotalSeconds );
+            double tSecs = ( dt - epoch ).TotalSeconds;
+            if( tSecs > int.MaxValue ) return int.MaxValue;
+            if( tSecs < 0 ) return 0;
+            return (int)tSecs;
+        }
+
+        public static DateTime GetDTFromUTime( int uTime ) {
+            return epoch.AddSeconds( uTime );
         }
     }
 }

@@ -895,4 +895,8 @@ Tiempo Restante:</value>
     <value>Optional. Text prefix placed before the genre name.</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="DlgGameDBEntry_ParentMustBeInt" xml:space="preserve">
+    <value>Parent must be empty or integer.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>
