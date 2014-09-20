@@ -60,6 +60,9 @@ namespace Depressurizer {
                     cmbDatSrc.SelectedIndex = 2;
                     break;
             }
+
+            chkUpdateAppInfoOnStartup.Checked = settings.UpdateAppInfoOnStart;
+            chkAutosaveDB.Checked = settings.AutosaveDB;
             
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
@@ -106,6 +109,10 @@ namespace Depressurizer {
             }
 
             settings.ProfileToLoad = txtDefaultProfile.Text;
+
+            settings.UpdateAppInfoOnStart = chkUpdateAppInfoOnStartup.Checked;
+            settings.AutosaveDB = chkAutosaveDB.Checked;
+
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 
             settings.LogLevel = (LoggerLevel)cmbLogLevel.SelectedIndex;

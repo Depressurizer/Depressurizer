@@ -126,7 +126,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cmdSteamPathBrowse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>440, 20</value>
+    <value>464, 20</value>
   </data>
   <data name="cmdSteamPathBrowse.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -157,7 +157,7 @@
     <value>11, 22</value>
   </data>
   <data name="txtSteamPath.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 20</value>
+    <value>447, 20</value>
   </data>
   <data name="txtSteamPath.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -178,7 +178,7 @@
     <value>6, 6</value>
   </data>
   <data name="grpSteamDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>524, 54</value>
+    <value>548, 54</value>
   </data>
   <data name="grpSteamDir.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -196,7 +196,7 @@
     <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;grpSteamDir.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="grpStartup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -286,7 +286,7 @@
     <value>Top, Right</value>
   </data>
   <data name="cmdDefaultProfileBrowse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>440, 16</value>
+    <value>464, 16</value>
   </data>
   <data name="cmdDefaultProfileBrowse.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -316,7 +316,7 @@
     <value>101, 18</value>
   </data>
   <data name="txtDefaultProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>333, 20</value>
+    <value>357, 20</value>
   </data>
   <data name="txtDefaultProfile.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -337,7 +337,7 @@
     <value>6, 66</value>
   </data>
   <data name="grpStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>524, 90</value>
+    <value>548, 91</value>
   </data>
   <data name="grpStartup.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -355,7 +355,7 @@
     <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;grpStartup.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="chkRemoveExtraEntries.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -388,7 +388,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="cmdAccept.Location" type="System.Drawing.Point, System.Drawing">
-    <value>481, 314</value>
+    <value>505, 388</value>
   </data>
   <data name="cmdAccept.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -415,7 +415,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 314</value>
+    <value>424, 388</value>
   </data>
   <data name="cmdCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -442,10 +442,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="grpSaving.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 220</value>
+    <value>6, 295</value>
   </data>
   <data name="grpSaving.Size" type="System.Drawing.Size, System.Drawing">
-    <value>524, 44</value>
+    <value>548, 44</value>
   </data>
   <data name="grpSaving.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -463,7 +463,7 @@
     <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;grpSaving.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="grpDatSrc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -484,7 +484,7 @@
     <value>11, 19</value>
   </data>
   <data name="cmbDatSrc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 21</value>
+    <value>267, 21</value>
   </data>
   <data name="cmbDatSrc.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -502,10 +502,10 @@
     <value>0</value>
   </data>
   <data name="grpDatSrc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 162</value>
+    <value>6, 237</value>
   </data>
   <data name="grpDatSrc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 52</value>
+    <value>284, 52</value>
   </data>
   <data name="grpDatSrc.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -523,10 +523,94 @@
     <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;grpDatSrc.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="grpDatabase.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="chkAutosaveDB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkAutosaveDB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 42</value>
+  </data>
+  <data name="chkAutosaveDB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 17</value>
+  </data>
+  <data name="chkAutosaveDB.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="chkAutosaveDB.Text" xml:space="preserve">
+    <value>Save DB automatically on auto-update and auto-scrape</value>
+  </data>
+  <data name="&gt;&gt;chkAutosaveDB.Name" xml:space="preserve">
+    <value>chkAutosaveDB</value>
+  </data>
+  <data name="&gt;&gt;chkAutosaveDB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkAutosaveDB.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;chkAutosaveDB.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkUpdateAppInfoOnStartup.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkUpdateAppInfoOnStartup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 19</value>
+  </data>
+  <data name="chkUpdateAppInfoOnStartup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 17</value>
+  </data>
+  <data name="chkUpdateAppInfoOnStartup.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="chkUpdateAppInfoOnStartup.Text" xml:space="preserve">
+    <value>Update DB with AppInfo on program start</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfoOnStartup.Name" xml:space="preserve">
+    <value>chkUpdateAppInfoOnStartup</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfoOnStartup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfoOnStartup.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfoOnStartup.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="grpDatabase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 163</value>
+  </data>
+  <data name="grpDatabase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>548, 68</value>
+  </data>
+  <data name="grpDatabase.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="grpDatabase.Text" xml:space="preserve">
+    <value>Database Options</value>
+  </data>
+  <data name="&gt;&gt;grpDatabase.Name" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;grpDatabase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpDatabase.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
+  <data name="&gt;&gt;grpDatabase.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="cmbLanguage.Items" xml:space="preserve">
     <value>Default</value>
@@ -559,7 +643,7 @@
     <value>0</value>
   </data>
   <data name="grpLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>270, 162</value>
+    <value>294, 237</value>
   </data>
   <data name="grpLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 52</value>
@@ -580,7 +664,7 @@
     <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;grpLanguage.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="tabGeneral.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -589,7 +673,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabGeneral.Size" type="System.Drawing.Size, System.Drawing">
-    <value>536, 270</value>
+    <value>560, 344</value>
   </data>
   <data name="tabGeneral.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -742,7 +826,7 @@
     <value>130, 6</value>
   </data>
   <data name="cmbLogLevel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 21</value>
+    <value>144, 21</value>
   </data>
   <data name="cmbLogLevel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -766,7 +850,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabLogging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>536, 363</value>
+    <value>560, 344</value>
   </data>
   <data name="tabLogging.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -790,7 +874,7 @@
     <value>12, 12</value>
   </data>
   <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>544, 296</value>
+    <value>568, 370</value>
   </data>
   <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -814,7 +898,10 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>568, 347</value>
+    <value>592, 421</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

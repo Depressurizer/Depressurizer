@@ -113,6 +113,32 @@ namespace Depressurizer {
             }
         }
 
+        private bool _updateAppInfoOnStart = true;
+        public bool UpdateAppInfoOnStart {
+            get {
+                return _updateAppInfoOnStart;
+            }
+            set {
+                if( _updateAppInfoOnStart != value ) {
+                    _updateAppInfoOnStart = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private bool _autosaveDB = true;
+        public bool AutosaveDB {
+            get {
+                return _autosaveDB;
+            }
+            set {
+                if( _autosaveDB != value ) {
+                    _autosaveDB = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private bool _removeExtraEntries = true;
         public bool RemoveExtraEntries {
             get {
