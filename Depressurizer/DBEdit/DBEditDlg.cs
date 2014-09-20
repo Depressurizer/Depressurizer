@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using Rallion;
 
 namespace Depressurizer {
     public partial class DBEditDlg : Form {
@@ -146,6 +147,20 @@ namespace Depressurizer {
             RefreshGameList();
             UpdateForSelectChange();
             this.Cursor = Cursors.Default;
+        }
+
+        private void UpdateFromAppInfo() {
+            try {
+                string path = string.Format( Properties.Resources.AppInfoPath, Settings.Instance().SteamPath );
+                int updated = Program.GameDB.UpdateFromAppInfo( path );
+                RefreshGameList();
+                //TODO: String literal
+                AddStatusMsg( string.Format( "Updated {0} entries from AppInfo.", updated ) );
+            } catch( Exception e ) {
+                //TODO: String literals
+                MessageBox.Show( string.Format( "Failed to update from AppInfo:\n{0}", e.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                Program.Logger.Write( LoggerLevel.Error, "Exception when updating AppInfo: {0}", e.ToString() );
+            }
         }
 
         /// <summary>
@@ -554,6 +569,12 @@ namespace Depressurizer {
             FlushStatusMsg();
         }
 
+        private void cmdUpdateAppInfo_Click( object sender, EventArgs e ) {
+            ClearStatusMsg();
+            UpdateFromAppInfo();
+            FlushStatusMsg();
+        }
+
         private void cmdStore_Click( object sender, EventArgs e ) {
             if( lstGames.SelectedItems.Count > 0 ) {
                 VisitStorePage( lstGames.SelectedItems[0].Tag as GameDBEntry );
@@ -664,19 +685,6 @@ namespace Depressurizer {
                 return false;
             }
             return SaveDB();
-        }
-
-        private void cmdUpdateAppInfo_Click( object sender, EventArgs e ) {
-            string path = string.Format( Properties.Resources.AppInfoPath, Settings.Instance().SteamPath );
-
-            ClearStatusMsg();
-
-            int updated = Program.GameDB.UpdateFromAppInfo( path );
-            RefreshGameList();
-
-            AddStatusMsg( string.Format( "Updated {0} entries from AppInfo.", updated ) );
-
-            FlushStatusMsg();
         }
     }
 }
