@@ -140,6 +140,31 @@ namespace Depressurizer {
             }
         }
 
+        private void SaveGameDB() {
+            try {
+                Program.GameDB.Save( "GameDB.xml.gz" );
+                AddStatus( "Saved DB." );
+            } catch( Exception e ) {
+                //TODO: String literals
+                Program.Logger.Write( LoggerLevel.Error, "Exception when autosaving database:\n{0}", e.ToString() );
+                MessageBox.Show( "Error saving database:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+            }
+        }
+
+        private void UpdateGameDB() {
+            try {
+                int num = Program.GameDB.UpdateFromAppInfo( string.Format( Properties.Resources.AppInfoPath, settings.SteamPath ) );
+                AddStatus( string.Format( "Updated {0} DB entries from AppInfo.", num ) );
+                if( num > 0 && settings.AutosaveDB ) {
+                    SaveGameDB();
+                }
+            } catch( Exception e ) {
+                //TODO: String literals
+                Program.Logger.Write( LoggerLevel.Error, "Error encountered when auto-updating DB from AppInfo.\n{0}", e.ToString() );
+                MessageBox.Show( "Error encountered when updating database from AppInfo: {0}", e.Message );
+            }
+        }
+
         #region Profile Management
 
         /// <summary>
@@ -357,6 +382,7 @@ namespace Depressurizer {
         }
 
         #endregion
+
         #region Data modifiers
 
         /// <summary>
@@ -650,6 +676,9 @@ namespace Depressurizer {
                             if( res == AutoCatResult.Success ) {
                                 updated++;
                             }
+                        }
+                        if( scrapeDlg.JobsCompleted > 0 && settings.AutosaveDB ) {
+                            SaveGameDB();
                         }
                     }
                 }
@@ -1102,6 +1131,9 @@ namespace Depressurizer {
             UpdateEnabledStatesForGames();
             UpdateEnabledStatesForCategories();
             LoadGameDB();
+
+
+
             // jpodadera. Save original width and height
             originalHeight = this.Height;
             originalWidth = this.Width;
@@ -1118,6 +1150,9 @@ namespace Depressurizer {
                 dlg.ShowDialog();
                 settings.SteamPath = dlg.Path;
                 settings.Save();
+            }
+            if( settings.UpdateAppInfoOnStart ) {
+                UpdateGameDB();
             }
             switch( settings.StartupAction ) {
                 case StartupAction.Load:

@@ -355,7 +355,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="GameDB.xml.gz">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\app.manifest" />
   </ItemGroup>
