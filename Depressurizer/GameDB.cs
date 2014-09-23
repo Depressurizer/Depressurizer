@@ -51,7 +51,7 @@ namespace Depressurizer {
         private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
 
         //private static Regex regDLC = new Regex("<div class=\\\"name\\\"><a href=[^>]*>Downloadable Content</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex regFlags = new Regex("<div class=\\\"game_area_details_specs\\\">\\s*<div class=\\\"icon\\\"><a href=[^>]*><img[^>]*></a></div>\\s*<div class=\\\"name\\\"><a href=[^>]*>([^<]*)</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regFlags = new Regex( "<a href=\\\"http://store.steampowered.com/search/\\?category2=[0-9]+\\\" class=\\\"name\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         private static Regex regDeveloper = new Regex("<b>Developer:</b>\\s*<a[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
