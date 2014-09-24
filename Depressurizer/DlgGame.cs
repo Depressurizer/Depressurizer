@@ -44,7 +44,7 @@ namespace Depressurizer {
                 chkFavorite.Checked = Game.ContainsCategory( Data.FavoriteCategory );
                 chkHidden.Checked = Game.Hidden;
                 txtId.ReadOnly = true;
-                
+
             } else {
                 Text = GlobalStrings.DlgGame_CreateGame;
             }
@@ -55,25 +55,22 @@ namespace Depressurizer {
             this.Close();
         }
 
-        private void cmdOk_Click( object sender, EventArgs e ) {           
+        private void cmdOk_Click( object sender, EventArgs e ) {
             if( editMode ) {
                 Game.Name = txtName.Text;
             } else {
                 int id;
                 if( !int.TryParse( txtId.Text, out id ) ) {
-                    MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show( GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                     return;
                 }
-                // jpodadera. Control if Game ID already exists to avoid exceptions
-                if (Data.Games.ContainsKey(id))
-                {
-                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if( Data.Games.ContainsKey( id ) ) {
+                    MessageBox.Show( GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                     return;
-                }
-                else
-                {
-                    Game = new GameInfo(id, txtName.Text);
-                    Data.Games.Add(id, Game);
+                } else {
+                    Game = new GameInfo( id, txtName.Text );
+                    Game.ApplySource( GameListingSource.Manual );
+                    Data.Games.Add( id, Game );
                 }
             }
 
