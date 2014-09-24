@@ -654,7 +654,7 @@ namespace Depressurizer {
             Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages( string.Format( Properties.Resources.PackageInfoPath, Settings.Instance().SteamPath ) );
 
             List<int> ownedPackageIds = new List<int>();
-            string localConfigPath = string.Format(Properties.Resources.LocalConfigPath, Settings.Instance().SteamPath, Profile.ID64toDirName( accountId ) );
+            string localConfigPath = string.Format( Properties.Resources.LocalConfigPath, Settings.Instance().SteamPath, Profile.ID64toDirName( accountId ) );
             VdfFileNode vdfFile = VdfFileNode.LoadFromText( new StreamReader( localConfigPath ) );
             if( vdfFile != null ) {
                 VdfFileNode licensesNode = vdfFile.GetNodeAt( new string[] { "UserLocalConfigStore", "Licenses" }, false );
@@ -667,8 +667,8 @@ namespace Depressurizer {
                     }
                 }
             }
-            
-            Dictionary<int,GameListingSource> ownedApps = new Dictionary<int,GameListingSource>();
+
+            Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
             foreach( int ownedPackageId in ownedPackageIds ) {
                 PackageInfo ownedPackage = allPackages[ownedPackageId];
@@ -793,46 +793,43 @@ namespace Depressurizer {
                     if( int.TryParse( gameNodePair.Key, out gameId ) ) {
                         if( ( ignore != null && ignore.Contains( gameId ) ) || !Program.GameDB.IncludeItemInGameList( gameId ) ) {
                             Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_SkippedProcessingGame, gameId );
-                            continue;
-                        }
-                        if( gameNodePair.Value != null && gameNodePair.Value.ContainsKey( "tags" ) ) {
-                            SortedSet<Category> cats = new SortedSet<Category>();
+                        } else if( gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array ) {
+                            GameInfo game = null;
+
+                            // Add the game to the list if it doesn't exist already
+                            if( !Games.ContainsKey( gameId ) ) {
+                                game = new GameInfo( gameId, Program.GameDB.GetName( gameId ) );
+                                Games.Add( gameId, game );
+                                Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId, game.Name );
+                            } else {
+                                game = Games[gameId];
+                            }
 
                             loadedGames++;
 
+                            game.ApplySource( GameListingSource.SteamConfig );
+
+                            game.Hidden = ( gameNodePair.Value.ContainsKey( "hidden" ) && gameNodePair.Value["hidden"].NodeInt != 0 );
+
                             VdfFileNode tagsNode = gameNodePair.Value["tags"];
-                            Dictionary<string, VdfFileNode> tagArray = tagsNode.NodeArray;
-                            if( tagArray != null ) {
-                                foreach( VdfFileNode tag in tagArray.Values ) {
-                                    string tagName = tag.NodeString;
-                                    if( tagName != null ) {
-                                        Category c = GetCategory( tagName );
-                                        if( c != null ) cats.Add( c );
+                            if( tagsNode != null ) {
+                                Dictionary<string, VdfFileNode> tagArray = tagsNode.NodeArray;
+                                if( tagArray != null ) {
+                                    List<Category> cats = new List<Category>( tagArray.Count );
+                                    foreach( VdfFileNode tag in tagArray.Values ) {
+                                        string tagName = tag.NodeString;
+                                        if( tagName != null ) {
+                                            Category c = GetCategory( tagName );
+                                            if( c != null ) cats.Add( c );
+                                        }
+                                    }
+                                    if( cats.Count > 0 ) {
+                                        SetGameCategories( gameId, cats, false );
                                     }
                                 }
                             }
 
-                            bool hidden = false;
-                            if( gameNodePair.Value.ContainsKey( "hidden" ) ) {
-                                VdfFileNode hiddenNode = gameNodePair.Value["hidden"];
-                                hidden = ( hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1 );
-                            }
-                            
-
-                            // Add the game to the list if it doesn't exist already
-                            if( !Games.ContainsKey( gameId ) ) {
-                                GameInfo newGame = new GameInfo( gameId, string.Empty );
-                                Games.Add( gameId, newGame );
-                                newGame.Name = Program.GameDB.GetName( gameId );
-                                Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId, newGame.Name );
-                            }
-
-                            if( cats.Count > 0 ) {
-                                this.SetGameCategories( gameId, cats, false );
-                            }
-                            Games[gameId].Hidden = hidden;
-
-                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, cats.Count );
+                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, string.Join(",",game.Categories) );
                         }
                     }
                 }
@@ -990,7 +987,7 @@ namespace Depressurizer {
                     }
 
                     if( game.Hidden ) {
-                        gameNode["hidden"] = new VdfFileNode("1");
+                        gameNode["hidden"] = new VdfFileNode( "1" );
                     } else {
                         gameNode.RemoveSubnode( "hidden" );
                     }
