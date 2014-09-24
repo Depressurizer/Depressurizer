@@ -35,7 +35,6 @@ namespace Depressurizer {
             XmlName_ExportDiscard = "export_discard",
             XmlName_AutoIgnore = "auto_ignore",
             XmlName_OverwriteNames = "overwrite_names",
-            XmlName_IgnoreDlc = "ignore_dlc",
             XmlName_IncludeShortcuts = "include_shortcuts",
             XmlName_ExclusionList = "exclusions",
             XmlName_Exclusion = "exclusion",
@@ -43,6 +42,7 @@ namespace Depressurizer {
             XmlName_Game = "game",
             XmlName_AutoCatList = "autocats",
             XmlName_Game_Id = "id",
+            XmlName_Game_Source = "source",
             XmlName_Game_Name = "name",
             XmlName_Game_Hidden = "hidden",
             XmlName_Game_CategoryList = "categories",
@@ -77,12 +77,10 @@ namespace Depressurizer {
 
         public bool AutoIgnore = true;
 
-        public bool IgnoreDlc = true;
-
         public bool IncludeShortcuts = true;
 
         public int ImportSteamData() {
-            return GameData.ImportSteamConfig( SteamID64, IgnoreList, IgnoreDlc, IncludeShortcuts );
+            return GameData.ImportSteamConfig( SteamID64, IgnoreList, IncludeShortcuts );
         }
 
         public void ExportSteamData() {
@@ -137,7 +135,6 @@ namespace Depressurizer {
                 profile.ExportDiscard = XmlUtil.GetBoolFromNode( profileNode[XmlName_ExportDiscard], profile.ExportDiscard );
                 profile.AutoIgnore = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoIgnore], profile.AutoIgnore );
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode[XmlName_OverwriteNames], profile.OverwriteOnDownload );
-                profile.IgnoreDlc = XmlUtil.GetBoolFromNode( profileNode[XmlName_IgnoreDlc], profile.IgnoreDlc );
 
                 if( profileVersion < 2 ) {
                     bool ignoreShortcuts = false;
@@ -191,11 +188,15 @@ namespace Depressurizer {
         private static void AddGameFromXmlNode( XmlNode node, Profile profile, int profileVersion ) {
             int id;
             if( XmlUtil.TryGetIntFromNode( node[XmlName_Game_Id], out id ) ) {
-                if( profile.IgnoreList.Contains( id ) || ( profile.IgnoreDlc && Program.GameDB.IsDlc( id ) ) ) {
+                GameListingSource source = XmlUtil.GetEnumFromNode<GameListingSource>( node[XmlName_Game_Source], GameListingSource.Unknown );
+
+                if( source < GameListingSource.Manual && (profile.IgnoreList.Contains( id ) || !Program.GameDB.IncludeItemInGameList( id ) ) ) {
                     return;
                 }
+
                 string name = XmlUtil.GetStringFromNode( node[XmlName_Game_Name], null );
                 GameInfo game = new GameInfo( id, name );
+                game.Source = source;
                 profile.GameData.Games.Add( id, game );
 
                 game.Hidden = XmlUtil.GetBoolFromNode( node[XmlName_Game_Hidden], false );
@@ -252,7 +253,6 @@ namespace Depressurizer {
             writer.WriteElementString( XmlName_ExportDiscard, ExportDiscard.ToString() );
             writer.WriteElementString( XmlName_AutoIgnore, AutoIgnore.ToString() );
             writer.WriteElementString( XmlName_OverwriteNames, OverwriteOnDownload.ToString() );
-            writer.WriteElementString( XmlName_IgnoreDlc, IgnoreDlc.ToString() );
             writer.WriteElementString( XmlName_IncludeShortcuts, IncludeShortcuts.ToString() );
 
             writer.WriteStartElement( XmlName_GameList );
@@ -262,6 +262,7 @@ namespace Depressurizer {
                     writer.WriteStartElement( XmlName_Game );
 
                     writer.WriteElementString( XmlName_Game_Id, g.Id.ToString() );
+                    writer.WriteElementString( XmlName_Game_Source, g.Source.ToString() );
 
                     if( g.Name != null ) {
                         writer.WriteElementString( XmlName_Game_Name, g.Name );

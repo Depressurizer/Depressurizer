@@ -89,13 +89,13 @@ namespace Depressurizer {
 
         #endregion
 
-        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore, ignoreDlc );
+        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore ) {
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore );
             DownloadProfileDataHelper( updateDlg );
         }
 
-        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore, ignoreDlc );
+        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore ) {
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore );
             DownloadProfileDataHelper( updateDlg );
         }
 
@@ -331,7 +331,7 @@ namespace Depressurizer {
             if( currentProfile != null ) {
                 if( updateUI ) Cursor = Cursors.WaitCursor;
                 try {
-                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IgnoreDlc );
+                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList );
                 } catch( ApplicationException e ) {
                     if( updateUI ) Cursor = Cursors.Default;
                     MessageBox.Show( e.Message, GlobalStrings.MainForm_ErrorDownloadingGameList, MessageBoxButtons.OK, MessageBoxIcon.Warning );
@@ -1132,7 +1132,7 @@ namespace Depressurizer {
             UpdateEnabledStatesForCategories();
             LoadGameDB();
 
-
+            PackageInfo.LoadPackages( string.Format(Properties.Resources.PackageInfoPath, settings.SteamPath ) );
 
             // jpodadera. Save original width and height
             originalHeight = this.Height;

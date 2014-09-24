@@ -79,6 +79,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\config\localconfig.vdf.
+        /// </summary>
+        internal static string LocalConfigPath {
+            get {
+                return ResourceManager.GetString("LocalConfigPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}\appcache\packageinfo.vdf.
         /// </summary>
         internal static string PackageInfoPath {

@@ -1080,33 +1080,6 @@
   <data name="grpIgnoreSettings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
   </data>
-  <data name="chkIgnoreDlc.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkIgnoreDlc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 58</value>
-  </data>
-  <data name="chkIgnoreDlc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 17</value>
-  </data>
-  <data name="chkIgnoreDlc.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="chkIgnoreDlc.Text" xml:space="preserve">
-    <value>Also ignore all DLC</value>
-  </data>
-  <data name="&gt;&gt;chkIgnoreDlc.Name" xml:space="preserve">
-    <value>chkIgnoreDlc</value>
-  </data>
-  <data name="&gt;&gt;chkIgnoreDlc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkIgnoreDlc.Parent" xml:space="preserve">
-    <value>grpIgnoreSettings</value>
-  </data>
-  <data name="&gt;&gt;chkIgnoreDlc.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="chkAutoIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -1138,7 +1111,7 @@
     <value>grpIgnoreSettings</value>
   </data>
   <data name="&gt;&gt;chkAutoIgnore.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="grpIgnoreSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>305, 3</value>

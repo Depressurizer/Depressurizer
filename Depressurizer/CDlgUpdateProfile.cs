@@ -41,9 +41,8 @@ namespace Depressurizer {
 
         private bool overwrite;
         private SortedSet<int> ignore;
-        private bool ignoreDlc;
 
-        public CDlgUpdateProfile( GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
+        public CDlgUpdateProfile( GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore )
             : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = false;
@@ -58,12 +57,11 @@ namespace Depressurizer {
             
             this.overwrite = overwrite;
             this.ignore = ignore;
-            this.ignoreDlc = ignoreDlc;
 
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        public CDlgUpdateProfile( GameList data, string customUrl, bool overwrite, SortedSet<int> ignore, bool ignoreDlc )
+        public CDlgUpdateProfile( GameList data, string customUrl, bool overwrite, SortedSet<int> ignore )
             : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = true;
@@ -78,7 +76,6 @@ namespace Depressurizer {
 
             this.overwrite = overwrite;
             this.ignore = ignore;
-            this.ignoreDlc = ignoreDlc;
 
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
@@ -135,11 +132,11 @@ namespace Depressurizer {
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
                 if( UseHtml ) {
                     int newItems;
-                    Fetched = data.IntegrateHtmlGameList( htmlDoc, overwrite, ignore, ignoreDlc, out newItems );
+                    Fetched = data.IntegrateHtmlGameList( htmlDoc, overwrite, ignore, out newItems );
                     Added = newItems;
                 } else {
                     int newItems;
-                    Fetched = data.IntegrateXmlGameList( doc, overwrite, ignore, ignoreDlc, out newItems );
+                    Fetched = data.IntegrateXmlGameList( doc, overwrite, ignore, out newItems );
                     Added = newItems;
                 }
                 OnJobCompletion();

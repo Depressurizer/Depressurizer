@@ -72,6 +72,7 @@ namespace Depressurizer {
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tabOpts = new System.Windows.Forms.TabPage();
             this.grpOtherOpt = new System.Windows.Forms.GroupBox();
+            this.chkIncludeShortcuts = new System.Windows.Forms.CheckBox();
             this.chkOverwriteNames = new System.Windows.Forms.CheckBox();
             this.tabIgnore = new System.Windows.Forms.TabPage();
             this.grpIgnored = new System.Windows.Forms.GroupBox();
@@ -80,8 +81,6 @@ namespace Depressurizer {
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
-            this.chkIncludeShortcuts = new System.Windows.Forms.CheckBox();
-            this.chkIgnoreDlc = new System.Windows.Forms.CheckBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
@@ -328,6 +327,14 @@ namespace Depressurizer {
             this.grpOtherOpt.Name = "grpOtherOpt";
             this.grpOtherOpt.TabStop = false;
             // 
+            // chkIncludeShortcuts
+            // 
+            resources.ApplyResources(this.chkIncludeShortcuts, "chkIncludeShortcuts");
+            this.chkIncludeShortcuts.Checked = true;
+            this.chkIncludeShortcuts.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIncludeShortcuts.Name = "chkIncludeShortcuts";
+            this.chkIncludeShortcuts.UseVisualStyleBackColor = true;
+            // 
             // chkOverwriteNames
             // 
             resources.ApplyResources(this.chkOverwriteNames, "chkOverwriteNames");
@@ -383,26 +390,9 @@ namespace Depressurizer {
             // grpIgnoreSettings
             // 
             resources.ApplyResources(this.grpIgnoreSettings, "grpIgnoreSettings");
-            this.grpIgnoreSettings.Controls.Add(this.chkIgnoreDlc);
             this.grpIgnoreSettings.Controls.Add(this.chkAutoIgnore);
             this.grpIgnoreSettings.Name = "grpIgnoreSettings";
             this.grpIgnoreSettings.TabStop = false;
-            // 
-            // chkIncludeShortcuts
-            // 
-            resources.ApplyResources(this.chkIncludeShortcuts, "chkIncludeShortcuts");
-            this.chkIncludeShortcuts.Checked = true;
-            this.chkIncludeShortcuts.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIncludeShortcuts.Name = "chkIncludeShortcuts";
-            this.chkIncludeShortcuts.UseVisualStyleBackColor = true;
-            // 
-            // chkIgnoreDlc
-            // 
-            resources.ApplyResources(this.chkIgnoreDlc, "chkIgnoreDlc");
-            this.chkIgnoreDlc.Checked = true;
-            this.chkIgnoreDlc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIgnoreDlc.Name = "chkIgnoreDlc";
-            this.chkIgnoreDlc.UseVisualStyleBackColor = true;
             // 
             // chkAutoIgnore
             // 
@@ -446,7 +436,6 @@ namespace Depressurizer {
             this.grpIgnored.ResumeLayout(false);
             this.grpIgnored.PerformLayout();
             this.grpIgnoreSettings.ResumeLayout(false);
-            this.grpIgnoreSettings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -483,7 +472,6 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkAutoIgnore;
         private System.Windows.Forms.GroupBox grpOtherOpt;
         private System.Windows.Forms.CheckBox chkOverwriteNames;
-        private System.Windows.Forms.CheckBox chkIgnoreDlc;
         private System.Windows.Forms.Label lblUserStatus;
         private System.Windows.Forms.Button cmdUserUpdate;
         private System.Windows.Forms.TextBox txtUserID;

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -141,7 +140,7 @@ namespace Depressurizer {
                 GetAllDataFromPage( page );
 
                 // Check whether it's DLC and return appropriately
-                if( IsDLC() ) {
+                if( Flags.Contains( "Downloadable Content" ) ) {
                     Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, string.Join( ",", Genres ) );
                     return AppTypes.DLC;
                 } else {
@@ -246,7 +245,7 @@ namespace Depressurizer {
                 this.Genres = other.Genres;
             }
 
-             if( other.Flags != null && other.Flags.Count > 0 && otherNewerForOtherFields ) {
+            if( other.Flags != null && other.Flags.Count > 0 && otherNewerForOtherFields ) {
                 this.Flags = other.Flags;
             }
 
@@ -271,8 +270,8 @@ namespace Depressurizer {
 
         }
 
-        private bool IsDLC() {
-            return this.Flags.Contains( "Downloadable Content" );
+        public bool IncludeInGameList() {
+            return !( AppType == AppTypes.DLC || AppType == AppTypes.Media || AppType == AppTypes.Tool );
         }
 
     }
@@ -312,8 +311,8 @@ namespace Depressurizer {
         }
 
         //TODO: make sure we don't use this where we shouldn't
-        public bool IsDlc( int id ) {
-            return Games.ContainsKey( id ) && Games[id].AppType == AppTypes.DLC;
+        public bool IncludeItemInGameList( int id ) {
+            return Games.ContainsKey( id ) && Games[id].IncludeInGameList();
         }
 
         public string GetName( int id ) {
@@ -657,7 +656,7 @@ namespace Depressurizer {
                     if( fileVersion < 1 ) {
                         int steamDate = XmlUtil.GetIntFromNode( gameNode["steamDate"], 0 );
                         if( steamDate > 0 ) {
-                            g.SteamReleaseDate = DateTime.FromOADate( steamDate ).ToString("MMM d, yyyy");
+                            g.SteamReleaseDate = DateTime.FromOADate( steamDate ).ToString( "MMM d, yyyy" );
                         } else {
                             g.SteamReleaseDate = null;
                         }

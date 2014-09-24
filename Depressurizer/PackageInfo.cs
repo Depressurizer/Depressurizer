@@ -7,27 +7,38 @@ using System.Text;
 using System.IO;
 
 namespace Depressurizer {
-    
+    enum PackageBillingType {
+        NoCost = 0,
+        Store = 1,
+        CDKey = 3,
+        HardwarePromo = 5,
+        Gift = 6,
+        AutoGrant = 7,
+        StoreOrCDKey = 10,
+        FreeOnDemand = 12
+    }
 
     class PackageInfo {
 
-        public List<int> appIds;
-        public int packageId;
-        public string name;
+        public List<int> AppIds;
+        public int Id;
+        public string Name;
 
-        public DateTime expiryTime;
-        public bool expires = false;
+        public PackageBillingType BillingType;
+
+        public DateTime ExpiryTime;
+        public bool Expires = false;
 
         public bool IsExpired {
             get {
-                return expires && ( expiryTime < DateTime.Now );
+                return Expires && ( ExpiryTime < DateTime.Now );
             }
         }
 
         public PackageInfo( int id = 0, string name = null) {
-            appIds = new List<int>();
-            this.packageId = id;
-            this.name = name;
+            AppIds = new List<int>();
+            this.Id = id;
+            this.Name = name;
         }
 
         public static PackageInfo FromVdfNode( VdfFileNode node ) {
@@ -43,21 +54,32 @@ namespace Depressurizer {
 
                 PackageInfo package = new PackageInfo(id, name);
 
+                VdfFileNode billingtypeNode = node["billingtype"];
+                if( billingtypeNode != null && billingtypeNode.NodeType == ValueType.String || billingtypeNode.NodeType == ValueType.Int ) {
+                    int bType = billingtypeNode.NodeInt;
+                    /*if( Enum.IsDefined( typeof(PackageBillingType), bType ) ) {
+
+                    } else {
+
+                    }*/
+                    package.BillingType = (PackageBillingType)bType;
+                }
+
                 VdfFileNode appsNode = node["appids"];
-                if( appsNode.NodeType == ValueType.Array ) {
+                if( appsNode != null && appsNode.NodeType == ValueType.Array ) {
                     foreach( VdfFileNode aNode in appsNode.NodeArray.Values ) {
                         if( aNode.NodeType == ValueType.Int ) {
-                            package.appIds.Add( aNode.NodeInt );
+                            package.AppIds.Add( aNode.NodeInt );
                         }
                     }
                 }
 
                 VdfFileNode expiryNode = node.GetNodeAt( new string[] {"extended", "ExpiryTime"}, false);
                 if( expiryNode != null && expiryNode.NodeType == ValueType.Int ) {
-                    package.expiryTime = GetLocalDateTime( expiryNode.NodeInt );
-                    package.expires = true;
+                    package.ExpiryTime = GetLocalDateTime( expiryNode.NodeInt );
+                    package.Expires = true;
                 } else {
-                    package.expires = false;
+                    package.Expires = false;
                 }
 
                 return package;
@@ -83,7 +105,7 @@ namespace Depressurizer {
             while( node != null ) {
                 PackageInfo p = FromVdfNode( node );
                 if( p != null ) {
-                    result.Add( p.packageId, p );
+                    result.Add( p.Id, p );
                 }
                 bReader.ReadBytes( 31 );
                 node = node = VdfFileNode.LoadFromBinary( bReader );

@@ -41,7 +41,7 @@ namespace Depressurizer {
                     if( package.IsExpired ) {
                         continue;
                     }
-                    foreach( int appId in package.appIds ) {
+                    foreach( int appId in package.AppIds ) {
                         if( appList.ContainsKey( appId ) ) {
                             if( appList[appId].AppType == AppTypes.Game ) {
                                 ownedAppIds.Add( appId );
