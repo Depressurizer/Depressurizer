@@ -202,9 +202,9 @@ namespace Depressurizer {
         #region Event Handlers
 
         private void DlgAutoCat_Load( object sender, EventArgs e ) {
-            ttHelp.SetToolTip( genreHelpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
-            ttHelp.SetToolTip( genreHelpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
-            ttHelp.SetToolTip( flagsHelpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip( genre_lblHelp_Prefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip( genre_lblHelp_RemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
+            ttHelp.Ext_SetToolTip( flags_lblHelp_Prefix, GlobalStrings.DlgAutoCat_Help_Prefix );
 
             FillAutocatList();
 

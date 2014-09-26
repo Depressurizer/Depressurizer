@@ -188,7 +188,8 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exception when downloading XML profile:\n{0}.
+        ///   Looks up a localized string similar to Exception when downloading XML profile:
+        ///{0}.
         /// </summary>
         internal static string CDlgGetSteamID_ExceptionDownloadingXMLProfile {
             get {
@@ -563,7 +564,8 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove any pre-existing categories that could potentially be added by this AutoCat.\nRemoves any category that consists of the Prefix followed by one of the unchecked genres below..
+        ///   Looks up a localized string similar to Remove any pre-existing categories that could potentially be added by this AutoCat.
+        ///Removes any category that consists of the Prefix followed by one of the unchecked genres below..
         /// </summary>
         internal static string DlgAutoCat_Help_Genre_RemoveExisting {
             get {

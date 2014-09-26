@@ -85,6 +85,10 @@ namespace Depressurizer {
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
+            this.lblHelp_WebUpdate = new System.Windows.Forms.Label();
+            this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.lblHelp_ExportDiscard = new System.Windows.Forms.Label();
+            this.lblHelp_LocalUpdate = new System.Windows.Forms.Label();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -275,6 +279,7 @@ namespace Depressurizer {
             // grpSaveOpt
             // 
             resources.ApplyResources(this.grpSaveOpt, "grpSaveOpt");
+            this.grpSaveOpt.Controls.Add(this.lblHelp_ExportDiscard);
             this.grpSaveOpt.Controls.Add(this.chkExportDiscard);
             this.grpSaveOpt.Controls.Add(this.chkAutoExport);
             this.grpSaveOpt.Name = "grpSaveOpt";
@@ -327,6 +332,8 @@ namespace Depressurizer {
             // grpUpdateOpt
             // 
             resources.ApplyResources(this.grpUpdateOpt, "grpUpdateOpt");
+            this.grpUpdateOpt.Controls.Add(this.lblHelp_LocalUpdate);
+            this.grpUpdateOpt.Controls.Add(this.lblHelp_WebUpdate);
             this.grpUpdateOpt.Controls.Add(this.chkWebUpdate);
             this.grpUpdateOpt.Controls.Add(this.chkLocalUpdate);
             this.grpUpdateOpt.Name = "grpUpdateOpt";
@@ -431,6 +438,28 @@ namespace Depressurizer {
             this.chkAutoIgnore.Name = "chkAutoIgnore";
             this.chkAutoIgnore.UseVisualStyleBackColor = true;
             // 
+            // lblHelp_WebUpdate
+            // 
+            resources.ApplyResources(this.lblHelp_WebUpdate, "lblHelp_WebUpdate");
+            this.lblHelp_WebUpdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHelp_WebUpdate.Name = "lblHelp_WebUpdate";
+            // 
+            // ttHelp
+            // 
+            this.ttHelp.UseFading = false;
+            // 
+            // lblHelp_ExportDiscard
+            // 
+            resources.ApplyResources(this.lblHelp_ExportDiscard, "lblHelp_ExportDiscard");
+            this.lblHelp_ExportDiscard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHelp_ExportDiscard.Name = "lblHelp_ExportDiscard";
+            // 
+            // lblHelp_LocalUpdate
+            // 
+            resources.ApplyResources(this.lblHelp_LocalUpdate, "lblHelp_LocalUpdate");
+            this.lblHelp_LocalUpdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHelp_LocalUpdate.Name = "lblHelp_LocalUpdate";
+            // 
             // DlgProfile
             // 
             this.AcceptButton = this.cmdOk;
@@ -516,5 +545,9 @@ namespace Depressurizer {
         private System.Windows.Forms.GroupBox grpUpdateOpt;
         private System.Windows.Forms.CheckBox chkWebUpdate;
         private System.Windows.Forms.CheckBox chkLocalUpdate;
+        private System.Windows.Forms.Label lblHelp_WebUpdate;
+        private Lib.ExtToolTip ttHelp;
+        private System.Windows.Forms.Label lblHelp_ExportDiscard;
+        private System.Windows.Forms.Label lblHelp_LocalUpdate;
     }
 }

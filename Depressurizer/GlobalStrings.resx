@@ -263,7 +263,8 @@ Time Remaining:</value>
     <value>Attempting to download XML profile page for custom URL name {0}: {1}</value>
   </data>
   <data name="CDlgGetSteamID_ExceptionDownloadingXMLProfile" xml:space="preserve">
-    <value>Exception when downloading XML profile:\n{0}</value>
+    <value>Exception when downloading XML profile:
+{0}</value>
   </data>
   <data name="CDlgGetSteamID_FailedToDownloadProfile" xml:space="preserve">
     <value>Failed to download profile data:</value>
@@ -868,7 +869,8 @@ Continue loading file?</value>
     <value>You must select a valid AutoCat type.</value>
   </data>
   <data name="DlgAutoCat_Help_Genre_RemoveExisting" xml:space="preserve">
-    <value>Remove any pre-existing categories that could potentially be added by this AutoCat.\nRemoves any category that consists of the Prefix followed by one of the unchecked genres below.</value>
+    <value>Remove any pre-existing categories that could potentially be added by this AutoCat.
+Removes any category that consists of the Prefix followed by one of the unchecked genres below.</value>
   </data>
   <data name="DlgAutoCat_Help_Prefix" xml:space="preserve">
     <value>Optional. Text prefix placed before the genre name.</value>

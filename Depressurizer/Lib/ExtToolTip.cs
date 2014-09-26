@@ -15,7 +15,7 @@ namespace Depressurizer.Lib {
         /// </summary>
         /// <param name="c">Control to apply the tooltip to</param>
         /// <param name="s">String to show in the tooltip</param>
-        public void Ext_SetTooltip( Control c, string s ) {
+        public void Ext_SetToolTip( Control c, string s ) {
             bindings[c] = s;
             c.MouseEnter += Ext_Control_MouseEnter;
             c.MouseLeave += Ext_Control_MouseLeave;

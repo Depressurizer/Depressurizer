@@ -130,10 +130,10 @@ namespace Depressurizer {
         #region Event Handlers
 
         private void ProfileDlg_Load( object sender, EventArgs e ) {
-            //ttHelp.SetToolTip( lnkHelpExportDiscard, "Does not remove games from your library or game list. Only removes extraneous information for unrecognized games from cluttering your config file." );
-            //ttHelp.SetToolTip( lnkHelpLocalUpdate, "Parse files from your Steam installation to get a list of your games. Much faster and generally more accurate and reliable than a web update." );
-            //ttHelp.SetToolTip( lnkHelpWebUpdate, "Download a game list from your profile on the steamcommunity.com website. Requires your profile to be set to \"Public\"." );
-
+            // TODO: String literals
+            ttHelp.Ext_SetToolTip( lblHelp_ExportDiscard, "Removes extraneous information for unrecognized games from your Steam config file.\nDoes not remove games from your library or game list.\nDisable this if you are losing categories for games in your library that do not show up in Depressurizer." );
+            ttHelp.Ext_SetToolTip( lblHelp_LocalUpdate, "Parse files from your Steam installation to get a list of your games.\nMuch faster and generally more accurate and reliable than a web update." );
+            ttHelp.Ext_SetToolTip( lblHelp_WebUpdate, "Download a game list from your profile on the steamcommunity.com website.\nRequires your profile to be set to \"Public\"." );
 
             LoadShortIds();
             if( editMode ) {

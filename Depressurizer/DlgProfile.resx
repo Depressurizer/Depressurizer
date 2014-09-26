@@ -726,6 +726,33 @@
   <data name="grpSaveOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="lblHelp_ExportDiscard.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblHelp_ExportDiscard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>382, 42</value>
+  </data>
+  <data name="lblHelp_ExportDiscard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 15</value>
+  </data>
+  <data name="lblHelp_ExportDiscard.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblHelp_ExportDiscard.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_ExportDiscard.Name" xml:space="preserve">
+    <value>lblHelp_ExportDiscard</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_ExportDiscard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_ExportDiscard.Parent" xml:space="preserve">
+    <value>grpSaveOpt</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_ExportDiscard.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="chkExportDiscard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -751,7 +778,7 @@
     <value>grpSaveOpt</value>
   </data>
   <data name="&gt;&gt;chkExportDiscard.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="chkAutoExport.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -778,7 +805,7 @@
     <value>grpSaveOpt</value>
   </data>
   <data name="&gt;&gt;chkAutoExport.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="grpSaveOpt.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 77</value>
@@ -840,6 +867,63 @@
   <data name="grpUpdateOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="lblHelp_LocalUpdate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblHelp_LocalUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>304, 19</value>
+  </data>
+  <data name="lblHelp_LocalUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 15</value>
+  </data>
+  <data name="lblHelp_LocalUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="lblHelp_LocalUpdate.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_LocalUpdate.Name" xml:space="preserve">
+    <value>lblHelp_LocalUpdate</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_LocalUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_LocalUpdate.Parent" xml:space="preserve">
+    <value>grpUpdateOpt</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_LocalUpdate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblHelp_WebUpdate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblHelp_WebUpdate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblHelp_WebUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>273, 42</value>
+  </data>
+  <data name="lblHelp_WebUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 15</value>
+  </data>
+  <data name="lblHelp_WebUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lblHelp_WebUpdate.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_WebUpdate.Name" xml:space="preserve">
+    <value>lblHelp_WebUpdate</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_WebUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_WebUpdate.Parent" xml:space="preserve">
+    <value>grpUpdateOpt</value>
+  </data>
+  <data name="&gt;&gt;lblHelp_WebUpdate.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="chkWebUpdate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -865,7 +949,7 @@
     <value>grpUpdateOpt</value>
   </data>
   <data name="&gt;&gt;chkWebUpdate.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="chkLocalUpdate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -892,7 +976,7 @@
     <value>grpUpdateOpt</value>
   </data>
   <data name="&gt;&gt;chkLocalUpdate.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="grpUpdateOpt.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 148</value>
@@ -1263,6 +1347,9 @@
   <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1277,6 +1364,12 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Create Profile</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
+    <value>ttHelp</value>
+  </data>
+  <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgProfile</value>

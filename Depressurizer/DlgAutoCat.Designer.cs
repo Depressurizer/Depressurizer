@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             this.lstAutoCats = new System.Windows.Forms.ListBox();
             this.cmdDelete = new System.Windows.Forms.Button();
             this.cmdRename = new System.Windows.Forms.Button();
@@ -31,8 +30,6 @@
             this.grpList = new System.Windows.Forms.GroupBox();
             this.panEditGenre = new System.Windows.Forms.Panel();
             this.grpEditGenre = new System.Windows.Forms.GroupBox();
-            this.genreHelpRemoveExisting = new System.Windows.Forms.LinkLabel();
-            this.genreHelpPrefix = new System.Windows.Forms.LinkLabel();
             this.genreLblPrefix = new System.Windows.Forms.Label();
             this.genreTxtPrefix = new System.Windows.Forms.TextBox();
             this.genreTblIgnore = new System.Windows.Forms.TableLayoutPanel();
@@ -55,8 +52,10 @@
             this.flagsTxtPrefix = new System.Windows.Forms.TextBox();
             this.flagsLblPrefix = new System.Windows.Forms.Label();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
-            this.flagsHelpPrefix = new System.Windows.Forms.LinkLabel();
+            this.flags_lblHelp_Prefix = new System.Windows.Forms.Label();
+            this.genre_lblHelp_Prefix = new System.Windows.Forms.Label();
+            this.genre_lblHelp_RemoveExisting = new System.Windows.Forms.Label();
+            this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpList.SuspendLayout();
             this.panEditGenre.SuspendLayout();
             this.grpEditGenre.SuspendLayout();
@@ -81,7 +80,7 @@
             this.lstAutoCats.IntegralHeight = false;
             this.lstAutoCats.Location = new System.Drawing.Point(6, 19);
             this.lstAutoCats.Name = "lstAutoCats";
-            this.lstAutoCats.Size = new System.Drawing.Size(185, 155);
+            this.lstAutoCats.Size = new System.Drawing.Size(185, 156);
             this.lstAutoCats.TabIndex = 0;
             this.lstAutoCats.SelectedIndexChanged += new System.EventHandler(this.lstAutoCats_SelectedIndexChanged);
             // 
@@ -89,7 +88,7 @@
             // 
             this.cmdDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDelete.Location = new System.Drawing.Point(6, 231);
+            this.cmdDelete.Location = new System.Drawing.Point(6, 232);
             this.cmdDelete.Name = "cmdDelete";
             this.cmdDelete.Size = new System.Drawing.Size(185, 23);
             this.cmdDelete.TabIndex = 3;
@@ -101,7 +100,7 @@
             // 
             this.cmdRename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRename.Location = new System.Drawing.Point(6, 205);
+            this.cmdRename.Location = new System.Drawing.Point(6, 206);
             this.cmdRename.Name = "cmdRename";
             this.cmdRename.Size = new System.Drawing.Size(185, 23);
             this.cmdRename.TabIndex = 2;
@@ -113,7 +112,7 @@
             // 
             this.cmdCreate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCreate.Location = new System.Drawing.Point(6, 179);
+            this.cmdCreate.Location = new System.Drawing.Point(6, 180);
             this.cmdCreate.Name = "cmdCreate";
             this.cmdCreate.Size = new System.Drawing.Size(185, 23);
             this.cmdCreate.TabIndex = 1;
@@ -130,7 +129,7 @@
             this.grpList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpList.Location = new System.Drawing.Point(0, 0);
             this.grpList.Name = "grpList";
-            this.grpList.Size = new System.Drawing.Size(197, 262);
+            this.grpList.Size = new System.Drawing.Size(198, 262);
             this.grpList.TabIndex = 0;
             this.grpList.TabStop = false;
             this.grpList.Text = "AutoCat List";
@@ -141,13 +140,13 @@
             this.panEditGenre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panEditGenre.Location = new System.Drawing.Point(0, 0);
             this.panEditGenre.Name = "panEditGenre";
-            this.panEditGenre.Size = new System.Drawing.Size(410, 262);
+            this.panEditGenre.Size = new System.Drawing.Size(409, 262);
             this.panEditGenre.TabIndex = 1;
             // 
             // grpEditGenre
             // 
-            this.grpEditGenre.Controls.Add(this.genreHelpRemoveExisting);
-            this.grpEditGenre.Controls.Add(this.genreHelpPrefix);
+            this.grpEditGenre.Controls.Add(this.genre_lblHelp_RemoveExisting);
+            this.grpEditGenre.Controls.Add(this.genre_lblHelp_Prefix);
             this.grpEditGenre.Controls.Add(this.genreLblPrefix);
             this.grpEditGenre.Controls.Add(this.genreTxtPrefix);
             this.grpEditGenre.Controls.Add(this.genreTblIgnore);
@@ -159,30 +158,10 @@
             this.grpEditGenre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpEditGenre.Location = new System.Drawing.Point(0, 0);
             this.grpEditGenre.Name = "grpEditGenre";
-            this.grpEditGenre.Size = new System.Drawing.Size(410, 262);
+            this.grpEditGenre.Size = new System.Drawing.Size(409, 262);
             this.grpEditGenre.TabIndex = 0;
             this.grpEditGenre.TabStop = false;
             this.grpEditGenre.Text = "Edit Genre AutoCat";
-            // 
-            // genreHelpRemoveExisting
-            // 
-            this.genreHelpRemoveExisting.AutoSize = true;
-            this.genreHelpRemoveExisting.Location = new System.Drawing.Point(238, 86);
-            this.genreHelpRemoveExisting.Name = "genreHelpRemoveExisting";
-            this.genreHelpRemoveExisting.Size = new System.Drawing.Size(13, 13);
-            this.genreHelpRemoveExisting.TabIndex = 10;
-            this.genreHelpRemoveExisting.TabStop = true;
-            this.genreHelpRemoveExisting.Text = "?";
-            // 
-            // genreHelpPrefix
-            // 
-            this.genreHelpPrefix.AutoSize = true;
-            this.genreHelpPrefix.Location = new System.Drawing.Point(238, 22);
-            this.genreHelpPrefix.Name = "genreHelpPrefix";
-            this.genreHelpPrefix.Size = new System.Drawing.Size(13, 13);
-            this.genreHelpPrefix.TabIndex = 8;
-            this.genreHelpPrefix.TabStop = true;
-            this.genreHelpPrefix.Text = "?";
             // 
             // genreLblPrefix
             // 
@@ -209,20 +188,20 @@
             this.genreTblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.genreTblIgnore.Controls.Add(this.genreCmdUncheckAll, 1, 0);
             this.genreTblIgnore.Controls.Add(this.genreCmdCheckAll, 0, 0);
-            this.genreTblIgnore.Location = new System.Drawing.Point(6, 227);
+            this.genreTblIgnore.Location = new System.Drawing.Point(6, 228);
             this.genreTblIgnore.Name = "genreTblIgnore";
             this.genreTblIgnore.RowCount = 1;
             this.genreTblIgnore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.genreTblIgnore.Size = new System.Drawing.Size(399, 30);
+            this.genreTblIgnore.Size = new System.Drawing.Size(401, 30);
             this.genreTblIgnore.TabIndex = 7;
             // 
             // genreCmdUncheckAll
             // 
             this.genreCmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.genreCmdUncheckAll.Location = new System.Drawing.Point(202, 3);
+            this.genreCmdUncheckAll.Location = new System.Drawing.Point(203, 3);
             this.genreCmdUncheckAll.Name = "genreCmdUncheckAll";
-            this.genreCmdUncheckAll.Size = new System.Drawing.Size(194, 23);
+            this.genreCmdUncheckAll.Size = new System.Drawing.Size(195, 23);
             this.genreCmdUncheckAll.TabIndex = 7;
             this.genreCmdUncheckAll.Text = "Uncheck All";
             this.genreCmdUncheckAll.UseVisualStyleBackColor = true;
@@ -234,7 +213,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.genreCmdCheckAll.Location = new System.Drawing.Point(3, 3);
             this.genreCmdCheckAll.Name = "genreCmdCheckAll";
-            this.genreCmdCheckAll.Size = new System.Drawing.Size(193, 23);
+            this.genreCmdCheckAll.Size = new System.Drawing.Size(194, 23);
             this.genreCmdCheckAll.TabIndex = 6;
             this.genreCmdCheckAll.Text = "Check All";
             this.genreCmdCheckAll.UseVisualStyleBackColor = true;
@@ -248,7 +227,7 @@
             this.genreLstIgnore.CheckBoxes = true;
             this.genreLstIgnore.Location = new System.Drawing.Point(9, 130);
             this.genreLstIgnore.Name = "genreLstIgnore";
-            this.genreLstIgnore.Size = new System.Drawing.Size(394, 98);
+            this.genreLstIgnore.Size = new System.Drawing.Size(396, 99);
             this.genreLstIgnore.TabIndex = 6;
             this.genreLstIgnore.UseCompatibleStateImageBehavior = false;
             this.genreLstIgnore.View = System.Windows.Forms.View.List;
@@ -324,12 +303,12 @@
             this.panEditFlags.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panEditFlags.Location = new System.Drawing.Point(0, 0);
             this.panEditFlags.Name = "panEditFlags";
-            this.panEditFlags.Size = new System.Drawing.Size(410, 262);
+            this.panEditFlags.Size = new System.Drawing.Size(409, 262);
             this.panEditFlags.TabIndex = 1;
             // 
             // flagsGrp
             // 
-            this.flagsGrp.Controls.Add(this.flagsHelpPrefix);
+            this.flagsGrp.Controls.Add(this.flags_lblHelp_Prefix);
             this.flagsGrp.Controls.Add(this.flagsTbl);
             this.flagsGrp.Controls.Add(this.flagsLblInclude);
             this.flagsGrp.Controls.Add(this.flagsLstIncluded);
@@ -338,7 +317,7 @@
             this.flagsGrp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flagsGrp.Location = new System.Drawing.Point(0, 0);
             this.flagsGrp.Name = "flagsGrp";
-            this.flagsGrp.Size = new System.Drawing.Size(410, 262);
+            this.flagsGrp.Size = new System.Drawing.Size(409, 262);
             this.flagsGrp.TabIndex = 0;
             this.flagsGrp.TabStop = false;
             this.flagsGrp.Text = "Edit Flag Autocat";
@@ -352,11 +331,11 @@
             this.flagsTbl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.flagsTbl.Controls.Add(this.flagsCmdCheckAll, 0, 0);
             this.flagsTbl.Controls.Add(this.flagsCmdUncheckAll, 1, 0);
-            this.flagsTbl.Location = new System.Drawing.Point(3, 227);
+            this.flagsTbl.Location = new System.Drawing.Point(3, 228);
             this.flagsTbl.Name = "flagsTbl";
             this.flagsTbl.RowCount = 1;
             this.flagsTbl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.flagsTbl.Size = new System.Drawing.Size(401, 30);
+            this.flagsTbl.Size = new System.Drawing.Size(403, 30);
             this.flagsTbl.TabIndex = 4;
             // 
             // flagsCmdCheckAll
@@ -365,7 +344,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flagsCmdCheckAll.Location = new System.Drawing.Point(3, 3);
             this.flagsCmdCheckAll.Name = "flagsCmdCheckAll";
-            this.flagsCmdCheckAll.Size = new System.Drawing.Size(194, 23);
+            this.flagsCmdCheckAll.Size = new System.Drawing.Size(195, 23);
             this.flagsCmdCheckAll.TabIndex = 0;
             this.flagsCmdCheckAll.Text = "Check All";
             this.flagsCmdCheckAll.UseVisualStyleBackColor = true;
@@ -375,9 +354,9 @@
             // 
             this.flagsCmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flagsCmdUncheckAll.Location = new System.Drawing.Point(203, 3);
+            this.flagsCmdUncheckAll.Location = new System.Drawing.Point(204, 3);
             this.flagsCmdUncheckAll.Name = "flagsCmdUncheckAll";
-            this.flagsCmdUncheckAll.Size = new System.Drawing.Size(195, 23);
+            this.flagsCmdUncheckAll.Size = new System.Drawing.Size(196, 23);
             this.flagsCmdUncheckAll.TabIndex = 1;
             this.flagsCmdUncheckAll.Text = "Uncheck All";
             this.flagsCmdUncheckAll.UseVisualStyleBackColor = true;
@@ -400,7 +379,7 @@
             this.flagsLstIncluded.CheckBoxes = true;
             this.flagsLstIncluded.Location = new System.Drawing.Point(6, 85);
             this.flagsLstIncluded.Name = "flagsLstIncluded";
-            this.flagsLstIncluded.Size = new System.Drawing.Size(395, 140);
+            this.flagsLstIncluded.Size = new System.Drawing.Size(397, 141);
             this.flagsLstIncluded.TabIndex = 3;
             this.flagsLstIncluded.UseCompatibleStateImageBehavior = false;
             this.flagsLstIncluded.View = System.Windows.Forms.View.List;
@@ -436,22 +415,46 @@
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.panEditFlags);
             this.splitContainer.Panel2.Controls.Add(this.panEditGenre);
+            this.splitContainer.Panel2.Controls.Add(this.panEditFlags);
             this.splitContainer.Panel2MinSize = 250;
             this.splitContainer.Size = new System.Drawing.Size(611, 262);
-            this.splitContainer.SplitterDistance = 197;
+            this.splitContainer.SplitterDistance = 198;
             this.splitContainer.TabIndex = 7;
             // 
-            // flagsHelpPrefix
+            // flags_lblHelp_Prefix
             // 
-            this.flagsHelpPrefix.AutoSize = true;
-            this.flagsHelpPrefix.Location = new System.Drawing.Point(238, 22);
-            this.flagsHelpPrefix.Name = "flagsHelpPrefix";
-            this.flagsHelpPrefix.Size = new System.Drawing.Size(13, 13);
-            this.flagsHelpPrefix.TabIndex = 5;
-            this.flagsHelpPrefix.TabStop = true;
-            this.flagsHelpPrefix.Text = "?";
+            this.flags_lblHelp_Prefix.AutoSize = true;
+            this.flags_lblHelp_Prefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flags_lblHelp_Prefix.Location = new System.Drawing.Point(238, 22);
+            this.flags_lblHelp_Prefix.Name = "flags_lblHelp_Prefix";
+            this.flags_lblHelp_Prefix.Size = new System.Drawing.Size(15, 15);
+            this.flags_lblHelp_Prefix.TabIndex = 6;
+            this.flags_lblHelp_Prefix.Text = "?";
+            // 
+            // genre_lblHelp_Prefix
+            // 
+            this.genre_lblHelp_Prefix.AutoSize = true;
+            this.genre_lblHelp_Prefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.genre_lblHelp_Prefix.Location = new System.Drawing.Point(238, 22);
+            this.genre_lblHelp_Prefix.Name = "genre_lblHelp_Prefix";
+            this.genre_lblHelp_Prefix.Size = new System.Drawing.Size(15, 15);
+            this.genre_lblHelp_Prefix.TabIndex = 11;
+            this.genre_lblHelp_Prefix.Text = "?";
+            // 
+            // genre_lblHelp_RemoveExisting
+            // 
+            this.genre_lblHelp_RemoveExisting.AutoSize = true;
+            this.genre_lblHelp_RemoveExisting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.genre_lblHelp_RemoveExisting.Location = new System.Drawing.Point(238, 82);
+            this.genre_lblHelp_RemoveExisting.Name = "genre_lblHelp_RemoveExisting";
+            this.genre_lblHelp_RemoveExisting.Size = new System.Drawing.Size(15, 15);
+            this.genre_lblHelp_RemoveExisting.TabIndex = 12;
+            this.genre_lblHelp_RemoveExisting.Text = "?";
+            // 
+            // ttHelp
+            // 
+            this.ttHelp.UseFading = false;
             // 
             // DlgAutoCat
             // 
@@ -517,9 +520,9 @@
         private System.Windows.Forms.TextBox flagsTxtPrefix;
         private System.Windows.Forms.Label flagsLblPrefix;
         private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.LinkLabel genreHelpPrefix;
-        private System.Windows.Forms.LinkLabel genreHelpRemoveExisting;
-        private System.Windows.Forms.ToolTip ttHelp;
-        private System.Windows.Forms.LinkLabel flagsHelpPrefix;
+        private System.Windows.Forms.Label genre_lblHelp_RemoveExisting;
+        private System.Windows.Forms.Label genre_lblHelp_Prefix;
+        private System.Windows.Forms.Label flags_lblHelp_Prefix;
+        private Lib.ExtToolTip ttHelp;
     }
 }
