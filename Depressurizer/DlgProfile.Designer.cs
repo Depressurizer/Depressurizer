@@ -59,18 +59,21 @@ namespace Depressurizer {
             this.grpActions = new System.Windows.Forms.GroupBox();
             this.chkSetStartup = new System.Windows.Forms.CheckBox();
             this.chkActImport = new System.Windows.Forms.CheckBox();
-            this.chkActDownload = new System.Windows.Forms.CheckBox();
+            this.chkActUpdate = new System.Windows.Forms.CheckBox();
             this.cmdOk = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.grpLoadOpt = new System.Windows.Forms.GroupBox();
             this.chkAutoImport = new System.Windows.Forms.CheckBox();
-            this.chkAutoDownload = new System.Windows.Forms.CheckBox();
+            this.chkAutoUpdate = new System.Windows.Forms.CheckBox();
             this.grpSaveOpt = new System.Windows.Forms.GroupBox();
             this.chkExportDiscard = new System.Windows.Forms.CheckBox();
             this.chkAutoExport = new System.Windows.Forms.CheckBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tabOpts = new System.Windows.Forms.TabPage();
+            this.grpUpdateOpt = new System.Windows.Forms.GroupBox();
+            this.chkWebUpdate = new System.Windows.Forms.CheckBox();
+            this.chkLocalUpdate = new System.Windows.Forms.CheckBox();
             this.grpOtherOpt = new System.Windows.Forms.GroupBox();
             this.chkIncludeShortcuts = new System.Windows.Forms.CheckBox();
             this.chkOverwriteNames = new System.Windows.Forms.CheckBox();
@@ -90,6 +93,7 @@ namespace Depressurizer {
             this.tabControl.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tabOpts.SuspendLayout();
+            this.grpUpdateOpt.SuspendLayout();
             this.grpOtherOpt.SuspendLayout();
             this.tabIgnore.SuspendLayout();
             this.grpIgnored.SuspendLayout();
@@ -203,7 +207,7 @@ namespace Depressurizer {
             resources.ApplyResources(this.grpActions, "grpActions");
             this.grpActions.Controls.Add(this.chkSetStartup);
             this.grpActions.Controls.Add(this.chkActImport);
-            this.grpActions.Controls.Add(this.chkActDownload);
+            this.grpActions.Controls.Add(this.chkActUpdate);
             this.grpActions.Name = "grpActions";
             this.grpActions.TabStop = false;
             // 
@@ -223,13 +227,13 @@ namespace Depressurizer {
             this.chkActImport.Name = "chkActImport";
             this.chkActImport.UseVisualStyleBackColor = true;
             // 
-            // chkActDownload
+            // chkActUpdate
             // 
-            resources.ApplyResources(this.chkActDownload, "chkActDownload");
-            this.chkActDownload.Checked = true;
-            this.chkActDownload.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkActDownload.Name = "chkActDownload";
-            this.chkActDownload.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.chkActUpdate, "chkActUpdate");
+            this.chkActUpdate.Checked = true;
+            this.chkActUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkActUpdate.Name = "chkActUpdate";
+            this.chkActUpdate.UseVisualStyleBackColor = true;
             // 
             // cmdOk
             // 
@@ -250,7 +254,7 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.grpLoadOpt, "grpLoadOpt");
             this.grpLoadOpt.Controls.Add(this.chkAutoImport);
-            this.grpLoadOpt.Controls.Add(this.chkAutoDownload);
+            this.grpLoadOpt.Controls.Add(this.chkAutoUpdate);
             this.grpLoadOpt.Name = "grpLoadOpt";
             this.grpLoadOpt.TabStop = false;
             // 
@@ -260,13 +264,13 @@ namespace Depressurizer {
             this.chkAutoImport.Name = "chkAutoImport";
             this.chkAutoImport.UseVisualStyleBackColor = true;
             // 
-            // chkAutoDownload
+            // chkAutoUpdate
             // 
-            resources.ApplyResources(this.chkAutoDownload, "chkAutoDownload");
-            this.chkAutoDownload.Checked = true;
-            this.chkAutoDownload.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoDownload.Name = "chkAutoDownload";
-            this.chkAutoDownload.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.chkAutoUpdate, "chkAutoUpdate");
+            this.chkAutoUpdate.Checked = true;
+            this.chkAutoUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoUpdate.Name = "chkAutoUpdate";
+            this.chkAutoUpdate.UseVisualStyleBackColor = true;
             // 
             // grpSaveOpt
             // 
@@ -312,12 +316,37 @@ namespace Depressurizer {
             // 
             // tabOpts
             // 
+            this.tabOpts.Controls.Add(this.grpUpdateOpt);
             this.tabOpts.Controls.Add(this.grpOtherOpt);
             this.tabOpts.Controls.Add(this.grpSaveOpt);
             this.tabOpts.Controls.Add(this.grpLoadOpt);
             resources.ApplyResources(this.tabOpts, "tabOpts");
             this.tabOpts.Name = "tabOpts";
             this.tabOpts.UseVisualStyleBackColor = true;
+            // 
+            // grpUpdateOpt
+            // 
+            resources.ApplyResources(this.grpUpdateOpt, "grpUpdateOpt");
+            this.grpUpdateOpt.Controls.Add(this.chkWebUpdate);
+            this.grpUpdateOpt.Controls.Add(this.chkLocalUpdate);
+            this.grpUpdateOpt.Name = "grpUpdateOpt";
+            this.grpUpdateOpt.TabStop = false;
+            // 
+            // chkWebUpdate
+            // 
+            resources.ApplyResources(this.chkWebUpdate, "chkWebUpdate");
+            this.chkWebUpdate.Checked = true;
+            this.chkWebUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkWebUpdate.Name = "chkWebUpdate";
+            this.chkWebUpdate.UseVisualStyleBackColor = true;
+            // 
+            // chkLocalUpdate
+            // 
+            resources.ApplyResources(this.chkLocalUpdate, "chkLocalUpdate");
+            this.chkLocalUpdate.Checked = true;
+            this.chkLocalUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLocalUpdate.Name = "chkLocalUpdate";
+            this.chkLocalUpdate.UseVisualStyleBackColor = true;
             // 
             // grpOtherOpt
             // 
@@ -430,6 +459,8 @@ namespace Depressurizer {
             this.tabControl.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabOpts.ResumeLayout(false);
+            this.grpUpdateOpt.ResumeLayout(false);
+            this.grpUpdateOpt.PerformLayout();
             this.grpOtherOpt.ResumeLayout(false);
             this.grpOtherOpt.PerformLayout();
             this.tabIgnore.ResumeLayout(false);
@@ -449,12 +480,12 @@ namespace Depressurizer {
         private System.Windows.Forms.GroupBox grpProfInfo;
         private System.Windows.Forms.GroupBox grpActions;
         private System.Windows.Forms.CheckBox chkActImport;
-        private System.Windows.Forms.CheckBox chkActDownload;
+        private System.Windows.Forms.CheckBox chkActUpdate;
         private System.Windows.Forms.Button cmdOk;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.GroupBox grpLoadOpt;
         private System.Windows.Forms.CheckBox chkAutoImport;
-        private System.Windows.Forms.CheckBox chkAutoDownload;
+        private System.Windows.Forms.CheckBox chkAutoUpdate;
         private System.Windows.Forms.GroupBox grpSaveOpt;
         private System.Windows.Forms.CheckBox chkExportDiscard;
         private System.Windows.Forms.CheckBox chkAutoExport;
@@ -482,5 +513,8 @@ namespace Depressurizer {
         private System.Windows.Forms.RadioButton radSelUserByID;
         private System.Windows.Forms.RadioButton radSelUserFromList;
         private System.Windows.Forms.CheckBox chkIncludeShortcuts;
+        private System.Windows.Forms.GroupBox grpUpdateOpt;
+        private System.Windows.Forms.CheckBox chkWebUpdate;
+        private System.Windows.Forms.CheckBox chkLocalUpdate;
     }
 }

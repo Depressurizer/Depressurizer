@@ -108,17 +108,17 @@ namespace Depressurizer {
             this.menu_File_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Profile_Download = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Profile_Update = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Import = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Profile_Export = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Profile_Edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.editAutoCatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Profile_AutoCats = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutonameAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutocatAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuToolsAutocat_List = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menu_Tools_Autocat_List = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menu_Tools_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Tools_DBEdit = new System.Windows.Forms.ToolStripMenuItem();
@@ -640,21 +640,21 @@ namespace Depressurizer {
             // menu_Profile
             // 
             this.menu_Profile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menu_Profile_Download,
+            this.menu_Profile_Update,
             this.menu_Profile_Import,
             this.menu_Profile_Sep1,
             this.menu_Profile_Export,
             this.menu_Profile_Sep2,
             this.menu_Profile_Edit,
-            this.editAutoCatsToolStripMenuItem});
+            this.menu_Profile_AutoCats});
             this.menu_Profile.Name = "menu_Profile";
             resources.ApplyResources(this.menu_Profile, "menu_Profile");
             // 
-            // menu_Profile_Download
+            // menu_Profile_Update
             // 
-            this.menu_Profile_Download.Name = "menu_Profile_Download";
-            resources.ApplyResources(this.menu_Profile_Download, "menu_Profile_Download");
-            this.menu_Profile_Download.Click += new System.EventHandler(this.menu_Profile_Download_Click);
+            this.menu_Profile_Update.Name = "menu_Profile_Update";
+            resources.ApplyResources(this.menu_Profile_Update, "menu_Profile_Update");
+            this.menu_Profile_Update.Click += new System.EventHandler(this.menu_Profile_Update_Click);
             // 
             // menu_Profile_Import
             // 
@@ -684,17 +684,17 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Profile_Edit, "menu_Profile_Edit");
             this.menu_Profile_Edit.Click += new System.EventHandler(this.menu_Profile_Edit_Click);
             // 
-            // editAutoCatsToolStripMenuItem
+            // menu_Profile_AutoCats
             // 
-            this.editAutoCatsToolStripMenuItem.Name = "editAutoCatsToolStripMenuItem";
-            resources.ApplyResources(this.editAutoCatsToolStripMenuItem, "editAutoCatsToolStripMenuItem");
-            this.editAutoCatsToolStripMenuItem.Click += new System.EventHandler(this.editAutoCatsToolStripMenuItem_Click);
+            this.menu_Profile_AutoCats.Name = "menu_Profile_AutoCats";
+            resources.ApplyResources(this.menu_Profile_AutoCats, "menu_Profile_AutoCats");
+            this.menu_Profile_AutoCats.Click += new System.EventHandler(this.editAutoCatsToolStripMenuItem_Click);
             // 
             // menu_Tools
             // 
             this.menu_Tools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menu_Tools_AutonameAll,
             this.menu_Tools_AutocatAll,
+            this.menu_Tools_AutonameAll,
             this.menu_Tools_RemoveEmpty,
             this.menu_Tools_Sep2,
             this.menu_Tools_DBEdit,
@@ -712,15 +712,14 @@ namespace Depressurizer {
             // 
             // menu_Tools_AutocatAll
             // 
-            this.menu_Tools_AutocatAll.DropDown = this.menuToolsAutocat_List;
+            this.menu_Tools_AutocatAll.DropDown = this.menu_Tools_Autocat_List;
             this.menu_Tools_AutocatAll.Name = "menu_Tools_AutocatAll";
             resources.ApplyResources(this.menu_Tools_AutocatAll, "menu_Tools_AutocatAll");
             // 
-            // menuToolsAutocat_List
+            // menu_Tools_Autocat_List
             // 
-            this.menuToolsAutocat_List.Name = "menuToolsAutocat_List";
-            this.menuToolsAutocat_List.OwnerItem = this.menu_Tools_AutocatAll;
-            resources.ApplyResources(this.menuToolsAutocat_List, "menuToolsAutocat_List");
+            this.menu_Tools_Autocat_List.Name = "menuToolsAutocat_List";
+            resources.ApplyResources(this.menu_Tools_Autocat_List, "menu_Tools_Autocat_List");
             // 
             // menu_Tools_RemoveEmpty
             // 
@@ -839,7 +838,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem menu_File_SaveProfile;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep3;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile;
-        private System.Windows.Forms.ToolStripMenuItem menu_Profile_Download;
+        private System.Windows.Forms.ToolStripMenuItem menu_Profile_Update;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_Import;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_Edit;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep1;
@@ -898,8 +897,8 @@ namespace Depressurizer {
         private System.Windows.Forms.ColumnHeader colCategory;
         private System.Windows.Forms.ColumnHeader colFavorite;
         private System.Windows.Forms.ColumnHeader colHidden;
-        private System.Windows.Forms.ContextMenuStrip menuToolsAutocat_List;
-        private System.Windows.Forms.ToolStripMenuItem editAutoCatsToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip menu_Tools_Autocat_List;
+        private System.Windows.Forms.ToolStripMenuItem menu_Profile_AutoCats;
     }
 }
 

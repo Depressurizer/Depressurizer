@@ -270,7 +270,7 @@ namespace Depressurizer {
 
             gameData = currentProfile.GameData;
 
-            if( currentProfile.AutoDownload ) {
+            if( currentProfile.AutoUpdate ) {
                 UpdateProfileDownload();
             }
             if( currentProfile.AutoImport ) {
@@ -1047,7 +1047,7 @@ namespace Depressurizer {
             cmbAutoCatType.Items.Clear();
 
             // Prepare main menu list
-            menuToolsAutocat_List.Items.Clear();
+            menu_Tools_Autocat_List.Items.Clear();
 
             if( currentProfile != null ) {
                 foreach( AutoCat ac in currentProfile.AutoCats ) {
@@ -1056,7 +1056,7 @@ namespace Depressurizer {
                         cmbAutoCatType.Items.Add( ac );
 
                         // Fill main menu list
-                        ToolStripItem item = menuToolsAutocat_List.Items.Add( ac.Name );
+                        ToolStripItem item = menu_Tools_Autocat_List.Items.Add( ac.Name );
                         item.Tag = ac;
                         item.Click += menuToolsAutocat_Item_Click;
                     }
@@ -1071,7 +1071,7 @@ namespace Depressurizer {
             }
 
             // Finish main menu list
-            menu_Tools_AutocatAll.Enabled = menuToolsAutocat_List.Items.Count > 0;
+            menu_Tools_AutocatAll.Enabled = menu_Tools_Autocat_List.Items.Count > 0;
         }
 
         #endregion
@@ -1085,7 +1085,7 @@ namespace Depressurizer {
             menu_File_SaveProfile.Enabled = enable;
             menu_File_SaveProfileAs.Enabled = enable;
 
-            menu_Profile_Download.Enabled = enable;
+            menu_Profile_Update.Enabled = enable;
             menu_Profile_Export.Enabled = enable;
             menu_Profile_Import.Enabled = enable;
             menu_Profile_Edit.Enabled = enable;
@@ -1290,7 +1290,7 @@ namespace Depressurizer {
             this.Close();
         }
 
-        private void menu_Profile_Download_Click( object sender, EventArgs e ) {
+        private void menu_Profile_Update_Click( object sender, EventArgs e ) {
             ClearStatus();
             UpdateProfileDownload();
             FlushStatus();

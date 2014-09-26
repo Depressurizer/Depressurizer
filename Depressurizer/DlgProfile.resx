@@ -541,13 +541,13 @@
     <value>9, 20</value>
   </data>
   <data name="chkActDownload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>259, 17</value>
+    <value>151, 17</value>
   </data>
   <data name="chkActDownload.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="chkActDownload.Text" xml:space="preserve">
-    <value>Download game list from community site right now</value>
+    <value>Update game list right now</value>
   </data>
   <data name="&gt;&gt;chkActDownload.Name" xml:space="preserve">
     <value>chkActDownload</value>
@@ -669,31 +669,31 @@
   <data name="&gt;&gt;chkAutoImport.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="chkAutoDownload.AutoSize" type="System.Boolean, mscorlib">
+  <data name="chkAutoUpdate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="chkAutoDownload.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="chkAutoUpdate.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
   </data>
-  <data name="chkAutoDownload.Size" type="System.Drawing.Size, System.Drawing">
-    <value>329, 17</value>
+  <data name="chkAutoUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 17</value>
   </data>
-  <data name="chkAutoDownload.TabIndex" type="System.Int32, mscorlib">
+  <data name="chkAutoUpdate.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="chkAutoDownload.Text" xml:space="preserve">
-    <value>Automatically download game list from Steam Community on load</value>
+  <data name="chkAutoUpdate.Text" xml:space="preserve">
+    <value>Automatically update game list on load</value>
   </data>
-  <data name="&gt;&gt;chkAutoDownload.Name" xml:space="preserve">
-    <value>chkAutoDownload</value>
+  <data name="&gt;&gt;chkAutoUpdate.Name" xml:space="preserve">
+    <value>chkAutoUpdate</value>
   </data>
-  <data name="&gt;&gt;chkAutoDownload.Type" xml:space="preserve">
+  <data name="&gt;&gt;chkAutoUpdate.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkAutoDownload.Parent" xml:space="preserve">
+  <data name="&gt;&gt;chkAutoUpdate.Parent" xml:space="preserve">
     <value>grpLoadOpt</value>
   </data>
-  <data name="&gt;&gt;chkAutoDownload.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;chkAutoUpdate.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="grpLoadOpt.Location" type="System.Drawing.Point, System.Drawing">
@@ -703,13 +703,13 @@
     <value>0, 3, 3, 3</value>
   </data>
   <data name="grpLoadOpt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>523, 65</value>
+    <value>550, 65</value>
   </data>
   <data name="grpLoadOpt.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="grpLoadOpt.Text" xml:space="preserve">
-    <value>Profile Loading Options</value>
+    <value>Profile Loading</value>
   </data>
   <data name="&gt;&gt;grpLoadOpt.Name" xml:space="preserve">
     <value>grpLoadOpt</value>
@@ -721,7 +721,7 @@
     <value>tabOpts</value>
   </data>
   <data name="&gt;&gt;grpLoadOpt.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="grpSaveOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -760,13 +760,13 @@
     <value>6, 19</value>
   </data>
   <data name="chkAutoExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 17</value>
+    <value>311, 17</value>
   </data>
   <data name="chkAutoExport.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="chkAutoExport.Text" xml:space="preserve">
-    <value>Automatically save categories to Steam when saving profile</value>
+    <value>Automatically export categories to Steam when saving profile</value>
   </data>
   <data name="&gt;&gt;chkAutoExport.Name" xml:space="preserve">
     <value>chkAutoExport</value>
@@ -787,13 +787,13 @@
     <value>3, 3, 0, 3</value>
   </data>
   <data name="grpSaveOpt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>523, 65</value>
+    <value>550, 65</value>
   </data>
   <data name="grpSaveOpt.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="grpSaveOpt.Text" xml:space="preserve">
-    <value>Profile Saving Options</value>
+    <value>Profile Saving</value>
   </data>
   <data name="&gt;&gt;grpSaveOpt.Name" xml:space="preserve">
     <value>grpSaveOpt</value>
@@ -805,7 +805,7 @@
     <value>tabOpts</value>
   </data>
   <data name="&gt;&gt;grpSaveOpt.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -837,6 +837,87 @@
   <data name="&gt;&gt;tabMain.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="grpUpdateOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="chkWebUpdate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkWebUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
+  </data>
+  <data name="chkWebUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>261, 17</value>
+  </data>
+  <data name="chkWebUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="chkWebUpdate.Text" xml:space="preserve">
+    <value>Update from web if local update is disabled or fails</value>
+  </data>
+  <data name="&gt;&gt;chkWebUpdate.Name" xml:space="preserve">
+    <value>chkWebUpdate</value>
+  </data>
+  <data name="&gt;&gt;chkWebUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkWebUpdate.Parent" xml:space="preserve">
+    <value>grpUpdateOpt</value>
+  </data>
+  <data name="&gt;&gt;chkWebUpdate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkLocalUpdate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkLocalUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="chkLocalUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 17</value>
+  </data>
+  <data name="chkLocalUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="chkLocalUpdate.Text" xml:space="preserve">
+    <value>Update from local Steam files before trying a web update</value>
+  </data>
+  <data name="&gt;&gt;chkLocalUpdate.Name" xml:space="preserve">
+    <value>chkLocalUpdate</value>
+  </data>
+  <data name="&gt;&gt;chkLocalUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkLocalUpdate.Parent" xml:space="preserve">
+    <value>grpUpdateOpt</value>
+  </data>
+  <data name="&gt;&gt;chkLocalUpdate.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="grpUpdateOpt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 148</value>
+  </data>
+  <data name="grpUpdateOpt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>550, 65</value>
+  </data>
+  <data name="grpUpdateOpt.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="grpUpdateOpt.Text" xml:space="preserve">
+    <value>Game List Updating</value>
+  </data>
+  <data name="&gt;&gt;grpUpdateOpt.Name" xml:space="preserve">
+    <value>grpUpdateOpt</value>
+  </data>
+  <data name="&gt;&gt;grpUpdateOpt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpUpdateOpt.Parent" xml:space="preserve">
+    <value>tabOpts</value>
+  </data>
+  <data name="&gt;&gt;grpUpdateOpt.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="grpOtherOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -853,7 +934,7 @@
     <value>149, 17</value>
   </data>
   <data name="chkIncludeShortcuts.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="chkIncludeShortcuts.Text" xml:space="preserve">
     <value>Include non-Steam games</value>
@@ -877,13 +958,13 @@
     <value>6, 42</value>
   </data>
   <data name="chkOverwriteNames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 17</value>
+    <value>287, 17</value>
   </data>
   <data name="chkOverwriteNames.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="chkOverwriteNames.Text" xml:space="preserve">
-    <value>Overwrite names when downloading game list</value>
+    <value>Overwrite names when downloading game list from web</value>
   </data>
   <data name="&gt;&gt;chkOverwriteNames.Name" xml:space="preserve">
     <value>chkOverwriteNames</value>
@@ -898,13 +979,13 @@
     <value>1</value>
   </data>
   <data name="grpOtherOpt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 148</value>
+    <value>6, 219</value>
   </data>
   <data name="grpOtherOpt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>523, 68</value>
+    <value>550, 65</value>
   </data>
   <data name="grpOtherOpt.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="grpOtherOpt.Text" xml:space="preserve">
     <value>Other Options</value>
@@ -919,7 +1000,7 @@
     <value>tabOpts</value>
   </data>
   <data name="&gt;&gt;grpOtherOpt.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="tabOpts.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

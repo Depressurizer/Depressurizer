@@ -1,22 +1,4 @@
-﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
-
-This file is part of Depressurizer.
-
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.IO;
@@ -24,14 +6,16 @@ using Rallion;
 
 namespace Depressurizer {
     public class Profile {
-        // Current Xml names
+        #region Serialization constants
         private const string
             XmlName_Profile = "profile",
             XmlName_Version = "version",
             XmlName_SteamID = "steam_id_64",
-            XmlName_AutoDownload = "auto_download",
+            XmlName_AutoUpdate = "auto_update",
             XmlName_AutoImport = "auto_import",
             XmlName_AutoExport = "auto_export",
+            XmlName_LocalUpdate = "local_update",
+            XmlName_WebUpdate = "web_update",
             XmlName_ExportDiscard = "export_discard",
             XmlName_AutoIgnore = "auto_ignore",
             XmlName_OverwriteNames = "overwrite_names",
@@ -51,9 +35,11 @@ namespace Depressurizer {
         // Old Xml names
         private const string XmlName_Old_SteamIDShort = "account_id",
             XmlName_Old_IgnoreExternal = "ignore_external",
+            XmlName_Old_AutoDownload = "auto_download",
             XmlName_Old_Game_Favorite = "favorite";
-
-        public const int VERSION = 2;
+        
+        public const int VERSION = 3;
+        #endregion
 
         public string FilePath = null;
 
@@ -65,11 +51,13 @@ namespace Depressurizer {
 
         public Int64 SteamID64 = 0;
 
-        public bool AutoDownload = true;
+        public bool AutoUpdate = true;
 
         public bool AutoImport = false;
-
         public bool AutoExport = true;
+
+        public bool LocalUpdate = true;
+        public bool WebUpdate = true;
 
         public bool ExportDiscard = true;
 
@@ -128,10 +116,20 @@ namespace Depressurizer {
                     }
                 }
                 profile.SteamID64 = accId;
+                
                 // Get other attributes
-                profile.AutoDownload = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoDownload], profile.AutoDownload );
+                if( profileVersion < 3 ) {
+                    profile.AutoUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_Old_AutoDownload], profile.AutoUpdate );
+                } else {
+                    profile.AutoUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoUpdate], profile.AutoUpdate );
+                }
+                
                 profile.AutoImport = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoImport], profile.AutoImport );
                 profile.AutoExport = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoExport], profile.AutoExport );
+
+                profile.LocalUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_LocalUpdate], profile.LocalUpdate );
+                profile.WebUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_WebUpdate], profile.WebUpdate );
+                
                 profile.ExportDiscard = XmlUtil.GetBoolFromNode( profileNode[XmlName_ExportDiscard], profile.ExportDiscard );
                 profile.AutoIgnore = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoIgnore], profile.AutoIgnore );
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode[XmlName_OverwriteNames], profile.OverwriteOnDownload );
@@ -247,9 +245,11 @@ namespace Depressurizer {
 
             writer.WriteElementString( XmlName_SteamID, SteamID64.ToString() );
 
-            writer.WriteElementString( XmlName_AutoDownload, AutoDownload.ToString() );
+            writer.WriteElementString( XmlName_AutoUpdate, AutoUpdate.ToString() );
             writer.WriteElementString( XmlName_AutoImport, AutoImport.ToString() );
             writer.WriteElementString( XmlName_AutoExport, AutoExport.ToString() );
+            writer.WriteElementString( XmlName_LocalUpdate, LocalUpdate.ToString() );
+            writer.WriteElementString( XmlName_WebUpdate, WebUpdate.ToString() );
             writer.WriteElementString( XmlName_ExportDiscard, ExportDiscard.ToString() );
             writer.WriteElementString( XmlName_AutoIgnore, AutoIgnore.ToString() );
             writer.WriteElementString( XmlName_OverwriteNames, OverwriteOnDownload.ToString() );

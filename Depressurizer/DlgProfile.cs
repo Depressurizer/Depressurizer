@@ -36,7 +36,7 @@ namespace Depressurizer {
 
         public bool DownloadNow {
             get {
-                return chkActDownload.Checked;
+                return chkActUpdate.Checked;
             }
         }
 
@@ -71,13 +71,15 @@ namespace Depressurizer {
             txtFilePath.Text = Profile.FilePath;
             grpProfInfo.Enabled = false;
 
-            chkActDownload.Checked = false;
+            chkActUpdate.Checked = false;
             chkActImport.Checked = false;
             chkSetStartup.Checked = false;
 
-            chkAutoDownload.Checked = Profile.AutoDownload;
+            chkAutoUpdate.Checked = Profile.AutoUpdate;
             chkAutoExport.Checked = Profile.AutoExport;
             chkAutoImport.Checked = Profile.AutoImport;
+            chkLocalUpdate.Checked = Profile.LocalUpdate;
+            chkWebUpdate.Checked = Profile.WebUpdate;
             chkExportDiscard.Checked = Profile.ExportDiscard;
             chkIncludeShortcuts.Checked = Profile.IncludeShortcuts;
             chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
@@ -128,6 +130,10 @@ namespace Depressurizer {
         #region Event Handlers
 
         private void ProfileDlg_Load( object sender, EventArgs e ) {
+            //ttHelp.SetToolTip( lnkHelpExportDiscard, "Does not remove games from your library or game list. Only removes extraneous information for unrecognized games from cluttering your config file." );
+            //ttHelp.SetToolTip( lnkHelpLocalUpdate, "Parse files from your Steam installation to get a list of your games. Much faster and generally more accurate and reliable than a web update." );
+            //ttHelp.SetToolTip( lnkHelpWebUpdate, "Download a game list from your profile on the steamcommunity.com website. Requires your profile to be set to \"Public\"." );
+
 
             LoadShortIds();
             if( editMode ) {
@@ -307,9 +313,11 @@ namespace Depressurizer {
         void SaveModifiables( Profile p ) {
             p.SteamID64 = Int64.Parse( txtUserID.Text );
 
-            p.AutoDownload = chkAutoDownload.Checked;
+            p.AutoUpdate = chkAutoUpdate.Checked;
             p.AutoExport = chkAutoExport.Checked;
             p.AutoImport = chkAutoImport.Checked;
+            p.LocalUpdate = chkLocalUpdate.Checked;
+            p.WebUpdate = chkLocalUpdate.Checked;
             p.ExportDiscard = chkExportDiscard.Checked;
             p.IncludeShortcuts = chkIncludeShortcuts.Checked;
             p.OverwriteOnDownload = chkOverwriteNames.Checked;
@@ -572,7 +580,6 @@ namespace Depressurizer {
                 SelectUserInList( txtUserID.Text );
             }
         }
-
     }
 
     class IgnoreListViewItemComparer : IComparer {

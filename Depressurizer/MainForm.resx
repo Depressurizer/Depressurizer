@@ -538,7 +538,7 @@
     <value>lstGames</value>
   </data>
   <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.5.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
     <value>grpGames</value>
@@ -767,7 +767,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAdABAAHQAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAdgBAAHYAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1087,56 +1087,56 @@
   <data name="menu_File.Text" xml:space="preserve">
     <value>&amp;File</value>
   </data>
-  <data name="menu_Profile_Download.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+D</value>
+  <data name="menu_Profile_Update.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+U</value>
   </data>
-  <data name="menu_Profile_Download.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
+  <data name="menu_Profile_Update.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
   </data>
-  <data name="menu_Profile_Download.Text" xml:space="preserve">
-    <value>&amp;Download Game List</value>
+  <data name="menu_Profile_Update.Text" xml:space="preserve">
+    <value>&amp;Update Game List</value>
   </data>
   <data name="menu_Profile_Import.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+I</value>
   </data>
   <data name="menu_Profile_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
+    <value>209, 22</value>
   </data>
   <data name="menu_Profile_Import.Text" xml:space="preserve">
     <value>&amp;Import Config File</value>
   </data>
   <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 6</value>
+    <value>206, 6</value>
   </data>
   <data name="menu_Profile_Export.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+E</value>
   </data>
   <data name="menu_Profile_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
+    <value>209, 22</value>
   </data>
   <data name="menu_Profile_Export.Text" xml:space="preserve">
     <value>&amp;Export Config File</value>
   </data>
   <data name="menu_Profile_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 6</value>
+    <value>206, 6</value>
   </data>
   <data name="menu_Profile_Edit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+P</value>
   </data>
   <data name="menu_Profile_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
+    <value>209, 22</value>
   </data>
   <data name="menu_Profile_Edit.Text" xml:space="preserve">
     <value>Edit &amp;Profile Info</value>
   </data>
-  <data name="editAutoCatsToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+U</value>
+  <data name="menu_Profile_AutoCats.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+T</value>
   </data>
-  <data name="editAutoCatsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>225, 22</value>
+  <data name="menu_Profile_AutoCats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
   </data>
-  <data name="editAutoCatsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Edit AutoCats...</value>
+  <data name="menu_Profile_AutoCats.Text" xml:space="preserve">
+    <value>Edit Au&amp;toCats...</value>
   </data>
   <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
@@ -1144,65 +1144,74 @@
   <data name="menu_Profile.Text" xml:space="preserve">
     <value>&amp;Profile</value>
   </data>
-  <data name="menu_Tools_AutonameAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
-  </data>
-  <data name="menu_Tools_AutonameAll.Text" xml:space="preserve">
-    <value>Auto-Name All</value>
-  </data>
-  <metadata name="menuToolsAutocat_List.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="menu_Tools_Autocat_List.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1047, 17</value>
   </metadata>
-  <data name="menuToolsAutocat_List.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="menu_Tools_Autocat_List.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 4</value>
   </data>
-  <data name="&gt;&gt;menuToolsAutocat_List.Name" xml:space="preserve">
-    <value>menuToolsAutocat_List</value>
+  <data name="&gt;&gt;menu_Tools_Autocat_List.Name" xml:space="preserve">
+    <value>menu_Tools_Autocat_List</value>
   </data>
-  <data name="&gt;&gt;menuToolsAutocat_List.Type" xml:space="preserve">
+  <data name="&gt;&gt;menu_Tools_Autocat_List.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="menu_Tools_AutocatAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
+    <value>228, 22</value>
   </data>
   <data name="menu_Tools_AutocatAll.Text" xml:space="preserve">
-    <value>Auto-Cat All</value>
+    <value>Auto-&amp;Cat All</value>
+  </data>
+  <data name="menu_Tools_AutonameAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 22</value>
+  </data>
+  <data name="menu_Tools_AutonameAll.Text" xml:space="preserve">
+    <value>Auto-&amp;Name All</value>
   </data>
   <data name="menu_Tools_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
+    <value>228, 22</value>
   </data>
   <data name="menu_Tools_RemoveEmpty.Text" xml:space="preserve">
-    <value>Remove Empty Categories</value>
+    <value>&amp;Remove Empty Categories</value>
   </data>
   <data name="menu_Tools_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 6</value>
+    <value>225, 6</value>
+  </data>
+  <data name="menu_Tools_DBEdit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+D</value>
   </data>
   <data name="menu_Tools_DBEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
+    <value>228, 22</value>
   </data>
   <data name="menu_Tools_DBEdit.Text" xml:space="preserve">
-    <value>Database Editor...</value>
+    <value>&amp;Database Editor...</value>
   </data>
   <data name="menu_Tools_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 6</value>
+    <value>225, 6</value>
+  </data>
+  <data name="menu_Tools_SingleCat.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+I</value>
   </data>
   <data name="menu_Tools_SingleCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
+    <value>228, 22</value>
   </data>
   <data name="menu_Tools_SingleCat.Text" xml:space="preserve">
-    <value>Single Category Mode</value>
+    <value>S&amp;ingle Category Mode</value>
+  </data>
+  <data name="menu_Tools_Settings.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+O</value>
   </data>
   <data name="menu_Tools_Settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 22</value>
+    <value>228, 22</value>
   </data>
   <data name="menu_Tools_Settings.Text" xml:space="preserve">
-    <value>Settings...</value>
+    <value>&amp;Settings...</value>
   </data>
   <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 20</value>
   </data>
   <data name="menu_Tools.Text" xml:space="preserve">
-    <value>Tools</value>
+    <value>&amp;Tools</value>
   </data>
   <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -1646,10 +1655,10 @@
   <data name="&gt;&gt;menu_Profile.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menu_Profile_Download.Name" xml:space="preserve">
-    <value>menu_Profile_Download</value>
+  <data name="&gt;&gt;menu_Profile_Update.Name" xml:space="preserve">
+    <value>menu_Profile_Update</value>
   </data>
-  <data name="&gt;&gt;menu_Profile_Download.Type" xml:space="preserve">
+  <data name="&gt;&gt;menu_Profile_Update.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;menu_Profile_Import.Name" xml:space="preserve">
@@ -1682,10 +1691,10 @@
   <data name="&gt;&gt;menu_Profile_Edit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;editAutoCatsToolStripMenuItem.Name" xml:space="preserve">
-    <value>editAutoCatsToolStripMenuItem</value>
+  <data name="&gt;&gt;menu_Profile_AutoCats.Name" xml:space="preserve">
+    <value>menu_Profile_AutoCats</value>
   </data>
-  <data name="&gt;&gt;editAutoCatsToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;menu_Profile_AutoCats.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;menu_Tools.Name" xml:space="preserve">
