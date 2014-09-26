@@ -534,31 +534,31 @@
   <data name="&gt;&gt;chkActImport.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="chkActDownload.AutoSize" type="System.Boolean, mscorlib">
+  <data name="chkActUpdate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="chkActDownload.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 20</value>
+  <data name="chkActUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 21</value>
   </data>
-  <data name="chkActDownload.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="chkActUpdate.Size" type="System.Drawing.Size, System.Drawing">
     <value>151, 17</value>
   </data>
-  <data name="chkActDownload.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="chkActUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="chkActDownload.Text" xml:space="preserve">
+  <data name="chkActUpdate.Text" xml:space="preserve">
     <value>Update game list right now</value>
   </data>
-  <data name="&gt;&gt;chkActDownload.Name" xml:space="preserve">
-    <value>chkActDownload</value>
+  <data name="&gt;&gt;chkActUpdate.Name" xml:space="preserve">
+    <value>chkActUpdate</value>
   </data>
-  <data name="&gt;&gt;chkActDownload.Type" xml:space="preserve">
+  <data name="&gt;&gt;chkActUpdate.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkActDownload.Parent" xml:space="preserve">
+  <data name="&gt;&gt;chkActUpdate.Parent" xml:space="preserve">
     <value>grpActions</value>
   </data>
-  <data name="&gt;&gt;chkActDownload.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;chkActUpdate.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="grpActions.Location" type="System.Drawing.Point, System.Drawing">

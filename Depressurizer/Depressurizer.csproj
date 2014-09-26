@@ -109,6 +109,9 @@
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Lib\ExtToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PackageInfo.cs" />
     <Compile Include="TESTER.cs" />
     <Compile Include="Utility.cs" />
