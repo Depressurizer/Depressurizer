@@ -270,8 +270,8 @@ namespace Depressurizer {
 
         }
 
-        public bool IncludeInGameList() {
-            return !( AppType == AppTypes.DLC || AppType == AppTypes.Media || AppType == AppTypes.Tool );
+        public bool IncludeInGameList( bool includeUnknown = false ) {
+            return AppType == AppTypes.Game || AppType == AppTypes.Application || ( includeUnknown && AppType == AppTypes.Unknown );
         }
 
     }
@@ -311,8 +311,8 @@ namespace Depressurizer {
         }
 
         //TODO: make sure we don't use this where we shouldn't
-        public bool IncludeItemInGameList( int id ) {
-            return Games.ContainsKey( id ) && Games[id].IncludeInGameList();
+        public bool IncludeItemInGameList( int id, bool includeUnknown = false ) {
+            return Games.ContainsKey( id ) && Games[id].IncludeInGameList( includeUnknown );
         }
 
         public string GetName( int id ) {

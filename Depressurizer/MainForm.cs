@@ -91,15 +91,7 @@ namespace Depressurizer {
 
         private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore ) {
             CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore );
-            DownloadProfileDataHelper( updateDlg );
-        }
 
-        private void DownloadProfileData( string customUrl, bool overwrite, SortedSet<int> ignore ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, customUrl, overwrite, ignore );
-            DownloadProfileDataHelper( updateDlg );
-        }
-
-        private void DownloadProfileDataHelper( CDlgUpdateProfile updateDlg ) {
             DialogResult res = updateDlg.ShowDialog();
 
             if( updateDlg.Error != null ) {
@@ -179,7 +171,7 @@ namespace Depressurizer {
                 gameData = currentProfile.GameData;
                 AddStatus( GlobalStrings.MainForm_ProfileCreated );
                 if( dlg.DownloadNow ) {
-                    UpdateProfileDownload( false );
+                    UpdateGameData();
                 }
 
                 if( dlg.ImportNow ) {
@@ -210,7 +202,7 @@ namespace Depressurizer {
                     Cursor = Cursors.WaitCursor;
                     bool refresh = false;
                     if( dlg.DownloadNow ) {
-                        UpdateProfileDownload( false );
+                        UpdateGameData();
                         refresh = true;
                     }
                     if( dlg.ImportNow ) {
@@ -271,7 +263,7 @@ namespace Depressurizer {
             gameData = currentProfile.GameData;
 
             if( currentProfile.AutoUpdate ) {
-                UpdateProfileDownload();
+                UpdateGameData();
             }
             if( currentProfile.AutoImport ) {
                 UpdateProfileImport();
@@ -323,21 +315,38 @@ namespace Depressurizer {
 
         }
 
-        /// <summary>
-        /// Attempts to download game list for the loaded profile.
-        /// </summary>
-        /// <param name="updateUI">If true, will update the UI</param>
-        void UpdateProfileDownload( bool updateUI = true ) {
+        void UpdateGameData() {
+            // TODO: string literals
             if( currentProfile != null ) {
-                if( updateUI ) Cursor = Cursors.WaitCursor;
-                try {
-                    DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList );
-                } catch( ApplicationException e ) {
-                    if( updateUI ) Cursor = Cursors.Default;
-                    MessageBox.Show( e.Message, GlobalStrings.MainForm_ErrorDownloadingGameList, MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                    AddStatus( GlobalStrings.MainForm_DownloadFailed );
+                Cursor = Cursors.WaitCursor;
+                bool success = false;
+                if( currentProfile.LocalUpdate ) {
+                    try {
+                        currentProfile.GameData.UpdateGameListFromOwnedPackageInfo( currentProfile.SteamID64, currentProfile.IgnoreList );
+                        AddStatus( "Updated game list from config files." );
+                        success = true;
+                    } catch( Exception e ) {
+                        MessageBox.Show( string.Format( "Error updating from local files:\n{0}", e.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        // TODO status msg
+                        success = false;
+                    }
                 }
-                if( updateUI ) Cursor = Cursors.Default;
+                if( success ) {
+                    MakeChange( true );
+                    FullListRefresh();
+                } else if( currentProfile.WebUpdate ) {
+                    try {
+                        DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList );
+                        success = true;
+                    } catch( ApplicationException e ) {
+                        MessageBox.Show( e.Message, GlobalStrings.MainForm_ErrorDownloadingGameList, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        AddStatus( GlobalStrings.MainForm_DownloadFailed );
+                    }
+                }
+
+
+
+                Cursor = Cursors.Default;
             }
         }
 
@@ -1132,7 +1141,7 @@ namespace Depressurizer {
             UpdateEnabledStatesForCategories();
             LoadGameDB();
 
-            PackageInfo.LoadPackages( string.Format(Properties.Resources.PackageInfoPath, settings.SteamPath ) );
+            PackageInfo.LoadPackages( string.Format( Properties.Resources.PackageInfoPath, settings.SteamPath ) );
 
             // jpodadera. Save original width and height
             originalHeight = this.Height;
@@ -1292,7 +1301,7 @@ namespace Depressurizer {
 
         private void menu_Profile_Update_Click( object sender, EventArgs e ) {
             ClearStatus();
-            UpdateProfileDownload();
+            UpdateGameData();
             FlushStatus();
         }
 

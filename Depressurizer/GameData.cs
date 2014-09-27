@@ -672,19 +672,21 @@ namespace Depressurizer {
 
             foreach( int ownedPackageId in ownedPackageIds ) {
                 PackageInfo ownedPackage = allPackages[ownedPackageId];
-                if( !ownedPackage.IsExpired ) {
+                if( ownedPackageId != 0 && !ownedPackage.IsExpired ) {
                     GameListingSource src =
                         ( ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ) ?
                         GameListingSource.PackageFree : GameListingSource.PackageNormal;
                     foreach( int ownedAppId in ownedPackage.AppIds ) {
-                        ownedApps.Add( ownedAppId, src );
+                        if( !ownedApps.ContainsKey( ownedAppId ) || (src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree ) )
+                        ownedApps[ownedAppId] = src;
                     }
                 }
             }
 
             foreach( KeyValuePair<int, GameListingSource> kv in ownedApps ) {
                 bool isNew;
-                IntegrateGame( kv.Key, string.Empty, false, ignored, kv.Value, out isNew );
+                string name = Program.GameDB.GetName( kv.Key );
+                IntegrateGame( kv.Key, name, false, ignored, kv.Value, out isNew );
             }
         }
 
