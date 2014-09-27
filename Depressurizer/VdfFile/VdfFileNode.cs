@@ -366,15 +366,15 @@ namespace Depressurizer {
             bool endOfStream = false;
             bool stringDone = false;
             StringBuilder sb = new StringBuilder();
-            byte nextByte;
+            char nextChar;
             do {
                 try {
-                    nextByte = reader.ReadByte();
+                    nextChar = reader.ReadChar();
 
-                    if( nextByte == 0 ) {
+                    if( nextChar == 0 ) {
                         stringDone = true;
                     } else {
-                        sb.Append( (char)nextByte );
+                        sb.Append( (char)nextChar );
                     }
                 } catch( EndOfStreamException ) {
                     endOfStream = true;
