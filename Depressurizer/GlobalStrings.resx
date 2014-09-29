@@ -598,28 +598,28 @@ Continue loading file?</value>
     <value>There was an error downloading the profile data: 
 {0}</value>
   </data>
-  <data name="MainForm_ErrorDownloadingGameList" xml:space="preserve">
-    <value>Error downloading game list</value>
-  </data>
   <data name="MainForm_ErrorDownloadingGames" xml:space="preserve">
     <value>Error downloading games.</value>
   </data>
   <data name="MainForm_ErrorDownloadingProfileData" xml:space="preserve">
     <value>Error downloading profile data via {0}.</value>
   </data>
-  <data name="MainForm_ErrorExportingToSteam" xml:space="preserve">
-    <value>Error exporting to Steam</value>
+  <data name="MainForm_Msg_ErrorExportingToSteam" xml:space="preserve">
+    <value>Error exporting to Steam.
+{0}</value>
   </data>
   <data name="MainForm_ErrorImportingSteamDataList" xml:space="preserve">
-    <value>Error importing steam data list</value>
+    <value>Error importing steam data list.
+{0}</value>
   </data>
   <data name="MainForm_ErrorLoadingGameDB" xml:space="preserve">
     <value>Error loading game database. Local category and DLC data will not be available.
 
 </value>
   </data>
-  <data name="MainForm_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error loading profile</value>
+  <data name="MainForm_Msg_ErrorLoadingProfile" xml:space="preserve">
+    <value>Error loading profile.
+{0}</value>
   </data>
   <data name="MainForm_ErrorOcurredOnGames" xml:space="preserve">
     <value>Errors occurred on {0} games.</value>
@@ -627,8 +627,9 @@ Continue loading file?</value>
   <data name="MainForm_ErrorSavingFile" xml:space="preserve">
     <value>Error saving file.</value>
   </data>
-  <data name="MainForm_ErrorSavingProfile" xml:space="preserve">
-    <value>Error saving profile</value>
+  <data name="MainForm_Msg_ErrorSavingProfile" xml:space="preserve">
+    <value>Error saving profile.
+{0}</value>
   </data>
   <data name="MainForm_ExportedCategories" xml:space="preserve">
     <value>Exported categories.</value>
@@ -915,12 +916,10 @@ Requires your profile to be set to "Public".</value>
     <value>Error</value>
   </data>
   <data name="MainForm_Log_ExceptionAppInfo" xml:space="preserve">
-    <value>Exception encountered when auto-updating DB from AppInfo.
-{0}</value>
+    <value>Exception when auto-updating DB from AppInfo.</value>
   </data>
   <data name="MainForm_Log_ExceptionAutosavingDB" xml:space="preserve">
-    <value>Exception when autosaving database:
-{0}</value>
+    <value>Exception when autosaving database.</value>
   </data>
   <data name="MainForm_Msg_ErrorAppInfo" xml:space="preserve">
     <value>Error encountered when updating database from AppInfo: {0}</value>
@@ -944,5 +943,33 @@ Requires your profile to be set to "Public".</value>
   </data>
   <data name="MainForm_Status_SavedDB" xml:space="preserve">
     <value>Saved DB.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionExport" xml:space="preserve">
+    <value>Exception encountered while exporting Steam config.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionImport" xml:space="preserve">
+    <value>Exception encountered while importing the Steam config.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionLoadingProfile" xml:space="preserve">
+    <value>Exception when loading profile.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionLocalUpdate" xml:space="preserve">
+    <value>Exception when performing local update.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionOnDBLoad" xml:space="preserve">
+    <value>Exception during initial DB load.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionSavingProfile" xml:space="preserve">
+    <value>Exception when saving profile.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionWebUpdate" xml:space="preserve">
+    <value>Exception encountered during game list web update.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionWebUpdateDialog" xml:space="preserve">
+    <value>Exception encountered by game list web update dialog.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorManualExport" xml:space="preserve">
+    <value>Error exporting to file.
+{0}</value>
   </data>
 </root>

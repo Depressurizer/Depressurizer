@@ -44,5 +44,9 @@ namespace Depressurizer {
         public static DateTime GetDTFromUTime( int uTime ) {
             return epoch.AddSeconds( uTime );
         }
+
+        public static void LaunchStorePage( int appId ) {
+            System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, appId ) );
+        }
     }
 }

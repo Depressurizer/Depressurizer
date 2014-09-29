@@ -599,26 +599,26 @@ Tiempo Restante:</value>
 
 {0}</value>
   </data>
-  <data name="MainForm_ErrorDownloadingGameList" xml:space="preserve">
-    <value>Error descargando lista de juegos</value>
-  </data>
   <data name="MainForm_ErrorDownloadingGames" xml:space="preserve">
     <value>Error descargando juegos.</value>
   </data>
   <data name="MainForm_ErrorDownloadingProfileData" xml:space="preserve">
     <value>Error descargando datos del perfil vía {0}.</value>
   </data>
-  <data name="MainForm_ErrorExportingToSteam" xml:space="preserve">
-    <value>Error exportando a Steam</value>
+  <data name="MainForm_Msg_ErrorExportingToSteam" xml:space="preserve">
+    <value>Error exportando a Steam.
+{0}</value>
   </data>
   <data name="MainForm_ErrorImportingSteamDataList" xml:space="preserve">
-    <value>Error importando lista de datos de Steam</value>
+    <value>Error importando lista de datos de Steam.
+{0}</value>
   </data>
   <data name="MainForm_ErrorLoadingGameDB" xml:space="preserve">
     <value>Error cargando base de datos de juegos. Categorías locales y datos DLC no estarán disponibles.</value>
   </data>
-  <data name="MainForm_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error cargando perfil</value>
+  <data name="MainForm_Msg_ErrorLoadingProfile" xml:space="preserve">
+    <value>Error cargando perfil.
+{0}</value>
   </data>
   <data name="MainForm_ErrorOcurredOnGames" xml:space="preserve">
     <value>Se produjeron errores en {0} juegos.</value>
@@ -626,8 +626,9 @@ Tiempo Restante:</value>
   <data name="MainForm_ErrorSavingFile" xml:space="preserve">
     <value>Error guardando fichero.</value>
   </data>
-  <data name="MainForm_ErrorSavingProfile" xml:space="preserve">
-    <value>Error guardando perfil</value>
+  <data name="MainForm_Msg_ErrorSavingProfile" xml:space="preserve">
+    <value>Error guardando perfil.
+{0}</value>
   </data>
   <data name="MainForm_ExportedCategories" xml:space="preserve">
     <value>Categorías exportadas.</value>

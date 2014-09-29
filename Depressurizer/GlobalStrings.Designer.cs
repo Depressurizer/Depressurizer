@@ -1764,15 +1764,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error downloading game list.
-        /// </summary>
-        internal static string MainForm_ErrorDownloadingGameList {
-            get {
-                return ResourceManager.GetString("MainForm_ErrorDownloadingGameList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error downloading games..
         /// </summary>
         internal static string MainForm_ErrorDownloadingGames {
@@ -1791,16 +1782,8 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error exporting to Steam.
-        /// </summary>
-        internal static string MainForm_ErrorExportingToSteam {
-            get {
-                return ResourceManager.GetString("MainForm_ErrorExportingToSteam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error importing steam data list.
+        ///{0}.
         /// </summary>
         internal static string MainForm_ErrorImportingSteamDataList {
             get {
@@ -1820,15 +1803,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error loading profile.
-        /// </summary>
-        internal static string MainForm_ErrorLoadingProfile {
-            get {
-                return ResourceManager.GetString("MainForm_ErrorLoadingProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Errors occurred on {0} games..
         /// </summary>
         internal static string MainForm_ErrorOcurredOnGames {
@@ -1843,15 +1817,6 @@ namespace Depressurizer {
         internal static string MainForm_ErrorSavingFile {
             get {
                 return ResourceManager.GetString("MainForm_ErrorSavingFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error saving profile.
-        /// </summary>
-        internal static string MainForm_ErrorSavingProfile {
-            get {
-                return ResourceManager.GetString("MainForm_ErrorSavingProfile", resourceCulture);
             }
         }
         
@@ -1991,8 +1956,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exception encountered when auto-updating DB from AppInfo.
-        ///{0}.
+        ///   Looks up a localized string similar to Exception when auto-updating DB from AppInfo..
         /// </summary>
         internal static string MainForm_Log_ExceptionAppInfo {
             get {
@@ -2001,12 +1965,83 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exception when autosaving database:
-        ///{0}.
+        ///   Looks up a localized string similar to Exception when autosaving database..
         /// </summary>
         internal static string MainForm_Log_ExceptionAutosavingDB {
             get {
                 return ResourceManager.GetString("MainForm_Log_ExceptionAutosavingDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception encountered while exporting Steam config..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionExport {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception encountered while importing the Steam config..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionImport {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception when loading profile..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionLoadingProfile {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionLoadingProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception when performing local update..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionLocalUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionLocalUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception during initial DB load..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionOnDBLoad {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionOnDBLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception when saving profile..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionSavingProfile {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionSavingProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception encountered during game list web update..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionWebUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionWebUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception encountered by game list web update dialog..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionWebUpdateDialog {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionWebUpdateDialog", resourceCulture);
             }
         }
         
@@ -2026,6 +2061,46 @@ namespace Depressurizer {
         internal static string MainForm_Msg_ErrorAutosavingDB {
             get {
                 return ResourceManager.GetString("MainForm_Msg_ErrorAutosavingDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error exporting to Steam.
+        ///{0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorExportingToSteam {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorExportingToSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading profile.
+        ///{0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorLoadingProfile {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorLoadingProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error exporting to file.
+        ///{0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorManualExport {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorManualExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving profile.
+        ///{0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorSavingProfile {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorSavingProfile", resourceCulture);
             }
         }
         

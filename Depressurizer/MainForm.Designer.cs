@@ -688,7 +688,7 @@ namespace Depressurizer {
             // 
             this.menu_Profile_AutoCats.Name = "menu_Profile_AutoCats";
             resources.ApplyResources(this.menu_Profile_AutoCats, "menu_Profile_AutoCats");
-            this.menu_Profile_AutoCats.Click += new System.EventHandler(this.editAutoCatsToolStripMenuItem_Click);
+            this.menu_Profile_AutoCats.Click += new System.EventHandler(this.menu_Profile_EditAutoCats_Click);
             // 
             // menu_Tools
             // 
@@ -786,7 +786,6 @@ namespace Depressurizer {
             this.Name = "FormMain";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
-            this.Shown += new System.EventHandler(this.FormMain_Shown);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
