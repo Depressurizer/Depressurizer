@@ -14,15 +14,19 @@ namespace Depressurizer {
         All = Windows | Mac | Linux
     }
 
+    [Flags]
     public enum AppTypes {
-        Application,
-        Demo,
-        DLC,
-        Game,
-        Media,
-        Tool,
-        Other,
-        Unknown
+        Application = 1,
+        Demo = 1 << 1,
+        DLC = 1 << 2,
+        Game = 1 << 3,
+        Media = 1 << 4,
+        Tool = 1 << 5,
+        Other = 1 << 6,
+        Unknown = 1 << 7,
+        InclusionNormal = Application | Game,
+        InclusionUnknown = InclusionNormal | Unknown,
+        InclusionAll = 1 << 8 - 1
     }
 
     class AppInfo {

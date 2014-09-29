@@ -648,7 +648,13 @@ namespace Depressurizer {
         }
         #endregion
 
-        public void UpdateGameListFromOwnedPackageInfo( Int64 accountId, SortedSet<int> ignored ) {
+        /// <summary>
+        /// Updates the game list based on data from the localconfig file and the package cache.
+        /// </summary>
+        /// <param name="accountId">64-bit account ID to update for</param>
+        /// <param name="ignored">Set of games to ignore</param>
+        /// <param name="includeUnknown">If true, include games that do not exist in the database or are of unknown type in the database</param>
+        public void UpdateGameListFromOwnedPackageInfo( Int64 accountId, SortedSet<int> ignored, AppTypes includedTypes ) {
             // TODO: After making sure this works properly, optimize it a little. Less storage.
 
             Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages( string.Format( Properties.Resources.PackageInfoPath, Settings.Instance().SteamPath ) );
@@ -677,8 +683,8 @@ namespace Depressurizer {
                         ( ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ) ?
                         GameListingSource.PackageFree : GameListingSource.PackageNormal;
                     foreach( int ownedAppId in ownedPackage.AppIds ) {
-                        if( !ownedApps.ContainsKey( ownedAppId ) || (src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree ) )
-                        ownedApps[ownedAppId] = src;
+                        if( !ownedApps.ContainsKey( ownedAppId ) || ( src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree ) )
+                            ownedApps[ownedAppId] = src;
                     }
                 }
             }
@@ -686,7 +692,7 @@ namespace Depressurizer {
             foreach( KeyValuePair<int, GameListingSource> kv in ownedApps ) {
                 bool isNew;
                 string name = Program.GameDB.GetName( kv.Key );
-                IntegrateGame( kv.Key, name, false, ignored, kv.Value, out isNew );
+                IntegrateGame( kv.Key, name, false, ignored, includedTypes, kv.Value, out isNew );
             }
         }
 
@@ -700,7 +706,7 @@ namespace Depressurizer {
         /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
         /// <param name="newItems">The number of new items actually added</param>
         /// <returns>Returns the number of games successfully processed and not ignored.</returns>
-        public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, out int newItems ) {
+        public int IntegrateXmlGameList( XmlDocument doc, bool overWrite, SortedSet<int> ignore, AppTypes includedTypes, out int newItems ) {
             newItems = 0;
             if( doc == null ) return 0;
             int loadedGames = 0;
@@ -712,7 +718,7 @@ namespace Depressurizer {
                     XmlNode nameNode = gameNode["name"];
                     if( nameNode != null ) {
                         bool isNew;
-                        GameInfo integratedGame = IntegrateGame( appId, nameNode.InnerText, overWrite, ignore, GameListingSource.WebProfile, out isNew );
+                        GameInfo integratedGame = IntegrateGame( appId, nameNode.InnerText, overWrite, ignore, includedTypes, GameListingSource.WebProfile, out isNew );
                         if( integratedGame != null ) {
                             loadedGames++;
                             if( isNew ) {
@@ -735,7 +741,7 @@ namespace Depressurizer {
         /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
         /// <param name="newItems">The number of new items actually added</param>
         /// <returns>Returns the number of games successfully processed and not ignored.</returns>
-        public int IntegrateHtmlGameList( string page, bool overWrite, SortedSet<int> ignore, out int newItems ) {
+        public int IntegrateHtmlGameList( string page, bool overWrite, SortedSet<int> ignore, AppTypes includedTypes, out int newItems ) {
             newItems = 0;
             int totalItems = 0;
 
@@ -750,7 +756,7 @@ namespace Depressurizer {
                 if( appName != null && appIdString != null && int.TryParse( appIdString, out appId ) ) {
                     appName = ProcessUnicode( appName );
                     bool isNew;
-                    GameInfo integratedGame = IntegrateGame( appId, appName, overWrite, ignore, GameListingSource.WebProfile, out isNew );
+                    GameInfo integratedGame = IntegrateGame( appId, appName, overWrite, ignore, includedTypes, GameListingSource.WebProfile, out isNew );
                     if( integratedGame != null ) {
                         totalItems++;
                         if( isNew ) {
@@ -784,8 +790,9 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="appsNode">Node containing the game nodes</param>
         /// <param name="ignore">Set of games to ignore</param>
+        /// <param name="forceInclude">Include games even if their type is not an included type</param>
         /// <returns>Number of games loaded</returns>
-        private int IntegrateGamesFromVdf( VdfFileNode appsNode, SortedSet<int> ignore ) {
+        private int IntegrateGamesFromVdf( VdfFileNode appsNode, SortedSet<int> ignore, AppTypes includedTypes ) {
             int loadedGames = 0;
 
             Dictionary<string, VdfFileNode> gameNodeArray = appsNode.NodeArray;
@@ -793,7 +800,7 @@ namespace Depressurizer {
                 foreach( KeyValuePair<string, VdfFileNode> gameNodePair in gameNodeArray ) {
                     int gameId;
                     if( int.TryParse( gameNodePair.Key, out gameId ) ) {
-                        if( ( ignore != null && ignore.Contains( gameId ) ) || !Program.GameDB.IncludeItemInGameList( gameId ) ) {
+                        if( ( ignore != null && ignore.Contains( gameId ) ) || !Program.GameDB.IncludeItemInGameList( gameId, includedTypes ) ) {
                             Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_SkippedProcessingGame, gameId );
                         } else if( gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array ) {
                             GameInfo game = null;
@@ -831,7 +838,7 @@ namespace Depressurizer {
                                 }
                             }
 
-                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, string.Join(",",game.Categories) );
+                            Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, string.Join( ",", game.Categories ) );
                         }
                     }
                 }
@@ -847,12 +854,13 @@ namespace Depressurizer {
         /// <param name="appName">Name of app to add, or update to</param>
         /// <param name="overwriteName">If true, will overwrite any existing games. If false, will fail if the game already exists.</param>
         /// <param name="ignore">Set of games to ignore. Can be null. If the game is in this list, no action will be taken.</param>
-        /// <param name="ignoreDlc">If true, ignore the game if it is marked as DLC in the loaded database.</param>
+        /// <param name="forceInclude">If true, include the game even if it is of an ignored type.</param>
+        /// <param name="src">The listing source that this request came from.</param>
         /// <param name="isNew">If true, a new game was added. If false, an existing game was updated, or the operation failed.</param>
         /// <returns>True if the game was integrated, false otherwise.</returns>
-        private GameInfo IntegrateGame( int appId, string appName, bool overwriteName, SortedSet<int> ignore, GameListingSource src, out bool isNew ) {
+        private GameInfo IntegrateGame( int appId, string appName, bool overwriteName, SortedSet<int> ignore, AppTypes includedTypes, GameListingSource src, out bool isNew ) {
             isNew = false;
-            if( ( ignore != null && ignore.Contains( appId ) ) || !Program.GameDB.IncludeItemInGameList( appId ) ) {
+            if( ( ignore != null && ignore.Contains( appId ) ) || !Program.GameDB.IncludeItemInGameList( appId, includedTypes ) ) {
                 Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_SkippedIntegratingGame, appId, appName );
                 return null;
             }
@@ -880,8 +888,10 @@ namespace Depressurizer {
         /// Loads category info from the given steam config file.
         /// </summary>
         /// <param name="filePath">The path of the file to open</param>
+        /// <param name="ignore">Set of game IDs to ignore</param>
+        /// <param name="forceInclude">If true, include games even if they are not of an included type</param>
         /// <returns>The number of game entries found</returns>
-        public int ImportSteamConfigFile( string filePath, SortedSet<int> ignore ) {
+        public int ImportSteamConfigFile( string filePath, SortedSet<int> ignore, AppTypes includedTypes ) {
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_OpeningSteamConfigFile, filePath );
             VdfFileNode dataRoot;
 
@@ -898,7 +908,7 @@ namespace Depressurizer {
             }
 
             VdfFileNode appsNode = dataRoot.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
-            int count = IntegrateGamesFromVdf( appsNode, ignore );
+            int count = IntegrateGamesFromVdf( appsNode, ignore, includedTypes );
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SteamConfigFileLoaded, count );
             return count;
         }
@@ -908,12 +918,12 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="SteamId">Identifier of Steam user</param>
         /// <param name="ignore">Set of games to ignore</param>
-        /// <param name="ignoreDlc">If true, ignore games marked as DLC in the database</param>
-        /// <param name="ignoreExternal">If false, also load non-steam games</param>
+        /// <param name="forceInclude">If true, include games that do not match the included types</param>
+        /// <param name="includeShortcuts">If true, also import shortcut data</param>
         /// <returns>The number of game entries found</returns>
-        public int ImportSteamConfig( long SteamId, SortedSet<int> ignore, bool includeShortcuts ) {
+        public int ImportSteamConfig( long SteamId, SortedSet<int> ignore, AppTypes includedTypes, bool includeShortcuts ) {
             string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
-            int result = ImportSteamConfigFile( filePath, ignore );
+            int result = ImportSteamConfigFile( filePath, ignore, includedTypes );
             if( includeShortcuts ) {
                 result += ImportSteamShortcuts( SteamId );
             }

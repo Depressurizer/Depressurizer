@@ -41,29 +41,30 @@ namespace Depressurizer {
 
         private bool overwrite;
         private SortedSet<int> ignore;
+        private bool includeUnknown;
 
-        public CDlgUpdateProfile( GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore )
-            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
-        {
+        public CDlgUpdateProfile( GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool inclUnknown )
+            : base( GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true ) {
             custom = false;
             this.SteamId = accountId;
-            
+
             Added = 0;
             Fetched = 0;
             UseHtml = false;
             Failover = false;
 
             this.data = data;
-            
+
             this.overwrite = overwrite;
             this.ignore = ignore;
 
-            SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
+            this.includeUnknown = inclUnknown;
+
+            SetText( GlobalStrings.CDlgFetch_DownloadingGameList );
         }
 
-        public CDlgUpdateProfile( GameList data, string customUrl, bool overwrite, SortedSet<int> ignore )
-            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
-        {
+        public CDlgUpdateProfile( GameList data, string customUrl, bool overwrite, SortedSet<int> ignore, bool inclUnknown )
+            : base( GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true ) {
             custom = true;
             this.customUrl = customUrl;
 
@@ -77,24 +78,26 @@ namespace Depressurizer {
             this.overwrite = overwrite;
             this.ignore = ignore;
 
-            SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
+            this.includeUnknown = inclUnknown;
+
+            SetText( GlobalStrings.CDlgFetch_DownloadingGameList );
         }
 
         protected override void RunProcess() {
             Added = 0;
             Fetched = 0;
-                switch( Settings.Instance().ListSource ) {
-                    case GameListSource.XmlPreferred:
-                        FetchXmlPref();
-                        break;
-                    case GameListSource.XmlOnly:
-                        FetchXml();
-                        break;
-                    case GameListSource.WebsiteOnly:
-                        FetchHtml();
-                        break;
-                }
-            
+            switch( Settings.Instance().ListSource ) {
+                case GameListSource.XmlPreferred:
+                    FetchXmlPref();
+                    break;
+                case GameListSource.XmlOnly:
+                    FetchXml();
+                    break;
+                case GameListSource.WebsiteOnly:
+                    FetchHtml();
+                    break;
+            }
+
             OnThreadCompletion();
         }
 
@@ -129,14 +132,14 @@ namespace Depressurizer {
 
         protected override void Finish() {
             if( !Canceled && Error == null && ( UseHtml ? ( htmlDoc != null ) : ( doc != null ) ) ) {
-                SetText(GlobalStrings.CDlgFetch_FinishingDownload);
+                SetText( GlobalStrings.CDlgFetch_FinishingDownload );
                 if( UseHtml ) {
                     int newItems;
-                    Fetched = data.IntegrateHtmlGameList( htmlDoc, overwrite, ignore, out newItems );
+                    Fetched = data.IntegrateHtmlGameList( htmlDoc, overwrite, ignore, includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems );
                     Added = newItems;
                 } else {
                     int newItems;
-                    Fetched = data.IntegrateXmlGameList( doc, overwrite, ignore, out newItems );
+                    Fetched = data.IntegrateXmlGameList( doc, overwrite, ignore, includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems );
                     Added = newItems;
                 }
                 OnJobCompletion();

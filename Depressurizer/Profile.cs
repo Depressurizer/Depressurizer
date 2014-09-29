@@ -18,6 +18,8 @@ namespace Depressurizer {
             XmlName_WebUpdate = "web_update",
             XmlName_ExportDiscard = "export_discard",
             XmlName_AutoIgnore = "auto_ignore",
+            XmlName_IncludeUnknown = "include_unknown",
+            XmlName_BypassIgnoreOnImport = "bypass_ignore_on_import",
             XmlName_OverwriteNames = "overwrite_names",
             XmlName_IncludeShortcuts = "include_shortcuts",
             XmlName_ExclusionList = "exclusions",
@@ -37,7 +39,7 @@ namespace Depressurizer {
             XmlName_Old_IgnoreExternal = "ignore_external",
             XmlName_Old_AutoDownload = "auto_download",
             XmlName_Old_Game_Favorite = "favorite";
-        
+
         public const int VERSION = 3;
         #endregion
 
@@ -64,11 +66,17 @@ namespace Depressurizer {
         public bool OverwriteOnDownload = false;
 
         public bool AutoIgnore = true;
+        public bool IncludeUnknown = false;
+        public bool BypassIgnoreOnImport = false;
 
         public bool IncludeShortcuts = true;
 
         public int ImportSteamData() {
-            return GameData.ImportSteamConfig( SteamID64, IgnoreList, IncludeShortcuts );
+            AppTypes included = AppTypes.InclusionNormal;
+            if( BypassIgnoreOnImport ) included = AppTypes.InclusionAll;
+            else if( IncludeUnknown ) included &= AppTypes.Unknown;
+
+            return GameData.ImportSteamConfig( SteamID64, IgnoreList, included, IncludeShortcuts );
         }
 
         public void ExportSteamData() {
@@ -116,20 +124,23 @@ namespace Depressurizer {
                     }
                 }
                 profile.SteamID64 = accId;
-                
+
                 // Get other attributes
                 if( profileVersion < 3 ) {
                     profile.AutoUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_Old_AutoDownload], profile.AutoUpdate );
                 } else {
                     profile.AutoUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoUpdate], profile.AutoUpdate );
                 }
-                
+
                 profile.AutoImport = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoImport], profile.AutoImport );
                 profile.AutoExport = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoExport], profile.AutoExport );
 
                 profile.LocalUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_LocalUpdate], profile.LocalUpdate );
                 profile.WebUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_WebUpdate], profile.WebUpdate );
-                
+
+                profile.IncludeUnknown = XmlUtil.GetBoolFromNode( profileNode[XmlName_IncludeUnknown], profile.IncludeUnknown );
+                profile.BypassIgnoreOnImport = XmlUtil.GetBoolFromNode( profileNode[XmlName_BypassIgnoreOnImport], profile.BypassIgnoreOnImport );
+
                 profile.ExportDiscard = XmlUtil.GetBoolFromNode( profileNode[XmlName_ExportDiscard], profile.ExportDiscard );
                 profile.AutoIgnore = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoIgnore], profile.AutoIgnore );
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode( profileNode[XmlName_OverwriteNames], profile.OverwriteOnDownload );
@@ -138,7 +149,7 @@ namespace Depressurizer {
                     bool ignoreShortcuts = false;
                     if( XmlUtil.TryGetBoolFromNode( profileNode[XmlName_Old_IgnoreExternal], out ignoreShortcuts ) ) {
                         profile.IncludeShortcuts = !ignoreShortcuts;
-                    } 
+                    }
                 } else {
                     profile.IncludeShortcuts = XmlUtil.GetBoolFromNode( profileNode[XmlName_IncludeShortcuts], profile.IncludeShortcuts );
                 }
@@ -188,7 +199,7 @@ namespace Depressurizer {
             if( XmlUtil.TryGetIntFromNode( node[XmlName_Game_Id], out id ) ) {
                 GameListingSource source = XmlUtil.GetEnumFromNode<GameListingSource>( node[XmlName_Game_Source], GameListingSource.Unknown );
 
-                if( source < GameListingSource.Manual && (profile.IgnoreList.Contains( id ) || !Program.GameDB.IncludeItemInGameList( id ) ) ) {
+                if( source < GameListingSource.Manual && profile.IgnoreList.Contains( id ) ) {
                     return;
                 }
 
@@ -252,6 +263,8 @@ namespace Depressurizer {
             writer.WriteElementString( XmlName_WebUpdate, WebUpdate.ToString() );
             writer.WriteElementString( XmlName_ExportDiscard, ExportDiscard.ToString() );
             writer.WriteElementString( XmlName_AutoIgnore, AutoIgnore.ToString() );
+            writer.WriteElementString( XmlName_IncludeUnknown, IncludeUnknown.ToString() );
+            writer.WriteElementString( XmlName_BypassIgnoreOnImport, BypassIgnoreOnImport.ToString() );
             writer.WriteElementString( XmlName_OverwriteNames, OverwriteOnDownload.ToString() );
             writer.WriteElementString( XmlName_IncludeShortcuts, IncludeShortcuts.ToString() );
 

@@ -66,12 +66,15 @@ namespace Depressurizer {
             this.chkAutoImport = new System.Windows.Forms.CheckBox();
             this.chkAutoUpdate = new System.Windows.Forms.CheckBox();
             this.grpSaveOpt = new System.Windows.Forms.GroupBox();
+            this.lblHelp_ExportDiscard = new System.Windows.Forms.Label();
             this.chkExportDiscard = new System.Windows.Forms.CheckBox();
             this.chkAutoExport = new System.Windows.Forms.CheckBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tabOpts = new System.Windows.Forms.TabPage();
             this.grpUpdateOpt = new System.Windows.Forms.GroupBox();
+            this.lblHelp_LocalUpdate = new System.Windows.Forms.Label();
+            this.lblHelp_WebUpdate = new System.Windows.Forms.Label();
             this.chkWebUpdate = new System.Windows.Forms.CheckBox();
             this.chkLocalUpdate = new System.Windows.Forms.CheckBox();
             this.grpOtherOpt = new System.Windows.Forms.GroupBox();
@@ -84,11 +87,12 @@ namespace Depressurizer {
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
+            this.lblHelp_BypassIgnoreOnImport = new System.Windows.Forms.Label();
+            this.lblHelp_IncludeUnknown = new System.Windows.Forms.Label();
+            this.chkBypassIgnoreOnImport = new System.Windows.Forms.CheckBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
-            this.lblHelp_WebUpdate = new System.Windows.Forms.Label();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.lblHelp_ExportDiscard = new System.Windows.Forms.Label();
-            this.lblHelp_LocalUpdate = new System.Windows.Forms.Label();
+            this.chkIncludeUnknown = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -285,6 +289,12 @@ namespace Depressurizer {
             this.grpSaveOpt.Name = "grpSaveOpt";
             this.grpSaveOpt.TabStop = false;
             // 
+            // lblHelp_ExportDiscard
+            // 
+            resources.ApplyResources(this.lblHelp_ExportDiscard, "lblHelp_ExportDiscard");
+            this.lblHelp_ExportDiscard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHelp_ExportDiscard.Name = "lblHelp_ExportDiscard";
+            // 
             // chkExportDiscard
             // 
             resources.ApplyResources(this.chkExportDiscard, "chkExportDiscard");
@@ -338,6 +348,18 @@ namespace Depressurizer {
             this.grpUpdateOpt.Controls.Add(this.chkLocalUpdate);
             this.grpUpdateOpt.Name = "grpUpdateOpt";
             this.grpUpdateOpt.TabStop = false;
+            // 
+            // lblHelp_LocalUpdate
+            // 
+            resources.ApplyResources(this.lblHelp_LocalUpdate, "lblHelp_LocalUpdate");
+            this.lblHelp_LocalUpdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHelp_LocalUpdate.Name = "lblHelp_LocalUpdate";
+            // 
+            // lblHelp_WebUpdate
+            // 
+            resources.ApplyResources(this.lblHelp_WebUpdate, "lblHelp_WebUpdate");
+            this.lblHelp_WebUpdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHelp_WebUpdate.Name = "lblHelp_WebUpdate";
             // 
             // chkWebUpdate
             // 
@@ -426,9 +448,31 @@ namespace Depressurizer {
             // grpIgnoreSettings
             // 
             resources.ApplyResources(this.grpIgnoreSettings, "grpIgnoreSettings");
+            this.grpIgnoreSettings.Controls.Add(this.chkIncludeUnknown);
+            this.grpIgnoreSettings.Controls.Add(this.lblHelp_BypassIgnoreOnImport);
+            this.grpIgnoreSettings.Controls.Add(this.lblHelp_IncludeUnknown);
+            this.grpIgnoreSettings.Controls.Add(this.chkBypassIgnoreOnImport);
             this.grpIgnoreSettings.Controls.Add(this.chkAutoIgnore);
             this.grpIgnoreSettings.Name = "grpIgnoreSettings";
             this.grpIgnoreSettings.TabStop = false;
+            // 
+            // lblHelp_BypassIgnoreOnImport
+            // 
+            resources.ApplyResources(this.lblHelp_BypassIgnoreOnImport, "lblHelp_BypassIgnoreOnImport");
+            this.lblHelp_BypassIgnoreOnImport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHelp_BypassIgnoreOnImport.Name = "lblHelp_BypassIgnoreOnImport";
+            // 
+            // lblHelp_IncludeUnknown
+            // 
+            resources.ApplyResources(this.lblHelp_IncludeUnknown, "lblHelp_IncludeUnknown");
+            this.lblHelp_IncludeUnknown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblHelp_IncludeUnknown.Name = "lblHelp_IncludeUnknown";
+            // 
+            // chkBypassIgnoreOnImport
+            // 
+            resources.ApplyResources(this.chkBypassIgnoreOnImport, "chkBypassIgnoreOnImport");
+            this.chkBypassIgnoreOnImport.Name = "chkBypassIgnoreOnImport";
+            this.chkBypassIgnoreOnImport.UseVisualStyleBackColor = true;
             // 
             // chkAutoIgnore
             // 
@@ -438,27 +482,15 @@ namespace Depressurizer {
             this.chkAutoIgnore.Name = "chkAutoIgnore";
             this.chkAutoIgnore.UseVisualStyleBackColor = true;
             // 
-            // lblHelp_WebUpdate
-            // 
-            resources.ApplyResources(this.lblHelp_WebUpdate, "lblHelp_WebUpdate");
-            this.lblHelp_WebUpdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblHelp_WebUpdate.Name = "lblHelp_WebUpdate";
-            // 
             // ttHelp
             // 
             this.ttHelp.UseFading = false;
             // 
-            // lblHelp_ExportDiscard
+            // chkIncludeUnknown
             // 
-            resources.ApplyResources(this.lblHelp_ExportDiscard, "lblHelp_ExportDiscard");
-            this.lblHelp_ExportDiscard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblHelp_ExportDiscard.Name = "lblHelp_ExportDiscard";
-            // 
-            // lblHelp_LocalUpdate
-            // 
-            resources.ApplyResources(this.lblHelp_LocalUpdate, "lblHelp_LocalUpdate");
-            this.lblHelp_LocalUpdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblHelp_LocalUpdate.Name = "lblHelp_LocalUpdate";
+            resources.ApplyResources(this.chkIncludeUnknown, "chkIncludeUnknown");
+            this.chkIncludeUnknown.Name = "chkIncludeUnknown";
+            this.chkIncludeUnknown.UseVisualStyleBackColor = true;
             // 
             // DlgProfile
             // 
@@ -496,6 +528,7 @@ namespace Depressurizer {
             this.grpIgnored.ResumeLayout(false);
             this.grpIgnored.PerformLayout();
             this.grpIgnoreSettings.ResumeLayout(false);
+            this.grpIgnoreSettings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -549,5 +582,9 @@ namespace Depressurizer {
         private Lib.ExtToolTip ttHelp;
         private System.Windows.Forms.Label lblHelp_ExportDiscard;
         private System.Windows.Forms.Label lblHelp_LocalUpdate;
+        private System.Windows.Forms.Label lblHelp_BypassIgnoreOnImport;
+        private System.Windows.Forms.Label lblHelp_IncludeUnknown;
+        private System.Windows.Forms.CheckBox chkBypassIgnoreOnImport;
+        private System.Windows.Forms.CheckBox chkIncludeUnknown;
     }
 }

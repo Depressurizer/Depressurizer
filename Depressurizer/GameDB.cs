@@ -270,10 +270,6 @@ namespace Depressurizer {
 
         }
 
-        public bool IncludeInGameList( bool includeUnknown = false ) {
-            return AppType == AppTypes.Game || AppType == AppTypes.Application || ( includeUnknown && AppType == AppTypes.Unknown );
-        }
-
     }
 
     public class GameDB {
@@ -311,8 +307,11 @@ namespace Depressurizer {
         }
 
         //TODO: make sure we don't use this where we shouldn't
-        public bool IncludeItemInGameList( int id, bool includeUnknown = false ) {
-            return Games.ContainsKey( id ) && Games[id].IncludeInGameList( includeUnknown );
+        public bool IncludeItemInGameList( int id, AppTypes scheme ) {
+            if( Games.ContainsKey( id ) ) {
+                return scheme.HasFlag( Games[id].AppType );
+            }
+            return scheme.HasFlag( AppTypes.Unknown );
         }
 
         public string GetName( int id ) {

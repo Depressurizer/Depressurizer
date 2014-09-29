@@ -89,8 +89,9 @@ namespace Depressurizer {
 
         #endregion
 
-        private void DownloadProfileData( Int64 steamId, bool overwrite, SortedSet<int> ignore ) {
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, steamId, overwrite, ignore );
+        private void DownloadProfileData() {
+
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IncludeUnknown );
 
             DialogResult res = updateDlg.ShowDialog();
 
@@ -322,7 +323,7 @@ namespace Depressurizer {
                 bool success = false;
                 if( currentProfile.LocalUpdate ) {
                     try {
-                        currentProfile.GameData.UpdateGameListFromOwnedPackageInfo( currentProfile.SteamID64, currentProfile.IgnoreList );
+                        currentProfile.GameData.UpdateGameListFromOwnedPackageInfo( currentProfile.SteamID64, currentProfile.IgnoreList, currentProfile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal );
                         AddStatus( "Updated game list from config files." );
                         success = true;
                     } catch( Exception e ) {
@@ -336,7 +337,7 @@ namespace Depressurizer {
                     FullListRefresh();
                 } else if( currentProfile.WebUpdate ) {
                     try {
-                        DownloadProfileData( currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList );
+                        DownloadProfileData();
                         success = true;
                     } catch( ApplicationException e ) {
                         MessageBox.Show( e.Message, GlobalStrings.MainForm_ErrorDownloadingGameList, MessageBoxButtons.OK, MessageBoxIcon.Warning );

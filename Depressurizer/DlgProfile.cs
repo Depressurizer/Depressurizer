@@ -87,6 +87,8 @@ namespace Depressurizer {
             this.Text = GlobalStrings.DlgProfile_EditProfile;
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
+            chkIncludeUnknown.Checked = Profile.IncludeUnknown;
+            chkBypassIgnoreOnImport.Checked = Profile.BypassIgnoreOnImport;
 
             foreach( int i in Profile.IgnoreList ) {
                 lstIgnored.Items.Add( i.ToString() );
@@ -134,6 +136,8 @@ namespace Depressurizer {
             ttHelp.Ext_SetToolTip( lblHelp_ExportDiscard, "Removes extraneous information for unrecognized games from your Steam config file.\nDoes not remove games from your library or game list.\nDisable this if you are losing categories for games in your library that do not show up in Depressurizer." );
             ttHelp.Ext_SetToolTip( lblHelp_LocalUpdate, "Parse files from your Steam installation to get a list of your games.\nMuch faster and generally more accurate and reliable than a web update." );
             ttHelp.Ext_SetToolTip( lblHelp_WebUpdate, "Download a game list from your profile on the steamcommunity.com website.\nRequires your profile to be set to \"Public\"." );
+            ttHelp.Ext_SetToolTip( lblHelp_IncludeUnknown, "Include apps that are not in the database or are of unknown type.\nNormally, the game list includes only games it knows to be Games or Applications." );
+            ttHelp.Ext_SetToolTip( lblHelp_BypassIgnoreOnImport, "Ignore app type restrictions when importing games from your existing category setup.\nTurn this on if you have games that Depressurizer refuses to recognize even after you categorize them in the Steam client and import categories." );
 
             LoadShortIds();
             if( editMode ) {
@@ -323,6 +327,8 @@ namespace Depressurizer {
             p.OverwriteOnDownload = chkOverwriteNames.Checked;
 
             p.AutoIgnore = chkAutoIgnore.Checked;
+            p.IncludeUnknown = chkIncludeUnknown.Checked;
+            p.BypassIgnoreOnImport = chkBypassIgnoreOnImport.Checked;
 
             SortedSet<int> ignoreSet = new SortedSet<int>();
             foreach( ListViewItem item in lstIgnored.Items ) {
