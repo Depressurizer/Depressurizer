@@ -686,10 +686,10 @@ namespace Depressurizer {
             }
 
             foreach( KeyValuePair<int, GameListingSource> kv in ownedApps ) {
-                totalApps++;
                 bool isNew;
                 string name = Program.GameDB.GetName( kv.Key );
-                IntegrateGame( kv.Key, name, false, ignored, includedTypes, kv.Value, out isNew );
+                GameInfo newGame = IntegrateGame( kv.Key, name, false, ignored, includedTypes, kv.Value, out isNew );
+                if( newGame != null ) totalApps++;
                 if( isNew ) newApps++;
             }
             return totalApps;
