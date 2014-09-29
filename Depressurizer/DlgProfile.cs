@@ -83,7 +83,7 @@ namespace Depressurizer {
             chkExportDiscard.Checked = Profile.ExportDiscard;
             chkIncludeShortcuts.Checked = Profile.IncludeShortcuts;
             chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
-            
+
             this.Text = GlobalStrings.DlgProfile_EditProfile;
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
@@ -132,12 +132,11 @@ namespace Depressurizer {
         #region Event Handlers
 
         private void ProfileDlg_Load( object sender, EventArgs e ) {
-            // TODO: String literals
-            ttHelp.Ext_SetToolTip( lblHelp_ExportDiscard, "Removes extraneous information for unrecognized games from your Steam config file.\nDoes not remove games from your library or game list.\nDisable this if you are losing categories for games in your library that do not show up in Depressurizer." );
-            ttHelp.Ext_SetToolTip( lblHelp_LocalUpdate, "Parse files from your Steam installation to get a list of your games.\nMuch faster and generally more accurate and reliable than a web update." );
-            ttHelp.Ext_SetToolTip( lblHelp_WebUpdate, "Download a game list from your profile on the steamcommunity.com website.\nRequires your profile to be set to \"Public\"." );
-            ttHelp.Ext_SetToolTip( lblHelp_IncludeUnknown, "Include apps that are not in the database or are of unknown type.\nNormally, the game list includes only games it knows to be Games or Applications." );
-            ttHelp.Ext_SetToolTip( lblHelp_BypassIgnoreOnImport, "Ignore app type restrictions when importing games from your existing category setup.\nTurn this on if you have games that Depressurizer refuses to recognize even after you categorize them in the Steam client and import categories." );
+            ttHelp.Ext_SetToolTip( lblHelp_ExportDiscard, GlobalStrings.DlgProfile_Help_ExportDiscard );
+            ttHelp.Ext_SetToolTip( lblHelp_LocalUpdate, GlobalStrings.DlgProfile_Help_LocalUpdate );
+            ttHelp.Ext_SetToolTip( lblHelp_WebUpdate, GlobalStrings.DlgProfile_Help_WebUpdate );
+            ttHelp.Ext_SetToolTip( lblHelp_IncludeUnknown, GlobalStrings.DlgProfile_Help_IncludeUnknown );
+            ttHelp.Ext_SetToolTip( lblHelp_BypassIgnoreOnImport, GlobalStrings.DlgProfile_Help_BypassIgnoreOnImport );
 
             LoadShortIds();
             if( editMode ) {
@@ -146,7 +145,7 @@ namespace Depressurizer {
                 txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
 
                 if( lstUsers.Items.Count == 0 ) {
-                    MessageBox.Show(GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show( GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                     radSelUserByURL.Checked = true;
                 } else {
                     radSelUserFromList.Checked = true;
@@ -195,7 +194,7 @@ namespace Depressurizer {
                 txtIgnore.ResetText();
                 lstIgnored.Sort();
             } else {
-                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show( GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
             }
         }
 
@@ -250,7 +249,7 @@ namespace Depressurizer {
                 }
 
                 if( dlg.Success == false || dlg.SteamID == 0 ) {
-                    MessageBox.Show(this, GlobalStrings.DlgProfile_CouldNotFindSteamProfile, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show( this, GlobalStrings.DlgProfile_CouldNotFindSteamProfile, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                     return false;
                 }
 
@@ -276,7 +275,7 @@ namespace Depressurizer {
             try {
                 file = new FileInfo( txtFilePath.Text );
             } catch {
-                MessageBox.Show(GlobalStrings.DlgProfile_YouMustEnterValidProfilePath, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( GlobalStrings.DlgProfile_YouMustEnterValidProfilePath, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return false;
             }
 
@@ -284,7 +283,7 @@ namespace Depressurizer {
                 try {
                     file.Directory.Create();
                 } catch {
-                    MessageBox.Show(GlobalStrings.DlgProfile_FailedToCreateParentDirectory, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show( GlobalStrings.DlgProfile_FailedToCreateParentDirectory, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                     return false;
                 }
             }
@@ -297,7 +296,7 @@ namespace Depressurizer {
             try {
                 profile.Save( file.FullName );
             } catch( ApplicationException e ) {
-                MessageBox.Show(e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return false;
             }
 
@@ -308,7 +307,7 @@ namespace Depressurizer {
         bool ValidateEntries() {
             Int64 id;
             if( !Int64.TryParse( txtUserID.Text, out id ) ) {
-                MessageBox.Show(GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show( GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return false;
             }
             return true;
@@ -398,7 +397,7 @@ namespace Depressurizer {
                     return nameNode.InnerText;
                 }
             } catch( Exception e ) {
-                Program.Logger.Write(Rallion.LoggerLevel.Warning, GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
+                Program.Logger.Write( Rallion.LoggerLevel.Warning, GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId );
                 Program.Logger.Write( Rallion.LoggerLevel.Warning, e.Message );
             }
             return null;
@@ -460,7 +459,7 @@ namespace Depressurizer {
             if( this.InvokeRequired ) {
                 Invoke( new UpdateDelegate( UpdateDisplayNameInList ), new object[] { index, name } );
             } else {
-                
+
                 UserRecord u = lstUsers.Items[index] as UserRecord;
                 if( u != null ) {
                     bool selected = lstUsers.SelectedIndex == index;

@@ -297,6 +297,16 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to update from AppInfo:
+        ///{0}.
+        /// </summary>
+        internal static string DBEditDlg_AppInfoUpdateFailed {
+            get {
+                return ResourceManager.GetString("DBEditDlg_AppInfoUpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete {0} games from the database?.
         /// </summary>
         internal static string DBEditDlg_AreYouSureDeleteGames {
@@ -483,6 +493,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception when updating AppInfo: {0}.
+        /// </summary>
+        internal static string DBEditDlg_Log_ExceptionAppInfo {
+            get {
+                return ResourceManager.GetString("DBEditDlg_Log_ExceptionAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No games to scrape..
         /// </summary>
         internal static string DBEditDlg_NoGamesToScrape {
@@ -506,6 +525,15 @@ namespace Depressurizer {
         internal static string DBEditDlg_SelectedDisplayedTotal {
             get {
                 return ResourceManager.GetString("DBEditDlg_SelectedDisplayedTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated {0} entries from AppInfo..
+        /// </summary>
+        internal static string DBEditDlg_Status_UpdatedAppInfo {
+            get {
+                return ResourceManager.GetString("DBEditDlg_Status_UpdatedAppInfo", resourceCulture);
             }
         }
         
@@ -822,6 +850,56 @@ namespace Depressurizer {
         internal static string DlgProfile_Filter {
             get {
                 return ResourceManager.GetString("DlgProfile_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore app type restrictions when importing games from your existing category setup.
+        ///Turn this on if you have games that Depressurizer refuses to recognize even after you categorize them in the Steam client and import categories..
+        /// </summary>
+        internal static string DlgProfile_Help_BypassIgnoreOnImport {
+            get {
+                return ResourceManager.GetString("DlgProfile_Help_BypassIgnoreOnImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes extraneous information for unrecognized games from your Steam config file.\nDoes not remove games from your library or game list.
+        ///Disable this if you are losing categories for games in your library that do not show up in Depressurizer..
+        /// </summary>
+        internal static string DlgProfile_Help_ExportDiscard {
+            get {
+                return ResourceManager.GetString("DlgProfile_Help_ExportDiscard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include apps that are not in the database or are of unknown type.
+        ///Normally, the game list includes only games that are listed as Games or Applications..
+        /// </summary>
+        internal static string DlgProfile_Help_IncludeUnknown {
+            get {
+                return ResourceManager.GetString("DlgProfile_Help_IncludeUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parse files from your Steam installation to get a list of your games.
+        ///Much faster and generally more accurate and reliable than a web update..
+        /// </summary>
+        internal static string DlgProfile_Help_LocalUpdate {
+            get {
+                return ResourceManager.GetString("DlgProfile_Help_LocalUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download a game list from your profile on the steamcommunity.com website.
+        ///Requires your profile to be set to &quot;Public&quot;..
+        /// </summary>
+        internal static string DlgProfile_Help_WebUpdate {
+            get {
+                return ResourceManager.GetString("DlgProfile_Help_WebUpdate", resourceCulture);
             }
         }
         
@@ -1260,6 +1338,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scraping {0}: response URI ends with &apos;app&apos;, no ID found..
+        /// </summary>
+        internal static string GameDB_Log_ScrapingNoAppId {
+            get {
+                return ResourceManager.GetString("GameDB_Log_ScrapingNoAppId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving GameDB to {0}.
         /// </summary>
         internal static string GameDB_SavingGameDBTo {
@@ -1382,6 +1469,15 @@ namespace Depressurizer {
         internal static string GameDB_XMLAppListDownloaded {
             get {
                 return ResourceManager.GetString("GameDB_XMLAppListDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Gen_Error {
+            get {
+                return ResourceManager.GetString("Gen_Error", resourceCulture);
             }
         }
         
@@ -1895,6 +1991,55 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception encountered when auto-updating DB from AppInfo.
+        ///{0}.
+        /// </summary>
+        internal static string MainForm_Log_ExceptionAppInfo {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception when autosaving database:
+        ///{0}.
+        /// </summary>
+        internal static string MainForm_Log_ExceptionAutosavingDB {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionAutosavingDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error encountered when updating database from AppInfo: {0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorAppInfo {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error saving database:
+        ///{0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorAutosavingDB {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorAutosavingDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error updating from local files:
+        ///{0}.
+        /// </summary>
+        internal static string MainForm_Msg_LocalUpdateError {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_LocalUpdateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name &apos;{0}&apos; is already in use..
         /// </summary>
         internal static string MainForm_NameIsInUse {
@@ -2080,6 +2225,42 @@ namespace Depressurizer {
         internal static string MainForm_SomeSelectedGameHaveCategories {
             get {
                 return ResourceManager.GetString("MainForm_SomeSelectedGameHaveCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated {0} DB entries from AppInfo..
+        /// </summary>
+        internal static string MainForm_Status_AppInfoAutoupdate {
+            get {
+                return ResourceManager.GetString("MainForm_Status_AppInfoAutoupdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated game list from config files, {0} found, {1} new..
+        /// </summary>
+        internal static string MainForm_Status_LocalUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Status_LocalUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to update from config files..
+        /// </summary>
+        internal static string MainForm_Status_LocalUpdateFailed {
+            get {
+                return ResourceManager.GetString("MainForm_Status_LocalUpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved DB..
+        /// </summary>
+        internal static string MainForm_Status_SavedDB {
+            get {
+                return ResourceManager.GetString("MainForm_Status_SavedDB", resourceCulture);
             }
         }
         

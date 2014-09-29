@@ -878,4 +878,71 @@ Removes any category that consists of the Prefix followed by one of the unchecke
   <data name="DlgGameDBEntry_ParentMustBeInt" xml:space="preserve">
     <value>Parent must be empty or integer.</value>
   </data>
+  <data name="DBEditDlg_AppInfoUpdateFailed" xml:space="preserve">
+    <value>Failed to update from AppInfo:
+{0}</value>
+  </data>
+  <data name="DBEditDlg_Log_ExceptionAppInfo" xml:space="preserve">
+    <value>Exception when updating AppInfo: {0}</value>
+  </data>
+  <data name="DBEditDlg_Status_UpdatedAppInfo" xml:space="preserve">
+    <value>Updated {0} entries from AppInfo.</value>
+  </data>
+  <data name="DlgProfile_Help_BypassIgnoreOnImport" xml:space="preserve">
+    <value>Ignore app type restrictions when importing games from your existing category setup.
+Turn this on if you have games that Depressurizer refuses to recognize even after you categorize them in the Steam client and import categories.</value>
+  </data>
+  <data name="DlgProfile_Help_ExportDiscard" xml:space="preserve">
+    <value>Removes extraneous information for unrecognized games from your Steam config file.\nDoes not remove games from your library or game list.
+Disable this if you are losing categories for games in your library that do not show up in Depressurizer.</value>
+  </data>
+  <data name="DlgProfile_Help_IncludeUnknown" xml:space="preserve">
+    <value>Include apps that are not in the database or are of unknown type.
+Normally, the game list includes only games that are listed as Games or Applications.</value>
+  </data>
+  <data name="DlgProfile_Help_LocalUpdate" xml:space="preserve">
+    <value>Parse files from your Steam installation to get a list of your games.
+Much faster and generally more accurate and reliable than a web update.</value>
+  </data>
+  <data name="DlgProfile_Help_WebUpdate" xml:space="preserve">
+    <value>Download a game list from your profile on the steamcommunity.com website.
+Requires your profile to be set to "Public".</value>
+  </data>
+  <data name="GameDB_Log_ScrapingNoAppId" xml:space="preserve">
+    <value>Scraping {0}: response URI ends with 'app', no ID found.</value>
+  </data>
+  <data name="Gen_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MainForm_Log_ExceptionAppInfo" xml:space="preserve">
+    <value>Exception encountered when auto-updating DB from AppInfo.
+{0}</value>
+  </data>
+  <data name="MainForm_Log_ExceptionAutosavingDB" xml:space="preserve">
+    <value>Exception when autosaving database:
+{0}</value>
+  </data>
+  <data name="MainForm_Msg_ErrorAppInfo" xml:space="preserve">
+    <value>Error encountered when updating database from AppInfo: {0}</value>
+  </data>
+  <data name="MainForm_Msg_ErrorAutosavingDB" xml:space="preserve">
+    <value>Error saving database:
+{0}</value>
+  </data>
+  <data name="MainForm_Msg_LocalUpdateError" xml:space="preserve">
+    <value>Error updating from local files:
+{0}</value>
+  </data>
+  <data name="MainForm_Status_AppInfoAutoupdate" xml:space="preserve">
+    <value>Updated {0} DB entries from AppInfo.</value>
+  </data>
+  <data name="MainForm_Status_LocalUpdate" xml:space="preserve">
+    <value>Updated game list from config files, {0} found, {1} new.</value>
+  </data>
+  <data name="MainForm_Status_LocalUpdateFailed" xml:space="preserve">
+    <value>Failed to update from config files.</value>
+  </data>
+  <data name="MainForm_Status_SavedDB" xml:space="preserve">
+    <value>Saved DB.</value>
+  </data>
 </root>

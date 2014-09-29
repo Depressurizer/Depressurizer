@@ -654,12 +654,14 @@ namespace Depressurizer {
         /// <param name="accountId">64-bit account ID to update for</param>
         /// <param name="ignored">Set of games to ignore</param>
         /// <param name="includeUnknown">If true, include games that do not exist in the database or are of unknown type in the database</param>
-        public void UpdateGameListFromOwnedPackageInfo( Int64 accountId, SortedSet<int> ignored, AppTypes includedTypes ) {
-            // TODO: After making sure this works properly, optimize it a little. Less storage.
+        public int UpdateGameListFromOwnedPackageInfo( Int64 accountId, SortedSet<int> ignored, AppTypes includedTypes, out int newApps ) {
+            newApps = 0;
+            int totalApps = 0;
 
             Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages( string.Format( Properties.Resources.PackageInfoPath, Settings.Instance().SteamPath ) );
 
-            List<int> ownedPackageIds = new List<int>();
+            Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
+
             string localConfigPath = string.Format( Properties.Resources.LocalConfigPath, Settings.Instance().SteamPath, Profile.ID64toDirName( accountId ) );
             VdfFileNode vdfFile = VdfFileNode.LoadFromText( new StreamReader( localConfigPath ) );
             if( vdfFile != null ) {
@@ -668,32 +670,29 @@ namespace Depressurizer {
                     foreach( string key in licensesNode.NodeArray.Keys ) {
                         int ownedPackageId;
                         if( int.TryParse( key, out ownedPackageId ) ) {
-                            ownedPackageIds.Add( ownedPackageId );
+                            PackageInfo ownedPackage = allPackages[ownedPackageId];
+                            if( ownedPackageId != 0 && !ownedPackage.IsExpired ) {
+                                GameListingSource src =
+                                    ( ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ) ?
+                                    GameListingSource.PackageFree : GameListingSource.PackageNormal;
+                                foreach( int ownedAppId in ownedPackage.AppIds ) {
+                                    if( !ownedApps.ContainsKey( ownedAppId ) || ( src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree ) )
+                                        ownedApps[ownedAppId] = src;
+                                }
+                            }
                         }
                     }
                 }
             }
 
-            Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
-
-            foreach( int ownedPackageId in ownedPackageIds ) {
-                PackageInfo ownedPackage = allPackages[ownedPackageId];
-                if( ownedPackageId != 0 && !ownedPackage.IsExpired ) {
-                    GameListingSource src =
-                        ( ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ) ?
-                        GameListingSource.PackageFree : GameListingSource.PackageNormal;
-                    foreach( int ownedAppId in ownedPackage.AppIds ) {
-                        if( !ownedApps.ContainsKey( ownedAppId ) || ( src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree ) )
-                            ownedApps[ownedAppId] = src;
-                    }
-                }
-            }
-
             foreach( KeyValuePair<int, GameListingSource> kv in ownedApps ) {
+                totalApps++;
                 bool isNew;
                 string name = Program.GameDB.GetName( kv.Key );
                 IntegrateGame( kv.Key, name, false, ignored, includedTypes, kv.Value, out isNew );
+                if( isNew ) newApps++;
             }
+            return totalApps;
         }
 
         #region Profile Data Integrating

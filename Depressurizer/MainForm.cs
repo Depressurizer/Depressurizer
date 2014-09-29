@@ -136,25 +136,23 @@ namespace Depressurizer {
         private void SaveGameDB() {
             try {
                 Program.GameDB.Save( "GameDB.xml.gz" );
-                AddStatus( "Saved DB." );
+                AddStatus( GlobalStrings.MainForm_Status_SavedDB );
             } catch( Exception e ) {
-                //TODO: String literals
-                Program.Logger.Write( LoggerLevel.Error, "Exception when autosaving database:\n{0}", e.ToString() );
-                MessageBox.Show( "Error saving database:\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.MainForm_Log_ExceptionAutosavingDB, e.ToString() );
+                MessageBox.Show( string.Format( GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message ), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
             }
         }
 
         private void UpdateGameDB() {
             try {
                 int num = Program.GameDB.UpdateFromAppInfo( string.Format( Properties.Resources.AppInfoPath, settings.SteamPath ) );
-                AddStatus( string.Format( "Updated {0} DB entries from AppInfo.", num ) );
+                AddStatus( string.Format( GlobalStrings.MainForm_Status_AppInfoAutoupdate, num ) );
                 if( num > 0 && settings.AutosaveDB ) {
                     SaveGameDB();
                 }
             } catch( Exception e ) {
-                //TODO: String literals
-                Program.Logger.Write( LoggerLevel.Error, "Error encountered when auto-updating DB from AppInfo.\n{0}", e.ToString() );
-                MessageBox.Show( "Error encountered when updating database from AppInfo: {0}", e.Message );
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.MainForm_Log_ExceptionAppInfo, e.ToString() );
+                MessageBox.Show( GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message );
             }
         }
 
@@ -317,18 +315,19 @@ namespace Depressurizer {
         }
 
         void UpdateGameData() {
-            // TODO: string literals
             if( currentProfile != null ) {
                 Cursor = Cursors.WaitCursor;
                 bool success = false;
                 if( currentProfile.LocalUpdate ) {
                     try {
-                        currentProfile.GameData.UpdateGameListFromOwnedPackageInfo( currentProfile.SteamID64, currentProfile.IgnoreList, currentProfile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal );
-                        AddStatus( "Updated game list from config files." );
+                        int newApps = 0;
+                        AppTypes appFilter = currentProfile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal;
+                        int totalApps = currentProfile.GameData.UpdateGameListFromOwnedPackageInfo( currentProfile.SteamID64, currentProfile.IgnoreList, appFilter, out newApps );
+                        AddStatus( string.Format( GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps ) );
                         success = true;
                     } catch( Exception e ) {
-                        MessageBox.Show( string.Format( "Error updating from local files:\n{0}", e.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                        // TODO status msg
+                        MessageBox.Show( string.Format( GlobalStrings.MainForm_Msg_LocalUpdateError, e.Message ), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        AddStatus( GlobalStrings.MainForm_Status_LocalUpdateFailed );
                         success = false;
                     }
                 }
@@ -344,8 +343,6 @@ namespace Depressurizer {
                         AddStatus( GlobalStrings.MainForm_DownloadFailed );
                     }
                 }
-
-
 
                 Cursor = Cursors.Default;
             }

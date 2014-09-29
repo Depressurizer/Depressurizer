@@ -154,12 +154,10 @@ namespace Depressurizer {
                 string path = string.Format( Properties.Resources.AppInfoPath, Settings.Instance().SteamPath );
                 int updated = Program.GameDB.UpdateFromAppInfo( path );
                 RefreshGameList();
-                //TODO: String literal
-                AddStatusMsg( string.Format( "Updated {0} entries from AppInfo.", updated ) );
+                AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_Status_UpdatedAppInfo, updated ) );
             } catch( Exception e ) {
-                //TODO: String literals
-                MessageBox.Show( string.Format( "Failed to update from AppInfo:\n{0}", e.Message ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
-                Program.Logger.Write( LoggerLevel.Error, "Exception when updating AppInfo: {0}", e.ToString() );
+                MessageBox.Show( string.Format( GlobalStrings.DBEditDlg_AppInfoUpdateFailed, e.Message ), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionAppInfo, e.ToString() );
             }
         }
 

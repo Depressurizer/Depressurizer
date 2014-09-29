@@ -103,7 +103,7 @@ namespace Depressurizer {
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToNonApp, id );
                         return AppTypes.Other;
                     } else if( resp.ResponseUri.Segments.Length < 3 ) { // The URI ends with "/app/" ?
-                        //TODO: Logging: Add log message
+                        Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_Log_ScrapingNoAppId, id );
                         return AppTypes.Unknown;
                     } else if( resp.ResponseUri.Segments[2].TrimEnd( '/' ) != id.ToString() ) { // Redirected to a different app id
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToOtherApp, id, resp.ResponseUri.Segments[2].TrimEnd( '/' ) );
@@ -306,7 +306,6 @@ namespace Depressurizer {
             return Games.ContainsKey( id );
         }
 
-        //TODO: make sure we don't use this where we shouldn't
         public bool IncludeItemInGameList( int id, AppTypes scheme ) {
             if( Games.ContainsKey( id ) ) {
                 return scheme.HasFlag( Games[id].AppType );
