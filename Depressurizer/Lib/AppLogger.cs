@@ -606,6 +606,10 @@ namespace Rallion {
                 }
             }
         }
+
+        public void WriteException( string message, Exception e ) {
+            Write( LoggerLevel.Error, message + Environment.NewLine + e.ToString() );
+        }
         #endregion
     }
 }
