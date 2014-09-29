@@ -658,11 +658,11 @@ namespace Depressurizer {
             newApps = 0;
             int totalApps = 0;
 
-            Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages( string.Format( Properties.Resources.PackageInfoPath, Settings.Instance().SteamPath ) );
+            Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages( string.Format( Properties.Resources.PackageInfoPath, Settings.Instance.SteamPath ) );
 
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-            string localConfigPath = string.Format( Properties.Resources.LocalConfigPath, Settings.Instance().SteamPath, Profile.ID64toDirName( accountId ) );
+            string localConfigPath = string.Format( Properties.Resources.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName( accountId ) );
             VdfFileNode vdfFile = VdfFileNode.LoadFromText( new StreamReader( localConfigPath ) );
             if( vdfFile != null ) {
                 VdfFileNode licensesNode = vdfFile.GetNodeAt( new string[] { "UserLocalConfigStore", "Licenses" }, false );
@@ -921,7 +921,7 @@ namespace Depressurizer {
         /// <param name="includeShortcuts">If true, also import shortcut data</param>
         /// <returns>The number of game entries found</returns>
         public int ImportSteamConfig( long SteamId, SortedSet<int> ignore, AppTypes includedTypes, bool includeShortcuts ) {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName( SteamId ) );
             int result = ImportSteamConfigFile( filePath, ignore, includedTypes );
             if( includeShortcuts ) {
                 result += ImportSteamShortcuts( SteamId );
@@ -936,7 +936,7 @@ namespace Depressurizer {
         /// <param name="discardMissing">If true, any pre-existing game entries in the file that do not have corresponding entries in the GameList are removed</param>
         /// <param name="includeShortcuts">If true, also saves the Steam shortcut category data</param>
         public void ExportSteamConfig( long steamId, bool discardMissing, bool includeShortcuts ) {
-            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( steamId ) );
+            string filePath = string.Format( Properties.Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName( steamId ) );
             ExportSteamConfigFile( filePath, discardMissing );
             if( includeShortcuts ) {
                 ExportSteamShortcuts( steamId );
@@ -1013,7 +1013,7 @@ namespace Depressurizer {
             VdfFileNode fullFile = new VdfFileNode();
             fullFile["UserLocalConfigStore"] = fileData;
             try {
-                Utility.BackupFile( filePath, Settings.Instance().ConfigBackupCount );
+                Utility.BackupFile( filePath, Settings.Instance.ConfigBackupCount );
             } catch( Exception e ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_GameData_ConfigBackupFailed, e.Message );
             }
@@ -1050,7 +1050,7 @@ namespace Depressurizer {
         /// <param name="SteamId">Identifier of Steam user to save information</param>
         /// <param name="discardMissing">If true, category information in shortcuts.vdf file is removed if game is not in Game list</param>
         public void ExportSteamShortcuts( long SteamId ) {
-            string filePath = string.Format( Properties.Resources.ShortCutsFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
+            string filePath = string.Format( Properties.Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName( SteamId ) );
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath );
             FileStream fStream = null;
             BinaryReader binReader = null;
@@ -1111,7 +1111,7 @@ namespace Depressurizer {
                 if( dataRoot.NodeType == ValueType.Array ) {
                     Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SavingShortcutConfigFile, filePath );
                     try {
-                        Utility.BackupFile( filePath, Settings.Instance().ConfigBackupCount );
+                        Utility.BackupFile( filePath, Settings.Instance.ConfigBackupCount );
                     } catch( Exception e ) {
                         Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_GameData_ShortcutBackupFailed, e.Message );
                     }
@@ -1147,7 +1147,7 @@ namespace Depressurizer {
         /// <returns>True if file was successfully loaded, false otherwise</returns>
         private bool LoadShortcutLaunchIds( long SteamId, out StringDictionary shortcutLaunchIds ) {
             bool result = false;
-            string filePath = string.Format( Properties.Resources.ScreenshotsFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
+            string filePath = string.Format( Properties.Resources.ScreenshotsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName( SteamId ) );
 
             shortcutLaunchIds = new StringDictionary();
 
@@ -1191,7 +1191,7 @@ namespace Depressurizer {
 
             int loadedGames = 0;
 
-            string filePath = string.Format( Properties.Resources.ShortCutsFilePath, Settings.Instance().SteamPath, Profile.ID64toDirName( SteamId ) );
+            string filePath = string.Format( Properties.Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName( SteamId ) );
             FileStream fStream = null;
             BinaryReader binReader = null;
 

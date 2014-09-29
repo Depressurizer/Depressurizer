@@ -12,20 +12,12 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class FormMain : Form {
         #region Fields
-        // Stores currently loaded profile
+
         Profile currentProfile;
-        // Stores all actual game data
-        GameList gameData;
 
-        // Game list sorting state
-        MultiColumnListViewComparer listSorter = new MultiColumnListViewComparer();
-
-        // Stores last selected category to minimize game list refreshes
-        object lastSelectedCat = null;
+        MultiColumnListViewComparer listSorter = new MultiColumnListViewComparer();     // Game list sorting state
 
         bool unsavedChanges = false;
-
-        Settings settings = Settings.Instance();
 
         StringBuilder statusBuilder = new StringBuilder();
 
@@ -33,6 +25,7 @@ namespace Depressurizer {
         bool isDragging;
         int dragOldCat;
 
+        object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
         bool ignoreCheckChanges = false;
 
         // Used to reload resources of main form while switching language
@@ -50,10 +43,7 @@ namespace Depressurizer {
         }
         #endregion
         public FormMain() {
-            gameData = new GameList();
             InitializeComponent();
-
-            chkFavorite.Checked = false;
 
             // Set up list sorting
             listSorter.AddIntCol( 0 );
@@ -70,12 +60,14 @@ namespace Depressurizer {
         /// </summary>
         /// <returns>True if save was completed, false otherwise</returns>
         bool ManualExportConfig() {
+            if( currentProfile == null ) return false;
+
             SaveFileDialog dlg = new SaveFileDialog();
             DialogResult res = dlg.ShowDialog();
             if( res == DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 try {
-                    gameData.ExportSteamConfigFile( dlg.FileName, settings.RemoveExtraEntries );
+                    currentProfile.GameData.ExportSteamConfigFile( dlg.FileName, Settings.Instance.RemoveExtraEntries );
                     AddStatus( GlobalStrings.MainForm_DataExported );
                     return true;
                 } catch( ApplicationException e ) {
@@ -90,8 +82,9 @@ namespace Depressurizer {
         #endregion
 
         private void DownloadProfileData() {
+            if( currentProfile == null ) return;
 
-            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( gameData, currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IncludeUnknown );
+            CDlgUpdateProfile updateDlg = new CDlgUpdateProfile( currentProfile.GameData, currentProfile.SteamID64, currentProfile.OverwriteOnDownload, currentProfile.IgnoreList, currentProfile.IncludeUnknown );
 
             DialogResult res = updateDlg.ShowDialog();
 
@@ -145,9 +138,9 @@ namespace Depressurizer {
 
         private void UpdateGameDB() {
             try {
-                int num = Program.GameDB.UpdateFromAppInfo( string.Format( Properties.Resources.AppInfoPath, settings.SteamPath ) );
+                int num = Program.GameDB.UpdateFromAppInfo( string.Format( Properties.Resources.AppInfoPath, Settings.Instance.SteamPath ) );
                 AddStatus( string.Format( GlobalStrings.MainForm_Status_AppInfoAutoupdate, num ) );
-                if( num > 0 && settings.AutosaveDB ) {
+                if( num > 0 && Settings.Instance.AutosaveDB ) {
                     SaveGameDB();
                 }
             } catch( Exception e ) {
@@ -167,7 +160,6 @@ namespace Depressurizer {
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 Cursor = Cursors.WaitCursor;
                 currentProfile = dlg.Profile;
-                gameData = currentProfile.GameData;
                 AddStatus( GlobalStrings.MainForm_ProfileCreated );
                 if( dlg.DownloadNow ) {
                     UpdateGameData();
@@ -177,9 +169,9 @@ namespace Depressurizer {
                     UpdateProfileImport( false );
                 }
                 if( dlg.SetStartup ) {
-                    settings.StartupAction = StartupAction.Load;
-                    settings.ProfileToLoad = currentProfile.FilePath;
-                    settings.Save();
+                    Settings.Instance.StartupAction = StartupAction.Load;
+                    Settings.Instance.ProfileToLoad = currentProfile.FilePath;
+                    Settings.Instance.Save();
                 }
 
                 FullListRefresh();
@@ -209,9 +201,9 @@ namespace Depressurizer {
                         refresh = true;
                     }
                     if( dlg.SetStartup ) {
-                        settings.StartupAction = StartupAction.Load;
-                        settings.ProfileToLoad = currentProfile.FilePath;
-                        settings.Save();
+                        Settings.Instance.StartupAction = StartupAction.Load;
+                        Settings.Instance.ProfileToLoad = currentProfile.FilePath;
+                        Settings.Instance.Save();
                     }
                     Cursor = Cursors.Default;
                     if( refresh ) {
@@ -258,8 +250,6 @@ namespace Depressurizer {
                 AddStatus( GlobalStrings.MainForm_FailedLoadProfile );
                 return;
             }
-
-            gameData = currentProfile.GameData;
 
             if( currentProfile.AutoUpdate ) {
                 UpdateGameData();
@@ -400,7 +390,7 @@ namespace Depressurizer {
         Category CreateCategory() {
             GetStringDlg dlg = new GetStringDlg( string.Empty, GlobalStrings.MainForm_CreateCategory, GlobalStrings.MainForm_EnterNewCategoryName, GlobalStrings.MainForm_Create );
             if( dlg.ShowDialog() == DialogResult.OK && CatUtil.ValidateCategoryName( dlg.Value ) ) {
-                Category newCat = gameData.AddCategory( dlg.Value );
+                Category newCat = currentProfile.GameData.AddCategory( dlg.Value );
                 if( newCat != null ) {
                     OnCategoryChange();
                     MakeChange( true );
@@ -424,7 +414,7 @@ namespace Depressurizer {
                 if( c != null ) {
                     DialogResult res = MessageBox.Show( string.Format( GlobalStrings.MainForm_DeleteCategory, c.Name ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
                     if( res == System.Windows.Forms.DialogResult.Yes ) {
-                        if( gameData.RemoveCategory( c ) ) {
+                        if( currentProfile.GameData.RemoveCategory( c ) ) {
                             FullListRefresh(); // Full refresh might not always be necessary
                             MakeChange( true );
                             AddStatus( string.Format( GlobalStrings.MainForm_CategoryDeleted, c.Name ) );
@@ -464,7 +454,7 @@ namespace Depressurizer {
         /// <returns>True if successful, false otherwise.</returns>
         bool RenameCategoryHelper( Category c, string newName ) {
             if( newName == c.Name ) return true;
-            if( CatUtil.ValidateCategoryName( newName ) && gameData.RenameCategory( c, newName ) ) {
+            if( CatUtil.ValidateCategoryName( newName ) && currentProfile.GameData.RenameCategory( c, newName ) ) {
                 OnCategoryChange();
                 MakeChange( true );
                 AddStatus( string.Format( GlobalStrings.MainForm_CategoryRenamed, c.Name ) );
@@ -479,7 +469,7 @@ namespace Depressurizer {
         /// Adds a new game. Displays the game dialog to the user.
         /// </summary>
         void AddGame() {
-            DlgGame dlg = new DlgGame( gameData, null );
+            DlgGame dlg = new DlgGame( currentProfile.GameData, null );
             if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
                 if( ProfileLoaded ) {
                     if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
@@ -499,7 +489,7 @@ namespace Depressurizer {
             if( lstGames.SelectedIndices.Count > 0 ) {
                 int index = lstGames.SelectedIndices[0];
                 GameInfo g = lstGames.Items[index].Tag as GameInfo;
-                DlgGame dlg = new DlgGame( gameData, g );
+                DlgGame dlg = new DlgGame( currentProfile.GameData, g );
                 if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
                     OnGameChange( true, true );
                     MakeChange( true );
@@ -520,7 +510,7 @@ namespace Depressurizer {
                     int removed = 0;
                     foreach( ListViewItem item in lstGames.SelectedItems ) {
                         GameInfo g = (GameInfo)item.Tag;
-                        if( gameData.Games.Remove( g.Id ) ) {
+                        if( currentProfile.GameData.Games.Remove( g.Id ) ) {
                             removed++;
                         }
                         if( ProfileLoaded && currentProfile.AutoIgnore ) {
@@ -547,8 +537,8 @@ namespace Depressurizer {
                 foreach( ListViewItem item in lstGames.SelectedItems ) {
                     GameInfo g = item.Tag as GameInfo;
                     if( g != null ) {
-                        if( forceClearOthers || settings.SingleCatMode ) {
-                            g.ClearCategoriesExcept( gameData.FavoriteCategory );
+                        if( forceClearOthers || Settings.Instance.SingleCatMode ) {
+                            g.ClearCategoriesExcept( currentProfile.GameData.FavoriteCategory );
                             if( cat != null ) {
                                 g.AddCategory( cat );
                             }
@@ -583,9 +573,9 @@ namespace Depressurizer {
                     GameInfo g = item.Tag as GameInfo;
                     if( g != null ) {
                         if( fav ) {
-                            g.AddCategory( gameData.FavoriteCategory );
+                            g.AddCategory( currentProfile.GameData.FavoriteCategory );
                         } else {
-                            g.RemoveCategory( gameData.FavoriteCategory );
+                            g.RemoveCategory( currentProfile.GameData.FavoriteCategory );
                         }
                     }
                 }
@@ -619,7 +609,7 @@ namespace Depressurizer {
 
             AddStatus( GlobalStrings.MainForm_ClearedData );
             currentProfile = null;
-            gameData = new GameList();
+            currentProfile.GameData = new GameList();
             MakeChange( false );
             OnProfileChange();
             if( updateUI ) {
@@ -641,7 +631,7 @@ namespace Depressurizer {
                     }
                 }
             } else {
-                foreach( GameInfo g in gameData.Games.Values ) {
+                foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
                     if( ( g != null ) && ( g.Id > 0 ) ) {
                         gamesToUpdate.Add( g );
                     }
@@ -684,7 +674,7 @@ namespace Depressurizer {
                                 updated++;
                             }
                         }
-                        if( scrapeDlg.JobsCompleted > 0 && settings.AutosaveDB ) {
+                        if( scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutosaveDB ) {
                             SaveGameDB();
                         }
                     }
@@ -709,7 +699,7 @@ namespace Depressurizer {
             }
 
             int named = 0;
-            foreach( GameInfo g in gameData.Games.Values ) {
+            foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
                 if( overwrite || string.IsNullOrEmpty( g.Name ) ) {
                     g.Name = Program.GameDB.GetName( g.Id );
                     named++;
@@ -724,7 +714,7 @@ namespace Depressurizer {
         }
 
         void RemoveEmptyCats() {
-            int count = gameData.RemoveEmptyCategories();
+            int count = currentProfile.GameData.RemoveEmptyCategories();
             AddStatus( string.Format( GlobalStrings.MainForm_RemovedEmptyCategories, count ) );
             OnCategoryChange();
         }
@@ -773,7 +763,7 @@ namespace Depressurizer {
                 sb.Append( " - " );
                 sb.Append( Path.GetFileName( currentProfile.FilePath ) );
             }
-            if( settings.SingleCatMode ) {
+            if( Settings.Instance.SingleCatMode ) {
                 sb.Append( " [" );
                 sb.Append( GlobalStrings.MainForm_SingleCategoryMode );
                 sb.Append( "]" );
@@ -838,7 +828,7 @@ namespace Depressurizer {
             lstGames.BeginUpdate();
             lstGames.Items.Clear();
             if( lstCategories.SelectedItems.Count > 0 ) {
-                foreach( GameInfo g in gameData.Games.Values ) {
+                foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
                     if( ShouldDisplayGame( g ) ) {
                         AddGameToList( g );
                     }
@@ -856,14 +846,14 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="g">The game the new entry should represent.</param>
         private void AddGameToList( GameInfo g ) {
-            string catName = g.GetCatStringExcept( gameData.FavoriteCategory, GlobalStrings.MainForm_Uncategorized );
+            string catName = g.GetCatStringExcept( currentProfile.GameData.FavoriteCategory, GlobalStrings.MainForm_Uncategorized );
 
             ListViewItem item;
 
             // Shortcut games do not show internal identifier
             string strId = ( g.Id < 0 ) ? GlobalStrings.MainForm_External : g.Id.ToString();
 
-            item = new ListViewItem( new string[] { strId, g.Name, catName, g.ContainsCategory( gameData.FavoriteCategory ) ? "X" : String.Empty, g.Hidden ? "X" : String.Empty } );
+            item = new ListViewItem( new string[] { strId, g.Name, catName, g.ContainsCategory( currentProfile.GameData.FavoriteCategory ) ? "X" : String.Empty, g.Hidden ? "X" : String.Empty } );
 
             item.Tag = g;
 
@@ -878,8 +868,8 @@ namespace Depressurizer {
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillAllCategoryLists() {
-            gameData.Categories.Sort();
-            object[] catList = gameData.Categories.ToArray();
+            currentProfile.GameData.Categories.Sort();
+            object[] catList = currentProfile.GameData.Categories.ToArray();
 
             lstCategories.BeginUpdate();
             object selected = lstCategories.SelectedItem;
@@ -903,8 +893,8 @@ namespace Depressurizer {
 
             contextGameRemCat.Items.Clear();
 
-            foreach( Category c in gameData.Categories ) {
-                if( c != gameData.FavoriteCategory ) {
+            foreach( Category c in currentProfile.GameData.Categories ) {
+                if( c != currentProfile.GameData.FavoriteCategory ) {
                     ToolStripItem item = contextGame_AddCat.DropDownItems.Add( c.Name );
                     item.Tag = c;
                     item.Click += contextGameAddCat_Category_Click;
@@ -922,8 +912,8 @@ namespace Depressurizer {
             lstMultiCat.BeginUpdate();
             lstMultiCat.Items.Clear();
 
-            foreach( Category c in gameData.Categories ) {
-                if( c != gameData.FavoriteCategory ) {
+            foreach( Category c in currentProfile.GameData.Categories ) {
+                if( c != currentProfile.GameData.FavoriteCategory ) {
                     ListViewItem item = new ListViewItem( c.Name );
                     item.Tag = c;
                     item.StateImageIndex = 0;
@@ -980,11 +970,11 @@ namespace Depressurizer {
         void AddGameToCheckboxStates( GameInfo game, bool first ) {
             ignoreCheckChanges = true;
             if( first ) {
-                chkFavorite.CheckState = game.ContainsCategory( gameData.FavoriteCategory ) ? CheckState.Checked : CheckState.Unchecked;
+                chkFavorite.CheckState = game.ContainsCategory( currentProfile.GameData.FavoriteCategory ) ? CheckState.Checked : CheckState.Unchecked;
                 chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
             } else {
                 if( chkFavorite.CheckState != CheckState.Indeterminate ) {
-                    if( game.ContainsCategory( gameData.FavoriteCategory ) ) {
+                    if( game.ContainsCategory( currentProfile.GameData.FavoriteCategory ) ) {
                         if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
                     } else {
                         if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
@@ -1010,8 +1000,8 @@ namespace Depressurizer {
             GameInfo g = (GameInfo)item.Tag;
             if( ShouldDisplayGame( g ) ) {
                 item.SubItems[1].Text = g.Name;
-                item.SubItems[2].Text = g.GetCatStringExcept( gameData.FavoriteCategory, GlobalStrings.MainForm_Uncategorized );
-                item.SubItems[3].Text = g.ContainsCategory( gameData.FavoriteCategory ) ? "X" : String.Empty;
+                item.SubItems[2].Text = g.GetCatStringExcept( currentProfile.GameData.FavoriteCategory, GlobalStrings.MainForm_Uncategorized );
+                item.SubItems[3].Text = g.ContainsCategory( currentProfile.GameData.FavoriteCategory ) ? "X" : String.Empty;
                 item.SubItems[4].Text = g.Hidden ? "X" : String.Empty;
                 return true;
             } else {
@@ -1125,7 +1115,7 @@ namespace Depressurizer {
         /// Update UI to match current state of the SingleCatMode setting
         /// </summary>
         private void UpdateUIForSingleCat() {
-            bool sCat = settings.SingleCatMode;
+            bool sCat = Settings.Instance.SingleCatMode;
             menu_Tools_SingleCat.Checked = sCat;
             UpdateTitle();
         }
@@ -1139,7 +1129,7 @@ namespace Depressurizer {
             UpdateEnabledStatesForCategories();
             LoadGameDB();
 
-            PackageInfo.LoadPackages( string.Format( Properties.Resources.PackageInfoPath, settings.SteamPath ) );
+            PackageInfo.LoadPackages( string.Format( Properties.Resources.PackageInfoPath, Settings.Instance.SteamPath ) );
 
             // jpodadera. Save original width and height
             originalHeight = this.Height;
@@ -1152,18 +1142,18 @@ namespace Depressurizer {
 
         private void FormMain_Shown( object sender, EventArgs e ) {
             ClearStatus();
-            if( settings.SteamPath == null ) {
+            if( Settings.Instance.SteamPath == null ) {
                 DlgSteamPath dlg = new DlgSteamPath();
                 dlg.ShowDialog();
-                settings.SteamPath = dlg.Path;
-                settings.Save();
+                Settings.Instance.SteamPath = dlg.Path;
+                Settings.Instance.Save();
             }
-            if( settings.UpdateAppInfoOnStart ) {
+            if( Settings.Instance.UpdateAppInfoOnStart ) {
                 UpdateGameDB();
             }
-            switch( settings.StartupAction ) {
+            switch( Settings.Instance.StartupAction ) {
                 case StartupAction.Load:
-                    LoadProfile( settings.ProfileToLoad, false );
+                    LoadProfile( Settings.Instance.ProfileToLoad, false );
                     break;
                 case StartupAction.Create:
                     CreateProfile();
@@ -1182,7 +1172,7 @@ namespace Depressurizer {
         #region Drag and drop
 
         private void SetDragDropEffect( DragEventArgs e ) {
-            if( settings.SingleCatMode /*|| (e.KeyState & 4) == 4*/ ) { // Commented segment: SHIFT
+            if( Settings.Instance.SingleCatMode /*|| (e.KeyState & 4) == 4*/ ) { // Commented segment: SHIFT
                 e.Effect = DragDropEffects.Move;
             } else if( ( e.KeyState & 8 ) == 8 ) { // CTRL
                 e.Effect = DragDropEffects.Link;
@@ -1214,21 +1204,21 @@ namespace Depressurizer {
                 if( dropItem is Category ) {
                     Category dropCat = (Category)dropItem;
                     if( e.Effect == DragDropEffects.Move ) {
-                        if( dropCat == gameData.FavoriteCategory ) {
-                            gameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
+                        if( dropCat == currentProfile.GameData.FavoriteCategory ) {
+                            currentProfile.GameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
                         } else {
-                            gameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), dropCat, true );
+                            currentProfile.GameData.SetGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), dropCat, true );
                         }
                     } else if( e.Effect == DragDropEffects.Link ) {
-                        gameData.RemoveGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
+                        currentProfile.GameData.RemoveGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
                     } else if( e.Effect == DragDropEffects.Copy ) {
-                        gameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
+                        currentProfile.GameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
                     }
                     OnGameChange( false, true );
                     MakeChange( true );
                 } else if( dropItem is string ) {
                     if( (string)dropItem == GlobalStrings.MainForm_Uncategorized ) {
-                        gameData.ClearGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), true );
+                        currentProfile.GameData.ClearGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), true );
                         OnGameChange( false, true );
                         MakeChange( true );
                     }
@@ -1346,13 +1336,13 @@ namespace Depressurizer {
         }
 
         private void menu_Tools_DBEdit_Click( object sender, EventArgs e ) {
-            Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg( gameData );
+            Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg( currentProfile.GameData );
             dlg.ShowDialog();
             LoadGameDB();
         }
 
         private void menu_Tools_SingleCat_Click( object sender, EventArgs e ) {
-            settings.SingleCatMode = !settings.SingleCatMode;
+            Settings.Instance.SingleCatMode = !Settings.Instance.SingleCatMode;
             UpdateUIForSingleCat();
         }
 
@@ -1578,7 +1568,7 @@ namespace Depressurizer {
 
         private void cmdAddCatAndAssign_Click( object sender, EventArgs e ) {
             if( CatUtil.ValidateCategoryName( txtAddCatAndAssign.Text ) ) {
-                Category cat = gameData.GetCategory( txtAddCatAndAssign.Text );
+                Category cat = currentProfile.GameData.GetCategory( txtAddCatAndAssign.Text );
                 AddCategoryToSelectedGames( cat, true, false );
                 txtAddCatAndAssign.Clear();
             }
@@ -1761,7 +1751,7 @@ namespace Depressurizer {
         /// <returns>True if it should be displayed, false otherwise</returns>
         bool ShouldDisplayGame( GameInfo g ) {
             if( currentProfile == null ) return false;
-            if( !gameData.Games.ContainsKey( g.Id ) ) return false;
+            if( !currentProfile.GameData.Games.ContainsKey( g.Id ) ) return false;
             if( g.Id < 0 && !currentProfile.IncludeShortcuts ) return false;
             if( lstCategories.SelectedItem == null ) return false;
 
@@ -1770,7 +1760,7 @@ namespace Depressurizer {
                     return true;
                 }
                 if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_Uncategorized ) {
-                    return !g.HasCategoriesExcept( gameData.FavoriteCategory );
+                    return !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory );
                 }
             } else if( lstCategories.SelectedItem is Category ) {
                 return g.ContainsCategory( lstCategories.SelectedItem as Category );
@@ -1820,9 +1810,9 @@ namespace Depressurizer {
         private void chkFavorite_CheckedChanged( object sender, EventArgs e ) {
             if( !ignoreCheckChanges ) {
                 if( chkFavorite.CheckState == CheckState.Checked ) {
-                    AddCategoryToSelectedGames( gameData.FavoriteCategory, false, false );
+                    AddCategoryToSelectedGames( currentProfile.GameData.FavoriteCategory, false, false );
                 } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
-                    RemoveCategoryFromSelectedGames( gameData.FavoriteCategory );
+                    RemoveCategoryFromSelectedGames( currentProfile.GameData.FavoriteCategory );
                 }
             }
         }

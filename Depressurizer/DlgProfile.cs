@@ -367,7 +367,7 @@ namespace Depressurizer {
         /// <returns>An array of located IDs</returns>
         private string[] GetSteamIds() {
             try {
-                DirectoryInfo dir = new DirectoryInfo( Settings.Instance().SteamPath + "\\userdata" );
+                DirectoryInfo dir = new DirectoryInfo( Settings.Instance.SteamPath + "\\userdata" );
                 if( dir.Exists ) {
                     DirectoryInfo[] userDirs = dir.GetDirectories();
                     string[] result = new string[userDirs.Length];

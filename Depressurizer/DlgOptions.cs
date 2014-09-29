@@ -35,7 +35,7 @@ namespace Depressurizer {
         }
 
         private void FillFieldsFromSettings() {
-            Settings settings = Settings.Instance();
+            Settings settings = Settings.Instance;
             txtSteamPath.Text = settings.SteamPath;
             txtDefaultProfile.Text = settings.ProfileToLoad;
             switch( settings.StartupAction ) {
@@ -85,7 +85,7 @@ namespace Depressurizer {
         }
 
         private void SaveFieldsToSettings() {
-            Settings settings = Settings.Instance();
+            Settings settings = Settings.Instance;
 
             settings.SteamPath = txtSteamPath.Text;
             if( radLoad.Checked ) {

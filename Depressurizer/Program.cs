@@ -41,8 +41,7 @@ namespace Depressurizer {
             Logger.MaxBackup = 1;
             Logger.FileNameTemplate = "Depressurizer.log";
 
-            Settings settings = Settings.Instance();
-            settings.Load();
+            Settings.Instance.Load();
 
             Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
 
@@ -50,7 +49,7 @@ namespace Depressurizer {
             Application.SetCompatibleTextRenderingDefault( false );
             Application.Run( new FormMain() );
 
-            settings.Save();
+            Settings.Instance.Save();
 
             Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
             Logger.EndSession();

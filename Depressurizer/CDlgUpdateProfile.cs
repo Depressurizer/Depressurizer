@@ -86,7 +86,7 @@ namespace Depressurizer {
         protected override void RunProcess() {
             Added = 0;
             Fetched = 0;
-            switch( Settings.Instance().ListSource ) {
+            switch( Settings.Instance.ListSource ) {
                 case GameListSource.XmlPreferred:
                     FetchXmlPref();
                     break;

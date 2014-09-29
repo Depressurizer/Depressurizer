@@ -48,11 +48,13 @@ namespace Depressurizer {
 
         private static Settings instance;
 
-        public static Settings Instance() {
-            if( instance == null ) {
-                instance = new Settings();
+        public static Settings Instance {
+            get {
+                if( instance == null ) {
+                    instance = new Settings();
+                }
+                return instance;
             }
-            return instance;
         }
 
         public int SettingsVersion {
