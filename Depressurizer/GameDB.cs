@@ -22,6 +22,7 @@ namespace Depressurizer {
         // Basics:
         public List<string> Genres = new List<string>();
         public List<string> Flags = new List<string>();
+        public List<string> Tags = new List<string>();
         public List<string> Developers = null;
         public List<string> Publishers = null;
         public string SteamReleaseDate = null;
@@ -38,9 +39,8 @@ namespace Depressurizer {
         private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
-
-        //private static Regex regDLC = new Regex("<div class=\\\"name\\\"><a href=[^>]*>Downloadable Content</a></div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex regFlags = new Regex( "<a href=\\\"http://store.steampowered.com/search/\\?category2=[0-9]+\\\" class=\\\"name\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regTags = new Regex( "<a[^>]*class=\\\"app_tag\\\"[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         private static Regex regDevelopers = new Regex( "<b>Developer:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regPublishers = new Regex( "<b>Publisher:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
@@ -182,8 +182,17 @@ namespace Depressurizer {
             if( matches.Count > 0 ) {
                 Flags = new List<string>();
                 foreach( Match ma in matches ) {
-                    string flag = ma.Groups[1].Captures[0].Value;
+                    string flag = ma.Groups[1].Value;
                     if( !string.IsNullOrWhiteSpace( flag ) ) this.Flags.Add( flag );
+                }
+            }
+
+            matches = regTags.Matches( page );
+            if( matches.Count > 0 ) {
+                Tags = new List<string>();
+                foreach( Match ma in matches ) {
+                    string tag = ma.Groups[1].Value.Trim();
+                    if( !string.IsNullOrWhiteSpace( tag ) ) this.Tags.Add( tag );
                 }
             }
 
@@ -215,8 +224,6 @@ namespace Depressurizer {
             if( m.Success ) {
                 this.MC_Url = m.Groups[1].Captures[0].Value;
             }
-
-            // TODO: Tags
         }
         #endregion
 
@@ -294,6 +301,7 @@ namespace Depressurizer {
             XmlName_Game_Platforms = "platforms",
             XmlName_Game_Parent = "parent",
             XmlName_Game_Genre = "genre",
+            XmlName_Game_Tag = "tag",
             XmlName_Game_Developer = "developer",
             XmlName_Game_Publisher = "publisher",
             XmlName_Game_Flag = "flag",
@@ -525,6 +533,12 @@ namespace Depressurizer {
                         }
                     }
 
+                    if( g.Tags != null ) {
+                        foreach( string str in g.Tags ) {
+                            writer.WriteElementString( XmlName_Game_Tag, str );
+                        }
+                    }
+
                     if( g.Developers != null ) {
                         foreach( string str in g.Developers ) {
                             writer.WriteElementString( XmlName_Game_Developer, str );
@@ -634,6 +648,8 @@ namespace Depressurizer {
                     } else {
                         g.Genres = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Genre ) );
                     }
+
+                    g.Tags = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Tag ) );
 
                     g.Developers = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Developer ) );
 
