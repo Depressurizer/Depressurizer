@@ -81,7 +81,7 @@ namespace Depressurizer {
 
                 // Get platforms
                 string oslist = null;
-                AppPlatforms platforms = AppPlatforms.All;
+                AppPlatforms platforms = AppPlatforms.None;
                 VdfFileNode oslistNode = commonNode.GetNodeAt( new string[] { "oslist" }, false );
                 if( oslistNode != null ) {
                     oslist = oslistNode.NodeData.ToString();
