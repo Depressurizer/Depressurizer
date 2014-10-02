@@ -72,6 +72,8 @@ namespace Depressurizer {
             this.dateAppInfo = new System.Windows.Forms.DateTimePicker();
             this.chkWebUpdate = new System.Windows.Forms.CheckBox();
             this.chkAppInfoUpdate = new System.Windows.Forms.CheckBox();
+            this.lblTags = new System.Windows.Forms.Label();
+            this.txtTags = new System.Windows.Forms.TextBox();
             this.grpPlat.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -245,6 +247,16 @@ namespace Depressurizer {
             this.chkAppInfoUpdate.Name = "chkAppInfoUpdate";
             this.chkAppInfoUpdate.UseVisualStyleBackColor = true;
             // 
+            // lblTags
+            // 
+            resources.ApplyResources(this.lblTags, "lblTags");
+            this.lblTags.Name = "lblTags";
+            // 
+            // txtTags
+            // 
+            resources.ApplyResources(this.txtTags, "txtTags");
+            this.txtTags.Name = "txtTags";
+            // 
             // GameDBEntryDialog
             // 
             this.AcceptButton = this.cmdSave;
@@ -252,6 +264,8 @@ namespace Depressurizer {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ControlBox = false;
+            this.Controls.Add(this.txtTags);
+            this.Controls.Add(this.lblTags);
             this.Controls.Add(this.chkAppInfoUpdate);
             this.Controls.Add(this.chkWebUpdate);
             this.Controls.Add(this.dateAppInfo);
@@ -322,5 +336,7 @@ namespace Depressurizer {
         private System.Windows.Forms.DateTimePicker dateAppInfo;
         private System.Windows.Forms.CheckBox chkWebUpdate;
         private System.Windows.Forms.CheckBox chkAppInfoUpdate;
+        private System.Windows.Forms.Label lblTags;
+        private System.Windows.Forms.TextBox txtTags;
     }
 }
