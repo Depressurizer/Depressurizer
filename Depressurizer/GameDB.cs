@@ -7,6 +7,7 @@ using System.Xml;
 using Rallion;
 using System.IO.Compression;
 using System.Globalization;
+using System.Linq;
 
 namespace Depressurizer {
 
@@ -256,6 +257,10 @@ namespace Depressurizer {
                 this.Flags = other.Flags;
             }
 
+            if( other.Tags != null && other.Tags.Count > 0 && otherNewerForOtherFields ) {
+                this.Tags = other.Tags;
+            }
+
             if( other.Developers != null && other.Developers.Count > 0 && otherNewerForAIFields ) {
                 this.Developers = other.Developers;
             }
@@ -397,6 +402,71 @@ namespace Depressurizer {
                 }
             }
             return allStoreFlags;
+        }
+
+        /// <summary>
+        /// Gets a list of tags found on games, sorted by a popularity score.
+        /// </summary>
+        /// <param name="filter">GameList including games to include in the search. If null, finds tags for all games in the database.</param>
+        /// <param name="weightFactor">Value of the popularity score contributed by the first processed tag for each game. Each subsequent tag contributes less to its own score.
+        /// The last tag always contributes 1. Value less than or equal to 1 indicates no weighting.</param>
+        /// <param name="minScore">Minimum score of tags to include in the result list. Tags with lower scores will be discarded.</param>
+        /// <param name="tagsPerGame">Maximum tags to find per game. If a game has more tags than this, they will be discarded. 0 indicates no limit.</param>
+        /// <returns>List of tags, as strings</returns>
+        public List<string> CalculateSortedTagList( GameList filter, float weightFactor, int minScore, int tagsPerGame ) {
+            SortedSet<string> genreNames = GetAllGenres();
+            Dictionary<string, float> tagCounts = new Dictionary<string, float>();
+            if( filter == null ) {
+                foreach( GameDBEntry dbEntry in Games.Values ) {
+                    CalculateSortedTagListHelper( tagCounts, dbEntry, weightFactor, tagsPerGame );
+                }
+            } else {
+                foreach( int gameId in filter.Games.Keys ) {
+                    if( Games.ContainsKey( gameId ) ) {
+                        CalculateSortedTagListHelper( tagCounts, Games[gameId], weightFactor, tagsPerGame );
+                    }
+                }
+            }
+
+            foreach( string genre in genreNames ) {
+                tagCounts.Remove( genre );
+            }
+
+            return ( from entry in tagCounts where entry.Value >= minScore orderby entry.Value descending select entry.Key ).ToList();
+        }
+
+        /// <summary>
+        /// Adds tags from the given DBEntry to the dictionary. Adds new elements if necessary, and increases values on existing elements.
+        /// </summary>
+        /// <param name="counts">Existing dictionary of tags and scores. Key is the tag as a string, value is the score</param>
+        /// <param name="dbEntry">Entry to add tags from</param>
+        /// <param name="weightFactor">The score value of the first tag in the list.
+        /// The first tag on the game will have this score, and the last tag processed will always have score 1.
+        /// The tags between will have linearly interpolated values between them.</param>
+        /// <param name="tagsPerGame"></param>
+        private void CalculateSortedTagListHelper( Dictionary<string, float> counts, GameDBEntry dbEntry, float weightFactor, int tagsPerGame ) {
+            if( dbEntry.Tags != null ) {
+                int tagsToLoad = (tagsPerGame == 0) ? dbEntry.Tags.Count : Math.Min( tagsPerGame, dbEntry.Tags.Count );
+                for( int i = 0; i < tagsToLoad; i++ ) {
+                    // Get the score based on the weighting factor
+                    float score = 1;
+                    if( weightFactor > 1 ) {
+                        if( tagsToLoad <= 1 ) {
+                            score = weightFactor;
+                        } else {
+                            float interp = (float)i / (float)( tagsToLoad - 1 );
+                            score = (int)Math.Round( ( 1 - interp ) * weightFactor + interp );
+                        }
+                    }
+
+                    string tag = dbEntry.Tags[i];
+                    if( counts.ContainsKey( tag ) ) {
+                        counts[tag] += score;
+                    } else {
+                        counts[tag] = score;
+                    }
+                }
+            }
         }
 
         private void ClearAggregates() {
