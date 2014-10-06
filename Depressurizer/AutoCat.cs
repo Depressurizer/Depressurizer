@@ -9,7 +9,8 @@ namespace Depressurizer {
     public enum AutoCatType {
         None,
         Genre,
-        Flags
+        Flags,
+        Tags
     }
 
     public enum AutoCatResult {
@@ -98,6 +99,9 @@ namespace Depressurizer {
                 case AutoCatFlags.TypeIdString:
                     result = AutoCatFlags.LoadFromXmlElement( xElement );
                     break;
+                case AutoCatTags.TypeIdString:
+                    result = AutoCatTags.LoadFromXmlElement( xElement );
+                    break;
                 default:
                     break;
             }
@@ -110,6 +114,8 @@ namespace Depressurizer {
                     return new AutoCatGenre( name );
                 case AutoCatType.Flags:
                     return new AutoCatFlags( name );
+                case AutoCatType.Tags:
+                    return new AutoCatTags( name );
                 default:
                     return null;
             }
@@ -214,7 +220,7 @@ namespace Depressurizer {
             if( genreList != null && genreList.Count > 0 ) {
                 List<Category> categories = new List<Category>();
                 int max = MaxCategories;
-                for( int i = 0; i < genreList.Count && (MaxCategories == 0 || i < max); i++ ) {
+                for( int i = 0; i < genreList.Count && ( MaxCategories == 0 || i < max ); i++ ) {
                     if( !IgnoredGenres.Contains( genreList[i] ) ) {
                         categories.Add( games.GetCategory( GetProcessedString( genreList[i] ) ) );
                     } else {
@@ -377,5 +383,134 @@ namespace Depressurizer {
             return new AutoCatFlags( name, prefix, flags );
         }
 
+    }
+
+    public class AutoCatTags : AutoCat {
+        public string Prefix { get; set; }
+        public int MaxTags { get; set; }
+        public HashSet<string> IncludedTags { get; set; }
+
+        public bool ListOwnedOnly { get; set; }
+        public float ListWeightFactor { get; set; }
+        public int ListMinScore { get; set; }
+        public int ListTagsPerGame { get; set; }
+
+        public const string TypeIdString = "AutoCatTags";
+        private const string XmlName_Name = "Name",
+            XmlName_Prefix = "Prefix",
+            XmlName_TagList = "Tags",
+            XmlName_Tag = "Tag",
+            XmlName_MaxTags = "MaxTags",
+            XmlName_ListOwnedOnly = "List_OwnedOnly",
+            XmlName_ListWeightFactor = "List_WeightedScore",
+            XmlName_ListMinScore = "List_MinScore",
+            XmlName_ListTagsPerGame = "List_TagsPerGame";
+
+        public AutoCatTags( string name, string prefix = "", HashSet<string> tags = null, int maxTags = 0, bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 10 )
+            : base( name ) {
+            this.Prefix = prefix;
+
+            if( tags == null ) IncludedTags = new HashSet<string>();
+            else IncludedTags = tags;
+
+            this.MaxTags = maxTags;
+            this.ListOwnedOnly = listOwnedOnly;
+            this.ListWeightFactor = listWeightFactor;
+            this.ListMinScore = listMinScore;
+            this.ListTagsPerGame = listTagsPerGame;
+        }
+
+        protected AutoCatTags( AutoCatTags other )
+            : base( other ) {
+            this.Prefix = other.Prefix;
+            this.IncludedTags = new HashSet<string>( other.IncludedTags );
+            this.MaxTags = other.MaxTags;
+            this.ListOwnedOnly = other.ListOwnedOnly;
+            this.ListWeightFactor = other.ListWeightFactor;
+            this.ListMinScore = other.ListMinScore;
+            this.ListTagsPerGame = other.ListTagsPerGame;
+        }
+
+        public override AutoCat Clone() {
+            return new AutoCatTags( this );
+        }
+
+        public override AutoCatResult CategorizeGame( GameInfo game ) {
+            if( games == null ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
+                throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
+            }
+            if( db == null ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull );
+                throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameDB );
+            }
+            if( game == null ) {
+                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull );
+                return AutoCatResult.Failure;
+            }
+
+            if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
+
+            GameDBEntry dbEntry = db.Games[game.Id];
+
+            if( dbEntry.Tags != null ) {
+                int added = 0;
+                for( int index = 0; index < dbEntry.Tags.Count && ( MaxTags == 0 || added < MaxTags ); index++ ) {
+                    if( IncludedTags.Contains( dbEntry.Tags[index] ) ) {
+                        game.AddCategory( games.GetCategory( GetProcessedString( dbEntry.Tags[index] ) ) );
+                        added++;
+                    }
+                }
+            }
+
+            return AutoCatResult.Success;
+        }
+
+        public string GetProcessedString( string s ) {
+            if( string.IsNullOrEmpty( Prefix ) ) {
+                return s;
+            } else {
+                return Prefix + s;
+            }
+        }
+
+        public override void WriteToXml( XmlWriter writer ) {
+            writer.WriteStartElement( TypeIdString );
+
+            writer.WriteElementString( XmlName_Name, Name );
+            if( !string.IsNullOrEmpty( Prefix ) ) writer.WriteElementString( XmlName_Prefix, Prefix );
+            writer.WriteElementString( XmlName_MaxTags, MaxTags.ToString() );
+
+            if( IncludedTags != null && IncludedTags.Count > 0 ) {
+                writer.WriteStartElement( XmlName_TagList );
+                foreach( string s in IncludedTags ) {
+                    writer.WriteElementString( XmlName_Tag, s );
+                }
+                writer.WriteEndElement();
+            }
+
+            writer.WriteElementString( XmlName_ListOwnedOnly, ListOwnedOnly.ToString() );
+            writer.WriteElementString( XmlName_ListWeightFactor, ListWeightFactor.ToString() );
+            writer.WriteElementString( XmlName_ListMinScore, ListMinScore.ToString() );
+            writer.WriteElementString( XmlName_ListTagsPerGame, ListTagsPerGame.ToString() );
+
+            writer.WriteEndElement();
+        }
+
+        public static AutoCatTags LoadFromXmlElement( XmlElement xElement ) {
+            string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+            string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], string.Empty );
+            int maxTags = XmlUtil.GetIntFromNode( xElement[XmlName_MaxTags], 0 );
+
+            bool listOwnedOnly = XmlUtil.GetBoolFromNode( xElement[XmlName_ListOwnedOnly], true );
+            float listWeightFactor = XmlUtil.GetFloatFromNode( xElement[XmlName_ListWeightFactor], 1 );
+            int listMinScore = XmlUtil.GetIntFromNode( xElement[XmlName_ListMinScore], 1 );
+            int listTagsPerGame = XmlUtil.GetIntFromNode( xElement[XmlName_ListTagsPerGame], 0 );
+
+            List<string> tagList = XmlUtil.GetStringsFromNodeList( xElement.SelectNodes( XmlName_TagList + "/" + XmlName_Tag ) );
+            HashSet<string> tagSet = ( tagList == null ) ? new HashSet<string>() : new HashSet<string>( tagList );
+
+            return new AutoCatTags( name, prefix, tagSet, maxTags, listOwnedOnly, listWeightFactor, listMinScore, listTagsPerGame );
+        }
     }
 }

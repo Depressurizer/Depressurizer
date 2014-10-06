@@ -42,6 +42,7 @@ namespace Depressurizer {
                 this.txtName.Text = Game.Name;
                 if( Game.Genres != null ) txtGenres.Text = string.Join( ",", Game.Genres );
                 if( Game.Flags != null ) txtFlags.Text = string.Join( ",", Game.Flags );
+                if( Game.Tags != null ) txtTags.Text = string.Join( ",", Game.Tags );
                 if( Game.Developers != null ) txtDev.Text = string.Join( ",", Game.Developers );
                 if( Game.Publishers != null ) txtPub.Text = string.Join( ",", Game.Publishers );
                 if( Game.MC_Url != null ) txtMCName.Text = Game.MC_Url;
@@ -89,6 +90,7 @@ namespace Depressurizer {
 
             Game.Genres = new List<string>( txtGenres.Text.Split( ',' ) );
             Game.Flags = new List<string>( txtFlags.Text.Split( ',' ) );
+            Game.Tags = new List<string>( txtFlags.Text.Split( ',' ) );
             Game.Developers = new List<string>( txtFlags.Text.Split( ',' ) );
             Game.Publishers = new List<string>( txtFlags.Text.Split( ',' ) );
 

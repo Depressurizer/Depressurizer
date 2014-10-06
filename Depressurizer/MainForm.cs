@@ -437,7 +437,7 @@ namespace Depressurizer {
         /// </summary>
         private void EditAutoCats() {
             if( !ProfileLoaded ) return;
-            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats );
+            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData );
 
             DialogResult res = dlg.ShowDialog();
 

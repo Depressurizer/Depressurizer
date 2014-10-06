@@ -55,6 +55,22 @@ namespace Depressurizer {
             return false;
         }
 
+        public static float GetFloatFromNode( XmlNode node, float defaultValue ) {
+            float result;
+            return TryGetFloatFromNode( node, out result ) ? result : defaultValue;
+        }
+
+        public static bool TryGetFloatFromNode( XmlNode node, out float value ) {
+            if( node != null ) {
+                XmlNode textNode = node.SelectSingleNode( "text()" );
+                if( textNode != null && float.TryParse( textNode.InnerText, out value ) ) {
+                    return true;
+                }
+            }
+            value = 0;
+            return false;
+        }
+
         public static Int64 GetInt64FromNode( XmlNode node, Int64 defaultValue ) {
             Int64 result;
             return TryGetInt64FromNode( node, out result ) ? result : defaultValue;
