@@ -547,7 +547,7 @@ Continue loading file?</value>
     <value>Category '{0}' added.</value>
   </data>
   <data name="MainForm_CategoryDeleted" xml:space="preserve">
-    <value>Category '{0}' deleted.</value>
+    <value>{0} categories deleted.</value>
   </data>
   <data name="MainForm_CategoryNameReserved" xml:space="preserve">
     <value>Category name '{0}' is reserved.</value>
@@ -565,7 +565,7 @@ Continue loading file?</value>
     <value>Could not add category '{0}'</value>
   </data>
   <data name="MainForm_CouldNotDeleteCategory" xml:space="preserve">
-    <value>Could not delete category '{0}'.</value>
+    <value>Could not delete categories.</value>
   </data>
   <data name="MainForm_Create" xml:space="preserve">
     <value>Create</value>
@@ -991,5 +991,8 @@ Set to 0 to process all tags from each game.</value>
     <value>With this set to 1, each tag's score is simply the number of games that it appears on.
 With this higher than one, tags earlier in games' tag lists receive a higher score.
 The higher the number, the more weight is placed on tag position.</value>
+  </data>
+  <data name="MainForm_DeleteCategoryMulti" xml:space="preserve">
+    <value>Delete {0} categories?</value>
   </data>
 </root>

@@ -475,28 +475,39 @@ namespace Depressurizer {
         }
 
         /// <summary>
-        /// Deletes the given category and updates the UI. Prompts user for confirmation. Will completely rebuild the gamelist.
+        /// Deletes the selected categories and updates the UI. Prompts user for confirmation. Will completely rebuild the gamelist.
         /// </summary>
-        /// <param name="c">Category to delete.</param>
-        /// <returns>True if deletion occurred, false otherwise.</returns>
-        bool DeleteCategory() {
-            if( lstCategories.SelectedItems.Count > 0 ) {
-                Category c = lstCategories.SelectedItem as Category;
-                if( c != null ) {
-                    DialogResult res = MessageBox.Show( string.Format( GlobalStrings.MainForm_DeleteCategory, c.Name ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
-                    if( res == System.Windows.Forms.DialogResult.Yes ) {
+        void DeleteCategory() {
+            List<Category> toDelete = new List<Category>();
+            foreach( object item in lstCategories.SelectedItems ) {
+                Category c = item as Category;
+                if( c != null && c != currentProfile.GameData.FavoriteCategory ) {
+                    toDelete.Add( c );
+                }
+            }
+            if( toDelete.Count > 0 ) {
+                DialogResult res;
+                if( toDelete.Count == 1 ) {
+                    res = MessageBox.Show( string.Format( GlobalStrings.MainForm_DeleteCategory, toDelete[0].Name ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
+                } else {
+                    res = MessageBox.Show( string.Format( GlobalStrings.MainForm_DeleteCategoryMulti, toDelete.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
+                }
+                if( res == System.Windows.Forms.DialogResult.Yes ) {
+                    int deleted = 0;
+                    foreach( Category c in toDelete ) {
                         if( currentProfile.GameData.RemoveCategory( c ) ) {
-                            FullListRefresh();
-                            MakeChange( true );
-                            AddStatus( string.Format( GlobalStrings.MainForm_CategoryDeleted, c.Name ) );
-                            return true;
-                        } else {
-                            MessageBox.Show( string.Format( GlobalStrings.MainForm_CouldNotDeleteCategory, c.Name ), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                            deleted++;
                         }
+                    }
+                    if( deleted > 0 ) {
+                        FullListRefresh();
+                        MakeChange( true );
+                        AddStatus( string.Format( GlobalStrings.MainForm_CategoryDeleted, deleted ) );
+                    } else {
+                        MessageBox.Show( string.Format( GlobalStrings.MainForm_CouldNotDeleteCategory ), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                     }
                 }
             }
-            return false;
         }
 
         /// <summary>
@@ -507,7 +518,7 @@ namespace Depressurizer {
         bool RenameCategory() {
             if( lstCategories.SelectedItems.Count > 0 ) {
                 Category c = lstCategories.SelectedItem as Category;
-                if( c != null ) {
+                if( c != null && c != currentProfile.GameData.FavoriteCategory ) {
                     GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( GlobalStrings.MainForm_RenameCategory, c.Name ), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename );
                     if( dlg.ShowDialog() == DialogResult.OK ) {
                         string newName = dlg.Value;
@@ -1168,7 +1179,7 @@ namespace Depressurizer {
             cmdGameAdd.Enabled = enable;
             contextGame_Add.Enabled = enable;
 
-            
+
             UpdateEnabledStatesForGames();
             FillAutoCatLists();
 
@@ -1189,9 +1200,17 @@ namespace Depressurizer {
         }
 
         void UpdateEnabledStatesForCategories() {
-            bool catSelected = lstCategories.SelectedIndices.Count > 0;
+            bool catSelected = false;
+            foreach( object item in lstCategories.SelectedItems ) {
+                Category cat = item as Category;
+                if( cat != null && !( currentProfile != null && cat == currentProfile.GameData.FavoriteCategory ) ) {
+                    catSelected = true;
+                    break;
+                }
+            }
             cmdCatDelete.Enabled = catSelected;
-            cmdCatRename.Enabled = catSelected;
+            Category c = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedItems[0] as Category : null;
+            cmdCatRename.Enabled = c != null && !( currentProfile != null && c == currentProfile.GameData.FavoriteCategory );
         }
 
         /// <summary>

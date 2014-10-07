@@ -1651,7 +1651,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Category &apos;{0}&apos; deleted..
+        ///   Looks up a localized string similar to {0} categories deleted..
         /// </summary>
         internal static string MainForm_CategoryDeleted {
             get {
@@ -1705,7 +1705,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not delete category &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Could not delete categories..
         /// </summary>
         internal static string MainForm_CouldNotDeleteCategory {
             get {
@@ -1746,6 +1746,15 @@ namespace Depressurizer {
         internal static string MainForm_DeleteCategory {
             get {
                 return ResourceManager.GetString("MainForm_DeleteCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete {0} categories?.
+        /// </summary>
+        internal static string MainForm_DeleteCategoryMulti {
+            get {
+                return ResourceManager.GetString("MainForm_DeleteCategoryMulti", resourceCulture);
             }
         }
         

@@ -547,7 +547,7 @@ Tiempo Restante:</value>
     <value>Categoría '{0}' añadida.</value>
   </data>
   <data name="MainForm_CategoryDeleted" xml:space="preserve">
-    <value>Categoría '{0}' borrada.</value>
+    <value>{0} categorías borrada.</value>
   </data>
   <data name="MainForm_CategoryNameReserved" xml:space="preserve">
     <value>Nombre de categoría '{0}' está reservado.</value>
@@ -565,7 +565,7 @@ Tiempo Restante:</value>
     <value>No se puedo añadir la categoría '{0}'</value>
   </data>
   <data name="MainForm_CouldNotDeleteCategory" xml:space="preserve">
-    <value>No se pudo borrar la categoría '{0}'.</value>
+    <value>No se pudo borrar la categorías.</value>
   </data>
   <data name="MainForm_Create" xml:space="preserve">
     <value>Crear</value>
