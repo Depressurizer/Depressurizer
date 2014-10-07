@@ -972,4 +972,24 @@ Requires your profile to be set to "Public".</value>
     <value>Error exporting to file.
 {0}</value>
   </data>
+  <data name="AutoCat_Name_Tags" xml:space="preserve">
+    <value>Store Tags</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListMinScore" xml:space="preserve">
+    <value>Tags that fall below this "score" will not show up on the list.</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListOwnedOnly" xml:space="preserve">
+    <value>Only use the games you own to generate the tag list.
+Otherwise, all games in the database will be used.</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListTagsPerGame" xml:space="preserve">
+    <value>Only this many tags from each game will be processed.
+Ex: Set to 10 to only process the first ten tags from each game and ignore the rest.
+Set to 0 to process all tags from each game.</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListWeightFactor" xml:space="preserve">
+    <value>With this set to 1, each tag's score is simply the number of games that it appears on.
+With this higher than one, tags earlier in games' tag lists receive a higher score.
+The higher the number, the more weight is placed on tag position.</value>
+  </data>
 </root>

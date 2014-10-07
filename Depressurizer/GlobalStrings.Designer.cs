@@ -79,6 +79,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Store Tags.
+        /// </summary>
+        internal static string AutoCat_Name_Tags {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AutoCatGenre has no game database..
         /// </summary>
         internal static string AutoCatGenre_Exception_NoGameDB {
@@ -598,6 +607,47 @@ namespace Depressurizer {
         internal static string DlgAutoCat_Help_Genre_RemoveExisting {
             get {
                 return ResourceManager.GetString("DlgAutoCat_Help_Genre_RemoveExisting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags that fall below this &quot;score&quot; will not show up on the list..
+        /// </summary>
+        internal static string DlgAutoCat_Help_ListMinScore {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_ListMinScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only use the games you own to generate the tag list.
+        ///Otherwise, all games in the database will be used..
+        /// </summary>
+        internal static string DlgAutoCat_Help_ListOwnedOnly {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_ListOwnedOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only this many tags from each game will be processed.
+        ///Ex: Set to 10 to only process the first ten tags from each game and ignore the rest.
+        ///Set to 0 to process all tags from each game..
+        /// </summary>
+        internal static string DlgAutoCat_Help_ListTagsPerGame {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_ListTagsPerGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With this set to 1, each tag&apos;s score is simply the number of games that it appears on.
+        ///With this higher than one, tags earlier in games&apos; tag lists receive a higher score.
+        ///The higher the number, the more weight is placed on tag position..
+        /// </summary>
+        internal static string DlgAutoCat_Help_ListWeightFactor {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_ListWeightFactor", resourceCulture);
             }
         }
         

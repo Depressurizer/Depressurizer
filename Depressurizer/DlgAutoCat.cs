@@ -130,7 +130,7 @@ namespace Depressurizer {
             tags_list_chkOwnedOnly.Checked = ac.ListOwnedOnly;
             tags_list_numWeightFactor.Value = (Decimal)ac.ListWeightFactor;
 
-            FillTagsList(ac.IncludedTags);
+            FillTagsList( ac.IncludedTags );
         }
 
         private void SetAllListCheckStates( ListView list, bool to ) {
@@ -264,11 +264,11 @@ namespace Depressurizer {
             ttHelp.Ext_SetToolTip( genre_lblHelp_Prefix, GlobalStrings.DlgAutoCat_Help_Prefix );
             ttHelp.Ext_SetToolTip( genre_lblHelp_RemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
             ttHelp.Ext_SetToolTip( flags_lblHelp_Prefix, GlobalStrings.DlgAutoCat_Help_Prefix );
-            // TODO literals
-            ttHelp.Ext_SetToolTip( tags_list_helpMinScore, "Tags that fall below this \"score\" will not show up on the list." );
-            ttHelp.Ext_SetToolTip( tags_list_helpOwnedOnly, "Only use the games you own to generate the tag list.\nOtherwise, all games in the database will be used." );
-            ttHelp.Ext_SetToolTip( tags_list_helpTagsPerGame, "If this is greater than zero, only this many tags from each game will be processed.\nSet to 10 to only process the first ten tags from each game and ignore the rest." );
-            ttHelp.Ext_SetToolTip( tags_list_helpWeightFactor, "With this set to 1, each tag's score is the number of games that it appears on.\nWith this higher than one, tags earlier in games' tag lists receive a higher score.\nThe higher the number, the more weight is placed on tag position." );
+
+            ttHelp.Ext_SetToolTip( tags_list_helpMinScore, GlobalStrings.DlgAutoCat_Help_ListMinScore );
+            ttHelp.Ext_SetToolTip( tags_list_helpOwnedOnly, GlobalStrings.DlgAutoCat_Help_ListOwnedOnly );
+            ttHelp.Ext_SetToolTip( tags_list_helpTagsPerGame, GlobalStrings.DlgAutoCat_Help_ListTagsPerGame );
+            ttHelp.Ext_SetToolTip( tags_list_helpWeightFactor, GlobalStrings.DlgAutoCat_Help_ListWeightFactor );
 
             FillAutocatList();
 

@@ -18,10 +18,10 @@ namespace Depressurizer {
 
         public DlgAutoCatCreate( string name = null, AutoCatType type = AutoCatType.None ) {
             InitializeComponent();
-            //TODO: literals
+
             // To add new types to this  dialog, add the name and type to these arrays. The indexes must line up.
             // This method allows adding new types in one place AND allows localization to work properly
-            typeNames = new string[] { GlobalStrings.AutoCat_Name_Genre, GlobalStrings.AutoCat_Name_Flags, "Store Tags" };
+            typeNames = new string[] { GlobalStrings.AutoCat_Name_Genre, GlobalStrings.AutoCat_Name_Flags, GlobalStrings.AutoCat_Name_Tags };
             types = new AutoCatType[] { AutoCatType.Genre, AutoCatType.Flags, AutoCatType.Tags };
 
             SelectedName = name;
