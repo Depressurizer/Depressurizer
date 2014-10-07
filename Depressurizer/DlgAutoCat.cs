@@ -24,21 +24,21 @@ namespace Depressurizer {
         #region UI Uptaters
 
         private void FillGenreList() {
-            genreLstIgnore.Items.Clear();
+            genre_lstIgnore.Items.Clear();
             if( Program.GameDB != null ) {
                 SortedSet<string> genreList = Program.GameDB.GetAllGenres();
                 foreach( string s in genreList ) {
-                    genreLstIgnore.Items.Add( s );
+                    genre_lstIgnore.Items.Add( s );
                 }
             }
         }
 
         private void FillFlagList() {
-            flagsLstIncluded.Items.Clear();
+            flags_lstIncluded.Items.Clear();
             if( Program.GameDB != null ) {
                 SortedSet<string> flagList = Program.GameDB.GetAllStoreFlags();
                 foreach( string s in flagList ) {
-                    flagsLstIncluded.Items.Add( s );
+                    flags_lstIncluded.Items.Add( s );
                 }
             }
         }
@@ -68,24 +68,24 @@ namespace Depressurizer {
         private void UpdateTypePanelStates() {
             // This is terrible and needs to be replaced with something that looks up the right panels in a list or something like that.
             if( current is AutoCatGenre ) {
-                panEditGenre.BringToFront();
-                panEditFlags.Enabled = panEditFlags.Visible = false;
-                panEditGenre.Enabled = panEditGenre.Visible = true;
-                panEditTags.Enabled = panEditTags.Visible = false;
+                panGenre.BringToFront();
+                panFlags.Enabled = panFlags.Visible = false;
+                panGenre.Enabled = panGenre.Visible = true;
+                panTags.Enabled = panTags.Visible = false;
             } else if( current is AutoCatFlags ) {
-                panEditFlags.BringToFront();
-                panEditFlags.Enabled = panEditFlags.Visible = true;
-                panEditGenre.Enabled = panEditGenre.Visible = false;
-                panEditTags.Enabled = panEditTags.Visible = false;
+                panFlags.BringToFront();
+                panFlags.Enabled = panFlags.Visible = true;
+                panGenre.Enabled = panGenre.Visible = false;
+                panTags.Enabled = panTags.Visible = false;
             } else if( current is AutoCatTags ) {
-                panEditFlags.BringToFront();
-                panEditFlags.Enabled = panEditFlags.Visible = false;
-                panEditGenre.Enabled = panEditGenre.Visible = false;
-                panEditTags.Enabled = panEditTags.Visible = true;
+                panFlags.BringToFront();
+                panFlags.Enabled = panFlags.Visible = false;
+                panGenre.Enabled = panGenre.Visible = false;
+                panTags.Enabled = panTags.Visible = true;
             } else {
-                panEditFlags.Enabled = panEditFlags.Visible = false;
-                panEditGenre.Enabled = panEditGenre.Visible = false;
-                panEditTags.Enabled = panEditTags.Visible = false;
+                panFlags.Enabled = panFlags.Visible = false;
+                panGenre.Enabled = panGenre.Visible = false;
+                panTags.Enabled = panTags.Visible = false;
             }
         }
 
@@ -102,20 +102,20 @@ namespace Depressurizer {
 
         private void FillSettingsUIForGenre( AutoCatGenre ac ) {
             if( ac == null ) return;
-            genreChkRemoveExisting.Checked = ac.RemoveOtherGenres;
-            genreNumMaxCats.Value = ac.MaxCategories;
-            genreTxtPrefix.Text = ac.Prefix;
+            genre_chkRemoveExisting.Checked = ac.RemoveOtherGenres;
+            genre_numMaxCats.Value = ac.MaxCategories;
+            genre_txtPrefix.Text = ac.Prefix;
 
-            foreach( ListViewItem item in genreLstIgnore.Items ) {
+            foreach( ListViewItem item in genre_lstIgnore.Items ) {
                 item.Checked = ac.IgnoredGenres.Contains( item.Text );
             }
         }
 
         private void FillSettingsUIForFlags( AutoCatFlags ac ) {
             if( ac == null ) return;
-            flagsTxtPrefix.Text = ac.Prefix;
+            flags_txtPrefix.Text = ac.Prefix;
 
-            foreach( ListViewItem item in flagsLstIncluded.Items ) {
+            foreach( ListViewItem item in flags_lstIncluded.Items ) {
                 item.Checked = ac.IncludedFlags.Contains( item.Text );
             }
         }
@@ -152,12 +152,12 @@ namespace Depressurizer {
         }
 
         private void SaveToAutoCat_Genre( AutoCatGenre ac ) {
-            ac.Prefix = genreTxtPrefix.Text;
-            ac.MaxCategories = (int)genreNumMaxCats.Value;
-            ac.RemoveOtherGenres = genreChkRemoveExisting.Checked;
+            ac.Prefix = genre_txtPrefix.Text;
+            ac.MaxCategories = (int)genre_numMaxCats.Value;
+            ac.RemoveOtherGenres = genre_chkRemoveExisting.Checked;
 
             ac.IgnoredGenres.Clear();
-            foreach( ListViewItem i in genreLstIgnore.Items ) {
+            foreach( ListViewItem i in genre_lstIgnore.Items ) {
                 if( i.Checked ) {
                     ac.IgnoredGenres.Add( i.Text );
                 }
@@ -165,10 +165,10 @@ namespace Depressurizer {
         }
 
         private void SaveToAutoCat_Flags( AutoCatFlags ac ) {
-            ac.Prefix = flagsTxtPrefix.Text;
+            ac.Prefix = flags_txtPrefix.Text;
 
             ac.IncludedFlags.Clear();
-            foreach( ListViewItem i in flagsLstIncluded.Items ) {
+            foreach( ListViewItem i in flags_lstIncluded.Items ) {
                 if( i.Checked ) {
                     ac.IncludedFlags.Add( i.Text );
                 }
@@ -261,10 +261,12 @@ namespace Depressurizer {
         #region Event Handlers
 
         private void DlgAutoCat_Load( object sender, EventArgs e ) {
-            ttHelp.Ext_SetToolTip( genre_lblHelp_Prefix, GlobalStrings.DlgAutoCat_Help_Prefix );
-            ttHelp.Ext_SetToolTip( genre_lblHelp_RemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
-            ttHelp.Ext_SetToolTip( flags_lblHelp_Prefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip( genre_helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip( genre_helpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
 
+            ttHelp.Ext_SetToolTip( flags_helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+
+            ttHelp.Ext_SetToolTip( tags_helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
             ttHelp.Ext_SetToolTip( tags_list_helpMinScore, GlobalStrings.DlgAutoCat_Help_ListMinScore );
             ttHelp.Ext_SetToolTip( tags_list_helpOwnedOnly, GlobalStrings.DlgAutoCat_Help_ListOwnedOnly );
             ttHelp.Ext_SetToolTip( tags_list_helpTagsPerGame, GlobalStrings.DlgAutoCat_Help_ListTagsPerGame );
@@ -292,19 +294,19 @@ namespace Depressurizer {
         }
 
         private void genreCmdCheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( genreLstIgnore, true );
+            SetAllListCheckStates( genre_lstIgnore, true );
         }
 
         private void genreCmdUncheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( genreLstIgnore, false );
+            SetAllListCheckStates( genre_lstIgnore, false );
         }
 
         private void flagsCmdCheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( flagsLstIncluded, true );
+            SetAllListCheckStates( flags_lstIncluded, true );
         }
 
         private void flagsCmdUncheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( flagsLstIncluded, false );
+            SetAllListCheckStates( flags_lstIncluded, false );
         }
 
         private void tags_cmdListRebuild_Click( object sender, EventArgs e ) {
