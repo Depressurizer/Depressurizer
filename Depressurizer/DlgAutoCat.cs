@@ -200,6 +200,7 @@ namespace Depressurizer {
                 DlgAutoCatCreate dlg = new DlgAutoCatCreate();
                 res = dlg.ShowDialog();
                 if( res == System.Windows.Forms.DialogResult.OK ) {
+                    good = true;
                     name = dlg.SelectedName;
                     t = dlg.SelectedType;
                     if( string.IsNullOrEmpty( name ) ) {
