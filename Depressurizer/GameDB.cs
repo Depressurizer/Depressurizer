@@ -334,6 +334,30 @@ namespace Depressurizer {
             }
         }
 
+        public List<string> GetGenreList( int gameId, int depth = 3 ) {
+            List<string> res = Games[gameId].Genres;
+            if( ( res == null || res.Count == 0 ) && depth > 0 && Games[gameId].ParentId > 0 ) {
+                res = GetGenreList( Games[gameId].ParentId, depth - 1 );
+            }
+            return res;
+        }
+
+        public List<string> GetFlagList( int gameId, int depth = 3 ) {
+            List<string> res = Games[gameId].Flags;
+            if( ( res == null || res.Count == 0 ) && depth > 0 && Games[gameId].ParentId > 0 ) {
+                res = GetFlagList( Games[gameId].ParentId, depth - 1 );
+            }
+            return res;
+        }
+
+        public List<string> GetTagList( int gameId, int depth = 3 ) {
+            List<string> res = Games[gameId].Tags;
+            if( ( res == null || res.Count == 0 ) && depth > 0 && Games[gameId].ParentId > 0 ) {
+                res = GetTagList( Games[gameId].ParentId, depth - 1 );
+            }
+            return res;
+        }
+
         #endregion
 
         #region Aggregate Accessors

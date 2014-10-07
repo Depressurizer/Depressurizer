@@ -144,6 +144,8 @@ namespace Depressurizer {
             XmlName_IgnoreList = "Ignored",
             XmlName_IgnoreItem = "Ignore";
 
+        const int MAX_PARENT_DEPTH = 3;
+
         private SortedSet<Category> genreCategories;
 
         /// <summary>
@@ -216,7 +218,7 @@ namespace Depressurizer {
                 game.RemoveCategory( genreCategories );
             }
 
-            List<string> genreList = db.Games[game.Id].Genres;
+            List<string> genreList = db.GetGenreList( game.Id );
             if( genreList != null && genreList.Count > 0 ) {
                 List<Category> categories = new List<Category>();
                 int max = MaxCategories;
@@ -330,9 +332,8 @@ namespace Depressurizer {
 
             if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
 
-            GameDBEntry dbEntry = db.Games[game.Id];
-
-            IEnumerable<string> categories = dbEntry.Flags.Intersect( IncludedFlags );
+            List<string> gameFlags = db.GetFlagList( game.Id );
+            IEnumerable<string> categories = gameFlags.Intersect( IncludedFlags );
 
             foreach( string catString in categories ) {
                 Category c = games.GetCategory( GetProcessedString( catString ) );
@@ -451,13 +452,13 @@ namespace Depressurizer {
 
             if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
 
-            GameDBEntry dbEntry = db.Games[game.Id];
+            List<string> gameTags = db.GetTagList( game.Id );
 
-            if( dbEntry.Tags != null ) {
+            if( gameTags != null ) {
                 int added = 0;
-                for( int index = 0; index < dbEntry.Tags.Count && ( MaxTags == 0 || added < MaxTags ); index++ ) {
-                    if( IncludedTags.Contains( dbEntry.Tags[index] ) ) {
-                        game.AddCategory( games.GetCategory( GetProcessedString( dbEntry.Tags[index] ) ) );
+                for( int index = 0; index < gameTags.Count && ( MaxTags == 0 || added < MaxTags ); index++ ) {
+                    if( IncludedTags.Contains( gameTags[index] ) ) {
+                        game.AddCategory( games.GetCategory( GetProcessedString( gameTags[index] ) ) );
                         added++;
                     }
                 }
