@@ -52,15 +52,16 @@ namespace Depressurizer {
 
         private void FillTagsList( ICollection<string> preChecked = null ) {
 
-            List<string> tagList = Program.GameDB.CalculateSortedTagList(
+            List<Tuple<string, float>> tagList = Program.GameDB.CalculateSortedTagList(
                 tags_list_chkOwnedOnly.Checked ? ownedGames : null,
                 (float)tags_list_numWeightFactor.Value,
                 (int)tags_list_numMinScore.Value, (int)tags_list_numTagsPerGame.Value );
 
             tags_lstIncluded.Items.Clear();
-            foreach( string tag in tagList ) {
-                ListViewItem newItem = new ListViewItem( tag );
-                if( preChecked != null && preChecked.Contains( tag ) ) newItem.Checked = true;
+            foreach( Tuple<string, float> tag in tagList ) {
+                ListViewItem newItem = new ListViewItem( string.Format( "{0} [{1}]", tag.Item1, tag.Item2 ) );
+                newItem.Tag = tag.Item1;
+                if( preChecked != null && preChecked.Contains( tag.Item1 ) ) newItem.Checked = true;
                 tags_lstIncluded.Items.Add( newItem );
             }
         }
@@ -182,7 +183,7 @@ namespace Depressurizer {
 
             ac.IncludedTags = new HashSet<string>();
             foreach( ListViewItem i in tags_lstIncluded.CheckedItems ) {
-                ac.IncludedTags.Add( i.Text );
+                 ac.IncludedTags.Add( i.Tag as string );
             }
 
             ac.ListMinScore = (int)tags_list_numMinScore.Value;
@@ -312,7 +313,7 @@ namespace Depressurizer {
         private void tags_cmdListRebuild_Click( object sender, EventArgs e ) {
             HashSet<string> checkedTags = new HashSet<string>();
             foreach( ListViewItem item in tags_lstIncluded.CheckedItems ) {
-                checkedTags.Add( item.Text );
+                checkedTags.Add( item.Tag as string );
             }
             FillTagsList( checkedTags );
         }

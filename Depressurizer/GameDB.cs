@@ -437,7 +437,7 @@ namespace Depressurizer {
         /// <param name="minScore">Minimum score of tags to include in the result list. Tags with lower scores will be discarded.</param>
         /// <param name="tagsPerGame">Maximum tags to find per game. If a game has more tags than this, they will be discarded. 0 indicates no limit.</param>
         /// <returns>List of tags, as strings</returns>
-        public List<string> CalculateSortedTagList( GameList filter, float weightFactor, int minScore, int tagsPerGame ) {
+        public List<Tuple<string, float>> CalculateSortedTagList( GameList filter, float weightFactor, int minScore, int tagsPerGame ) {
             SortedSet<string> genreNames = GetAllGenres();
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if( filter == null ) {
@@ -456,7 +456,7 @@ namespace Depressurizer {
                 tagCounts.Remove( genre );
             }
 
-            return ( from entry in tagCounts where entry.Value >= minScore orderby entry.Value descending select entry.Key ).ToList();
+            return ( from entry in tagCounts where entry.Value >= minScore orderby entry.Value descending select new Tuple<string, float>( entry.Key, entry.Value ) ).ToList();
         }
 
         /// <summary>
@@ -470,7 +470,7 @@ namespace Depressurizer {
         /// <param name="tagsPerGame"></param>
         private void CalculateSortedTagListHelper( Dictionary<string, float> counts, GameDBEntry dbEntry, float weightFactor, int tagsPerGame ) {
             if( dbEntry.Tags != null ) {
-                int tagsToLoad = (tagsPerGame == 0) ? dbEntry.Tags.Count : Math.Min( tagsPerGame, dbEntry.Tags.Count );
+                int tagsToLoad = ( tagsPerGame == 0 ) ? dbEntry.Tags.Count : Math.Min( tagsPerGame, dbEntry.Tags.Count );
                 for( int i = 0; i < tagsToLoad; i++ ) {
                     // Get the score based on the weighting factor
                     float score = 1;
