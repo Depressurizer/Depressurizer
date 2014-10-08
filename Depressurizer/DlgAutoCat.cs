@@ -1,6 +1,7 @@
 ﻿using Rallion;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Depressurizer {
@@ -52,11 +53,11 @@ namespace Depressurizer {
 
         private void FillTagsList( ICollection<string> preChecked = null ) {
 
-            List<Tuple<string, float>> tagList = Program.GameDB.CalculateSortedTagList(
+            IEnumerable<Tuple<string, float>> tagList = Program.GameDB.CalculateSortedTagList(
                 tags_list_chkOwnedOnly.Checked ? ownedGames : null,
                 (float)tags_list_numWeightFactor.Value,
                 (int)tags_list_numMinScore.Value, (int)tags_list_numTagsPerGame.Value, tags_list_chkExcludeGenres.Checked, tags_list_chkScoreSort.Checked );
-
+            tags_lstIncluded.BeginUpdate();
             tags_lstIncluded.Items.Clear();
             foreach( Tuple<string, float> tag in tagList ) {
                 ListViewItem newItem = new ListViewItem( string.Format( "{0} [{1:F0}]", tag.Item1, tag.Item2 ) );
@@ -64,6 +65,7 @@ namespace Depressurizer {
                 if( preChecked != null && preChecked.Contains( tag.Item1 ) ) newItem.Checked = true;
                 tags_lstIncluded.Items.Add( newItem );
             }
+            tags_lstIncluded.EndUpdate();
         }
 
         private void UpdateTypePanelStates() {

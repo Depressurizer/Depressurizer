@@ -449,7 +449,7 @@ namespace Depressurizer {
         /// <param name="minScore">Minimum score of tags to include in the result list. Tags with lower scores will be discarded.</param>
         /// <param name="tagsPerGame">Maximum tags to find per game. If a game has more tags than this, they will be discarded. 0 indicates no limit.</param>
         /// <returns>List of tags, as strings</returns>
-        public List<Tuple<string, float>> CalculateSortedTagList( GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort ) {
+        public IEnumerable<Tuple<string, float>> CalculateSortedTagList( GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort ) {
             SortedSet<string> genreNames = GetAllGenres();
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if( filter == null ) {
