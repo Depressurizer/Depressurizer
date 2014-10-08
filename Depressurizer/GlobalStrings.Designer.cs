@@ -933,7 +933,8 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes extraneous information for unrecognized games from your Steam config file.\nDoes not remove games from your library or game list.
+        ///   Looks up a localized string similar to Removes extraneous information for unrecognized games from your Steam config file.
+        ///Does not remove games from your library or game list.
         ///Disable this if you are losing categories for games in your library that do not show up in Depressurizer..
         /// </summary>
         internal static string DlgProfile_Help_ExportDiscard {

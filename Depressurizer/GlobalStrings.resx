@@ -894,7 +894,8 @@ Removes any category that consists of the Prefix followed by one of the unchecke
 Turn this on if you have games that Depressurizer refuses to recognize even after you categorize them in the Steam client and import categories.</value>
   </data>
   <data name="DlgProfile_Help_ExportDiscard" xml:space="preserve">
-    <value>Removes extraneous information for unrecognized games from your Steam config file.\nDoes not remove games from your library or game list.
+    <value>Removes extraneous information for unrecognized games from your Steam config file.
+Does not remove games from your library or game list.
 Disable this if you are losing categories for games in your library that do not show up in Depressurizer.</value>
   </data>
   <data name="DlgProfile_Help_IncludeUnknown" xml:space="preserve">
