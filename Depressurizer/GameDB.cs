@@ -449,7 +449,7 @@ namespace Depressurizer {
         /// <param name="minScore">Minimum score of tags to include in the result list. Tags with lower scores will be discarded.</param>
         /// <param name="tagsPerGame">Maximum tags to find per game. If a game has more tags than this, they will be discarded. 0 indicates no limit.</param>
         /// <returns>List of tags, as strings</returns>
-        public List<Tuple<string, float>> CalculateSortedTagList( GameList filter, float weightFactor, int minScore, int tagsPerGame ) {
+        public List<Tuple<string, float>> CalculateSortedTagList( GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort ) {
             SortedSet<string> genreNames = GetAllGenres();
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if( filter == null ) {
@@ -464,11 +464,17 @@ namespace Depressurizer {
                 }
             }
 
-            foreach( string genre in genreNames ) {
-                tagCounts.Remove( genre );
+            if( excludeGenres ) {
+                foreach( string genre in genreNames ) {
+                    tagCounts.Remove( genre );
+                }
             }
 
-            return ( from entry in tagCounts where entry.Value >= minScore orderby entry.Value descending select new Tuple<string, float>( entry.Key, entry.Value ) ).ToList();
+            var unsortedList = ( from entry in tagCounts where entry.Value >= minScore select new Tuple<string, float>( entry.Key, entry.Value ) );
+            var sortedList = scoreSort ?
+                from entry in unsortedList orderby entry.Item2 descending select entry :
+                from entry in unsortedList orderby entry.Item1 select entry;
+            return sortedList.ToList();
         }
 
         /// <summary>
@@ -491,7 +497,7 @@ namespace Depressurizer {
                             score = weightFactor;
                         } else {
                             float interp = (float)i / (float)( tagsToLoad - 1 );
-                            score = (int)Math.Round( ( 1 - interp ) * weightFactor + interp );
+                            score = ( 1 - interp ) * weightFactor + interp;
                         }
                     }
 

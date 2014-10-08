@@ -396,6 +396,8 @@ namespace Depressurizer {
         public float ListWeightFactor { get; set; }
         public int ListMinScore { get; set; }
         public int ListTagsPerGame { get; set; }
+        public bool ListScoreSort { get; set; }
+        public bool ListExcludeGenres { get; set; }
 
         public const string TypeIdString = "AutoCatTags";
         private const string XmlName_Name = "Name",
@@ -406,9 +408,13 @@ namespace Depressurizer {
             XmlName_ListOwnedOnly = "List_OwnedOnly",
             XmlName_ListWeightFactor = "List_WeightedScore",
             XmlName_ListMinScore = "List_MinScore",
-            XmlName_ListTagsPerGame = "List_TagsPerGame";
+            XmlName_ListTagsPerGame = "List_TagsPerGame",
+            XmlName_ListExcludeGenres = "List_ExcludeGenres",
+            XmlName_ListScoreSort = "List_ScoreSort";
 
-        public AutoCatTags( string name, string prefix = "", HashSet<string> tags = null, int maxTags = 0, bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 10 )
+        public AutoCatTags( string name, string prefix = "",
+            HashSet<string> tags = null, int maxTags = 0,
+            bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true )
             : base( name ) {
             this.Prefix = prefix;
 
@@ -420,6 +426,8 @@ namespace Depressurizer {
             this.ListWeightFactor = listWeightFactor;
             this.ListMinScore = listMinScore;
             this.ListTagsPerGame = listTagsPerGame;
+            this.ListScoreSort = listScoreSort;
+            this.ListExcludeGenres = listExcludeGenres;
         }
 
         protected AutoCatTags( AutoCatTags other )
@@ -427,10 +435,13 @@ namespace Depressurizer {
             this.Prefix = other.Prefix;
             this.IncludedTags = new HashSet<string>( other.IncludedTags );
             this.MaxTags = other.MaxTags;
+
             this.ListOwnedOnly = other.ListOwnedOnly;
             this.ListWeightFactor = other.ListWeightFactor;
             this.ListMinScore = other.ListMinScore;
             this.ListTagsPerGame = other.ListTagsPerGame;
+            this.ListScoreSort = other.ListScoreSort;
+            this.ListExcludeGenres = other.ListExcludeGenres;
         }
 
         public override AutoCat Clone() {
@@ -495,24 +506,45 @@ namespace Depressurizer {
             writer.WriteElementString( XmlName_ListWeightFactor, ListWeightFactor.ToString() );
             writer.WriteElementString( XmlName_ListMinScore, ListMinScore.ToString() );
             writer.WriteElementString( XmlName_ListTagsPerGame, ListTagsPerGame.ToString() );
+            writer.WriteElementString( XmlName_ListScoreSort, ListScoreSort.ToString() );
+            writer.WriteElementString( XmlName_ListExcludeGenres, ListExcludeGenres.ToString() );
 
             writer.WriteEndElement();
         }
 
         public static AutoCatTags LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
-            string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], string.Empty );
-            int maxTags = XmlUtil.GetIntFromNode( xElement[XmlName_MaxTags], 0 );
 
-            bool listOwnedOnly = XmlUtil.GetBoolFromNode( xElement[XmlName_ListOwnedOnly], true );
-            float listWeightFactor = XmlUtil.GetFloatFromNode( xElement[XmlName_ListWeightFactor], 1 );
-            int listMinScore = XmlUtil.GetIntFromNode( xElement[XmlName_ListMinScore], 1 );
-            int listTagsPerGame = XmlUtil.GetIntFromNode( xElement[XmlName_ListTagsPerGame], 0 );
+            AutoCatTags result = new AutoCatTags( name );
+
+            string prefix;
+            if( XmlUtil.TryGetStringFromNode( xElement[XmlName_Prefix], out prefix ) ) result.Prefix = prefix;
+
+            int maxTags;
+            if( XmlUtil.TryGetIntFromNode( xElement[XmlName_MaxTags], out maxTags ) ) result.MaxTags = maxTags;
+
+            bool listOwnedOnly;
+            if( XmlUtil.TryGetBoolFromNode( xElement[XmlName_ListOwnedOnly], out listOwnedOnly ) ) result.ListOwnedOnly = listOwnedOnly;
+
+            float listWeightFactor;
+            if( XmlUtil.TryGetFloatFromNode( xElement[XmlName_ListWeightFactor], out listWeightFactor ) ) result.ListWeightFactor = listWeightFactor;
+
+            int listMinScore;
+            if( XmlUtil.TryGetIntFromNode( xElement[XmlName_ListMinScore], out listMinScore ) ) result.ListMinScore = listMinScore;
+
+            int listTagsPerGame;
+            if( XmlUtil.TryGetIntFromNode( xElement[XmlName_ListTagsPerGame], out listTagsPerGame ) ) result.ListTagsPerGame = listTagsPerGame;
+
+            bool listScoreSort;
+            if( XmlUtil.TryGetBoolFromNode( xElement[XmlName_ListScoreSort], out listScoreSort ) ) result.ListScoreSort = listScoreSort;
+
+            bool listExcludeGenres;
+            if( XmlUtil.TryGetBoolFromNode( xElement[XmlName_ListExcludeGenres], out listExcludeGenres ) ) result.ListExcludeGenres = listExcludeGenres;
 
             List<string> tagList = XmlUtil.GetStringsFromNodeList( xElement.SelectNodes( XmlName_TagList + "/" + XmlName_Tag ) );
-            HashSet<string> tagSet = ( tagList == null ) ? new HashSet<string>() : new HashSet<string>( tagList );
+            result.IncludedTags = ( tagList == null ) ? new HashSet<string>() : new HashSet<string>( tagList );
 
-            return new AutoCatTags( name, prefix, tagSet, maxTags, listOwnedOnly, listWeightFactor, listMinScore, listTagsPerGame );
+            return result;
         }
     }
 }

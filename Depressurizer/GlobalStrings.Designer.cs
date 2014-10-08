@@ -611,6 +611,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not include tags that match Steam genre names, like Action or Strategy..
+        /// </summary>
+        internal static string DlgAutoCat_Help_ListExcludeGenres {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_ListExcludeGenres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tags that fall below this &quot;score&quot; will not show up on the list..
         /// </summary>
         internal static string DlgAutoCat_Help_ListMinScore {
@@ -626,6 +635,16 @@ namespace Depressurizer {
         internal static string DlgAutoCat_Help_ListOwnedOnly {
             get {
                 return ResourceManager.GetString("DlgAutoCat_Help_ListOwnedOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort tags by their score, with the higher scores first.
+        ///Otherwise, sorts alphabetically..
+        /// </summary>
+        internal static string DlgAutoCat_Help_ListScoreSort {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_ListScoreSort", resourceCulture);
             }
         }
         

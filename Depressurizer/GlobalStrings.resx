@@ -995,4 +995,11 @@ The higher the number, the more weight is placed on tag position.</value>
   <data name="MainForm_DeleteCategoryMulti" xml:space="preserve">
     <value>Delete {0} categories?</value>
   </data>
+  <data name="DlgAutoCat_Help_ListExcludeGenres" xml:space="preserve">
+    <value>Do not include tags that match Steam genre names, like Action or Strategy.</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListScoreSort" xml:space="preserve">
+    <value>Sort tags by their score, with the higher scores first.
+Otherwise, sorts alphabetically.</value>
+  </data>
 </root>

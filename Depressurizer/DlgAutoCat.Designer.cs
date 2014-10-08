@@ -57,7 +57,13 @@
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.panTags = new System.Windows.Forms.Panel();
             this.tags_grpMain = new System.Windows.Forms.GroupBox();
+            this.tags_helpPrefix = new System.Windows.Forms.Label();
             this.tags_grpListOpts = new System.Windows.Forms.GroupBox();
+            this.tags_list_helpScoreSort = new System.Windows.Forms.Label();
+            this.tags_list_helpExcludeGenres = new System.Windows.Forms.Label();
+            this.tags_list_chkScoreSort = new System.Windows.Forms.CheckBox();
+            this.tags_list_chkExcludeGenres = new System.Windows.Forms.CheckBox();
+            this.tags_list_lblExplain = new System.Windows.Forms.Label();
             this.tags_list_lblWeightFactor = new System.Windows.Forms.Label();
             this.tags_list_numWeightFactor = new System.Windows.Forms.NumericUpDown();
             this.tags_list_helpOwnedOnly = new System.Windows.Forms.Label();
@@ -78,8 +84,6 @@
             this.tags_lblPrefix = new System.Windows.Forms.Label();
             this.tags_txtPrefix = new System.Windows.Forms.TextBox();
             this.tags_lstIncluded = new System.Windows.Forms.ListView();
-            this.tags_list_lblExplain = new System.Windows.Forms.Label();
-            this.tags_helpPrefix = new System.Windows.Forms.Label();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpList.SuspendLayout();
             this.panGenre.SuspendLayout();
@@ -112,7 +116,7 @@
             this.lstAutoCats.IntegralHeight = false;
             this.lstAutoCats.Location = new System.Drawing.Point(6, 19);
             this.lstAutoCats.Name = "lstAutoCats";
-            this.lstAutoCats.Size = new System.Drawing.Size(176, 198);
+            this.lstAutoCats.Size = new System.Drawing.Size(171, 223);
             this.lstAutoCats.TabIndex = 0;
             this.lstAutoCats.SelectedIndexChanged += new System.EventHandler(this.lstAutoCats_SelectedIndexChanged);
             // 
@@ -120,9 +124,9 @@
             // 
             this.cmdDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDelete.Location = new System.Drawing.Point(6, 274);
+            this.cmdDelete.Location = new System.Drawing.Point(6, 299);
             this.cmdDelete.Name = "cmdDelete";
-            this.cmdDelete.Size = new System.Drawing.Size(176, 23);
+            this.cmdDelete.Size = new System.Drawing.Size(171, 23);
             this.cmdDelete.TabIndex = 3;
             this.cmdDelete.Text = "Delete";
             this.cmdDelete.UseVisualStyleBackColor = true;
@@ -132,9 +136,9 @@
             // 
             this.cmdRename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRename.Location = new System.Drawing.Point(6, 248);
+            this.cmdRename.Location = new System.Drawing.Point(6, 273);
             this.cmdRename.Name = "cmdRename";
-            this.cmdRename.Size = new System.Drawing.Size(176, 23);
+            this.cmdRename.Size = new System.Drawing.Size(171, 23);
             this.cmdRename.TabIndex = 2;
             this.cmdRename.Text = "Rename";
             this.cmdRename.UseVisualStyleBackColor = true;
@@ -144,9 +148,9 @@
             // 
             this.cmdCreate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCreate.Location = new System.Drawing.Point(6, 222);
+            this.cmdCreate.Location = new System.Drawing.Point(6, 247);
             this.cmdCreate.Name = "cmdCreate";
-            this.cmdCreate.Size = new System.Drawing.Size(176, 23);
+            this.cmdCreate.Size = new System.Drawing.Size(171, 23);
             this.cmdCreate.TabIndex = 1;
             this.cmdCreate.Text = "Create";
             this.cmdCreate.UseVisualStyleBackColor = true;
@@ -161,7 +165,7 @@
             this.grpList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpList.Location = new System.Drawing.Point(0, 0);
             this.grpList.Name = "grpList";
-            this.grpList.Size = new System.Drawing.Size(189, 304);
+            this.grpList.Size = new System.Drawing.Size(184, 329);
             this.grpList.TabIndex = 0;
             this.grpList.TabStop = false;
             this.grpList.Text = "AutoCat List";
@@ -172,7 +176,7 @@
             this.panGenre.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panGenre.Location = new System.Drawing.Point(0, 0);
             this.panGenre.Name = "panGenre";
-            this.panGenre.Size = new System.Drawing.Size(400, 304);
+            this.panGenre.Size = new System.Drawing.Size(402, 329);
             this.panGenre.TabIndex = 1;
             // 
             // genre_grpMain
@@ -190,7 +194,7 @@
             this.genre_grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.genre_grpMain.Location = new System.Drawing.Point(0, 0);
             this.genre_grpMain.Name = "genre_grpMain";
-            this.genre_grpMain.Size = new System.Drawing.Size(400, 304);
+            this.genre_grpMain.Size = new System.Drawing.Size(402, 329);
             this.genre_grpMain.TabIndex = 0;
             this.genre_grpMain.TabStop = false;
             this.genre_grpMain.Text = "Edit Genre AutoCat";
@@ -240,20 +244,20 @@
             this.genre_tblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.genre_tblIgnore.Controls.Add(this.genre_cmdUncheckAll, 1, 0);
             this.genre_tblIgnore.Controls.Add(this.genre_cmdCheckAll, 0, 0);
-            this.genre_tblIgnore.Location = new System.Drawing.Point(6, 270);
+            this.genre_tblIgnore.Location = new System.Drawing.Point(6, 295);
             this.genre_tblIgnore.Name = "genre_tblIgnore";
             this.genre_tblIgnore.RowCount = 1;
             this.genre_tblIgnore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.genre_tblIgnore.Size = new System.Drawing.Size(392, 30);
+            this.genre_tblIgnore.Size = new System.Drawing.Size(394, 30);
             this.genre_tblIgnore.TabIndex = 7;
             // 
             // genre_cmdUncheckAll
             // 
             this.genre_cmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.genre_cmdUncheckAll.Location = new System.Drawing.Point(199, 3);
+            this.genre_cmdUncheckAll.Location = new System.Drawing.Point(200, 3);
             this.genre_cmdUncheckAll.Name = "genre_cmdUncheckAll";
-            this.genre_cmdUncheckAll.Size = new System.Drawing.Size(190, 23);
+            this.genre_cmdUncheckAll.Size = new System.Drawing.Size(191, 23);
             this.genre_cmdUncheckAll.TabIndex = 7;
             this.genre_cmdUncheckAll.Text = "Uncheck All";
             this.genre_cmdUncheckAll.UseVisualStyleBackColor = true;
@@ -265,7 +269,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.genre_cmdCheckAll.Location = new System.Drawing.Point(3, 3);
             this.genre_cmdCheckAll.Name = "genre_cmdCheckAll";
-            this.genre_cmdCheckAll.Size = new System.Drawing.Size(190, 23);
+            this.genre_cmdCheckAll.Size = new System.Drawing.Size(191, 23);
             this.genre_cmdCheckAll.TabIndex = 6;
             this.genre_cmdCheckAll.Text = "Check All";
             this.genre_cmdCheckAll.UseVisualStyleBackColor = true;
@@ -279,7 +283,7 @@
             this.genre_lstIgnore.CheckBoxes = true;
             this.genre_lstIgnore.Location = new System.Drawing.Point(9, 130);
             this.genre_lstIgnore.Name = "genre_lstIgnore";
-            this.genre_lstIgnore.Size = new System.Drawing.Size(387, 141);
+            this.genre_lstIgnore.Size = new System.Drawing.Size(389, 166);
             this.genre_lstIgnore.TabIndex = 3;
             this.genre_lstIgnore.UseCompatibleStateImageBehavior = false;
             this.genre_lstIgnore.View = System.Windows.Forms.View.List;
@@ -330,7 +334,7 @@
             // 
             this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdSave.Location = new System.Drawing.Point(449, 310);
+            this.cmdSave.Location = new System.Drawing.Point(448, 337);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(141, 23);
             this.cmdSave.TabIndex = 6;
@@ -342,7 +346,7 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(353, 310);
+            this.cmdCancel.Location = new System.Drawing.Point(352, 337);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(90, 23);
             this.cmdCancel.TabIndex = 5;
@@ -355,7 +359,7 @@
             this.panFlags.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panFlags.Location = new System.Drawing.Point(0, 0);
             this.panFlags.Name = "panFlags";
-            this.panFlags.Size = new System.Drawing.Size(400, 304);
+            this.panFlags.Size = new System.Drawing.Size(402, 329);
             this.panFlags.TabIndex = 1;
             // 
             // flags_grpMain
@@ -369,7 +373,7 @@
             this.flags_grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flags_grpMain.Location = new System.Drawing.Point(0, 0);
             this.flags_grpMain.Name = "flags_grpMain";
-            this.flags_grpMain.Size = new System.Drawing.Size(400, 304);
+            this.flags_grpMain.Size = new System.Drawing.Size(402, 329);
             this.flags_grpMain.TabIndex = 0;
             this.flags_grpMain.TabStop = false;
             this.flags_grpMain.Text = "Edit Flag Autocat";
@@ -393,11 +397,11 @@
             this.flags_tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.flags_tblButtons.Controls.Add(this.flags_cmdCheckAll, 0, 0);
             this.flags_tblButtons.Controls.Add(this.flags_cmdUncheckAll, 1, 0);
-            this.flags_tblButtons.Location = new System.Drawing.Point(3, 270);
+            this.flags_tblButtons.Location = new System.Drawing.Point(3, 295);
             this.flags_tblButtons.Name = "flags_tblButtons";
             this.flags_tblButtons.RowCount = 1;
             this.flags_tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.flags_tblButtons.Size = new System.Drawing.Size(394, 30);
+            this.flags_tblButtons.Size = new System.Drawing.Size(396, 30);
             this.flags_tblButtons.TabIndex = 4;
             // 
             // flags_cmdCheckAll
@@ -406,7 +410,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flags_cmdCheckAll.Location = new System.Drawing.Point(3, 3);
             this.flags_cmdCheckAll.Name = "flags_cmdCheckAll";
-            this.flags_cmdCheckAll.Size = new System.Drawing.Size(191, 23);
+            this.flags_cmdCheckAll.Size = new System.Drawing.Size(192, 23);
             this.flags_cmdCheckAll.TabIndex = 0;
             this.flags_cmdCheckAll.Text = "Check All";
             this.flags_cmdCheckAll.UseVisualStyleBackColor = true;
@@ -416,9 +420,9 @@
             // 
             this.flags_cmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flags_cmdUncheckAll.Location = new System.Drawing.Point(200, 3);
+            this.flags_cmdUncheckAll.Location = new System.Drawing.Point(201, 3);
             this.flags_cmdUncheckAll.Name = "flags_cmdUncheckAll";
-            this.flags_cmdUncheckAll.Size = new System.Drawing.Size(191, 23);
+            this.flags_cmdUncheckAll.Size = new System.Drawing.Size(192, 23);
             this.flags_cmdUncheckAll.TabIndex = 1;
             this.flags_cmdUncheckAll.Text = "Uncheck All";
             this.flags_cmdUncheckAll.UseVisualStyleBackColor = true;
@@ -441,7 +445,7 @@
             this.flags_lstIncluded.CheckBoxes = true;
             this.flags_lstIncluded.Location = new System.Drawing.Point(6, 85);
             this.flags_lstIncluded.Name = "flags_lstIncluded";
-            this.flags_lstIncluded.Size = new System.Drawing.Size(388, 183);
+            this.flags_lstIncluded.Size = new System.Drawing.Size(390, 208);
             this.flags_lstIncluded.TabIndex = 3;
             this.flags_lstIncluded.UseCompatibleStateImageBehavior = false;
             this.flags_lstIncluded.View = System.Windows.Forms.View.List;
@@ -481,8 +485,8 @@
             this.splitContainer.Panel2.Controls.Add(this.panGenre);
             this.splitContainer.Panel2.Controls.Add(this.panFlags);
             this.splitContainer.Panel2MinSize = 400;
-            this.splitContainer.Size = new System.Drawing.Size(588, 304);
-            this.splitContainer.SplitterDistance = 189;
+            this.splitContainer.Size = new System.Drawing.Size(590, 329);
+            this.splitContainer.SplitterDistance = 184;
             this.splitContainer.TabIndex = 7;
             // 
             // panTags
@@ -491,7 +495,7 @@
             this.panTags.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panTags.Location = new System.Drawing.Point(0, 0);
             this.panTags.Name = "panTags";
-            this.panTags.Size = new System.Drawing.Size(400, 304);
+            this.panTags.Size = new System.Drawing.Size(402, 329);
             this.panTags.TabIndex = 2;
             // 
             // tags_grpMain
@@ -510,15 +514,29 @@
             this.tags_grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tags_grpMain.Location = new System.Drawing.Point(0, 0);
             this.tags_grpMain.Name = "tags_grpMain";
-            this.tags_grpMain.Size = new System.Drawing.Size(400, 304);
+            this.tags_grpMain.Size = new System.Drawing.Size(402, 329);
             this.tags_grpMain.TabIndex = 0;
             this.tags_grpMain.TabStop = false;
             this.tags_grpMain.Text = "Edit Tag Autocat";
+            // 
+            // tags_helpPrefix
+            // 
+            this.tags_helpPrefix.AutoSize = true;
+            this.tags_helpPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tags_helpPrefix.Location = new System.Drawing.Point(238, 22);
+            this.tags_helpPrefix.Name = "tags_helpPrefix";
+            this.tags_helpPrefix.Size = new System.Drawing.Size(15, 15);
+            this.tags_helpPrefix.TabIndex = 2;
+            this.tags_helpPrefix.Text = "?";
             // 
             // tags_grpListOpts
             // 
             this.tags_grpListOpts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tags_grpListOpts.Controls.Add(this.tags_list_helpScoreSort);
+            this.tags_grpListOpts.Controls.Add(this.tags_list_helpExcludeGenres);
+            this.tags_grpListOpts.Controls.Add(this.tags_list_chkScoreSort);
+            this.tags_grpListOpts.Controls.Add(this.tags_list_chkExcludeGenres);
             this.tags_grpListOpts.Controls.Add(this.tags_list_lblExplain);
             this.tags_grpListOpts.Controls.Add(this.tags_list_lblWeightFactor);
             this.tags_grpListOpts.Controls.Add(this.tags_list_numWeightFactor);
@@ -531,17 +549,68 @@
             this.tags_grpListOpts.Controls.Add(this.tags_list_chkOwnedOnly);
             this.tags_grpListOpts.Controls.Add(this.tags_list_numMinScore);
             this.tags_grpListOpts.Controls.Add(this.tags_list_lblMinScore);
-            this.tags_grpListOpts.Location = new System.Drawing.Point(6, 186);
+            this.tags_grpListOpts.Location = new System.Drawing.Point(6, 203);
             this.tags_grpListOpts.Name = "tags_grpListOpts";
-            this.tags_grpListOpts.Size = new System.Drawing.Size(387, 110);
+            this.tags_grpListOpts.Size = new System.Drawing.Size(389, 119);
             this.tags_grpListOpts.TabIndex = 10;
             this.tags_grpListOpts.TabStop = false;
             this.tags_grpListOpts.Text = "Tag List Options";
             // 
+            // tags_list_helpScoreSort
+            // 
+            this.tags_list_helpScoreSort.AutoSize = true;
+            this.tags_list_helpScoreSort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tags_list_helpScoreSort.Location = new System.Drawing.Point(283, 73);
+            this.tags_list_helpScoreSort.Name = "tags_list_helpScoreSort";
+            this.tags_list_helpScoreSort.Size = new System.Drawing.Size(15, 15);
+            this.tags_list_helpScoreSort.TabIndex = 11;
+            this.tags_list_helpScoreSort.Text = "?";
+            // 
+            // tags_list_helpExcludeGenres
+            // 
+            this.tags_list_helpExcludeGenres.AutoSize = true;
+            this.tags_list_helpExcludeGenres.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tags_list_helpExcludeGenres.Location = new System.Drawing.Point(113, 98);
+            this.tags_list_helpExcludeGenres.Name = "tags_list_helpExcludeGenres";
+            this.tags_list_helpExcludeGenres.Size = new System.Drawing.Size(15, 15);
+            this.tags_list_helpExcludeGenres.TabIndex = 13;
+            this.tags_list_helpExcludeGenres.Text = "?";
+            // 
+            // tags_list_chkScoreSort
+            // 
+            this.tags_list_chkScoreSort.AutoSize = true;
+            this.tags_list_chkScoreSort.Location = new System.Drawing.Point(195, 73);
+            this.tags_list_chkScoreSort.Name = "tags_list_chkScoreSort";
+            this.tags_list_chkScoreSort.Size = new System.Drawing.Size(88, 17);
+            this.tags_list_chkScoreSort.TabIndex = 10;
+            this.tags_list_chkScoreSort.Text = "Sort by score";
+            this.tags_list_chkScoreSort.UseVisualStyleBackColor = true;
+            // 
+            // tags_list_chkExcludeGenres
+            // 
+            this.tags_list_chkExcludeGenres.AutoSize = true;
+            this.tags_list_chkExcludeGenres.Location = new System.Drawing.Point(6, 97);
+            this.tags_list_chkExcludeGenres.Name = "tags_list_chkExcludeGenres";
+            this.tags_list_chkExcludeGenres.Size = new System.Drawing.Size(99, 17);
+            this.tags_list_chkExcludeGenres.TabIndex = 12;
+            this.tags_list_chkExcludeGenres.Text = "Exclude genres";
+            this.tags_list_chkExcludeGenres.UseVisualStyleBackColor = true;
+            // 
+            // tags_list_lblExplain
+            // 
+            this.tags_list_lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tags_list_lblExplain.Location = new System.Drawing.Point(7, 16);
+            this.tags_list_lblExplain.Name = "tags_list_lblExplain";
+            this.tags_list_lblExplain.Size = new System.Drawing.Size(376, 26);
+            this.tags_list_lblExplain.TabIndex = 0;
+            this.tags_list_lblExplain.Text = "These options determine which tags show up in the list above. Click \"Rebuild List" +
+    "\" to apply these settings.";
+            // 
             // tags_list_lblWeightFactor
             // 
             this.tags_list_lblWeightFactor.AutoSize = true;
-            this.tags_list_lblWeightFactor.Location = new System.Drawing.Point(239, 57);
+            this.tags_list_lblWeightFactor.Location = new System.Drawing.Point(239, 52);
             this.tags_list_lblWeightFactor.Name = "tags_list_lblWeightFactor";
             this.tags_list_lblWeightFactor.Size = new System.Drawing.Size(85, 13);
             this.tags_list_lblWeightFactor.TabIndex = 5;
@@ -555,7 +624,7 @@
             0,
             0,
             65536});
-            this.tags_list_numWeightFactor.Location = new System.Drawing.Point(195, 53);
+            this.tags_list_numWeightFactor.Location = new System.Drawing.Point(195, 48);
             this.tags_list_numWeightFactor.Maximum = new decimal(new int[] {
             10,
             0,
@@ -579,17 +648,17 @@
             // 
             this.tags_list_helpOwnedOnly.AutoSize = true;
             this.tags_list_helpOwnedOnly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tags_list_helpOwnedOnly.Location = new System.Drawing.Point(283, 81);
+            this.tags_list_helpOwnedOnly.Location = new System.Drawing.Point(283, 97);
             this.tags_list_helpOwnedOnly.Name = "tags_list_helpOwnedOnly";
             this.tags_list_helpOwnedOnly.Size = new System.Drawing.Size(15, 15);
-            this.tags_list_helpOwnedOnly.TabIndex = 11;
+            this.tags_list_helpOwnedOnly.TabIndex = 15;
             this.tags_list_helpOwnedOnly.Text = "?";
             // 
             // tags_list_helpWeightFactor
             // 
             this.tags_list_helpWeightFactor.AutoSize = true;
             this.tags_list_helpWeightFactor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tags_list_helpWeightFactor.Location = new System.Drawing.Point(330, 56);
+            this.tags_list_helpWeightFactor.Location = new System.Drawing.Point(330, 52);
             this.tags_list_helpWeightFactor.Name = "tags_list_helpWeightFactor";
             this.tags_list_helpWeightFactor.Size = new System.Drawing.Size(15, 15);
             this.tags_list_helpWeightFactor.TabIndex = 6;
@@ -599,7 +668,7 @@
             // 
             this.tags_list_helpTagsPerGame.AutoSize = true;
             this.tags_list_helpTagsPerGame.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tags_list_helpTagsPerGame.Location = new System.Drawing.Point(134, 81);
+            this.tags_list_helpTagsPerGame.Location = new System.Drawing.Point(134, 75);
             this.tags_list_helpTagsPerGame.Name = "tags_list_helpTagsPerGame";
             this.tags_list_helpTagsPerGame.Size = new System.Drawing.Size(15, 15);
             this.tags_list_helpTagsPerGame.TabIndex = 9;
@@ -609,7 +678,7 @@
             // 
             this.tags_list_helpMinScore.AutoSize = true;
             this.tags_list_helpMinScore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tags_list_helpMinScore.Location = new System.Drawing.Point(134, 56);
+            this.tags_list_helpMinScore.Location = new System.Drawing.Point(134, 52);
             this.tags_list_helpMinScore.Name = "tags_list_helpMinScore";
             this.tags_list_helpMinScore.Size = new System.Drawing.Size(15, 15);
             this.tags_list_helpMinScore.TabIndex = 3;
@@ -618,7 +687,7 @@
             // tags_list_lblTagsPerGame
             // 
             this.tags_list_lblTagsPerGame.AutoSize = true;
-            this.tags_list_lblTagsPerGame.Location = new System.Drawing.Point(50, 83);
+            this.tags_list_lblTagsPerGame.Location = new System.Drawing.Point(50, 75);
             this.tags_list_lblTagsPerGame.Name = "tags_list_lblTagsPerGame";
             this.tags_list_lblTagsPerGame.Size = new System.Drawing.Size(78, 13);
             this.tags_list_lblTagsPerGame.TabIndex = 8;
@@ -626,7 +695,7 @@
             // 
             // tags_list_numTagsPerGame
             // 
-            this.tags_list_numTagsPerGame.Location = new System.Drawing.Point(6, 79);
+            this.tags_list_numTagsPerGame.Location = new System.Drawing.Point(6, 72);
             this.tags_list_numTagsPerGame.Maximum = new decimal(new int[] {
             20,
             0,
@@ -639,16 +708,16 @@
             // tags_list_chkOwnedOnly
             // 
             this.tags_list_chkOwnedOnly.AutoSize = true;
-            this.tags_list_chkOwnedOnly.Location = new System.Drawing.Point(195, 80);
+            this.tags_list_chkOwnedOnly.Location = new System.Drawing.Point(195, 96);
             this.tags_list_chkOwnedOnly.Name = "tags_list_chkOwnedOnly";
             this.tags_list_chkOwnedOnly.Size = new System.Drawing.Size(82, 17);
-            this.tags_list_chkOwnedOnly.TabIndex = 10;
+            this.tags_list_chkOwnedOnly.TabIndex = 14;
             this.tags_list_chkOwnedOnly.Text = "Owned only";
             this.tags_list_chkOwnedOnly.UseVisualStyleBackColor = true;
             // 
             // tags_list_numMinScore
             // 
-            this.tags_list_numMinScore.Location = new System.Drawing.Point(6, 53);
+            this.tags_list_numMinScore.Location = new System.Drawing.Point(6, 48);
             this.tags_list_numMinScore.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -661,7 +730,7 @@
             // tags_list_lblMinScore
             // 
             this.tags_list_lblMinScore.AutoSize = true;
-            this.tags_list_lblMinScore.Location = new System.Drawing.Point(50, 57);
+            this.tags_list_lblMinScore.Location = new System.Drawing.Point(50, 52);
             this.tags_list_lblMinScore.Name = "tags_list_lblMinScore";
             this.tags_list_lblMinScore.Size = new System.Drawing.Size(71, 13);
             this.tags_list_lblMinScore.TabIndex = 2;
@@ -679,7 +748,7 @@
             // tags_cmdListRebuild
             // 
             this.tags_cmdListRebuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tags_cmdListRebuild.Location = new System.Drawing.Point(10, 157);
+            this.tags_cmdListRebuild.Location = new System.Drawing.Point(11, 174);
             this.tags_cmdListRebuild.Name = "tags_cmdListRebuild";
             this.tags_cmdListRebuild.Size = new System.Drawing.Size(75, 23);
             this.tags_cmdListRebuild.TabIndex = 7;
@@ -690,7 +759,7 @@
             // tags_cmdCheckAll
             // 
             this.tags_cmdCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.tags_cmdCheckAll.Location = new System.Drawing.Point(236, 157);
+            this.tags_cmdCheckAll.Location = new System.Drawing.Point(239, 174);
             this.tags_cmdCheckAll.Name = "tags_cmdCheckAll";
             this.tags_cmdCheckAll.Size = new System.Drawing.Size(75, 23);
             this.tags_cmdCheckAll.TabIndex = 8;
@@ -701,7 +770,7 @@
             // tags_cmdUncheckAll
             // 
             this.tags_cmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.tags_cmdUncheckAll.Location = new System.Drawing.Point(317, 157);
+            this.tags_cmdUncheckAll.Location = new System.Drawing.Point(320, 174);
             this.tags_cmdUncheckAll.Name = "tags_cmdUncheckAll";
             this.tags_cmdUncheckAll.Size = new System.Drawing.Size(75, 23);
             this.tags_cmdUncheckAll.TabIndex = 9;
@@ -754,31 +823,10 @@
             this.tags_lstIncluded.CheckBoxes = true;
             this.tags_lstIncluded.Location = new System.Drawing.Point(9, 98);
             this.tags_lstIncluded.Name = "tags_lstIncluded";
-            this.tags_lstIncluded.Size = new System.Drawing.Size(384, 53);
+            this.tags_lstIncluded.Size = new System.Drawing.Size(386, 73);
             this.tags_lstIncluded.TabIndex = 6;
             this.tags_lstIncluded.UseCompatibleStateImageBehavior = false;
             this.tags_lstIncluded.View = System.Windows.Forms.View.List;
-            // 
-            // tags_list_lblExplain
-            // 
-            this.tags_list_lblExplain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tags_list_lblExplain.Location = new System.Drawing.Point(7, 16);
-            this.tags_list_lblExplain.Name = "tags_list_lblExplain";
-            this.tags_list_lblExplain.Size = new System.Drawing.Size(374, 34);
-            this.tags_list_lblExplain.TabIndex = 0;
-            this.tags_list_lblExplain.Text = "These options determine which tags show up in the list above. Click \"Rebuild List" +
-    "\" to apply these settings.";
-            // 
-            // tags_helpPrefix
-            // 
-            this.tags_helpPrefix.AutoSize = true;
-            this.tags_helpPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tags_helpPrefix.Location = new System.Drawing.Point(238, 22);
-            this.tags_helpPrefix.Name = "tags_helpPrefix";
-            this.tags_helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.tags_helpPrefix.TabIndex = 2;
-            this.tags_helpPrefix.Text = "?";
             // 
             // ttHelp
             // 
@@ -789,12 +837,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(597, 341);
+            this.ClientSize = new System.Drawing.Size(599, 384);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdSave);
-            this.MinimumSize = new System.Drawing.Size(600, 375);
+            this.MinimumSize = new System.Drawing.Size(615, 400);
             this.Name = "DlgAutoCat";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit AutoCats";
@@ -886,5 +934,9 @@
         private System.Windows.Forms.NumericUpDown tags_list_numWeightFactor;
         private System.Windows.Forms.Label tags_list_lblExplain;
         private System.Windows.Forms.Label tags_helpPrefix;
+        private System.Windows.Forms.CheckBox tags_list_chkScoreSort;
+        private System.Windows.Forms.CheckBox tags_list_chkExcludeGenres;
+        private System.Windows.Forms.Label tags_list_helpScoreSort;
+        private System.Windows.Forms.Label tags_list_helpExcludeGenres;
     }
 }

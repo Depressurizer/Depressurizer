@@ -55,11 +55,11 @@ namespace Depressurizer {
             List<Tuple<string, float>> tagList = Program.GameDB.CalculateSortedTagList(
                 tags_list_chkOwnedOnly.Checked ? ownedGames : null,
                 (float)tags_list_numWeightFactor.Value,
-                (int)tags_list_numMinScore.Value, (int)tags_list_numTagsPerGame.Value );
+                (int)tags_list_numMinScore.Value, (int)tags_list_numTagsPerGame.Value, tags_list_chkExcludeGenres.Checked, tags_list_chkScoreSort.Checked );
 
             tags_lstIncluded.Items.Clear();
             foreach( Tuple<string, float> tag in tagList ) {
-                ListViewItem newItem = new ListViewItem( string.Format( "{0} [{1}]", tag.Item1, tag.Item2 ) );
+                ListViewItem newItem = new ListViewItem( string.Format( "{0} [{1:F0}]", tag.Item1, tag.Item2 ) );
                 newItem.Tag = tag.Item1;
                 if( preChecked != null && preChecked.Contains( tag.Item1 ) ) newItem.Checked = true;
                 tags_lstIncluded.Items.Add( newItem );
@@ -130,6 +130,8 @@ namespace Depressurizer {
             tags_list_numTagsPerGame.Value = ac.ListTagsPerGame;
             tags_list_chkOwnedOnly.Checked = ac.ListOwnedOnly;
             tags_list_numWeightFactor.Value = (Decimal)ac.ListWeightFactor;
+            tags_list_chkExcludeGenres.Checked = ac.ListExcludeGenres;
+            tags_list_chkScoreSort.Checked = ac.ListScoreSort;
 
             FillTagsList( ac.IncludedTags );
         }
@@ -190,6 +192,8 @@ namespace Depressurizer {
             ac.ListOwnedOnly = tags_list_chkOwnedOnly.Checked;
             ac.ListTagsPerGame = (int)tags_list_numTagsPerGame.Value;
             ac.ListWeightFactor = (float)tags_list_numWeightFactor.Value;
+            ac.ListExcludeGenres = tags_list_chkExcludeGenres.Checked;
+            ac.ListScoreSort = tags_list_chkScoreSort.Checked;
         }
 
         private void CreateNewAutoCat() {
@@ -272,6 +276,8 @@ namespace Depressurizer {
             ttHelp.Ext_SetToolTip( tags_list_helpOwnedOnly, GlobalStrings.DlgAutoCat_Help_ListOwnedOnly );
             ttHelp.Ext_SetToolTip( tags_list_helpTagsPerGame, GlobalStrings.DlgAutoCat_Help_ListTagsPerGame );
             ttHelp.Ext_SetToolTip( tags_list_helpWeightFactor, GlobalStrings.DlgAutoCat_Help_ListWeightFactor );
+            ttHelp.Ext_SetToolTip( tags_list_helpScoreSort, GlobalStrings.DlgAutoCat_Help_ListScoreSort );
+            ttHelp.Ext_SetToolTip( tags_list_helpExcludeGenres, GlobalStrings.DlgAutoCat_Help_ListExcludeGenres );
 
             FillAutocatList();
 
@@ -348,7 +354,6 @@ namespace Depressurizer {
             return false;
         }
         #endregion
-
 
     }
 }
