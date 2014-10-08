@@ -616,6 +616,7 @@ namespace Depressurizer {
 
         private void chkOwned_CheckedChanged( object sender, EventArgs e ) {
             RefreshGameList();
+            UpdateForSelectChange();
         }
 
         private void chkAll_CheckedChanged( object sender, EventArgs e ) {
@@ -645,18 +646,21 @@ namespace Depressurizer {
         private void radWeb_CheckedChanged( object sender, EventArgs e ) {
             if( ( (RadioButton)sender ).Checked == true ) {
                 RefreshGameList();
+                UpdateForSelectChange();
             };
         }
 
         private void dateWeb_ValueChanged( object sender, EventArgs e ) {
             if( radWebSince.Checked ) {
                 RefreshGameList();
+                UpdateForSelectChange();
             }
         }
 
         private void radApp_CheckedChanged( object sender, EventArgs e ) {
             if( ( (RadioButton)sender ).Checked == true ) {
                 RefreshGameList();
+                UpdateForSelectChange();
             }
         }
 
