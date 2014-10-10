@@ -125,6 +125,91 @@
   <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 24</value>
   </data>
+  <data name="cmdSearchClear.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="cmdSearchClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cmdSearchClear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>217, 1</value>
+  </data>
+  <data name="cmdSearchClear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>21, 20</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cmdSearchClear.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cmdSearchClear.Text" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="&gt;&gt;cmdSearchClear.Name" xml:space="preserve">
+    <value>cmdSearchClear</value>
+  </data>
+  <data name="&gt;&gt;cmdSearchClear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdSearchClear.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;cmdSearchClear.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblSearchClear.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblSearchClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblSearchClear.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 4</value>
+  </data>
+  <data name="lblSearchClear.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 13</value>
+  </data>
+  <data name="lblSearchClear.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblSearchClear.Text" xml:space="preserve">
+    <value>Search:</value>
+  </data>
+  <data name="&gt;&gt;lblSearchClear.Name" xml:space="preserve">
+    <value>lblSearchClear</value>
+  </data>
+  <data name="&gt;&gt;lblSearchClear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblSearchClear.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;lblSearchClear.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="txtSearch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>56, 1</value>
+  </data>
+  <data name="txtSearch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 20</value>
+  </data>
+  <data name="txtSearch.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txtSearch.Name" xml:space="preserve">
+    <value>txtSearch</value>
+  </data>
+  <data name="&gt;&gt;txtSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtSearch.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;txtSearch.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="grpCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <data name="lstCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -167,15 +252,14 @@
   <data name="&gt;&gt;contextCat.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lstCategories.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="lstCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 20</value>
+    <value>6, 19</value>
   </data>
   <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 399</value>
+    <value>230, 375</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -289,7 +373,7 @@
     <value>2</value>
   </data>
   <data name="tableCatButtons.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 421</value>
+    <value>3, 395</value>
   </data>
   <data name="tableCatButtons.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
@@ -315,14 +399,11 @@
   <data name="tableCatButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="grpCategories.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
   <data name="grpCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>0, 27</value>
   </data>
   <data name="grpCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 473</value>
+    <value>239, 421</value>
   </data>
   <data name="grpCategories.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -340,7 +421,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;grpCategories.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
     <value>splitContainer.Panel1</value>
@@ -538,7 +619,7 @@
     <value>lstGames</value>
   </data>
   <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
     <value>grpGames</value>
@@ -767,7 +848,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAegBAAHoAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAARABAQEQAQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1420,9 +1501,6 @@
         M/9mMzP/ZjMz/2YzM/9mMzP/ZjMz/wAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAA
         rEEAAKxBAACsQQAArEEAAKxBAACsQQAArEE=
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 350</value>

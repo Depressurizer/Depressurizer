@@ -122,6 +122,9 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblSearchClear = new System.Windows.Forms.Label();
+            this.cmdSearchClear = new System.Windows.Forms.Button();
             this.lstGames = new Depressurizer.Lib.ExtListView();
             this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -154,6 +157,9 @@ namespace Depressurizer {
             // 
             // splitContainer.Panel1
             // 
+            this.splitContainer.Panel1.Controls.Add(this.cmdSearchClear);
+            this.splitContainer.Panel1.Controls.Add(this.lblSearchClear);
+            this.splitContainer.Panel1.Controls.Add(this.txtSearch);
             this.splitContainer.Panel1.Controls.Add(this.grpCategories);
             // 
             // splitContainer.Panel2
@@ -162,9 +168,9 @@ namespace Depressurizer {
             // 
             // grpCategories
             // 
+            resources.ApplyResources(this.grpCategories, "grpCategories");
             this.grpCategories.Controls.Add(this.lstCategories);
             this.grpCategories.Controls.Add(this.tableCatButtons);
-            resources.ApplyResources(this.grpCategories, "grpCategories");
             this.grpCategories.Name = "grpCategories";
             this.grpCategories.TabStop = false;
             // 
@@ -729,6 +735,24 @@ namespace Depressurizer {
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
             // 
+            // txtSearch
+            // 
+            resources.ApplyResources(this.txtSearch, "txtSearch");
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // lblSearchClear
+            // 
+            resources.ApplyResources(this.lblSearchClear, "lblSearchClear");
+            this.lblSearchClear.Name = "lblSearchClear";
+            // 
+            // cmdSearchClear
+            // 
+            resources.ApplyResources(this.cmdSearchClear, "cmdSearchClear");
+            this.cmdSearchClear.Name = "cmdSearchClear";
+            this.cmdSearchClear.UseVisualStyleBackColor = true;
+            this.cmdSearchClear.Click += new System.EventHandler(this.cmdSearchClear_Click);
+            // 
             // lstGames
             // 
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -789,6 +813,7 @@ namespace Depressurizer {
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel1.PerformLayout();
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
@@ -900,6 +925,9 @@ namespace Depressurizer {
         private System.Windows.Forms.ColumnHeader colHidden;
         private System.Windows.Forms.ContextMenuStrip menu_Tools_Autocat_List;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_AutoCats;
+        private System.Windows.Forms.Button cmdSearchClear;
+        private System.Windows.Forms.Label lblSearchClear;
+        private System.Windows.Forms.TextBox txtSearch;
     }
 }
 

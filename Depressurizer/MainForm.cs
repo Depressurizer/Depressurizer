@@ -28,6 +28,8 @@ namespace Depressurizer {
         object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
         bool ignoreCheckChanges = false;
 
+        string lastFilterString = "";
+
         // Used to reload resources of main form while switching language
         private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary;
 
@@ -952,6 +954,7 @@ namespace Depressurizer {
             // Shortcut games show with italic font. 
             if( g.Id < 0 )
                 item.Font = new Font( item.Font, item.Font.Style | FontStyle.Italic );
+
             lstGames.Items.Add( item );
         }
 
@@ -1797,6 +1800,19 @@ namespace Depressurizer {
             }
         }
 
+        private void txtSearch_TextChanged( object sender, EventArgs e ) {
+            if( txtSearch.Text.IndexOf( lastFilterString, StringComparison.CurrentCultureIgnoreCase ) == -1 ) {
+                FillGameList();
+            } else {
+                UpdateGameList();
+            }
+            lastFilterString = txtSearch.Text;
+        }
+
+        private void cmdSearchClear_Click( object sender, EventArgs e ) {
+            txtSearch.Clear();
+        }
+
         #endregion
 
         #region Utility
@@ -1834,6 +1850,7 @@ namespace Depressurizer {
         /// <returns>True if it should be displayed, false otherwise</returns>
         bool ShouldDisplayGame( GameInfo g ) {
             if( currentProfile == null ) return false;
+            if( txtSearch.Text != string.Empty && g.Name.IndexOf( txtSearch.Text, StringComparison.CurrentCultureIgnoreCase ) == -1 ) return false;
             if( !currentProfile.GameData.Games.ContainsKey( g.Id ) ) return false;
             if( g.Id < 0 && !currentProfile.IncludeShortcuts ) return false;
             if( lstCategories.SelectedItem == null ) return false;
@@ -1887,6 +1904,5 @@ namespace Depressurizer {
         }
 
         #endregion
-
     }
 }
