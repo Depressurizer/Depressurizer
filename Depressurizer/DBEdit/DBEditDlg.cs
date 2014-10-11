@@ -328,10 +328,11 @@ namespace Depressurizer {
         /// <param name="selectedOnly">If true, only run on games that the user has selected.</param>
         /// <param name="updateSubItems">If true, update text based on underlying GameDBEntry. If false, just remove filtered items.</param>
         void UpdateGameList( bool selectedOnly, bool updateSubItems ) {
-            int index = 0;
+            int index = ( selectedOnly ? lstGames.SelectedIndices.Count : lstGames.Items.Count ) - 1;
             lstGames.ExtBeginUpdate();
-            while( index < ( selectedOnly ? lstGames.SelectedIndices.Count : lstGames.Items.Count ) ) {
-                if( UpdateGameAtIndex( selectedOnly ? lstGames.SelectedIndices[index] : index, updateSubItems ) ) index++;
+            while( index >= 0 ) {
+                UpdateGameAtIndex( selectedOnly ? lstGames.SelectedIndices[index] : index, updateSubItems );
+                index--;
             }
             lstGames.ExtEndUpdate();
             UpdateStatusCount();
