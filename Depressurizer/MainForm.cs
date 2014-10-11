@@ -919,19 +919,16 @@ namespace Depressurizer {
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillGameList() {
-            lstGames.BeginUpdate();
+            lstGames.ExtBeginUpdate();
             lstGames.Items.Clear();
             if( lstCategories.SelectedItems.Count > 0 ) {
-                lstGames.SuspendSorting();
                 foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
                     if( ShouldDisplayGame( g ) ) {
                         AddGameToList( g );
                     }
                 }
-                lstGames.ResumeSorting( true );
             }
-            
-            lstGames.EndUpdate();
+            lstGames.ExtEndUpdate();
             UpdateSelectedStatusText();
             UpdateGameCheckStates();
             UpdateEnabledStatesForGames();
@@ -1104,13 +1101,11 @@ namespace Depressurizer {
         /// </summary>
         void UpdateGameList() {
             int i = 0;
-            lstGames.BeginUpdate();
-            lstGames.SuspendSorting();
+            lstGames.ExtBeginUpdate();
             while( i < lstGames.Items.Count ) {
                 if( UpdateGame( i ) ) i++;
             }
-            lstGames.ResumeSorting();
-            lstGames.EndUpdate();
+            lstGames.ExtEndUpdate();
             UpdateSelectedStatusText();
         }
 
