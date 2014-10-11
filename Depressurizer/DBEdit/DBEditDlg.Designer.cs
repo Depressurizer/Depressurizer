@@ -456,7 +456,7 @@ namespace Depressurizer {
             0,
             0,
             0});
-            this.numIdRangeMax.ValueChanged += new System.EventHandler(this.numIdRangeMax_ValueChanged);
+            this.numIdRangeMax.ValueChanged += new System.EventHandler(this.IdFilter_Changed);
             // 
             // numIdRangeMin
             // 
@@ -467,7 +467,7 @@ namespace Depressurizer {
             0,
             0});
             this.numIdRangeMin.Name = "numIdRangeMin";
-            this.numIdRangeMin.ValueChanged += new System.EventHandler(this.numIdRangeMin_ValueChanged);
+            this.numIdRangeMin.ValueChanged += new System.EventHandler(this.IdFilter_Changed);
             // 
             // lblIdRangeSep
             // 
@@ -479,7 +479,7 @@ namespace Depressurizer {
             resources.ApplyResources(this.chkIdRange, "chkIdRange");
             this.chkIdRange.Name = "chkIdRange";
             this.chkIdRange.UseVisualStyleBackColor = true;
-            this.chkIdRange.CheckedChanged += new System.EventHandler(this.chkIdRange_CheckedChanged);
+            this.chkIdRange.CheckedChanged += new System.EventHandler(this.IdFilter_Changed);
             // 
             // DBEditDlg
             // 
