@@ -922,14 +922,13 @@ namespace Depressurizer {
             lstGames.BeginUpdate();
             lstGames.Items.Clear();
             if( lstCategories.SelectedItems.Count > 0 ) {
-                lstGames.ListViewItemSorter = null;
+                lstGames.SuspendSorting();
                 foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
                     if( ShouldDisplayGame( g ) ) {
                         AddGameToList( g );
                     }
                 }
-                lstGames.ListViewItemSorter = listSorter;
-                lstGames.Sort();    
+                lstGames.ResumeSorting( true );
             }
             
             lstGames.EndUpdate();
@@ -1106,11 +1105,11 @@ namespace Depressurizer {
         void UpdateGameList() {
             int i = 0;
             lstGames.BeginUpdate();
-            lstGames.ListViewItemSorter = null;
+            lstGames.SuspendSorting();
             while( i < lstGames.Items.Count ) {
                 if( UpdateGame( i ) ) i++;
             }
-            lstGames.ListViewItemSorter = listSorter;
+            lstGames.ResumeSorting();
             lstGames.EndUpdate();
             UpdateSelectedStatusText();
         }
