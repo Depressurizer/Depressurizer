@@ -87,11 +87,20 @@ namespace Depressurizer {
             this.colScraped = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAppInfo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.cmdSearchClear = new System.Windows.Forms.Button();
+            this.numIdRangeMax = new System.Windows.Forms.NumericUpDown();
+            this.numIdRangeMin = new System.Windows.Forms.NumericUpDown();
+            this.lblIdRangeSep = new System.Windows.Forms.Label();
+            this.chkIdRange = new System.Windows.Forms.CheckBox();
             this.mainMenu.SuspendLayout();
             this.grpTypes.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.grpWebUpdate.SuspendLayout();
             this.grpAppInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numIdRangeMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numIdRangeMin)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -415,10 +424,69 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.colParent, "colParent");
             // 
+            // txtSearch
+            // 
+            resources.ApplyResources(this.txtSearch, "txtSearch");
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // lblSearch
+            // 
+            resources.ApplyResources(this.lblSearch, "lblSearch");
+            this.lblSearch.Name = "lblSearch";
+            // 
+            // cmdSearchClear
+            // 
+            resources.ApplyResources(this.cmdSearchClear, "cmdSearchClear");
+            this.cmdSearchClear.Name = "cmdSearchClear";
+            this.cmdSearchClear.UseVisualStyleBackColor = true;
+            this.cmdSearchClear.Click += new System.EventHandler(this.cmdSearchClear_Click);
+            // 
+            // numIdRangeMax
+            // 
+            resources.ApplyResources(this.numIdRangeMax, "numIdRangeMax");
+            this.numIdRangeMax.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numIdRangeMax.Name = "numIdRangeMax";
+            this.numIdRangeMax.ValueChanged += new System.EventHandler(this.numIdRangeMax_ValueChanged);
+            // 
+            // numIdRangeMin
+            // 
+            resources.ApplyResources(this.numIdRangeMin, "numIdRangeMin");
+            this.numIdRangeMin.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numIdRangeMin.Name = "numIdRangeMin";
+            this.numIdRangeMin.ValueChanged += new System.EventHandler(this.numIdRangeMin_ValueChanged);
+            // 
+            // lblIdRangeSep
+            // 
+            resources.ApplyResources(this.lblIdRangeSep, "lblIdRangeSep");
+            this.lblIdRangeSep.Name = "lblIdRangeSep";
+            // 
+            // chkIdRange
+            // 
+            resources.ApplyResources(this.chkIdRange, "chkIdRange");
+            this.chkIdRange.Name = "chkIdRange";
+            this.chkIdRange.UseVisualStyleBackColor = true;
+            this.chkIdRange.CheckedChanged += new System.EventHandler(this.chkIdRange_CheckedChanged);
+            // 
             // DBEditDlg
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.chkIdRange);
+            this.Controls.Add(this.lblIdRangeSep);
+            this.Controls.Add(this.numIdRangeMin);
+            this.Controls.Add(this.numIdRangeMax);
+            this.Controls.Add(this.cmdSearchClear);
+            this.Controls.Add(this.lblSearch);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.chkOwned);
             this.Controls.Add(this.grpAppInfo);
             this.Controls.Add(this.grpWebUpdate);
@@ -451,6 +519,8 @@ namespace Depressurizer {
             this.grpWebUpdate.PerformLayout();
             this.grpAppInfo.ResumeLayout(false);
             this.grpAppInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numIdRangeMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numIdRangeMin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,6 +573,13 @@ namespace Depressurizer {
         private System.Windows.Forms.ColumnHeader colParent;
         private System.Windows.Forms.RadioButton radAppNo;
         private System.Windows.Forms.CheckBox chkOwned;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.Button cmdSearchClear;
+        private System.Windows.Forms.NumericUpDown numIdRangeMax;
+        private System.Windows.Forms.NumericUpDown numIdRangeMin;
+        private System.Windows.Forms.Label lblIdRangeSep;
+        private System.Windows.Forms.CheckBox chkIdRange;
     }
 }
 

@@ -145,7 +145,6 @@ namespace Depressurizer {
             }
 
             RefreshGameList();
-            UpdateForSelectChange();
             this.Cursor = Cursors.Default;
         }
 
@@ -175,7 +174,7 @@ namespace Depressurizer {
                     AddGameToList( dlg.Game );
                     AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_AddedGame, dlg.Game.Id ) );
                     UnsavedChanges = true;
-                    UpdateForSelectChange();
+                    UpdateStatusCount();
                 }
             }
         }
@@ -217,9 +216,8 @@ namespace Depressurizer {
                     AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_DeletedGames, deleted ) );
                     if( deleted > 0 ) {
                         UnsavedChanges = true;
-                        UpdateSelectedGames();
+                        UpdateGameList( true );
                     }
-                    UpdateForSelectChange();
                 }
             }
         }
@@ -260,8 +258,6 @@ namespace Depressurizer {
                 }
 
                 ScrapeGames( gamesToScrape );
-
-                UpdateForSelectChange();
 
                 Cursor = Cursors.Default;
             }
@@ -307,8 +303,7 @@ namespace Depressurizer {
         void RefreshGameList() {
             Cursor c = this.Cursor;
             this.Cursor = Cursors.WaitCursor;
-            lstGames.BeginUpdate();
-            lstGames.ListViewItemSorter = null;
+            lstGames.ExtBeginUpdate();
             lstGames.Items.Clear();
 
             foreach( GameDBEntry g in Program.GameDB.Games.Values ) {
@@ -316,9 +311,23 @@ namespace Depressurizer {
                     AddGameToList( g );
                 }
             }
-            lstGames.ListViewItemSorter = listSorter;
-            lstGames.EndUpdate();
+            lstGames.ExtEndUpdate();
             this.Cursor = c;
+            UpdateStatusCount();
+        }
+
+        /// <summary>
+        /// Updates the game list, without adding new items. Removes games if they no longer exist in the DB or no longer match filters.
+        /// </summary>
+        /// <param name="selectedOnly">If true, only run on games that the user has selected.</param>
+        void UpdateGameList( bool selectedOnly ) {
+            int index = 0;
+            lstGames.ExtBeginUpdate();
+            while( index > ( selectedOnly ? lstGames.SelectedIndices.Count : lstGames.Items.Count ) ) {
+                if( UpdateGameAtIndex( selectedOnly ? lstGames.SelectedIndices[index] : index ) ) index++;
+            }
+            lstGames.ExtEndUpdate();
+            UpdateStatusCount();
         }
 
         /// <summary>
@@ -338,22 +347,6 @@ namespace Depressurizer {
                 item.Tag = g;
                 lstGames.Items.Add( item );
             }
-        }
-
-        /// <summary>
-        /// Updates the currently-selected ListViewItems. Removes any games that are no longer in the DB or no longer match filters.
-        /// </summary>
-        void UpdateSelectedGames() {
-            int selIndex = 0;
-            lstGames.BeginUpdate();
-            lstGames.ListViewItemSorter = null;
-            while( selIndex < lstGames.SelectedItems.Count ) {
-                if( UpdateGameAtIndex( lstGames.SelectedIndices[selIndex] ) ) {
-                    selIndex++;
-                }
-            }
-            lstGames.ListViewItemSorter = listSorter;
-            lstGames.EndUpdate();
         }
 
         /// <summary>
@@ -387,6 +380,8 @@ namespace Depressurizer {
         bool ShouldDisplayGame( GameDBEntry g ) {
             if( g == null ) return false;
 
+            if( chkIdRange.Checked && ( g.Id < numIdRangeMin.Value || g.Id > numIdRangeMax.Value ) ) return false;
+
             if( ownedList != null && chkOwned.Checked == true && !ownedList.Games.ContainsKey( g.Id ) ) return false;
 
             if( chkTypeAll.Checked == false ) {
@@ -417,13 +412,15 @@ namespace Depressurizer {
                 if( radAppYes.Checked == true && g.LastAppInfoUpdate <= 0 ) return false;
             }
 
+            if( txtSearch.Text.Length > 0 && g.Name.IndexOf( txtSearch.Text, StringComparison.CurrentCultureIgnoreCase ) == -1 ) return false;
+
             return true;
         }
 
         /// <summary>
         /// Update form elements after the selection status in the game list is modified.
         /// </summary>
-        void UpdateForSelectChange() {
+        void UpdateStatusCount() {
             statSelected.Text = string.Format( GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedItems.Count, lstGames.Items.Count, Program.GameDB.Games.Count );
             cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = ( lstGames.SelectedItems.Count >= 1 );
         }
@@ -469,7 +466,6 @@ namespace Depressurizer {
             }
 
             RefreshGameList();
-            UpdateForSelectChange();
         }
 
         private void DBEditDlg_FormClosing( object sender, FormClosingEventArgs e ) {
@@ -483,7 +479,6 @@ namespace Depressurizer {
         private void menu_File_Load_Click( object sender, EventArgs e ) {
             ClearStatusMsg();
             LoadDB();
-            UpdateForSelectChange();
             FlushStatusMsg();
         }
 
@@ -502,7 +497,6 @@ namespace Depressurizer {
         private void menu_File_Clear_Click( object sender, EventArgs e ) {
             ClearStatusMsg();
             ClearDB();
-            UpdateForSelectChange();
             FlushStatusMsg();
         }
 
@@ -554,7 +548,7 @@ namespace Depressurizer {
         }
 
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
-            UpdateForSelectChange();
+            UpdateStatusCount();
         }
 
         #endregion
@@ -607,7 +601,6 @@ namespace Depressurizer {
             ClearStatusMsg();
             ScrapeNew();
             FlushStatusMsg();
-            UpdateForSelectChange();
         }
 
         #endregion
@@ -616,7 +609,6 @@ namespace Depressurizer {
 
         private void chkOwned_CheckedChanged( object sender, EventArgs e ) {
             RefreshGameList();
-            UpdateForSelectChange();
         }
 
         private void chkAll_CheckedChanged( object sender, EventArgs e ) {
@@ -627,7 +619,6 @@ namespace Depressurizer {
                 }
                 filterSuspend = false;
                 RefreshGameList();
-                UpdateForSelectChange();
             }
         }
 
@@ -639,28 +630,24 @@ namespace Depressurizer {
 
                 filterSuspend = false;
                 RefreshGameList();
-                UpdateForSelectChange();
             }
         }
 
         private void radWeb_CheckedChanged( object sender, EventArgs e ) {
             if( ( (RadioButton)sender ).Checked == true ) {
                 RefreshGameList();
-                UpdateForSelectChange();
             };
         }
 
         private void dateWeb_ValueChanged( object sender, EventArgs e ) {
             if( radWebSince.Checked ) {
                 RefreshGameList();
-                UpdateForSelectChange();
             }
         }
 
         private void radApp_CheckedChanged( object sender, EventArgs e ) {
             if( ( (RadioButton)sender ).Checked == true ) {
                 RefreshGameList();
-                UpdateForSelectChange();
             }
         }
 
@@ -687,6 +674,26 @@ namespace Depressurizer {
                 return false;
             }
             return SaveDB();
+        }
+
+        private void cmdSearchClear_Click( object sender, EventArgs e ) {
+            txtSearch.Clear();
+        }
+
+        private void txtSearch_TextChanged( object sender, EventArgs e ) {
+            RefreshGameList();
+        }
+
+        private void chkIdRange_CheckedChanged( object sender, EventArgs e ) {
+            RefreshGameList();
+        }
+
+        private void numIdRangeMin_ValueChanged( object sender, EventArgs e ) {
+            if( chkIdRange.Checked ) RefreshGameList();
+        }
+
+        private void numIdRangeMax_ValueChanged( object sender, EventArgs e ) {
+            if( chkIdRange.Checked ) RefreshGameList();
         }
     }
 }
