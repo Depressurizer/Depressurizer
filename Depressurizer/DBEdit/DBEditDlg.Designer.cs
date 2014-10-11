@@ -446,11 +446,16 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.numIdRangeMax, "numIdRangeMax");
             this.numIdRangeMax.Maximum = new decimal(new int[] {
-            100000,
+            1000000,
             0,
             0,
             0});
             this.numIdRangeMax.Name = "numIdRangeMax";
+            this.numIdRangeMax.Value = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.numIdRangeMax.ValueChanged += new System.EventHandler(this.numIdRangeMax_ValueChanged);
             // 
             // numIdRangeMin
