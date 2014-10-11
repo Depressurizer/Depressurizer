@@ -297,20 +297,21 @@ namespace Depressurizer {
 
         #region UI Updaters
 
-        /// <summary>
-        /// Clears and re-fills the game list, displaying all games that should be displayed according to the current filters.
-        /// </summary>
         void RefreshGameList() {
             Cursor c = this.Cursor;
             this.Cursor = Cursors.WaitCursor;
             lstGames.ExtBeginUpdate();
             lstGames.Items.Clear();
 
+            List<ListViewItem> newItems = new List<ListViewItem>(Program.GameDB.Games.Count);
             foreach( GameDBEntry g in Program.GameDB.Games.Values ) {
                 if( ShouldDisplayGame( g ) ) {
-                    AddGameToList( g );
+                    newItems.Add( CreateListViewItem( g ) );
                 }
             }
+
+            lstGames.Items.AddRange( newItems.ToArray() );
+
             lstGames.ExtEndUpdate();
             this.Cursor = c;
             UpdateStatusCount();
@@ -336,7 +337,13 @@ namespace Depressurizer {
         /// <param name="g">Game to add</param>
         void AddGameToList( GameDBEntry g ) {
             if( g != null ) {
-                ListViewItem item = new ListViewItem( new string[] { 
+                ListViewItem item = CreateListViewItem( g );
+                lstGames.Items.Add( item );
+            }
+        }
+
+        ListViewItem CreateListViewItem( GameDBEntry g ) {
+            ListViewItem item = new ListViewItem( new string[] { 
                     g.Name,
                     g.Id.ToString(),
                     ( g.Genres!=null ) ? string.Join(",",g.Genres) : "",
@@ -344,9 +351,8 @@ namespace Depressurizer {
                     ( g.LastStoreScrape == 0 ) ? "": "X",
                     ( g.LastAppInfoUpdate == 0 ) ? "" : "X",
                     ( g.ParentId <= 0 ) ? "" : g.ParentId.ToString() } );
-                item.Tag = g;
-                lstGames.Items.Add( item );
-            }
+            item.Tag = g;
+            return item;
         }
 
         /// <summary>
