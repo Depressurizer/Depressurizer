@@ -6,10 +6,9 @@ using Rallion;
 
 namespace Depressurizer {
     public partial class DBEditDlg : Form {
+        const int ID_FILTER_MAX = 1000000;
 
         private bool UnsavedChanges { get; set; }
-
-        MultiColumnListViewComparer listSorter = new MultiColumnListViewComparer();
 
         bool filterSuspend = false;
         StringBuilder statusBuilder = new StringBuilder();
@@ -19,12 +18,24 @@ namespace Depressurizer {
 
         GameList ownedList;
 
+        #region VirtualMode List Backing & Sorting Fields
+        List<GameDBEntry> displayedGames = new List<GameDBEntry>();
+        GameDBEntrySorter dbEntrySorter = new GameDBEntrySorter();
+        readonly Dictionary<int, GameDBEntrySorter.SortModes> columnSortMap = new Dictionary<int, GameDBEntrySorter.SortModes>() {
+            { 0, GameDBEntrySorter.SortModes.Name },    
+            { 1, GameDBEntrySorter.SortModes.Id },
+            { 2, GameDBEntrySorter.SortModes.Genre },
+            { 3, GameDBEntrySorter.SortModes.Type },
+            { 4, GameDBEntrySorter.SortModes.IsScraped },
+            { 5, GameDBEntrySorter.SortModes.HasAppInfo },
+            { 6, GameDBEntrySorter.SortModes.Parent }
+        };
+        #endregion
+
         public DBEditDlg( GameList owned = null ) {
             InitializeComponent();
             ownedList = owned;
         }
-
-        const int ID_FILTER_MAX = 1000000;
 
         #region Actions
 
@@ -95,7 +106,7 @@ namespace Depressurizer {
                 if( res == System.Windows.Forms.DialogResult.OK ) {
                     this.Cursor = Cursors.WaitCursor;
                     Program.GameDB.Load( dlg.FileName );
-                    RefreshGameList();
+                    RebuildDisplayList();
                     AddStatusMsg( GlobalStrings.DBEditDlg_FileLoaded );
                     UnsavedChanges = true;
                     this.Cursor = Cursors.Default;
@@ -114,17 +125,7 @@ namespace Depressurizer {
                     Program.GameDB.Games.Clear();
                     AddStatusMsg( GlobalStrings.DBEditDlg_ClearedAllData );
                 }
-                RefreshGameList();
-            }
-        }
-
-        /// <summary>
-        /// Opens the steampowered page for the given game entry
-        /// </summary>
-        /// <param name="game">Entry to open</param>
-        void VisitStorePage( GameDBEntry game ) {
-            if( game != null ) {
-                System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, game.Id ) );
+                RebuildDisplayList();
             }
         }
 
@@ -149,7 +150,7 @@ namespace Depressurizer {
                 }
             }
 
-            RefreshGameList();
+            RebuildDisplayList();
             this.Cursor = Cursors.Default;
         }
 
@@ -157,7 +158,7 @@ namespace Depressurizer {
             try {
                 string path = string.Format( Properties.Resources.AppInfoPath, Settings.Instance.SteamPath );
                 int updated = Program.GameDB.UpdateFromAppInfo( path );
-                RefreshGameList();
+                RebuildDisplayList();
                 AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_Status_UpdatedAppInfo, updated ) );
             } catch( Exception e ) {
                 MessageBox.Show( string.Format( GlobalStrings.DBEditDlg_AppInfoUpdateFailed, e.Message ), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
@@ -176,7 +177,14 @@ namespace Depressurizer {
                     AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id ) );
                 } else {
                     Program.GameDB.Games.Add( dlg.Game.Id, dlg.Game );
-                    AddGameToList( dlg.Game );
+
+                    if( ShouldDisplayGame( dlg.Game ) ) {
+                        displayedGames.Add( dlg.Game );
+                        lstGames.VirtualListSize += 1;
+                        displayedGames.Sort( dbEntrySorter );
+                        InvalidateAllListViewItems();
+                    }
+
                     AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_AddedGame, dlg.Game.Id ) );
                     UnsavedChanges = true;
                     UpdateStatusCount();
@@ -189,12 +197,12 @@ namespace Depressurizer {
         /// </summary>
         void EditSelectedGame() {
             if( lstGames.SelectedIndices.Count > 0 ) {
-                GameDBEntry game = lstGames.SelectedItems[0].Tag as GameDBEntry;
+                GameDBEntry game = displayedGames[lstGames.SelectedIndices[0]];
                 if( game != null ) {
                     GameDBEntryDialog dlg = new GameDBEntryDialog( game );
                     DialogResult res = dlg.ShowDialog();
                     if( res == System.Windows.Forms.DialogResult.OK ) {
-                        UpdateGameAtIndex( lstGames.SelectedIndices[0], true );
+                        lstGames.RedrawItems( lstGames.SelectedIndices[0], lstGames.SelectedIndices[0], true );
                         AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_EditedGame, game.Id ) );
                         UnsavedChanges = true;
                     }
@@ -206,13 +214,13 @@ namespace Depressurizer {
         /// Removes all selected games from the database.
         /// </summary>
         void DeleteSelectedGames() {
-            if( lstGames.SelectedItems.Count > 0 ) {
-                DialogResult res = MessageBox.Show( string.Format( GlobalStrings.DBEditDlg_AreYouSureDeleteGames, lstGames.SelectedItems.Count ),
+            if( lstGames.SelectedIndices.Count > 0 ) {
+                DialogResult res = MessageBox.Show( string.Format( GlobalStrings.DBEditDlg_AreYouSureDeleteGames, lstGames.SelectedIndices.Count ),
                     GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 );
                 if( res == System.Windows.Forms.DialogResult.Yes ) {
                     int deleted = 0;
-                    foreach( ListViewItem item in lstGames.SelectedItems ) {
-                        GameDBEntry game = item.Tag as GameDBEntry;
+                    foreach( int index in lstGames.SelectedIndices ) {
+                        GameDBEntry game = displayedGames[index];
                         if( game != null ) {
                             Program.GameDB.Games.Remove( game.Id );
                             deleted++;
@@ -221,7 +229,8 @@ namespace Depressurizer {
                     AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_DeletedGames, deleted ) );
                     if( deleted > 0 ) {
                         UnsavedChanges = true;
-                        UpdateGameList( true, false );
+                        RefilterDisplayList();
+                        lstGames.SelectedIndices.Clear();
                     }
                 }
             }
@@ -242,7 +251,6 @@ namespace Depressurizer {
             }
 
             ScrapeGames( gamesToScrape );
-
             Cursor = Cursors.Default;
         }
 
@@ -250,20 +258,16 @@ namespace Depressurizer {
         /// Performs a web scrape on all games that are selected in the list.
         /// </summary>
         private void ScrapeSelected() {
-            if( lstGames.SelectedItems.Count > 0 ) {
+            if( lstGames.SelectedIndices.Count > 0 ) {
                 Cursor = Cursors.WaitCursor;
 
                 Queue<int> gamesToScrape = new Queue<int>();
 
                 foreach( int index in lstGames.SelectedIndices ) {
-                    GameDBEntry game = lstGames.Items[index].Tag as GameDBEntry;
-                    if( game != null ) {
-                        gamesToScrape.Enqueue( game.Id );
-                    }
+                    gamesToScrape.Enqueue( displayedGames[index].Id );
                 }
 
                 ScrapeGames( gamesToScrape );
-
                 Cursor = Cursors.Default;
             }
         }
@@ -291,7 +295,7 @@ namespace Depressurizer {
                 }
                 if( dlg.JobsCompleted > 0 ) {
                     UnsavedChanges = true;
-                    RefreshGameList();
+                    RebuildDisplayList();
                 }
             } else {
                 AddStatusMsg( GlobalStrings.DBEditDlg_NoGamesToScrape );
@@ -302,55 +306,8 @@ namespace Depressurizer {
 
         #region UI Updaters
 
-        void RefreshGameList() {
-            Cursor c = this.Cursor;
-            this.Cursor = Cursors.WaitCursor;
-            lstGames.ExtBeginUpdate();
-            lstGames.Items.Clear();
-
-            List<ListViewItem> newItems = new List<ListViewItem>( Program.GameDB.Games.Count );
-            foreach( GameDBEntry g in Program.GameDB.Games.Values ) {
-                if( ShouldDisplayGame( g ) ) {
-                    newItems.Add( CreateListViewItem( g ) );
-                }
-            }
-
-            lstGames.Items.AddRange( newItems.ToArray() );
-
-            lstGames.ExtEndUpdate();
-            this.Cursor = c;
-            UpdateStatusCount();
-        }
-
-        /// <summary>
-        /// Updates the game list, without adding new items. Removes games if they no longer exist in the DB or no longer match filters.
-        /// </summary>
-        /// <param name="selectedOnly">If true, only run on games that the user has selected.</param>
-        /// <param name="updateSubItems">If true, update text based on underlying GameDBEntry. If false, just remove filtered items.</param>
-        void UpdateGameList( bool selectedOnly, bool updateSubItems ) {
-            int index = ( selectedOnly ? lstGames.SelectedIndices.Count : lstGames.Items.Count ) - 1;
-            lstGames.ExtBeginUpdate();
-            while( index >= 0 ) {
-                UpdateGameAtIndex( selectedOnly ? lstGames.SelectedIndices[index] : index, updateSubItems );
-                index--;
-            }
-            lstGames.ExtEndUpdate();
-            UpdateStatusCount();
-        }
-
-        /// <summary>
-        /// Adds the given game entry to the list.
-        /// </summary>
-        /// <param name="g">Game to add</param>
-        void AddGameToList( GameDBEntry g ) {
-            if( g != null ) {
-                ListViewItem item = CreateListViewItem( g );
-                lstGames.Items.Add( item );
-            }
-        }
-
         ListViewItem CreateListViewItem( GameDBEntry g ) {
-            ListViewItem item = new ListViewItem( new string[] { 
+            return new ListViewItem( new string[] { 
                     g.Name,
                     g.Id.ToString(),
                     ( g.Genres!=null ) ? string.Join(",",g.Genres) : "",
@@ -358,33 +315,33 @@ namespace Depressurizer {
                     ( g.LastStoreScrape == 0 ) ? "": "X",
                     ( g.LastAppInfoUpdate == 0 ) ? "" : "X",
                     ( g.ParentId <= 0 ) ? "" : g.ParentId.ToString() } );
-            item.Tag = g;
-            return item;
         }
 
-        /// <summary>
-        /// Updates one ListViewItem, or removes it if it should no longer be displayed
-        /// </summary>
-        /// <param name="index">The index of the item to update</param>
-        /// <param name="updateSubItems">If true, update text to match underlying db object. If false, just remove the game if it doesn't belong.</param>
-        /// <returns>True if the game is still in the list, false if it was removed.</returns>
-        bool UpdateGameAtIndex( int index, bool updateSubItems ) {
-            ListViewItem item = lstGames.Items[index];
-            GameDBEntry g = item.Tag as GameDBEntry;
-            if( g == null || !Program.GameDB.Games.ContainsKey( g.Id ) || !ShouldDisplayGame( g ) ) {
-                lstGames.Items.RemoveAt( index );
-                return false;
+        void RebuildDisplayList() {
+            displayedGames.Clear();
+            foreach( GameDBEntry g in Program.GameDB.Games.Values ) {
+                if( ShouldDisplayGame( g ) ) displayedGames.Add( g );
             }
-            if( updateSubItems ) {
-                item.SubItems[0].Text = g.Name;
-                item.SubItems[1].Text = g.Id.ToString();
-                item.SubItems[2].Text = ( g.Genres != null ) ? string.Join( ",", g.Genres ) : "";
-                item.SubItems[3].Text = g.AppType.ToString();
-                item.SubItems[4].Text = ( g.LastStoreScrape == 0 ) ? "" : "X";
-                item.SubItems[5].Text = ( g.LastAppInfoUpdate == 0 ) ? "" : "X";
-                item.SubItems[6].Text = ( g.ParentId <= 0 ) ? "" : g.ParentId.ToString();
+            displayedGames.Sort( dbEntrySorter );
+            lstGames.VirtualListSize = displayedGames.Count;
+            lstGames.RedrawItems( 0, displayedGames.Count - 1, true );
+            UpdateStatusCount();
+        }
+
+        void RefilterDisplayList() {
+            displayedGames.RemoveAll( ShouldHideGame );
+            //displayedGames.Sort( dbEntrySorter );
+            lstGames.VirtualListSize = displayedGames.Count;
+            if( lstGames.VirtualListSize > 0 ) {
+                lstGames.RedrawItems( 0, displayedGames.Count - 1, true );
             }
-            return true;
+            UpdateStatusCount();
+        }
+
+        void InvalidateAllListViewItems() {
+            if( lstGames.VirtualListSize > 0 ) {
+                lstGames.RedrawItems( 0, lstGames.VirtualListSize - 1, false );
+            }
         }
 
         /// <summary>
@@ -395,6 +352,7 @@ namespace Depressurizer {
         bool ShouldDisplayGame( GameDBEntry g ) {
             if( g == null ) return false;
 
+            if( !Program.GameDB.Contains( g.Id ) ) return false;
             if( chkIdRange.Checked && ( g.Id < currentMinId || g.Id > currentMaxId ) ) return false;
 
             if( ownedList != null && chkOwned.Checked == true && !ownedList.Games.ContainsKey( g.Id ) ) return false;
@@ -432,21 +390,17 @@ namespace Depressurizer {
             return true;
         }
 
-        /// <summary>
-        /// Update form elements after the selection status in the game list is modified.
-        /// </summary>
-        void UpdateStatusCount() {
-            statSelected.Text = string.Format( GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedItems.Count, lstGames.Items.Count, Program.GameDB.Games.Count );
-            cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = ( lstGames.SelectedItems.Count >= 1 );
+        bool ShouldHideGame( GameDBEntry g ) {
+            return !ShouldDisplayGame( g );
         }
-
+        
         private void ApplyTextFilterChange() {
             string oldFilter = currentFilter;
             currentFilter = txtSearch.Text;
 
             if( currentFilter.Equals( oldFilter, StringComparison.CurrentCultureIgnoreCase ) ) return;
-            else if( currentFilter.IndexOf( oldFilter, StringComparison.CurrentCultureIgnoreCase ) == -1 ) RefreshGameList();
-            else UpdateGameList( false, false );
+            else if( currentFilter.IndexOf( oldFilter, StringComparison.CurrentCultureIgnoreCase ) == -1 ) RebuildDisplayList();
+            else RefilterDisplayList();
         }
 
         private void ApplyIdFilterChange() {
@@ -461,8 +415,8 @@ namespace Depressurizer {
             }
 
             if( currentMinId == oldMinId && currentMaxId == oldMaxId ) return;
-            else if( currentMinId < oldMinId || currentMaxId > oldMaxId ) RefreshGameList();
-            else UpdateGameList( false, false );
+            else if( currentMinId < oldMinId || currentMaxId > oldMaxId ) RebuildDisplayList();
+            else RefilterDisplayList();
         }
 
         #region Status Text
@@ -487,6 +441,15 @@ namespace Depressurizer {
             statusMsg.Text = statusBuilder.ToString();
             ClearStatusMsg();
         }
+
+        /// <summary>
+        /// Update form elements after the selection status in the game list is modified.
+        /// </summary>
+        void UpdateStatusCount() {
+            statSelected.Text = string.Format( GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Program.GameDB.Games.Count );
+            cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = ( lstGames.SelectedIndices.Count >= 1 );
+        }
+
         #endregion
 
         #endregion
@@ -495,10 +458,8 @@ namespace Depressurizer {
 
         private void MainForm_Load( object sender, EventArgs e ) {
             // Initialize list sorting
-            listSorter.AddIntCol( 1 );
-            listSorter.AddIntCol( 6 );
-            lstGames.ListViewItemSorter = listSorter;
-            lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
+            dbEntrySorter.SetSortMode( columnSortMap[0], 1 );
+            lstGames.SetSortIcon( 0, SortOrder.Ascending );
 
             if( ownedList == null ) {
                 chkOwned.Checked = false;
@@ -508,7 +469,7 @@ namespace Depressurizer {
             numIdRangeMax.Maximum = numIdRangeMax.Value = ID_FILTER_MAX;
             numIdRangeMin.Maximum = ID_FILTER_MAX;
 
-            RefreshGameList();
+            RebuildDisplayList();
         }
 
         private void DBEditDlg_FormClosing( object sender, FormClosingEventArgs e ) {
@@ -552,22 +513,25 @@ namespace Depressurizer {
         #region List Events
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
-            listSorter.SetSortCol( e.Column );
-            lstGames.SetSortIcon( listSorter.GetSortCol(), ( listSorter.GetSortDir() == 1 ) ? SortOrder.Ascending : SortOrder.Descending );
-            lstGames.Sort();
+            if( columnSortMap.ContainsKey( e.Column ) ) {
+                dbEntrySorter.SetSortMode( columnSortMap[e.Column] );
+                lstGames.SetSortIcon( e.Column, ( dbEntrySorter.SortDirection > 0 ) ? SortOrder.Ascending : SortOrder.Descending );
+                displayedGames.Sort( dbEntrySorter );
+                lstGames.RedrawItems( 0, lstGames.VirtualListSize - 1, true );
+            }
         }
 
         private void lstGames_KeyDown( object sender, KeyEventArgs e ) {
             switch( e.KeyCode ) {
                 case Keys.A:
                     if( e.Modifiers == Keys.Control ) {
-                        foreach( ListViewItem item in lstGames.Items ) {
-                            item.Selected = true;
+                        for( int i = 0; i < lstGames.VirtualListSize; i++ ) {
+                            lstGames.SelectedIndices.Add( i );
                         }
                     }
                     break;
                 case Keys.Enter:
-                    if( lstGames.SelectedItems.Count > 0 ) {
+                    if( lstGames.SelectedIndices.Count > 0 ) {
                         ClearStatusMsg();
                         EditSelectedGame();
                         FlushStatusMsg();
@@ -581,7 +545,7 @@ namespace Depressurizer {
                     }
                     break;
                 case Keys.Delete:
-                    if( lstGames.SelectedItems.Count > 0 ) {
+                    if( lstGames.SelectedIndices.Count > 0 ) {
                         ClearStatusMsg();
                         DeleteSelectedGames();
                         FlushStatusMsg();
@@ -592,6 +556,10 @@ namespace Depressurizer {
 
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
             UpdateStatusCount();
+        }
+
+        private void lstGames_RetrieveVirtualItem( object sender, RetrieveVirtualItemEventArgs e ) {
+            e.Item = CreateListViewItem( displayedGames[e.ItemIndex] );
         }
 
         #endregion
@@ -611,8 +579,8 @@ namespace Depressurizer {
         }
 
         private void cmdStore_Click( object sender, EventArgs e ) {
-            if( lstGames.SelectedItems.Count > 0 ) {
-                VisitStorePage( lstGames.SelectedItems[0].Tag as GameDBEntry );
+            if( lstGames.SelectedIndices.Count > 0 ) {
+                Utility.LaunchStorePage( displayedGames[lstGames.SelectedIndices[0]].Id );
             }
         }
 
@@ -663,7 +631,7 @@ namespace Depressurizer {
         }
 
         private void chkOwned_CheckedChanged( object sender, EventArgs e ) {
-            RefreshGameList();
+            RebuildDisplayList();
         }
 
         private void chkAll_CheckedChanged( object sender, EventArgs e ) {
@@ -673,7 +641,7 @@ namespace Depressurizer {
                     chkTypeDLC.Checked = chkTypeGame.Checked = chkTypeOther.Checked = chkTypeUnknown.Checked = false;
                 }
                 filterSuspend = false;
-                RefreshGameList();
+                RebuildDisplayList();
             }
         }
 
@@ -684,25 +652,25 @@ namespace Depressurizer {
                 chkTypeAll.Checked = !( chkTypeDLC.Checked || chkTypeGame.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked );
 
                 filterSuspend = false;
-                RefreshGameList();
+                RebuildDisplayList();
             }
         }
 
         private void radWeb_CheckedChanged( object sender, EventArgs e ) {
             if( ( (RadioButton)sender ).Checked == true ) {
-                RefreshGameList();
+                RebuildDisplayList();
             };
         }
 
         private void dateWeb_ValueChanged( object sender, EventArgs e ) {
             if( radWebSince.Checked ) {
-                RefreshGameList();
+                RebuildDisplayList();
             }
         }
 
         private void radApp_CheckedChanged( object sender, EventArgs e ) {
             if( ( (RadioButton)sender ).Checked == true ) {
-                RefreshGameList();
+                RebuildDisplayList();
             }
         }
 

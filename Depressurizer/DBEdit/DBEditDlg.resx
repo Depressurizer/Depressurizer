@@ -978,72 +978,6 @@
   <data name="&gt;&gt;chkOwned.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="lstGames.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="colName.DisplayIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="colName.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="colName.Width" type="System.Int32, mscorlib">
-    <value>208</value>
-  </data>
-  <data name="colID.DisplayIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="colID.Text" xml:space="preserve">
-    <value>ID</value>
-  </data>
-  <data name="colGenre.Text" xml:space="preserve">
-    <value>Genre</value>
-  </data>
-  <data name="colGenre.Width" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="colType.Text" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="colType.Width" type="System.Int32, mscorlib">
-    <value>63</value>
-  </data>
-  <data name="colScraped.Text" xml:space="preserve">
-    <value>Scraped</value>
-  </data>
-  <data name="colScraped.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="colAppInfo.Text" xml:space="preserve">
-    <value>AppInfo</value>
-  </data>
-  <data name="colAppInfo.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="colParent.Text" xml:space="preserve">
-    <value>Parent</value>
-  </data>
-  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 27</value>
-  </data>
-  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>605, 476</value>
-  </data>
-  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
-    <value>lstGames</value>
-  </data>
-  <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
   <data name="txtSearch.Location" type="System.Drawing.Point, System.Drawing">
     <value>673, 27</value>
   </data>
@@ -1097,6 +1031,9 @@
   </data>
   <data name="cmdSearchClear.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
+  </data>
+  <data name="cmdSearchClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="cmdSearchClear.Location" type="System.Drawing.Point, System.Drawing">
     <value>843, 27</value>
@@ -1167,6 +1104,9 @@
   <data name="lblIdRangeSep.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lblIdRangeSep.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lblIdRangeSep.Location" type="System.Drawing.Point, System.Drawing">
     <value>782, 55</value>
   </data>
@@ -1194,6 +1134,9 @@
   <data name="chkIdRange.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="chkIdRange.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="chkIdRange.Location" type="System.Drawing.Point, System.Drawing">
     <value>629, 55</value>
   </data>
@@ -1217,6 +1160,72 @@
   </data>
   <data name="&gt;&gt;chkIdRange.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="lstGames.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="colName.DisplayIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="colName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="colName.Width" type="System.Int32, mscorlib">
+    <value>208</value>
+  </data>
+  <data name="colID.DisplayIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="colID.Text" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="colGenre.Text" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="colGenre.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="colType.Text" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="colType.Width" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="colScraped.Text" xml:space="preserve">
+    <value>Scraped</value>
+  </data>
+  <data name="colScraped.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="colAppInfo.Text" xml:space="preserve">
+    <value>AppInfo</value>
+  </data>
+  <data name="colAppInfo.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="colParent.Text" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 27</value>
+  </data>
+  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>605, 476</value>
+  </data>
+  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
+    <value>lstGames</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
+    <value>20</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

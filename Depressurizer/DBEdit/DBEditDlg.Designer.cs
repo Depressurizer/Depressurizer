@@ -79,6 +79,13 @@ namespace Depressurizer {
             this.radAppYes = new System.Windows.Forms.RadioButton();
             this.radAppAll = new System.Windows.Forms.RadioButton();
             this.chkOwned = new System.Windows.Forms.CheckBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.cmdSearchClear = new System.Windows.Forms.Button();
+            this.numIdRangeMax = new System.Windows.Forms.NumericUpDown();
+            this.numIdRangeMin = new System.Windows.Forms.NumericUpDown();
+            this.lblIdRangeSep = new System.Windows.Forms.Label();
+            this.chkIdRange = new System.Windows.Forms.CheckBox();
             this.lstGames = new Depressurizer.Lib.ExtListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -87,13 +94,6 @@ namespace Depressurizer {
             this.colScraped = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAppInfo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.lblSearch = new System.Windows.Forms.Label();
-            this.cmdSearchClear = new System.Windows.Forms.Button();
-            this.numIdRangeMax = new System.Windows.Forms.NumericUpDown();
-            this.numIdRangeMin = new System.Windows.Forms.NumericUpDown();
-            this.lblIdRangeSep = new System.Windows.Forms.Label();
-            this.chkIdRange = new System.Windows.Forms.CheckBox();
             this.mainMenu.SuspendLayout();
             this.grpTypes.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -375,55 +375,6 @@ namespace Depressurizer {
             this.chkOwned.UseVisualStyleBackColor = true;
             this.chkOwned.CheckedChanged += new System.EventHandler(this.chkOwned_CheckedChanged);
             // 
-            // lstGames
-            // 
-            resources.ApplyResources(this.lstGames, "lstGames");
-            this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colName,
-            this.colID,
-            this.colGenre,
-            this.colType,
-            this.colScraped,
-            this.colAppInfo,
-            this.colParent});
-            this.lstGames.FullRowSelect = true;
-            this.lstGames.GridLines = true;
-            this.lstGames.HideSelection = false;
-            this.lstGames.Name = "lstGames";
-            this.lstGames.UseCompatibleStateImageBehavior = false;
-            this.lstGames.View = System.Windows.Forms.View.Details;
-            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
-            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
-            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
-            // 
-            // colName
-            // 
-            resources.ApplyResources(this.colName, "colName");
-            // 
-            // colID
-            // 
-            resources.ApplyResources(this.colID, "colID");
-            // 
-            // colGenre
-            // 
-            resources.ApplyResources(this.colGenre, "colGenre");
-            // 
-            // colType
-            // 
-            resources.ApplyResources(this.colType, "colType");
-            // 
-            // colScraped
-            // 
-            resources.ApplyResources(this.colScraped, "colScraped");
-            // 
-            // colAppInfo
-            // 
-            resources.ApplyResources(this.colAppInfo, "colAppInfo");
-            // 
-            // colParent
-            // 
-            resources.ApplyResources(this.colParent, "colParent");
-            // 
             // txtSearch
             // 
             resources.ApplyResources(this.txtSearch, "txtSearch");
@@ -480,6 +431,57 @@ namespace Depressurizer {
             this.chkIdRange.Name = "chkIdRange";
             this.chkIdRange.UseVisualStyleBackColor = true;
             this.chkIdRange.CheckedChanged += new System.EventHandler(this.IdFilter_Changed);
+            // 
+            // lstGames
+            // 
+            resources.ApplyResources(this.lstGames, "lstGames");
+            this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colName,
+            this.colID,
+            this.colGenre,
+            this.colType,
+            this.colScraped,
+            this.colAppInfo,
+            this.colParent});
+            this.lstGames.FullRowSelect = true;
+            this.lstGames.GridLines = true;
+            this.lstGames.HideSelection = false;
+            this.lstGames.Name = "lstGames";
+            this.lstGames.UseCompatibleStateImageBehavior = false;
+            this.lstGames.View = System.Windows.Forms.View.Details;
+            this.lstGames.VirtualMode = true;
+            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
+            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
+            this.lstGames.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.lstGames_RetrieveVirtualItem);
+            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
+            // 
+            // colName
+            // 
+            resources.ApplyResources(this.colName, "colName");
+            // 
+            // colID
+            // 
+            resources.ApplyResources(this.colID, "colID");
+            // 
+            // colGenre
+            // 
+            resources.ApplyResources(this.colGenre, "colGenre");
+            // 
+            // colType
+            // 
+            resources.ApplyResources(this.colType, "colType");
+            // 
+            // colScraped
+            // 
+            resources.ApplyResources(this.colScraped, "colScraped");
+            // 
+            // colAppInfo
+            // 
+            resources.ApplyResources(this.colAppInfo, "colAppInfo");
+            // 
+            // colParent
+            // 
+            resources.ApplyResources(this.colParent, "colParent");
             // 
             // DBEditDlg
             // 
