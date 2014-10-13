@@ -436,8 +436,8 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colName,
             this.colID,
+            this.colName,
             this.colGenre,
             this.colType,
             this.colScraped,
@@ -453,6 +453,7 @@ namespace Depressurizer {
             this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.lstGames_RetrieveVirtualItem);
+            this.lstGames.SearchForVirtualItem += new System.Windows.Forms.SearchForVirtualItemEventHandler(this.lstGames_SearchForVirtualItem);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
             // 
             // colName

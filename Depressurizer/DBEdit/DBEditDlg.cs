@@ -22,8 +22,8 @@ namespace Depressurizer {
         List<GameDBEntry> displayedGames = new List<GameDBEntry>();
         GameDBEntrySorter dbEntrySorter = new GameDBEntrySorter();
         readonly Dictionary<int, GameDBEntrySorter.SortModes> columnSortMap = new Dictionary<int, GameDBEntrySorter.SortModes>() {
-            { 0, GameDBEntrySorter.SortModes.Name },    
-            { 1, GameDBEntrySorter.SortModes.Id },
+            { 0, GameDBEntrySorter.SortModes.Id },
+            { 1, GameDBEntrySorter.SortModes.Name }, 
             { 2, GameDBEntrySorter.SortModes.Genre },
             { 3, GameDBEntrySorter.SortModes.Type },
             { 4, GameDBEntrySorter.SortModes.IsScraped },
@@ -308,8 +308,8 @@ namespace Depressurizer {
 
         ListViewItem CreateListViewItem( GameDBEntry g ) {
             return new ListViewItem( new string[] { 
-                    g.Name,
                     g.Id.ToString(),
+                    g.Name,
                     ( g.Genres!=null ) ? string.Join(",",g.Genres) : "",
                     g.AppType.ToString(),
                     ( g.LastStoreScrape == 0 ) ? "": "X",
@@ -324,7 +324,7 @@ namespace Depressurizer {
             }
             displayedGames.Sort( dbEntrySorter );
             lstGames.VirtualListSize = displayedGames.Count;
-            lstGames.RedrawItems( 0, displayedGames.Count - 1, true );
+            InvalidateAllListViewItems();
             UpdateStatusCount();
         }
 
@@ -332,15 +332,13 @@ namespace Depressurizer {
             displayedGames.RemoveAll( ShouldHideGame );
             //displayedGames.Sort( dbEntrySorter );
             lstGames.VirtualListSize = displayedGames.Count;
-            if( lstGames.VirtualListSize > 0 ) {
-                lstGames.RedrawItems( 0, displayedGames.Count - 1, true );
-            }
+            InvalidateAllListViewItems();
             UpdateStatusCount();
         }
 
         void InvalidateAllListViewItems() {
             if( lstGames.VirtualListSize > 0 ) {
-                lstGames.RedrawItems( 0, lstGames.VirtualListSize - 1, false );
+                lstGames.RedrawItems( 0, lstGames.VirtualListSize - 1, true );
             }
         }
 
@@ -517,7 +515,7 @@ namespace Depressurizer {
                 dbEntrySorter.SetSortMode( columnSortMap[e.Column] );
                 lstGames.SetSortIcon( e.Column, ( dbEntrySorter.SortDirection > 0 ) ? SortOrder.Ascending : SortOrder.Descending );
                 displayedGames.Sort( dbEntrySorter );
-                lstGames.RedrawItems( 0, lstGames.VirtualListSize - 1, true );
+                InvalidateAllListViewItems();
             }
         }
 
@@ -560,6 +558,21 @@ namespace Depressurizer {
 
         private void lstGames_RetrieveVirtualItem( object sender, RetrieveVirtualItemEventArgs e ) {
             e.Item = CreateListViewItem( displayedGames[e.ItemIndex] );
+        }
+
+        private void lstGames_SearchForVirtualItem( object sender, SearchForVirtualItemEventArgs e ) {
+            for( int i = e.StartIndex; i < displayedGames.Count; i++ ) {
+                if( displayedGames[i].Name.StartsWith( e.Text, StringComparison.CurrentCultureIgnoreCase ) ) {
+                    e.Index = i;
+                    return;
+                }
+            }
+            for( int i = 0; i < e.StartIndex; i++ ) {
+                if( displayedGames[i].Name.StartsWith( e.Text, StringComparison.CurrentCultureIgnoreCase ) ) {
+                    e.Index = i;
+                    return;
+                }
+            }
         }
 
         #endregion
