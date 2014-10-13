@@ -978,6 +978,9 @@
   <data name="&gt;&gt;chkOwned.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="txtSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="txtSearch.Location" type="System.Drawing.Point, System.Drawing">
     <value>673, 27</value>
   </data>
@@ -998,6 +1001,9 @@
   </data>
   <data name="&gt;&gt;txtSearch.ZOrder" xml:space="preserve">
     <value>6</value>
+  </data>
+  <data name="lblSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="lblSearch.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1029,6 +1035,9 @@
   <data name="&gt;&gt;lblSearch.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="cmdSearchClear.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="cmdSearchClear.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
@@ -1059,6 +1068,9 @@
   <data name="&gt;&gt;cmdSearchClear.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="numIdRangeMax.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="numIdRangeMax.Location" type="System.Drawing.Point, System.Drawing">
     <value>795, 53</value>
   </data>
@@ -1080,6 +1092,9 @@
   <data name="&gt;&gt;numIdRangeMax.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="numIdRangeMin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="numIdRangeMin.Location" type="System.Drawing.Point, System.Drawing">
     <value>710, 53</value>
   </data>
@@ -1100,6 +1115,9 @@
   </data>
   <data name="&gt;&gt;numIdRangeMin.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="lblIdRangeSep.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="lblIdRangeSep.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1130,6 +1148,9 @@
   </data>
   <data name="&gt;&gt;lblIdRangeSep.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="chkIdRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="chkIdRange.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1164,20 +1185,14 @@
   <data name="lstGames.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="colName.DisplayIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="colID.Text" xml:space="preserve">
+    <value>ID</value>
   </data>
   <data name="colName.Text" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="colName.Width" type="System.Int32, mscorlib">
     <value>208</value>
-  </data>
-  <data name="colID.DisplayIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="colID.Text" xml:space="preserve">
-    <value>ID</value>
   </data>
   <data name="colGenre.Text" xml:space="preserve">
     <value>Genre</value>
@@ -1235,6 +1250,9 @@
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>872, 528</value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>685, 495</value>
@@ -1305,16 +1323,16 @@
   <data name="&gt;&gt;statSelected.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;colName.Name" xml:space="preserve">
-    <value>colName</value>
-  </data>
-  <data name="&gt;&gt;colName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;colID.Name" xml:space="preserve">
     <value>colID</value>
   </data>
   <data name="&gt;&gt;colID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;colName.Name" xml:space="preserve">
+    <value>colName</value>
+  </data>
+  <data name="&gt;&gt;colName.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;colGenre.Name" xml:space="preserve">

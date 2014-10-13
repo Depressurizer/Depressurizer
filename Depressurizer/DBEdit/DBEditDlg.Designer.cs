@@ -87,8 +87,8 @@ namespace Depressurizer {
             this.lblIdRangeSep = new System.Windows.Forms.Label();
             this.chkIdRange = new System.Windows.Forms.CheckBox();
             this.lstGames = new Depressurizer.Lib.ExtListView();
-            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colGenre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colScraped = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -456,13 +456,13 @@ namespace Depressurizer {
             this.lstGames.SearchForVirtualItem += new System.Windows.Forms.SearchForVirtualItemEventHandler(this.lstGames_SearchForVirtualItem);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
             // 
-            // colName
-            // 
-            resources.ApplyResources(this.colName, "colName");
-            // 
             // colID
             // 
             resources.ApplyResources(this.colID, "colID");
+            // 
+            // colName
+            // 
+            resources.ApplyResources(this.colName, "colName");
             // 
             // colGenre
             // 
