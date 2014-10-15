@@ -828,32 +828,11 @@ namespace Depressurizer {
 
         public void SetSortMode( SortModes mode, int forceDir = 0 ) {
             if( mode == SortMode ) {
-                if( forceDir == 0 ) {
-                    SortDirection *= -1;
-                } else {
-                    SortDirection = forceDir;
-                }
+                SortDirection = ( forceDir == 0 ) ? ( SortDirection *= -1 ) : forceDir;
             } else {
                 SortMode = mode;
-                if( forceDir == 0 ) {
-                    SortDirection = 1;
-                } else {
-                    SortDirection = forceDir;
-                }
+                SortDirection = (forceDir == 0 ) ? 1 : forceDir;
             }
-        }
-
-        private int CompareLists( List<string> a, List<string> b ) {
-            if( a == null ) {
-                return ( b == null ) ? 0 : 1;
-            } else if( b == null ) {
-                return -1;
-            }
-            for( int i = 0; i < a.Count && i < b.Count; i++ ) {
-                int res = string.Compare( a[i], b[i]);
-                if( res != 0 ) return res;
-            }
-            return b.Count - a.Count;
         }
 
         public int Compare( GameDBEntry a, GameDBEntry b ) {
@@ -866,7 +845,7 @@ namespace Depressurizer {
                     res = string.Compare( a.Name, b.Name );
                     break;
                 case SortModes.Genre:
-                    res = CompareLists(a.Genres,b.Genres);
+                    res = Utility.CompareLists( a.Genres, b.Genres );
                     break;
                 case SortModes.Type:
                     res = a.AppType - b.AppType;

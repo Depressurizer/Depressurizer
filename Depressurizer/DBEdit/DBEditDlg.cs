@@ -456,8 +456,9 @@ namespace Depressurizer {
 
         private void MainForm_Load( object sender, EventArgs e ) {
             // Initialize list sorting
-            dbEntrySorter.SetSortMode( columnSortMap[0], 1 );
-            lstGames.SetSortIcon( 0, SortOrder.Ascending );
+            int initialSortCol = 0;
+            dbEntrySorter.SetSortMode( columnSortMap[initialSortCol], 1 );
+            lstGames.SetSortIcon( initialSortCol, SortOrder.Ascending );
 
             if( ownedList == null ) {
                 chkOwned.Checked = false;
