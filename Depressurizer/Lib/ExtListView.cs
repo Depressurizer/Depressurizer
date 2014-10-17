@@ -65,7 +65,9 @@ namespace Depressurizer.Lib {
         void Application_Idle( object sender, EventArgs e ) {
             isSelecting = false;
             Application.Idle -= Application_Idle;
-            SelectionChanged( this, new EventArgs() );
+            if( SelectionChanged != null ) {
+                SelectionChanged( this, new EventArgs() );
+            }
         }
 
 

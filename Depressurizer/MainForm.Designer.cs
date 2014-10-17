@@ -48,13 +48,17 @@ namespace Depressurizer {
             this.lblSearchClear = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.grpCategories = new System.Windows.Forms.GroupBox();
-            this.lstCategories = new System.Windows.Forms.ListBox();
+            this.radCatAdvanced = new System.Windows.Forms.RadioButton();
+            this.radCatSimple = new System.Windows.Forms.RadioButton();
+            this.lstCategories = new Depressurizer.Lib.ExtListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextCat_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Rename = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
+            this.imglistTriState = new System.Windows.Forms.ImageList(this.components);
             this.tableCatButtons = new System.Windows.Forms.TableLayoutPanel();
             this.cmdCatAdd = new System.Windows.Forms.Button();
             this.cmdCatDelete = new System.Windows.Forms.Button();
@@ -92,7 +96,6 @@ namespace Depressurizer {
             this.txtAddCatAndAssign = new System.Windows.Forms.TextBox();
             this.chkFavorite = new System.Windows.Forms.CheckBox();
             this.lstMultiCat = new System.Windows.Forms.ListView();
-            this.imglistTriState = new System.Windows.Forms.ImageList(this.components);
             this.cmdGameRemove = new System.Windows.Forms.Button();
             this.cmdGameAdd = new System.Windows.Forms.Button();
             this.cmdGameEdit = new System.Windows.Forms.Button();
@@ -187,26 +190,50 @@ namespace Depressurizer {
             // grpCategories
             // 
             resources.ApplyResources(this.grpCategories, "grpCategories");
+            this.grpCategories.Controls.Add(this.radCatAdvanced);
+            this.grpCategories.Controls.Add(this.radCatSimple);
             this.grpCategories.Controls.Add(this.lstCategories);
             this.grpCategories.Controls.Add(this.tableCatButtons);
             this.grpCategories.Name = "grpCategories";
             this.grpCategories.TabStop = false;
             // 
+            // radCatAdvanced
+            // 
+            resources.ApplyResources(this.radCatAdvanced, "radCatAdvanced");
+            this.radCatAdvanced.Name = "radCatAdvanced";
+            this.radCatAdvanced.UseVisualStyleBackColor = true;
+            // 
+            // radCatSimple
+            // 
+            resources.ApplyResources(this.radCatSimple, "radCatSimple");
+            this.radCatSimple.Checked = true;
+            this.radCatSimple.Name = "radCatSimple";
+            this.radCatSimple.TabStop = true;
+            this.radCatSimple.UseVisualStyleBackColor = true;
+            // 
             // lstCategories
             // 
             this.lstCategories.AllowDrop = true;
             resources.ApplyResources(this.lstCategories, "lstCategories");
+            this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
             this.lstCategories.ContextMenuStrip = this.contextCat;
-            this.lstCategories.FormattingEnabled = true;
+            this.lstCategories.FullRowSelect = true;
+            this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lstCategories.HideSelection = false;
             this.lstCategories.Name = "lstCategories";
-            this.lstCategories.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
+            this.lstCategories.ShowGroups = false;
+            this.lstCategories.UseCompatibleStateImageBehavior = false;
+            this.lstCategories.View = System.Windows.Forms.View.Details;
+            this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
             this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
             this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
             this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
             this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
+            this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
             this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
+            this.lstCategories.Resize += new System.EventHandler(this.lstCategories_Resize);
             // 
             // contextCat
             // 
@@ -249,6 +276,14 @@ namespace Depressurizer {
             this.contextCat_RemoveEmpty.Name = "contextCat_RemoveEmpty";
             resources.ApplyResources(this.contextCat_RemoveEmpty, "contextCat_RemoveEmpty");
             this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
+            // 
+            // imglistTriState
+            // 
+            this.imglistTriState.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistTriState.ImageStream")));
+            this.imglistTriState.TransparentColor = System.Drawing.Color.Transparent;
+            this.imglistTriState.Images.SetKeyName(0, "tscbUnchecked.png");
+            this.imglistTriState.Images.SetKeyName(1, "tscbChecked.png");
+            this.imglistTriState.Images.SetKeyName(2, "tscbIndeterminate.png");
             // 
             // tableCatButtons
             // 
@@ -539,14 +574,6 @@ namespace Depressurizer {
             this.lstMultiCat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lstMultiCat_KeyPress);
             this.lstMultiCat.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstMultiCat_MouseDown);
             // 
-            // imglistTriState
-            // 
-            this.imglistTriState.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistTriState.ImageStream")));
-            this.imglistTriState.TransparentColor = System.Drawing.Color.Transparent;
-            this.imglistTriState.Images.SetKeyName(0, "tscbUnchecked.png");
-            this.imglistTriState.Images.SetKeyName(1, "tscbChecked.png");
-            this.imglistTriState.Images.SetKeyName(2, "tscbIndeterminate.png");
-            // 
             // cmdGameRemove
             // 
             resources.ApplyResources(this.cmdGameRemove, "cmdGameRemove");
@@ -820,6 +847,7 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.grpCategories.ResumeLayout(false);
+            this.grpCategories.PerformLayout();
             this.contextCat.ResumeLayout(false);
             this.tableCatButtons.ResumeLayout(false);
             this.splitGame.Panel1.ResumeLayout(false);
@@ -856,7 +884,7 @@ namespace Depressurizer {
         private System.Windows.Forms.Button cmdGameRemove;
         private System.Windows.Forms.Button cmdGameEdit;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep2;
-        private System.Windows.Forms.ListBox lstCategories;
+        private Lib.ExtListView lstCategories;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusMsg;
         private System.Windows.Forms.ToolStripStatusLabel statusSelection;
@@ -930,6 +958,9 @@ namespace Depressurizer {
         private System.Windows.Forms.Button cmdSearchClear;
         private System.Windows.Forms.Label lblSearchClear;
         private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.RadioButton radCatAdvanced;
+        private System.Windows.Forms.RadioButton radCatSimple;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 

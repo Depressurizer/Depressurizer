@@ -527,7 +527,7 @@ namespace Depressurizer {
         /// <returns>True if category was renamed, false otherwise.</returns>
         bool RenameCategory() {
             if( lstCategories.SelectedItems.Count > 0 ) {
-                Category c = lstCategories.SelectedItem as Category;
+                Category c = lstCategories.SelectedItems[0].Tag as Category;
                 if( c != null && c != currentProfile.GameData.FavoriteCategory ) {
                     GetStringDlg dlg = new GetStringDlg( c.Name, string.Format( GlobalStrings.MainForm_RenameCategory, c.Name ), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename );
                     if( dlg.ShowDialog() == DialogResult.OK ) {
@@ -974,18 +974,27 @@ namespace Depressurizer {
             currentProfile.GameData.Categories.Sort();
 
             lstCategories.BeginUpdate();
-            object selected = lstCategories.SelectedItem;
-            int selectedIndex = lstCategories.SelectedIndex;
+            object selected = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag : null;
+            int selectedIndex = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedIndices[0] : -1;
             lstCategories.Items.Clear();
             lstCategories.Items.Add( GlobalStrings.MainForm_All );
             lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
-            lstCategories.Items.AddRange( currentProfile.GameData.Categories.ToArray() );
-            if( selected is string ) {
-                lstCategories.SelectedIndex = selectedIndex;
-            } else if( selected == null || !lstCategories.Items.Contains( selected ) ) {
-                lstCategories.SelectedIndex = 0;
+
+            foreach( Category c in currentProfile.GameData.Categories ) {
+                lstCategories.Items.Add( CreateCategoryListViewItem( c ) );
+            }
+
+            if( selected == null ) {
+                if( selectedIndex >= 0 ) {
+                    lstCategories.SelectedIndices.Add( selectedIndex );
+                }
             } else {
-                lstCategories.SelectedItem = selected;
+                for( int i = 2; i < lstCategories.Items.Count; i++ ) {
+                    if( lstCategories.Items[i].Tag == selected ) {
+                        lstCategories.SelectedIndices.Add( i );
+                        break;
+                    }
+                }
             }
             lstCategories.EndUpdate();
 
@@ -1009,6 +1018,12 @@ namespace Depressurizer {
 
             UpdateGameCheckStates();
             lstMultiCat.EndUpdate();
+        }
+
+        private ListViewItem CreateCategoryListViewItem( Category c ) {
+            ListViewItem i = new ListViewItem( c.Name );
+            i.Tag = c;
+            return i;
         }
 
         void UpdateGameCheckStates() {
@@ -1195,7 +1210,7 @@ namespace Depressurizer {
                 }
             }
             cmdCatDelete.Enabled = catSelected;
-            Category c = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0] as Category : null;
+            Category c = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag as Category : null;
             cmdCatRename.Enabled = c != null && !( currentProfile != null && c == currentProfile.GameData.FavoriteCategory );
         }
 
@@ -1231,28 +1246,32 @@ namespace Depressurizer {
             }
         }
 
-        private int GetCategoryIndexAtPoint( int x, int y ) {
-            return lstCategories.IndexFromPoint( lstCategories.PointToClient( new Point( x, y ) ) );
+        private ListViewItem GetCategoryItemAtPoint( int x, int y ) {
+            Point clientPoint = lstCategories.PointToClient( new Point( x, y ) );
+            return lstCategories.GetItemAt( clientPoint.X, clientPoint.Y );
         }
 
         private void lstCategories_DragEnter( object sender, DragEventArgs e ) {
             isDragging = true;
-            dragOldCat = lstCategories.SelectedIndex;
+            dragOldCat = lstCategories.SelectedIndices.Count > 0 ? lstCategories.SelectedIndices[0] : -1;
 
             SetDragDropEffect( e );
         }
 
         private void lstCategories_DragDrop( object sender, DragEventArgs e ) {
             if( e.Data.GetDataPresent( typeof( int[] ) ) ) {
-                lstCategories.SelectedIndex = dragOldCat;
+                lstCategories.SelectedIndices.Clear();
+                if( dragOldCat >= 0 ) {
+                    lstCategories.SelectedIndices.Add( dragOldCat );
+                }
                 isDragging = false;
                 ClearStatus();
-                object dropItem = lstCategories.Items[GetCategoryIndexAtPoint( e.X, e.Y )];
+                ListViewItem dropItem = GetCategoryItemAtPoint( e.X, e.Y );
 
                 SetDragDropEffect( e );
 
-                if( dropItem is Category ) {
-                    Category dropCat = (Category)dropItem;
+                if( dropItem.Tag != null && dropItem.Tag is Category ) {
+                    Category dropCat = (Category)dropItem.Tag;
                     if( e.Effect == DragDropEffects.Move ) {
                         if( dropCat == currentProfile.GameData.FavoriteCategory ) {
                             currentProfile.GameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
@@ -1266,8 +1285,8 @@ namespace Depressurizer {
                     }
                     OnGameChange( false );
                     MakeChange( true );
-                } else if( dropItem is string ) {
-                    if( (string)dropItem == GlobalStrings.MainForm_Uncategorized ) {
+                } else {
+                    if( dropItem.Text == GlobalStrings.MainForm_Uncategorized ) {
                         currentProfile.GameData.ClearGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), true );
                         OnGameChange( false );
                         MakeChange( true );
@@ -1288,7 +1307,9 @@ namespace Depressurizer {
 
         private void lstCategories_DragOver( object sender, DragEventArgs e ) {
             if( isDragging ) { // This shouldn't get called if this is false, but the OnSelectChange method is tied to this variable so do the check
-                lstCategories.SelectedIndex = GetCategoryIndexAtPoint( e.X, e.Y );
+                lstCategories.SelectedIndices.Clear();
+                ListViewItem overItem = GetCategoryItemAtPoint( e.X, e.Y );
+                if( overItem != null ) overItem.Selected = true;
             }
 
             SetDragDropEffect( e );
@@ -1296,7 +1317,10 @@ namespace Depressurizer {
 
         private void lstCategories_DragLeave( object sender, EventArgs e ) {
             isDragging = false;
-            lstCategories.SelectedIndex = dragOldCat;
+            lstCategories.SelectedIndices.Clear();
+            if( dragOldCat >= 0 ) {
+                lstCategories.SelectedIndices.Add( dragOldCat );
+            }
         }
 
         #endregion
@@ -1507,7 +1531,7 @@ namespace Depressurizer {
         #region Context menus
 
         private void contextCat_Opening( object sender, System.ComponentModel.CancelEventArgs e ) {
-            bool selectedCat = lstCategories.SelectedItems.Count > 0 && lstCategories.SelectedItem as Category != null;
+            bool selectedCat = lstCategories.SelectedItems.Count > 0 && lstCategories.SelectedItems[0].Tag != null;
             contextCat_Delete.Enabled = contextCat_Rename.Enabled = selectedCat;
         }
 
@@ -1646,9 +1670,16 @@ namespace Depressurizer {
 
         private void lstCategories_SelectedIndexChanged( object sender, EventArgs e ) {
             if( !isDragging ) {
-                if( lstCategories.SelectedItem != lastSelectedCat ) {
+
+                object nowSelected = null;
+                if( lstCategories.SelectedItems.Count > 0 ) {
+                    ListViewItem selItem = lstCategories.SelectedItems[0];
+                    nowSelected = ( selItem.Tag == null ) ? selItem.Text : selItem.Tag;
+                }
+
+                if( nowSelected != lastSelectedCat ) {
                     OnViewChange();
-                    lastSelectedCat = lstCategories.SelectedItem;
+                    lastSelectedCat = nowSelected;
                 }
                 UpdateEnabledStatesForCategories();
             }
@@ -1676,9 +1707,9 @@ namespace Depressurizer {
 
         private void lstCategories_MouseDown( object sender, MouseEventArgs e ) {
             if( e.Button == System.Windows.Forms.MouseButtons.Right ) {
-                int index = lstCategories.IndexFromPoint( new Point( e.X, e.Y ) );
-                if( index >= 0 )
-                    lstCategories.SelectedIndex = index;
+                ListViewItem overItem = lstCategories.GetItemAt( e.X, e.Y );
+                if( overItem != null )
+                    overItem.Selected = true;
 
             }
         }
@@ -1834,17 +1865,18 @@ namespace Depressurizer {
             if( txtSearch.Text != string.Empty && g.Name.IndexOf( txtSearch.Text, StringComparison.CurrentCultureIgnoreCase ) == -1 ) return false;
             if( !currentProfile.GameData.Games.ContainsKey( g.Id ) ) return false;
             if( g.Id < 0 && !currentProfile.IncludeShortcuts ) return false;
-            if( lstCategories.SelectedItem == null ) return false;
 
-            if( lstCategories.SelectedItem is string ) {
-                if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_All ) {
+            if( lstCategories.SelectedItems.Count == 0 ) return false;
+
+            if( lstCategories.SelectedItems[0].Tag is Category ) {
+                return g.ContainsCategory( lstCategories.SelectedItems[0].Tag as Category );
+            } else {
+                if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_All ) {
                     return true;
                 }
-                if( (string)lstCategories.SelectedItem == GlobalStrings.MainForm_Uncategorized ) {
+                if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_Uncategorized ) {
                     return !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory );
                 }
-            } else if( lstCategories.SelectedItem is Category ) {
-                return g.ContainsCategory( lstCategories.SelectedItem as Category );
             }
             return false;
         }
@@ -1888,6 +1920,14 @@ namespace Depressurizer {
 
         private void lstGames_RetrieveVirtualItem( object sender, RetrieveVirtualItemEventArgs e ) {
             e.Item = CreateListItem( displayedGames[e.ItemIndex] );
+        }
+
+        private void lstCategories_Resize( object sender, EventArgs e ) {
+
+        }
+
+        private void lstCategories_Layout( object sender, LayoutEventArgs e ) {
+            lstCategories.Columns[0].Width = lstCategories.DisplayRectangle.Width;
         }
     }
 }
