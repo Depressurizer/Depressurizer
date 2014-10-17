@@ -318,6 +318,7 @@ namespace Depressurizer {
         }
 
         void RebuildDisplayList() {
+            lstGames.SelectedIndices.Clear();
             displayedGames.Clear();
             foreach( GameDBEntry g in Program.GameDB.Games.Values ) {
                 if( ShouldDisplayGame( g ) ) displayedGames.Add( g );
@@ -329,8 +330,8 @@ namespace Depressurizer {
         }
 
         void RefilterDisplayList() {
+            lstGames.SelectedIndices.Clear();
             displayedGames.RemoveAll( ShouldHideGame );
-            //displayedGames.Sort( dbEntrySorter );
             lstGames.VirtualListSize = displayedGames.Count;
             InvalidateAllListViewItems();
             UpdateStatusCount();
