@@ -922,6 +922,9 @@ namespace Depressurizer {
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillGameList() {
+            lstGames.BeginUpdate();
+            SortedSet<int> selectedIds = GetSelectedGameIds();
+
             displayedGames.Clear();
             foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
                 if( ShouldDisplayGame( g ) ) {
@@ -933,9 +936,12 @@ namespace Depressurizer {
             lstGames.VirtualListSize = displayedGames.Count;
             InvalidateAllListItems();
 
+            SelectGameSet( selectedIds );
+
             UpdateSelectedStatusText();
             UpdateGameCheckStates();
             UpdateEnabledStatesForGames();
+            lstGames.EndUpdate();
         }
 
         /// <summary>
@@ -1095,10 +1101,30 @@ namespace Depressurizer {
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         void UpdateGameList() {
+            SortedSet<int> selectedGameIds = GetSelectedGameIds();
+
             displayedGames.RemoveAll( ShouldHideGame );
             lstGames.VirtualListSize = displayedGames.Count;
             InvalidateAllListItems();
+
+            SelectGameSet( selectedGameIds );
+
             UpdateSelectedStatusText();
+        }
+
+        private SortedSet<int> GetSelectedGameIds() {
+            SortedSet<int> selectedGameIds = new SortedSet<int>();
+            foreach( int index in lstGames.SelectedIndices ) {
+                selectedGameIds.Add( displayedGames[index].Id );
+            }
+            return selectedGameIds;
+        }
+
+        private void SelectGameSet( SortedSet<int> selectedGameIds ) {
+            lstGames.SelectedIndices.Clear();
+            for( int i = 0; i < displayedGames.Count; i++ ) {
+                if( selectedGameIds.Contains( displayedGames[i].Id ) ) lstGames.SelectedIndices.Add( i );
+            }
         }
 
         private bool ShouldHideGame( GameInfo g ) {
