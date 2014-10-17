@@ -489,8 +489,8 @@ namespace Depressurizer {
         /// </summary>
         void DeleteCategory() {
             List<Category> toDelete = new List<Category>();
-            foreach( object item in lstCategories.SelectedItems ) {
-                Category c = item as Category;
+            foreach( ListViewItem item in lstCategories.SelectedItems ) {
+                Category c = item.Tag as Category;
                 if( c != null && c != currentProfile.GameData.FavoriteCategory ) {
                     toDelete.Add( c );
                 }
@@ -1228,15 +1228,17 @@ namespace Depressurizer {
 
         void UpdateEnabledStatesForCategories() {
             bool catSelected = false;
-            foreach( object item in lstCategories.SelectedItems ) {
-                Category cat = item as Category;
-                if( cat != null && !( currentProfile != null && cat == currentProfile.GameData.FavoriteCategory ) ) {
-                    catSelected = true;
+            Category c = null;
+            foreach( ListViewItem item in lstCategories.SelectedItems ) {
+                c = item.Tag as Category;
+                if( c != null && !( currentProfile != null && c == currentProfile.GameData.FavoriteCategory ) ) {
                     break;
+                } else {
+                    c = null;
                 }
             }
-            cmdCatDelete.Enabled = catSelected;
-            Category c = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag as Category : null;
+            cmdCatDelete.Enabled = c != null;
+            c = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag as Category : null;
             cmdCatRename.Enabled = c != null && !( currentProfile != null && c == currentProfile.GameData.FavoriteCategory );
         }
 
