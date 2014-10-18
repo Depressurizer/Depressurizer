@@ -993,6 +993,8 @@ namespace Depressurizer {
             if( selected == null ) {
                 if( selectedIndex >= 0 ) {
                     lstCategories.SelectedIndices.Add( selectedIndex );
+                } else {
+                    lstCategories.SelectedIndices.Add( 0 );
                 }
             } else {
                 for( int i = 2; i < lstCategories.Items.Count; i++ ) {
