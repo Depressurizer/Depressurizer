@@ -969,6 +969,9 @@ namespace Depressurizer {
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillAllCategoryLists() {
+            object selected = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag : null;
+            int selectedIndex = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedIndices[0] : -1;
+            
             lstCategories.Items.Clear();
             contextGameAddCat.Items.Clear();
             contextGameAddCat.Items.Add( contextGameAddCat_Create );
@@ -980,8 +983,6 @@ namespace Depressurizer {
             currentProfile.GameData.Categories.Sort();
 
             lstCategories.BeginUpdate();
-            object selected = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag : null;
-            int selectedIndex = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedIndices[0] : -1;
             lstCategories.Items.Clear();
             lstCategories.Items.Add( GlobalStrings.MainForm_All );
             lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
