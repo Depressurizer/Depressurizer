@@ -56,6 +56,10 @@ namespace Depressurizer {
             }
         }
 
+        private bool AdvancedCategoryFilter {
+            get { return radCatAdvanced.Checked; }
+        }
+
         #endregion
 
         #region Init
@@ -971,7 +975,7 @@ namespace Depressurizer {
         private void FillAllCategoryLists() {
             object selected = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag : null;
             int selectedIndex = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedIndices[0] : -1;
-            
+
             lstCategories.Items.Clear();
             contextGameAddCat.Items.Clear();
             contextGameAddCat.Items.Add( contextGameAddCat_Create );
@@ -984,7 +988,9 @@ namespace Depressurizer {
 
             lstCategories.BeginUpdate();
             lstCategories.Items.Clear();
-            lstCategories.Items.Add( GlobalStrings.MainForm_All );
+            if( radCatAdvanced.Checked == false ) {
+                lstCategories.Items.Add( GlobalStrings.MainForm_All );
+            }
             lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
 
             foreach( Category c in currentProfile.GameData.Categories ) {
@@ -1733,6 +1739,15 @@ namespace Depressurizer {
                     RenameCategory();
                     FlushStatus();
                     break;
+                case Keys.Return:
+                case Keys.Space:
+                    if( AdvancedCategoryFilter ) {
+                        bool reverse = Control.ModifierKeys == Keys.Shift;
+                        foreach( ListViewItem i in lstCategories.SelectedItems ) {
+                            HandleAdvancedCategoryItemActivation( i, reverse );
+                        }
+                    }
+                    break;
             }
         }
 
@@ -1742,7 +1757,23 @@ namespace Depressurizer {
                 if( overItem != null )
                     overItem.Selected = true;
 
+            } else if( e.Button == System.Windows.Forms.MouseButtons.Left ) {
+                if( AdvancedCategoryFilter ) {
+                    ListViewItem i = lstCategories.GetItemAt( e.X, e.Y );
+                    HandleAdvancedCategoryItemActivation( i, Control.ModifierKeys == Keys.Shift );
+                }
             }
+        }
+
+        private void HandleAdvancedCategoryItemActivation( ListViewItem i, bool reverse ) {
+            if( i.StateImageIndex == -1 && reverse ) {
+                i.StateImageIndex = 2;
+            } else if( i.StateImageIndex == 2 && !reverse ) {
+                i.StateImageIndex = -1;
+            } else {
+                i.StateImageIndex += reverse ? -1 : 1;
+            }
+            OnViewChange();
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
@@ -1899,17 +1930,62 @@ namespace Depressurizer {
 
             if( lstCategories.SelectedItems.Count == 0 ) return false;
 
-            if( lstCategories.SelectedItems[0].Tag is Category ) {
-                return g.ContainsCategory( lstCategories.SelectedItems[0].Tag as Category );
+            if( radCatAdvanced.Checked ) {
+                return ShouldDisplayGameAdvanced( g );
             } else {
-                if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_All ) {
-                    return true;
+                if( lstCategories.SelectedItems[0].Tag is Category ) {
+                    return g.ContainsCategory( lstCategories.SelectedItems[0].Tag as Category );
+                } else {
+                    if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_All ) {
+                        return true;
+                    }
+                    if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_Uncategorized ) {
+                        return !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory );
+                    }
                 }
-                if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_Uncategorized ) {
-                    return !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory );
+
+                return false;
+            }
+        }
+
+        bool ShouldDisplayGameAdvanced( GameInfo g ) {
+            bool isAny = false, matchAny = false;
+
+
+
+            foreach( ListViewItem catItem in lstCategories.Items ) {
+                Category c = catItem.Tag as Category;
+
+                if( c != null ) {
+                    switch( catItem.StateImageIndex ) {
+                        case 0:
+                            isAny = true;
+                            if( g.ContainsCategory( c ) ) matchAny = true;
+                            break;
+                        case 1:
+                            if( !g.ContainsCategory( c ) ) return false;
+                            break;
+                        case 2:
+                            if( g.ContainsCategory( c ) ) return false;
+                            break;
+                    }
+                } else if( catItem.Text == GlobalStrings.MainForm_Uncategorized ) {
+                    switch( catItem.StateImageIndex ) {
+                        case 0:
+                            isAny = true;
+                            if( !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory ) ) matchAny = true;
+                            break;
+                        case 1:
+                            if( g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory ) ) return false;
+                            break;
+                        case 2:
+                            if( !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory ) ) return false;
+                            break;
+                    }
                 }
             }
-            return false;
+
+            return ( !isAny || matchAny );
         }
 
         /// <summary>
@@ -1949,16 +2025,27 @@ namespace Depressurizer {
 
         #endregion
 
+
+
         private void lstGames_RetrieveVirtualItem( object sender, RetrieveVirtualItemEventArgs e ) {
             e.Item = CreateListItem( displayedGames[e.ItemIndex] );
         }
 
-        private void lstCategories_Resize( object sender, EventArgs e ) {
-
-        }
-
         private void lstCategories_Layout( object sender, LayoutEventArgs e ) {
             lstCategories.Columns[0].Width = lstCategories.DisplayRectangle.Width;
+        }
+
+        private void radCatMode_CheckedChanged( object sender, EventArgs e ) {
+            RadioButton snd = sender as RadioButton;
+            if( snd != null && snd.Checked ) {
+                if( snd == radCatSimple ) {
+                    lstCategories.StateImageList = null;
+                } else {
+                    lstCategories.StateImageList = imglistFilter;
+                }
+                FillAllCategoryLists();
+                OnViewChange();
+            }
         }
     }
 }
