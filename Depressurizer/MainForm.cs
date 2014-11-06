@@ -1005,7 +1005,7 @@ namespace Depressurizer {
 
             lstCategories.BeginUpdate();
             lstCategories.Items.Clear();
-            if( radCatAdvanced.Checked == false ) {
+            if( !AdvancedCategoryFilter ) {
                 lstCategories.Items.Add( GlobalStrings.MainForm_All );
             }
             lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
@@ -1782,6 +1782,10 @@ namespace Depressurizer {
             }
         }
 
+        private void lstCategories_Layout( object sender, LayoutEventArgs e ) {
+            lstCategories.Columns[0].Width = lstCategories.DisplayRectangle.Width;
+        }
+
         private void HandleAdvancedCategoryItemActivation( ListViewItem i, bool reverse ) {
             if( i.StateImageIndex == -1 && reverse ) {
                 i.StateImageIndex = 2;
@@ -1791,6 +1795,10 @@ namespace Depressurizer {
                 i.StateImageIndex += reverse ? -1 : 1;
             }
             OnViewChange();
+        }
+
+        private void lstGames_RetrieveVirtualItem( object sender, RetrieveVirtualItemEventArgs e ) {
+            e.Item = CreateListItem( displayedGames[e.ItemIndex] );
         }
 
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
@@ -1871,6 +1879,19 @@ namespace Depressurizer {
 
         #endregion
 
+        private void radCatMode_CheckedChanged( object sender, EventArgs e ) {
+            RadioButton snd = sender as RadioButton;
+            if( snd != null && snd.Checked ) {
+                if( snd == radCatSimple ) {
+                    lstCategories.StateImageList = null;
+                } else {
+                    lstCategories.StateImageList = imglistFilter;
+                }
+                FillAllCategoryLists();
+                OnViewChange();
+            }
+        }
+
         private void chkFavorite_CheckedChanged( object sender, EventArgs e ) {
             if( !ignoreCheckChanges ) {
                 if( chkFavorite.CheckState == CheckState.Checked ) {
@@ -1947,7 +1968,7 @@ namespace Depressurizer {
 
             if( lstCategories.SelectedItems.Count == 0 ) return false;
 
-            if( radCatAdvanced.Checked ) {
+            if( AdvancedCategoryFilter ) {
                 return ShouldDisplayGameAdvanced( g );
             } else {
                 if( lstCategories.SelectedItems[0].Tag is Category ) {
@@ -2042,27 +2063,5 @@ namespace Depressurizer {
 
         #endregion
 
-
-
-        private void lstGames_RetrieveVirtualItem( object sender, RetrieveVirtualItemEventArgs e ) {
-            e.Item = CreateListItem( displayedGames[e.ItemIndex] );
-        }
-
-        private void lstCategories_Layout( object sender, LayoutEventArgs e ) {
-            lstCategories.Columns[0].Width = lstCategories.DisplayRectangle.Width;
-        }
-
-        private void radCatMode_CheckedChanged( object sender, EventArgs e ) {
-            RadioButton snd = sender as RadioButton;
-            if( snd != null && snd.Checked ) {
-                if( snd == radCatSimple ) {
-                    lstCategories.StateImageList = null;
-                } else {
-                    lstCategories.StateImageList = imglistFilter;
-                }
-                FillAllCategoryLists();
-                OnViewChange();
-            }
-        }
     }
 }
