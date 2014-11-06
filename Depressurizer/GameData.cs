@@ -1349,4 +1349,52 @@ namespace Depressurizer {
     class ProfileAccessException : ApplicationException {
         public ProfileAccessException( string m ) : base( m ) { }
     }
+
+    class GameInfoSorter : IComparer<GameInfo> {
+
+        public enum SortModes {
+            Id,
+            Name,
+            Cats,
+            Favorite,
+            Hidden
+        }
+
+        public SortModes SortMode;
+        public int SortDirection;
+        public Category FavoriteCategory;
+
+        public void SetSortMode( SortModes mode, int forceDir = 0 ) {
+            if( mode == SortMode ) {
+                SortDirection = ( forceDir == 0 ) ? ( SortDirection *= -1 ) : forceDir;
+            } else {
+                SortMode = mode;
+                SortDirection = ( forceDir == 0 ) ? 1 : forceDir;
+            }
+        }
+
+        public int Compare( GameInfo a, GameInfo b ) {
+            int res = 0;
+            switch( SortMode ) {
+                case SortModes.Id:
+                    res = a.Id - b.Id;
+                    break;
+                case SortModes.Name:
+                    res = string.Compare( a.Name, b.Name );
+                    break;
+                case SortModes.Cats:
+                    res = string.Compare( a.GetCatStringExcept( FavoriteCategory ), b.GetCatStringExcept( FavoriteCategory ) );
+                    break;
+                case SortModes.Favorite:
+                    if( FavoriteCategory == null ) return 0;
+                    res = ( a.ContainsCategory( FavoriteCategory ) ? 1 : 0 ) - ( b.ContainsCategory( FavoriteCategory ) ? 1 : 0 );
+                    break;
+                case SortModes.Hidden:
+                    res = ( a.Hidden ? 1 : 0 ) - ( b.Hidden ? 1 : 0 );
+                    break;
+            }
+            return SortDirection * res;
+        }
+
+    }
 }

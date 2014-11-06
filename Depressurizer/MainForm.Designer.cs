@@ -44,14 +44,19 @@ namespace Depressurizer {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.cmdSearchClear = new System.Windows.Forms.Button();
+            this.lblSearchClear = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.grpCategories = new System.Windows.Forms.GroupBox();
-            this.lstCategories = new System.Windows.Forms.ListBox();
+            this.radCatAdvanced = new System.Windows.Forms.RadioButton();
+            this.radCatSimple = new System.Windows.Forms.RadioButton();
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextCat_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Rename = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
+            this.imglistFilter = new System.Windows.Forms.ImageList(this.components);
             this.tableCatButtons = new System.Windows.Forms.TableLayoutPanel();
             this.cmdCatAdd = new System.Windows.Forms.Button();
             this.cmdCatDelete = new System.Windows.Forms.Button();
@@ -122,6 +127,8 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lstCategories = new Depressurizer.Lib.ExtListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lstGames = new Depressurizer.Lib.ExtListView();
             this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -154,35 +161,58 @@ namespace Depressurizer {
             // 
             // splitContainer.Panel1
             // 
+            this.splitContainer.Panel1.Controls.Add(this.cmdSearchClear);
+            this.splitContainer.Panel1.Controls.Add(this.lblSearchClear);
+            this.splitContainer.Panel1.Controls.Add(this.txtSearch);
             this.splitContainer.Panel1.Controls.Add(this.grpCategories);
             // 
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.splitGame);
             // 
+            // cmdSearchClear
+            // 
+            resources.ApplyResources(this.cmdSearchClear, "cmdSearchClear");
+            this.cmdSearchClear.Name = "cmdSearchClear";
+            this.cmdSearchClear.UseVisualStyleBackColor = true;
+            this.cmdSearchClear.Click += new System.EventHandler(this.cmdSearchClear_Click);
+            // 
+            // lblSearchClear
+            // 
+            resources.ApplyResources(this.lblSearchClear, "lblSearchClear");
+            this.lblSearchClear.Name = "lblSearchClear";
+            // 
+            // txtSearch
+            // 
+            resources.ApplyResources(this.txtSearch, "txtSearch");
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
             // grpCategories
             // 
+            resources.ApplyResources(this.grpCategories, "grpCategories");
+            this.grpCategories.Controls.Add(this.radCatAdvanced);
+            this.grpCategories.Controls.Add(this.radCatSimple);
             this.grpCategories.Controls.Add(this.lstCategories);
             this.grpCategories.Controls.Add(this.tableCatButtons);
-            resources.ApplyResources(this.grpCategories, "grpCategories");
             this.grpCategories.Name = "grpCategories";
             this.grpCategories.TabStop = false;
             // 
-            // lstCategories
+            // radCatAdvanced
             // 
-            this.lstCategories.AllowDrop = true;
-            resources.ApplyResources(this.lstCategories, "lstCategories");
-            this.lstCategories.ContextMenuStrip = this.contextCat;
-            this.lstCategories.FormattingEnabled = true;
-            this.lstCategories.Name = "lstCategories";
-            this.lstCategories.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
-            this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
-            this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
-            this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
-            this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
-            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
-            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
+            resources.ApplyResources(this.radCatAdvanced, "radCatAdvanced");
+            this.radCatAdvanced.Name = "radCatAdvanced";
+            this.radCatAdvanced.UseVisualStyleBackColor = true;
+            this.radCatAdvanced.CheckedChanged += new System.EventHandler(this.radCatMode_CheckedChanged);
+            // 
+            // radCatSimple
+            // 
+            resources.ApplyResources(this.radCatSimple, "radCatSimple");
+            this.radCatSimple.Checked = true;
+            this.radCatSimple.Name = "radCatSimple";
+            this.radCatSimple.TabStop = true;
+            this.radCatSimple.UseVisualStyleBackColor = true;
+            this.radCatSimple.CheckedChanged += new System.EventHandler(this.radCatMode_CheckedChanged);
             // 
             // contextCat
             // 
@@ -225,6 +255,14 @@ namespace Depressurizer {
             this.contextCat_RemoveEmpty.Name = "contextCat_RemoveEmpty";
             resources.ApplyResources(this.contextCat_RemoveEmpty, "contextCat_RemoveEmpty");
             this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
+            // 
+            // imglistFilter
+            // 
+            this.imglistFilter.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistFilter.ImageStream")));
+            this.imglistFilter.TransparentColor = System.Drawing.Color.Transparent;
+            this.imglistFilter.Images.SetKeyName(0, "filterAny");
+            this.imglistFilter.Images.SetKeyName(1, "filterAll");
+            this.imglistFilter.Images.SetKeyName(2, "filterNone");
             // 
             // tableCatButtons
             // 
@@ -729,6 +767,29 @@ namespace Depressurizer {
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
             // 
+            // lstCategories
+            // 
+            this.lstCategories.AllowDrop = true;
+            resources.ApplyResources(this.lstCategories, "lstCategories");
+            this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.lstCategories.ContextMenuStrip = this.contextCat;
+            this.lstCategories.FullRowSelect = true;
+            this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lstCategories.HideSelection = false;
+            this.lstCategories.Name = "lstCategories";
+            this.lstCategories.ShowGroups = false;
+            this.lstCategories.UseCompatibleStateImageBehavior = false;
+            this.lstCategories.View = System.Windows.Forms.View.Details;
+            this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
+            this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
+            this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
+            this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
+            this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
+            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
+            this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
+            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
+            // 
             // lstGames
             // 
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -746,9 +807,11 @@ namespace Depressurizer {
             this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstGames.UseCompatibleStateImageBehavior = false;
             this.lstGames.View = System.Windows.Forms.View.Details;
+            this.lstGames.VirtualMode = true;
             this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
             this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
+            this.lstGames.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.lstGames_RetrieveVirtualItem);
             this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
             // 
@@ -789,10 +852,12 @@ namespace Depressurizer {
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel1.PerformLayout();
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.grpCategories.ResumeLayout(false);
+            this.grpCategories.PerformLayout();
             this.contextCat.ResumeLayout(false);
             this.tableCatButtons.ResumeLayout(false);
             this.splitGame.Panel1.ResumeLayout(false);
@@ -829,7 +894,7 @@ namespace Depressurizer {
         private System.Windows.Forms.Button cmdGameRemove;
         private System.Windows.Forms.Button cmdGameEdit;
         private System.Windows.Forms.ToolStripSeparator menu_File_Sep2;
-        private System.Windows.Forms.ListBox lstCategories;
+        private Lib.ExtListView lstCategories;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusMsg;
         private System.Windows.Forms.ToolStripStatusLabel statusSelection;
@@ -900,6 +965,13 @@ namespace Depressurizer {
         private System.Windows.Forms.ColumnHeader colHidden;
         private System.Windows.Forms.ContextMenuStrip menu_Tools_Autocat_List;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_AutoCats;
+        private System.Windows.Forms.Button cmdSearchClear;
+        private System.Windows.Forms.Label lblSearchClear;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.RadioButton radCatAdvanced;
+        private System.Windows.Forms.RadioButton radCatSimple;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ImageList imglistFilter;
     }
 }
 

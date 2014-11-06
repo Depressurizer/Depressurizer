@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System.IO;
+using System.Collections.Generic;
 using System;
 
 namespace Depressurizer {
@@ -60,6 +61,19 @@ namespace Depressurizer {
 
         public static DateTime GetDTFromUTime( int uTime ) {
             return epoch.AddSeconds( uTime );
+        }
+
+        public static int CompareLists( List<string> a, List<string> b ) {
+            if( a == null ) {
+                return ( b == null ) ? 0 : 1;
+            } else if( b == null ) {
+                return -1;
+            }
+            for( int i = 0; i < a.Count && i < b.Count; i++ ) {
+                int res = string.Compare( a[i], b[i] );
+                if( res != 0 ) return res;
+            }
+            return b.Count - a.Count;
         }
 
         public static void LaunchStorePage( int appId ) {
