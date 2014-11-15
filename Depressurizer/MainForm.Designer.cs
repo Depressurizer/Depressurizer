@@ -50,19 +50,26 @@ namespace Depressurizer {
             this.grpCategories = new System.Windows.Forms.GroupBox();
             this.radCatAdvanced = new System.Windows.Forms.RadioButton();
             this.radCatSimple = new System.Windows.Forms.RadioButton();
+            this.lstCategories = new Depressurizer.Lib.ExtListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextCat_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Rename = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
-            this.imglistFilter = new System.Windows.Forms.ImageList(this.components);
             this.tableCatButtons = new System.Windows.Forms.TableLayoutPanel();
             this.cmdCatAdd = new System.Windows.Forms.Button();
             this.cmdCatDelete = new System.Windows.Forms.Button();
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.splitGame = new System.Windows.Forms.SplitContainer();
             this.grpGames = new System.Windows.Forms.GroupBox();
+            this.lstGames = new Depressurizer.Lib.ExtListView();
+            this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colFavorite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHidden = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Edit = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +100,7 @@ namespace Depressurizer {
             this.cmdGameAdd = new System.Windows.Forms.Button();
             this.cmdGameEdit = new System.Windows.Forms.Button();
             this.cmdGameLaunch = new System.Windows.Forms.Button();
+            this.imglistFilter = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menu_File = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_File_NewProfile = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,14 +135,6 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lstCategories = new Depressurizer.Lib.ExtListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lstGames = new Depressurizer.Lib.ExtListView();
-            this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colFavorite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colHidden = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -214,6 +214,29 @@ namespace Depressurizer {
             this.radCatSimple.UseVisualStyleBackColor = true;
             this.radCatSimple.CheckedChanged += new System.EventHandler(this.radCatMode_CheckedChanged);
             // 
+            // lstCategories
+            // 
+            this.lstCategories.AllowDrop = true;
+            resources.ApplyResources(this.lstCategories, "lstCategories");
+            this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.lstCategories.ContextMenuStrip = this.contextCat;
+            this.lstCategories.FullRowSelect = true;
+            this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lstCategories.HideSelection = false;
+            this.lstCategories.Name = "lstCategories";
+            this.lstCategories.ShowGroups = false;
+            this.lstCategories.UseCompatibleStateImageBehavior = false;
+            this.lstCategories.View = System.Windows.Forms.View.Details;
+            this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
+            this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
+            this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
+            this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
+            this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
+            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
+            this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
+            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
+            // 
             // contextCat
             // 
             this.contextCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -255,14 +278,6 @@ namespace Depressurizer {
             this.contextCat_RemoveEmpty.Name = "contextCat_RemoveEmpty";
             resources.ApplyResources(this.contextCat_RemoveEmpty, "contextCat_RemoveEmpty");
             this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
-            // 
-            // imglistFilter
-            // 
-            this.imglistFilter.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistFilter.ImageStream")));
-            this.imglistFilter.TransparentColor = System.Drawing.Color.Transparent;
-            this.imglistFilter.Images.SetKeyName(0, "filterAny");
-            this.imglistFilter.Images.SetKeyName(1, "filterAll");
-            this.imglistFilter.Images.SetKeyName(2, "filterNone");
             // 
             // tableCatButtons
             // 
@@ -323,6 +338,56 @@ namespace Depressurizer {
             resources.ApplyResources(this.grpGames, "grpGames");
             this.grpGames.Name = "grpGames";
             this.grpGames.TabStop = false;
+            // 
+            // lstGames
+            // 
+            this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colGameID,
+            this.colTitle,
+            this.colCategory,
+            this.colFavorite,
+            this.colHidden});
+            this.lstGames.ContextMenuStrip = this.contextGame;
+            resources.ApplyResources(this.lstGames, "lstGames");
+            this.lstGames.FullRowSelect = true;
+            this.lstGames.GridLines = true;
+            this.lstGames.HideSelection = false;
+            this.lstGames.Name = "lstGames";
+            this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.lstGames.UseCompatibleStateImageBehavior = false;
+            this.lstGames.View = System.Windows.Forms.View.Details;
+            this.lstGames.VirtualMode = true;
+            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
+            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
+            this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
+            this.lstGames.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.lstGames_RetrieveVirtualItem);
+            this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
+            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
+            // 
+            // colGameID
+            // 
+            this.colGameID.Tag = "colGameID";
+            resources.ApplyResources(this.colGameID, "colGameID");
+            // 
+            // colTitle
+            // 
+            this.colTitle.Tag = "colTitle";
+            resources.ApplyResources(this.colTitle, "colTitle");
+            // 
+            // colCategory
+            // 
+            this.colCategory.Tag = "colCategory";
+            resources.ApplyResources(this.colCategory, "colCategory");
+            // 
+            // colFavorite
+            // 
+            this.colFavorite.Tag = "colFavorite";
+            resources.ApplyResources(this.colFavorite, "colFavorite");
+            // 
+            // colHidden
+            // 
+            this.colHidden.Tag = "colHidden";
+            resources.ApplyResources(this.colHidden, "colHidden");
             // 
             // contextGame
             // 
@@ -538,6 +603,14 @@ namespace Depressurizer {
             this.cmdGameLaunch.Name = "cmdGameLaunch";
             this.cmdGameLaunch.UseVisualStyleBackColor = true;
             this.cmdGameLaunch.Click += new System.EventHandler(this.cmdGameLaunch_Click);
+            // 
+            // imglistFilter
+            // 
+            this.imglistFilter.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistFilter.ImageStream")));
+            this.imglistFilter.TransparentColor = System.Drawing.Color.Transparent;
+            this.imglistFilter.Images.SetKeyName(0, "filterAny");
+            this.imglistFilter.Images.SetKeyName(1, "filterAll");
+            this.imglistFilter.Images.SetKeyName(2, "filterNone");
             // 
             // menuStrip
             // 
@@ -766,79 +839,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.statusSelection, "statusSelection");
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
-            // 
-            // lstCategories
-            // 
-            this.lstCategories.AllowDrop = true;
-            resources.ApplyResources(this.lstCategories, "lstCategories");
-            this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.lstCategories.ContextMenuStrip = this.contextCat;
-            this.lstCategories.FullRowSelect = true;
-            this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lstCategories.HideSelection = false;
-            this.lstCategories.Name = "lstCategories";
-            this.lstCategories.ShowGroups = false;
-            this.lstCategories.UseCompatibleStateImageBehavior = false;
-            this.lstCategories.View = System.Windows.Forms.View.Details;
-            this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
-            this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
-            this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
-            this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
-            this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
-            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
-            this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
-            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
-            // 
-            // lstGames
-            // 
-            this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colGameID,
-            this.colTitle,
-            this.colCategory,
-            this.colFavorite,
-            this.colHidden});
-            this.lstGames.ContextMenuStrip = this.contextGame;
-            resources.ApplyResources(this.lstGames, "lstGames");
-            this.lstGames.FullRowSelect = true;
-            this.lstGames.GridLines = true;
-            this.lstGames.HideSelection = false;
-            this.lstGames.Name = "lstGames";
-            this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lstGames.UseCompatibleStateImageBehavior = false;
-            this.lstGames.View = System.Windows.Forms.View.Details;
-            this.lstGames.VirtualMode = true;
-            this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
-            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
-            this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
-            this.lstGames.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.lstGames_RetrieveVirtualItem);
-            this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
-            this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
-            // 
-            // colGameID
-            // 
-            this.colGameID.Tag = "colGameID";
-            resources.ApplyResources(this.colGameID, "colGameID");
-            // 
-            // colTitle
-            // 
-            this.colTitle.Tag = "colTitle";
-            resources.ApplyResources(this.colTitle, "colTitle");
-            // 
-            // colCategory
-            // 
-            this.colCategory.Tag = "colCategory";
-            resources.ApplyResources(this.colCategory, "colCategory");
-            // 
-            // colFavorite
-            // 
-            this.colFavorite.Tag = "colFavorite";
-            resources.ApplyResources(this.colFavorite, "colFavorite");
-            // 
-            // colHidden
-            // 
-            this.colHidden.Tag = "colHidden";
-            resources.ApplyResources(this.colHidden, "colHidden");
             // 
             // FormMain
             // 
