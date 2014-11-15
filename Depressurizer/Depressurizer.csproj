@@ -94,6 +94,24 @@
   <ItemGroup>
     <Compile Include="AppInfo.cs" />
     <Compile Include="AutoCat.cs" />
+    <Compile Include="AutoCatConfigPanel_Flags.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCatConfigPanel_Flags.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCatConfigPanel_Genre.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCatConfigPanel_Genre.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCatConfigPanel_Tags.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCatConfigPanel_Tags.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
+    </Compile>
     <Compile Include="DlgAutoCat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +236,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VdfFile\VdfFileNode.cs" />
+    <EmbeddedResource Include="AutoCatConfigPanel_Flags.resx">
+      <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCatConfigPanel_Genre.resx">
+      <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCatConfigPanel_Tags.resx">
+      <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>
     </EmbeddedResource>

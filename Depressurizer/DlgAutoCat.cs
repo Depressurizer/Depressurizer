@@ -27,6 +27,8 @@ namespace Depressurizer {
         private GameList ownedGames;
         AutoCat current;
 
+        UserControl currentConfigPanel = null;
+
         public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames ) {
             InitializeComponent();
 
@@ -41,26 +43,6 @@ namespace Depressurizer {
 
         #region UI Uptaters
 
-        private void FillGenreList() {
-            genre_lstIgnore.Items.Clear();
-            if( Program.GameDB != null ) {
-                SortedSet<string> genreList = Program.GameDB.GetAllGenres();
-                foreach( string s in genreList ) {
-                    genre_lstIgnore.Items.Add( s );
-                }
-            }
-        }
-
-        private void FillFlagList() {
-            flags_lstIncluded.Items.Clear();
-            if( Program.GameDB != null ) {
-                SortedSet<string> flagList = Program.GameDB.GetAllStoreFlags();
-                foreach( string s in flagList ) {
-                    flags_lstIncluded.Items.Add( s );
-                }
-            }
-        }
-
         private void FillAutocatList() {
             lstAutoCats.Items.Clear();
             foreach( AutoCat ac in AutoCatList ) {
@@ -68,44 +50,42 @@ namespace Depressurizer {
             }
         }
 
-        private void FillTagsList( ICollection<string> preChecked = null ) {
-
-            IEnumerable<Tuple<string, float>> tagList = Program.GameDB.CalculateSortedTagList(
-                tags_list_chkOwnedOnly.Checked ? ownedGames : null,
-                (float)tags_list_numWeightFactor.Value,
-                (int)tags_list_numMinScore.Value, (int)tags_list_numTagsPerGame.Value, tags_list_chkExcludeGenres.Checked, tags_list_chkScoreSort.Checked );
-            tags_lstIncluded.BeginUpdate();
-            tags_lstIncluded.Items.Clear();
-            foreach( Tuple<string, float> tag in tagList ) {
-                ListViewItem newItem = new ListViewItem( string.Format( "{0} [{1:F0}]", tag.Item1, tag.Item2 ) );
-                newItem.Tag = tag.Item1;
-                if( preChecked != null && preChecked.Contains( tag.Item1 ) ) newItem.Checked = true;
-                tags_lstIncluded.Items.Add( newItem );
+        private void FillGenreList() {
+            AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
+            if( genrePanel != null ) {
+                genrePanel.FillGenreList();
             }
-            tags_lstIncluded.EndUpdate();
         }
 
-        private void UpdateTypePanelStates() {
-            // This is terrible and needs to be replaced with something that looks up the right panels in a list or something like that.
+        private void FillFlagList() {
+            AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
+            if( flagsPanel != null ) {
+                flagsPanel.FillFlagsList();
+            }
+        }
+
+        private void FillTagsList( ICollection<string> preChecked = null ) {
+            AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
+            if( tagsPanel != null ) {
+                tagsPanel.FillTagList( preChecked );
+            }
+        }
+
+        private void RecreateConfigPanel() {
+            // This might be too much
+            if( currentConfigPanel != null ) {
+                this.splitContainer.Panel2.Controls.Remove( currentConfigPanel );
+            }
+
             if( current is AutoCatGenre ) {
-                panGenre.BringToFront();
-                panFlags.Enabled = panFlags.Visible = false;
-                panGenre.Enabled = panGenre.Visible = true;
-                panTags.Enabled = panTags.Visible = false;
+                currentConfigPanel = new AutoCatConfigPanel_Genre();
+                this.splitContainer.Panel2.Controls.Add( currentConfigPanel );
             } else if( current is AutoCatFlags ) {
-                panFlags.BringToFront();
-                panFlags.Enabled = panFlags.Visible = true;
-                panGenre.Enabled = panGenre.Visible = false;
-                panTags.Enabled = panTags.Visible = false;
+                currentConfigPanel = new AutoCatConfigPanel_Flags();
+                this.splitContainer.Panel2.Controls.Add( currentConfigPanel );
             } else if( current is AutoCatTags ) {
-                panFlags.BringToFront();
-                panFlags.Enabled = panFlags.Visible = false;
-                panGenre.Enabled = panGenre.Visible = false;
-                panTags.Enabled = panTags.Visible = true;
-            } else {
-                panFlags.Enabled = panFlags.Visible = false;
-                panGenre.Enabled = panGenre.Visible = false;
-                panTags.Enabled = panTags.Visible = false;
+                currentConfigPanel = new AutoCatConfigPanel_Tags();
+                this.splitContainer.Panel2.Controls.Add( currentConfigPanel );
             }
         }
 
@@ -204,7 +184,7 @@ namespace Depressurizer {
 
             ac.IncludedTags = new HashSet<string>();
             foreach( ListViewItem i in tags_lstIncluded.CheckedItems ) {
-                 ac.IncludedTags.Add( i.Tag as string );
+                ac.IncludedTags.Add( i.Tag as string );
             }
 
             ac.ListMinScore = (int)tags_list_numMinScore.Value;
@@ -303,7 +283,7 @@ namespace Depressurizer {
             FillGenreList();
             FillFlagList();
 
-            UpdateTypePanelStates();
+            RecreateConfigPanel();
         }
 
         private void lstAutoCats_SelectedIndexChanged( object sender, EventArgs e ) {
@@ -311,7 +291,7 @@ namespace Depressurizer {
                 SaveToAutoCat();
             }
             current = lstAutoCats.SelectedItem as AutoCat;
-            UpdateTypePanelStates();
+            RecreateConfigPanel();
             FillSettingsUI();
         }
 
