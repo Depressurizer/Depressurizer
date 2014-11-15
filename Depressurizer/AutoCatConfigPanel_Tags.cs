@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Depressurizer {
-    public partial class AutoCatConfigPanel_Tags : UserControl {
+    public partial class AutoCatConfigPanel_Tags : AutoCatConfigPanel {
 
         //TODO: Make sure this gets set
         private GameList ownedGames = null;
@@ -48,7 +48,8 @@ namespace Depressurizer {
             lstIncluded.EndUpdate();
         }
 
-        public void FillSettings( AutoCatTags ac ) {
+        public override void LoadFromAutoCat( AutoCat autocat ) {
+            AutoCatTags ac = autocat as AutoCatTags;
             if( ac == null ) return;
             txtPrefix.Text = ( ac.Prefix == null ) ? string.Empty : ac.Prefix;
             numMaxTags.Value = ac.MaxTags;
@@ -63,7 +64,9 @@ namespace Depressurizer {
             FillTagsList( ac.IncludedTags );
         }
 
-        public void SaveToAutoCat( AutoCatTags ac ) {
+        public override void SaveToAutoCat( AutoCat autocat ) {
+            AutoCatTags ac = autocat as AutoCatTags;
+            if( ac == null ) return;
             ac.Prefix = txtPrefix.Text;
 
             ac.MaxTags = (int)numMaxTags.Value;

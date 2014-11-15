@@ -78,17 +78,17 @@ namespace Depressurizer {
             if( current is AutoCatGenre ) {
                 AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
                 if( genrePanel != null ) {
-                    genrePanel.FillSettings( current as AutoCatGenre );
+                    genrePanel.LoadFromAutoCat( current );
                 }
             } else if( current is AutoCatFlags ) {
                 AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
                 if( flagsPanel != null ) {
-                    flagsPanel.FillSettings( current as AutoCatFlags );
+                    flagsPanel.LoadFromAutoCat( current );
                 }
             } else if( current is AutoCatTags ) {
                 AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
                 if( tagsPanel != null ) {
-                    tagsPanel.FillSettings( current as AutoCatTags );
+                    tagsPanel.LoadFromAutoCat( current );
                 }
             }
         }

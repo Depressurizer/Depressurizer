@@ -46,6 +46,10 @@ namespace Depressurizer {
         protected GameList games;
         protected GameDB db;
 
+        public abstract AutoCatType AutoCatType {
+            get;
+        }
+
         public string Name { get; set; }
 
         public override string ToString() {
@@ -143,6 +147,10 @@ namespace Depressurizer {
     /// Autocategorization scheme that adds genre categories.
     /// </summary>
     public class AutoCatGenre : AutoCat {
+
+        public override AutoCatType AutoCatType {
+            get { return AutoCatType.Genre; }
+        }
 
         // Autocat configuration
         public int MaxCategories { get; set; }
@@ -305,6 +313,10 @@ namespace Depressurizer {
 
     public class AutoCatFlags : AutoCat {
 
+        public override AutoCatType AutoCatType {
+            get { return AutoCatType.Flags; }
+        }
+
         // AutoCat configuration
         public string Prefix { get; set; }
         public List<string> IncludedFlags { get; set; }
@@ -405,6 +417,11 @@ namespace Depressurizer {
     }
 
     public class AutoCatTags : AutoCat {
+
+        public override AutoCatType AutoCatType {
+            get { return AutoCatType.Tags; }
+        }
+
         public string Prefix { get; set; }
         public int MaxTags { get; set; }
         public HashSet<string> IncludedTags { get; set; }

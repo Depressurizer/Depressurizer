@@ -94,6 +94,9 @@
   <ItemGroup>
     <Compile Include="AppInfo.cs" />
     <Compile Include="AutoCat.cs" />
+    <Compile Include="AutoCatConfigPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="AutoCatConfigPanel_Flags.cs">
       <SubType>UserControl</SubType>
     </Compile>

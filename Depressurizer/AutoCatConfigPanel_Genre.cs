@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Depressurizer {
-    public partial class AutoCatConfigPanel_Genre : UserControl {
+    public partial class AutoCatConfigPanel_Genre : AutoCatConfigPanel {
         private Lib.ExtToolTip ttHelp;
         
         public AutoCatConfigPanel_Genre(Lib.ExtToolTip ttHelp) {
@@ -35,7 +35,8 @@ namespace Depressurizer {
             }
         }
 
-        public void FillSettings( AutoCatGenre ac ) {
+        public override void LoadFromAutoCat( AutoCat autocat ) {
+            AutoCatGenre ac = autocat as AutoCatGenre;
             if( ac == null ) return;
             chkRemoveExisting.Checked = ac.RemoveOtherGenres;
             numMaxCats.Value = ac.MaxCategories;
@@ -46,7 +47,9 @@ namespace Depressurizer {
             }
         }
 
-        public void SaveToAutoCat( AutoCatGenre ac ) {
+        public override void SaveToAutoCat( AutoCat autocat ) {
+            AutoCatGenre ac = autocat as AutoCatGenre;
+            if( ac == null ) return;
             ac.Prefix = txtPrefix.Text;
             ac.MaxCategories = (int)numMaxCats.Value;
             ac.RemoveOtherGenres = chkRemoveExisting.Checked;

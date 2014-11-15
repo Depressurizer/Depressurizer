@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Depressurizer {
-    public partial class AutoCatConfigPanel_Flags : UserControl {
+    public partial class AutoCatConfigPanel_Flags : AutoCatConfigPanel {
 
         private Lib.ExtToolTip ttHelp;
 
@@ -34,7 +34,8 @@ namespace Depressurizer {
             }
         }
 
-        public void FillSettings( AutoCatFlags ac ) {
+        public override void LoadFromAutoCat( AutoCat autocat ) {
+            AutoCatFlags ac = autocat as AutoCatFlags;
             if( ac == null ) return;
 
             txtPrefix.Text = ac.Prefix;
@@ -44,7 +45,9 @@ namespace Depressurizer {
             }
         }
 
-        public void SaveToAutoCat( AutoCatFlags ac ) {
+        public override void SaveToAutoCat( AutoCat autocat ) {
+            AutoCatFlags ac = autocat as AutoCatFlags;
+            if( ac == null ) return;
             ac.Prefix = txtPrefix.Text;
 
             ac.IncludedFlags.Clear();
