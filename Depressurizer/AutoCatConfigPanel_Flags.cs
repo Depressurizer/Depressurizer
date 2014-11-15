@@ -17,19 +17,19 @@ namespace Depressurizer {
             this.ttHelp = ttHelp;
             InitializeComponent();
 
-            ttHelp.Ext_SetToolTip( flags_helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
 
             FillFlagsList();
         }
 
         public void FillFlagsList() {
-            flags_lstIncluded.Items.Clear();
+            lstIncluded.Items.Clear();
 
             if( Program.GameDB != null ) {
                 SortedSet<string> flagsList = Program.GameDB.GetAllStoreFlags();
 
                 foreach( string s in flagsList ) {
-                    flags_lstIncluded.Items.Add( s );
+                    lstIncluded.Items.Add( s );
                 }
             }
         }
@@ -37,18 +37,18 @@ namespace Depressurizer {
         public void FillSettings( AutoCatFlags ac ) {
             if( ac == null ) return;
 
-            flags_txtPrefix.Text = ac.Prefix;
+            txtPrefix.Text = ac.Prefix;
 
-            foreach( ListViewItem item in flags_lstIncluded.Items ) {
+            foreach( ListViewItem item in lstIncluded.Items ) {
                 item.Checked = ac.IncludedFlags.Contains( item.Text );
             }
         }
 
         public void SaveToAutoCat( AutoCatFlags ac ) {
-            ac.Prefix = flags_txtPrefix.Text;
+            ac.Prefix = txtPrefix.Text;
 
             ac.IncludedFlags.Clear();
-            foreach( ListViewItem i in flags_lstIncluded.Items ) {
+            foreach( ListViewItem i in lstIncluded.Items ) {
                 if( i.Checked ) {
                     ac.IncludedFlags.Add( i.Text );
                 }
@@ -61,15 +61,12 @@ namespace Depressurizer {
             }
         }
 
-
-
-
-        private void flagsCmdCheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( flags_lstIncluded, true );
+        private void cmdCheckAll_Click( object sender, EventArgs e ) {
+            SetAllListCheckStates( lstIncluded, true );
         }
 
-        private void flagsCmdUncheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( flags_lstIncluded, false );
+        private void cmdUncheckAll_Click( object sender, EventArgs e ) {
+            SetAllListCheckStates( lstIncluded, false );
         }
 
     }
