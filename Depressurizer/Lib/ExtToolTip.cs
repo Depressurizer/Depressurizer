@@ -24,7 +24,7 @@ namespace Depressurizer.Lib {
     /// <summary>
     /// ToolTip extension that allows you to bypass timers and have the tooltip always show when the mouse is over a particular control.
     /// </summary>
-    class ExtToolTip : ToolTip {
+    public class ExtToolTip : ToolTip {
         private Dictionary<Control, string> bindings = new Dictionary<Control, string>();
 
         /// <summary>

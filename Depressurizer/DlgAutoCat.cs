@@ -50,41 +50,32 @@ namespace Depressurizer {
             }
         }
 
-        private void FillGenreList() {
-            AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
-            if( genrePanel != null ) {
-                genrePanel.FillGenreList();
-            }
-        }
-
-        private void FillFlagList() {
-            AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
-            if( flagsPanel != null ) {
-                flagsPanel.FillFlagsList();
-            }
-        }
-
         private void FillTagsList( ICollection<string> preChecked = null ) {
             AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
             if( tagsPanel != null ) {
-                tagsPanel.FillTagList( preChecked );
+                tagsPanel.FillTagsList( preChecked );
             }
         }
 
         private void RecreateConfigPanel() {
-            // This might be too much
             if( currentConfigPanel != null ) {
                 this.splitContainer.Panel2.Controls.Remove( currentConfigPanel );
             }
 
+            bool added = false;
             if( current is AutoCatGenre ) {
-                currentConfigPanel = new AutoCatConfigPanel_Genre();
-                this.splitContainer.Panel2.Controls.Add( currentConfigPanel );
+                currentConfigPanel = new AutoCatConfigPanel_Genre(ttHelp);
+                added = true;
             } else if( current is AutoCatFlags ) {
-                currentConfigPanel = new AutoCatConfigPanel_Flags();
-                this.splitContainer.Panel2.Controls.Add( currentConfigPanel );
+                currentConfigPanel = new AutoCatConfigPanel_Flags(ttHelp);
+                added = true;
             } else if( current is AutoCatTags ) {
-                currentConfigPanel = new AutoCatConfigPanel_Tags();
+                currentConfigPanel = new AutoCatConfigPanel_Tags(ttHelp, ownedGames);
+                added = true;
+            }
+
+            if( added ) {
+                currentConfigPanel.Dock = DockStyle.Fill;
                 this.splitContainer.Panel2.Controls.Add( currentConfigPanel );
             }
         }
@@ -101,45 +92,26 @@ namespace Depressurizer {
         }
 
         private void FillSettingsUIForGenre( AutoCatGenre ac ) {
-            if( ac == null ) return;
-            genre_chkRemoveExisting.Checked = ac.RemoveOtherGenres;
-            genre_numMaxCats.Value = ac.MaxCategories;
-            genre_txtPrefix.Text = ac.Prefix;
-
-            foreach( ListViewItem item in genre_lstIgnore.Items ) {
-                item.Checked = ac.IgnoredGenres.Contains( item.Text );
+            AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
+            if( genrePanel != null ) {
+                genrePanel.FillSettings( ac );
             }
         }
 
         private void FillSettingsUIForFlags( AutoCatFlags ac ) {
-            if( ac == null ) return;
-            flags_txtPrefix.Text = ac.Prefix;
-
-            foreach( ListViewItem item in flags_lstIncluded.Items ) {
-                item.Checked = ac.IncludedFlags.Contains( item.Text );
+            AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
+            if( flagsPanel != null ) {
+                flagsPanel.FillSettings( ac );
             }
         }
 
         private void FillSettingsUIForTags( AutoCatTags ac ) {
-            if( ac == null ) return;
-            tags_txtPrefix.Text = ( ac.Prefix == null ) ? string.Empty : ac.Prefix;
-            tags_numMaxTags.Value = ac.MaxTags;
-
-            tags_list_numMinScore.Value = ac.ListMinScore;
-            tags_list_numTagsPerGame.Value = ac.ListTagsPerGame;
-            tags_list_chkOwnedOnly.Checked = ac.ListOwnedOnly;
-            tags_list_numWeightFactor.Value = (Decimal)ac.ListWeightFactor;
-            tags_list_chkExcludeGenres.Checked = ac.ListExcludeGenres;
-            tags_list_chkScoreSort.Checked = ac.ListScoreSort;
-
-            FillTagsList( ac.IncludedTags );
-        }
-
-        private void SetAllListCheckStates( ListView list, bool to ) {
-            foreach( ListViewItem item in list.Items ) {
-                item.Checked = to;
+            AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
+            if( tagsPanel != null ) {
+                tagsPanel.FillSettings( ac );
             }
         }
+
         #endregion
 
         #region Data modifiers
@@ -154,45 +126,24 @@ namespace Depressurizer {
         }
 
         private void SaveToAutoCat_Genre( AutoCatGenre ac ) {
-            ac.Prefix = genre_txtPrefix.Text;
-            ac.MaxCategories = (int)genre_numMaxCats.Value;
-            ac.RemoveOtherGenres = genre_chkRemoveExisting.Checked;
-
-            ac.IgnoredGenres.Clear();
-            foreach( ListViewItem i in genre_lstIgnore.Items ) {
-                if( i.Checked ) {
-                    ac.IgnoredGenres.Add( i.Text );
-                }
+            AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
+            if( genrePanel != null ) {
+                genrePanel.SaveToAutoCat( ac );
             }
         }
 
         private void SaveToAutoCat_Flags( AutoCatFlags ac ) {
-            ac.Prefix = flags_txtPrefix.Text;
-
-            ac.IncludedFlags.Clear();
-            foreach( ListViewItem i in flags_lstIncluded.Items ) {
-                if( i.Checked ) {
-                    ac.IncludedFlags.Add( i.Text );
-                }
+            AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
+            if( flagsPanel != null ) {
+                flagsPanel.SaveToAutoCat( ac );
             }
         }
 
         private void SaveToAutoCat_Tags( AutoCatTags ac ) {
-            ac.Prefix = tags_txtPrefix.Text;
-
-            ac.MaxTags = (int)tags_numMaxTags.Value;
-
-            ac.IncludedTags = new HashSet<string>();
-            foreach( ListViewItem i in tags_lstIncluded.CheckedItems ) {
-                ac.IncludedTags.Add( i.Tag as string );
+            AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
+            if( tagsPanel != null ) {
+                tagsPanel.SaveToAutoCat( ac );
             }
-
-            ac.ListMinScore = (int)tags_list_numMinScore.Value;
-            ac.ListOwnedOnly = tags_list_chkOwnedOnly.Checked;
-            ac.ListTagsPerGame = (int)tags_list_numTagsPerGame.Value;
-            ac.ListWeightFactor = (float)tags_list_numWeightFactor.Value;
-            ac.ListExcludeGenres = tags_list_chkExcludeGenres.Checked;
-            ac.ListScoreSort = tags_list_chkScoreSort.Checked;
         }
 
         private void CreateNewAutoCat() {
@@ -265,23 +216,7 @@ namespace Depressurizer {
         #region Event Handlers
 
         private void DlgAutoCat_Load( object sender, EventArgs e ) {
-            ttHelp.Ext_SetToolTip( genre_helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
-            ttHelp.Ext_SetToolTip( genre_helpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
-
-            ttHelp.Ext_SetToolTip( flags_helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
-
-            ttHelp.Ext_SetToolTip( tags_helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
-            ttHelp.Ext_SetToolTip( tags_list_helpMinScore, GlobalStrings.DlgAutoCat_Help_ListMinScore );
-            ttHelp.Ext_SetToolTip( tags_list_helpOwnedOnly, GlobalStrings.DlgAutoCat_Help_ListOwnedOnly );
-            ttHelp.Ext_SetToolTip( tags_list_helpTagsPerGame, GlobalStrings.DlgAutoCat_Help_ListTagsPerGame );
-            ttHelp.Ext_SetToolTip( tags_list_helpWeightFactor, GlobalStrings.DlgAutoCat_Help_ListWeightFactor );
-            ttHelp.Ext_SetToolTip( tags_list_helpScoreSort, GlobalStrings.DlgAutoCat_Help_ListScoreSort );
-            ttHelp.Ext_SetToolTip( tags_list_helpExcludeGenres, GlobalStrings.DlgAutoCat_Help_ListExcludeGenres );
-
             FillAutocatList();
-
-            FillGenreList();
-            FillFlagList();
 
             RecreateConfigPanel();
         }
@@ -299,37 +234,9 @@ namespace Depressurizer {
             SaveToAutoCat();
         }
 
-        private void genreCmdCheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( genre_lstIgnore, true );
-        }
 
-        private void genreCmdUncheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( genre_lstIgnore, false );
-        }
 
-        private void flagsCmdCheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( flags_lstIncluded, true );
-        }
 
-        private void flagsCmdUncheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( flags_lstIncluded, false );
-        }
-
-        private void tags_cmdListRebuild_Click( object sender, EventArgs e ) {
-            HashSet<string> checkedTags = new HashSet<string>();
-            foreach( ListViewItem item in tags_lstIncluded.CheckedItems ) {
-                checkedTags.Add( item.Tag as string );
-            }
-            FillTagsList( checkedTags );
-        }
-
-        private void tags_cmdCheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( tags_lstIncluded, true );
-        }
-
-        private void tags_cmdUncheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( tags_lstIncluded, false );
-        }
 
         private void cmdCreate_Click( object sender, EventArgs e ) {
             CreateNewAutoCat();
