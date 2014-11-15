@@ -50,13 +50,6 @@ namespace Depressurizer {
             }
         }
 
-        private void FillTagsList( ICollection<string> preChecked = null ) {
-            AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
-            if( tagsPanel != null ) {
-                tagsPanel.FillTagsList( preChecked );
-            }
-        }
-
         private void RecreateConfigPanel() {
             if( currentConfigPanel != null ) {
                 this.splitContainer.Panel2.Controls.Remove( currentConfigPanel );
@@ -80,35 +73,23 @@ namespace Depressurizer {
             }
         }
 
-        private void FillSettingsUI() {
+        private void FillConfigPanel() {
             if( current == null ) return;
             if( current is AutoCatGenre ) {
-                FillSettingsUIForGenre( current as AutoCatGenre );
+                AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
+                if( genrePanel != null ) {
+                    genrePanel.FillSettings( current as AutoCatGenre );
+                }
             } else if( current is AutoCatFlags ) {
-                FillSettingsUIForFlags( current as AutoCatFlags );
+                AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
+                if( flagsPanel != null ) {
+                    flagsPanel.FillSettings( current as AutoCatFlags );
+                }
             } else if( current is AutoCatTags ) {
-                FillSettingsUIForTags( current as AutoCatTags );
-            }
-        }
-
-        private void FillSettingsUIForGenre( AutoCatGenre ac ) {
-            AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
-            if( genrePanel != null ) {
-                genrePanel.FillSettings( ac );
-            }
-        }
-
-        private void FillSettingsUIForFlags( AutoCatFlags ac ) {
-            AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
-            if( flagsPanel != null ) {
-                flagsPanel.FillSettings( ac );
-            }
-        }
-
-        private void FillSettingsUIForTags( AutoCatTags ac ) {
-            AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
-            if( tagsPanel != null ) {
-                tagsPanel.FillSettings( ac );
+                AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
+                if( tagsPanel != null ) {
+                    tagsPanel.FillSettings( current as AutoCatTags );
+                }
             }
         }
 
@@ -117,32 +98,20 @@ namespace Depressurizer {
         #region Data modifiers
         private void SaveToAutoCat() {
             if( current is AutoCatGenre ) {
-                SaveToAutoCat_Genre( current as AutoCatGenre );
+                AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
+                if( genrePanel != null ) {
+                    genrePanel.SaveToAutoCat( current as AutoCatGenre );
+                };
             } else if( current is AutoCatFlags ) {
-                SaveToAutoCat_Flags( current as AutoCatFlags );
+                AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
+                if( flagsPanel != null ) {
+                    flagsPanel.SaveToAutoCat( current as AutoCatFlags );
+                };
             } else if( current is AutoCatTags ) {
-                SaveToAutoCat_Tags( current as AutoCatTags );
-            }
-        }
-
-        private void SaveToAutoCat_Genre( AutoCatGenre ac ) {
-            AutoCatConfigPanel_Genre genrePanel = currentConfigPanel as AutoCatConfigPanel_Genre;
-            if( genrePanel != null ) {
-                genrePanel.SaveToAutoCat( ac );
-            }
-        }
-
-        private void SaveToAutoCat_Flags( AutoCatFlags ac ) {
-            AutoCatConfigPanel_Flags flagsPanel = currentConfigPanel as AutoCatConfigPanel_Flags;
-            if( flagsPanel != null ) {
-                flagsPanel.SaveToAutoCat( ac );
-            }
-        }
-
-        private void SaveToAutoCat_Tags( AutoCatTags ac ) {
-            AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
-            if( tagsPanel != null ) {
-                tagsPanel.SaveToAutoCat( ac );
+                AutoCatConfigPanel_Tags tagsPanel = currentConfigPanel as AutoCatConfigPanel_Tags;
+                if( tagsPanel != null ) {
+                    tagsPanel.SaveToAutoCat( current as AutoCatTags );
+                }
             }
         }
 
@@ -227,16 +196,12 @@ namespace Depressurizer {
             }
             current = lstAutoCats.SelectedItem as AutoCat;
             RecreateConfigPanel();
-            FillSettingsUI();
+            FillConfigPanel();
         }
 
         private void cmdSave_Click( object sender, EventArgs e ) {
             SaveToAutoCat();
         }
-
-
-
-
 
         private void cmdCreate_Click( object sender, EventArgs e ) {
             CreateNewAutoCat();
