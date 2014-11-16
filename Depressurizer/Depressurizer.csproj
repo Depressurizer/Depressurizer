@@ -115,6 +115,9 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Tags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoCat\AutoCatFlags.cs" />
+    <Compile Include="AutoCat\AutoCatGenre.cs" />
+    <Compile Include="AutoCat\AutoCatTags.cs" />
     <Compile Include="DlgAutoCat.cs">
       <SubType>Form</SubType>
     </Compile>
