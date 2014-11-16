@@ -93,26 +93,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInfo.cs" />
-    <Compile Include="AutoCat.cs" />
-    <Compile Include="AutoCatConfigPanel.cs">
+    <Compile Include="AutoCat\AutoCat.cs" />
+    <Compile Include="AutoCat\AutoCatConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCatConfigPanel_Flags.cs">
+    <Compile Include="AutoCat\AutoCatConfigPanel_Flags.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCatConfigPanel_Flags.Designer.cs">
+    <Compile Include="AutoCat\AutoCatConfigPanel_Flags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCatConfigPanel_Genre.cs">
+    <Compile Include="AutoCat\AutoCatConfigPanel_Genre.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCatConfigPanel_Genre.Designer.cs">
+    <Compile Include="AutoCat\AutoCatConfigPanel_Genre.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCatConfigPanel_Tags.cs">
+    <Compile Include="AutoCat\AutoCatConfigPanel_Tags.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCatConfigPanel_Tags.Designer.cs">
+    <Compile Include="AutoCat\AutoCatConfigPanel_Tags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
     </Compile>
     <Compile Include="DlgAutoCat.cs">
@@ -239,13 +239,13 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VdfFile\VdfFileNode.cs" />
-    <EmbeddedResource Include="AutoCatConfigPanel_Flags.resx">
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Flags.resx">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCatConfigPanel_Genre.resx">
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Genre.resx">
       <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCatConfigPanel_Tags.resx">
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Tags.resx">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
