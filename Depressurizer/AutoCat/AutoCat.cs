@@ -21,6 +21,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
+/*
+ * ADDING NEW AUTOCAT METHODS
+ * 
+ * Here is a list of everything you need to do to add an additional autocat method.
+ * 
+ * 1) Add an element to the AutoCatType enum.
+ * 
+ * 2a) Create a new class that extends the AutoCat abstract base class.
+ *    Things to implement in derived classes:
+ *       public override AutoCatType AutoCatType: Just return the enum value you added.
+ *       public override AutoCat Clone(): return a complete deep copy of the object
+ *       
+ *       public abstract AutoCatResult CategorizeGame( GameInfo game ): Perform autocategorization on a game.
+ *       [Optional] public override void PreProcess( GameList games, GameDB db ): Do any pre-processing you want to do before a set of autocategorization operations.
+ *       [Optional] public override void DeProcess(): Clean up after a set of autocategorization operations.
+ *
+ *       [Recommended] public string TypeIDString: Just a constant string that serves as a type identifier for serialization purposes.
+ *       public override void WriteToXml( XmlWriter writer ): Write an XML object for saving. Write to one element, with a name that matches your type (TypeIDString).
+ *       [Recommended] public AutoCat LoadFromXMLElement( XmlElement ): Read the object from an XmlElement.
+ * 
+ * 2b) Update the following static methods in the AutoCat class to include your new class:
+ *       LoadACFromXMLElement: Must be able to handle reading an object of your selected type.
+ *       Create: Just create a new object.
+ *       
+ * 3a) Create a class that extends AutoCatConfigPanel.
+ *    This is a user control that defines the settings UI used in the AutoCat config dialog.
+ *    Things to implement:
+ *       public override void SaveToAutoCat( AutoCat ac ): Takes the settings in the UI and saves them to the given AutoCat object.
+ *        public override void LoadFromAutoCat( AutoCat ac ): Take the settings in the given AutoCat object and fill in the UI with them.
+ * 
+ * 3b) Update AutoCatConfigPanel.CreatePanel so that it can create a panel for your type.
+ */
+
 namespace Depressurizer {
     public enum AutoCatType {
         None,
