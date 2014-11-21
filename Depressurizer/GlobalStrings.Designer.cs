@@ -1990,6 +1990,18 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In advanced mode, games will show if they meet the following criteria:
+        ///If any categories are in CHECKMARK (&quot;Allowed&quot;), the game must belong to at least one of these categories.
+        ///If any games are marked with a CIRCLE (&quot;Required&quot;), the game must belong to all of these categories.
+        ///If any games are marked with an X (&quot;Excluded&quot;), the game must not belong to any of these categories..
+        /// </summary>
+        internal static string MainForm_Help_AdvancedCategories {
+            get {
+                return ResourceManager.GetString("MainForm_Help_AdvancedCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignored {0} game{1}..
         /// </summary>
         internal static string MainForm_IgnoredGame {

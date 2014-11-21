@@ -48,6 +48,7 @@ namespace Depressurizer {
             this.lblSearchClear = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.grpCategories = new System.Windows.Forms.GroupBox();
+            this.helpAdvancedCategories = new System.Windows.Forms.Label();
             this.radCatAdvanced = new System.Windows.Forms.RadioButton();
             this.radCatSimple = new System.Windows.Forms.RadioButton();
             this.lstCategories = new Depressurizer.Lib.ExtListView();
@@ -135,6 +136,7 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -191,12 +193,19 @@ namespace Depressurizer {
             // grpCategories
             // 
             resources.ApplyResources(this.grpCategories, "grpCategories");
+            this.grpCategories.Controls.Add(this.helpAdvancedCategories);
             this.grpCategories.Controls.Add(this.radCatAdvanced);
             this.grpCategories.Controls.Add(this.radCatSimple);
             this.grpCategories.Controls.Add(this.lstCategories);
             this.grpCategories.Controls.Add(this.tableCatButtons);
             this.grpCategories.Name = "grpCategories";
             this.grpCategories.TabStop = false;
+            // 
+            // helpAdvancedCategories
+            // 
+            resources.ApplyResources(this.helpAdvancedCategories, "helpAdvancedCategories");
+            this.helpAdvancedCategories.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.helpAdvancedCategories.Name = "helpAdvancedCategories";
             // 
             // radCatAdvanced
             // 
@@ -972,6 +981,8 @@ namespace Depressurizer {
         private System.Windows.Forms.RadioButton radCatSimple;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ImageList imglistFilter;
+        private System.Windows.Forms.Label helpAdvancedCategories;
+        private Lib.ExtToolTip ttHelp;
     }
 }
 

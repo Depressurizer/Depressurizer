@@ -90,6 +90,8 @@ namespace Depressurizer {
         }
 
         private void FormMain_Load( object sender, EventArgs e ) {
+            ttHelp.Ext_SetToolTip( helpAdvancedCategories, GlobalStrings.MainForm_Help_AdvancedCategories );
+
             LoadGameDB();
 
             // Save original width and height
