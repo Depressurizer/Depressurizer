@@ -52,6 +52,8 @@ using System.Xml;
  *        public override void LoadFromAutoCat( AutoCat ac ): Take the settings in the given AutoCat object and fill in the UI with them.
  * 
  * 3b) Update AutoCatConfigPanel.CreatePanel so that it can create a panel for your type.
+ * 
+ * 4) Update the arrays in the DlgAutoCatCreate constructor to allow creating AutoCats of your type.
  */
 
 namespace Depressurizer {
