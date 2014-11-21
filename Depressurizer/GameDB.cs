@@ -130,11 +130,9 @@ namespace Depressurizer {
                         }
                     }
 
-                    if( redirectTarget == -1 ) {
-                        StreamReader sr = new StreamReader( resp.GetResponseStream() );
-                        page = sr.ReadToEnd();
-                        Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageRead, id );
-                    }
+                    StreamReader sr = new StreamReader( resp.GetResponseStream() );
+                    page = sr.ReadToEnd();
+                    Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageRead, id );
                 }
             } catch( Exception e ) {
                 // Something went wrong with the download.
@@ -143,32 +141,34 @@ namespace Depressurizer {
                 return AppTypes.Unknown;
             }
 
-            if( redirectTarget != -1 ) {
-                this.ParentId = redirectTarget;
-                return AppTypes.Unknown;
-            }
+            AppTypes result = AppTypes.Unknown;
 
             if( page.Contains( "<title>Site Error</title>" ) ) {
                 Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingReceivedSiteError, id );
-                return AppTypes.Unknown;
-            }
-
-            if( regGamecheck.IsMatch( page ) ) { // Here we should have an app, but make sure.
+                result = AppTypes.Unknown;
+            } else if( regGamecheck.IsMatch( page ) ) { // Here we should have an app, but make sure.
 
                 GetAllDataFromPage( page );
 
                 // Check whether it's DLC and return appropriately
                 if( Flags.Contains( "Downloadable Content" ) ) {
                     Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, string.Join( ",", Genres ) );
-                    return AppTypes.DLC;
+                    result = AppTypes.DLC;
                 } else {
                     Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id, string.Join( ",", Genres ) );
-                    return AppTypes.Game;
+                    result = AppTypes.Game;
                 }
             } else { // The URI is right, but it didn't pass the regex check
                 Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingCouldNotParse, id );
-                return AppTypes.Unknown;
+                result = AppTypes.Unknown;
             }
+
+            if( redirectTarget != -1 ) {
+                this.ParentId = redirectTarget;
+                result = AppTypes.Unknown;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -848,7 +848,7 @@ namespace Depressurizer {
                 SortDirection = ( forceDir == 0 ) ? ( SortDirection *= -1 ) : forceDir;
             } else {
                 SortMode = mode;
-                SortDirection = (forceDir == 0 ) ? 1 : forceDir;
+                SortDirection = ( forceDir == 0 ) ? 1 : forceDir;
             }
         }
 
