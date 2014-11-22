@@ -116,7 +116,7 @@ namespace Depressurizer {
                 return AutoCatResult.Failure;
             }
 
-            if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
+            if( !db.Contains( game.Id ) || db.Games[game.Id].LastStoreScrape == 0 ) return AutoCatResult.NotInDatabase;
 
             if( RemoveOtherGenres && genreCategories != null ) {
                 game.RemoveCategory( genreCategories );
