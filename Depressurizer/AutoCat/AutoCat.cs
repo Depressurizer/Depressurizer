@@ -47,9 +47,12 @@ using System.Xml;
  *       
  * 3a) Create a class that extends AutoCatConfigPanel.
  *    This is a user control that defines the settings UI used in the AutoCat config dialog.
+ *       NOTE: You should be able to edit the new control using the VS designer. If it gives you an error about not being able to create an instance of AutoCatConfigPanel,
+ *             close the derived class, clean solution, restart VS, rebuild solution. It should work then. If not, make AutoCatConfigPanel non-abstract when you want to
+ *             use the designer.
  *    Things to implement:
  *       public override void SaveToAutoCat( AutoCat ac ): Takes the settings in the UI and saves them to the given AutoCat object.
- *        public override void LoadFromAutoCat( AutoCat ac ): Take the settings in the given AutoCat object and fill in the UI with them.
+ *       public override void LoadFromAutoCat( AutoCat ac ): Take the settings in the given AutoCat object and fill in the UI with them.
  * 
  * 3b) Update AutoCatConfigPanel.CreatePanel so that it can create a panel for your type.
  * 
