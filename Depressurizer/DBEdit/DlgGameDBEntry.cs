@@ -38,7 +38,10 @@ namespace Depressurizer {
 
         private void GameDBEntryForm_Load( object sender, EventArgs e ) {
             foreach( object o in Enum.GetValues( typeof( AppTypes ) ) ) {
-                cmbType.Items.Add( o );
+                int val = (int)o;
+                if( ( val & ( val - 1 ) ) == 0 ) {
+                    cmbType.Items.Add( o );
+                }
             }
 
             InitializeFields( Game );

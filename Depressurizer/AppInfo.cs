@@ -43,7 +43,7 @@ namespace Depressurizer {
         Unknown = 1 << 7,
         InclusionNormal = Application | Game,
         InclusionUnknown = InclusionNormal | Unknown,
-        InclusionAll = 1 << 8 - 1
+        InclusionAll = (1 << 8) - 1
     }
 
     class AppInfo {
