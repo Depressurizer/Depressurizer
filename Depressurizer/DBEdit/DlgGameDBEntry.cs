@@ -108,11 +108,12 @@ namespace Depressurizer {
             Game.AppType = (AppTypes)cmbType.SelectedItem;
             Game.Name = txtName.Text;
 
-            Game.Genres = new List<string>( txtGenres.Text.Split( ',' ) );
-            Game.Flags = new List<string>( txtFlags.Text.Split( ',' ) );
-            Game.Tags = new List<string>( txtFlags.Text.Split( ',' ) );
-            Game.Developers = new List<string>( txtFlags.Text.Split( ',' ) );
-            Game.Publishers = new List<string>( txtFlags.Text.Split( ',' ) );
+
+            Game.Genres = SplitAndTrim( txtGenres.Text );
+            Game.Flags = SplitAndTrim( txtFlags.Text );
+            Game.Tags = SplitAndTrim( txtTags.Text );
+            Game.Developers = SplitAndTrim( txtDev.Text );
+            Game.Publishers = SplitAndTrim( txtPub.Text );
 
             Game.MC_Url = txtMCName.Text;
             Game.SteamReleaseDate = txtRelease.Text;
@@ -126,6 +127,20 @@ namespace Depressurizer {
             Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? Utility.GetUTime( dateAppInfo.Value ) : 0;
 
             return true;
+        }
+
+        private readonly char[] SPLIT_CHAR = new char[] { ',' };
+
+        private List<string> SplitAndTrim( string s ) {
+            if( string.IsNullOrWhiteSpace( s ) ) return null;
+
+            string[] split = s.Split( SPLIT_CHAR, StringSplitOptions.RemoveEmptyEntries );
+            List<string> result = new List<string>();
+            foreach( string sp in split ) {
+                if( !string.IsNullOrWhiteSpace( sp ) ) result.Add( sp.Trim() );
+            }
+            if( result.Count > 0 ) return result;
+            return null;
         }
 
         private void cmdCancel_Click( object sender, EventArgs e ) {
