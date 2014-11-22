@@ -175,6 +175,7 @@ namespace Depressurizer {
             try {
                 string path = string.Format( Properties.Resources.AppInfoPath, Settings.Instance.SteamPath );
                 int updated = Program.GameDB.UpdateFromAppInfo( path );
+                if( updated > 0 ) UnsavedChanges = true;
                 RebuildDisplayList();
                 AddStatusMsg( string.Format( GlobalStrings.DBEditDlg_Status_UpdatedAppInfo, updated ) );
             } catch( Exception e ) {
