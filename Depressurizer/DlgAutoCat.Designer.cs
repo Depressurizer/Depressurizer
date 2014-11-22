@@ -48,7 +48,7 @@
             this.lstAutoCats.IntegralHeight = false;
             this.lstAutoCats.Location = new System.Drawing.Point(6, 19);
             this.lstAutoCats.Name = "lstAutoCats";
-            this.lstAutoCats.Size = new System.Drawing.Size(171, 223);
+            this.lstAutoCats.Size = new System.Drawing.Size(171, 235);
             this.lstAutoCats.TabIndex = 0;
             this.lstAutoCats.SelectedIndexChanged += new System.EventHandler(this.lstAutoCats_SelectedIndexChanged);
             // 
@@ -56,7 +56,7 @@
             // 
             this.cmdDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDelete.Location = new System.Drawing.Point(6, 299);
+            this.cmdDelete.Location = new System.Drawing.Point(6, 311);
             this.cmdDelete.Name = "cmdDelete";
             this.cmdDelete.Size = new System.Drawing.Size(171, 23);
             this.cmdDelete.TabIndex = 3;
@@ -68,7 +68,7 @@
             // 
             this.cmdRename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdRename.Location = new System.Drawing.Point(6, 273);
+            this.cmdRename.Location = new System.Drawing.Point(6, 285);
             this.cmdRename.Name = "cmdRename";
             this.cmdRename.Size = new System.Drawing.Size(171, 23);
             this.cmdRename.TabIndex = 2;
@@ -80,7 +80,7 @@
             // 
             this.cmdCreate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCreate.Location = new System.Drawing.Point(6, 247);
+            this.cmdCreate.Location = new System.Drawing.Point(6, 259);
             this.cmdCreate.Name = "cmdCreate";
             this.cmdCreate.Size = new System.Drawing.Size(171, 23);
             this.cmdCreate.TabIndex = 1;
@@ -97,7 +97,7 @@
             this.grpList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpList.Location = new System.Drawing.Point(0, 0);
             this.grpList.Name = "grpList";
-            this.grpList.Size = new System.Drawing.Size(184, 329);
+            this.grpList.Size = new System.Drawing.Size(184, 341);
             this.grpList.TabIndex = 0;
             this.grpList.TabStop = false;
             this.grpList.Text = "AutoCat List";
@@ -106,7 +106,7 @@
             // 
             this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdSave.Location = new System.Drawing.Point(448, 337);
+            this.cmdSave.Location = new System.Drawing.Point(453, 351);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(141, 23);
             this.cmdSave.TabIndex = 6;
@@ -118,7 +118,7 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(352, 337);
+            this.cmdCancel.Location = new System.Drawing.Point(357, 351);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(90, 23);
             this.cmdCancel.TabIndex = 5;
@@ -138,7 +138,7 @@
             this.splitContainer.Panel1.Controls.Add(this.grpList);
             this.splitContainer.Panel1MinSize = 125;
             this.splitContainer.Panel2MinSize = 400;
-            this.splitContainer.Size = new System.Drawing.Size(590, 329);
+            this.splitContainer.Size = new System.Drawing.Size(590, 341);
             this.splitContainer.SplitterDistance = 184;
             this.splitContainer.TabIndex = 7;
             // 

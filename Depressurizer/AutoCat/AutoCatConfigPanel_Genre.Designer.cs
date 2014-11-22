@@ -24,6 +24,8 @@
         /// </summary>
         private void InitializeComponent() {
             this.grpMain = new System.Windows.Forms.GroupBox();
+            this.helpTagFallback = new System.Windows.Forms.Label();
+            this.chkTagFallback = new System.Windows.Forms.CheckBox();
             this.helpRemoveExisting = new System.Windows.Forms.Label();
             this.helpPrefix = new System.Windows.Forms.Label();
             this.lblPrefix = new System.Windows.Forms.Label();
@@ -36,8 +38,6 @@
             this.chkRemoveExisting = new System.Windows.Forms.CheckBox();
             this.lblMaxCats = new System.Windows.Forms.Label();
             this.numMaxCats = new System.Windows.Forms.NumericUpDown();
-            this.chkTagFallback = new System.Windows.Forms.CheckBox();
-            this.helpTagFallback = new System.Windows.Forms.Label();
             this.grpMain.SuspendLayout();
             this.tblIgnore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxCats)).BeginInit();
@@ -64,6 +64,26 @@
             this.grpMain.TabIndex = 1;
             this.grpMain.TabStop = false;
             this.grpMain.Text = "Edit Genre AutoCat";
+            // 
+            // helpTagFallback
+            // 
+            this.helpTagFallback.AutoSize = true;
+            this.helpTagFallback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.helpTagFallback.Location = new System.Drawing.Point(238, 105);
+            this.helpTagFallback.Name = "helpTagFallback";
+            this.helpTagFallback.Size = new System.Drawing.Size(15, 15);
+            this.helpTagFallback.TabIndex = 13;
+            this.helpTagFallback.Text = "?";
+            // 
+            // chkTagFallback
+            // 
+            this.chkTagFallback.AutoSize = true;
+            this.chkTagFallback.Location = new System.Drawing.Point(46, 105);
+            this.chkTagFallback.Name = "chkTagFallback";
+            this.chkTagFallback.Size = new System.Drawing.Size(165, 17);
+            this.chkTagFallback.TabIndex = 12;
+            this.chkTagFallback.Text = "Use Tags if no genres are set";
+            this.chkTagFallback.UseVisualStyleBackColor = true;
             // 
             // helpRemoveExisting
             // 
@@ -147,9 +167,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstIgnore.CheckBoxes = true;
-            this.lstIgnore.Location = new System.Drawing.Point(9, 130);
+            this.lstIgnore.Location = new System.Drawing.Point(9, 145);
             this.lstIgnore.Name = "lstIgnore";
-            this.lstIgnore.Size = new System.Drawing.Size(597, 243);
+            this.lstIgnore.Size = new System.Drawing.Size(597, 228);
             this.lstIgnore.TabIndex = 3;
             this.lstIgnore.UseCompatibleStateImageBehavior = false;
             this.lstIgnore.View = System.Windows.Forms.View.List;
@@ -157,7 +177,7 @@
             // lblIgnore
             // 
             this.lblIgnore.AutoSize = true;
-            this.lblIgnore.Location = new System.Drawing.Point(6, 114);
+            this.lblIgnore.Location = new System.Drawing.Point(3, 129);
             this.lblIgnore.Name = "lblIgnore";
             this.lblIgnore.Size = new System.Drawing.Size(104, 13);
             this.lblIgnore.TabIndex = 2;
@@ -195,26 +215,6 @@
             this.numMaxCats.TabIndex = 2;
             this.numMaxCats.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numMaxCats.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
-            // 
-            // chkTagFallback
-            // 
-            this.chkTagFallback.AutoSize = true;
-            this.chkTagFallback.Location = new System.Drawing.Point(284, 82);
-            this.chkTagFallback.Name = "chkTagFallback";
-            this.chkTagFallback.Size = new System.Drawing.Size(165, 17);
-            this.chkTagFallback.TabIndex = 12;
-            this.chkTagFallback.Text = "Use Tags if no genres are set";
-            this.chkTagFallback.UseVisualStyleBackColor = true;
-            // 
-            // helpTagFallback
-            // 
-            this.helpTagFallback.AutoSize = true;
-            this.helpTagFallback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.helpTagFallback.Location = new System.Drawing.Point(455, 82);
-            this.helpTagFallback.Name = "helpTagFallback";
-            this.helpTagFallback.Size = new System.Drawing.Size(15, 15);
-            this.helpTagFallback.TabIndex = 13;
-            this.helpTagFallback.Text = "?";
             // 
             // AutoCatConfigPanel_Genre
             // 
