@@ -18,11 +18,11 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System.Windows.Forms;
 
 namespace Depressurizer {
-    public abstract class AutoCatConfigPanel : UserControl {
+    public class AutoCatConfigPanel : UserControl {
 
-        public abstract void SaveToAutoCat( AutoCat ac );
+        public virtual void SaveToAutoCat( AutoCat ac ) { }
 
-        public abstract void LoadFromAutoCat( AutoCat ac );
+        public virtual void LoadFromAutoCat( AutoCat ac ) { }
 
         public static AutoCatConfigPanel CreatePanel( AutoCat ac, Lib.ExtToolTip ttHelp, GameList ownedGames ) {
             AutoCatType t = ac.AutoCatType;

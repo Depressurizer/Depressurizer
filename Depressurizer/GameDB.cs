@@ -351,11 +351,17 @@ namespace Depressurizer {
             }
         }
 
-        public List<string> GetGenreList( int gameId, int depth = 3 ) {
+        public List<string> GetGenreList( int gameId, int depth = 3, bool tagFallback = true ) {
             if( Games.ContainsKey( gameId ) ) {
                 List<string> res = Games[gameId].Genres;
+                if( tagFallback && ( res == null || res.Count == 0 ) ) {
+                    List<string> tags = GetTagList( gameId, 0 );
+                    if( tags != null && tags.Count > 0 ) {
+                        res = new List<string>( tags.Intersect( GetAllGenres() ) );
+                    }
+                }
                 if( ( res == null || res.Count == 0 ) && depth > 0 && Games[gameId].ParentId > 0 ) {
-                    res = GetGenreList( Games[gameId].ParentId, depth - 1 );
+                    res = GetGenreList( Games[gameId].ParentId, depth - 1, tagFallback );
                 }
                 return res;
             } else {

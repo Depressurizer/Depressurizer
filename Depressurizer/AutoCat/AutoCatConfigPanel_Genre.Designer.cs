@@ -36,6 +36,8 @@
             this.chkRemoveExisting = new System.Windows.Forms.CheckBox();
             this.lblMaxCats = new System.Windows.Forms.Label();
             this.numMaxCats = new System.Windows.Forms.NumericUpDown();
+            this.chkTagFallback = new System.Windows.Forms.CheckBox();
+            this.helpTagFallback = new System.Windows.Forms.Label();
             this.grpMain.SuspendLayout();
             this.tblIgnore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxCats)).BeginInit();
@@ -43,6 +45,8 @@
             // 
             // grpMain
             // 
+            this.grpMain.Controls.Add(this.helpTagFallback);
+            this.grpMain.Controls.Add(this.chkTagFallback);
             this.grpMain.Controls.Add(this.helpRemoveExisting);
             this.grpMain.Controls.Add(this.helpPrefix);
             this.grpMain.Controls.Add(this.lblPrefix);
@@ -56,7 +60,7 @@
             this.grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpMain.Location = new System.Drawing.Point(0, 0);
             this.grpMain.Name = "grpMain";
-            this.grpMain.Size = new System.Drawing.Size(588, 442);
+            this.grpMain.Size = new System.Drawing.Size(610, 406);
             this.grpMain.TabIndex = 1;
             this.grpMain.TabStop = false;
             this.grpMain.Text = "Edit Genre AutoCat";
@@ -106,20 +110,20 @@
             this.tblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblIgnore.Controls.Add(this.cmdUncheckAll, 1, 0);
             this.tblIgnore.Controls.Add(this.cmdCheckAll, 0, 0);
-            this.tblIgnore.Location = new System.Drawing.Point(6, 408);
+            this.tblIgnore.Location = new System.Drawing.Point(6, 372);
             this.tblIgnore.Name = "tblIgnore";
             this.tblIgnore.RowCount = 1;
             this.tblIgnore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblIgnore.Size = new System.Drawing.Size(580, 30);
+            this.tblIgnore.Size = new System.Drawing.Size(602, 30);
             this.tblIgnore.TabIndex = 7;
             // 
             // cmdUncheckAll
             // 
             this.cmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUncheckAll.Location = new System.Drawing.Point(293, 3);
+            this.cmdUncheckAll.Location = new System.Drawing.Point(304, 3);
             this.cmdUncheckAll.Name = "cmdUncheckAll";
-            this.cmdUncheckAll.Size = new System.Drawing.Size(284, 23);
+            this.cmdUncheckAll.Size = new System.Drawing.Size(295, 23);
             this.cmdUncheckAll.TabIndex = 7;
             this.cmdUncheckAll.Text = "Uncheck All";
             this.cmdUncheckAll.UseVisualStyleBackColor = true;
@@ -131,7 +135,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCheckAll.Location = new System.Drawing.Point(3, 3);
             this.cmdCheckAll.Name = "cmdCheckAll";
-            this.cmdCheckAll.Size = new System.Drawing.Size(284, 23);
+            this.cmdCheckAll.Size = new System.Drawing.Size(295, 23);
             this.cmdCheckAll.TabIndex = 6;
             this.cmdCheckAll.Text = "Check All";
             this.cmdCheckAll.UseVisualStyleBackColor = true;
@@ -145,7 +149,7 @@
             this.lstIgnore.CheckBoxes = true;
             this.lstIgnore.Location = new System.Drawing.Point(9, 130);
             this.lstIgnore.Name = "lstIgnore";
-            this.lstIgnore.Size = new System.Drawing.Size(575, 279);
+            this.lstIgnore.Size = new System.Drawing.Size(597, 243);
             this.lstIgnore.TabIndex = 3;
             this.lstIgnore.UseCompatibleStateImageBehavior = false;
             this.lstIgnore.View = System.Windows.Forms.View.List;
@@ -192,13 +196,33 @@
             this.numMaxCats.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numMaxCats.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
             // 
+            // chkTagFallback
+            // 
+            this.chkTagFallback.AutoSize = true;
+            this.chkTagFallback.Location = new System.Drawing.Point(284, 82);
+            this.chkTagFallback.Name = "chkTagFallback";
+            this.chkTagFallback.Size = new System.Drawing.Size(165, 17);
+            this.chkTagFallback.TabIndex = 12;
+            this.chkTagFallback.Text = "Use Tags if no genres are set";
+            this.chkTagFallback.UseVisualStyleBackColor = true;
+            // 
+            // helpTagFallback
+            // 
+            this.helpTagFallback.AutoSize = true;
+            this.helpTagFallback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.helpTagFallback.Location = new System.Drawing.Point(455, 82);
+            this.helpTagFallback.Name = "helpTagFallback";
+            this.helpTagFallback.Size = new System.Drawing.Size(15, 15);
+            this.helpTagFallback.TabIndex = 13;
+            this.helpTagFallback.Text = "?";
+            // 
             // AutoCatConfigPanel_Genre
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.grpMain);
             this.Name = "AutoCatConfigPanel_Genre";
-            this.Size = new System.Drawing.Size(588, 442);
+            this.Size = new System.Drawing.Size(610, 406);
             this.grpMain.ResumeLayout(false);
             this.grpMain.PerformLayout();
             this.tblIgnore.ResumeLayout(false);
@@ -222,5 +246,7 @@
         private System.Windows.Forms.CheckBox chkRemoveExisting;
         private System.Windows.Forms.Label lblMaxCats;
         private System.Windows.Forms.NumericUpDown numMaxCats;
+        private System.Windows.Forms.Label helpTagFallback;
+        private System.Windows.Forms.CheckBox chkTagFallback;
     }
 }

@@ -30,6 +30,7 @@ namespace Depressurizer {
 
             ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
             ttHelp.Ext_SetToolTip( helpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
+            ttHelp.Ext_SetToolTip( helpTagFallback, GlobalStrings.AutoCatGenrePanel_Help_TagFallback );
 
             FillGenreList();
         }
@@ -50,6 +51,7 @@ namespace Depressurizer {
             AutoCatGenre ac = autocat as AutoCatGenre;
             if( ac == null ) return;
             chkRemoveExisting.Checked = ac.RemoveOtherGenres;
+            chkTagFallback.Checked = ac.TagFallback;
             numMaxCats.Value = ac.MaxCategories;
             txtPrefix.Text = ac.Prefix;
 
@@ -64,6 +66,7 @@ namespace Depressurizer {
             ac.Prefix = txtPrefix.Text;
             ac.MaxCategories = (int)numMaxCats.Value;
             ac.RemoveOtherGenres = chkRemoveExisting.Checked;
+            ac.TagFallback = chkTagFallback.Checked;
 
             ac.IgnoredGenres.Clear();
             foreach( ListViewItem i in lstIgnore.Items ) {

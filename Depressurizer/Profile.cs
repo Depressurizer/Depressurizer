@@ -337,7 +337,7 @@ namespace Depressurizer {
         }
 
         public static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre, null, 0, false, null ) );
+            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre ) );
         }
 
         #endregion

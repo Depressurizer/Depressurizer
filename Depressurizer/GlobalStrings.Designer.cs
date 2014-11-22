@@ -106,6 +106,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If a game exists in the database but has no genres defined, look for tags that match genre names instead..
+        /// </summary>
+        internal static string AutoCatGenrePanel_Help_TagFallback {
+            get {
+                return ResourceManager.GetString("AutoCatGenrePanel_Help_TagFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Object is not a Category.
         /// </summary>
         internal static string Category_Exception_ObjectNotCategory {
