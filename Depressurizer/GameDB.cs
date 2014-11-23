@@ -45,6 +45,9 @@ namespace Depressurizer {
         public List<string> Publishers = null;
         public string SteamReleaseDate = null;
 
+        public int ReviewTotal = 0;
+        public int ReviewPositivePercentage = 0;
+
         // Metacritic:
         public string MC_Url = null;
 
@@ -65,6 +68,8 @@ namespace Depressurizer {
 
         private static Regex regRelDate = new Regex( "<b>Release Date:</b>\\s*([^<]*)<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regMetalink = new Regex( "<div id=\\\"game_area_metalink\\\">\\s*<a href=\\\"http://www.metacritic.com/game/pc/([^\\\"]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+
+        private static Regex regReviews = new Regex( @"data-store-tooltip=""([\d]+)% of the ([\d,]+) user reviews for this game are positive.""", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         #endregion
 
         #region Scraping
@@ -236,6 +241,18 @@ namespace Depressurizer {
             m = regRelDate.Match( page );
             if( m.Success ) {
                 this.SteamReleaseDate = m.Groups[1].Captures[0].Value;
+            }
+
+            // Get user review data
+            m = regReviews.Match( page );
+            if( m.Success ) {
+                int num = 0;
+                if( int.TryParse( m.Groups[1].Value, out num ) ) {
+                    this.ReviewPositivePercentage = num;
+                }
+                if( int.TryParse( m.Groups[2].Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out num ) ) {
+                    this.ReviewTotal = num;
+                }
             }
 
             m = regMetalink.Match( page );
