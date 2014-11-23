@@ -74,7 +74,14 @@ namespace Depressurizer {
             this.chkAppInfoUpdate = new System.Windows.Forms.CheckBox();
             this.lblTags = new System.Windows.Forms.Label();
             this.txtTags = new System.Windows.Forms.TextBox();
+            this.lblReviewCount = new System.Windows.Forms.Label();
+            this.lblReviewScore = new System.Windows.Forms.Label();
+            this.numReviewScore = new System.Windows.Forms.NumericUpDown();
+            this.numReviewCount = new System.Windows.Forms.NumericUpDown();
+            this.lblReviewScorePct = new System.Windows.Forms.Label();
             this.grpPlat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numReviewScore)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numReviewCount)).BeginInit();
             this.SuspendLayout();
             // 
             // lblId
@@ -257,6 +264,36 @@ namespace Depressurizer {
             resources.ApplyResources(this.txtTags, "txtTags");
             this.txtTags.Name = "txtTags";
             // 
+            // lblReviewCount
+            // 
+            resources.ApplyResources(this.lblReviewCount, "lblReviewCount");
+            this.lblReviewCount.Name = "lblReviewCount";
+            // 
+            // lblReviewScore
+            // 
+            resources.ApplyResources(this.lblReviewScore, "lblReviewScore");
+            this.lblReviewScore.Name = "lblReviewScore";
+            // 
+            // numReviewScore
+            // 
+            resources.ApplyResources(this.numReviewScore, "numReviewScore");
+            this.numReviewScore.Name = "numReviewScore";
+            // 
+            // numReviewCount
+            // 
+            resources.ApplyResources(this.numReviewCount, "numReviewCount");
+            this.numReviewCount.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.numReviewCount.Name = "numReviewCount";
+            // 
+            // lblReviewScorePct
+            // 
+            resources.ApplyResources(this.lblReviewScorePct, "lblReviewScorePct");
+            this.lblReviewScorePct.Name = "lblReviewScorePct";
+            // 
             // GameDBEntryDialog
             // 
             this.AcceptButton = this.cmdSave;
@@ -264,6 +301,11 @@ namespace Depressurizer {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ControlBox = false;
+            this.Controls.Add(this.lblReviewScorePct);
+            this.Controls.Add(this.numReviewCount);
+            this.Controls.Add(this.numReviewScore);
+            this.Controls.Add(this.lblReviewScore);
+            this.Controls.Add(this.lblReviewCount);
             this.Controls.Add(this.txtTags);
             this.Controls.Add(this.lblTags);
             this.Controls.Add(this.chkAppInfoUpdate);
@@ -299,6 +341,8 @@ namespace Depressurizer {
             this.Load += new System.EventHandler(this.GameDBEntryForm_Load);
             this.grpPlat.ResumeLayout(false);
             this.grpPlat.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numReviewScore)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numReviewCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,5 +382,10 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkAppInfoUpdate;
         private System.Windows.Forms.Label lblTags;
         private System.Windows.Forms.TextBox txtTags;
+        private System.Windows.Forms.Label lblReviewCount;
+        private System.Windows.Forms.Label lblReviewScore;
+        private System.Windows.Forms.NumericUpDown numReviewScore;
+        private System.Windows.Forms.NumericUpDown numReviewCount;
+        private System.Windows.Forms.Label lblReviewScorePct;
     }
 }

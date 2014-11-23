@@ -67,6 +67,8 @@ namespace Depressurizer {
                 if( Game.Publishers != null ) txtPub.Text = string.Join( ",", Game.Publishers );
                 if( Game.MC_Url != null ) txtMCName.Text = Game.MC_Url;
                 if( Game.SteamReleaseDate != null ) txtRelease.Text = Game.SteamReleaseDate;
+                numReviewScore.Value = Utility.Clamp( Game.ReviewPositivePercentage, (int)numReviewScore.Minimum, (int)numReviewScore.Maximum );
+                numReviewCount.Value = Utility.Clamp( Game.ReviewTotal, (int)numReviewCount.Minimum, (int)numReviewCount.Maximum );
                 chkPlatWin.Checked = Game.Platforms.HasFlag( AppPlatforms.Windows );
                 chkPlatMac.Checked = Game.Platforms.HasFlag( AppPlatforms.Mac );
                 chkPlatLinux.Checked = Game.Platforms.HasFlag( AppPlatforms.Linux );
@@ -114,6 +116,9 @@ namespace Depressurizer {
             Game.Tags = SplitAndTrim( txtTags.Text );
             Game.Developers = SplitAndTrim( txtDev.Text );
             Game.Publishers = SplitAndTrim( txtPub.Text );
+
+            Game.ReviewPositivePercentage = (int)numReviewScore.Value;
+            Game.ReviewTotal = (int)numReviewCount.Value;
 
             Game.MC_Url = txtMCName.Text;
             Game.SteamReleaseDate = txtRelease.Text;

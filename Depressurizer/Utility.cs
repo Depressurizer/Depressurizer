@@ -76,6 +76,12 @@ namespace Depressurizer {
             return b.Count - a.Count;
         }
 
+        public static T Clamp<T>( T val, T min, T max ) where T : IComparable<T> {
+            if( val.CompareTo( min ) < 0 ) return min;
+            if( val.CompareTo( max ) > 0 ) return max;
+            return val;
+        }
+
         public static void LaunchStorePage( int appId ) {
             System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, appId ) );
         }
