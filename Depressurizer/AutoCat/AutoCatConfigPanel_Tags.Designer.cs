@@ -76,7 +76,7 @@
             this.grpMain.Location = new System.Drawing.Point(0, 0);
             this.grpMain.Name = "grpMain";
             this.grpMain.Size = new System.Drawing.Size(510, 370);
-            this.grpMain.TabIndex = 1;
+            this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
             this.grpMain.Text = "Edit Tag Autocat";
             // 

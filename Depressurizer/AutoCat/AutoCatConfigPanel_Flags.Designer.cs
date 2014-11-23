@@ -48,7 +48,7 @@
             this.grpMain.Location = new System.Drawing.Point(0, 0);
             this.grpMain.Name = "grpMain";
             this.grpMain.Size = new System.Drawing.Size(576, 460);
-            this.grpMain.TabIndex = 1;
+            this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
             this.grpMain.Text = "Edit Flag Autocat";
             // 
@@ -59,7 +59,7 @@
             this.helpPrefix.Location = new System.Drawing.Point(238, 22);
             this.helpPrefix.Name = "helpPrefix";
             this.helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.helpPrefix.TabIndex = 6;
+            this.helpPrefix.TabIndex = 2;
             this.helpPrefix.Text = "?";
             // 
             // tblButtons
@@ -76,7 +76,7 @@
             this.tblButtons.RowCount = 1;
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblButtons.Size = new System.Drawing.Size(570, 30);
-            this.tblButtons.TabIndex = 4;
+            this.tblButtons.TabIndex = 5;
             // 
             // cmdCheckAll
             // 
@@ -108,7 +108,7 @@
             this.lblInclude.Location = new System.Drawing.Point(3, 69);
             this.lblInclude.Name = "lblInclude";
             this.lblInclude.Size = new System.Drawing.Size(79, 13);
-            this.lblInclude.TabIndex = 0;
+            this.lblInclude.TabIndex = 3;
             this.lblInclude.Text = "Included Flags:";
             // 
             // lstIncluded
@@ -120,7 +120,7 @@
             this.lstIncluded.Location = new System.Drawing.Point(6, 85);
             this.lstIncluded.Name = "lstIncluded";
             this.lstIncluded.Size = new System.Drawing.Size(564, 339);
-            this.lstIncluded.TabIndex = 3;
+            this.lstIncluded.TabIndex = 4;
             this.lstIncluded.UseCompatibleStateImageBehavior = false;
             this.lstIncluded.View = System.Windows.Forms.View.List;
             // 

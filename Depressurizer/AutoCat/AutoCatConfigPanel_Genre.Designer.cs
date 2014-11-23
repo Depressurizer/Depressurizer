@@ -61,7 +61,7 @@
             this.grpMain.Location = new System.Drawing.Point(0, 0);
             this.grpMain.Name = "grpMain";
             this.grpMain.Size = new System.Drawing.Size(610, 406);
-            this.grpMain.TabIndex = 1;
+            this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
             this.grpMain.Text = "Edit Genre AutoCat";
             // 
@@ -72,7 +72,7 @@
             this.helpTagFallback.Location = new System.Drawing.Point(238, 105);
             this.helpTagFallback.Name = "helpTagFallback";
             this.helpTagFallback.Size = new System.Drawing.Size(15, 15);
-            this.helpTagFallback.TabIndex = 13;
+            this.helpTagFallback.TabIndex = 8;
             this.helpTagFallback.Text = "?";
             // 
             // chkTagFallback
@@ -81,7 +81,7 @@
             this.chkTagFallback.Location = new System.Drawing.Point(46, 105);
             this.chkTagFallback.Name = "chkTagFallback";
             this.chkTagFallback.Size = new System.Drawing.Size(165, 17);
-            this.chkTagFallback.TabIndex = 12;
+            this.chkTagFallback.TabIndex = 7;
             this.chkTagFallback.Text = "Use Tags if no genres are set";
             this.chkTagFallback.UseVisualStyleBackColor = true;
             // 
@@ -92,7 +92,7 @@
             this.helpRemoveExisting.Location = new System.Drawing.Point(238, 82);
             this.helpRemoveExisting.Name = "helpRemoveExisting";
             this.helpRemoveExisting.Size = new System.Drawing.Size(15, 15);
-            this.helpRemoveExisting.TabIndex = 1;
+            this.helpRemoveExisting.TabIndex = 6;
             this.helpRemoveExisting.Text = "?";
             // 
             // helpPrefix
@@ -102,7 +102,7 @@
             this.helpPrefix.Location = new System.Drawing.Point(238, 22);
             this.helpPrefix.Name = "helpPrefix";
             this.helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.helpPrefix.TabIndex = 11;
+            this.helpPrefix.TabIndex = 2;
             this.helpPrefix.Text = "?";
             // 
             // lblPrefix
@@ -135,7 +135,7 @@
             this.tblIgnore.RowCount = 1;
             this.tblIgnore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblIgnore.Size = new System.Drawing.Size(602, 30);
-            this.tblIgnore.TabIndex = 7;
+            this.tblIgnore.TabIndex = 11;
             // 
             // cmdUncheckAll
             // 
@@ -144,7 +144,7 @@
             this.cmdUncheckAll.Location = new System.Drawing.Point(304, 3);
             this.cmdUncheckAll.Name = "cmdUncheckAll";
             this.cmdUncheckAll.Size = new System.Drawing.Size(295, 23);
-            this.cmdUncheckAll.TabIndex = 7;
+            this.cmdUncheckAll.TabIndex = 1;
             this.cmdUncheckAll.Text = "Uncheck All";
             this.cmdUncheckAll.UseVisualStyleBackColor = true;
             this.cmdUncheckAll.Click += new System.EventHandler(this.cmdUncheckAll_Click);
@@ -156,7 +156,7 @@
             this.cmdCheckAll.Location = new System.Drawing.Point(3, 3);
             this.cmdCheckAll.Name = "cmdCheckAll";
             this.cmdCheckAll.Size = new System.Drawing.Size(295, 23);
-            this.cmdCheckAll.TabIndex = 6;
+            this.cmdCheckAll.TabIndex = 0;
             this.cmdCheckAll.Text = "Check All";
             this.cmdCheckAll.UseVisualStyleBackColor = true;
             this.cmdCheckAll.Click += new System.EventHandler(this.cmdCheckAll_Click);
@@ -170,7 +170,7 @@
             this.lstIgnore.Location = new System.Drawing.Point(9, 145);
             this.lstIgnore.Name = "lstIgnore";
             this.lstIgnore.Size = new System.Drawing.Size(597, 228);
-            this.lstIgnore.TabIndex = 3;
+            this.lstIgnore.TabIndex = 10;
             this.lstIgnore.UseCompatibleStateImageBehavior = false;
             this.lstIgnore.View = System.Windows.Forms.View.List;
             // 
@@ -180,7 +180,7 @@
             this.lblIgnore.Location = new System.Drawing.Point(3, 129);
             this.lblIgnore.Name = "lblIgnore";
             this.lblIgnore.Size = new System.Drawing.Size(104, 13);
-            this.lblIgnore.TabIndex = 2;
+            this.lblIgnore.TabIndex = 9;
             this.lblIgnore.Text = "Categories to ignore:";
             // 
             // chkRemoveExisting
@@ -189,7 +189,7 @@
             this.chkRemoveExisting.Location = new System.Drawing.Point(46, 82);
             this.chkRemoveExisting.Name = "chkRemoveExisting";
             this.chkRemoveExisting.Size = new System.Drawing.Size(186, 17);
-            this.chkRemoveExisting.TabIndex = 0;
+            this.chkRemoveExisting.TabIndex = 5;
             this.chkRemoveExisting.Text = "Remove existing genre categories";
             this.chkRemoveExisting.UseVisualStyleBackColor = true;
             // 
@@ -199,7 +199,7 @@
             this.lblMaxCats.Location = new System.Drawing.Point(64, 47);
             this.lblMaxCats.Name = "lblMaxCats";
             this.lblMaxCats.Size = new System.Drawing.Size(148, 26);
-            this.lblMaxCats.TabIndex = 3;
+            this.lblMaxCats.TabIndex = 4;
             this.lblMaxCats.Text = "Maximum categories to assign\r\n(0 for unlimited)";
             // 
             // numMaxCats
@@ -212,7 +212,7 @@
             0});
             this.numMaxCats.Name = "numMaxCats";
             this.numMaxCats.Size = new System.Drawing.Size(52, 20);
-            this.numMaxCats.TabIndex = 2;
+            this.numMaxCats.TabIndex = 3;
             this.numMaxCats.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numMaxCats.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
             // 
