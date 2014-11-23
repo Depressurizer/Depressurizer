@@ -263,7 +263,7 @@ namespace Depressurizer {
         #endregion
 
         public void MergeIn( GameDBEntry other ) {
-
+            // TODO tidy this up a little
             bool otherNewerForAIFields = other.LastAppInfoUpdate > this.LastAppInfoUpdate || ( this.LastAppInfoUpdate == 0 && other.LastStoreScrape >= this.LastStoreScrape );
             bool otherNewerForOtherFields = other.LastStoreScrape >= this.LastStoreScrape;
 
@@ -307,6 +307,11 @@ namespace Depressurizer {
                 this.SteamReleaseDate = other.SteamReleaseDate;
             }
 
+            if( other.ReviewTotal != 0 && otherNewerForOtherFields ) {
+                this.ReviewTotal = other.ReviewTotal;
+                this.ReviewPositivePercentage = other.ReviewPositivePercentage;
+            }
+
             if( !string.IsNullOrEmpty( other.MC_Url ) && otherNewerForOtherFields ) {
                 this.MC_Url = other.MC_Url;
             }
@@ -344,6 +349,8 @@ namespace Depressurizer {
             XmlName_Game_Developer = "developer",
             XmlName_Game_Publisher = "publisher",
             XmlName_Game_Flag = "flag",
+            XmlName_Game_ReviewTotal = "reviewTotal",
+            XmlName_Game_ReviewPositivePercent = "reviewPositiveP",
             XmlName_Game_MCUrl = "mcUrl",
             XmlName_Game_Date = "steamDate";
 
@@ -709,6 +716,11 @@ namespace Depressurizer {
                         }
                     }
 
+                    if( g.ReviewTotal > 0 ) {
+                        writer.WriteElementString( XmlName_Game_ReviewTotal, g.ReviewTotal.ToString() );
+                        writer.WriteElementString( XmlName_Game_ReviewPositivePercent, g.ReviewPositivePercentage.ToString() );
+                    }
+
                     if( !string.IsNullOrEmpty( g.MC_Url ) ) {
                         writer.WriteElementString( XmlName_Game_MCUrl, g.MC_Url );
                     }
@@ -831,6 +843,9 @@ namespace Depressurizer {
                     }
 
                     g.Flags = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Flag ) );
+
+                    g.ReviewTotal = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_ReviewTotal], 0 );
+                    g.ReviewPositivePercentage = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_ReviewPositivePercent], 0 );
 
                     g.MC_Url = XmlUtil.GetStringFromNode( gameNode[XmlName_Game_MCUrl], null );
 
