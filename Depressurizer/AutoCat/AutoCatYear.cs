@@ -97,14 +97,12 @@ namespace Depressurizer {
             writer.WriteElementString( XmlName_Name, Name );
             writer.WriteElementString( XmlName_Prefix, Prefix );
 
-            writer.WriteEndElement(); // flag list
             writer.WriteEndElement(); // type ID string
         }
 
         public static AutoCatYear LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
-            List<string> flags = new List<string>();
 
             return new AutoCatYear( name, prefix );
         }
