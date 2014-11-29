@@ -110,12 +110,16 @@ namespace Depressurizer {
             if( Settings.Instance.UpdateAppInfoOnStart ) {
                 UpdateGameDBFromAppInfo();
             }
+
             switch( Settings.Instance.StartupAction ) {
                 case StartupAction.Load:
                     LoadProfile( Settings.Instance.ProfileToLoad, false );
                     break;
                 case StartupAction.Create:
                     CreateProfile();
+                    break;
+                default:
+                    OnProfileChange();
                     break;
             }
 
@@ -281,6 +285,7 @@ namespace Depressurizer {
             } catch( ApplicationException e ) {
                 MessageBox.Show( string.Format( GlobalStrings.MainForm_Msg_ErrorLoadingProfile, e.Message ), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 Program.Logger.WriteException( GlobalStrings.MainForm_Log_ExceptionLoadingProfile, e );
+                OnProfileChange();
                 AddStatus( GlobalStrings.MainForm_FailedLoadProfile );
                 return;
             }
@@ -301,6 +306,7 @@ namespace Depressurizer {
         /// Prompts user for a file location and saves profile
         /// </summary>
         void SaveProfileAs() {
+            if( !ProfileLoaded ) return;
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
@@ -318,6 +324,7 @@ namespace Depressurizer {
         /// <param name="path">Path to save to. If null, just saves profile to its current path.</param>
         /// <returns>True if successful, false if there is a failure</returns>
         bool SaveProfile( string path = null ) {
+            if( !ProfileLoaded ) return false;
             if( currentProfile.AutoExport ) {
                 ExportConfig();
             }
@@ -906,6 +913,7 @@ namespace Depressurizer {
         /// <summary>
         /// Does all list-updating that should be done when adding, removing, or renaming a category.
         /// </summary>
+        /// 
         private void OnCategoryChange() {
             FillAllCategoryLists();
 
@@ -949,13 +957,14 @@ namespace Depressurizer {
             SortedSet<int> selectedIds = GetSelectedGameIds();
 
             displayedGames.Clear();
-            foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
-                if( ShouldDisplayGame( g ) ) {
-                    displayedGames.Add( g );
+            if( currentProfile != null ) {
+                foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
+                    if( ShouldDisplayGame( g ) ) {
+                        displayedGames.Add( g );
+                    }
                 }
+                displayedGames.Sort( displayedGamesSorter );
             }
-            displayedGames.Sort( displayedGamesSorter );
-
             lstGames.VirtualListSize = displayedGames.Count;
             InvalidateAllListItems();
 
