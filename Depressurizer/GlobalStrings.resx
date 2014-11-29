@@ -1012,4 +1012,7 @@ If any games are marked with an X ("Excluded"), the game must not belong to any 
   <data name="AutoCatGenrePanel_Help_TagFallback" xml:space="preserve">
     <value>If a game exists in the database but has no genres defined, look for tags that match genre names instead.</value>
   </data>
+  <data name="AutoCat_Name_Year" xml:space="preserve">
+    <value>Release Year</value>
+  </data>
 </root>

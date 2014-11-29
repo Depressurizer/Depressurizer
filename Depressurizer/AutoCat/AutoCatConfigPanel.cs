@@ -20,12 +20,12 @@ using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Depressurizer {
-    [TypeDescriptionProvider(typeof(InstantiableClassProvider<AutoCatConfigPanel,UserControl>))]
-    public abstract class AutoCatConfigPanel : UserControl {
+    [TypeDescriptionProvider( typeof( InstantiableClassProvider<AutoCatConfigPanel, UserControl> ) )]
+    public class AutoCatConfigPanel : UserControl {
 
-        public abstract void SaveToAutoCat( AutoCat ac );
+        public virtual void SaveToAutoCat( AutoCat ac ) { }
 
-        public abstract void LoadFromAutoCat( AutoCat ac );
+        public virtual void LoadFromAutoCat( AutoCat ac ) { }
 
         public static AutoCatConfigPanel CreatePanel( AutoCat ac, Lib.ExtToolTip ttHelp, GameList ownedGames ) {
             AutoCatType t = ac.AutoCatType;
@@ -36,6 +36,8 @@ namespace Depressurizer {
                     return new AutoCatConfigPanel_Flags( ttHelp );
                 case AutoCatType.Tags:
                     return new AutoCatConfigPanel_Tags( ttHelp, ownedGames );
+                case AutoCatType.Year:
+                    return new AutoCatConfigPanel_Year();
                 default:
                     return null;
             }
@@ -43,7 +45,7 @@ namespace Depressurizer {
         }
     }
 
-    internal class InstantiableClassProvider<TAbstract,TInstantiable> : TypeDescriptionProvider {
+    internal class InstantiableClassProvider<TAbstract, TInstantiable> : TypeDescriptionProvider {
         public InstantiableClassProvider() : base( TypeDescriptor.GetProvider( typeof( TAbstract ) ) ) { }
 
         public override Type GetReflectionType( Type objectType, object instance ) {

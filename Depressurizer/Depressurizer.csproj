@@ -115,6 +115,12 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Tags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Year.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Year.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
+    </Compile>
     <Compile Include="AutoCat\AutoCatFlags.cs" />
     <Compile Include="AutoCat\AutoCatGenre.cs" />
     <Compile Include="AutoCat\AutoCatTags.cs" />
@@ -251,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Tags.resx">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Year.resx">
+      <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>

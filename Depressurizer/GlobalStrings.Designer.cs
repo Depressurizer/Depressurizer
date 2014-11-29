@@ -88,6 +88,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Release Year.
+        /// </summary>
+        internal static string AutoCat_Name_Year {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AutoCatGenre has no game database..
         /// </summary>
         internal static string AutoCatGenre_Exception_NoGameDB {
