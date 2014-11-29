@@ -25,12 +25,16 @@ using System.IO;
 using System.Xml;
 
 namespace Depressurizer {
+
+    enum AutoCatYear_Grouping { None, Decade, HalfDecade }
+
     class AutoCatYear : AutoCat {
         #region Properties
         // Autocat configuration properties
         public string Prefix { get; set; }
         public bool IncludeUnknown { get; set; }
         public string UnknownText { get; set; }
+        public AutoCatYear_Grouping GroupingMode { get; set; }
 
         // Meta properies
         public override AutoCatType AutoCatType {
@@ -43,16 +47,18 @@ namespace Depressurizer {
             XmlName_Name = "Name",
             XmlName_Prefix = "Prefix",
             XmlName_IncludeUnknown = "IncludeUnknown",
-            XmlName_UnknownText = "UnknownText";
+            XmlName_UnknownText = "UnknownText",
+            XmlName_GroupingMode = "GroupingMode";
 
         #endregion
 
         #region Construction
-        public AutoCatYear( string name, string prefix = null, bool includeUnknown = true, string unknownText = null )
+        public AutoCatYear( string name, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYear_Grouping groupMode = AutoCatYear_Grouping.None )
             : base( name ) {
             this.Prefix = prefix;
             this.IncludeUnknown = includeUnknown;
             this.UnknownText = unknownText;
+            this.GroupingMode = groupMode;
         }
 
         protected AutoCatYear( AutoCatYear other )
@@ -60,6 +66,7 @@ namespace Depressurizer {
             this.Prefix = other.Prefix;
             this.IncludeUnknown = other.IncludeUnknown;
             this.UnknownText = other.UnknownText;
+            this.GroupingMode = other.GroupingMode;
         }
 
         public override AutoCat Clone() {
@@ -84,18 +91,42 @@ namespace Depressurizer {
 
             if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
 
-            game.AddCategory( games.GetCategory( GetProcessedString( db.GetReleaseYear( game.Id ) ) ) );
+            int year = db.GetReleaseYear( game.Id );
+            if( year > 0 || IncludeUnknown ) {
+                game.AddCategory( games.GetCategory( GetProcessedString( year ) ) );
+            }
 
             return AutoCatResult.Success;
         }
 
-        private string GetProcessedString( string baseString ) {
-            if( baseString == null ) baseString = UnknownText;
-            if( string.IsNullOrEmpty( Prefix ) ) {
-                return baseString;
+        private string GetProcessedString( int year ) {
+            string result = string.Empty;
+            if( year <= 0 ) {
+                result = UnknownText;
             } else {
-                return Prefix + baseString;
+                switch( GroupingMode ) {
+                    case AutoCatYear_Grouping.Decade:
+                        result = GetRangeString( year, 10 );
+                        break;
+                    case AutoCatYear_Grouping.HalfDecade:
+                        result = GetRangeString( year, 5 );
+                        break;
+                    default:
+                        result = year.ToString();
+                        break;
+                }
             }
+
+            if( string.IsNullOrEmpty( Prefix ) ) {
+                return result;
+            } else {
+                return Prefix + result;
+            }
+        }
+
+        private string GetRangeString( int year, int rangeSize ) {
+            int first = year - year % rangeSize;
+            return string.Format( "{0}-{1}", first, first + rangeSize - 1 );
         }
         #endregion
 
@@ -107,6 +138,7 @@ namespace Depressurizer {
             writer.WriteElementString( XmlName_Prefix, Prefix );
             writer.WriteElementString( XmlName_IncludeUnknown, IncludeUnknown.ToString() );
             writer.WriteElementString( XmlName_UnknownText, UnknownText );
+            writer.WriteElementString( XmlName_GroupingMode, GroupingMode.ToString() );
 
             writer.WriteEndElement(); // type ID string
         }
@@ -116,8 +148,9 @@ namespace Depressurizer {
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
             bool includeUnknown = XmlUtil.GetBoolFromNode( xElement[XmlName_IncludeUnknown], true );
             string unknownText = XmlUtil.GetStringFromNode( xElement[XmlName_UnknownText], null );
+            AutoCatYear_Grouping groupMode = XmlUtil.GetEnumFromNode<AutoCatYear_Grouping>( xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None );
 
-            return new AutoCatYear( name, prefix, includeUnknown, unknownText );
+            return new AutoCatYear( name, prefix, includeUnknown, unknownText, groupMode );
         }
         #endregion
     }

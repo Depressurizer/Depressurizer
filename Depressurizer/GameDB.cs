@@ -417,18 +417,15 @@ namespace Depressurizer {
             }
         }
 
-        public string GetReleaseYear( int gameId ) {
+        public int GetReleaseYear( int gameId ) {
             if( Games.ContainsKey( gameId ) ) {
                 GameDBEntry dbEntry = Games[gameId];
                 DateTime releaseDate;
                 if( DateTime.TryParse( dbEntry.SteamReleaseDate, out releaseDate ) ) {
-                    string releaseYear = releaseDate.Year.ToString();
-                    if( !string.IsNullOrEmpty( releaseYear ) ) {
-                        return releaseYear;
-                    }
+                    return releaseDate.Year;
                 }
             }
-            return null;
+            return 0;
         }
 
         #endregion
