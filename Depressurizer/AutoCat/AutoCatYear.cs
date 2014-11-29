@@ -29,6 +29,8 @@ namespace Depressurizer {
         #region Properties
         // Autocat configuration properties
         public string Prefix { get; set; }
+        public bool IncludeUnknown { get; set; }
+        public string UnknownText { get; set; }
 
         // Meta properies
         public override AutoCatType AutoCatType {
@@ -39,19 +41,25 @@ namespace Depressurizer {
         public const string TypeIdString = "AutoCatYear";
         public const string
             XmlName_Name = "Name",
-            XmlName_Prefix = "Prefix";
+            XmlName_Prefix = "Prefix",
+            XmlName_IncludeUnknown = "IncludeUnknown",
+            XmlName_UnknownText = "UnknownText";
 
         #endregion
 
         #region Construction
-        public AutoCatYear( string name, string prefix = "" )
+        public AutoCatYear( string name, string prefix = null, bool includeUnknown = true, string unknownText = null )
             : base( name ) {
             this.Prefix = prefix;
+            this.IncludeUnknown = includeUnknown;
+            this.UnknownText = unknownText;
         }
 
         protected AutoCatYear( AutoCatYear other )
             : base( other ) {
             this.Prefix = other.Prefix;
+            this.IncludeUnknown = other.IncludeUnknown;
+            this.UnknownText = other.UnknownText;
         }
 
         public override AutoCat Clone() {
@@ -82,6 +90,7 @@ namespace Depressurizer {
         }
 
         private string GetProcessedString( string baseString ) {
+            if( baseString == null ) baseString = UnknownText;
             if( string.IsNullOrEmpty( Prefix ) ) {
                 return baseString;
             } else {
@@ -96,6 +105,8 @@ namespace Depressurizer {
 
             writer.WriteElementString( XmlName_Name, Name );
             writer.WriteElementString( XmlName_Prefix, Prefix );
+            writer.WriteElementString( XmlName_IncludeUnknown, IncludeUnknown.ToString() );
+            writer.WriteElementString( XmlName_UnknownText, UnknownText );
 
             writer.WriteEndElement(); // type ID string
         }
@@ -103,8 +114,10 @@ namespace Depressurizer {
         public static AutoCatYear LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
+            bool includeUnknown = XmlUtil.GetBoolFromNode( xElement[XmlName_IncludeUnknown], true );
+            string unknownText = XmlUtil.GetStringFromNode( xElement[XmlName_UnknownText], null );
 
-            return new AutoCatYear( name, prefix );
+            return new AutoCatYear( name, prefix, includeUnknown, unknownText );
         }
         #endregion
     }

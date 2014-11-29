@@ -21,18 +21,23 @@ namespace Depressurizer {
         public AutoCatConfigPanel_Year() {
             InitializeComponent();
             ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip( helpUnknown, GlobalStrings.AutoCatYearPanel_Help_Unknown );
         }
 
         public override void LoadFromAutoCat( AutoCat ac ) {
             AutoCatYear acYear = ac as AutoCatYear;
             if( acYear == null ) return;
-            txtPrefix.Text = acYear.Prefix;
+            txtPrefix.Text = (acYear.Prefix == null) ? string.Empty : acYear.Prefix;
+            chkIncludeUnknown.Checked = acYear.IncludeUnknown;
+            txtUnknownText.Text = ( acYear.UnknownText == null ) ? string.Empty : acYear.UnknownText;
         }
 
         public override void SaveToAutoCat( AutoCat autocat ) {
             AutoCatYear ac = autocat as AutoCatYear;
             if( ac == null ) return;
             ac.Prefix = txtPrefix.Text;
+            ac.IncludeUnknown = chkIncludeUnknown.Checked;
+            ac.UnknownText = txtUnknownText.Text;
         }
     }
 }

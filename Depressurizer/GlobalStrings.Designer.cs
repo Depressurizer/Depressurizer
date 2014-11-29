@@ -124,6 +124,16 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If checked, games with no release date will be autocategorized with the name below.
+        ///If unchecked, games with no date will be skipped..
+        /// </summary>
+        internal static string AutoCatYearPanel_Help_Unknown {
+            get {
+                return ResourceManager.GetString("AutoCatYearPanel_Help_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Object is not a Category.
         /// </summary>
         internal static string Category_Exception_ObjectNotCategory {

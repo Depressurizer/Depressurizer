@@ -28,11 +28,19 @@
             this.lblPrefix = new System.Windows.Forms.Label();
             this.txtPrefix = new System.Windows.Forms.TextBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.chkIncludeUnknown = new System.Windows.Forms.CheckBox();
+            this.lblUnknownText = new System.Windows.Forms.Label();
+            this.txtUnknownText = new System.Windows.Forms.TextBox();
+            this.helpUnknown = new System.Windows.Forms.Label();
             this.grpMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpMain
             // 
+            this.grpMain.Controls.Add(this.helpUnknown);
+            this.grpMain.Controls.Add(this.txtUnknownText);
+            this.grpMain.Controls.Add(this.lblUnknownText);
+            this.grpMain.Controls.Add(this.chkIncludeUnknown);
             this.grpMain.Controls.Add(this.helpPrefix);
             this.grpMain.Controls.Add(this.lblPrefix);
             this.grpMain.Controls.Add(this.txtPrefix);
@@ -74,6 +82,42 @@
             // 
             this.ttHelp.UseFading = false;
             // 
+            // chkIncludeUnknown
+            // 
+            this.chkIncludeUnknown.AutoSize = true;
+            this.chkIncludeUnknown.Location = new System.Drawing.Point(28, 60);
+            this.chkIncludeUnknown.Name = "chkIncludeUnknown";
+            this.chkIncludeUnknown.Size = new System.Drawing.Size(110, 17);
+            this.chkIncludeUnknown.TabIndex = 6;
+            this.chkIncludeUnknown.Text = "Include Unknown";
+            this.chkIncludeUnknown.UseVisualStyleBackColor = true;
+            // 
+            // lblUnknownText
+            // 
+            this.lblUnknownText.AutoSize = true;
+            this.lblUnknownText.Location = new System.Drawing.Point(48, 86);
+            this.lblUnknownText.Name = "lblUnknownText";
+            this.lblUnknownText.Size = new System.Drawing.Size(76, 13);
+            this.lblUnknownText.TabIndex = 7;
+            this.lblUnknownText.Text = "Unknown text:";
+            // 
+            // txtUnknownText
+            // 
+            this.txtUnknownText.Location = new System.Drawing.Point(130, 83);
+            this.txtUnknownText.Name = "txtUnknownText";
+            this.txtUnknownText.Size = new System.Drawing.Size(159, 20);
+            this.txtUnknownText.TabIndex = 8;
+            // 
+            // helpUnknown
+            // 
+            this.helpUnknown.AutoSize = true;
+            this.helpUnknown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.helpUnknown.Location = new System.Drawing.Point(144, 61);
+            this.helpUnknown.Name = "helpUnknown";
+            this.helpUnknown.Size = new System.Drawing.Size(15, 15);
+            this.helpUnknown.TabIndex = 9;
+            this.helpUnknown.Text = "?";
+            // 
             // AutoCatConfigPanel_Year
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -94,5 +138,9 @@
         private System.Windows.Forms.Label lblPrefix;
         private System.Windows.Forms.TextBox txtPrefix;
         private Lib.ExtToolTip ttHelp;
+        private System.Windows.Forms.Label helpUnknown;
+        private System.Windows.Forms.TextBox txtUnknownText;
+        private System.Windows.Forms.Label lblUnknownText;
+        private System.Windows.Forms.CheckBox chkIncludeUnknown;
     }
 }
