@@ -169,7 +169,7 @@
     <value>44, 13</value>
   </data>
   <data name="lblSearchClear.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="lblSearchClear.Text" xml:space="preserve">
     <value>Search:</value>
@@ -223,7 +223,7 @@
     <value>15, 15</value>
   </data>
   <data name="helpAdvancedCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>2</value>
   </data>
   <data name="helpAdvancedCategories.Text" xml:space="preserve">
     <value>?</value>
@@ -253,7 +253,7 @@
     <value>74, 17</value>
   </data>
   <data name="radCatAdvanced.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="radCatAdvanced.Text" xml:space="preserve">
     <value>Advanced</value>
@@ -283,7 +283,7 @@
     <value>56, 17</value>
   </data>
   <data name="radCatSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="radCatSimple.Text" xml:space="preserve">
     <value>Simple</value>
@@ -349,7 +349,7 @@
     <value>230, 352</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;lstCategories.Name" xml:space="preserve">
     <value>lstCategories</value>
@@ -469,7 +469,7 @@
     <value>236, 29</value>
   </data>
   <data name="tableCatButtons.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;tableCatButtons.Name" xml:space="preserve">
     <value>tableCatButtons</value>
@@ -493,7 +493,7 @@
     <value>239, 421</value>
   </data>
   <data name="grpCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="grpCategories.Text" xml:space="preserve">
     <value>Categories</value>
@@ -724,7 +724,7 @@
     <value>853, 341</value>
   </data>
   <data name="grpGames.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="grpGames.Text" xml:space="preserve">
     <value>Games</value>
@@ -763,7 +763,7 @@
     <value>174, 21</value>
   </data>
   <data name="cmbAutoCatType.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;cmbAutoCatType.Name" xml:space="preserve">
     <value>cmbAutoCatType</value>
@@ -790,7 +790,7 @@
     <value>60, 17</value>
   </data>
   <data name="chkHidden.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="chkHidden.Text" xml:space="preserve">
     <value>Hidden</value>
@@ -820,7 +820,7 @@
     <value>141, 23</value>
   </data>
   <data name="cmdAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>10</value>
   </data>
   <data name="cmdAddCatAndAssign.Text" xml:space="preserve">
     <value>Add Category and Assign</value>
@@ -847,7 +847,7 @@
     <value>174, 23</value>
   </data>
   <data name="cmdAutoCat.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="cmdAutoCat.Text" xml:space="preserve">
     <value>Auto-Categorize</value>
@@ -874,7 +874,7 @@
     <value>425, 20</value>
   </data>
   <data name="txtAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;txtAddCatAndAssign.Name" xml:space="preserve">
     <value>txtAddCatAndAssign</value>
@@ -901,7 +901,7 @@
     <value>64, 17</value>
   </data>
   <data name="chkFavorite.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="chkFavorite.Text" xml:space="preserve">
     <value>Favorite</value>
@@ -935,7 +935,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAARgBAgEYAQIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAASABAgEgAQIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -974,7 +974,7 @@
 </value>
   </data>
   <data name="lstMultiCat.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;lstMultiCat.Name" xml:space="preserve">
     <value>lstMultiCat</value>
@@ -1001,7 +1001,7 @@
     <value>86, 23</value>
   </data>
   <data name="cmdGameRemove.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>3</value>
   </data>
   <data name="cmdGameRemove.Text" xml:space="preserve">
     <value>Remove Game</value>
@@ -1031,7 +1031,7 @@
     <value>86, 23</value>
   </data>
   <data name="cmdGameAdd.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>2</value>
   </data>
   <data name="cmdGameAdd.Text" xml:space="preserve">
     <value>Add Game</value>
@@ -1061,7 +1061,7 @@
     <value>86, 23</value>
   </data>
   <data name="cmdGameEdit.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>1</value>
   </data>
   <data name="cmdGameEdit.Text" xml:space="preserve">
     <value>Edit Game</value>
@@ -1088,7 +1088,7 @@
     <value>86, 23</value>
   </data>
   <data name="cmdGameLaunch.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>0</value>
   </data>
   <data name="cmdGameLaunch.Text" xml:space="preserve">
     <value>Start Game</value>
@@ -1127,7 +1127,7 @@
     <value>341</value>
   </data>
   <data name="splitGame.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;splitGame.Name" xml:space="preserve">
     <value>splitGame</value>
@@ -1163,7 +1163,7 @@
     <value>239</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;splitContainer.Name" xml:space="preserve">
     <value>splitContainer</value>
@@ -1185,7 +1185,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAYABAAGAAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAYgBAAGIAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1440,7 +1440,7 @@
     <value>1096, 24</value>
   </data>
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
     <value>menuStrip</value>
