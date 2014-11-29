@@ -118,6 +118,7 @@
     <Compile Include="AutoCat\AutoCatFlags.cs" />
     <Compile Include="AutoCat\AutoCatGenre.cs" />
     <Compile Include="AutoCat\AutoCatTags.cs" />
+    <Compile Include="AutoCat\AutoCatYear.cs" />
     <Compile Include="DlgAutoCat.cs">
       <SubType>Form</SubType>
     </Compile>

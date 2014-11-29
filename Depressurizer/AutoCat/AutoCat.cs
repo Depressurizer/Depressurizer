@@ -21,8 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
-/*
- * ADDING NEW AUTOCAT METHODS
+/* ADDING NEW AUTOCAT METHODS
  * 
  * Here is a list of everything you need to do to add an additional autocat method.
  * 
@@ -64,7 +63,8 @@ namespace Depressurizer {
         None,
         Genre,
         Flags,
-        Tags
+        Tags,
+        Year
     }
 
     public enum AutoCatResult {
@@ -160,6 +160,9 @@ namespace Depressurizer {
                 case AutoCatTags.TypeIdString:
                     result = AutoCatTags.LoadFromXmlElement( xElement );
                     break;
+                case AutoCatYear.TypeIdString:
+                    result = AutoCatYear.LoadFromXmlElement( xElement );
+                    break;
                 default:
                     break;
             }
@@ -174,6 +177,8 @@ namespace Depressurizer {
                     return new AutoCatFlags( name );
                 case AutoCatType.Tags:
                     return new AutoCatTags( name );
+                case AutoCatType.Year:
+                    return new AutoCatYear( name );
                 default:
                     return null;
             }
