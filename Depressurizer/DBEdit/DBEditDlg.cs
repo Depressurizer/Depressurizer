@@ -572,6 +572,14 @@ namespace Depressurizer {
             }
         }
 
+        private void lstGames_DoubleClick( object sender, EventArgs e ) {
+            if( lstGames.SelectedIndices.Count > 0 ) {
+                ClearStatusMsg();
+                EditSelectedGame();
+                FlushStatusMsg();
+            }
+        }
+
         private void lstGames_SelectedIndexChanged( object sender, EventArgs e ) {
             UpdateStatusCount();
         }
