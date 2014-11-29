@@ -56,7 +56,7 @@ namespace Depressurizer {
             }
 
             if( current != null ) {
-                currentConfigPanel = AutoCatConfigPanel.CreatePanel( current, ttHelp, ownedGames );
+                currentConfigPanel = AutoCatConfigPanel.CreatePanel( current, ownedGames );
             }
    
             if( currentConfigPanel != null ) {

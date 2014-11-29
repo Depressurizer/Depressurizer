@@ -27,15 +27,15 @@ namespace Depressurizer {
 
         public virtual void LoadFromAutoCat( AutoCat ac ) { }
 
-        public static AutoCatConfigPanel CreatePanel( AutoCat ac, Lib.ExtToolTip ttHelp, GameList ownedGames ) {
+        public static AutoCatConfigPanel CreatePanel( AutoCat ac, GameList ownedGames ) {
             AutoCatType t = ac.AutoCatType;
             switch( t ) {
                 case AutoCatType.Genre:
-                    return new AutoCatConfigPanel_Genre( ttHelp );
+                    return new AutoCatConfigPanel_Genre();
                 case AutoCatType.Flags:
-                    return new AutoCatConfigPanel_Flags( ttHelp );
+                    return new AutoCatConfigPanel_Flags();
                 case AutoCatType.Tags:
-                    return new AutoCatConfigPanel_Tags( ttHelp, ownedGames );
+                    return new AutoCatConfigPanel_Tags( ownedGames );
                 case AutoCatType.Year:
                     return new AutoCatConfigPanel_Year();
                 default:

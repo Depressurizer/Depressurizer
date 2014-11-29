@@ -51,6 +51,7 @@
             this.lblPrefix = new System.Windows.Forms.Label();
             this.txtPrefix = new System.Windows.Forms.TextBox();
             this.lstIncluded = new System.Windows.Forms.ListView();
+            this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpMain.SuspendLayout();
             this.grpListOpts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.list_numWeightFactor)).BeginInit();
@@ -438,5 +439,6 @@
         private System.Windows.Forms.Label lblPrefix;
         private System.Windows.Forms.TextBox txtPrefix;
         private System.Windows.Forms.ListView lstIncluded;
+        private Lib.ExtToolTip ttHelp;
     }
 }

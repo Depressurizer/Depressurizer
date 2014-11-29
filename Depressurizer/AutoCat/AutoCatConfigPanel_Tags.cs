@@ -25,10 +25,7 @@ namespace Depressurizer {
         //TODO: Make sure this gets set
         private GameList ownedGames = null;
 
-        private Lib.ExtToolTip ttHelp;
-
-        public AutoCatConfigPanel_Tags( Lib.ExtToolTip ttHelp, GameList ownedGames ) {
-            this.ttHelp = ttHelp;
+        public AutoCatConfigPanel_Tags(GameList ownedGames ) {
             this.ownedGames = ownedGames;
 
             InitializeComponent();

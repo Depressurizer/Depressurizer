@@ -22,10 +22,7 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class AutoCatConfigPanel_Flags : AutoCatConfigPanel {
 
-        private Lib.ExtToolTip ttHelp;
-
-        public AutoCatConfigPanel_Flags(Lib.ExtToolTip ttHelp) {
-            this.ttHelp = ttHelp;
+        public AutoCatConfigPanel_Flags() {
             InitializeComponent();
 
             ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );

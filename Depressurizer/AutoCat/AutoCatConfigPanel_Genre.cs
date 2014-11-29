@@ -21,10 +21,7 @@ using System.Windows.Forms;
 
 namespace Depressurizer {
     public partial class AutoCatConfigPanel_Genre : AutoCatConfigPanel {
-        private Lib.ExtToolTip ttHelp;
-        
-        public AutoCatConfigPanel_Genre(Lib.ExtToolTip ttHelp) {
-            this.ttHelp = ttHelp;
+        public AutoCatConfigPanel_Genre() {
             
             InitializeComponent();
 

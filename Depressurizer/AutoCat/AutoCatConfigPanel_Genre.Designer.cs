@@ -38,6 +38,7 @@
             this.chkRemoveExisting = new System.Windows.Forms.CheckBox();
             this.lblMaxCats = new System.Windows.Forms.Label();
             this.numMaxCats = new System.Windows.Forms.NumericUpDown();
+            this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpMain.SuspendLayout();
             this.tblIgnore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxCats)).BeginInit();
@@ -248,5 +249,6 @@
         private System.Windows.Forms.NumericUpDown numMaxCats;
         private System.Windows.Forms.Label helpTagFallback;
         private System.Windows.Forms.CheckBox chkTagFallback;
+        private Lib.ExtToolTip ttHelp;
     }
 }

@@ -31,7 +31,6 @@
             this.cmdSave = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -142,10 +141,6 @@
             this.splitContainer.SplitterDistance = 184;
             this.splitContainer.TabIndex = 7;
             // 
-            // ttHelp
-            // 
-            this.ttHelp.UseFading = false;
-            // 
             // DlgAutoCat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,6 +174,5 @@
         private System.Windows.Forms.Button cmdSave;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.SplitContainer splitContainer;
-        private Lib.ExtToolTip ttHelp;
     }
 }
