@@ -1755,8 +1755,9 @@ namespace Depressurizer {
                     if( AdvancedCategoryFilter ) {
                         bool reverse = Control.ModifierKeys == Keys.Shift;
                         foreach( ListViewItem i in lstCategories.SelectedItems ) {
-                            HandleAdvancedCategoryItemActivation( i, reverse );
+                            HandleAdvancedCategoryItemActivation( i, reverse, false );
                         }
+                        OnViewChange();
                     }
                     break;
             }
@@ -1780,7 +1781,7 @@ namespace Depressurizer {
             lstCategories.Columns[0].Width = lstCategories.DisplayRectangle.Width;
         }
 
-        private void HandleAdvancedCategoryItemActivation( ListViewItem i, bool reverse ) {
+        private void HandleAdvancedCategoryItemActivation( ListViewItem i, bool reverse, bool updateView = true ) {
             if( i.StateImageIndex == -1 && reverse ) {
                 i.StateImageIndex = 2;
             } else if( i.StateImageIndex == 2 && !reverse ) {
@@ -1788,7 +1789,7 @@ namespace Depressurizer {
             } else {
                 i.StateImageIndex += reverse ? -1 : 1;
             }
-            OnViewChange();
+            if( updateView ) OnViewChange();
         }
 
         private void lstGames_RetrieveVirtualItem( object sender, RetrieveVirtualItemEventArgs e ) {
