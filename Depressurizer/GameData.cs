@@ -130,31 +130,15 @@ namespace Depressurizer {
 
         /// <summary>
         /// Removes all categories from this game.
+        /// <param name="alsoClearFavorite">If true, removes the favorite category as well.</param>
         /// </summary>
-        public void ClearCategories() {
-            Categories.Clear();
-        }
-
-        /// <summary>
-        /// Remove all categories attached to this game except for the specified list
-        /// </summary>
-        /// <param name="exceptions">List of categories to leave in place</param>
-        public void ClearCategoriesExcept( ICollection<Category> exceptions ) {
-            Categories.IntersectWith( exceptions );
-        }
-
-        /// <summary>
-        /// Remove all categories attached to this game except for the specified one
-        /// </summary>
-        /// <param name="c">Category to leave in place</param>
-        public void ClearCategoriesExcept( Category c ) {
-            bool restore = false;
-            if( Categories.Contains( c ) ) {
-                restore = true;
-            }
-            Categories.Clear();
-            if( restore ) {
-                Categories.Add( c );
+        public void ClearCategories( bool alsoClearFavorite = false ) {
+            if( alsoClearFavorite ) {
+                Categories.Clear();
+            } else {
+                bool restore = IsFavorite();
+                Categories.Clear();
+                if( restore ) Categories.Add( FavoriteCategory );
             }
         }
 
@@ -162,9 +146,17 @@ namespace Depressurizer {
         /// Sets the categories for this game to exactly match the given list. Missing categories will be added and extra ones will be removed.
         /// </summary>
         /// <param name="cats">Set of categories to apply to this game</param>
-        public void SetCategories( ICollection<Category> cats ) {
-            ClearCategories();
+        public void SetCategories( ICollection<Category> cats, bool preserveFavorite ) {
+            ClearCategories( alsoClearFavorite: !preserveFavorite );
             AddCategory( cats );
+        }
+
+        public void SetFavorite( bool fav ) {
+            if( fav ) {
+                AddCategory( FavoriteCategory );
+            } else {
+                RemoveCategory( FavoriteCategory );
+            }
         }
         #endregion
 
@@ -225,6 +217,7 @@ namespace Depressurizer {
         public bool IsFavorite() {
             return ContainsCategory( FavoriteCategory );
         }
+
         #endregion
     }
 
@@ -438,10 +431,7 @@ namespace Depressurizer {
         /// <param name="catSet">Set of categories to apply</param>
         /// <param name="preserveFavorites">If true, will not remove "favorite" category</param>
         public void SetGameCategories( int gameID, ICollection<Category> catSet, bool preserveFavorites ) {
-            GameInfo g = Games[gameID];
-            bool reAddFav = preserveFavorites && g.ContainsCategory( favoriteCategory );
-            g.SetCategories( catSet );
-            if( reAddFav ) g.AddCategory( favoriteCategory );
+            Games[gameID].SetCategories( catSet, preserveFavorites );
         }
 
         /// <summary>
@@ -541,10 +531,7 @@ namespace Depressurizer {
         }
 
         public void ClearGameCategories( int gameID, bool preserveFavorite ) {
-            GameInfo g = Games[gameID];
-            bool addFav = preserveFavorite && g.ContainsCategory( FavoriteCategory );
-            g.ClearCategories();
-            if( addFav ) g.AddCategory( FavoriteCategory );
+            Games[gameID].ClearCategories( alsoClearFavorite: !preserveFavorite );
         }
 
         public void ClearGameCategories( int[] gameIDs, bool preserveFavorite ) {

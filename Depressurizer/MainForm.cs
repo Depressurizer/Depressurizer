@@ -674,7 +674,7 @@ namespace Depressurizer {
                     GameInfo g = displayedGames[index];
                     if( g != null ) {
                         if( forceClearOthers || Settings.Instance.SingleCatMode ) {
-                            g.ClearCategoriesExcept( currentProfile.GameData.FavoriteCategory );
+                            g.ClearCategories( alsoClearFavorite: false );
                             if( cat != null ) {
                                 g.AddCategory( cat );
                             }
@@ -711,11 +711,7 @@ namespace Depressurizer {
             if( lstGames.SelectedIndices.Count > 0 ) {
                 foreach( int index in lstGames.SelectedIndices ) {
                     GameInfo g = displayedGames[index];
-                    if( fav ) {
-                        g.AddCategory( currentProfile.GameData.FavoriteCategory );
-                    } else {
-                        g.RemoveCategory( currentProfile.GameData.FavoriteCategory );
-                    }
+                    g.SetFavorite( fav );
                 }
                 OnGameChange( false );
                 MakeChange( true );
@@ -1132,11 +1128,11 @@ namespace Depressurizer {
         void AddGameToCheckboxStates( GameInfo game, bool first ) {
             ignoreCheckChanges = true;
             if( first ) {
-                chkFavorite.CheckState = game.ContainsCategory( currentProfile.GameData.FavoriteCategory ) ? CheckState.Checked : CheckState.Unchecked;
+                chkFavorite.CheckState = game.IsFavorite() ? CheckState.Checked : CheckState.Unchecked;
                 chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
             } else {
                 if( chkFavorite.CheckState != CheckState.Indeterminate ) {
-                    if( game.ContainsCategory( currentProfile.GameData.FavoriteCategory ) ) {
+                    if( game.IsFavorite() ) {
                         if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
                     } else {
                         if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
