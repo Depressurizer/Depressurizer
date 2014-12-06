@@ -1003,8 +1003,8 @@ namespace Depressurizer {
             ListViewItem item = new ListViewItem( new string[] {
                 ( g.Id < 0 ) ? GlobalStrings.MainForm_External : g.Id.ToString(),
                 g.Name,
-                g.GetCatStringExcept( currentProfile.GameData.FavoriteCategory, GlobalStrings.MainForm_Uncategorized ),
-                g.ContainsCategory( currentProfile.GameData.FavoriteCategory ) ? "X" : String.Empty,
+                g.GetCatString( GlobalStrings.MainForm_Uncategorized ),
+                g.IsFavorite() ? "X" : String.Empty,
                 g.Hidden ? "X" : String.Empty
             } );
 
@@ -1265,7 +1265,6 @@ namespace Depressurizer {
         }
 
         void UpdateEnabledStatesForCategories() {
-            bool catSelected = false;
             Category c = null;
             foreach( ListViewItem item in lstCategories.SelectedItems ) {
                 c = item.Tag as Category;
@@ -2032,7 +2031,7 @@ namespace Depressurizer {
                         return true;
                     }
                     if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_Uncategorized ) {
-                        return !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory );
+                        return !g.HasCategories();
                     }
                 }
 
@@ -2042,7 +2041,7 @@ namespace Depressurizer {
 
         bool ShouldDisplayGameAdvanced( GameInfo g ) {
             bool isCategorized = false;
-            if( advFilterUncatState != AdvancedFilterState.None ) isCategorized = g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory );
+            if( advFilterUncatState != AdvancedFilterState.None ) isCategorized = g.HasCategories();
 
             if( advFilterUncatState == AdvancedFilterState.Allow || advFilterAllow.Count > 0 ) {
                 if( !( advFilterUncatState == AdvancedFilterState.Allow && !isCategorized ) ) {

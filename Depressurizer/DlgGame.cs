@@ -41,7 +41,7 @@ namespace Depressurizer {
                 Text = GlobalStrings.DlgGame_EditGame;
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
-                txtCategory.Text = Game.GetCatStringExcept( Data.FavoriteCategory );
+                txtCategory.Text = Game.GetCatString();
                 chkFavorite.Checked = Game.ContainsCategory( Data.FavoriteCategory );
                 chkHidden.Checked = Game.Hidden;
                 txtId.ReadOnly = true;
@@ -69,7 +69,7 @@ namespace Depressurizer {
                     MessageBox.Show( GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                     return;
                 } else {
-                    Game = new GameInfo( id, txtName.Text );
+                    Game = new GameInfo( id, txtName.Text, Data );
                     Game.ApplySource( GameListingSource.Manual );
                     Data.Games.Add( id, Game );
                 }

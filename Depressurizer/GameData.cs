@@ -1,4 +1,5 @@
-﻿/*
+﻿using Rallion;
+/*
 This file is part of Depressurizer.
 Copyright 2011, 2012, 2013 Steve Labbe.
 
@@ -16,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -24,7 +24,6 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Rallion;
 
 namespace Depressurizer {
 
@@ -48,6 +47,7 @@ namespace Depressurizer {
         #region Fields
         public string Name;
         public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
+        public GameList GameList;
 
         public bool Hidden;
 
@@ -69,6 +69,13 @@ namespace Depressurizer {
                 _launchStr = value;
             }
         }
+
+        public Category FavoriteCategory {
+            get {
+                if( this.GameList == null ) return null;
+                return GameList.FavoriteCategory;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -76,11 +83,12 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="id">ID of the new game. Positive means it's the game's Steam ID, negative means it's a non-steam game.</param>
         /// <param name="name">Game title</param>
-        public GameInfo( int id, string name ) {
+        public GameInfo( int id, string name, GameList list ) {
             Id = id;
             Name = name;
             Hidden = false;
             Categories = new SortedSet<Category>();
+            this.GameList = list;
         }
 
         public void ApplySource( GameListingSource src ) {
@@ -171,22 +179,13 @@ namespace Depressurizer {
         }
 
         /// <summary>
-        /// Check to see if the game has any categories at all
+        /// Check to see if the game has any categories at all (except the Favorite category)
         /// </summary>
+        /// <param name="includeFavorite">If true, will only return true if the game is not in the favorite category. If false, the favorite category is ignored.</param>
         /// <returns>True if the category set is not empty</returns>
-        public bool HasCategories() {
-            return Categories.Count > 0;
-        }
-
-        /// <summary>
-        /// Check to see if the game has any categories at all, besides the given category
-        /// </summary>
-        /// <param name="c">Category to except from the check</param>
-        /// <returns>True if the game has any categories set besides c</returns>
-        public bool HasCategoriesExcept( Category c ) {
+        public bool HasCategories( bool includeFavorite = false ) {
             if( Categories.Count == 0 ) return false;
-            if( Categories.Count == 1 && Categories.Contains( c ) ) return false;
-            return true;
+            return !( !includeFavorite && Categories.Count == 1 && Categories.Contains( FavoriteCategory ) );
         }
 
         /// <summary>
@@ -206,31 +205,13 @@ namespace Depressurizer {
         /// Gets a string listing the game's assigned categories.
         /// </summary>
         /// <param name="ifEmpty">Value to return if there are no categories</param>
+        /// <param name="includeFavorite">If true, include the favorite category.</param>
         /// <returns>List of the game's categories, separated by commas.</returns>
-        public string GetCatString( string ifEmpty = "" ) {
+        public string GetCatString( string ifEmpty = "", bool includeFavorite = false ) {
             string result = "";
             bool first = true;
             foreach( Category c in Categories ) {
-                if( first ) {
-                    result += ", ";
-                }
-                result += c.Name;
-                first = false;
-            }
-            return first ? ifEmpty : result;
-        }
-
-        /// <summary>
-        /// Gets a string listing the game's assigned categories, omitting the given category from the list if it is found.
-        /// </summary>
-        /// <param name="except">Category to omit</param>
-        /// <param name="ifEmpty">Value to return if there are no categories</param>
-        /// <returns>List of the game's categories, separated by commas.</returns>
-        public string GetCatStringExcept( Category except, string ifEmpty = "" ) {
-            string result = "";
-            bool first = true;
-            foreach( Category c in Categories ) {
-                if( c != except ) {
+                if( includeFavorite || c != FavoriteCategory ) {
                     if( !first ) {
                         result += ", ";
                     }
@@ -239,6 +220,10 @@ namespace Depressurizer {
                 }
             }
             return first ? ifEmpty : result;
+        }
+
+        public bool IsFavorite() {
+            return ContainsCategory( FavoriteCategory );
         }
         #endregion
     }
@@ -823,7 +808,7 @@ namespace Depressurizer {
 
                             // Add the game to the list if it doesn't exist already
                             if( !Games.ContainsKey( gameId ) ) {
-                                game = new GameInfo( gameId, Program.GameDB.GetName( gameId ) );
+                                game = new GameInfo( gameId, Program.GameDB.GetName( gameId ), this );
                                 Games.Add( gameId, game );
                                 Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId, game.Name );
                             } else {
@@ -883,7 +868,7 @@ namespace Depressurizer {
 
             GameInfo result = null;
             if( !Games.ContainsKey( appId ) ) {
-                result = new GameInfo( appId, appName );
+                result = new GameInfo( appId, appName, this );
                 Games.Add( appId, result );
                 isNew = true;
             } else {
@@ -1320,7 +1305,7 @@ namespace Depressurizer {
             }
 
             //Create the new GameInfo
-            GameInfo game = new GameInfo( newId, gameName );
+            GameInfo game = new GameInfo( newId, gameName, this );
             Games.Add( newId, game );
 
             // Fill in the LaunchString
@@ -1362,7 +1347,6 @@ namespace Depressurizer {
 
         public SortModes SortMode;
         public int SortDirection;
-        public Category FavoriteCategory;
 
         public void SetSortMode( SortModes mode, int forceDir = 0 ) {
             if( mode == SortMode ) {
@@ -1383,11 +1367,10 @@ namespace Depressurizer {
                     res = string.Compare( a.Name, b.Name );
                     break;
                 case SortModes.Cats:
-                    res = string.Compare( a.GetCatStringExcept( FavoriteCategory ), b.GetCatStringExcept( FavoriteCategory ) );
+                    res = string.Compare( a.GetCatString(), b.GetCatString() );
                     break;
                 case SortModes.Favorite:
-                    if( FavoriteCategory == null ) return 0;
-                    res = ( a.ContainsCategory( FavoriteCategory ) ? 1 : 0 ) - ( b.ContainsCategory( FavoriteCategory ) ? 1 : 0 );
+                    res = ( a.IsFavorite() ? 1 : 0 ) - ( b.IsFavorite() ? 1 : 0 );
                     break;
                 case SortModes.Hidden:
                     res = ( a.Hidden ? 1 : 0 ) - ( b.Hidden ? 1 : 0 );

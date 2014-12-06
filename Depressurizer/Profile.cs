@@ -221,7 +221,7 @@ namespace Depressurizer {
                 }
 
                 string name = XmlUtil.GetStringFromNode( node[XmlName_Game_Name], null );
-                GameInfo game = new GameInfo( id, name );
+                GameInfo game = new GameInfo( id, name, profile.GameData );
                 game.Source = source;
                 profile.GameData.Games.Add( id, game );
 
