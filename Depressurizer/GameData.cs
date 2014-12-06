@@ -258,6 +258,8 @@ namespace Depressurizer {
     /// </summary>
     public class GameList {
         #region Fields
+        const string FAVORITE_CONFIG_VALUE = "favorite";
+
         public Dictionary<int, GameInfo> Games;
         public List<Category> Categories;
 
@@ -272,7 +274,7 @@ namespace Depressurizer {
         public GameList() {
             Games = new Dictionary<int, GameInfo>();
             Categories = new List<Category>();
-            favoriteCategory = new Category( "favorite" );
+            favoriteCategory = new Category( FAVORITE_CONFIG_VALUE );
             Categories.Add( favoriteCategory );
         }
 

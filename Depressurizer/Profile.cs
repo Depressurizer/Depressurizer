@@ -233,7 +233,7 @@ namespace Depressurizer {
                         game.AddCategory( profile.GameData.GetCategory( catName ) );
                     }
                     if( ( node.SelectSingleNode( XmlName_Old_Game_Favorite ) != null ) ) {
-                        game.AddCategory( profile.GameData.FavoriteCategory );
+                        game.SetFavorite( true );
                     }
                 } else {
                     XmlNode catListNode = node.SelectSingleNode( XmlName_Game_CategoryList );

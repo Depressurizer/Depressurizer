@@ -42,7 +42,7 @@ namespace Depressurizer {
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
                 txtCategory.Text = Game.GetCatString();
-                chkFavorite.Checked = Game.ContainsCategory( Data.FavoriteCategory );
+                chkFavorite.Checked = Game.IsFavorite();
                 chkHidden.Checked = Game.Hidden;
                 txtId.ReadOnly = true;
 
@@ -75,11 +75,8 @@ namespace Depressurizer {
                 }
             }
 
-            if( chkFavorite.Checked ) {
-                Game.AddCategory( Data.FavoriteCategory );
-            } else {
-                Game.RemoveCategory( Data.FavoriteCategory );
-            }
+            Game.SetFavorite( chkFavorite.Checked );
+
             Game.Hidden = chkHidden.Checked;
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
