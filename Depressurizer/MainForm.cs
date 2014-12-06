@@ -27,8 +27,20 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace Depressurizer {
+
+    public enum AdvancedFilterState {
+        None = -1,
+        Allow = 0,
+        Require = 1,
+        Exclude = 2
+    }
+
     public partial class FormMain : Form {
         #region Fields
+
+        #region Constants
+        const int MAX_FILTER_STATE = 2;
+        #endregion
 
         Profile currentProfile;
 
@@ -40,13 +52,19 @@ namespace Depressurizer {
         bool isDragging;
         int dragOldCat;
 
-        object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
         bool ignoreCheckChanges = false;
-
-        string lastFilterString = "";
 
         // Used to reload resources of main form while switching language
         private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary;
+
+        #region Filter caching fields
+        object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
+        string lastFilterString = "";
+        SortedSet<Category> advFilterAllow = new SortedSet<Category>(),
+            advFilterRequire = new SortedSet<Category>(),
+            advFilterExclude = new SortedSet<Category>();
+        AdvancedFilterState advFilterUncatState = AdvancedFilterState.None;
+        #endregion
 
         #region VirtualMode List Backing and Sorting Fields
         private List<GameInfo> displayedGames = new List<GameInfo>();
@@ -1272,6 +1290,20 @@ namespace Depressurizer {
         }
 
         #endregion
+
+        private void SetAdvancedMode( bool enabled ) {
+            if( enabled ) {
+                lstCategories.StateImageList = imglistFilter;
+                advFilterAllow.Clear();
+                advFilterExclude.Clear();
+                advFilterRequire.Clear();
+                advFilterUncatState = AdvancedFilterState.None;
+            } else {
+                lstCategories.StateImageList = null;
+            }
+            FillAllCategoryLists();
+            OnViewChange();
+        }
         #endregion
 
         #region UI Event Handlers
@@ -1782,13 +1814,46 @@ namespace Depressurizer {
         }
 
         private void HandleAdvancedCategoryItemActivation( ListViewItem i, bool reverse, bool updateView = true ) {
+            int oldState = i.StateImageIndex;
+
             if( i.StateImageIndex == -1 && reverse ) {
-                i.StateImageIndex = 2;
-            } else if( i.StateImageIndex == 2 && !reverse ) {
+                i.StateImageIndex = MAX_FILTER_STATE;
+            } else if( i.StateImageIndex == MAX_FILTER_STATE && !reverse ) {
                 i.StateImageIndex = -1;
             } else {
                 i.StateImageIndex += reverse ? -1 : 1;
             }
+
+            Category c = i.Tag as Category;
+
+            if( c == null ) {
+                advFilterUncatState = (AdvancedFilterState)i.StateImageIndex;
+            } else {
+                switch( oldState ) {
+                    case (int)AdvancedFilterState.Allow:
+                        advFilterAllow.Remove( c );
+                        break;
+                    case (int)AdvancedFilterState.Require:
+                        advFilterRequire.Remove( c );
+                        break;
+                    case (int)AdvancedFilterState.Exclude:
+                        advFilterExclude.Remove( c );
+                        break;
+                }
+
+                switch( i.StateImageIndex ) {
+                    case (int)AdvancedFilterState.Allow:
+                        advFilterAllow.Add( c );
+                        break;
+                    case (int)AdvancedFilterState.Require:
+                        advFilterRequire.Add( c );
+                        break;
+                    case (int)AdvancedFilterState.Exclude:
+                        advFilterExclude.Add( c );
+                        break;
+                }
+            }
+
             if( updateView ) OnViewChange();
         }
 
@@ -1877,13 +1942,7 @@ namespace Depressurizer {
         private void radCatMode_CheckedChanged( object sender, EventArgs e ) {
             RadioButton snd = sender as RadioButton;
             if( snd != null && snd.Checked ) {
-                if( snd == radCatSimple ) {
-                    lstCategories.StateImageList = null;
-                } else {
-                    lstCategories.StateImageList = imglistFilter;
-                }
-                FillAllCategoryLists();
-                OnViewChange();
+                SetAdvancedMode( snd == radCatAdvanced );
             }
         }
 
@@ -1982,43 +2041,22 @@ namespace Depressurizer {
         }
 
         bool ShouldDisplayGameAdvanced( GameInfo g ) {
-            bool isAny = false, matchAny = false;
+            bool isCategorized = false;
+            if( advFilterUncatState != AdvancedFilterState.None ) isCategorized = g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory );
 
-
-
-            foreach( ListViewItem catItem in lstCategories.Items ) {
-                Category c = catItem.Tag as Category;
-
-                if( c != null ) {
-                    switch( catItem.StateImageIndex ) {
-                        case 0:
-                            isAny = true;
-                            if( g.ContainsCategory( c ) ) matchAny = true;
-                            break;
-                        case 1:
-                            if( !g.ContainsCategory( c ) ) return false;
-                            break;
-                        case 2:
-                            if( g.ContainsCategory( c ) ) return false;
-                            break;
-                    }
-                } else if( catItem.Text == GlobalStrings.MainForm_Uncategorized ) {
-                    switch( catItem.StateImageIndex ) {
-                        case 0:
-                            isAny = true;
-                            if( !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory ) ) matchAny = true;
-                            break;
-                        case 1:
-                            if( g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory ) ) return false;
-                            break;
-                        case 2:
-                            if( !g.HasCategoriesExcept( currentProfile.GameData.FavoriteCategory ) ) return false;
-                            break;
-                    }
+            if( advFilterUncatState == AdvancedFilterState.Allow || advFilterAllow.Count > 0 ) {
+                if( !( advFilterUncatState == AdvancedFilterState.Allow && !isCategorized ) ) {
+                    if( !g.Categories.Overlaps( advFilterAllow ) ) return false;
                 }
             }
 
-            return ( !isAny || matchAny );
+            if( advFilterUncatState == AdvancedFilterState.Require && isCategorized ) return false;
+            if( !g.Categories.IsSupersetOf( advFilterRequire ) ) return false;
+
+            if( advFilterUncatState == AdvancedFilterState.Exclude && !isCategorized ) return false;
+            if( g.Categories.Overlaps( advFilterExclude ) ) return false;
+
+            return true;
         }
 
         /// <summary>
