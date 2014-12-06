@@ -1168,23 +1168,6 @@ namespace Depressurizer {
             return !ShouldDisplayGame( g );
         }
 
-        /*
-         TODO: Remove this
-        /// <summary>
-        /// Updates the list item for every selected item on the list.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
-        /// </summary>
-        void UpdateGameListSelected() {
-            int i = 0;
-            lstGames.BeginUpdate();
-            while( i < lstGames.SelectedIndices.Count ) {
-                if( UpdateGame( lstGames.SelectedIndices[i] ) ) i++;
-            }
-            lstGames.EndUpdate();
-            UpdateSelectedStatusText();
-        }
-        */
-
         void FillAutoCatLists() {
             // Prepare main screen AutoCat dropdown
             object selected = cmbAutoCatType.SelectedItem;
