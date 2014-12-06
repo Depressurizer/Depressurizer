@@ -262,12 +262,17 @@ namespace Depressurizer {
         }
         #endregion
 
+        /// <summary>
+        /// Merges in data from another entry. Useful for merging scrape results, but could also merge data from a different database.
+        /// Uses newer data when there is a conflict.
+        /// Does NOT perform deep copies of list fields.
+        /// </summary>
+        /// <param name="other">GameDBEntry containing info to be merged into this entry.</param>
         public void MergeIn( GameDBEntry other ) {
-            // TODO tidy this up a little
-            bool otherNewerForAIFields = other.LastAppInfoUpdate > this.LastAppInfoUpdate || ( this.LastAppInfoUpdate == 0 && other.LastStoreScrape >= this.LastStoreScrape );
-            bool otherNewerForOtherFields = other.LastStoreScrape >= this.LastStoreScrape;
+            bool useAppInfoFields = other.LastAppInfoUpdate > this.LastAppInfoUpdate || ( this.LastAppInfoUpdate == 0 && other.LastStoreScrape >= this.LastStoreScrape );
+            bool useScrapeOnlyFields = other.LastStoreScrape >= this.LastStoreScrape;
 
-            if( other.AppType != AppTypes.Unknown && ( this.AppType == AppTypes.Unknown || otherNewerForAIFields ) ) {
+            if( other.AppType != AppTypes.Unknown && ( this.AppType == AppTypes.Unknown || useAppInfoFields ) ) {
                 this.AppType = other.AppType;
             }
 
@@ -275,52 +280,30 @@ namespace Depressurizer {
                 this.Platforms = other.Platforms;
             }
 
-            if( !string.IsNullOrEmpty( other.Name ) && otherNewerForAIFields ) {
-                this.Name = other.Name;
+            if( useAppInfoFields ) {
+                if( !string.IsNullOrEmpty( other.Name ) ) Name = other.Name;
+                if( other.ParentId > 0 ) ParentId = other.ParentId;
             }
 
-            if( other.ParentId > 0 && otherNewerForAIFields ) {
-                this.ParentId = other.ParentId;
-            }
+            if( useScrapeOnlyFields ) {
+                if( other.Genres != null && other.Genres.Count > 0 ) Genres = other.Genres;
+                if( other.Flags != null && other.Flags.Count > 0 ) Flags = other.Flags;
+                if( other.Tags != null && other.Tags.Count > 0 ) Tags = other.Tags;
+                if( other.Developers != null && other.Developers.Count > 0 ) Developers = other.Developers;
+                if( other.Publishers != null && other.Publishers.Count > 0 ) Publishers = other.Publishers;
+                if( !string.IsNullOrEmpty( other.SteamReleaseDate ) ) SteamReleaseDate = other.SteamReleaseDate;
 
-            if( other.Genres != null && other.Genres.Count > 0 && otherNewerForOtherFields ) {
-                this.Genres = other.Genres;
-            }
+                if( other.ReviewTotal != 0 ) {
+                    this.ReviewTotal = other.ReviewTotal;
+                    this.ReviewPositivePercentage = other.ReviewPositivePercentage;
+                }
 
-            if( other.Flags != null && other.Flags.Count > 0 && otherNewerForOtherFields ) {
-                this.Flags = other.Flags;
-            }
-
-            if( other.Tags != null && other.Tags.Count > 0 && otherNewerForOtherFields ) {
-                this.Tags = other.Tags;
-            }
-
-            if( other.Developers != null && other.Developers.Count > 0 && otherNewerForAIFields ) {
-                this.Developers = other.Developers;
-            }
-
-            if( other.Publishers != null && other.Publishers.Count > 0 && otherNewerForAIFields ) {
-                this.Publishers = other.Publishers;
-            }
-
-            if( !string.IsNullOrEmpty( other.SteamReleaseDate ) && otherNewerForOtherFields ) {
-                this.SteamReleaseDate = other.SteamReleaseDate;
-            }
-
-            if( other.ReviewTotal != 0 && otherNewerForOtherFields ) {
-                this.ReviewTotal = other.ReviewTotal;
-                this.ReviewPositivePercentage = other.ReviewPositivePercentage;
-            }
-
-            if( !string.IsNullOrEmpty( other.MC_Url ) && otherNewerForOtherFields ) {
-                this.MC_Url = other.MC_Url;
+                if( !string.IsNullOrEmpty( other.MC_Url ) ) MC_Url = other.MC_Url;
             }
 
             if( other.LastStoreScrape > this.LastStoreScrape ) this.LastStoreScrape = other.LastStoreScrape;
             if( other.LastAppInfoUpdate > this.LastAppInfoUpdate ) this.LastAppInfoUpdate = other.LastAppInfoUpdate;
-
         }
-
     }
 
     public class GameDB {

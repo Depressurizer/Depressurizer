@@ -22,7 +22,6 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class AutoCatConfigPanel_Tags : AutoCatConfigPanel {
 
-        //TODO: Make sure this gets set
         private GameList ownedGames = null;
 
         public AutoCatConfigPanel_Tags(GameList ownedGames ) {
