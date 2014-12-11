@@ -64,7 +64,8 @@ namespace Depressurizer {
         Genre,
         Flags,
         Tags,
-        Year
+        Year,
+        UserScore
     }
 
     public enum AutoCatResult {
@@ -163,6 +164,9 @@ namespace Depressurizer {
                 case AutoCatYear.TypeIdString:
                     result = AutoCatYear.LoadFromXmlElement( xElement );
                     break;
+                case AutoCatUserScore.TypeIdString:
+                    result = AutoCatUserScore.LoadFromXmlElement( xElement );
+                    break;
                 default:
                     break;
             }
@@ -179,6 +183,8 @@ namespace Depressurizer {
                     return new AutoCatTags( name );
                 case AutoCatType.Year:
                     return new AutoCatYear( name );
+                case AutoCatType.UserScore:
+                    return new AutoCatUserScore( name );
                 default:
                     return null;
             }
