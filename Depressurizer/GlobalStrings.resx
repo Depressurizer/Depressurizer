@@ -1019,4 +1019,7 @@ If unchecked, games with no date will be skipped.</value>
   <data name="AutoCat_Name_Year" xml:space="preserve">
     <value>Release Year</value>
   </data>
+  <data name="AutoCat_Name_UserScore" xml:space="preserve">
+    <value>User Score</value>
+  </data>
 </root>

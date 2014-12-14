@@ -38,6 +38,8 @@ namespace Depressurizer {
                     return new AutoCatConfigPanel_Tags( ownedGames );
                 case AutoCatType.Year:
                     return new AutoCatConfigPanel_Year();
+                case AutoCatType.UserScore:
+                    return new AutoCatConfigPanel_UserScore();
                 default:
                     return null;
             }

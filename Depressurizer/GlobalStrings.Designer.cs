@@ -88,6 +88,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User Score.
+        /// </summary>
+        internal static string AutoCat_Name_UserScore {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_UserScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Release Year.
         /// </summary>
         internal static string AutoCat_Name_Year {
