@@ -51,7 +51,7 @@ namespace Depressurizer {
             AutoCatUserScore acScore = ac as AutoCatUserScore;
             if( ac == null ) return;
 
-            acScore.Prefix = txtPrefix.Name;
+            acScore.Prefix = txtPrefix.Text;
             acScore.Rules = new List<UserScore_Rule>( ruleList );
         }
 
