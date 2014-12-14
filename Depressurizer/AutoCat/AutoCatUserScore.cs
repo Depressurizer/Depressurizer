@@ -84,7 +84,7 @@ namespace Depressurizer {
             foreach( UserScore_Rule rule in Rules ) {
                 if( CheckRule( rule, score ) ) {
                     result = rule.Name;
-                    continue;
+                    break;
                 }
             }
 
