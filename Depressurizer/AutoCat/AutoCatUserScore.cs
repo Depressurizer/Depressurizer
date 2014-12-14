@@ -8,9 +8,9 @@ using System.Xml;
 
 namespace Depressurizer {
     class UserScore_Rule {
-        public string Name;
-        public int Min;
-        public int Max;
+        public string Name { get; set; }
+        public int Min { get; set; }
+        public int Max { get; set; }
         public UserScore_Rule( string name, int min, int max ) {
             Name = name;
             Min = min;
@@ -44,10 +44,10 @@ namespace Depressurizer {
 
         #region Construction
 
-        public AutoCatUserScore( string name = TypeIdString, string prefix = "" )
+        public AutoCatUserScore( string name = TypeIdString, string prefix = "", List<UserScore_Rule> rules = null )
             : base( name ) {
             Prefix = prefix;
-            Rules = new List<UserScore_Rule>();
+            Rules = ( rules == null ) ? new List<UserScore_Rule>() : rules;
         }
 
         public AutoCatUserScore( AutoCatUserScore other )
