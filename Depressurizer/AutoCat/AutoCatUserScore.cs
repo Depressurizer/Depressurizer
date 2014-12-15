@@ -9,17 +9,23 @@ using System.Xml;
 namespace Depressurizer {
     class UserScore_Rule {
         public string Name { get; set; }
-        public int Min { get; set; }
-        public int Max { get; set; }
-        public UserScore_Rule( string name, int min, int max ) {
+        public int MinScore { get; set; }
+        public int MaxScore { get; set; }
+        public int MinReviews { get; set; }
+        public int MaxReviews { get; set; }
+        public UserScore_Rule( string name, int minScore, int maxScore, int minReviews, int maxReviews ) {
             Name = name;
-            Min = min;
-            Max = max;
+            MinScore = minScore;
+            MaxScore = maxScore;
+            MinReviews = minReviews;
+            MaxReviews = maxReviews;
         }
         public UserScore_Rule( UserScore_Rule other ) {
             Name = other.Name;
-            Min = other.Min;
-            Max = other.Max;
+            MinScore = other.MinScore;
+            MaxScore = other.MaxScore;
+            MinReviews = other.MinReviews;
+            MaxReviews = other.MaxReviews;
         }
     }
 
@@ -37,8 +43,10 @@ namespace Depressurizer {
             XmlName_Prefix = "Prefix",
             XmlName_Rule = "Rule",
             XmlName_Rule_Text = "Text",
-            XmlName_Rule_Min = "Min",
-            XmlName_Rule_Max = "Max";
+            XmlName_Rule_MinScore = "MinScore",
+            XmlName_Rule_MaxScore = "MaxScore",
+            XmlName_Rule_MinReviews = "MinReviews",
+            XmlName_Rule_MaxReviews = "MaxReviews";
 
         #endregion
 
@@ -80,9 +88,10 @@ namespace Depressurizer {
             if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
 
             int score = db.Games[game.Id].ReviewPositivePercentage;
+            int reviews = db.Games[game.Id].ReviewTotal;
             string result = null;
             foreach( UserScore_Rule rule in Rules ) {
-                if( CheckRule( rule, score ) ) {
+                if( CheckRule( rule, score, reviews ) ) {
                     result = rule.Name;
                     break;
                 }
@@ -95,8 +104,8 @@ namespace Depressurizer {
             return AutoCatResult.Success;
         }
 
-        private bool CheckRule( UserScore_Rule rule, int score ) {
-            return ( score >= rule.Min && score <= rule.Max );
+        private bool CheckRule( UserScore_Rule rule, int score, int reviews ) {
+            return ( score >= rule.MinScore && score <= rule.MaxScore ) && rule.MinReviews <= reviews && ( rule.MaxReviews == 0 || rule.MaxReviews >= reviews );
         }
 
         private string GetProcessedString( string s ) {
@@ -117,8 +126,11 @@ namespace Depressurizer {
             foreach( UserScore_Rule rule in Rules ) {
                 writer.WriteStartElement( XmlName_Rule );
                 writer.WriteElementString( XmlName_Rule_Text, rule.Name );
-                writer.WriteElementString( XmlName_Rule_Min, rule.Min.ToString() );
-                writer.WriteElementString( XmlName_Rule_Max, rule.Max.ToString() );
+                writer.WriteElementString( XmlName_Rule_MinScore, rule.MinScore.ToString() );
+                writer.WriteElementString( XmlName_Rule_MaxScore, rule.MaxScore.ToString() );
+                writer.WriteElementString( XmlName_Rule_MinReviews, rule.MinReviews.ToString() );
+                writer.WriteElementString( XmlName_Rule_MaxReviews, rule.MaxReviews.ToString() );
+
                 writer.WriteEndElement();
             }
             writer.WriteEndElement();
@@ -131,9 +143,11 @@ namespace Depressurizer {
             List<UserScore_Rule> rules = new List<UserScore_Rule>();
             foreach( XmlNode node in xElement.SelectNodes( XmlName_Rule ) ) {
                 string ruleName = XmlUtil.GetStringFromNode( node[XmlName_Rule_Text], string.Empty );
-                int ruleMin = XmlUtil.GetIntFromNode( node[XmlName_Rule_Min], 0 );
-                int ruleMax = XmlUtil.GetIntFromNode( node[XmlName_Rule_Max], 0 );
-                rules.Add( new UserScore_Rule( ruleName, ruleMin, ruleMax ) );
+                int ruleMin = XmlUtil.GetIntFromNode( node[XmlName_Rule_MinScore], 0 );
+                int ruleMax = XmlUtil.GetIntFromNode( node[XmlName_Rule_MaxScore], 100 );
+                int ruleMinRev = XmlUtil.GetIntFromNode( node[XmlName_Rule_MinReviews], 0 );
+                int ruleMaxRev = XmlUtil.GetIntFromNode( node[XmlName_Rule_MaxReviews], 0 );
+                rules.Add( new UserScore_Rule( ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev ) );
             }
             AutoCatUserScore result = new AutoCatUserScore( name, prefix );
             result.Rules = rules;

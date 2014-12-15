@@ -78,7 +78,7 @@ namespace Depressurizer {
         }
 
         private void cmdRuleAdd_Click( object sender, EventArgs e ) {
-            UserScore_Rule newRule = new UserScore_Rule( "New Rule", 0, 100 );
+            UserScore_Rule newRule = new UserScore_Rule( "New Rule", 0, 100, 0, 0 );
             ruleList.Add( newRule );
             lstRules.SelectedIndex = lstRules.Items.Count - 1;
         }
