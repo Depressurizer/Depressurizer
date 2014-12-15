@@ -79,7 +79,7 @@
             this.grpRules.Location = new System.Drawing.Point(6, 45);
             this.grpRules.Name = "grpRules";
             this.grpRules.Size = new System.Drawing.Size(505, 374);
-            this.grpRules.TabIndex = 6;
+            this.grpRules.TabIndex = 3;
             this.grpRules.TabStop = false;
             this.grpRules.Text = "Rules";
             // 
@@ -89,7 +89,7 @@
             this.cmdRuleDown.Location = new System.Drawing.Point(95, 345);
             this.cmdRuleDown.Name = "cmdRuleDown";
             this.cmdRuleDown.Size = new System.Drawing.Size(85, 23);
-            this.cmdRuleDown.TabIndex = 10;
+            this.cmdRuleDown.TabIndex = 4;
             this.cmdRuleDown.Text = "Down";
             this.cmdRuleDown.UseVisualStyleBackColor = true;
             this.cmdRuleDown.Click += new System.EventHandler(this.cmdRuleDown_Click);
@@ -100,7 +100,7 @@
             this.cmdRuleUp.Location = new System.Drawing.Point(6, 345);
             this.cmdRuleUp.Name = "cmdRuleUp";
             this.cmdRuleUp.Size = new System.Drawing.Size(85, 23);
-            this.cmdRuleUp.TabIndex = 9;
+            this.cmdRuleUp.TabIndex = 3;
             this.cmdRuleUp.Text = "Up";
             this.cmdRuleUp.UseVisualStyleBackColor = true;
             this.cmdRuleUp.Click += new System.EventHandler(this.cmdRuleUp_Click);
@@ -111,7 +111,7 @@
             this.cmdRuleRemove.Location = new System.Drawing.Point(6, 320);
             this.cmdRuleRemove.Name = "cmdRuleRemove";
             this.cmdRuleRemove.Size = new System.Drawing.Size(174, 23);
-            this.cmdRuleRemove.TabIndex = 8;
+            this.cmdRuleRemove.TabIndex = 2;
             this.cmdRuleRemove.Text = "Remove Rule";
             this.cmdRuleRemove.UseVisualStyleBackColor = true;
             this.cmdRuleRemove.Click += new System.EventHandler(this.cmdRuleRemove_Click);
@@ -122,7 +122,7 @@
             this.cmdRuleAdd.Location = new System.Drawing.Point(6, 294);
             this.cmdRuleAdd.Name = "cmdRuleAdd";
             this.cmdRuleAdd.Size = new System.Drawing.Size(174, 23);
-            this.cmdRuleAdd.TabIndex = 7;
+            this.cmdRuleAdd.TabIndex = 1;
             this.cmdRuleAdd.Text = "Add Rule";
             this.cmdRuleAdd.UseVisualStyleBackColor = true;
             this.cmdRuleAdd.Click += new System.EventHandler(this.cmdRuleAdd_Click);
@@ -132,21 +132,21 @@
             this.numRuleMinScore.Location = new System.Drawing.Point(319, 45);
             this.numRuleMinScore.Name = "numRuleMinScore";
             this.numRuleMinScore.Size = new System.Drawing.Size(59, 20);
-            this.numRuleMinScore.TabIndex = 6;
+            this.numRuleMinScore.TabIndex = 8;
             // 
             // numRuleMaxScore
             // 
             this.numRuleMaxScore.Location = new System.Drawing.Point(319, 71);
             this.numRuleMaxScore.Name = "numRuleMaxScore";
             this.numRuleMaxScore.Size = new System.Drawing.Size(59, 20);
-            this.numRuleMaxScore.TabIndex = 5;
+            this.numRuleMaxScore.TabIndex = 10;
             // 
             // txtRuleName
             // 
             this.txtRuleName.Location = new System.Drawing.Point(248, 19);
             this.txtRuleName.Name = "txtRuleName";
             this.txtRuleName.Size = new System.Drawing.Size(130, 20);
-            this.txtRuleName.TabIndex = 4;
+            this.txtRuleName.TabIndex = 6;
             // 
             // lblRuleMinScore
             // 
@@ -154,7 +154,7 @@
             this.lblRuleMinScore.Location = new System.Drawing.Point(186, 47);
             this.lblRuleMinScore.Name = "lblRuleMinScore";
             this.lblRuleMinScore.Size = new System.Drawing.Size(58, 13);
-            this.lblRuleMinScore.TabIndex = 3;
+            this.lblRuleMinScore.TabIndex = 7;
             this.lblRuleMinScore.Text = "Min Score:";
             // 
             // lblRuleName
@@ -163,7 +163,7 @@
             this.lblRuleName.Location = new System.Drawing.Point(186, 22);
             this.lblRuleName.Name = "lblRuleName";
             this.lblRuleName.Size = new System.Drawing.Size(38, 13);
-            this.lblRuleName.TabIndex = 2;
+            this.lblRuleName.TabIndex = 5;
             this.lblRuleName.Text = "Name:";
             // 
             // lblRuleMaxScore
@@ -172,7 +172,7 @@
             this.lblRuleMaxScore.Location = new System.Drawing.Point(186, 73);
             this.lblRuleMaxScore.Name = "lblRuleMaxScore";
             this.lblRuleMaxScore.Size = new System.Drawing.Size(61, 13);
-            this.lblRuleMaxScore.TabIndex = 1;
+            this.lblRuleMaxScore.TabIndex = 9;
             this.lblRuleMaxScore.Text = "Max Score:";
             // 
             // lstRules
@@ -194,7 +194,7 @@
             this.helpPrefix.Location = new System.Drawing.Point(238, 22);
             this.helpPrefix.Name = "helpPrefix";
             this.helpPrefix.Size = new System.Drawing.Size(15, 15);
-            this.helpPrefix.TabIndex = 5;
+            this.helpPrefix.TabIndex = 2;
             this.helpPrefix.Text = "?";
             // 
             // lblPrefix
@@ -203,7 +203,7 @@
             this.lblPrefix.Location = new System.Drawing.Point(25, 22);
             this.lblPrefix.Name = "lblPrefix";
             this.lblPrefix.Size = new System.Drawing.Size(36, 13);
-            this.lblPrefix.TabIndex = 3;
+            this.lblPrefix.TabIndex = 0;
             this.lblPrefix.Text = "Prefix:";
             // 
             // txtPrefix
@@ -211,7 +211,7 @@
             this.txtPrefix.Location = new System.Drawing.Point(67, 19);
             this.txtPrefix.Name = "txtPrefix";
             this.txtPrefix.Size = new System.Drawing.Size(165, 20);
-            this.txtPrefix.TabIndex = 4;
+            this.txtPrefix.TabIndex = 1;
             // 
             // AutoCatConfigPanel_UserScore
             // 

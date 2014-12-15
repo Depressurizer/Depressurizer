@@ -19,30 +19,27 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Rallion;
 
 namespace Depressurizer {
     public partial class AutoCatConfigPanel_UserScore : AutoCatConfigPanel {
 
         BindingList<UserScore_Rule> ruleList = new BindingList<UserScore_Rule>();
+        BindingSource binding = new BindingSource();
 
         public AutoCatConfigPanel_UserScore() {
             InitializeComponent();
 
             ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
 
-            lstRules.DisplayMember = "Name";
-            lstRules.DataSource = ruleList;
+            binding.DataSource = ruleList;
 
-            txtRuleName.DataBindings.Add( "Text", ruleList, "Name" );
-            numRuleMinScore.DataBindings.Add( "Value", ruleList, "Min" );
-            numRuleMaxScore.DataBindings.Add( "Value", ruleList, "Max" );
+            lstRules.DisplayMember = "Name";
+            lstRules.DataSource = binding;
+
+            txtRuleName.DataBindings.Add( "Text", binding, "Name" );
+            numRuleMinScore.DataBindings.Add( "Value", binding, "Min" );
+            numRuleMaxScore.DataBindings.Add( "Value", binding, "Max" );
 
             UpdateEnabledSettings();
         }
@@ -77,15 +74,13 @@ namespace Depressurizer {
         }
 
         private void lstRules_SelectedIndexChanged( object sender, EventArgs e ) {
-            if( ruleList.Count > 0 ) {
-                ruleList.ResetBindings();
-            }
             UpdateEnabledSettings();
         }
 
         private void cmdRuleAdd_Click( object sender, EventArgs e ) {
             UserScore_Rule newRule = new UserScore_Rule( "New Rule", 0, 100 );
             ruleList.Add( newRule );
+            lstRules.SelectedIndex = lstRules.Items.Count - 1;
         }
 
         private void cmdRuleRemove_Click( object sender, EventArgs e ) {
@@ -102,7 +97,6 @@ namespace Depressurizer {
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
 
-            ruleList.ResetBindings();
             lstRules.SelectedIndex = alterIndex;
         }
 
@@ -113,8 +107,5 @@ namespace Depressurizer {
         private void cmdRuleDown_Click( object sender, EventArgs e ) {
             MoveItem( lstRules.SelectedIndex, 1 );
         }
-
-
-
     }
 }
