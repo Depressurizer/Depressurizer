@@ -71,8 +71,9 @@ namespace Depressurizer {
         private void UpdateEnabledSettings() {
             bool ruleSelected = ( lstRules.SelectedIndex >= 0 );
 
-            txtRuleName.Enabled = numRuleMaxScore.Enabled = numRuleMinScore.Enabled = ruleSelected;
-            cmdRuleRemove.Enabled = cmdRuleUp.Enabled = cmdRuleDown.Enabled = ruleSelected;
+            txtRuleName.Enabled = numRuleMaxScore.Enabled = numRuleMinScore.Enabled = cmdRuleRemove.Enabled = ruleSelected;
+            cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
+            cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
         }
 
         private void lstRules_SelectedIndexChanged( object sender, EventArgs e ) {
@@ -92,6 +93,27 @@ namespace Depressurizer {
                 ruleList.RemoveAt( lstRules.SelectedIndex );
             }
         }
+
+        private void MoveItem( int mainIndex, int offset ) {
+            int alterIndex = mainIndex + offset;
+            if( mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 || alterIndex >= lstRules.Items.Count ) return;
+
+            UserScore_Rule mainItem = ruleList[mainIndex];
+            ruleList[mainIndex] = ruleList[alterIndex];
+            ruleList[alterIndex] = mainItem;
+
+            ruleList.ResetBindings();
+            lstRules.SelectedIndex = alterIndex;
+        }
+
+        private void cmdRuleUp_Click( object sender, EventArgs e ) {
+            MoveItem( lstRules.SelectedIndex, -1 );
+        }
+
+        private void cmdRuleDown_Click( object sender, EventArgs e ) {
+            MoveItem( lstRules.SelectedIndex, 1 );
+        }
+
 
 
     }

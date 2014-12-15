@@ -92,6 +92,7 @@
             this.cmdRuleDown.TabIndex = 10;
             this.cmdRuleDown.Text = "Down";
             this.cmdRuleDown.UseVisualStyleBackColor = true;
+            this.cmdRuleDown.Click += new System.EventHandler(this.cmdRuleDown_Click);
             // 
             // cmdRuleUp
             // 
@@ -102,6 +103,7 @@
             this.cmdRuleUp.TabIndex = 9;
             this.cmdRuleUp.Text = "Up";
             this.cmdRuleUp.UseVisualStyleBackColor = true;
+            this.cmdRuleUp.Click += new System.EventHandler(this.cmdRuleUp_Click);
             // 
             // cmdRuleRemove
             // 
