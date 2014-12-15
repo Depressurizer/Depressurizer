@@ -38,8 +38,10 @@ namespace Depressurizer {
             lstRules.DataSource = binding;
 
             txtRuleName.DataBindings.Add( "Text", binding, "Name" );
-            numRuleMinScore.DataBindings.Add( "Value", binding, "Min" );
-            numRuleMaxScore.DataBindings.Add( "Value", binding, "Max" );
+            numRuleMinScore.DataBindings.Add( "Value", binding, "MinScore" );
+            numRuleMaxScore.DataBindings.Add( "Value", binding, "MaxScore" );
+            numRuleMinReviews.DataBindings.Add( "Value", binding, "MinReviews" );
+            numRuleMaxReviews.DataBindings.Add( "Value", binding, "MaxReviews" );
 
             UpdateEnabledSettings();
         }
@@ -68,7 +70,10 @@ namespace Depressurizer {
         private void UpdateEnabledSettings() {
             bool ruleSelected = ( lstRules.SelectedIndex >= 0 );
 
-            txtRuleName.Enabled = numRuleMaxScore.Enabled = numRuleMinScore.Enabled = cmdRuleRemove.Enabled = ruleSelected;
+            txtRuleName.Enabled = 
+                numRuleMaxScore.Enabled = numRuleMinScore.Enabled = 
+                numRuleMinReviews.Enabled = numRuleMaxReviews.Enabled = 
+                cmdRuleRemove.Enabled = ruleSelected;
             cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
             cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
         }
