@@ -133,6 +133,26 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This will erase your current rules. Continue?.
+        /// </summary>
+        internal static string AutoCatUserScore_Dialog_ConfirmPreset {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Dialog_ConfirmPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Each game will be assigned to a category with the name of the first rule that matches.
+        ///If a game matches more than one rule, it will only be assigned to a category for the first one.
+        ///If a game does not match any rules, no category will be assigned..
+        /// </summary>
+        internal static string AutoCatUserScore_Help_Rules {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Help_Rules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If checked, games with no release date will be autocategorized with the name below.
         ///If unchecked, games with no date will be skipped..
         /// </summary>
@@ -625,15 +645,6 @@ namespace Depressurizer {
         internal static string DBEditDlg_UpdatedGameList {
             get {
                 return ResourceManager.GetString("DBEditDlg_UpdatedGameList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warning.
-        /// </summary>
-        internal static string DBEditDlg_Warning {
-            get {
-                return ResourceManager.GetString("DBEditDlg_Warning", resourceCulture);
             }
         }
         
@@ -1585,6 +1596,15 @@ namespace Depressurizer {
         internal static string Gen_Error {
             get {
                 return ResourceManager.GetString("Gen_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string Gen_Warning {
+            get {
+                return ResourceManager.GetString("Gen_Warning", resourceCulture);
             }
         }
         

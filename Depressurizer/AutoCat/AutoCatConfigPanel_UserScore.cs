@@ -24,7 +24,7 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class AutoCatConfigPanel_UserScore : AutoCatConfigPanel {
 
-        public delegate void UserScorePresetDelegate(ICollection<UserScore_Rule> rules);
+        public delegate void UserScorePresetDelegate( ICollection<UserScore_Rule> rules );
 
         BindingList<UserScore_Rule> ruleList = new BindingList<UserScore_Rule>();
         BindingSource binding = new BindingSource();
@@ -32,7 +32,10 @@ namespace Depressurizer {
 
         public AutoCatConfigPanel_UserScore() {
             InitializeComponent();
+
+            // Set up help tooltips
             ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip( helpRules, GlobalStrings.AutoCatUserScore_Help_Rules );
 
             // Set up bindings
             binding.DataSource = ruleList;
@@ -49,9 +52,10 @@ namespace Depressurizer {
             // Set up preset list
             presetMap.Add( "Steam Ratings", GenerateSteamRules );
 
-            foreach(string s in presetMap.Keys) {
+            foreach( string s in presetMap.Keys ) {
                 cmbPresets.Items.Add( s );
             }
+            cmbPresets.SelectedIndex = 0;
 
             UpdateEnabledSettings();
         }
@@ -80,9 +84,9 @@ namespace Depressurizer {
         private void UpdateEnabledSettings() {
             bool ruleSelected = ( lstRules.SelectedIndex >= 0 );
 
-            txtRuleName.Enabled = 
-                numRuleMaxScore.Enabled = numRuleMinScore.Enabled = 
-                numRuleMinReviews.Enabled = numRuleMaxReviews.Enabled = 
+            txtRuleName.Enabled =
+                numRuleMaxScore.Enabled = numRuleMinScore.Enabled =
+                numRuleMinReviews.Enabled = numRuleMaxReviews.Enabled =
                 cmdRuleRemove.Enabled = ruleSelected;
             cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
             cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
@@ -111,7 +115,7 @@ namespace Depressurizer {
             UserScore_Rule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
-                
+
             lstRules.SelectedIndex = alterIndex;
         }
 
@@ -127,10 +131,13 @@ namespace Depressurizer {
             string name = cmbPresets.SelectedItem as string;
 
             if( name != null && presetMap.ContainsKey( name ) ) {
-                UserScorePresetDelegate dlgt = presetMap[name];
-                ruleList.Clear();
-                dlgt(ruleList);
-                UpdateEnabledSettings();
+                if( ruleList.Count == 0 || MessageBox.Show( GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question )
+                    == DialogResult.Yes ) {
+                    UserScorePresetDelegate dlgt = presetMap[name];
+                    ruleList.Clear();
+                    dlgt( ruleList );
+                    UpdateEnabledSettings();
+                }
             }
         }
 

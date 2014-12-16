@@ -409,7 +409,7 @@ namespace Depressurizer {
                                 AddStatus( GlobalStrings.MainForm_XMLDownloadFailed );
                             }
                             if( updateDlg.Fetched == 0 ) {
-                                MessageBox.Show( GlobalStrings.MainForm_NoGameDataFound, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                                MessageBox.Show( GlobalStrings.MainForm_NoGameDataFound, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                                 AddStatus( GlobalStrings.MainForm_NoGamesInDownload );
                             } else {
                                 MakeChange( true );
@@ -562,7 +562,7 @@ namespace Depressurizer {
                         MakeChange( true );
                         AddStatus( string.Format( GlobalStrings.MainForm_CategoryDeleted, deleted ) );
                     } else {
-                        MessageBox.Show( string.Format( GlobalStrings.MainForm_CouldNotDeleteCategory ), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                        MessageBox.Show( string.Format( GlobalStrings.MainForm_CouldNotDeleteCategory ), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                     }
                 }
             }
@@ -587,7 +587,7 @@ namespace Depressurizer {
                             AddStatus( string.Format( GlobalStrings.MainForm_CategoryRenamed, c.Name ) );
                             return true;
                         } else {
-                            MessageBox.Show( string.Format( GlobalStrings.MainForm_NameIsInUse, newName ), GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                            MessageBox.Show( string.Format( GlobalStrings.MainForm_NameIsInUse, newName ), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                             return false;
                         }
                     }
@@ -2082,7 +2082,7 @@ namespace Depressurizer {
         /// <returns>True if valid, false otherwise</returns>
         private bool ValidateCategoryName( string name ) {
             if( name == null || name == string.Empty ) {
-                MessageBox.Show( GlobalStrings.MainForm_CategoryNamesNotEmpty, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                MessageBox.Show( GlobalStrings.MainForm_CategoryNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                 return false;
             } else {
                 return true;

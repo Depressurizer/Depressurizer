@@ -234,7 +234,7 @@
   <data name="DBEditDlg_UpdatedGameList" xml:space="preserve">
     <value>Updated game list, added {0} games.</value>
   </data>
-  <data name="DBEditDlg_Warning" xml:space="preserve">
+  <data name="Gen_Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
   <data name="DlgGameDBEntry_Add" xml:space="preserve">
@@ -1021,5 +1021,13 @@ If unchecked, games with no date will be skipped.</value>
   </data>
   <data name="AutoCat_Name_UserScore" xml:space="preserve">
     <value>User Score</value>
+  </data>
+  <data name="AutoCatUserScore_Dialog_ConfirmPreset" xml:space="preserve">
+    <value>This will erase your current rules. Continue?</value>
+  </data>
+  <data name="AutoCatUserScore_Help_Rules" xml:space="preserve">
+    <value>Each game will be assigned to a category with the name of the first rule that matches.
+If a game matches more than one rule, it will only be assigned to a category for the first one.
+If a game does not match any rules, no category will be assigned.</value>
   </data>
 </root>

@@ -62,7 +62,7 @@ namespace Depressurizer {
             } else {
                 int id;
                 if( !int.TryParse( txtId.Text, out id ) ) {
-                    MessageBox.Show( GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    MessageBox.Show( GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                     return;
                 }
                 if( Data.Games.ContainsKey( id ) ) {

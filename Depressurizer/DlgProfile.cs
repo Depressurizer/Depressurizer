@@ -144,7 +144,7 @@ namespace Depressurizer {
                 txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
 
                 if( lstUsers.Items.Count == 0 ) {
-                    MessageBox.Show( GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                    MessageBox.Show( GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                     radSelUserByURL.Checked = true;
                 } else {
                     radSelUserFromList.Checked = true;
@@ -193,7 +193,7 @@ namespace Depressurizer {
                 txtIgnore.ResetText();
                 lstIgnored.Sort();
             } else {
-                MessageBox.Show( GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.DBEditDlg_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                MessageBox.Show( GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
             }
         }
 
