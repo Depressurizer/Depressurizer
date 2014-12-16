@@ -25,6 +25,10 @@
         private void InitializeComponent() {
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.grpRules = new System.Windows.Forms.GroupBox();
+            this.numRuleMaxReviews = new System.Windows.Forms.NumericUpDown();
+            this.lblRuleMaxReviews = new System.Windows.Forms.Label();
+            this.numRuleMinReviews = new System.Windows.Forms.NumericUpDown();
+            this.lblRuleMinReviews = new System.Windows.Forms.Label();
             this.cmdRuleDown = new System.Windows.Forms.Button();
             this.cmdRuleUp = new System.Windows.Forms.Button();
             this.cmdRuleRemove = new System.Windows.Forms.Button();
@@ -39,21 +43,22 @@
             this.helpPrefix = new System.Windows.Forms.Label();
             this.lblPrefix = new System.Windows.Forms.Label();
             this.txtPrefix = new System.Windows.Forms.TextBox();
-            this.lblRuleMinReviews = new System.Windows.Forms.Label();
-            this.numRuleMinReviews = new System.Windows.Forms.NumericUpDown();
-            this.lblRuleMaxReviews = new System.Windows.Forms.Label();
-            this.numRuleMaxReviews = new System.Windows.Forms.NumericUpDown();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.cmdApplyPreset = new System.Windows.Forms.Button();
+            this.cmbPresets = new System.Windows.Forms.ComboBox();
+            this.groupPresets = new System.Windows.Forms.GroupBox();
             this.grpMain.SuspendLayout();
             this.grpRules.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRuleMaxReviews)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRuleMinReviews)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRuleMinScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRuleMaxScore)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRuleMinReviews)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRuleMaxReviews)).BeginInit();
+            this.groupPresets.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpMain
             // 
+            this.grpMain.Controls.Add(this.groupPresets);
             this.grpMain.Controls.Add(this.grpRules);
             this.grpMain.Controls.Add(this.helpPrefix);
             this.grpMain.Controls.Add(this.lblPrefix);
@@ -88,17 +93,71 @@
             this.grpRules.Controls.Add(this.lstRules);
             this.grpRules.Location = new System.Drawing.Point(6, 45);
             this.grpRules.Name = "grpRules";
-            this.grpRules.Size = new System.Drawing.Size(505, 374);
+            this.grpRules.Size = new System.Drawing.Size(505, 315);
             this.grpRules.TabIndex = 3;
             this.grpRules.TabStop = false;
             this.grpRules.Text = "Rules";
             // 
+            // numRuleMaxReviews
+            // 
+            this.numRuleMaxReviews.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numRuleMaxReviews.Location = new System.Drawing.Point(319, 123);
+            this.numRuleMaxReviews.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numRuleMaxReviews.Name = "numRuleMaxReviews";
+            this.numRuleMaxReviews.Size = new System.Drawing.Size(59, 20);
+            this.numRuleMaxReviews.TabIndex = 14;
+            this.numRuleMaxReviews.ThousandsSeparator = true;
+            // 
+            // lblRuleMaxReviews
+            // 
+            this.lblRuleMaxReviews.AutoSize = true;
+            this.lblRuleMaxReviews.Location = new System.Drawing.Point(186, 125);
+            this.lblRuleMaxReviews.Name = "lblRuleMaxReviews";
+            this.lblRuleMaxReviews.Size = new System.Drawing.Size(78, 26);
+            this.lblRuleMaxReviews.TabIndex = 13;
+            this.lblRuleMaxReviews.Text = "Max Reviews:\r\n(0 for unlimited)";
+            // 
+            // numRuleMinReviews
+            // 
+            this.numRuleMinReviews.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numRuleMinReviews.Location = new System.Drawing.Point(319, 97);
+            this.numRuleMinReviews.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numRuleMinReviews.Name = "numRuleMinReviews";
+            this.numRuleMinReviews.Size = new System.Drawing.Size(59, 20);
+            this.numRuleMinReviews.TabIndex = 12;
+            this.numRuleMinReviews.ThousandsSeparator = true;
+            // 
+            // lblRuleMinReviews
+            // 
+            this.lblRuleMinReviews.AutoSize = true;
+            this.lblRuleMinReviews.Location = new System.Drawing.Point(186, 99);
+            this.lblRuleMinReviews.Name = "lblRuleMinReviews";
+            this.lblRuleMinReviews.Size = new System.Drawing.Size(71, 13);
+            this.lblRuleMinReviews.TabIndex = 11;
+            this.lblRuleMinReviews.Text = "Min Reviews:";
+            // 
             // cmdRuleDown
             // 
             this.cmdRuleDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdRuleDown.Location = new System.Drawing.Point(95, 345);
+            this.cmdRuleDown.Location = new System.Drawing.Point(94, 286);
             this.cmdRuleDown.Name = "cmdRuleDown";
-            this.cmdRuleDown.Size = new System.Drawing.Size(85, 23);
+            this.cmdRuleDown.Size = new System.Drawing.Size(86, 23);
             this.cmdRuleDown.TabIndex = 4;
             this.cmdRuleDown.Text = "Down";
             this.cmdRuleDown.UseVisualStyleBackColor = true;
@@ -107,9 +166,9 @@
             // cmdRuleUp
             // 
             this.cmdRuleUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdRuleUp.Location = new System.Drawing.Point(6, 345);
+            this.cmdRuleUp.Location = new System.Drawing.Point(6, 286);
             this.cmdRuleUp.Name = "cmdRuleUp";
-            this.cmdRuleUp.Size = new System.Drawing.Size(85, 23);
+            this.cmdRuleUp.Size = new System.Drawing.Size(86, 23);
             this.cmdRuleUp.TabIndex = 3;
             this.cmdRuleUp.Text = "Up";
             this.cmdRuleUp.UseVisualStyleBackColor = true;
@@ -118,7 +177,7 @@
             // cmdRuleRemove
             // 
             this.cmdRuleRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdRuleRemove.Location = new System.Drawing.Point(6, 320);
+            this.cmdRuleRemove.Location = new System.Drawing.Point(6, 261);
             this.cmdRuleRemove.Name = "cmdRuleRemove";
             this.cmdRuleRemove.Size = new System.Drawing.Size(174, 23);
             this.cmdRuleRemove.TabIndex = 2;
@@ -129,7 +188,7 @@
             // cmdRuleAdd
             // 
             this.cmdRuleAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdRuleAdd.Location = new System.Drawing.Point(6, 294);
+            this.cmdRuleAdd.Location = new System.Drawing.Point(6, 236);
             this.cmdRuleAdd.Name = "cmdRuleAdd";
             this.cmdRuleAdd.Size = new System.Drawing.Size(174, 23);
             this.cmdRuleAdd.TabIndex = 1;
@@ -193,7 +252,7 @@
             this.lstRules.IntegralHeight = false;
             this.lstRules.Location = new System.Drawing.Point(6, 19);
             this.lstRules.Name = "lstRules";
-            this.lstRules.Size = new System.Drawing.Size(174, 269);
+            this.lstRules.Size = new System.Drawing.Size(174, 215);
             this.lstRules.TabIndex = 0;
             this.lstRules.SelectedIndexChanged += new System.EventHandler(this.lstRules_SelectedIndexChanged);
             // 
@@ -223,59 +282,37 @@
             this.txtPrefix.Size = new System.Drawing.Size(165, 20);
             this.txtPrefix.TabIndex = 1;
             // 
-            // lblRuleMinReviews
+            // cmdApplyPreset
             // 
-            this.lblRuleMinReviews.AutoSize = true;
-            this.lblRuleMinReviews.Location = new System.Drawing.Point(186, 99);
-            this.lblRuleMinReviews.Name = "lblRuleMinReviews";
-            this.lblRuleMinReviews.Size = new System.Drawing.Size(71, 13);
-            this.lblRuleMinReviews.TabIndex = 11;
-            this.lblRuleMinReviews.Text = "Min Reviews:";
+            this.cmdApplyPreset.Location = new System.Drawing.Point(292, 17);
+            this.cmdApplyPreset.Name = "cmdApplyPreset";
+            this.cmdApplyPreset.Size = new System.Drawing.Size(86, 23);
+            this.cmdApplyPreset.TabIndex = 15;
+            this.cmdApplyPreset.Text = "Apply Preset";
+            this.cmdApplyPreset.UseVisualStyleBackColor = true;
+            this.cmdApplyPreset.Click += new System.EventHandler(this.cmdApplyPreset_Click);
             // 
-            // numRuleMinReviews
+            // cmbPresets
             // 
-            this.numRuleMinReviews.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numRuleMinReviews.Location = new System.Drawing.Point(319, 97);
-            this.numRuleMinReviews.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.numRuleMinReviews.Name = "numRuleMinReviews";
-            this.numRuleMinReviews.Size = new System.Drawing.Size(59, 20);
-            this.numRuleMinReviews.TabIndex = 12;
-            this.numRuleMinReviews.ThousandsSeparator = true;
+            this.cmbPresets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPresets.FormattingEnabled = true;
+            this.cmbPresets.Location = new System.Drawing.Point(6, 19);
+            this.cmbPresets.Name = "cmbPresets";
+            this.cmbPresets.Size = new System.Drawing.Size(280, 21);
+            this.cmbPresets.TabIndex = 16;
             // 
-            // lblRuleMaxReviews
+            // groupPresets
             // 
-            this.lblRuleMaxReviews.AutoSize = true;
-            this.lblRuleMaxReviews.Location = new System.Drawing.Point(186, 125);
-            this.lblRuleMaxReviews.Name = "lblRuleMaxReviews";
-            this.lblRuleMaxReviews.Size = new System.Drawing.Size(78, 26);
-            this.lblRuleMaxReviews.TabIndex = 13;
-            this.lblRuleMaxReviews.Text = "Max Reviews:\r\n(0 for unlimited)";
-            // 
-            // numRuleMaxReviews
-            // 
-            this.numRuleMaxReviews.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numRuleMaxReviews.Location = new System.Drawing.Point(319, 123);
-            this.numRuleMaxReviews.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.numRuleMaxReviews.Name = "numRuleMaxReviews";
-            this.numRuleMaxReviews.Size = new System.Drawing.Size(59, 20);
-            this.numRuleMaxReviews.TabIndex = 14;
-            this.numRuleMaxReviews.ThousandsSeparator = true;
+            this.groupPresets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupPresets.Controls.Add(this.cmbPresets);
+            this.groupPresets.Controls.Add(this.cmdApplyPreset);
+            this.groupPresets.Location = new System.Drawing.Point(6, 366);
+            this.groupPresets.Name = "groupPresets";
+            this.groupPresets.Size = new System.Drawing.Size(505, 53);
+            this.groupPresets.TabIndex = 17;
+            this.groupPresets.TabStop = false;
+            this.groupPresets.Text = "Rule Presets";
             // 
             // AutoCatConfigPanel_UserScore
             // 
@@ -288,10 +325,11 @@
             this.grpMain.PerformLayout();
             this.grpRules.ResumeLayout(false);
             this.grpRules.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRuleMaxReviews)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRuleMinReviews)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRuleMinScore)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRuleMaxScore)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRuleMinReviews)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRuleMaxReviews)).EndInit();
+            this.groupPresets.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -319,5 +357,8 @@
         private System.Windows.Forms.Label lblRuleMaxReviews;
         private System.Windows.Forms.NumericUpDown numRuleMinReviews;
         private System.Windows.Forms.Label lblRuleMinReviews;
+        private System.Windows.Forms.GroupBox groupPresets;
+        private System.Windows.Forms.ComboBox cmbPresets;
+        private System.Windows.Forms.Button cmdApplyPreset;
     }
 }

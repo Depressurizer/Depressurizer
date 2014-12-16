@@ -7,7 +7,7 @@ using Rallion;
 using System.Xml;
 
 namespace Depressurizer {
-    class UserScore_Rule {
+    public class UserScore_Rule {
         public string Name { get; set; }
         public int MinScore { get; set; }
         public int MaxScore { get; set; }
@@ -29,7 +29,7 @@ namespace Depressurizer {
         }
     }
 
-    class AutoCatUserScore : AutoCat {
+    public class AutoCatUserScore : AutoCat {
         #region Properties
         public string Prefix { get; set; }
         public List<UserScore_Rule> Rules;
@@ -156,4 +156,6 @@ namespace Depressurizer {
 
         #endregion
     }
+
+
 }

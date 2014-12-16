@@ -24,14 +24,17 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class AutoCatConfigPanel_UserScore : AutoCatConfigPanel {
 
+        public delegate void UserScorePresetDelegate(ICollection<UserScore_Rule> rules);
+
         BindingList<UserScore_Rule> ruleList = new BindingList<UserScore_Rule>();
         BindingSource binding = new BindingSource();
+        Dictionary<string, UserScorePresetDelegate> presetMap = new Dictionary<string, UserScorePresetDelegate>();
 
         public AutoCatConfigPanel_UserScore() {
             InitializeComponent();
-
             ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
 
+            // Set up bindings
             binding.DataSource = ruleList;
 
             lstRules.DisplayMember = "Name";
@@ -42,6 +45,13 @@ namespace Depressurizer {
             numRuleMaxScore.DataBindings.Add( "Value", binding, "MaxScore" );
             numRuleMinReviews.DataBindings.Add( "Value", binding, "MinReviews" );
             numRuleMaxReviews.DataBindings.Add( "Value", binding, "MaxReviews" );
+
+            // Set up preset list
+            presetMap.Add( "Steam Ratings", GenerateSteamRules );
+
+            foreach(string s in presetMap.Keys) {
+                cmbPresets.Items.Add( s );
+            }
 
             UpdateEnabledSettings();
         }
@@ -101,7 +111,7 @@ namespace Depressurizer {
             UserScore_Rule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
-
+                
             lstRules.SelectedIndex = alterIndex;
         }
 
@@ -111,6 +121,29 @@ namespace Depressurizer {
 
         private void cmdRuleDown_Click( object sender, EventArgs e ) {
             MoveItem( lstRules.SelectedIndex, 1 );
+        }
+
+        private void cmdApplyPreset_Click( object sender, EventArgs e ) {
+            string name = cmbPresets.SelectedItem as string;
+
+            if( name != null && presetMap.ContainsKey( name ) ) {
+                UserScorePresetDelegate dlgt = presetMap[name];
+                ruleList.Clear();
+                dlgt(ruleList);
+                UpdateEnabledSettings();
+            }
+        }
+
+        public void GenerateSteamRules( ICollection<UserScore_Rule> rules ) {
+            rules.Add( new UserScore_Rule( "Overwhelmingly Positive", 95, 100, 500, 0 ) );
+            rules.Add( new UserScore_Rule( "Very Positive", 85, 100, 50, 0 ) );
+            rules.Add( new UserScore_Rule( "Positive", 80, 100, 1, 0 ) );
+            rules.Add( new UserScore_Rule( "Mostly Positive", 70, 79, 1, 0 ) );
+            rules.Add( new UserScore_Rule( "Mixed", 40, 69, 1, 0 ) );
+            rules.Add( new UserScore_Rule( "Mostly Negative", 20, 39, 1, 0 ) );
+            rules.Add( new UserScore_Rule( "Overwhelmingly Negative", 0, 19, 500, 0 ) );
+            rules.Add( new UserScore_Rule( "Very Negative", 0, 19, 50, 0 ) );
+            rules.Add( new UserScore_Rule( "Negative", 0, 19, 1, 0 ) );
         }
     }
 }
