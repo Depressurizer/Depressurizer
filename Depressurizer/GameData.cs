@@ -354,9 +354,16 @@ namespace Depressurizer {
         /// <returns>True if rename was successful, false otherwise (if name was in use already)</returns>
         public bool RenameCategory( Category c, string newName ) {
             if( c == favoriteCategory ) return false;
-            if( !CategoryExists( newName ) ) {
-                c.Name = newName;
+            Category newCat = AddCategory( newName );
+            if( newCat != null ) {
                 Categories.Sort();
+                foreach( GameInfo game in Games.Values ) {
+                    if( game.ContainsCategory( c ) ) {
+                        game.RemoveCategory( c );
+                        game.AddCategory( newCat );
+                    }
+                }
+                RemoveCategory( c );
                 return true;
             }
             return false;
