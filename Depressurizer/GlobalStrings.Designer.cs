@@ -153,6 +153,105 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Rule.
+        /// </summary>
+        internal static string AutoCatUserScore_NewRuleName {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_NewRuleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam Labels.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Name_SteamLabels {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Name_SteamLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mixed.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Mixed {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Mixed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mostly Negative.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Negative1 {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Negative1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Negative.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Negative2 {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Negative2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Very Negative.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Negative3 {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Negative3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwhelmingly Negative.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Negative4 {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Negative4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mostly Positive.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Positive1 {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Positive1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Positive.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Positive2 {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Positive2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Very Positive.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Positive3 {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Positive3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwhelmingly Positive.
+        /// </summary>
+        internal static string AutoCatUserScore_Preset_Steam_Positive4 {
+            get {
+                return ResourceManager.GetString("AutoCatUserScore_Preset_Steam_Positive4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If checked, games with no release date will be autocategorized with the name below.
         ///If unchecked, games with no date will be skipped..
         /// </summary>

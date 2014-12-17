@@ -1030,4 +1030,37 @@ If unchecked, games with no date will be skipped.</value>
 If a game matches more than one rule, it will only be assigned to a category for the first one.
 If a game does not match any rules, no category will be assigned.</value>
   </data>
+  <data name="AutoCatUserScore_NewRuleName" xml:space="preserve">
+    <value>New Rule</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Name_SteamLabels" xml:space="preserve">
+    <value>Steam Labels</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Mixed" xml:space="preserve">
+    <value>Mixed</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Negative1" xml:space="preserve">
+    <value>Mostly Negative</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Negative2" xml:space="preserve">
+    <value>Negative</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Negative3" xml:space="preserve">
+    <value>Very Negative</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Negative4" xml:space="preserve">
+    <value>Overwhelmingly Negative</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Positive1" xml:space="preserve">
+    <value>Mostly Positive</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Positive2" xml:space="preserve">
+    <value>Positive</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Positive3" xml:space="preserve">
+    <value>Very Positive</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Positive4" xml:space="preserve">
+    <value>Overwhelmingly Positive</value>
+  </data>
 </root>
