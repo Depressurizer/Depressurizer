@@ -96,7 +96,7 @@
             // 
             // cmdApplyPreset
             // 
-            this.cmdApplyPreset.Location = new System.Drawing.Point(292, 17);
+            this.cmdApplyPreset.Location = new System.Drawing.Point(292, 18);
             this.cmdApplyPreset.Name = "cmdApplyPreset";
             this.cmdApplyPreset.Size = new System.Drawing.Size(86, 23);
             this.cmdApplyPreset.TabIndex = 1;
