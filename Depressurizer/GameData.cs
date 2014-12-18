@@ -241,15 +241,13 @@ namespace Depressurizer {
             Category otherCat = o as Category;
             if( o == null ) throw new ArgumentException( GlobalStrings.Category_Exception_ObjectNotCategory );
 
-            if( Name == otherCat.Name ) return 0;
+            int comp = String.Compare( Name, otherCat.Name, StringComparison.OrdinalIgnoreCase );
 
-            if( Name == null ) return -1;
-            if( otherCat.Name == null ) return 1;
-
+            if( comp == 0 ) return 0;
             if( String.Equals( Name, "favorite", StringComparison.OrdinalIgnoreCase ) ) return -1;
             if( String.Equals( otherCat.Name, "favorite", StringComparison.OrdinalIgnoreCase ) ) return 1;
 
-            return String.CompareOrdinal( Name, otherCat.Name );
+            return comp;
         }
     }
 
