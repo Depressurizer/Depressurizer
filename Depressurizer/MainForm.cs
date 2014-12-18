@@ -1864,6 +1864,21 @@ namespace Depressurizer {
             e.Item = CreateListItem( displayedGames[e.ItemIndex] );
         }
 
+        private void lstGames_SearchForVirtualItem( object sender, SearchForVirtualItemEventArgs e ) {
+            for( int i = e.StartIndex; i < displayedGames.Count; i++ ) {
+                if( displayedGames[i].Name.StartsWith( e.Text, StringComparison.CurrentCultureIgnoreCase ) ) {
+                    e.Index = i;
+                    return;
+                }
+            }
+            for( int i = 0; i < e.StartIndex; i++ ) {
+                if( displayedGames[i].Name.StartsWith( e.Text, StringComparison.CurrentCultureIgnoreCase ) ) {
+                    e.Index = i;
+                    return;
+                }
+            }
+        }
+
         private void lstGames_ColumnClick( object sender, ColumnClickEventArgs e ) {
             if( columnSortMap.ContainsKey( e.Column ) ) {
                 displayedGamesSorter.SetSortMode( columnSortMap[e.Column] );
@@ -2098,6 +2113,5 @@ namespace Depressurizer {
         }
 
         #endregion
-
     }
 }
