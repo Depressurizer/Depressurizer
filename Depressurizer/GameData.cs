@@ -349,9 +349,9 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="c">Category to rename.</param>
         /// <param name="newName">Name to assign to the new category.</param>
-        /// <returns>True if rename was successful, false otherwise (if name was in use already)</returns>
-        public bool RenameCategory( Category c, string newName ) {
-            if( c == favoriteCategory ) return false;
+        /// <returns>The new category, if the operation succeeds. Null otherwise.</returns>
+        public Category RenameCategory( Category c, string newName ) {
+            if( c == favoriteCategory ) return null;
             Category newCat = AddCategory( newName );
             if( newCat != null ) {
                 Categories.Sort();
@@ -362,9 +362,9 @@ namespace Depressurizer {
                     }
                 }
                 RemoveCategory( c );
-                return true;
+                return newCat;
             }
-            return false;
+            return null;
         }
 
         /// <summary>

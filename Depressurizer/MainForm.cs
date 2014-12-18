@@ -581,15 +581,23 @@ namespace Depressurizer {
                     if( dlg.ShowDialog() == DialogResult.OK ) {
                         string newName = dlg.Value;
                         if( newName == c.Name ) return true;
-                        if( ValidateCategoryName( newName ) && currentProfile.GameData.RenameCategory( c, newName ) ) {
-                            OnCategoryChange();
-                            MakeChange( true );
-                            AddStatus( string.Format( GlobalStrings.MainForm_CategoryRenamed, c.Name ) );
-                            return true;
-                        } else {
-                            MessageBox.Show( string.Format( GlobalStrings.MainForm_NameIsInUse, newName ), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
-                            return false;
+                        if( ValidateCategoryName( newName ) ) {
+                            Category newCat = currentProfile.GameData.RenameCategory( c, newName );
+                            if( newCat != null ) {
+                                OnCategoryChange();
+                                MakeChange( true );
+                                for( int index = 2; index < lstCategories.Items.Count; index++ ) {
+                                    if( lstCategories.Items[index].Tag == newCat ) {
+                                        lstCategories.SelectedIndices.Add( index );
+                                        break;
+                                    }
+                                }
+                                    AddStatus( string.Format( GlobalStrings.MainForm_CategoryRenamed, c.Name ) );
+                                return true;
+                            }
                         }
+                        MessageBox.Show( string.Format( GlobalStrings.MainForm_NameIsInUse, newName ), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                        return false;
                     }
                 }
             }
