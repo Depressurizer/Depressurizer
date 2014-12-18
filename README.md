@@ -1,5 +1,5 @@
 ### Depressurizer
-for v0.6.0.0
+for v0.6.1.0
 
 ----
 
@@ -61,6 +61,21 @@ If you hold Ctrl when you drag items, you can remove them from the selected cate
 
 If you right click on the game list, there are options to add categories, remove categories, or alter the Favorite setting for the selected games.
 
+#### Game Filtering
+
+There are a few ways to filter your game list.
+
+You can use simple category filtering, which lets you select a category and view all games in that category. You can also view all games, all "favorited" games, or all games not assigned to any category.
+
+You can also use advanced filtering, which lets you view games based on combinations of categories. In order for a game to be displayed, it must match the criteria that you specify.
+ - **Allowed** is indicated by a green checkmark. If any categories are Allowed, then only games that are in *at least one* of these categories will be displayed. It's not necessary to allow categories all the time: if no categories are set to allowed, then the filtering ignores this criteria.
+ - **Required** is indicated by a blue circle. Only games that are in *all* Required categories are displayed.
+ - **Excluded** is indicated by a red X. Only games that are in *no* Excluded categories are displayed.
+ 
+This advanced filtering can be useful to find games that are not categorized the way that you want. You can use it to find games that are in two categories that should be mutually exclusive by setting them both to Required. If you have a set of categories where all your games should be in at least one, you can set all of them to Excluded to find games that are in none of them.
+
+Finally, you can always type into the Search box to find games with particular names. It will filter your current view to only games which have names that contain your search term.
+
 #### Autocategorization
 
 Autocategorization in Depressurizer is based around different schemes that determine what categories to add to (or remove from) each game. These schemes are configurable, and are referred to as "AutoCats".
@@ -71,7 +86,7 @@ You can autocategorize all games by using the "Autocat All" item in the Tools me
 
 To modify, delete or create new AutoCats, click the "Edit AutoCats..." item in the Profile menu.
 
-There are currently three types of AutoCat:
+There are currently five types of AutoCat:
 
  - **Genre:** This type autocategorizes games based on the genres it is assigned in the Steam store. It has several configuration options.
 
@@ -79,8 +94,10 @@ There are currently three types of AutoCat:
 
   - *Max Categories:* This is the maximum number of categories that will be assigned to each game. If a particular game has more categories, they will be ignored. 0 indicates no maximum.
 
-  - *Remove Others:* This will remove other categories ONLY if they could potentially be added by this scheme. If a game already belongs to a category that has the name of a genre, with the Prefix, it will be removed before new categories are added to it.
+  - *Remove Existing Genre Categories:* This will remove other categories ONLY if they could potentially be added by this scheme. If a game already belongs to a category that has the name of a genre, with the Prefix, it will be removed before new categories are added to it.
 
+  - *Use Tags if no genres are set:* Some games in the Steam store do not have any actual genres set, but they do generally still have tags. This will use those tags if no genres exist. It will only assign categories that match the names of Steam store genres.
+  
   - *Ignored Genres:* If you don't want a particular genre to be added as a category, select it here.
 
  - **Flags:** This refers to the items on the right-hand side of the Steam Store pages that indicate certain features. For example, all games with the "Local Co-op" feature listed will be placed into a "Local Co-op" category.
@@ -110,6 +127,10 @@ There are currently three types of AutoCat:
    - *Exclude genres:* Remove Steam genre names (Action, Indie, Strategy, etc.) from the tag list.
 
    - *Owned Only:* Only scan the games that you own. Recommended. With this turned off, you will see all tags for every game in the database.
+   
+ - **Release Year:** This lets you assign categories to games based on their release date. You can assign categories for individual years, decades, or half-decades.
+		
+ - **User Score:** This lets you categorize games based on user recommendations on the Steam store. To use this method, you must create a set of categories to assign, and define the criteria for a game to be placed in that category. Each game will only be assigned to the category for the first rule that matches it. If a game does not match any rules, it will not be assigned to a category.
 
 #### Definitions of Terms and Procedures
 
