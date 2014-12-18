@@ -2146,10 +2146,10 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In advanced mode, games will show if they meet the following criteria:
-        ///If any categories are in CHECKMARK (&quot;Allowed&quot;), the game must belong to at least one of these categories.
-        ///If any games are marked with a CIRCLE (&quot;Required&quot;), the game must belong to all of these categories.
-        ///If any games are marked with an X (&quot;Excluded&quot;), the game must not belong to any of these categories..
+        ///   Looks up a localized string similar to In advanced mode, games will be displayed if they meet the following criteria:
+        ///If at least one category is marked with a CHECKMARK (&quot;Allowed&quot;), the game must belong to at least one of these categories.
+        ///A game must be in all categories marked with a CIRCLE (&quot;Required&quot;).
+        ///A game must NOT be in any categories marked with an X (&quot;Excluded&quot;)..
         /// </summary>
         internal static string MainForm_Help_AdvancedCategories {
             get {

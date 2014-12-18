@@ -1004,10 +1004,10 @@ The higher the number, the more weight is placed on tag position.</value>
 Otherwise, sorts alphabetically.</value>
   </data>
   <data name="MainForm_Help_AdvancedCategories" xml:space="preserve">
-    <value>In advanced mode, games will show if they meet the following criteria:
-If any categories are in CHECKMARK ("Allowed"), the game must belong to at least one of these categories.
-If any games are marked with a CIRCLE ("Required"), the game must belong to all of these categories.
-If any games are marked with an X ("Excluded"), the game must not belong to any of these categories.</value>
+    <value>In advanced mode, games will be displayed if they meet the following criteria:
+If at least one category is marked with a CHECKMARK ("Allowed"), the game must belong to at least one of these categories.
+A game must be in all categories marked with a CIRCLE ("Required").
+A game must NOT be in any categories marked with an X ("Excluded").</value>
   </data>
   <data name="AutoCatGenrePanel_Help_TagFallback" xml:space="preserve">
     <value>If a game exists in the database but has no genres defined, look for tags that match genre names instead.</value>
