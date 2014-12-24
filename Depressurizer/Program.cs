@@ -18,6 +18,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Windows.Forms;
 using Rallion;
+using NDesk.Options;
 
 namespace Depressurizer {
     static class Program {
@@ -29,7 +30,7 @@ namespace Depressurizer {
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main() {
+        static void Main( string[] args ) {
             FatalError.InitializeHandler();
 
             Logger = new AppLogger();
@@ -42,16 +43,57 @@ namespace Depressurizer {
 
             Settings.Instance.Load();
 
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
+            Logger.Write( LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level );
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
-            Application.Run( new FormMain() );
 
+            AutomaticModeOptions autoOpts = ParseAutoOptions( args );
+
+            if( autoOpts != null ) {
+
+                Application.Run( new AutomaticModeForm( autoOpts ) );
+
+            } else {
+
+                Application.Run( new FormMain() );
+
+            }
             Settings.Instance.Save();
 
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
+            Logger.Write( LoggerLevel.Info, GlobalStrings.Program_ProgramClosing );
             Logger.EndSession();
         }
+
+        static AutomaticModeOptions ParseAutoOptions( string[] args ) {
+            AutomaticModeOptions config = new AutomaticModeOptions();
+            bool auto = false;
+
+            var opts = new OptionSet() {
+                { "auto", v => auto = true },
+                { "p|profile=", v => config.CustomProfile = v },
+                { "nocheck", v => config.CheckSteam = false },
+                { "noupdate", var => config.UpdateGameList = false },
+                { "import", var => config.ImportSteamCategories = true },
+                { "noappinfo", var => config.UpdateAppInfo = false },
+                { "scrapedb", var=> config.ScrapeUnscrapedGames = true },
+                { "nodbsave", var => config.SaveDBChanges = false },
+                { "nosave", var => config.SaveProfile = false },
+                { "noexport", var=> config.ExportToSteam = false },
+                { "launch", var=> config.SteamLaunch = SteamLaunchType.Normal },
+                { "launchbp", var=> config.SteamLaunch = SteamLaunchType.BigPicture},
+                { "tolerant", var => config.TolerateMinorErrors = true },
+                { "close", var=> config.AutoClose = true},
+                { "hardclose", var=>config.AutoCloseWithErrors = true },
+                { "all", var => config.ApplyAllAutoCats = true },
+                { "<>", var => config.AutoCats.Add( var ) }
+            };
+
+            opts.Parse( args );
+
+            return auto ? config : null;
+        }
     }
+
+
 }
