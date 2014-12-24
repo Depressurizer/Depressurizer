@@ -83,8 +83,8 @@ namespace Depressurizer {
                 { "launch", var=> config.SteamLaunch = SteamLaunchType.Normal },
                 { "launchbp", var=> config.SteamLaunch = SteamLaunchType.BigPicture},
                 { "tolerant", var => config.TolerateMinorErrors = true },
-                { "close", var=> config.AutoClose = true},
-                { "hardclose", var=>config.AutoCloseWithErrors = true },
+                { "quiet", var=> config.AutoClose = AutoCloseType.UnlessError},
+                { "silent", var=>config.AutoClose = AutoCloseType.Always },
                 { "all", var => config.ApplyAllAutoCats = true },
                 { "<>", var => config.AutoCats.Add( var ) }
             };

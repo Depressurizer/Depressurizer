@@ -36,23 +36,32 @@ namespace Depressurizer {
 
         private void AutomaticModeForm_Load( object sender, EventArgs e ) {
             cmdClose.Enabled = false;
-            Run();
-
-            if( options.AutoClose && ( !encounteredError || options.AutoCloseWithErrors ) ) {
-                this.Close();
-            } else {
-                cmdClose.Enabled = true;
-            }
         }
 
-        private void AddText( string text ) {
+        private void AutomaticModeForm_Shown( object sender, EventArgs e ) {
+            Run();
+
+            if( options.AutoClose == AutoCloseType.Always || (options.AutoClose == AutoCloseType.UnlessError && !encounteredError ) )
+                this.Close();
+            else
+                cmdClose.Enabled = true;
+        }
+
+        private void Write( string text ) {
+            if( txtOutput.Text.Length == 0 || txtOutput.Text.EndsWith( Environment.NewLine ) ) {
+                txtOutput.AppendText( "> " );
+            }
             txtOutput.AppendText( text );
+        }
+
+        private void WriteLine( string text = "" ) {
+            Write( text + Environment.NewLine );
         }
 
         private void Run() {
             if( !LoadGameDB() ) {
                 encounteredError = true;
-                AddText( "Aborting." );
+                WriteLine( "Aborting." );
                 return;
             }
 
@@ -61,20 +70,20 @@ namespace Depressurizer {
             Profile profile = LoadProfile( options.CustomProfile );
             if( profile == null ) {
                 encounteredError = true;
-                AddText( "Aborting." );
+                WriteLine( "Aborting." );
                 return;
             }
 
             if( !UpdateGameList( profile, options.UpdateGameList ) ) {
                 encounteredError = true;
-                AddText( "Aborting." );
+                WriteLine( "Aborting." );
                 return;
             }
 
             if( !ImportSteamCategories( profile, options.ImportSteamCategories ) ) {
                 encounteredError = true;
                 if( !options.TolerateMinorErrors ) {
-                    AddText( "Aborting." );
+                    WriteLine( "Aborting." );
                     return;
                 }
             }
@@ -82,7 +91,7 @@ namespace Depressurizer {
             if( !UpdateDBWithAppInfo( options.UpdateAppInfo ) ) {
                 encounteredError = true;
                 if( !options.TolerateMinorErrors ) {
-                    AddText( "Aborting." );
+                    WriteLine( "Aborting." );
                     return;
                 }
             }
@@ -90,7 +99,7 @@ namespace Depressurizer {
             if( !ScrapeUnscrapedGames( profile, options.ScrapeUnscrapedGames ) ) {
                 encounteredError = true;
                 if( !options.TolerateMinorErrors ) {
-                    AddText( "Aborting." );
+                    WriteLine( "Aborting." );
                     return;
                 }
             }
@@ -98,7 +107,7 @@ namespace Depressurizer {
             if( !SaveDB( options.SaveDBChanges ) ) {
                 encounteredError = true;
                 if( !options.TolerateMinorErrors ) {
-                    AddText( "Aborting." );
+                    WriteLine( "Aborting." );
                     return;
                 }
             }
@@ -106,7 +115,7 @@ namespace Depressurizer {
             if( !AutocatGames( profile, options.AutoCats, options.ApplyAllAutoCats ) ) {
                 encounteredError = true;
                 if( !options.TolerateMinorErrors ) {
-                    AddText( "Aborting." );
+                    WriteLine( "Aborting." );
                     return;
                 }
             }
@@ -114,14 +123,14 @@ namespace Depressurizer {
             if( !SaveProfile( profile, options.SaveProfile ) ) {
                 encounteredError = true;
                 if( !options.TolerateMinorErrors ) {
-                    AddText( "Aborting." );
+                    WriteLine( "Aborting." );
                     return;
                 }
             }
 
             if( !ExportToSteam( profile, options.ExportToSteam ) ) {
                 encounteredError = true;
-                AddText( "Aborting." );
+                WriteLine( "Aborting." );
                 return;
             }
 
@@ -129,7 +138,7 @@ namespace Depressurizer {
         }
 
         private bool LoadGameDB() {
-            AddText( "Loading database..." );
+            Write( "Loading database..." );
             bool success = false;
             try {
                 Program.GameDB = new GameDB();
@@ -140,10 +149,10 @@ namespace Depressurizer {
                     Program.GameDB.Load( "GameDB.xml" );
                     success = true;
                 } else {
-                    AddText( "Database not found." + Environment.NewLine );
+                    WriteLine( "Database not found." );
                 }
             } catch( Exception e ) {
-                AddText( "Error loading database: " + e.Message + Environment.NewLine );
+                WriteLine( "Error loading database: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error loading database.", e );
             }
             return success;
@@ -151,17 +160,17 @@ namespace Depressurizer {
 
         private bool CheckSteam( bool doCheck ) {
             if( doCheck ) {
-                AddText( "Checking for running Steam instance..." );
+                Write( "Checking for running Steam instance..." );
                 bool steamIsRunning = false; // TODO: actually check if steam is running
                 if( !steamIsRunning ) {
-                    AddText( "Not found. Continuing." + Environment.NewLine );
+                    WriteLine( "Not found. Continuing." );
                     return true;
                 } else {
-                    AddText( "Found. Aborting." + Environment.NewLine );
+                    WriteLine( "Found. Aborting." );
                     return false;
                 }
             } else {
-                AddText( "Skipping running Steam check." + Environment.NewLine );
+                WriteLine( "Skipping running Steam check." );
                 return true;
             }
         }
@@ -169,29 +178,29 @@ namespace Depressurizer {
         private Profile LoadProfile( string customProfile ) {
             // First, decide which profile to load
             string profileToLoad = null;
-            AddText( "Deciding what profile to load..." );
+            Write( "Deciding what profile to load..." );
             if( string.IsNullOrWhiteSpace( customProfile ) ) {
-                AddText( "No custom profile specified. Checking settings..." );
+                Write( "No custom profile specified. Checking settings..." );
                 if( string.IsNullOrWhiteSpace( Settings.Instance.ProfileToLoad ) ) {
-                    AddText( "No profile specified in settings." + Environment.NewLine );
+                    WriteLine( "No profile specified in settings." );
                     return null;
                 } else {
-                    AddText( "Default profile found: " + Settings.Instance.ProfileToLoad + Environment.NewLine );
+                    WriteLine( "Default profile found: " + Settings.Instance.ProfileToLoad );
                     profileToLoad = Settings.Instance.ProfileToLoad;
                 }
             } else {
-                AddText( "Custom profile specified: " + customProfile + Environment.NewLine );
+                WriteLine( "Custom profile specified: " + customProfile );
                 profileToLoad = customProfile;
             }
 
             // Then, actually load that profile
-            AddText( "Loading profile..." );
+            Write( "Loading profile..." );
             Profile profile = null;
             try {
                 profile = Profile.Load( profileToLoad );
-                AddText( "Profile loaded." + Environment.NewLine );
+                WriteLine( "Profile loaded." );
             } catch( Exception e ) {
-                AddText( "Profile loading failed: " + e.Message + Environment.NewLine );
+                WriteLine( "Profile loading failed: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error loading profile.", e );
             }
             return profile;
@@ -199,24 +208,24 @@ namespace Depressurizer {
 
         private bool UpdateGameList( Profile profile, bool doUpdate ) {
             if( !doUpdate ) {
-                AddText( "Skipping updating game list." + Environment.NewLine );
+                WriteLine( "Skipping updating game list." );
                 return false;
             }
-            AddText( "Updating game list..." );
+            Write( "Updating game list..." );
             bool success = false;
             if( profile.LocalUpdate ) {
                 int newApps = 0;
                 try {
-                    AddText( "Trying local update..." );
+                    Write( "Trying local update..." );
                     profile.GameData.UpdateGameListFromOwnedPackageInfo( profile.SteamID64, profile.IgnoreList, profile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newApps );
                     success = true;
                 } catch( Exception e ) {
-                    AddText( "Local update failed." );
+                    Write( "Local update failed. " );
                     Program.Logger.WriteException( "Automatic mode: Error on local profile update.", e );
                 }
             }
             if( !success && profile.WebUpdate ) {
-                AddText( "Trying web update..." );
+                Write( "Trying web update..." );
                 switch( Settings.Instance.ListSource ) {
                     case GameListSource.XmlPreferred:
                         success = UpdateGameList_Web_Xml( profile );
@@ -233,9 +242,9 @@ namespace Depressurizer {
                 }
             }
             if( success ) {
-                AddText( "Game list updated." + Environment.NewLine );
+                WriteLine( "Game list updated." );
             } else {
-                AddText( "Update failed." + Environment.NewLine );
+                WriteLine( "Update failed." );
             }
             return success;
         }
@@ -266,48 +275,48 @@ namespace Depressurizer {
 
         private bool ImportSteamCategories( Profile p, bool doImport ) {
             if( !doImport ) {
-                AddText( "Skipping Steam category import." + Environment.NewLine );
+                WriteLine( "Skipping Steam category import." );
                 return true;
             }
-            AddText( "Importing Steam category data..." );
+            Write( "Importing Steam category data..." );
             bool success = false;
             try {
                 p.ImportSteamData();
                 success = true;
             } catch( Exception e ) {
-                AddText( "Import failed: " + e.Message + Environment.NewLine );
+                WriteLine( "Import failed: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error on steam import.", e );
             }
-            if( success ) AddText( "Import complete." + Environment.NewLine );
+            if( success ) WriteLine( "Import complete." );
             return success;
         }
 
         private bool UpdateDBWithAppInfo( bool doUpdate ) {
             if( !doUpdate ) {
-                AddText( "Skipping AppInfo update." + Environment.NewLine );
+                WriteLine( "Skipping AppInfo update." );
                 return true;
             }
-            AddText( "Updating database from AppInfo..." );
+            Write( "Updating database from AppInfo..." );
             bool success = false;
             try {
                 string path = string.Format( Properties.Resources.AppInfoPath, Settings.Instance.SteamPath );
                 if( Program.GameDB.UpdateFromAppInfo( path ) > 0 ) dbModified = true;
                 success = true;
             } catch( Exception e ) {
-                AddText( "Error updating database from AppInfo: " + e.Message );
+                WriteLine( "Error updating database from AppInfo: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error updating from AppInfo.", e );
             }
-            if( success ) AddText( "AppInfo update complete." );
+            if( success ) WriteLine( "AppInfo update complete." );
             return success;
         }
 
         private bool ScrapeUnscrapedGames( Profile p, bool doScrape ) {
             if( !doScrape ) {
-                AddText( "Skipping game scraping." + Environment.NewLine );
+                WriteLine( "Skipping game scraping." );
                 return true;
             }
             bool success = false;
-            AddText( "Scraping unscraped games..." );
+            Write( "Scraping unscraped games..." );
             try {
                 Queue<int> jobs = new Queue<int>();
                 foreach( int id in p.GameData.Games.Keys ) {
@@ -322,17 +331,17 @@ namespace Depressurizer {
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
                     if( scrapeRes == System.Windows.Forms.DialogResult.Cancel ) {
-                        AddText( "Scraping cancelled." );
+                        WriteLine( "Scraping cancelled." );
                     } else {
-                        AddText( "Scraping complete." );
+                        WriteLine( "Scraping complete." );
                         if( scrapeDlg.JobsCompleted > 0 ) dbModified = true;
                     }
                 } else {
-                    AddText( "No unscraped games found." );
+                    WriteLine( "No unscraped games found." );
                 }
                 success = true;
             } catch( Exception e ) {
-                AddText( "Error updating database from web: " + e.Message );
+                WriteLine( "Error updating database from web: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error updating db from web.", e );
             }
             return success;
@@ -340,29 +349,29 @@ namespace Depressurizer {
 
         private bool SaveDB( bool doSave ) {
             if( !doSave ) {
-                AddText( "Skipping database saving." + Environment.NewLine );
+                WriteLine( "Skipping database saving." );
                 return true;
             }
             if( !dbModified ) {
-                AddText( "No database changes to save." + Environment.NewLine );
+                WriteLine( "No database changes to save." );
                 return true;
             }
             bool success = false;
-            AddText( "Saving database..." );
+            Write( "Saving database..." );
             try {
                 Program.GameDB.Save( "GameDB.xml.gz" );
                 success = true;
             } catch( Exception e ) {
-                AddText( "Error saving database: " + e.Message );
+                WriteLine( "Error saving database: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error saving db.", e );
             }
 
-            if( success ) AddText( "Saved." + Environment.NewLine );
+            if( success ) WriteLine( "Saved." );
             return success;
         }
 
         private bool AutocatGames( Profile p, List<string> autocatStrings, bool doAll ) {
-            AddText( "Starting autocategorization..." + Environment.NewLine );
+            WriteLine( "Starting autocategorization..." );
             bool success = false;
             try {
                 List<AutoCat> acList = new List<AutoCat>();
@@ -381,7 +390,7 @@ namespace Depressurizer {
                 }
 
                 foreach( AutoCat ac in acList ) {
-                    AddText( "Running autocat '" + ac.Name + "'..." );
+                    Write( "Running autocat '" + ac.Name + "'..." );
                     ac.PreProcess( p.GameData, Program.GameDB );
 
 
@@ -390,67 +399,66 @@ namespace Depressurizer {
                             ac.CategorizeGame( g );
                         }
                     }
-                    
+
                     ac.DeProcess();
-                    AddText( "Complete." + Environment.NewLine );
+                    WriteLine( "Complete." );
                 }
-                //TODO: Implement
                 success = true;
             } catch( Exception e ) {
-                AddText( "Error autocategorizing games: " + e.Message + Environment.NewLine );
+                WriteLine( "Error autocategorizing games: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error autocategorizing games.", e );
             }
-            if( success ) AddText( "Autocategorization complete." + Environment.NewLine );
+            if( success ) WriteLine( "Autocategorization complete." );
             return success;
         }
 
         private bool SaveProfile( Profile p, bool doSave ) {
             if( !doSave ) {
-                AddText( "Skipping profile save." + Environment.NewLine );
+                WriteLine( "Skipping profile save." );
                 return true;
             }
-            AddText( "Saving profile..." );
+            Write( "Saving profile..." );
             bool success = false;
             try {
                 p.Save();
                 success = true;
             } catch( Exception e ) {
-                AddText( "Error saving profile: " + e.Message + Environment.NewLine );
+                WriteLine( "Error saving profile: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error saving profile.", e );
             }
-            if( success ) AddText( "Saved." + Environment.NewLine );
+            if( success ) WriteLine( "Saved." );
             return success;
         }
 
         private bool ExportToSteam( Profile p, bool doExport ) {
             if( !doExport ) {
-                AddText( "Skipping Steam export." + Environment.NewLine );
+                WriteLine( "Skipping Steam export." );
                 return true;
             }
-            AddText( "Exporting to Steam..." );
+            Write( "Exporting to Steam..." );
             bool success = false;
             try {
                 p.GameData.ExportSteamConfig( p.SteamID64, p.ExportDiscard, false );
                 success = true;
             } catch( Exception e ) {
-                AddText( "Error exporting Steam config: " + e.Message + Environment.NewLine );
+                WriteLine( "Error exporting Steam config: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error exporting config.", e );
             }
-            if( success ) AddText( "Export complete." + Environment.NewLine );
+            if( success ) WriteLine( "Export complete." );
             return success;
         }
 
         private void LaunchSteam( SteamLaunchType t ) {
             switch( t ) {
                 case SteamLaunchType.None:
-                    AddText( "Not launching Steam." + Environment.NewLine );
+                    WriteLine( "Not launching Steam." );
                     break;
                 case SteamLaunchType.Normal:
-                    AddText( "Launching Steam in normal mode." + Environment.NewLine );
-                    System.Diagnostics.Process.Start( "steam://open" );
+                    WriteLine( "Launching Steam in normal mode." );
+                    System.Diagnostics.Process.Start( "steam://open/main" );
                     break;
                 case SteamLaunchType.BigPicture:
-                    AddText( "Launching Steam in big picture mode." + Environment.NewLine );
+                    WriteLine( "Launching Steam in big picture mode." );
                     System.Diagnostics.Process.Start( "steam://open/bigpicture" );
                     break;
             }
@@ -462,6 +470,7 @@ namespace Depressurizer {
     }
 
     public enum SteamLaunchType { None, Normal, BigPicture }
+    public enum AutoCloseType { None, UnlessError, Always }
 
     public class AutomaticModeOptions {
         public bool CheckSteam = true;
@@ -476,8 +485,7 @@ namespace Depressurizer {
         public bool SaveProfile = true;
         public bool ExportToSteam = true;
         public SteamLaunchType SteamLaunch = SteamLaunchType.None;
-        public bool AutoClose = false;
+        public AutoCloseType AutoClose = AutoCloseType.None;
         public bool TolerateMinorErrors = false;
-        public bool AutoCloseWithErrors = false;
     }
 }
