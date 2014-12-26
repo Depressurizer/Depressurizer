@@ -72,7 +72,11 @@ namespace Depressurizer {
                 return;
             }
 
-            if( !CheckSteam( options.CheckSteam ) ) return;
+            if( !CheckSteam( options.CheckSteam, options.CloseSteam ) ) {
+                encounteredError = true;
+                WriteLine( "Aborting." );
+                return;
+            }
 
             Profile profile = LoadProfile( options.CustomProfile );
             if( profile == null ) {
@@ -166,20 +170,62 @@ namespace Depressurizer {
             return success;
         }
 
-        private bool CheckSteam( bool doCheck ) {
-            if( doCheck ) {
-                Write( "Checking for running Steam instance..." );
-                Process[] processes = Process.GetProcessesByName( "steam" );
-                if( processes.Count() == 0 ) {
-                    WriteLine( "Not found. Continuing." );
-                    return true;
+        private bool CheckSteam( bool doCheck, bool tryClose ) {
+            try {
+                if( doCheck ) {
+                    Write( "Checking for running Steam instance..." );
+                    Process[] processes = Process.GetProcessesByName( "steam" );
+                    if( processes.Count() == 0 ) {
+                        WriteLine( "Not found. Continuing." );
+                        return true;
+                    } else {
+                        WriteLine( "Found running Steam process." );
+                        if( tryClose ) {
+                            return TryCloseSteam( processes );
+                        }
+                        WriteLine( "Skipping trying to close Steam." );
+                        return false;
+                    }
                 } else {
-                    WriteLine( "Found. Aborting." );
+                    WriteLine( "Skipping running Steam check." );
+                    return true;
+                }
+            } catch( Exception e ) {
+                WriteLine( "Checking for running Steam process failed: " + e.Message );
+                Program.Logger.WriteException( "Automatic mode error:", e );
+                return false;
+            }
+        }
+
+        private bool TryCloseSteam( Process[] steamProcs = null ) {
+            try {
+                if( steamProcs == null ) {
+                    steamProcs = Process.GetProcessesByName( "steam" );
+                }
+
+                string steamDir = Settings.Instance.SteamPath;
+                Write( "Trying to close Steam..." );
+                Process closeProc = Process.Start( new ProcessStartInfo( steamDir + "\\steam.exe", "-shutdown" ) );
+                bool closeProcSuccess = closeProc.WaitForExit( 5000 );
+
+                if( !closeProcSuccess ) {
+                    WriteLine( "Steam closing process did not terminate." );
                     return false;
                 }
-            } else {
-                WriteLine( "Skipping running Steam check." );
+
+                foreach( Process sProc in steamProcs ) {
+                    if( !sProc.WaitForExit( 5000 ) ) { 
+                        WriteLine( "Steam process did not terminate as requested." );
+                        return false;
+                    }
+                }
+
+                WriteLine( "Steam terminated." );
                 return true;
+            } catch( Exception e ) {
+                WriteLine( "Closing Steam failed: " + e.Message );
+                Program.Logger.WriteException( "Automatic mode error:", e );
+                return false;
             }
         }
 
@@ -482,6 +528,7 @@ namespace Depressurizer {
 
     public class AutomaticModeOptions {
         public bool CheckSteam = true;
+        public bool CloseSteam = true;
         public string CustomProfile = null;
         public List<string> AutoCats = new List<string>();
         public bool ApplyAllAutoCats = false;

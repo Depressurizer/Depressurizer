@@ -74,6 +74,7 @@ namespace Depressurizer {
                 { "auto",           v => auto = true },
                 { "p|profile=",     v => config.CustomProfile = v },
                 { "checksteam",     v => config.CheckSteam = ( v != null ) },
+                { "closesteam",     v => config.CloseSteam = ( v != null ) },
                 { "updatelib",      v => config.UpdateGameList = ( v != null ) },
                 { "import",         v => config.ImportSteamCategories = ( v != null ) },
                 { "updatedblocal",  v => config.UpdateAppInfo = ( v != null ) },
