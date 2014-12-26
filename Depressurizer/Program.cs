@@ -15,10 +15,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+using NDesk.Options;
+using Rallion;
 using System;
 using System.Windows.Forms;
-using Rallion;
-using NDesk.Options;
 
 namespace Depressurizer {
     static class Program {
@@ -51,11 +51,12 @@ namespace Depressurizer {
             AutomaticModeOptions autoOpts = ParseAutoOptions( args );
 
             if( autoOpts != null ) {
-
+                Program.Logger.Write( LoggerLevel.Info, "Automatic mode set, loading automatic mode form." );
+                Program.Logger.WriteObject( LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:" );
                 Application.Run( new AutomaticModeForm( autoOpts ) );
 
             } else {
-
+                Program.Logger.Write( LoggerLevel.Info, "Automatic mode not set, loading main form." );
                 Application.Run( new FormMain() );
 
             }
@@ -70,23 +71,23 @@ namespace Depressurizer {
             bool auto = false;
 
             var opts = new OptionSet() {
-                { "auto",       v => auto = true },
-                { "p|profile=", v => config.CustomProfile = v },
-                { "nocheck",    v => config.CheckSteam = false },
-                { "noupdate",   v => config.UpdateGameList = false },
-                { "import",     v => config.ImportSteamCategories = true },
-                { "noappinfo",  v => config.UpdateAppInfo = false },
-                { "scrapedb",   v => config.ScrapeUnscrapedGames = true },
-                { "nodbsave",   v => config.SaveDBChanges = false },
-                { "nosave",     v => config.SaveProfile = false },
-                { "noexport",   v => config.ExportToSteam = false },
-                { "launch",     v => config.SteamLaunch = SteamLaunchType.Normal },
-                { "launchbp",   v => config.SteamLaunch = SteamLaunchType.BigPicture},
-                { "tolerant",   v => config.TolerateMinorErrors = true },
-                { "quiet",      v => config.AutoClose = AutoCloseType.UnlessError},
-                { "silent",     v => config.AutoClose = AutoCloseType.Always },
-                { "all",        v => config.ApplyAllAutoCats = true },
-                { "<>",         v => config.AutoCats.Add( v ) }
+                { "auto",           v => auto = true },
+                { "p|profile=",     v => config.CustomProfile = v },
+                { "checksteam",     v => config.CheckSteam = ( v != null ) },
+                { "updatelib",      v => config.UpdateGameList = ( v != null ) },
+                { "import",         v => config.ImportSteamCategories = ( v != null ) },
+                { "updatedblocal",  v => config.UpdateAppInfo = ( v != null ) },
+                { "updatedbweb",    v => config.ScrapeUnscrapedGames = ( v != null ) },
+                { "savedb",         v => config.SaveDBChanges = ( v != null ) },
+                { "saveprofile",    v => config.SaveProfile = ( v != null ) },
+                { "export",         v => config.ExportToSteam = ( v != null ) },
+                { "launch",         v => config.SteamLaunch = SteamLaunchType.Normal },
+                { "launchbp",       v => config.SteamLaunch = SteamLaunchType.BigPicture},
+                { "tolerant",       v => config.TolerateMinorErrors = ( v != null ) },
+                { "quiet",          v => config.AutoClose = AutoCloseType.UnlessError},
+                { "silent",         v => config.AutoClose = AutoCloseType.Always },
+                { "all",            v => config.ApplyAllAutoCats = ( v != null ) },
+                { "<>",             v => config.AutoCats.Add( v ) }
             };
 
             opts.Parse( args );
@@ -94,6 +95,4 @@ namespace Depressurizer {
             return auto ? config : null;
         }
     }
-
-
 }

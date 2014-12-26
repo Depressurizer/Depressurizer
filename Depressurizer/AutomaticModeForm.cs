@@ -15,13 +15,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+using Rallion;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-using System.Diagnostics;
+
 
 namespace Depressurizer {
 
@@ -42,7 +44,7 @@ namespace Depressurizer {
         private void AutomaticModeForm_Shown( object sender, EventArgs e ) {
             Run();
 
-            if( options.AutoClose == AutoCloseType.Always || (options.AutoClose == AutoCloseType.UnlessError && !encounteredError ) )
+            if( options.AutoClose == AutoCloseType.Always || ( options.AutoClose == AutoCloseType.UnlessError && !encounteredError ) )
                 this.Close();
             else
                 cmdClose.Enabled = true;
@@ -53,13 +55,17 @@ namespace Depressurizer {
                 txtOutput.AppendText( "> " );
             }
             txtOutput.AppendText( text );
+            Program.Logger.Write( LoggerLevel.Info, "Automatic mode: " + text );
         }
 
         private void WriteLine( string text = "" ) {
-            Write( text + Environment.NewLine );
+            Write( text );
+            txtOutput.AppendText( Environment.NewLine );
         }
 
         private void Run() {
+            Program.Logger.Write( LoggerLevel.Info, "Starting automatic operation." );
+
             if( !LoadGameDB() ) {
                 encounteredError = true;
                 WriteLine( "Aborting." );
@@ -163,7 +169,7 @@ namespace Depressurizer {
         private bool CheckSteam( bool doCheck ) {
             if( doCheck ) {
                 Write( "Checking for running Steam instance..." );
-                Process[] processes = Process.GetProcessesByName("steam");
+                Process[] processes = Process.GetProcessesByName( "steam" );
                 if( processes.Count() == 0 ) {
                     WriteLine( "Not found. Continuing." );
                     return true;
