@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using System.Diagnostics;
 
 namespace Depressurizer {
 
@@ -155,14 +156,15 @@ namespace Depressurizer {
                 WriteLine( "Error loading database: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode: Error loading database.", e );
             }
+            if( success ) WriteLine( "Database loaded." );
             return success;
         }
 
         private bool CheckSteam( bool doCheck ) {
             if( doCheck ) {
                 Write( "Checking for running Steam instance..." );
-                bool steamIsRunning = false; // TODO: actually check if steam is running
-                if( !steamIsRunning ) {
+                Process[] processes = Process.GetProcessesByName("steam");
+                if( processes.Count() == 0 ) {
                     WriteLine( "Not found. Continuing." );
                     return true;
                 } else {
