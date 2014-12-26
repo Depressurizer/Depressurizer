@@ -70,23 +70,23 @@ namespace Depressurizer {
             bool auto = false;
 
             var opts = new OptionSet() {
-                { "auto", v => auto = true },
+                { "auto",       v => auto = true },
                 { "p|profile=", v => config.CustomProfile = v },
-                { "nocheck", v => config.CheckSteam = false },
-                { "noupdate", var => config.UpdateGameList = false },
-                { "import", var => config.ImportSteamCategories = true },
-                { "noappinfo", var => config.UpdateAppInfo = false },
-                { "scrapedb", var=> config.ScrapeUnscrapedGames = true },
-                { "nodbsave", var => config.SaveDBChanges = false },
-                { "nosave", var => config.SaveProfile = false },
-                { "noexport", var=> config.ExportToSteam = false },
-                { "launch", var=> config.SteamLaunch = SteamLaunchType.Normal },
-                { "launchbp", var=> config.SteamLaunch = SteamLaunchType.BigPicture},
-                { "tolerant", var => config.TolerateMinorErrors = true },
-                { "quiet", var=> config.AutoClose = AutoCloseType.UnlessError},
-                { "silent", var=>config.AutoClose = AutoCloseType.Always },
-                { "all", var => config.ApplyAllAutoCats = true },
-                { "<>", var => config.AutoCats.Add( var ) }
+                { "nocheck",    v => config.CheckSteam = false },
+                { "noupdate",   v => config.UpdateGameList = false },
+                { "import",     v => config.ImportSteamCategories = true },
+                { "noappinfo",  v => config.UpdateAppInfo = false },
+                { "scrapedb",   v => config.ScrapeUnscrapedGames = true },
+                { "nodbsave",   v => config.SaveDBChanges = false },
+                { "nosave",     v => config.SaveProfile = false },
+                { "noexport",   v => config.ExportToSteam = false },
+                { "launch",     v => config.SteamLaunch = SteamLaunchType.Normal },
+                { "launchbp",   v => config.SteamLaunch = SteamLaunchType.BigPicture},
+                { "tolerant",   v => config.TolerateMinorErrors = true },
+                { "quiet",      v => config.AutoClose = AutoCloseType.UnlessError},
+                { "silent",     v => config.AutoClose = AutoCloseType.Always },
+                { "all",        v => config.ApplyAllAutoCats = true },
+                { "<>",         v => config.AutoCats.Add( v ) }
             };
 
             opts.Parse( args );
