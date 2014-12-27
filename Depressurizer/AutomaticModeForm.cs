@@ -146,6 +146,8 @@ namespace Depressurizer {
             }
 
             LaunchSteam( options.SteamLaunch );
+
+            WriteLine( "Done." );
         }
 
         private bool LoadGameDB() {
