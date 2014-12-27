@@ -18,6 +18,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using System.Text;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace Rallion {
 
@@ -595,7 +597,7 @@ namespace Rallion {
                         if( !CanWriteToFile( fullMessage ) ) {
                             BeginSession( true );
                         }
-                        
+
                         byte[] output = new UTF8Encoding().GetBytes( fullMessage );
                         //byte[] output = fullMessage.ToCharArray();
                         outputStream.Write( output, 0, output.Length );
@@ -608,6 +610,32 @@ namespace Rallion {
 
         public void WriteException( string message, Exception e ) {
             Write( LoggerLevel.Error, message + Environment.NewLine + e.ToString() );
+        }
+
+        /// <summary>
+        /// Writes out public fields of specified object to the log. For IEnumerable values, individual items are written out; this only applies to top-level items.
+        /// </summary>
+        /// <param name="lev">Channel to output on</param>
+        /// <param name="o">Object to write fields of</param>
+        /// <param name="prefix">Text prefix, the first line of the output.</param>
+        public void WriteObject( LoggerLevel lev, object o, string prefix = "" ) {
+            if( Level >= lev ) {
+                StringBuilder builder = new StringBuilder( prefix + Environment.NewLine );
+                FieldInfo[] fields = o.GetType().GetFields();
+                foreach( FieldInfo fi in fields ) {
+                    object val = fi.GetValue( o );
+                    if( val is IEnumerable<object> ) {
+                        int index = 0;
+                        foreach( object subObj in ( val as IEnumerable<object> ) ) {
+                            builder.AppendLine( string.Format( "{0}[{1}] : {2}", fi.Name, index, subObj ) );
+                            index++;
+                        }
+                    } else {
+                        builder.AppendLine( string.Format( "{0} : {1}", fi.Name, val ) );
+                    }
+                }
+                Write( lev, builder.ToString() );
+            }
         }
         #endregion
     }

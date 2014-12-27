@@ -132,6 +132,12 @@
     <Compile Include="AutoCat\AutoCatTags.cs" />
     <Compile Include="AutoCat\AutoCatUserScore.cs" />
     <Compile Include="AutoCat\AutoCatYear.cs" />
+    <Compile Include="AutomaticModeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutomaticModeForm.Designer.cs">
+      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DlgAutoCat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +156,7 @@
     <Compile Include="Lib\ExtToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Lib\Options.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
@@ -270,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Year.resx">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutomaticModeForm.resx">
+      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>
