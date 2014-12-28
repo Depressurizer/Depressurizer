@@ -1515,6 +1515,10 @@ namespace Depressurizer {
             UpdateUIForSingleCat();
         }
 
+        private void menu_About_Click( object sender, EventArgs e ) {
+            ( new DlgAbout() ).ShowDialog();
+        }
+
         /// <summary>
         /// jpodadera. Recursive function to reload resources of new language for a menu item and its childs
         /// </summary>
