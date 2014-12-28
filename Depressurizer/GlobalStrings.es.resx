@@ -650,6 +650,7 @@ Tiempo Restante:</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
     <value>{0} juegos no localizados en la base de datos local. ¿Se revisa la tienda de Steam para cargar los géneros de estos juegos?</value>
+    <comment>TODO_LOCAL: String was modified and needs retranslation</comment>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
     <value>Ignorados {0} juegos {1}.</value>

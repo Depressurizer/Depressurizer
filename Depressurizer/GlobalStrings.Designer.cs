@@ -2137,7 +2137,8 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} games not found in the local database. Check the Steam Store for these game genres?.
+        ///   Looks up a localized string similar to {0} games need have no web-sourced data in the local database. Scrape now?
+        ///This could take up to a few seconds per game..
         /// </summary>
         internal static string MainForm_GamesNotFoundInGameDB {
             get {

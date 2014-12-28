@@ -783,7 +783,30 @@ namespace Depressurizer {
             int updated = 0;
 
             // List of games not found in database, so we can try to scrape data for them
-            List<GameInfo> notFound = new List<GameInfo>();
+            Queue<int> notInDb = new Queue<int>();
+            foreach( GameInfo game in gamesToUpdate ) {
+                if( game.Id > 0 && ( !Program.GameDB.Contains( game.Id ) || Program.GameDB.Games[game.Id].LastStoreScrape == 0 ) ) {
+                    notInDb.Enqueue( game.Id );
+                }
+            }
+
+            if( notInDb.Count > 0 ) {
+                if( MessageBox.Show( string.Format( GlobalStrings.MainForm_GamesNotFoundInGameDB, notInDb.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
+                        == System.Windows.Forms.DialogResult.Yes ) {
+
+                    DbScrapeDlg scrapeDlg = new DbScrapeDlg( notInDb );
+                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
+
+                    if( scrapeRes == System.Windows.Forms.DialogResult.Cancel ) {
+                        AddStatus( string.Format( GlobalStrings.MainForm_CanceledDatabaseUpdate ) );
+                    } else {
+                        AddStatus( string.Format( GlobalStrings.MainForm_UpdatedDatabaseEntries, scrapeDlg.JobsCompleted ) );
+                        if( scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutosaveDB ) {
+                            SaveGameDB();
+                        }
+                    }
+                }
+            }
 
             autoCat.PreProcess( currentProfile.GameData, Program.GameDB );
 
@@ -791,37 +814,9 @@ namespace Depressurizer {
                 AutoCatResult res = autoCat.CategorizeGame( g );
                 if( res == AutoCatResult.Success ) {
                     updated++;
-                } else if( res == AutoCatResult.NotInDatabase ) {
-                    notFound.Add( g );
                 }
             }
-
-            if( notFound.Count > 0 ) {
-                if( MessageBox.Show( string.Format( GlobalStrings.MainForm_GamesNotFoundInGameDB, notFound.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
-                        == System.Windows.Forms.DialogResult.Yes ) {
-
-                    Queue<int> jobs = new Queue<int>();
-                    foreach( GameInfo g in notFound ) jobs.Enqueue( g.Id );
-
-                    DbScrapeDlg scrapeDlg = new DbScrapeDlg( jobs );
-                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
-
-                    if( scrapeRes == System.Windows.Forms.DialogResult.Cancel ) {
-                        AddStatus( string.Format( GlobalStrings.MainForm_CanceledDatabaseUpdate ) );
-                    } else {
-                        AddStatus( string.Format( GlobalStrings.MainForm_UpdatedDatabaseEntries, scrapeDlg.JobsCompleted ) );
-                        foreach( GameInfo g in notFound ) {
-                            AutoCatResult res = autoCat.CategorizeGame( g );
-                            if( res == AutoCatResult.Success ) {
-                                updated++;
-                            }
-                        }
-                        if( scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutosaveDB ) {
-                            SaveGameDB();
-                        }
-                    }
-                }
-            }
+            
             autoCat.DeProcess();
             AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
             if( gamesToUpdate.Count > updated ) AddStatus( string.Format( GlobalStrings.MainForm_FailedToUpdate, gamesToUpdate.Count - updated ) );
