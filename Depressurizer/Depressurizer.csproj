@@ -156,6 +156,12 @@
     <Compile Include="DlgAutoCatCreate.Designer.cs">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="DlgAutomaticModeHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAutomaticModeHelper.Designer.cs">
+      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -295,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatCreate.resx">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
+      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
