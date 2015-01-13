@@ -262,6 +262,122 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export your categories to Steam after running autocats.
+        ///If this is disabled, changes will not show up in the Steam client.
+        ///Recommended: Enabled.
+        /// </summary>
+        internal static string AutoMode_Help_Export {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import existing categories from Steam before running autocat operations.
+        ///If this is disabled, manual categorizations done through the client may be lost..
+        /// </summary>
+        internal static string AutoMode_Help_ImportCats {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_ImportCats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will launch Steam after completing autocats..
+        /// </summary>
+        internal static string AutoMode_Help_Launch {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_Launch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set to Normal, the output window will remain open until you close it.
+        ///If set to Quiet, the output window will automatically close unless errors are encountered.
+        ///If set to Silent, the output window will always automatically close..
+        /// </summary>
+        internal static string AutoMode_Help_Output {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the database if any changes are made to it.
+        ///Recommended: Enabled.
+        /// </summary>
+        internal static string AutoMode_Help_SaveDB {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_SaveDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the profile after running autocats.
+        ///Recommended: Enabled.
+        /// </summary>
+        internal static string AutoMode_Help_SaveProfile {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_SaveProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If set to Check and Close, attempt to close Steam if it is running. (Recommended.)
+        ///If set to Check and Abort, stop AutoCat operation if Steam is running.
+        ///If set to Skip, don&apos;t check whether Steam is running..
+        /// </summary>
+        internal static string AutoMode_Help_SteamCheck {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_SteamCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If disabled, will terminate after any error.
+        ///If enabled, will continue if non-fatal errors are encountered.
+        ///Recommended: Enabled.
+        /// </summary>
+        internal static string AutoMode_Help_Tolerant {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_Tolerant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update the database with information from the local database before running autocat operations.
+        ///Note that this data is not currently used for autocategorization, so it is unimportant..
+        /// </summary>
+        internal static string AutoMode_Help_UpdateAppInfo {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_UpdateAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update your library with new games before running autocat operations.
+        ///Will obey profile settings for update data source.
+        ///Recommended: Enabled.
+        /// </summary>
+        internal static string AutoMode_Help_UpdateLib {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_UpdateLib", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempt to download information for any games not found in the database.
+        ///Can be slow, but will only download information for games that need it.
+        ///If this is unchecked, newer games may not be categorized.
+        ///Recommended: Enabled.
+        /// </summary>
+        internal static string AutoMode_Help_UpdateWeb {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_UpdateWeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Object is not a Category.
         /// </summary>
         internal static string Category_Exception_ObjectNotCategory {

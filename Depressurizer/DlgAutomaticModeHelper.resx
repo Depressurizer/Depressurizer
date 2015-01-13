@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblExplain.Text" xml:space="preserve">
+    <value>Automatic mode lets you run a predetermined set of autocat operations on your game library through the command line or by running a shortcut, without having to use the full Depressurizer interface. You still have to use the full interface to manage the autocat rules themselves.</value>
+  </data>
+  <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
