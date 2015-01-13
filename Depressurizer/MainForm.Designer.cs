@@ -138,6 +138,8 @@ namespace Depressurizer {
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.autoModeHelperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -772,6 +774,8 @@ namespace Depressurizer {
             this.menu_Tools_AutocatAll,
             this.menu_Tools_AutonameAll,
             this.menu_Tools_RemoveEmpty,
+            this.menu_Tools_Sep1,
+            this.autoModeHelperToolStripMenuItem,
             this.menu_Tools_Sep2,
             this.menu_Tools_DBEdit,
             this.menu_Tools_Sep3,
@@ -858,6 +862,17 @@ namespace Depressurizer {
             resources.ApplyResources(this.statusSelection, "statusSelection");
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
+            // 
+            // autoModeHelperToolStripMenuItem
+            // 
+            this.autoModeHelperToolStripMenuItem.Name = "autoModeHelperToolStripMenuItem";
+            resources.ApplyResources(this.autoModeHelperToolStripMenuItem, "autoModeHelperToolStripMenuItem");
+            this.autoModeHelperToolStripMenuItem.Click += new System.EventHandler(this.autoModeHelperToolStripMenuItem_Click);
+            // 
+            // menu_Tools_Sep1
+            // 
+            this.menu_Tools_Sep1.Name = "menu_Tools_Sep1";
+            resources.ApplyResources(this.menu_Tools_Sep1, "menu_Tools_Sep1");
             // 
             // FormMain
             // 
@@ -994,6 +1009,8 @@ namespace Depressurizer {
         private System.Windows.Forms.Label helpAdvancedCategories;
         private Lib.ExtToolTip ttHelp;
         private System.Windows.Forms.ToolStripMenuItem menu_About;
+        private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep1;
+        private System.Windows.Forms.ToolStripMenuItem autoModeHelperToolStripMenuItem;
     }
 }
 

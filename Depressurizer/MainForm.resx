@@ -210,6 +210,24 @@
   <data name="grpCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="helpAdvancedCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="helpAdvancedCategories.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="helpAdvancedCategories.Location" type="System.Drawing.Point, System.Drawing">
+    <value>217, 21</value>
+  </data>
+  <data name="helpAdvancedCategories.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 15</value>
+  </data>
+  <data name="helpAdvancedCategories.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="helpAdvancedCategories.Text" xml:space="preserve">
+    <value>?</value>
+  </data>
   <data name="&gt;&gt;helpAdvancedCategories.Name" xml:space="preserve">
     <value>helpAdvancedCategories</value>
   </data>
@@ -221,6 +239,24 @@
   </data>
   <data name="&gt;&gt;helpAdvancedCategories.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="radCatAdvanced.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radCatAdvanced.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radCatAdvanced.Location" type="System.Drawing.Point, System.Drawing">
+    <value>84, 19</value>
+  </data>
+  <data name="radCatAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 17</value>
+  </data>
+  <data name="radCatAdvanced.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radCatAdvanced.Text" xml:space="preserve">
+    <value>Advanced</value>
   </data>
   <data name="&gt;&gt;radCatAdvanced.Name" xml:space="preserve">
     <value>radCatAdvanced</value>
@@ -234,6 +270,24 @@
   <data name="&gt;&gt;radCatAdvanced.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="radCatSimple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radCatSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radCatSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 19</value>
+  </data>
+  <data name="radCatSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 17</value>
+  </data>
+  <data name="radCatSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radCatSimple.Text" xml:space="preserve">
+    <value>Simple</value>
+  </data>
   <data name="&gt;&gt;radCatSimple.Name" xml:space="preserve">
     <value>radCatSimple</value>
   </data>
@@ -246,6 +300,57 @@
   <data name="&gt;&gt;radCatSimple.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="lstCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <metadata name="contextCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>642, 17</value>
+  </metadata>
+  <data name="contextCat_Add.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_Add.Text" xml:space="preserve">
+    <value>Add Category...</value>
+  </data>
+  <data name="contextCat_Rename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_Rename.Text" xml:space="preserve">
+    <value>Rename Category...</value>
+  </data>
+  <data name="contextCat_Delete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_Delete.Text" xml:space="preserve">
+    <value>Delete Category</value>
+  </data>
+  <data name="contextCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 6</value>
+  </data>
+  <data name="contextCat_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
+    <value>Remove Empty Categories</value>
+  </data>
+  <data name="contextCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>189, 98</value>
+  </data>
+  <data name="&gt;&gt;contextCat.Name" xml:space="preserve">
+    <value>contextCat</value>
+  </data>
+  <data name="&gt;&gt;contextCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lstCategories.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
+  </data>
+  <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 352</value>
+  </data>
+  <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
   <data name="&gt;&gt;lstCategories.Name" xml:space="preserve">
     <value>lstCategories</value>
   </data>
@@ -257,6 +362,114 @@
   </data>
   <data name="&gt;&gt;lstCategories.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="tableCatButtons.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="tableCatButtons.ColumnCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="cmdCatAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="cmdCatAdd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cmdCatAdd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="cmdCatAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="cmdCatAdd.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cmdCatAdd.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;cmdCatAdd.Name" xml:space="preserve">
+    <value>cmdCatAdd</value>
+  </data>
+  <data name="&gt;&gt;cmdCatAdd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatAdd.Parent" xml:space="preserve">
+    <value>tableCatButtons</value>
+  </data>
+  <data name="&gt;&gt;cmdCatAdd.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmdCatDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="cmdCatDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cmdCatDelete.Location" type="System.Drawing.Point, System.Drawing">
+    <value>159, 3</value>
+  </data>
+  <data name="cmdCatDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 23</value>
+  </data>
+  <data name="cmdCatDelete.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cmdCatDelete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="&gt;&gt;cmdCatDelete.Name" xml:space="preserve">
+    <value>cmdCatDelete</value>
+  </data>
+  <data name="&gt;&gt;cmdCatDelete.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatDelete.Parent" xml:space="preserve">
+    <value>tableCatButtons</value>
+  </data>
+  <data name="&gt;&gt;cmdCatDelete.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cmdCatRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="cmdCatRename.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cmdCatRename.Location" type="System.Drawing.Point, System.Drawing">
+    <value>81, 3</value>
+  </data>
+  <data name="cmdCatRename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="cmdCatRename.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cmdCatRename.Text" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="&gt;&gt;cmdCatRename.Name" xml:space="preserve">
+    <value>cmdCatRename</value>
+  </data>
+  <data name="&gt;&gt;cmdCatRename.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdCatRename.Parent" xml:space="preserve">
+    <value>tableCatButtons</value>
+  </data>
+  <data name="&gt;&gt;cmdCatRename.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tableCatButtons.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 395</value>
+  </data>
+  <data name="tableCatButtons.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tableCatButtons.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 29</value>
+  </data>
+  <data name="tableCatButtons.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;tableCatButtons.Name" xml:space="preserve">
     <value>tableCatButtons</value>
@@ -320,6 +533,174 @@
   </data>
   <data name="splitGame.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
+  </data>
+  <data name="colGameID.Text" xml:space="preserve">
+    <value>Game ID</value>
+  </data>
+  <data name="colTitle.Text" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="colTitle.Width" type="System.Int32, mscorlib">
+    <value>286</value>
+  </data>
+  <data name="colCategory.Text" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="colCategory.Width" type="System.Int32, mscorlib">
+    <value>250</value>
+  </data>
+  <data name="colFavorite.Text" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="colFavorite.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="colFavorite.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="colHidden.Text" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="colHidden.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="colHidden.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <metadata name="contextGame.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>234, 17</value>
+  </metadata>
+  <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_Add.Text" xml:space="preserve">
+    <value>Add New Game...</value>
+  </data>
+  <data name="contextGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_Edit.Text" xml:space="preserve">
+    <value>Edit Game...</value>
+  </data>
+  <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_Remove.Text" xml:space="preserve">
+    <value>Remove Game</value>
+  </data>
+  <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 6</value>
+  </data>
+  <metadata name="contextGameAddCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>500, 17</value>
+  </metadata>
+  <data name="contextGameAddCat_Create.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 22</value>
+  </data>
+  <data name="contextGameAddCat_Create.Text" xml:space="preserve">
+    <value>Create New...</value>
+  </data>
+  <data name="contextGameAddCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 26</value>
+  </data>
+  <data name="&gt;&gt;contextGameAddCat.Name" xml:space="preserve">
+    <value>contextGameAddCat</value>
+  </data>
+  <data name="&gt;&gt;contextGameAddCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_AddCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_AddCat.Text" xml:space="preserve">
+    <value>Add Category</value>
+  </data>
+  <metadata name="contextGameRemCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>752, 17</value>
+  </metadata>
+  <data name="contextGameRemCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 4</value>
+  </data>
+  <data name="&gt;&gt;contextGameRemCat.Name" xml:space="preserve">
+    <value>contextGameRemCat</value>
+  </data>
+  <data name="&gt;&gt;contextGameRemCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_RemCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_RemCat.Text" xml:space="preserve">
+    <value>Remove Category</value>
+  </data>
+  <metadata name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>358, 17</value>
+  </metadata>
+  <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 22</value>
+  </data>
+  <data name="contextGameFav_Yes.Text" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 22</value>
+  </data>
+  <data name="contextGameFav_No.Text" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 48</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav.Name" xml:space="preserve">
+    <value>contextGameFav</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_SetFav.Text" xml:space="preserve">
+    <value>Set Favorite</value>
+  </data>
+  <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 6</value>
+  </data>
+  <data name="contextGame_VisitStore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_VisitStore.Text" xml:space="preserve">
+    <value>Visit Store Page</value>
+  </data>
+  <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 6</value>
+  </data>
+  <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_LaunchGame.Text" xml:space="preserve">
+    <value>Start Game</value>
+  </data>
+  <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 198</value>
+  </data>
+  <data name="&gt;&gt;contextGame.Name" xml:space="preserve">
+    <value>contextGame</value>
+  </data>
+  <data name="&gt;&gt;contextGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lstGames.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>847, 322</value>
+  </data>
+  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
     <value>lstGames</value>
@@ -554,7 +935,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAATgBAgE4AQIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAUABAgFAAQIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -796,498 +1177,6 @@
   <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="helpAdvancedCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="helpAdvancedCategories.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="helpAdvancedCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 21</value>
-  </data>
-  <data name="helpAdvancedCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="helpAdvancedCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="helpAdvancedCategories.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;helpAdvancedCategories.Name" xml:space="preserve">
-    <value>helpAdvancedCategories</value>
-  </data>
-  <data name="&gt;&gt;helpAdvancedCategories.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;helpAdvancedCategories.Parent" xml:space="preserve">
-    <value>grpCategories</value>
-  </data>
-  <data name="&gt;&gt;helpAdvancedCategories.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="radCatAdvanced.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radCatAdvanced.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radCatAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 19</value>
-  </data>
-  <data name="radCatAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 17</value>
-  </data>
-  <data name="radCatAdvanced.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="radCatAdvanced.Text" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
-  <data name="&gt;&gt;radCatAdvanced.Name" xml:space="preserve">
-    <value>radCatAdvanced</value>
-  </data>
-  <data name="&gt;&gt;radCatAdvanced.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radCatAdvanced.Parent" xml:space="preserve">
-    <value>grpCategories</value>
-  </data>
-  <data name="&gt;&gt;radCatAdvanced.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="radCatSimple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="radCatSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="radCatSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 19</value>
-  </data>
-  <data name="radCatSimple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 17</value>
-  </data>
-  <data name="radCatSimple.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="radCatSimple.Text" xml:space="preserve">
-    <value>Simple</value>
-  </data>
-  <data name="&gt;&gt;radCatSimple.Name" xml:space="preserve">
-    <value>radCatSimple</value>
-  </data>
-  <data name="&gt;&gt;radCatSimple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;radCatSimple.Parent" xml:space="preserve">
-    <value>grpCategories</value>
-  </data>
-  <data name="&gt;&gt;radCatSimple.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="lstCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <metadata name="contextCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>642, 17</value>
-  </metadata>
-  <data name="contextCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 98</value>
-  </data>
-  <data name="&gt;&gt;contextCat.Name" xml:space="preserve">
-    <value>contextCat</value>
-  </data>
-  <data name="&gt;&gt;contextCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lstCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
-  </data>
-  <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 352</value>
-  </data>
-  <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;lstCategories.Name" xml:space="preserve">
-    <value>lstCategories</value>
-  </data>
-  <data name="&gt;&gt;lstCategories.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.1.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;lstCategories.Parent" xml:space="preserve">
-    <value>grpCategories</value>
-  </data>
-  <data name="&gt;&gt;lstCategories.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="contextCat_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_Add.Text" xml:space="preserve">
-    <value>Add Category...</value>
-  </data>
-  <data name="contextCat_Rename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_Rename.Text" xml:space="preserve">
-    <value>Rename Category...</value>
-  </data>
-  <data name="contextCat_Delete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_Delete.Text" xml:space="preserve">
-    <value>Delete Category</value>
-  </data>
-  <data name="contextCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="contextCat_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
-    <value>Remove Empty Categories</value>
-  </data>
-  <data name="tableCatButtons.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="tableCatButtons.ColumnCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Name" xml:space="preserve">
-    <value>cmdCatAdd</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Name" xml:space="preserve">
-    <value>cmdCatDelete</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.Name" xml:space="preserve">
-    <value>cmdCatRename</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tableCatButtons.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 395</value>
-  </data>
-  <data name="tableCatButtons.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tableCatButtons.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 29</value>
-  </data>
-  <data name="tableCatButtons.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;tableCatButtons.Name" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;tableCatButtons.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableCatButtons.Parent" xml:space="preserve">
-    <value>grpCategories</value>
-  </data>
-  <data name="&gt;&gt;tableCatButtons.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="tableCatButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="cmdCatAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="cmdCatAdd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdCatAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="cmdCatAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 23</value>
-  </data>
-  <data name="cmdCatAdd.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="cmdCatAdd.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Name" xml:space="preserve">
-    <value>cmdCatAdd</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatAdd.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cmdCatDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="cmdCatDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdCatDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>159, 3</value>
-  </data>
-  <data name="cmdCatDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 23</value>
-  </data>
-  <data name="cmdCatDelete.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="cmdCatDelete.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Name" xml:space="preserve">
-    <value>cmdCatDelete</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatDelete.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cmdCatRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="cmdCatRename.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cmdCatRename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>81, 3</value>
-  </data>
-  <data name="cmdCatRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 23</value>
-  </data>
-  <data name="cmdCatRename.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="cmdCatRename.Text" xml:space="preserve">
-    <value>Rename</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.Name" xml:space="preserve">
-    <value>cmdCatRename</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.Parent" xml:space="preserve">
-    <value>tableCatButtons</value>
-  </data>
-  <data name="&gt;&gt;cmdCatRename.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="colGameID.Text" xml:space="preserve">
-    <value>Game ID</value>
-  </data>
-  <data name="colTitle.Text" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="colTitle.Width" type="System.Int32, mscorlib">
-    <value>286</value>
-  </data>
-  <data name="colCategory.Text" xml:space="preserve">
-    <value>Categories</value>
-  </data>
-  <data name="colCategory.Width" type="System.Int32, mscorlib">
-    <value>250</value>
-  </data>
-  <data name="colFavorite.Text" xml:space="preserve">
-    <value>Favorite</value>
-  </data>
-  <data name="colFavorite.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="colFavorite.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="colHidden.Text" xml:space="preserve">
-    <value>Hidden</value>
-  </data>
-  <data name="colHidden.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="colHidden.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <metadata name="contextGame.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>234, 17</value>
-  </metadata>
-  <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 198</value>
-  </data>
-  <data name="&gt;&gt;contextGame.Name" xml:space="preserve">
-    <value>contextGame</value>
-  </data>
-  <data name="&gt;&gt;contextGame.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lstGames.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>847, 322</value>
-  </data>
-  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
-    <value>lstGames</value>
-  </data>
-  <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.1.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
-    <value>grpGames</value>
-  </data>
-  <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_Add.Text" xml:space="preserve">
-    <value>Add New Game...</value>
-  </data>
-  <data name="contextGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_Edit.Text" xml:space="preserve">
-    <value>Edit Game...</value>
-  </data>
-  <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_Remove.Text" xml:space="preserve">
-    <value>Remove Game</value>
-  </data>
-  <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <metadata name="contextGameAddCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>500, 17</value>
-  </metadata>
-  <data name="contextGameAddCat_Create.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
-  </data>
-  <data name="contextGameAddCat_Create.Text" xml:space="preserve">
-    <value>Create New...</value>
-  </data>
-  <data name="contextGameAddCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 26</value>
-  </data>
-  <data name="&gt;&gt;contextGameAddCat.Name" xml:space="preserve">
-    <value>contextGameAddCat</value>
-  </data>
-  <data name="&gt;&gt;contextGameAddCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_AddCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_AddCat.Text" xml:space="preserve">
-    <value>Add Category</value>
-  </data>
-  <metadata name="contextGameRemCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>752, 17</value>
-  </metadata>
-  <data name="contextGameRemCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 4</value>
-  </data>
-  <data name="&gt;&gt;contextGameRemCat.Name" xml:space="preserve">
-    <value>contextGameRemCat</value>
-  </data>
-  <data name="&gt;&gt;contextGameRemCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_RemCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_RemCat.Text" xml:space="preserve">
-    <value>Remove Category</value>
-  </data>
-  <metadata name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>358, 17</value>
-  </metadata>
-  <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 22</value>
-  </data>
-  <data name="contextGameFav_Yes.Text" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 22</value>
-  </data>
-  <data name="contextGameFav_No.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 48</value>
-  </data>
-  <data name="&gt;&gt;contextGameFav.Name" xml:space="preserve">
-    <value>contextGameFav</value>
-  </data>
-  <data name="&gt;&gt;contextGameFav.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_SetFav.Text" xml:space="preserve">
-    <value>Set Favorite</value>
-  </data>
-  <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <data name="contextGame_VisitStore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_VisitStore.Text" xml:space="preserve">
-    <value>Visit Store Page</value>
-  </data>
-  <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_LaunchGame.Text" xml:space="preserve">
-    <value>Start Game</value>
-  </data>
   <metadata name="imglistFilter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
   </metadata>
@@ -1296,7 +1185,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAaABAAGgAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAagBAAGoAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1343,51 +1232,6 @@
   <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="menu_File.Text" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 20</value>
-  </data>
-  <data name="menu_Profile.Text" xml:space="preserve">
-    <value>&amp;Profile</value>
-  </data>
-  <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 20</value>
-  </data>
-  <data name="menu_Tools.Text" xml:space="preserve">
-    <value>&amp;Tools</value>
-  </data>
-  <data name="menu_About.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
-  </data>
-  <data name="menu_About.Text" xml:space="preserve">
-    <value>&amp;About...</value>
-  </data>
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1096, 24</value>
-  </data>
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
-    <value>menuStrip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
   <data name="menu_File_NewProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+N</value>
   </data>
@@ -1436,17 +1280,17 @@
   <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
     <value>207, 6</value>
   </data>
-  <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 22</value>
-  </data>
-  <data name="menu_File_Manual.Text" xml:space="preserve">
-    <value>&amp;Manual Export</value>
-  </data>
   <data name="menu_File_Manual_Export.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 22</value>
   </data>
   <data name="menu_File_Manual_Export.Text" xml:space="preserve">
     <value>Local &amp;Config File...</value>
+  </data>
+  <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
+    <value>210, 22</value>
+  </data>
+  <data name="menu_File_Manual.Text" xml:space="preserve">
+    <value>&amp;Manual Export</value>
   </data>
   <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
     <value>207, 6</value>
@@ -1456,6 +1300,12 @@
   </data>
   <data name="menu_File_Exit.Text" xml:space="preserve">
     <value>E&amp;xit</value>
+  </data>
+  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="menu_File.Text" xml:space="preserve">
+    <value>&amp;File</value>
   </data>
   <data name="menu_Profile_Update.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+U</value>
@@ -1508,6 +1358,12 @@
   <data name="menu_Profile_AutoCats.Text" xml:space="preserve">
     <value>Edit Au&amp;toCats...</value>
   </data>
+  <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="menu_Profile.Text" xml:space="preserve">
+    <value>&amp;Profile</value>
+  </data>
   <metadata name="menu_Tools_Autocat_List.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1047, 17</value>
   </metadata>
@@ -1537,6 +1393,15 @@
   </data>
   <data name="menu_Tools_RemoveEmpty.Text" xml:space="preserve">
     <value>&amp;Remove Empty Categories</value>
+  </data>
+  <data name="menu_Tools_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 6</value>
+  </data>
+  <data name="autoModeHelperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 22</value>
+  </data>
+  <data name="autoModeHelperToolStripMenuItem.Text" xml:space="preserve">
+    <value>Auto Mode Helper...</value>
   </data>
   <data name="menu_Tools_Sep2.Size" type="System.Drawing.Size, System.Drawing">
     <value>225, 6</value>
@@ -1571,9 +1436,57 @@
   <data name="menu_Tools_Settings.Text" xml:space="preserve">
     <value>&amp;Settings...</value>
   </data>
+  <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 20</value>
+  </data>
+  <data name="menu_Tools.Text" xml:space="preserve">
+    <value>&amp;Tools</value>
+  </data>
+  <data name="menu_About.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 20</value>
+  </data>
+  <data name="menu_About.Text" xml:space="preserve">
+    <value>&amp;About...</value>
+  </data>
+  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1096, 24</value>
+  </data>
+  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
   <metadata name="statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>125, 17</value>
   </metadata>
+  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>881, 17</value>
+  </data>
+  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="statusSelection.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="statusSelection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 17</value>
+  </data>
+  <data name="statusSelection.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
   <data name="statusStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 475</value>
   </data>
@@ -1597,21 +1510,6 @@
   </data>
   <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>881, 17</value>
-  </data>
-  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="statusSelection.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="statusSelection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 17</value>
-  </data>
-  <data name="statusSelection.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
   </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 56</value>
@@ -2126,6 +2024,18 @@
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
     <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.6.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;autoModeHelperToolStripMenuItem.Name" xml:space="preserve">
+    <value>autoModeHelperToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;autoModeHelperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_Sep1.Name" xml:space="preserve">
+    <value>menu_Tools_Sep1</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_Sep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>
