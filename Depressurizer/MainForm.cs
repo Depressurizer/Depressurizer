@@ -979,6 +979,11 @@ namespace Depressurizer {
                     if( ShouldDisplayGame( g ) ) {
                         displayedGames.Add( g );
                     }
+
+					if ( g.Name == null ) {
+						g.Name = string.Empty;
+						displayedGames.Add( g );
+					}
                 }
                 displayedGames.Sort( displayedGamesSorter );
             }
