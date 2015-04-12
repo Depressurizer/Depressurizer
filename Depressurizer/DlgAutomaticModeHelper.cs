@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IWshRuntimeLibrary;
 
 namespace Depressurizer {
     public partial class DlgAutomaticModeHelper : Form {
@@ -117,8 +118,28 @@ namespace Depressurizer {
             return val ? "+" : "-";
         }
 
-        private void cmdShortcut_Click( object sender, EventArgs e ) {
+        private void CreateShortcut() {
+            SaveFileDialog dlg = new SaveFileDialog();
 
+            dlg.InitialDirectory = Environment.GetFolderPath( Environment.SpecialFolder.Desktop );
+            dlg.DefaultExt = "lnk";
+            dlg.AddExtension = true;
+            dlg.Filter = "Shortcuts|*.lnk";
+            dlg.FileName = "Depressurizer Auto";
+
+            DialogResult res = dlg.ShowDialog();
+            if( res == System.Windows.Forms.DialogResult.OK ) {
+                    WshShell shell = new WshShell();
+                    IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut( dlg.FileName );
+                    shortcut.TargetPath = Application.ExecutablePath;
+                    shortcut.WorkingDirectory = Application.StartupPath;
+                    shortcut.Arguments = GenerateArguments();
+                    shortcut.Save();
+            }
+        }
+
+        private void cmdShortcut_Click( object sender, EventArgs e ) {
+            CreateShortcut();
         }
 
         private void ItemChanged( object sender, EventArgs e ) {
