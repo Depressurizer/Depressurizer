@@ -592,7 +592,7 @@ namespace Depressurizer {
                                         break;
                                     }
                                 }
-                                    AddStatus( string.Format( GlobalStrings.MainForm_CategoryRenamed, c.Name ) );
+                                AddStatus( string.Format( GlobalStrings.MainForm_CategoryRenamed, c.Name ) );
                                 return true;
                             }
                         }
@@ -816,7 +816,7 @@ namespace Depressurizer {
                     updated++;
                 }
             }
-            
+
             autoCat.DeProcess();
             AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
             if( gamesToUpdate.Count > updated ) AddStatus( string.Format( GlobalStrings.MainForm_FailedToUpdate, gamesToUpdate.Count - updated ) );
@@ -2117,5 +2117,9 @@ namespace Depressurizer {
         }
 
         #endregion
+
+        private void autoModeHelperToolStripMenuItem_Click( object sender, EventArgs e ) {
+            (new DlgAutomaticModeHelper(currentProfile)).ShowDialog();
+        }
     }
 }
