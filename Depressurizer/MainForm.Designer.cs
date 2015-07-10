@@ -384,6 +384,7 @@ namespace Depressurizer {
             this.lstGames.UseFiltering = true;
             this.lstGames.View = System.Windows.Forms.View.Details;
             this.lstGames.VirtualMode = true;
+            this.lstGames.ItemsChanged += new System.EventHandler<BrightIdeasSoftware.ItemsChangedEventArgs>(this.lstGames_ItemsChanged);
             this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
             this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);

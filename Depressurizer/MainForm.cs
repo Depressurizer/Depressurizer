@@ -105,12 +105,8 @@ namespace Depressurizer {
                 int id = (int)obj;
                 return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
             };
-            //this.colGameId.MakeGroupies(
-            //    new int[] {0, 50000, 100000 },
-            //    new string[] { "External", "0-50000", "50000-100000", "100000+" });
-            //this.colGameId.ClusteringStrategy = new ClusteringStrategy();
             tlstGames.GetColumn(2).AspectGetter = delegate(GameInfo g) { return g.GetCatString( GlobalStrings.MainForm_Uncategorized ); };
-            this.colCategories.ClusteringStrategy = new CommaClusteringStrategy();
+            colCategories.ClusteringStrategy = new CommaClusteringStrategy();
             tlstGames.GetColumn(3).AspectGetter = delegate(GameInfo g) { return g.IsFavorite() ? "X" : String.Empty; };
             tlstGames.GetColumn(4).AspectGetter = delegate(GameInfo g) { return g.Hidden ? "X" : String.Empty; };
             lstGames.RowFormatter = delegate(OLVListItem lvi)
@@ -119,6 +115,7 @@ namespace Depressurizer {
                     lvi.Font = new Font(lvi.Font, lvi.Font.Style | FontStyle.Italic);
             };
             lstGames.PrimarySortColumn = colTitle;
+            lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.LstGamesState));
         }
 
         private void FormMain_Load( object sender, EventArgs e ) {
@@ -360,6 +357,7 @@ namespace Depressurizer {
             if( currentProfile.AutoExport ) {
                 ExportConfig();
             }
+            Settings.Instance.LstGamesState = Convert.ToBase64String(lstGames.SaveState());
             try {
                 if( path == null ) {
                     currentProfile.Save();
@@ -1003,9 +1001,6 @@ namespace Depressurizer {
 
             SelectGameSet(selectedIds);
 
-            UpdateSelectedStatusText();
-            UpdateGameCheckStates();
-            UpdateEnabledStatesForGames();
             lstGames.EndUpdate();
         }
 
@@ -1159,8 +1154,6 @@ namespace Depressurizer {
             lstGames.BuildList();
 
             SelectGameSet(selectedIds);
-
-            UpdateSelectedStatusText();
         }
 
         private SortedSet<int> GetSelectedGameIds()
@@ -1606,9 +1599,6 @@ namespace Depressurizer {
                 }
 
                 FullListRefresh();
-
-                // reload new strings for status bar
-                UpdateSelectedStatusText();
             }
 
             FlushStatus();
@@ -1868,6 +1858,13 @@ namespace Depressurizer {
         }
 
         private void lstGames_SelectionChanged( object sender, EventArgs e ) {
+            UpdateSelectedStatusText();
+            UpdateEnabledStatesForGames();
+            UpdateGameCheckStates();
+        }
+
+        private void lstGames_ItemsChanged(object sender, ItemsChangedEventArgs e)
+        {
             UpdateSelectedStatusText();
             UpdateEnabledStatesForGames();
             UpdateGameCheckStates();
