@@ -216,6 +216,9 @@
   <data name="helpAdvancedCategories.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="helpAdvancedCategories.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="helpAdvancedCategories.Location" type="System.Drawing.Point, System.Drawing">
     <value>217, 21</value>
   </data>
@@ -484,7 +487,7 @@
     <value>4</value>
   </data>
   <data name="tableCatButtons.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33.33333,Percent,33.33333,Percent,33.33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="cmdCatAdd" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatDelete" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="cmdCatRename" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,33,33333,Percent,33,33333,Percent,33,33333" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="grpCategories.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 27</value>
@@ -534,20 +537,20 @@
   <data name="splitGame.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <data name="colGameID.Text" xml:space="preserve">
+  <data name="colGameId.Text" xml:space="preserve">
     <value>Game ID</value>
   </data>
   <data name="colTitle.Text" xml:space="preserve">
     <value>Title</value>
   </data>
   <data name="colTitle.Width" type="System.Int32, mscorlib">
-    <value>286</value>
+    <value>168</value>
   </data>
-  <data name="colCategory.Text" xml:space="preserve">
+  <data name="colCategories.Text" xml:space="preserve">
     <value>Categories</value>
   </data>
-  <data name="colCategory.Width" type="System.Int32, mscorlib">
-    <value>250</value>
+  <data name="colCategories.Width" type="System.Int32, mscorlib">
+    <value>181</value>
   </data>
   <data name="colFavorite.Text" xml:space="preserve">
     <value>Favorite</value>
@@ -555,17 +558,11 @@
   <data name="colFavorite.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
   </data>
-  <data name="colFavorite.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
   <data name="colHidden.Text" xml:space="preserve">
     <value>Hidden</value>
   </data>
   <data name="colHidden.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
-  </data>
-  <data name="colHidden.Width" type="System.Int32, mscorlib">
-    <value>50</value>
   </data>
   <metadata name="contextGame.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>234, 17</value>
@@ -700,13 +697,13 @@
     <value>847, 322</value>
   </data>
   <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
     <value>lstGames</value>
   </data>
   <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>BrightIdeasSoftware.FastObjectListView, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
   </data>
   <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
     <value>grpGames</value>
@@ -935,7 +932,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAUABAgFAAQIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAUgBAwFIAQMBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1185,7 +1182,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAagBAAGoAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAbABAQGwAQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1511,6 +1508,36 @@
   <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="olvColumn1.DisplayIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="olvColumn1.Text" xml:space="preserve">
+    <value>Game ID</value>
+  </data>
+  <data name="olvColumn2.DisplayIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="olvColumn2.Text" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="olvColumn3.DisplayIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="olvColumn3.Text" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="olvColumn4.DisplayIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="olvColumn4.Text" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="olvColumn5.DisplayIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="olvColumn5.Text" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 56</value>
   </metadata>
@@ -1701,35 +1728,35 @@
   <data name="&gt;&gt;contextCat_RemoveEmpty.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;colGameID.Name" xml:space="preserve">
-    <value>colGameID</value>
+  <data name="&gt;&gt;colGameId.Name" xml:space="preserve">
+    <value>colGameId</value>
   </data>
-  <data name="&gt;&gt;colGameID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;colGameId.Type" xml:space="preserve">
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
   </data>
   <data name="&gt;&gt;colTitle.Name" xml:space="preserve">
     <value>colTitle</value>
   </data>
   <data name="&gt;&gt;colTitle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
   </data>
-  <data name="&gt;&gt;colCategory.Name" xml:space="preserve">
-    <value>colCategory</value>
+  <data name="&gt;&gt;colCategories.Name" xml:space="preserve">
+    <value>colCategories</value>
   </data>
-  <data name="&gt;&gt;colCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;colCategories.Type" xml:space="preserve">
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
   </data>
   <data name="&gt;&gt;colFavorite.Name" xml:space="preserve">
     <value>colFavorite</value>
   </data>
   <data name="&gt;&gt;colFavorite.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
   </data>
   <data name="&gt;&gt;colHidden.Name" xml:space="preserve">
     <value>colHidden</value>
   </data>
   <data name="&gt;&gt;colHidden.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
   </data>
   <data name="&gt;&gt;contextGame_Add.Name" xml:space="preserve">
     <value>contextGame_Add</value>
@@ -1971,6 +1998,18 @@
   <data name="&gt;&gt;menu_Tools_RemoveEmpty.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;menu_Tools_Sep1.Name" xml:space="preserve">
+    <value>menu_Tools_Sep1</value>
+  </data>
+  <data name="&gt;&gt;menu_Tools_Sep1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autoModeHelperToolStripMenuItem.Name" xml:space="preserve">
+    <value>autoModeHelperToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;autoModeHelperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;menu_Tools_Sep2.Name" xml:space="preserve">
     <value>menu_Tools_Sep2</value>
   </data>
@@ -2019,23 +2058,41 @@
   <data name="&gt;&gt;statusSelection.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;olvColumn1.Name" xml:space="preserve">
+    <value>olvColumn1</value>
+  </data>
+  <data name="&gt;&gt;olvColumn1.Type" xml:space="preserve">
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
+  </data>
+  <data name="&gt;&gt;olvColumn2.Name" xml:space="preserve">
+    <value>olvColumn2</value>
+  </data>
+  <data name="&gt;&gt;olvColumn2.Type" xml:space="preserve">
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
+  </data>
+  <data name="&gt;&gt;olvColumn3.Name" xml:space="preserve">
+    <value>olvColumn3</value>
+  </data>
+  <data name="&gt;&gt;olvColumn3.Type" xml:space="preserve">
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
+  </data>
+  <data name="&gt;&gt;olvColumn4.Name" xml:space="preserve">
+    <value>olvColumn4</value>
+  </data>
+  <data name="&gt;&gt;olvColumn4.Type" xml:space="preserve">
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
+  </data>
+  <data name="&gt;&gt;olvColumn5.Name" xml:space="preserve">
+    <value>olvColumn5</value>
+  </data>
+  <data name="&gt;&gt;olvColumn5.Type" xml:space="preserve">
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
+  </data>
   <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
     <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.6.1.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;autoModeHelperToolStripMenuItem.Name" xml:space="preserve">
-    <value>autoModeHelperToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;autoModeHelperToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menu_Tools_Sep1.Name" xml:space="preserve">
-    <value>menu_Tools_Sep1</value>
-  </data>
-  <data name="&gt;&gt;menu_Tools_Sep1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>
