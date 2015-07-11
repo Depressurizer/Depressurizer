@@ -97,23 +97,78 @@ namespace Depressurizer {
         public FormMain() {
             InitializeComponent();
 
-            //set objectlistview properties
+            InitializeLstGames();
+        }
+
+        /// <summary>
+        /// Initializes the lstGames Control.
+        /// </summary>
+        private void InitializeLstGames()
+        {
             tlstGames = new TypedObjectListView<GameInfo>(this.lstGames);
+            //Aspect Getters
             tlstGames.GenerateAspectGetters();
             colGameId.AspectToStringConverter = delegate(object obj)
             {
                 int id = (int)obj;
                 return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
             };
-            tlstGames.GetColumn(2).AspectGetter = delegate(GameInfo g) { return g.GetCatString( GlobalStrings.MainForm_Uncategorized ); };
+            colCategories.AspectGetter = delegate(Object g) { return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized); };
+            colFavorite.AspectGetter = delegate(Object g) { return ((GameInfo)g).IsFavorite() ? "X" : String.Empty; };
+            colHidden.AspectGetter = delegate(Object g) { return ((GameInfo)g).Hidden ? "X" : String.Empty; };
+            colGenres.AspectGetter = delegate(Object g) { return ((GameInfo)g).Genres == null ? "" : string.Join(", ", ((GameInfo)g).Genres); };
+            colFlags.AspectGetter = delegate(Object g) { return ((GameInfo)g).Flags == null ? "" : string.Join(", ", ((GameInfo)g).Flags); };
+            colTags.AspectGetter = delegate(Object g) { return ((GameInfo)g).Tags == null ? "" : string.Join(", ", ((GameInfo)g).Tags); };
+            colYear.AspectToStringConverter = delegate(object obj)
+            {
+                int year = (int)obj;
+                return (year <= 0) ? "" : year.ToString();
+            };
+            colPlatforms.AspectGetter = delegate(Object g) { return ((GameInfo)g).Platforms.ToString(); };
+            colDevelopers.AspectGetter = delegate(Object g) { return ((GameInfo)g).Developers == null ? "" : string.Join(", ", ((GameInfo)g).Developers); };
+            colPublishers.AspectGetter = delegate(Object g) { return ((GameInfo)g).Publishers == null ? "" : string.Join(", ", ((GameInfo)g).Publishers); };
+            colNumberOfReviews.AspectToStringConverter = delegate(object obj)
+            {
+                int reviewTotal = (int)obj;
+                return (reviewTotal <= 0) ? "" : reviewTotal.ToString();
+            };
+            colReviewScore.AspectToStringConverter = delegate(object obj)
+            {
+                int reviewScore = (int)obj;
+                return (reviewScore <= 0) ? "" : reviewScore.ToString() + '%';
+            };
+            colReviewLabel.AspectToStringConverter = delegate(object obj)
+            {
+                int index = (int)obj;
+                Dictionary<int, String> reviewLabels = new Dictionary<int, String>
+           {
+                {9, "Overwhelmingly Positive"},
+                {8, "Very Positive"},
+                {7, "Positive"},
+                {6, "Mostly Positive"},
+                {5, "Mixed"},
+                {4, "Mostly Negative"},
+                {3, "Negative"},
+                {2, "Very Negative"},
+                {1, "Overwhelmingly Negative"},
+            };
+                return reviewLabels.ContainsKey(index)?reviewLabels[index]:"";
+            };
+
+            //Filtering
             colCategories.ClusteringStrategy = new CommaClusteringStrategy();
-            tlstGames.GetColumn(3).AspectGetter = delegate(GameInfo g) { return g.IsFavorite() ? "X" : String.Empty; };
-            tlstGames.GetColumn(4).AspectGetter = delegate(GameInfo g) { return g.Hidden ? "X" : String.Empty; };
+            colGenres.ClusteringStrategy = new CommaClusteringStrategy();
+            colFlags.ClusteringStrategy = new CommaClusteringStrategy();
+            colTags.ClusteringStrategy = new CommaClusteringStrategy();
+            colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
+
+            //Formating
             lstGames.RowFormatter = delegate(OLVListItem lvi)
             {
-                if ((int)lvi.GetSubItem(0).ModelValue < 0)
+                if (((GameInfo)lvi.RowObject).Id < 0)
                     lvi.Font = new Font(lvi.Font, lvi.Font.Style | FontStyle.Italic);
             };
+
             lstGames.PrimarySortColumn = colTitle;
             lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.LstGamesState));
         }

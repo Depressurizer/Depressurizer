@@ -350,15 +350,25 @@ namespace Depressurizer {
             return scheme.HasFlag( AppTypes.Unknown );
         }
 
-        public string GetName( int id ) {
+        public string GetName( int id )
+        {
             if( Games.ContainsKey( id ) ) {
                 return Games[id].Name;
-            } else {
-                return null;
             }
+            return null;
         }
 
-        public List<string> GetGenreList( int gameId, int depth = 3, bool tagFallback = true ) {
+        public AppPlatforms GetPlatforms(int id)
+        {
+            if (Games.ContainsKey(id))
+            {
+                return Games[id].Platforms;
+            }
+            return 0;
+        }
+
+        public List<string> GetGenreList( int gameId, int depth = 3, bool tagFallback = true )
+        {
             if( Games.ContainsKey( gameId ) ) {
                 List<string> res = Games[gameId].Genres;
                 if( tagFallback && ( res == null || res.Count == 0 ) ) {
@@ -371,21 +381,20 @@ namespace Depressurizer {
                     res = GetGenreList( Games[gameId].ParentId, depth - 1, tagFallback );
                 }
                 return res;
-            } else {
-                return null;
             }
+            return null;
         }
 
-        public List<string> GetFlagList( int gameId, int depth = 3 ) {
+        public List<string> GetFlagList( int gameId, int depth = 3 )
+        {
             if( Games.ContainsKey( gameId ) ) {
                 List<string> res = Games[gameId].Flags;
                 if( ( res == null || res.Count == 0 ) && depth > 0 && Games[gameId].ParentId > 0 ) {
                     res = GetFlagList( Games[gameId].ParentId, depth - 1 );
                 }
                 return res;
-            } else {
-                return null;
             }
+            return null;
         }
 
         public List<string> GetTagList( int gameId, int depth = 3 ) {
@@ -395,9 +404,26 @@ namespace Depressurizer {
                     res = GetTagList( Games[gameId].ParentId, depth - 1 );
                 }
                 return res;
-            } else {
+            } 
                 return null;
+        }
+
+        public List<string> GetDevelopersList(int id)
+        {
+            if (Games.ContainsKey(id))
+            {
+                return Games[id].Developers;
             }
+                return null;
+        }
+
+        public List<string> GetPublishersList(int id)
+        {
+            if (Games.ContainsKey(id))
+            {
+                return Games[id].Publishers;
+            }
+                return null;
         }
 
         public int GetReleaseYear( int gameId ) {
@@ -407,6 +433,24 @@ namespace Depressurizer {
                 if( DateTime.TryParse( dbEntry.SteamReleaseDate, out releaseDate ) ) {
                     return releaseDate.Year;
                 }
+            }
+            return 0;
+        }
+
+        public int GetReviewTotal(int id)
+        {
+            if (Games.ContainsKey(id))
+            {
+                return Games[id].ReviewTotal;
+            }
+            return 0;
+        }
+
+        public int GetReviewPositivePercentage(int id)
+        {
+            if (Games.ContainsKey(id))
+            {
+                return Games[id].ReviewPositivePercentage;
             }
             return 0;
         }
