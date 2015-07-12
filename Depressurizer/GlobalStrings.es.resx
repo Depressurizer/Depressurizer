@@ -901,4 +901,20 @@ Tiempo Restante:</value>
     <value>Parent must be empty or integer.</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="MainForm_NoFlags" xml:space="preserve">
+    <value>&lt;No Flags&gt;</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_NoGenres" xml:space="preserve">
+    <value>&lt;No Genres&gt;</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_NoTags" xml:space="preserve">
+    <value>&lt;No Tags&gt;</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_Unknown" xml:space="preserve">
+    <value>&lt;Unknown&gt;</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>

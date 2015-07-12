@@ -108,7 +108,7 @@ namespace Depressurizer {
             tlstGames = new TypedObjectListView<GameInfo>(this.lstGames);
             //Aspect Getters
             tlstGames.GenerateAspectGetters();
-            colGameId.AspectToStringConverter = delegate(object obj)
+            colGameID.AspectToStringConverter = delegate(object obj)
             {
                 int id = (int)obj;
                 return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
@@ -116,26 +116,26 @@ namespace Depressurizer {
             colCategories.AspectGetter = delegate(Object g) { return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized); };
             colFavorite.AspectGetter = delegate(Object g) { return ((GameInfo)g).IsFavorite() ? "X" : String.Empty; };
             colHidden.AspectGetter = delegate(Object g) { return ((GameInfo)g).Hidden ? "X" : String.Empty; };
-            colGenres.AspectGetter = delegate(Object g) { return ((GameInfo)g).Genres == null ? "" : string.Join(", ", ((GameInfo)g).Genres); };
-            colFlags.AspectGetter = delegate(Object g) { return ((GameInfo)g).Flags == null ? "" : string.Join(", ", ((GameInfo)g).Flags); };
-            colTags.AspectGetter = delegate(Object g) { return ((GameInfo)g).Tags == null ? "" : string.Join(", ", ((GameInfo)g).Tags); };
+            colGenres.AspectGetter = delegate(Object g) { return ((GameInfo)g).Genres == null ? GlobalStrings.MainForm_NoGenres : string.Join(", ", ((GameInfo)g).Genres); };
+            colFlags.AspectGetter = delegate(Object g) { return ((GameInfo)g).Flags == null ? GlobalStrings.MainForm_NoFlags : string.Join(", ", ((GameInfo)g).Flags); };
+            colTags.AspectGetter = delegate(Object g) { return ((GameInfo)g).Tags == null ? GlobalStrings.MainForm_NoTags : string.Join(", ", ((GameInfo)g).Tags); };
             colYear.AspectToStringConverter = delegate(object obj)
             {
                 int year = (int)obj;
-                return (year <= 0) ? "" : year.ToString();
+                return (year <= 0) ? GlobalStrings.MainForm_Unknown : year.ToString();
             };
             colPlatforms.AspectGetter = delegate(Object g) { return ((GameInfo)g).Platforms.ToString(); };
-            colDevelopers.AspectGetter = delegate(Object g) { return ((GameInfo)g).Developers == null ? "" : string.Join(", ", ((GameInfo)g).Developers); };
-            colPublishers.AspectGetter = delegate(Object g) { return ((GameInfo)g).Publishers == null ? "" : string.Join(", ", ((GameInfo)g).Publishers); };
+            colDevelopers.AspectGetter = delegate(Object g) { return ((GameInfo)g).Developers == null ? GlobalStrings.MainForm_Unknown : string.Join(", ", ((GameInfo)g).Developers); };
+            colPublishers.AspectGetter = delegate(Object g) { return ((GameInfo)g).Publishers == null ? GlobalStrings.MainForm_Unknown : string.Join(", ", ((GameInfo)g).Publishers); };
             colNumberOfReviews.AspectToStringConverter = delegate(object obj)
             {
                 int reviewTotal = (int)obj;
-                return (reviewTotal <= 0) ? "" : reviewTotal.ToString();
+                return (reviewTotal <= 0) ? "0" : reviewTotal.ToString();
             };
             colReviewScore.AspectToStringConverter = delegate(object obj)
             {
                 int reviewScore = (int)obj;
-                return (reviewScore <= 0) ? "" : reviewScore.ToString() + '%';
+                return (reviewScore <= 0) ? GlobalStrings.MainForm_Unknown : reviewScore.ToString() + '%';
             };
             colReviewLabel.AspectToStringConverter = delegate(object obj)
             {
@@ -152,7 +152,7 @@ namespace Depressurizer {
                 {2, "Very Negative"},
                 {1, "Overwhelmingly Negative"},
             };
-                return reviewLabels.ContainsKey(index)?reviewLabels[index]:"";
+                return reviewLabels.ContainsKey(index) ? reviewLabels[index] : GlobalStrings.MainForm_Unknown;
             };
 
             //Filtering
@@ -1599,10 +1599,13 @@ namespace Depressurizer {
                     // jpodadera. Because a framework bug, names of ColumnHeader objects are empty. 
                     // Resolved by saving names to Tag property.
                     foreach( ColumnHeader cHeader in ( c as ListView ).Columns )
+                        if ( cHeader.Tag !=null)
                         resources.ApplyResources( cHeader, cHeader.Tag.ToString(), newCulture );
-                } else {
-                    foreach( Control childControl in c.Controls )
-                        changeLanguageControls( childControl, resources, newCulture );
+                }
+                else
+                {
+                    foreach (Control childControl in c.Controls)
+                        changeLanguageControls(childControl, resources, newCulture);
                 }
                 resources.ApplyResources( c, c.Name, newCulture );
             }
