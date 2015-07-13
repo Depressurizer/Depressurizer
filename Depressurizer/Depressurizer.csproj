@@ -80,6 +80,10 @@
     <StartupObject>Depressurizer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.8.1\lib\net20\ObjectListView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -132,6 +136,18 @@
     <Compile Include="AutoCat\AutoCatTags.cs" />
     <Compile Include="AutoCat\AutoCatUserScore.cs" />
     <Compile Include="AutoCat\AutoCatYear.cs" />
+    <Compile Include="AutomaticModeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutomaticModeForm.Designer.cs">
+      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAbout.Designer.cs">
+      <DependentUpon>DlgAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="DlgAutoCat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,12 +160,19 @@
     <Compile Include="DlgAutoCatCreate.Designer.cs">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="DlgAutomaticModeHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAutomaticModeHelper.Designer.cs">
+      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Lib\ExtToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Lib\Options.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
@@ -271,11 +294,20 @@
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Year.resx">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AutomaticModeForm.resx">
+      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAbout.resx">
+      <DependentUpon>DlgAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatCreate.resx">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
+      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -409,7 +441,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

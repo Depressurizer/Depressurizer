@@ -60,7 +60,7 @@ namespace Depressurizer {
         private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
-        private static Regex regFlags = new Regex( "<a href=\\\"http://store.steampowered.com/search/\\?category2=[0-9]+\\\" class=\\\"name\\\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regFlags = new Regex("<a class=\\\"name\\\" href=\\\"http://store.steampowered.com/search/\\?category2=.*?\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex regTags = new Regex( "<a[^>]*class=\\\"app_tag\\\"[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         private static Regex regDevelopers = new Regex( "<b>Developer:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
@@ -350,15 +350,16 @@ namespace Depressurizer {
             return scheme.HasFlag( AppTypes.Unknown );
         }
 
-        public string GetName( int id ) {
+        public string GetName( int id )
+        {
             if( Games.ContainsKey( id ) ) {
                 return Games[id].Name;
-            } else {
-                return null;
             }
+            return null;
         }
 
-        public List<string> GetGenreList( int gameId, int depth = 3, bool tagFallback = true ) {
+        public List<string> GetGenreList( int gameId, int depth = 3, bool tagFallback = true )
+        {
             if( Games.ContainsKey( gameId ) ) {
                 List<string> res = Games[gameId].Genres;
                 if( tagFallback && ( res == null || res.Count == 0 ) ) {
@@ -371,21 +372,20 @@ namespace Depressurizer {
                     res = GetGenreList( Games[gameId].ParentId, depth - 1, tagFallback );
                 }
                 return res;
-            } else {
-                return null;
             }
+            return null;
         }
 
-        public List<string> GetFlagList( int gameId, int depth = 3 ) {
+        public List<string> GetFlagList( int gameId, int depth = 3 )
+        {
             if( Games.ContainsKey( gameId ) ) {
                 List<string> res = Games[gameId].Flags;
                 if( ( res == null || res.Count == 0 ) && depth > 0 && Games[gameId].ParentId > 0 ) {
                     res = GetFlagList( Games[gameId].ParentId, depth - 1 );
                 }
                 return res;
-            } else {
-                return null;
             }
+            return null;
         }
 
         public List<string> GetTagList( int gameId, int depth = 3 ) {
@@ -395,9 +395,8 @@ namespace Depressurizer {
                     res = GetTagList( Games[gameId].ParentId, depth - 1 );
                 }
                 return res;
-            } else {
+            } 
                 return null;
-            }
         }
 
         public int GetReleaseYear( int gameId ) {

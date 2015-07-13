@@ -650,6 +650,7 @@ Tiempo Restante:</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
     <value>{0} juegos no localizados en la base de datos local. ¿Se revisa la tienda de Steam para cargar los géneros de estos juegos?</value>
+    <comment>TODO_LOCAL: String was modified and needs retranslation</comment>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
     <value>Ignorados {0} juegos {1}.</value>
@@ -898,6 +899,22 @@ Tiempo Restante:</value>
   </data>
   <data name="DlgGameDBEntry_ParentMustBeInt" xml:space="preserve">
     <value>Parent must be empty or integer.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_NoFlags" xml:space="preserve">
+    <value>&lt;No Flags&gt;</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_NoGenres" xml:space="preserve">
+    <value>&lt;No Genres&gt;</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_NoTags" xml:space="preserve">
+    <value>&lt;No Tags&gt;</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_Unknown" xml:space="preserve">
+    <value>&lt;Unknown&gt;</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
 </root>

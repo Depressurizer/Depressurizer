@@ -650,7 +650,8 @@ Continue loading file?</value>
     <value>GameDB file does not exist.</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
-    <value>{0} games not found in the local database. Check the Steam Store for these game genres?</value>
+    <value>{0} games need have no web-sourced data in the local database. Scrape now?
+This could take up to a few seconds per game.</value>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
     <value>Ignored {0} game{1}.</value>
@@ -1062,5 +1063,67 @@ If a game does not match any rules, no category will be assigned.</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive4" xml:space="preserve">
     <value>Overwhelmingly Positive</value>
+  </data>
+  <data name="AutoMode_Help_Export" xml:space="preserve">
+    <value>Export your categories to Steam after running autocats.
+If this is disabled, changes will not show up in the Steam client.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_ImportCats" xml:space="preserve">
+    <value>Import existing categories from Steam before running autocat operations.
+If this is disabled, manual categorizations done through the client may be lost.</value>
+  </data>
+  <data name="AutoMode_Help_Launch" xml:space="preserve">
+    <value>Will launch Steam after completing autocats.</value>
+  </data>
+  <data name="AutoMode_Help_Output" xml:space="preserve">
+    <value>If set to Normal, the output window will remain open until you close it.
+If set to Quiet, the output window will automatically close unless errors are encountered.
+If set to Silent, the output window will always automatically close.</value>
+  </data>
+  <data name="AutoMode_Help_SaveDB" xml:space="preserve">
+    <value>Save the database if any changes are made to it.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_SaveProfile" xml:space="preserve">
+    <value>Save the profile after running autocats.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_SteamCheck" xml:space="preserve">
+    <value>If set to Check and Close, attempt to close Steam if it is running. (Recommended.)
+If set to Check and Abort, stop AutoCat operation if Steam is running.
+If set to Skip, don't check whether Steam is running.</value>
+  </data>
+  <data name="AutoMode_Help_Tolerant" xml:space="preserve">
+    <value>If disabled, will terminate after any error.
+If enabled, will continue if non-fatal errors are encountered.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_UpdateAppInfo" xml:space="preserve">
+    <value>Update the database with information from the local database before running autocat operations.
+Note that this data is not currently used for autocategorization, so it is unimportant.</value>
+  </data>
+  <data name="AutoMode_Help_UpdateLib" xml:space="preserve">
+    <value>Update your library with new games before running autocat operations.
+Will obey profile settings for update data source.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_UpdateWeb" xml:space="preserve">
+    <value>Attempt to download information for any games not found in the database.
+Can be slow, but will only download information for games that need it.
+If this is unchecked, newer games may not be categorized.
+Recommended: Enabled</value>
+  </data>
+  <data name="MainForm_NoFlags" xml:space="preserve">
+    <value>&lt;No Flags&gt;</value>
+  </data>
+  <data name="MainForm_NoGenres" xml:space="preserve">
+    <value>&lt;No Genres&gt;</value>
+  </data>
+  <data name="MainForm_NoTags" xml:space="preserve">
+    <value>&lt;No Tags&gt;</value>
+  </data>
+  <data name="MainForm_Unknown" xml:space="preserve">
+    <value>&lt;Unknown&gt;</value>
   </data>
 </root>

@@ -259,6 +259,23 @@ namespace Depressurizer {
             }
         }
 
+        private string _lstGamesState = "";
+        public string LstGamesState
+        {
+            get
+            {
+                return _lstGamesState;
+            }
+            set
+            {
+                if (_lstGamesState != value)
+                {
+                    _lstGamesState = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private Settings()
             : base() {
             FilePath = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";

@@ -125,6 +125,15 @@ namespace Depressurizer {
             NodeData = (Int32)( value );
         }
 
+        /// <summary>
+        /// Creates a new UInt64-type node
+        /// </summary>
+        /// <param name="value">Value of the unsigned 64-bit integer</param>
+        public VdfFileNode( ulong value ) {
+            NodeType = ValueType.Int;
+            NodeData = (UInt64)( value );
+        }
+
         #region Utility
 
         /// <summary>
@@ -254,6 +263,10 @@ namespace Depressurizer {
                 } else if( nextByte == 2 ) {
                     key = ReadBin_GetStringToken( stream );
                     int val = stream.ReadInt32();
+                    thisLevel[key] = new VdfFileNode( val );
+                } else if( nextByte == 7 ) {
+                    key = ReadBin_GetStringToken( stream );
+                    ulong val = stream.ReadUInt64();
                     thisLevel[key] = new VdfFileNode( val );
                 } else if( nextByte == 0xFF ) {
                     return null;

@@ -65,12 +65,22 @@ namespace Depressurizer {
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.splitGame = new System.Windows.Forms.SplitContainer();
             this.grpGames = new System.Windows.Forms.GroupBox();
-            this.lstGames = new Depressurizer.Lib.ExtListView();
-            this.colGameID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colFavorite = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colHidden = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lstGames = new BrightIdeasSoftware.FastObjectListView();
+            this.colGameID = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colCategories = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colGenres = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colFlags = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colTags = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colFavorite = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colHidden = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colReviewScore = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colNumberOfReviews = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colReviewLabel = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colYear = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colDevelopers = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colPublishers = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colPlatforms = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Edit = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,11 +138,14 @@ namespace Depressurizer {
             this.menu_Tools_Autocat_List = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menu_Tools_AutonameAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Tools_Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.autoModeHelperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Tools_DBEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Tools_SingleCat = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_About = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
@@ -149,6 +162,7 @@ namespace Depressurizer {
             this.splitGame.Panel2.SuspendLayout();
             this.splitGame.SuspendLayout();
             this.grpGames.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lstGames)).BeginInit();
             this.contextGame.SuspendLayout();
             this.contextGameAddCat.SuspendLayout();
             this.contextGameFav.SuspendLayout();
@@ -350,54 +364,146 @@ namespace Depressurizer {
             // 
             // lstGames
             // 
+            this.lstGames.AllColumns.Add(this.colGameID);
+            this.lstGames.AllColumns.Add(this.colTitle);
+            this.lstGames.AllColumns.Add(this.colCategories);
+            this.lstGames.AllColumns.Add(this.colGenres);
+            this.lstGames.AllColumns.Add(this.colFlags);
+            this.lstGames.AllColumns.Add(this.colTags);
+            this.lstGames.AllColumns.Add(this.colFavorite);
+            this.lstGames.AllColumns.Add(this.colHidden);
+            this.lstGames.AllColumns.Add(this.colReviewScore);
+            this.lstGames.AllColumns.Add(this.colNumberOfReviews);
+            this.lstGames.AllColumns.Add(this.colReviewLabel);
+            this.lstGames.AllColumns.Add(this.colYear);
+            this.lstGames.AllColumns.Add(this.colDevelopers);
+            this.lstGames.AllColumns.Add(this.colPublishers);
+            this.lstGames.AllColumns.Add(this.colPlatforms);
+            this.lstGames.AllowColumnReorder = true;
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colGameID,
             this.colTitle,
-            this.colCategory,
-            this.colFavorite,
-            this.colHidden});
+            this.colCategories,
+            this.colTags,
+            this.colReviewScore,
+            this.colYear});
             this.lstGames.ContextMenuStrip = this.contextGame;
             resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.FullRowSelect = true;
             this.lstGames.GridLines = true;
             this.lstGames.HideSelection = false;
             this.lstGames.Name = "lstGames";
+            this.lstGames.ShowGroups = false;
             this.lstGames.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstGames.UseCompatibleStateImageBehavior = false;
+            this.lstGames.UseFilterIndicator = true;
+            this.lstGames.UseFiltering = true;
             this.lstGames.View = System.Windows.Forms.View.Details;
             this.lstGames.VirtualMode = true;
+            this.lstGames.ItemsChanged += new System.EventHandler<BrightIdeasSoftware.ItemsChangedEventArgs>(this.lstGames_ItemsChanged);
             this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
-            this.lstGames.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstGames_ColumnClick);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
-            this.lstGames.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.lstGames_RetrieveVirtualItem);
-            this.lstGames.SearchForVirtualItem += new System.Windows.Forms.SearchForVirtualItemEventHandler(this.lstGames_SearchForVirtualItem);
             this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
             // 
             // colGameID
             // 
+            this.colGameID.AspectName = "Id";
             this.colGameID.Tag = "colGameID";
             resources.ApplyResources(this.colGameID, "colGameID");
+            this.colGameID.UseFiltering = false;
             // 
             // colTitle
             // 
+            this.colTitle.AspectName = "Name";
             this.colTitle.Tag = "colTitle";
             resources.ApplyResources(this.colTitle, "colTitle");
+            this.colTitle.UseInitialLetterForGroup = true;
             // 
-            // colCategory
+            // colCategories
             // 
-            this.colCategory.Tag = "colCategory";
-            resources.ApplyResources(this.colCategory, "colCategory");
+            this.colCategories.Tag = "colCategories";
+            resources.ApplyResources(this.colCategories, "colCategories");
+            // 
+            // colGenres
+            // 
+            resources.ApplyResources(this.colGenres, "colGenres");
+            this.colGenres.IsVisible = false;
+            this.colGenres.Tag = "colGenres";
+            // 
+            // colFlags
+            // 
+            resources.ApplyResources(this.colFlags, "colFlags");
+            this.colFlags.IsVisible = false;
+            this.colFlags.Tag = "colFlags";
+            // 
+            // colTags
+            // 
+            this.colTags.Tag = "colTags";
+            resources.ApplyResources(this.colTags, "colTags");
             // 
             // colFavorite
             // 
-            this.colFavorite.Tag = "colFavorite";
             resources.ApplyResources(this.colFavorite, "colFavorite");
+            this.colFavorite.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colFavorite.IsVisible = false;
+            this.colFavorite.Tag = "colFavorite";
             // 
             // colHidden
             // 
-            this.colHidden.Tag = "colHidden";
             resources.ApplyResources(this.colHidden, "colHidden");
+            this.colHidden.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colHidden.IsVisible = false;
+            this.colHidden.Tag = "colHidden";
+            // 
+            // colReviewScore
+            // 
+            this.colReviewScore.AspectName = "";
+            this.colReviewScore.AspectToStringFormat = "";
+            this.colReviewScore.Tag = "colReviewScore";
+            resources.ApplyResources(this.colReviewScore, "colReviewScore");
+            this.colReviewScore.UseFiltering = false;
+            // 
+            // colNumberOfReviews
+            // 
+            this.colNumberOfReviews.AspectName = "";
+            resources.ApplyResources(this.colNumberOfReviews, "colNumberOfReviews");
+            this.colNumberOfReviews.IsVisible = false;
+            this.colNumberOfReviews.Tag = "colNumberOfReviews";
+            this.colNumberOfReviews.UseFiltering = false;
+            // 
+            // colReviewLabel
+            // 
+            this.colReviewLabel.AspectName = "";
+            resources.ApplyResources(this.colReviewLabel, "colReviewLabel");
+            this.colReviewLabel.IsVisible = false;
+            this.colReviewLabel.Tag = "colReviewLabel";
+            // 
+            // colYear
+            // 
+            this.colYear.AspectName = "";
+            this.colYear.Tag = "colYear";
+            resources.ApplyResources(this.colYear, "colYear");
+            // 
+            // colDevelopers
+            // 
+            resources.ApplyResources(this.colDevelopers, "colDevelopers");
+            this.colDevelopers.IsVisible = false;
+            this.colDevelopers.Tag = "colDevelopers";
+            this.colDevelopers.UseInitialLetterForGroup = true;
+            // 
+            // colPublishers
+            // 
+            resources.ApplyResources(this.colPublishers, "colPublishers");
+            this.colPublishers.IsVisible = false;
+            this.colPublishers.Tag = "colPublishers";
+            this.colPublishers.UseInitialLetterForGroup = true;
+            // 
+            // colPlatforms
+            // 
+            resources.ApplyResources(this.colPlatforms, "colPlatforms");
+            this.colPlatforms.IsVisible = false;
+            this.colPlatforms.Tag = "colPlatforms";
             // 
             // contextGame
             // 
@@ -627,7 +733,8 @@ namespace Depressurizer {
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_File,
             this.menu_Profile,
-            this.menu_Tools});
+            this.menu_Tools,
+            this.menu_About});
             resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Name = "menuStrip";
             // 
@@ -770,6 +877,8 @@ namespace Depressurizer {
             this.menu_Tools_AutocatAll,
             this.menu_Tools_AutonameAll,
             this.menu_Tools_RemoveEmpty,
+            this.menu_Tools_Sep1,
+            this.autoModeHelperToolStripMenuItem,
             this.menu_Tools_Sep2,
             this.menu_Tools_DBEdit,
             this.menu_Tools_Sep3,
@@ -802,6 +911,17 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Tools_RemoveEmpty, "menu_Tools_RemoveEmpty");
             this.menu_Tools_RemoveEmpty.Click += new System.EventHandler(this.menu_Tools_RemoveEmpty_Click);
             // 
+            // menu_Tools_Sep1
+            // 
+            this.menu_Tools_Sep1.Name = "menu_Tools_Sep1";
+            resources.ApplyResources(this.menu_Tools_Sep1, "menu_Tools_Sep1");
+            // 
+            // autoModeHelperToolStripMenuItem
+            // 
+            this.autoModeHelperToolStripMenuItem.Name = "autoModeHelperToolStripMenuItem";
+            resources.ApplyResources(this.autoModeHelperToolStripMenuItem, "autoModeHelperToolStripMenuItem");
+            this.autoModeHelperToolStripMenuItem.Click += new System.EventHandler(this.autoModeHelperToolStripMenuItem_Click);
+            // 
             // menu_Tools_Sep2
             // 
             this.menu_Tools_Sep2.Name = "menu_Tools_Sep2";
@@ -829,6 +949,13 @@ namespace Depressurizer {
             this.menu_Tools_Settings.Name = "menu_Tools_Settings";
             resources.ApplyResources(this.menu_Tools_Settings, "menu_Tools_Settings");
             this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
+            // 
+            // menu_About
+            // 
+            this.menu_About.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.menu_About.Name = "menu_About";
+            resources.ApplyResources(this.menu_About, "menu_About");
+            this.menu_About.Click += new System.EventHandler(this.menu_About_Click);
             // 
             // statusStrip
             // 
@@ -876,6 +1003,7 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.splitGame)).EndInit();
             this.splitGame.ResumeLayout(false);
             this.grpGames.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lstGames)).EndInit();
             this.contextGame.ResumeLayout(false);
             this.contextGameAddCat.ResumeLayout(false);
             this.contextGameFav.ResumeLayout(false);
@@ -967,12 +1095,6 @@ namespace Depressurizer {
         private System.Windows.Forms.TextBox txtAddCatAndAssign;
         private System.Windows.Forms.ComboBox cmbAutoCatType;
         private System.Windows.Forms.CheckBox chkHidden;
-        private Depressurizer.Lib.ExtListView lstGames;
-        private System.Windows.Forms.ColumnHeader colGameID;
-        private System.Windows.Forms.ColumnHeader colTitle;
-        private System.Windows.Forms.ColumnHeader colCategory;
-        private System.Windows.Forms.ColumnHeader colFavorite;
-        private System.Windows.Forms.ColumnHeader colHidden;
         private System.Windows.Forms.ContextMenuStrip menu_Tools_Autocat_List;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_AutoCats;
         private System.Windows.Forms.Button cmdSearchClear;
@@ -984,6 +1106,25 @@ namespace Depressurizer {
         private System.Windows.Forms.ImageList imglistFilter;
         private System.Windows.Forms.Label helpAdvancedCategories;
         private Lib.ExtToolTip ttHelp;
+        private System.Windows.Forms.ToolStripMenuItem menu_About;
+        private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep1;
+        private System.Windows.Forms.ToolStripMenuItem autoModeHelperToolStripMenuItem;
+        private BrightIdeasSoftware.FastObjectListView lstGames;
+        private BrightIdeasSoftware.OLVColumn colGameID;
+        private BrightIdeasSoftware.OLVColumn colTitle;
+        private BrightIdeasSoftware.OLVColumn colCategories;
+        private BrightIdeasSoftware.OLVColumn colFavorite;
+        private BrightIdeasSoftware.OLVColumn colHidden;
+        private BrightIdeasSoftware.OLVColumn colTags;
+        private BrightIdeasSoftware.OLVColumn colYear;
+        private BrightIdeasSoftware.OLVColumn colGenres;
+        private BrightIdeasSoftware.OLVColumn colFlags;
+        private BrightIdeasSoftware.OLVColumn colPlatforms;
+        private BrightIdeasSoftware.OLVColumn colDevelopers;
+        private BrightIdeasSoftware.OLVColumn colPublishers;
+        private BrightIdeasSoftware.OLVColumn colNumberOfReviews;
+        private BrightIdeasSoftware.OLVColumn colReviewScore;
+        private BrightIdeasSoftware.OLVColumn colReviewLabel;
     }
 }
 

@@ -123,6 +123,9 @@
   <data name="ConfigFilePath" xml:space="preserve">
     <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
   </data>
+  <data name="DepressurizerHomepage" xml:space="preserve">
+    <value>https://github.com/rallion/depressurizer</value>
+  </data>
   <data name="LocalConfigPath" xml:space="preserve">
     <value>{0}\userdata\{1}\config\localconfig.vdf</value>
   </data>
