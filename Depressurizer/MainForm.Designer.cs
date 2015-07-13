@@ -384,7 +384,6 @@ namespace Depressurizer {
             this.colGameID,
             this.colTitle,
             this.colCategories,
-            this.colGenres,
             this.colTags,
             this.colReviewScore,
             this.colYear});
@@ -410,30 +409,37 @@ namespace Depressurizer {
             // colGameID
             // 
             this.colGameID.AspectName = "Id";
+            this.colGameID.Tag = "colGameID";
             resources.ApplyResources(this.colGameID, "colGameID");
             this.colGameID.UseFiltering = false;
             // 
             // colTitle
             // 
             this.colTitle.AspectName = "Name";
+            this.colTitle.Tag = "colTitle";
             resources.ApplyResources(this.colTitle, "colTitle");
             this.colTitle.UseInitialLetterForGroup = true;
             // 
             // colCategories
             // 
+            this.colCategories.Tag = "colCategories";
             resources.ApplyResources(this.colCategories, "colCategories");
             // 
             // colGenres
             // 
             resources.ApplyResources(this.colGenres, "colGenres");
+            this.colGenres.IsVisible = false;
+            this.colGenres.Tag = "colGenres";
             // 
             // colFlags
             // 
             resources.ApplyResources(this.colFlags, "colFlags");
             this.colFlags.IsVisible = false;
+            this.colFlags.Tag = "colFlags";
             // 
             // colTags
             // 
+            this.colTags.Tag = "colTags";
             resources.ApplyResources(this.colTags, "colTags");
             // 
             // colFavorite
@@ -441,54 +447,63 @@ namespace Depressurizer {
             resources.ApplyResources(this.colFavorite, "colFavorite");
             this.colFavorite.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colFavorite.IsVisible = false;
+            this.colFavorite.Tag = "colFavorite";
             // 
             // colHidden
             // 
             resources.ApplyResources(this.colHidden, "colHidden");
             this.colHidden.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colHidden.IsVisible = false;
+            this.colHidden.Tag = "colHidden";
             // 
             // colReviewScore
             // 
-            this.colReviewScore.AspectName = "ReviewPositivePercentage";
+            this.colReviewScore.AspectName = "";
             this.colReviewScore.AspectToStringFormat = "";
+            this.colReviewScore.Tag = "colReviewScore";
             resources.ApplyResources(this.colReviewScore, "colReviewScore");
             this.colReviewScore.UseFiltering = false;
             // 
             // colNumberOfReviews
             // 
-            this.colNumberOfReviews.AspectName = "ReviewTotal";
+            this.colNumberOfReviews.AspectName = "";
             resources.ApplyResources(this.colNumberOfReviews, "colNumberOfReviews");
             this.colNumberOfReviews.IsVisible = false;
+            this.colNumberOfReviews.Tag = "colNumberOfReviews";
             this.colNumberOfReviews.UseFiltering = false;
             // 
             // colReviewLabel
             // 
-            this.colReviewLabel.AspectName = "ReviewLabelSortOrder";
+            this.colReviewLabel.AspectName = "";
             resources.ApplyResources(this.colReviewLabel, "colReviewLabel");
             this.colReviewLabel.IsVisible = false;
+            this.colReviewLabel.Tag = "colReviewLabel";
             // 
             // colYear
             // 
-            this.colYear.AspectName = "SteamReleaseYear";
+            this.colYear.AspectName = "";
+            this.colYear.Tag = "colYear";
             resources.ApplyResources(this.colYear, "colYear");
             // 
             // colDevelopers
             // 
             resources.ApplyResources(this.colDevelopers, "colDevelopers");
             this.colDevelopers.IsVisible = false;
+            this.colDevelopers.Tag = "colDevelopers";
             this.colDevelopers.UseInitialLetterForGroup = true;
             // 
             // colPublishers
             // 
             resources.ApplyResources(this.colPublishers, "colPublishers");
             this.colPublishers.IsVisible = false;
+            this.colPublishers.Tag = "colPublishers";
             this.colPublishers.UseInitialLetterForGroup = true;
             // 
             // colPlatforms
             // 
             resources.ApplyResources(this.colPlatforms, "colPlatforms");
             this.colPlatforms.IsVisible = false;
+            this.colPlatforms.Tag = "colPlatforms";
             // 
             // contextGame
             // 

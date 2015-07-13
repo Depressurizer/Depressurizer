@@ -358,15 +358,6 @@ namespace Depressurizer {
             return null;
         }
 
-        public AppPlatforms GetPlatforms(int id)
-        {
-            if (Games.ContainsKey(id))
-            {
-                return Games[id].Platforms;
-            }
-            return 0;
-        }
-
         public List<string> GetGenreList( int gameId, int depth = 3, bool tagFallback = true )
         {
             if( Games.ContainsKey( gameId ) ) {
@@ -408,24 +399,6 @@ namespace Depressurizer {
                 return null;
         }
 
-        public List<string> GetDevelopersList(int id)
-        {
-            if (Games.ContainsKey(id))
-            {
-                return Games[id].Developers;
-            }
-                return null;
-        }
-
-        public List<string> GetPublishersList(int id)
-        {
-            if (Games.ContainsKey(id))
-            {
-                return Games[id].Publishers;
-            }
-                return null;
-        }
-
         public int GetReleaseYear( int gameId ) {
             if( Games.ContainsKey( gameId ) ) {
                 GameDBEntry dbEntry = Games[gameId];
@@ -433,24 +406,6 @@ namespace Depressurizer {
                 if( DateTime.TryParse( dbEntry.SteamReleaseDate, out releaseDate ) ) {
                     return releaseDate.Year;
                 }
-            }
-            return 0;
-        }
-
-        public int GetReviewTotal(int id)
-        {
-            if (Games.ContainsKey(id))
-            {
-                return Games[id].ReviewTotal;
-            }
-            return 0;
-        }
-
-        public int GetReviewPositivePercentage(int id)
-        {
-            if (Games.ContainsKey(id))
-            {
-                return Games[id].ReviewPositivePercentage;
             }
             return 0;
         }

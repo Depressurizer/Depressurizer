@@ -51,16 +51,6 @@ namespace Depressurizer {
 
         public bool Hidden;
 
-        public AppPlatforms Platforms;
-        public List<string> Genres;
-        public List<string> Flags;
-        public List<string> Tags;
-        public List<string> Developers;
-        public List<string> Publishers;
-        public int SteamReleaseYear;
-        public int ReviewTotal;
-        public int ReviewPositivePercentage ;
-
         public SortedSet<Category> Categories;
 
         public GameListingSource Source;
@@ -99,15 +89,6 @@ namespace Depressurizer {
             Hidden = false;
             Categories = new SortedSet<Category>();
             this.GameList = list;
-            Platforms = Program.GameDB.GetPlatforms(Id);
-            Genres = Program.GameDB.GetGenreList(Id, 3, false);
-            Flags = Program.GameDB.GetFlagList(Id);
-            Tags = Program.GameDB.GetTagList(Id);
-            Developers = Program.GameDB.GetDevelopersList(Id);
-            Publishers = Program.GameDB.GetPublishersList(Id);
-            SteamReleaseYear = Program.GameDB.GetReleaseYear(Id);
-            ReviewTotal = Program.GameDB.GetReviewTotal(Id);
-            ReviewPositivePercentage = Program.GameDB.GetReviewPositivePercentage(Id);
         }
 
         public void ApplySource( GameListingSource src ) {
@@ -236,57 +217,6 @@ namespace Depressurizer {
         public bool IsFavorite() {
             return ContainsCategory( FavoriteCategory );
         }
-
-        /// <summary>
-        /// Gets the steam review label of the game.
-        /// </summary>
-        public string ReviewLabel()
-        {
-            if (ReviewTotal <= 0) return "";
-            if (ReviewPositivePercentage >= 95 && ReviewTotal >= 500)
-                return "Overwhelmingly Positive";
-            else if (ReviewPositivePercentage >= 85 && ReviewTotal >= 50)
-                return "Very Positive";
-            else if (ReviewPositivePercentage >= 80)
-                return "Positive";
-            else if (ReviewPositivePercentage >= 70)
-                return "Mostly Positive";
-            else if (ReviewPositivePercentage >= 40)
-                return "Mixed";
-            else if (ReviewPositivePercentage >= 20)
-                return "Mostly Negative";
-            else if (ReviewTotal >= 500)
-                return "Overwhelmingly Negative";
-            else if (ReviewTotal >= 50)
-                return "Very Negative";
-            else return "Negative";
-        }
-
-        /// <summary>
-        /// Gets the sort order for the steam review labels.
-        /// </summary>
-        public int ReviewLabelSortOrder()
-        {
-            if (ReviewTotal <= 0) return -1;
-            if (ReviewPositivePercentage >= 95 && ReviewTotal >= 500)
-                return 9;
-            else if (ReviewPositivePercentage >= 85 && ReviewTotal >= 50)
-                return 8;
-            else if (ReviewPositivePercentage >= 80)
-                return 7;
-            else if (ReviewPositivePercentage >= 70)
-                return 6;
-            else if (ReviewPositivePercentage >= 40)
-                return 5;
-            else if (ReviewPositivePercentage >= 20)
-                return 4;
-            else if (ReviewTotal >= 500)
-                return 3;
-            else if (ReviewTotal >= 50)
-                return 2;
-            else return 1;
-        }
-
         #endregion
     }
 

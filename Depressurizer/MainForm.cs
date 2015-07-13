@@ -116,17 +116,91 @@ namespace Depressurizer {
             colCategories.AspectGetter = delegate(Object g) { return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized); };
             colFavorite.AspectGetter = delegate(Object g) { return ((GameInfo)g).IsFavorite() ? "X" : String.Empty; };
             colHidden.AspectGetter = delegate(Object g) { return ((GameInfo)g).Hidden ? "X" : String.Empty; };
-            colGenres.AspectGetter = delegate(Object g) { return ((GameInfo)g).Genres == null ? GlobalStrings.MainForm_NoGenres : string.Join(", ", ((GameInfo)g).Genres); };
-            colFlags.AspectGetter = delegate(Object g) { return ((GameInfo)g).Flags == null ? GlobalStrings.MainForm_NoFlags : string.Join(", ", ((GameInfo)g).Flags); };
-            colTags.AspectGetter = delegate(Object g) { return ((GameInfo)g).Tags == null ? GlobalStrings.MainForm_NoTags : string.Join(", ", ((GameInfo)g).Tags); };
-            colYear.AspectToStringConverter = delegate(object obj)
+            colGenres.AspectGetter = delegate(Object g)
             {
-                int year = (int)obj;
-                return (year <= 0) ? GlobalStrings.MainForm_Unknown : year.ToString();
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Genres != null)
+                    return string.Join(", ", Program.GameDB.Games[id].Genres);
+                return GlobalStrings.MainForm_NoGenres;
             };
-            colPlatforms.AspectGetter = delegate(Object g) { return ((GameInfo)g).Platforms.ToString(); };
-            colDevelopers.AspectGetter = delegate(Object g) { return ((GameInfo)g).Developers == null ? GlobalStrings.MainForm_Unknown : string.Join(", ", ((GameInfo)g).Developers); };
-            colPublishers.AspectGetter = delegate(Object g) { return ((GameInfo)g).Publishers == null ? GlobalStrings.MainForm_Unknown : string.Join(", ", ((GameInfo)g).Publishers); };
+            colFlags.AspectGetter = delegate(Object g)
+            {
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Flags != null)
+                    return string.Join(", ", Program.GameDB.Games[id].Flags);
+                return GlobalStrings.MainForm_NoFlags;
+            };
+            colTags.AspectGetter = delegate(Object g)
+            {
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Tags != null)
+                    return string.Join(", ", Program.GameDB.Games[id].Tags);
+                return GlobalStrings.MainForm_NoTags;
+            };
+            colYear.AspectGetter = delegate(object g)
+            {
+                int id = ((GameInfo)g).Id;
+                DateTime releaseDate;
+                if (Program.GameDB.Games.ContainsKey(id) && DateTime.TryParse(Program.GameDB.Games[id].SteamReleaseDate, out releaseDate))
+                        return releaseDate.Year.ToString();
+                return GlobalStrings.MainForm_Unknown;
+            };
+            colPlatforms.AspectGetter = delegate(Object g) { return Program.GameDB.Games[((GameInfo)g).Id].Platforms.ToString(); };
+            colDevelopers.AspectGetter = delegate(Object g)
+            {
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Developers != null)
+                    return string.Join(", ", Program.GameDB.Games[id].Developers);
+                return GlobalStrings.MainForm_Unknown;
+            };
+            colPublishers.AspectGetter = delegate(Object g)
+            {
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Publishers != null)
+                    return string.Join(", ", Program.GameDB.Games[id].Publishers);
+                return GlobalStrings.MainForm_Unknown;
+            };
+            colNumberOfReviews.AspectGetter = delegate(object g)
+            {
+                int id = ((GameInfo)g).Id;
+                return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].ReviewTotal : 0;
+            };
+            colReviewScore.AspectGetter = delegate(object g)
+            {
+                int id = ((GameInfo)g).Id;
+                return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].ReviewPositivePercentage : 0;
+            };
+            colReviewLabel.AspectGetter = delegate(object g)
+            {
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id))
+                {
+                    int reviewTotal = Program.GameDB.Games[id].ReviewTotal;
+                    int reviewPositivePercentage = Program.GameDB.Games[id].ReviewPositivePercentage;
+                    if (reviewTotal <= 0) return -1;
+                    if (reviewPositivePercentage >= 95 && reviewTotal >= 500)
+                        return 9;
+                    else if (reviewPositivePercentage >= 85 && reviewTotal >= 50)
+                        return 8;
+                    else if (reviewPositivePercentage >= 80)
+                        return 7;
+                    else if (reviewPositivePercentage >= 70)
+                        return 6;
+                    else if (reviewPositivePercentage >= 40)
+                        return 5;
+                    else if (reviewPositivePercentage >= 20)
+                        return 4;
+                    else if (reviewTotal >= 500)
+                        return 3;
+                    else if (reviewTotal >= 50)
+                        return 2;
+                    else return 1;
+                }
+                return 0;
+            };
+
+
+            //Aspect to String Converters
             colNumberOfReviews.AspectToStringConverter = delegate(object obj)
             {
                 int reviewTotal = (int)obj;
@@ -1052,11 +1126,11 @@ namespace Depressurizer {
 
             this.lstGames.SetObjects(displayedGames);
 
-            lstGames.BuildList();
+           lstGames.BuildList();
 
-            SelectGameSet(selectedIds);
+           SelectGameSet(selectedIds);
 
-            lstGames.EndUpdate();
+           lstGames.EndUpdate();
         }
 
         /// <summary>
