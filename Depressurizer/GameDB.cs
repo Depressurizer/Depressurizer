@@ -214,7 +214,7 @@ namespace Depressurizer {
             if( matches.Count > 0 ) {
                 Tags = new List<string>();
                 foreach( Match ma in matches ) {
-                    string tag = ma.Groups[1].Value.Trim();
+                    string tag = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
                     if( !string.IsNullOrWhiteSpace( tag ) ) this.Tags.Add( tag );
                 }
             }
@@ -224,7 +224,7 @@ namespace Depressurizer {
             if( m.Success ) {
                 Developers = new List<string>();
                 foreach( Capture cap in m.Groups[2].Captures ) {
-                    Developers.Add( cap.Value );
+                    Developers.Add( WebUtility.HtmlDecode(cap.Value) );
                 }
             }
 
@@ -233,7 +233,7 @@ namespace Depressurizer {
             if( m.Success ) {
                 Publishers = new List<string>();
                 foreach( Capture cap in m.Groups[2].Captures ) {
-                    Publishers.Add( cap.Value );
+                    Publishers.Add(WebUtility.HtmlDecode(cap.Value));
                 }
             }
 
