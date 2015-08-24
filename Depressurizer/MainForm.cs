@@ -771,7 +771,7 @@ namespace Depressurizer {
                 GameInfo g = tlstGames.SelectedObjects[0];
                 DlgGame dlg = new DlgGame( currentProfile.GameData, g );
                 if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
-                    OnCategoryChange();
+                    OnGameChange( true );
                     MakeChange( true );
                     AddStatus( GlobalStrings.MainForm_EditedGame );
                 }
@@ -807,7 +807,7 @@ namespace Depressurizer {
                         AddStatus( string.Format( GlobalStrings.MainForm_IgnoredGame, ignored, ( ignored == 1 ) ? "" : "s" ) );
                         MakeChange( true );
                     }
-                    OnCategoryChange();
+                    OnGameChange( false );
                 }
             }
         }
@@ -816,8 +816,9 @@ namespace Depressurizer {
         /// Adds the given category to all selected games.
         /// </summary>
         /// <param name="cat">Category to add</param>
+        /// <param name="refreshCatList">If true, refresh category views afterwards</param>
         /// <param name="forceClearOthers">If true, remove other categories from the affected games.</param>
-        void AddCategoryToSelectedGames( Category cat, bool forceClearOthers ) {
+        void AddCategoryToSelectedGames( Category cat, bool refreshCatList, bool forceClearOthers ) {
             if (lstGames.SelectedObjects.Count > 0)
             {
                 foreach( GameInfo g in tlstGames.SelectedObjects ) {
@@ -832,7 +833,7 @@ namespace Depressurizer {
                         }
                     }
                 }
-                OnCategoryChange();
+                OnGameChange( refreshCatList );
                 MakeChange( true );
             }
         }
@@ -848,7 +849,7 @@ namespace Depressurizer {
                 {
                     g.RemoveCategory( cat );
                 }
-                OnCategoryChange();
+                OnGameChange( false );
                 MakeChange( true );
             }
         }
@@ -864,7 +865,7 @@ namespace Depressurizer {
                 {
                     g.SetFavorite( fav );
                 }
-                OnCategoryChange();
+                OnGameChange( false );
                 MakeChange( true );
             }
         }
@@ -880,7 +881,7 @@ namespace Depressurizer {
                 {
                     g.Hidden = hidden;
                 }
-                OnCategoryChange();
+                OnGameChange( false );
                 MakeChange( true );
             }
         }
@@ -1066,8 +1067,8 @@ namespace Depressurizer {
 
         /// <summary>
         /// Does all list-updating that should be done when adding, removing, or renaming a category.
-        /// Also does all list-updating needed when a game is added or removed from a category.
         /// </summary>
+        /// 
         private void OnCategoryChange() {
             FillAllCategoryLists();
 
@@ -1153,29 +1154,22 @@ namespace Depressurizer {
             lstCategories.BeginUpdate();
             lstCategories.Items.Clear();
             if( !AdvancedCategoryFilter ) {
-                ListViewItem i = new ListViewItem(GlobalStrings.MainForm_All + " (" + currentProfile.GameData.Games.Count + ")");
-                i.Tag = GlobalStrings.MainForm_All;
-                lstCategories.Items.Add(i);
+                lstCategories.Items.Add( GlobalStrings.MainForm_All );
             }
-            
-            int count = 0;
-            foreach (GameInfo g in currentProfile.GameData.Games.Values)
-            {
-                if (!g.HasCategories())
-                    count++;
-            }
-            ListViewItem lvi = new ListViewItem(GlobalStrings.MainForm_Uncategorized + " (" + count + ")");
-            lvi.Tag = GlobalStrings.MainForm_Uncategorized;
-            lstCategories.Items.Add( lvi );
+            lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
 
             foreach( Category c in currentProfile.GameData.Categories ) {
                 lstCategories.Items.Add( CreateCategoryListViewItem( c ) );
             }
 
             if( selected == null ) {
+                if( selectedIndex >= 0 ) {
+                    lstCategories.SelectedIndices.Add( selectedIndex );
+                } else {
                     lstCategories.SelectedIndices.Add( 0 );
+                }
             } else {
-                for( int i = 0; i < lstCategories.Items.Count; i++ ) {
+                for( int i = 2; i < lstCategories.Items.Count; i++ ) {
                     if( lstCategories.Items[i].Tag == selected ) {
                         lstCategories.SelectedIndices.Add( i );
                         break;
@@ -1206,15 +1200,8 @@ namespace Depressurizer {
             lstMultiCat.EndUpdate();
         }
 
-        private ListViewItem CreateCategoryListViewItem( Category c )
-        {
-            int count=0;
-            foreach (GameInfo g in currentProfile.GameData.Games.Values)
-            {
-                if (g.ContainsCategory(c))
-                    count++;
-            }
-            ListViewItem i = new ListViewItem(c.Name + " (" + count + ")");
+        private ListViewItem CreateCategoryListViewItem( Category c ) {
+            ListViewItem i = new ListViewItem( c.Name );
             i.Tag = c;
             return i;
         }
@@ -1500,12 +1487,12 @@ namespace Depressurizer {
                     } else if( e.Effect == DragDropEffects.Copy ) {
                         currentProfile.GameData.AddGameCategory( (int[])e.Data.GetData( typeof( int[] ) ), dropCat );
                     }
-                    OnCategoryChange();
+                    OnGameChange( false );
                     MakeChange( true );
                 } else {
-                    if( dropItem.Tag as string == GlobalStrings.MainForm_Uncategorized ) {
+                    if( dropItem.Text == GlobalStrings.MainForm_Uncategorized ) {
                         currentProfile.GameData.ClearGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), true );
-                        OnCategoryChange();
+                        OnGameChange( false );
                         MakeChange( true );
                     }
                 }
@@ -1791,7 +1778,7 @@ namespace Depressurizer {
             Category c = CreateCategory();
             if( c != null ) {
                 ClearStatus();
-                AddCategoryToSelectedGames( c, false );
+                AddCategoryToSelectedGames( c, true, false );
                 FlushStatus();
             }
         }
@@ -1801,7 +1788,7 @@ namespace Depressurizer {
             if( menuItem != null ) {
                 ClearStatus();
                 Category c = menuItem.Tag as Category;
-                AddCategoryToSelectedGames( c, false );
+                AddCategoryToSelectedGames( c, false, false );
                 FlushStatus();
             }
         }
@@ -1884,7 +1871,7 @@ namespace Depressurizer {
         private void cmdAddCatAndAssign_Click( object sender, EventArgs e ) {
             if( ValidateCategoryName( txtAddCatAndAssign.Text ) ) {
                 Category cat = currentProfile.GameData.GetCategory( txtAddCatAndAssign.Text );
-                AddCategoryToSelectedGames( cat, false );
+                AddCategoryToSelectedGames( cat, true, false );
                 txtAddCatAndAssign.Clear();
             }
         }
@@ -2057,7 +2044,7 @@ namespace Depressurizer {
                     item.StateImageIndex = 1;
                     Category cat = item.Tag as Category;
                     if( cat != null ) {
-                        AddCategoryToSelectedGames( cat, false );
+                        AddCategoryToSelectedGames( cat, false, false );
                     }
                 } else if( item.StateImageIndex == 1 || ( item.StateImageIndex == 2 && !modKey ) ) {
                     item.StateImageIndex = 0;
@@ -2081,7 +2068,7 @@ namespace Depressurizer {
         private void chkFavorite_CheckedChanged( object sender, EventArgs e ) {
             if( !ignoreCheckChanges ) {
                 if( chkFavorite.CheckState == CheckState.Checked ) {
-                    AddCategoryToSelectedGames( currentProfile.GameData.FavoriteCategory, false );
+                    AddCategoryToSelectedGames( currentProfile.GameData.FavoriteCategory, false, false );
                 } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
                     RemoveCategoryFromSelectedGames( currentProfile.GameData.FavoriteCategory );
                 }
@@ -2160,10 +2147,10 @@ namespace Depressurizer {
                 if( lstCategories.SelectedItems[0].Tag is Category ) {
                     return g.ContainsCategory( lstCategories.SelectedItems[0].Tag as Category );
                 } else {
-                    if( lstCategories.SelectedItems[0].Tag as string == GlobalStrings.MainForm_All ) {
+                    if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_All ) {
                         return true;
                     }
-                    if( lstCategories.SelectedItems[0].Tag as string == GlobalStrings.MainForm_Uncategorized ) {
+                    if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_Uncategorized ) {
                         return !g.HasCategories();
                     }
                 }
