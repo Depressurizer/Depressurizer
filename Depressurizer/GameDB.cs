@@ -106,6 +106,8 @@ namespace Depressurizer {
 
                 using( WebResponse resp = req.GetResponse() ) {
                     LastStoreScrape = Utility.GetCurrentUTime();
+                    bool ageCheckAfterRedirect = false;
+
                     if( resp.ResponseUri.Segments.Length < 2 ) { // If we were redirected to the store front page
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id );
                         SetTypeFromStoreScrape( AppTypes.Unknown );
@@ -114,7 +116,9 @@ namespace Depressurizer {
                     } else if( resp.ResponseUri.Segments[1] == "agecheck/" ) { // If we encountered an age gate (cookies should bypass this, but sometimes they don't seem to)
                         if( resp.ResponseUri.Segments.Length >= 4 && resp.ResponseUri.Segments[3].TrimEnd( '/' ) != id.ToString() ) { // Age check + redirect
                             Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id, resp.ResponseUri.Segments[3].TrimEnd( '/' ) );
-                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out redirectTarget ) ) {
+                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out redirectTarget ) )
+                            {
+                                ageCheckAfterRedirect = true;
                             } else { // If we got an age check without numeric id (shouldn't happen)
                                 return AppTypes.Unknown;
                             }
@@ -135,8 +139,26 @@ namespace Depressurizer {
                         }
                     }
 
-                    StreamReader sr = new StreamReader( resp.GetResponseStream() );
-                    page = sr.ReadToEnd();
+                    //cookies get discarded if we hit a redirect so if we hit an age check after a redirect we need to make a request directly to that url
+                    StreamReader sr;
+                    if (ageCheckAfterRedirect)
+                    {
+                        HttpWebRequest req2 = (HttpWebRequest) HttpWebRequest.Create(string.Format(Properties.Resources.UrlSteamStore, redirectTarget));
+                        req2.CookieContainer = new CookieContainer(1);
+                        req2.CookieContainer.Add(new Cookie("birthtime", "-2208959999", "/", "store.steampowered.com"));
+
+                        using (WebResponse resp2 = req2.GetResponse())
+                        {
+                            sr = new StreamReader(resp2.GetResponseStream());
+                            page = sr.ReadToEnd();
+
+                        }
+                    }
+                    else
+                    {
+                        sr = new StreamReader(resp.GetResponseStream());
+                        page = sr.ReadToEnd();
+                    }
                     Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageRead, id );
                 }
             } catch( Exception e ) {
@@ -210,6 +232,7 @@ namespace Depressurizer {
                 }
             }
 
+            //Tags
             matches = regTags.Matches( page );
             if( matches.Count > 0 ) {
                 Tags = new List<string>();
