@@ -44,6 +44,7 @@ namespace Depressurizer {
         public List<string> Developers = null;
         public List<string> Publishers = null;
         public string SteamReleaseDate = null;
+        public int Achievements = 0;
 
         public int ReviewTotal = 0;
         public int ReviewPositivePercentage = 0;
@@ -59,7 +60,7 @@ namespace Depressurizer {
         // If this regex maches a store page, the app is a game
         private static Regex regGamecheck = new Regex( "<a[^>]*>All (?:Games|Software)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
-        private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
+        private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regFlags = new Regex("<a class=\\\"name\\\" href=\\\"http://store.steampowered.com/search/\\?category2=.*?\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex regTags = new Regex( "<a[^>]*class=\\\"app_tag\\\"[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
@@ -70,6 +71,8 @@ namespace Depressurizer {
         private static Regex regMetalink = new Regex( "<div id=\\\"game_area_metalink\\\">\\s*<a href=\\\"http://www.metacritic.com/game/pc/([^\\\"]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
         private static Regex regReviews = new Regex( @"data-store-tooltip=""([\d]+)% of the ([\d,]+) user reviews for this (?:game|software) are positive.""", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+
+        private static Regex regAchievements = new Regex(@"Includes (\d+) Steam Achievements", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         #endregion
 
         #region Scraping
@@ -242,6 +245,22 @@ namespace Depressurizer {
                 }
             }
 
+            //Get Achievement number
+            m = regAchievements.Match(page);
+            if (m.Success)
+            {
+                //sometimes games have achievements but don't have the "Steam Achievements" flag in the store
+                if (!Flags.Contains("Steam Achievements"))
+                {
+                    Flags.Add("Steam Achievements");
+                }
+                int num = 0;
+                if (int.TryParse(m.Groups[1].Value, out num))
+                {
+                    this.Achievements = num;
+                }
+            }
+
             // Get Developer
             m = regDevelopers.Match( page );
             if( m.Success ) {
@@ -315,6 +334,7 @@ namespace Depressurizer {
                 if( other.Developers != null && other.Developers.Count > 0 ) Developers = other.Developers;
                 if( other.Publishers != null && other.Publishers.Count > 0 ) Publishers = other.Publishers;
                 if( !string.IsNullOrEmpty( other.SteamReleaseDate ) ) SteamReleaseDate = other.SteamReleaseDate;
+                if( other.Achievements != 0 ) this.Achievements = other.Achievements;
 
                 if( other.ReviewTotal != 0 ) {
                     this.ReviewTotal = other.ReviewTotal;
@@ -352,6 +372,7 @@ namespace Depressurizer {
             XmlName_Game_Parent = "parent",
             XmlName_Game_Genre = "genre",
             XmlName_Game_Tag = "tag",
+            XmlName_Game_Achievements = "achievements",
             XmlName_Game_Developer = "developer",
             XmlName_Game_Publisher = "publisher",
             XmlName_Game_Flag = "flag",
@@ -732,6 +753,11 @@ namespace Depressurizer {
                         }
                     }
 
+                    if (g.Achievements > 0)
+                    {
+                        writer.WriteElementString(XmlName_Game_Achievements, g.Achievements.ToString());
+                    }
+
                     if( g.ReviewTotal > 0 ) {
                         writer.WriteElementString( XmlName_Game_ReviewTotal, g.ReviewTotal.ToString() );
                         writer.WriteElementString( XmlName_Game_ReviewPositivePercent, g.ReviewPositivePercentage.ToString() );
@@ -860,6 +886,8 @@ namespace Depressurizer {
 
                     g.Flags = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Flag ) );
 
+                    g.Achievements = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Achievements], 0);
+                    
                     g.ReviewTotal = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_ReviewTotal], 0 );
                     g.ReviewPositivePercentage = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_ReviewPositivePercent], 0 );
 
