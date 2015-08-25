@@ -145,6 +145,11 @@ namespace Depressurizer {
                         return releaseDate.Year.ToString();
                 return GlobalStrings.MainForm_Unknown;
             };
+            colAchievements.AspectGetter = delegate(object g)
+            {
+                int id = ((GameInfo)g).Id;
+                return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].Achievements : 0;
+            };
             colPlatforms.AspectGetter = delegate(Object g) { return Program.GameDB.Games[((GameInfo)g).Id].Platforms.ToString(); };
             colDevelopers.AspectGetter = delegate(Object g)
             {

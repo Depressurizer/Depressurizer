@@ -44,6 +44,7 @@ namespace Depressurizer {
         public List<string> Developers = null;
         public List<string> Publishers = null;
         public string SteamReleaseDate = null;
+        public int Achievements = 0;
 
         public int ReviewTotal = 0;
         public int ReviewPositivePercentage = 0;
@@ -57,9 +58,9 @@ namespace Depressurizer {
 
         #region Regex
         // If this regex maches a store page, the app is a game
-        private static Regex regGamecheck = new Regex( "<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regGamecheck = new Regex( "<a[^>]*>All (?:Games|Software)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
-        private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.Compiled | RegexOptions.IgnoreCase );
+        private static Regex regGenre = new Regex( "<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regFlags = new Regex("<a class=\\\"name\\\" href=\\\"http://store.steampowered.com/search/\\?category2=.*?\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex regTags = new Regex( "<a[^>]*class=\\\"app_tag\\\"[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
@@ -69,7 +70,9 @@ namespace Depressurizer {
         private static Regex regRelDate = new Regex( "<b>Release Date:</b>\\s*([^<]*)<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled );
         private static Regex regMetalink = new Regex( "<div id=\\\"game_area_metalink\\\">\\s*<a href=\\\"http://www.metacritic.com/game/pc/([^\\\"]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled );
 
-        private static Regex regReviews = new Regex( @"data-store-tooltip=""([\d]+)% of the ([\d,]+) user reviews for this game are positive.""", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+        private static Regex regReviews = new Regex( @"data-store-tooltip=""([\d]+)% of the ([\d,]+) user reviews for this (?:game|software) are positive.""", RegexOptions.IgnoreCase | RegexOptions.Compiled );
+
+        private static Regex regAchievements = new Regex(@"Includes (\d+) Steam Achievements", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         #endregion
 
         #region Scraping
@@ -106,6 +109,8 @@ namespace Depressurizer {
 
                 using( WebResponse resp = req.GetResponse() ) {
                     LastStoreScrape = Utility.GetCurrentUTime();
+                    bool ageCheckAfterRedirect = false;
+
                     if( resp.ResponseUri.Segments.Length < 2 ) { // If we were redirected to the store front page
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id );
                         SetTypeFromStoreScrape( AppTypes.Unknown );
@@ -114,7 +119,9 @@ namespace Depressurizer {
                     } else if( resp.ResponseUri.Segments[1] == "agecheck/" ) { // If we encountered an age gate (cookies should bypass this, but sometimes they don't seem to)
                         if( resp.ResponseUri.Segments.Length >= 4 && resp.ResponseUri.Segments[3].TrimEnd( '/' ) != id.ToString() ) { // Age check + redirect
                             Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id, resp.ResponseUri.Segments[3].TrimEnd( '/' ) );
-                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out redirectTarget ) ) {
+                            if( int.TryParse( resp.ResponseUri.Segments[3].TrimEnd( '/' ), out redirectTarget ) )
+                            {
+                                ageCheckAfterRedirect = true;
                             } else { // If we got an age check without numeric id (shouldn't happen)
                                 return AppTypes.Unknown;
                             }
@@ -135,8 +142,26 @@ namespace Depressurizer {
                         }
                     }
 
-                    StreamReader sr = new StreamReader( resp.GetResponseStream() );
-                    page = sr.ReadToEnd();
+                    //cookies get discarded if we hit a redirect so if we hit an age check after a redirect we need to make a request directly to that url
+                    StreamReader sr;
+                    if (ageCheckAfterRedirect)
+                    {
+                        HttpWebRequest req2 = (HttpWebRequest) HttpWebRequest.Create(string.Format(Properties.Resources.UrlSteamStore, redirectTarget));
+                        req2.CookieContainer = new CookieContainer(1);
+                        req2.CookieContainer.Add(new Cookie("birthtime", "-2208959999", "/", "store.steampowered.com"));
+
+                        using (WebResponse resp2 = req2.GetResponse())
+                        {
+                            sr = new StreamReader(resp2.GetResponseStream());
+                            page = sr.ReadToEnd();
+
+                        }
+                    }
+                    else
+                    {
+                        sr = new StreamReader(resp.GetResponseStream());
+                        page = sr.ReadToEnd();
+                    }
                     Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageRead, id );
                 }
             } catch( Exception e ) {
@@ -210,12 +235,29 @@ namespace Depressurizer {
                 }
             }
 
+            //Tags
             matches = regTags.Matches( page );
             if( matches.Count > 0 ) {
                 Tags = new List<string>();
                 foreach( Match ma in matches ) {
-                    string tag = ma.Groups[1].Value.Trim();
+                    string tag = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
                     if( !string.IsNullOrWhiteSpace( tag ) ) this.Tags.Add( tag );
+                }
+            }
+
+            //Get Achievement number
+            m = regAchievements.Match(page);
+            if (m.Success)
+            {
+                //sometimes games have achievements but don't have the "Steam Achievements" flag in the store
+                if (!Flags.Contains("Steam Achievements"))
+                {
+                    Flags.Add("Steam Achievements");
+                }
+                int num = 0;
+                if (int.TryParse(m.Groups[1].Value, out num))
+                {
+                    this.Achievements = num;
                 }
             }
 
@@ -224,7 +266,7 @@ namespace Depressurizer {
             if( m.Success ) {
                 Developers = new List<string>();
                 foreach( Capture cap in m.Groups[2].Captures ) {
-                    Developers.Add( cap.Value );
+                    Developers.Add( WebUtility.HtmlDecode(cap.Value) );
                 }
             }
 
@@ -233,7 +275,7 @@ namespace Depressurizer {
             if( m.Success ) {
                 Publishers = new List<string>();
                 foreach( Capture cap in m.Groups[2].Captures ) {
-                    Publishers.Add( cap.Value );
+                    Publishers.Add(WebUtility.HtmlDecode(cap.Value));
                 }
             }
 
@@ -292,6 +334,7 @@ namespace Depressurizer {
                 if( other.Developers != null && other.Developers.Count > 0 ) Developers = other.Developers;
                 if( other.Publishers != null && other.Publishers.Count > 0 ) Publishers = other.Publishers;
                 if( !string.IsNullOrEmpty( other.SteamReleaseDate ) ) SteamReleaseDate = other.SteamReleaseDate;
+                if( other.Achievements != 0 ) this.Achievements = other.Achievements;
 
                 if( other.ReviewTotal != 0 ) {
                     this.ReviewTotal = other.ReviewTotal;
@@ -329,6 +372,7 @@ namespace Depressurizer {
             XmlName_Game_Parent = "parent",
             XmlName_Game_Genre = "genre",
             XmlName_Game_Tag = "tag",
+            XmlName_Game_Achievements = "achievements",
             XmlName_Game_Developer = "developer",
             XmlName_Game_Publisher = "publisher",
             XmlName_Game_Flag = "flag",
@@ -709,6 +753,11 @@ namespace Depressurizer {
                         }
                     }
 
+                    if (g.Achievements > 0)
+                    {
+                        writer.WriteElementString(XmlName_Game_Achievements, g.Achievements.ToString());
+                    }
+
                     if( g.ReviewTotal > 0 ) {
                         writer.WriteElementString( XmlName_Game_ReviewTotal, g.ReviewTotal.ToString() );
                         writer.WriteElementString( XmlName_Game_ReviewPositivePercent, g.ReviewPositivePercentage.ToString() );
@@ -837,6 +886,8 @@ namespace Depressurizer {
 
                     g.Flags = XmlUtil.GetStringsFromNodeList( gameNode.SelectNodes( XmlName_Game_Flag ) );
 
+                    g.Achievements = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Achievements], 0);
+                    
                     g.ReviewTotal = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_ReviewTotal], 0 );
                     g.ReviewPositivePercentage = XmlUtil.GetIntFromNode( gameNode[XmlName_Game_ReviewPositivePercent], 0 );
 
