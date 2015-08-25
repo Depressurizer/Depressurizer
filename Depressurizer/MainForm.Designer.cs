@@ -78,6 +78,7 @@ namespace Depressurizer {
             this.colNumberOfReviews = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colReviewLabel = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colYear = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colAchievements = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colDevelopers = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colPublishers = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colPlatforms = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -376,6 +377,7 @@ namespace Depressurizer {
             this.lstGames.AllColumns.Add(this.colNumberOfReviews);
             this.lstGames.AllColumns.Add(this.colReviewLabel);
             this.lstGames.AllColumns.Add(this.colYear);
+            this.lstGames.AllColumns.Add(this.colAchievements);
             this.lstGames.AllColumns.Add(this.colDevelopers);
             this.lstGames.AllColumns.Add(this.colPublishers);
             this.lstGames.AllColumns.Add(this.colPlatforms);
@@ -484,6 +486,14 @@ namespace Depressurizer {
             this.colYear.AspectName = "";
             this.colYear.Tag = "colYear";
             resources.ApplyResources(this.colYear, "colYear");
+            // 
+            // colAchievements
+            // 
+            this.colAchievements.AspectName = "";
+            resources.ApplyResources(this.colAchievements, "colAchievements");
+            this.colAchievements.IsVisible = false;
+            this.colAchievements.Tag = "colAchievements";
+            this.colAchievements.UseFiltering = false;
             // 
             // colDevelopers
             // 
@@ -1125,6 +1135,7 @@ namespace Depressurizer {
         private BrightIdeasSoftware.OLVColumn colNumberOfReviews;
         private BrightIdeasSoftware.OLVColumn colReviewScore;
         private BrightIdeasSoftware.OLVColumn colReviewLabel;
+        private BrightIdeasSoftware.OLVColumn colAchievements;
     }
 }
 
