@@ -146,7 +146,7 @@ namespace Depressurizer {
                     StreamReader sr;
                     if (ageCheckAfterRedirect)
                     {
-                        HttpWebRequest req2 = (HttpWebRequest) HttpWebRequest.Create(string.Format(Properties.Resources.UrlSteamStore, redirectTarget));
+                        HttpWebRequest req2 = (HttpWebRequest) HttpWebRequest.Create(req.Address.ToString().Replace("/agecheck", ""));
                         req2.CookieContainer = new CookieContainer(1);
                         req2.CookieContainer.Add(new Cookie("birthtime", "-2208959999", "/", "store.steampowered.com"));
 
