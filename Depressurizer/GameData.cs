@@ -101,7 +101,11 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="newCat">Category to add</param>
         public void AddCategory( Category newCat ) {
-            if( newCat != null ) Categories.Add( newCat );
+            if (newCat != null)
+            {
+                newCat.Count++;
+                Categories.Add( newCat );
+            }
         }
 
         /// <summary>
@@ -109,15 +113,23 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="newCats">A list of categories to add</param>
         public void AddCategory( ICollection<Category> newCats ) {
-            Categories.UnionWith( newCats );
+            foreach (Category cat in newCats)
+            {
+                if (!Categories.Contains(cat))
+                {
+                    this.AddCategory(cat);
+                }
+            }
         }
 
         /// <summary>
         /// Removes a single category from this game. Does nothing if the category is not attached to this game.
         /// </summary>
         /// <param name="remCat">Category to remove</param>
-        public void RemoveCategory( Category remCat ) {
-            Categories.Remove( remCat );
+        public void RemoveCategory( Category remCat )
+        {
+            if (Categories.Remove(remCat))
+                remCat.Count--;
         }
 
         /// <summary>
@@ -125,7 +137,13 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="remCats">Categories to remove</param>
         public void RemoveCategory( ICollection<Category> remCats ) {
-            Categories.ExceptWith( remCats );
+            foreach (Category cat in remCats)
+            {
+                if (!Categories.Contains(cat))
+                {
+                    this.RemoveCategory(cat);
+                }
+            }
         }
 
         /// <summary>
@@ -133,12 +151,18 @@ namespace Depressurizer {
         /// <param name="alsoClearFavorite">If true, removes the favorite category as well.</param>
         /// </summary>
         public void ClearCategories( bool alsoClearFavorite = false ) {
+            foreach (Category cat in Categories)
+                cat.Count--;
             if( alsoClearFavorite ) {
                 Categories.Clear();
             } else {
                 bool restore = IsFavorite();
                 Categories.Clear();
-                if( restore ) Categories.Add( FavoriteCategory );
+                if (restore)
+                {
+                    Categories.Add( FavoriteCategory );
+                    FavoriteCategory.Count++;
+                }
             }
         }
 
@@ -225,6 +249,7 @@ namespace Depressurizer {
     /// </summary>
     public class Category : IComparable {
         public string Name;
+        public int Count;
 
         public Category( string name ) {
             Name = name;
@@ -410,6 +435,7 @@ namespace Depressurizer {
             if( appId < 0 ) {
                 if( Games.ContainsKey( appId ) ) {
                     GameInfo removedGame = Games[appId];
+                    removedGame.ClearCategories();
                     removed = Games.Remove( appId );
                     if( removed )
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_RemovedGameFromGameList, appId, removedGame.Name );

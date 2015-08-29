@@ -795,6 +795,7 @@ namespace Depressurizer {
                     int removed = 0;
                     foreach (GameInfo g in tlstGames.SelectedObjects)
                     {
+                        g.ClearCategories();
                         if( currentProfile.GameData.Games.Remove( g.Id ) ) {
                             removed++;
                         }
@@ -1089,6 +1090,7 @@ namespace Depressurizer {
             if( catCreationPossible ) {
                 OnCategoryChange();
             } else {
+                FillCategoryList();
                 UpdateGameList();
             }
         }
@@ -1143,8 +1145,6 @@ namespace Depressurizer {
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillAllCategoryLists() {
-            object selected = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag : null;
-            int selectedIndex = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedIndices[0] : -1;
 
             lstCategories.Items.Clear();
             contextGameAddCat.Items.Clear();
@@ -1156,32 +1156,7 @@ namespace Depressurizer {
 
             currentProfile.GameData.Categories.Sort();
 
-            lstCategories.BeginUpdate();
-            lstCategories.Items.Clear();
-            if( !AdvancedCategoryFilter ) {
-                lstCategories.Items.Add( GlobalStrings.MainForm_All );
-            }
-            lstCategories.Items.Add( GlobalStrings.MainForm_Uncategorized );
-
-            foreach( Category c in currentProfile.GameData.Categories ) {
-                lstCategories.Items.Add( CreateCategoryListViewItem( c ) );
-            }
-
-            if( selected == null ) {
-                if( selectedIndex >= 0 ) {
-                    lstCategories.SelectedIndices.Add( selectedIndex );
-                } else {
-                    lstCategories.SelectedIndices.Add( 0 );
-                }
-            } else {
-                for( int i = 2; i < lstCategories.Items.Count; i++ ) {
-                    if( lstCategories.Items[i].Tag == selected ) {
-                        lstCategories.SelectedIndices.Add( i );
-                        break;
-                    }
-                }
-            }
-            lstCategories.EndUpdate();
+            FillCategoryList();
 
             lstMultiCat.BeginUpdate();
             foreach( Category c in currentProfile.GameData.Categories ) {
@@ -1205,8 +1180,72 @@ namespace Depressurizer {
             lstMultiCat.EndUpdate();
         }
 
+        /// <summary>
+        /// Completely repopulates the category list. Maintains selection.
+        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
+        /// </summary>
+        private void FillCategoryList()
+        {
+            object selected = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedItems[0].Tag : null;
+            int selectedIndex = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedIndices[0] : -1;
+
+            lstCategories.Items.Clear();
+
+            if (!ProfileLoaded) return;
+
+            currentProfile.GameData.Categories.Sort();
+
+            lstCategories.BeginUpdate();
+            lstCategories.Items.Clear();
+            if (!AdvancedCategoryFilter)
+            {
+                ListViewItem i = new ListViewItem(GlobalStrings.MainForm_All + " (" + currentProfile.GameData.Games.Count + ")");
+                i.Tag = GlobalStrings.MainForm_All;
+                lstCategories.Items.Add(i);
+            }
+
+            int count = 0;
+            foreach (GameInfo g in currentProfile.GameData.Games.Values)
+            {
+                if (!g.HasCategories())
+                    count++;
+            }
+            ListViewItem lvi = new ListViewItem(GlobalStrings.MainForm_Uncategorized + " (" + count + ")");
+            lvi.Tag = GlobalStrings.MainForm_Uncategorized;
+            lstCategories.Items.Add(lvi);
+
+            foreach (Category c in currentProfile.GameData.Categories)
+            {
+                lstCategories.Items.Add(CreateCategoryListViewItem(c));
+            }
+
+            if (selected == null)
+            {
+                if (selectedIndex >= 0)
+                {
+                    lstCategories.SelectedIndices.Add(selectedIndex);
+                }
+                else
+                {
+                    lstCategories.SelectedIndices.Add(0);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < lstCategories.Items.Count; i++)
+                {
+                    if (lstCategories.Items[i].Tag == selected)
+                    {
+                        lstCategories.SelectedIndices.Add(i);
+                        break;
+                    }
+                }
+            }
+            lstCategories.EndUpdate();
+        }
+
         private ListViewItem CreateCategoryListViewItem( Category c ) {
-            ListViewItem i = new ListViewItem( c.Name );
+            ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")");
             i.Tag = c;
             return i;
         }
@@ -1495,7 +1534,8 @@ namespace Depressurizer {
                     OnGameChange( false );
                     MakeChange( true );
                 } else {
-                    if( dropItem.Text == GlobalStrings.MainForm_Uncategorized ) {
+                    if ( (string) dropItem.Tag == GlobalStrings.MainForm_Uncategorized)
+                    {
                         currentProfile.GameData.ClearGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), true );
                         OnGameChange( false );
                         MakeChange( true );
@@ -2152,10 +2192,10 @@ namespace Depressurizer {
                 if( lstCategories.SelectedItems[0].Tag is Category ) {
                     return g.ContainsCategory( lstCategories.SelectedItems[0].Tag as Category );
                 } else {
-                    if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_All ) {
+                    if( (string)lstCategories.SelectedItems[0].Tag == GlobalStrings.MainForm_All ) {
                         return true;
                     }
-                    if( lstCategories.SelectedItems[0].Text == GlobalStrings.MainForm_Uncategorized ) {
+                    if( (string)lstCategories.SelectedItems[0].Tag == GlobalStrings.MainForm_Uncategorized ) {
                         return !g.HasCategories();
                     }
                 }
