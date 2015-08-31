@@ -917,4 +917,12 @@ Tiempo Restante:</value>
     <value>&lt;Unknown&gt;</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="GameDB_RedirectsToItself" xml:space="preserve">
+    <value>Scraping {0}: Redirects to itself</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="GameDB_TooManyRedirects" xml:space="preserve">
+    <value>Scraping {0}: Too Many Redirects</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>

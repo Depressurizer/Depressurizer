@@ -1680,6 +1680,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scraping {0}: Redirects to itself.
+        /// </summary>
+        internal static string GameDB_RedirectsToItself {
+            get {
+                return ResourceManager.GetString("GameDB_RedirectsToItself", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving GameDB to {0}.
         /// </summary>
         internal static string GameDB_SavingGameDBTo {
@@ -1793,6 +1802,15 @@ namespace Depressurizer {
         internal static string GameDB_ScrapingRedirectedToOtherApp {
             get {
                 return ResourceManager.GetString("GameDB_ScrapingRedirectedToOtherApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scraping {0}: Too Many Redirects.
+        /// </summary>
+        internal static string GameDB_TooManyRedirects {
+            get {
+                return ResourceManager.GetString("GameDB_TooManyRedirects", resourceCulture);
             }
         }
         

@@ -1126,4 +1126,10 @@ Recommended: Enabled</value>
   <data name="MainForm_Unknown" xml:space="preserve">
     <value>&lt;Unknown&gt;</value>
   </data>
+  <data name="GameDB_RedirectsToItself" xml:space="preserve">
+    <value>Scraping {0}: Redirects to itself</value>
+  </data>
+  <data name="GameDB_TooManyRedirects" xml:space="preserve">
+    <value>Scraping {0}: Too Many Redirects</value>
+  </data>
 </root>
