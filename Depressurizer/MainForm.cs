@@ -795,7 +795,7 @@ namespace Depressurizer {
                     int removed = 0;
                     foreach (GameInfo g in tlstGames.SelectedObjects)
                     {
-                        g.ClearCategories();
+                        g.ClearCategories(true);
                         if( currentProfile.GameData.Games.Remove( g.Id ) ) {
                             removed++;
                         }

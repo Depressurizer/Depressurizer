@@ -435,7 +435,7 @@ namespace Depressurizer {
             if( appId < 0 ) {
                 if( Games.ContainsKey( appId ) ) {
                     GameInfo removedGame = Games[appId];
-                    removedGame.ClearCategories();
+                    removedGame.ClearCategories(true);
                     removed = Games.Remove( appId );
                     if( removed )
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_RemovedGameFromGameList, appId, removedGame.Name );
