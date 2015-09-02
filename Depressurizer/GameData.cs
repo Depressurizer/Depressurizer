@@ -101,10 +101,9 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="newCat">Category to add</param>
         public void AddCategory( Category newCat ) {
-            if (newCat != null)
+            if (newCat != null && Categories.Add(newCat) && !this.Hidden)
             {
                 newCat.Count++;
-                Categories.Add( newCat );
             }
         }
 
@@ -128,7 +127,7 @@ namespace Depressurizer {
         /// <param name="remCat">Category to remove</param>
         public void RemoveCategory( Category remCat )
         {
-            if (Categories.Remove(remCat))
+            if (Categories.Remove(remCat) && !this.Hidden)
                 remCat.Count--;
         }
 
@@ -152,7 +151,7 @@ namespace Depressurizer {
         /// </summary>
         public void ClearCategories( bool alsoClearFavorite = false ) {
             foreach (Category cat in Categories)
-                cat.Count--;
+                if (!this.Hidden) cat.Count--;
             if( alsoClearFavorite ) {
                 Categories.Clear();
             } else {
@@ -161,7 +160,7 @@ namespace Depressurizer {
                 if (restore)
                 {
                     Categories.Add( FavoriteCategory );
-                    FavoriteCategory.Count++;
+                    if (!this.Hidden) FavoriteCategory.Count++;
                 }
             }
         }

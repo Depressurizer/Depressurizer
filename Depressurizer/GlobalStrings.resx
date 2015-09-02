@@ -1132,4 +1132,7 @@ Recommended: Enabled</value>
   <data name="GameDB_TooManyRedirects" xml:space="preserve">
     <value>Scraping {0}: Too Many Redirects</value>
   </data>
+  <data name="MainForm_Hidden" xml:space="preserve">
+    <value>&lt;Hidden&gt;</value>
+  </data>
 </root>

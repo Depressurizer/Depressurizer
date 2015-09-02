@@ -2293,6 +2293,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;Hidden&gt;.
+        /// </summary>
+        internal static string MainForm_Hidden {
+            get {
+                return ResourceManager.GetString("MainForm_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignored {0} game{1}..
         /// </summary>
         internal static string MainForm_IgnoredGame {

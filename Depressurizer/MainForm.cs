@@ -67,6 +67,7 @@ namespace Depressurizer {
             advFilterRequire = new SortedSet<Category>(),
             advFilterExclude = new SortedSet<Category>();
         AdvancedFilterState advFilterUncatState = AdvancedFilterState.None;
+        AdvancedFilterState advFilterHiddenState = AdvancedFilterState.None;
         #endregion
 
         #region List Backing Field
@@ -885,7 +886,24 @@ namespace Depressurizer {
             {
                 foreach (GameInfo g in tlstGames.SelectedObjects)
                 {
-                    g.Hidden = hidden;
+                    if (g.Hidden != hidden)
+                    {
+                        if (hidden)
+                        {
+                            foreach (Category cat in g.Categories)
+                            {
+                                cat.Count--;
+                            }
+                        }
+                        else
+                        {
+                            foreach (Category cat in g.Categories)
+                            {
+                                cat.Count++;
+                            }
+                        }
+                        g.Hidden = hidden;
+                    }
                 }
                 OnGameChange( false );
                 MakeChange( true );
@@ -1197,21 +1215,29 @@ namespace Depressurizer {
 
             lstCategories.BeginUpdate();
             lstCategories.Items.Clear();
+
+            //calculate number of hidden and uncategorized games
+            int hidden = 0, uncategorized = 0;
+            foreach (GameInfo g in currentProfile.GameData.Games.Values)
+            {
+                if (g.Hidden)
+                    hidden++;
+                else if (!g.HasCategories())
+                    uncategorized++;
+            }
             if (!AdvancedCategoryFilter)
             {
-                ListViewItem i = new ListViewItem(GlobalStrings.MainForm_All + " (" + currentProfile.GameData.Games.Count + ")");
+                ListViewItem i = new ListViewItem(GlobalStrings.MainForm_All + " (" + (currentProfile.GameData.Games.Count - hidden) + ")");
                 i.Tag = GlobalStrings.MainForm_All;
                 lstCategories.Items.Add(i);
             }
 
-            int count = 0;
-            foreach (GameInfo g in currentProfile.GameData.Games.Values)
-            {
-                if (!g.HasCategories())
-                    count++;
-            }
-            ListViewItem lvi = new ListViewItem(GlobalStrings.MainForm_Uncategorized + " (" + count + ")");
+            ListViewItem lvi = new ListViewItem(GlobalStrings.MainForm_Uncategorized + " (" + uncategorized + ")");
             lvi.Tag = GlobalStrings.MainForm_Uncategorized;
+            lstCategories.Items.Add(lvi);
+
+            lvi = new ListViewItem(GlobalStrings.MainForm_Hidden + " (" + hidden + ")");
+            lvi.Tag = GlobalStrings.MainForm_Hidden;
             lstCategories.Items.Add(lvi);
 
             foreach (Category c in currentProfile.GameData.Categories)
@@ -1466,6 +1492,7 @@ namespace Depressurizer {
                 advFilterExclude.Clear();
                 advFilterRequire.Clear();
                 advFilterUncatState = AdvancedFilterState.None;
+                advFilterHiddenState = AdvancedFilterState.None;
             } else {
                 lstCategories.StateImageList = null;
             }
@@ -2003,18 +2030,26 @@ namespace Depressurizer {
 
             Category c = i.Tag as Category;
 
-            if( c == null ) {
+            if (i.Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
+            {
                 advFilterUncatState = (AdvancedFilterState)i.StateImageIndex;
-            } else {
-                switch( oldState ) {
+            }
+            else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
+            {
+                advFilterHiddenState = (AdvancedFilterState)i.StateImageIndex;
+            }
+            else
+            {
+                switch (oldState)
+                {
                     case (int)AdvancedFilterState.Allow:
-                        advFilterAllow.Remove( c );
+                        advFilterAllow.Remove(c);
                         break;
                     case (int)AdvancedFilterState.Require:
-                        advFilterRequire.Remove( c );
+                        advFilterRequire.Remove(c);
                         break;
                     case (int)AdvancedFilterState.Exclude:
-                        advFilterExclude.Remove( c );
+                        advFilterExclude.Remove(c);
                         break;
                 }
 
@@ -2186,38 +2221,55 @@ namespace Depressurizer {
 
             if( lstCategories.SelectedItems.Count == 0 ) return false;
 
+
             if( AdvancedCategoryFilter ) {
                 return ShouldDisplayGameAdvanced( g );
-            } else {
-                if( lstCategories.SelectedItems[0].Tag is Category ) {
-                    return g.ContainsCategory( lstCategories.SelectedItems[0].Tag as Category );
-                } else {
-                    if( (string)lstCategories.SelectedItems[0].Tag == GlobalStrings.MainForm_All ) {
-                        return true;
-                    }
-                    if( (string)lstCategories.SelectedItems[0].Tag == GlobalStrings.MainForm_Uncategorized ) {
-                        return !g.HasCategories();
-                    }
-                }
-
-                return false;
             }
+
+            if (g.Hidden)
+            {
+                return (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Hidden);
+            }
+
+
+            if( lstCategories.SelectedItems[0].Tag is Category ) {
+                return g.ContainsCategory( lstCategories.SelectedItems[0].Tag as Category );
+            } else {
+                if( lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_All ) {
+                    return true;
+                }
+                if( lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Uncategorized ) {
+                    return !g.HasCategories();
+                }
+            }
+
+            return false;
         }
 
         bool ShouldDisplayGameAdvanced( GameInfo g ) {
             bool isCategorized = false;
+            bool isHidden = false;
             if( advFilterUncatState != AdvancedFilterState.None ) isCategorized = g.HasCategories();
+            if (advFilterHiddenState != AdvancedFilterState.None) isHidden = g.Hidden;
 
-            if( advFilterUncatState == AdvancedFilterState.Allow || advFilterAllow.Count > 0 ) {
-                if( !( advFilterUncatState == AdvancedFilterState.Allow && !isCategorized ) ) {
-                    if( !g.Categories.Overlaps( advFilterAllow ) ) return false;
+            if (advFilterUncatState == AdvancedFilterState.Require && isCategorized) return false;
+            if (advFilterHiddenState == AdvancedFilterState.Require && !isHidden) return false;
+
+            if (advFilterUncatState == AdvancedFilterState.Exclude && !isCategorized) return false;
+            if (advFilterHiddenState == AdvancedFilterState.Exclude && isHidden) return false;
+
+            if (advFilterUncatState == AdvancedFilterState.Allow || advFilterHiddenState == AdvancedFilterState.Allow || advFilterAllow.Count > 0)
+            {
+                if( advFilterUncatState != AdvancedFilterState.Allow || isCategorized ) {
+                    if ( advFilterHiddenState != AdvancedFilterState.Allow || !isHidden )
+                    {
+                        if (!g.Categories.Overlaps(advFilterAllow)) return false;
+                    }
                 }
             }
 
-            if( advFilterUncatState == AdvancedFilterState.Require && isCategorized ) return false;
             if( !g.Categories.IsSupersetOf( advFilterRequire ) ) return false;
 
-            if( advFilterUncatState == AdvancedFilterState.Exclude && !isCategorized ) return false;
             if( g.Categories.Overlaps( advFilterExclude ) ) return false;
 
             return true;

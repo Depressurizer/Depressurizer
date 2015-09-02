@@ -925,4 +925,8 @@ Tiempo Restante:</value>
     <value>Scraping {0}: Too Many Redirects</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="MainForm_Hidden" xml:space="preserve">
+    <value>&lt;Hidden&gt;</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>
