@@ -181,6 +181,30 @@ namespace Depressurizer {
                 RemoveCategory( FavoriteCategory );
             }
         }
+
+        /// <summary>
+        /// Add or remove the hidden attribute for this game.
+        /// </summary>
+        /// <param name="hide">Whether the game should be hidden</param>
+        public void SetHidden(bool hide)
+        {
+            if (Hidden == hide) return;
+            if (hide)
+            {
+                foreach (Category cat in Categories)
+                {
+                    cat.Count--;
+                }
+            }
+            else
+            {
+                foreach (Category cat in Categories)
+                {
+                    cat.Count++;
+                }
+            }
+            Hidden = hide;
+        }
         #endregion
 
         #region Accessors
@@ -561,13 +585,48 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Clears all categories from a single game
+        /// </summary>
+        /// <param name="gameID">Game ID to clear categories from</param>
+        /// <param name="cats">If true, preserves the favorite category.</param>
         public void ClearGameCategories( int gameID, bool preserveFavorite ) {
             Games[gameID].ClearCategories( alsoClearFavorite: !preserveFavorite );
         }
 
-        public void ClearGameCategories( int[] gameIDs, bool preserveFavorite ) {
-            for( int i = 0; i < gameIDs.Length; i++ ) {
-                ClearGameCategories( gameIDs[i], preserveFavorite );
+        /// <summary>
+        /// Clears all categories from a set of games
+        /// </summary>
+        /// <param name="gameID">List of game IDs to clear categories from</param>
+        /// <param name="cats">If true, preserves the favorite category.</param>
+        public void ClearGameCategories( int[] gameIDs, bool preserveFavorite )
+        {
+            foreach (int id in gameIDs)
+            {
+                ClearGameCategories( id, preserveFavorite );
+            }
+        }
+
+        /// <summary>
+        /// Add or Remove the hidden attribute of a single game
+        /// </summary>
+        /// <param name="gameID">Game ID to hide/unhide</param>
+        /// <param name="hide">Whether the game should be hidden.</param>
+        public void HideGames(int gameID, bool hide)
+        {
+            Games[gameID].SetHidden(hide);
+        }
+
+        /// <summary>
+        /// Add or Remove the hidden attribute from a set of games
+        /// </summary>
+        /// <param name="gameIDs">List of game IDs to hide/unhide</param>
+        /// <param name="hide">Whether the games should be hidden.</param>
+        public void HideGames(int[] gameIDs, bool hide)
+        {
+            foreach (int id in gameIDs)
+            {
+                HideGames(id, hide);
             }
         }
 

@@ -886,24 +886,7 @@ namespace Depressurizer {
             {
                 foreach (GameInfo g in tlstGames.SelectedObjects)
                 {
-                    if (g.Hidden != hidden)
-                    {
-                        if (hidden)
-                        {
-                            foreach (Category cat in g.Categories)
-                            {
-                                cat.Count--;
-                            }
-                        }
-                        else
-                        {
-                            foreach (Category cat in g.Categories)
-                            {
-                                cat.Count++;
-                            }
-                        }
-                        g.Hidden = hidden;
-                    }
+                    g.SetHidden(hidden);
                 }
                 OnGameChange( false );
                 MakeChange( true );
@@ -1560,13 +1543,17 @@ namespace Depressurizer {
                     }
                     OnGameChange( false );
                     MakeChange( true );
-                } else {
-                    if ( (string) dropItem.Tag == GlobalStrings.MainForm_Uncategorized)
+                } else if ( (string) dropItem.Tag == GlobalStrings.MainForm_Uncategorized)
                     {
                         currentProfile.GameData.ClearGameCategories( (int[])e.Data.GetData( typeof( int[] ) ), true );
                         OnGameChange( false );
                         MakeChange( true );
                     }
+                 else if ( (string) dropItem.Tag == GlobalStrings.MainForm_Hidden)
+                    {
+                        currentProfile.GameData.HideGames( (int[])e.Data.GetData( typeof( int[] ) ), true );
+                        OnGameChange( false );
+                        MakeChange( true );
                 }
 
                 FlushStatus();
@@ -2004,11 +1991,13 @@ namespace Depressurizer {
                 ListViewItem overItem = lstCategories.GetItemAt( e.X, e.Y );
                 if( overItem != null )
                     overItem.Selected = true;
-
-            } else if( e.Button == System.Windows.Forms.MouseButtons.Left ) {
-                if( AdvancedCategoryFilter ) {
-                    ListViewItem i = lstCategories.GetItemAt( e.X, e.Y );
-                    HandleAdvancedCategoryItemActivation( i, Control.ModifierKeys == Keys.Shift );
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                if (AdvancedCategoryFilter)
+                {
+                    ListViewItem i = lstCategories.GetItemAt(e.X, e.Y);
+                    HandleAdvancedCategoryItemActivation(i, Control.ModifierKeys == Keys.Shift);
                 }
             }
         }
