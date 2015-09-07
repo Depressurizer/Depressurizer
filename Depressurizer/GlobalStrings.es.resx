@@ -929,4 +929,65 @@ Tiempo Restante:</value>
     <value>&lt;Hidden&gt;</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="MainForm_Log_ExceptionHltb" xml:space="preserve">
+    <value>Exception when auto-updating DB from HLTB.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_Msg_ErrorHltb" xml:space="preserve">
+    <value>Error encountered when updating database from HLTB: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_Status_HltbAutoupdate" xml:space="preserve">
+    <value>Updated {0} DB entries from HLTB.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="AutoMode_Help_UpdateHltb" xml:space="preserve">
+    <value>Update the database with information from HLTB before running any autocat operations.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="CDlgHltb_Title" xml:space="preserve">
+    <value>Updating HLTB times</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="CDlgHltb_UpdateHltb" xml:space="preserve">
+    <value>Updating HowLongToBeat.com times...</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DBEditDlg_CanceledHltbUpdate" xml:space="preserve">
+    <value>Canceled HLTB update.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DBEditDlg_ErrorUpdatingHltb" xml:space="preserve">
+    <value>Error updating from HLTB.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DBEditDlg_ErrorWhileUpdatingHltb" xml:space="preserve">
+    <value>An error occured while updating from howlongtobeatsteam.com: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DBEditDlg_HltbUpdateFailed" xml:space="preserve">
+    <value>Failed to update from HLTB: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DBEditDlg_Log_ExceptionHltb" xml:space="preserve">
+    <value>Exception when updating from HLTB: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DBEditDlg_Status_UpdatedHltb" xml:space="preserve">
+    <value>Updated {0} entries from HLTB.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
+    <value>Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Only updates if an update didn't occur for more than half a week.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Slows operation by about 15-20 secs if an update occurs.</value>
+  </data>
+  <data name="String2" xml:space="preserve">
+    <value>Recommended: Enabled.</value>
+  </data>
 </root>

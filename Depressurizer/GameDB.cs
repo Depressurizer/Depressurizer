@@ -25,6 +25,7 @@ using Rallion;
 using System.IO.Compression;
 using System.Globalization;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
 {
@@ -50,6 +51,11 @@ namespace Depressurizer
 
         public int ReviewTotal = 0;
         public int ReviewPositivePercentage = 0;
+
+        //howlongtobeat.com times
+        public int HltbMain = 0;
+        public int HltbExtras = -0;
+        public int HltbCompletionist = 0;
 
         // Metacritic:
         public string MC_Url = null;
@@ -444,12 +450,14 @@ namespace Depressurizer
         // Extra data
         private SortedSet<string> allStoreGenres;
         private SortedSet<string> allStoreFlags;
+        public int LastHltbUpdate;
         // Utility
         static char[] genreSep = new char[] { ',' };
 
         private const int VERSION = 1;
         private const string
             XmlName_Version = "version",
+            XmlName_LastHltbUpdate = "lastHltbUpdate",
             XmlName_GameList = "gamelist",
             XmlName_Game = "game",
             XmlName_Game_Id = "id",
@@ -468,7 +476,10 @@ namespace Depressurizer
             XmlName_Game_ReviewTotal = "reviewTotal",
             XmlName_Game_ReviewPositivePercent = "reviewPositiveP",
             XmlName_Game_MCUrl = "mcUrl",
-            XmlName_Game_Date = "steamDate";
+            XmlName_Game_Date = "steamDate",
+            XmlName_Game_HltbMain = "hltbMain",
+            XmlName_Game_HltbExtras = "hltbExtras",
+            XmlName_Game_HltbCompletionist = "hltbCompletionist";
 
         #region Accessors
 
@@ -836,6 +847,40 @@ namespace Depressurizer
             return updated;
         }
 
+        /// <summary>
+        /// Update the database with information from howlongtobeatsteam.com.
+        /// </summary>
+        /// <param name="includeImputedTimes">Whether to include imputed hltb times</param>
+        /// <returns>The number of entries integrated into the database.</returns>
+        public int UpdateFromHltb(bool includeImputedTimes)
+        {
+            int updated = 0;
+
+                using (WebClient wc = new WebClient())
+                {
+                    string json = wc.DownloadString("http://www.howlongtobeatsteam.com/api/games/library/cached/all");
+                    dynamic parsedJson = JObject.Parse(json);
+                    foreach (dynamic g in parsedJson.Games)
+                    {
+                        dynamic steamAppData = g.SteamAppData;
+                        int id = steamAppData.SteamAppId;
+                        if (Games.ContainsKey(id))
+                        {
+                            dynamic htlbInfo = steamAppData.HltbInfo;
+                            if (includeImputedTimes || htlbInfo.MainTtbImputed == "False")
+                                Games[id].HltbMain = htlbInfo.MainTtb;
+                            if (includeImputedTimes || htlbInfo.ExtrasTtbImputed == "False")
+                                Games[id].HltbExtras = htlbInfo.ExtrasTtb;
+                            if (includeImputedTimes || htlbInfo.CompletionistTtbImputed == "False")
+                                Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
+                            updated++;
+                        }
+                    }
+                }
+            LastHltbUpdate = Utility.GetCurrentUTime();
+            return updated;
+        }
+
         #endregion
 
         #region Serialization
@@ -867,6 +912,8 @@ namespace Depressurizer
                 writer.WriteStartElement(XmlName_GameList);
 
                 writer.WriteElementString(XmlName_Version, VERSION.ToString());
+
+                writer.WriteElementString(XmlName_LastHltbUpdate, LastHltbUpdate.ToString());
 
                 foreach (GameDBEntry g in Games.Values)
                 {
@@ -950,6 +997,21 @@ namespace Depressurizer
                         writer.WriteElementString(XmlName_Game_Date, g.SteamReleaseDate);
                     }
 
+                    if (g.HltbMain > 0)
+                    {
+                        writer.WriteElementString(XmlName_Game_HltbMain, g.HltbMain.ToString());
+                    }
+
+                    if (g.HltbExtras > 0)
+                    {
+                        writer.WriteElementString(XmlName_Game_HltbExtras, g.HltbExtras.ToString());
+                    }
+
+                    if (g.HltbCompletionist > 0)
+                    {
+                        writer.WriteElementString(XmlName_Game_HltbCompletionist, g.HltbCompletionist.ToString());
+                    }
+
                     writer.WriteEndElement();
                 }
                 writer.WriteEndElement();
@@ -998,6 +1060,8 @@ namespace Depressurizer
                 XmlNode gameListNode = doc.SelectSingleNode("/" + XmlName_GameList);
 
                 int fileVersion = XmlUtil.GetIntFromNode(gameListNode[XmlName_Version], 0);
+
+                LastHltbUpdate = XmlUtil.GetIntFromNode(gameListNode[XmlName_LastHltbUpdate], 0);
 
                 foreach (XmlNode gameNode in gameListNode.SelectNodes(XmlName_Game))
                 {
@@ -1110,6 +1174,10 @@ namespace Depressurizer
 
                     g.LastAppInfoUpdate = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastAppInfoUpdate], 0);
                     g.LastStoreScrape = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastStoreUpdate], 0);
+
+                    g.HltbMain = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbMain], 0);
+                    g.HltbExtras= XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbExtras], 0);
+                    g.HltbCompletionist = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbCompletionist], 0);
 
                     Games.Add(id, g);
                 }
