@@ -78,6 +78,7 @@ namespace Depressurizer {
                 { "updatelib",      v => config.UpdateGameList = ( v != null ) },
                 { "import",         v => config.ImportSteamCategories = ( v != null ) },
                 { "updatedblocal",  v => config.UpdateAppInfo = ( v != null ) },
+                { "updatedbhltb",   v => config.UpdateHltb = ( v != null ) },
                 { "updatedbweb",    v => config.ScrapeUnscrapedGames = ( v != null ) },
                 { "savedb",         v => config.SaveDBChanges = ( v != null ) },
                 { "saveprofile",    v => config.SaveProfile = ( v != null ) },

@@ -274,6 +274,11 @@ namespace Depressurizer {
             if( Settings.Instance.UpdateAppInfoOnStart ) {
                 UpdateGameDBFromAppInfo();
             }
+            int threePointFiveDaysInSecs = 84*60*60;
+            if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() > (Program.GameDB.LastHltbUpdate + threePointFiveDaysInSecs))
+            {
+                UpdateGameDBFromHltb();
+            }
 
             switch( Settings.Instance.StartupAction ) {
                 case StartupAction.Load:
@@ -345,6 +350,27 @@ namespace Depressurizer {
             } catch( Exception e ) {
                 Program.Logger.WriteException( GlobalStrings.MainForm_Log_ExceptionAppInfo, e );
                 MessageBox.Show( GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message );
+            }
+        }
+
+        /// <summary>
+        /// Updates the database using data from howlongtobeatsteam.com. Displays an error message on failure. Saves the DB afterwards if AutosaveDB is set.
+        /// </summary>
+        private void UpdateGameDBFromHltb()
+        {
+            try
+            {
+                int num = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
+                AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, num));
+                if (num > 0 && Settings.Instance.AutosaveDB)
+                {
+                    SaveGameDB();
+                }
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionHltb, e);
+                MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorHltb, e.Message);
             }
         }
 

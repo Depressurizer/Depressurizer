@@ -24,6 +24,9 @@ namespace Depressurizer {
 
         public DlgOptions() {
             InitializeComponent();
+
+            // Set up help tooltips
+            ttHelp.Ext_SetToolTip(helpIncludeImputedTimes, GlobalStrings.DlgOptions_Help_IncludeImputedTimes);
         }
 
         private void OptionsForm_Load( object sender, EventArgs e ) {
@@ -61,6 +64,8 @@ namespace Depressurizer {
             }
 
             chkUpdateAppInfoOnStartup.Checked = settings.UpdateAppInfoOnStart;
+            chkUpdateHltbOnStartup.Checked = settings.UpdateHltbOnStart;
+            chkIncludeImputedTimes.Checked = settings.IncludeImputedTimes;
             chkAutosaveDB.Checked = settings.AutosaveDB;
             
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
@@ -110,6 +115,8 @@ namespace Depressurizer {
             settings.ProfileToLoad = txtDefaultProfile.Text;
 
             settings.UpdateAppInfoOnStart = chkUpdateAppInfoOnStartup.Checked;
+            settings.UpdateHltbOnStart = chkUpdateHltbOnStartup.Checked;
+            settings.IncludeImputedTimes = chkIncludeImputedTimes.Checked;
             settings.AutosaveDB = chkAutosaveDB.Checked;
 
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;

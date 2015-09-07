@@ -16,10 +16,8 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Threading;
-using System.Windows.Forms;
 using Rallion;
 
 namespace Depressurizer {
@@ -122,6 +120,40 @@ namespace Depressurizer {
             set {
                 if( _updateAppInfoOnStart != value ) {
                     _updateAppInfoOnStart = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private bool _updateHltbOnStart = true;
+        public bool UpdateHltbOnStart
+        {
+            get
+            {
+                return _updateHltbOnStart;
+            }
+            set
+            {
+                if (_updateHltbOnStart != value)
+                {
+                    _updateHltbOnStart = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private bool _IncludeImputedTimes = true;
+        public bool IncludeImputedTimes
+        {
+            get
+            {
+                return _IncludeImputedTimes;
+            }
+            set
+            {
+                if (_IncludeImputedTimes != value)
+                {
+                    _IncludeImputedTimes = value;
                     outOfDate = true;
                 }
             }

@@ -120,11 +120,42 @@
   <metadata name="mainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="mainMenu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="mainMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>872, 24</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="mainMenu.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mainMenu.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;mainMenu.Name" xml:space="preserve">
+    <value>mainMenu</value>
+  </data>
+  <data name="&gt;&gt;mainMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mainMenu.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;mainMenu.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="menu_File.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menu_File_Save.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+S</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="menu_File_Save.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 22</value>
   </data>
@@ -173,37 +204,6 @@
   <data name="menu_File_Exit.Text" xml:space="preserve">
     <value>Clos&amp;e</value>
   </data>
-  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="menu_File.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="mainMenu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="mainMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>872, 24</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mainMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="mainMenu.Text" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;mainMenu.Name" xml:space="preserve">
-    <value>mainMenu</value>
-  </data>
-  <data name="&gt;&gt;mainMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mainMenu.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;mainMenu.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
   <data name="cmdFetch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -211,7 +211,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdFetch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 450</value>
+    <value>748, 444</value>
   </data>
   <data name="cmdFetch.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -232,7 +232,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdFetch.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="cmdUpdateNew.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -241,7 +241,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdUpdateNew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 477</value>
+    <value>748, 471</value>
   </data>
   <data name="cmdUpdateNew.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -262,7 +262,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdUpdateNew.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="cmdUpdateSelected.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -271,7 +271,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdUpdateSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 477</value>
+    <value>623, 471</value>
   </data>
   <data name="cmdUpdateSelected.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -292,7 +292,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdUpdateSelected.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="cmdEditGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -301,7 +301,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdEditGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 411</value>
+    <value>623, 405</value>
   </data>
   <data name="cmdEditGame.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -322,7 +322,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdEditGame.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="cmdDeleteGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -331,7 +331,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdDeleteGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 411</value>
+    <value>748, 405</value>
   </data>
   <data name="cmdDeleteGame.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -352,7 +352,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdDeleteGame.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="cmdAddGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -361,7 +361,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdAddGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 385</value>
+    <value>623, 379</value>
   </data>
   <data name="cmdAddGame.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -382,10 +382,94 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdAddGame.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="grpTypes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;chkTypeUnknown.Name" xml:space="preserve">
+    <value>chkTypeUnknown</value>
+  </data>
+  <data name="&gt;&gt;chkTypeUnknown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkTypeUnknown.Parent" xml:space="preserve">
+    <value>grpTypes</value>
+  </data>
+  <data name="&gt;&gt;chkTypeUnknown.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;chkTypeOther.Name" xml:space="preserve">
+    <value>chkTypeOther</value>
+  </data>
+  <data name="&gt;&gt;chkTypeOther.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkTypeOther.Parent" xml:space="preserve">
+    <value>grpTypes</value>
+  </data>
+  <data name="&gt;&gt;chkTypeOther.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;chkTypeDLC.Name" xml:space="preserve">
+    <value>chkTypeDLC</value>
+  </data>
+  <data name="&gt;&gt;chkTypeDLC.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkTypeDLC.Parent" xml:space="preserve">
+    <value>grpTypes</value>
+  </data>
+  <data name="&gt;&gt;chkTypeDLC.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;chkTypeGame.Name" xml:space="preserve">
+    <value>chkTypeGame</value>
+  </data>
+  <data name="&gt;&gt;chkTypeGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkTypeGame.Parent" xml:space="preserve">
+    <value>grpTypes</value>
+  </data>
+  <data name="&gt;&gt;chkTypeGame.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;chkTypeAll.Name" xml:space="preserve">
+    <value>chkTypeAll</value>
+  </data>
+  <data name="&gt;&gt;chkTypeAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkTypeAll.Parent" xml:space="preserve">
+    <value>grpTypes</value>
+  </data>
+  <data name="&gt;&gt;chkTypeAll.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="grpTypes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>623, 102</value>
+  </data>
+  <data name="grpTypes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 78</value>
+  </data>
+  <data name="grpTypes.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="grpTypes.Text" xml:space="preserve">
+    <value>Types</value>
+  </data>
+  <data name="&gt;&gt;grpTypes.Name" xml:space="preserve">
+    <value>grpTypes</value>
+  </data>
+  <data name="&gt;&gt;grpTypes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpTypes.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpTypes.ZOrder" xml:space="preserve">
+    <value>14</value>
   </data>
   <data name="chkTypeUnknown.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -537,30 +621,6 @@
   <data name="&gt;&gt;chkTypeAll.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="grpTypes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 102</value>
-  </data>
-  <data name="grpTypes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 78</value>
-  </data>
-  <data name="grpTypes.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="grpTypes.Text" xml:space="preserve">
-    <value>Types</value>
-  </data>
-  <data name="&gt;&gt;grpTypes.Name" xml:space="preserve">
-    <value>grpTypes</value>
-  </data>
-  <data name="&gt;&gt;grpTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpTypes.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;grpTypes.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
   <data name="cmdStore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -568,7 +628,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdStore.Location" type="System.Drawing.Point, System.Drawing">
-    <value>748, 385</value>
+    <value>748, 379</value>
   </data>
   <data name="cmdStore.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -589,25 +649,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdStore.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>127, 17</value>
   </metadata>
-  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>857, 17</value>
-  </data>
-  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="statSelected.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 17</value>
-  </data>
-  <data name="statSelected.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 506</value>
+    <value>0, 530</value>
   </data>
   <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>872, 22</value>
@@ -628,7 +676,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
+  </data>
+  <data name="statusMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>857, 17</value>
+  </data>
+  <data name="statusMsg.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="statSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 17</value>
+  </data>
+  <data name="statSelected.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="cmdUpdateAppInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -637,7 +697,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdUpdateAppInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 450</value>
+    <value>623, 444</value>
   </data>
   <data name="cmdUpdateAppInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 23</value>
@@ -658,10 +718,94 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdUpdateAppInfo.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="grpWebUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;radWebNo.Name" xml:space="preserve">
+    <value>radWebNo</value>
+  </data>
+  <data name="&gt;&gt;radWebNo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radWebNo.Parent" xml:space="preserve">
+    <value>grpWebUpdate</value>
+  </data>
+  <data name="&gt;&gt;radWebNo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radWebSince.Name" xml:space="preserve">
+    <value>radWebSince</value>
+  </data>
+  <data name="&gt;&gt;radWebSince.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radWebSince.Parent" xml:space="preserve">
+    <value>grpWebUpdate</value>
+  </data>
+  <data name="&gt;&gt;radWebSince.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radWebYes.Name" xml:space="preserve">
+    <value>radWebYes</value>
+  </data>
+  <data name="&gt;&gt;radWebYes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radWebYes.Parent" xml:space="preserve">
+    <value>grpWebUpdate</value>
+  </data>
+  <data name="&gt;&gt;radWebYes.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;radWebAll.Name" xml:space="preserve">
+    <value>radWebAll</value>
+  </data>
+  <data name="&gt;&gt;radWebAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radWebAll.Parent" xml:space="preserve">
+    <value>grpWebUpdate</value>
+  </data>
+  <data name="&gt;&gt;radWebAll.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;dateWeb.Name" xml:space="preserve">
+    <value>dateWeb</value>
+  </data>
+  <data name="&gt;&gt;dateWeb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DateTimePicker, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dateWeb.Parent" xml:space="preserve">
+    <value>grpWebUpdate</value>
+  </data>
+  <data name="&gt;&gt;dateWeb.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="grpWebUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>623, 186</value>
+  </data>
+  <data name="grpWebUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 86</value>
+  </data>
+  <data name="grpWebUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="grpWebUpdate.Text" xml:space="preserve">
+    <value>Web Scrape Status</value>
+  </data>
+  <data name="&gt;&gt;grpWebUpdate.Name" xml:space="preserve">
+    <value>grpWebUpdate</value>
+  </data>
+  <data name="&gt;&gt;grpWebUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpWebUpdate.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpWebUpdate.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
   <data name="radWebNo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -804,32 +948,68 @@
   <data name="&gt;&gt;dateWeb.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="grpWebUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 186</value>
-  </data>
-  <data name="grpWebUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 86</value>
-  </data>
-  <data name="grpWebUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="grpWebUpdate.Text" xml:space="preserve">
-    <value>Web Scrape Status</value>
-  </data>
-  <data name="&gt;&gt;grpWebUpdate.Name" xml:space="preserve">
-    <value>grpWebUpdate</value>
-  </data>
-  <data name="&gt;&gt;grpWebUpdate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpWebUpdate.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;grpWebUpdate.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
   <data name="grpAppInfo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;radAppNo.Name" xml:space="preserve">
+    <value>radAppNo</value>
+  </data>
+  <data name="&gt;&gt;radAppNo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radAppNo.Parent" xml:space="preserve">
+    <value>grpAppInfo</value>
+  </data>
+  <data name="&gt;&gt;radAppNo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radAppYes.Name" xml:space="preserve">
+    <value>radAppYes</value>
+  </data>
+  <data name="&gt;&gt;radAppYes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radAppYes.Parent" xml:space="preserve">
+    <value>grpAppInfo</value>
+  </data>
+  <data name="&gt;&gt;radAppYes.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radAppAll.Name" xml:space="preserve">
+    <value>radAppAll</value>
+  </data>
+  <data name="&gt;&gt;radAppAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radAppAll.Parent" xml:space="preserve">
+    <value>grpAppInfo</value>
+  </data>
+  <data name="&gt;&gt;radAppAll.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="grpAppInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>623, 278</value>
+  </data>
+  <data name="grpAppInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 80</value>
+  </data>
+  <data name="grpAppInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="grpAppInfo.Text" xml:space="preserve">
+    <value>App Info Status</value>
+  </data>
+  <data name="&gt;&gt;grpAppInfo.Name" xml:space="preserve">
+    <value>grpAppInfo</value>
+  </data>
+  <data name="&gt;&gt;grpAppInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpAppInfo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpAppInfo.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="radAppNo.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -921,30 +1101,6 @@
   <data name="&gt;&gt;radAppAll.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="grpAppInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>623, 278</value>
-  </data>
-  <data name="grpAppInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 80</value>
-  </data>
-  <data name="grpAppInfo.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="grpAppInfo.Text" xml:space="preserve">
-    <value>App Info Status</value>
-  </data>
-  <data name="&gt;&gt;grpAppInfo.Name" xml:space="preserve">
-    <value>grpAppInfo</value>
-  </data>
-  <data name="&gt;&gt;grpAppInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpAppInfo.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;grpAppInfo.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
   <data name="chkOwned.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -976,7 +1132,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;chkOwned.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="txtSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1000,7 +1156,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtSearch.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="lblSearch.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1033,7 +1189,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblSearch.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="cmdSearchClear.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1066,7 +1222,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdSearchClear.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="numIdRangeMax.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1090,7 +1246,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;numIdRangeMax.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="numIdRangeMin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1114,7 +1270,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;numIdRangeMin.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lblIdRangeSep.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1147,7 +1303,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblIdRangeSep.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="chkIdRange.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1180,10 +1336,31 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;chkIdRange.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="lstGames.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 27</value>
+  </data>
+  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>605, 500</value>
+  </data>
+  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
+    <value>lstGames</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.2.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
+    <value>21</value>
   </data>
   <data name="colID.Text" xml:space="preserve">
     <value>ID</value>
@@ -1221,26 +1398,35 @@
   <data name="colParent.Text" xml:space="preserve">
     <value>Parent</value>
   </data>
-  <data name="lstGames.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 27</value>
+  <data name="cmdUpdateHltb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
-  <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>605, 476</value>
+  <data name="cmdUpdateHltb.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="cmdUpdateHltb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>623, 500</value>
   </data>
-  <data name="&gt;&gt;lstGames.Name" xml:space="preserve">
-    <value>lstGames</value>
+  <data name="cmdUpdateHltb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 23</value>
   </data>
-  <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.0.0, Culture=neutral, PublicKeyToken=null</value>
+  <data name="cmdUpdateHltb.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
   </data>
-  <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
+  <data name="cmdUpdateHltb.Text" xml:space="preserve">
+    <value>Update from HLTB</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateHltb.Name" xml:space="preserve">
+    <value>cmdUpdateHltb</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateHltb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdUpdateHltb.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;lstGames.ZOrder" xml:space="preserve">
-    <value>20</value>
+  <data name="&gt;&gt;cmdUpdateHltb.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1249,7 +1435,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>872, 528</value>
+    <value>872, 552</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>685, 495</value>

@@ -59,6 +59,12 @@ namespace Depressurizer {
             this.cmbDatSrc = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.grpDatabase = new System.Windows.Forms.GroupBox();
+            this.helpIncludeImputedTimes = new System.Windows.Forms.Label();
+            this.chkIncludeImputedTimes = new System.Windows.Forms.CheckBox();
+            this.chkUpdateHltbOnStartup = new System.Windows.Forms.CheckBox();
+            this.chkAutosaveDB = new System.Windows.Forms.CheckBox();
+            this.chkUpdateAppInfoOnStartup = new System.Windows.Forms.CheckBox();
             this.grpLanguage = new System.Windows.Forms.GroupBox();
             this.cmbLanguage = new System.Windows.Forms.ComboBox();
             this.tabLogging = new System.Windows.Forms.TabPage();
@@ -68,20 +74,18 @@ namespace Depressurizer {
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbLogLevel = new System.Windows.Forms.ComboBox();
-            this.chkUpdateAppInfoOnStartup = new System.Windows.Forms.CheckBox();
-            this.grpDatabase = new System.Windows.Forms.GroupBox();
-            this.chkAutosaveDB = new System.Windows.Forms.CheckBox();
+            this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
             this.grpDatSrc.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
+            this.grpDatabase.SuspendLayout();
             this.grpLanguage.SuspendLayout();
             this.tabLogging.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
-            this.grpDatabase.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -213,6 +217,47 @@ namespace Depressurizer {
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
+            // grpDatabase
+            // 
+            resources.ApplyResources(this.grpDatabase, "grpDatabase");
+            this.grpDatabase.Controls.Add(this.helpIncludeImputedTimes);
+            this.grpDatabase.Controls.Add(this.chkIncludeImputedTimes);
+            this.grpDatabase.Controls.Add(this.chkUpdateHltbOnStartup);
+            this.grpDatabase.Controls.Add(this.chkAutosaveDB);
+            this.grpDatabase.Controls.Add(this.chkUpdateAppInfoOnStartup);
+            this.grpDatabase.Name = "grpDatabase";
+            this.grpDatabase.TabStop = false;
+            // 
+            // helpIncludeImputedTimes
+            // 
+            resources.ApplyResources(this.helpIncludeImputedTimes, "helpIncludeImputedTimes");
+            this.helpIncludeImputedTimes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.helpIncludeImputedTimes.Name = "helpIncludeImputedTimes";
+            // 
+            // chkIncludeImputedTimes
+            // 
+            resources.ApplyResources(this.chkIncludeImputedTimes, "chkIncludeImputedTimes");
+            this.chkIncludeImputedTimes.Name = "chkIncludeImputedTimes";
+            this.chkIncludeImputedTimes.UseVisualStyleBackColor = true;
+            // 
+            // chkUpdateHltbOnStartup
+            // 
+            resources.ApplyResources(this.chkUpdateHltbOnStartup, "chkUpdateHltbOnStartup");
+            this.chkUpdateHltbOnStartup.Name = "chkUpdateHltbOnStartup";
+            this.chkUpdateHltbOnStartup.UseVisualStyleBackColor = true;
+            // 
+            // chkAutosaveDB
+            // 
+            resources.ApplyResources(this.chkAutosaveDB, "chkAutosaveDB");
+            this.chkAutosaveDB.Name = "chkAutosaveDB";
+            this.chkAutosaveDB.UseVisualStyleBackColor = true;
+            // 
+            // chkUpdateAppInfoOnStartup
+            // 
+            resources.ApplyResources(this.chkUpdateAppInfoOnStartup, "chkUpdateAppInfoOnStartup");
+            this.chkUpdateAppInfoOnStartup.Name = "chkUpdateAppInfoOnStartup";
+            this.chkUpdateAppInfoOnStartup.UseVisualStyleBackColor = true;
+            // 
             // grpLanguage
             // 
             resources.ApplyResources(this.grpLanguage, "grpLanguage");
@@ -295,26 +340,6 @@ namespace Depressurizer {
             this.cmbLogLevel.FormattingEnabled = true;
             this.cmbLogLevel.Name = "cmbLogLevel";
             // 
-            // chkUpdateAppInfoOnStartup
-            // 
-            resources.ApplyResources(this.chkUpdateAppInfoOnStartup, "chkUpdateAppInfoOnStartup");
-            this.chkUpdateAppInfoOnStartup.Name = "chkUpdateAppInfoOnStartup";
-            this.chkUpdateAppInfoOnStartup.UseVisualStyleBackColor = true;
-            // 
-            // grpDatabase
-            // 
-            resources.ApplyResources(this.grpDatabase, "grpDatabase");
-            this.grpDatabase.Controls.Add(this.chkAutosaveDB);
-            this.grpDatabase.Controls.Add(this.chkUpdateAppInfoOnStartup);
-            this.grpDatabase.Name = "grpDatabase";
-            this.grpDatabase.TabStop = false;
-            // 
-            // chkAutosaveDB
-            // 
-            resources.ApplyResources(this.chkAutosaveDB, "chkAutosaveDB");
-            this.chkAutosaveDB.Name = "chkAutosaveDB";
-            this.chkAutosaveDB.UseVisualStyleBackColor = true;
-            // 
             // DlgOptions
             // 
             resources.ApplyResources(this, "$this");
@@ -336,13 +361,13 @@ namespace Depressurizer {
             this.grpDatSrc.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
+            this.grpDatabase.ResumeLayout(false);
+            this.grpDatabase.PerformLayout();
             this.grpLanguage.ResumeLayout(false);
             this.tabLogging.ResumeLayout(false);
             this.tabLogging.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).EndInit();
-            this.grpDatabase.ResumeLayout(false);
-            this.grpDatabase.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -350,6 +375,7 @@ namespace Depressurizer {
         #endregion
 
         private System.Windows.Forms.GroupBox grpSteamDir;
+        private Lib.ExtToolTip ttHelp;
         private System.Windows.Forms.Button cmdSteamPathBrowse;
         private System.Windows.Forms.TextBox txtSteamPath;
         private System.Windows.Forms.GroupBox grpStartup;
@@ -378,5 +404,8 @@ namespace Depressurizer {
         private System.Windows.Forms.GroupBox grpDatabase;
         private System.Windows.Forms.CheckBox chkAutosaveDB;
         private System.Windows.Forms.CheckBox chkUpdateAppInfoOnStartup;
+        private System.Windows.Forms.CheckBox chkIncludeImputedTimes;
+        private System.Windows.Forms.CheckBox chkUpdateHltbOnStartup;
+        private System.Windows.Forms.Label helpIncludeImputedTimes;
     }
 }

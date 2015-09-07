@@ -57,6 +57,8 @@
             this.hlpTolerant = new System.Windows.Forms.Label();
             this.hlpOutput = new System.Windows.Forms.Label();
             this.lblExplain = new System.Windows.Forms.Label();
+            this.hlpUpdateHltb = new System.Windows.Forms.Label();
+            this.chkUpdateHltb = new System.Windows.Forms.CheckBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.SuspendLayout();
             // 
@@ -242,7 +244,7 @@
             this.chkSaveDB.AutoSize = true;
             this.chkSaveDB.Checked = true;
             this.chkSaveDB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveDB.Location = new System.Drawing.Point(197, 135);
+            this.chkSaveDB.Location = new System.Drawing.Point(381, 135);
             this.chkSaveDB.Name = "chkSaveDB";
             this.chkSaveDB.Size = new System.Drawing.Size(69, 17);
             this.chkSaveDB.TabIndex = 14;
@@ -256,7 +258,7 @@
             this.chkSaveProfile.AutoSize = true;
             this.chkSaveProfile.Checked = true;
             this.chkSaveProfile.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveProfile.Location = new System.Drawing.Point(381, 135);
+            this.chkSaveProfile.Location = new System.Drawing.Point(197, 158);
             this.chkSaveProfile.Name = "chkSaveProfile";
             this.chkSaveProfile.Size = new System.Drawing.Size(83, 17);
             this.chkSaveProfile.TabIndex = 16;
@@ -270,7 +272,7 @@
             this.chkExport.AutoSize = true;
             this.chkExport.Checked = true;
             this.chkExport.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkExport.Location = new System.Drawing.Point(197, 158);
+            this.chkExport.Location = new System.Drawing.Point(381, 158);
             this.chkExport.Name = "chkExport";
             this.chkExport.Size = new System.Drawing.Size(109, 17);
             this.chkExport.TabIndex = 18;
@@ -359,7 +361,7 @@
             this.hlpSaveDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.hlpSaveDB.AutoSize = true;
             this.hlpSaveDB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpSaveDB.Location = new System.Drawing.Point(351, 136);
+            this.hlpSaveDB.Location = new System.Drawing.Point(527, 136);
             this.hlpSaveDB.Name = "hlpSaveDB";
             this.hlpSaveDB.Size = new System.Drawing.Size(15, 15);
             this.hlpSaveDB.TabIndex = 15;
@@ -370,7 +372,7 @@
             this.hlpExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.hlpExport.AutoSize = true;
             this.hlpExport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpExport.Location = new System.Drawing.Point(351, 159);
+            this.hlpExport.Location = new System.Drawing.Point(527, 160);
             this.hlpExport.Name = "hlpExport";
             this.hlpExport.Size = new System.Drawing.Size(15, 15);
             this.hlpExport.TabIndex = 19;
@@ -403,7 +405,7 @@
             this.hlpSaveProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.hlpSaveProfile.AutoSize = true;
             this.hlpSaveProfile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.hlpSaveProfile.Location = new System.Drawing.Point(527, 136);
+            this.hlpSaveProfile.Location = new System.Drawing.Point(351, 160);
             this.hlpSaveProfile.Name = "hlpSaveProfile";
             this.hlpSaveProfile.Size = new System.Drawing.Size(15, 15);
             this.hlpSaveProfile.TabIndex = 17;
@@ -452,6 +454,31 @@
             this.lblExplain.TabIndex = 32;
             this.lblExplain.Text = resources.GetString("lblExplain.Text");
             // 
+            // hlpUpdateHltb
+            // 
+            this.hlpUpdateHltb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.hlpUpdateHltb.AutoSize = true;
+            this.hlpUpdateHltb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.hlpUpdateHltb.Location = new System.Drawing.Point(351, 135);
+            this.hlpUpdateHltb.Name = "hlpUpdateHltb";
+            this.hlpUpdateHltb.Size = new System.Drawing.Size(15, 15);
+            this.hlpUpdateHltb.TabIndex = 34;
+            this.hlpUpdateHltb.Text = "?";
+            // 
+            // chkUpdateHltb
+            // 
+            this.chkUpdateHltb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkUpdateHltb.AutoSize = true;
+            this.chkUpdateHltb.Checked = true;
+            this.chkUpdateHltb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkUpdateHltb.Location = new System.Drawing.Point(197, 135);
+            this.chkUpdateHltb.Name = "chkUpdateHltb";
+            this.chkUpdateHltb.Size = new System.Drawing.Size(133, 17);
+            this.chkUpdateHltb.TabIndex = 33;
+            this.chkUpdateHltb.Text = "Update DB from HLTB";
+            this.chkUpdateHltb.UseVisualStyleBackColor = true;
+            this.chkUpdateHltb.CheckedChanged += new System.EventHandler(this.ItemChanged);
+            // 
             // DlgAutomaticModeHelper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -459,6 +486,8 @@
             this.CancelButton = this.cmdClose;
             this.ClientSize = new System.Drawing.Size(553, 387);
             this.ControlBox = false;
+            this.Controls.Add(this.hlpUpdateHltb);
+            this.Controls.Add(this.chkUpdateHltb);
             this.Controls.Add(this.lblExplain);
             this.Controls.Add(this.hlpOutput);
             this.Controls.Add(this.hlpTolerant);
@@ -537,5 +566,7 @@
         private System.Windows.Forms.Label hlpOutput;
         private Lib.ExtToolTip ttHelp;
         private System.Windows.Forms.Label lblExplain;
+        private System.Windows.Forms.Label hlpUpdateHltb;
+        private System.Windows.Forms.CheckBox chkUpdateHltb;
     }
 }
