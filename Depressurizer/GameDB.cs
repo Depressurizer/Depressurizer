@@ -872,11 +872,11 @@ namespace Depressurizer
                                 Games[id].HltbMain = 0;
                             else Games[id].HltbMain = htlbInfo.MainTtb;
 
-                            if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
+                            if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed == "True")
                                 Games[id].HltbExtras = 0;
                             else Games[id].HltbExtras = htlbInfo.ExtrasTtb;
 
-                            if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
+                            if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed == "True")
                                 Games[id].HltbCompletionist = 0;
                             else Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
 
