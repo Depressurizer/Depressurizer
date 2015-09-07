@@ -2680,6 +2680,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to --.
+        /// </summary>
+        internal static string MainForm_NoHltbTime {
+            get {
+                return ResourceManager.GetString("MainForm_NoHltbTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No profile loaded. Create one now?.
         /// </summary>
         internal static string MainForm_NoProfileLoaded {

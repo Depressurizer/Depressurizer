@@ -867,12 +867,19 @@ namespace Depressurizer
                         if (Games.ContainsKey(id))
                         {
                             dynamic htlbInfo = steamAppData.HltbInfo;
-                            if (includeImputedTimes || htlbInfo.MainTtbImputed == "False")
-                                Games[id].HltbMain = htlbInfo.MainTtb;
-                            if (includeImputedTimes || htlbInfo.ExtrasTtbImputed == "False")
-                                Games[id].HltbExtras = htlbInfo.ExtrasTtb;
-                            if (includeImputedTimes || htlbInfo.CompletionistTtbImputed == "False")
-                                Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
+
+                            if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
+                                Games[id].HltbMain = 0;
+                            else Games[id].HltbMain = htlbInfo.MainTtb;
+
+                            if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
+                                Games[id].HltbExtras = 0;
+                            else Games[id].HltbExtras = htlbInfo.ExtrasTtb;
+
+                            if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
+                                Games[id].HltbCompletionist = 0;
+                            else Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
+
                             updated++;
                         }
                     }

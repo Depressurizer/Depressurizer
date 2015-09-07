@@ -1177,4 +1177,7 @@ Recommended: Enabled.</value>
   <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
     <value>Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times. </value>
   </data>
+  <data name="MainForm_NoHltbTime" xml:space="preserve">
+    <value>--</value>
+  </data>
 </root>

@@ -204,6 +204,21 @@ namespace Depressurizer {
                 }
                 return 0;
             };
+            colHltbMain.AspectGetter = delegate(object g)
+            {
+                int id = ((GameInfo)g).Id;
+                return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].HltbMain : 0;
+            };
+            colHltbExtras.AspectGetter = delegate(object g)
+            {
+                int id = ((GameInfo)g).Id;
+                return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].HltbExtras : 0;
+            };
+            colHltbCompletionist.AspectGetter = delegate(object g)
+            {
+                int id = ((GameInfo)g).Id;
+                return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].HltbCompletionist : 0;
+            };
 
 
             //Aspect to String Converters
@@ -234,6 +249,28 @@ namespace Depressurizer {
             };
                 return reviewLabels.ContainsKey(index) ? reviewLabels[index] : GlobalStrings.MainForm_Unknown;
             };
+            AspectToStringConverterDelegate hltb = delegate(object obj)
+            {
+                int time = (int)obj;
+                if (time <= 0) return GlobalStrings.MainForm_NoHltbTime;
+                if (time < 60) return time + "m";
+                int hours = time / 60;
+                int mins = time % 60;
+                if (mins == 0) return hours + "h";
+                return hours + "h " + mins + "m";
+            };
+            colHltbMain.AspectToStringConverter = delegate(object obj)
+            {
+                int time = (int)obj;
+                if (time <= 0) return GlobalStrings.MainForm_NoHltbTime;
+                if (time < 60) return time + "m";
+                int hours = time / 60;
+                int mins = time % 60;
+                if (mins == 0) return hours + "h";
+                return hours + "h " + mins + "m";
+            };
+            colHltbExtras.AspectToStringConverter = hltb;
+            colHltbCompletionist.AspectToStringConverter = hltb;
 
             //Filtering
             colCategories.ClusteringStrategy = new CommaClusteringStrategy();

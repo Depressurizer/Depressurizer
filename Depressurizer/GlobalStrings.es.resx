@@ -990,4 +990,7 @@ Tiempo Restante:</value>
   <data name="String2" xml:space="preserve">
     <value>Recommended: Enabled.</value>
   </data>
+  <data name="MainForm_NoHltbTime" xml:space="preserve">
+    <value>--</value>
+  </data>
 </root>
