@@ -88,7 +88,7 @@ You can autocategorize all games by using the "Autocat All" item in the Tools me
 
 To modify, delete or create new AutoCats, click the "Edit AutoCats..." item in the Profile menu.
 
-There are currently five types of AutoCat:
+There are currently six types of AutoCat:
 
  - **Genre:** This type autocategorizes games based on the genres it is assigned in the Steam store. It has several configuration options.
 
