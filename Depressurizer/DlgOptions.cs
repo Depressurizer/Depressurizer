@@ -67,6 +67,8 @@ namespace Depressurizer {
             chkUpdateHltbOnStartup.Checked = settings.UpdateHltbOnStart;
             chkIncludeImputedTimes.Checked = settings.IncludeImputedTimes;
             chkAutosaveDB.Checked = settings.AutosaveDB;
+
+            chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates; 
             
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
@@ -118,6 +120,8 @@ namespace Depressurizer {
             settings.UpdateHltbOnStart = chkUpdateHltbOnStartup.Checked;
             settings.IncludeImputedTimes = chkIncludeImputedTimes.Checked;
             settings.AutosaveDB = chkAutosaveDB.Checked;
+
+            settings.CheckForDepressurizerUpdates = chkCheckForDepressurizerUpdates.Checked;
 
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 

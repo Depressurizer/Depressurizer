@@ -172,6 +172,23 @@ namespace Depressurizer {
             }
         }
 
+        private bool _checkForDepressurizerUpdates = true;
+        public bool CheckForDepressurizerUpdates
+        {
+            get
+            {
+                return _checkForDepressurizerUpdates;
+            }
+            set
+            {
+                if (_checkForDepressurizerUpdates != value)
+                {
+                    _checkForDepressurizerUpdates = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private bool _removeExtraEntries = true;
         public bool RemoveExtraEntries {
             get {

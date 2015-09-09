@@ -22,10 +22,13 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Newtonsoft.Json.Linq;
 
 namespace Depressurizer {
 
@@ -315,6 +318,11 @@ namespace Depressurizer {
             if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() > (Program.GameDB.LastHltbUpdate + threePointFiveDaysInSecs))
             {
                 UpdateGameDBFromHltb();
+            }
+
+            if (Settings.Instance.CheckForDepressurizerUpdates)
+            {
+                CheckForDepressurizerUpdates();
             }
 
             switch( Settings.Instance.StartupAction ) {
@@ -2375,6 +2383,46 @@ namespace Depressurizer {
                 return ((string)this.Column.GetValue(model)).Replace(", ", ",").Split(',');
             }
         }
+
+        /// <summary>
+        /// Checks github for newer versions of depressurizer.
+        /// </summary>
+        /// <returns>True if there is a newer release, false otherwise</returns>
+        private void CheckForDepressurizerUpdates()
+        {
+            Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            try
+            {
+                Version githubVersion;
+                string url;
+                using (WebClient wc = new WebClient())
+                {
+                    wc.Headers.Set("User-Agent", "Depressurizer");
+                    string json = wc.DownloadString("https://api.github.com/repos/Theo47/depressurizer/releases/latest");
+                    JObject parsedJson = JObject.Parse(json);
+                    githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
+                    url = (string)parsedJson.SelectToken("html_url");
+                }
+                if (githubVersion > currentVersion)
+                {
+                    if (
+                        MessageBox.Show(
+                            GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle,
+                            MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(url);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
+                MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message);
+                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
+                MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message);
+            }
+        }
+
 
         #endregion
 

@@ -1187,4 +1187,16 @@ Recommended: Enabled.</value>
     <value>If checked, games with no times in all 3 types will be autocategorized with the name below.
 If unchecked, games with no times will be skipped.</value>
   </data>
+  <data name="MainForm_Msg_UpdateFound" xml:space="preserve">
+    <value>There is a new update to depressurizer. Do you want to visit the download page?</value>
+  </data>
+  <data name="MainForm_Log_ExceptionDepressurizerUpdate" xml:space="preserve">
+    <value>Exception while checking for new updates to depressurizer.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorDepressurizerUpdate" xml:space="preserve">
+    <value>Error encountered while checking for new updates to depressurizer: {0}</value>
+  </data>
+  <data name="MainForm_Msg_UpdateFoundTitle" xml:space="preserve">
+    <value>Update Found</value>
+  </data>
 </root>

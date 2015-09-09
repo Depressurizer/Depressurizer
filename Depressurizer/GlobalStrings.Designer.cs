@@ -2477,6 +2477,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception while checking for new updates to depressurizer..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionDepressurizerUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionDepressurizerUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exception encountered while exporting Steam config..
         /// </summary>
         internal static string MainForm_Log_ExceptionExport {
@@ -2577,6 +2586,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error encountered while checking for new updates to depressurizer: {0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorDepressurizerUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorDepressurizerUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error exporting to Steam.
         ///{0}.
         /// </summary>
@@ -2632,6 +2650,24 @@ namespace Depressurizer {
         internal static string MainForm_Msg_LocalUpdateError {
             get {
                 return ResourceManager.GetString("MainForm_Msg_LocalUpdateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a new update to depressurizer. Do you want to visit the download page?.
+        /// </summary>
+        internal static string MainForm_Msg_UpdateFound {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_UpdateFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Found.
+        /// </summary>
+        internal static string MainForm_Msg_UpdateFoundTitle {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_UpdateFoundTitle", resourceCulture);
             }
         }
         

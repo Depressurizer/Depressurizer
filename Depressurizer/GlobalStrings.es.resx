@@ -1005,4 +1005,20 @@ If unchecked, games with no times will be skipped.</value>
   <data name="String3" xml:space="preserve">
     <value />
   </data>
+  <data name="MainForm_Log_ExceptionDepressurizerUpdate" xml:space="preserve">
+    <value>Exception while checking for new updates to depressurizer.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_Msg_ErrorDepressurizerUpdate" xml:space="preserve">
+    <value>Error encountered while checking for new updates to depressurizer: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_Msg_UpdateFound" xml:space="preserve">
+    <value>There is a new update to depressurizer. Do you want to visit the download page?</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_Msg_UpdateFoundTitle" xml:space="preserve">
+    <value>Update Found</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>

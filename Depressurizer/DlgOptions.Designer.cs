@@ -75,6 +75,8 @@ namespace Depressurizer {
             this.label1 = new System.Windows.Forms.Label();
             this.cmbLogLevel = new System.Windows.Forms.ComboBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.grpDepressurizerUpdates = new System.Windows.Forms.GroupBox();
+            this.chkCheckForDepressurizerUpdates = new System.Windows.Forms.CheckBox();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
@@ -86,6 +88,7 @@ namespace Depressurizer {
             this.tabLogging.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
+            this.grpDepressurizerUpdates.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -207,6 +210,7 @@ namespace Depressurizer {
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.grpDepressurizerUpdates);
             this.tabGeneral.Controls.Add(this.grpDatabase);
             this.tabGeneral.Controls.Add(this.grpLanguage);
             this.tabGeneral.Controls.Add(this.grpSteamDir);
@@ -340,6 +344,19 @@ namespace Depressurizer {
             this.cmbLogLevel.FormattingEnabled = true;
             this.cmbLogLevel.Name = "cmbLogLevel";
             // 
+            // grpDepressurizerUpdates
+            // 
+            resources.ApplyResources(this.grpDepressurizerUpdates, "grpDepressurizerUpdates");
+            this.grpDepressurizerUpdates.Controls.Add(this.chkCheckForDepressurizerUpdates);
+            this.grpDepressurizerUpdates.Name = "grpDepressurizerUpdates";
+            this.grpDepressurizerUpdates.TabStop = false;
+            // 
+            // chkCheckForDepressurizerUpdates
+            // 
+            resources.ApplyResources(this.chkCheckForDepressurizerUpdates, "chkCheckForDepressurizerUpdates");
+            this.chkCheckForDepressurizerUpdates.Name = "chkCheckForDepressurizerUpdates";
+            this.chkCheckForDepressurizerUpdates.UseVisualStyleBackColor = true;
+            // 
             // DlgOptions
             // 
             resources.ApplyResources(this, "$this");
@@ -368,6 +385,8 @@ namespace Depressurizer {
             this.tabLogging.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).EndInit();
+            this.grpDepressurizerUpdates.ResumeLayout(false);
+            this.grpDepressurizerUpdates.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -407,5 +426,7 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkIncludeImputedTimes;
         private System.Windows.Forms.CheckBox chkUpdateHltbOnStartup;
         private System.Windows.Forms.Label helpIncludeImputedTimes;
+        private System.Windows.Forms.GroupBox grpDepressurizerUpdates;
+        private System.Windows.Forms.CheckBox chkCheckForDepressurizerUpdates;
     }
 }
