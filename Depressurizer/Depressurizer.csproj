@@ -80,6 +80,10 @@
     <StartupObject>Depressurizer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.8.1\lib\net20\ObjectListView.dll</HintPath>
       <Private>True</Private>
@@ -119,6 +123,12 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Tags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Hltb.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Hltb.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
+    </Compile>
     <Compile Include="AutoCat\AutoCatConfigPanel_UserScore.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -134,6 +144,7 @@
     <Compile Include="AutoCat\AutoCatFlags.cs" />
     <Compile Include="AutoCat\AutoCatGenre.cs" />
     <Compile Include="AutoCat\AutoCatTags.cs" />
+    <Compile Include="AutoCat\AutoCatHltb.cs" />
     <Compile Include="AutoCat\AutoCatUserScore.cs" />
     <Compile Include="AutoCat\AutoCatYear.cs" />
     <Compile Include="AutomaticModeForm.cs">
@@ -141,6 +152,9 @@
     </Compile>
     <Compile Include="AutomaticModeForm.Designer.cs">
       <DependentUpon>AutomaticModeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBEdit\CDlgHltb.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="DlgAbout.cs">
       <SubType>Form</SubType>
@@ -287,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Tags.resx">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Hltb.resx">
+      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_UserScore.resx">
       <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>

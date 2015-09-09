@@ -79,6 +79,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HLTB time.
+        /// </summary>
+        internal static string AutoCat_Name_Hltb {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Hltb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Store Tags.
         /// </summary>
         internal static string AutoCat_Name_Tags {
@@ -129,6 +138,16 @@ namespace Depressurizer {
         internal static string AutoCatGenrePanel_Help_TagFallback {
             get {
                 return ResourceManager.GetString("AutoCatGenrePanel_Help_TagFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If checked, games with no times in all 3 types will be autocategorized with the name below.
+        ///If unchecked, games with no times will be skipped..
+        /// </summary>
+        internal static string AutocatHltb_Help_Unknown {
+            get {
+                return ResourceManager.GetString("AutocatHltb_Help_Unknown", resourceCulture);
             }
         }
         
@@ -355,6 +374,18 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update the database with information from HLTB before running any autocat operations.
+        ///Only updates if an update didn&apos;t occur for more than half a week.
+        ///Slows operation by about 15-20 secs if an update occurs.
+        ///Recommended: Enabled..
+        /// </summary>
+        internal static string AutoMode_Help_UpdateHltb {
+            get {
+                return ResourceManager.GetString("AutoMode_Help_UpdateHltb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update your library with new games before running autocat operations.
         ///Will obey profile settings for update data source.
         ///Recommended: Enabled.
@@ -515,6 +546,24 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updating HLTB times.
+        /// </summary>
+        internal static string CDlgHltb_Title {
+            get {
+                return ResourceManager.GetString("CDlgHltb_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating HowLongToBeat.com times....
+        /// </summary>
+        internal static string CDlgHltb_UpdateHltb {
+            get {
+                return ResourceManager.GetString("CDlgHltb_UpdateHltb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt; 1 minute.
         /// </summary>
         internal static string CDlgScrape_1minute {
@@ -602,6 +651,15 @@ namespace Depressurizer {
         internal static string DBEditDlg_AreYouSureToClear {
             get {
                 return ResourceManager.GetString("DBEditDlg_AreYouSureToClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Canceled HLTB update..
+        /// </summary>
+        internal static string DBEditDlg_CanceledHltbUpdate {
+            get {
+                return ResourceManager.GetString("DBEditDlg_CanceledHltbUpdate", resourceCulture);
             }
         }
         
@@ -716,6 +774,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error updating from HLTB..
+        /// </summary>
+        internal static string DBEditDlg_ErrorUpdatingHltb {
+            get {
+                return ResourceManager.GetString("DBEditDlg_ErrorUpdatingHltb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while updating the game list:
         ///
         ///{0}.
@@ -734,6 +801,15 @@ namespace Depressurizer {
         internal static string DBEditDlg_ErrorWhileUpdatingGames {
             get {
                 return ResourceManager.GetString("DBEditDlg_ErrorWhileUpdatingGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occured while updating from howlongtobeatsteam.com: {0}.
+        /// </summary>
+        internal static string DBEditDlg_ErrorWhileUpdatingHltb {
+            get {
+                return ResourceManager.GetString("DBEditDlg_ErrorWhileUpdatingHltb", resourceCulture);
             }
         }
         
@@ -774,11 +850,29 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to update from HLTB: {0}.
+        /// </summary>
+        internal static string DBEditDlg_HltbUpdateFailed {
+            get {
+                return ResourceManager.GetString("DBEditDlg_HltbUpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exception when updating AppInfo: {0}.
         /// </summary>
         internal static string DBEditDlg_Log_ExceptionAppInfo {
             get {
                 return ResourceManager.GetString("DBEditDlg_Log_ExceptionAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception when updating from HLTB: {0}.
+        /// </summary>
+        internal static string DBEditDlg_Log_ExceptionHltb {
+            get {
+                return ResourceManager.GetString("DBEditDlg_Log_ExceptionHltb", resourceCulture);
             }
         }
         
@@ -815,6 +909,15 @@ namespace Depressurizer {
         internal static string DBEditDlg_Status_UpdatedAppInfo {
             get {
                 return ResourceManager.GetString("DBEditDlg_Status_UpdatedAppInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated {0} entries from HLTB..
+        /// </summary>
+        internal static string DBEditDlg_Status_UpdatedHltb {
+            get {
+                return ResourceManager.GetString("DBEditDlg_Status_UpdatedHltb", resourceCulture);
             }
         }
         
@@ -1110,6 +1213,15 @@ namespace Depressurizer {
         internal static string DlgOptions_ErrorSavingSettingsFile {
             get {
                 return ResourceManager.GetString("DlgOptions_ErrorSavingSettingsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times. .
+        /// </summary>
+        internal static string DlgOptions_Help_IncludeImputedTimes {
+            get {
+                return ResourceManager.GetString("DlgOptions_Help_IncludeImputedTimes", resourceCulture);
             }
         }
         
@@ -1680,6 +1792,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scraping {0}: Redirects to itself.
+        /// </summary>
+        internal static string GameDB_RedirectsToItself {
+            get {
+                return ResourceManager.GetString("GameDB_RedirectsToItself", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving GameDB to {0}.
         /// </summary>
         internal static string GameDB_SavingGameDBTo {
@@ -1793,6 +1914,15 @@ namespace Depressurizer {
         internal static string GameDB_ScrapingRedirectedToOtherApp {
             get {
                 return ResourceManager.GetString("GameDB_ScrapingRedirectedToOtherApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scraping {0}: Too Many Redirects.
+        /// </summary>
+        internal static string GameDB_TooManyRedirects {
+            get {
+                return ResourceManager.GetString("GameDB_TooManyRedirects", resourceCulture);
             }
         }
         
@@ -2275,6 +2405,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;Hidden&gt;.
+        /// </summary>
+        internal static string MainForm_Hidden {
+            get {
+                return ResourceManager.GetString("MainForm_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignored {0} game{1}..
         /// </summary>
         internal static string MainForm_IgnoredGame {
@@ -2338,11 +2477,29 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception while checking for new updates to depressurizer..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionDepressurizerUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionDepressurizerUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exception encountered while exporting Steam config..
         /// </summary>
         internal static string MainForm_Log_ExceptionExport {
             get {
                 return ResourceManager.GetString("MainForm_Log_ExceptionExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception when auto-updating DB from HLTB..
+        /// </summary>
+        internal static string MainForm_Log_ExceptionHltb {
+            get {
+                return ResourceManager.GetString("MainForm_Log_ExceptionHltb", resourceCulture);
             }
         }
         
@@ -2429,12 +2586,30 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error encountered while checking for new updates to depressurizer: {0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorDepressurizerUpdate {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorDepressurizerUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error exporting to Steam.
         ///{0}.
         /// </summary>
         internal static string MainForm_Msg_ErrorExportingToSteam {
             get {
                 return ResourceManager.GetString("MainForm_Msg_ErrorExportingToSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error encountered when updating database from HLTB: {0}.
+        /// </summary>
+        internal static string MainForm_Msg_ErrorHltb {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_ErrorHltb", resourceCulture);
             }
         }
         
@@ -2475,6 +2650,24 @@ namespace Depressurizer {
         internal static string MainForm_Msg_LocalUpdateError {
             get {
                 return ResourceManager.GetString("MainForm_Msg_LocalUpdateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a new update to depressurizer. Do you want to visit the download page?.
+        /// </summary>
+        internal static string MainForm_Msg_UpdateFound {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_UpdateFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Found.
+        /// </summary>
+        internal static string MainForm_Msg_UpdateFoundTitle {
+            get {
+                return ResourceManager.GetString("MainForm_Msg_UpdateFoundTitle", resourceCulture);
             }
         }
         
@@ -2538,6 +2731,15 @@ namespace Depressurizer {
         internal static string MainForm_NoGenres {
             get {
                 return ResourceManager.GetString("MainForm_NoGenres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --.
+        /// </summary>
+        internal static string MainForm_NoHltbTime {
+            get {
+                return ResourceManager.GetString("MainForm_NoHltbTime", resourceCulture);
             }
         }
         
@@ -2700,6 +2902,15 @@ namespace Depressurizer {
         internal static string MainForm_Status_AppInfoAutoupdate {
             get {
                 return ResourceManager.GetString("MainForm_Status_AppInfoAutoupdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated {0} DB entries from HLTB..
+        /// </summary>
+        internal static string MainForm_Status_HltbAutoupdate {
+            get {
+                return ResourceManager.GetString("MainForm_Status_HltbAutoupdate", resourceCulture);
             }
         }
         

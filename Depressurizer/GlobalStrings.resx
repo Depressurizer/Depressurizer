@@ -1126,4 +1126,77 @@ Recommended: Enabled</value>
   <data name="MainForm_Unknown" xml:space="preserve">
     <value>&lt;Unknown&gt;</value>
   </data>
+  <data name="GameDB_RedirectsToItself" xml:space="preserve">
+    <value>Scraping {0}: Redirects to itself</value>
+  </data>
+  <data name="GameDB_TooManyRedirects" xml:space="preserve">
+    <value>Scraping {0}: Too Many Redirects</value>
+  </data>
+  <data name="MainForm_Hidden" xml:space="preserve">
+    <value>&lt;Hidden&gt;</value>
+  </data>
+  <data name="MainForm_Log_ExceptionHltb" xml:space="preserve">
+    <value>Exception when auto-updating DB from HLTB.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorHltb" xml:space="preserve">
+    <value>Error encountered when updating database from HLTB: {0}</value>
+  </data>
+  <data name="MainForm_Status_HltbAutoupdate" xml:space="preserve">
+    <value>Updated {0} DB entries from HLTB.</value>
+  </data>
+  <data name="AutoMode_Help_UpdateHltb" xml:space="preserve">
+    <value>Update the database with information from HLTB before running any autocat operations.
+Only updates if an update didn't occur for more than half a week.
+Slows operation by about 15-20 secs if an update occurs.
+Recommended: Enabled.</value>
+  </data>
+  <data name="CDlgHltb_Title" xml:space="preserve">
+    <value>Updating HLTB times</value>
+  </data>
+  <data name="CDlgHltb_UpdateHltb" xml:space="preserve">
+    <value>Updating HowLongToBeat.com times...</value>
+  </data>
+  <data name="DBEditDlg_CanceledHltbUpdate" xml:space="preserve">
+    <value>Canceled HLTB update.</value>
+  </data>
+  <data name="DBEditDlg_ErrorUpdatingHltb" xml:space="preserve">
+    <value>Error updating from HLTB.</value>
+  </data>
+  <data name="DBEditDlg_ErrorWhileUpdatingHltb" xml:space="preserve">
+    <value>An error occured while updating from howlongtobeatsteam.com: {0}</value>
+  </data>
+  <data name="DBEditDlg_HltbUpdateFailed" xml:space="preserve">
+    <value>Failed to update from HLTB: {0}</value>
+  </data>
+  <data name="DBEditDlg_Log_ExceptionHltb" xml:space="preserve">
+    <value>Exception when updating from HLTB: {0}</value>
+  </data>
+  <data name="DBEditDlg_Status_UpdatedHltb" xml:space="preserve">
+    <value>Updated {0} entries from HLTB.</value>
+  </data>
+  <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
+    <value>Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times. </value>
+  </data>
+  <data name="MainForm_NoHltbTime" xml:space="preserve">
+    <value>--</value>
+  </data>
+  <data name="AutoCat_Name_Hltb" xml:space="preserve">
+    <value>HLTB time</value>
+  </data>
+  <data name="AutocatHltb_Help_Unknown" xml:space="preserve">
+    <value>If checked, games with no times in all 3 types will be autocategorized with the name below.
+If unchecked, games with no times will be skipped.</value>
+  </data>
+  <data name="MainForm_Msg_UpdateFound" xml:space="preserve">
+    <value>There is a new update to depressurizer. Do you want to visit the download page?</value>
+  </data>
+  <data name="MainForm_Log_ExceptionDepressurizerUpdate" xml:space="preserve">
+    <value>Exception while checking for new updates to depressurizer.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorDepressurizerUpdate" xml:space="preserve">
+    <value>Error encountered while checking for new updates to depressurizer: {0}</value>
+  </data>
+  <data name="MainForm_Msg_UpdateFoundTitle" xml:space="preserve">
+    <value>Update Found</value>
+  </data>
 </root>

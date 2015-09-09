@@ -101,7 +101,10 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="newCat">Category to add</param>
         public void AddCategory( Category newCat ) {
-            if( newCat != null ) Categories.Add( newCat );
+            if (newCat != null && Categories.Add(newCat) && !this.Hidden)
+            {
+                newCat.Count++;
+            }
         }
 
         /// <summary>
@@ -109,15 +112,23 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="newCats">A list of categories to add</param>
         public void AddCategory( ICollection<Category> newCats ) {
-            Categories.UnionWith( newCats );
+            foreach (Category cat in newCats)
+            {
+                if (!Categories.Contains(cat))
+                {
+                    this.AddCategory(cat);
+                }
+            }
         }
 
         /// <summary>
         /// Removes a single category from this game. Does nothing if the category is not attached to this game.
         /// </summary>
         /// <param name="remCat">Category to remove</param>
-        public void RemoveCategory( Category remCat ) {
-            Categories.Remove( remCat );
+        public void RemoveCategory( Category remCat )
+        {
+            if (Categories.Remove(remCat) && !this.Hidden)
+                remCat.Count--;
         }
 
         /// <summary>
@@ -125,7 +136,13 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="remCats">Categories to remove</param>
         public void RemoveCategory( ICollection<Category> remCats ) {
-            Categories.ExceptWith( remCats );
+            foreach (Category cat in remCats)
+            {
+                if (!Categories.Contains(cat))
+                {
+                    this.RemoveCategory(cat);
+                }
+            }
         }
 
         /// <summary>
@@ -133,12 +150,18 @@ namespace Depressurizer {
         /// <param name="alsoClearFavorite">If true, removes the favorite category as well.</param>
         /// </summary>
         public void ClearCategories( bool alsoClearFavorite = false ) {
+            foreach (Category cat in Categories)
+                if (!this.Hidden) cat.Count--;
             if( alsoClearFavorite ) {
                 Categories.Clear();
             } else {
                 bool restore = IsFavorite();
                 Categories.Clear();
-                if( restore ) Categories.Add( FavoriteCategory );
+                if (restore)
+                {
+                    Categories.Add( FavoriteCategory );
+                    if (!this.Hidden) FavoriteCategory.Count++;
+                }
             }
         }
 
@@ -157,6 +180,30 @@ namespace Depressurizer {
             } else {
                 RemoveCategory( FavoriteCategory );
             }
+        }
+
+        /// <summary>
+        /// Add or remove the hidden attribute for this game.
+        /// </summary>
+        /// <param name="hide">Whether the game should be hidden</param>
+        public void SetHidden(bool hide)
+        {
+            if (Hidden == hide) return;
+            if (hide)
+            {
+                foreach (Category cat in Categories)
+                {
+                    cat.Count--;
+                }
+            }
+            else
+            {
+                foreach (Category cat in Categories)
+                {
+                    cat.Count++;
+                }
+            }
+            Hidden = hide;
         }
         #endregion
 
@@ -225,6 +272,7 @@ namespace Depressurizer {
     /// </summary>
     public class Category : IComparable {
         public string Name;
+        public int Count;
 
         public Category( string name ) {
             Name = name;
@@ -410,6 +458,7 @@ namespace Depressurizer {
             if( appId < 0 ) {
                 if( Games.ContainsKey( appId ) ) {
                     GameInfo removedGame = Games[appId];
+                    removedGame.ClearCategories(true);
                     removed = Games.Remove( appId );
                     if( removed )
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_RemovedGameFromGameList, appId, removedGame.Name );
@@ -536,13 +585,48 @@ namespace Depressurizer {
             }
         }
 
+        /// <summary>
+        /// Clears all categories from a single game
+        /// </summary>
+        /// <param name="gameID">Game ID to clear categories from</param>
+        /// <param name="cats">If true, preserves the favorite category.</param>
         public void ClearGameCategories( int gameID, bool preserveFavorite ) {
             Games[gameID].ClearCategories( alsoClearFavorite: !preserveFavorite );
         }
 
-        public void ClearGameCategories( int[] gameIDs, bool preserveFavorite ) {
-            for( int i = 0; i < gameIDs.Length; i++ ) {
-                ClearGameCategories( gameIDs[i], preserveFavorite );
+        /// <summary>
+        /// Clears all categories from a set of games
+        /// </summary>
+        /// <param name="gameID">List of game IDs to clear categories from</param>
+        /// <param name="cats">If true, preserves the favorite category.</param>
+        public void ClearGameCategories( int[] gameIDs, bool preserveFavorite )
+        {
+            foreach (int id in gameIDs)
+            {
+                ClearGameCategories( id, preserveFavorite );
+            }
+        }
+
+        /// <summary>
+        /// Add or Remove the hidden attribute of a single game
+        /// </summary>
+        /// <param name="gameID">Game ID to hide/unhide</param>
+        /// <param name="hide">Whether the game should be hidden.</param>
+        public void HideGames(int gameID, bool hide)
+        {
+            Games[gameID].SetHidden(hide);
+        }
+
+        /// <summary>
+        /// Add or Remove the hidden attribute from a set of games
+        /// </summary>
+        /// <param name="gameIDs">List of game IDs to hide/unhide</param>
+        /// <param name="hide">Whether the games should be hidden.</param>
+        public void HideGames(int[] gameIDs, bool hide)
+        {
+            foreach (int id in gameIDs)
+            {
+                HideGames(id, hide);
             }
         }
 

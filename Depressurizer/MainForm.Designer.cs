@@ -81,6 +81,9 @@ namespace Depressurizer {
             this.colAchievements = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colDevelopers = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colPublishers = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colHltbMain = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colHltbExtras = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colHltbCompletionist = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colPlatforms = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_Add = new System.Windows.Forms.ToolStripMenuItem();
@@ -380,6 +383,9 @@ namespace Depressurizer {
             this.lstGames.AllColumns.Add(this.colAchievements);
             this.lstGames.AllColumns.Add(this.colDevelopers);
             this.lstGames.AllColumns.Add(this.colPublishers);
+            this.lstGames.AllColumns.Add(this.colHltbMain);
+            this.lstGames.AllColumns.Add(this.colHltbExtras);
+            this.lstGames.AllColumns.Add(this.colHltbCompletionist);
             this.lstGames.AllColumns.Add(this.colPlatforms);
             this.lstGames.AllowColumnReorder = true;
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -508,6 +514,30 @@ namespace Depressurizer {
             this.colPublishers.IsVisible = false;
             this.colPublishers.Tag = "colPublishers";
             this.colPublishers.UseInitialLetterForGroup = true;
+            // 
+            // colHltbMain
+            // 
+            this.colHltbMain.AspectName = "";
+            resources.ApplyResources(this.colHltbMain, "colHltbMain");
+            this.colHltbMain.IsVisible = false;
+            this.colHltbMain.Tag = "colHltbMain";
+            this.colHltbMain.UseFiltering = false;
+            // 
+            // colHltbExtras
+            // 
+            this.colHltbExtras.AspectName = "";
+            resources.ApplyResources(this.colHltbExtras, "colHltbExtras");
+            this.colHltbExtras.IsVisible = false;
+            this.colHltbExtras.Tag = "colHltbExtras";
+            this.colHltbExtras.UseFiltering = false;
+            // 
+            // colHltbCompletionist
+            // 
+            this.colHltbCompletionist.AspectName = "";
+            resources.ApplyResources(this.colHltbCompletionist, "colHltbCompletionist");
+            this.colHltbCompletionist.IsVisible = false;
+            this.colHltbCompletionist.Tag = "colHltbCompletionist";
+            this.colHltbCompletionist.UseFiltering = false;
             // 
             // colPlatforms
             // 
@@ -1136,6 +1166,9 @@ namespace Depressurizer {
         private BrightIdeasSoftware.OLVColumn colReviewScore;
         private BrightIdeasSoftware.OLVColumn colReviewLabel;
         private BrightIdeasSoftware.OLVColumn colAchievements;
+        private BrightIdeasSoftware.OLVColumn colHltbMain;
+        private BrightIdeasSoftware.OLVColumn colHltbExtras;
+        private BrightIdeasSoftware.OLVColumn colHltbCompletionist;
     }
 }
 

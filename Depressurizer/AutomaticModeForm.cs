@@ -107,6 +107,16 @@ namespace Depressurizer {
                 }
             }
 
+            if (!UpdateDBWithHltb(options.UpdateHltb))
+            {
+                encounteredError = true;
+                if (!options.TolerateMinorErrors)
+                {
+                    WriteLine("Aborting.");
+                    return;
+                }
+            }
+
             if( !ScrapeUnscrapedGames( profile, options.ScrapeUnscrapedGames ) ) {
                 encounteredError = true;
                 if( !options.TolerateMinorErrors ) {
@@ -366,6 +376,35 @@ namespace Depressurizer {
             return success;
         }
 
+        private bool UpdateDBWithHltb(bool doUpdate)
+        {
+            if (!doUpdate)
+            {
+                WriteLine("Skipping HLTB update.");
+                return true;
+            }
+            int HalfAWeekInSecs = 84*24*60*60;
+            if (Utility.GetCurrentUTime() > (Program.GameDB.LastHltbUpdate + HalfAWeekInSecs))
+            {
+                WriteLine("Skipping HLTB update.");
+                return true;
+            }
+            Write("Updating database from HLTB...");
+            bool success = false;
+            try
+            {
+                if (Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes) > 0) dbModified = true;
+                success = true;
+            }
+            catch (Exception e)
+            {
+                WriteLine("Error updating database from HLTB: " + e.Message);
+                Program.Logger.WriteException("Automatic mode: Error updating from HLTB.", e);
+            }
+            if (success) WriteLine("HLTB update complete.");
+            return success;
+        }
+
         private bool ScrapeUnscrapedGames( Profile p, bool doScrape ) {
             if( !doScrape ) {
                 WriteLine( "Skipping game scraping." );
@@ -537,6 +576,7 @@ namespace Depressurizer {
         public bool UpdateGameList = true;
         public bool ImportSteamCategories = false;
         public bool UpdateAppInfo = true;
+        public bool UpdateHltb = true;
         public bool ScrapeUnscrapedGames = true;
         public bool SaveDBChanges = true;
         public bool SaveProfile = true;

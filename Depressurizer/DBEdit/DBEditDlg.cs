@@ -184,6 +184,37 @@ namespace Depressurizer {
             }
         }
 
+        private void UpdateFromHltb()
+        {
+
+            this.Cursor = Cursors.WaitCursor;
+
+            HltbPrcDlg dlg = new HltbPrcDlg();
+            DialogResult res = dlg.ShowDialog();
+
+            if (dlg.Error != null)
+            {
+                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
+                AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
+            }
+            else
+            {
+                if (res == DialogResult.Cancel || res == DialogResult.Abort)
+                {
+                    AddStatusMsg(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+                }
+                else
+                {
+                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedHltb, dlg.Updated));
+                    UnsavedChanges = true;
+                }
+            }
+
+            RebuildDisplayList();
+            this.Cursor = Cursors.Default;
+        }
+
         /// <summary>
         /// Shows a dialog allowing the user to add a new entry to the database.
         /// </summary>
@@ -616,6 +647,13 @@ namespace Depressurizer {
         private void cmdUpdateAppInfo_Click( object sender, EventArgs e ) {
             ClearStatusMsg();
             UpdateFromAppInfo();
+            FlushStatusMsg();
+        }
+
+        private void cmdUpdateHltb_Click(object sender, EventArgs e)
+        {
+            ClearStatusMsg();
+            UpdateFromHltb();
             FlushStatusMsg();
         }
 

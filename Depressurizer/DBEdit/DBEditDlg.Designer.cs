@@ -94,6 +94,7 @@ namespace Depressurizer {
             this.colScraped = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colAppInfo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmdUpdateHltb = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.grpTypes.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -485,10 +486,18 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.colParent, "colParent");
             // 
+            // cmdUpdateHltb
+            // 
+            resources.ApplyResources(this.cmdUpdateHltb, "cmdUpdateHltb");
+            this.cmdUpdateHltb.Name = "cmdUpdateHltb";
+            this.cmdUpdateHltb.UseVisualStyleBackColor = true;
+            this.cmdUpdateHltb.Click += new System.EventHandler(this.cmdUpdateHltb_Click);
+            // 
             // DBEditDlg
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cmdUpdateHltb);
             this.Controls.Add(this.chkIdRange);
             this.Controls.Add(this.lblIdRangeSep);
             this.Controls.Add(this.numIdRangeMin);
@@ -589,6 +598,7 @@ namespace Depressurizer {
         private System.Windows.Forms.NumericUpDown numIdRangeMin;
         private System.Windows.Forms.Label lblIdRangeSep;
         private System.Windows.Forms.CheckBox chkIdRange;
+        private System.Windows.Forms.Button cmdUpdateHltb;
     }
 }
 

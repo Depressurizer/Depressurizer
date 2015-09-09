@@ -28,6 +28,7 @@ namespace Depressurizer {
             ttHelp.Ext_SetToolTip( hlpUpdateAppInfo, GlobalStrings.AutoMode_Help_UpdateAppInfo );
             ttHelp.Ext_SetToolTip( hlpUpdateLib, GlobalStrings.AutoMode_Help_UpdateLib );
             ttHelp.Ext_SetToolTip( hlpUpdateWeb, GlobalStrings.AutoMode_Help_UpdateWeb );
+            ttHelp.Ext_SetToolTip(hlpUpdateHltb, GlobalStrings.AutoMode_Help_UpdateHltb);
         }
 
         private string GenerateCommand() {
@@ -63,6 +64,8 @@ namespace Depressurizer {
             sb.Append( GetSwitch( "-updatedblocal", chkUpdateAppInfo.Checked, defaultOpts.UpdateAppInfo ) );
 
             sb.Append( GetSwitch( "-updatedbweb", chkUpdateWeb.Checked, defaultOpts.ScrapeUnscrapedGames ) );
+
+            sb.Append(GetSwitch("-updatedbhltb", chkUpdateHltb.Checked, defaultOpts.UpdateHltb));
 
             sb.Append( GetSwitch( "-savedb", chkSaveDB.Checked, defaultOpts.SaveDBChanges ) );
 

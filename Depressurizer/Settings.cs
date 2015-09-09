@@ -16,10 +16,8 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Threading;
-using System.Windows.Forms;
 using Rallion;
 
 namespace Depressurizer {
@@ -127,6 +125,40 @@ namespace Depressurizer {
             }
         }
 
+        private bool _updateHltbOnStart = true;
+        public bool UpdateHltbOnStart
+        {
+            get
+            {
+                return _updateHltbOnStart;
+            }
+            set
+            {
+                if (_updateHltbOnStart != value)
+                {
+                    _updateHltbOnStart = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private bool _IncludeImputedTimes = true;
+        public bool IncludeImputedTimes
+        {
+            get
+            {
+                return _IncludeImputedTimes;
+            }
+            set
+            {
+                if (_IncludeImputedTimes != value)
+                {
+                    _IncludeImputedTimes = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private bool _autosaveDB = true;
         public bool AutosaveDB {
             get {
@@ -135,6 +167,23 @@ namespace Depressurizer {
             set {
                 if( _autosaveDB != value ) {
                     _autosaveDB = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private bool _checkForDepressurizerUpdates = true;
+        public bool CheckForDepressurizerUpdates
+        {
+            get
+            {
+                return _checkForDepressurizerUpdates;
+            }
+            set
+            {
+                if (_checkForDepressurizerUpdates != value)
+                {
+                    _checkForDepressurizerUpdates = value;
                     outOfDate = true;
                 }
             }
