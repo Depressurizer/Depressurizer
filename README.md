@@ -136,6 +136,11 @@ There are currently six types of AutoCat:
  
  - **HLTB:** This lets you categorize games based on the times from http://howlongtobeat.com/ which indicate how long it takes to beat a game.
 
+#### Automatic Mode 
+
+Automatic mode lets you run a predetermined set of autocat operations on your game library through the command line or by running a shortcut, without having to use the full Depressurizer interface. You still have to use the full interface to manage the autocat rules themselves. 
+For more information check Tools->Auto Mode Helper.
+ 
 #### Definitions of Terms and Procedures
 
 When you **update** your game list, the program is updating your library of owned games. It will do this either by accessing local Steam config files or by going to your Steam Community profile site, depending on your settings. This does not alter any categories, it only adds games to your list.

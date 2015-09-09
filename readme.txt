@@ -246,6 +246,14 @@ USAGE GUIDE
 			This lets you categorize games based on the times from 
 			http://howlongtobeat.com/ which indicate how long it takes to beat a 
 			game.
+			
+	AUTOMATIC MODE
+
+			Automatic mode lets you run a predetermined set of autocat operations 
+			on your game library through the command line or by running a shortcut, 
+			without having to use the full Depressurizer interface. You still have 
+			to use the full interface to manage the autocat rules themselves. 
+			For more information check Tools->Auto Mode Helper.
 
 	DEFINITIONS OF TERMS AND PROCEDURES
 
