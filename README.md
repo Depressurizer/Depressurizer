@@ -1,5 +1,5 @@
 ### Depressurizer
-for v0.6.1.0
+for v0.6.3.0
 
 ----
 
@@ -67,6 +67,8 @@ There are a few ways to filter your game list.
 
 You can use simple category filtering, which lets you select a category and view all games in that category. You can also view all games, all "favorited" games, or all games not assigned to any category.
 
+You can right click on any of the columns titles on the gamelist to filter games based on the data displayed on the selected column.
+
 You can also use advanced filtering, which lets you view games based on combinations of categories. In order for a game to be displayed, it must match the criteria that you specify.
  - **Allowed** is indicated by a green checkmark. If any categories are Allowed, then only games that are in *at least one* of these categories will be displayed. It's not necessary to allow categories all the time: if no categories are set to allowed, then the filtering ignores this criteria.
  - **Required** is indicated by a blue circle. Only games that are in *all* Required categories are displayed.
@@ -131,6 +133,8 @@ There are currently five types of AutoCat:
  - **Release Year:** This lets you assign categories to games based on their release date. You can assign categories for individual years, decades, or half-decades.
 		
  - **User Score:** This lets you categorize games based on user recommendations on the Steam store. To use this method, you must create a set of categories to assign, and define the criteria for a game to be placed in that category. Each game will only be assigned to the category for the first rule that matches it. If a game does not match any rules, it will not be assigned to a category.
+ 
+ - **HLTB:** This lets you categorize games based on the times from http://howlongtobeat.com/ which indicate how long it takes to beat a game.
 
 #### Definitions of Terms and Procedures
 

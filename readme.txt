@@ -1,5 +1,5 @@
 Depressurizer
-for v0.6.1.0
+for v0.6.3.0
 
 SUMMARY
 
@@ -93,6 +93,9 @@ USAGE GUIDE
 		You can use simple category filtering, which lets you select a category
 		and view all games in that category. You can also view all games, all
 		"favorited" games, or all games not assigned to any category.
+		
+		You can right click on any of the columns titles on the gamelist to 
+		filter games based on the data displayed on the selected column.
 
 		You can also use advanced filtering, which lets you view games based on
 		combinations of categories. In order for a game to be displayed, it must
@@ -137,7 +140,7 @@ USAGE GUIDE
 		To modify, delete or create new AutoCats, click the "Edit AutoCats..."
 		item in the Profile menu.
 
-		There are currently five types of AutoCat:
+		There are currently six types of AutoCat:
 
 		Genre: This type autocategorizes games based on the genres it is
 		assigned in the Steam store. It has several configuration options.
@@ -237,6 +240,12 @@ USAGE GUIDE
 			Each game will only be assigned to the category for the first rule
 			that matches it. If a game does not match any rules, it will not be
 			assigned to a category.
+			
+		HLTB
+			
+			This lets you categorize games based on the times from 
+			http://howlongtobeat.com/ which indicate how long it takes to beat a 
+			game.
 
 	DEFINITIONS OF TERMS AND PROCEDURES
 
