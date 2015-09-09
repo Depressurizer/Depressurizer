@@ -40,6 +40,8 @@ namespace Depressurizer {
                     return new AutoCatConfigPanel_Year();
                 case AutoCatType.UserScore:
                     return new AutoCatConfigPanel_UserScore();
+                case AutoCatType.Hltb:
+                    return new AutoCatConfigPanel_Hltb();
                 default:
                     return null;
             }

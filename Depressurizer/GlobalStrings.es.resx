@@ -993,4 +993,16 @@ Tiempo Restante:</value>
   <data name="MainForm_NoHltbTime" xml:space="preserve">
     <value>--</value>
   </data>
+  <data name="AutoCat_Name_Hltb" xml:space="preserve">
+    <value>HLTB time</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="AutocatHltb_Help_Unknown" xml:space="preserve">
+    <value>If checked, games with no times in all 3 types will be autocategorized with the name below.
+If unchecked, games with no times will be skipped.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="String3" xml:space="preserve">
+    <value />
+  </data>
 </root>

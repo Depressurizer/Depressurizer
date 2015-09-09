@@ -79,6 +79,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HLTB time.
+        /// </summary>
+        internal static string AutoCat_Name_Hltb {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Hltb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Store Tags.
         /// </summary>
         internal static string AutoCat_Name_Tags {
@@ -129,6 +138,16 @@ namespace Depressurizer {
         internal static string AutoCatGenrePanel_Help_TagFallback {
             get {
                 return ResourceManager.GetString("AutoCatGenrePanel_Help_TagFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If checked, games with no times in all 3 types will be autocategorized with the name below.
+        ///If unchecked, games with no times will be skipped..
+        /// </summary>
+        internal static string AutocatHltb_Help_Unknown {
+            get {
+                return ResourceManager.GetString("AutocatHltb_Help_Unknown", resourceCulture);
             }
         }
         

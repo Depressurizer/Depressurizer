@@ -1195,7 +1195,7 @@ namespace Depressurizer {
                 }
             }
 
-            this.lstGames.SetObjects(displayedGames);
+            this.lstGames.Objects = displayedGames;
 
            lstGames.BuildList();
 
@@ -1210,13 +1210,16 @@ namespace Depressurizer {
         /// </summary>
         private void FillAllCategoryLists() {
 
-            lstCategories.Items.Clear();
             contextGameAddCat.Items.Clear();
             contextGameAddCat.Items.Add( contextGameAddCat_Create );
             contextGameRemCat.Items.Clear();
             lstMultiCat.Items.Clear();
 
-            if( !ProfileLoaded ) return;
+            if (!ProfileLoaded)
+            {
+                lstCategories.Items.Clear();
+                return;
+            }
 
             currentProfile.GameData.Categories.Sort();
 

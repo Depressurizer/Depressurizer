@@ -123,6 +123,12 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Tags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Hltb.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Hltb.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
+    </Compile>
     <Compile Include="AutoCat\AutoCatConfigPanel_UserScore.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -138,6 +144,7 @@
     <Compile Include="AutoCat\AutoCatFlags.cs" />
     <Compile Include="AutoCat\AutoCatGenre.cs" />
     <Compile Include="AutoCat\AutoCatTags.cs" />
+    <Compile Include="AutoCat\AutoCatHltb.cs" />
     <Compile Include="AutoCat\AutoCatUserScore.cs" />
     <Compile Include="AutoCat\AutoCatYear.cs" />
     <Compile Include="AutomaticModeForm.cs">
@@ -294,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Tags.resx">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Hltb.resx">
+      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_UserScore.resx">
       <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>

@@ -859,8 +859,9 @@ namespace Depressurizer
                 using (WebClient wc = new WebClient())
                 {
                     string json = wc.DownloadString("http://www.howlongtobeatsteam.com/api/games/library/cached/all");
-                    dynamic parsedJson = JObject.Parse(json);
-                    foreach (dynamic g in parsedJson.Games)
+                    JObject parsedJson = JObject.Parse(json);
+                    dynamic games = parsedJson.SelectToken("Games");
+                    foreach (dynamic g in games)
                     {
                         dynamic steamAppData = g.SteamAppData;
                         int id = steamAppData.SteamAppId;

@@ -15,10 +15,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
-using Rallion;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml;
 
 /* ADDING NEW AUTOCAT METHODS
@@ -66,7 +64,8 @@ namespace Depressurizer {
         Flags,
         Tags,
         Year,
-        UserScore
+        UserScore,
+        Hltb
     }
 
     public enum AutoCatResult {
@@ -168,6 +167,9 @@ namespace Depressurizer {
                 case AutoCatUserScore.TypeIdString:
                     result = AutoCatUserScore.LoadFromXmlElement( xElement );
                     break;
+                case AutoCatHltb.TypeIdString:
+                    result = AutoCatHltb.LoadFromXmlElement(xElement);
+                    break;
                 default:
                     break;
             }
@@ -186,6 +188,8 @@ namespace Depressurizer {
                     return new AutoCatYear( name );
                 case AutoCatType.UserScore:
                     return new AutoCatUserScore( name );
+                case AutoCatType.Hltb:
+                    return new AutoCatHltb( name );
                 default:
                     return null;
             }
