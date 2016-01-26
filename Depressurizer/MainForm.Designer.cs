@@ -202,6 +202,7 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.chkBrowser, "chkBrowser");
             this.chkBrowser.Name = "chkBrowser";
+            this.ttHelp.SetToolTip(this.chkBrowser, resources.GetString("chkBrowser.ToolTip"));
             this.chkBrowser.UseVisualStyleBackColor = true;
             this.chkBrowser.CheckedChanged += new System.EventHandler(this.chkBrowser_CheckedChanged);
             // 

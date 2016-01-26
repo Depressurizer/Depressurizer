@@ -2144,7 +2144,6 @@ namespace Depressurizer {
             if ((lstGames.SelectedObjects.Count > 0) && webBrowser1.Visible)
             {
                 GameInfo g = tlstGames.SelectedObjects[0];
-                FixWebBrowserRegistry();
                 webBrowser1.ScriptErrorsSuppressed = true;
                 webBrowser1.Navigate("http://store.steampowered.com/app/" + g.Id);
             }
@@ -2244,6 +2243,7 @@ namespace Depressurizer {
         {
             if (chkBrowser.CheckState == CheckState.Checked)
             {
+                FixWebBrowserRegistry();
                 splitContainer1.Panel2Collapsed = false;
                 webBrowser1.Visible = true;
             }
@@ -2371,9 +2371,14 @@ namespace Depressurizer {
 
             int value = 0;
             int version = (new WebBrowser()).Version.Major;
+
             if (version >= 8 && version <= 11)
             {
                 value = version * 1000;
+            }
+            else
+            {
+                return;
             }
 
             Microsoft.Win32.RegistryKey existingSubKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(installkey, false); // readonly key
