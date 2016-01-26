@@ -44,6 +44,7 @@ namespace Depressurizer {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.chkBrowser = new System.Windows.Forms.CheckBox();
             this.cmdSearchClear = new System.Windows.Forms.Button();
             this.lblSearchClear = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -51,8 +52,6 @@ namespace Depressurizer {
             this.helpAdvancedCategories = new System.Windows.Forms.Label();
             this.radCatAdvanced = new System.Windows.Forms.RadioButton();
             this.radCatSimple = new System.Windows.Forms.RadioButton();
-            this.lstCategories = new Depressurizer.Lib.ExtListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextCat_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Rename = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +64,7 @@ namespace Depressurizer {
             this.cmdCatRename = new System.Windows.Forms.Button();
             this.splitGame = new System.Windows.Forms.SplitContainer();
             this.grpGames = new System.Windows.Forms.GroupBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lstGames = new BrightIdeasSoftware.FastObjectListView();
             this.colGameID = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -103,6 +103,7 @@ namespace Depressurizer {
             this.contextGame_VisitStore = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.contextGame_LaunchGame = new System.Windows.Forms.ToolStripMenuItem();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.cmbAutoCatType = new System.Windows.Forms.ComboBox();
             this.chkHidden = new System.Windows.Forms.CheckBox();
             this.cmdAddCatAndAssign = new System.Windows.Forms.Button();
@@ -153,6 +154,8 @@ namespace Depressurizer {
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusMsg = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSelection = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lstCategories = new Depressurizer.Lib.ExtListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -166,6 +169,10 @@ namespace Depressurizer {
             this.splitGame.Panel2.SuspendLayout();
             this.splitGame.SuspendLayout();
             this.grpGames.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lstGames)).BeginInit();
             this.contextGame.SuspendLayout();
             this.contextGameAddCat.SuspendLayout();
@@ -181,6 +188,7 @@ namespace Depressurizer {
             // 
             // splitContainer.Panel1
             // 
+            this.splitContainer.Panel1.Controls.Add(this.chkBrowser);
             this.splitContainer.Panel1.Controls.Add(this.cmdSearchClear);
             this.splitContainer.Panel1.Controls.Add(this.lblSearchClear);
             this.splitContainer.Panel1.Controls.Add(this.txtSearch);
@@ -189,6 +197,14 @@ namespace Depressurizer {
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.splitGame);
+            // 
+            // chkBrowser
+            // 
+            resources.ApplyResources(this.chkBrowser, "chkBrowser");
+            this.chkBrowser.Name = "chkBrowser";
+            this.ttHelp.SetToolTip(this.chkBrowser, resources.GetString("chkBrowser.ToolTip"));
+            this.chkBrowser.UseVisualStyleBackColor = true;
+            this.chkBrowser.CheckedChanged += new System.EventHandler(this.chkBrowser_CheckedChanged);
             // 
             // cmdSearchClear
             // 
@@ -240,29 +256,6 @@ namespace Depressurizer {
             this.radCatSimple.TabStop = true;
             this.radCatSimple.UseVisualStyleBackColor = true;
             this.radCatSimple.CheckedChanged += new System.EventHandler(this.radCatMode_CheckedChanged);
-            // 
-            // lstCategories
-            // 
-            this.lstCategories.AllowDrop = true;
-            resources.ApplyResources(this.lstCategories, "lstCategories");
-            this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.lstCategories.ContextMenuStrip = this.contextCat;
-            this.lstCategories.FullRowSelect = true;
-            this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lstCategories.HideSelection = false;
-            this.lstCategories.Name = "lstCategories";
-            this.lstCategories.ShowGroups = false;
-            this.lstCategories.UseCompatibleStateImageBehavior = false;
-            this.lstCategories.View = System.Windows.Forms.View.Details;
-            this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
-            this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
-            this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
-            this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
-            this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
-            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
-            this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
-            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
             // 
             // contextCat
             // 
@@ -361,10 +354,24 @@ namespace Depressurizer {
             // 
             // grpGames
             // 
-            this.grpGames.Controls.Add(this.lstGames);
+            this.grpGames.Controls.Add(this.splitContainer1);
             resources.ApplyResources(this.grpGames, "grpGames");
             this.grpGames.Name = "grpGames";
             this.grpGames.TabStop = false;
+            // 
+            // splitContainer1
+            // 
+            resources.ApplyResources(this.splitContainer1, "splitContainer1");
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.lstGames);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
+            this.splitContainer1.Panel2Collapsed = true;
             // 
             // lstGames
             // 
@@ -411,6 +418,7 @@ namespace Depressurizer {
             this.lstGames.ItemsChanged += new System.EventHandler<BrightIdeasSoftware.ItemsChangedEventArgs>(this.lstGames_ItemsChanged);
             this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
+            this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
             this.lstGames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstGames_KeyDown);
             // 
@@ -670,6 +678,11 @@ namespace Depressurizer {
             this.contextGame_LaunchGame.Name = "contextGame_LaunchGame";
             resources.ApplyResources(this.contextGame_LaunchGame, "contextGame_LaunchGame");
             this.contextGame_LaunchGame.Click += new System.EventHandler(this.cmdGameLaunch_Click);
+            // 
+            // webBrowser1
+            // 
+            resources.ApplyResources(this.webBrowser1, "webBrowser1");
+            this.webBrowser1.Name = "webBrowser1";
             // 
             // cmbAutoCatType
             // 
@@ -1017,6 +1030,29 @@ namespace Depressurizer {
             this.statusSelection.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.statusSelection.Name = "statusSelection";
             // 
+            // lstCategories
+            // 
+            this.lstCategories.AllowDrop = true;
+            resources.ApplyResources(this.lstCategories, "lstCategories");
+            this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.lstCategories.ContextMenuStrip = this.contextCat;
+            this.lstCategories.FullRowSelect = true;
+            this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lstCategories.HideSelection = false;
+            this.lstCategories.Name = "lstCategories";
+            this.lstCategories.ShowGroups = false;
+            this.lstCategories.UseCompatibleStateImageBehavior = false;
+            this.lstCategories.View = System.Windows.Forms.View.Details;
+            this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
+            this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
+            this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
+            this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
+            this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
+            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
+            this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
+            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1043,6 +1079,10 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.splitGame)).EndInit();
             this.splitGame.ResumeLayout(false);
             this.grpGames.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lstGames)).EndInit();
             this.contextGame.ResumeLayout(false);
             this.contextGameAddCat.ResumeLayout(false);
@@ -1169,6 +1209,9 @@ namespace Depressurizer {
         private BrightIdeasSoftware.OLVColumn colHltbMain;
         private BrightIdeasSoftware.OLVColumn colHltbExtras;
         private BrightIdeasSoftware.OLVColumn colHltbCompletionist;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.CheckBox chkBrowser;
     }
 }
 
