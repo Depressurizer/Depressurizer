@@ -1086,6 +1086,7 @@ namespace Depressurizer {
         }
 
         #endregion
+
         #region UI Updaters
         #region Status and text updaters
 
@@ -2138,6 +2139,17 @@ namespace Depressurizer {
             UpdateGameCheckStates();
         }
 
+        private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((lstGames.SelectedObjects.Count > 0) && webBrowser1.Visible)
+            {
+                GameInfo g = tlstGames.SelectedObjects[0];
+                FixWebBrowserRegistry();
+                webBrowser1.ScriptErrorsSuppressed = true;
+                webBrowser1.Navigate("http://store.steampowered.com/app/" + g.Id);
+            }
+        }
+
         private void lstGames_ItemsChanged(object sender, ItemsChangedEventArgs e)
         {
             UpdateSelectedStatusText();
@@ -2225,6 +2237,20 @@ namespace Depressurizer {
                 } else if( chkHidden.CheckState == CheckState.Unchecked ) {
                     AssignHiddenToSelectedGames( false );
                 }
+            }
+        }
+
+        private void chkBrowser_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBrowser.CheckState == CheckState.Checked)
+            {
+                splitContainer1.Panel2Collapsed = false;
+                webBrowser1.Visible = true;
+            }
+            else if (chkBrowser.CheckState == CheckState.Unchecked)
+            {
+                splitContainer1.Panel2Collapsed = true;
+                webBrowser1.Visible = false;
             }
         }
 
@@ -2338,6 +2364,40 @@ namespace Depressurizer {
             return true;
         }
 
+        void FixWebBrowserRegistry()
+        {
+            string installkey = @"SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION";
+            string entryLabel = this.GetType().Assembly.GetName().Name + ".exe";
+
+            int value = 0;
+            int version = (new WebBrowser()).Version.Major;
+            if (version >= 8 && version <= 11)
+            {
+                value = version * 1000;
+            }
+
+            Microsoft.Win32.RegistryKey existingSubKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(installkey, false); // readonly key
+
+            if (existingSubKey.GetValue(entryLabel) == null || Convert.ToInt32(existingSubKey.GetValue(entryLabel)) != value)
+            {
+                new System.Security.Permissions.RegistryPermission(System.Security.Permissions.PermissionState.Unrestricted).Assert();
+                try
+                {
+                    existingSubKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(installkey, Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree); // writable key
+                    existingSubKey.SetValue(entryLabel, value, Microsoft.Win32.RegistryValueKind.DWord);
+                }
+                catch
+                {
+                    MessageBox.Show("Run once with Admin rights to set browser registry key.");
+                }
+                finally
+                {
+                    System.Security.Permissions.RegistryPermission.RevertAssert();
+                }
+
+            }
+        }
+
         /// <summary>
         /// Launchs selected game
         /// <param name="g">Game to launch</param>
@@ -2421,6 +2481,15 @@ namespace Depressurizer {
                 Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
                 MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message);
             }
+        }
+
+        Image GetGameImage(int id)
+        {
+            WebClient wc = new WebClient();
+            byte[] bytes = wc.DownloadData("https://steamcdn-a.akamaihd.net/steam/apps/" + id.ToString() + "/capsule_sm_120.jpg");
+            MemoryStream ms = new MemoryStream(bytes);
+            Image img = System.Drawing.Image.FromStream(ms);
+            return img;
         }
 
 
