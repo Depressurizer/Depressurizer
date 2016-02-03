@@ -29,6 +29,8 @@ using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Newtonsoft.Json.Linq;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace Depressurizer {
 
@@ -39,7 +41,7 @@ namespace Depressurizer {
         Exclude = 2
     }
 
-    public partial class FormMain : Form {
+    public partial class FormMain : MaterialForm {
         #region Fields
 
         #region Constants
@@ -58,10 +60,28 @@ namespace Depressurizer {
         bool isDragging;
         int dragOldCat;
 
-        bool ignoreCheckChanges = false;
-
         // Used to reload resources of main form while switching language
         private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary;
+
+        private readonly MaterialSkinManager materialSkinManager;
+
+        Color highlightCellColor = Color.FromArgb(255, 25, 55, 84);
+        Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
+        Color headerCellColor = Color.FromArgb(255, 58, 58, 58);
+        Color headerFontColor = Color.FromArgb(255, 169, 167, 167);
+        Color textColor = Color.FromArgb(255, 255, 255, 255);
+        Color borderColor = Color.FromArgb(255, 25, 28, 38);
+        Color formColor = Color.FromArgb(255, 42, 42, 44);
+        Color menuColorDark = Color.FromArgb(255, 38, 50, 56);
+        Color menuColorLight = Color.FromArgb(255, 55, 71, 79);
+        Color menuPrimaryText = Color.FromArgb(255, 168, 173, 175);
+        Color menuHighlightText = Color.FromArgb(255, 255, 255, 234);
+        Color primary = Color.FromArgb(255, 55, 71, 79);
+        Color primaryDark = Color.FromArgb(255, 38, 50, 56);
+        Color primaryLight = Color.FromArgb(255, 96, 125, 139);
+        Color accent = Color.FromArgb(255, 0, 145, 234);
+        Color listBackground = Color.FromArgb(255, 22, 22, 22);
+
 
         #region Filter caching fields
         object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
@@ -91,7 +111,7 @@ namespace Depressurizer {
         }
 
         private bool AdvancedCategoryFilter {
-            get { return radCatAdvanced.Checked; }
+            get { return mchkAdvancedCategories.Checked; }
         }
 
         #endregion
@@ -101,7 +121,44 @@ namespace Depressurizer {
         public FormMain() {
             InitializeComponent();
 
+            menuStrip.Renderer = new MyRenderer();
+            menu_Tools_Autocat_List.Renderer = new MyRenderer();
+            contextCat.Renderer = new MyRenderer();
+            contextGame.Renderer = new MyRenderer();
+            contextGameFav.Renderer = new MyRenderer();
+            contextGameHidden.Renderer = new MyRenderer();
+            contextGameAddCat.Renderer = new MyRenderer();
+            contextGameRemCat.Renderer = new MyRenderer();
+
+            // Initialize MaterialSkinManager
+            materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue700, TextShade.WHITE);
+
+            lstCategories.BackColor = formColor;
+            lstCategories.ForeColor = textColor;
+            
+
             InitializeLstGames();
+        }
+
+        private void InitializeObjectListView()
+        {
+
+            this.lstGames.HeaderFormatStyle = new HeaderFormatStyle();
+            this.lstGames.HeaderFormatStyle.SetBackColor(primaryDark);
+            this.lstGames.HeaderFormatStyle.SetForeColor(headerFontColor);
+            this.lstGames.HeaderFormatStyle.SetFont(new Font("Arial", 10, FontStyle.Bold));
+            this.lstGames.HeaderFormatStyle.Normal.FrameColor = headerFontColor;
+            this.lstGames.ForeColor = textColor;
+            this.lstGames.BackColor = formColor;
+            this.lstGames.SelectedForeColor = textColor;
+            this.lstGames.SelectedBackColor = accent;
+            this.lstGames.UnfocusedSelectedForeColor = textColor;
+            this.lstGames.UnfocusedSelectedBackColor = listBackground;
+            this.lstGames.Font = new Font("Arial", 10);
+
         }
 
         /// <summary>
@@ -112,11 +169,13 @@ namespace Depressurizer {
             tlstGames = new TypedObjectListView<GameInfo>(this.lstGames);
             //Aspect Getters
             tlstGames.GenerateAspectGetters();
-            colGameID.AspectToStringConverter = delegate(object obj)
-            {
-                int id = (int)obj;
-                return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
-            };
+            colGameID.AspectToStringConverter = delegate (Object g) { return String.Empty; };
+            //colGameID.AspectToStringConverter = delegate(object obj)
+            //{
+            //    int id = (int)obj;
+            //    return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
+            //};
+            //colTitle.AspectGetter = delegate (Object g) { return String.Empty; };
             colCategories.AspectGetter = delegate(Object g) { return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized); };
             colFavorite.AspectGetter = delegate(Object g) { return ((GameInfo)g).IsFavorite() ? "X" : String.Empty; };
             colHidden.AspectGetter = delegate(Object g) { return ((GameInfo)g).Hidden ? "X" : String.Empty; };
@@ -294,7 +353,9 @@ namespace Depressurizer {
         }
 
         private void FormMain_Load( object sender, EventArgs e ) {
-            ttHelp.Ext_SetToolTip( helpAdvancedCategories, GlobalStrings.MainForm_Help_AdvancedCategories );
+            ttHelp.Ext_SetToolTip( mlblHelp, GlobalStrings.MainForm_Help_AdvancedCategories );
+
+            InitializeObjectListView();
 
             LoadGameDB();
 
@@ -1235,7 +1296,7 @@ namespace Depressurizer {
             FillCategoryList();
 
             lstMultiCat.BeginUpdate();
-            foreach( Category c in currentProfile.GameData.Categories ) {
+            foreach ( Category c in currentProfile.GameData.Categories ) {
                 if( c != currentProfile.GameData.FavoriteCategory ) {
                     ToolStripItem item = contextGame_AddCat.DropDownItems.Add( c.Name );
                     item.Tag = c;
@@ -1248,12 +1309,13 @@ namespace Depressurizer {
                     ListViewItem listItem = new ListViewItem( c.Name );
                     listItem.Tag = c;
                     listItem.StateImageIndex = 0;
-                    lstMultiCat.Items.Add( listItem );
+                    lstMultiCat.Items.Add(listItem);
                 }
             }
 
             UpdateGameCheckStates();
             lstMultiCat.EndUpdate();
+
         }
 
         /// <summary>
@@ -1262,6 +1324,7 @@ namespace Depressurizer {
         /// </summary>
         private void FillCategoryList()
         {
+
             object selected = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedItems[0].Tag : null;
             int selectedIndex = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedIndices[0] : -1;
 
@@ -1326,6 +1389,7 @@ namespace Depressurizer {
                 }
             }
             lstCategories.EndUpdate();
+
         }
 
         private ListViewItem CreateCategoryListViewItem( Category c ) {
@@ -1335,22 +1399,26 @@ namespace Depressurizer {
         }
 
         void UpdateGameCheckStates() {
+
             lstMultiCat.BeginUpdate();
             bool first = true;
-            foreach( ListViewItem item in lstMultiCat.Items ) {
+            foreach (ListViewItem item in lstMultiCat.Items)
+            {
                 item.StateImageIndex = 0;
             }
 
             if (lstGames.SelectedObjects.Count == 0)
             {
-                lstMultiCat.Enabled = false;
-            } else {
-                lstMultiCat.Enabled = true;
+                splitGame.Panel2Collapsed = true;
+            }
+            else {
+                splitGame.Panel2Collapsed = false;
                 foreach (GameInfo game in tlstGames.SelectedObjects)
                 {
-                    if( game != null ) {
-                        AddGameToMultiCatCheckStates( game, first );
-                        AddGameToCheckboxStates( game, first );
+                    if (game != null)
+                    {
+                        AddGameToMultiCatCheckStates(game, first);
+                        //AddGameToCheckboxStates(game, first);
                         first = false;
                     }
                 }
@@ -1358,18 +1426,51 @@ namespace Depressurizer {
             lstMultiCat.EndUpdate();
         }
 
-        void AddGameToMultiCatCheckStates( GameInfo game, bool first ) {
-            foreach( ListViewItem catItem in lstMultiCat.Items ) {
-                if( catItem.StateImageIndex != 2 ) {
+        void AddGameToMultiCatCheckStates( GameInfo game, bool first )
+        {
+            foreach( ListViewItem catItem in lstMultiCat.Items )
+            {
+                if( catItem.StateImageIndex != 2 )
+                {
                     Category cat = catItem.Tag as Category;
-                    if( cat != null ) {
-                        if( first ) {
+                    if( cat != null )
+                    {
+                        if( first )
+                        {
                             catItem.StateImageIndex = game.ContainsCategory( cat ) ? 1 : 0;
-                        } else {
-                            if( game.ContainsCategory( cat ) ) {
+                        } else
+                        {
+                            if( game.ContainsCategory( cat ) )
+                            {
                                 if( catItem.StateImageIndex == 0 ) catItem.StateImageIndex = 2;
-                            } else {
+                            } else
+                            {
                                 if( catItem.StateImageIndex == 1 ) catItem.StateImageIndex = 2;
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (ListViewItem catItem in lstMultiCat.Items)
+            {
+                if (catItem.StateImageIndex != 2)
+                {
+                    Category cat = catItem.Tag as Category;
+                    if (cat != null)
+                    {
+                        if (first)
+                        {
+                            catItem.StateImageIndex = game.ContainsCategory(cat) ? 1 : 0;
+                        }
+                        else
+                        {
+                            if (game.ContainsCategory(cat))
+                            {
+                                if (catItem.StateImageIndex == 0) catItem.StateImageIndex = 2;
+                            }
+                            else
+                            {
+                                if (catItem.StateImageIndex == 1) catItem.StateImageIndex = 2;
                             }
                         }
                     }
@@ -1377,33 +1478,34 @@ namespace Depressurizer {
             }
         }
 
-        void AddGameToCheckboxStates( GameInfo game, bool first ) {
-            ignoreCheckChanges = true;
-            if( first ) {
-                chkFavorite.CheckState = game.IsFavorite() ? CheckState.Checked : CheckState.Unchecked;
-                chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
-            } else {
-                if( chkFavorite.CheckState != CheckState.Indeterminate ) {
-                    if( game.IsFavorite() ) {
-                        if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
-                    } else {
-                        if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
-                    }
-                }
-                if( game.Hidden ) {
-                    if( chkHidden.CheckState == CheckState.Unchecked ) chkHidden.CheckState = CheckState.Indeterminate;
-                } else {
-                    if( chkHidden.CheckState == CheckState.Checked ) chkHidden.CheckState = CheckState.Indeterminate;
-                }
-            }
-            ignoreCheckChanges = false;
-        }
+        //void AddGameToCheckboxStates( GameInfo game, bool first ) {
+        //    ignoreCheckChanges = true;
+        //    if( first ) {
+        //        chkFavorite.CheckState = game.IsFavorite() ? CheckState.Checked : CheckState.Unchecked;
+        //        chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
+        //    } else {
+        //        if( chkFavorite.CheckState != CheckState.Indeterminate ) {
+        //            if( game.IsFavorite() ) {
+        //                if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
+        //            } else {
+        //                if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
+        //            }
+        //        }
+        //        if( game.Hidden ) {
+        //            if( chkHidden.CheckState == CheckState.Unchecked ) chkHidden.CheckState = CheckState.Indeterminate;
+        //        } else {
+        //            if( chkHidden.CheckState == CheckState.Checked ) chkHidden.CheckState = CheckState.Indeterminate;
+        //        }
+        //    }
+        //    ignoreCheckChanges = false;
+        //}
 
         /// <summary>
         /// Updates list item for every game on the list, removing games that no longer need to be there, but not adding new ones.
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         void UpdateGameList() {
+
             SortedSet<int> selectedIds = GetSelectedGameIds();
 
             displayedGames.RemoveAll( ShouldHideGame );
@@ -1411,6 +1513,7 @@ namespace Depressurizer {
             lstGames.BuildList();
 
             SelectGameSet(selectedIds);
+
         }
 
         private SortedSet<int> GetSelectedGameIds()
@@ -1490,11 +1593,10 @@ namespace Depressurizer {
             menu_Profile_Edit.Enabled = enable;
             menu_Profile_AutoCats.Enabled = enable;
 
-            cmdCatAdd.Enabled = enable;
-            cmdCatDelete.Enabled = enable;
-            cmdCatRename.Enabled = enable;
+            mbtnCatAdd.Enabled = enable;
+            mbtnCatDelete.Enabled = enable;
+            mbtnCatRename.Enabled = enable;
 
-            cmdGameAdd.Enabled = enable;
             contextGame_Add.Enabled = enable;
 
 
@@ -1511,7 +1613,7 @@ namespace Depressurizer {
             bool gamesSelected = lstGames.SelectedObjects.Count > 0;
 
             foreach( Control c in splitGame.Panel2.Controls ) {
-                if( !( c == cmdGameAdd || c == cmbAutoCatType ) ) {
+                if( !( c == cmbAutoCatType ) ) {
                     c.Enabled = gamesSelected;
                 }
             }
@@ -1527,9 +1629,9 @@ namespace Depressurizer {
                     c = null;
                 }
             }
-            cmdCatDelete.Enabled = c != null;
+            mbtnCatDelete.Enabled = c != null;
             c = ( lstCategories.SelectedItems.Count > 0 ) ? lstCategories.SelectedItems[0].Tag as Category : null;
-            cmdCatRename.Enabled = c != null && !( currentProfile != null && c == currentProfile.GameData.FavoriteCategory );
+            mbtnCatRename.Enabled = c != null && !( currentProfile != null && c == currentProfile.GameData.FavoriteCategory );
         }
 
         /// <summary>
@@ -1544,6 +1646,7 @@ namespace Depressurizer {
         #endregion
 
         private void SetAdvancedMode( bool enabled ) {
+            Cursor.Current = Cursors.WaitCursor;
             if( enabled ) {
                 lstCategories.StateImageList = imglistFilter;
                 advFilterAllow.Clear();
@@ -1556,6 +1659,7 @@ namespace Depressurizer {
             }
             FillAllCategoryLists();
             OnViewChange();
+            Cursor.Current = Cursors.Default;
         }
         #endregion
 
@@ -1908,6 +2012,20 @@ namespace Depressurizer {
             FlushStatus();
         }
 
+        private void contextGameHidden_Yes_Click(object sender, EventArgs e)
+        {
+            ClearStatus();
+            AssignHiddenToSelectedGames(true);
+            FlushStatus();
+        }
+
+        private void contextGameHidden_No_Click(object sender, EventArgs e)
+        {
+            ClearStatus();
+            AssignHiddenToSelectedGames(false);
+            FlushStatus();
+        }
+
         private void contextGameAddCat_Create_Click( object sender, EventArgs e ) {
             Category c = CreateCategory();
             if( c != null ) {
@@ -1948,29 +2066,40 @@ namespace Depressurizer {
 
         #region Buttons
 
-        private void cmdCatAdd_Click( object sender, EventArgs e ) {
+        private void mbtnCatAdd_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
             ClearStatus();
             CreateCategory();
             FlushStatus();
+            Cursor.Current = Cursors.Default;
         }
 
-        private void cmdCatRename_Click( object sender, EventArgs e ) {
+        private void mbtnCatRename_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
             ClearStatus();
             RenameCategory();
             FlushStatus();
+            Cursor.Current = Cursors.Default;
         }
 
-        private void cmdCatDelete_Click( object sender, EventArgs e ) {
+        private void mbtnCatDelete_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
             ClearStatus();
             DeleteCategory();
             FlushStatus();
+            Cursor.Current = Cursors.Default;
         }
 
-        private void cmdAutoCat_Click( object sender, EventArgs e ) {
+        private void mbtnAutoCategorize_Click(object sender, EventArgs e)
+        {
             AutoCat ac = cmbAutoCatType.SelectedItem as AutoCat;
-            if( ac != null ) {
+            if (ac != null)
+            {
                 ClearStatus();
-                Autocategorize( true, ac );
+                Autocategorize(true, ac);
                 FlushStatus();
             }
         }
@@ -2178,6 +2307,44 @@ namespace Depressurizer {
             FlushStatus();
         }
 
+        private void lstGames_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
+        {
+            //if (e.ColumnIndex == 2)
+            //    e.SubItem.ForeColor = primaryCellColor;
+            //else
+            //e.SubItem.ForeColor = primaryCellColor;
+
+            if (e.ColumnIndex != 0)
+                return;
+
+            // Setup album artwork column
+            GameInfo g = (GameInfo)e.Model;
+            Image gameBanner = GetGameImage(g.Id);
+            //Image gameBanner = null;
+            ImageDecoration decoration = new ImageDecoration(gameBanner);
+            decoration.ShrinkToWidth = true;
+            decoration.AdornmentCorner = ContentAlignment.TopLeft;
+            decoration.ReferenceCorner = ContentAlignment.TopLeft;
+            decoration.Transparency = 255;
+            e.SubItem.Decoration = decoration;
+            //albumImageDecorations[song.Album] = new ForwardingDecoration(e.Item, e.SubItem, decoration);
+
+            TextDecoration td = new TextDecoration(g.Id.ToString(), ContentAlignment.BottomLeft);
+            td.Font = new Font(this.lstGames.Font.Name, 8);
+            td.Wrap = false;
+
+            td.TextColor = textColor;
+            td.BackColor = listBackground;
+            td.CornerRounding = 4;
+            td.Transparency = 200;
+
+            //td.BackColor = otherCellColor;
+            //td.TextColor = Color.FromArgb(255, 16, 16, 16);
+            //td.CornerRounding = 0;
+
+            e.SubItem.Decorations.Add(td);
+        }
+
         private void lstMultiCat_MouseDown( object sender, MouseEventArgs e ) {
             ListViewItem i = lstMultiCat.GetItemAt( e.X, e.Y );
             HandleMultiCatItemActivation( i, Control.ModifierKeys == Keys.Shift );
@@ -2212,59 +2379,33 @@ namespace Depressurizer {
 
         #endregion
 
-        private void radCatMode_CheckedChanged( object sender, EventArgs e ) {
-            RadioButton snd = sender as RadioButton;
-            if( snd != null && snd.Checked ) {
-                SetAdvancedMode( snd == radCatAdvanced );
-            }
-        }
+        //private void chkFavorite_CheckedChanged( object sender, EventArgs e ) {
+        //    if( !ignoreCheckChanges ) {
+        //        if( chkFavorite.CheckState == CheckState.Checked ) {
+        //            AddCategoryToSelectedGames( currentProfile.GameData.FavoriteCategory, false, false );
+        //        } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
+        //            RemoveCategoryFromSelectedGames( currentProfile.GameData.FavoriteCategory );
+        //        }
+        //    }
+        //}
 
-        private void chkFavorite_CheckedChanged( object sender, EventArgs e ) {
-            if( !ignoreCheckChanges ) {
-                if( chkFavorite.CheckState == CheckState.Checked ) {
-                    AddCategoryToSelectedGames( currentProfile.GameData.FavoriteCategory, false, false );
-                } else if( chkFavorite.CheckState == CheckState.Unchecked ) {
-                    RemoveCategoryFromSelectedGames( currentProfile.GameData.FavoriteCategory );
-                }
-            }
-        }
+        //private void chkHidden_CheckedChanged( object sender, EventArgs e ) {
+        //    if( !ignoreCheckChanges ) {
+        //        if( chkHidden.CheckState == CheckState.Checked ) {
+        //            AssignHiddenToSelectedGames( true );
+        //        } else if( chkHidden.CheckState == CheckState.Unchecked ) {
+        //            AssignHiddenToSelectedGames( false );
+        //        }
+        //    }
+        //}
 
-        private void chkHidden_CheckedChanged( object sender, EventArgs e ) {
-            if( !ignoreCheckChanges ) {
-                if( chkHidden.CheckState == CheckState.Checked ) {
-                    AssignHiddenToSelectedGames( true );
-                } else if( chkHidden.CheckState == CheckState.Unchecked ) {
-                    AssignHiddenToSelectedGames( false );
-                }
-            }
-        }
-
-        private void chkBrowser_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkBrowser.CheckState == CheckState.Checked)
-            {
-                FixWebBrowserRegistry();
-                splitContainer1.Panel2Collapsed = false;
-                webBrowser1.Visible = true;
-            }
-            else if (chkBrowser.CheckState == CheckState.Unchecked)
-            {
-                splitContainer1.Panel2Collapsed = true;
-                webBrowser1.Visible = false;
-            }
-        }
-
-        private void txtSearch_TextChanged( object sender, EventArgs e ) {
-            if( txtSearch.Text.IndexOf( lastFilterString, StringComparison.CurrentCultureIgnoreCase ) == -1 ) {
+        private void mtxtSearch_TextChanged( object sender, EventArgs e ) {
+            if( mtxtSearch.Text.IndexOf( lastFilterString, StringComparison.CurrentCultureIgnoreCase ) == -1 ) {
                 FillGameList();
             } else {
                 UpdateGameList();
             }
-            lastFilterString = txtSearch.Text;
-        }
-
-        private void cmdSearchClear_Click( object sender, EventArgs e ) {
-            txtSearch.Clear();
+            lastFilterString = mtxtSearch.Text;
         }
 
         #endregion
@@ -2304,7 +2445,7 @@ namespace Depressurizer {
         /// <returns>True if it should be displayed, false otherwise</returns>
         bool ShouldDisplayGame( GameInfo g ) {
             if( currentProfile == null ) return false;
-            if( txtSearch.Text != string.Empty && g.Name.IndexOf( txtSearch.Text, StringComparison.CurrentCultureIgnoreCase ) == -1 ) return false;
+            if( mtxtSearch.Text != string.Empty && g.Name.IndexOf( mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase ) == -1 ) return false;
             if( !currentProfile.GameData.Games.ContainsKey( g.Id ) ) return false;
             if( g.Id < 0 && !currentProfile.IncludeShortcuts ) return false;
 
@@ -2424,6 +2565,12 @@ namespace Depressurizer {
             }
         }
 
+        private void grpGames_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
         /// <summary>
         /// Checks to see if a category name is valid. Does not make sure it isn't already in use. If the name is not valid, displays a warning.
         /// </summary>
@@ -2436,6 +2583,32 @@ namespace Depressurizer {
             } else {
                 return true;
             }
+        }
+
+        private void mbtnSearchClear_Click(object sender, EventArgs e)
+        {
+            mtxtSearch.Clear();
+        }
+
+        private void mchkBrowser_CheckedChanged(object sender, EventArgs e)
+        {
+            if (mchkBrowser.CheckState == CheckState.Checked)
+            {
+                FixWebBrowserRegistry();
+                splitContainer1.Panel2Collapsed = false;
+                webBrowser1.Visible = true;
+                lstGames_SelectedIndexChanged(null, null);
+            }
+            else if (mchkBrowser.CheckState == CheckState.Unchecked)
+            {
+                splitContainer1.Panel2Collapsed = true;
+                webBrowser1.Visible = false;
+            }
+        }
+
+        private void mchkAdvancedCategories_CheckedChanged(object sender, EventArgs e)
+        {
+            SetAdvancedMode(mchkAdvancedCategories.Checked);
         }
 
         /// <summary>
@@ -2490,18 +2663,104 @@ namespace Depressurizer {
 
         Image GetGameImage(int id)
         {
-            WebClient wc = new WebClient();
-            byte[] bytes = wc.DownloadData("https://steamcdn-a.akamaihd.net/steam/apps/" + id.ToString() + "/capsule_sm_120.jpg");
-            MemoryStream ms = new MemoryStream(bytes);
-            Image img = System.Drawing.Image.FromStream(ms);
-            return img;
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.CacheIfAvailable);
+                byte[] bytes = wc.DownloadData("https://steamcdn-a.akamaihd.net/steam/apps/" + id.ToString() + "/capsule_sm_120.jpg");
+                MemoryStream ms = new MemoryStream(bytes);
+                Image img = System.Drawing.Image.FromStream(ms);
+                return img;
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
+                return null;
+            }
         }
 
-
         #endregion
+
+        public class MyRenderer : ToolStripRenderer
+        {
+            protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
+            {
+                Rectangle rc = new Rectangle(Point.Empty, e.Item.Size);
+                Color colorText = e.Item.Selected ? Color.FromArgb(255, 255, 255) : Color.FromArgb(169, 167, 167);
+                Color colorItem = Color.FromArgb(38, 50, 56);
+                using (SolidBrush brush = new SolidBrush(colorItem))
+                    e.Graphics.FillRectangle(brush, rc);
+                e.Item.ForeColor = colorText;
+            }
+
+            protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
+            {
+                Brush bLight = new SolidBrush(Color.FromArgb(157, 168, 157));
+
+                if (!e.Vertical)
+                {
+                    Rectangle r3;
+                    if (e.Item.IsOnDropDown)
+                    {
+                        r3 = new Rectangle(0, 3, e.Item.Width, 2);
+                        e.Graphics.FillRectangle(bLight, r3);
+                    }
+
+                }
+
+                base.OnRenderSeparator(e);
+            }
+
+            protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
+            {
+                // Don't clear and fill the background if we already painted an image there
+                //if (e.ToolStrip.BackgroundImage != null)
+                //{
+                //    if (e.ToolStrip is StatusStrip)
+                //        e.Graphics.DrawLine(Pens.White, e.AffectedBounds.Left, e.AffectedBounds.Top, e.AffectedBounds.Right, e.AffectedBounds.Top);
+
+                //    return;
+                //}
+
+                if (e.ToolStrip is ToolStripDropDown)
+                {
+                    e.Graphics.Clear(Color.FromArgb(66, 66, 66));
+                    return;
+                }
+
+                base.OnRenderToolStripBackground(e);
+            }
+
+            protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+            {
+
+                if (e.ToolStrip is ToolStripDropDown)
+                {
+                    Pen p = new Pen(Color.FromArgb(41, 42, 46));
+                    if (e.ToolStrip is ToolStripOverflow)
+                        e.Graphics.DrawLines(p, new Point[] { e.AffectedBounds.Location, new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1), new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1), new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top), new Point(e.AffectedBounds.Left, e.AffectedBounds.Top) });
+                    else
+                        e.Graphics.DrawLines(p, new Point[] { new Point(e.AffectedBounds.Left + e.ConnectedArea.Left, e.AffectedBounds.Top), e.AffectedBounds.Location, new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1), new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1), new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top), new Point(e.AffectedBounds.Left + e.ConnectedArea.Right, e.AffectedBounds.Top) });
+                    return;
+                }
+
+                if (e.ToolStrip is MenuStrip || e.ToolStrip is StatusStrip)
+                    return;
+
+                using (Pen p = new Pen(Color.FromArgb(41, 42, 46)))
+                {
+                        e.Graphics.DrawLine(p, new Point(e.ToolStrip.Left, e.ToolStrip.Bottom - 1), new Point(e.ToolStrip.Width, e.ToolStrip.Bottom - 1));
+                }
+
+                base.OnRenderToolStripBorder(e);
+            }
+
+        }
 
         private void autoModeHelperToolStripMenuItem_Click( object sender, EventArgs e ) {
             (new DlgAutomaticModeHelper(currentProfile)).ShowDialog();
         }
     }
+
+
 }

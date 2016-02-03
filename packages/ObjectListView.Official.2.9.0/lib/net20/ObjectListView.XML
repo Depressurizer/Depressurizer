@@ -223,6 +223,12 @@
             </summary>
             <param name="e"></param>
         </member>
+        <member name="M:BrightIdeasSoftware.ObjectListView.OnButtonClick(BrightIdeasSoftware.CellClickEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.OnCanDrop(BrightIdeasSoftware.OlvDropEventArgs)">
             <summary>
             
@@ -406,6 +412,11 @@
             Tell the world when a cell is about to finish being edited.
             </summary>
         </member>
+        <member name="M:BrightIdeasSoftware.ObjectListView.OnCellEditFinished(BrightIdeasSoftware.CellEditEventArgs)">
+            <summary>
+            Tell the world when a cell has finished being edited.
+            </summary>
+        </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.#ctor">
             <summary>
             Create an ObjectListView
@@ -523,6 +534,12 @@
             have a width of 0 or -1 will be resized to the width of their 
             contents or header respectively).
             </summary>
+            <remarks>
+            Obviously, this will only work once. Once it runs, the columns widths will
+            be changed to something else (other than 0 or -1), so it wont do anything the 
+            second time through. Use <see cref="M:BrightIdeasSoftware.ObjectListView.AutoResizeColumns"/> to force all columns
+            to change their size.
+            </remarks>
         </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.BuildGroups">
             <summary>
@@ -659,15 +676,6 @@
             <summary>
             Deselect all rows in the listview
             </summary>
-        </member>
-        <member name="M:BrightIdeasSoftware.ObjectListView.EnableCustomSelectionColors">
-            <summary>
-            Setup the list so it will draw selected rows using custom colours.
-            </summary>
-            <remarks>
-            This method makes the list owner drawn, and ensures that all columns have at
-            least a BaseRender installed.
-            </remarks>
         </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.GetNextItem(BrightIdeasSoftware.OLVListItem)">
             <summary>
@@ -1000,7 +1008,7 @@
         </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.HandleApplicationIdleResizeColumns(System.Object,System.EventArgs)">
             <summary>
-            The application is idle. Trigger a SelectionChanged event.
+            The application is idle. Handle the column resizing event.
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
@@ -1132,6 +1140,21 @@
             </summary>
             <param name="m"></param>
             <returns>True if the msg has been handled</returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.ObjectListView.ToggleSelectedRowCheckBoxes">
+            <summary>
+            Toggle the checkedness of the selected rows
+            </summary>
+            <remarks>
+            <para>
+            Actually, this doesn't actually toggle all rows. It toggles the first row, and
+            all other rows get the check state of that first row. This is actually a much
+            more useful behaviour.
+            </para>
+            <para>
+            If no rows are selected, this method does nothing.
+            </para>
+            </remarks>
         </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.HandleLButtonDown(System.Windows.Forms.Message@)">
             <summary>
@@ -1950,6 +1973,14 @@
             <param name="displayIndex"></param>
             <param name="olvi"></param>
         </member>
+        <member name="M:BrightIdeasSoftware.ObjectListView.TriggerFormatCellEvents(System.Int32,System.Int32,BrightIdeasSoftware.OLVListItem)">
+            <summary>
+            Trigger FormatCell events for the given item
+            </summary>
+            <param name="rowIndex"></param>
+            <param name="displayIndex"></param>
+            <param name="olvi"></param>
+        </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.Reset">
             <summary>
             Make the list forget everything -- all rows and all columns
@@ -2355,13 +2386,12 @@
             <param name="hitLocation"></param>
             <param name="olvi"></param>
         </member>
-        <member name="M:BrightIdeasSoftware.ObjectListView.ApplyRowStyle(BrightIdeasSoftware.OLVListItem,BrightIdeasSoftware.IItemStyle,System.Boolean)">
+        <member name="M:BrightIdeasSoftware.ObjectListView.ApplyRowStyle(BrightIdeasSoftware.OLVListItem,BrightIdeasSoftware.IItemStyle)">
             <summary>
             Apply a style to the given row
             </summary>
             <param name="olvi"></param>
             <param name="style"></param>
-            <param name="primaryColumnOnly"></param>
         </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.ApplyCellStyle(BrightIdeasSoftware.OLVListItem,System.Int32,BrightIdeasSoftware.IItemStyle)">
             <summary>
@@ -2530,6 +2560,11 @@
             When some setting related to filtering changes, this method is called.
             </summary>
         </member>
+        <member name="M:BrightIdeasSoftware.ObjectListView.NotifyNewModelFilter">
+            <summary>
+            Update all renderers with the currently installed model filter
+            </summary>
+        </member>
         <member name="M:BrightIdeasSoftware.ObjectListView.GetPersistentCheckState(System.Object)">
             <summary>
             Gets the checkedness of the given model.
@@ -2600,6 +2635,11 @@
             groups are created within the listview.
             </remarks>
         </member>
+        <member name="E:BrightIdeasSoftware.ObjectListView.ButtonClick">
+            <summary>
+            Triggered when a button in a cell is left clicked.
+            </summary>
+        </member>
         <member name="E:BrightIdeasSoftware.ObjectListView.CanDrop">
             <summary>
             This event is triggered when the user moves a drag over an ObjectListView that
@@ -2610,6 +2650,11 @@
             InfoMsg property. They can also change any of the DropTarget* setttings to change
             the target of the drop.
             </remarks>
+        </member>
+        <member name="E:BrightIdeasSoftware.ObjectListView.CellEditFinished">
+            <summary>
+            Triggered when a cell has finished being edited.
+            </summary>
         </member>
         <member name="E:BrightIdeasSoftware.ObjectListView.CellEditFinishing">
             <summary>
@@ -2785,6 +2830,11 @@
             This event is triggered when the contents of the ObjectListView has scrolled.
             </summary>
         </member>
+        <member name="P:BrightIdeasSoftware.ObjectListView.IsLeftMouseDown">
+            <summary>
+            Gets whether or not the left mouse button is down at this very instant
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.IsVistaOrLater">
             <summary>
             Gets whether the program running on Vista or later?
@@ -2842,6 +2892,11 @@
         <member name="P:BrightIdeasSoftware.ObjectListView.DefaultDisabledItemStyle">
             <summary>
             Gets the style that will be used by default to format disabled rows
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.ObjectListView.DefaultHotItemStyle">
+            <summary>
+            Gets the style that will be used by default to format hot rows
             </summary>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.AdditionalFilter">
@@ -2903,6 +2958,25 @@
             None means that the listview cannot be edited.
             </summary>
             <remarks>Columns can also be marked as editable.</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.ObjectListView.CellEditUseWholeCell">
+            <summary>
+            When a cell is edited, should the whole cell be used (minus any space used by checkbox or image)?
+            Defaults to true.
+            </summary>
+            <remarks>
+            <para>This is always treated as true when the control is NOT owner drawn.</para>
+            <para>
+            When this is false and the control is owner drawn, 
+            ObjectListView will try to calculate the width of the cell's
+            actual contents, and then size the editing control to be just the right width. If this is true,
+            the whole width of the cell will be used, regardless of the cell's contents.
+            </para>
+            <para>Each column can have a different value for property. This value from the control is only
+            used when a column is not specified one way or another.</para>
+            <para>Regardless of this setting, developers can specify the exact size of the editing control
+            by listening for the CellEditStarting event.</para>
+            </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.CellEditKeyEngine">
             <summary>
@@ -3067,7 +3141,7 @@
             When owner drawing, this renderer will draw columns that do not have specific renderer
             given to them
             </summary>
-            <remarks>If you try to set this to null, it will revert to a BaseRenderer</remarks>
+            <remarks>If you try to set this to null, it will revert to a HighlightTextRenderer</remarks>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.DisabledItemStyle">
             <summary>
@@ -3144,6 +3218,20 @@
             Gets or sets the strategy object that will be used to build the Filter menu
             </summary>
             <remarks>If this is null, no filter menu will be built.</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.ObjectListView.FocusedObject">
+            <summary>
+            Gets or sets the row that has keyboard focus
+            </summary>
+            <remarks>
+            <para>
+            Setting an object to be focused does *not* select it. If you want to select and focus a row,
+            use <see cref="P:BrightIdeasSoftware.ObjectListView.SelectedObject"/>.
+            </para>
+            <para>
+            This property is not generally used and is only useful in specialized situations.
+            </para>
+            </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.Groups">
             <summary>
@@ -3240,6 +3328,11 @@
             Gets or sets the maximum height of the header. -1 means no maximum.
             </summary>
         </member>
+        <member name="P:BrightIdeasSoftware.ObjectListView.HeaderMinimumHeight">
+            <summary>
+            Gets or sets the minimum height of the header. -1 means no minimum.
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.HeaderUsesThemes">
             <summary>
             Gets or sets whether the header will be drawn strictly according to the OS's theme. 
@@ -3312,35 +3405,40 @@
             <summary>
             What sort of formatting should be applied to the row under the cursor?
             </summary>
-            <remarks>This only takes effect when UseHotItem is true.</remarks>
+            <remarks>
+            <para>
+            This only takes effect when UseHotItem is true.
+            </para>
+            <para>If the style has an overlay, it must be set
+            *before* assigning it to this property. Adding it afterwards will be ignored. </para>
+            </remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.ObjectListView.HotItemStyleOrDefault">
+            <summary>
+            Gets the installed hot item style or a reasonable default.
+            </summary>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.HyperlinkStyle">
             <summary>
             What sort of formatting should be applied to hyperlinks?
             </summary>
         </member>
-        <member name="P:BrightIdeasSoftware.ObjectListView.HighlightBackgroundColor">
+        <member name="P:BrightIdeasSoftware.ObjectListView.SelectedBackColor">
             <summary>
             What color should be used for the background of selected rows?
             </summary>
-            <remarks>Windows does not give the option of changing the selection background.
-            So the control has to be owner drawn to see the result of this setting.
-            Setting UseCustomSelectionColors = true will do this for you.</remarks>
         </member>
-        <member name="P:BrightIdeasSoftware.ObjectListView.HighlightBackgroundColorOrDefault">
+        <member name="P:BrightIdeasSoftware.ObjectListView.SelectedBackColorOrDefault">
             <summary>
             Return the color should be used for the background of selected rows or a reasonable default
             </summary>
         </member>
-        <member name="P:BrightIdeasSoftware.ObjectListView.HighlightForegroundColor">
+        <member name="P:BrightIdeasSoftware.ObjectListView.SelectedForeColor">
             <summary>
             What color should be used for the foreground of selected rows?
             </summary>
-            <remarks>Windows does not give the option of changing the selection foreground (text color).
-            So the control has to be owner drawn to see the result of this setting.
-            Setting UseCustomSelectionColors = true will do this for you.</remarks>
         </member>
-        <member name="P:BrightIdeasSoftware.ObjectListView.HighlightForegroundColorOrDefault">
+        <member name="P:BrightIdeasSoftware.ObjectListView.SelectedForeColorOrDefault">
             <summary>
             Return the color should be used for the foreground of selected rows or a reasonable default
             </summary>
@@ -3532,6 +3630,19 @@
             <remarks>
             You can add new overlays and remove overlays that you have added, but
             don't mess with the overlays that you didn't create.
+            </remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.ObjectListView.OwnerDraw">
+            <summary>
+            Gets or sets whether the ObjectListView will be owner drawn. Defaults to true.
+            </summary>
+            <remarks>
+            <para>
+            When this is true, all of ObjectListView's neat features are available.
+            </para>
+            <para>We have to reimplement this property, even though we just call the base
+            property, in order to change the [DefaultValue] to true.
+            </para>
             </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.PersistentCheckBoxes">
@@ -3845,35 +3956,29 @@
             columns aren't the right-most columns.</para>
             </remarks>
         </member>
-        <member name="P:BrightIdeasSoftware.ObjectListView.UnfocusedHighlightBackgroundColor">
+        <member name="P:BrightIdeasSoftware.ObjectListView.UnfocusedSelectedBackColor">
             <summary>
             What color should be used for the background of selected rows when the control doesn't have the focus?
             </summary>
-            <remarks>Windows does not give the option of changing the selection background.
-            So the control has to be owner drawn to see the result of this setting.
-            Setting UseCustomSelectionColors = true will do this for you.</remarks>
         </member>
-        <member name="P:BrightIdeasSoftware.ObjectListView.UnfocusedHighlightBackgroundColorOrDefault">
+        <member name="P:BrightIdeasSoftware.ObjectListView.UnfocusedSelectedBackColorOrDefault">
             <summary>
             Return the color should be used for the background of selected rows when the control doesn't have the focus or a reasonable default
             </summary>
         </member>
-        <member name="P:BrightIdeasSoftware.ObjectListView.UnfocusedHighlightForegroundColor">
+        <member name="P:BrightIdeasSoftware.ObjectListView.UnfocusedSelectedForeColor">
             <summary>
             What color should be used for the foreground of selected rows when the control doesn't have the focus?
             </summary>
-            <remarks>Windows does not give the option of changing the selection foreground (text color).
-            So the control has to be owner drawn to see the result of this setting.
-            Setting UseCustomSelectionColors = true will do this for you.</remarks>
         </member>
-        <member name="P:BrightIdeasSoftware.ObjectListView.UnfocusedHighlightForegroundColorOrDefault">
+        <member name="P:BrightIdeasSoftware.ObjectListView.UnfocusedSelectedForeColorOrDefault">
             <summary>
             Return the color should be used for the foreground of selected rows when the control doesn't have the focus or a reasonable default
             </summary>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.UseAlternatingBackColors">
             <summary>
-            Should the list give a different background color to every second row?
+            Gets or sets whether the list give a different background color to every second row? Defaults to false.
             </summary>
             <remarks><para>The color of the alternate rows is given by AlternateRowBackColor.</para>
             <para>There is a "feature" in .NET for listviews in non-full-row-select mode, where
@@ -3892,32 +3997,41 @@
             Individual rows can decide whether to raise FormatCell
             events for every cell in row.
             </para>
+            <para>
+            Regardless of this setting, FormatCell events are only raised when the ObjectListView
+            is in Details view.</para>
             </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.UseCustomSelectionColors">
             <summary>
             Should the selected row be drawn with non-standard foreground and background colors?
             </summary>
-            <remarks>
-            When this is enabled, the control becomes owner drawn.
-            </remarks>
+            <remarks>v2.9 This property is no longer required</remarks>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.UseExplorerTheme">
             <summary>
             Gets or sets whether this ObjectListView will use the same hot item and selection 
             mechanism that Vista Explorer does.
             </summary>
-            <remarks>This property has many imperfections:
+            <remarks>
+            <para>
+            This property has many imperfections:
             <list type="bullet">
             <item><description>This only works on Vista and later</description></item>
-            <item><description>It does nothing for owner drawn lists.
-            Owner drawn lists are (naturally) controlled by their renderers.</description></item>
             <item><description>It does not work well with AlternateRowBackColors.</description></item>
             <item><description>It does not play well with HotItemStyles.</description></item>
             <item><description>It looks a little bit silly is FullRowSelect is false.</description></item>
+            <item><description>It doesn't work at all when the list is owner drawn (since the renderers
+            do all the drawing). As such, it won't work with TreeListView's since they *have to be*
+            owner drawn. You can still set it, but it's just not going to be happy.</description></item>
             </list>
-            But if you absolutely have to look like Vista, this is your property. 
+            But if you absolutely have to look like Vista/Win7, this is your property. 
             Do not complain if settings this messes up other things.
+            </para>
+            <para>
+            When this property is set to true, the ObjectListView will be not owner drawn. This will
+            disable many of the pretty drawing-based features of ObjectListView.
+            </para>
             </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.UseFiltering">
@@ -3932,6 +4046,18 @@
             </summary>
             <remarks>If you set this to true, HeaderUsesThemes is automatically set to false, since
             we can only draw a filter indicator when not using a themed header.</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.ObjectListView.UseHotControls">
+            <summary>
+            Should controls (checkboxes or buttons) that are under the mouse be drawn "hot"?
+            </summary>
+            <remarks>
+            <para>If this is false, control will not be drawn differently when the mouse is over them.</para>
+            <para>
+            If this is false AND UseHotItem is false AND UseHyperlinks is false, then the ObjectListView
+            can skip some processing on mouse move. This make mouse move processing use almost no CPU.
+            </para>
+            </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.ObjectListView.UseHotItem">
             <summary>
@@ -4339,6 +4465,18 @@
             <para>This only works when the list is showing groups (obviously).</para>
             </remarks>
         </member>
+        <member name="M:BrightIdeasSoftware.VirtualObjectListView.InsertObjects(System.Int32,System.Collections.ICollection)">
+            <summary>
+            Inserts the given collection of model objects to this control at hte given location
+            </summary>
+            <param name="modelObjects">A collection of model objects</param>
+            <remarks>
+            <para>The added objects will appear in their correct sort position, if sorting
+            is active. Otherwise, they will appear at the given position of the list.</para>
+            <para>No check is performed to see if any of the objects are already in the ListView.</para>
+            <para>Null objects are silently ignored.</para>
+            </remarks>
+        </member>
         <member name="M:BrightIdeasSoftware.VirtualObjectListView.RefreshObjects(System.Collections.IList)">
             <summary>
             Update the rows that are showing the given objects
@@ -4569,14 +4707,6 @@
             <summary>
             Gets whether or not this listview is capabale of showing groups
             </summary>
-        </member>
-        <member name="P:BrightIdeasSoftware.VirtualObjectListView.CheckBoxes">
-            <summary>
-            Gets or sets whether this ObjectListView will show checkboxes in the primary column
-            </summary>
-            <remarks>Due to code in the base ListView class, turning off CheckBoxes on a virtual
-            list always throws an InvalidOperationException. This implementation codes around
-            that limitation.</remarks>
         </member>
         <member name="P:BrightIdeasSoftware.VirtualObjectListView.CheckedObjects">
             <summary>
@@ -4910,6 +5040,12 @@
             <param name="keyData"></param>
             <returns></returns>
         </member>
+        <member name="M:BrightIdeasSoftware.TreeListView.OnLostFocus(System.EventArgs)">
+            <summary>
+            Handle focus being lost, including making sure that the whole control is redrawn.
+            </summary>
+            <param name="e"></param>
+        </member>
         <member name="M:BrightIdeasSoftware.TreeListView.OnKeyDown(System.Windows.Forms.KeyEventArgs)">
             <summary>
             Handle the keyboard input to mimic a TreeView.
@@ -4941,6 +5077,17 @@
             <summary>
             This is the delegate that will be used to decide if a model object can be expanded.
             </summary>
+            <remarks>
+            <para>
+            This is called *often* -- on every mouse move when required. It must be fast.
+            Don't do database lookups, linear searches, or pi calculations. Just return the
+            value of a property.
+            </para>
+            <para>
+            When this delegate is called, the TreeListView is not in a stable state. Don't make
+            calls back into the control.
+            </para>
+            </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.TreeListView.CanShowGroups">
             <summary>
@@ -4951,8 +5098,16 @@
             <summary>
             This is the delegate that will be used to fetch the children of a model object
             </summary>
-            <remarks>This delegate will only be called if the CanExpand delegate has 
-            returned true for the model object.</remarks>
+            <remarks>
+            <para>
+            This delegate will only be called if the CanExpand delegate has 
+            returned true for the model object.
+            </para>
+            <para>
+            When this delegate is called, the TreeListView is not in a stable state. Don't do anything
+            that will result in calls being made back into the control.
+            </para>
+            </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.TreeListView.ParentGetter">
             <summary>
@@ -5011,6 +5166,13 @@
             will be checked. If all children are unchecked, the parent will also be unchecked.
             If some children are checked and others are not, the parent will be indeterminate.
             </summary>
+            <remarks>
+            Hierarchical checkboxes don't work with either CheckStateGetters or CheckedAspectName
+            (which is basically the same thing). This is because it is too expensive to build the 
+            initial state of the control if these are installed, since the control would have to walk
+            *every* branch recursively since a single bottom level leaf could change the checkedness
+            of the top root.
+            </remarks>
         </member>
         <member name="P:BrightIdeasSoftware.TreeListView.Objects">
             <summary>
@@ -5225,23 +5387,40 @@
             with the given rectangle, according to the Column alignment
             </summary>
             <param name="g"></param>
-            <param name="r"></param>
+            <param name="r">Pre-padded bounds of the cell</param>
             <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateContentSize(System.Drawing.Graphics,System.Drawing.Rectangle)">
+            <summary>
+            Calculate the size of the content of this cell.
+            </summary>
+            <param name="g"></param>
+            <param name="r">Pre-padded bounds of the cell</param>
+            <returns>The width and height of the content</returns>
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateCheckBoxBounds(System.Drawing.Graphics,System.Drawing.Rectangle)">
             <summary>
-            Calculate the bounds of a checkbox given the cell bounds
+            Calculate the bounds of a checkbox given the (pre-padded) cell bounds
             </summary>
             <param name="g"></param>
-            <param name="cellBounds"></param>
+            <param name="cellBounds">Pre-padded cell bounds</param>
             <returns></returns>
         </member>
-        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateCheckBoxWidth(System.Drawing.Graphics)">
+        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateCheckBoxSize(System.Drawing.Graphics)">
             <summary>
             How much space will the check box for this cell occupy?
             </summary>
             <remarks>Only column 0 can have check boxes. Sub item checkboxes are
             treated as images</remarks>
+            <param name="g"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculatePrimaryCheckBoxSize(System.Drawing.Graphics)">
+            <summary>
+            How much space will the check box for this row occupy? 
+            If the list doesn't have checkboxes, or this isn't the primary column,
+            this returns an empty size.
+            </summary>
             <param name="g"></param>
             <returns></returns>
         </member>
@@ -5253,12 +5432,38 @@
             <param name="imageSelector"></param>
             <returns></returns>
         </member>
-        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateTextWidth(System.Drawing.Graphics,System.String)">
+        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateImageHeight(System.Drawing.Graphics,System.Object)">
+            <summary>
+            How much vertical space will the image of this cell occupy?
+            </summary>
+            <param name="g"></param>
+            <param name="imageSelector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateImageSize(System.Drawing.Graphics,System.Object)">
+            <summary>
+            How much space will the image of this cell occupy?
+            </summary>
+            <param name="g"></param>
+            <param name="imageSelector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateTextWidth(System.Drawing.Graphics,System.String,System.Int32)">
             <summary>
             How much horizontal space will the text of this cell occupy?
             </summary>
             <param name="g"></param>
             <param name="txt"></param>
+            <param name="width"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.CalculateTextSize(System.Drawing.Graphics,System.String,System.Int32)">
+            <summary>
+            How much space will the text of this cell occupy?
+            </summary>
+            <param name="g"></param>
+            <param name="txt"></param>
+            <param name="width"></param>
             <returns></returns>
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.GetBackgroundColor">
@@ -5267,11 +5472,23 @@
             </summary>
             <returns>The background color of the subitem</returns>
         </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.GetSelectedBackgroundColor">
+            <summary>
+            Return the color of the background color when the item is selected
+            </summary>
+            <returns>The background color of the subitem</returns>
+        </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.GetForegroundColor">
             <summary>
             Return the color to be used for text in this cell
             </summary>
             <returns>The text color of the subitem</returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.GetSelectedForegroundColor">
+            <summary>
+            Return the color of the foreground color when the item is selected
+            </summary>
+            <returns>The foreground color of the subitem</returns>
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.GetImage">
             <summary>
@@ -5314,8 +5531,17 @@
             <param name="e"></param>
             <param name="g"></param>
             <param name="itemBounds"></param>
-            <param name="rowObject"></param>
+            <param name="model"></param>
             <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.ConfigureItem(System.Windows.Forms.DrawListViewItemEventArgs,System.Drawing.Rectangle,System.Object)">
+            <summary>
+            Prepare this renderer to draw in response to the given event
+            </summary>
+            <param name="e"></param>
+            <param name="itemBounds"></param>
+            <param name="model"></param>
+            <remarks>Use this if you want to chain a second renderer within a primary renderer.</remarks>
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.RenderSubItem(System.Windows.Forms.DrawListViewSubItemEventArgs,System.Drawing.Graphics,System.Drawing.Rectangle,System.Object)">
             <summary>
@@ -5324,8 +5550,17 @@
             <param name="e"></param>
             <param name="g"></param>
             <param name="cellBounds"></param>
-            <param name="rowObject"></param>
+            <param name="model"></param>
             <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.BaseRenderer.ConfigureSubItem(System.Windows.Forms.DrawListViewSubItemEventArgs,System.Drawing.Rectangle,System.Object)">
+            <summary>
+            Prepare this renderer to draw in response to the given event
+            </summary>
+            <param name="e"></param>
+            <param name="cellBounds"></param>
+            <param name="model"></param>
+            <remarks>Use this if you want to chain a second renderer within a primary renderer.</remarks>
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.HitTest(BrightIdeasSoftware.OlvListViewHitTestInfo,System.Int32,System.Int32)">
             <summary>
@@ -5404,7 +5639,7 @@
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.StandardHitTest(System.Drawing.Graphics,BrightIdeasSoftware.OlvListViewHitTestInfo,System.Drawing.Rectangle,System.Int32,System.Int32)">
             <summary>
-            Perform normal hit testing relative to the given bounds
+            Perform normal hit testing relative to the given aligned content bounds
             </summary>
             <param name="g"></param>
             <param name="hti"></param>
@@ -5451,7 +5686,7 @@
             Draw our subitems image and text
             </summary>
             <param name="g">Graphics context to use for drawing</param>
-            <param name="r">Bounds of the cell</param>
+            <param name="r">Pre-padded bounds of the cell</param>
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.DrawBackground(System.Drawing.Graphics,System.Drawing.Rectangle)">
             <summary>
@@ -5462,10 +5697,10 @@
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.DrawCheckBox(System.Drawing.Graphics,System.Drawing.Rectangle)">
             <summary>
-            Draw the check box of this row
+            Draw the primary check box of this row (checkboxes in other sub items use a different method)
             </summary>
             <param name="g">Graphics context to use for drawing</param>
-            <param name="r">Bounds of the cell</param>
+            <param name="r">The pre-aligned and padded target rectangle</param>
         </member>
         <member name="M:BrightIdeasSoftware.BaseRenderer.GetCheckBoxState(System.Windows.Forms.CheckState)">
             <summary>
@@ -5542,6 +5777,11 @@
             <para><see cref="P:BrightIdeasSoftware.ObjectListView.CellPadding"/> for more details.</para>
             </remarks>
         </member>
+        <member name="P:BrightIdeasSoftware.BaseRenderer.CellHorizontalAlignment">
+            <summary>
+            Gets the horiztonal alignment of the column
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.BaseRenderer.CellVerticalAlignment">
             <summary>
             Gets or sets how cells drawn by this renderer will be vertically aligned.
@@ -5607,7 +5847,7 @@
         </member>
         <member name="P:BrightIdeasSoftware.BaseRenderer.Font">
             <summary>
-            Return the font to be used for text in this cell
+            Gets or  sets the font to be used for text in this cell
             </summary>
         </member>
         <member name="P:BrightIdeasSoftware.BaseRenderer.ImageListOrDefault">
@@ -5680,9 +5920,14 @@
             Should this checkbox be drawn as disabled?
             </summary>
         </member>
-        <member name="P:BrightIdeasSoftware.BaseRenderer.IsItemHot">
+        <member name="P:BrightIdeasSoftware.BaseRenderer.IsCellHot">
             <summary>
             Is the current item hot (i.e. under the mouse)?
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.BaseRenderer.IsCheckboxHot">
+            <summary>
+            Is the mouse over a checkbox in this cell?
             </summary>
         </member>
         <member name="P:BrightIdeasSoftware.BaseRenderer.CellVerticalAlignmentAsTextFormatFlag">
@@ -5694,6 +5939,12 @@
         <member name="P:BrightIdeasSoftware.BaseRenderer.StringFormatForGdiPlus">
             <summary>
             Gets the StringFormat needed when drawing text using GDI+
+            </summary>
+        </member>
+        <member name="T:BrightIdeasSoftware.IFilterAwareRenderer">
+            <summary>
+            Renderers that implement this interface will have the filter property updated,
+            each time the filter on the ObjectListView is updated.
             </summary>
         </member>
         <member name="M:BrightIdeasSoftware.HighlightTextRenderer.#ctor">
@@ -5806,6 +6057,11 @@
             which this renderer should highlight text
             </summary>
         </member>
+        <member name="P:BrightIdeasSoftware.HighlightTextRenderer.BrightIdeasSoftware#IFilterAwareRenderer#Filter">
+            <summary>
+            When a filter changes, keep track of the text matching filters
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.HighlightTextRenderer.FramePen">
             <summary>
             Gets or set the pen will be used to frame the matched substrings.
@@ -5905,9 +6161,15 @@
             <param name="preferredSize"> </param>
             <returns></returns>
         </member>
-        <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.Branch">
+        <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.IsShowGlyphs">
             <summary>
-            Return the branch that the renderer is currently drawing.
+            Should the renderer draw glyphs at the expansion points?
+            </summary>
+            <remarks>The expansion points will still function to expand/collapse even if this is false.</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.IsShowLines">
+            <summary>
+            Should the renderer draw lines connecting siblings?
             </summary>
         </member>
         <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.LinePen">
@@ -5915,19 +6177,32 @@
             Return the pen that will be used to draw the lines between branches
             </summary>
         </member>
+        <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.UseTriangles">
+            <summary>
+            Should the renderer draw triangles as the expansion glyphs?
+            </summary>
+            <remarks>
+            This looks best with ShowLines = false
+            </remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.Branch">
+            <summary>
+            Return the branch that the renderer is currently drawing.
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.TreeListView">
             <summary>
             Return the TreeListView for which the renderer is being used.
             </summary>
         </member>
-        <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.IsShowLines">
-            <summary>
-            Should the renderer draw lines connecting siblings?
-            </summary>
-        </member>
         <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.UseStyles">
             <summary>
             Gets whether or not we should render using styles
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.TreeListView.TreeRenderer.IsExpansionHot">
+            <summary>
+            Is the mouse over a checkbox in this cell?
             </summary>
         </member>
         <member name="T:BrightIdeasSoftware.TreeListView.CanExpandGetterDelegate">
@@ -6025,6 +6300,13 @@
             <summary>
             Add the given collection of model objects to this control.
             </summary>
+            <param name="modelObjects">A collection of model objects</param>
+        </member>
+        <member name="M:BrightIdeasSoftware.IVirtualListDataSource.InsertObjects(System.Int32,System.Collections.ICollection)">
+            <summary>
+            Insert the given collection of model objects to this control at the position
+            </summary>
+            <param name="index">Index where the collection will be added</param>
             <param name="modelObjects">A collection of model objects</param>
         </member>
         <member name="M:BrightIdeasSoftware.IVirtualListDataSource.RemoveObjects(System.Collections.ICollection)">
@@ -6213,6 +6495,13 @@
             <summary>
             Add the given collection of objects to the roots of this tree
             </summary>
+            <param name="modelObjects"></param>
+        </member>
+        <member name="M:BrightIdeasSoftware.TreeListView.Tree.InsertObjects(System.Int32,System.Collections.ICollection)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
             <param name="modelObjects"></param>
         </member>
         <member name="M:BrightIdeasSoftware.TreeListView.Tree.RemoveObjects(System.Collections.ICollection)">
@@ -6472,6 +6761,13 @@
             <param name="x"></param>
             <param name="y"></param>
             <returns></returns>
+        </member>
+        <member name="P:BrightIdeasSoftware.DataTreeListView.AutoGenerateColumns">
+            <summary>
+            Gets or sets whether or not columns will be automatically generated to show the
+            columns when the DataSource is set. 
+            </summary>
+            <remarks>This must be set before the DataSource is set. It has no effect afterwards.</remarks>
         </member>
         <member name="P:BrightIdeasSoftware.DataTreeListView.DataSource">
             <summary>
@@ -7386,6 +7682,11 @@
             These delegates are used to format a listviewitem before it is added to the control.
             </summary>
         </member>
+        <member name="T:BrightIdeasSoftware.SearchValueGetterDelegate">
+            <summary>
+            These delegates can be used to return the array of texts that should be searched for text filtering
+            </summary>
+        </member>
         <member name="T:BrightIdeasSoftware.SortDelegate">
             <summary>
             These delegates are used to sort the listview in some custom fashion
@@ -7540,7 +7841,7 @@
             <remarks>
             Virtual lists don't handle checkboxes well, so we have to intercept attempts to change them
             through the items, and change them into something that will work.
-            Unfortuneately, this won't work if this property is set through the base class, since
+            Unfortunately, this won't work if this property is set through the base class, since
             the property is not declared as virtual.
             </remarks>
         </member>
@@ -7572,6 +7873,11 @@
             Gets whether or not this row can be selected and activated
             </summary>
         </member>
+        <member name="P:BrightIdeasSoftware.OLVListItem.HasAnyHyperlinks">
+            <summary>
+            Gets whether any cell on this item is showing a hyperlink
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.OLVListItem.ImageSelector">
             <summary>
             Get or set the image that should be shown against this item
@@ -7583,6 +7889,30 @@
             <summary>
             Gets or sets the the model object that is source of the data for this list item.
             </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVListItem.SelectedBackColor">
+            <summary>
+            Gets or sets the color that will be used for this row's background when it is selected and 
+            the control is focused.
+            </summary>
+            <remarks>
+            <para>To work reliably, this property must be set during a FormatRow event.</para>
+            <para>
+            If this is not set, the normal selection BackColor will be used.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVListItem.SelectedForeColor">
+            <summary>
+            Gets or sets the color that will be used for this row's foreground when it is selected and 
+            the control is focused.
+            </summary>
+            <remarks>
+            <para>To work reliably, this property must be set during a FormatRow event.</para>
+            <para>
+            If this is not set, the normal selection ForeColor will be used.
+            </para>
+            </remarks>
         </member>
         <member name="T:BrightIdeasSoftware.OLVListSubItem">
             <summary>
@@ -7678,6 +8008,11 @@
         <member name="F:BrightIdeasSoftware.HitTestLocation.ExpandButton">
             <summary>
             On the expand button (TreeListView)
+            </summary>
+        </member>
+        <member name="F:BrightIdeasSoftware.HitTestLocation.Button">
+            <summary>
+            in a button (cell must have ButtonRenderer)
             </summary>
         </member>
         <member name="F:BrightIdeasSoftware.HitTestLocation.InCell">
@@ -8264,6 +8599,17 @@
             <param name="title">The title of the column</param>
             <param name="aspect">The aspect to be shown in the column</param>
         </member>
+        <member name="M:BrightIdeasSoftware.OLVColumn.CreateColumnButtonRenderer">
+            <summary>
+            Create a ColumnButtonRenderer to draw buttons in this column
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.OLVColumn.FillInColumnButtonRenderer">
+            <summary>
+            Fill in details to our ColumnButtonRenderer based on the properties set on the column
+            </summary>
+        </member>
         <member name="M:BrightIdeasSoftware.OLVColumn.ConvertGroupKeyToTitle(System.Object)">
             <summary>
             For a given group value, return the string that should be used as the groups title.
@@ -8313,6 +8659,18 @@
             </summary>
             <param name="rowObject"></param>
             <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.OLVColumn.GetSearchValues(System.Object)">
+            <summary>
+            For a given row object, return the strings that will be searched when trying to filter by string.
+            </summary>
+            <remarks>
+            This will normally be the simple GetStringValue result, but if this column is non-textual (e.g. image)
+            you might want to install a SearchValueGetter delegate which can return something that could be used
+            for text filtering.
+            </remarks>
+            <param name="rowObject"></param>
+            <returns>The array of texts to be searched. If this returns null, search will not match that object.</returns>
         </member>
         <member name="M:BrightIdeasSoftware.OLVColumn.GetStringValue(System.Object)">
             <summary>
@@ -8513,6 +8871,31 @@
             <remarks>This take into account both the Hideable property and whether this column
             is the primary column of the listview (column 0).</remarks>
         </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.CellEditUseWholeCell">
+            <summary>
+            When a cell is edited, should the whole cell be used (minus any space used by checkbox or image)?
+            </summary>
+            <remarks>
+            <para>This is always treated as true when the control is NOT owner drawn.</para>
+            <para>
+            When this is false (the default) and the control is owner drawn, 
+            ObjectListView will try to calculate the width of the cell's
+            actual contents, and then size the editing control to be just the right width. If this is true,
+            the whole width of the cell will be used, regardless of the cell's contents.
+            </para>
+            <para>If this property is not set on the column, the value from the control will be used
+            </para>
+            <para>This value is only used when the control is in Details view.</para>
+            <para>Regardless of this setting, developers can specify the exact size of the editing control
+            by listening for the CellEditStarting event.</para>
+            </remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.CellEditUseWholeCellEffective">
+            <summary>
+            Get whether the whole cell should be used when editing a cell in this column
+            </summary>
+            <remarks>This calculates the current effective value, which may be different to CellEditUseWholeCell</remarks>
+        </member>
         <member name="P:BrightIdeasSoftware.OLVColumn.CellPadding">
             <summary>
             Gets or sets how many pixels will be left blank around this cells in this column
@@ -8558,6 +8941,12 @@
             cannot be shared between multiple columns.
             </para>
             </remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.EnableButtonWhenItemIsDisabled">
+            <summary>
+            Gets or sets whether the button in this column (if this column is drawing buttons) will be enabled
+            even if the row itself is disabled
+            </summary>
         </member>
         <member name="P:BrightIdeasSoftware.OLVColumn.FillsFreeSpace">
             <summary>
@@ -8725,6 +9114,12 @@
             Gets or sets how the text of the header will be drawn?
             </summary>
         </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.HeaderTextAlignOrDefault">
+            <summary>
+            Return the text alignment of the header. This will either have been set explicitly,
+            or will follow the alignment of the text in the column
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.OLVColumn.HeaderTextAlignAsStringAlignment">
             <summary>
             Gets the header alignment converted to a StringAlignment
@@ -8825,6 +9220,40 @@
             </list>
             </remarks>
         </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.IsButton">
+            <summary>
+            Gets or sets whether this column will draw buttons in its cells
+            </summary>
+            <remarks>
+            <para>
+            When this is set to true, the renderer for the column is become a ColumnButtonRenderer
+            if it isn't already. If this is set to false, any previous button renderer will be discarded
+            </para>
+            If the cell's aspect is null or empty, nothing will be drawn in the cell.</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.ButtonMaxWidth">
+            <summary>
+            Gets or sets the maximum width that a button can occupy.
+            -1 means there is no maximum width.
+            </summary>
+            <remarks>This is only considered when the SizingMode is TextBounds</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.ButtonPadding">
+            <summary>
+            Gets or sets the extra space that surrounds the cell when the SizingMode is TextBounds
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.ButtonSize">
+            <summary>
+            Gets or sets the size of the button when the SizingMode is FixedBounds
+            </summary>
+            <remarks>If this is not set, the bounds of the cell will be used</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.ButtonSizing">
+            <summary>
+            Gets or sets how each button will be sized if this column is displaying buttons
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.OLVColumn.IsEditable">
             <summary>
             Can the values shown in this column be edited?
@@ -8902,6 +9331,12 @@
             If this is false, text filters will not trying searching this columns cells when looking for matches.
             </para>
             </remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.OLVColumn.SearchValueGetter">
+            <summary>
+            Gets or sets a delegate which will return the array of text values that should be 
+            considered for text matching when using a text based filter.
+            </summary>
         </member>
         <member name="P:BrightIdeasSoftware.OLVColumn.ShowTextInHeader">
             <summary>
@@ -9009,6 +9444,26 @@
             This event is triggered when the visibility of this column changes.
             </summary>
         </member>
+        <member name="T:BrightIdeasSoftware.OLVColumn.ButtonSizingMode">
+            <summary>
+            How should the button be sized?
+            </summary>
+        </member>
+        <member name="F:BrightIdeasSoftware.OLVColumn.ButtonSizingMode.FixedBounds">
+            <summary>
+            Every cell will have the same sized button, as indicated by ButtonSize property
+            </summary>
+        </member>
+        <member name="F:BrightIdeasSoftware.OLVColumn.ButtonSizingMode.CellBounds">
+            <summary>
+            Every cell will draw a button that fills the cell, inset by ButtonPadding
+            </summary>
+        </member>
+        <member name="F:BrightIdeasSoftware.OLVColumn.ButtonSizingMode.TextBounds">
+            <summary>
+            Each button will be resized to contain the text of the Aspect
+            </summary>
+        </member>
         <member name="T:BrightIdeasSoftware.Properties.Resources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -9023,6 +9478,31 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.Properties.Resources.ClearFiltering">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.Properties.Resources.ColumnFilterIndicator">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.Properties.Resources.Filtering">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.Properties.Resources.SortAscending">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.Properties.Resources.SortDescending">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
         <member name="T:BrightIdeasSoftware.GraphicAdornment">
@@ -9662,6 +10142,13 @@
             </summary>
             <param name="creator">The delegate that will create a control</param>
         </member>
+        <member name="M:BrightIdeasSoftware.EditorRegistry.Unregister(System.Type)">
+            <summary>
+            Remove the registered handler for the given type
+            </summary>
+            <remarks>Does nothing if the given type doesn't exist</remarks>
+            <param name="type">The type whose registration is to be removed</param>
+        </member>
         <member name="M:BrightIdeasSoftware.EditorRegistry.GetEditor(System.Object,BrightIdeasSoftware.OLVColumn,System.Object)">
             <summary>
             Create and return an editor that is appropriate for the given value.
@@ -9729,6 +10216,11 @@
             <remarks>This is a no-op for data lists, since the data
             is controlled by the DataSource. Manipulate the data source
             rather than this view of the data source.</remarks>
+        </member>
+        <member name="M:BrightIdeasSoftware.DataListView.DoUnfreeze">
+            <summary>
+            Change the Unfreeze behaviour 
+            </summary>
         </member>
         <member name="M:BrightIdeasSoftware.DataListView.OnParentBindingContextChanged(System.EventArgs)">
             <summary>
@@ -10514,7 +11006,7 @@
             This class represents a simple implementation of a drop sink.
             </summary>
             <remarks>
-            Actually, it's far from simple and can do quite a lot in its own right.
+            Actually, it should be called CleverDropSink -- it's far from simple and can do quite a lot in its own right.
             </remarks>
         </member>
         <member name="M:BrightIdeasSoftware.SimpleDropSink.#ctor">
@@ -10704,14 +11196,15 @@
         </member>
         <member name="P:BrightIdeasSoftware.SimpleDropSink.AcceptExternal">
             <summary>
-            Gets or sets whether this sink allows model objects to be dragged from other lists
+            Gets or sets whether this sink allows model objects to be dragged from other lists. Defaults to true.
             </summary>
         </member>
         <member name="P:BrightIdeasSoftware.SimpleDropSink.AutoScroll">
             <summary>
             Gets or sets whether the ObjectListView should scroll when the user drags
-            something near to the top or bottom rows.
+            something near to the top or bottom rows. Defaults to true.
             </summary>
+            <remarks>AutoScroll does not scroll horizontally.</remarks>
         </member>
         <member name="P:BrightIdeasSoftware.SimpleDropSink.Billboard">
             <summary>
@@ -10739,6 +11232,14 @@
             <summary>
             Get or set whether a drop can occur on a subitem in the list
             </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.SimpleDropSink.EnableFeedback">
+            <summary>
+            Gets or sets whether the drop sink should draw feedback onto the given list
+            during the drag operation. Defaults to true.
+            </summary>
+            <remarks>If this is false, you will have to give the user feedback in some
+            other fashion, like cursor changes</remarks>
         </member>
         <member name="P:BrightIdeasSoftware.SimpleDropSink.DropTargetIndex">
             <summary>
@@ -11030,7 +11531,7 @@
             </summary>
             <param name="column"></param>
             <param name="control"></param>
-            <param name="r"></param>
+            <param name="cellBounds"></param>
             <param name="item"></param>
             <param name="subItemIndex"></param>
         </member>
@@ -11281,6 +11782,18 @@
             Create an ItemsAddingEventArgs
             </summary>
             <param name="objectsToAdd"></param>
+        </member>
+        <member name="M:BrightIdeasSoftware.ItemsAddingEventArgs.#ctor(System.Int32,System.Collections.ICollection)">
+            <summary>
+            Create an ItemsAddingEventArgs
+            </summary>
+            <param name="index"></param>
+            <param name="objectsToAdd"></param>
+        </member>
+        <member name="F:BrightIdeasSoftware.ItemsAddingEventArgs.Index">
+            <summary>
+            Gets or sets where the collection is going to be inserted.
+            </summary>
         </member>
         <member name="F:BrightIdeasSoftware.ItemsAddingEventArgs.ObjectsToAdd">
             <summary>
@@ -12095,6 +12608,14 @@
             Make a FastObjectListView
             </summary>
         </member>
+        <member name="M:BrightIdeasSoftware.FastObjectListView.MoveObjects(System.Int32,System.Collections.ICollection)">
+            <summary>
+            Move the given collection of objects to the given index.
+            </summary>
+            <remarks>This operation only makes sense on non-grouped ObjectListViews.</remarks>
+            <param name="index"></param>
+            <param name="modelObjects"></param>
+        </member>
         <member name="M:BrightIdeasSoftware.FastObjectListView.Unsort">
             <summary>
             Remove any sorting and revert to the given order of the model objects
@@ -12129,6 +12650,11 @@
             <returns>A DataSourceAdapter configured for this list</returns>
             <remarks>Subclasses should override this to create their
             own specialized adapters</remarks>
+        </member>
+        <member name="M:BrightIdeasSoftware.FastDataListView.DoUnfreeze">
+            <summary>
+            Change the Unfreeze behaviour 
+            </summary>
         </member>
         <member name="P:BrightIdeasSoftware.FastDataListView.AutoGenerateColumns">
             <summary>
@@ -12339,6 +12865,13 @@
             </summary>
             <param name="modelObjects"></param>
         </member>
+        <member name="M:BrightIdeasSoftware.AbstractVirtualListDataSource.InsertObjects(System.Int32,System.Collections.ICollection)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="modelObjects"></param>
+        </member>
         <member name="M:BrightIdeasSoftware.AbstractVirtualListDataSource.RemoveObjects(System.Collections.ICollection)">
             <summary>
             
@@ -12424,6 +12957,13 @@
             <summary>
             
             </summary>
+            <param name="modelObjects"></param>
+        </member>
+        <member name="M:BrightIdeasSoftware.FastObjectListDataSource.InsertObjects(System.Int32,System.Collections.ICollection)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
             <param name="modelObjects"></param>
         </member>
         <member name="M:BrightIdeasSoftware.FastObjectListDataSource.RemoveObjects(System.Collections.ICollection)">
@@ -12680,6 +13220,11 @@
         <member name="P:BrightIdeasSoftware.CompositeFilter.Filters">
             <summary>
             Gets or sets the filters used by this composite
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.CompositeFilter.TextFilters">
+            <summary>
+            Get the sub filters that are text match filters
             </summary>
         </member>
         <member name="T:BrightIdeasSoftware.CompositeAllFilter">
@@ -14059,6 +14604,11 @@
         <member name="P:BrightIdeasSoftware.HeaderControl.MaximumHeight">
             <summary>
             Gets the maximum height of the header. -1 means no maximum.
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.HeaderControl.MinimumHeight">
+            <summary>
+            Gets the minimum height of the header. -1 means no minimum.
             </summary>
         </member>
         <member name="P:BrightIdeasSoftware.HeaderControl.ToolTip">
@@ -15660,17 +16210,6 @@
             <param name="g"></param>
             <param name="r"></param>
         </member>
-        <member name="M:BrightIdeasSoftware.MultiImageRenderer.HandleGetEditRectangle(System.Drawing.Graphics,System.Drawing.Rectangle,BrightIdeasSoftware.OLVListItem,System.Int32,System.Drawing.Size)">
-            <summary>
-            Handle the GetEditRectangle request
-            </summary>
-            <param name="g"></param>
-            <param name="cellBounds"></param>
-            <param name="item"></param>
-            <param name="subItemIndex"></param>
-            <param name="preferredSize"> </param>
-            <returns></returns>
-        </member>
         <member name="P:BrightIdeasSoftware.MultiImageRenderer.ImageIndex">
             <summary>
             The index of the image that should be drawn
@@ -15739,8 +16278,7 @@
             <para>This class works best with FullRowSelect = true.</para>
             <para>It's not designed to work with cell editing -- it will work but will look odd.</para>
             <para>
-            This class is experimental. It may not work properly and may disappear from
-            future versions.
+            It's not RightToLeft friendly.
             </para>
             </remarks>
         </member>
@@ -15749,10 +16287,11 @@
             Create a DescribedTaskRenderer
             </summary>
         </member>
-        <member name="M:BrightIdeasSoftware.DescribedTaskRenderer.GetDescription">
+        <member name="M:BrightIdeasSoftware.DescribedTaskRenderer.GetDescription(System.Object)">
             <summary>
             Fetch the description from the model class
             </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:BrightIdeasSoftware.DescribedTaskRenderer.Render(System.Drawing.Graphics,System.Drawing.Rectangle)">
@@ -15762,7 +16301,7 @@
             <param name="g"></param>
             <param name="r"></param>
         </member>
-        <member name="M:BrightIdeasSoftware.DescribedTaskRenderer.DrawDescribedTask(System.Drawing.Graphics,System.Drawing.Rectangle,System.String,System.String,System.Drawing.Image)">
+        <member name="M:BrightIdeasSoftware.DescribedTaskRenderer.DrawDescribedTask(System.Drawing.Graphics,System.Drawing.Rectangle,System.String,System.String,System.Object)">
             <summary>
             Draw the task
             </summary>
@@ -15770,7 +16309,7 @@
             <param name="r"></param>
             <param name="title"></param>
             <param name="description"></param>
-            <param name="image"></param>
+            <param name="imageSelector"></param>
         </member>
         <member name="M:BrightIdeasSoftware.DescribedTaskRenderer.HandleHitTest(System.Drawing.Graphics,BrightIdeasSoftware.OlvListViewHitTestInfo,System.Int32,System.Int32)">
             <summary>
@@ -15780,6 +16319,12 @@
             <param name="hti"></param>
             <param name="x"></param>
             <param name="y"></param>
+        </member>
+        <member name="P:BrightIdeasSoftware.DescribedTaskRenderer.UseGdiTextRendering">
+            <summary>
+            Should text be rendered using GDI routines? This makes the text look more
+            like a native List view control.
+            </summary>
         </member>
         <member name="P:BrightIdeasSoftware.DescribedTaskRenderer.TitleFont">
             <summary>
@@ -15832,9 +16377,96 @@
             Gets or sets the number of pixels that will be left between the image and the text
             </summary>
         </member>
+        <member name="P:BrightIdeasSoftware.DescribedTaskRenderer.TitleDescriptionSpace">
+            <summary>
+            Gets or sets the number of pixels that will be left between the title and the description
+            </summary>
+        </member>
         <member name="P:BrightIdeasSoftware.DescribedTaskRenderer.DescriptionAspectName">
             <summary>
             Gets or sets the name of the aspect of the model object that contains the task description
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.DescribedTaskRenderer.Filter">
+            <summary>
+            Gets or sets the filter that is filtering the ObjectListView and for
+            which this renderer should highlight text
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.DescribedTaskRenderer.BrightIdeasSoftware#IFilterAwareRenderer#Filter">
+            <summary>
+            When a filter changes, keep track of the text matching filters
+            </summary>
+        </member>
+        <member name="T:BrightIdeasSoftware.ColumnButtonRenderer">
+            <summary>
+            This renderer draws a functioning button in its cell
+            </summary>
+        </member>
+        <member name="M:BrightIdeasSoftware.ColumnButtonRenderer.CalculateContentSize(System.Drawing.Graphics,System.Drawing.Rectangle)">
+            <summary>
+            Calculate the size of the contents
+            </summary>
+            <param name="g"></param>
+            <param name="r"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BrightIdeasSoftware.ColumnButtonRenderer.DrawImageAndText(System.Drawing.Graphics,System.Drawing.Rectangle)">
+            <summary>
+            Draw the button
+            </summary>
+            <param name="g"></param>
+            <param name="r"></param>
+        </member>
+        <member name="M:BrightIdeasSoftware.ColumnButtonRenderer.StandardHitTest(System.Drawing.Graphics,BrightIdeasSoftware.OlvListViewHitTestInfo,System.Drawing.Rectangle,System.Int32,System.Int32)">
+            <summary>
+            What part of the control is under the given point?
+            </summary>
+            <param name="g"></param>
+            <param name="hti"></param>
+            <param name="bounds"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:BrightIdeasSoftware.ColumnButtonRenderer.CalculatePushButtonState">
+            <summary>
+            What is the state of the button?
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:BrightIdeasSoftware.ColumnButtonRenderer.SizingMode">
+            <summary>
+            Gets or sets how each button will be sized
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.ColumnButtonRenderer.ButtonSize">
+            <summary>
+            Gets or sets the size of the button when the SizingMode is FixedBounds
+            </summary>
+            <remarks>If this is not set, the bounds of the cell will be used</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.ColumnButtonRenderer.ButtonPadding">
+            <summary>
+            Gets or sets the extra space that surrounds the cell when the SizingMode is TextBounds
+            </summary>
+        </member>
+        <member name="P:BrightIdeasSoftware.ColumnButtonRenderer.MaxButtonWidth">
+            <summary>
+            Gets or sets the maximum width that a button can occupy.
+            -1 means there is no maximum width.
+            </summary>
+            <remarks>This is only considered when the SizingMode is TextBounds</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.ColumnButtonRenderer.MinButtonWidth">
+            <summary>
+            Gets or sets the minimum width that a button can occupy.
+            -1 means there is no minimum width.
+            </summary>
+            <remarks>This is only considered when the SizingMode is TextBounds</remarks>
+        </member>
+        <member name="P:BrightIdeasSoftware.ColumnButtonRenderer.IsButtonHot">
+            <summary>
+            Is the mouse over the button?
             </summary>
         </member>
         <member name="T:BrightIdeasSoftware.IItemStyle">
