@@ -133,7 +133,7 @@ namespace Depressurizer {
             // Initialize MaterialSkinManager
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.Theme = new DarkTheme();
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue700, TextShade.WHITE);
 
             lstCategories.BackColor = formColor;
@@ -1546,6 +1546,7 @@ namespace Depressurizer {
             // Prepare main screen AutoCat dropdown
             object selected = cmbAutoCatType.SelectedItem;
             cmbAutoCatType.Items.Clear();
+            mlbAutoCatType.Items.Clear();
 
             // Prepare main menu list
             menu_Tools_Autocat_List.Items.Clear();
@@ -1564,8 +1565,25 @@ namespace Depressurizer {
                 }
             }
 
+            if (currentProfile != null)
+            {
+                foreach (AutoCat ac in currentProfile.AutoCats)
+                {
+                    if (ac != null)
+                    {
+                        // Fill main screen dropdown
+                        mlbAutoCatType.Items.Add(ac);
+
+                        //// Fill main menu list
+                        //ToolStripItem item = menu_Tools_Autocat_List.Items.Add(ac.Name);
+                        //item.Tag = ac;
+                        //item.Click += menuToolsAutocat_Item_Click;
+                    }
+                }
+            }
+
             // Finish main screen dropdown
-            if( selected != null && cmbAutoCatType.Items.Contains( selected ) ) {
+            if ( selected != null && cmbAutoCatType.Items.Contains( selected ) ) {
                 cmbAutoCatType.SelectedItem = selected;
             } else if( cmbAutoCatType.Items.Count > 0 ) {
                 cmbAutoCatType.SelectedIndex = 0;
@@ -2702,7 +2720,7 @@ namespace Depressurizer {
                     Rectangle r3;
                     if (e.Item.IsOnDropDown)
                     {
-                        r3 = new Rectangle(0, 3, e.Item.Width, 2);
+                        r3 = new Rectangle(0, 3, e.Item.Width, 1);
                         e.Graphics.FillRectangle(bLight, r3);
                     }
 
@@ -2724,7 +2742,7 @@ namespace Depressurizer {
 
                 if (e.ToolStrip is ToolStripDropDown)
                 {
-                    e.Graphics.Clear(Color.FromArgb(66, 66, 66));
+                    e.Graphics.Clear(Color.FromArgb(38, 50, 56));
                     return;
                 }
 
