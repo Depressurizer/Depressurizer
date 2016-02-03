@@ -125,6 +125,58 @@
   <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 65</value>
   </data>
+  <data name="mlbAutoCatType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="mlbAutoCatType.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9.75pt</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="mlbAutoCatType.ItemHeight" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="mlbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 362</value>
+  </data>
+  <data name="mlbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 83</value>
+  </data>
+  <data name="mlbAutoCatType.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;mlbAutoCatType.Name" xml:space="preserve">
+    <value>mlbAutoCatType</value>
+  </data>
+  <data name="&gt;&gt;mlbAutoCatType.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialListBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mlbAutoCatType.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;mlbAutoCatType.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>81, 453</value>
+  </data>
+  <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 21</value>
+  </data>
+  <data name="cmbAutoCatType.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Name" xml:space="preserve">
+    <value>cmbAutoCatType</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="mbtnCatDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -137,7 +189,6 @@
   <data name="mbtnCatDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 23</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="mbtnCatDelete.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
@@ -148,13 +199,13 @@
     <value>mbtnCatDelete</value>
   </data>
   <data name="&gt;&gt;mbtnCatDelete.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mbtnCatDelete.Parent" xml:space="preserve">
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnCatDelete.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="mchkAdvancedCategories.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -184,13 +235,13 @@
     <value>mchkAdvancedCategories</value>
   </data>
   <data name="&gt;&gt;mchkAdvancedCategories.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mchkAdvancedCategories.Parent" xml:space="preserve">
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mchkAdvancedCategories.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="mbtnCatRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -214,13 +265,13 @@
     <value>mbtnCatRename</value>
   </data>
   <data name="&gt;&gt;mbtnCatRename.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mbtnCatRename.Parent" xml:space="preserve">
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnCatRename.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="mbtnCatAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -244,13 +295,46 @@
     <value>mbtnCatAdd</value>
   </data>
   <data name="&gt;&gt;mbtnCatAdd.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mbtnCatAdd.Parent" xml:space="preserve">
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnCatAdd.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
+  </data>
+  <data name="mbtnAutoCategorize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mbtnAutoCategorize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 453</value>
+  </data>
+  <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="mbtnAutoCategorize.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="mbtnAutoCategorize.Text" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 56</value>
+  </metadata>
+  <data name="mbtnAutoCategorize.ToolTip" xml:space="preserve">
+    <value>Auto-categorize games</value>
+  </data>
+  <data name="&gt;&gt;mbtnAutoCategorize.Name" xml:space="preserve">
+    <value>mbtnAutoCategorize</value>
+  </data>
+  <data name="&gt;&gt;mbtnAutoCategorize.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mbtnAutoCategorize.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;mbtnAutoCategorize.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="mlblHelp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -280,13 +364,13 @@
     <value>mlblHelp</value>
   </data>
   <data name="&gt;&gt;mlblHelp.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mlblHelp.Parent" xml:space="preserve">
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mlblHelp.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="lstCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -331,13 +415,13 @@
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lstCategories.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial Rounded MT Bold, 10pt</value>
+    <value>Arial, 9.75pt</value>
   </data>
   <data name="lstCategories.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 34</value>
   </data>
   <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 442</value>
+    <value>230, 322</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -352,7 +436,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;lstCategories.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
     <value>splitContainer.Panel1</value>
@@ -369,77 +453,20 @@
   <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>100</value>
   </data>
-  <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>600, 5</value>
-  </data>
-  <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 21</value>
-  </data>
-  <data name="cmbAutoCatType.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;cmbAutoCatType.Name" xml:space="preserve">
-    <value>cmbAutoCatType</value>
-  </data>
-  <data name="&gt;&gt;cmbAutoCatType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmbAutoCatType.Parent" xml:space="preserve">
-    <value>splitContainer.Panel2</value>
-  </data>
-  <data name="&gt;&gt;cmbAutoCatType.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="splitContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="splitContainer1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="mchkBrowser.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mchkBrowser.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 10pt</value>
-  </data>
-  <data name="mchkBrowser.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mchkBrowser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>905, 1</value>
-  </data>
-  <data name="mchkBrowser.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="mchkBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 30</value>
-  </data>
-  <data name="mchkBrowser.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="mchkBrowser.Text" xml:space="preserve">
-    <value>Browser</value>
-  </data>
-  <data name="&gt;&gt;mchkBrowser.Name" xml:space="preserve">
-    <value>mchkBrowser</value>
-  </data>
-  <data name="&gt;&gt;mchkBrowser.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;mchkBrowser.Parent" xml:space="preserve">
-    <value>splitContainer1.Panel1</value>
-  </data>
-  <data name="&gt;&gt;mchkBrowser.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="cmdAddCatAndAssign.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="cmdAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>562, 30</value>
+    <value>954, 32</value>
   </data>
   <data name="cmdAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 23</value>
+    <value>32, 23</value>
   </data>
   <data name="cmdAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -460,13 +487,13 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;cmdAddCatAndAssign.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="txtAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 33</value>
+    <value>898, 34</value>
   </data>
   <data name="txtAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 20</value>
+    <value>50, 20</value>
   </data>
   <data name="txtAddCatAndAssign.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -484,13 +511,13 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;txtAddCatAndAssign.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="mtxtSearch.Location" type="System.Drawing.Point, System.Drawing">
     <value>73, 3</value>
   </data>
   <data name="mtxtSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 23</value>
+    <value>182, 23</value>
   </data>
   <data name="mtxtSearch.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -499,46 +526,19 @@
     <value>mtxtSearch</value>
   </data>
   <data name="&gt;&gt;mtxtSearch.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialSingleLineTextField, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialSingleLineTextField, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mtxtSearch.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;mtxtSearch.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="mbtnAutoCategorize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnAutoCategorize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>454, 4</value>
-  </data>
-  <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
-  </data>
-  <data name="mbtnAutoCategorize.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="mbtnAutoCategorize.Text" xml:space="preserve">
-    <value>Auto-Categorize</value>
-  </data>
-  <data name="&gt;&gt;mbtnAutoCategorize.Name" xml:space="preserve">
-    <value>mbtnAutoCategorize</value>
-  </data>
-  <data name="&gt;&gt;mbtnAutoCategorize.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;mbtnAutoCategorize.Parent" xml:space="preserve">
-    <value>splitContainer1.Panel1</value>
-  </data>
-  <data name="&gt;&gt;mbtnAutoCategorize.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="mbtnSearchClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="mbtnSearchClear.Location" type="System.Drawing.Point, System.Drawing">
-    <value>336, 3</value>
+    <value>261, 4</value>
   </data>
   <data name="mbtnSearchClear.Size" type="System.Drawing.Size, System.Drawing">
     <value>21, 23</value>
@@ -553,19 +553,19 @@
     <value>mbtnSearchClear</value>
   </data>
   <data name="&gt;&gt;mbtnSearchClear.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mbtnSearchClear.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnSearchClear.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="splitGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="splitGame.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 59</value>
+    <value>0, 34</value>
   </data>
   <data name="splitGame.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
@@ -877,7 +877,7 @@
     <value>0, 0</value>
   </data>
   <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>986, 329</value>
+    <value>986, 347</value>
   </data>
   <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -916,7 +916,7 @@
     <value>0, 0</value>
   </data>
   <data name="lstMultiCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>986, 113</value>
+    <value>986, 120</value>
   </data>
   <metadata name="imglistTriState.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>918, 17</value>
@@ -926,7 +926,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAQgBBwEIAQcBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAYABBwGAAQcBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -995,10 +995,10 @@
     <value>20</value>
   </data>
   <data name="splitGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>986, 446</value>
+    <value>986, 471</value>
   </data>
   <data name="splitGame.SplitterDistance" type="System.Int32, mscorlib">
-    <value>329</value>
+    <value>347</value>
   </data>
   <data name="splitGame.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1013,7 +1013,7 @@
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;splitGame.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="mlblSearch.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1040,13 +1040,49 @@
     <value>mlblSearch</value>
   </data>
   <data name="&gt;&gt;mlblSearch.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mlblSearch.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
   </data>
   <data name="&gt;&gt;mlblSearch.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
+  </data>
+  <data name="mchkBrowser.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="mchkBrowser.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="mchkBrowser.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mchkBrowser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>285, 0</value>
+  </data>
+  <data name="mchkBrowser.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="mchkBrowser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 30</value>
+  </data>
+  <data name="mchkBrowser.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="mchkBrowser.Text" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="&gt;&gt;mchkBrowser.Name" xml:space="preserve">
+    <value>mchkBrowser</value>
+  </data>
+  <data name="&gt;&gt;mchkBrowser.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mchkBrowser.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;mchkBrowser.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel1.Name" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
@@ -1118,7 +1154,7 @@
     <value>splitContainer.Panel2</value>
   </data>
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
     <value>splitContainer.Panel2</value>
@@ -1164,7 +1200,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAXABBQFwAQUBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAegBBQHoAQUBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1215,13 +1251,13 @@
     <value>None</value>
   </data>
   <data name="menuStrip.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial Rounded MT Bold, 10pt</value>
+    <value>Arial, 9.75pt</value>
   </data>
   <data name="menu_File_NewProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+N</value>
   </data>
   <data name="menu_File_NewProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 22</value>
+    <value>223, 22</value>
   </data>
   <data name="menu_File_NewProfile.Text" xml:space="preserve">
     <value>&amp;New Profile...</value>
@@ -1230,7 +1266,7 @@
     <value>Ctrl+Alt+L</value>
   </data>
   <data name="menu_File_LoadProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 22</value>
+    <value>223, 22</value>
   </data>
   <data name="menu_File_LoadProfile.Text" xml:space="preserve">
     <value>&amp;Load Profile...</value>
@@ -1239,55 +1275,55 @@
     <value>Ctrl+S</value>
   </data>
   <data name="menu_File_SaveProfile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 22</value>
+    <value>223, 22</value>
   </data>
   <data name="menu_File_SaveProfile.Text" xml:space="preserve">
     <value>&amp;Save Profile</value>
   </data>
   <data name="menu_File_SaveProfileAs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 22</value>
+    <value>223, 22</value>
   </data>
   <data name="menu_File_SaveProfileAs.Text" xml:space="preserve">
     <value>Save Profile &amp;As...</value>
   </data>
   <data name="menu_File_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 6</value>
+    <value>220, 6</value>
   </data>
   <data name="menu_File_Close.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+F4</value>
   </data>
   <data name="menu_File_Close.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 22</value>
+    <value>223, 22</value>
   </data>
   <data name="menu_File_Close.Text" xml:space="preserve">
     <value>&amp;Close Profile</value>
   </data>
   <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 6</value>
+    <value>220, 6</value>
   </data>
   <data name="menu_File_Manual_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
+    <value>184, 22</value>
   </data>
   <data name="menu_File_Manual_Export.Text" xml:space="preserve">
     <value>Local &amp;Config File...</value>
   </data>
   <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 22</value>
+    <value>223, 22</value>
   </data>
   <data name="menu_File_Manual.Text" xml:space="preserve">
     <value>&amp;Manual Export</value>
   </data>
   <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 6</value>
+    <value>220, 6</value>
   </data>
   <data name="menu_File_Exit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 22</value>
+    <value>223, 22</value>
   </data>
   <data name="menu_File_Exit.Text" xml:space="preserve">
     <value>E&amp;xit</value>
   </data>
   <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
+    <value>41, 20</value>
   </data>
   <data name="menu_File.Text" xml:space="preserve">
     <value>&amp;File</value>
@@ -1296,7 +1332,7 @@
     <value>Ctrl+U</value>
   </data>
   <data name="menu_Profile_Update.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 22</value>
+    <value>226, 22</value>
   </data>
   <data name="menu_Profile_Update.Text" xml:space="preserve">
     <value>&amp;Update Game List</value>
@@ -1305,31 +1341,31 @@
     <value>Ctrl+I</value>
   </data>
   <data name="menu_Profile_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 22</value>
+    <value>226, 22</value>
   </data>
   <data name="menu_Profile_Import.Text" xml:space="preserve">
     <value>&amp;Import Config File</value>
   </data>
   <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 6</value>
+    <value>223, 6</value>
   </data>
   <data name="menu_Profile_Export.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+E</value>
   </data>
   <data name="menu_Profile_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 22</value>
+    <value>226, 22</value>
   </data>
   <data name="menu_Profile_Export.Text" xml:space="preserve">
     <value>&amp;Export Config File</value>
   </data>
   <data name="menu_Profile_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 6</value>
+    <value>223, 6</value>
   </data>
   <data name="menu_Profile_Edit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+P</value>
   </data>
   <data name="menu_Profile_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 22</value>
+    <value>226, 22</value>
   </data>
   <data name="menu_Profile_Edit.Text" xml:space="preserve">
     <value>Edit &amp;Profile Info</value>
@@ -1338,13 +1374,13 @@
     <value>Ctrl+T</value>
   </data>
   <data name="menu_Profile_AutoCats.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 22</value>
+    <value>226, 22</value>
   </data>
   <data name="menu_Profile_AutoCats.Text" xml:space="preserve">
     <value>Edit Au&amp;toCats...</value>
   </data>
   <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
+    <value>56, 20</value>
   </data>
   <data name="menu_Profile.Text" xml:space="preserve">
     <value>&amp;Profile</value>
@@ -1362,52 +1398,52 @@
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="menu_Tools_AutocatAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="menu_Tools_AutocatAll.Text" xml:space="preserve">
     <value>Auto-&amp;Cat All</value>
   </data>
   <data name="menu_Tools_AutonameAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="menu_Tools_AutonameAll.Text" xml:space="preserve">
     <value>Auto-&amp;Name All</value>
   </data>
   <data name="menu_Tools_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="menu_Tools_RemoveEmpty.Text" xml:space="preserve">
     <value>&amp;Remove Empty Categories</value>
   </data>
   <data name="menu_Tools_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 6</value>
+    <value>240, 6</value>
   </data>
   <data name="autoModeHelperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="autoModeHelperToolStripMenuItem.Text" xml:space="preserve">
     <value>Auto Mode Helper...</value>
   </data>
   <data name="menu_Tools_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 6</value>
+    <value>240, 6</value>
   </data>
   <data name="menu_Tools_DBEdit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+D</value>
   </data>
   <data name="menu_Tools_DBEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="menu_Tools_DBEdit.Text" xml:space="preserve">
     <value>&amp;Database Editor...</value>
   </data>
   <data name="menu_Tools_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 6</value>
+    <value>240, 6</value>
   </data>
   <data name="menu_Tools_SingleCat.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+I</value>
   </data>
   <data name="menu_Tools_SingleCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="menu_Tools_SingleCat.Text" xml:space="preserve">
     <value>S&amp;ingle Category Mode</value>
@@ -1416,19 +1452,19 @@
     <value>Ctrl+O</value>
   </data>
   <data name="menu_Tools_Settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 22</value>
+    <value>243, 22</value>
   </data>
   <data name="menu_Tools_Settings.Text" xml:space="preserve">
     <value>&amp;Settings...</value>
   </data>
   <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 20</value>
+    <value>50, 20</value>
   </data>
   <data name="menu_Tools.Text" xml:space="preserve">
     <value>&amp;Tools</value>
   </data>
   <data name="menu_About.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 20</value>
+    <value>66, 20</value>
   </data>
   <data name="menu_About.Text" xml:space="preserve">
     <value>&amp;About...</value>
@@ -1437,7 +1473,7 @@
     <value>2, 0</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 24</value>
+    <value>221, 24</value>
   </data>
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1496,9 +1532,6 @@
   <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>132, 56</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1643,9 +1676,6 @@
         M/9mMzP/ZjMz/2YzM/9mMzP/ZjMz/wAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAA
         rEEAAKxBAACsQQAArEEAAKxBAACsQQAArEE=
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 350</value>
@@ -2131,6 +2161,6 @@
     <value>FormMain</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialForm, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MaterialSkin.Controls.MaterialForm, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>
