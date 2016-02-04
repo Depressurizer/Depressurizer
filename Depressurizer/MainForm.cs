@@ -138,7 +138,6 @@ namespace Depressurizer {
 
             lstCategories.BackColor = formColor;
             lstCategories.ForeColor = textColor;
-            
 
             InitializeLstGames();
         }
@@ -158,7 +157,7 @@ namespace Depressurizer {
             this.lstGames.UnfocusedSelectedForeColor = textColor;
             this.lstGames.UnfocusedSelectedBackColor = listBackground;
             this.lstGames.Font = new Font("Arial", 10);
-
+           
         }
 
         /// <summary>
@@ -889,7 +888,8 @@ namespace Depressurizer {
         void AddGame() {
             DlgGame dlg = new DlgGame( currentProfile.GameData, null );
             if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
-                if( ProfileLoaded ) {
+                Cursor.Current = Cursors.WaitCursor;
+                if ( ProfileLoaded ) {
                     if( currentProfile.IgnoreList.Remove( dlg.Game.Id ) ) {
                         AddStatus( string.Format( GlobalStrings.MainForm_UnignoredGame, dlg.Game.Id ) );
                     }
@@ -897,6 +897,7 @@ namespace Depressurizer {
                 FullListRefresh();
                 MakeChange( true );
                 AddStatus( GlobalStrings.MainForm_AddedGame );
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -909,9 +910,11 @@ namespace Depressurizer {
                 GameInfo g = tlstGames.SelectedObjects[0];
                 DlgGame dlg = new DlgGame( currentProfile.GameData, g );
                 if( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK ) {
+                    Cursor.Current = Cursors.WaitCursor;
                     OnGameChange( true );
                     MakeChange( true );
                     AddStatus( GlobalStrings.MainForm_EditedGame );
+                    Cursor.Current = Cursors.Default;
                 }
             }
         }
@@ -924,6 +927,7 @@ namespace Depressurizer {
             if( selectCount > 0 ) {
                 if( MessageBox.Show( string.Format( GlobalStrings.MainForm_RemoveGame, selectCount, ( selectCount == 1 ) ? "" : "s" ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question )
                     == DialogResult.Yes ) {
+                    Cursor.Current = Cursors.WaitCursor;
                     int ignored = 0;
                     int removed = 0;
                     foreach (GameInfo g in tlstGames.SelectedObjects)
@@ -947,6 +951,7 @@ namespace Depressurizer {
                         MakeChange( true );
                     }
                     OnGameChange( false );
+                    Cursor.Current = Cursors.Default;
                 }
             }
         }
@@ -960,7 +965,8 @@ namespace Depressurizer {
         void AddCategoryToSelectedGames( Category cat, bool refreshCatList, bool forceClearOthers ) {
             if (lstGames.SelectedObjects.Count > 0)
             {
-                foreach( GameInfo g in tlstGames.SelectedObjects ) {
+                Cursor.Current = Cursors.WaitCursor;
+                foreach ( GameInfo g in tlstGames.SelectedObjects ) {
                     if( g != null ) {
                         if( forceClearOthers || Settings.Instance.SingleCatMode ) {
                             g.ClearCategories( alsoClearFavorite: false );
@@ -974,6 +980,7 @@ namespace Depressurizer {
                 }
                 OnGameChange( refreshCatList );
                 MakeChange( true );
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -984,12 +991,14 @@ namespace Depressurizer {
         void RemoveCategoryFromSelectedGames( Category cat ) {
             if (lstGames.SelectedObjects.Count > 0)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 foreach (GameInfo g in tlstGames.SelectedObjects)
                 {
                     g.RemoveCategory( cat );
                 }
                 OnGameChange( false );
                 MakeChange( true );
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -1000,12 +1009,14 @@ namespace Depressurizer {
         void AssignFavoriteToSelectedGames( bool fav ) {
             if (lstGames.SelectedObjects.Count > 0)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 foreach (GameInfo g in tlstGames.SelectedObjects)
                 {
                     g.SetFavorite( fav );
                 }
                 OnGameChange( false );
                 MakeChange( true );
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -1016,12 +1027,14 @@ namespace Depressurizer {
         void AssignHiddenToSelectedGames( bool hidden ) {
             if (lstGames.SelectedObjects.Count > 0)
             {
+                Cursor.Current = Cursors.WaitCursor;
                 foreach (GameInfo g in tlstGames.SelectedObjects)
                 {
                     g.SetHidden(hidden);
                 }
                 OnGameChange( false );
                 MakeChange( true );
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -1031,11 +1044,13 @@ namespace Depressurizer {
         /// <returns>True if there is now no loaded profile, false otherwise.</returns>
         void Unload() {
             if( !CheckForUnsaved() ) return;
+            Cursor.Current = Cursors.WaitCursor;
             AddStatus( GlobalStrings.MainForm_ClearedData );
             currentProfile = null;
             MakeChange( false );
             OnProfileChange();
             FullListRefresh();
+            Cursor.Current = Cursors.Default;
         }
 
         /// <summary>
@@ -1045,6 +1060,8 @@ namespace Depressurizer {
         /// <param name="autoCat">The autocat object to use.</param>
         private void Autocategorize( bool selectedOnly, AutoCat autoCat ) {
             if( autoCat == null ) return;
+
+            Cursor.Current = Cursors.WaitCursor;
 
             // Get a list of games to update
             List<GameInfo> gamesToUpdate = new List<GameInfo>();
@@ -1075,7 +1092,8 @@ namespace Depressurizer {
             }
 
             if( notInDb.Count > 0 ) {
-                if( MessageBox.Show( string.Format( GlobalStrings.MainForm_GamesNotFoundInGameDB, notInDb.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
+                Cursor.Current = Cursors.Default;
+                if ( MessageBox.Show( string.Format( GlobalStrings.MainForm_GamesNotFoundInGameDB, notInDb.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
                         == System.Windows.Forms.DialogResult.Yes ) {
 
                     DbScrapeDlg scrapeDlg = new DbScrapeDlg( notInDb );
@@ -1090,6 +1108,7 @@ namespace Depressurizer {
                         }
                     }
                 }
+                Cursor.Current = Cursors.WaitCursor;
             }
 
             autoCat.PreProcess( currentProfile.GameData, Program.GameDB );
@@ -1106,6 +1125,8 @@ namespace Depressurizer {
             if( gamesToUpdate.Count > updated ) AddStatus( string.Format( GlobalStrings.MainForm_FailedToUpdate, gamesToUpdate.Count - updated ) );
             if( updated > 0 ) MakeChange( true );
             FullListRefresh();
+
+            Cursor.Current = Cursors.Default;
         }
 
         /// <summary>
@@ -1115,12 +1136,14 @@ namespace Depressurizer {
             DialogResult res = MessageBox.Show( GlobalStrings.MainForm_OverwriteExistingNames, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2 );
             bool overwrite = false;
 
-            if( res == DialogResult.Cancel ) {
+            if ( res == DialogResult.Cancel ) {
                 AddStatus( GlobalStrings.MainForm_AutonameCanceled );
                 return;
             } else if( res == DialogResult.Yes ) {
                 overwrite = true;
             }
+
+            Cursor.Current = Cursors.WaitCursor;
 
             int named = 0;
             foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
@@ -1135,6 +1158,8 @@ namespace Depressurizer {
             }
 
             UpdateGameList();
+
+            Cursor.Current = Cursors.Default;
         }
 
         /// <summary>
@@ -1171,7 +1196,8 @@ namespace Depressurizer {
         /// Sets the status text to the builder text, and clear the builder text.
         /// </summary>
         public void FlushStatus() {
-            statusMsg.Text = statusBuilder.ToString();
+            mlblStatusMsg.Font = new Font("Arial", 9);
+            mlblStatusMsg.Text = statusBuilder.ToString();
             statusBuilder.Clear();
         }
 
@@ -1179,7 +1205,8 @@ namespace Depressurizer {
         /// Updates the text displaying the number of items in the game list
         /// </summary>
         private void UpdateSelectedStatusText() {
-            statusSelection.Text = string.Format(GlobalStrings.MainForm_SelectedDisplayed, lstGames.SelectedObjects.Count, lstGames.GetItemCount());
+            mlblStatusSelection.Font = new Font("Arial", 9);
+            mlblStatusSelection.Text = string.Format(GlobalStrings.MainForm_SelectedDisplayed, lstGames.SelectedObjects.Count, lstGames.GetItemCount());
         }
 
         /// <summary>
@@ -1546,7 +1573,7 @@ namespace Depressurizer {
             // Prepare main screen AutoCat dropdown
             object selected = cmbAutoCatType.SelectedItem;
             cmbAutoCatType.Items.Clear();
-            mlbAutoCatType.Items.Clear();
+            lvAutoCatType.Items.Clear();
 
             // Prepare main menu list
             menu_Tools_Autocat_List.Items.Clear();
@@ -1557,10 +1584,10 @@ namespace Depressurizer {
                         // Fill main screen dropdown
                         cmbAutoCatType.Items.Add( ac );
 
-                        // Fill main menu list
-                        ToolStripItem item = menu_Tools_Autocat_List.Items.Add( ac.Name );
-                        item.Tag = ac;
-                        item.Click += menuToolsAutocat_Item_Click;
+                        //// Fill main menu list
+                        //ToolStripItem item = menu_Tools_Autocat_List.Items.Add( ac.Name );
+                        //item.Tag = ac;
+                        //item.Click += menuToolsAutocat_Item_Click;
                     }
                 }
             }
@@ -1572,12 +1599,14 @@ namespace Depressurizer {
                     if (ac != null)
                     {
                         // Fill main screen dropdown
-                        mlbAutoCatType.Items.Add(ac);
+                        ListViewItem listItem = new ListViewItem(ac.Name);
+                        listItem.Tag = ac;
+                        lvAutoCatType.Items.Add(listItem);
 
-                        //// Fill main menu list
-                        //ToolStripItem item = menu_Tools_Autocat_List.Items.Add(ac.Name);
-                        //item.Tag = ac;
-                        //item.Click += menuToolsAutocat_Item_Click;
+                        // Fill main menu list
+                        ToolStripItem item = menu_Tools_Autocat_List.Items.Add(ac.Name);
+                        item.Tag = ac;
+                        item.Click += menuToolsAutocat_Item_Click;
                     }
                 }
             }
@@ -2113,12 +2142,16 @@ namespace Depressurizer {
 
         private void mbtnAutoCategorize_Click(object sender, EventArgs e)
         {
-            AutoCat ac = cmbAutoCatType.SelectedItem as AutoCat;
-            if (ac != null)
+            //AutoCat ac = cmbAutoCatType.SelectedItem as AutoCat;
+            foreach (ListViewItem item in lvAutoCatType.SelectedItems )
             {
-                ClearStatus();
-                Autocategorize(true, ac);
-                FlushStatus();
+                AutoCat ac = ((AutoCat) item.Tag);
+                if (ac != null)
+                {
+                    ClearStatus();
+                    Autocategorize(true, ac);
+                    FlushStatus();
+                }
             }
         }
 
@@ -2281,9 +2314,11 @@ namespace Depressurizer {
         }
 
         private void lstGames_SelectionChanged( object sender, EventArgs e ) {
+            Cursor.Current = Cursors.WaitCursor;
             UpdateSelectedStatusText();
             UpdateEnabledStatesForGames();
             UpdateGameCheckStates();
+            Cursor.Current = Cursors.Default;
         }
 
         private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
@@ -2629,6 +2664,11 @@ namespace Depressurizer {
             SetAdvancedMode(mchkAdvancedCategories.Checked);
         }
 
+        private void txtAddCatAndAssign_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         /// <summary>
         /// Clustering strategy for columns with comma-seperated strings. (Tags, Categories, Flags, Genres etc)
         /// </summary>
@@ -2705,10 +2745,22 @@ namespace Depressurizer {
             {
                 Rectangle rc = new Rectangle(Point.Empty, e.Item.Size);
                 Color colorText = e.Item.Selected ? Color.FromArgb(255, 255, 255) : Color.FromArgb(169, 167, 167);
-                Color colorItem = Color.FromArgb(38, 50, 56);
-                using (SolidBrush brush = new SolidBrush(colorItem))
-                    e.Graphics.FillRectangle(brush, rc);
+                if (e.ToolStrip is ToolStripDropDown)
+                {
+                    Color colorItem = Color.FromArgb(55, 71, 79);
+                    using (SolidBrush brush = new SolidBrush(colorItem))
+                        e.Graphics.FillRectangle(brush, rc);
+                }
+                else
+                {
+                    Color colorItem = Color.FromArgb(38, 50, 56);
+                    using (SolidBrush brush = new SolidBrush(colorItem))
+                        e.Graphics.FillRectangle(brush, rc);
+                }
+
                 e.Item.ForeColor = colorText;
+
+                base.OnRenderMenuItemBackground(e);
             }
 
             protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
@@ -2742,7 +2794,7 @@ namespace Depressurizer {
 
                 if (e.ToolStrip is ToolStripDropDown)
                 {
-                    e.Graphics.Clear(Color.FromArgb(38, 50, 56));
+                    e.Graphics.Clear(Color.FromArgb(55, 71, 79));
                     return;
                 }
 
