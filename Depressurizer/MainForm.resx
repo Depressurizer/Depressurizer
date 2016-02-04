@@ -135,7 +135,7 @@
     <value>3, 373</value>
   </data>
   <data name="lvAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 74</value>
+    <value>291, 74</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lvAutoCatType.TabIndex" type="System.Int32, mscorlib">
@@ -157,7 +157,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>219, 453</value>
+    <value>233, 453</value>
   </data>
   <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 21</value>
@@ -187,7 +187,7 @@
     <value>NoControl</value>
   </data>
   <data name="mbtnCatDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 482</value>
+    <value>189, 482</value>
   </data>
   <data name="mbtnCatDelete.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 23</value>
@@ -253,7 +253,7 @@
     <value>NoControl</value>
   </data>
   <data name="mbtnCatRename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 482</value>
+    <value>110, 482</value>
   </data>
   <data name="mbtnCatRename.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 23</value>
@@ -283,7 +283,7 @@
     <value>NoControl</value>
   </data>
   <data name="mbtnCatAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 482</value>
+    <value>32, 482</value>
   </data>
   <data name="mbtnCatAdd.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 23</value>
@@ -313,7 +313,7 @@
     <value>NoControl</value>
   </data>
   <data name="mbtnAutoCategorize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 453</value>
+    <value>32, 453</value>
   </data>
   <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
     <value>230, 23</value>
@@ -355,7 +355,7 @@
     <value>NoControl</value>
   </data>
   <data name="mlblHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>261, 4</value>
+    <value>275, 4</value>
   </data>
   <data name="mlblHelp.Size" type="System.Drawing.Size, System.Drawing">
     <value>18, 20</value>
@@ -427,7 +427,7 @@
     <value>3, 34</value>
   </data>
   <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>276, 333</value>
+    <value>290, 333</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -598,7 +598,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>881, 8</value>
+    <value>867, 8</value>
   </data>
   <data name="cmdAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 23</value>
@@ -628,7 +628,7 @@
     <value>Top, Right</value>
   </data>
   <data name="txtAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>825, 10</value>
+    <value>811, 10</value>
   </data>
   <data name="txtAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 20</value>
@@ -958,7 +958,7 @@
     <value>3, 34</value>
   </data>
   <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>937, 376</value>
+    <value>923, 376</value>
   </data>
   <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -997,7 +997,7 @@
     <value>0, 0</value>
   </data>
   <data name="lstMultiCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>943, 91</value>
+    <value>929, 91</value>
   </data>
   <metadata name="imglistTriState.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>918, 17</value>
@@ -1007,7 +1007,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAWABCAFgAQgBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAWgBCAFoAQgBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1076,7 +1076,7 @@
     <value>20</value>
   </data>
   <data name="splitGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>943, 508</value>
+    <value>929, 508</value>
   </data>
   <data name="splitGame.SplitterDistance" type="System.Int32, mscorlib">
     <value>413</value>
@@ -1148,7 +1148,7 @@
     <value>1</value>
   </data>
   <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>943, 508</value>
+    <value>929, 508</value>
   </data>
   <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
     <value>410</value>
@@ -1187,7 +1187,7 @@
     <value>1229, 508</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>282</value>
+    <value>296</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1287,7 +1287,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAdABBgHQAQYBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAdgBBgHYAQYBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1721,6 +1721,9 @@
         M/9mMzP/ZjMz/2YzM/9mMzP/ZjMz/wAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAA
         rEEAAKxBAACsQQAArEEAAKxBAACsQQAArEE=
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 350</value>

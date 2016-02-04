@@ -2143,7 +2143,7 @@ namespace Depressurizer {
         private void mbtnAutoCategorize_Click(object sender, EventArgs e)
         {
             //AutoCat ac = cmbAutoCatType.SelectedItem as AutoCat;
-            foreach (ListViewItem item in lvAutoCatType.SelectedItems )
+            foreach (ListViewItem item in lvAutoCatType.CheckedItems )
             {
                 AutoCat ac = ((AutoCat) item.Tag);
                 if (ac != null)
