@@ -353,9 +353,28 @@ namespace Depressurizer {
 
         private void FormMain_Load( object sender, EventArgs e ) {
 
+            // Load saved forms settings
             Settings settings = Settings.Instance;
-
-            this.Size = new System.Drawing.Size(settings.Width, settings.Height);
+            if ((settings.Width < 600) && (settings.Width < 350)) {
+                this.Size = new System.Drawing.Size(1000, 600);
+            } else {
+                this.Size = new System.Drawing.Size(settings.Width, settings.Height);
+            }
+            if (settings.SplitContainer < 100) {
+                this.splitContainer.SplitterDistance = 250;
+            } else {
+                this.splitContainer.SplitterDistance = settings.SplitContainer;
+            }
+            if (settings.SplitGame < 100) {
+                this.splitGame.SplitterDistance = (splitGame.Height - 150);
+            } else {
+                this.splitGame.SplitterDistance = settings.SplitGame;
+            }
+            if (settings.SplitBrowser < 100) {
+                this.splitBrowser.SplitterDistance = (splitBrowser.Width - 300);
+            } else {
+                this.splitBrowser.SplitterDistance = settings.SplitBrowser;
+            }
 
             ttHelp.Ext_SetToolTip( mlblHelp, GlobalStrings.MainForm_Help_AdvancedCategories );
 
@@ -1735,6 +1754,9 @@ namespace Depressurizer {
             Settings settings = Settings.Instance;
             settings.Height = this.Height;
             settings.Width = this.Width;
+            settings.SplitContainer = this.splitContainer.SplitterDistance;
+            settings.SplitGame = this.splitGame.SplitterDistance;
+            settings.SplitBrowser = this.splitBrowser.SplitterDistance;
 
             try
             {
@@ -2731,6 +2753,20 @@ namespace Depressurizer {
         private void mchkAutoCatSelected_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAutoCatSelected_StatusMessage();
+        }
+
+        private void mbtnCategories_Click(object sender, EventArgs e)
+        {
+            if (splitContainer.Panel1Collapsed == true)
+            {
+                splitContainer.Panel1Collapsed = false;
+                mbtnCategories.Text = "<";
+            }
+            else
+            {
+                splitContainer.Panel1Collapsed = true;
+                mbtnCategories.Text = ">";
+            }
         }
 
         private void UpdateAutoCatSelected_StatusMessage()

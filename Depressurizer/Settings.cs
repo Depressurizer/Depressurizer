@@ -86,6 +86,45 @@ namespace Depressurizer {
             }
         }
 
+        private int _splitContainer;
+        public int SplitContainer
+        {
+            get
+            {
+                return _splitContainer;
+            }
+            set
+            {
+                _splitContainer = value;
+            }
+        }
+
+        private int _splitGame;
+        public int SplitGame
+        {
+            get
+            {
+                return _splitGame;
+            }
+            set
+            {
+                _splitGame = value;
+            }
+        }
+
+        private int _splitBrowser;
+        public int SplitBrowser
+        {
+            get
+            {
+                return _splitBrowser;
+            }
+            set
+            {
+                _splitBrowser = value;
+            }
+        }
+
         private string _steamPath = null;
         public string SteamPath {
             get {
