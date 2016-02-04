@@ -56,7 +56,33 @@ namespace Depressurizer {
 
         public int SettingsVersion {
             get {
-                return 2;
+                return 3;
+            }
+        }
+
+        private int _height;
+        public int Height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
+            }
+        }
+
+        private int _width;
+        public int Width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
             }
         }
 

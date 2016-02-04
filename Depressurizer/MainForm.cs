@@ -61,7 +61,7 @@ namespace Depressurizer {
         int dragOldCat;
 
         // Used to reload resources of main form while switching language
-        private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary;
+        private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary, originalSplitDistanceBrowser;
 
         private readonly MaterialSkinManager materialSkinManager;
 
@@ -149,7 +149,7 @@ namespace Depressurizer {
             this.lstGames.HeaderFormatStyle.SetBackColor(primaryDark);
             this.lstGames.HeaderFormatStyle.SetForeColor(headerFontColor);
             this.lstGames.HeaderFormatStyle.SetFont(new Font("Arial", 10, FontStyle.Bold));
-            this.lstGames.HeaderFormatStyle.Normal.FrameColor = headerFontColor;
+            this.lstGames.HeaderFormatStyle.Hot.BackColor = primaryLight;
             this.lstGames.ForeColor = textColor;
             this.lstGames.BackColor = formColor;
             this.lstGames.SelectedForeColor = textColor;
@@ -352,6 +352,11 @@ namespace Depressurizer {
         }
 
         private void FormMain_Load( object sender, EventArgs e ) {
+
+            Settings settings = Settings.Instance;
+
+            this.Size = new System.Drawing.Size(settings.Width, settings.Height);
+
             ttHelp.Ext_SetToolTip( mlblHelp, GlobalStrings.MainForm_Help_AdvancedCategories );
 
             InitializeObjectListView();
@@ -363,6 +368,7 @@ namespace Depressurizer {
             originalWidth = this.Width;
             originalSplitDistanceMain = this.splitContainer.SplitterDistance;
             originalSplitDistanceSecondary = this.splitGame.SplitterDistance;
+            originalSplitDistanceBrowser = this.splitBrowser.SplitterDistance;
 
             ClearStatus();
             if( Settings.Instance.SteamPath == null ) {
@@ -1066,14 +1072,27 @@ namespace Depressurizer {
             // Get a list of games to update
             List<GameInfo> gamesToUpdate = new List<GameInfo>();
 
-            if( selectedOnly ) {
+            if( selectedOnly )
+            {
                 foreach (GameInfo g in tlstGames.SelectedObjects)
                 {
                     if( g.Id > 0 ) {
                         gamesToUpdate.Add( g );
                     }
                 }
-            } else {
+            }
+            else if (tlstGames.Objects.Count > 0)
+            {
+                foreach (GameInfo g in tlstGames.Objects)
+                {
+                    if (g.Id > 0)
+                    {
+                        gamesToUpdate.Add(g);
+                    }
+                }
+            }
+            else
+            {
                 foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
                     if( ( g != null ) && ( g.Id > 0 ) ) {
                         gamesToUpdate.Add( g );
@@ -1713,7 +1732,20 @@ namespace Depressurizer {
         #region UI Event Handlers
 
         private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
-            if( e.CloseReason == CloseReason.UserClosing ) {
+            Settings settings = Settings.Instance;
+            settings.Height = this.Height;
+            settings.Width = this.Width;
+
+            try
+            {
+                settings.Save(true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + ex.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if ( e.CloseReason == CloseReason.UserClosing ) {
                 e.Cancel = !CheckForUnsaved();
             }
         }
@@ -1996,11 +2028,13 @@ namespace Depressurizer {
                 int actualHeight = this.Height;
                 int actualSplitDistanceMain = this.splitContainer.SplitterDistance;
                 int actualSplitDistanceSecondary = this.splitGame.SplitterDistance;
+                int actualSplitDistanceBrowser = this.splitBrowser.SplitterDistance;
 
                 this.Width = this.originalWidth;
                 this.Height = this.originalHeight;
                 this.splitContainer.SplitterDistance = this.originalSplitDistanceMain;
                 this.splitGame.SplitterDistance = this.originalSplitDistanceSecondary;
+                this.splitBrowser.SplitterDistance = this.originalSplitDistanceBrowser;
 
                 changeLanguageControls( this, resources, Thread.CurrentThread.CurrentUICulture );
 
@@ -2009,6 +2043,7 @@ namespace Depressurizer {
                 this.Height = actualHeight;
                 splitContainer.SplitterDistance = actualSplitDistanceMain;
                 splitGame.SplitterDistance = actualSplitDistanceSecondary;
+                splitBrowser.SplitterDistance = actualSplitDistanceBrowser;
 
                 // Re-maximize if it was maximized before
                 if( maximized ) {
@@ -2143,14 +2178,32 @@ namespace Depressurizer {
         private void mbtnAutoCategorize_Click(object sender, EventArgs e)
         {
             //AutoCat ac = cmbAutoCatType.SelectedItem as AutoCat;
-            foreach (ListViewItem item in lvAutoCatType.CheckedItems )
+            if (lvAutoCatType.CheckedItems.Count == 0)
             {
-                AutoCat ac = ((AutoCat) item.Tag);
-                if (ac != null)
+                ClearStatus();
+                AddStatus(GlobalStrings.AutoCat_NothingSelected);
+                FlushStatus();
+            }
+            else
+            {
+                if ((tlstGames.SelectedObjects.Count == 0) && mchkAutoCatSelected.Checked)
                 {
                     ClearStatus();
-                    Autocategorize(true, ac);
+                    AddStatus(GlobalStrings.AutoCatSelected_NothingSelected);
                     FlushStatus();
+                }
+                else
+                {
+                    foreach (ListViewItem item in lvAutoCatType.CheckedItems)
+                    {
+                        AutoCat ac = ((AutoCat)item.Tag);
+                        if (ac != null)
+                        {
+                            ClearStatus();
+                            Autocategorize(mchkAutoCatSelected.Checked, ac);
+                            FlushStatus();
+                        }
+                    }
                 }
             }
         }
@@ -2318,6 +2371,7 @@ namespace Depressurizer {
             UpdateSelectedStatusText();
             UpdateEnabledStatesForGames();
             UpdateGameCheckStates();
+            UpdateAutoCatSelected_StatusMessage();
             Cursor.Current = Cursors.Default;
         }
 
@@ -2328,6 +2382,11 @@ namespace Depressurizer {
                 GameInfo g = tlstGames.SelectedObjects[0];
                 webBrowser1.ScriptErrorsSuppressed = true;
                 webBrowser1.Navigate("http://store.steampowered.com/app/" + g.Id);
+            }
+            else if (webBrowser1.Visible)
+            {
+                webBrowser1.ScriptErrorsSuppressed = true;
+                webBrowser1.Navigate("http://store.steampowered.com/");
             }
         }
 
@@ -2648,13 +2707,13 @@ namespace Depressurizer {
             if (mchkBrowser.CheckState == CheckState.Checked)
             {
                 FixWebBrowserRegistry();
-                splitContainer1.Panel2Collapsed = false;
+                splitBrowser.Panel2Collapsed = false;
                 webBrowser1.Visible = true;
                 lstGames_SelectedIndexChanged(null, null);
             }
             else if (mchkBrowser.CheckState == CheckState.Unchecked)
             {
-                splitContainer1.Panel2Collapsed = true;
+                splitBrowser.Panel2Collapsed = true;
                 webBrowser1.Visible = false;
             }
         }
@@ -2667,6 +2726,29 @@ namespace Depressurizer {
         private void txtAddCatAndAssign_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void mchkAutoCatSelected_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateAutoCatSelected_StatusMessage();
+        }
+
+        private void UpdateAutoCatSelected_StatusMessage()
+        {
+            if ((tlstGames.SelectedObjects.Count == 0) && mchkAutoCatSelected.Checked)
+            {
+                ClearStatus();
+                AddStatus(GlobalStrings.AutoCatSelected_NothingSelected);
+                FlushStatus();
+            }
+            else
+            {
+                if (mlblStatusMsg.Text.Contains(GlobalStrings.AutoCatSelected_NothingSelected))
+                {
+                    ClearStatus();
+                    FlushStatus();
+                }
+            }
         }
 
         /// <summary>
@@ -2738,6 +2820,8 @@ namespace Depressurizer {
         }
 
         #endregion
+
+        #region Skinning
 
         public class MyRenderer : ToolStripRenderer
         {
@@ -2826,6 +2910,8 @@ namespace Depressurizer {
             }
 
         }
+
+        #endregion Skinning
 
         private void autoModeHelperToolStripMenuItem_Click( object sender, EventArgs e ) {
             (new DlgAutomaticModeHelper(currentProfile)).ShowDialog();

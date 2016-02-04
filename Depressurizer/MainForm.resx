@@ -125,6 +125,43 @@
   <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 65</value>
   </data>
+  <data name="mchkAutoCatSelected.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mchkAutoCatSelected.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="mchkAutoCatSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mchkAutoCatSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>164, 452</value>
+  </data>
+  <data name="mchkAutoCatSelected.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="mchkAutoCatSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 27</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="mchkAutoCatSelected.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="mchkAutoCatSelected.Text" xml:space="preserve">
+    <value>Selected Only</value>
+  </data>
+  <data name="&gt;&gt;mchkAutoCatSelected.Name" xml:space="preserve">
+    <value>mchkAutoCatSelected</value>
+  </data>
+  <data name="&gt;&gt;mchkAutoCatSelected.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mchkAutoCatSelected.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;mchkAutoCatSelected.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="lvAutoCatType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
@@ -132,12 +169,11 @@
     <value>Arial, 9.75pt</value>
   </data>
   <data name="lvAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 373</value>
+    <value>3, 379</value>
   </data>
   <data name="lvAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>291, 74</value>
+    <value>291, 68</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lvAutoCatType.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
@@ -151,13 +187,13 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;lvAutoCatType.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="cmbAutoCatType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 453</value>
+    <value>4, 482</value>
   </data>
   <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 21</value>
@@ -178,7 +214,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;cmbAutoCatType.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="mbtnCatDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
@@ -208,7 +244,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnCatDelete.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="mchkAdvancedCategories.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -244,7 +280,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mchkAdvancedCategories.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="mbtnCatRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
@@ -274,7 +310,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnCatRename.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="mbtnCatAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
@@ -304,7 +340,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnCatAdd.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="mbtnAutoCategorize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
@@ -316,7 +352,7 @@
     <value>32, 453</value>
   </data>
   <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 23</value>
+    <value>129, 23</value>
   </data>
   <data name="mbtnAutoCategorize.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -340,7 +376,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnAutoCategorize.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="mlblHelp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -376,7 +412,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;mlblHelp.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="lstCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -427,7 +463,7 @@
     <value>3, 34</value>
   </data>
   <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 333</value>
+    <value>290, 339</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -442,7 +478,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;lstCategories.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
     <value>splitContainer.Panel1</value>
@@ -459,10 +495,10 @@
   <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>100</value>
   </data>
-  <data name="splitContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="splitBrowser.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="splitContainer1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="splitBrowser.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
   <data name="mtxtSearch.Location" type="System.Drawing.Point, System.Drawing">
@@ -481,7 +517,7 @@
     <value>MaterialSkin.Controls.MaterialSingleLineTextField, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mtxtSearch.Parent" xml:space="preserve">
-    <value>splitContainer1.Panel1</value>
+    <value>splitBrowser.Panel1</value>
   </data>
   <data name="&gt;&gt;mtxtSearch.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -508,7 +544,7 @@
     <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mbtnSearchClear.Parent" xml:space="preserve">
-    <value>splitContainer1.Panel1</value>
+    <value>splitBrowser.Panel1</value>
   </data>
   <data name="&gt;&gt;mbtnSearchClear.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -541,7 +577,7 @@
     <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mlblSearch.Parent" xml:space="preserve">
-    <value>splitContainer1.Panel1</value>
+    <value>splitBrowser.Panel1</value>
   </data>
   <data name="&gt;&gt;mlblSearch.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -577,7 +613,7 @@
     <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mchkBrowser.Parent" xml:space="preserve">
-    <value>splitContainer1.Panel1</value>
+    <value>splitBrowser.Panel1</value>
   </data>
   <data name="&gt;&gt;mchkBrowser.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -1007,7 +1043,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAWgBCAFoAQgBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAcgBCAHIAQgBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1091,21 +1127,21 @@
     <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;splitGame.Parent" xml:space="preserve">
-    <value>splitContainer1.Panel1</value>
+    <value>splitBrowser.Panel1</value>
   </data>
   <data name="&gt;&gt;splitGame.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel1.Name" xml:space="preserve">
-    <value>splitContainer1.Panel1</value>
+  <data name="&gt;&gt;splitBrowser.Panel1.Name" xml:space="preserve">
+    <value>splitBrowser.Panel1</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel1.Type" xml:space="preserve">
+  <data name="&gt;&gt;splitBrowser.Panel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel1.Parent" xml:space="preserve">
-    <value>splitContainer1</value>
+  <data name="&gt;&gt;splitBrowser.Panel1.Parent" xml:space="preserve">
+    <value>splitBrowser</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;splitBrowser.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="webBrowser1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -1118,7 +1154,7 @@
     <value>20, 20</value>
   </data>
   <data name="webBrowser1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>575, 508</value>
+    <value>515, 508</value>
   </data>
   <data name="webBrowser1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1130,42 +1166,42 @@
     <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;webBrowser1.Parent" xml:space="preserve">
-    <value>splitContainer1.Panel2</value>
+    <value>splitBrowser.Panel2</value>
   </data>
   <data name="&gt;&gt;webBrowser1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel2.Name" xml:space="preserve">
-    <value>splitContainer1.Panel2</value>
+  <data name="&gt;&gt;splitBrowser.Panel2.Name" xml:space="preserve">
+    <value>splitBrowser.Panel2</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel2.Type" xml:space="preserve">
+  <data name="&gt;&gt;splitBrowser.Panel2.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel2.Parent" xml:space="preserve">
-    <value>splitContainer1</value>
+  <data name="&gt;&gt;splitBrowser.Panel2.Parent" xml:space="preserve">
+    <value>splitBrowser</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;splitBrowser.Panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="splitBrowser.Size" type="System.Drawing.Size, System.Drawing">
     <value>929, 508</value>
   </data>
-  <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
+  <data name="splitBrowser.SplitterDistance" type="System.Int32, mscorlib">
     <value>410</value>
   </data>
-  <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
+  <data name="splitBrowser.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Name" xml:space="preserve">
-    <value>splitContainer1</value>
+  <data name="&gt;&gt;splitBrowser.Name" xml:space="preserve">
+    <value>splitBrowser</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Type" xml:space="preserve">
+  <data name="&gt;&gt;splitBrowser.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;splitBrowser.Parent" xml:space="preserve">
     <value>splitContainer.Panel2</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;splitBrowser.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
@@ -1217,7 +1253,7 @@
     <value>NoControl</value>
   </data>
   <data name="mlblStatusSelection.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1048, 576</value>
+    <value>1048, 579</value>
   </data>
   <data name="mlblStatusSelection.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
@@ -1256,7 +1292,7 @@
     <value>NoControl</value>
   </data>
   <data name="mlblStatusMsg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 576</value>
+    <value>12, 579</value>
   </data>
   <data name="mlblStatusMsg.Size" type="System.Drawing.Size, System.Drawing">
     <value>106, 18</value>
@@ -1287,7 +1323,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAdgBBgHYAQYBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAATgBBwE4AQcBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1721,9 +1757,6 @@
         M/9mMzP/ZjMz/2YzM/9mMzP/ZjMz/wAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAA
         rEEAAKxBAACsQQAArEEAAKxBAACsQQAArEE=
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 350</value>
