@@ -1199,4 +1199,10 @@ If unchecked, games with no times will be skipped.</value>
   <data name="MainForm_Msg_UpdateFoundTitle" xml:space="preserve">
     <value>Update Found</value>
   </data>
+  <data name="AutoCat_NothingSelected" xml:space="preserve">
+    <value>No AutoCats selected. Select at least one AutoCat before running.</value>
+  </data>
+  <data name="AutoCatSelected_NothingSelected" xml:space="preserve">
+    <value>No games are currently selected.  Auto-Categorize will not do anything.</value>
+  </data>
 </root>

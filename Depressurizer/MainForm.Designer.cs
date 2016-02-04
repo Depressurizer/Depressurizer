@@ -44,6 +44,7 @@ namespace Depressurizer {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.mchkAutoCatSelected = new MaterialSkin.Controls.MaterialCheckBox();
             this.lvAutoCatType = new System.Windows.Forms.ListView();
             this.cmbAutoCatType = new System.Windows.Forms.ComboBox();
             this.mbtnCatDelete = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -58,14 +59,14 @@ namespace Depressurizer {
             this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.cmdAddCatAndAssign = new System.Windows.Forms.Button();
-            this.txtAddCatAndAssign = new System.Windows.Forms.TextBox();
+            this.splitBrowser = new System.Windows.Forms.SplitContainer();
             this.mtxtSearch = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.mbtnSearchClear = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mlblSearch = new MaterialSkin.Controls.MaterialLabel();
             this.mchkBrowser = new MaterialSkin.Controls.MaterialCheckBox();
             this.splitGame = new System.Windows.Forms.SplitContainer();
+            this.cmdAddCatAndAssign = new System.Windows.Forms.Button();
+            this.txtAddCatAndAssign = new System.Windows.Forms.TextBox();
             this.lstGames = new BrightIdeasSoftware.FastObjectListView();
             this.colGameID = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colTitle = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -156,10 +157,10 @@ namespace Depressurizer {
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.contextCat.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitBrowser)).BeginInit();
+            this.splitBrowser.Panel1.SuspendLayout();
+            this.splitBrowser.Panel2.SuspendLayout();
+            this.splitBrowser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitGame)).BeginInit();
             this.splitGame.Panel1.SuspendLayout();
             this.splitGame.Panel2.SuspendLayout();
@@ -179,6 +180,7 @@ namespace Depressurizer {
             // 
             // splitContainer.Panel1
             // 
+            this.splitContainer.Panel1.Controls.Add(this.mchkAutoCatSelected);
             this.splitContainer.Panel1.Controls.Add(this.lvAutoCatType);
             this.splitContainer.Panel1.Controls.Add(this.cmbAutoCatType);
             this.splitContainer.Panel1.Controls.Add(this.mbtnCatDelete);
@@ -191,7 +193,18 @@ namespace Depressurizer {
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.splitContainer1);
+            this.splitContainer.Panel2.Controls.Add(this.splitBrowser);
+            // 
+            // mchkAutoCatSelected
+            // 
+            resources.ApplyResources(this.mchkAutoCatSelected, "mchkAutoCatSelected");
+            this.mchkAutoCatSelected.Depth = 0;
+            this.mchkAutoCatSelected.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.mchkAutoCatSelected.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mchkAutoCatSelected.Name = "mchkAutoCatSelected";
+            this.mchkAutoCatSelected.Ripple = true;
+            this.mchkAutoCatSelected.UseVisualStyleBackColor = true;
+            this.mchkAutoCatSelected.CheckedChanged += new System.EventHandler(this.mchkAutoCatSelected_CheckedChanged);
             // 
             // lvAutoCatType
             // 
@@ -199,10 +212,13 @@ namespace Depressurizer {
             resources.ApplyResources(this.lvAutoCatType, "lvAutoCatType");
             this.lvAutoCatType.AutoArrange = false;
             this.lvAutoCatType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+            this.lvAutoCatType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lvAutoCatType.CheckBoxes = true;
             this.lvAutoCatType.Cursor = System.Windows.Forms.Cursors.Default;
             this.lvAutoCatType.ForeColor = System.Drawing.Color.White;
+            this.lvAutoCatType.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lvAutoCatType.Name = "lvAutoCatType";
+            this.lvAutoCatType.ShowGroups = false;
             this.lvAutoCatType.UseCompatibleStateImageBehavior = false;
             this.lvAutoCatType.View = System.Windows.Forms.View.List;
             // 
@@ -314,37 +330,24 @@ namespace Depressurizer {
             resources.ApplyResources(this.contextCat_RemoveEmpty, "contextCat_RemoveEmpty");
             this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
             // 
-            // splitContainer1
+            // splitBrowser
             // 
-            resources.ApplyResources(this.splitContainer1, "splitContainer1");
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.Name = "splitContainer1";
+            resources.ApplyResources(this.splitBrowser, "splitBrowser");
+            this.splitBrowser.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitBrowser.Name = "splitBrowser";
             // 
-            // splitContainer1.Panel1
+            // splitBrowser.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.mtxtSearch);
-            this.splitContainer1.Panel1.Controls.Add(this.mbtnSearchClear);
-            this.splitContainer1.Panel1.Controls.Add(this.mlblSearch);
-            this.splitContainer1.Panel1.Controls.Add(this.mchkBrowser);
-            this.splitContainer1.Panel1.Controls.Add(this.splitGame);
+            this.splitBrowser.Panel1.Controls.Add(this.mtxtSearch);
+            this.splitBrowser.Panel1.Controls.Add(this.mbtnSearchClear);
+            this.splitBrowser.Panel1.Controls.Add(this.mlblSearch);
+            this.splitBrowser.Panel1.Controls.Add(this.mchkBrowser);
+            this.splitBrowser.Panel1.Controls.Add(this.splitGame);
             // 
-            // splitContainer1.Panel2
+            // splitBrowser.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer1.Panel2Collapsed = true;
-            // 
-            // cmdAddCatAndAssign
-            // 
-            resources.ApplyResources(this.cmdAddCatAndAssign, "cmdAddCatAndAssign");
-            this.cmdAddCatAndAssign.Name = "cmdAddCatAndAssign";
-            this.cmdAddCatAndAssign.UseVisualStyleBackColor = true;
-            this.cmdAddCatAndAssign.Click += new System.EventHandler(this.cmdAddCatAndAssign_Click);
-            // 
-            // txtAddCatAndAssign
-            // 
-            resources.ApplyResources(this.txtAddCatAndAssign, "txtAddCatAndAssign");
-            this.txtAddCatAndAssign.Name = "txtAddCatAndAssign";
-            this.txtAddCatAndAssign.TextChanged += new System.EventHandler(this.txtAddCatAndAssign_TextChanged);
+            this.splitBrowser.Panel2.Controls.Add(this.webBrowser1);
+            this.splitBrowser.Panel2Collapsed = true;
             // 
             // mtxtSearch
             // 
@@ -406,6 +409,19 @@ namespace Depressurizer {
             // 
             this.splitGame.Panel2.Controls.Add(this.lstMultiCat);
             // 
+            // cmdAddCatAndAssign
+            // 
+            resources.ApplyResources(this.cmdAddCatAndAssign, "cmdAddCatAndAssign");
+            this.cmdAddCatAndAssign.Name = "cmdAddCatAndAssign";
+            this.cmdAddCatAndAssign.UseVisualStyleBackColor = true;
+            this.cmdAddCatAndAssign.Click += new System.EventHandler(this.cmdAddCatAndAssign_Click);
+            // 
+            // txtAddCatAndAssign
+            // 
+            resources.ApplyResources(this.txtAddCatAndAssign, "txtAddCatAndAssign");
+            this.txtAddCatAndAssign.Name = "txtAddCatAndAssign";
+            this.txtAddCatAndAssign.TextChanged += new System.EventHandler(this.txtAddCatAndAssign_TextChanged);
+            // 
             // lstGames
             // 
             this.lstGames.AllColumns.Add(this.colGameID);
@@ -429,6 +445,8 @@ namespace Depressurizer {
             this.lstGames.AllColumns.Add(this.colPlatforms);
             this.lstGames.AllowColumnReorder = true;
             resources.ApplyResources(this.lstGames, "lstGames");
+            this.lstGames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+            this.lstGames.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstGames.CellEditUseWholeCell = false;
             this.lstGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colGameID,
@@ -773,6 +791,7 @@ namespace Depressurizer {
             this.lstMultiCat.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.lstMultiCat.AutoArrange = false;
             this.lstMultiCat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+            this.lstMultiCat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.lstMultiCat, "lstMultiCat");
             this.lstMultiCat.ForeColor = System.Drawing.Color.White;
             this.lstMultiCat.MultiSelect = false;
@@ -1072,6 +1091,7 @@ namespace Depressurizer {
             // 
             this.lstCategories.AllowDrop = true;
             resources.ApplyResources(this.lstCategories, "lstCategories");
+            this.lstCategories.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
             this.lstCategories.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
@@ -1111,11 +1131,11 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.contextCat.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.splitBrowser.Panel1.ResumeLayout(false);
+            this.splitBrowser.Panel1.PerformLayout();
+            this.splitBrowser.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitBrowser)).EndInit();
+            this.splitBrowser.ResumeLayout(false);
             this.splitGame.Panel1.ResumeLayout(false);
             this.splitGame.Panel1.PerformLayout();
             this.splitGame.Panel2.ResumeLayout(false);
@@ -1224,7 +1244,7 @@ namespace Depressurizer {
         private BrightIdeasSoftware.OLVColumn colHltbMain;
         private BrightIdeasSoftware.OLVColumn colHltbExtras;
         private BrightIdeasSoftware.OLVColumn colHltbCompletionist;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitBrowser;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private MaterialSkin.Controls.MaterialRaisedButton mbtnSearchClear;
         private MaterialSkin.Controls.MaterialSingleLineTextField mtxtSearch;
@@ -1243,6 +1263,7 @@ namespace Depressurizer {
         private MaterialSkin.Controls.MaterialLabel mlblStatusSelection;
         private MaterialSkin.Controls.MaterialLabel mlblStatusMsg;
         private System.Windows.Forms.ListView lvAutoCatType;
+        private MaterialSkin.Controls.MaterialCheckBox mchkAutoCatSelected;
     }
 }
 
