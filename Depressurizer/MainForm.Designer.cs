@@ -46,6 +46,8 @@ namespace Depressurizer {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.mchkAutoCatSelected = new MaterialSkin.Controls.MaterialCheckBox();
             this.lvAutoCatType = new System.Windows.Forms.ListView();
+            this.contextAutoCat = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextAutoCat_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbAutoCatType = new System.Windows.Forms.ComboBox();
             this.mbtnCatDelete = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mchkAdvancedCategories = new MaterialSkin.Controls.MaterialCheckBox();
@@ -53,6 +55,8 @@ namespace Depressurizer {
             this.mbtnCatAdd = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mbtnAutoCategorize = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mlblHelp = new MaterialSkin.Controls.MaterialLabel();
+            this.lstCategories = new Depressurizer.Lib.ExtListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextCat_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Rename = new System.Windows.Forms.ToolStripMenuItem();
@@ -150,13 +154,12 @@ namespace Depressurizer {
             this.menu_Tools_SingleCat = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_About = new System.Windows.Forms.ToolStripMenuItem();
-            this.lstCategories = new Depressurizer.Lib.ExtListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            this.contextAutoCat.SuspendLayout();
             this.contextCat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitBrowser)).BeginInit();
             this.splitBrowser.Panel1.SuspendLayout();
@@ -216,13 +219,30 @@ namespace Depressurizer {
             this.lvAutoCatType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
             this.lvAutoCatType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lvAutoCatType.CheckBoxes = true;
+            this.lvAutoCatType.ContextMenuStrip = this.contextAutoCat;
             this.lvAutoCatType.Cursor = System.Windows.Forms.Cursors.Default;
             this.lvAutoCatType.ForeColor = System.Drawing.Color.White;
             this.lvAutoCatType.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvAutoCatType.MultiSelect = false;
             this.lvAutoCatType.Name = "lvAutoCatType";
             this.lvAutoCatType.ShowGroups = false;
             this.lvAutoCatType.UseCompatibleStateImageBehavior = false;
             this.lvAutoCatType.View = System.Windows.Forms.View.List;
+            this.lvAutoCatType.DoubleClick += new System.EventHandler(this.lvAutoCatType_DoubleClick);
+            // 
+            // contextAutoCat
+            // 
+            this.contextAutoCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextAutoCat_Edit});
+            this.contextAutoCat.Name = "contextCat";
+            this.contextAutoCat.ShowImageMargin = false;
+            resources.ApplyResources(this.contextAutoCat, "contextAutoCat");
+            // 
+            // contextAutoCat_Edit
+            // 
+            this.contextAutoCat_Edit.Name = "contextAutoCat_Edit";
+            resources.ApplyResources(this.contextAutoCat_Edit, "contextAutoCat_Edit");
+            this.contextAutoCat_Edit.Click += new System.EventHandler(this.contextAutoCat_Edit_Click);
             // 
             // cmbAutoCatType
             // 
@@ -289,6 +309,31 @@ namespace Depressurizer {
             this.mlblHelp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.mlblHelp.MouseState = MaterialSkin.MouseState.HOVER;
             this.mlblHelp.Name = "mlblHelp";
+            // 
+            // lstCategories
+            // 
+            this.lstCategories.AllowDrop = true;
+            resources.ApplyResources(this.lstCategories, "lstCategories");
+            this.lstCategories.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+            this.lstCategories.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.lstCategories.ContextMenuStrip = this.contextCat;
+            this.lstCategories.FullRowSelect = true;
+            this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lstCategories.HideSelection = false;
+            this.lstCategories.Name = "lstCategories";
+            this.lstCategories.ShowGroups = false;
+            this.lstCategories.UseCompatibleStateImageBehavior = false;
+            this.lstCategories.View = System.Windows.Forms.View.Details;
+            this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
+            this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
+            this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
+            this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
+            this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
+            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
+            this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
+            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
             // 
             // contextCat
             // 
@@ -1101,31 +1146,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_About, "menu_About");
             this.menu_About.Click += new System.EventHandler(this.menu_About_Click);
             // 
-            // lstCategories
-            // 
-            this.lstCategories.AllowDrop = true;
-            resources.ApplyResources(this.lstCategories, "lstCategories");
-            this.lstCategories.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
-            this.lstCategories.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.lstCategories.ContextMenuStrip = this.contextCat;
-            this.lstCategories.FullRowSelect = true;
-            this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lstCategories.HideSelection = false;
-            this.lstCategories.Name = "lstCategories";
-            this.lstCategories.ShowGroups = false;
-            this.lstCategories.UseCompatibleStateImageBehavior = false;
-            this.lstCategories.View = System.Windows.Forms.View.Details;
-            this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
-            this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
-            this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
-            this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
-            this.lstCategories.DragLeave += new System.EventHandler(this.lstCategories_DragLeave);
-            this.lstCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstCategories_KeyDown);
-            this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
-            this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
-            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1144,6 +1164,7 @@ namespace Depressurizer {
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
+            this.contextAutoCat.ResumeLayout(false);
             this.contextCat.ResumeLayout(false);
             this.splitBrowser.Panel1.ResumeLayout(false);
             this.splitBrowser.Panel2.ResumeLayout(false);
@@ -1278,6 +1299,8 @@ namespace Depressurizer {
         private System.Windows.Forms.ListView lvAutoCatType;
         private MaterialSkin.Controls.MaterialCheckBox mchkAutoCatSelected;
         private MaterialSkin.Controls.MaterialRaisedButton mbtnCategories;
+        private System.Windows.Forms.ContextMenuStrip contextAutoCat;
+        private System.Windows.Forms.ToolStripMenuItem contextAutoCat_Edit;
     }
 }
 

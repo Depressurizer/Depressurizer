@@ -129,6 +129,7 @@ namespace Depressurizer {
             contextGameHidden.Renderer = new MyRenderer();
             contextGameAddCat.Renderer = new MyRenderer();
             contextGameRemCat.Renderer = new MyRenderer();
+            contextAutoCat.Renderer = new MyRenderer();
 
             // Initialize MaterialSkinManager
             materialSkinManager = MaterialSkinManager.Instance;
@@ -796,9 +797,9 @@ namespace Depressurizer {
         /// <summary>
         /// Creates an Edit AutoCats dialog for the user
         /// </summary>
-        private void EditAutoCats() {
+        private void EditAutoCats(AutoCat selected) {
             if( !ProfileLoaded ) return;
-            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData );
+            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData, selected );
 
             DialogResult res = dlg.ShowDialog();
 
@@ -1938,7 +1939,12 @@ namespace Depressurizer {
 
         private void menu_Profile_EditAutoCats_Click( object sender, EventArgs e ) {
             ClearStatus();
-            EditAutoCats();
+            AutoCat selected = null;
+            if (lvAutoCatType.Items.Count > 0)
+            {
+                selected = ((AutoCat) this.lvAutoCatType.Items[0].Tag);
+            }
+            EditAutoCats(selected);
             FlushStatus();
         }
 
@@ -2767,6 +2773,55 @@ namespace Depressurizer {
                 splitContainer.Panel1Collapsed = true;
                 mbtnCategories.Text = ">";
             }
+        }
+
+        private void contextAutoCat_Edit_Click(object sender, EventArgs e)
+        {
+            ClearStatus();
+            AutoCat selected = null;
+            if (lvAutoCatType.SelectedItems.Count > 0)
+            {
+                selected = ((AutoCat)this.lvAutoCatType.SelectedItems[0].Tag);
+            }
+            else if (lvAutoCatType.CheckedItems.Count > 0)
+            {
+                selected = ((AutoCat)this.lvAutoCatType.CheckedItems[0].Tag);
+            }
+            else {
+                if (lvAutoCatType.Items.Count > 0)
+                {
+                    selected = ((AutoCat)this.lvAutoCatType.Items[0].Tag);
+                }
+            }
+            EditAutoCats(selected);
+            FlushStatus();
+        }
+
+        private void lvAutoCatType_DoubleClick(object sender, EventArgs e)
+        {
+            // poor method of preventing double click from checking item (open edit AutoCat instead).
+            if (lvAutoCatType.SelectedItems.Count > 0)
+            {
+                lvAutoCatType.SelectedItems[0].Checked = !(lvAutoCatType.SelectedItems[0].Checked);
+            }
+            ClearStatus();
+            AutoCat selected = null;
+            if (lvAutoCatType.SelectedItems.Count > 0)
+            {
+                selected = ((AutoCat)this.lvAutoCatType.SelectedItems[0].Tag);
+            }
+            else if (lvAutoCatType.CheckedItems.Count > 0)
+            {
+                selected = ((AutoCat)this.lvAutoCatType.CheckedItems[0].Tag);
+            }
+            else {
+                if (lvAutoCatType.Items.Count > 0)
+                {
+                    selected = ((AutoCat)this.lvAutoCatType.Items[0].Tag);
+                }
+            }
+            EditAutoCats(selected);
+            FlushStatus();
         }
 
         private void UpdateAutoCatSelected_StatusMessage()
