@@ -29,13 +29,18 @@ namespace Depressurizer {
 
         AutoCatConfigPanel currentConfigPanel = null;
 
-        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames ) {
+        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames, AutoCat selected ) {
             InitializeComponent();
 
             AutoCatList = new List<AutoCat>();
 
-            foreach( AutoCat c in autoCats ) {
-                AutoCatList.Add( c.Clone() );
+            foreach (AutoCat c in autoCats) {
+                AutoCat clone = c.Clone();
+                AutoCatList.Add(clone);
+                if (c.Equals(selected))
+                {
+                    current = clone;
+                }
             }
 
             this.ownedGames = ownedGames;
@@ -149,10 +154,16 @@ namespace Depressurizer {
 
         #region Event Handlers
 
-        private void DlgAutoCat_Load( object sender, EventArgs e ) {
+        private void DlgAutoCat_Load(object sender, EventArgs e)
+        {
             FillAutocatList();
 
             RecreateConfigPanel();
+
+            if (this.current != null)
+            {
+                lstAutoCats.SelectedItem = current;
+            }
         }
 
         private void lstAutoCats_SelectedIndexChanged( object sender, EventArgs e ) {
@@ -173,7 +184,20 @@ namespace Depressurizer {
         }
 
         private void cmdDelete_Click( object sender, EventArgs e ) {
+            int selectedIndex = lstAutoCats.SelectedIndex;
             RemoveAutoCat( lstAutoCats.SelectedItem as AutoCat );
+            // Select previous item after deleting.
+            if (lstAutoCats.Items.Count > 0)
+            {
+                if (selectedIndex > 0)
+                {
+                    lstAutoCats.SelectedItem = lstAutoCats.Items[selectedIndex - 1];
+                }
+                else
+                {
+                    lstAutoCats.SelectedItem = lstAutoCats.Items[selectedIndex];
+                }
+            }
         }
 
         private void cmdRename_Click( object sender, EventArgs e ) {
