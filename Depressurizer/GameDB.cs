@@ -838,11 +838,10 @@ namespace Depressurizer
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
-                entry.AppType = aInf.AppType;
-                entry.Name = aInf.Name;
-                entry.Platforms = aInf.Platforms;
-                entry.ParentId = aInf.Parent;
-                updated++;
+                if (aInf.AppType != AppTypes.Unknown) entry.AppType = aInf.AppType;
+                if (!string.IsNullOrEmpty(aInf.Name)) entry.Name = aInf.Name;
+                if (aInf.Platforms > AppPlatforms.None) entry.Platforms = aInf.Platforms;
+                if (aInf.Parent > 0) entry.ParentId = aInf.Parent;
             }
             return updated;
         }
