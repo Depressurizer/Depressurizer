@@ -1065,12 +1065,50 @@ namespace Depressurizer {
             Cursor.Current = Cursors.Default;
         }
 
+        private int AutoCatGameCount()
+        {
+            // Get a list of games to update
+            int count = 0;
+
+            if (mchkAutoCatSelected.Checked)
+            {
+                foreach (GameInfo g in tlstGames.SelectedObjects)
+                {
+                    if (g.Id > 0)
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            else if (tlstGames.Objects.Count > 0)
+            {
+                foreach (GameInfo g in tlstGames.Objects)
+                {
+                    if (g.Id > 0)
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            else
+            {
+                foreach (GameInfo g in currentProfile.GameData.Games.Values)
+                {
+                    if ((g != null) && (g.Id > 0))
+                    {
+                        count += 1;
+                    }
+                }
+            }
+            return count;
+        }
+
         /// <summary>
         /// Autocategorizes a set of games.
         /// </summary>
         /// <param name="selectedOnly">If true, runs on the selected games, otherwise, runs on all games.</param>
         /// <param name="autoCat">The autocat object to use.</param>
-        private void Autocategorize( bool selectedOnly, AutoCat autoCat ) {
+        private void Autocategorize( bool selectedOnly, AutoCat autoCat, bool scrape = true ) {
             if( autoCat == null ) return;
 
             Cursor.Current = Cursors.WaitCursor;
@@ -1116,7 +1154,7 @@ namespace Depressurizer {
                 }
             }
 
-            if( notInDb.Count > 0 ) {
+            if(( notInDb.Count > 0 ) && scrape) {
                 Cursor.Current = Cursors.Default;
                 if ( MessageBox.Show( string.Format( GlobalStrings.MainForm_GamesNotFoundInGameDB, notInDb.Count ), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1 )
                         == System.Windows.Forms.DialogResult.Yes ) {
@@ -1321,11 +1359,13 @@ namespace Depressurizer {
 
             this.lstGames.Objects = displayedGames;
 
-           lstGames.BuildList();
+            lstGames.BuildList();
 
-           SelectGameSet(selectedIds);
+            SelectGameSet(selectedIds);
 
-           lstGames.EndUpdate();
+            lstGames.EndUpdate();
+
+            mbtnAutoCategorize.Text = string.Format(Properties.Resources.AutoCat_ButtonLabel, AutoCatGameCount()); 
         }
 
         /// <summary>
@@ -2210,13 +2250,15 @@ namespace Depressurizer {
                 }
                 else
                 {
+                    bool first = true;
                     foreach (ListViewItem item in lvAutoCatType.CheckedItems)
                     {
                         AutoCat ac = ((AutoCat)item.Tag);
                         if (ac != null)
                         {
                             ClearStatus();
-                            Autocategorize(mchkAutoCatSelected.Checked, ac);
+                            Autocategorize(mchkAutoCatSelected.Checked, ac, first);
+                            first = false;
                             FlushStatus();
                         }
                     }
@@ -2388,6 +2430,7 @@ namespace Depressurizer {
             UpdateEnabledStatesForGames();
             UpdateGameCheckStates();
             UpdateAutoCatSelected_StatusMessage();
+            mbtnAutoCategorize.Text = string.Format(Properties.Resources.AutoCat_ButtonLabel, AutoCatGameCount());
             Cursor.Current = Cursors.Default;
         }
 
@@ -2754,6 +2797,7 @@ namespace Depressurizer {
         private void mchkAutoCatSelected_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAutoCatSelected_StatusMessage();
+            mbtnAutoCategorize.Text = string.Format(Properties.Resources.AutoCat_ButtonLabel, AutoCatGameCount());
         }
 
         private void mbtnCategories_Click(object sender, EventArgs e)

@@ -70,6 +70,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto-Categorize ({0} Games).
+        /// </summary>
+        internal static string AutoCat_ButtonLabel {
+            get {
+                return ResourceManager.GetString("AutoCat_ButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}\userdata\{1}\7\remote\sharedconfig.vdf.
         /// </summary>
         internal static string ConfigFilePath {
