@@ -1067,7 +1067,7 @@ namespace Depressurizer {
 
         private int AutoCatGameCount()
         {
-            // Get a list of games to update
+            // Get a count of games to update
             int count = 0;
 
             if (mchkAutoCatSelected.Checked)
@@ -1409,6 +1409,8 @@ namespace Depressurizer {
 
             UpdateGameCheckStates();
             lstMultiCat.EndUpdate();
+            mlblCategoryCount.Font = new Font("Arial", 8);
+            mlblCategoryCount.Text = lstCategories.Items.Count.ToString() + " Categories";
 
         }
 
