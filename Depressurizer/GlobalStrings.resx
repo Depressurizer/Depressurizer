@@ -1205,4 +1205,16 @@ If unchecked, games with no times will be skipped.</value>
   <data name="AutoCatSelected_NothingSelected" xml:space="preserve">
     <value>No games are currently selected.  Auto-Categorize will not do anything.</value>
   </data>
+  <data name="GameDB_GameBannerError" xml:space="preserve">
+    <value>Scraping {0}: Error downloading game banner</value>
+  </data>
+  <data name="GameData_GetBanner" xml:space="preserve">
+    <value>Erroring getting game banner from {0}.</value>
+  </data>
+  <data name="Utility_GetImage" xml:space="preserve">
+    <value>Erroring getting image from {0}.</value>
+  </data>
+  <data name="Utility_SaveBanner" xml:space="preserve">
+    <value>Erroring saving game banner to {0}.</value>
+  </data>
 </root>

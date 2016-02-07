@@ -274,19 +274,19 @@
     <value>NoControl</value>
   </data>
   <data name="mchkAdvancedCategories.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 1</value>
+    <value>0, 0</value>
   </data>
   <data name="mchkAdvancedCategories.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="mchkAdvancedCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 30</value>
+    <value>126, 30</value>
   </data>
   <data name="mchkAdvancedCategories.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="mchkAdvancedCategories.Text" xml:space="preserve">
-    <value>Advanced Categories</value>
+    <value>Advanced Filter</value>
   </data>
   <data name="&gt;&gt;mchkAdvancedCategories.Name" xml:space="preserve">
     <value>mchkAdvancedCategories</value>
@@ -396,42 +396,6 @@
   <data name="&gt;&gt;mbtnAutoCategorize.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="mlblHelp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="mlblHelp.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mlblHelp.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
-  </data>
-  <data name="mlblHelp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mlblHelp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>229, 4</value>
-  </data>
-  <data name="mlblHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>18, 21</value>
-  </data>
-  <data name="mlblHelp.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="mlblHelp.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;mlblHelp.Name" xml:space="preserve">
-    <value>mlblHelp</value>
-  </data>
-  <data name="&gt;&gt;mlblHelp.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;mlblHelp.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;mlblHelp.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
   <data name="lstCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -496,7 +460,7 @@
     <value>splitContainer.Panel1</value>
   </data>
   <data name="&gt;&gt;lstCategories.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
     <value>splitContainer.Panel1</value>
@@ -649,7 +613,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>660, 8</value>
+    <value>650, 8</value>
   </data>
   <data name="cmdAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 23</value>
@@ -712,7 +676,7 @@
     <value>Top, Right</value>
   </data>
   <data name="txtAddCatAndAssign.Location" type="System.Drawing.Point, System.Drawing">
-    <value>604, 10</value>
+    <value>594, 10</value>
   </data>
   <data name="txtAddCatAndAssign.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 20</value>
@@ -1042,7 +1006,7 @@
     <value>3, 34</value>
   </data>
   <data name="lstGames.Size" type="System.Drawing.Size, System.Drawing">
-    <value>716, 338</value>
+    <value>706, 338</value>
   </data>
   <data name="lstGames.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1091,7 +1055,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAATABCQEwAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAXABCQFwAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1292,7 +1256,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="mlblStatusSelection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -1331,7 +1295,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;mlblStatusSelection.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="mlblStatusMsg.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -1367,7 +1331,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;mlblStatusMsg.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <metadata name="imglistFilter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
@@ -1377,7 +1341,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAaABBwGgAQcBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAeABBwHgAQcBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1665,7 +1629,31 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="picAvatar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="picAvatar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>955, 27</value>
+  </data>
+  <data name="picAvatar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 32</value>
+  </data>
+  <data name="picAvatar.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
+  </data>
+  <data name="&gt;&gt;picAvatar.Name" xml:space="preserve">
+    <value>picAvatar</value>
+  </data>
+  <data name="&gt;&gt;picAvatar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;picAvatar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;picAvatar.ZOrder" xml:space="preserve">
+    <value>8</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

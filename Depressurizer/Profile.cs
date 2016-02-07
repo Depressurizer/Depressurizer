@@ -18,6 +18,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Drawing;
 using System.IO;
 using Rallion;
 
@@ -352,6 +353,28 @@ namespace Depressurizer {
 
         public static string ID64toDirName( Int64 id ) {
             return ( id - 0x0110000100000000 ).ToString();
+        }
+
+        public Image GetAvatar()
+        {
+            try
+            {
+                XmlDocument xml = new XmlDocument();
+                string profile = string.Format(Properties.Resources.UrlSteamProfile, this.SteamID64.ToString());
+                xml.Load(profile);
+
+                XmlNodeList xnList = xml.SelectNodes(Properties.Resources.XmlNodeAvatar);
+                foreach (XmlNode xn in xnList)
+                {
+                    string avatarURL = xn.InnerText;
+                    return Utility.GetImage(avatarURL, System.Net.Cache.RequestCacheLevel.BypassCache);
+                }  
+            }
+            catch
+            {
+
+            }
+            return null;
         }
 
     }

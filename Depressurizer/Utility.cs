@@ -18,6 +18,10 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System.IO;
 using System.Collections.Generic;
 using System;
+using System.Drawing;
+using System.Net;
+using System.Windows.Forms;
+using System.Net.Cache;
 
 namespace Depressurizer {
     public static class Utility {
@@ -136,6 +140,57 @@ namespace Depressurizer {
             if( val.CompareTo( max ) > 0 ) return max;
             return val;
         }
+
+        public static Image GetImage(string url, RequestCacheLevel cache)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.CachePolicy = new RequestCachePolicy(cache);
+                byte[] bytes = wc.DownloadData(url);
+                MemoryStream ms = new MemoryStream(bytes);
+                return Image.FromStream(ms);
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(string.Format(GlobalStrings.Utility_GetImage, url), e);
+            }
+            return null;
+        }
+
+        public static bool GrabBanner(int id)
+        {
+
+            Image banner = null;
+            string bannerURL = string.Format(Properties.Resources.UrlGameBanner, id.ToString());
+            try
+            {
+                banner = GetImage(bannerURL, RequestCacheLevel.CacheIfAvailable);
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(string.Format(GlobalStrings.GameData_GetBanner, bannerURL), e);
+                return false;
+            }
+
+            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id.ToString());
+            if (!Directory.Exists(Path.GetDirectoryName(bannerPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(bannerPath));
+            }
+            try
+            {
+
+                banner.Save(bannerPath);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, bannerPath), e);
+                return false;
+            }
+        }
+
         #endregion
 
         #region Steam-specific
@@ -144,7 +199,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="appId"></param>
         public static void LaunchStorePage( int appId ) {
-            System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, appId ) );
+            System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStoreApp, appId ) );
         }
         #endregion
     }

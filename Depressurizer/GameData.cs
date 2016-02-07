@@ -19,10 +19,12 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace Depressurizer {
@@ -76,6 +78,7 @@ namespace Depressurizer {
                 return GameList.FavoriteCategory;
             }
         }
+
         #endregion
 
         /// <summary>
@@ -93,6 +96,27 @@ namespace Depressurizer {
 
         public void ApplySource( GameListingSource src ) {
             if( this.Source < src ) this.Source = src;
+        }
+
+        public Image Banner()
+        {
+            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), Id.ToString());
+            try
+            {
+                if (!File.Exists(bannerPath))
+                {
+                    if (!Utility.GrabBanner(Id))
+                    {
+                        return null;
+                    }
+                }
+                return Image.FromFile(bannerPath);
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(string.Format(GlobalStrings.GameData_GetBanner, bannerPath), e);
+                return null;
+            }
         }
 
         #region Category Modifiers
