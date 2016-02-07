@@ -65,11 +65,19 @@ namespace Depressurizer {
         {
             get
             {
+                if (_height <= 350)
+                {
+                    Height = 600;
+                }
                 return _height;
             }
             set
             {
-                _height = value;
+                if (_height != value)
+                {
+                    _height = value;
+                    outOfDate = true;
+                }
             }
         }
 
@@ -78,11 +86,19 @@ namespace Depressurizer {
         {
             get
             {
+                if (_width <= 600)
+                {
+                    Width = 1000;
+                }
                 return _width;
             }
             set
             {
-                _width = value;
+                if (_width != value)
+                {
+                    _width = value;
+                    outOfDate = true;
+                }
             }
         }
 
@@ -91,37 +107,63 @@ namespace Depressurizer {
         {
             get
             {
+                if (_splitContainer <= 100)
+                {
+                    SplitContainer = 250;
+                }
                 return _splitContainer;
             }
             set
             {
-                _splitContainer = value;
+                if (_splitContainer != value)
+                {
+                    _splitContainer = value;
+                    outOfDate = true;
+                }
             }
         }
 
+        public int SplitGameContainerHeight = 510;
         private int _splitGame;
         public int SplitGame
         {
             get
             {
+                if (_splitGame <= 100)
+                {
+                    SplitGame = SplitGameContainerHeight - 150;
+                }
                 return _splitGame;
             }
             set
             {
-                _splitGame = value;
+                if (_splitGame != value)
+                {
+                    _splitGame = value;
+                    outOfDate = true;
+                }
             }
         }
 
+        public int SplitBrowserContainerWidth = 722;
         private int _splitBrowser;
         public int SplitBrowser
         {
             get
             {
+                if (_splitBrowser <= 100)
+                {
+                    SplitBrowser = SplitBrowserContainerWidth - 300;
+                }
                 return _splitBrowser;
             }
             set
             {
-                _splitBrowser = value;
+                if ( _splitBrowser != value)
+                {
+                    _splitBrowser = value;
+                    outOfDate = true;
+                }
             }
         }
 

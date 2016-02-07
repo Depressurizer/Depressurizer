@@ -356,28 +356,14 @@ namespace Depressurizer {
 
             // Load saved forms settings
             Settings settings = Settings.Instance;
-            if ((settings.Width < 600) && (settings.Width < 350)) {
-                this.Size = new System.Drawing.Size(1000, 600);
-            } else {
-                this.Size = new System.Drawing.Size(settings.Width, settings.Height);
-            }
-            if (settings.SplitContainer < 100) {
-                this.splitContainer.SplitterDistance = 250;
-            } else {
-                this.splitContainer.SplitterDistance = settings.SplitContainer;
-            }
-            if (settings.SplitGame < 100) {
-                this.splitGame.SplitterDistance = (splitGame.Height - 150);
-            } else {
-                this.splitGame.SplitterDistance = settings.SplitGame;
-            }
-            if (settings.SplitBrowser < 100) {
-                this.splitBrowser.SplitterDistance = (splitBrowser.Width - 300);
-            } else {
-                this.splitBrowser.SplitterDistance = settings.SplitBrowser;
-            }
+            this.Size = new System.Drawing.Size(settings.Width, settings.Height);
+            this.splitContainer.SplitterDistance = settings.SplitContainer;
+            settings.SplitGameContainerHeight = splitGame.Height;
+            this.splitGame.SplitterDistance = settings.SplitGame;
+            settings.SplitBrowserContainerWidth = splitBrowser.Width;
+            this.splitBrowser.SplitterDistance = settings.SplitBrowser;
 
-            ttHelp.Ext_SetToolTip( mlblHelp, GlobalStrings.MainForm_Help_AdvancedCategories );
+            ttHelp.Ext_SetToolTip( mchkAdvancedCategories, GlobalStrings.MainForm_Help_AdvancedCategories );
 
             InitializeObjectListView();
 
@@ -1266,6 +1252,8 @@ namespace Depressurizer {
                 sb.Append( " *" );
             }
             this.Text = sb.ToString();
+            //update Avatar picture for new profile
+            picAvatar.Image = currentProfile.GetAvatar();
         }
 
         #endregion
@@ -1759,14 +1747,14 @@ namespace Depressurizer {
             settings.SplitGame = this.splitGame.SplitterDistance;
             settings.SplitBrowser = this.splitBrowser.SplitterDistance;
 
-            try
-            {
-                settings.Save(true);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + ex.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //try
+            //{
+            //    settings.Save(true);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + ex.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
 
             if ( e.CloseReason == CloseReason.UserClosing ) {
                 e.Cancel = !CheckForUnsaved();
@@ -2409,12 +2397,21 @@ namespace Depressurizer {
             {
                 GameInfo g = tlstGames.SelectedObjects[0];
                 webBrowser1.ScriptErrorsSuppressed = true;
-                webBrowser1.Navigate("http://store.steampowered.com/app/" + g.Id);
+                webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp, g.Id));
             }
             else if (webBrowser1.Visible)
             {
-                webBrowser1.ScriptErrorsSuppressed = true;
-                webBrowser1.Navigate("http://store.steampowered.com/");
+                if (tlstGames.Objects.Count > 0)
+                {
+                    GameInfo g = tlstGames.Objects[0];
+                    webBrowser1.ScriptErrorsSuppressed = true;
+                    webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp, g.Id));
+                }
+                else
+                {
+                    webBrowser1.ScriptErrorsSuppressed = true;
+                    webBrowser1.Navigate(Properties.Resources.UrlSteamStore);
+                }
             }
         }
 
@@ -2459,9 +2456,7 @@ namespace Depressurizer {
 
             // Setup album artwork column
             GameInfo g = (GameInfo)e.Model;
-            Image gameBanner = GetGameImage(g.Id);
-            //Image gameBanner = null;
-            ImageDecoration decoration = new ImageDecoration(gameBanner);
+            ImageDecoration decoration = new ImageDecoration(g.Banner());
             decoration.ShrinkToWidth = true;
             decoration.AdornmentCorner = ContentAlignment.TopLeft;
             decoration.ReferenceCorner = ContentAlignment.TopLeft;
@@ -2867,7 +2862,7 @@ namespace Depressurizer {
                 using (WebClient wc = new WebClient())
                 {
                     wc.Headers.Set("User-Agent", "Depressurizer");
-                    string json = wc.DownloadString("https://api.github.com/repos/Theo47/depressurizer/releases/latest");
+                    string json = wc.DownloadString(Properties.Resources.UrlLatestRelease);
                     JObject parsedJson = JObject.Parse(json);
                     githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
                     url = (string)parsedJson.SelectToken("html_url");
@@ -2889,24 +2884,6 @@ namespace Depressurizer {
                 MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message);
                 Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
                 MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message);
-            }
-        }
-
-        Image GetGameImage(int id)
-        {
-            try
-            {
-                WebClient wc = new WebClient();
-                wc.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.CacheIfAvailable);
-                byte[] bytes = wc.DownloadData("https://steamcdn-a.akamaihd.net/steam/apps/" + id.ToString() + "/capsule_sm_120.jpg");
-                MemoryStream ms = new MemoryStream(bytes);
-                Image img = System.Drawing.Image.FromStream(ms);
-                return img;
-            }
-            catch (Exception e)
-            {
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
-                return null;
             }
         }
 

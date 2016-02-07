@@ -54,7 +54,6 @@ namespace Depressurizer {
             this.mbtnCatRename = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mbtnCatAdd = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mbtnAutoCategorize = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.mlblHelp = new MaterialSkin.Controls.MaterialLabel();
             this.lstCategories = new Depressurizer.Lib.ExtListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -155,6 +154,7 @@ namespace Depressurizer {
             this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_About = new System.Windows.Forms.ToolStripMenuItem();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.picAvatar = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -175,6 +175,7 @@ namespace Depressurizer {
             this.contextGameFav.SuspendLayout();
             this.contextGameHidden.SuspendLayout();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -193,7 +194,6 @@ namespace Depressurizer {
             this.splitContainer.Panel1.Controls.Add(this.mbtnCatRename);
             this.splitContainer.Panel1.Controls.Add(this.mbtnCatAdd);
             this.splitContainer.Panel1.Controls.Add(this.mbtnAutoCategorize);
-            this.splitContainer.Panel1.Controls.Add(this.mlblHelp);
             this.splitContainer.Panel1.Controls.Add(this.lstCategories);
             // 
             // splitContainer.Panel2
@@ -300,15 +300,6 @@ namespace Depressurizer {
             this.ttHelp.SetToolTip(this.mbtnAutoCategorize, resources.GetString("mbtnAutoCategorize.ToolTip"));
             this.mbtnAutoCategorize.UseVisualStyleBackColor = true;
             this.mbtnAutoCategorize.Click += new System.EventHandler(this.mbtnAutoCategorize_Click);
-            // 
-            // mlblHelp
-            // 
-            resources.ApplyResources(this.mlblHelp, "mlblHelp");
-            this.mlblHelp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mlblHelp.Depth = 0;
-            this.mlblHelp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.mlblHelp.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mlblHelp.Name = "mlblHelp";
             // 
             // lstCategories
             // 
@@ -1146,11 +1137,19 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_About, "menu_About");
             this.menu_About.Click += new System.EventHandler(this.menu_About_Click);
             // 
+            // picAvatar
+            // 
+            resources.ApplyResources(this.picAvatar, "picAvatar");
+            this.picAvatar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(71)))), ((int)(((byte)(79)))));
+            this.picAvatar.Name = "picAvatar";
+            this.picAvatar.TabStop = false;
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+            this.Controls.Add(this.picAvatar);
             this.Controls.Add(this.mlblStatusSelection);
             this.Controls.Add(this.mlblStatusMsg);
             this.Controls.Add(this.splitContainer);
@@ -1182,6 +1181,7 @@ namespace Depressurizer {
             this.contextGameHidden.ResumeLayout(false);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1287,7 +1287,6 @@ namespace Depressurizer {
         private MaterialSkin.Controls.MaterialRaisedButton mbtnCatDelete;
         private MaterialSkin.Controls.MaterialRaisedButton mbtnCatRename;
         private MaterialSkin.Controls.MaterialRaisedButton mbtnCatAdd;
-        private MaterialSkin.Controls.MaterialLabel mlblHelp;
         private MaterialSkin.Controls.MaterialCheckBox mchkAdvancedCategories;
         private MaterialSkin.Controls.MaterialRaisedButton mbtnAutoCategorize;
         private System.Windows.Forms.ToolStripMenuItem contextGame_SetHidden;
@@ -1301,6 +1300,7 @@ namespace Depressurizer {
         private MaterialSkin.Controls.MaterialRaisedButton mbtnCategories;
         private System.Windows.Forms.ContextMenuStrip contextAutoCat;
         private System.Windows.Forms.ToolStripMenuItem contextAutoCat_Edit;
+        private System.Windows.Forms.PictureBox picAvatar;
     }
 }
 

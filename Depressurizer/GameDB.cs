@@ -25,6 +25,7 @@ using Rallion;
 using System.IO.Compression;
 using System.Globalization;
 using System.Linq;
+using System.Drawing;
 using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
@@ -48,6 +49,8 @@ namespace Depressurizer
         public List<string> Publishers = null;
         public string SteamReleaseDate = null;
         public int Achievements = 0;
+
+        public string Banner = null;
 
         public int ReviewTotal = 0;
         public int ReviewPositivePercentage = 0;
@@ -115,14 +118,14 @@ namespace Depressurizer
             HttpWebResponse resp = null;
             try
             {
-                HttpWebRequest req = GetSteamRequest(string.Format(Properties.Resources.UrlSteamStore, id));
+                HttpWebRequest req = GetSteamRequest(string.Format(Properties.Resources.UrlSteamStoreApp, id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
                 while (resp.StatusCode == HttpStatusCode.Found && count<5)
                 {
                     resp.Close();
-                    if (resp.Headers[HttpResponseHeader.Location] == "http://store.steampowered.com/")
+                    if (resp.Headers[HttpResponseHeader.Location] == Properties.Resources.UrlSteamStore)
                     {
                         // If we are redirected to the store front page
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
@@ -255,6 +258,12 @@ namespace Depressurizer
             {
                 this.ParentId = redirectTarget;
                 result = AppTypes.Unknown;
+            }
+
+            // Get Game Banner
+            if (!Utility.GrabBanner(id))
+            {
+                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_GameBannerError, id);
             }
 
             return result;
@@ -858,7 +867,7 @@ namespace Depressurizer
 
                 using (WebClient wc = new WebClient())
                 {
-                    string json = wc.DownloadString("http://www.howlongtobeatsteam.com/api/games/library/cached/all");
+                    string json = wc.DownloadString(Properties.Resources.UrlHLTBAll);
                     JObject parsedJson = JObject.Parse(json);
                     dynamic games = parsedJson.SelectToken("Games");
                     foreach (dynamic g in games)

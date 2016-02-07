@@ -1567,6 +1567,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erroring getting game banner from {0}..
+        /// </summary>
+        internal static string GameData_GetBanner {
+            get {
+                return ResourceManager.GetString("GameData_GetBanner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Integrated game into game list: {0} - {1}. New: {2}.
         /// </summary>
         internal static string GameData_IntegratedGameIntoGameList {
@@ -1743,6 +1752,15 @@ namespace Depressurizer {
         internal static string GameDB_DownloadingSteamAppList {
             get {
                 return ResourceManager.GetString("GameDB_DownloadingSteamAppList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scraping {0}: Error downloading game banner.
+        /// </summary>
+        internal static string GameDB_GameBannerError {
+            get {
+                return ResourceManager.GetString("GameDB_GameBannerError", resourceCulture);
             }
         }
         
@@ -3190,6 +3208,24 @@ namespace Depressurizer {
         internal static string TextVdfFile_UnexpectedEOF {
             get {
                 return ResourceManager.GetString("TextVdfFile_UnexpectedEOF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erroring getting image from {0}..
+        /// </summary>
+        internal static string Utility_GetImage {
+            get {
+                return ResourceManager.GetString("Utility_GetImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erroring saving game banner to {0}..
+        /// </summary>
+        internal static string Utility_SaveBanner {
+            get {
+                return ResourceManager.GetString("Utility_SaveBanner", resourceCulture);
             }
         }
     }
