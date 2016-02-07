@@ -120,6 +120,9 @@
   <data name="AppInfoPath" xml:space="preserve">
     <value>{0}\appcache\appinfo.vdf</value>
   </data>
+  <data name="AutoCat_ButtonLabel" xml:space="preserve">
+    <value>Auto-Categorize ({0} Games)</value>
+  </data>
   <data name="ConfigFilePath" xml:space="preserve">
     <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
   </data>

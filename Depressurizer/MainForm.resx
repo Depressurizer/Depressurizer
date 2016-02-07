@@ -135,7 +135,7 @@
     <value>NoControl</value>
   </data>
   <data name="mchkAutoCatSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>141, 454</value>
+    <value>138, 445</value>
   </data>
   <data name="mchkAutoCatSelected.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -187,10 +187,10 @@
     <value>Arial, 9.75pt</value>
   </data>
   <data name="lvAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 381</value>
+    <value>3, 356</value>
   </data>
   <data name="lvAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 68</value>
+    <value>245, 74</value>
   </data>
   <data name="lvAutoCatType.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -211,7 +211,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-42, 484</value>
+    <value>-40, 469</value>
   </data>
   <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 21</value>
@@ -367,10 +367,10 @@
     <value>NoControl</value>
   </data>
   <data name="mbtnAutoCategorize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 455</value>
+    <value>9, 436</value>
   </data>
   <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 23</value>
+    <value>129, 42</value>
   </data>
   <data name="mbtnAutoCategorize.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -445,7 +445,7 @@
     <value>3, 34</value>
   </data>
   <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 341</value>
+    <value>244, 316</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1055,7 +1055,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAXABCQFwAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAYABCQGAAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1341,7 +1341,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAeABBwHgAQcBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAfABBwHwAQcBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
