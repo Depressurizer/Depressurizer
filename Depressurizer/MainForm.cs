@@ -65,8 +65,8 @@ namespace Depressurizer {
 
         private readonly MaterialSkinManager materialSkinManager;
 
-        GameBanners bannerGrabber = new GameBanners(null);
-        Thread bannerThread = null;
+        GameBanners bannerGrabber;
+        Thread bannerThread;
 
         Color highlightCellColor = Color.FromArgb(255, 25, 55, 84);
         Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
@@ -1360,7 +1360,6 @@ namespace Depressurizer {
                 }
             }
 
-            //List<GameInfo> cloned = new List<GameInfo>(displayedGames);
             StartBannerThread(new List<GameInfo>(displayedGames));
 
             this.lstGames.Objects = displayedGames;
@@ -1376,9 +1375,9 @@ namespace Depressurizer {
 
         private void StartBannerThread(List<GameInfo> games)
         {
-            bannerGrabber.Stop();
             if ((bannerThread != null) && (bannerThread.IsAlive))
             {
+                bannerGrabber.Stop();
                 Thread.Sleep(100);
             }
             bannerGrabber = new GameBanners(games);
@@ -1801,9 +1800,9 @@ namespace Depressurizer {
 
         private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
 
-            bannerGrabber.Stop();
             if ((bannerThread != null) && (bannerThread.IsAlive))
             {
+                bannerGrabber.Stop();
                 Thread.Sleep(100);
             }
 
