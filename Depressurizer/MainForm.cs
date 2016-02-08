@@ -65,6 +65,9 @@ namespace Depressurizer {
 
         private readonly MaterialSkinManager materialSkinManager;
 
+        GameBanners bannerGrabber = new GameBanners(null);
+        Thread bannerThread = null;
+
         Color highlightCellColor = Color.FromArgb(255, 25, 55, 84);
         Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
         Color headerCellColor = Color.FromArgb(255, 58, 58, 58);
@@ -145,7 +148,7 @@ namespace Depressurizer {
 
         private void InitializeObjectListView()
         {
-
+            // Skin the Game List
             this.lstGames.HeaderFormatStyle = new HeaderFormatStyle();
             this.lstGames.HeaderFormatStyle.SetBackColor(primaryDark);
             this.lstGames.HeaderFormatStyle.SetForeColor(headerFontColor);
@@ -1357,6 +1360,9 @@ namespace Depressurizer {
                 }
             }
 
+            //List<GameInfo> cloned = new List<GameInfo>(displayedGames);
+            StartBannerThread(new List<GameInfo>(displayedGames));
+
             this.lstGames.Objects = displayedGames;
 
             lstGames.BuildList();
@@ -1366,6 +1372,18 @@ namespace Depressurizer {
             lstGames.EndUpdate();
 
             mbtnAutoCategorize.Text = string.Format(Properties.Resources.AutoCat_ButtonLabel, AutoCatGameCount()); 
+        }
+
+        private void StartBannerThread(List<GameInfo> games)
+        {
+            bannerGrabber.Stop();
+            if ((bannerThread != null) && (bannerThread.IsAlive))
+            {
+                Thread.Sleep(100);
+            }
+            bannerGrabber = new GameBanners(games);
+            bannerThread = new Thread(bannerGrabber.Grab);
+            bannerThread.Start();
         }
 
         /// <summary>
@@ -1782,6 +1800,13 @@ namespace Depressurizer {
         #region UI Event Handlers
 
         private void FormMain_FormClosing( object sender, FormClosingEventArgs e ) {
+
+            bannerGrabber.Stop();
+            if ((bannerThread != null) && (bannerThread.IsAlive))
+            {
+                Thread.Sleep(100);
+            }
+
             Settings settings = Settings.Instance;
             settings.Height = this.Height;
             settings.Width = this.Width;
@@ -2491,15 +2516,11 @@ namespace Depressurizer {
 
         private void lstGames_FormatCell(object sender, BrightIdeasSoftware.FormatCellEventArgs e)
         {
-            //if (e.ColumnIndex == 2)
-            //    e.SubItem.ForeColor = primaryCellColor;
-            //else
-            //e.SubItem.ForeColor = primaryCellColor;
 
             if (e.ColumnIndex != 0)
                 return;
 
-            // Setup album artwork column
+            // Add game banner to ID column
             GameInfo g = (GameInfo)e.Model;
             ImageDecoration decoration = new ImageDecoration(g.Banner());
             decoration.ShrinkToWidth = true;
@@ -2507,7 +2528,6 @@ namespace Depressurizer {
             decoration.ReferenceCorner = ContentAlignment.TopLeft;
             decoration.Transparency = 255;
             e.SubItem.Decoration = decoration;
-            //albumImageDecorations[song.Album] = new ForwardingDecoration(e.Item, e.SubItem, decoration);
 
             TextDecoration td = new TextDecoration(g.Id.ToString(), ContentAlignment.BottomLeft);
             td.Font = new Font(this.lstGames.Font.Name, 8);
@@ -2517,10 +2537,6 @@ namespace Depressurizer {
             td.BackColor = listBackground;
             td.CornerRounding = 4;
             td.Transparency = 200;
-
-            //td.BackColor = otherCellColor;
-            //td.TextColor = Color.FromArgb(255, 16, 16, 16);
-            //td.CornerRounding = 0;
 
             e.SubItem.Decorations.Add(td);
         }
