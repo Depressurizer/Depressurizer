@@ -179,16 +179,17 @@ namespace Depressurizer {
         /// Generates rules that match the Steam Store rating labels
         /// </summary>
         /// <param name="rules">List of UserScore_Rule objects to populate with the new ones. Should generally be empty.</param>
-        public void GenerateSteamRules( ICollection<UserScore_Rule> rules ) {
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Positive4, 95, 100, 500, 0 ) );
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Positive3, 85, 100, 50, 0 ) );
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Positive2, 80, 100, 1, 0 ) );
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Positive1, 70, 79, 1, 0 ) );
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Mixed, 40, 69, 1, 0 ) );
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Negative1, 20, 39, 1, 0 ) );
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Negative4, 0, 19, 500, 0 ) );
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Negative3, 0, 19, 50, 0 ) );
-            rules.Add( new UserScore_Rule( GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0 ) );
+        public void GenerateSteamRules(ICollection<UserScore_Rule> rules)
+        {
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive4, 95, 100, 500, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive3, 85, 100, 50, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive2, 80, 100, 1, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive1, 70, 79, 1, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Mixed, 40, 69, 1, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative1, 20, 39, 1, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative4, 0, 19, 500, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative3, 0, 19, 50, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0));
         }
         #endregion
     }

@@ -26,6 +26,7 @@ namespace Depressurizer {
         public List<AutoCat> AutoCatList;
         private GameList ownedGames;
         AutoCat current;
+        AutoCat initial;
 
         AutoCatConfigPanel currentConfigPanel = null;
 
@@ -39,7 +40,7 @@ namespace Depressurizer {
                 AutoCatList.Add(clone);
                 if (c.Equals(selected))
                 {
-                    current = clone;
+                    initial = clone;
                 }
             }
 
@@ -157,13 +158,13 @@ namespace Depressurizer {
         private void DlgAutoCat_Load(object sender, EventArgs e)
         {
             FillAutocatList();
-
             RecreateConfigPanel();
 
-            if (this.current != null)
+            if (this.initial != null)
             {
-                lstAutoCats.SelectedItem = current;
+                lstAutoCats.SelectedItem = initial;
             }
+
         }
 
         private void lstAutoCats_SelectedIndexChanged( object sender, EventArgs e ) {

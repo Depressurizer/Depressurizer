@@ -1217,4 +1217,13 @@ If unchecked, games with no times will be skipped.</value>
   <data name="Utility_SaveBanner" xml:space="preserve">
     <value>Erroring saving game banner to {0}.</value>
   </data>
+  <data name="Profile_DefaultAutoCatName_Tags" xml:space="preserve">
+    <value>By Tags</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_UserScore" xml:space="preserve">
+    <value>By User Score</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Year" xml:space="preserve">
+    <value>By Year</value>
+  </data>
 </root>

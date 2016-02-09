@@ -339,6 +339,11 @@ namespace Depressurizer {
 
         public static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
             list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre ) );
+            list.Add(new AutoCatYear(GlobalStrings.Profile_DefaultAutoCatName_Year));
+            AutoCatUserScore ac = new AutoCatUserScore(GlobalStrings.Profile_DefaultAutoCatName_UserScore);
+            ac.GenerateSteamRules(ac.Rules);
+            list.Add(ac);
+            list.Add(new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Tags));
         }
 
         #endregion
