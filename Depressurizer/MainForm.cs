@@ -587,6 +587,7 @@ namespace Depressurizer {
         /// <param name="path"></param>
         /// <param name="checkForChanges"></param>
         void LoadProfile( string path, bool checkForChanges = true ) {
+            Cursor = Cursors.WaitCursor;
             if( checkForChanges && !CheckForUnsaved() ) return;
 
             try {
@@ -606,6 +607,7 @@ namespace Depressurizer {
             if( currentProfile.AutoImport ) {
                 ImportConfig();
             }
+            Cursor = Cursors.Default;
 
             FullListRefresh();
 
@@ -1294,7 +1296,10 @@ namespace Depressurizer {
             }
             this.Text = sb.ToString();
             //update Avatar picture for new profile
-            picAvatar.Image = currentProfile.GetAvatar();
+            if (currentProfile != null)
+            {
+                picAvatar.Image = currentProfile.GetAvatar();
+            }
         }
 
         #endregion
@@ -1344,6 +1349,7 @@ namespace Depressurizer {
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillGameList() {
+            Cursor = Cursors.WaitCursor;
             lstGames.BeginUpdate();
             SortedSet<int> selectedIds = GetSelectedGameIds();
 
@@ -1370,7 +1376,9 @@ namespace Depressurizer {
 
             lstGames.EndUpdate();
 
-            mbtnAutoCategorize.Text = string.Format(Properties.Resources.AutoCat_ButtonLabel, AutoCatGameCount()); 
+            mbtnAutoCategorize.Text = string.Format(Properties.Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+
+            Cursor = Cursors.Default;
         }
 
         private void StartBannerThread(List<GameInfo> games)
@@ -1658,25 +1666,25 @@ namespace Depressurizer {
         void FillAutoCatLists() {
             // Prepare main screen AutoCat dropdown
             object selected = cmbAutoCatType.SelectedItem;
-            cmbAutoCatType.Items.Clear();
+            //cmbAutoCatType.Items.Clear();
             lvAutoCatType.Items.Clear();
 
             // Prepare main menu list
             menu_Tools_Autocat_List.Items.Clear();
 
-            if( currentProfile != null ) {
-                foreach( AutoCat ac in currentProfile.AutoCats ) {
-                    if( ac != null ) {
-                        // Fill main screen dropdown
-                        cmbAutoCatType.Items.Add( ac );
+            //if( currentProfile != null ) {
+            //    foreach( AutoCat ac in currentProfile.AutoCats ) {
+            //        if( ac != null ) {
+            //            // Fill main screen dropdown
+            //            cmbAutoCatType.Items.Add( ac );
 
-                        //// Fill main menu list
-                        //ToolStripItem item = menu_Tools_Autocat_List.Items.Add( ac.Name );
-                        //item.Tag = ac;
-                        //item.Click += menuToolsAutocat_Item_Click;
-                    }
-                }
-            }
+            //            //// Fill main menu list
+            //            //ToolStripItem item = menu_Tools_Autocat_List.Items.Add( ac.Name );
+            //            //item.Tag = ac;
+            //            //item.Click += menuToolsAutocat_Item_Click;
+            //        }
+            //    }
+            //}
 
             if (currentProfile != null)
             {
@@ -1697,12 +1705,12 @@ namespace Depressurizer {
                 }
             }
 
-            // Finish main screen dropdown
-            if ( selected != null && cmbAutoCatType.Items.Contains( selected ) ) {
-                cmbAutoCatType.SelectedItem = selected;
-            } else if( cmbAutoCatType.Items.Count > 0 ) {
-                cmbAutoCatType.SelectedIndex = 0;
-            }
+            //// Finish main screen dropdown
+            //if ( selected != null && cmbAutoCatType.Items.Contains( selected ) ) {
+            //    cmbAutoCatType.SelectedItem = selected;
+            //} else if( cmbAutoCatType.Items.Count > 0 ) {
+            //    cmbAutoCatType.SelectedIndex = 0;
+            //}
 
             // Finish main menu list
             menu_Tools_AutocatAll.Enabled = menu_Tools_Autocat_List.Items.Count > 0;
@@ -1745,11 +1753,13 @@ namespace Depressurizer {
         void UpdateEnabledStatesForGames() {
             bool gamesSelected = lstGames.SelectedObjects.Count > 0;
 
+            Cursor = Cursors.WaitCursor;
             foreach( Control c in splitGame.Panel2.Controls ) {
                 if( !( c == cmbAutoCatType ) ) {
                     c.Enabled = gamesSelected;
                 }
             }
+            Cursor = Cursors.Default;
         }
 
         void UpdateEnabledStatesForCategories() {

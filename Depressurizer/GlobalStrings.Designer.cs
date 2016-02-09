@@ -3086,6 +3086,33 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By Tags.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Tags {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By User Score.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_UserScore {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_UserScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Year.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Year {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error loading profile:.
         /// </summary>
         internal static string Profile_ErrorLoadingProfile {
