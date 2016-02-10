@@ -3077,6 +3077,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By Flags.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Flags {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Flags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Genre.
         /// </summary>
         internal static string Profile_DefaultAutoCatName_Genre {

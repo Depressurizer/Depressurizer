@@ -1226,4 +1226,7 @@ If unchecked, games with no times will be skipped.</value>
   <data name="Profile_DefaultAutoCatName_Year" xml:space="preserve">
     <value>By Year</value>
   </data>
+  <data name="Profile_DefaultAutoCatName_Flags" xml:space="preserve">
+    <value>By Flags</value>
+  </data>
 </root>

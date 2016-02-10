@@ -344,6 +344,7 @@ namespace Depressurizer {
             ac.GenerateSteamRules(ac.Rules);
             list.Add(ac);
             list.Add(new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Tags));
+            list.Add(new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Flags));
         }
 
         #endregion
