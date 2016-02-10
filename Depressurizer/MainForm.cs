@@ -1113,7 +1113,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="selectedOnly">If true, runs on the selected games, otherwise, runs on all games.</param>
         /// <param name="autoCat">The autocat object to use.</param>
-        private void Autocategorize( bool selectedOnly, AutoCat autoCat, bool scrape = true ) {
+        private void Autocategorize( bool selectedOnly, AutoCat autoCat, bool scrape = true, bool refresh = true ) {
             if( autoCat == null ) return;
 
             Cursor.Current = Cursors.WaitCursor;
@@ -1192,7 +1192,7 @@ namespace Depressurizer {
             AddStatus( string.Format( GlobalStrings.MainForm_UpdatedCategories, updated ) );
             if( gamesToUpdate.Count > updated ) AddStatus( string.Format( GlobalStrings.MainForm_FailedToUpdate, gamesToUpdate.Count - updated ) );
             if( updated > 0 ) MakeChange( true );
-            FullListRefresh();
+            if (refresh) FullListRefresh();
 
             Cursor.Current = Cursors.Default;
         }
@@ -1399,6 +1399,7 @@ namespace Depressurizer {
         /// </summary>
         private void FillAllCategoryLists() {
 
+            Cursor = Cursors.WaitCursor;
             contextGameAddCat.Items.Clear();
             contextGameAddCat.Items.Add( contextGameAddCat_Create );
             contextGameRemCat.Items.Clear();
@@ -1436,6 +1437,7 @@ namespace Depressurizer {
             lstMultiCat.EndUpdate();
             mlblCategoryCount.Font = new Font("Arial", 8);
             mlblCategoryCount.Text = lstCategories.Items.Count.ToString() + " Categories";
+            Cursor = Cursors.Default;
 
         }
 
@@ -1445,7 +1447,6 @@ namespace Depressurizer {
         /// </summary>
         private void FillCategoryList()
         {
-
             object selected = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedItems[0].Tag : null;
             int selectedIndex = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedIndices[0] : -1;
 
@@ -2293,11 +2294,12 @@ namespace Depressurizer {
                         if (ac != null)
                         {
                             ClearStatus();
-                            Autocategorize(mchkAutoCatSelected.Checked, ac, first);
+                            Autocategorize(mchkAutoCatSelected.Checked, ac, first, false);
                             first = false;
                             FlushStatus();
                         }
                     }
+                    FullListRefresh();
                 }
             }
         }
@@ -2480,16 +2482,23 @@ namespace Depressurizer {
             }
             else if (webBrowser1.Visible)
             {
-                if (tlstGames.Objects.Count > 0)
+                try
                 {
-                    GameInfo g = tlstGames.Objects[0];
-                    webBrowser1.ScriptErrorsSuppressed = true;
-                    webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp, g.Id));
+                    if (tlstGames.Objects.Count > 0)
+                    {
+                        GameInfo g = tlstGames.Objects[0];
+                        webBrowser1.ScriptErrorsSuppressed = true;
+                        webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp, g.Id));
+                    }
+                    else
+                    {
+                        webBrowser1.ScriptErrorsSuppressed = true;
+                        webBrowser1.Navigate(Properties.Resources.UrlSteamStore);
+                    }
                 }
-                else
+                catch
                 {
-                    webBrowser1.ScriptErrorsSuppressed = true;
-                    webBrowser1.Navigate(Properties.Resources.UrlSteamStore);
+
                 }
             }
         }

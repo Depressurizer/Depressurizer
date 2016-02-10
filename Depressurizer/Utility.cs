@@ -151,9 +151,9 @@ namespace Depressurizer {
                 MemoryStream ms = new MemoryStream(bytes);
                 return Image.FromStream(ms);
             }
-            catch (Exception e)
+            catch
             {
-                Program.Logger.WriteException(string.Format(GlobalStrings.Utility_GetImage, url), e);
+                Program.Logger.Write(Rallion.LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
         }
@@ -167,28 +167,32 @@ namespace Depressurizer {
             {
                 banner = GetImage(bannerURL, RequestCacheLevel.CacheIfAvailable);
             }
-            catch (Exception e)
+            catch
             {
-                Program.Logger.WriteException(string.Format(GlobalStrings.GameData_GetBanner, bannerURL), e);
+                Program.Logger.Write(Rallion.LoggerLevel.Warning,string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
                 return false;
             }
 
-            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id.ToString());
-            if (!Directory.Exists(Path.GetDirectoryName(bannerPath)))
+            if (banner != null)
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(bannerPath));
-            }
-            try
-            {
+                string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id.ToString());
+                if (!Directory.Exists(Path.GetDirectoryName(bannerPath)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(bannerPath));
+                }
+                try
+                {
 
-                banner.Save(bannerPath);
-                return true;
+                    banner.Save(bannerPath);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, bannerPath), e);
+                    return false;
+                }
             }
-            catch (Exception e)
-            {
-                Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, bannerPath), e);
-                return false;
-            }
+            return false;
         }
 
         #endregion
