@@ -194,6 +194,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Lib\Options.cs" />
+    <Compile Include="ListViewComparer.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
