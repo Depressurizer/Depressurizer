@@ -56,8 +56,15 @@ namespace Depressurizer {
             this.mbtnCatAdd = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mbtnAutoCategorize = new MaterialSkin.Controls.MaterialRaisedButton();
             this.lstCategories = new Depressurizer.Lib.ExtListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nameascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.namedescendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.countascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.countdescendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextCat_Add = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Rename = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
@@ -318,13 +325,15 @@ namespace Depressurizer {
             this.lstCategories.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
             this.lstCategories.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.columnCategory,
+            this.columnCount});
             this.lstCategories.ContextMenuStrip = this.contextCat;
             this.lstCategories.FullRowSelect = true;
             this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lstCategories.HideSelection = false;
             this.lstCategories.Name = "lstCategories";
             this.lstCategories.ShowGroups = false;
+            this.lstCategories.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstCategories.UseCompatibleStateImageBehavior = false;
             this.lstCategories.View = System.Windows.Forms.View.Details;
             this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
@@ -336,9 +345,19 @@ namespace Depressurizer {
             this.lstCategories.Layout += new System.Windows.Forms.LayoutEventHandler(this.lstCategories_Layout);
             this.lstCategories.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstCategories_MouseDown);
             // 
+            // columnCategory
+            // 
+            resources.ApplyResources(this.columnCategory, "columnCategory");
+            // 
+            // columnCount
+            // 
+            resources.ApplyResources(this.columnCount, "columnCount");
+            // 
             // contextCat
             // 
             this.contextCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortToolStripMenuItem,
+            this.toolStripSeparator1,
             this.contextCat_Add,
             this.contextCat_Rename,
             this.contextCat_Delete,
@@ -348,6 +367,45 @@ namespace Depressurizer {
             this.contextCat.ShowImageMargin = false;
             resources.ApplyResources(this.contextCat, "contextCat");
             this.contextCat.Opening += new System.ComponentModel.CancelEventHandler(this.contextCat_Opening);
+            // 
+            // sortToolStripMenuItem
+            // 
+            this.sortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nameascendingToolStripMenuItem,
+            this.namedescendingToolStripMenuItem,
+            this.countascendingToolStripMenuItem,
+            this.countdescendingToolStripMenuItem});
+            this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+            resources.ApplyResources(this.sortToolStripMenuItem, "sortToolStripMenuItem");
+            // 
+            // nameascendingToolStripMenuItem
+            // 
+            this.nameascendingToolStripMenuItem.Name = "nameascendingToolStripMenuItem";
+            resources.ApplyResources(this.nameascendingToolStripMenuItem, "nameascendingToolStripMenuItem");
+            this.nameascendingToolStripMenuItem.Click += new System.EventHandler(this.nameascendingToolStripMenuItem_Click);
+            // 
+            // namedescendingToolStripMenuItem
+            // 
+            this.namedescendingToolStripMenuItem.Name = "namedescendingToolStripMenuItem";
+            resources.ApplyResources(this.namedescendingToolStripMenuItem, "namedescendingToolStripMenuItem");
+            this.namedescendingToolStripMenuItem.Click += new System.EventHandler(this.namedescendingToolStripMenuItem_Click);
+            // 
+            // countascendingToolStripMenuItem
+            // 
+            this.countascendingToolStripMenuItem.Name = "countascendingToolStripMenuItem";
+            resources.ApplyResources(this.countascendingToolStripMenuItem, "countascendingToolStripMenuItem");
+            this.countascendingToolStripMenuItem.Click += new System.EventHandler(this.countascendingToolStripMenuItem_Click);
+            // 
+            // countdescendingToolStripMenuItem
+            // 
+            this.countdescendingToolStripMenuItem.Name = "countdescendingToolStripMenuItem";
+            resources.ApplyResources(this.countdescendingToolStripMenuItem, "countdescendingToolStripMenuItem");
+            this.countdescendingToolStripMenuItem.Click += new System.EventHandler(this.countdescendingToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // contextCat_Add
             // 
@@ -1262,7 +1320,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ComboBox cmbAutoCatType;
         private System.Windows.Forms.ContextMenuStrip menu_Tools_Autocat_List;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_AutoCats;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnCategory;
         private System.Windows.Forms.ImageList imglistFilter;
         private Lib.ExtToolTip ttHelp;
         private System.Windows.Forms.ToolStripMenuItem menu_About;
@@ -1312,6 +1370,13 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextAutoCat_Edit;
         private System.Windows.Forms.PictureBox picAvatar;
         private MaterialSkin.Controls.MaterialLabel mlblCategoryCount;
+        private System.Windows.Forms.ColumnHeader columnCount;
+        private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nameascendingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem namedescendingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem countascendingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem countdescendingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

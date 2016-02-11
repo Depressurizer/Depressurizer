@@ -41,6 +41,14 @@ namespace Depressurizer {
         Exclude = 2
     }
 
+    public enum CategorySortOrder
+    {
+        NameAscending = 1,
+        NameDescending = 2,
+        CountAscending = 3,
+        CountDescending = 4
+    }
+
     public partial class FormMain : MaterialForm {
         #region Fields
 
@@ -84,8 +92,7 @@ namespace Depressurizer {
         Color primaryLight = Color.FromArgb(255, 96, 125, 139);
         Color accent = Color.FromArgb(255, 0, 145, 234);
         Color listBackground = Color.FromArgb(255, 22, 22, 22);
-
-
+       
         #region Filter caching fields
         object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
         string lastFilterString = "";
@@ -1472,20 +1479,25 @@ namespace Depressurizer {
             {
                 ListViewItem i = new ListViewItem(GlobalStrings.MainForm_All + " (" + (currentProfile.GameData.Games.Count - hidden) + ")");
                 i.Tag = GlobalStrings.MainForm_All;
+                i.SubItems.Add((currentProfile.GameData.Games.Count - hidden).ToString());
                 lstCategories.Items.Add(i);
             }
 
             ListViewItem lvi = new ListViewItem(GlobalStrings.MainForm_Uncategorized + " (" + uncategorized + ")");
             lvi.Tag = GlobalStrings.MainForm_Uncategorized;
+            lvi.SubItems.Add(uncategorized.ToString());
             lstCategories.Items.Add(lvi);
 
             lvi = new ListViewItem(GlobalStrings.MainForm_Hidden + " (" + hidden + ")");
             lvi.Tag = GlobalStrings.MainForm_Hidden;
+            lvi.SubItems.Add(hidden.ToString());
             lstCategories.Items.Add(lvi);
 
             foreach (Category c in currentProfile.GameData.Categories)
             {
-                lstCategories.Items.Add(CreateCategoryListViewItem(c));
+                ListViewItem l = CreateCategoryListViewItem(c);
+                l.SubItems.Add(c.Count.ToString());
+                lstCategories.Items.Add(l);
             }
 
             if (selected == null)
@@ -1511,6 +1523,9 @@ namespace Depressurizer {
                 }
             }
             lstCategories.EndUpdate();
+
+            //Hide count column
+            lstCategories.Columns[1].Width = 0;
 
         }
 
@@ -2870,6 +2885,38 @@ namespace Depressurizer {
             }
             EditAutoCats(selected);
             FlushStatus();
+        }
+
+        private void SortCategories(int c, SortOrder so)
+        {
+
+            // Create a comparer.
+            lstCategories.ListViewItemSorter =
+                new ListViewComparer(c, so);
+
+            // Sort.
+            lstCategories.Sort();
+            
+        }
+
+        private void nameascendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SortCategories(0, SortOrder.Ascending);
+        }
+
+        private void namedescendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SortCategories(0, SortOrder.Descending);
+        }
+
+        private void countascendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SortCategories(1, SortOrder.Ascending);
+        }
+
+        private void countdescendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SortCategories(1, SortOrder.Descending);
         }
 
         private void lvAutoCatType_DoubleClick(object sender, EventArgs e)
