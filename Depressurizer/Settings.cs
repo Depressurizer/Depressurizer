@@ -60,6 +60,48 @@ namespace Depressurizer {
             }
         }
 
+        private int _x;
+        public int X
+        {
+            get
+            {
+                //if (_x <= 0)
+                //{
+                //    X = 0;
+                //}
+                return _x;
+            }
+            set
+            {
+                if (_x != value)
+                {
+                    _x = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private int _y;
+        public int Y
+        {
+            get
+            {
+                //if (_y <= 0)
+                //{
+                //    Y = 0;
+                //}
+                return _y;
+            }
+            set
+            {
+                if (_y != value)
+                {
+                    _y = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private int _height;
         public int Height
         {

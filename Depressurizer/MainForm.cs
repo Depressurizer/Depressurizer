@@ -366,7 +366,13 @@ namespace Depressurizer {
 
             // Load saved forms settings
             Settings settings = Settings.Instance;
-            this.Size = new System.Drawing.Size(settings.Width, settings.Height);
+            this.Location = new Point(settings.X, settings.Y);
+            if (!Utility.IsOnScreen(this))
+            {
+                //TopLeft corner is off screen, so reset location
+                this.Location = new Point(0, 0);
+            }
+            this.Size = new Size(settings.Width, settings.Height);
             this.splitContainer.SplitterDistance = settings.SplitContainer;
             settings.SplitGameContainerHeight = splitGame.Height;
             this.splitGame.SplitterDistance = settings.SplitGame;
@@ -1833,6 +1839,8 @@ namespace Depressurizer {
             }
 
             Settings settings = Settings.Instance;
+            settings.X = this.Left;
+            settings.Y = this.Top;
             settings.Height = this.Height;
             settings.Width = this.Width;
             settings.SplitContainer = this.splitContainer.SplitterDistance;
