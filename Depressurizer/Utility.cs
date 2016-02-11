@@ -22,6 +22,8 @@ using System.Drawing;
 using System.Net;
 using System.Windows.Forms;
 using System.Net.Cache;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace Depressurizer {
     public static class Utility {
@@ -192,6 +194,22 @@ namespace Depressurizer {
                     return false;
                 }
             }
+            return false;
+        }
+
+        public static bool IsOnScreen(MaterialForm form)
+        {
+            Screen[] screens = Screen.AllScreens;
+            foreach (Screen screen in screens)
+            {
+                Point formTopLeft = new Point(form.Left, form.Top);
+
+                if (screen.WorkingArea.Contains(formTopLeft))
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 

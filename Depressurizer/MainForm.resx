@@ -133,7 +133,7 @@
     <value>True</value>
   </data>
   <data name="mlblCategoryCount.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
+    <value>Microsoft Sans Serif, 11pt</value>
   </data>
   <data name="mlblCategoryCount.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -142,7 +142,7 @@
     <value>166, 13</value>
   </data>
   <data name="mlblCategoryCount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 19</value>
+    <value>80, 18</value>
   </data>
   <data name="mlblCategoryCount.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -166,7 +166,7 @@
     <value>Bottom</value>
   </data>
   <data name="mchkAutoCatSelected.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 10pt</value>
+    <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="mchkAutoCatSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -304,7 +304,7 @@
     <value>True</value>
   </data>
   <data name="mchkAdvancedCategories.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 10pt</value>
+    <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="mchkAdvancedCategories.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -625,7 +625,7 @@
     <value>True</value>
   </data>
   <data name="mchkBrowser.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 10pt</value>
+    <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="mchkBrowser.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -724,7 +724,7 @@
     <value>True</value>
   </data>
   <data name="mlblSearch.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
+    <value>Microsoft Sans Serif, 11pt</value>
   </data>
   <data name="mlblSearch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -733,7 +733,7 @@
     <value>24, 4</value>
   </data>
   <data name="mlblSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 19</value>
+    <value>55, 18</value>
   </data>
   <data name="mlblSearch.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1136,7 +1136,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAQgBCgEIAQoBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAATABCgEwAQoBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1346,7 +1346,7 @@
     <value>True</value>
   </data>
   <data name="mlblStatusSelection.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
+    <value>Microsoft Sans Serif, 11pt</value>
   </data>
   <data name="mlblStatusSelection.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1358,7 +1358,7 @@
     <value>No</value>
   </data>
   <data name="mlblStatusSelection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 19</value>
+    <value>138, 18</value>
   </data>
   <data name="mlblStatusSelection.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1385,7 +1385,7 @@
     <value>True</value>
   </data>
   <data name="mlblStatusMsg.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Roboto, 11pt</value>
+    <value>Microsoft Sans Serif, 11pt</value>
   </data>
   <data name="mlblStatusMsg.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1394,7 +1394,7 @@
     <value>12, 581</value>
   </data>
   <data name="mlblStatusMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 19</value>
+    <value>106, 18</value>
   </data>
   <data name="mlblStatusMsg.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1422,7 +1422,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAXgBCAF4AQgBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAaABCAGgAQgBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1884,6 +1884,9 @@
         rEEAAKxBAACsQQAArEEAAKxBAACsQQAArEE=
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 350</value>
   </data>
@@ -1895,18 +1898,6 @@
   </data>
   <data name="&gt;&gt;contextAutoCat_Edit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnCategory.Name" xml:space="preserve">
-    <value>columnCategory</value>
-  </data>
-  <data name="&gt;&gt;columnCategory.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnCount.Name" xml:space="preserve">
-    <value>columnCount</value>
-  </data>
-  <data name="&gt;&gt;columnCount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sortToolStripMenuItem.Name" xml:space="preserve">
     <value>sortToolStripMenuItem</value>
@@ -2393,6 +2384,18 @@
   </data>
   <data name="&gt;&gt;menu_About.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnCategory.Name" xml:space="preserve">
+    <value>columnCategory</value>
+  </data>
+  <data name="&gt;&gt;columnCategory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnCount.Name" xml:space="preserve">
+    <value>columnCount</value>
+  </data>
+  <data name="&gt;&gt;columnCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
     <value>ttHelp</value>
