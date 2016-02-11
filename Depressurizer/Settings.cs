@@ -65,10 +65,6 @@ namespace Depressurizer {
         {
             get
             {
-                //if (_x <= 0)
-                //{
-                //    X = 0;
-                //}
                 return _x;
             }
             set
@@ -86,10 +82,6 @@ namespace Depressurizer {
         {
             get
             {
-                //if (_y <= 0)
-                //{
-                //    Y = 0;
-                //}
                 return _y;
             }
             set
