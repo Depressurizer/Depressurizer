@@ -45,6 +45,14 @@ namespace Depressurizer {
             XmlName_GameList = "games",
             XmlName_Game = "game",
             XmlName_AutoCatList = "autocats",
+            XmlName_FilterList = "Filters",
+            XmlName_Filter = "Filter",
+            XmlName_FilterName = "Name",
+            XmlName_FilterUncategorized = "Uncategorized",
+            XmlName_FilterHidden = "Hidden",
+            XmlName_FilterAllow = "Allow",
+            XmlName_FilterRequire = "Require",
+            XmlName_FilterExclude = "Exclude",
             XmlName_Game_Id = "id",
             XmlName_Game_Source = "source",
             XmlName_Game_Name = "name",
@@ -191,6 +199,16 @@ namespace Depressurizer {
                     }
                 }
 
+                XmlNode filterListNode = profileNode.SelectSingleNode(XmlName_FilterList);
+                if (filterListNode != null)
+                {
+                    XmlNodeList filterNodes = filterListNode.SelectNodes(XmlName_Filter);
+                    foreach (XmlNode node in filterNodes)
+                    {
+                        AddFilterFromXmlNode(node, profile);
+                    }
+                }
+
                 XmlNode autocatListNode = profileNode.SelectSingleNode( XmlName_AutoCatList );
                 if( autocatListNode != null ) {
                     XmlNodeList autoCatNodes = autocatListNode.ChildNodes;
@@ -207,9 +225,54 @@ namespace Depressurizer {
                     GenerateDefaultAutoCatSet( profile.AutoCats );
                 }
                 profile.AutoCats.Sort();
+
             }
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded );
             return profile;
+        }
+
+        private static void AddFilterFromXmlNode(XmlNode node, Profile profile)
+        {
+            string name;
+            if (XmlUtil.TryGetStringFromNode(node[XmlName_FilterName], out name))
+            {
+                Filter f = profile.GameData.AddFilter(name);
+                if (!XmlUtil.TryGetIntFromNode(node[XmlName_FilterUncategorized], out f.Uncategorized))
+                {
+                    f.Uncategorized = -1;
+                }
+                if (!XmlUtil.TryGetIntFromNode(node[XmlName_FilterHidden], out f.Hidden))
+                {
+                    f.Hidden = -1;
+                }
+                XmlNodeList filterNodes = node.SelectNodes(XmlName_FilterAllow);
+                foreach (XmlNode fNode in filterNodes)
+                {
+                    string catName;
+                    if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+                    {
+                        f.Allow.Add(profile.GameData.GetCategory(catName));
+                    }
+                }
+                filterNodes = node.SelectNodes(XmlName_FilterRequire);
+                foreach (XmlNode fNode in filterNodes)
+                {
+                    string catName;
+                    if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+                    {
+                        f.Require.Add(profile.GameData.GetCategory(catName));
+                    }
+                }
+                filterNodes = node.SelectNodes(XmlName_FilterExclude);
+                foreach (XmlNode fNode in filterNodes)
+                {
+                    string catName;
+                    if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+                    {
+                        f.Exclude.Add(profile.GameData.GetCategory(catName));
+                    }
+                }
+            }                    
         }
 
         private static void AddGameFromXmlNode( XmlNode node, Profile profile, int profileVersion ) {
@@ -303,6 +366,11 @@ namespace Depressurizer {
 
                     writer.WriteStartElement( XmlName_Game_CategoryList );
                     foreach( Category c in g.Categories ) {
+                        String catName = c.Name;
+                        if (c.Name == GameList.FAVORITE_NEW_CONFIG_VALUE)
+                        {
+                            catName = GameList.FAVORITE_CONFIG_VALUE;
+                        }
                         writer.WriteElementString( XmlName_Game_Category, c.Name );
                     }
                     writer.WriteEndElement(); // categories
@@ -312,6 +380,15 @@ namespace Depressurizer {
             }
 
             writer.WriteEndElement(); // games
+
+            writer.WriteStartElement(XmlName_FilterList);
+
+            foreach (Filter f in GameData.Filters)
+            {
+                f.WriteToXml(writer);
+            }
+
+            writer.WriteEndElement(); //game filters
 
             writer.WriteStartElement( XmlName_AutoCatList );
 

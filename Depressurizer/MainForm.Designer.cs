@@ -44,17 +44,12 @@ namespace Depressurizer {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.mlblCategoryCount = new MaterialSkin.Controls.MaterialLabel();
-            this.mchkAutoCatSelected = new MaterialSkin.Controls.MaterialCheckBox();
-            this.lvAutoCatType = new System.Windows.Forms.ListView();
-            this.contextAutoCat = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextAutoCat_Edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmbAutoCatType = new System.Windows.Forms.ComboBox();
-            this.mbtnCatDelete = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.mchkAdvancedCategories = new MaterialSkin.Controls.MaterialCheckBox();
-            this.mbtnCatRename = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.mbtnCatAdd = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.mbtnAutoCategorize = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.splitCategories = new System.Windows.Forms.SplitContainer();
+            this.cboFilter = new System.Windows.Forms.ComboBox();
+            this.mbtnFilterDelete = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.mbtnFilterRename = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.mbtnFilterSave = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.mbtnClearFilters = new MaterialSkin.Controls.MaterialRaisedButton();
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nameascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +62,17 @@ namespace Depressurizer {
             this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
+            this.mlblCategoryCount = new MaterialSkin.Controls.MaterialLabel();
+            this.mbtnAutoCategorize = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.mchkAutoCatSelected = new MaterialSkin.Controls.MaterialCheckBox();
+            this.mbtnCatAdd = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.lvAutoCatType = new System.Windows.Forms.ListView();
+            this.contextAutoCat = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextAutoCat_Edit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnCatRename = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.cmbAutoCatType = new System.Windows.Forms.ComboBox();
+            this.mchkAdvancedCategories = new MaterialSkin.Controls.MaterialCheckBox();
+            this.mbtnCatDelete = new MaterialSkin.Controls.MaterialRaisedButton();
             this.splitBrowser = new System.Windows.Forms.SplitContainer();
             this.splitGame = new System.Windows.Forms.SplitContainer();
             this.mbtnSearchClear = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -167,8 +173,12 @@ namespace Depressurizer {
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            this.contextAutoCat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitCategories)).BeginInit();
+            this.splitCategories.Panel1.SuspendLayout();
+            this.splitCategories.Panel2.SuspendLayout();
+            this.splitCategories.SuspendLayout();
             this.contextCat.SuspendLayout();
+            this.contextAutoCat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitBrowser)).BeginInit();
             this.splitBrowser.Panel1.SuspendLayout();
             this.splitBrowser.Panel2.SuspendLayout();
@@ -194,129 +204,85 @@ namespace Depressurizer {
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.mlblCategoryCount);
-            this.splitContainer.Panel1.Controls.Add(this.mchkAutoCatSelected);
-            this.splitContainer.Panel1.Controls.Add(this.lvAutoCatType);
-            this.splitContainer.Panel1.Controls.Add(this.cmbAutoCatType);
-            this.splitContainer.Panel1.Controls.Add(this.mbtnCatDelete);
-            this.splitContainer.Panel1.Controls.Add(this.mchkAdvancedCategories);
-            this.splitContainer.Panel1.Controls.Add(this.mbtnCatRename);
-            this.splitContainer.Panel1.Controls.Add(this.mbtnCatAdd);
-            this.splitContainer.Panel1.Controls.Add(this.mbtnAutoCategorize);
-            this.splitContainer.Panel1.Controls.Add(this.lstCategories);
+            this.splitContainer.Panel1.Controls.Add(this.splitCategories);
             // 
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.splitBrowser);
             // 
-            // mlblCategoryCount
+            // splitCategories
             // 
-            resources.ApplyResources(this.mlblCategoryCount, "mlblCategoryCount");
-            this.mlblCategoryCount.Depth = 0;
-            this.mlblCategoryCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.mlblCategoryCount.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mlblCategoryCount.Name = "mlblCategoryCount";
+            resources.ApplyResources(this.splitCategories, "splitCategories");
+            this.splitCategories.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitCategories.Name = "splitCategories";
             // 
-            // mchkAutoCatSelected
+            // splitCategories.Panel1
             // 
-            resources.ApplyResources(this.mchkAutoCatSelected, "mchkAutoCatSelected");
-            this.mchkAutoCatSelected.Depth = 0;
-            this.mchkAutoCatSelected.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.mchkAutoCatSelected.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mchkAutoCatSelected.Name = "mchkAutoCatSelected";
-            this.mchkAutoCatSelected.Ripple = true;
-            this.mchkAutoCatSelected.UseVisualStyleBackColor = true;
-            this.mchkAutoCatSelected.CheckedChanged += new System.EventHandler(this.mchkAutoCatSelected_CheckedChanged);
+            this.splitCategories.Panel1.Controls.Add(this.cboFilter);
+            this.splitCategories.Panel1.Controls.Add(this.mbtnFilterDelete);
+            this.splitCategories.Panel1.Controls.Add(this.mbtnFilterRename);
+            this.splitCategories.Panel1.Controls.Add(this.mbtnFilterSave);
+            this.splitCategories.Panel1Collapsed = true;
             // 
-            // lvAutoCatType
+            // splitCategories.Panel2
             // 
-            this.lvAutoCatType.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            resources.ApplyResources(this.lvAutoCatType, "lvAutoCatType");
-            this.lvAutoCatType.AutoArrange = false;
-            this.lvAutoCatType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
-            this.lvAutoCatType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvAutoCatType.CheckBoxes = true;
-            this.lvAutoCatType.ContextMenuStrip = this.contextAutoCat;
-            this.lvAutoCatType.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lvAutoCatType.ForeColor = System.Drawing.Color.White;
-            this.lvAutoCatType.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvAutoCatType.MultiSelect = false;
-            this.lvAutoCatType.Name = "lvAutoCatType";
-            this.lvAutoCatType.ShowGroups = false;
-            this.lvAutoCatType.UseCompatibleStateImageBehavior = false;
-            this.lvAutoCatType.View = System.Windows.Forms.View.List;
-            this.lvAutoCatType.DoubleClick += new System.EventHandler(this.lvAutoCatType_DoubleClick);
+            this.splitCategories.Panel2.Controls.Add(this.mbtnClearFilters);
+            this.splitCategories.Panel2.Controls.Add(this.lstCategories);
+            this.splitCategories.Panel2.Controls.Add(this.mlblCategoryCount);
+            this.splitCategories.Panel2.Controls.Add(this.mbtnAutoCategorize);
+            this.splitCategories.Panel2.Controls.Add(this.mchkAutoCatSelected);
+            this.splitCategories.Panel2.Controls.Add(this.mbtnCatAdd);
+            this.splitCategories.Panel2.Controls.Add(this.lvAutoCatType);
+            this.splitCategories.Panel2.Controls.Add(this.mbtnCatRename);
+            this.splitCategories.Panel2.Controls.Add(this.cmbAutoCatType);
+            this.splitCategories.Panel2.Controls.Add(this.mchkAdvancedCategories);
+            this.splitCategories.Panel2.Controls.Add(this.mbtnCatDelete);
             // 
-            // contextAutoCat
+            // cboFilter
             // 
-            this.contextAutoCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextAutoCat_Edit});
-            this.contextAutoCat.Name = "contextCat";
-            this.contextAutoCat.ShowImageMargin = false;
-            resources.ApplyResources(this.contextAutoCat, "contextAutoCat");
+            resources.ApplyResources(this.cboFilter, "cboFilter");
+            this.cboFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+            this.cboFilter.ForeColor = System.Drawing.Color.White;
+            this.cboFilter.FormattingEnabled = true;
+            this.cboFilter.Name = "cboFilter";
+            this.cboFilter.SelectedIndexChanged += new System.EventHandler(this.cboFilter_SelectedIndexChanged);
             // 
-            // contextAutoCat_Edit
+            // mbtnFilterDelete
             // 
-            this.contextAutoCat_Edit.Name = "contextAutoCat_Edit";
-            resources.ApplyResources(this.contextAutoCat_Edit, "contextAutoCat_Edit");
-            this.contextAutoCat_Edit.Click += new System.EventHandler(this.contextAutoCat_Edit_Click);
+            resources.ApplyResources(this.mbtnFilterDelete, "mbtnFilterDelete");
+            this.mbtnFilterDelete.Depth = 0;
+            this.mbtnFilterDelete.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnFilterDelete.Name = "mbtnFilterDelete";
+            this.mbtnFilterDelete.UseVisualStyleBackColor = true;
+            this.mbtnFilterDelete.Click += new System.EventHandler(this.mbtnFilterDelete_Click);
             // 
-            // cmbAutoCatType
+            // mbtnFilterRename
             // 
-            resources.ApplyResources(this.cmbAutoCatType, "cmbAutoCatType");
-            this.cmbAutoCatType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(50)))), ((int)(((byte)(56)))));
-            this.cmbAutoCatType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAutoCatType.ForeColor = System.Drawing.Color.White;
-            this.cmbAutoCatType.FormattingEnabled = true;
-            this.cmbAutoCatType.Name = "cmbAutoCatType";
+            resources.ApplyResources(this.mbtnFilterRename, "mbtnFilterRename");
+            this.mbtnFilterRename.Depth = 0;
+            this.mbtnFilterRename.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnFilterRename.Name = "mbtnFilterRename";
+            this.mbtnFilterRename.UseVisualStyleBackColor = true;
+            this.mbtnFilterRename.Click += new System.EventHandler(this.mbtnFilterRename_Click);
             // 
-            // mbtnCatDelete
+            // mbtnFilterSave
             // 
-            resources.ApplyResources(this.mbtnCatDelete, "mbtnCatDelete");
-            this.mbtnCatDelete.Depth = 0;
-            this.mbtnCatDelete.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mbtnCatDelete.Name = "mbtnCatDelete";
-            this.mbtnCatDelete.UseVisualStyleBackColor = true;
-            this.mbtnCatDelete.Click += new System.EventHandler(this.mbtnCatDelete_Click);
+            resources.ApplyResources(this.mbtnFilterSave, "mbtnFilterSave");
+            this.mbtnFilterSave.Depth = 0;
+            this.mbtnFilterSave.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnFilterSave.Name = "mbtnFilterSave";
+            this.mbtnFilterSave.UseVisualStyleBackColor = true;
+            this.mbtnFilterSave.Click += new System.EventHandler(this.mbtnSaveFilter_Click);
             // 
-            // mchkAdvancedCategories
+            // mbtnClearFilters
             // 
-            resources.ApplyResources(this.mchkAdvancedCategories, "mchkAdvancedCategories");
-            this.mchkAdvancedCategories.Depth = 0;
-            this.mchkAdvancedCategories.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.mchkAdvancedCategories.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mchkAdvancedCategories.Name = "mchkAdvancedCategories";
-            this.mchkAdvancedCategories.Ripple = true;
-            this.mchkAdvancedCategories.UseVisualStyleBackColor = true;
-            this.mchkAdvancedCategories.CheckedChanged += new System.EventHandler(this.mchkAdvancedCategories_CheckedChanged);
-            // 
-            // mbtnCatRename
-            // 
-            resources.ApplyResources(this.mbtnCatRename, "mbtnCatRename");
-            this.mbtnCatRename.Depth = 0;
-            this.mbtnCatRename.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mbtnCatRename.Name = "mbtnCatRename";
-            this.mbtnCatRename.UseVisualStyleBackColor = true;
-            this.mbtnCatRename.Click += new System.EventHandler(this.mbtnCatRename_Click);
-            // 
-            // mbtnCatAdd
-            // 
-            resources.ApplyResources(this.mbtnCatAdd, "mbtnCatAdd");
-            this.mbtnCatAdd.Depth = 0;
-            this.mbtnCatAdd.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mbtnCatAdd.Name = "mbtnCatAdd";
-            this.mbtnCatAdd.UseVisualStyleBackColor = true;
-            this.mbtnCatAdd.Click += new System.EventHandler(this.mbtnCatAdd_Click);
-            // 
-            // mbtnAutoCategorize
-            // 
-            resources.ApplyResources(this.mbtnAutoCategorize, "mbtnAutoCategorize");
-            this.mbtnAutoCategorize.Depth = 0;
-            this.mbtnAutoCategorize.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mbtnAutoCategorize.Name = "mbtnAutoCategorize";
-            this.ttHelp.SetToolTip(this.mbtnAutoCategorize, resources.GetString("mbtnAutoCategorize.ToolTip"));
-            this.mbtnAutoCategorize.UseVisualStyleBackColor = true;
-            this.mbtnAutoCategorize.Click += new System.EventHandler(this.mbtnAutoCategorize_Click);
+            this.mbtnClearFilters.Depth = 0;
+            resources.ApplyResources(this.mbtnClearFilters, "mbtnClearFilters");
+            this.mbtnClearFilters.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnClearFilters.Name = "mbtnClearFilters";
+            this.ttHelp.SetToolTip(this.mbtnClearFilters, resources.GetString("mbtnClearFilters.ToolTip"));
+            this.mbtnClearFilters.UseVisualStyleBackColor = true;
+            this.mbtnClearFilters.Click += new System.EventHandler(this.mbtnClearFilters_Click);
             // 
             // contextCat
             // 
@@ -400,6 +366,115 @@ namespace Depressurizer {
             this.contextCat_RemoveEmpty.Name = "contextCat_RemoveEmpty";
             resources.ApplyResources(this.contextCat_RemoveEmpty, "contextCat_RemoveEmpty");
             this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
+            // 
+            // mlblCategoryCount
+            // 
+            resources.ApplyResources(this.mlblCategoryCount, "mlblCategoryCount");
+            this.mlblCategoryCount.Depth = 0;
+            this.mlblCategoryCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.mlblCategoryCount.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mlblCategoryCount.Name = "mlblCategoryCount";
+            // 
+            // mbtnAutoCategorize
+            // 
+            resources.ApplyResources(this.mbtnAutoCategorize, "mbtnAutoCategorize");
+            this.mbtnAutoCategorize.Depth = 0;
+            this.mbtnAutoCategorize.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnAutoCategorize.Name = "mbtnAutoCategorize";
+            this.ttHelp.SetToolTip(this.mbtnAutoCategorize, resources.GetString("mbtnAutoCategorize.ToolTip"));
+            this.mbtnAutoCategorize.UseVisualStyleBackColor = true;
+            this.mbtnAutoCategorize.Click += new System.EventHandler(this.mbtnAutoCategorize_Click);
+            // 
+            // mchkAutoCatSelected
+            // 
+            resources.ApplyResources(this.mchkAutoCatSelected, "mchkAutoCatSelected");
+            this.mchkAutoCatSelected.Depth = 0;
+            this.mchkAutoCatSelected.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.mchkAutoCatSelected.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mchkAutoCatSelected.Name = "mchkAutoCatSelected";
+            this.mchkAutoCatSelected.Ripple = true;
+            this.mchkAutoCatSelected.UseVisualStyleBackColor = true;
+            this.mchkAutoCatSelected.CheckedChanged += new System.EventHandler(this.mchkAutoCatSelected_CheckedChanged);
+            // 
+            // mbtnCatAdd
+            // 
+            resources.ApplyResources(this.mbtnCatAdd, "mbtnCatAdd");
+            this.mbtnCatAdd.Depth = 0;
+            this.mbtnCatAdd.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnCatAdd.Name = "mbtnCatAdd";
+            this.mbtnCatAdd.UseVisualStyleBackColor = true;
+            this.mbtnCatAdd.Click += new System.EventHandler(this.mbtnCatAdd_Click);
+            // 
+            // lvAutoCatType
+            // 
+            this.lvAutoCatType.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            resources.ApplyResources(this.lvAutoCatType, "lvAutoCatType");
+            this.lvAutoCatType.AutoArrange = false;
+            this.lvAutoCatType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+            this.lvAutoCatType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvAutoCatType.CheckBoxes = true;
+            this.lvAutoCatType.ContextMenuStrip = this.contextAutoCat;
+            this.lvAutoCatType.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lvAutoCatType.ForeColor = System.Drawing.Color.White;
+            this.lvAutoCatType.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvAutoCatType.MultiSelect = false;
+            this.lvAutoCatType.Name = "lvAutoCatType";
+            this.lvAutoCatType.ShowGroups = false;
+            this.lvAutoCatType.UseCompatibleStateImageBehavior = false;
+            this.lvAutoCatType.View = System.Windows.Forms.View.List;
+            this.lvAutoCatType.DoubleClick += new System.EventHandler(this.lvAutoCatType_DoubleClick);
+            // 
+            // contextAutoCat
+            // 
+            this.contextAutoCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextAutoCat_Edit});
+            this.contextAutoCat.Name = "contextCat";
+            this.contextAutoCat.ShowImageMargin = false;
+            resources.ApplyResources(this.contextAutoCat, "contextAutoCat");
+            // 
+            // contextAutoCat_Edit
+            // 
+            this.contextAutoCat_Edit.Name = "contextAutoCat_Edit";
+            resources.ApplyResources(this.contextAutoCat_Edit, "contextAutoCat_Edit");
+            this.contextAutoCat_Edit.Click += new System.EventHandler(this.contextAutoCat_Edit_Click);
+            // 
+            // mbtnCatRename
+            // 
+            resources.ApplyResources(this.mbtnCatRename, "mbtnCatRename");
+            this.mbtnCatRename.Depth = 0;
+            this.mbtnCatRename.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnCatRename.Name = "mbtnCatRename";
+            this.mbtnCatRename.UseVisualStyleBackColor = true;
+            this.mbtnCatRename.Click += new System.EventHandler(this.mbtnCatRename_Click);
+            // 
+            // cmbAutoCatType
+            // 
+            resources.ApplyResources(this.cmbAutoCatType, "cmbAutoCatType");
+            this.cmbAutoCatType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(50)))), ((int)(((byte)(56)))));
+            this.cmbAutoCatType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAutoCatType.ForeColor = System.Drawing.Color.White;
+            this.cmbAutoCatType.FormattingEnabled = true;
+            this.cmbAutoCatType.Name = "cmbAutoCatType";
+            // 
+            // mchkAdvancedCategories
+            // 
+            resources.ApplyResources(this.mchkAdvancedCategories, "mchkAdvancedCategories");
+            this.mchkAdvancedCategories.Depth = 0;
+            this.mchkAdvancedCategories.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.mchkAdvancedCategories.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mchkAdvancedCategories.Name = "mchkAdvancedCategories";
+            this.mchkAdvancedCategories.Ripple = true;
+            this.mchkAdvancedCategories.UseVisualStyleBackColor = true;
+            this.mchkAdvancedCategories.CheckedChanged += new System.EventHandler(this.mchkAdvancedCategories_CheckedChanged);
+            // 
+            // mbtnCatDelete
+            // 
+            resources.ApplyResources(this.mbtnCatDelete, "mbtnCatDelete");
+            this.mbtnCatDelete.Depth = 0;
+            this.mbtnCatDelete.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnCatDelete.Name = "mbtnCatDelete";
+            this.mbtnCatDelete.UseVisualStyleBackColor = true;
+            this.mbtnCatDelete.Click += new System.EventHandler(this.mbtnCatDelete_Click);
             // 
             // splitBrowser
             // 
@@ -778,10 +853,9 @@ namespace Depressurizer {
             // 
             this.contextGameAddCat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextGameAddCat_Create});
-            this.contextGameAddCat.Name = "contextGameCat";
-            this.contextGameAddCat.OwnerItem = this.contextGame_AddCat;
-            this.contextGameAddCat.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameAddCat, "contextGameAddCat");
+            this.contextGameAddCat.Name = "contextGameCat";
+            this.contextGameAddCat.ShowImageMargin = false;
             // 
             // contextGameAddCat_Create
             // 
@@ -1196,6 +1270,7 @@ namespace Depressurizer {
             this.lstCategories.UseCompatibleStateImageBehavior = false;
             this.lstCategories.View = System.Windows.Forms.View.Details;
             this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
+            this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             this.lstCategories.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragDrop);
             this.lstCategories.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragEnter);
             this.lstCategories.DragOver += new System.Windows.Forms.DragEventHandler(this.lstCategories_DragOver);
@@ -1227,12 +1302,16 @@ namespace Depressurizer {
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer.Panel1.ResumeLayout(false);
-            this.splitContainer.Panel1.PerformLayout();
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
-            this.contextAutoCat.ResumeLayout(false);
+            this.splitCategories.Panel1.ResumeLayout(false);
+            this.splitCategories.Panel2.ResumeLayout(false);
+            this.splitCategories.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitCategories)).EndInit();
+            this.splitCategories.ResumeLayout(false);
             this.contextCat.ResumeLayout(false);
+            this.contextAutoCat.ResumeLayout(false);
             this.splitBrowser.Panel1.ResumeLayout(false);
             this.splitBrowser.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitBrowser)).EndInit();
@@ -1377,6 +1456,12 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem countascendingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem countdescendingToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private MaterialSkin.Controls.MaterialRaisedButton mbtnFilterSave;
+        private System.Windows.Forms.SplitContainer splitCategories;
+        private MaterialSkin.Controls.MaterialRaisedButton mbtnFilterRename;
+        private System.Windows.Forms.ComboBox cboFilter;
+        private MaterialSkin.Controls.MaterialRaisedButton mbtnFilterDelete;
+        private MaterialSkin.Controls.MaterialRaisedButton mbtnClearFilters;
     }
 }
 

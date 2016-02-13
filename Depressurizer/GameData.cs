@@ -294,6 +294,7 @@ namespace Depressurizer {
     /// <summary>
     /// Represents a single game category
     /// </summary>
+    /// 
     public class Category : IComparable {
         public string Name;
         public int Count;
@@ -327,10 +328,12 @@ namespace Depressurizer {
     /// </summary>
     public class GameList {
         #region Fields
-        const string FAVORITE_CONFIG_VALUE = "favorite";
+        public const string FAVORITE_CONFIG_VALUE = "favorite";
+        public const string FAVORITE_NEW_CONFIG_VALUE = "<Favorite>";
 
         public Dictionary<int, GameInfo> Games;
         public List<Category> Categories;
+        public List<Filter> Filters;
 
         private Category favoriteCategory;
         public Category FavoriteCategory {
@@ -343,7 +346,8 @@ namespace Depressurizer {
         public GameList() {
             Games = new Dictionary<int, GameInfo>();
             Categories = new List<Category>();
-            favoriteCategory = new Category( FAVORITE_CONFIG_VALUE );
+            Filters = new List<Filter>();
+            favoriteCategory = new Category( FAVORITE_NEW_CONFIG_VALUE );
             Categories.Add( favoriteCategory );
         }
 
@@ -355,9 +359,10 @@ namespace Depressurizer {
         /// <param name="name">Name of the category to look for</param>
         /// <returns>True if the name is found, false otherwise</returns>
         public bool CategoryExists( string name ) {
-            foreach( Category c in Categories ) {
-                //if( c.Name == name ) {
-                if( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) {
+            // Favorite category always exists
+            if (name == FAVORITE_NEW_CONFIG_VALUE  || name == FAVORITE_CONFIG_VALUE) return true;
+            foreach ( Category c in Categories ) {
+                if ( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) {
                     return true;
                 }
             }
@@ -372,14 +377,17 @@ namespace Depressurizer {
         public Category GetCategory( string name ) {
             // Categories must have a name
             if( string.IsNullOrEmpty( name ) ) return null;
+            // Check for Favorite category
+            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE) return favoriteCategory;
             // Look for a matching category in the list and return if found
-            foreach( Category c in Categories ) {
-                if( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) return c;
+            foreach ( Category c in Categories ) {
+            if( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) return c;
             }
             // Create a new category and return it
-            Category newCat = new Category( name );
-            Categories.Add( newCat );
-            return newCat;
+            return AddCategory(name);
+            //Category newCat = new Category( name );
+            //Categories.Add( newCat );
+            //return newCat;
         }
 
         /// <summary>
@@ -404,7 +412,7 @@ namespace Depressurizer {
         /// <returns>True if removal was successful, false if it was not in the list anyway</returns>
         public bool RemoveCategory( Category c ) {
             // Can't remove favorite category
-            if( c.Name == "favorite" ) return false;
+            if(c == favoriteCategory) return false;
 
             if( Categories.Remove( c ) ) {
                 foreach( GameInfo g in Games.Values ) {
@@ -464,6 +472,109 @@ namespace Depressurizer {
             }
             return removed;
         }
+        #endregion
+
+        #region Filter management
+        /// <summary>
+        /// Checks to see if a Filter with the given name exists
+        /// </summary>
+        /// <param name="name">Name of the Filter to look for</param>
+        /// <returns>True if the name is found, false otherwise</returns>
+        public bool FilterExists(string name)
+        {
+            foreach (Filter f in Filters)
+            {
+                if (String.Equals(f.Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the Filter with the given name. If the Filter does not exist, creates it.
+        /// </summary>
+        /// <param name="name">Name to get the Filter for</param>
+        /// <returns>A Filter with the given name. Null if any error is encountered.</returns>
+        public Filter GetFilter(string name)
+        {
+            // Filters must have a name
+            if (string.IsNullOrEmpty(name)) return null;
+            // Look for a matching Filter in the list and return if found
+            foreach (Filter f in Filters)
+            {
+                if (String.Equals(f.Name, name, StringComparison.OrdinalIgnoreCase)) return f;
+            }
+            // Create a new Filter and return it
+            Filter newFilter = new Filter(name);
+            Filters.Add(newFilter);
+            return newFilter;
+        }
+
+        /// <summary>
+        /// Adds a new Filter to the list.
+        /// </summary>
+        /// <param name="name">Name of the Filter to add</param>
+        /// <returns>The added Filter. Returns null if the Filter already exists.</returns>
+        public Filter AddFilter(string name)
+        {
+            if (string.IsNullOrEmpty(name) || FilterExists(name))
+            {
+                return null;
+            }
+            else {
+                Filter newFilter = new Filter(name);
+                Filters.Add(newFilter);
+                return newFilter;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Removes the given Filter.
+        /// </summary>
+        /// <param name="f">Filter to remove.</param>
+        /// <returns>True if removal was successful, false if it was not in the list anyway</returns>
+        public bool RemoveFilter(Filter f)
+        {
+            if (Filters.Remove(f))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        ///// <summary>
+        ///// Renames the given Filter.
+        ///// </summary>
+        ///// <param name="f">Filter to rename.</param>
+        ///// <param name="newName">Name to assign to the Filter.</param>
+        ///// <returns>The renamed Filter, if the operation succeeds. Null otherwise.</returns>
+        //public Filter RenameFilter(Filter rename, string newName)
+        //{
+        //    foreach (Filter f in Filters)
+        //    {
+        //        if 
+        //    }
+        //    Filter newFilter = AddFilter(newName);
+        //    if (newFilter != null)
+        //    {
+        //        Filters.Sort();
+        //        foreach (GameInfo game in Games.Values)
+        //        {
+        //            if (game.ContainsFilter(c))
+        //            {
+        //                game.RemoveFilter(c);
+        //                game.AddFilter(newCat);
+        //            }
+        //        }
+        //        RemoveFilter(c);
+        //        return newCat;
+        //    }
+        //    return null;
+        //}
         #endregion
 
         #region General Modifiers

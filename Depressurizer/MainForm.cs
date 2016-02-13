@@ -54,6 +54,26 @@ namespace Depressurizer {
 
         #region Constants
         const int MAX_FILTER_STATE = 2;
+
+        Color highlightCellColor = Color.FromArgb(255, 25, 55, 84);
+        Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
+        Color headerCellColor = Color.FromArgb(255, 58, 58, 58);
+        Color headerFontColor = Color.FromArgb(255, 169, 167, 167);
+        Color textColor = Color.FromArgb(255, 255, 255, 255);
+        Color borderColor = Color.FromArgb(255, 25, 28, 38);
+        Color formColor = Color.FromArgb(255, 42, 42, 44);
+        Color menuColorDark = Color.FromArgb(255, 38, 50, 56);
+        Color menuColorLight = Color.FromArgb(255, 55, 71, 79);
+        Color menuPrimaryText = Color.FromArgb(255, 168, 173, 175);
+        Color menuHighlightText = Color.FromArgb(255, 255, 255, 234);
+        Color primary = Color.FromArgb(255, 55, 71, 79);
+        Color primaryDark = Color.FromArgb(255, 38, 50, 56);
+        Color primaryLight = Color.FromArgb(255, 96, 125, 139);
+        Color accent = Color.FromArgb(255, 0, 145, 234);
+        Color listBackground = Color.FromArgb(255, 22, 22, 22);
+
+        const string BIG_UP = "{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP}";
+        const string BIG_DOWN = "{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN}";
         #endregion
 
         Profile currentProfile;
@@ -76,22 +96,7 @@ namespace Depressurizer {
         GameBanners bannerGrabber;
         Thread bannerThread;
 
-        Color highlightCellColor = Color.FromArgb(255, 25, 55, 84);
-        Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
-        Color headerCellColor = Color.FromArgb(255, 58, 58, 58);
-        Color headerFontColor = Color.FromArgb(255, 169, 167, 167);
-        Color textColor = Color.FromArgb(255, 255, 255, 255);
-        Color borderColor = Color.FromArgb(255, 25, 28, 38);
-        Color formColor = Color.FromArgb(255, 42, 42, 44);
-        Color menuColorDark = Color.FromArgb(255, 38, 50, 56);
-        Color menuColorLight = Color.FromArgb(255, 55, 71, 79);
-        Color menuPrimaryText = Color.FromArgb(255, 168, 173, 175);
-        Color menuHighlightText = Color.FromArgb(255, 255, 255, 234);
-        Color primary = Color.FromArgb(255, 55, 71, 79);
-        Color primaryDark = Color.FromArgb(255, 38, 50, 56);
-        Color primaryLight = Color.FromArgb(255, 96, 125, 139);
-        Color accent = Color.FromArgb(255, 0, 145, 234);
-        Color listBackground = Color.FromArgb(255, 22, 22, 22);
+        List<object> filters = new List<object>();
        
         #region Filter caching fields
         object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
@@ -362,7 +367,19 @@ namespace Depressurizer {
             lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.LstGamesState));
         }
 
+        void HandleMouseWheel(object sender, MouseEventArgs e)
+        {
+            if (this.contextGame.IsDropDown)
+            {
+                if (e.Delta > 0) SendKeys.SendWait(BIG_UP);
+                else SendKeys.SendWait(BIG_DOWN);
+            }
+        }
+
         private void FormMain_Load( object sender, EventArgs e ) {
+
+            // allow mousewheel scrolling for Add Category submenu.  Send 10 UP/DOWN per wheel click.
+            contextGame.MouseWheel += HandleMouseWheel;
 
             // Load saved forms settings
             Settings settings = Settings.Instance;
@@ -817,6 +834,84 @@ namespace Depressurizer {
         #endregion
 
         #region Data modifiers
+
+        private void RefreshFilters()
+        {
+            cboFilter.DataSource = null;
+            cboFilter.DataSource = currentProfile.GameData.Filters;
+            cboFilter.ValueMember = null;
+            cboFilter.DisplayMember = "Name";
+            cboFilter.Text = "";
+        }
+
+        private void SaveFilter()
+        {
+            if ((!ProfileLoaded) || (!AdvancedCategoryFilter)) return;
+
+            GetStringDlg dlg = new GetStringDlg(cboFilter.Text, GlobalStrings.MainForm_SaveFilter, GlobalStrings.MainForm_EnterNewFilterName, GlobalStrings.MainForm_Save);
+            if (dlg.ShowDialog() == DialogResult.OK && ValidateFilterName(dlg.Value))
+            {
+
+                Filter f;
+                bool refresh = true;
+                if (currentProfile.GameData.FilterExists(dlg.Value))
+                {
+                    DialogResult res = MessageBox.Show(String.Format(GlobalStrings.MainForm_OverwriteFilterName, dlg.Value), GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                    if (res == DialogResult.Yes)
+                    {
+                        f = currentProfile.GameData.GetFilter(dlg.Value);
+                        refresh = false;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    f = currentProfile.GameData.AddFilter(dlg.Value);
+                }
+                if (f != null)
+                {
+                    f.Uncategorized = (int)advFilterUncatState;
+                    f.Hidden = (int)advFilterHiddenState;
+                    f.Allow = advFilterAllow;
+                    f.Require = advFilterRequire;
+                    f.Exclude = advFilterExclude;
+                    if (refresh)
+                    {
+                        AddStatus(string.Format(GlobalStrings.MainForm_FilterAdded, f.Name));
+                        RefreshFilters();
+                        cboFilter.SelectedItem = f;
+                    }
+                }
+                else {
+                    MessageBox.Show(String.Format(GlobalStrings.MainForm_CouldNotAddFilter, dlg.Value), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+
+        void DeleteFilter(Filter f)
+        {
+            if ((!ProfileLoaded) || (!AdvancedCategoryFilter)) return;
+
+            DialogResult res;
+            res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteFilter, f.Name), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (res == DialogResult.Yes)
+            {
+                try
+                {
+                    currentProfile.GameData.Filters.Remove(f);
+                    AddStatus(string.Format(GlobalStrings.MainForm_FilterDeleted, f.Name));
+                    RefreshFilters();
+                }
+                catch
+                {
+                    MessageBox.Show(string.Format(GlobalStrings.MainForm_CouldNotDeleteFilter), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
 
         /// <summary>
         /// Creates a new category, first prompting the user for the name to use. If the name is not valid or in use, displays a notification.
@@ -1435,9 +1530,9 @@ namespace Depressurizer {
                     item.Tag = c;
                     item.Click += contextGameAddCat_Category_Click;
 
-                    item = contextGameRemCat.Items.Add( c.Name );
-                    item.Tag = c;
-                    item.Click += contextGameRemCat_Category_Click;
+                    //item = contextGameRemCat.Items.Add( c.Name );
+                    //item.Tag = c;
+                    //item.Click += contextGameRemCat_Category_Click;
 
                     ListViewItem listItem = new ListViewItem( c.Name );
                     listItem.Tag = c;
@@ -1556,17 +1651,29 @@ namespace Depressurizer {
             }
             else {
                 splitGame.Panel2Collapsed = false;
+                contextGameRemCat.Items.Clear();
                 foreach (GameInfo game in tlstGames.SelectedObjects)
                 {
                     if (game != null)
                     {
                         AddGameToMultiCatCheckStates(game, first);
+                        AddRemoveCategoryContextMenu(game);
                         //AddGameToCheckboxStates(game, first);
                         first = false;
                     }
                 }
             }
             lstMultiCat.EndUpdate();
+        }
+
+        void AddRemoveCategoryContextMenu(GameInfo game)
+        {
+            foreach (Category c in game.Categories)
+            {
+                ToolStripItem item = contextGameRemCat.Items.Add(c.Name);
+                item.Tag = c;
+                item.Click += contextGameRemCat_Category_Click;
+            }
         }
 
         void AddGameToMultiCatCheckStates( GameInfo game, bool first )
@@ -1762,7 +1869,7 @@ namespace Depressurizer {
 
             contextGame_Add.Enabled = enable;
 
-
+            RefreshFilters();
             UpdateEnabledStatesForGames();
             FillAutoCatLists();
 
@@ -1813,15 +1920,22 @@ namespace Depressurizer {
         private void SetAdvancedMode( bool enabled ) {
             Cursor.Current = Cursors.WaitCursor;
             if( enabled ) {
+                splitCategories.Panel1Collapsed = false;
                 lstCategories.StateImageList = imglistFilter;
                 advFilterAllow.Clear();
                 advFilterExclude.Clear();
                 advFilterRequire.Clear();
                 advFilterUncatState = AdvancedFilterState.None;
                 advFilterHiddenState = AdvancedFilterState.None;
+                cboFilter.Text = string.Empty;
+                mbtnClearFilters.Visible = true;
             } else {
+                splitCategories.Panel1Collapsed = true;
                 lstCategories.StateImageList = null;
+                mbtnClearFilters.Visible = false;
             }
+            // allow the form to refresh before the time-consuming stuff happens
+            Application.DoEvents();
             FillAllCategoryLists();
             OnViewChange();
             Cursor.Current = Cursors.Default;
@@ -2433,6 +2547,79 @@ namespace Depressurizer {
             lstCategories.Columns[0].Width = lstCategories.DisplayRectangle.Width;
         }
 
+        private void RenameFilter(Filter f)
+        {
+            if (AdvancedCategoryFilter)
+            {
+                GetStringDlg dlg = new GetStringDlg(f.Name, string.Format(GlobalStrings.MainForm_RenameFilter, f.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
+                if (dlg.ShowDialog() == DialogResult.OK && f.Name != dlg.Value)
+                {
+                    if (currentProfile.GameData.FilterExists(dlg.Value))
+                    {
+                        MessageBox.Show(GlobalStrings.MainForm_FilterExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                    f.Name = dlg.Value;
+                    RefreshFilters();
+                    cboFilter.SelectedItem = f;
+                    cboFilter.Text = f.Name;
+                }
+            }
+        }
+
+        private void ApplyFilter(Filter f)
+        {
+            if (AdvancedCategoryFilter)  
+            {
+                // reset Advanced settings
+                advFilterAllow.Clear();
+                advFilterRequire.Clear();
+                advFilterExclude.Clear();
+                advFilterUncatState = AdvancedFilterState.None;
+                advFilterHiddenState = AdvancedFilterState.None;
+
+                // load new Advanced settings
+                foreach (ListViewItem i in lstCategories.Items)
+                {
+                    if (i.Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
+                    {
+                        i.StateImageIndex = f.Uncategorized;
+                        advFilterUncatState = (AdvancedFilterState)f.Uncategorized;
+                    }
+                    else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
+                    {
+                        i.StateImageIndex = f.Hidden;
+                        advFilterHiddenState = (AdvancedFilterState)f.Hidden;
+                    }
+                    else
+                    {
+                        if (f.Allow.Contains(((Category)i.Tag)))
+                        {
+                            i.StateImageIndex = (int)AdvancedFilterState.Allow;
+                            advFilterAllow.Add((Category)i.Tag);
+                        }
+                        else if (f.Require.Contains(((Category)i.Tag)))
+                        {
+                            i.StateImageIndex = (int)AdvancedFilterState.Require;
+                            advFilterRequire.Add((Category)i.Tag);
+                        }
+                        else if (f.Exclude.Contains(((Category)i.Tag)))
+                        {
+                            i.StateImageIndex = (int)AdvancedFilterState.Exclude;
+                            advFilterExclude.Add((Category)i.Tag);
+                        }
+                        else
+                        {
+                            i.StateImageIndex = (int)AdvancedFilterState.None;
+                        }
+                    }
+                }
+                OnViewChange();
+            }
+        }
+
+        
+
         private void HandleAdvancedCategoryItemActivation( ListViewItem i, bool reverse, bool updateView = true ) {
             int oldState = i.StateImageIndex;
 
@@ -2771,7 +2958,7 @@ namespace Depressurizer {
                 }
                 catch
                 {
-                    MessageBox.Show("Run once with Admin rights to set browser registry key.");
+                    MessageBox.Show(GlobalStrings.MainForm_AdminRights, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 finally
                 {
@@ -2802,12 +2989,6 @@ namespace Depressurizer {
             }
         }
 
-        private void grpGames_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-
         /// <summary>
         /// Checks to see if a category name is valid. Does not make sure it isn't already in use. If the name is not valid, displays a warning.
         /// </summary>
@@ -2818,6 +2999,18 @@ namespace Depressurizer {
                 MessageBox.Show( GlobalStrings.MainForm_CategoryNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
                 return false;
             } else {
+                return true;
+            }
+        }
+
+        private bool ValidateFilterName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show(GlobalStrings.MainForm_FilterNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            else {
                 return true;
             }
         }
@@ -2925,6 +3118,44 @@ namespace Depressurizer {
         private void countdescendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SortCategories(1, SortOrder.Descending);
+        }
+
+        private void mbtnSaveFilter_Click(object sender, EventArgs e)
+        {
+            if (AdvancedCategoryFilter)
+            {
+                SaveFilter();
+            }
+        }
+
+        private void mbtnFilterDelete_Click(object sender, EventArgs e)
+        {
+            if (AdvancedCategoryFilter)
+            {
+                DeleteFilter((Filter)cboFilter.SelectedItem);
+            } 
+        }
+
+        private void cboFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((cboFilter.SelectedItem != null) && (AdvancedCategoryFilter))
+            {
+                ApplyFilter((Filter)cboFilter.SelectedItem);
+            }
+        }
+
+        private void mbtnFilterRename_Click(object sender, EventArgs e)
+        {
+            if ((cboFilter.SelectedItem != null) && (AdvancedCategoryFilter))
+            {
+                RenameFilter((Filter)cboFilter.SelectedItem);
+            }
+        }
+
+        private void mbtnClearFilters_Click(object sender, EventArgs e)
+        {
+            ApplyFilter(new Filter(String.Empty));
+            cboFilter.Text = string.Empty;
         }
 
         private void lvAutoCatType_DoubleClick(object sender, EventArgs e)

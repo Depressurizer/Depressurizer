@@ -187,6 +187,7 @@
       <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="GameBanners.cs" />
+    <Compile Include="Filter.cs" />
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
