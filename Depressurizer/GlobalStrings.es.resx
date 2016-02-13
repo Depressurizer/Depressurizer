@@ -737,10 +737,10 @@ Tiempo Restante:</value>
     <value>Sí</value>
   </data>
   <data name="Profile_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error cargando perfil:</value>
+    <value>Error cargando perfil: {0}</value>
   </data>
   <data name="Profile_ErrorSavingProfileFile" xml:space="preserve">
-    <value>Error guardando fichero de perfil:</value>
+    <value>Error guardando fichero de perfil: {0}</value>
   </data>
   <data name="Profile_FailedToLoadProfile" xml:space="preserve">
     <value>Error al cargar perfil: {0}</value>
@@ -1347,6 +1347,82 @@ A game must NOT be in any categories marked with an X ("Excluded").</value>
   </data>
   <data name="Utility_SaveBanner" xml:space="preserve">
     <value>Erroring saving game banner to {0}.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Filter_ErrorSavingFilterFile" xml:space="preserve">
+    <value>Error saving filter file: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Filter_FailedToOpenFilterFile" xml:space="preserve">
+    <value>Failed to open filter file for writing: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Filter_FilterSaveComplete" xml:space="preserve">
+    <value>Filter save complete.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Filter_SavingFilter" xml:space="preserve">
+    <value>Saving filter: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Filter_Exception_ObjectNotFilter" xml:space="preserve">
+    <value>Object is not a filter</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_AdminRights" xml:space="preserve">
+    <value>Run once with Admin rights to set browser registry key.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_CouldNotAddFilter" xml:space="preserve">
+    <value>Could not add filter '{0}'</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_CouldNotDeleteFilter" xml:space="preserve">
+    <value>Could not delete filter.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_DeleteFilter" xml:space="preserve">
+    <value>Delete filter '{0}'?</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_EnterNewFilterName" xml:space="preserve">
+    <value>Enter new filter name:</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_FilterAdded" xml:space="preserve">
+    <value>Filter '{0}' added.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_FilterDeleted" xml:space="preserve">
+    <value>{0} filters deleted.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_FilterExists" xml:space="preserve">
+    <value>Filter {0} already exists.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_FilterNamesNotEmpty" xml:space="preserve">
+    <value>Filter names cannot be empty.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_FilterRenamed" xml:space="preserve">
+    <value>Filter renamed.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_OverwriteFilterName" xml:space="preserve">
+    <value>Do you want to overwrite filter: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_RenameFilter" xml:space="preserve">
+    <value>Rename filter: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_SaveFilter" xml:space="preserve">
+    <value>Save Filter</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
 </root>

@@ -741,10 +741,10 @@ This could take up to a few seconds per game.</value>
     <value>Yes</value>
   </data>
   <data name="Profile_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error loading profile:</value>
+    <value>Error loading profile: {0}</value>
   </data>
   <data name="Profile_ErrorSavingProfileFile" xml:space="preserve">
-    <value>Error saving profile file:</value>
+    <value>Error saving profile file: {0}</value>
   </data>
   <data name="Profile_FailedToLoadProfile" xml:space="preserve">
     <value>Failed to load profile: {0}</value>
@@ -1228,5 +1228,62 @@ If unchecked, games with no times will be skipped.</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Flags" xml:space="preserve">
     <value>By Flags</value>
+  </data>
+  <data name="Filter_ErrorSavingFilterFile" xml:space="preserve">
+    <value>Error saving filter file: {0}</value>
+  </data>
+  <data name="Filter_FailedToOpenFilterFile" xml:space="preserve">
+    <value>Failed to open filter file for writing: {0}</value>
+  </data>
+  <data name="Filter_FilterSaveComplete" xml:space="preserve">
+    <value>Filter save complete.</value>
+  </data>
+  <data name="Filter_SavingFilter" xml:space="preserve">
+    <value>Saving filter: {0}</value>
+  </data>
+  <data name="Filter_Exception_ObjectNotFilter" xml:space="preserve">
+    <value>Object is not a filter</value>
+  </data>
+  <data name="MainForm_AdminRights" xml:space="preserve">
+    <value>Run once with Admin rights to set browser registry key.</value>
+  </data>
+  <data name="MainForm_CouldNotAddFilter" xml:space="preserve">
+    <value>Could not add filter '{0}'</value>
+  </data>
+  <data name="MainForm_CouldNotDeleteFilter" xml:space="preserve">
+    <value>Could not delete filter.</value>
+  </data>
+  <data name="MainForm_DeleteFilter" xml:space="preserve">
+    <value>Delete filter '{0}'?</value>
+  </data>
+  <data name="MainForm_EnterNewFilterName" xml:space="preserve">
+    <value>Enter new filter name:</value>
+  </data>
+  <data name="MainForm_FilterAdded" xml:space="preserve">
+    <value>Filter '{0}' added.</value>
+  </data>
+  <data name="MainForm_FilterDeleted" xml:space="preserve">
+    <value>{0} filters deleted.</value>
+  </data>
+  <data name="MainForm_FilterExists" xml:space="preserve">
+    <value>Filter {0} already exists.</value>
+  </data>
+  <data name="MainForm_FilterNamesNotEmpty" xml:space="preserve">
+    <value>Filter names cannot be empty.</value>
+  </data>
+  <data name="MainForm_FilterRenamed" xml:space="preserve">
+    <value>Filter renamed.</value>
+  </data>
+  <data name="MainForm_OverwriteFilterName" xml:space="preserve">
+    <value>Do you want to overwrite filter: {0}</value>
+  </data>
+  <data name="MainForm_RenameFilter" xml:space="preserve">
+    <value>Rename filter: {0}</value>
+  </data>
+  <data name="MainForm_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="MainForm_SaveFilter" xml:space="preserve">
+    <value>Save Filter</value>
   </data>
 </root>

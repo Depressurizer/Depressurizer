@@ -1403,6 +1403,51 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error saving filter file: {0}.
+        /// </summary>
+        internal static string Filter_ErrorSavingFilterFile {
+            get {
+                return ResourceManager.GetString("Filter_ErrorSavingFilterFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object is not a filter.
+        /// </summary>
+        internal static string Filter_Exception_ObjectNotFilter {
+            get {
+                return ResourceManager.GetString("Filter_Exception_ObjectNotFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to open filter file for writing: {0}.
+        /// </summary>
+        internal static string Filter_FailedToOpenFilterFile {
+            get {
+                return ResourceManager.GetString("Filter_FailedToOpenFilterFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter save complete..
+        /// </summary>
+        internal static string Filter_FilterSaveComplete {
+            get {
+                return ResourceManager.GetString("Filter_FilterSaveComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving filter: {0}.
+        /// </summary>
+        internal static string Filter_SavingFilter {
+            get {
+                return ResourceManager.GetString("Filter_SavingFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access denied on Steam config file:.
         /// </summary>
         internal static string GameData_AccessDeniedSteamConfigFile {
@@ -2064,6 +2109,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Run once with Admin rights to set browser registry key..
+        /// </summary>
+        internal static string MainForm_AdminRights {
+            get {
+                return ResourceManager.GetString("MainForm_AdminRights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;All&gt;.
         /// </summary>
         internal static string MainForm_All {
@@ -2163,11 +2217,29 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not add filter &apos;{0}&apos;.
+        /// </summary>
+        internal static string MainForm_CouldNotAddFilter {
+            get {
+                return ResourceManager.GetString("MainForm_CouldNotAddFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not delete categories..
         /// </summary>
         internal static string MainForm_CouldNotDeleteCategory {
             get {
                 return ResourceManager.GetString("MainForm_CouldNotDeleteCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not delete filter..
+        /// </summary>
+        internal static string MainForm_CouldNotDeleteFilter {
+            get {
+                return ResourceManager.GetString("MainForm_CouldNotDeleteFilter", resourceCulture);
             }
         }
         
@@ -2217,6 +2289,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete filter &apos;{0}&apos;?.
+        /// </summary>
+        internal static string MainForm_DeleteFilter {
+            get {
+                return ResourceManager.GetString("MainForm_DeleteFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download aborted..
         /// </summary>
         internal static string MainForm_DownloadAborted {
@@ -2258,6 +2339,15 @@ namespace Depressurizer {
         internal static string MainForm_EnterNewCategoryName {
             get {
                 return ResourceManager.GetString("MainForm_EnterNewCategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new filter name:.
+        /// </summary>
+        internal static string MainForm_EnterNewFilterName {
+            get {
+                return ResourceManager.GetString("MainForm_EnterNewFilterName", resourceCulture);
             }
         }
         
@@ -2406,6 +2496,51 @@ namespace Depressurizer {
         internal static string MainForm_Favorite {
             get {
                 return ResourceManager.GetString("MainForm_Favorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter &apos;{0}&apos; added..
+        /// </summary>
+        internal static string MainForm_FilterAdded {
+            get {
+                return ResourceManager.GetString("MainForm_FilterAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} filters deleted..
+        /// </summary>
+        internal static string MainForm_FilterDeleted {
+            get {
+                return ResourceManager.GetString("MainForm_FilterDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter {0} already exists..
+        /// </summary>
+        internal static string MainForm_FilterExists {
+            get {
+                return ResourceManager.GetString("MainForm_FilterExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter names cannot be empty..
+        /// </summary>
+        internal static string MainForm_FilterNamesNotEmpty {
+            get {
+                return ResourceManager.GetString("MainForm_FilterNamesNotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter renamed..
+        /// </summary>
+        internal static string MainForm_FilterRenamed {
+            get {
+                return ResourceManager.GetString("MainForm_FilterRenamed", resourceCulture);
             }
         }
         
@@ -2816,6 +2951,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to overwrite filter: {0}.
+        /// </summary>
+        internal static string MainForm_OverwriteFilterName {
+            get {
+                return ResourceManager.GetString("MainForm_OverwriteFilterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profile created..
         /// </summary>
         internal static string MainForm_ProfileCreated {
@@ -2893,6 +3037,33 @@ namespace Depressurizer {
         internal static string MainForm_RenameCategory {
             get {
                 return ResourceManager.GetString("MainForm_RenameCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename filter: {0}.
+        /// </summary>
+        internal static string MainForm_RenameFilter {
+            get {
+                return ResourceManager.GetString("MainForm_RenameFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string MainForm_Save {
+            get {
+                return ResourceManager.GetString("MainForm_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Filter.
+        /// </summary>
+        internal static string MainForm_SaveFilter {
+            get {
+                return ResourceManager.GetString("MainForm_SaveFilter", resourceCulture);
             }
         }
         
@@ -3122,7 +3293,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error loading profile:.
+        ///   Looks up a localized string similar to Error loading profile: {0}.
         /// </summary>
         internal static string Profile_ErrorLoadingProfile {
             get {
@@ -3131,7 +3302,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error saving profile file:.
+        ///   Looks up a localized string similar to Error saving profile file: {0}.
         /// </summary>
         internal static string Profile_ErrorSavingProfileFile {
             get {

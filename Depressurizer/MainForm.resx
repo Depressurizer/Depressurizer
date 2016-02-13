@@ -125,312 +125,177 @@
   <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 65</value>
   </data>
-  <data name="mlblCategoryCount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="splitCategories.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mlblCategoryCount.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mlblCategoryCount.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 11pt</value>
-  </data>
-  <data name="mlblCategoryCount.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mlblCategoryCount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 13</value>
-  </data>
-  <data name="mlblCategoryCount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 18</value>
-  </data>
-  <data name="mlblCategoryCount.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="mlblCategoryCount.Text" xml:space="preserve">
-    <value>Categories</value>
-  </data>
-  <data name="&gt;&gt;mlblCategoryCount.Name" xml:space="preserve">
-    <value>mlblCategoryCount</value>
-  </data>
-  <data name="&gt;&gt;mlblCategoryCount.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;mlblCategoryCount.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;mlblCategoryCount.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="mchkAutoCatSelected.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="mchkAutoCatSelected.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 10pt</value>
-  </data>
-  <data name="mchkAutoCatSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mchkAutoCatSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>138, 445</value>
-  </data>
-  <data name="mchkAutoCatSelected.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="mchkAutoCatSelected.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 27</value>
-  </data>
-  <data name="mchkAutoCatSelected.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="mchkAutoCatSelected.Text" xml:space="preserve">
-    <value>Selected Only</value>
-  </data>
-  <data name="&gt;&gt;mchkAutoCatSelected.Name" xml:space="preserve">
-    <value>mchkAutoCatSelected</value>
-  </data>
-  <data name="&gt;&gt;mchkAutoCatSelected.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;mchkAutoCatSelected.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;mchkAutoCatSelected.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="lvAutoCatType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <metadata name="contextAutoCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>381, 56</value>
-  </metadata>
-  <data name="contextAutoCat_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 22</value>
-  </data>
-  <data name="contextAutoCat_Edit.Text" xml:space="preserve">
-    <value>Edit AutoCats...</value>
-  </data>
-  <data name="contextAutoCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 26</value>
-  </data>
-  <data name="&gt;&gt;contextAutoCat.Name" xml:space="preserve">
-    <value>contextAutoCat</value>
-  </data>
-  <data name="&gt;&gt;contextAutoCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lvAutoCatType.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial, 9.75pt</value>
-  </data>
-  <data name="lvAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 356</value>
-  </data>
-  <data name="lvAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 74</value>
-  </data>
-  <data name="lvAutoCatType.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;lvAutoCatType.Name" xml:space="preserve">
-    <value>lvAutoCatType</value>
-  </data>
-  <data name="&gt;&gt;lvAutoCatType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lvAutoCatType.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;lvAutoCatType.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cmbAutoCatType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-40, 469</value>
-  </data>
-  <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 21</value>
-  </data>
-  <data name="cmbAutoCatType.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="cmbAutoCatType.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;cmbAutoCatType.Name" xml:space="preserve">
-    <value>cmbAutoCatType</value>
-  </data>
-  <data name="&gt;&gt;cmbAutoCatType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmbAutoCatType.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;cmbAutoCatType.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="mbtnCatDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="mbtnCatDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mbtnCatDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 484</value>
-  </data>
-  <data name="mbtnCatDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 23</value>
-  </data>
-  <data name="mbtnCatDelete.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="mbtnCatDelete.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="&gt;&gt;mbtnCatDelete.Name" xml:space="preserve">
-    <value>mbtnCatDelete</value>
-  </data>
-  <data name="&gt;&gt;mbtnCatDelete.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;mbtnCatDelete.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
-  </data>
-  <data name="&gt;&gt;mbtnCatDelete.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="mchkAdvancedCategories.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="mchkAdvancedCategories.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 10pt</value>
-  </data>
-  <data name="mchkAdvancedCategories.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mchkAdvancedCategories.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="splitCategories.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="mchkAdvancedCategories.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
+  <data name="splitCategories.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
+    <value>Horizontal</value>
   </data>
-  <data name="mchkAdvancedCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 30</value>
+  <data name="cboFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
-  <data name="mchkAdvancedCategories.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="cboFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 8</value>
   </data>
-  <data name="mchkAdvancedCategories.Text" xml:space="preserve">
-    <value>Advanced Filter</value>
+  <data name="cboFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 21</value>
   </data>
-  <data name="&gt;&gt;mchkAdvancedCategories.Name" xml:space="preserve">
-    <value>mchkAdvancedCategories</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="cboFilter.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
   </data>
-  <data name="&gt;&gt;mchkAdvancedCategories.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;cboFilter.Name" xml:space="preserve">
+    <value>cboFilter</value>
   </data>
-  <data name="&gt;&gt;mchkAdvancedCategories.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
+  <data name="&gt;&gt;cboFilter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mchkAdvancedCategories.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;cboFilter.Parent" xml:space="preserve">
+    <value>splitCategories.Panel1</value>
   </data>
-  <data name="mbtnCatRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="&gt;&gt;cboFilter.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="mbtnFilterDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="mbtnCatRename.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="mbtnFilterDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="mbtnCatRename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 484</value>
+  <data name="mbtnFilterDelete.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 35</value>
   </data>
-  <data name="mbtnCatRename.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="mbtnFilterDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 23</value>
+  </data>
+  <data name="mbtnFilterDelete.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="mbtnFilterDelete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="&gt;&gt;mbtnFilterDelete.Name" xml:space="preserve">
+    <value>mbtnFilterDelete</value>
+  </data>
+  <data name="&gt;&gt;mbtnFilterDelete.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mbtnFilterDelete.Parent" xml:space="preserve">
+    <value>splitCategories.Panel1</value>
+  </data>
+  <data name="&gt;&gt;mbtnFilterDelete.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="mbtnFilterRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mbtnFilterRename.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mbtnFilterRename.Location" type="System.Drawing.Point, System.Drawing">
+    <value>89, 35</value>
+  </data>
+  <data name="mbtnFilterRename.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 23</value>
   </data>
-  <data name="mbtnCatRename.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="mbtnFilterRename.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
   </data>
-  <data name="mbtnCatRename.Text" xml:space="preserve">
+  <data name="mbtnFilterRename.Text" xml:space="preserve">
     <value>Rename</value>
   </data>
-  <data name="&gt;&gt;mbtnCatRename.Name" xml:space="preserve">
-    <value>mbtnCatRename</value>
+  <data name="&gt;&gt;mbtnFilterRename.Name" xml:space="preserve">
+    <value>mbtnFilterRename</value>
   </data>
-  <data name="&gt;&gt;mbtnCatRename.Type" xml:space="preserve">
+  <data name="&gt;&gt;mbtnFilterRename.Type" xml:space="preserve">
     <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;mbtnCatRename.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
+  <data name="&gt;&gt;mbtnFilterRename.Parent" xml:space="preserve">
+    <value>splitCategories.Panel1</value>
   </data>
-  <data name="&gt;&gt;mbtnCatRename.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="&gt;&gt;mbtnFilterRename.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="mbtnCatAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="mbtnFilterSave.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="mbtnCatAdd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="mbtnFilterSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="mbtnCatAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 484</value>
+  <data name="mbtnFilterSave.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 35</value>
   </data>
-  <data name="mbtnCatAdd.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="mbtnFilterSave.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 23</value>
   </data>
-  <data name="mbtnCatAdd.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+  <data name="mbtnFilterSave.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
   </data>
-  <data name="mbtnCatAdd.Text" xml:space="preserve">
-    <value>Add</value>
+  <data name="mbtnFilterSave.Text" xml:space="preserve">
+    <value>Save</value>
   </data>
-  <data name="&gt;&gt;mbtnCatAdd.Name" xml:space="preserve">
-    <value>mbtnCatAdd</value>
+  <data name="&gt;&gt;mbtnFilterSave.Name" xml:space="preserve">
+    <value>mbtnFilterSave</value>
   </data>
-  <data name="&gt;&gt;mbtnCatAdd.Type" xml:space="preserve">
+  <data name="&gt;&gt;mbtnFilterSave.Type" xml:space="preserve">
     <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;mbtnCatAdd.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
+  <data name="&gt;&gt;mbtnFilterSave.Parent" xml:space="preserve">
+    <value>splitCategories.Panel1</value>
   </data>
-  <data name="&gt;&gt;mbtnCatAdd.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="&gt;&gt;mbtnFilterSave.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="mbtnAutoCategorize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
+  <data name="&gt;&gt;splitCategories.Panel1.Name" xml:space="preserve">
+    <value>splitCategories.Panel1</value>
   </data>
-  <data name="mbtnAutoCategorize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="&gt;&gt;splitCategories.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Panel1.Parent" xml:space="preserve">
+    <value>splitCategories</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="mbtnClearFilters.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="mbtnAutoCategorize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 436</value>
+  <data name="mbtnClearFilters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 3</value>
   </data>
-  <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 42</value>
+  <data name="mbtnClearFilters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>21, 23</value>
   </data>
-  <data name="mbtnAutoCategorize.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="mbtnClearFilters.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
   </data>
-  <data name="mbtnAutoCategorize.Text" xml:space="preserve">
-    <value>Auto-Categorize</value>
+  <data name="mbtnClearFilters.Text" xml:space="preserve">
+    <value>X</value>
   </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 56</value>
   </metadata>
-  <data name="mbtnAutoCategorize.ToolTip" xml:space="preserve">
-    <value>Select AutoCats above (created in Edit AutoCats menu)</value>
+  <data name="mbtnClearFilters.ToolTip" xml:space="preserve">
+    <value>Clear all filters</value>
   </data>
-  <data name="&gt;&gt;mbtnAutoCategorize.Name" xml:space="preserve">
-    <value>mbtnAutoCategorize</value>
+  <data name="mbtnClearFilters.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;mbtnAutoCategorize.Type" xml:space="preserve">
+  <data name="&gt;&gt;mbtnClearFilters.Name" xml:space="preserve">
+    <value>mbtnClearFilters</value>
+  </data>
+  <data name="&gt;&gt;mbtnClearFilters.Type" xml:space="preserve">
     <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;mbtnAutoCategorize.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
+  <data name="&gt;&gt;mbtnClearFilters.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
   </data>
-  <data name="&gt;&gt;mbtnAutoCategorize.ZOrder" xml:space="preserve">
-    <value>8</value>
+  <data name="&gt;&gt;mbtnClearFilters.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="lstCategories.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -526,7 +391,7 @@
     <value>3, 34</value>
   </data>
   <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 316</value>
+    <value>245, 317</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -538,10 +403,346 @@
     <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.6.4.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;lstCategories.Parent" xml:space="preserve">
-    <value>splitContainer.Panel1</value>
+    <value>splitCategories.Panel2</value>
   </data>
   <data name="&gt;&gt;lstCategories.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="mlblCategoryCount.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="mlblCategoryCount.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="mlblCategoryCount.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 11pt</value>
+  </data>
+  <data name="mlblCategoryCount.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mlblCategoryCount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>170, 11</value>
+  </data>
+  <data name="mlblCategoryCount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 18</value>
+  </data>
+  <data name="mlblCategoryCount.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="mlblCategoryCount.Text" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="&gt;&gt;mlblCategoryCount.Name" xml:space="preserve">
+    <value>mlblCategoryCount</value>
+  </data>
+  <data name="&gt;&gt;mlblCategoryCount.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mlblCategoryCount.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;mlblCategoryCount.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="mbtnAutoCategorize.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mbtnAutoCategorize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mbtnAutoCategorize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 462</value>
+  </data>
+  <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 42</value>
+  </data>
+  <data name="mbtnAutoCategorize.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="mbtnAutoCategorize.Text" xml:space="preserve">
+    <value>Auto-Categorize</value>
+  </data>
+  <data name="mbtnAutoCategorize.ToolTip" xml:space="preserve">
+    <value>Select AutoCats above (created in Edit AutoCats menu)</value>
+  </data>
+  <data name="&gt;&gt;mbtnAutoCategorize.Name" xml:space="preserve">
+    <value>mbtnAutoCategorize</value>
+  </data>
+  <data name="&gt;&gt;mbtnAutoCategorize.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mbtnAutoCategorize.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;mbtnAutoCategorize.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="mchkAutoCatSelected.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mchkAutoCatSelected.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="mchkAutoCatSelected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mchkAutoCatSelected.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 471</value>
+  </data>
+  <data name="mchkAutoCatSelected.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="mchkAutoCatSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 27</value>
+  </data>
+  <data name="mchkAutoCatSelected.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="mchkAutoCatSelected.Text" xml:space="preserve">
+    <value>Selected Only</value>
+  </data>
+  <data name="&gt;&gt;mchkAutoCatSelected.Name" xml:space="preserve">
+    <value>mchkAutoCatSelected</value>
+  </data>
+  <data name="&gt;&gt;mchkAutoCatSelected.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mchkAutoCatSelected.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;mchkAutoCatSelected.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="mbtnCatAdd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mbtnCatAdd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mbtnCatAdd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 357</value>
+  </data>
+  <data name="mbtnCatAdd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="mbtnCatAdd.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="mbtnCatAdd.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatAdd.Name" xml:space="preserve">
+    <value>mbtnCatAdd</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatAdd.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatAdd.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatAdd.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lvAutoCatType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <metadata name="contextAutoCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>381, 56</value>
+  </metadata>
+  <data name="contextAutoCat_Edit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="contextAutoCat_Edit.Text" xml:space="preserve">
+    <value>Edit AutoCats...</value>
+  </data>
+  <data name="contextAutoCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 26</value>
+  </data>
+  <data name="&gt;&gt;contextAutoCat.Name" xml:space="preserve">
+    <value>contextAutoCat</value>
+  </data>
+  <data name="&gt;&gt;contextAutoCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lvAutoCatType.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9.75pt</value>
+  </data>
+  <data name="lvAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 384</value>
+  </data>
+  <data name="lvAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>245, 74</value>
+  </data>
+  <data name="lvAutoCatType.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;lvAutoCatType.Name" xml:space="preserve">
+    <value>lvAutoCatType</value>
+  </data>
+  <data name="&gt;&gt;lvAutoCatType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lvAutoCatType.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;lvAutoCatType.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="mbtnCatRename.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mbtnCatRename.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mbtnCatRename.Location" type="System.Drawing.Point, System.Drawing">
+    <value>88, 357</value>
+  </data>
+  <data name="mbtnCatRename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="mbtnCatRename.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
+  </data>
+  <data name="mbtnCatRename.Text" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatRename.Name" xml:space="preserve">
+    <value>mbtnCatRename</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatRename.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatRename.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatRename.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cmbAutoCatType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="cmbAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-77, 368</value>
+  </data>
+  <data name="cmbAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 21</value>
+  </data>
+  <data name="cmbAutoCatType.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="cmbAutoCatType.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Name" xml:space="preserve">
+    <value>cmbAutoCatType</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;cmbAutoCatType.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="mchkAdvancedCategories.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="mchkAdvancedCategories.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="mchkAdvancedCategories.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mchkAdvancedCategories.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="mchkAdvancedCategories.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="mchkAdvancedCategories.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 30</value>
+  </data>
+  <data name="mchkAdvancedCategories.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="mchkAdvancedCategories.Text" xml:space="preserve">
+    <value>Advanced Filter</value>
+  </data>
+  <data name="&gt;&gt;mchkAdvancedCategories.Name" xml:space="preserve">
+    <value>mchkAdvancedCategories</value>
+  </data>
+  <data name="&gt;&gt;mchkAdvancedCategories.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mchkAdvancedCategories.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;mchkAdvancedCategories.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="mbtnCatDelete.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mbtnCatDelete.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mbtnCatDelete.Location" type="System.Drawing.Point, System.Drawing">
+    <value>170, 357</value>
+  </data>
+  <data name="mbtnCatDelete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 23</value>
+  </data>
+  <data name="mbtnCatDelete.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="mbtnCatDelete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatDelete.Name" xml:space="preserve">
+    <value>mbtnCatDelete</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatDelete.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=0.0.3.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatDelete.Parent" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;mbtnCatDelete.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Panel2.Name" xml:space="preserve">
+    <value>splitCategories.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Panel2.Parent" xml:space="preserve">
+    <value>splitCategories</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitCategories.Size" type="System.Drawing.Size, System.Drawing">
+    <value>250, 510</value>
+  </data>
+  <data name="splitCategories.SplitterDistance" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="splitCategories.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Name" xml:space="preserve">
+    <value>splitCategories</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.Parent" xml:space="preserve">
+    <value>splitContainer.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitCategories.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
     <value>splitContainer.Panel1</value>
@@ -972,6 +1173,9 @@
   <data name="contextGameAddCat_Create.Text" xml:space="preserve">
     <value>Create New...</value>
   </data>
+  <data name="contextGameAddCat.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 600</value>
+  </data>
   <data name="contextGameAddCat.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 26</value>
   </data>
@@ -1136,7 +1340,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAATABCgEwAQoBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAbABCgGwAQoBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1422,7 +1626,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAaABCAGgAQgBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAASABCQEgAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1893,12 +2097,6 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Depressurizer</value>
   </data>
-  <data name="&gt;&gt;contextAutoCat_Edit.Name" xml:space="preserve">
-    <value>contextAutoCat_Edit</value>
-  </data>
-  <data name="&gt;&gt;contextAutoCat_Edit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;sortToolStripMenuItem.Name" xml:space="preserve">
     <value>sortToolStripMenuItem</value>
   </data>
@@ -1963,6 +2161,12 @@
     <value>contextCat_RemoveEmpty</value>
   </data>
   <data name="&gt;&gt;contextCat_RemoveEmpty.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextAutoCat_Edit.Name" xml:space="preserve">
+    <value>contextAutoCat_Edit</value>
+  </data>
+  <data name="&gt;&gt;contextAutoCat_Edit.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;colGameID.Name" xml:space="preserve">
