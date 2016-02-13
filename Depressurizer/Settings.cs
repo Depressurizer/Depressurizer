@@ -201,6 +201,57 @@ namespace Depressurizer {
             }
         }
 
+        private string _filter;
+        public string Filter
+        {
+            get
+            {
+                return _filter;
+            }
+            set
+            {
+                if (_filter != value)
+                {
+                    _filter = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private string _category;
+        public string Category
+        {
+            get
+            {
+                return _category;
+            }
+            set
+            {
+                if (_category != value)
+                {
+                    _category = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private string _autocats;
+        public string AutoCats
+        {
+            get
+            {
+                return _autocats;
+            }
+            set
+            {
+                if (_autocats != value)
+                {
+                    _autocats = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private string _steamPath = null;
         public string SteamPath {
             get {
