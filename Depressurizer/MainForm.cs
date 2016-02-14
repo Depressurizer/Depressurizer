@@ -75,6 +75,7 @@ namespace Depressurizer {
 
         const string BIG_UP = "{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP}";
         const string BIG_DOWN = "{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN}";
+        const string ADVANCED_FILTER = "ADVANCED_FILTER";
         #endregion
 
         Profile currentProfile;
@@ -94,21 +95,17 @@ namespace Depressurizer {
 
         private readonly MaterialSkinManager materialSkinManager;
 
+        // For getting game banners
         GameBanners bannerGrabber;
         Thread bannerThread;
 
-        List<object> filters = new List<object>();
-
+        // Used to prevent double clicking in Autocat listview from changing checkstate
         bool doubleClick = false;
 
         #region Filter caching fields
         object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
         string lastFilterString = "";
-        SortedSet<Category> advFilterAllow = new SortedSet<Category>(),
-            advFilterRequire = new SortedSet<Category>(),
-            advFilterExclude = new SortedSet<Category>();
-        AdvancedFilterState advFilterUncatState = AdvancedFilterState.None;
-        AdvancedFilterState advFilterHiddenState = AdvancedFilterState.None;
+        Filter advFilter = new Filter(ADVANCED_FILTER);
         #endregion
 
         #region List Backing Field
@@ -453,45 +450,10 @@ namespace Depressurizer {
 
             if (currentProfile != null)
             {
-                // restore previous settings
-                if (settings.Category != string.Empty)
-                {
-                    lstCategories.SelectedIndices.Clear();
-                    for (int i = 0; i < lstCategories.Items.Count; i++)
-                    {
-                        if (lstCategories.Items[i].Name == settings.Category)
-                        {
-                            lstCategories.SelectedIndices.Add(i);
-                            break;
-                        }
-                    }
-                }
-                if (settings.Filter != string.Empty)
-                {
-                    for (int i = 0; i < cboFilter.Items.Count; i++)
-                    {
-                        string name = cboFilter.GetItemText(cboFilter.Items[i]);
-                        if (name == settings.Filter)
-                        {
-                            mchkAdvancedCategories.Checked = true;
-                            cboFilter.SelectedIndex = i;
-                            cboFilter.Text = name;
-                            ApplyFilter((Filter)cboFilter.SelectedItem);
-                            OnViewChange();
-                        }
-                    }
-                }
-                if (settings.AutoCats != string.Empty)
-                {
-                    List<string> autocats = settings.AutoCats.Split(',').ToList();
-                    foreach (string ac in autocats)
-                    {
-                        for (int i = 0; i < lvAutoCatType.Items.Count; i++)
-                        {
-                            if (lvAutoCatType.Items[i].Text == ac) lvAutoCatType.Items[i].Checked = true;
-                        }
-                    }
-                }
+                // restore previous session
+                SelectCategory();
+                SelectFilter();
+                SelectAutoCats();
             }
         }
 
@@ -866,7 +828,7 @@ namespace Depressurizer {
         /// </summary>
         private void EditAutoCats(AutoCat selected) {
             if( !ProfileLoaded ) return;
-            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData, selected );
+            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData.Filters, currentProfile.GameData, selected );
 
             DialogResult res = dlg.ShowDialog();
 
@@ -920,11 +882,11 @@ namespace Depressurizer {
                 }
                 if (f != null)
                 {
-                    f.Uncategorized = (int)advFilterUncatState;
-                    f.Hidden = (int)advFilterHiddenState;
-                    f.Allow = advFilterAllow;
-                    f.Require = advFilterRequire;
-                    f.Exclude = advFilterExclude;
+                    f.Uncategorized = advFilter.Uncategorized;
+                    f.Hidden = advFilter.Hidden;
+                    f.Allow = advFilter.Allow;
+                    f.Require = advFilter.Require;
+                    f.Exclude = advFilter.Exclude;
                     if (refresh)
                     {
                         AddStatus(string.Format(GlobalStrings.MainForm_FilterAdded, f.Name));
@@ -1336,7 +1298,7 @@ namespace Depressurizer {
             autoCat.PreProcess( currentProfile.GameData, Program.GameDB );
 
             foreach( GameInfo g in gamesToUpdate ) {
-                AutoCatResult res = autoCat.CategorizeGame( g );
+                AutoCatResult res = autoCat.CategorizeGame( g, currentProfile.GameData.GetFilter(autoCat.Filter));
                 if( res == AutoCatResult.Success ) {
                     updated++;
                 }
@@ -1458,6 +1420,71 @@ namespace Depressurizer {
 
         #endregion
         #region List updaters
+
+        private void SelectCategory()
+        {
+            Settings settings = Settings.Instance;
+            if (settings.Category != string.Empty)
+            {
+                lstCategories.SelectedIndices.Clear();
+                for (int i = 0; i < lstCategories.Items.Count; i++)
+                {
+                    if (lstCategories.Items[i].Name == settings.Category)
+                    {
+                        lstCategories.SelectedIndices.Add(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void SelectFilter()
+        {
+            Settings settings = Settings.Instance;
+            if (settings.Filter != string.Empty)
+            {
+                for (int i = 0; i < cboFilter.Items.Count; i++)
+                {
+                    string name = cboFilter.GetItemText(cboFilter.Items[i]);
+                    if (name == settings.Filter)
+                    {
+                        mchkAdvancedCategories.Checked = true;
+                        cboFilter.SelectedIndex = i;
+                        cboFilter.Text = name;
+                        ApplyFilter((Filter)cboFilter.SelectedItem);
+                        OnViewChange();
+                    }
+                }
+            }
+        }
+
+        private void SelectAutoCats()
+        {
+            Settings settings = Settings.Instance;
+            if (settings.AutoCats != string.Empty)
+            {
+                List<string> autocats = settings.AutoCats.Split(',').ToList();
+                foreach (string ac in autocats)
+                {
+                    for (int i = 0; i < lvAutoCatType.Items.Count; i++)
+                    {
+                        if (lvAutoCatType.Items[i].Text == ac) lvAutoCatType.Items[i].Checked = true;
+                    }
+                }
+            }
+        }
+
+        private void SaveSelectedAutoCats()
+        {
+            Settings settings = Settings.Instance;
+            string autocats = string.Empty;
+            for (int i = 0; i < lvAutoCatType.CheckedItems.Count; i++)
+            {
+                if (autocats == string.Empty) autocats += lvAutoCatType.CheckedItems[i].Text;
+                else autocats += "," + lvAutoCatType.CheckedItems[i].Text;
+            }
+            settings.AutoCats = autocats;
+        }
 
         /// <summary>
         /// Does all list-updating that should be done when adding, removing, or renaming a category.
@@ -1855,6 +1882,8 @@ namespace Depressurizer {
             // Prepare main screen AutoCat dropdown
             object selected = cmbAutoCatType.SelectedItem;
             //cmbAutoCatType.Items.Clear();
+
+            SaveSelectedAutoCats();
             lvAutoCatType.Items.Clear();
 
             // Prepare main menu list
@@ -1884,6 +1913,7 @@ namespace Depressurizer {
                         ListViewItem listItem = new ListViewItem(ac.Name);
                         listItem.Tag = ac;
                         lvAutoCatType.Items.Add(listItem);
+                        SelectAutoCats();
 
                         // Fill main menu list
                         ToolStripItem item = menu_Tools_Autocat_List.Items.Add(ac.Name);
@@ -1981,11 +2011,7 @@ namespace Depressurizer {
             if( enabled ) {
                 splitCategories.Panel1Collapsed = false;
                 lstCategories.StateImageList = imglistFilter;
-                advFilterAllow.Clear();
-                advFilterExclude.Clear();
-                advFilterRequire.Clear();
-                advFilterUncatState = AdvancedFilterState.None;
-                advFilterHiddenState = AdvancedFilterState.None;
+                advFilter = new Filter(ADVANCED_FILTER);
                 cboFilter.Text = string.Empty;
                 mbtnClearFilters.Visible = true;
             } else {
@@ -2025,13 +2051,7 @@ namespace Depressurizer {
 
             if (lstCategories.SelectedItems.Count > 0) settings.Category = lstCategories.SelectedItems[0].Name;
 
-            string autocats = string.Empty;
-            for (int i = 0; i < lvAutoCatType.CheckedItems.Count; i++)
-            {
-                if (autocats == string.Empty) autocats += lvAutoCatType.CheckedItems[i].Text;
-                else autocats += "," + lvAutoCatType.CheckedItems[i].Text;
-            }
-            settings.AutoCats = autocats;
+            SaveSelectedAutoCats();
 
             //try
             //{
@@ -2644,11 +2664,7 @@ namespace Depressurizer {
             if (AdvancedCategoryFilter)  
             {
                 // reset Advanced settings
-                advFilterAllow.Clear();
-                advFilterRequire.Clear();
-                advFilterExclude.Clear();
-                advFilterUncatState = AdvancedFilterState.None;
-                advFilterHiddenState = AdvancedFilterState.None;
+                advFilter = new Filter(ADVANCED_FILTER);
 
                 // load new Advanced settings
                 foreach (ListViewItem i in lstCategories.Items)
@@ -2656,29 +2672,29 @@ namespace Depressurizer {
                     if (i.Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
                     {
                         i.StateImageIndex = f.Uncategorized;
-                        advFilterUncatState = (AdvancedFilterState)f.Uncategorized;
+                        advFilter.Uncategorized = f.Uncategorized;
                     }
                     else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
                     {
                         i.StateImageIndex = f.Hidden;
-                        advFilterHiddenState = (AdvancedFilterState)f.Hidden;
+                        advFilter.Hidden = f.Hidden;
                     }
                     else
                     {
                         if (f.Allow.Contains(((Category)i.Tag)))
                         {
                             i.StateImageIndex = (int)AdvancedFilterState.Allow;
-                            advFilterAllow.Add((Category)i.Tag);
+                            advFilter.Allow.Add((Category)i.Tag);
                         }
                         else if (f.Require.Contains(((Category)i.Tag)))
                         {
                             i.StateImageIndex = (int)AdvancedFilterState.Require;
-                            advFilterRequire.Add((Category)i.Tag);
+                            advFilter.Require.Add((Category)i.Tag);
                         }
                         else if (f.Exclude.Contains(((Category)i.Tag)))
                         {
                             i.StateImageIndex = (int)AdvancedFilterState.Exclude;
-                            advFilterExclude.Add((Category)i.Tag);
+                            advFilter.Exclude.Add((Category)i.Tag);
                         }
                         else
                         {
@@ -2707,36 +2723,36 @@ namespace Depressurizer {
 
             if (i.Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
             {
-                advFilterUncatState = (AdvancedFilterState)i.StateImageIndex;
+                advFilter.Uncategorized = i.StateImageIndex;
             }
             else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
             {
-                advFilterHiddenState = (AdvancedFilterState)i.StateImageIndex;
+                advFilter.Hidden = i.StateImageIndex;
             }
             else
             {
                 switch (oldState)
                 {
                     case (int)AdvancedFilterState.Allow:
-                        advFilterAllow.Remove(c);
+                        advFilter.Allow.Remove(c);
                         break;
                     case (int)AdvancedFilterState.Require:
-                        advFilterRequire.Remove(c);
+                        advFilter.Require.Remove(c);
                         break;
                     case (int)AdvancedFilterState.Exclude:
-                        advFilterExclude.Remove(c);
+                        advFilter.Exclude.Remove(c);
                         break;
                 }
 
                 switch( i.StateImageIndex ) {
                     case (int)AdvancedFilterState.Allow:
-                        advFilterAllow.Add( c );
+                        advFilter.Allow.Add( c );
                         break;
                     case (int)AdvancedFilterState.Require:
-                        advFilterRequire.Add( c );
+                        advFilter.Require.Add( c );
                         break;
                     case (int)AdvancedFilterState.Exclude:
-                        advFilterExclude.Add( c );
+                        advFilter.Exclude.Add( c );
                         break;
                 }
             }
@@ -2970,7 +2986,7 @@ namespace Depressurizer {
             if (lstCategories.SelectedItems.Count == 0) return false;
 
             if ( AdvancedCategoryFilter ) {
-                return ShouldDisplayGameAdvanced( g );
+                return g.IncludeGame( advFilter );
             }
 
             if (g.Hidden)
@@ -2993,34 +3009,34 @@ namespace Depressurizer {
             return false;
         }
 
-        bool ShouldDisplayGameAdvanced( GameInfo g ) {
-            bool isCategorized = false;
-            bool isHidden = false;
-            if( advFilterUncatState != AdvancedFilterState.None ) isCategorized = g.HasCategories();
-            if (advFilterHiddenState != AdvancedFilterState.None) isHidden = g.Hidden;
+        //bool ShouldDisplayGameAdvanced( GameInfo g , Filter f) {
+        //    bool isCategorized = false;
+        //    bool isHidden = false;
+        //    if( f.Uncategorized != (int)AdvancedFilterState.None ) isCategorized = g.HasCategories();
+        //    if (f.Hidden != (int)AdvancedFilterState.None) isHidden = g.Hidden;
 
-            if (advFilterUncatState == AdvancedFilterState.Require && isCategorized) return false;
-            if (advFilterHiddenState == AdvancedFilterState.Require && !isHidden) return false;
+        //    if (f.Uncategorized == (int)AdvancedFilterState.Require && isCategorized) return false;
+        //    if (f.Hidden == (int)AdvancedFilterState.Require && !isHidden) return false;
 
-            if (advFilterUncatState == AdvancedFilterState.Exclude && !isCategorized) return false;
-            if (advFilterHiddenState == AdvancedFilterState.Exclude && isHidden) return false;
+        //    if (f.Uncategorized == (int)AdvancedFilterState.Exclude && !isCategorized) return false;
+        //    if (f.Hidden == (int)AdvancedFilterState.Exclude && isHidden) return false;
 
-            if (advFilterUncatState == AdvancedFilterState.Allow || advFilterHiddenState == AdvancedFilterState.Allow || advFilterAllow.Count > 0)
-            {
-                if( advFilterUncatState != AdvancedFilterState.Allow || isCategorized ) {
-                    if ( advFilterHiddenState != AdvancedFilterState.Allow || !isHidden )
-                    {
-                        if (!g.Categories.Overlaps(advFilterAllow)) return false;
-                    }
-                }
-            }
+        //    if (f.Uncategorized == (int)AdvancedFilterState.Allow || f.Hidden == (int)AdvancedFilterState.Allow || f.Allow.Count > 0)
+        //    {
+        //        if(f.Uncategorized != (int)AdvancedFilterState.Allow || isCategorized ) {
+        //            if (f.Hidden != (int)AdvancedFilterState.Allow || !isHidden )
+        //            {
+        //                if (!g.Categories.Overlaps(f.Allow)) return false;
+        //            }
+        //        }
+        //    }
 
-            if( !g.Categories.IsSupersetOf( advFilterRequire ) ) return false;
+        //    if( !g.Categories.IsSupersetOf( f.Require ) ) return false;
 
-            if( g.Categories.Overlaps( advFilterExclude ) ) return false;
+        //    if( g.Categories.Overlaps( f.Exclude ) ) return false;
 
-            return true;
-        }
+        //    return true;
+        //}
 
         void FixWebBrowserRegistry()
         {

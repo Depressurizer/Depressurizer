@@ -491,7 +491,7 @@ namespace Depressurizer {
 
                     foreach( GameInfo g in p.GameData.Games.Values ) {
                         if( g.Id > 0 ) {
-                            ac.CategorizeGame( g );
+                            ac.CategorizeGame( g, p.GameData.GetFilter(ac.Filter) );
                         }
                     }
 

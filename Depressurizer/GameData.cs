@@ -98,6 +98,39 @@ namespace Depressurizer {
             if( this.Source < src ) this.Source = src;
         }
 
+        public bool IncludeGame(Filter f)
+        {
+            if (f == null) return true;
+
+            bool isCategorized = false;
+            bool isHidden = false;
+            if (f.Uncategorized != (int)AdvancedFilterState.None) isCategorized = HasCategories();
+            if (f.Hidden != (int)AdvancedFilterState.None) isHidden = Hidden;
+
+            if (f.Uncategorized == (int)AdvancedFilterState.Require && isCategorized) return false;
+            if (f.Hidden == (int)AdvancedFilterState.Require && !isHidden) return false;
+
+            if (f.Uncategorized == (int)AdvancedFilterState.Exclude && !isCategorized) return false;
+            if (f.Hidden == (int)AdvancedFilterState.Exclude && isHidden) return false;
+
+            if (f.Uncategorized == (int)AdvancedFilterState.Allow || f.Hidden == (int)AdvancedFilterState.Allow || f.Allow.Count > 0)
+            {
+                if (f.Uncategorized != (int)AdvancedFilterState.Allow || isCategorized)
+                {
+                    if (f.Hidden != (int)AdvancedFilterState.Allow || !isHidden)
+                    {
+                        if (!Categories.Overlaps(f.Allow)) return false;
+                    }
+                }
+            }
+
+            if (!Categories.IsSupersetOf(f.Require)) return false;
+
+            if (Categories.Overlaps(f.Exclude)) return false;
+
+            return true;
+        }
+
         public Image Banner()
         {
             string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), Id.ToString());
@@ -530,8 +563,6 @@ namespace Depressurizer {
             }
         }
 
-
-
         /// <summary>
         /// Removes the given Filter.
         /// </summary>
@@ -546,35 +577,6 @@ namespace Depressurizer {
             return false;
         }
 
-        ///// <summary>
-        ///// Renames the given Filter.
-        ///// </summary>
-        ///// <param name="f">Filter to rename.</param>
-        ///// <param name="newName">Name to assign to the Filter.</param>
-        ///// <returns>The renamed Filter, if the operation succeeds. Null otherwise.</returns>
-        //public Filter RenameFilter(Filter rename, string newName)
-        //{
-        //    foreach (Filter f in Filters)
-        //    {
-        //        if 
-        //    }
-        //    Filter newFilter = AddFilter(newName);
-        //    if (newFilter != null)
-        //    {
-        //        Filters.Sort();
-        //        foreach (GameInfo game in Games.Values)
-        //        {
-        //            if (game.ContainsFilter(c))
-        //            {
-        //                game.RemoveFilter(c);
-        //                game.AddFilter(newCat);
-        //            }
-        //        }
-        //        RemoveFilter(c);
-        //        return newCat;
-        //    }
-        //    return null;
-        //}
         #endregion
 
         #region General Modifiers

@@ -55,6 +55,7 @@ namespace Depressurizer {
 
         public const string TypeIdString = "AutoCatUserScore";
         public const string XmlName_Name = "Name",
+            XmlName_Filter = "Filter",
             XmlName_Prefix = "Prefix",
             XmlName_Rule = "Rule",
             XmlName_Rule_Text = "Text",
@@ -67,14 +68,16 @@ namespace Depressurizer {
 
         #region Construction
 
-        public AutoCatUserScore( string name = TypeIdString, string prefix = "", List<UserScore_Rule> rules = null )
+        public AutoCatUserScore( string name = TypeIdString, string filter = "", string prefix = "", List<UserScore_Rule> rules = null )
             : base( name ) {
+            Filter = filter;
             Prefix = prefix;
             Rules = ( rules == null ) ? new List<UserScore_Rule>() : rules;
         }
 
         public AutoCatUserScore( AutoCatUserScore other )
             : base( other ) {
+            Filter = other.Filter;
             Prefix = other.Prefix;
             Rules = other.Rules.ConvertAll( rule => new UserScore_Rule( rule ) );
         }
@@ -86,7 +89,7 @@ namespace Depressurizer {
         #endregion
 
         #region Autocategorization
-        public override AutoCatResult CategorizeGame( GameInfo game ) {
+        public override AutoCatResult CategorizeGame( GameInfo game, Filter filter ) {
             if( games == null ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
                 throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
@@ -101,6 +104,8 @@ namespace Depressurizer {
             }
 
             if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
+
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             int score = db.Games[game.Id].ReviewPositivePercentage;
             int reviews = db.Games[game.Id].ReviewTotal;
@@ -136,9 +141,10 @@ namespace Depressurizer {
             writer.WriteStartElement( TypeIdString );
 
             writer.WriteElementString( XmlName_Name, this.Name );
-            writer.WriteElementString( XmlName_Prefix, this.Prefix );
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
 
-            foreach( UserScore_Rule rule in Rules ) {
+            foreach ( UserScore_Rule rule in Rules ) {
                 writer.WriteStartElement( XmlName_Rule );
                 writer.WriteElementString( XmlName_Rule_Text, rule.Name );
                 writer.WriteElementString( XmlName_Rule_MinScore, rule.MinScore.ToString() );
@@ -153,6 +159,7 @@ namespace Depressurizer {
 
         public static AutoCatUserScore LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], string.Empty );
 
             List<UserScore_Rule> rules = new List<UserScore_Rule>();
@@ -164,7 +171,7 @@ namespace Depressurizer {
                 int ruleMaxRev = XmlUtil.GetIntFromNode( node[XmlName_Rule_MaxReviews], 0 );
                 rules.Add( new UserScore_Rule( ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev ) );
             }
-            AutoCatUserScore result = new AutoCatUserScore( name, prefix );
+            AutoCatUserScore result = new AutoCatUserScore( name, filter, prefix );
             result.Rules = rules;
             return result;
         }

@@ -64,6 +64,7 @@ namespace Depressurizer {
         public const string TypeIdString = "AutoCatHltb";
 
         public const string XmlName_Name = "Name",
+            XmlName_Filter = "Filter",
             XmlName_Prefix = "Prefix",
             XmlName_IncludeUnknown = "IncludeUnknown",
             XmlName_UnknownText = "UnknownText",
@@ -77,8 +78,9 @@ namespace Depressurizer {
 
         #region Construction
 
-        public AutoCatHltb(string name = TypeIdString, string prefix = "", bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null)
+        public AutoCatHltb(string name = TypeIdString, string filter = "", string prefix = "", bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null)
             : base( name ) {
+            Filter = filter;
             Prefix = prefix;
             IncludeUnknown = includeUnknown;
             UnknownText = unknownText;
@@ -87,6 +89,7 @@ namespace Depressurizer {
 
         public AutoCatHltb( AutoCatHltb other )
             : base( other ) {
+            Filter = other.Filter;
             Prefix = other.Prefix;
             IncludeUnknown = other.IncludeUnknown;
             UnknownText = other.UnknownText;
@@ -100,7 +103,7 @@ namespace Depressurizer {
         #endregion
 
         #region Autocategorization
-        public override AutoCatResult CategorizeGame( GameInfo game ) {
+        public override AutoCatResult CategorizeGame( GameInfo game, Filter filter ) {
             if( games == null ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
                 throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
@@ -115,6 +118,8 @@ namespace Depressurizer {
             }
 
             if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
+
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             string result = null;
             
@@ -169,7 +174,8 @@ namespace Depressurizer {
             writer.WriteStartElement( TypeIdString );
 
             writer.WriteElementString( XmlName_Name, this.Name );
-            writer.WriteElementString( XmlName_Prefix, this.Prefix );
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, this.Filter);
+            if (Prefix != null) writer.WriteElementString( XmlName_Prefix, this.Prefix );
             writer.WriteElementString(XmlName_IncludeUnknown, this.IncludeUnknown.ToString());
             writer.WriteElementString(XmlName_UnknownText, this.UnknownText);
 
@@ -188,6 +194,7 @@ namespace Depressurizer {
 
         public static AutoCatHltb LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], string.Empty );
             bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], false);
             string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], string.Empty);
@@ -213,7 +220,7 @@ namespace Depressurizer {
                 }
                 rules.Add( new Hltb_Rule( ruleName, ruleMin, ruleMax, ruleTimeType ) );
             }
-            AutoCatHltb result = new AutoCatHltb(name, prefix, includeUnknown, unknownText) {Rules = rules};
+            AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText) {Rules = rules};
             return result;
         }
 

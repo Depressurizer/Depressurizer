@@ -43,6 +43,7 @@ namespace Depressurizer {
         public const string TypeIdString = "AutoCatGenre";
         private const string
             XmlName_Name = "Name",
+            XmlName_Filter = "Filter",
             XmlName_RemOther = "RemoveOthers",
             XmlName_TagFallback = "TagFallback",
             XmlName_MaxCats = "MaxCategories",
@@ -61,8 +62,9 @@ namespace Depressurizer {
         /// <param name="games">Reference to the GameList to act on</param>
         /// <param name="maxCategories">Maximum number of categories to assign per game. 0 indicates no limit.</param>
         /// <param name="removeOthers">If true, removes any OTHER genre-named categories from each game processed. Will not remove categories that do not match a genre found in the database.</param>
-        public AutoCatGenre( string name, string prefix = "", int maxCategories = 0, bool removeOthers = false, bool tagFallback = true, List<string> ignore = null )
+        public AutoCatGenre( string name, string filter = "", string prefix = "", int maxCategories = 0, bool removeOthers = false, bool tagFallback = true, List<string> ignore = null )
             : base( name ) {
+            Filter = filter;
             MaxCategories = maxCategories;
             RemoveOtherGenres = removeOthers;
             TagFallback = tagFallback;
@@ -72,6 +74,7 @@ namespace Depressurizer {
 
         protected AutoCatGenre( AutoCatGenre other )
             : base( other ) {
+            this.Filter = other.Filter;
             this.MaxCategories = other.MaxCategories;
             this.RemoveOtherGenres = other.RemoveOtherGenres;
             this.TagFallback = other.TagFallback;
@@ -106,7 +109,7 @@ namespace Depressurizer {
             this.genreCategories = null;
         }
 
-        public override AutoCatResult CategorizeGame( GameInfo game ) {
+        public override AutoCatResult CategorizeGame( GameInfo game , Filter filter ) {
             if( games == null ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
                 throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
@@ -121,6 +124,8 @@ namespace Depressurizer {
             }
 
             if( !db.Contains( game.Id ) || db.Games[game.Id].LastStoreScrape == 0 ) return AutoCatResult.NotInDatabase;
+
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             if( RemoveOtherGenres && genreCategories != null ) {
                 game.RemoveCategory( genreCategories );
@@ -155,7 +160,8 @@ namespace Depressurizer {
             writer.WriteStartElement( TypeIdString );
 
             writer.WriteElementString( XmlName_Name, Name );
-            if( Prefix != null ) writer.WriteElementString( XmlName_Prefix, Prefix );
+            if( Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if ( Prefix != null ) writer.WriteElementString( XmlName_Prefix, Prefix );
             writer.WriteElementString( XmlName_MaxCats, MaxCategories.ToString() );
             writer.WriteElementString( XmlName_RemOther, RemoveOtherGenres.ToString() );
             writer.WriteElementString( XmlName_TagFallback, TagFallback.ToString() );
@@ -173,6 +179,7 @@ namespace Depressurizer {
 
         public static AutoCatGenre LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
             int maxCats = XmlUtil.GetIntFromNode( xElement[XmlName_MaxCats], 0 );
             bool remOther = XmlUtil.GetBoolFromNode( xElement[XmlName_RemOther], false );
             bool tagFallback = XmlUtil.GetBoolFromNode( xElement[XmlName_TagFallback], true );
@@ -191,7 +198,7 @@ namespace Depressurizer {
                 }
             }
 
-            AutoCatGenre result = new AutoCatGenre( name, prefix, maxCats, remOther, tagFallback, ignore );
+            AutoCatGenre result = new AutoCatGenre( name, filter, prefix, maxCats, remOther, tagFallback, ignore );
             return result;
         }
     }

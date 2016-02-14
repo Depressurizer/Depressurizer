@@ -24,16 +24,18 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class DlgAutoCat : Form {
         public List<AutoCat> AutoCatList;
+        public List<Filter> FilterList;
         private GameList ownedGames;
         AutoCat current;
         AutoCat initial;
 
         AutoCatConfigPanel currentConfigPanel = null;
 
-        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames, AutoCat selected ) {
+        public DlgAutoCat( List<AutoCat> autoCats, List<Filter> filterList, GameList ownedGames, AutoCat selected ) {
             InitializeComponent();
 
             AutoCatList = new List<AutoCat>();
+            FilterList = filterList;
 
             foreach (AutoCat c in autoCats) {
                 AutoCat clone = c.Clone();
@@ -58,7 +60,7 @@ namespace Depressurizer {
 
         private void RecreateConfigPanel() {
             if( currentConfigPanel != null ) {
-                this.splitContainer.Panel2.Controls.Remove( currentConfigPanel );
+                this.splitAutoCat.Panel2.Controls.Remove( currentConfigPanel );
             }
 
             if( current != null ) {
@@ -67,14 +69,32 @@ namespace Depressurizer {
    
             if( currentConfigPanel != null ) {
                 currentConfigPanel.Dock = DockStyle.Fill;
-                this.splitContainer.Panel2.Controls.Add( currentConfigPanel );
+                this.splitAutoCat.Panel2.Controls.Add( currentConfigPanel );
             }
         }
 
         private void FillConfigPanel() {
             if( current != null && currentConfigPanel != null ) {
                 currentConfigPanel.LoadFromAutoCat( current );
+                if (current.Filter != null)
+                {
+                    chkFilter.Checked = true;
+                    cboFilter.Text = current.Filter;
+                }
+                else
+                {
+                    chkFilter.Checked = false;
+                }
             }
+        }
+
+        private void FillFilterList()
+        {
+            cboFilter.DataSource = null;
+            cboFilter.DataSource = FilterList;
+            cboFilter.ValueMember = null;
+            cboFilter.DisplayMember = "Name";
+            cboFilter.Text = "";
         }
 
         #endregion
@@ -83,6 +103,8 @@ namespace Depressurizer {
         private void SaveToAutoCat() {
             if( current != null && currentConfigPanel != null ) {
                 currentConfigPanel.SaveToAutoCat( current );
+                if (cboFilter.Text == string.Empty) current.Filter = null;
+                else current.Filter = cboFilter.Text;
             }
         }
 
@@ -159,6 +181,7 @@ namespace Depressurizer {
         {
             FillAutocatList();
             RecreateConfigPanel();
+            FillFilterList();
 
             if (this.initial != null)
             {
@@ -205,6 +228,16 @@ namespace Depressurizer {
             RenameAutoCat( lstAutoCats.SelectedItem as AutoCat );
         }
 
+        private void chkFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkFilter.Checked)
+            {
+                cboFilter.Enabled = true;
+                FillFilterList();
+            }
+            else cboFilter.Enabled = false;
+        }
+
         #endregion
 
         #region Utility
@@ -215,6 +248,7 @@ namespace Depressurizer {
             return false;
         }
         #endregion
+
 
     }
 }
