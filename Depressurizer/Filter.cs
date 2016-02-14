@@ -27,6 +27,9 @@ namespace Depressurizer
             Name = name;
             Uncategorized = -1;
             Hidden = -1;
+            Allow = new SortedSet<Category>();
+            Require = new SortedSet<Category>();
+            Exclude = new SortedSet<Category>();
         }
 
         public override string ToString()
@@ -38,7 +41,7 @@ namespace Depressurizer
         public int Uncategorized;
         public int Hidden;
 
-        private SortedSet<Category> _allow = new SortedSet<Category>();
+        private SortedSet<Category> _allow;
         public SortedSet<Category> Allow
         {
             get
@@ -47,15 +50,15 @@ namespace Depressurizer
             }
             set
             {
-                _allow = new SortedSet<Category>();
-                foreach (Category c in value)
-                {
-                    _allow.Add(c);
-                }
+                _allow = new SortedSet<Category>(value);
+                //foreach (Category c in value)
+                //{
+                //    _allow.Add(c);
+                //}
             }
         }
 
-        private SortedSet<Category> _require = new SortedSet<Category>();
+        private SortedSet<Category> _require;
         public SortedSet<Category> Require
         {
             get
@@ -64,15 +67,15 @@ namespace Depressurizer
             }
             set
             {
-                _require = new SortedSet<Category>();
-                foreach (Category c in value)
-                {
-                    _require.Add(c);
-                }
+                _require = new SortedSet<Category>(value);
+                //foreach (Category c in value)
+                //{
+                //    _require.Add(c);
+                //}
             }
         }
 
-        private SortedSet<Category> _exclude = new SortedSet<Category>();
+        private SortedSet<Category> _exclude;
         public SortedSet<Category> Exclude
         {
             get
@@ -81,11 +84,11 @@ namespace Depressurizer
             }
             set
             {
-                _exclude = new SortedSet<Category>();
-                foreach (Category c in value)
-                {
-                    _exclude.Add(c);
-                }
+                _exclude = new SortedSet<Category>(value);
+                //foreach (Category c in value)
+                //{
+                //    _exclude.Add(c);
+                //}
             }
         }
 
@@ -128,7 +131,7 @@ namespace Depressurizer
                 writer.WriteElementString(XmlName_Exclude, c.Name);
             }
 
-            writer.WriteEndElement(); //filter
+            writer.WriteEndElement(); // Filter
 
             Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Filter_FilterSaveComplete);
         }

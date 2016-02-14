@@ -37,18 +37,21 @@ namespace Depressurizer {
         public const string TypeIdString = "AutoCatFlags";
         private const string
             XmlName_Name = "Name",
+            XmlName_Filter = "Filter",
             XmlName_Prefix = "Prefix",
             XmlName_FlagList = "Flags",
             XmlName_Flag = "Flag";
 
-        public AutoCatFlags( string name, string prefix = "", List<string> flags = null )
+        public AutoCatFlags( string name, string filter = "", string prefix = "", List<string> flags = null )
             : base( name ) {
+            Filter = filter;
             Prefix = prefix;
             IncludedFlags = ( flags == null ) ? ( new List<string>() ) : flags;
         }
 
         protected AutoCatFlags( AutoCatFlags other )
             : base( other ) {
+            this.Filter = other.Filter;
             this.Prefix = other.Prefix;
             this.IncludedFlags = new List<string>( other.IncludedFlags );
         }
@@ -57,7 +60,7 @@ namespace Depressurizer {
             return new AutoCatFlags( this );
         }
 
-        public override AutoCatResult CategorizeGame( GameInfo game ) {
+        public override AutoCatResult CategorizeGame( GameInfo game, Filter filter ) {
             if( games == null ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
                 throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
@@ -72,6 +75,8 @@ namespace Depressurizer {
             }
 
             if( !db.Contains( game.Id ) || db.Games[game.Id].LastStoreScrape == 0 ) return AutoCatResult.NotInDatabase;
+
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             List<string> gameFlags = db.GetFlagList( game.Id );
             if( gameFlags == null ) gameFlags = new List<string>();
@@ -96,7 +101,8 @@ namespace Depressurizer {
             writer.WriteStartElement( TypeIdString );
 
             writer.WriteElementString( XmlName_Name, Name );
-            writer.WriteElementString( XmlName_Prefix, Prefix );
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString( XmlName_Prefix, Prefix );
 
             writer.WriteStartElement( XmlName_FlagList );
 
@@ -110,6 +116,7 @@ namespace Depressurizer {
 
         public static AutoCatFlags LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
             List<string> flags = new List<string>();
 
@@ -123,7 +130,7 @@ namespace Depressurizer {
                     }
                 }
             }
-            return new AutoCatFlags( name, prefix, flags );
+            return new AutoCatFlags( name, filter, prefix, flags );
         }
 
     }
