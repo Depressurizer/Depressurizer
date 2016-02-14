@@ -98,7 +98,9 @@ namespace Depressurizer {
         Thread bannerThread;
 
         List<object> filters = new List<object>();
-       
+
+        bool doubleClick = false;
+
         #region Filter caching fields
         object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
         string lastFilterString = "";
@@ -3249,13 +3251,26 @@ namespace Depressurizer {
             cboFilter.Text = string.Empty;
         }
 
+        private void lvAutoCatType_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (doubleClick)
+            {
+                // prevent double click from changing checked value.  Double click opens edit dialog.
+                doubleClick = false;
+                e.NewValue = e.CurrentValue;
+            }
+        }
+
+        private void lvAutoCatType_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (lvAutoCatType.GetItemAt(e.X, e.Y) != null)
+            {
+                if (e.Clicks > 1) doubleClick = true;
+            }
+        }
+
         private void lvAutoCatType_DoubleClick(object sender, EventArgs e)
         {
-            // poor method of preventing double click from checking item (open edit AutoCat instead).
-            if (lvAutoCatType.SelectedItems.Count > 0)
-            {
-                lvAutoCatType.SelectedItems[0].Checked = !(lvAutoCatType.SelectedItems[0].Checked);
-            }
             ClearStatus();
             AutoCat selected = null;
             if (lvAutoCatType.SelectedItems.Count > 0)
