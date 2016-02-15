@@ -78,7 +78,7 @@ namespace Depressurizer {
 
         #region Construction
 
-        public AutoCatHltb(string name = TypeIdString, string filter = "", string prefix = "", bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null)
+        public AutoCatHltb(string name = TypeIdString, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null)
             : base( name ) {
             Filter = filter;
             Prefix = prefix;

@@ -42,7 +42,7 @@ namespace Depressurizer {
             XmlName_FlagList = "Flags",
             XmlName_Flag = "Flag";
 
-        public AutoCatFlags( string name, string filter = "", string prefix = "", List<string> flags = null )
+        public AutoCatFlags( string name, string filter = null, string prefix = null, List<string> flags = null )
             : base( name ) {
             Filter = filter;
             Prefix = prefix;

@@ -62,7 +62,7 @@ namespace Depressurizer {
         /// <param name="games">Reference to the GameList to act on</param>
         /// <param name="maxCategories">Maximum number of categories to assign per game. 0 indicates no limit.</param>
         /// <param name="removeOthers">If true, removes any OTHER genre-named categories from each game processed. Will not remove categories that do not match a genre found in the database.</param>
-        public AutoCatGenre( string name, string filter = "", string prefix = "", int maxCategories = 0, bool removeOthers = false, bool tagFallback = true, List<string> ignore = null )
+        public AutoCatGenre( string name, string filter = null, string prefix = null, int maxCategories = 0, bool removeOthers = false, bool tagFallback = true, List<string> ignore = null )
             : base( name ) {
             Filter = filter;
             MaxCategories = maxCategories;

@@ -88,6 +88,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manual.
+        /// </summary>
+        internal static string Autocat_Name_Manual {
+            get {
+                return ResourceManager.GetString("Autocat_Name_Manual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Store Tags.
         /// </summary>
         internal static string AutoCat_Name_Tags {
@@ -1051,6 +1060,15 @@ namespace Depressurizer {
         internal static string DlgAutoCat_Help_ListWeightFactor {
             get {
                 return ResourceManager.GetString("DlgAutoCat_Help_ListWeightFactor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all pre-existing categories..
+        /// </summary>
+        internal static string DlgAutoCat_Help_Manual_RemoveAll {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_Manual_RemoveAll", resourceCulture);
             }
         }
         
