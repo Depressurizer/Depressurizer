@@ -1433,4 +1433,7 @@ A game must NOT be in any categories marked with an X ("Excluded").</value>
     <value>Manual</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="MainForm_No" xml:space="preserve">
+    <value>No</value>
+  </data>
 </root>
