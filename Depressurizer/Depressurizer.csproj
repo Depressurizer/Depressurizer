@@ -117,6 +117,12 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Flags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Manual.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Manual.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
+    </Compile>
     <Compile Include="AutoCat\AutoCatConfigPanel_Genre.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -149,6 +155,7 @@
     </Compile>
     <Compile Include="AutoCat\AutoCatFlags.cs" />
     <Compile Include="AutoCat\AutoCatGenre.cs" />
+    <Compile Include="AutoCat\AutoCatManual.cs" />
     <Compile Include="AutoCat\AutoCatTags.cs" />
     <Compile Include="AutoCat\AutoCatHltb.cs" />
     <Compile Include="AutoCat\AutoCatUserScore.cs" />
@@ -304,6 +311,9 @@
     <Compile Include="VdfFile\VdfFileNode.cs" />
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Flags.resx">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Manual.resx">
+      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Genre.resx">
       <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>

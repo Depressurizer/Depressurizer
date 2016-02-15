@@ -73,7 +73,9 @@ namespace Depressurizer {
         [Description("AutoCatUserScore")]
         UserScore,
         [Description("AutoCatHltb")]
-        Hltb
+        Hltb,
+        [Description("AutoCatManual")]
+        Manual
     }
 
     public enum AutoCatResult {
@@ -110,10 +112,12 @@ namespace Depressurizer {
 
         protected AutoCat( string name ) {
             Name = name;
+            Filter = null;
         }
 
         protected AutoCat( AutoCat other ) {
             Name = other.Name;
+            Filter = other.Filter;
         }
 
         public abstract AutoCat Clone();
@@ -184,6 +188,9 @@ namespace Depressurizer {
                 case AutoCatHltb.TypeIdString:
                     result = AutoCatHltb.LoadFromXmlElement(xElement);
                     break;
+                case AutoCatManual.TypeIdString:
+                    result = AutoCatManual.LoadFromXmlElement(xElement);
+                    break;
                 default:
                     break;
             }
@@ -204,6 +211,8 @@ namespace Depressurizer {
                     return new AutoCatUserScore( name );
                 case AutoCatType.Hltb:
                     return new AutoCatHltb( name );
+                case AutoCatType.Manual:
+                    return new AutoCatManual(name);
                 default:
                     return null;
             }

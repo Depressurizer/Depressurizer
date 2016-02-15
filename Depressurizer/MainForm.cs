@@ -828,7 +828,7 @@ namespace Depressurizer {
         /// </summary>
         private void EditAutoCats(AutoCat selected) {
             if( !ProfileLoaded ) return;
-            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData.Filters, currentProfile.GameData, selected );
+            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData, selected );
 
             DialogResult res = dlg.ShowDialog();
 
@@ -1237,16 +1237,16 @@ namespace Depressurizer {
             // Get a list of games to update
             List<GameInfo> gamesToUpdate = new List<GameInfo>();
 
-            if( selectedOnly )
+            if (selectedOnly && (autoCat.Filter == null))
             {
                 foreach (GameInfo g in tlstGames.SelectedObjects)
                 {
                     if( g.Id > 0 ) {
                         gamesToUpdate.Add( g );
-                    }
+                    } 
                 }
             }
-            else if (tlstGames.Objects.Count > 0)
+            else if ((tlstGames.Objects.Count > 0) && (autoCat.Filter == null))
             {
                 foreach (GameInfo g in tlstGames.Objects)
                 {

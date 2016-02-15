@@ -68,7 +68,7 @@ namespace Depressurizer {
 
         #region Construction
 
-        public AutoCatUserScore( string name = TypeIdString, string filter = "", string prefix = "", List<UserScore_Rule> rules = null )
+        public AutoCatUserScore( string name = TypeIdString, string filter = null, string prefix = null, List<UserScore_Rule> rules = null )
             : base( name ) {
             Filter = filter;
             Prefix = prefix;

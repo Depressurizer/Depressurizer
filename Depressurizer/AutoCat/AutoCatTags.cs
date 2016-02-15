@@ -53,7 +53,7 @@ public class AutoCatTags : AutoCat {
             XmlName_ListExcludeGenres = "List_ExcludeGenres",
             XmlName_ListScoreSort = "List_ScoreSort";
 
-        public AutoCatTags( string name, string filter = "", string prefix = "",
+        public AutoCatTags( string name, string filter = null, string prefix = null,
             HashSet<string> tags = null, int maxTags = 0,
             bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true )
             : base( name ) {

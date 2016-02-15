@@ -1241,6 +1241,12 @@ If unchecked, games with no times will be skipped.</value>
   <data name="Filter_SavingFilter" xml:space="preserve">
     <value>Saving filter: {0}</value>
   </data>
+  <data name="Autocat_Name_Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="DlgAutoCat_Help_Manual_RemoveAll" xml:space="preserve">
+    <value>Remove all pre-existing categories.</value>
+  </data>
   <data name="Filter_Exception_ObjectNotFilter" xml:space="preserve">
     <value>Object is not a filter</value>
   </data>

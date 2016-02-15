@@ -24,18 +24,17 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class DlgAutoCat : Form {
         public List<AutoCat> AutoCatList;
-        public List<Filter> FilterList;
+        //public List<Filter> FilterList;
         private GameList ownedGames;
         AutoCat current;
         AutoCat initial;
 
         AutoCatConfigPanel currentConfigPanel = null;
 
-        public DlgAutoCat( List<AutoCat> autoCats, List<Filter> filterList, GameList ownedGames, AutoCat selected ) {
+        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames, AutoCat selected ) {
             InitializeComponent();
 
             AutoCatList = new List<AutoCat>();
-            FilterList = filterList;
 
             foreach (AutoCat c in autoCats) {
                 AutoCat clone = c.Clone();
@@ -91,7 +90,7 @@ namespace Depressurizer {
         private void FillFilterList()
         {
             cboFilter.DataSource = null;
-            cboFilter.DataSource = FilterList;
+            cboFilter.DataSource = ownedGames.Filters;
             cboFilter.ValueMember = null;
             cboFilter.DisplayMember = "Name";
             cboFilter.Text = "";
@@ -103,8 +102,8 @@ namespace Depressurizer {
         private void SaveToAutoCat() {
             if( current != null && currentConfigPanel != null ) {
                 currentConfigPanel.SaveToAutoCat( current );
-                if (cboFilter.Text == string.Empty) current.Filter = null;
-                else current.Filter = cboFilter.Text;
+                if (chkFilter.Checked && cboFilter.Text != string.Empty) current.Filter = cboFilter.Text;
+                else current.Filter = null;
             }
         }
 
@@ -132,14 +131,16 @@ namespace Depressurizer {
                     }
                 }
             } while( res == DialogResult.OK && !good );
-            if( res == DialogResult.OK ) {
-                AutoCat newAutoCat = AutoCat.Create( t, name );
+            AutoCat newAutoCat = null;
+            if ( res == DialogResult.OK ) {
+                newAutoCat = AutoCat.Create( t, name );
                 if( newAutoCat != null ) {
                     AutoCatList.Add( newAutoCat );
                 }
             }
             AutoCatList.Sort();
             FillAutocatList();
+            if (newAutoCat != null) lstAutoCats.SelectedItem = newAutoCat;
         }
 
         private void RenameAutoCat( AutoCat ac ) {
