@@ -1433,7 +1433,19 @@ A game must NOT be in any categories marked with an X ("Excluded").</value>
     <value>Manual</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="Autocat_Name_DevPub" xml:space="preserve">
+    <value>Developers &amp; Publishers</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
   <data name="MainForm_No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_DevPub" xml:space="preserve">
+    <value>By Developer &amp; Publisher</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
+    <value>By HowLongToBeat</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
   </data>
 </root>

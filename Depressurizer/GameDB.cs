@@ -459,6 +459,8 @@ namespace Depressurizer
         // Extra data
         private SortedSet<string> allStoreGenres;
         private SortedSet<string> allStoreFlags;
+        private SortedSet<string> allStoreDevelopers;
+        private SortedSet<string> allStorePublishers;
         public int LastHltbUpdate;
         // Utility
         static char[] genreSep = new char[] { ',' };
@@ -565,6 +567,34 @@ namespace Depressurizer
             return null;
         }
 
+        public List<string> GetDevelopers(int gameId, int depth = 3)
+        {
+            if (Games.ContainsKey(gameId))
+            {
+                List<string> res = Games[gameId].Developers;
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+                {
+                    res = GetDevelopers(Games[gameId].ParentId, depth - 1);
+                }
+                return res;
+            }
+            return null;
+        }
+
+        public List<string> GetPublishers(int gameId, int depth = 3)
+        {
+            if (Games.ContainsKey(gameId))
+            {
+                List<string> res = Games[gameId].Publishers;
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+                {
+                    res = GetPublishers(Games[gameId].ParentId, depth - 1);
+                }
+                return res;
+            }
+            return null;
+        }
+
         public int GetReleaseYear(int gameId)
         {
             if (Games.ContainsKey(gameId))
@@ -624,6 +654,93 @@ namespace Depressurizer
             }
 
             return allStoreGenres;
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store developers found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A set of developers, as strings</returns>
+        public SortedSet<string> GetAllDevelopers(GameList filter)
+        {
+            if (allStoreDevelopers == null)
+            {
+                return CalculateAllDevelopers(filter);
+            }
+            else
+            {
+                return allStoreDevelopers;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store developers found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A set of developers, as strings</returns>
+        public SortedSet<string> CalculateAllDevelopers(GameList filter)
+        {
+            if (allStoreDevelopers == null)
+            {
+                allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            }
+            else
+            {
+                allStoreDevelopers.Clear();
+            }
+
+            foreach (GameDBEntry entry in Games.Values)
+            {
+                if ((entry.Developers != null) && (filter.Games.ContainsKey(entry.Id)))
+                {
+                    allStoreDevelopers.UnionWith(entry.Developers);
+                }
+            }
+
+            return allStoreDevelopers;
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store publishers found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A set of publishers, as strings</returns>
+        public SortedSet<string> GetAllPublishers(GameList filter)
+        {
+            if (allStorePublishers == null)
+            {
+                return CalculateAllPublishers(filter);
+            }
+            else
+            {
+                return allStorePublishers;
+            }
+        }
+        /// <summary>
+        /// Gets a list of all Steam store publishers found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A set of publishers, as strings</returns>
+        public SortedSet<string> CalculateAllPublishers(GameList filter)
+        {
+            if (allStorePublishers == null)
+            {
+                allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            }
+            else
+            {
+                allStorePublishers.Clear();
+            }
+
+            foreach (GameDBEntry entry in Games.Values)
+            {
+                if ((entry.Publishers != null) && (filter.Games.ContainsKey(entry.Id)))
+                {
+                    allStorePublishers.UnionWith(entry.Publishers);
+                }
+            }
+
+            return allStorePublishers;
         }
 
         /// <summary>
@@ -763,6 +880,8 @@ namespace Depressurizer
         {
             allStoreGenres = null;
             allStoreFlags = null;
+            allStoreDevelopers = null;
+            allStorePublishers = null;
         }
 
 

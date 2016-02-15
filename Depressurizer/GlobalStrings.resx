@@ -1292,7 +1292,16 @@ If unchecked, games with no times will be skipped.</value>
   <data name="MainForm_SaveFilter" xml:space="preserve">
     <value>Save Filter</value>
   </data>
+  <data name="Autocat_Name_DevPub" xml:space="preserve">
+    <value>Developers &amp; Publishers</value>
+  </data>
   <data name="MainForm_No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_DevPub" xml:space="preserve">
+    <value>By Developer &amp; Publisher</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
+    <value>By HowLongToBeat</value>
   </data>
 </root>

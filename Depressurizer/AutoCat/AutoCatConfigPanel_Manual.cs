@@ -46,6 +46,7 @@ namespace Depressurizer {
         public void FillRemoveList()
         {
             clbRemoveSelected.Items.Clear();
+            lstRemove.BeginUpdate();
             lstRemove.Items.Clear();
 
             if (categories != null)
@@ -55,11 +56,13 @@ namespace Depressurizer {
                     lstRemove.Items.Add(c.Name);
                 }
             }
+            lstRemove.EndUpdate();
         }
 
         public void FillAddList()
         {
             clbAddSelected.Items.Clear();
+            lstAdd.BeginUpdate();
             lstAdd.Items.Clear();
 
             if (categories != null)
@@ -69,6 +72,7 @@ namespace Depressurizer {
                     lstAdd.Items.Add(c.Name);
                 }
             }
+            lstAdd.EndUpdate();
         }
 
 
@@ -78,14 +82,19 @@ namespace Depressurizer {
             chkRemoveAll.Checked = ac.RemoveAllCategories;
             txtPrefix.Text = ac.Prefix;
 
-            foreach( ListViewItem item in lstRemove.Items ) {
+            lstRemove.BeginUpdate();
+            foreach ( ListViewItem item in lstRemove.Items ) {
                 item.Checked = ac.RemoveCategories.Contains( item.Text );
             }
+            lstRemove.EndUpdate();
 
+            lstAdd.BeginUpdate();
             foreach (ListViewItem item in lstAdd.Items)
             {
                 item.Checked = ac.AddCategories.Contains(item.Text);
             }
+            lstAdd.EndUpdate();
+
             loaded = true;
         }
 
@@ -98,17 +107,25 @@ namespace Depressurizer {
             ac.RemoveCategories.Clear();
             if (!chkRemoveAll.Checked)
             {
-                foreach (ListViewItem i in lstRemove.Items)
+                foreach (ListViewItem item in clbRemoveSelected.CheckedItems)
                 {
-                    if (i.Checked) ac.RemoveCategories.Add(i.Text);
+                    ac.RemoveCategories.Add(item.Text);
                 }
+                //foreach (ListViewItem i in lstRemove.Items)
+                //{
+                //    if (i.Checked) ac.RemoveCategories.Add(i.Text);
+                //}
             }
 
             ac.AddCategories.Clear();
-            foreach (ListViewItem i in lstAdd.Items)
+            foreach (ListViewItem item in clbAddSelected.CheckedItems)
             {
-                if (i.Checked) ac.AddCategories.Add(i.Text);
+                ac.AddCategories.Add(item.Text);
             }
+            //foreach (ListViewItem i in lstAdd.Items)
+            //{
+            //    if (i.Checked) ac.AddCategories.Add(i.Text);
+            //}
         }
 
         private void SetAllListCheckStates( ListView list, bool to ) {
@@ -147,11 +164,15 @@ namespace Depressurizer {
             {
                 lstRemove.Enabled = false;
                 clbRemoveSelected.Enabled = false;
+                btnRemoveCheckAll.Enabled = false;
+                btnRemoveUncheckAll.Enabled = false;
             }
             else
             {
                 lstRemove.Enabled = true;
                 clbRemoveSelected.Enabled = true;
+                btnRemoveCheckAll.Enabled = true;
+                btnRemoveUncheckAll.Enabled = true;
             }
         }
 

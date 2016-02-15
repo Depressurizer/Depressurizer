@@ -75,7 +75,9 @@ namespace Depressurizer {
         [Description("AutoCatHltb")]
         Hltb,
         [Description("AutoCatManual")]
-        Manual
+        Manual,
+        [Description("AutoCatDevPub")]
+        DevPub
     }
 
     public enum AutoCatResult {
@@ -201,6 +203,9 @@ namespace Depressurizer {
                 case AutoCatManual.TypeIdString:
                     result = AutoCatManual.LoadFromXmlElement(xElement);
                     break;
+                case AutoCatDevPub.TypeIdString:
+                    result = AutoCatDevPub.LoadFromXmlElement(xElement);
+                    break;
                 default:
                     break;
             }
@@ -223,6 +228,8 @@ namespace Depressurizer {
                     return new AutoCatHltb( name );
                 case AutoCatType.Manual:
                     return new AutoCatManual(name);
+                case AutoCatType.DevPub:
+                    return new AutoCatDevPub(name);
                 default:
                     return null;
             }
