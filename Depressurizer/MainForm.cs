@@ -171,7 +171,7 @@ namespace Depressurizer {
             this.lstGames.SelectedForeColor = textColor;
             this.lstGames.SelectedBackColor = accent;
             this.lstGames.UnfocusedSelectedForeColor = textColor;
-            this.lstGames.UnfocusedSelectedBackColor = listBackground;
+            this.lstGames.UnfocusedSelectedBackColor = primary;
             this.lstGames.Font = new Font("Arial", 10);
            
         }
@@ -2776,11 +2776,26 @@ namespace Depressurizer {
 
         private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((lstGames.SelectedObjects.Count > 0) && webBrowser1.Visible)
+            contextGameFav_Yes.Text = GlobalStrings.MainForm_Yes;
+            contextGameFav_No.Text = GlobalStrings.MainForm_No;
+            contextGameHidden_Yes.Text = GlobalStrings.MainForm_Yes;
+            contextGameHidden_No.Text = GlobalStrings.MainForm_No;
+
+            if (lstGames.SelectedObjects.Count > 0)
             {
                 GameInfo g = tlstGames.SelectedObjects[0];
-                webBrowser1.ScriptErrorsSuppressed = true;
-                webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp, g.Id));
+
+                if ((tlstGames.SelectedObjects.Count == 1) && g.IsFavorite()) contextGameFav_Yes.Text += "*";
+                else if (tlstGames.SelectedObjects.Count == 1) contextGameFav_No.Text += "*";
+
+                if ((tlstGames.SelectedObjects.Count == 1) && g.Hidden) contextGameHidden_Yes.Text += "*";
+                else if (tlstGames.SelectedObjects.Count == 1) contextGameHidden_No.Text += "*";
+
+                if (webBrowser1.Visible)
+                {
+                    webBrowser1.ScriptErrorsSuppressed = true;
+                    webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp, g.Id));
+                }
             }
             else if (webBrowser1.Visible)
             {
@@ -2859,6 +2874,13 @@ namespace Depressurizer {
             td.Transparency = 200;
 
             e.SubItem.Decorations.Add(td);
+        }
+
+        private void lstGames_FormatRow(object sender, FormatRowEventArgs e)
+        {
+            GameInfo g = (GameInfo)e.Model;
+            if (g.IsFavorite()) e.Item.BackColor = listBackground;
+            if (g.Hidden) e.Item.BackColor = primaryLight;
         }
 
         private void lstMultiCat_MouseDown( object sender, MouseEventArgs e ) {

@@ -376,25 +376,25 @@
     <value>Remove Empty Categories</value>
   </data>
   <data name="contextCat_SetAdvanced_Allow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>114, 22</value>
   </data>
   <data name="contextCat_SetAdvanced_Allow.Text" xml:space="preserve">
     <value>Allow</value>
   </data>
   <data name="contextCat_SetAdvanced_Require.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>114, 22</value>
   </data>
   <data name="contextCat_SetAdvanced_Require.Text" xml:space="preserve">
     <value>Require</value>
   </data>
   <data name="contextCat_SetAdvanced_Exclude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>114, 22</value>
   </data>
   <data name="contextCat_SetAdvanced_Exclude.Text" xml:space="preserve">
     <value>Exclude</value>
   </data>
   <data name="contextCat_SetAdvanced_None.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>114, 22</value>
   </data>
   <data name="contextCat_SetAdvanced_None.Text" xml:space="preserve">
     <value>None</value>
@@ -1373,7 +1373,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAARABCwEQAQsBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAARgBCwEYAQsBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1659,7 +1659,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAYABCQGAAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAYgBCQGIAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA

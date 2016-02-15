@@ -1292,4 +1292,7 @@ If unchecked, games with no times will be skipped.</value>
   <data name="MainForm_SaveFilter" xml:space="preserve">
     <value>Save Filter</value>
   </data>
+  <data name="MainForm_No" xml:space="preserve">
+    <value>No</value>
+  </data>
 </root>

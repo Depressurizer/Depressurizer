@@ -710,6 +710,7 @@ namespace Depressurizer {
             this.lstGames.View = System.Windows.Forms.View.Details;
             this.lstGames.VirtualMode = true;
             this.lstGames.FormatCell += new System.EventHandler<BrightIdeasSoftware.FormatCellEventArgs>(this.lstGames_FormatCell);
+            this.lstGames.FormatRow += new System.EventHandler<BrightIdeasSoftware.FormatRowEventArgs>(this.lstGames_FormatRow);
             this.lstGames.ItemsChanged += new System.EventHandler<BrightIdeasSoftware.ItemsChangedEventArgs>(this.lstGames_ItemsChanged);
             this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);

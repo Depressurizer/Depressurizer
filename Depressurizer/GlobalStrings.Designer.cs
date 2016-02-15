@@ -2870,6 +2870,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MainForm_No {
+            get {
+                return ResourceManager.GetString("MainForm_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;No Flags&gt;.
         /// </summary>
         internal static string MainForm_NoFlags {
