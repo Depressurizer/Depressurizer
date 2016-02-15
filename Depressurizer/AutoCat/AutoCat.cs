@@ -104,6 +104,16 @@ namespace Depressurizer {
 
         public string Name { get; set; }
 
+        public string DisplayName
+        {
+            get
+            {
+                string displayName = Name;
+                if (Filter != null) displayName += "*";
+                return displayName;
+            }
+        }
+
         public string Filter { get; set; }
 
         public override string ToString() {

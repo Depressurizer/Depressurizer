@@ -55,6 +55,7 @@ namespace Depressurizer {
             foreach( AutoCat ac in AutoCatList ) {
                 lstAutoCats.Items.Add( ac );
             }
+            lstAutoCats.DisplayMember = "DisplayName";
         }
 
         private void RecreateConfigPanel() {

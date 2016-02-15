@@ -65,6 +65,11 @@ namespace Depressurizer {
             this.contextCat_Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCat_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextCat_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCat_SetAdvanced = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCat_SetAdvanced_Allow = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCat_SetAdvanced_Require = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCat_SetAdvanced_Exclude = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCat_SetAdvanced_None = new System.Windows.Forms.ToolStripMenuItem();
             this.mlblCategoryCount = new MaterialSkin.Controls.MaterialLabel();
             this.mbtnAutoCategorize = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mchkAutoCatSelected = new MaterialSkin.Controls.MaterialCheckBox();
@@ -329,7 +334,8 @@ namespace Depressurizer {
             this.contextCat_Rename,
             this.contextCat_Delete,
             this.contextCat_Sep1,
-            this.contextCat_RemoveEmpty});
+            this.contextCat_RemoveEmpty,
+            this.contextCat_SetAdvanced});
             this.contextCat.Name = "contextCat";
             this.contextCat.ShowImageMargin = false;
             resources.ApplyResources(this.contextCat, "contextCat");
@@ -402,6 +408,40 @@ namespace Depressurizer {
             this.contextCat_RemoveEmpty.Name = "contextCat_RemoveEmpty";
             resources.ApplyResources(this.contextCat_RemoveEmpty, "contextCat_RemoveEmpty");
             this.contextCat_RemoveEmpty.Click += new System.EventHandler(this.contectCat_RemoveEmpty_Click);
+            // 
+            // contextCat_SetAdvanced
+            // 
+            this.contextCat_SetAdvanced.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextCat_SetAdvanced_Allow,
+            this.contextCat_SetAdvanced_Require,
+            this.contextCat_SetAdvanced_Exclude,
+            this.contextCat_SetAdvanced_None});
+            this.contextCat_SetAdvanced.Name = "contextCat_SetAdvanced";
+            resources.ApplyResources(this.contextCat_SetAdvanced, "contextCat_SetAdvanced");
+            // 
+            // contextCat_SetAdvanced_Allow
+            // 
+            this.contextCat_SetAdvanced_Allow.Name = "contextCat_SetAdvanced_Allow";
+            resources.ApplyResources(this.contextCat_SetAdvanced_Allow, "contextCat_SetAdvanced_Allow");
+            this.contextCat_SetAdvanced_Allow.Click += new System.EventHandler(this.contextCat_SetAdvanced_Allow_Click);
+            // 
+            // contextCat_SetAdvanced_Require
+            // 
+            this.contextCat_SetAdvanced_Require.Name = "contextCat_SetAdvanced_Require";
+            resources.ApplyResources(this.contextCat_SetAdvanced_Require, "contextCat_SetAdvanced_Require");
+            this.contextCat_SetAdvanced_Require.Click += new System.EventHandler(this.contextCat_SetAdvanced_Require_Click);
+            // 
+            // contextCat_SetAdvanced_Exclude
+            // 
+            this.contextCat_SetAdvanced_Exclude.Name = "contextCat_SetAdvanced_Exclude";
+            resources.ApplyResources(this.contextCat_SetAdvanced_Exclude, "contextCat_SetAdvanced_Exclude");
+            this.contextCat_SetAdvanced_Exclude.Click += new System.EventHandler(this.contextCat_SetAdvanced_Exclude_Click);
+            // 
+            // contextCat_SetAdvanced_None
+            // 
+            this.contextCat_SetAdvanced_None.Name = "contextCat_SetAdvanced_None";
+            resources.ApplyResources(this.contextCat_SetAdvanced_None, "contextCat_SetAdvanced_None");
+            this.contextCat_SetAdvanced_None.Click += new System.EventHandler(this.contextCat_SetAdvanced_None_Click);
             // 
             // mlblCategoryCount
             // 
@@ -1465,6 +1505,11 @@ namespace Depressurizer {
         private System.Windows.Forms.ComboBox cboFilter;
         private MaterialSkin.Controls.MaterialRaisedButton mbtnFilterDelete;
         private MaterialSkin.Controls.MaterialRaisedButton mbtnClearFilters;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_Allow;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_Require;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_Exclude;
+        private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_None;
     }
 }
 

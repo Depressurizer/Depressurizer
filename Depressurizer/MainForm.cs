@@ -1468,7 +1468,7 @@ namespace Depressurizer {
                 {
                     for (int i = 0; i < lvAutoCatType.Items.Count; i++)
                     {
-                        if (lvAutoCatType.Items[i].Text == ac) lvAutoCatType.Items[i].Checked = true;
+                        if (lvAutoCatType.Items[i].Name == ac) lvAutoCatType.Items[i].Checked = true;
                     }
                 }
             }
@@ -1480,8 +1480,8 @@ namespace Depressurizer {
             string autocats = string.Empty;
             for (int i = 0; i < lvAutoCatType.CheckedItems.Count; i++)
             {
-                if (autocats == string.Empty) autocats += lvAutoCatType.CheckedItems[i].Text;
-                else autocats += "," + lvAutoCatType.CheckedItems[i].Text;
+                if (autocats == string.Empty) autocats += lvAutoCatType.CheckedItems[i].Name;
+                else autocats += "," + lvAutoCatType.CheckedItems[i].Name;
             }
             settings.AutoCats = autocats;
         }
@@ -1910,14 +1910,16 @@ namespace Depressurizer {
                     if (ac != null)
                     {
                         // Fill main screen dropdown
-                        ListViewItem listItem = new ListViewItem(ac.Name);
+                        ListViewItem listItem = new ListViewItem(ac.DisplayName);
                         listItem.Tag = ac;
+                        listItem.Name = ac.Name;
                         lvAutoCatType.Items.Add(listItem);
                         SelectAutoCats();
 
                         // Fill main menu list
-                        ToolStripItem item = menu_Tools_Autocat_List.Items.Add(ac.Name);
+                        ToolStripItem item = menu_Tools_Autocat_List.Items.Add(ac.DisplayName);
                         item.Tag = ac;
+                        item.Name = ac.Name;
                         item.Click += menuToolsAutocat_Item_Click;
                     }
                 }
@@ -2014,10 +2016,12 @@ namespace Depressurizer {
                 advFilter = new Filter(ADVANCED_FILTER);
                 cboFilter.Text = string.Empty;
                 mbtnClearFilters.Visible = true;
+                contextCat_SetAdvanced.Visible = true;
             } else {
                 splitCategories.Panel1Collapsed = true;
                 lstCategories.StateImageList = null;
                 mbtnClearFilters.Visible = false;
+                contextCat_SetAdvanced.Visible = false;
             }
             // allow the form to refresh before the time-consuming stuff happens
             Application.DoEvents();
@@ -2630,7 +2634,7 @@ namespace Depressurizer {
                 if (AdvancedCategoryFilter)
                 {
                     ListViewItem i = lstCategories.GetItemAt(e.X, e.Y);
-                    HandleAdvancedCategoryItemActivation(i, Control.ModifierKeys == Keys.Shift);
+                    if ((lstCategories.SelectedItems.Contains(i)) && !(Control.ModifierKeys == Keys.Control)) HandleAdvancedCategoryItemActivation(i, Control.ModifierKeys == Keys.Shift);
                 }
             }
         }
@@ -3321,6 +3325,96 @@ namespace Depressurizer {
                 {
                     ClearStatus();
                     FlushStatus();
+                }
+            }
+        }
+
+        private void contextCat_SetAdvanced_Allow_Click(object sender, EventArgs e)
+        {
+            if (lstCategories.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem i in lstCategories.SelectedItems)
+                {
+                    SetItemState(i, (int)AdvancedFilterState.Allow);
+                }
+                OnViewChange();
+            }
+        }
+
+        private void contextCat_SetAdvanced_Require_Click(object sender, EventArgs e)
+        {
+            if (lstCategories.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem i in lstCategories.SelectedItems)
+                {
+                    SetItemState(i, (int)AdvancedFilterState.Require);
+                }
+                OnViewChange();
+            }
+        }
+
+        private void contextCat_SetAdvanced_Exclude_Click(object sender, EventArgs e)
+        {
+            if (lstCategories.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem i in lstCategories.SelectedItems)
+                {
+                    SetItemState(i, (int)AdvancedFilterState.Exclude);
+                }
+                OnViewChange();
+            }
+        }
+
+        private void contextCat_SetAdvanced_None_Click(object sender, EventArgs e)
+        {
+            if (lstCategories.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem i in lstCategories.SelectedItems)
+                {
+                    SetItemState(i, (int)AdvancedFilterState.None);
+                }
+                OnViewChange();
+            }
+        }
+
+        private void SetItemState(ListViewItem i, int state)
+        {
+            i.StateImageIndex = state;
+
+            Category c = i.Tag as Category;
+
+            if (i.Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
+            {
+                advFilter.Uncategorized = state;
+            }
+            else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
+            {
+                advFilter.Hidden = state;
+            }
+            else
+            {
+                switch ((AdvancedFilterState)state)
+                {
+                    case AdvancedFilterState.Allow:
+                        advFilter.Allow.Add(c);
+                        advFilter.Require.Remove(c);
+                        advFilter.Exclude.Remove(c);
+                        break;
+                    case AdvancedFilterState.Require:
+                        advFilter.Allow.Remove(c);
+                        advFilter.Require.Add(c);
+                        advFilter.Exclude.Remove(c);
+                        break;
+                    case AdvancedFilterState.Exclude:
+                        advFilter.Allow.Remove(c);
+                        advFilter.Require.Remove(c);
+                        advFilter.Exclude.Add(c);
+                        break;
+                    case AdvancedFilterState.None:
+                        advFilter.Allow.Remove(c);
+                        advFilter.Require.Remove(c);
+                        advFilter.Exclude.Remove(c);
+                        break;
                 }
             }
         }

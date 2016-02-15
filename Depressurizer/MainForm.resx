@@ -375,8 +375,41 @@
   <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
     <value>Remove Empty Categories</value>
   </data>
+  <data name="contextCat_SetAdvanced_Allow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Allow.Text" xml:space="preserve">
+    <value>Allow</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Require.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Require.Text" xml:space="preserve">
+    <value>Require</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Exclude.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Exclude.Text" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="contextCat_SetAdvanced_None.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced_None.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="contextCat_SetAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced.Text" xml:space="preserve">
+    <value>Set Filter</value>
+  </data>
+  <data name="contextCat_SetAdvanced.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="contextCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 126</value>
+    <value>189, 148</value>
   </data>
   <data name="&gt;&gt;contextCat.Name" xml:space="preserve">
     <value>contextCat</value>
@@ -1340,7 +1373,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAeABCgHgAQoBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAARABCwEQAQsBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1626,7 +1659,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAVABCQFQAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAYABCQGAAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -2170,6 +2203,36 @@
     <value>contextCat_RemoveEmpty</value>
   </data>
   <data name="&gt;&gt;contextCat_RemoveEmpty.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced.Name" xml:space="preserve">
+    <value>contextCat_SetAdvanced</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced_Allow.Name" xml:space="preserve">
+    <value>contextCat_SetAdvanced_Allow</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced_Allow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced_Require.Name" xml:space="preserve">
+    <value>contextCat_SetAdvanced_Require</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced_Require.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced_Exclude.Name" xml:space="preserve">
+    <value>contextCat_SetAdvanced_Exclude</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced_Exclude.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced_None.Name" xml:space="preserve">
+    <value>contextCat_SetAdvanced_None</value>
+  </data>
+  <data name="&gt;&gt;contextCat_SetAdvanced_None.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;contextAutoCat_Edit.Name" xml:space="preserve">
