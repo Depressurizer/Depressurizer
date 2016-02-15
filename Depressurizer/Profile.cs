@@ -421,7 +421,9 @@ namespace Depressurizer {
             ac.GenerateSteamRules(ac.Rules);
             list.Add(ac);
             list.Add(new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Tags));
-            list.Add(new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Flags));
+            list.Add(new AutoCatFlags(GlobalStrings.Profile_DefaultAutoCatName_Flags));
+            list.Add(new AutoCatDevPub(GlobalStrings.Profile_DefaultAutoCatName_DevPub));
+            list.Add(new AutoCatHltb(GlobalStrings.Profile_DefaultAutoCatName_Hltb));
         }
 
         #endregion

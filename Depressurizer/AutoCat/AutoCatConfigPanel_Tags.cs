@@ -112,5 +112,6 @@ namespace Depressurizer {
         private void cmdUncheckAll_Click( object sender, EventArgs e ) {
             SetAllListCheckStates( lstIncluded, false );
         }
+
     }
 }

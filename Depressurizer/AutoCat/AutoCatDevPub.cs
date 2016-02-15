@@ -24,63 +24,67 @@ namespace Depressurizer
 {
 
     /// <summary>
-    /// Autocategorization scheme that adds and removes manual categories.
+    /// Autocategorization scheme that adds developer and publisher categories.
     /// </summary>
-    public class AutoCatManual : AutoCat
+    public class AutoCatDevPub : AutoCat
     {
 
         public override AutoCatType AutoCatType
         {
-            get { return AutoCatType.Manual; }
+            get { return AutoCatType.DevPub; }
         }
 
         // Autocat configuration
-        public bool RemoveAllCategories { get; set; }
+        public bool AllDevelopers { get; set; }
+        public bool AllPublishers { get; set; }
         public string Prefix { get; set; }
 
-        public List<string> RemoveCategories { get; set; }
-        public List<string> AddCategories { get; set; }
+        public List<string> Developers { get; set; }
+        public List<string> Publishers { get; set; }
 
         // Serialization keys
-        public const string TypeIdString = "AutoCatManual";
+        public const string TypeIdString = "AutoCatDevPub";
         private const string
             XmlName_Name = "Name",
             XmlName_Filter = "Filter",
-            XmlName_RemoveAll = "RemoveAll",
+            XmlName_AllDevelopers = "AllDevelopers",
+            XmlName_AllPublishers = "AllPublishers",
             XmlName_Prefix = "Prefix",
-            XmlName_RemoveList = "Remove",
-            XmlName_RemoveItem = "Category",
-            XmlName_AddList = "Add",
-            XmlName_AddItem = "Category";
+            XmlName_Developers = "Developers",
+            XmlName_Developer = "Developer",
+            XmlName_Publishers = "Publishers",
+            XmlName_Publisher = "Publisher";
 
         private GameList gamelist;
 
         /// <summary>
         /// Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally, assigns categories from another list.
         /// </summary>
-        public AutoCatManual(string name, string filter = null, string prefix = null, bool removeAll = false, List<string> remove = null, List<string> add = null)
+        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool developersAll = false, bool publishersAll = false, List<string> developers = null, List<string> publishers = null)
             : base(name)
         {
             Filter = filter;
             Prefix = prefix;
-            RemoveAllCategories = removeAll;
-            RemoveCategories = (remove == null) ? new List<string>() : remove;
-            AddCategories = (add == null) ? new List<string>() : add;
+            AllDevelopers = developersAll;
+            AllPublishers = publishersAll;
+            Developers = (developers == null) ? new List<string>() : developers;
+            Publishers = (publishers == null) ? new List<string>() : publishers;
         }
 
-        protected AutoCatManual(AutoCatManual other)
+        protected AutoCatDevPub(AutoCatDevPub other)
             : base(other)
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
-            RemoveAllCategories = other.RemoveAllCategories;
-            RemoveCategories = new List<string>(other.RemoveCategories);
-            AddCategories = new List<string>(other.AddCategories);
+            AllDevelopers = other.AllDevelopers;
+            AllPublishers = other.AllPublishers;
+            Developers = new List<string>(other.Developers);
+            Publishers = new List<string>(other.Publishers);
         }
 
         public override AutoCat Clone()
         {
-            return new AutoCatManual(this);
+            return new AutoCatDevPub(this);
         }
 
         /// <summary>
@@ -120,21 +124,29 @@ namespace Depressurizer
 
             if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            if (RemoveAllCategories) game.ClearCategories();
-            else if (RemoveCategories != null)
+            List<string> devs = db.GetDevelopers(game.Id);
+
+            if (devs != null)
             {
-                foreach (string category in RemoveCategories)
+                for (int index = 0; index < devs.Count; index++)
                 {
-                    Category c = gamelist.GetCategory(category);
-                    if (game.ContainsCategory(c)) game.RemoveCategory(c);
+                    if (Developers.Contains(devs[index]) || AllDevelopers)
+                    {
+                        game.AddCategory(games.GetCategory(GetProcessedString(devs[index])));
+                    }
                 }
             }
 
-            if (AddCategories != null)
+            List<string> pubs = db.GetPublishers(game.Id);
+
+            if (pubs != null)
             {
-                foreach (string category in AddCategories)
+                for (int index = 0; index < pubs.Count; index++)
                 {
-                    game.AddCategory(gamelist.GetCategory(GetProcessedString(category)));
+                    if (Publishers.Contains(pubs[index]) || AllPublishers)
+                    {
+                        game.AddCategory(games.GetCategory(GetProcessedString(pubs[index])));
+                    }
                 }
             }
 
@@ -159,65 +171,73 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Name, Name);
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_RemoveAll, RemoveAllCategories.ToString());
+            writer.WriteElementString(XmlName_AllDevelopers, AllDevelopers.ToString());
+            writer.WriteElementString(XmlName_AllPublishers, AllPublishers.ToString());
 
-            writer.WriteStartElement(XmlName_RemoveList);
-            foreach (string s in RemoveCategories)
+            if (Developers.Count > 0)
             {
-                writer.WriteElementString(XmlName_RemoveItem, s);
+                writer.WriteStartElement(XmlName_Developers);
+                foreach (string s in Developers)
+                {
+                    writer.WriteElementString(XmlName_Developer, s);
+                }
+                writer.WriteEndElement();
             }
-            writer.WriteEndElement();
 
-            writer.WriteStartElement(XmlName_AddList);
-            foreach (string s in AddCategories)
+            if (Publishers.Count > 0)
             {
-                writer.WriteElementString(XmlName_AddItem, s);
+                writer.WriteStartElement(XmlName_Publishers);
+                foreach (string s in Publishers)
+                {
+                    writer.WriteElementString(XmlName_Publisher, s);
+                }
+                writer.WriteEndElement();
             }
-            writer.WriteEndElement();
 
             writer.WriteEndElement();
         }
 
-        public static AutoCatManual LoadFromXmlElement(XmlElement xElement)
+        public static AutoCatDevPub LoadFromXmlElement(XmlElement xElement)
         {
             string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
             string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            bool removeAll = XmlUtil.GetBoolFromNode(xElement[XmlName_RemoveAll], false);
+            bool AllDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllDevelopers], false);
+            bool AllPublishers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllPublishers], false);
             string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
 
-            List<string> remove = new List<string>();
+            List<string> devs = new List<string>();
 
-            XmlElement removeListElement = xElement[XmlName_RemoveList];
-            if (removeListElement != null)
+            XmlElement devsListElement = xElement[XmlName_Developers];
+            if (devsListElement != null)
             {
-                XmlNodeList removeNodes = removeListElement.SelectNodes(XmlName_RemoveItem);
-                foreach (XmlNode node in removeNodes)
+                XmlNodeList devNodes = devsListElement.SelectNodes(XmlName_Developer);
+                foreach (XmlNode node in devNodes)
                 {
                     string s;
                     if (XmlUtil.TryGetStringFromNode(node, out s))
                     {
-                        remove.Add(s);
+                        devs.Add(s);
                     }
                 }
             }
 
-            List<string> add = new List<string>();
+            List<string> pubs = new List<string>();
 
-            XmlElement addListElement = xElement[XmlName_AddList];
-            if (addListElement != null)
+            XmlElement pubsListElement = xElement[XmlName_Publishers];
+            if (pubsListElement != null)
             {
-                XmlNodeList addNodes = addListElement.SelectNodes(XmlName_AddItem);
-                foreach (XmlNode node in addNodes)
+                XmlNodeList pubNodes = pubsListElement.SelectNodes(XmlName_Publisher);
+                foreach (XmlNode node in pubNodes)
                 {
                     string s;
                     if (XmlUtil.TryGetStringFromNode(node, out s))
                     {
-                        add.Add(s);
+                        pubs.Add(s);
                     }
                 }
             }
 
-            AutoCatManual result = new AutoCatManual(name, filter, prefix, removeAll, remove, add);
+            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, AllDevelopers, AllPublishers, devs, pubs);
             return result;
         }
     }

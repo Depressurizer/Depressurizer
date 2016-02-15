@@ -61,6 +61,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Developers &amp; Publishers.
+        /// </summary>
+        internal static string Autocat_Name_DevPub {
+            get {
+                return ResourceManager.GetString("Autocat_Name_DevPub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Store Flags.
         /// </summary>
         internal static string AutoCat_Name_Flags {
@@ -3275,6 +3284,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By Developer &amp; Publisher.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_DevPub {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_DevPub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Flags.
         /// </summary>
         internal static string Profile_DefaultAutoCatName_Flags {
@@ -3289,6 +3307,15 @@ namespace Depressurizer {
         internal static string Profile_DefaultAutoCatName_Genre {
             get {
                 return ResourceManager.GetString("Profile_DefaultAutoCatName_Genre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By HowLongToBeat.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Hltb {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Hltb", resourceCulture);
             }
         }
         
