@@ -737,10 +737,10 @@ Tiempo Restante:</value>
     <value>Sí</value>
   </data>
   <data name="Profile_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error cargando perfil: {0}</value>
+    <value>Error cargando perfil.</value>
   </data>
   <data name="Profile_ErrorSavingProfileFile" xml:space="preserve">
-    <value>Error guardando fichero de perfil: {0}</value>
+    <value>Error guardando fichero de perfil.</value>
   </data>
   <data name="Profile_FailedToLoadProfile" xml:space="preserve">
     <value>Error al cargar perfil: {0}</value>

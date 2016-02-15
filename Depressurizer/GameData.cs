@@ -47,6 +47,7 @@ namespace Depressurizer {
     /// </summary>
     public class GameInfo {
         #region Fields
+        const string runSteam = "steam://rungameid/{0}";
         public string Name;
         public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
         public GameList GameList;
@@ -79,6 +80,23 @@ namespace Depressurizer {
             }
         }
 
+        private string _executable;
+        public string Executable
+        {
+            get
+            {
+                if (_executable == null) return String.Format(runSteam, Id.ToString());
+                else return _executable;
+            }
+            set
+            {
+                if (value != String.Format(runSteam, Id.ToString()))
+                {
+                    if (File.Exists(value)) _executable = value;
+                }
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -86,12 +104,13 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="id">ID of the new game. Positive means it's the game's Steam ID, negative means it's a non-steam game.</param>
         /// <param name="name">Game title</param>
-        public GameInfo( int id, string name, GameList list ) {
+        public GameInfo( int id, string name, GameList list, string executable = null ) {
             Id = id;
             Name = name;
             Hidden = false;
             Categories = new SortedSet<Category>();
             this.GameList = list;
+            Executable = executable;
         }
 
         public void ApplySource( GameListingSource src ) {
