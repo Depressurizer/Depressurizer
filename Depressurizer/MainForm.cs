@@ -845,11 +845,14 @@ namespace Depressurizer {
 
         private void RefreshFilters()
         {
-            cboFilter.DataSource = null;
-            cboFilter.DataSource = currentProfile.GameData.Filters;
-            cboFilter.ValueMember = null;
-            cboFilter.DisplayMember = "Name";
-            cboFilter.Text = "";
+            if (currentProfile != null)
+            {
+                cboFilter.DataSource = null;
+                cboFilter.DataSource = currentProfile.GameData.Filters;
+                cboFilter.ValueMember = null;
+                cboFilter.DisplayMember = "Name";
+                cboFilter.Text = "";
+            }
         }
 
         private void SaveFilter()
@@ -1213,11 +1216,14 @@ namespace Depressurizer {
             }
             else
             {
-                foreach (GameInfo g in currentProfile.GameData.Games.Values)
+                if (currentProfile != null)
                 {
-                    if ((g != null) && (g.Id > 0))
+                    foreach (GameInfo g in currentProfile.GameData.Games.Values)
                     {
-                        count += 1;
+                        if ((g != null) && (g.Id > 0))
+                        {
+                            count += 1;
+                        }
                     }
                 }
             }
@@ -3109,18 +3115,18 @@ namespace Depressurizer {
         /// </summary>
         void LaunchGame( GameInfo g ) {
             if( g != null ) {
-                string gameIdentifier;
-                if( g.Id < 0 ) {   // External game
-                    if( g.LaunchString == null ) {
-                        MessageBox.Show( GlobalStrings.MainForm_LaunchFailed );
-                        return;
-                    }
-                    gameIdentifier = g.LaunchString;
-                } else {
-                    // Steam game
-                    gameIdentifier = g.Id.ToString();
-                }
-                System.Diagnostics.Process.Start( "steam://rungameid/" + gameIdentifier );
+                //string gameIdentifier;
+                //if( g.Id < 0 ) {   // External game
+                //    if( g.LaunchString == null ) {
+                //        MessageBox.Show( GlobalStrings.MainForm_LaunchFailed );
+                //        return;
+                //    }
+                //    gameIdentifier = g.LaunchString;
+                //} else {
+                //    // Steam game
+                //    gameIdentifier = g.Id.ToString();
+                //}
+                System.Diagnostics.Process.Start( g.Executable );
             }
         }
 

@@ -3347,7 +3347,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error loading profile: {0}.
+        ///   Looks up a localized string similar to Error loading profile..
         /// </summary>
         internal static string Profile_ErrorLoadingProfile {
             get {
@@ -3356,7 +3356,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error saving profile file: {0}.
+        ///   Looks up a localized string similar to Error saving profile file..
         /// </summary>
         internal static string Profile_ErrorSavingProfileFile {
             get {

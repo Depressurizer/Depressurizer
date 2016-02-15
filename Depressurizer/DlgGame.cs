@@ -42,6 +42,7 @@ namespace Depressurizer {
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
                 txtCategory.Text = Game.GetCatString();
+                txtExecutable.Text = Game.Executable;
                 chkFavorite.Checked = Game.IsFavorite();
                 chkHidden.Checked = Game.Hidden;
                 txtId.ReadOnly = true;
@@ -59,6 +60,7 @@ namespace Depressurizer {
         private void cmdOk_Click( object sender, EventArgs e ) {
             if( editMode ) {
                 Game.Name = txtName.Text;
+                Game.Executable = txtExecutable.Text;
             } else {
                 int id;
                 if( !int.TryParse( txtId.Text, out id ) ) {
@@ -69,7 +71,7 @@ namespace Depressurizer {
                     MessageBox.Show( GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                     return;
                 } else {
-                    Game = new GameInfo( id, txtName.Text, Data );
+                    Game = new GameInfo( id, txtName.Text, Data, txtExecutable.Text );
                     Game.ApplySource( GameListingSource.Manual );
                     Data.Games.Add( id, Game );
                 }

@@ -58,7 +58,8 @@ namespace Depressurizer {
             XmlName_Game_Name = "name",
             XmlName_Game_Hidden = "hidden",
             XmlName_Game_CategoryList = "categories",
-            XmlName_Game_Category = "category";
+            XmlName_Game_Category = "category",
+            XmlName_Game_Executable = "executable";
 
         // Old Xml names
         private const string XmlName_Old_SteamIDShort = "account_id",
@@ -290,8 +291,9 @@ namespace Depressurizer {
                 profile.GameData.Games.Add( id, game );
 
                 game.Hidden = XmlUtil.GetBoolFromNode( node[XmlName_Game_Hidden], false );
+                game.Executable = XmlUtil.GetStringFromNode(node[XmlName_Game_Executable], null);
 
-                if( profileVersion < 1 ) {
+                if ( profileVersion < 1 ) {
                     string catName;
                     if( XmlUtil.TryGetStringFromNode( node[XmlName_Game_Category], out catName ) ) {
                         game.AddCategory( profile.GameData.GetCategory( catName ) );
@@ -363,6 +365,8 @@ namespace Depressurizer {
                     }
 
                     writer.WriteElementString( XmlName_Game_Hidden, g.Hidden.ToString() );
+
+                    if (!g.Executable.Contains("steam://")) writer.WriteElementString(XmlName_Game_Executable, g.Executable);
 
                     writer.WriteStartElement( XmlName_Game_CategoryList );
                     foreach( Category c in g.Categories ) {

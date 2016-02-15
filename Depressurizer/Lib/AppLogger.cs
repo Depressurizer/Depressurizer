@@ -589,11 +589,10 @@ namespace Rallion {
                         BeginSession();
                     }
                     if( IsActiveSession ) {
-                        string fullMessage = string.Format( "{0} - {1}: {2}{3}",
-                            DateTime.Now.ToString( DateFormat ),
-                            LevTxt[(int)lev],
-                            string.Format( message, args ),
-                            Environment.NewLine );
+                        string t = DateTime.Now.ToString(DateFormat);
+                        string l = LevTxt[(int)lev];
+                        string m = string.Format(message, args);
+                        string fullMessage = string.Format( "{0} - {1}: {2}{3}", t, l, m, Environment.NewLine );
                         if( !CanWriteToFile( fullMessage ) ) {
                             BeginSession( true );
                         }

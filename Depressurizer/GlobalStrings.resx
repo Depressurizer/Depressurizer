@@ -741,10 +741,10 @@ This could take up to a few seconds per game.</value>
     <value>Yes</value>
   </data>
   <data name="Profile_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error loading profile: {0}</value>
+    <value>Error loading profile.</value>
   </data>
   <data name="Profile_ErrorSavingProfileFile" xml:space="preserve">
-    <value>Error saving profile file: {0}</value>
+    <value>Error saving profile file.</value>
   </data>
   <data name="Profile_FailedToLoadProfile" xml:space="preserve">
     <value>Failed to load profile: {0}</value>
