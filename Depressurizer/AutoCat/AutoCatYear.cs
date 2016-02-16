@@ -54,13 +54,14 @@ namespace Depressurizer {
         #endregion
 
         #region Construction
-        public AutoCatYear( string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYear_Grouping groupMode = AutoCatYear_Grouping.None )
+        public AutoCatYear( string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYear_Grouping groupMode = AutoCatYear_Grouping.None, bool selected = false)
             : base( name ) {
             this.Filter = filter;
             this.Prefix = prefix;
             this.IncludeUnknown = includeUnknown;
             this.UnknownText = unknownText;
             this.GroupingMode = groupMode;
+            this.Selected = selected;
         }
 
         protected AutoCatYear( AutoCatYear other )
@@ -70,6 +71,7 @@ namespace Depressurizer {
             this.IncludeUnknown = other.IncludeUnknown;
             this.UnknownText = other.UnknownText;
             this.GroupingMode = other.GroupingMode;
+            this.Selected = other.Selected;
         }
 
         public override AutoCat Clone() {

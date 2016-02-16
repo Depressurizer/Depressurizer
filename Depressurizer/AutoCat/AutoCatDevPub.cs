@@ -38,7 +38,8 @@ namespace Depressurizer
         public bool AllDevelopers { get; set; }
         public bool AllPublishers { get; set; }
         public string Prefix { get; set; }
-
+        public bool OwnedOnly { get; set; }
+        public int MinCount { get; set; }
         public List<string> Developers { get; set; }
         public List<string> Publishers { get; set; }
 
@@ -50,6 +51,8 @@ namespace Depressurizer
             XmlName_AllDevelopers = "AllDevelopers",
             XmlName_AllPublishers = "AllPublishers",
             XmlName_Prefix = "Prefix",
+            XmlName_OwnedOnly = "OwnedOnly",
+            XmlName_MinCount = "MinCount",
             XmlName_Developers = "Developers",
             XmlName_Developer = "Developer",
             XmlName_Publishers = "Publishers",
@@ -60,15 +63,18 @@ namespace Depressurizer
         /// <summary>
         /// Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally, assigns categories from another list.
         /// </summary>
-        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool developersAll = false, bool publishersAll = false, List<string> developers = null, List<string> publishers = null)
+        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool owned = true, int count = 0, bool developersAll = false, bool publishersAll = false, List<string> developers = null, List<string> publishers = null, bool selected = false)
             : base(name)
         {
             Filter = filter;
             Prefix = prefix;
+            OwnedOnly = owned;
+            MinCount = count;
             AllDevelopers = developersAll;
             AllPublishers = publishersAll;
             Developers = (developers == null) ? new List<string>() : developers;
             Publishers = (publishers == null) ? new List<string>() : publishers;
+            Selected = selected;
         }
 
         protected AutoCatDevPub(AutoCatDevPub other)
@@ -76,10 +82,13 @@ namespace Depressurizer
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
+            OwnedOnly = other.OwnedOnly;
+            MinCount = other.MinCount;
             AllDevelopers = other.AllDevelopers;
             AllPublishers = other.AllPublishers;
             Developers = new List<string>(other.Developers);
             Publishers = new List<string>(other.Publishers);
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone()
@@ -171,6 +180,8 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Name, Name);
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
+            writer.WriteElementString(XmlName_OwnedOnly, OwnedOnly.ToString());
+            writer.WriteElementString(XmlName_MinCount, MinCount.ToString());
             writer.WriteElementString(XmlName_AllDevelopers, AllDevelopers.ToString());
             writer.WriteElementString(XmlName_AllPublishers, AllPublishers.ToString());
 
@@ -204,6 +215,8 @@ namespace Depressurizer
             bool AllDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllDevelopers], false);
             bool AllPublishers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllPublishers], false);
             string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            bool owned = XmlUtil.GetBoolFromNode(xElement[XmlName_OwnedOnly], false);
+            int count = XmlUtil.GetIntFromNode(xElement[XmlName_MinCount], 0);
 
             List<string> devs = new List<string>();
 
@@ -237,7 +250,7 @@ namespace Depressurizer
                 }
             }
 
-            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, AllDevelopers, AllPublishers, devs, pubs);
+            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, owned, count, AllDevelopers, AllPublishers, devs, pubs);
             return result;
         }
     }

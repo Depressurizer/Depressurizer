@@ -68,11 +68,12 @@ namespace Depressurizer {
 
         #region Construction
 
-        public AutoCatUserScore( string name = TypeIdString, string filter = null, string prefix = null, List<UserScore_Rule> rules = null )
+        public AutoCatUserScore( string name = TypeIdString, string filter = null, string prefix = null, List<UserScore_Rule> rules = null, bool selected = false)
             : base( name ) {
             Filter = filter;
             Prefix = prefix;
             Rules = ( rules == null ) ? new List<UserScore_Rule>() : rules;
+            Selected = selected;
         }
 
         public AutoCatUserScore( AutoCatUserScore other )
@@ -80,6 +81,7 @@ namespace Depressurizer {
             Filter = other.Filter;
             Prefix = other.Prefix;
             Rules = other.Rules.ConvertAll( rule => new UserScore_Rule( rule ) );
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() {

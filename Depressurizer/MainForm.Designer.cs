@@ -499,6 +499,7 @@ namespace Depressurizer {
             this.lvAutoCatType.UseCompatibleStateImageBehavior = false;
             this.lvAutoCatType.View = System.Windows.Forms.View.List;
             this.lvAutoCatType.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.lvAutoCatType_ItemCheck);
+            this.lvAutoCatType.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvAutoCatType_ItemChecked);
             this.lvAutoCatType.DoubleClick += new System.EventHandler(this.lvAutoCatType_DoubleClick);
             this.lvAutoCatType.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvAutoCatType_MouseDown);
             // 

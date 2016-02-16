@@ -430,7 +430,7 @@ namespace Depressurizer {
                 CheckForDepressurizerUpdates();
             }
 
-            switch( Settings.Instance.StartupAction ) {
+            switch ( Settings.Instance.StartupAction ) {
                 case StartupAction.Load:
                     LoadProfile( Settings.Instance.ProfileToLoad, false );
                     break;
@@ -451,9 +451,9 @@ namespace Depressurizer {
             if (currentProfile != null)
             {
                 // restore previous session
-                SelectCategory();
-                SelectFilter();
-                SelectAutoCats();
+                SelectCategory(settings);
+                SelectFilter(settings);
+                SelectAutoCats(settings);
             }
         }
 
@@ -1427,9 +1427,8 @@ namespace Depressurizer {
         #endregion
         #region List updaters
 
-        private void SelectCategory()
+        private void SelectCategory(Settings settings)
         {
-            Settings settings = Settings.Instance;
             if (settings.Category != string.Empty)
             {
                 lstCategories.SelectedIndices.Clear();
@@ -1444,9 +1443,8 @@ namespace Depressurizer {
             }
         }
 
-        private void SelectFilter()
+        private void SelectFilter(Settings settings)
         {
-            Settings settings = Settings.Instance;
             if (settings.Filter != string.Empty)
             {
                 for (int i = 0; i < cboFilter.Items.Count; i++)
@@ -1464,9 +1462,8 @@ namespace Depressurizer {
             }
         }
 
-        private void SelectAutoCats()
+        private void SelectAutoCats(Settings settings)
         {
-            Settings settings = Settings.Instance;
             if (settings.AutoCats != string.Empty)
             {
                 List<string> autocats = settings.AutoCats.Split(',').ToList();
@@ -1889,7 +1886,6 @@ namespace Depressurizer {
             object selected = cmbAutoCatType.SelectedItem;
             //cmbAutoCatType.Items.Clear();
 
-            SaveSelectedAutoCats();
             lvAutoCatType.Items.Clear();
 
             // Prepare main menu list
@@ -1919,8 +1915,9 @@ namespace Depressurizer {
                         ListViewItem listItem = new ListViewItem(ac.DisplayName);
                         listItem.Tag = ac;
                         listItem.Name = ac.Name;
+                        listItem.Checked = ac.Selected;
                         lvAutoCatType.Items.Add(listItem);
-                        SelectAutoCats();
+                        //SelectAutoCats();
 
                         // Fill main menu list
                         ToolStripItem item = menu_Tools_Autocat_List.Items.Add(ac.DisplayName);
@@ -3309,6 +3306,11 @@ namespace Depressurizer {
             }
         }
 
+        private void lvAutoCatType_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            ((AutoCat)e.Item.Tag).Selected = e.Item.Checked;
+        }
+
         private void lvAutoCatType_MouseDown(object sender, MouseEventArgs e)
         {
             if (lvAutoCatType.GetItemAt(e.X, e.Y) != null)
@@ -3446,6 +3448,8 @@ namespace Depressurizer {
                 }
             }
         }
+
+
 
         /// <summary>
         /// Clustering strategy for columns with comma-seperated strings. (Tags, Categories, Flags, Genres etc)
