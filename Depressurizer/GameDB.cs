@@ -661,11 +661,11 @@ namespace Depressurizer
         /// Only recalculates if necessary.
         /// </summary>
         /// <returns>A set of developers, as strings</returns>
-        public SortedSet<string> GetAllDevelopers(GameList filter)
+        public SortedSet<string> GetAllDevelopers()
         {
             if (allStoreDevelopers == null)
             {
-                return CalculateAllDevelopers(filter);
+                return CalculateAllDevelopers();
             }
             else
             {
@@ -678,7 +678,7 @@ namespace Depressurizer
         /// Always recalculates.
         /// </summary>
         /// <returns>A set of developers, as strings</returns>
-        public SortedSet<string> CalculateAllDevelopers(GameList filter)
+        public SortedSet<string> CalculateAllDevelopers()
         {
             if (allStoreDevelopers == null)
             {
@@ -691,7 +691,7 @@ namespace Depressurizer
 
             foreach (GameDBEntry entry in Games.Values)
             {
-                if ((entry.Developers != null) && (filter.Games.ContainsKey(entry.Id)))
+                if (entry.Developers != null)
                 {
                     allStoreDevelopers.UnionWith(entry.Developers);
                 }
@@ -705,11 +705,11 @@ namespace Depressurizer
         /// Only recalculates if necessary.
         /// </summary>
         /// <returns>A set of publishers, as strings</returns>
-        public SortedSet<string> GetAllPublishers(GameList filter)
+        public SortedSet<string> GetAllPublishers()
         {
             if (allStorePublishers == null)
             {
-                return CalculateAllPublishers(filter);
+                return CalculateAllPublishers();
             }
             else
             {
@@ -721,7 +721,7 @@ namespace Depressurizer
         /// Always recalculates.
         /// </summary>
         /// <returns>A set of publishers, as strings</returns>
-        public SortedSet<string> CalculateAllPublishers(GameList filter)
+        public SortedSet<string> CalculateAllPublishers()
         {
             if (allStorePublishers == null)
             {
@@ -734,7 +734,7 @@ namespace Depressurizer
 
             foreach (GameDBEntry entry in Games.Values)
             {
-                if ((entry.Publishers != null) && (filter.Games.ContainsKey(entry.Id)))
+                if (entry.Publishers != null)
                 {
                     allStorePublishers.UnionWith(entry.Publishers);
                 }
@@ -784,6 +784,118 @@ namespace Depressurizer
                 }
             }
             return allStoreFlags;
+        }
+
+        /// <summary>
+        /// Gets a list of developers found on games with their game count.
+        /// </summary>
+        /// <param name="filter">GameList including games to include in the search. If null, finds developers for all games in the database.</param>
+        /// <param name="minScore">Minimum count of developers games to include in the result list. Developers with lower game counts will be discarded.</param>
+        /// <returns>List of developers, as strings with game counts</returns>
+        public IEnumerable<Tuple<string, int>> CalculateSortedDevList(GameList filter, int minCount)
+        {
+            SortedSet<string> developers = GetAllDevelopers();
+            Dictionary<string, int> devCounts = new Dictionary<string, int>();
+            if (filter == null)
+            {
+                foreach (GameDBEntry dbEntry in Games.Values)
+                {
+                    CalculateSortedDevListHelper(devCounts, dbEntry);
+                }
+            }
+            else
+            {
+                foreach (int gameId in filter.Games.Keys)
+                {
+                    if (Games.ContainsKey(gameId))
+                    {
+                        CalculateSortedDevListHelper(devCounts, Games[gameId]);
+                    }
+                }
+            }
+
+            var unsortedList = (from entry in devCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value));
+            return unsortedList.ToList();
+        }
+
+        /// <summary>
+        /// Counts games for each developer.
+        /// </summary>
+        /// <param name="counts">Existing dictionary of developers and game count. Key is the developer as a string, value is the count</param>
+        /// <param name="dbEntry">Entry to add developers from</param>
+        private void CalculateSortedDevListHelper(Dictionary<string, int> counts, GameDBEntry dbEntry)
+        {
+            if (dbEntry.Developers != null)
+            {
+                for (int i = 0; i < dbEntry.Developers.Count; i++)
+                {
+                    string dev = dbEntry.Developers[i];
+                    if (counts.ContainsKey(dev))
+                    {
+                        counts[dev] += 1;
+                    }
+                    else
+                    {
+                        counts[dev] = 1;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of publishers found on games with their game count.
+        /// </summary>
+        /// <param name="filter">GameList including games to include in the search. If null, finds publishers for all games in the database.</param>
+        /// <param name="minScore">Minimum count of publishers games to include in the result list. publishers with lower game counts will be discarded.</param>
+        /// <returns>List of publishers, as strings with game counts</returns>
+        public IEnumerable<Tuple<string, int>> CalculateSortedPubList(GameList filter, int minCount)
+        {
+            SortedSet<string> publishers = GetAllPublishers();
+            Dictionary<string, int> PubCounts = new Dictionary<string, int>();
+            if (filter == null)
+            {
+                foreach (GameDBEntry dbEntry in Games.Values)
+                {
+                    CalculateSortedPubListHelper(PubCounts, dbEntry);
+                }
+            }
+            else
+            {
+                foreach (int gameId in filter.Games.Keys)
+                {
+                    if (Games.ContainsKey(gameId))
+                    {
+                        CalculateSortedPubListHelper(PubCounts, Games[gameId]);
+                    }
+                }
+            }
+
+            var unsortedList = (from entry in PubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value));
+            return unsortedList.ToList();
+        }
+
+        /// <summary>
+        /// Counts games for each publisher.
+        /// </summary>
+        /// <param name="counts">Existing dictionary of publishers and game count. Key is the publisher as a string, value is the count</param>
+        /// <param name="dbEntry">Entry to add publishers from</param>
+        private void CalculateSortedPubListHelper(Dictionary<string, int> counts, GameDBEntry dbEntry)
+        {
+            if (dbEntry.Publishers != null)
+            {
+                for (int i = 0; i < dbEntry.Publishers.Count; i++)
+                {
+                    string Pub = dbEntry.Publishers[i];
+                    if (counts.ContainsKey(Pub))
+                    {
+                        counts[Pub] += 1;
+                    }
+                    else
+                    {
+                        counts[Pub] = 1;
+                    }
+                }
+            }
         }
 
         /// <summary>

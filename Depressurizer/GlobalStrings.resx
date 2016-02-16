@@ -875,7 +875,7 @@ This could take up to a few seconds per game.</value>
 Removes any category that consists of the Prefix followed by one of the unchecked genres below.</value>
   </data>
   <data name="DlgAutoCat_Help_Prefix" xml:space="preserve">
-    <value>Optional. Text prefix placed before the genre name.</value>
+    <value>Optional. Text prefix placed before the name.</value>
   </data>
   <data name="DlgGameDBEntry_ParentMustBeInt" xml:space="preserve">
     <value>Parent must be empty or integer.</value>
@@ -1294,6 +1294,15 @@ If unchecked, games with no times will be skipped.</value>
   </data>
   <data name="Autocat_Name_DevPub" xml:space="preserve">
     <value>Developers &amp; Publishers</value>
+  </data>
+  <data name="DlgAutoCat_Help_DevSelected" xml:space="preserve">
+    <value>Show/hide selected Developers</value>
+  </data>
+  <data name="DlgAutoCat_Help_MinScore" xml:space="preserve">
+    <value>Developers and Publishers with game counts lower than this will not show up on the list.</value>
+  </data>
+  <data name="DlgAutoCat_Help_PubSelected" xml:space="preserve">
+    <value>Show/hide selected Publishers</value>
   </data>
   <data name="MainForm_No" xml:space="preserve">
     <value>No</value>

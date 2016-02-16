@@ -35,46 +35,65 @@ namespace Depressurizer {
             ownedGames = g;
 
             ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip(list_helpScore, GlobalStrings.DlgAutoCat_Help_MinScore);
+            ttHelp.Ext_SetToolTip(list_helpOwnedOnly, GlobalStrings.DlgAutoCat_Help_ListOwnedOnly);
+            ttHelp.Ext_SetToolTip(btnDevSelected, GlobalStrings.DlgAutoCat_Help_DevSelected);
+            ttHelp.Ext_SetToolTip(btnPubSelected, GlobalStrings.DlgAutoCat_Help_PubSelected);
 
-            FillDevelopersList();
-            FillPublishersList();
+            FillDevList();
+            FillPubList();
 
             clbDevelopersSelected.DisplayMember = "text";
             clbPublishersSelected.DisplayMember = "text";
+
+            //Hide count columns
+            lstDevelopers.Columns[1].Width = 0;
+            lstPublishers.Columns[1].Width = 0;
+
         }
 
-        public void FillDevelopersList()
+        public void FillDevList(ICollection<string> preChecked = null)
         {
             if (Program.GameDB != null)
             {
+                IEnumerable<Tuple<string, int>> tagList = Program.GameDB.CalculateSortedDevList( chkOwnedOnly.Checked ? ownedGames : null, (int)list_numScore.Value);
+                clbDevelopersSelected.Items.Clear();
                 lstDevelopers.BeginUpdate();
                 lstDevelopers.Items.Clear();
-                SortedSet<string> developerList = Program.GameDB.GetAllDevelopers( ownedGames );
-
-                foreach (string s in developerList)
+                foreach (Tuple<string, int> tag in tagList)
                 {
-                    lstDevelopers.Items.Add(s);
+                    ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", tag.Item1, tag.Item2));
+                    newItem.Tag = tag.Item1;
+                    if (preChecked != null && preChecked.Contains(tag.Item1)) newItem.Checked = true;
+                    newItem.SubItems.Add(tag.Item2.ToString());
+                    lstDevelopers.Items.Add(newItem);
                 }
+                lstDevelopers.Columns[0].Width = -1;
+                SortDevelopers(1, SortOrder.Descending);
                 lstDevelopers.EndUpdate();
-
                 chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count.ToString() + ")";
             }
         }
 
-        public void FillPublishersList()
+        public void FillPubList(ICollection<string> preChecked = null)
         {
             if (Program.GameDB != null)
             {
+                IEnumerable<Tuple<string, int>> tagList = Program.GameDB.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int)list_numScore.Value);
+                clbPublishersSelected.Items.Clear();
                 lstPublishers.BeginUpdate();
                 lstPublishers.Items.Clear();
-                SortedSet<string> publisherList = Program.GameDB.GetAllPublishers( ownedGames );
-
-                foreach (string s in publisherList)
+                foreach (Tuple<string, int> tag in tagList)
                 {
-                    lstPublishers.Items.Add(s);
+                    ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", tag.Item1, tag.Item2));
+                    newItem.Tag = tag.Item1;
+                    if (preChecked != null && preChecked.Contains(tag.Item1)) newItem.Checked = true;
+                    newItem.SubItems.Add(tag.Item2.ToString());
+                    lstPublishers.Items.Add(newItem);
                 }
+                lstPublishers.Columns[0].Width = -1;
+                SortPublishers(1, SortOrder.Descending);
                 lstPublishers.EndUpdate();
-
                 chkAllPublishers.Text = "All (" + lstPublishers.Items.Count.ToString() + ")";
             }
         }
@@ -147,7 +166,7 @@ namespace Depressurizer {
 
         private void btnDevUncheckAll_Click( object sender, EventArgs e ) {
             loaded = false;
-            FillDevelopersList();
+            FillDevList();
             loaded = true;
         }
 
@@ -159,11 +178,48 @@ namespace Depressurizer {
         private void btnPubUncheckAll_Click(object sender, EventArgs e)
         {
             loaded = false;
-            FillPublishersList();
+            FillPubList();
             loaded = true;
         }
 
-        #region Remove Categories
+        private void cmdListRebuild_Click(object sender, EventArgs e)
+        {
+            HashSet<string> checkedTags = new HashSet<string>();
+            foreach (ListViewItem item in lstDevelopers.CheckedItems)
+            {
+                checkedTags.Add(item.Tag as string);
+            }
+            FillDevList(checkedTags);
+
+            checkedTags = new HashSet<string>();
+            foreach (ListViewItem item in lstPublishers.CheckedItems)
+            {
+                checkedTags.Add(item.Tag as string);
+            }
+            FillPubList(checkedTags);
+        }
+
+        private void SortDevelopers(int c, SortOrder so)
+        {
+            // Create a comparer.
+            lstDevelopers.ListViewItemSorter =
+                new ListViewComparer(c, so);
+
+            // Sort.
+            lstDevelopers.Sort();
+        }
+
+        private void SortPublishers(int c, SortOrder so)
+        {
+            // Create a comparer.
+            lstPublishers.ListViewItemSorter =
+                new ListViewComparer(c, so);
+
+            // Sort.
+            lstDevelopers.Sort();
+        }
+
+        #region Developers
 
         private void chkAllDevelopers_CheckedChanged(object sender, EventArgs e)
         {
@@ -186,10 +242,10 @@ namespace Depressurizer {
         private void lstDevelopers_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             if (e.Item.Checked) clbDevelopersSelected.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            else if ((!e.Item.Checked) && loaded && clbDevelopersSelected.Items.Contains(e.Item))
             {
                 workerThread = new Thread(new ParameterizedThreadStart(DevelopersItemWorker));
-                workerThread.Start(clbDevelopersSelected.Items.IndexOf(e.Item));
+                workerThread.Start(e.Item);
             }
         }
 
@@ -201,30 +257,43 @@ namespace Depressurizer {
             }
         }
 
-        delegate void RemoveItemCallback(int index);
+        delegate void DevItemCallback(ListViewItem obj);
 
-        private void DevelopersRemoveItem(int index)
+        private void DevelopersRemoveItem(ListViewItem obj)
         {
             if (this.clbDevelopersSelected.InvokeRequired)
             {
-                RemoveItemCallback callback = new RemoveItemCallback(DevelopersRemoveItem);
-                this.Invoke(callback, new object[] { index });
+                DevItemCallback callback = new DevItemCallback(DevelopersRemoveItem);
+                this.Invoke(callback, new object[] { obj });
             }
             else
             {
-                clbDevelopersSelected.Items.RemoveAt(index);
+                clbDevelopersSelected.Items.Remove(obj);
             }
         }
 
         private void DevelopersItemWorker(object obj)
         {
-            int index = (int)obj;
-            DevelopersRemoveItem(index);
+            DevelopersRemoveItem((ListViewItem)obj);
+        }
+
+        private void btnDevSelected_Click(object sender, EventArgs e)
+        {
+            if (splitDevTop.Panel1Collapsed)
+            {
+                splitDevTop.Panel1Collapsed = false;
+                btnDevSelected.Text = "<";
+            }
+            else
+            {
+                splitDevTop.Panel1Collapsed = true;
+                btnDevSelected.Text = ">";
+            }
         }
 
         #endregion
 
-        #region Add Categories
+        #region Publishers
 
         private void chkAllPublishers_CheckedChanged(object sender, EventArgs e)
         {
@@ -247,10 +316,10 @@ namespace Depressurizer {
         private void lstPublishers_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             if (e.Item.Checked) clbPublishersSelected.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            else if ((!e.Item.Checked) && loaded && clbPublishersSelected.Items.Contains(e.Item))
             {
                 workerThread = new Thread(new ParameterizedThreadStart(PublishersItemWorker));
-                workerThread.Start(clbPublishersSelected.Items.IndexOf(e.Item));
+                workerThread.Start(e.Item);
             }
         }
 
@@ -262,28 +331,80 @@ namespace Depressurizer {
             }
         }
 
-        delegate void AddItemCallback(int index);
+        delegate void PubItemCallback(ListViewItem obj);
 
-        private void PublishersRemoveItem(int index)
+        private void PublishersRemoveItem(ListViewItem obj)
         {
             if (this.clbPublishersSelected.InvokeRequired)
             {
-                AddItemCallback callback = new AddItemCallback(PublishersRemoveItem);
-                this.Invoke(callback, new object[] { index });
+                PubItemCallback callback = new PubItemCallback(PublishersRemoveItem);
+                this.Invoke(callback, new object[] { obj });
             }
             else
             {
-                clbPublishersSelected.Items.RemoveAt(index);
+                clbPublishersSelected.Items.Remove(obj);
             }
         }
 
         private void PublishersItemWorker(object obj)
         {
-            int index = (int)obj;
-            PublishersRemoveItem(index);
+            PublishersRemoveItem((ListViewItem)obj);
+        }
+
+        private void btnPubSelected_Click(object sender, EventArgs e)
+        {
+            if (splitPubTop.Panel1Collapsed)
+            {
+                splitPubTop.Panel1Collapsed = false;
+                btnPubSelected.Text = "<";
+            }
+            else
+            {
+                splitPubTop.Panel1Collapsed = true;
+                btnPubSelected.Text = ">";
+            }
         }
 
         #endregion
 
+        private void nameascendingDev_Click(object sender, EventArgs e)
+        {
+            SortDevelopers(0, SortOrder.Ascending);
+        }
+
+        private void namedescendingDev_Click(object sender, EventArgs e)
+        {
+            SortDevelopers(0, SortOrder.Descending);
+        }
+
+        private void countascendingDev_Click(object sender, EventArgs e)
+        {
+            SortDevelopers(1, SortOrder.Ascending);
+        }
+
+        private void countdescendingDev_Click(object sender, EventArgs e)
+        {
+            SortDevelopers(1, SortOrder.Descending);
+        }
+
+        private void nameascendingPub_Click(object sender, EventArgs e)
+        {
+            SortPublishers(0, SortOrder.Ascending);
+        }
+
+        private void namedescendingPub_Click(object sender, EventArgs e)
+        {
+            SortPublishers(0, SortOrder.Descending);
+        }
+
+        private void countascendingPub_Click(object sender, EventArgs e)
+        {
+            SortPublishers(1, SortOrder.Ascending);
+        }
+
+        private void countdescendingPub_Click(object sender, EventArgs e)
+        {
+            SortPublishers(1, SortOrder.Descending);
+        }
     }
 }

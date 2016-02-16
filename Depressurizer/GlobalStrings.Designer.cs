@@ -1003,6 +1003,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show/hide selected Developers.
+        /// </summary>
+        internal static string DlgAutoCat_Help_DevSelected {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_DevSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove any pre-existing categories that could potentially be added by this AutoCat.
         ///Removes any category that consists of the Prefix followed by one of the unchecked genres below..
         /// </summary>
@@ -1082,11 +1091,29 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optional. Text prefix placed before the genre name..
+        ///   Looks up a localized string similar to Developers and Publishers with game counts lower than this will not show up on the list..
+        /// </summary>
+        internal static string DlgAutoCat_Help_MinScore {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_MinScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Optional. Text prefix placed before the name..
         /// </summary>
         internal static string DlgAutoCat_Help_Prefix {
             get {
                 return ResourceManager.GetString("DlgAutoCat_Help_Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show/hide selected Publishers.
+        /// </summary>
+        internal static string DlgAutoCat_Help_PubSelected {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_PubSelected", resourceCulture);
             }
         }
         
