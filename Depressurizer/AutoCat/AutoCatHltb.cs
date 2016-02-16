@@ -78,13 +78,14 @@ namespace Depressurizer {
 
         #region Construction
 
-        public AutoCatHltb(string name = TypeIdString, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null)
+        public AutoCatHltb(string name = TypeIdString, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false)
             : base( name ) {
             Filter = filter;
             Prefix = prefix;
             IncludeUnknown = includeUnknown;
             UnknownText = unknownText;
             Rules = ( rules == null ) ? new List<Hltb_Rule>() : rules;
+            Selected = selected;
         }
 
         public AutoCatHltb( AutoCatHltb other )
@@ -94,6 +95,7 @@ namespace Depressurizer {
             IncludeUnknown = other.IncludeUnknown;
             UnknownText = other.UnknownText;
             Rules = other.Rules.ConvertAll( rule => new Hltb_Rule( rule ) );
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() {

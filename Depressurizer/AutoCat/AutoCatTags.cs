@@ -55,7 +55,7 @@ public class AutoCatTags : AutoCat {
 
         public AutoCatTags( string name, string filter = null, string prefix = null,
             HashSet<string> tags = null, int maxTags = 0,
-            bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true )
+            bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true, bool selected = false)
             : base( name ) {
             this.Filter = filter;
             this.Prefix = prefix;
@@ -70,6 +70,7 @@ public class AutoCatTags : AutoCat {
             this.ListTagsPerGame = listTagsPerGame;
             this.ListScoreSort = listScoreSort;
             this.ListExcludeGenres = listExcludeGenres;
+            this.Selected = selected;
         }
 
         protected AutoCatTags( AutoCatTags other )
@@ -85,6 +86,7 @@ public class AutoCatTags : AutoCat {
             this.ListTagsPerGame = other.ListTagsPerGame;
             this.ListScoreSort = other.ListScoreSort;
             this.ListExcludeGenres = other.ListExcludeGenres;
+            this.Selected = other.Selected;
         }
 
         public override AutoCat Clone() {

@@ -62,7 +62,7 @@ namespace Depressurizer {
         /// <param name="games">Reference to the GameList to act on</param>
         /// <param name="maxCategories">Maximum number of categories to assign per game. 0 indicates no limit.</param>
         /// <param name="removeOthers">If true, removes any OTHER genre-named categories from each game processed. Will not remove categories that do not match a genre found in the database.</param>
-        public AutoCatGenre( string name, string filter = null, string prefix = null, int maxCategories = 0, bool removeOthers = false, bool tagFallback = true, List<string> ignore = null )
+        public AutoCatGenre( string name, string filter = null, string prefix = null, int maxCategories = 0, bool removeOthers = false, bool tagFallback = true, List<string> ignore = null, bool selected = false)
             : base( name ) {
             Filter = filter;
             MaxCategories = maxCategories;
@@ -70,6 +70,7 @@ namespace Depressurizer {
             TagFallback = tagFallback;
             Prefix = prefix;
             IgnoredGenres = ( ignore == null ) ? new List<string>() : ignore;
+            Selected = selected;
         }
 
         protected AutoCatGenre( AutoCatGenre other )
@@ -80,6 +81,7 @@ namespace Depressurizer {
             this.TagFallback = other.TagFallback;
             this.Prefix = other.Prefix;
             this.IgnoredGenres = new List<string>( other.IgnoredGenres );
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() {

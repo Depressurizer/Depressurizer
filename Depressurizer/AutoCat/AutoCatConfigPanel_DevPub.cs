@@ -104,6 +104,8 @@ namespace Depressurizer {
             chkAllDevelopers.Checked = ac.AllDevelopers;
             chkAllPublishers.Checked = ac.AllPublishers;
             txtPrefix.Text = ac.Prefix;
+            list_numScore.Value = ac.MinCount;
+            chkOwnedOnly.Checked = ac.OwnedOnly;
 
             lstDevelopers.BeginUpdate();
             foreach ( ListViewItem item in lstDevelopers.Items ) {
@@ -124,6 +126,8 @@ namespace Depressurizer {
             AutoCatDevPub ac = autocat as AutoCatDevPub;
             if( ac == null ) return;
             ac.Prefix = txtPrefix.Text;
+            ac.OwnedOnly = chkOwnedOnly.Checked;
+            ac.MinCount = (int)list_numScore.Value;
             ac.AllDevelopers = chkAllDevelopers.Checked;
             ac.AllPublishers = chkAllPublishers.Checked;
 

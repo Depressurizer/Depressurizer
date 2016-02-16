@@ -118,6 +118,8 @@ namespace Depressurizer {
 
         public string Filter { get; set; }
 
+        public bool Selected { get; set; }
+
         public override string ToString() {
             return Name;
         }

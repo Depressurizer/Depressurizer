@@ -37,6 +37,8 @@ namespace Depressurizer
         // Autocat configuration
         public bool RemoveAllCategories { get; set; }
         public string Prefix { get; set; }
+        public bool MaxCount { get; set; }
+        public int MinCount { get; set; }
 
         public List<string> RemoveCategories { get; set; }
         public List<string> AddCategories { get; set; }
@@ -58,7 +60,7 @@ namespace Depressurizer
         /// <summary>
         /// Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally, assigns categories from another list.
         /// </summary>
-        public AutoCatManual(string name, string filter = null, string prefix = null, bool removeAll = false, List<string> remove = null, List<string> add = null)
+        public AutoCatManual(string name, string filter = null, string prefix = null, bool removeAll = false, List<string> remove = null, List<string> add = null, bool selected = false)
             : base(name)
         {
             Filter = filter;
@@ -66,6 +68,7 @@ namespace Depressurizer
             RemoveAllCategories = removeAll;
             RemoveCategories = (remove == null) ? new List<string>() : remove;
             AddCategories = (add == null) ? new List<string>() : add;
+            Selected = selected;
         }
 
         protected AutoCatManual(AutoCatManual other)
@@ -76,6 +79,7 @@ namespace Depressurizer
             RemoveAllCategories = other.RemoveAllCategories;
             RemoveCategories = new List<string>(other.RemoveCategories);
             AddCategories = new List<string>(other.AddCategories);
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone()

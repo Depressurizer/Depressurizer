@@ -42,11 +42,12 @@ namespace Depressurizer {
             XmlName_FlagList = "Flags",
             XmlName_Flag = "Flag";
 
-        public AutoCatFlags( string name, string filter = null, string prefix = null, List<string> flags = null )
+        public AutoCatFlags( string name, string filter = null, string prefix = null, List<string> flags = null, bool selected = false)
             : base( name ) {
             Filter = filter;
             Prefix = prefix;
             IncludedFlags = ( flags == null ) ? ( new List<string>() ) : flags;
+            Selected = selected;
         }
 
         protected AutoCatFlags( AutoCatFlags other )
@@ -54,6 +55,7 @@ namespace Depressurizer {
             this.Filter = other.Filter;
             this.Prefix = other.Prefix;
             this.IncludedFlags = new List<string>( other.IncludedFlags );
+            this.Selected = other.Selected;
         }
 
         public override AutoCat Clone() {
