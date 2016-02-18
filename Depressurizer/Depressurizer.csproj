@@ -123,6 +123,12 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_DevPub.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Group.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Group.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
+    </Compile>
     <Compile Include="AutoCat\AutoCatConfigPanel_Manual.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -166,6 +172,7 @@
     <Compile Include="AutoCat\AutoCatTags.cs" />
     <Compile Include="AutoCat\AutoCatHltb.cs" />
     <Compile Include="AutoCat\AutoCatUserScore.cs" />
+    <Compile Include="AutoCat\AutoCatGroup.cs" />
     <Compile Include="AutoCat\AutoCatYear.cs" />
     <Compile Include="AutomaticModeForm.cs">
       <SubType>Form</SubType>
@@ -181,6 +188,12 @@
     </Compile>
     <Compile Include="DlgAbout.Designer.cs">
       <DependentUpon>DlgAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgAutoCatSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAutoCatSelect.Designer.cs">
+      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="DlgAutoCat.cs">
       <SubType>Form</SubType>
@@ -322,6 +335,9 @@
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_DevPub.resx">
       <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Group.resx">
+      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Manual.resx">
       <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
     </EmbeddedResource>
@@ -345,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAbout.resx">
       <DependentUpon>DlgAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCatSelect.resx">
+      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>

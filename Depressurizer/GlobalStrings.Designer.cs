@@ -63,9 +63,9 @@ namespace Depressurizer {
         /// <summary>
         ///   Looks up a localized string similar to Developers &amp; Publishers.
         /// </summary>
-        internal static string Autocat_Name_DevPub {
+        internal static string AutoCat_Name_DevPub {
             get {
-                return ResourceManager.GetString("Autocat_Name_DevPub", resourceCulture);
+                return ResourceManager.GetString("AutoCat_Name_DevPub", resourceCulture);
             }
         }
         
@@ -88,6 +88,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group of Autocats.
+        /// </summary>
+        internal static string AutoCat_Name_Group {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HLTB time.
         /// </summary>
         internal static string AutoCat_Name_Hltb {
@@ -99,9 +108,9 @@ namespace Depressurizer {
         /// <summary>
         ///   Looks up a localized string similar to Manual.
         /// </summary>
-        internal static string Autocat_Name_Manual {
+        internal static string AutoCat_Name_Manual {
             get {
-                return ResourceManager.GetString("Autocat_Name_Manual", resourceCulture);
+                return ResourceManager.GetString("AutoCat_Name_Manual", resourceCulture);
             }
         }
         
@@ -165,6 +174,15 @@ namespace Depressurizer {
         internal static string AutoCatGenrePanel_Help_TagFallback {
             get {
                 return ResourceManager.GetString("AutoCatGenrePanel_Help_TagFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autocats loaded..
+        /// </summary>
+        internal static string AutoCatGroup_AutoCatsLoaded {
+            get {
+                return ResourceManager.GetString("AutoCatGroup_AutoCatsLoaded", resourceCulture);
             }
         }
         
@@ -3374,6 +3392,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error loading AutoCats from profile..
+        /// </summary>
+        internal static string Profile_ErrorLoadingAutoCats {
+            get {
+                return ResourceManager.GetString("Profile_ErrorLoadingAutoCats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error loading profile..
         /// </summary>
         internal static string Profile_ErrorLoadingProfile {
@@ -3392,6 +3419,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to load AutoCats from profile: {0}.
+        /// </summary>
+        internal static string Profile_FailedToLoadAutoCats {
+            get {
+                return ResourceManager.GetString("Profile_FailedToLoadAutoCats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load profile: {0}.
         /// </summary>
         internal static string Profile_FailedToLoadProfile {
@@ -3406,6 +3442,15 @@ namespace Depressurizer {
         internal static string Profile_FailedToOpenProfileFile {
             get {
                 return ResourceManager.GetString("Profile_FailedToOpenProfileFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading AutoCats from file: {0}.
+        /// </summary>
+        internal static string Profile_LoadingAutoCats {
+            get {
+                return ResourceManager.GetString("Profile_LoadingAutoCats", resourceCulture);
             }
         }
         

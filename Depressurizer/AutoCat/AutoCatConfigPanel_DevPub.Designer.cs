@@ -133,6 +133,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(3, 16);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -275,6 +276,7 @@
             // 
             this.splitDevMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitDevMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitDevMain.IsSplitterFixed = true;
             this.splitDevMain.Location = new System.Drawing.Point(3, 16);
             this.splitDevMain.Name = "splitDevMain";
             this.splitDevMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -323,6 +325,7 @@
             // 
             this.splitDevRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitDevRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitDevRight.IsSplitterFixed = true;
             this.splitDevRight.Location = new System.Drawing.Point(0, 0);
             this.splitDevRight.Name = "splitDevRight";
             this.splitDevRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -480,6 +483,7 @@
             // 
             this.splitPubMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitPubMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitPubMain.IsSplitterFixed = true;
             this.splitPubMain.Location = new System.Drawing.Point(3, 16);
             this.splitPubMain.Name = "splitPubMain";
             this.splitPubMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -528,6 +532,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.IsSplitterFixed = true;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;

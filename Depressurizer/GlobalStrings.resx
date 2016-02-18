@@ -1241,7 +1241,7 @@ If unchecked, games with no times will be skipped.</value>
   <data name="Filter_SavingFilter" xml:space="preserve">
     <value>Saving filter: {0}</value>
   </data>
-  <data name="Autocat_Name_Manual" xml:space="preserve">
+  <data name="AutoCat_Name_Manual" xml:space="preserve">
     <value>Manual</value>
   </data>
   <data name="DlgAutoCat_Help_Manual_RemoveAll" xml:space="preserve">
@@ -1292,7 +1292,7 @@ If unchecked, games with no times will be skipped.</value>
   <data name="MainForm_SaveFilter" xml:space="preserve">
     <value>Save Filter</value>
   </data>
-  <data name="Autocat_Name_DevPub" xml:space="preserve">
+  <data name="AutoCat_Name_DevPub" xml:space="preserve">
     <value>Developers &amp; Publishers</value>
   </data>
   <data name="DlgAutoCat_Help_DevSelected" xml:space="preserve">
@@ -1312,5 +1312,20 @@ If unchecked, games with no times will be skipped.</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
     <value>By HowLongToBeat</value>
+  </data>
+  <data name="AutoCatGroup_AutoCatsLoaded" xml:space="preserve">
+    <value>Autocats loaded.</value>
+  </data>
+  <data name="AutoCat_Name_Group" xml:space="preserve">
+    <value>Group of Autocats</value>
+  </data>
+  <data name="Profile_ErrorLoadingAutoCats" xml:space="preserve">
+    <value>Error loading AutoCats from profile.</value>
+  </data>
+  <data name="Profile_FailedToLoadAutoCats" xml:space="preserve">
+    <value>Failed to load AutoCats from profile: {0}</value>
+  </data>
+  <data name="Profile_LoadingAutoCats" xml:space="preserve">
+    <value>Loading AutoCats from file: {0}</value>
   </data>
 </root>

@@ -1429,11 +1429,11 @@ A game must NOT be in any categories marked with an X ("Excluded").</value>
     <value>Save Filter</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
-  <data name="Autocat_Name_Manual" xml:space="preserve">
+  <data name="AutoCat_Name_Manual" xml:space="preserve">
     <value>Manual</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
-  <data name="Autocat_Name_DevPub" xml:space="preserve">
+  <data name="AutoCat_Name_DevPub" xml:space="preserve">
     <value>Developers &amp; Publishers</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
@@ -1458,6 +1458,26 @@ A game must NOT be in any categories marked with an X ("Excluded").</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
     <value>By HowLongToBeat</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="AutoCatGroup_AutoCatsLoaded" xml:space="preserve">
+    <value>Autocats loaded.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="AutoCat_Name_Group" xml:space="preserve">
+    <value>Group of Autocats</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Profile_ErrorLoadingAutoCats" xml:space="preserve">
+    <value>Error loading AutoCats from profile.</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Profile_FailedToLoadAutoCats" xml:space="preserve">
+    <value>Failed to load AutoCats from profile: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="Profile_LoadingAutoCats" xml:space="preserve">
+    <value>Loading AutoCats from file: {0}</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
 </root>

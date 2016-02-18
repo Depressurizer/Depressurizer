@@ -77,7 +77,9 @@ namespace Depressurizer {
         [Description("AutoCatManual")]
         Manual,
         [Description("AutoCatDevPub")]
-        DevPub
+        DevPub,
+        [Description("AutoCatGroup")]
+        Group
     }
 
     public enum AutoCatResult {
@@ -106,7 +108,7 @@ namespace Depressurizer {
 
         public string Name { get; set; }
 
-        public string DisplayName
+        public virtual string DisplayName
         {
             get
             {
@@ -208,6 +210,9 @@ namespace Depressurizer {
                 case AutoCatDevPub.TypeIdString:
                     result = AutoCatDevPub.LoadFromXmlElement(xElement);
                     break;
+                case AutoCatGroup.TypeIdString:
+                    result = AutoCatGroup.LoadFromXmlElement(xElement);
+                    break;
                 default:
                     break;
             }
@@ -232,6 +237,8 @@ namespace Depressurizer {
                     return new AutoCatManual(name);
                 case AutoCatType.DevPub:
                     return new AutoCatDevPub(name);
+                case AutoCatType.Group:
+                    return new AutoCatGroup(name);
                 default:
                     return null;
             }

@@ -828,7 +828,7 @@ namespace Depressurizer {
         /// </summary>
         private void EditAutoCats(AutoCat selected) {
             if( !ProfileLoaded ) return;
-            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData, selected );
+            DlgAutoCat dlg = new DlgAutoCat( currentProfile.AutoCats, currentProfile.GameData, selected, currentProfile.FilePath );
 
             DialogResult res = dlg.ShowDialog();
 
@@ -1536,7 +1536,7 @@ namespace Depressurizer {
             Cursor = Cursors.WaitCursor;
             lstGames.BeginUpdate();
             SortedSet<int> selectedIds = GetSelectedGameIds();
-
+            
             displayedGames.Clear();
             if( currentProfile != null ) {
                 foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
@@ -2523,11 +2523,33 @@ namespace Depressurizer {
                 }
                 else
                 {
-                    bool first = true;
+                    List<AutoCat> autocats = new List<AutoCat>();
                     foreach (ListViewItem item in lvAutoCatType.CheckedItems)
                     {
                         AutoCat ac = ((AutoCat)item.Tag);
-                        if (ac != null)
+                        autocats.Add(ac);
+                    }
+                    //RunAutoCats(currentProfile.AutoCats);  WILL THIS WORK?  ARE AUTOCATS SELECTED VALUES SET CORRECTLY
+                    RunAutoCats(autocats, true);
+                    FullListRefresh();
+                }
+            }
+        }
+
+        private void RunAutoCats(List<AutoCat> autocats, bool first, bool group = false)
+        {
+            foreach (AutoCat ac in autocats)
+            {
+                if (ac != null)
+                {
+                    if (ac.AutoCatType == AutoCatType.Group)
+                    {
+                        AutoCatGroup acg = (AutoCatGroup)ac;
+                        RunAutoCats(currentProfile.CloneAutoCatList(acg.Autocats, currentProfile.GameData.GetFilter(acg.Filter)), first, true);
+                    }
+                    else
+                    {
+                        if (ac.Selected || group)
                         {
                             ClearStatus();
                             Autocategorize(mchkAutoCatSelected.Checked, ac, first, false);
@@ -2535,10 +2557,11 @@ namespace Depressurizer {
                             FlushStatus();
                         }
                     }
-                    FullListRefresh();
                 }
             }
         }
+
+
 
         private void cmdGameAdd_Click( object sender, EventArgs e ) {
             ClearStatus();

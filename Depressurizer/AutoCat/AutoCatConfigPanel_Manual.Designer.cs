@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblPrefix = new System.Windows.Forms.Label();
@@ -34,8 +35,17 @@
             this.splitRemoveTop = new System.Windows.Forms.SplitContainer();
             this.clbRemoveSelected = new System.Windows.Forms.CheckedListBox();
             this.splitRemoveRight = new System.Windows.Forms.SplitContainer();
+            this.btnRemoveSelected = new System.Windows.Forms.Button();
             this.chkRemoveAll = new System.Windows.Forms.CheckBox();
             this.lstRemove = new System.Windows.Forms.ListView();
+            this.columnRemoveCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnRemoveCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextRemove = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.nameascendingRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.namedescendingRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.countascendingRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.countdescendingRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.tblIgnore = new System.Windows.Forms.TableLayoutPanel();
             this.btnRemoveUncheckAll = new System.Windows.Forms.Button();
             this.btnRemoveCheckAll = new System.Windows.Forms.Button();
@@ -43,7 +53,17 @@
             this.splitAddMain = new System.Windows.Forms.SplitContainer();
             this.splitAddTop = new System.Windows.Forms.SplitContainer();
             this.clbAddSelected = new System.Windows.Forms.CheckedListBox();
+            this.splitAddRight = new System.Windows.Forms.SplitContainer();
+            this.btnAddSelected = new System.Windows.Forms.Button();
             this.lstAdd = new System.Windows.Forms.ListView();
+            this.columnAddCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnAddCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextAdd = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nameascendingAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.namedescendingAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.countascendingAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.countdescendingAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddCheckAll = new System.Windows.Forms.Button();
             this.btnAddUncheckAll = new System.Windows.Forms.Button();
@@ -70,6 +90,7 @@
             this.splitRemoveRight.Panel1.SuspendLayout();
             this.splitRemoveRight.Panel2.SuspendLayout();
             this.splitRemoveRight.SuspendLayout();
+            this.contextRemove.SuspendLayout();
             this.tblIgnore.SuspendLayout();
             this.groupAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitAddMain)).BeginInit();
@@ -80,6 +101,11 @@
             this.splitAddTop.Panel1.SuspendLayout();
             this.splitAddTop.Panel2.SuspendLayout();
             this.splitAddTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitAddRight)).BeginInit();
+            this.splitAddRight.Panel1.SuspendLayout();
+            this.splitAddRight.Panel2.SuspendLayout();
+            this.splitAddRight.SuspendLayout();
+            this.contextAdd.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,6 +124,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(3, 16);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -167,12 +194,13 @@
             this.groupRemove.Size = new System.Drawing.Size(291, 354);
             this.groupRemove.TabIndex = 14;
             this.groupRemove.TabStop = false;
-            this.groupRemove.Text = "Remove";
+            this.groupRemove.Text = "Remove (right-click to Sort)";
             // 
             // splitRemoveMain
             // 
             this.splitRemoveMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitRemoveMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitRemoveMain.IsSplitterFixed = true;
             this.splitRemoveMain.Location = new System.Drawing.Point(3, 16);
             this.splitRemoveMain.Name = "splitRemoveMain";
             this.splitRemoveMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -197,6 +225,7 @@
             // splitRemoveTop.Panel1
             // 
             this.splitRemoveTop.Panel1.Controls.Add(this.clbRemoveSelected);
+            this.splitRemoveTop.Panel1Collapsed = true;
             // 
             // splitRemoveTop.Panel2
             // 
@@ -212,7 +241,7 @@
             this.clbRemoveSelected.Location = new System.Drawing.Point(0, 0);
             this.clbRemoveSelected.MultiColumn = true;
             this.clbRemoveSelected.Name = "clbRemoveSelected";
-            this.clbRemoveSelected.Size = new System.Drawing.Size(95, 301);
+            this.clbRemoveSelected.Size = new System.Drawing.Size(95, 100);
             this.clbRemoveSelected.TabIndex = 13;
             this.clbRemoveSelected.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbRemoveSelected_ItemCheck);
             // 
@@ -220,26 +249,38 @@
             // 
             this.splitRemoveRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitRemoveRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitRemoveRight.IsSplitterFixed = true;
             this.splitRemoveRight.Location = new System.Drawing.Point(0, 0);
             this.splitRemoveRight.Name = "splitRemoveRight";
             this.splitRemoveRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitRemoveRight.Panel1
             // 
+            this.splitRemoveRight.Panel1.Controls.Add(this.btnRemoveSelected);
             this.splitRemoveRight.Panel1.Controls.Add(this.chkRemoveAll);
             // 
             // splitRemoveRight.Panel2
             // 
             this.splitRemoveRight.Panel2.Controls.Add(this.lstRemove);
-            this.splitRemoveRight.Size = new System.Drawing.Size(186, 301);
+            this.splitRemoveRight.Size = new System.Drawing.Size(285, 301);
             this.splitRemoveRight.SplitterDistance = 25;
             this.splitRemoveRight.TabIndex = 0;
+            // 
+            // btnRemoveSelected
+            // 
+            this.btnRemoveSelected.Location = new System.Drawing.Point(0, 0);
+            this.btnRemoveSelected.Name = "btnRemoveSelected";
+            this.btnRemoveSelected.Size = new System.Drawing.Size(23, 23);
+            this.btnRemoveSelected.TabIndex = 8;
+            this.btnRemoveSelected.Text = ">";
+            this.btnRemoveSelected.UseVisualStyleBackColor = true;
+            this.btnRemoveSelected.Click += new System.EventHandler(this.btnRemoveSelected_Click);
             // 
             // chkRemoveAll
             // 
             this.chkRemoveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkRemoveAll.AutoSize = true;
-            this.chkRemoveAll.Location = new System.Drawing.Point(104, 3);
+            this.chkRemoveAll.Location = new System.Drawing.Point(203, 3);
             this.chkRemoveAll.Name = "chkRemoveAll";
             this.chkRemoveAll.Size = new System.Drawing.Size(79, 17);
             this.chkRemoveAll.TabIndex = 5;
@@ -250,14 +291,65 @@
             // lstRemove
             // 
             this.lstRemove.CheckBoxes = true;
+            this.lstRemove.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnRemoveCategory,
+            this.columnRemoveCount});
+            this.lstRemove.ContextMenuStrip = this.contextRemove;
             this.lstRemove.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstRemove.Location = new System.Drawing.Point(0, 0);
             this.lstRemove.Name = "lstRemove";
-            this.lstRemove.Size = new System.Drawing.Size(186, 272);
+            this.lstRemove.Size = new System.Drawing.Size(285, 272);
             this.lstRemove.TabIndex = 10;
             this.lstRemove.UseCompatibleStateImageBehavior = false;
             this.lstRemove.View = System.Windows.Forms.View.List;
             this.lstRemove.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstRemove_ItemChecked);
+            // 
+            // contextRemove
+            // 
+            this.contextRemove.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextRemove.Name = "contextCat";
+            this.contextRemove.ShowImageMargin = false;
+            this.contextRemove.Size = new System.Drawing.Size(71, 26);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nameascendingRemove,
+            this.namedescendingRemove,
+            this.countascendingRemove,
+            this.countdescendingRemove});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(70, 22);
+            this.toolStripMenuItem1.Text = "Sort";
+            // 
+            // nameascendingRemove
+            // 
+            this.nameascendingRemove.Name = "nameascendingRemove";
+            this.nameascendingRemove.Size = new System.Drawing.Size(179, 22);
+            this.nameascendingRemove.Text = "Name (ascending)";
+            this.nameascendingRemove.Click += new System.EventHandler(this.nameascendingRemove_Click);
+            // 
+            // namedescendingRemove
+            // 
+            this.namedescendingRemove.Name = "namedescendingRemove";
+            this.namedescendingRemove.Size = new System.Drawing.Size(179, 22);
+            this.namedescendingRemove.Text = "Name (descending)";
+            this.namedescendingRemove.Click += new System.EventHandler(this.namedescendingRemove_Click);
+            // 
+            // countascendingRemove
+            // 
+            this.countascendingRemove.Name = "countascendingRemove";
+            this.countascendingRemove.Size = new System.Drawing.Size(179, 22);
+            this.countascendingRemove.Text = "Count (ascending)";
+            this.countascendingRemove.Click += new System.EventHandler(this.countascendingRemove_Click);
+            // 
+            // countdescendingRemove
+            // 
+            this.countdescendingRemove.Name = "countdescendingRemove";
+            this.countdescendingRemove.Size = new System.Drawing.Size(179, 22);
+            this.countdescendingRemove.Text = "Count (descending)";
+            this.countdescendingRemove.Click += new System.EventHandler(this.countdescendingRemove_Click);
             // 
             // tblIgnore
             // 
@@ -308,12 +400,13 @@
             this.groupAdd.Size = new System.Drawing.Size(309, 354);
             this.groupAdd.TabIndex = 16;
             this.groupAdd.TabStop = false;
-            this.groupAdd.Text = "Add";
+            this.groupAdd.Text = "Add (right-click to Sort)";
             // 
             // splitAddMain
             // 
             this.splitAddMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitAddMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitAddMain.IsSplitterFixed = true;
             this.splitAddMain.Location = new System.Drawing.Point(3, 16);
             this.splitAddMain.Name = "splitAddMain";
             this.splitAddMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -338,10 +431,11 @@
             // splitAddTop.Panel1
             // 
             this.splitAddTop.Panel1.Controls.Add(this.clbAddSelected);
+            this.splitAddTop.Panel1Collapsed = true;
             // 
             // splitAddTop.Panel2
             // 
-            this.splitAddTop.Panel2.Controls.Add(this.lstAdd);
+            this.splitAddTop.Panel2.Controls.Add(this.splitAddRight);
             this.splitAddTop.Size = new System.Drawing.Size(303, 301);
             this.splitAddTop.SplitterDistance = 101;
             this.splitAddTop.TabIndex = 0;
@@ -353,21 +447,102 @@
             this.clbAddSelected.Location = new System.Drawing.Point(0, 0);
             this.clbAddSelected.MultiColumn = true;
             this.clbAddSelected.Name = "clbAddSelected";
-            this.clbAddSelected.Size = new System.Drawing.Size(101, 301);
+            this.clbAddSelected.Size = new System.Drawing.Size(101, 100);
             this.clbAddSelected.TabIndex = 15;
             this.clbAddSelected.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbAddSelected_ItemCheck);
+            // 
+            // splitAddRight
+            // 
+            this.splitAddRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitAddRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitAddRight.IsSplitterFixed = true;
+            this.splitAddRight.Location = new System.Drawing.Point(0, 0);
+            this.splitAddRight.Name = "splitAddRight";
+            this.splitAddRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitAddRight.Panel1
+            // 
+            this.splitAddRight.Panel1.Controls.Add(this.btnAddSelected);
+            // 
+            // splitAddRight.Panel2
+            // 
+            this.splitAddRight.Panel2.Controls.Add(this.lstAdd);
+            this.splitAddRight.Size = new System.Drawing.Size(303, 301);
+            this.splitAddRight.SplitterDistance = 25;
+            this.splitAddRight.TabIndex = 14;
+            // 
+            // btnAddSelected
+            // 
+            this.btnAddSelected.Location = new System.Drawing.Point(0, 0);
+            this.btnAddSelected.Name = "btnAddSelected";
+            this.btnAddSelected.Size = new System.Drawing.Size(23, 23);
+            this.btnAddSelected.TabIndex = 8;
+            this.btnAddSelected.Text = ">";
+            this.btnAddSelected.UseVisualStyleBackColor = true;
+            this.btnAddSelected.Click += new System.EventHandler(this.btnAddSelected_Click);
             // 
             // lstAdd
             // 
             this.lstAdd.CheckBoxes = true;
+            this.lstAdd.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnAddCategory,
+            this.columnAddCount});
+            this.lstAdd.ContextMenuStrip = this.contextAdd;
             this.lstAdd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstAdd.Location = new System.Drawing.Point(0, 0);
             this.lstAdd.Name = "lstAdd";
-            this.lstAdd.Size = new System.Drawing.Size(198, 301);
+            this.lstAdd.Size = new System.Drawing.Size(303, 272);
             this.lstAdd.TabIndex = 13;
             this.lstAdd.UseCompatibleStateImageBehavior = false;
             this.lstAdd.View = System.Windows.Forms.View.List;
             this.lstAdd.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstAdd_ItemChecked);
+            // 
+            // contextAdd
+            // 
+            this.contextAdd.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortToolStripMenuItem});
+            this.contextAdd.Name = "contextCat";
+            this.contextAdd.ShowImageMargin = false;
+            this.contextAdd.Size = new System.Drawing.Size(71, 26);
+            // 
+            // sortToolStripMenuItem
+            // 
+            this.sortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nameascendingAdd,
+            this.namedescendingAdd,
+            this.countascendingAdd,
+            this.countdescendingAdd});
+            this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+            this.sortToolStripMenuItem.Size = new System.Drawing.Size(70, 22);
+            this.sortToolStripMenuItem.Text = "Sort";
+            // 
+            // nameascendingAdd
+            // 
+            this.nameascendingAdd.Name = "nameascendingAdd";
+            this.nameascendingAdd.Size = new System.Drawing.Size(179, 22);
+            this.nameascendingAdd.Text = "Name (ascending)";
+            this.nameascendingAdd.Click += new System.EventHandler(this.nameascendingAdd_Click);
+            // 
+            // namedescendingAdd
+            // 
+            this.namedescendingAdd.Name = "namedescendingAdd";
+            this.namedescendingAdd.Size = new System.Drawing.Size(179, 22);
+            this.namedescendingAdd.Text = "Name (descending)";
+            this.namedescendingAdd.Click += new System.EventHandler(this.namedescendingAdd_Click);
+            // 
+            // countascendingAdd
+            // 
+            this.countascendingAdd.Name = "countascendingAdd";
+            this.countascendingAdd.Size = new System.Drawing.Size(179, 22);
+            this.countascendingAdd.Text = "Count (ascending)";
+            this.countascendingAdd.Click += new System.EventHandler(this.countascendingAdd_Click);
+            // 
+            // countdescendingAdd
+            // 
+            this.countdescendingAdd.Name = "countdescendingAdd";
+            this.countdescendingAdd.Size = new System.Drawing.Size(179, 22);
+            this.countdescendingAdd.Text = "Count (descending)";
+            this.countdescendingAdd.Click += new System.EventHandler(this.countdescendingAdd_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -440,6 +615,7 @@
             this.splitRemoveRight.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitRemoveRight)).EndInit();
             this.splitRemoveRight.ResumeLayout(false);
+            this.contextRemove.ResumeLayout(false);
             this.tblIgnore.ResumeLayout(false);
             this.groupAdd.ResumeLayout(false);
             this.splitAddMain.Panel1.ResumeLayout(false);
@@ -450,6 +626,11 @@
             this.splitAddTop.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitAddTop)).EndInit();
             this.splitAddTop.ResumeLayout(false);
+            this.splitAddRight.Panel1.ResumeLayout(false);
+            this.splitAddRight.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitAddRight)).EndInit();
+            this.splitAddRight.ResumeLayout(false);
+            this.contextAdd.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -482,5 +663,24 @@
         private System.Windows.Forms.GroupBox groupAdd;
         private System.Windows.Forms.SplitContainer splitAddMain;
         private System.Windows.Forms.SplitContainer splitAddTop;
+        private System.Windows.Forms.SplitContainer splitAddRight;
+        private System.Windows.Forms.Button btnRemoveSelected;
+        private System.Windows.Forms.Button btnAddSelected;
+        private System.Windows.Forms.ColumnHeader columnRemoveCategory;
+        private System.Windows.Forms.ColumnHeader columnRemoveCount;
+        private System.Windows.Forms.ColumnHeader columnAddCategory;
+        private System.Windows.Forms.ColumnHeader columnAddCount;
+        private System.Windows.Forms.ContextMenuStrip contextRemove;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem nameascendingRemove;
+        private System.Windows.Forms.ToolStripMenuItem namedescendingRemove;
+        private System.Windows.Forms.ToolStripMenuItem countascendingRemove;
+        private System.Windows.Forms.ToolStripMenuItem countdescendingRemove;
+        private System.Windows.Forms.ContextMenuStrip contextAdd;
+        private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nameascendingAdd;
+        private System.Windows.Forms.ToolStripMenuItem namedescendingAdd;
+        private System.Windows.Forms.ToolStripMenuItem countascendingAdd;
+        private System.Windows.Forms.ToolStripMenuItem countdescendingAdd;
     }
 }

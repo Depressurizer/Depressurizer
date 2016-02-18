@@ -466,5 +466,39 @@ namespace Depressurizer {
             return null;
         }
 
+        // find and return AutoCat using the name
+        public AutoCat GetAutoCat(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return null;
+
+            foreach (AutoCat ac in AutoCats)
+            {
+                if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase)) return ac;
+            }
+
+            return null;
+        }
+
+        // using a list of AutoCat names (strings), return a cloned list of AutoCats replacing the filter with a new one if a new filter is provided.
+        // This is used to help process AutoCatGroup.
+        public List<AutoCat> CloneAutoCatList(List<string> acList, Filter filter)
+        {
+            List<AutoCat> newList = new List<AutoCat>();
+            foreach (string s in acList)
+            {
+                // find the AutoCat based on name
+                AutoCat ac = GetAutoCat(s);
+                if (ac != null)
+                {
+                    // add a cloned copy of the Autocat and replace the filter if one is provided.
+                    // a cloned copy is used so that the selected property can be assigned without effecting lvAutoCatType on the Main form.
+                    AutoCat clone = ac.Clone();
+                    if (filter != null) clone.Filter = filter.Name;
+                    newList.Add(clone);
+                }
+            }
+            return newList;
+        }
+
     }
 }
