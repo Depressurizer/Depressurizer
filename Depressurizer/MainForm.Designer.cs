@@ -970,6 +970,7 @@ namespace Depressurizer {
             this.contextGameFav_No});
             this.contextGameFav.Name = "contextGameFav";
             this.contextGameFav.OwnerItem = this.contextGame_SetFav;
+            this.contextGameFav.ShowCheckMargin = true;
             this.contextGameFav.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameFav, "contextGameFav");
             // 
@@ -998,6 +999,7 @@ namespace Depressurizer {
             this.contextGameHidden_No});
             this.contextGameHidden.Name = "contextGameFav";
             this.contextGameHidden.OwnerItem = this.contextGame_SetHidden;
+            this.contextGameHidden.ShowCheckMargin = true;
             this.contextGameHidden.ShowImageMargin = false;
             resources.ApplyResources(this.contextGameHidden, "contextGameHidden");
             // 

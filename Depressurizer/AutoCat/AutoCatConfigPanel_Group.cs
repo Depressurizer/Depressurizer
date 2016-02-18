@@ -55,12 +55,12 @@ namespace Depressurizer {
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            MoveItem(-1);
+            Utility.MoveItem(lbAutocats, -1);
         }
 
         private void btnDown_Click(object sender, EventArgs e)
         {
-            MoveItem(1);
+            Utility.MoveItem(lbAutocats, 1);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -132,29 +132,6 @@ namespace Depressurizer {
                     lbAutocats.Items.Add(name);
                 }
             }
-        }
-
-        public void MoveItem(int direction)
-        {
-            // Checking selected item
-            if (lbAutocats.SelectedItem == null || lbAutocats.SelectedIndex < 0 || lbAutocats.SelectedItems.Count > 1)
-                return; // No selected item or more than one item selected - nothing to do
-
-            // Calculate new index using move direction
-            int newIndex = lbAutocats.SelectedIndex + direction;
-
-            // Checking bounds of the range
-            if (newIndex < 0 || newIndex >= lbAutocats.Items.Count)
-                return; // Index out of range - nothing to do
-
-            object selected = lbAutocats.SelectedItem;
-
-            // Removing removable element
-            lbAutocats.Items.Remove(selected);
-            // Insert it in new position
-            lbAutocats.Items.Insert(newIndex, selected);
-            // Restore selection
-            lbAutocats.SetSelected(newIndex, true);
         }
 
         #endregion

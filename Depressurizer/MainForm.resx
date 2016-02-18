@@ -1246,19 +1246,19 @@
     <value>358, 17</value>
   </metadata>
   <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 22</value>
+    <value>91, 22</value>
   </data>
   <data name="contextGameFav_Yes.Text" xml:space="preserve">
     <value>Yes</value>
   </data>
   <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 22</value>
+    <value>91, 22</value>
   </data>
   <data name="contextGameFav_No.Text" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 48</value>
+    <value>92, 48</value>
   </data>
   <data name="&gt;&gt;contextGameFav.Name" xml:space="preserve">
     <value>contextGameFav</value>
@@ -1276,19 +1276,19 @@
     <value>217, 56</value>
   </metadata>
   <data name="contextGameHidden_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 22</value>
+    <value>91, 22</value>
   </data>
   <data name="contextGameHidden_Yes.Text" xml:space="preserve">
     <value>Yes</value>
   </data>
   <data name="contextGameHidden_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 22</value>
+    <value>91, 22</value>
   </data>
   <data name="contextGameHidden_No.Text" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="contextGameHidden.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 48</value>
+    <value>92, 48</value>
   </data>
   <data name="&gt;&gt;contextGameHidden.Name" xml:space="preserve">
     <value>contextGameHidden</value>
@@ -1373,7 +1373,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAASgBCwEoAQsBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAXABCwFwAQsBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1659,7 +1659,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAZgBCQGYAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAeABCQHgAQkBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA

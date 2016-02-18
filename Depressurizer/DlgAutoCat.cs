@@ -203,6 +203,29 @@ namespace Depressurizer {
             current = lstAutoCats.SelectedItem as AutoCat;
             RecreateConfigPanel();
             FillConfigPanel();
+
+            if (lstAutoCats.SelectedItem != null)
+            {
+                btnUp.Enabled = (lstAutoCats.SelectedIndex == 0) ? false : true;
+                btnDown.Enabled = (lstAutoCats.SelectedIndex == (lstAutoCats.Items.Count - 1)) ? false : true;
+            }
+            else
+            {
+                btnUp.Enabled = false;
+                btnDown.Enabled = false;
+            }
+        }
+
+        private void btnUp_Click(object sender, EventArgs e)
+        {
+            Utility.MoveItem(lstAutoCats, -1);
+            RepositionAutoCats();
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            Utility.MoveItem(lstAutoCats, 1);
+            RepositionAutoCats();
         }
 
         private void cmdSave_Click( object sender, EventArgs e ) {
@@ -247,14 +270,25 @@ namespace Depressurizer {
         #endregion
 
         #region Utility
+
+        private void RepositionAutoCats()
+        {
+            AutoCatList.Clear();
+            foreach (AutoCat ac in lstAutoCats.Items)
+            {
+                AutoCatList.Add(ac);
+            }
+        }
+
+
         private bool NameExists( string name ) {
             foreach( AutoCat ac in AutoCatList ) {
                 if( ac.Name == name ) return true;
             }
             return false;
         }
-        #endregion
 
+        #endregion
 
     }
 }
