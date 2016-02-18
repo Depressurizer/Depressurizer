@@ -32,8 +32,10 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.splitAutoCat = new System.Windows.Forms.SplitContainer();
-            this.cboFilter = new System.Windows.Forms.ComboBox();
             this.chkFilter = new System.Windows.Forms.CheckBox();
+            this.cboFilter = new System.Windows.Forms.ComboBox();
+            this.btnUp = new System.Windows.Forms.Button();
+            this.btnDown = new System.Windows.Forms.Button();
             this.grpList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -54,7 +56,7 @@
             this.lstAutoCats.IntegralHeight = false;
             this.lstAutoCats.Location = new System.Drawing.Point(6, 19);
             this.lstAutoCats.Name = "lstAutoCats";
-            this.lstAutoCats.Size = new System.Drawing.Size(171, 235);
+            this.lstAutoCats.Size = new System.Drawing.Size(153, 235);
             this.lstAutoCats.TabIndex = 0;
             this.lstAutoCats.SelectedIndexChanged += new System.EventHandler(this.lstAutoCats_SelectedIndexChanged);
             // 
@@ -96,6 +98,8 @@
             // 
             // grpList
             // 
+            this.grpList.Controls.Add(this.btnUp);
+            this.grpList.Controls.Add(this.btnDown);
             this.grpList.Controls.Add(this.cmdCreate);
             this.grpList.Controls.Add(this.lstAutoCats);
             this.grpList.Controls.Add(this.cmdRename);
@@ -167,6 +171,17 @@
             this.splitAutoCat.SplitterDistance = 26;
             this.splitAutoCat.TabIndex = 0;
             // 
+            // chkFilter
+            // 
+            this.chkFilter.AutoSize = true;
+            this.chkFilter.Location = new System.Drawing.Point(3, 5);
+            this.chkFilter.Name = "chkFilter";
+            this.chkFilter.Size = new System.Drawing.Size(48, 17);
+            this.chkFilter.TabIndex = 1;
+            this.chkFilter.Text = "Filter";
+            this.chkFilter.UseVisualStyleBackColor = true;
+            this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
+            // 
             // cboFilter
             // 
             this.cboFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -178,16 +193,27 @@
             this.cboFilter.Size = new System.Drawing.Size(338, 21);
             this.cboFilter.TabIndex = 0;
             // 
-            // chkFilter
+            // btnUp
             // 
-            this.chkFilter.AutoSize = true;
-            this.chkFilter.Location = new System.Drawing.Point(3, 5);
-            this.chkFilter.Name = "chkFilter";
-            this.chkFilter.Size = new System.Drawing.Size(48, 17);
-            this.chkFilter.TabIndex = 1;
-            this.chkFilter.Text = "Filter";
-            this.chkFilter.UseVisualStyleBackColor = true;
-            this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
+            this.btnUp.Enabled = false;
+            this.btnUp.Location = new System.Drawing.Point(160, 19);
+            this.btnUp.Name = "btnUp";
+            this.btnUp.Size = new System.Drawing.Size(21, 23);
+            this.btnUp.TabIndex = 15;
+            this.btnUp.Text = "+";
+            this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
+            // 
+            // btnDown
+            // 
+            this.btnDown.Enabled = false;
+            this.btnDown.Location = new System.Drawing.Point(160, 48);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(21, 23);
+            this.btnDown.TabIndex = 16;
+            this.btnDown.Text = "-";
+            this.btnDown.UseVisualStyleBackColor = true;
+            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // DlgAutoCat
             // 
@@ -230,5 +256,7 @@
         private System.Windows.Forms.SplitContainer splitAutoCat;
         private System.Windows.Forms.CheckBox chkFilter;
         private System.Windows.Forms.ComboBox cboFilter;
+        private System.Windows.Forms.Button btnUp;
+        private System.Windows.Forms.Button btnDown;
     }
 }

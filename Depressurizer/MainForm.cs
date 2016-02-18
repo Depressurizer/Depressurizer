@@ -2802,20 +2802,20 @@ namespace Depressurizer {
 
         private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            contextGameFav_Yes.Text = GlobalStrings.MainForm_Yes;
-            contextGameFav_No.Text = GlobalStrings.MainForm_No;
-            contextGameHidden_Yes.Text = GlobalStrings.MainForm_Yes;
-            contextGameHidden_No.Text = GlobalStrings.MainForm_No;
+            contextGameFav_Yes.Checked = false;
+            contextGameFav_No.Checked = false;
+            contextGameHidden_Yes.Checked = false;
+            contextGameHidden_No.Checked = false;
 
             if (lstGames.SelectedObjects.Count > 0)
             {
                 GameInfo g = tlstGames.SelectedObjects[0];
 
-                if ((tlstGames.SelectedObjects.Count == 1) && g.IsFavorite()) contextGameFav_Yes.Text += "*";
-                else if (tlstGames.SelectedObjects.Count == 1) contextGameFav_No.Text += "*";
+                if ((tlstGames.SelectedObjects.Count == 1) && g.IsFavorite()) contextGameFav_Yes.Checked = true;
+                else if (tlstGames.SelectedObjects.Count == 1) contextGameFav_No.Checked = true;
 
-                if ((tlstGames.SelectedObjects.Count == 1) && g.Hidden) contextGameHidden_Yes.Text += "*";
-                else if (tlstGames.SelectedObjects.Count == 1) contextGameHidden_No.Text += "*";
+                if ((tlstGames.SelectedObjects.Count == 1) && g.Hidden) contextGameHidden_Yes.Checked = true;
+                else if (tlstGames.SelectedObjects.Count == 1) contextGameHidden_No.Checked = true;
 
                 if (webBrowser1.Visible)
                 {

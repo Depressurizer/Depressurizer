@@ -381,6 +381,10 @@
             this.lstDevelopers.View = System.Windows.Forms.View.List;
             this.lstDevelopers.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstDevelopers_ItemChecked);
             // 
+            // columnDeveloper
+            // 
+            this.columnDeveloper.Width = -1;
+            // 
             // contextDev
             // 
             this.contextDev.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -586,6 +590,10 @@
             this.lstPublishers.UseCompatibleStateImageBehavior = false;
             this.lstPublishers.View = System.Windows.Forms.View.List;
             this.lstPublishers.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lstPublishers_ItemChecked);
+            // 
+            // columnPublisher
+            // 
+            this.columnPublisher.Width = -1;
             // 
             // contextPub
             // 

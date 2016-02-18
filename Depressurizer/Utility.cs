@@ -228,6 +228,29 @@ namespace Depressurizer {
                 return value.ToString();
         }
 
+        public static void MoveItem(ListBox lb, int direction)
+        {
+            // Checking selected item
+            if (lb.SelectedItem == null || lb.SelectedIndex < 0 || lb.SelectedItems.Count > 1)
+                return; // No selected item or more than one item selected - nothing to do
+
+            // Calculate new index using move direction
+            int newIndex = lb.SelectedIndex + direction;
+
+            // Checking bounds of the range
+            if (newIndex < 0 || newIndex >= lb.Items.Count)
+                return; // Index out of range - nothing to do
+
+            object selected = lb.SelectedItem;
+
+            // Removing removable element
+            lb.Items.Remove(selected);
+            // Insert it in new position
+            lb.Items.Insert(newIndex, selected);
+            // Restore selection
+            lb.SetSelected(newIndex, true);
+        }
+
         #endregion
 
         #region Steam-specific
@@ -239,5 +262,9 @@ namespace Depressurizer {
             System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStoreApp, appId ) );
         }
         #endregion
+
+
     }
+
+
 }

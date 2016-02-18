@@ -40,9 +40,6 @@ namespace Depressurizer {
             ttHelp.Ext_SetToolTip(btnDevSelected, GlobalStrings.DlgAutoCat_Help_DevSelected);
             ttHelp.Ext_SetToolTip(btnPubSelected, GlobalStrings.DlgAutoCat_Help_PubSelected);
 
-            FillDevList();
-            FillPubList();
-
             clbDevelopersSelected.DisplayMember = "text";
             clbPublishersSelected.DisplayMember = "text";
 
@@ -64,6 +61,9 @@ namespace Depressurizer {
             list_numScore.Value = ac.MinCount;
             chkOwnedOnly.Checked = ac.OwnedOnly;
 
+            FillDevList();
+            FillPubList();
+
             lstDevelopers.BeginUpdate();
             foreach (ListViewItem item in lstDevelopers.Items)
             {
@@ -77,8 +77,6 @@ namespace Depressurizer {
                 item.Checked = ac.Publishers.Contains(item.Text);
             }
             lstPublishers.EndUpdate();
-
-            cmdListRebuild_Click(null, null);
 
             loaded = true;
         }
@@ -120,6 +118,7 @@ namespace Depressurizer {
         {
             if (Program.GameDB != null)
             {
+                Cursor = Cursors.WaitCursor;
                 IEnumerable<Tuple<string, int>> devList = Program.GameDB.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int)list_numScore.Value);
                 clbDevelopersSelected.Items.Clear();
                 lstDevelopers.BeginUpdate();
@@ -136,6 +135,7 @@ namespace Depressurizer {
                 SortDevelopers(1, SortOrder.Descending);
                 lstDevelopers.EndUpdate();
                 chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count.ToString() + ")";
+                Cursor = Cursors.Default;
             }
         }
 
@@ -143,7 +143,8 @@ namespace Depressurizer {
         {
             if (Program.GameDB != null)
             {
-                IEnumerable<Tuple<string, int>> pubList = Program.GameDB.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int)list_numScore.Value);
+                Cursor = Cursors.WaitCursor;
+                IEnumerable<Tuple<string, int>> pubList = Program.GameDB.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int)list_numScore.Value);
                 clbPublishersSelected.Items.Clear();
                 lstPublishers.BeginUpdate();
                 lstPublishers.Items.Clear();
@@ -159,6 +160,7 @@ namespace Depressurizer {
                 SortPublishers(1, SortOrder.Descending);
                 lstPublishers.EndUpdate();
                 chkAllPublishers.Text = "All (" + lstPublishers.Items.Count.ToString() + ")";
+                Cursor = Cursors.Default;
             }
         }
 
