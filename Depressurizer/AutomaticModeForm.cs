@@ -483,21 +483,7 @@ namespace Depressurizer {
                         }
                     }
                 }
-
-                foreach( AutoCat ac in acList ) {
-                    Write( "Running autocat '" + ac.Name + "'..." );
-                    ac.PreProcess( p.GameData, Program.GameDB );
-
-
-                    foreach( GameInfo g in p.GameData.Games.Values ) {
-                        if( g.Id > 0 ) {
-                            ac.CategorizeGame( g, p.GameData.GetFilter(ac.Filter) );
-                        }
-                    }
-
-                    ac.DeProcess();
-                    WriteLine( "Complete." );
-                }
+                RunAutoCats(p, acList);
                 success = true;
             } catch( Exception e ) {
                 WriteLine( "Error autocategorizing games: " + e.Message );
@@ -505,6 +491,33 @@ namespace Depressurizer {
             }
             if( success ) WriteLine( "Autocategorization complete." );
             return success;
+        }
+
+        private void RunAutoCats(Profile p, List<AutoCat> autocats)
+        {
+            foreach (AutoCat ac in autocats)
+            {
+                Write("Running autocat '" + ac.Name + "'...");
+                ac.PreProcess(p.GameData, Program.GameDB);
+
+                if (ac.AutoCatType == AutoCatType.Group)
+                {
+                    AutoCatGroup acg = (AutoCatGroup)ac;
+                    RunAutoCats(p, p.CloneAutoCatList(acg.Autocats, p.GameData.GetFilter(acg.Filter)));
+                }
+                else
+                {
+                    foreach (GameInfo g in p.GameData.Games.Values)
+                    {
+                        if (g.Id > 0)
+                        {
+                            ac.CategorizeGame(g, p.GameData.GetFilter(ac.Filter));
+                        }
+                    }
+                }
+                ac.DeProcess();
+                WriteLine(ac.Name + " complete.");
+            }
         }
 
         private bool SaveProfile( Profile p, bool doSave ) {

@@ -26,15 +26,18 @@ namespace Depressurizer {
         public List<AutoCat> AutoCatList;
         //public List<Filter> FilterList;
         private GameList ownedGames;
-        AutoCat current;
-        AutoCat initial;
+        private AutoCat current;
+        private AutoCat initial;
+        private string profilePath;
 
         AutoCatConfigPanel currentConfigPanel = null;
 
-        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames, AutoCat selected ) {
+        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames, AutoCat selected, string profile ) {
             InitializeComponent();
 
             AutoCatList = new List<AutoCat>();
+
+            profilePath = profile;
 
             foreach (AutoCat c in autoCats) {
                 AutoCat clone = c.Clone();
@@ -48,7 +51,7 @@ namespace Depressurizer {
             this.ownedGames = ownedGames;
         }
 
-        #region UI Uptaters
+        #region UI Updaters
 
         private void FillAutocatList() {
             lstAutoCats.Items.Clear();
@@ -64,7 +67,7 @@ namespace Depressurizer {
             }
 
             if( current != null ) {
-                currentConfigPanel = AutoCatConfigPanel.CreatePanel( current, ownedGames );
+                currentConfigPanel = AutoCatConfigPanel.CreatePanel( current, ownedGames, AutoCatList );
             }
    
             if( currentConfigPanel != null ) {
@@ -101,8 +104,9 @@ namespace Depressurizer {
 
         #region Data modifiers
         private void SaveToAutoCat() {
-            if( current != null && currentConfigPanel != null ) {
-                currentConfigPanel.SaveToAutoCat( current );
+            if( current != null && currentConfigPanel != null )
+            {
+                currentConfigPanel.SaveToAutoCat(current);
                 if (chkFilter.Checked && cboFilter.Text != string.Empty) current.Filter = cboFilter.Text;
                 else current.Filter = null;
             }
