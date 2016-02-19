@@ -3288,7 +3288,6 @@ namespace Depressurizer {
         private List<ListViewItem> RemoveSpecials()
         {
             List<ListViewItem> specials = new List<ListViewItem>();
-            List<int> specialsIndex = new List<int>();
 
             foreach (ListViewItem l in lstCategories.Items)
             {
