@@ -3,7 +3,7 @@ for v0.7.0.0
 
 ----
 
-![Filtered Games](/Screenshots/Screenshot2.jpg)
+![Filtered Games](https://raw.githubusercontent.com/EnemyWithin/depressurizer/master/Screenshots/Screenshot2.JPG)
 
 
 ### Summary
