@@ -3,6 +3,12 @@ for v0.7.0.0
 
 ----
 
+![Main Screen](/Screenshots/Screenshot.jpg?raw=true "Main Screen")
+
+
+![Filtered Games](/Screenshots/Screenshot2.jpg?raw=true "Filtered Games")
+
+
 ### Summary
 
 Depressurizer is a program aimed at making it a bit easier to manage large Steam game libraries.  It supports manual entry of games from other platforms, so you can categorize, filter and launch all of your (Steam, Origin, uPlay, GOG, etc) games from one location.
