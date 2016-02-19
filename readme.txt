@@ -1,17 +1,23 @@
 Depressurizer
-for v0.6.4.0
+for v0.7.0.0
 
 SUMMARY
 
 	Depressurizer is a program aimed at making it a bit easier to manage large
-	Steam game libraries.
+	Steam game libraries.  It supports manual entry of games from other platforms,
+	so you can categorize, filter and launch all of your (Steam, Origin, uPlay,
+	GOG, etc) games from one location.
 
 	In addition to providing a way to quickly and easily modify games' assigned
-	categories, it also lets you mark them as Favorites or as hidden.
+	categories, it also lets you mark them as Favorites or as Hidden.
 
-	Depressurizer can also autocategorize your games for you. Currently, it	does
-	so based on data from that games' Steam store pages. It can use genres,
-	store categories (like "Single-Player" and "Steam Cloud") or tags.
+	Depressurizer can also auto-categorize your games for you. Currently, it
+	does so based on data from that games' Steam store pages. It can use genres,
+	Steam flags (like "Single-Player" and "Steam Cloud"), Steam tags, 
+	Developer & Publisher info, How Long to Beat times, year, and/or
+	Steam review user scores.  Auto-categorizing can be done manually or
+	automatically via shortcut.
+
 
 	It also saves your configuration information independently of Steam,
 	providing an automatic backup in the event that Steam loses your
@@ -29,7 +35,7 @@ USAGE GUIDE
 	GETTING STARTED
 
 		Download the latest version of Depressurizer from the project's release
-		page: https://github.com/rallion/depressurizer/releases
+		page: https://github.com/Theo47/depressurizer/releases
 
 		The first time you run Depressurizer, it will ask you for your Steam
 		directory. If it is not automatically and correctly detected, fill this
@@ -65,10 +71,6 @@ USAGE GUIDE
 		Changes made to the checkboxes at the bottom of the screen will
 		automatically apply to ALL selected games. The checkboxes will update to
 		reflect the current categories of the selected games.
-
-		Entering text and clicking the "Add Category and Assign" button will
-		create the entered category if it does not exist, and then assign all
-		selected games to it.
 
 		2) Drag and Drop
 
@@ -120,6 +122,10 @@ USAGE GUIDE
 		be in at least one, you can set all of them to Excluded to find games
 		that are in none of them.
 
+		New with v.0.7.0, you can now save Filters and apply them as needed.
+		Filters can now also be applied to AutoCats to greater control the
+		auto-categorization process.
+
 		Finally, you can always type into the Search box to find games with
 		particular names. It will filter your current view to only games which
 		have names that contain your search term.
@@ -130,23 +136,25 @@ USAGE GUIDE
 		that determine what categories to add to (or remove from) each game.
 		These schemes are configurable, and are referred to as "AutoCats".
 
-		You can autocategorize some of your games by selecting them and clicking
-		the Autocategorize button below the game list. This will apply the
-		AutoCat selected in the list below the button.
+		You can auto-categorize your games by clicking the Auto-categorize button
+		below the game list. This will apply any AutoCats selected in the list
+		above the button, to the displayed list of games.  AutoCats are applied
+		in the order listed.
 
 		You can autocategorize all games by using the "Autocat All" item in the
 		Tools menu.
 
 		To modify, delete or create new AutoCats, click the "Edit AutoCats..."
-		item in the Profile menu.
+		item in the Profile menu.  You can also double-click on any AutoCat, 
+		or use the context menu.
 
-		There are currently six types of AutoCat:
+		There are currently nine types of AutoCat:
 
 		Genre: This type autocategorizes games based on the genres it is
 		assigned in the Steam store. It has several configuration options.
 
 			Prefix (optional): This is just a text prefix added to the beginning
-			of all genre names assigned by this scheme.
+			of all category names assigned by this scheme.
 
 			Max Categories: This is the maximum number of categories that will
 			be assigned to each game. If a particular game has more categories,
@@ -171,7 +179,7 @@ USAGE GUIDE
 		category.
 
 			Prefix (optional): This is just a text prefix added to the beginning
-			of all genre names assigned by this scheme.
+			of all category names assigned by this scheme.
 
 			Included Flags: Only the items selected in this list will be used.
 
@@ -180,7 +188,7 @@ USAGE GUIDE
 		the ones you have to deal with.
 
 			Prefix (optional): This is just a text prefix added to the beginning
-			of all genre names assigned by this scheme.
+			of all category names assigned by this scheme.
 
 			Max categories per game: This is the maximum number of categories
 			that will be assigned to each game. 0 indicates no maximum.
@@ -188,7 +196,8 @@ USAGE GUIDE
 			Included tags: These are the tags you can have added to your games
 			as categories. Only the checked tags will be used. These tags are
 			obtained by scanning the built-in game database. Each tag has a
-			popularity score, shown in brackets after the name.
+			popularity score, shown in brackets after the name.  Click the ">"
+			button to slide out a panel showing all selected tags.
 
 			List options: These options affect the tags that show up in the
 			list, and the order that they show up in. Click "Rebuild" to update
@@ -214,9 +223,6 @@ USAGE GUIDE
 				the program to scan all tags for each game. Limiting this can
 				hide some infrequently-applied tags.
 
-				Sort by score: Sorts tags by popularity so the more popular tags
-				appear first. Otherwise, they will be sorted alphabetically.
-
 				Exclude genres: Remove Steam genre names (Action, Indie,
 				Strategy, etc.) from the tag list.
 
@@ -225,7 +231,7 @@ USAGE GUIDE
 				database.
 				
 		Release Year
-		
+
 			This lets you assign categories to games based on their release
 			date. You can assign categories for individual years, decades, or
 			half-decades.
@@ -242,11 +248,30 @@ USAGE GUIDE
 			assigned to a category.
 			
 		HLTB
-			
+
 			This lets you categorize games based on the times from 
 			http://howlongtobeat.com/ which indicate how long it takes to beat a 
 			game.
-			
+
+		DevPub
+
+			Categorize games based on their Developers and/or Publishers.
+
+		Manual
+
+			Manual manipulation of categories.  For example, use a Filter to gather
+			the subset of games in categories Pool, Football, Baseball & Golf.
+			Add all of those categories to the Remove list, and then add Sports
+			to the Add list.  Running the AutoCat will remove the individual sports
+			categories and place them all in a generic Sports category.
+
+		Group
+
+			Place and order multiple AutoCats into a single AutoCat.  Any Filter
+			applied to a group will take precedence over a Filter applied to an
+			AutoCat.	
+
+
 	AUTOMATIC MODE
 
 			Automatic mode lets you run a predetermined set of autocat operations 
@@ -254,6 +279,7 @@ USAGE GUIDE
 			without having to use the full Depressurizer interface. You still have 
 			to use the full interface to manage the autocat rules themselves. 
 			For more information check Tools->Auto Mode Helper.
+
 
 	DEFINITIONS OF TERMS AND PROCEDURES
 
