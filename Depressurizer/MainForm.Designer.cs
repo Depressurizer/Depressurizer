@@ -300,11 +300,13 @@ namespace Depressurizer {
             this.columnCount});
             this.lstCategories.ContextMenuStrip = this.contextCat;
             this.lstCategories.FullRowSelect = true;
+            this.lstCategories.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("lstCategories.Groups"))),
+            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("lstCategories.Groups1")))});
             this.lstCategories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lstCategories.HideSelection = false;
             this.lstCategories.Name = "lstCategories";
             this.lstCategories.ShowGroups = false;
-            this.lstCategories.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lstCategories.UseCompatibleStateImageBehavior = false;
             this.lstCategories.View = System.Windows.Forms.View.Details;
             this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);

@@ -127,17 +127,32 @@ namespace Depressurizer
             if (RemoveAllCategories) game.ClearCategories();
             else if (RemoveCategories != null)
             {
+                List<Category> removed = new List<Category>();
+
                 foreach (string category in RemoveCategories)
                 {
                     Category c = gamelist.GetCategory(category);
-                    if (game.ContainsCategory(c)) game.RemoveCategory(c);
+                    if (game.ContainsCategory(c))
+                    {
+                        game.RemoveCategory(c);
+                        removed.Add(c);
+                    }
                 }
-            }
+
+                foreach (Category c in removed)
+                {
+                    if (c.Count == 0)
+                    {
+                        gamelist.RemoveCategory(c);
+                    }
+                }
+            } 
 
             if (AddCategories != null)
             {
                 foreach (string category in AddCategories)
                 {
+                    // add Category, or create it if it doesn't exist
                     game.AddCategory(gamelist.GetCategory(GetProcessedString(category)));
                 }
             }

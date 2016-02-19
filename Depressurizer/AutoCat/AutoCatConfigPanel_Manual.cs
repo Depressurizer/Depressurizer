@@ -57,18 +57,45 @@ namespace Depressurizer {
             txtPrefix.Text = ac.Prefix;
 
             lstRemove.BeginUpdate();
+
+            List<string> found = new List<string>();
             foreach (ListViewItem item in lstRemove.Items)
             {
-                item.Checked = ac.RemoveCategories.Contains(item.Text);
+                item.Checked = ac.RemoveCategories.Contains(item.Name);
+                found.Add(item.Name);
             }
             lstRemove.EndUpdate();
 
+            foreach (string s in ac.RemoveCategories)
+            {
+                if (!found.Contains(s))
+                {
+                    ListViewItem l = new ListViewItem();
+                    l.Text = s;
+                    l.Name = s;
+                    clbRemoveSelected.Items.Add(l, true);
+                }
+            }
+
             lstAdd.BeginUpdate();
+            found = new List<string>();
             foreach (ListViewItem item in lstAdd.Items)
             {
-                item.Checked = ac.AddCategories.Contains(item.Text);
+                item.Checked = ac.AddCategories.Contains(item.Name);
+                found.Add(item.Name);
             }
             lstAdd.EndUpdate();
+
+            foreach (string s in ac.AddCategories)
+            {
+                if (!found.Contains(s))
+                {
+                    ListViewItem l = new ListViewItem();
+                    l.Text = s;
+                    l.Name = s;
+                    clbAddSelected.Items.Add(l, true);
+                }
+            }
 
             loaded = true;
         }
@@ -85,14 +112,14 @@ namespace Depressurizer {
             {
                 foreach (ListViewItem item in clbRemoveSelected.CheckedItems)
                 {
-                    ac.RemoveCategories.Add(item.Text);
+                    ac.RemoveCategories.Add(item.Name);
                 }
             }
 
             ac.AddCategories.Clear();
             foreach (ListViewItem item in clbAddSelected.CheckedItems)
             {
-                ac.AddCategories.Add(item.Text);
+                ac.AddCategories.Add(item.Name);
             }
         }
         #endregion
@@ -388,7 +415,6 @@ namespace Depressurizer {
         }
 
         #endregion
-
 
     }
 }
