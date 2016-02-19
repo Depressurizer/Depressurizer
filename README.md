@@ -3,10 +3,7 @@ for v0.7.0.0
 
 ----
 
-![Main Screen](/Screenshots/Screenshot.jpg?raw=true "Main Screen")
-
-
-![Filtered Games](/Screenshots/Screenshot2.jpg?raw=true "Filtered Games")
+![Filtered Games](/Screenshots/Screenshot2.jpg)
 
 
 ### Summary

@@ -42,14 +42,6 @@ namespace Depressurizer {
         Exclude = 2
     }
 
-    public enum CategorySortOrder
-    {
-        NameAscending = 1,
-        NameDescending = 2,
-        CountAscending = 3,
-        CountDescending = 4
-    }
-
     public partial class FormMain : MaterialForm {
         #region Fields
 
