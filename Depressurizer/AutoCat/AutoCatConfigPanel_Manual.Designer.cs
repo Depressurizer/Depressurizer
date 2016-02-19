@@ -68,6 +68,7 @@
             this.btnAddCheckAll = new System.Windows.Forms.Button();
             this.btnAddUncheckAll = new System.Windows.Forms.Button();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.label2 = new System.Windows.Forms.Label();
             this.grpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -131,6 +132,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.lblPrefix);
             this.splitContainer1.Panel1.Controls.Add(this.txtPrefix);
             this.splitContainer1.Panel1.Controls.Add(this.helpPrefix);
@@ -194,7 +196,7 @@
             this.groupRemove.Size = new System.Drawing.Size(291, 354);
             this.groupRemove.TabIndex = 14;
             this.groupRemove.TabStop = false;
-            this.groupRemove.Text = "Remove (right-click to Sort)";
+            this.groupRemove.Text = "Remove";
             // 
             // splitRemoveMain
             // 
@@ -400,7 +402,7 @@
             this.groupAdd.Size = new System.Drawing.Size(309, 354);
             this.groupAdd.TabIndex = 16;
             this.groupAdd.TabStop = false;
-            this.groupAdd.Text = "Add (right-click to Sort)";
+            this.groupAdd.Text = "Add";
             // 
             // splitAddMain
             // 
@@ -584,6 +586,16 @@
             this.btnAddUncheckAll.UseVisualStyleBackColor = true;
             this.btnAddUncheckAll.Click += new System.EventHandler(this.btnAddUncheckAll_Click);
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(459, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(139, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Right-click in lists for Sorting";
+            // 
             // AutoCatConfigPanel_Manual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -682,5 +694,6 @@
         private System.Windows.Forms.ToolStripMenuItem namedescendingAdd;
         private System.Windows.Forms.ToolStripMenuItem countascendingAdd;
         private System.Windows.Forms.ToolStripMenuItem countdescendingAdd;
+        private System.Windows.Forms.Label label2;
     }
 }
