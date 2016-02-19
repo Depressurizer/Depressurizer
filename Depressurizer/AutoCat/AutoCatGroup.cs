@@ -57,16 +57,18 @@ namespace Depressurizer {
         #endregion
 
         #region Construction
-        public AutoCatGroup( string name, string filter = null, List<string> autocats = null)
+        public AutoCatGroup( string name, string filter = null, List<string> autocats = null, bool selected = false)
             : base( name ) {
             Filter = filter;
             Autocats = (autocats == null) ? new List<string>() : autocats;
+            Selected = selected;
         }
 
         protected AutoCatGroup( AutoCatGroup other )
             : base( other ) {
             Filter = other.Filter;
             Autocats = new List<string>(other.Autocats);
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() {

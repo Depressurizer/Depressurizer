@@ -172,6 +172,7 @@ namespace Depressurizer {
         }
 
         #region Category Modifiers
+
         /// <summary>
         /// Adds a single category to this game. Does nothing if the category is already attached.
         /// </summary>
