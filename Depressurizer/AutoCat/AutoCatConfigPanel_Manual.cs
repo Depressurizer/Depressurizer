@@ -97,6 +97,9 @@ namespace Depressurizer {
                 }
             }
 
+            UpdateRemoveCount();
+            UpdateAddCount();
+
             loaded = true;
         }
 
@@ -164,6 +167,16 @@ namespace Depressurizer {
             lstAdd.Columns[0].Width = -1;
             SortAdd(1, SortOrder.Descending);
             lstAdd.EndUpdate();
+        }
+
+        private void UpdateRemoveCount()
+        {
+            groupRemove.Text = "Remove (" + clbRemoveSelected.Items.Count.ToString() + "):";
+        }
+
+        private void UpdateAddCount()
+        {
+            groupAdd.Text = "Add (" + clbAddSelected.Items.Count.ToString() + "):";
         }
 
         private void SetAllListCheckStates( ListView list, bool to ) {
@@ -256,6 +269,7 @@ namespace Depressurizer {
                 workerThread = new Thread(new ParameterizedThreadStart(RemoveItemWorker));
                 workerThread.Start(e.Item);
             }
+            UpdateRemoveCount();
         }
 
         private void clbRemoveSelected_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -296,6 +310,7 @@ namespace Depressurizer {
             else
             {
                 clbRemoveSelected.Items.Remove(obj);
+                UpdateRemoveCount();
             }
         }
 
@@ -332,6 +347,7 @@ namespace Depressurizer {
                 workerThread = new Thread(new ParameterizedThreadStart(AddItemWorker));
                 workerThread.Start(e.Item);
             }
+            UpdateAddCount();
         }
 
         private void clbAddSelected_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -372,6 +388,7 @@ namespace Depressurizer {
             else
             {
                 clbAddSelected.Items.Remove(obj);
+                UpdateAddCount();
             }
         }
 
