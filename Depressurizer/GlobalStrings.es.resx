@@ -1480,4 +1480,12 @@ A game must NOT be in any categories marked with an X ("Excluded").</value>
     <value>Loading AutoCats from file: {0}</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="MainForm_SaveProfile" xml:space="preserve">
+    <value>Save Profile</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="MainForm_SaveProfileConfirm" xml:space="preserve">
+    <value>Save your current profile settings?</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>

@@ -28,14 +28,14 @@
             this.cmdRename = new System.Windows.Forms.Button();
             this.cmdCreate = new System.Windows.Forms.Button();
             this.grpList = new System.Windows.Forms.GroupBox();
+            this.btnUp = new System.Windows.Forms.Button();
+            this.btnDown = new System.Windows.Forms.Button();
             this.cmdSave = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.splitAutoCat = new System.Windows.Forms.SplitContainer();
             this.chkFilter = new System.Windows.Forms.CheckBox();
             this.cboFilter = new System.Windows.Forms.ComboBox();
-            this.btnUp = new System.Windows.Forms.Button();
-            this.btnDown = new System.Windows.Forms.Button();
             this.grpList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -111,6 +111,30 @@
             this.grpList.TabIndex = 0;
             this.grpList.TabStop = false;
             this.grpList.Text = "AutoCat List";
+            // 
+            // btnUp
+            // 
+            this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUp.Enabled = false;
+            this.btnUp.Location = new System.Drawing.Point(160, 19);
+            this.btnUp.Name = "btnUp";
+            this.btnUp.Size = new System.Drawing.Size(21, 23);
+            this.btnUp.TabIndex = 15;
+            this.btnUp.Text = "+";
+            this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
+            // 
+            // btnDown
+            // 
+            this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDown.Enabled = false;
+            this.btnDown.Location = new System.Drawing.Point(160, 48);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(21, 23);
+            this.btnDown.TabIndex = 16;
+            this.btnDown.Text = "-";
+            this.btnDown.UseVisualStyleBackColor = true;
+            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // cmdSave
             // 
@@ -192,28 +216,6 @@
             this.cboFilter.Name = "cboFilter";
             this.cboFilter.Size = new System.Drawing.Size(338, 21);
             this.cboFilter.TabIndex = 0;
-            // 
-            // btnUp
-            // 
-            this.btnUp.Enabled = false;
-            this.btnUp.Location = new System.Drawing.Point(160, 19);
-            this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(21, 23);
-            this.btnUp.TabIndex = 15;
-            this.btnUp.Text = "+";
-            this.btnUp.UseVisualStyleBackColor = true;
-            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
-            // 
-            // btnDown
-            // 
-            this.btnDown.Enabled = false;
-            this.btnDown.Location = new System.Drawing.Point(160, 48);
-            this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(21, 23);
-            this.btnDown.TabIndex = 16;
-            this.btnDown.Text = "-";
-            this.btnDown.UseVisualStyleBackColor = true;
-            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
             // 
             // DlgAutoCat
             // 

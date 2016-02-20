@@ -720,7 +720,7 @@ This could take up to a few seconds per game.</value>
     <value>Unignored game {0}.</value>
   </data>
   <data name="MainForm_UnsavedChanges" xml:space="preserve">
-    <value>Unsaved changes</value>
+    <value>Unsaved Changes</value>
   </data>
   <data name="MainForm_UnsavedChangesWillBeLost" xml:space="preserve">
     <value>Unsaved changes will be lost. Save first?</value>
@@ -1327,5 +1327,11 @@ If unchecked, games with no times will be skipped.</value>
   </data>
   <data name="Profile_LoadingAutoCats" xml:space="preserve">
     <value>Loading AutoCats from file: {0}</value>
+  </data>
+  <data name="MainForm_SaveProfile" xml:space="preserve">
+    <value>Save Profile</value>
+  </data>
+  <data name="MainForm_SaveProfileConfirm" xml:space="preserve">
+    <value>Save your current profile settings?</value>
   </data>
 </root>
