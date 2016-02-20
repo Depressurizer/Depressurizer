@@ -1230,7 +1230,9 @@ namespace Depressurizer {
 
                     int key = 0;
                     foreach( Category c in game.Categories ) {
-                        tagsNode[key.ToString()] = new VdfFileNode( c.Name );
+                        string name = c.Name;
+                        if (name == FAVORITE_NEW_CONFIG_VALUE) name = FAVORITE_CONFIG_VALUE;
+                        tagsNode[key.ToString()] = new VdfFileNode( name );
                         key++;
                     }
 

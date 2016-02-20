@@ -110,6 +110,7 @@ namespace Depressurizer {
             this.colHltbExtras = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colHltbCompletionist = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colPlatforms = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colFiller = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_LaunchGame = new System.Windows.Forms.ToolStripMenuItem();
             this.contextGame_Sep1 = new System.Windows.Forms.ToolStripSeparator();
@@ -682,6 +683,7 @@ namespace Depressurizer {
             this.lstGames.AllColumns.Add(this.colHltbExtras);
             this.lstGames.AllColumns.Add(this.colHltbCompletionist);
             this.lstGames.AllColumns.Add(this.colPlatforms);
+            this.lstGames.AllColumns.Add(this.colFiller);
             this.lstGames.AllowColumnReorder = true;
             resources.ApplyResources(this.lstGames, "lstGames");
             this.lstGames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
@@ -693,7 +695,8 @@ namespace Depressurizer {
             this.colCategories,
             this.colTags,
             this.colReviewScore,
-            this.colYear});
+            this.colYear,
+            this.colFiller});
             this.lstGames.ContextMenuStrip = this.contextGame;
             this.lstGames.Cursor = System.Windows.Forms.Cursors.Default;
             this.lstGames.FullRowSelect = true;
@@ -716,6 +719,7 @@ namespace Depressurizer {
             this.lstGames.FormatRow += new System.EventHandler<BrightIdeasSoftware.FormatRowEventArgs>(this.lstGames_FormatRow);
             this.lstGames.ItemsChanged += new System.EventHandler<BrightIdeasSoftware.ItemsChangedEventArgs>(this.lstGames_ItemsChanged);
             this.lstGames.SelectionChanged += new System.EventHandler(this.lstGames_SelectionChanged);
+            this.lstGames.ColumnReordered += new System.Windows.Forms.ColumnReorderedEventHandler(this.lstGames_ColumnReordered);
             this.lstGames.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.lstGames_ItemDrag);
             this.lstGames.SelectedIndexChanged += new System.EventHandler(this.lstGames_SelectedIndexChanged);
             this.lstGames.DoubleClick += new System.EventHandler(this.lstGames_DoubleClick);
@@ -870,6 +874,17 @@ namespace Depressurizer {
             this.colPlatforms.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colPlatforms.IsVisible = false;
             this.colPlatforms.Tag = "colPlatforms";
+            // 
+            // colFiller
+            // 
+            this.colFiller.FillsFreeSpace = true;
+            this.colFiller.Hideable = false;
+            this.colFiller.IsEditable = false;
+            this.colFiller.Searchable = false;
+            this.colFiller.ShowTextInHeader = false;
+            this.colFiller.Sortable = false;
+            resources.ApplyResources(this.colFiller, "colFiller");
+            this.colFiller.UseFiltering = false;
             // 
             // contextGame
             // 
@@ -1516,6 +1531,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_Require;
         private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_Exclude;
         private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_None;
+        private BrightIdeasSoftware.OLVColumn colFiller;
     }
 }
 
