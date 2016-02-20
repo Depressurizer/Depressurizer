@@ -55,6 +55,7 @@ namespace Depressurizer {
 
         public const string TypeIdString = "AutoCatUserScore";
         public const string XmlName_Name = "Name",
+            XmlName_Filter = "Filter",
             XmlName_Prefix = "Prefix",
             XmlName_Rule = "Rule",
             XmlName_Rule_Text = "Text",
@@ -67,16 +68,20 @@ namespace Depressurizer {
 
         #region Construction
 
-        public AutoCatUserScore( string name = TypeIdString, string prefix = "", List<UserScore_Rule> rules = null )
+        public AutoCatUserScore( string name = TypeIdString, string filter = null, string prefix = null, List<UserScore_Rule> rules = null, bool selected = false)
             : base( name ) {
+            Filter = filter;
             Prefix = prefix;
             Rules = ( rules == null ) ? new List<UserScore_Rule>() : rules;
+            Selected = selected;
         }
 
         public AutoCatUserScore( AutoCatUserScore other )
             : base( other ) {
+            Filter = other.Filter;
             Prefix = other.Prefix;
             Rules = other.Rules.ConvertAll( rule => new UserScore_Rule( rule ) );
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() {
@@ -86,7 +91,7 @@ namespace Depressurizer {
         #endregion
 
         #region Autocategorization
-        public override AutoCatResult CategorizeGame( GameInfo game ) {
+        public override AutoCatResult CategorizeGame( GameInfo game, Filter filter ) {
             if( games == null ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
                 throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
@@ -101,6 +106,8 @@ namespace Depressurizer {
             }
 
             if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
+
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             int score = db.Games[game.Id].ReviewPositivePercentage;
             int reviews = db.Games[game.Id].ReviewTotal;
@@ -136,9 +143,10 @@ namespace Depressurizer {
             writer.WriteStartElement( TypeIdString );
 
             writer.WriteElementString( XmlName_Name, this.Name );
-            writer.WriteElementString( XmlName_Prefix, this.Prefix );
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
 
-            foreach( UserScore_Rule rule in Rules ) {
+            foreach ( UserScore_Rule rule in Rules ) {
                 writer.WriteStartElement( XmlName_Rule );
                 writer.WriteElementString( XmlName_Rule_Text, rule.Name );
                 writer.WriteElementString( XmlName_Rule_MinScore, rule.MinScore.ToString() );
@@ -153,6 +161,7 @@ namespace Depressurizer {
 
         public static AutoCatUserScore LoadFromXmlElement( XmlElement xElement ) {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], string.Empty );
 
             List<UserScore_Rule> rules = new List<UserScore_Rule>();
@@ -164,11 +173,31 @@ namespace Depressurizer {
                 int ruleMaxRev = XmlUtil.GetIntFromNode( node[XmlName_Rule_MaxReviews], 0 );
                 rules.Add( new UserScore_Rule( ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev ) );
             }
-            AutoCatUserScore result = new AutoCatUserScore( name, prefix );
+            AutoCatUserScore result = new AutoCatUserScore( name, filter, prefix );
             result.Rules = rules;
             return result;
         }
 
+        #endregion
+
+        #region Preset generators
+
+        /// <summary>
+        /// Generates rules that match the Steam Store rating labels
+        /// </summary>
+        /// <param name="rules">List of UserScore_Rule objects to populate with the new ones. Should generally be empty.</param>
+        public void GenerateSteamRules(ICollection<UserScore_Rule> rules)
+        {
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive4, 95, 100, 500, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive3, 85, 100, 50, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive2, 80, 100, 1, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive1, 70, 79, 1, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Mixed, 40, 69, 1, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative1, 20, 39, 1, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative4, 0, 19, 500, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative3, 0, 19, 50, 0));
+            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0));
+        }
         #endregion
     }
 }

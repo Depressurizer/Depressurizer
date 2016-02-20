@@ -120,11 +120,17 @@
   <data name="AppInfoPath" xml:space="preserve">
     <value>{0}\appcache\appinfo.vdf</value>
   </data>
+  <data name="AutoCat_ButtonLabel" xml:space="preserve">
+    <value>Auto-Categorize ({0} Games)</value>
+  </data>
   <data name="ConfigFilePath" xml:space="preserve">
     <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
   </data>
   <data name="DepressurizerHomepage" xml:space="preserve">
     <value>https://github.com/rallion/depressurizer</value>
+  </data>
+  <data name="GameBannerPath" xml:space="preserve">
+    <value>{0}\Game Banners\{1}.jpg</value>
   </data>
   <data name="LocalConfigPath" xml:space="preserve">
     <value>{0}\userdata\{1}\config\localconfig.vdf</value>
@@ -147,13 +153,31 @@
   <data name="UrlCustomProfileXml" xml:space="preserve">
     <value>http://steamcommunity.com/id/{0}?xml=1</value>
   </data>
+  <data name="UrlGameBanner" xml:space="preserve">
+    <value>https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg</value>
+  </data>
   <data name="UrlGameListHtml" xml:space="preserve">
     <value>http://steamcommunity.com/profiles/{0}/games?tab=all</value>
   </data>
   <data name="UrlGameListXml" xml:space="preserve">
     <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
   </data>
+  <data name="UrlHLTBAll" xml:space="preserve">
+    <value>http://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
+  </data>
+  <data name="UrlLatestRelease" xml:space="preserve">
+    <value>https://api.github.com/repos/Theo47/depressurizer/releases/latest</value>
+  </data>
+  <data name="UrlSteamProfile" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}?xml=1</value>
+  </data>
   <data name="UrlSteamStore" xml:space="preserve">
+    <value>http://store.steampowered.com/</value>
+  </data>
+  <data name="UrlSteamStoreApp" xml:space="preserve">
     <value>http://store.steampowered.com/app/{0}/</value>
+  </data>
+  <data name="XmlNodeAvatar" xml:space="preserve">
+    <value>/profile/avatarIcon</value>
   </data>
 </root>

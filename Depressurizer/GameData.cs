@@ -19,10 +19,12 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace Depressurizer {
@@ -45,6 +47,7 @@ namespace Depressurizer {
     /// </summary>
     public class GameInfo {
         #region Fields
+        const string runSteam = "steam://rungameid/{0}";
         public string Name;
         public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
         public GameList GameList;
@@ -76,6 +79,24 @@ namespace Depressurizer {
                 return GameList.FavoriteCategory;
             }
         }
+
+        private string _executable;
+        public string Executable
+        {
+            get
+            {
+                if (_executable == null) return String.Format(runSteam, Id.ToString());
+                else return _executable;
+            }
+            set
+            {
+                if (value != String.Format(runSteam, Id.ToString()))
+                {
+                    if (File.Exists(value)) _executable = value;
+                }
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -83,19 +104,75 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="id">ID of the new game. Positive means it's the game's Steam ID, negative means it's a non-steam game.</param>
         /// <param name="name">Game title</param>
-        public GameInfo( int id, string name, GameList list ) {
+        public GameInfo( int id, string name, GameList list, string executable = null ) {
             Id = id;
             Name = name;
             Hidden = false;
             Categories = new SortedSet<Category>();
             this.GameList = list;
+            Executable = executable;
         }
 
         public void ApplySource( GameListingSource src ) {
             if( this.Source < src ) this.Source = src;
         }
 
+        public bool IncludeGame(Filter f)
+        {
+            if (f == null) return true;
+
+            bool isCategorized = false;
+            bool isHidden = false;
+            if (f.Uncategorized != (int)AdvancedFilterState.None) isCategorized = HasCategories();
+            if (f.Hidden != (int)AdvancedFilterState.None) isHidden = Hidden;
+
+            if (f.Uncategorized == (int)AdvancedFilterState.Require && isCategorized) return false;
+            if (f.Hidden == (int)AdvancedFilterState.Require && !isHidden) return false;
+
+            if (f.Uncategorized == (int)AdvancedFilterState.Exclude && !isCategorized) return false;
+            if (f.Hidden == (int)AdvancedFilterState.Exclude && isHidden) return false;
+
+            if (f.Uncategorized == (int)AdvancedFilterState.Allow || f.Hidden == (int)AdvancedFilterState.Allow || f.Allow.Count > 0)
+            {
+                if (f.Uncategorized != (int)AdvancedFilterState.Allow || isCategorized)
+                {
+                    if (f.Hidden != (int)AdvancedFilterState.Allow || !isHidden)
+                    {
+                        if (!Categories.Overlaps(f.Allow)) return false;
+                    }
+                }
+            }
+
+            if (!Categories.IsSupersetOf(f.Require)) return false;
+
+            if (Categories.Overlaps(f.Exclude)) return false;
+
+            return true;
+        }
+
+        public Image Banner()
+        {
+            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), Id.ToString());
+            try
+            {
+                if (!File.Exists(bannerPath))
+                {
+                    if (!Utility.GrabBanner(Id))
+                    {
+                        return null;
+                    }
+                }
+                return Image.FromFile(bannerPath);
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(string.Format(GlobalStrings.GameData_GetBanner, bannerPath), e);
+                return null;
+            }
+        }
+
         #region Category Modifiers
+
         /// <summary>
         /// Adds a single category to this game. Does nothing if the category is already attached.
         /// </summary>
@@ -270,6 +347,7 @@ namespace Depressurizer {
     /// <summary>
     /// Represents a single game category
     /// </summary>
+    /// 
     public class Category : IComparable {
         public string Name;
         public int Count;
@@ -303,10 +381,12 @@ namespace Depressurizer {
     /// </summary>
     public class GameList {
         #region Fields
-        const string FAVORITE_CONFIG_VALUE = "favorite";
+        public const string FAVORITE_CONFIG_VALUE = "favorite";
+        public const string FAVORITE_NEW_CONFIG_VALUE = "<Favorite>";
 
         public Dictionary<int, GameInfo> Games;
         public List<Category> Categories;
+        public List<Filter> Filters;
 
         private Category favoriteCategory;
         public Category FavoriteCategory {
@@ -319,7 +399,8 @@ namespace Depressurizer {
         public GameList() {
             Games = new Dictionary<int, GameInfo>();
             Categories = new List<Category>();
-            favoriteCategory = new Category( FAVORITE_CONFIG_VALUE );
+            Filters = new List<Filter>();
+            favoriteCategory = new Category( FAVORITE_NEW_CONFIG_VALUE );
             Categories.Add( favoriteCategory );
         }
 
@@ -331,9 +412,10 @@ namespace Depressurizer {
         /// <param name="name">Name of the category to look for</param>
         /// <returns>True if the name is found, false otherwise</returns>
         public bool CategoryExists( string name ) {
-            foreach( Category c in Categories ) {
-                //if( c.Name == name ) {
-                if( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) {
+            // Favorite category always exists
+            if (name == FAVORITE_NEW_CONFIG_VALUE  || name == FAVORITE_CONFIG_VALUE) return true;
+            foreach ( Category c in Categories ) {
+                if ( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) {
                     return true;
                 }
             }
@@ -348,14 +430,17 @@ namespace Depressurizer {
         public Category GetCategory( string name ) {
             // Categories must have a name
             if( string.IsNullOrEmpty( name ) ) return null;
+            // Check for Favorite category
+            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE) return favoriteCategory;
             // Look for a matching category in the list and return if found
-            foreach( Category c in Categories ) {
-                if( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) return c;
+            foreach ( Category c in Categories ) {
+            if( String.Equals( c.Name, name, StringComparison.OrdinalIgnoreCase ) ) return c;
             }
             // Create a new category and return it
-            Category newCat = new Category( name );
-            Categories.Add( newCat );
-            return newCat;
+            return AddCategory(name);
+            //Category newCat = new Category( name );
+            //Categories.Add( newCat );
+            //return newCat;
         }
 
         /// <summary>
@@ -380,7 +465,7 @@ namespace Depressurizer {
         /// <returns>True if removal was successful, false if it was not in the list anyway</returns>
         public bool RemoveCategory( Category c ) {
             // Can't remove favorite category
-            if( c.Name == "favorite" ) return false;
+            if(c == favoriteCategory) return false;
 
             if( Categories.Remove( c ) ) {
                 foreach( GameInfo g in Games.Values ) {
@@ -440,6 +525,79 @@ namespace Depressurizer {
             }
             return removed;
         }
+
+        #endregion
+
+        #region Filter management
+        /// <summary>
+        /// Checks to see if a Filter with the given name exists
+        /// </summary>
+        /// <param name="name">Name of the Filter to look for</param>
+        /// <returns>True if the name is found, false otherwise</returns>
+        public bool FilterExists(string name)
+        {
+            foreach (Filter f in Filters)
+            {
+                if (String.Equals(f.Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the Filter with the given name. If the Filter does not exist, creates it.
+        /// </summary>
+        /// <param name="name">Name to get the Filter for</param>
+        /// <returns>A Filter with the given name. Null if any error is encountered.</returns>
+        public Filter GetFilter(string name)
+        {
+            // Filters must have a name
+            if (string.IsNullOrEmpty(name)) return null;
+            // Look for a matching Filter in the list and return if found
+            foreach (Filter f in Filters)
+            {
+                if (String.Equals(f.Name, name, StringComparison.OrdinalIgnoreCase)) return f;
+            }
+            // Create a new Filter and return it
+            Filter newFilter = new Filter(name);
+            Filters.Add(newFilter);
+            return newFilter;
+        }
+
+        /// <summary>
+        /// Adds a new Filter to the list.
+        /// </summary>
+        /// <param name="name">Name of the Filter to add</param>
+        /// <returns>The added Filter. Returns null if the Filter already exists.</returns>
+        public Filter AddFilter(string name)
+        {
+            if (string.IsNullOrEmpty(name) || FilterExists(name))
+            {
+                return null;
+            }
+            else {
+                Filter newFilter = new Filter(name);
+                Filters.Add(newFilter);
+                return newFilter;
+            }
+        }
+
+        /// <summary>
+        /// Removes the given Filter.
+        /// </summary>
+        /// <param name="f">Filter to remove.</param>
+        /// <returns>True if removal was successful, false if it was not in the list anyway</returns>
+        public bool RemoveFilter(Filter f)
+        {
+            if (Filters.Remove(f))
+            {
+                return true;
+            }
+            return false;
+        }
+
         #endregion
 
         #region General Modifiers

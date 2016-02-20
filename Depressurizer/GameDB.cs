@@ -25,6 +25,7 @@ using Rallion;
 using System.IO.Compression;
 using System.Globalization;
 using System.Linq;
+using System.Drawing;
 using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
@@ -48,6 +49,8 @@ namespace Depressurizer
         public List<string> Publishers = null;
         public string SteamReleaseDate = null;
         public int Achievements = 0;
+
+        public string Banner = null;
 
         public int ReviewTotal = 0;
         public int ReviewPositivePercentage = 0;
@@ -115,14 +118,14 @@ namespace Depressurizer
             HttpWebResponse resp = null;
             try
             {
-                HttpWebRequest req = GetSteamRequest(string.Format(Properties.Resources.UrlSteamStore, id));
+                HttpWebRequest req = GetSteamRequest(string.Format(Properties.Resources.UrlSteamStoreApp, id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
                 while (resp.StatusCode == HttpStatusCode.Found && count<5)
                 {
                     resp.Close();
-                    if (resp.Headers[HttpResponseHeader.Location] == "http://store.steampowered.com/")
+                    if (resp.Headers[HttpResponseHeader.Location] == Properties.Resources.UrlSteamStore)
                     {
                         // If we are redirected to the store front page
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
@@ -255,6 +258,12 @@ namespace Depressurizer
             {
                 this.ParentId = redirectTarget;
                 result = AppTypes.Unknown;
+            }
+
+            // Get Game Banner
+            if (!Utility.GrabBanner(id))
+            {
+                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_GameBannerError, id);
             }
 
             return result;
@@ -450,6 +459,8 @@ namespace Depressurizer
         // Extra data
         private SortedSet<string> allStoreGenres;
         private SortedSet<string> allStoreFlags;
+        private SortedSet<string> allStoreDevelopers;
+        private SortedSet<string> allStorePublishers;
         public int LastHltbUpdate;
         // Utility
         static char[] genreSep = new char[] { ',' };
@@ -556,6 +567,34 @@ namespace Depressurizer
             return null;
         }
 
+        public List<string> GetDevelopers(int gameId, int depth = 3)
+        {
+            if (Games.ContainsKey(gameId))
+            {
+                List<string> res = Games[gameId].Developers;
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+                {
+                    res = GetDevelopers(Games[gameId].ParentId, depth - 1);
+                }
+                return res;
+            }
+            return null;
+        }
+
+        public List<string> GetPublishers(int gameId, int depth = 3)
+        {
+            if (Games.ContainsKey(gameId))
+            {
+                List<string> res = Games[gameId].Publishers;
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+                {
+                    res = GetPublishers(Games[gameId].ParentId, depth - 1);
+                }
+                return res;
+            }
+            return null;
+        }
+
         public int GetReleaseYear(int gameId)
         {
             if (Games.ContainsKey(gameId))
@@ -618,6 +657,93 @@ namespace Depressurizer
         }
 
         /// <summary>
+        /// Gets a list of all Steam store developers found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A set of developers, as strings</returns>
+        public SortedSet<string> GetAllDevelopers()
+        {
+            if (allStoreDevelopers == null)
+            {
+                return CalculateAllDevelopers();
+            }
+            else
+            {
+                return allStoreDevelopers;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store developers found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A set of developers, as strings</returns>
+        public SortedSet<string> CalculateAllDevelopers()
+        {
+            if (allStoreDevelopers == null)
+            {
+                allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            }
+            else
+            {
+                allStoreDevelopers.Clear();
+            }
+
+            foreach (GameDBEntry entry in Games.Values)
+            {
+                if (entry.Developers != null)
+                {
+                    allStoreDevelopers.UnionWith(entry.Developers);
+                }
+            }
+
+            return allStoreDevelopers;
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store publishers found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A set of publishers, as strings</returns>
+        public SortedSet<string> GetAllPublishers()
+        {
+            if (allStorePublishers == null)
+            {
+                return CalculateAllPublishers();
+            }
+            else
+            {
+                return allStorePublishers;
+            }
+        }
+        /// <summary>
+        /// Gets a list of all Steam store publishers found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A set of publishers, as strings</returns>
+        public SortedSet<string> CalculateAllPublishers()
+        {
+            if (allStorePublishers == null)
+            {
+                allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            }
+            else
+            {
+                allStorePublishers.Clear();
+            }
+
+            foreach (GameDBEntry entry in Games.Values)
+            {
+                if (entry.Publishers != null)
+                {
+                    allStorePublishers.UnionWith(entry.Publishers);
+                }
+            }
+
+            return allStorePublishers;
+        }
+
+        /// <summary>
         /// Gets a list of all Steam store flags found in the entire database.
         /// Only recalculates if necessary.
         /// </summary>
@@ -658,6 +784,118 @@ namespace Depressurizer
                 }
             }
             return allStoreFlags;
+        }
+
+        /// <summary>
+        /// Gets a list of developers found on games with their game count.
+        /// </summary>
+        /// <param name="filter">GameList including games to include in the search. If null, finds developers for all games in the database.</param>
+        /// <param name="minScore">Minimum count of developers games to include in the result list. Developers with lower game counts will be discarded.</param>
+        /// <returns>List of developers, as strings with game counts</returns>
+        public IEnumerable<Tuple<string, int>> CalculateSortedDevList(GameList filter, int minCount)
+        {
+            SortedSet<string> developers = GetAllDevelopers();
+            Dictionary<string, int> devCounts = new Dictionary<string, int>();
+            if (filter == null)
+            {
+                foreach (GameDBEntry dbEntry in Games.Values)
+                {
+                    CalculateSortedDevListHelper(devCounts, dbEntry);
+                }
+            }
+            else
+            {
+                foreach (int gameId in filter.Games.Keys)
+                {
+                    if (Games.ContainsKey(gameId))
+                    {
+                        CalculateSortedDevListHelper(devCounts, Games[gameId]);
+                    }
+                }
+            }
+
+            var unsortedList = (from entry in devCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value));
+            return unsortedList.ToList();
+        }
+
+        /// <summary>
+        /// Counts games for each developer.
+        /// </summary>
+        /// <param name="counts">Existing dictionary of developers and game count. Key is the developer as a string, value is the count</param>
+        /// <param name="dbEntry">Entry to add developers from</param>
+        private void CalculateSortedDevListHelper(Dictionary<string, int> counts, GameDBEntry dbEntry)
+        {
+            if (dbEntry.Developers != null)
+            {
+                for (int i = 0; i < dbEntry.Developers.Count; i++)
+                {
+                    string dev = dbEntry.Developers[i];
+                    if (counts.ContainsKey(dev))
+                    {
+                        counts[dev] += 1;
+                    }
+                    else
+                    {
+                        counts[dev] = 1;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of publishers found on games with their game count.
+        /// </summary>
+        /// <param name="filter">GameList including games to include in the search. If null, finds publishers for all games in the database.</param>
+        /// <param name="minScore">Minimum count of publishers games to include in the result list. publishers with lower game counts will be discarded.</param>
+        /// <returns>List of publishers, as strings with game counts</returns>
+        public IEnumerable<Tuple<string, int>> CalculateSortedPubList(GameList filter, int minCount)
+        {
+            SortedSet<string> publishers = GetAllPublishers();
+            Dictionary<string, int> PubCounts = new Dictionary<string, int>();
+            if (filter == null)
+            {
+                foreach (GameDBEntry dbEntry in Games.Values)
+                {
+                    CalculateSortedPubListHelper(PubCounts, dbEntry);
+                }
+            }
+            else
+            {
+                foreach (int gameId in filter.Games.Keys)
+                {
+                    if (Games.ContainsKey(gameId))
+                    {
+                        CalculateSortedPubListHelper(PubCounts, Games[gameId]);
+                    }
+                }
+            }
+
+            var unsortedList = (from entry in PubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value));
+            return unsortedList.ToList();
+        }
+
+        /// <summary>
+        /// Counts games for each publisher.
+        /// </summary>
+        /// <param name="counts">Existing dictionary of publishers and game count. Key is the publisher as a string, value is the count</param>
+        /// <param name="dbEntry">Entry to add publishers from</param>
+        private void CalculateSortedPubListHelper(Dictionary<string, int> counts, GameDBEntry dbEntry)
+        {
+            if (dbEntry.Publishers != null)
+            {
+                for (int i = 0; i < dbEntry.Publishers.Count; i++)
+                {
+                    string Pub = dbEntry.Publishers[i];
+                    if (counts.ContainsKey(Pub))
+                    {
+                        counts[Pub] += 1;
+                    }
+                    else
+                    {
+                        counts[Pub] = 1;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -754,6 +992,8 @@ namespace Depressurizer
         {
             allStoreGenres = null;
             allStoreFlags = null;
+            allStoreDevelopers = null;
+            allStorePublishers = null;
         }
 
 
@@ -838,10 +1078,10 @@ namespace Depressurizer
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
-                entry.AppType = aInf.AppType;
-                entry.Name = aInf.Name;
-                entry.Platforms = aInf.Platforms;
-                entry.ParentId = aInf.Parent;
+                if (aInf.AppType != AppTypes.Unknown) entry.AppType = aInf.AppType;
+                if (!string.IsNullOrEmpty(aInf.Name)) entry.Name = aInf.Name;
+                if (aInf.Platforms > AppPlatforms.None) entry.Platforms = aInf.Platforms;
+                if (aInf.Parent > 0) entry.ParentId = aInf.Parent;
                 updated++;
             }
             return updated;
@@ -858,7 +1098,7 @@ namespace Depressurizer
 
                 using (WebClient wc = new WebClient())
                 {
-                    string json = wc.DownloadString("http://www.howlongtobeatsteam.com/api/games/library/cached/all");
+                    string json = wc.DownloadString(Properties.Resources.UrlHLTBAll);
                     JObject parsedJson = JObject.Parse(json);
                     dynamic games = parsedJson.SelectToken("Games");
                     foreach (dynamic g in games)

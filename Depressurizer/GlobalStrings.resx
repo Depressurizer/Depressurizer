@@ -741,10 +741,10 @@ This could take up to a few seconds per game.</value>
     <value>Yes</value>
   </data>
   <data name="Profile_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error loading profile:</value>
+    <value>Error loading profile.</value>
   </data>
   <data name="Profile_ErrorSavingProfileFile" xml:space="preserve">
-    <value>Error saving profile file:</value>
+    <value>Error saving profile file.</value>
   </data>
   <data name="Profile_FailedToLoadProfile" xml:space="preserve">
     <value>Failed to load profile: {0}</value>
@@ -875,7 +875,7 @@ This could take up to a few seconds per game.</value>
 Removes any category that consists of the Prefix followed by one of the unchecked genres below.</value>
   </data>
   <data name="DlgAutoCat_Help_Prefix" xml:space="preserve">
-    <value>Optional. Text prefix placed before the genre name.</value>
+    <value>Optional. Text prefix placed before the name.</value>
   </data>
   <data name="DlgGameDBEntry_ParentMustBeInt" xml:space="preserve">
     <value>Parent must be empty or integer.</value>
@@ -1198,5 +1198,134 @@ If unchecked, games with no times will be skipped.</value>
   </data>
   <data name="MainForm_Msg_UpdateFoundTitle" xml:space="preserve">
     <value>Update Found</value>
+  </data>
+  <data name="AutoCat_NothingSelected" xml:space="preserve">
+    <value>No AutoCats selected. Select at least one AutoCat before running.</value>
+  </data>
+  <data name="AutoCatSelected_NothingSelected" xml:space="preserve">
+    <value>No games are currently selected.  Auto-Categorize will not do anything.</value>
+  </data>
+  <data name="GameDB_GameBannerError" xml:space="preserve">
+    <value>Scraping {0}: Error downloading game banner</value>
+  </data>
+  <data name="GameData_GetBanner" xml:space="preserve">
+    <value>Erroring getting game banner from {0}.</value>
+  </data>
+  <data name="Utility_GetImage" xml:space="preserve">
+    <value>Erroring getting image from {0}.</value>
+  </data>
+  <data name="Utility_SaveBanner" xml:space="preserve">
+    <value>Erroring saving game banner to {0}.</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Tags" xml:space="preserve">
+    <value>By Tags</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_UserScore" xml:space="preserve">
+    <value>By User Score</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Year" xml:space="preserve">
+    <value>By Year</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Flags" xml:space="preserve">
+    <value>By Flags</value>
+  </data>
+  <data name="Filter_ErrorSavingFilterFile" xml:space="preserve">
+    <value>Error saving filter file: {0}</value>
+  </data>
+  <data name="Filter_FailedToOpenFilterFile" xml:space="preserve">
+    <value>Failed to open filter file for writing: {0}</value>
+  </data>
+  <data name="Filter_FilterSaveComplete" xml:space="preserve">
+    <value>Filter save complete.</value>
+  </data>
+  <data name="Filter_SavingFilter" xml:space="preserve">
+    <value>Saving filter: {0}</value>
+  </data>
+  <data name="AutoCat_Name_Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="DlgAutoCat_Help_Manual_RemoveAll" xml:space="preserve">
+    <value>Remove all pre-existing categories.</value>
+  </data>
+  <data name="Filter_Exception_ObjectNotFilter" xml:space="preserve">
+    <value>Object is not a filter</value>
+  </data>
+  <data name="MainForm_AdminRights" xml:space="preserve">
+    <value>Run once with Admin rights to set browser registry key.</value>
+  </data>
+  <data name="MainForm_CouldNotAddFilter" xml:space="preserve">
+    <value>Could not add filter '{0}'</value>
+  </data>
+  <data name="MainForm_CouldNotDeleteFilter" xml:space="preserve">
+    <value>Could not delete filter.</value>
+  </data>
+  <data name="MainForm_DeleteFilter" xml:space="preserve">
+    <value>Delete filter '{0}'?</value>
+  </data>
+  <data name="MainForm_EnterNewFilterName" xml:space="preserve">
+    <value>Enter new filter name:</value>
+  </data>
+  <data name="MainForm_FilterAdded" xml:space="preserve">
+    <value>Filter '{0}' added.</value>
+  </data>
+  <data name="MainForm_FilterDeleted" xml:space="preserve">
+    <value>{0} filters deleted.</value>
+  </data>
+  <data name="MainForm_FilterExists" xml:space="preserve">
+    <value>Filter {0} already exists.</value>
+  </data>
+  <data name="MainForm_FilterNamesNotEmpty" xml:space="preserve">
+    <value>Filter names cannot be empty.</value>
+  </data>
+  <data name="MainForm_FilterRenamed" xml:space="preserve">
+    <value>Filter renamed.</value>
+  </data>
+  <data name="MainForm_OverwriteFilterName" xml:space="preserve">
+    <value>Do you want to overwrite filter: {0}</value>
+  </data>
+  <data name="MainForm_RenameFilter" xml:space="preserve">
+    <value>Rename filter: {0}</value>
+  </data>
+  <data name="MainForm_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="MainForm_SaveFilter" xml:space="preserve">
+    <value>Save Filter</value>
+  </data>
+  <data name="AutoCat_Name_DevPub" xml:space="preserve">
+    <value>Developers &amp; Publishers</value>
+  </data>
+  <data name="DlgAutoCat_Help_DevSelected" xml:space="preserve">
+    <value>Show/hide selected Developers</value>
+  </data>
+  <data name="DlgAutoCat_Help_MinScore" xml:space="preserve">
+    <value>Developers and Publishers with game counts lower than this will not show up on the list.</value>
+  </data>
+  <data name="DlgAutoCat_Help_PubSelected" xml:space="preserve">
+    <value>Show/hide selected Publishers</value>
+  </data>
+  <data name="MainForm_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_DevPub" xml:space="preserve">
+    <value>By Developer &amp; Publisher</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
+    <value>By HowLongToBeat</value>
+  </data>
+  <data name="AutoCatGroup_AutoCatsLoaded" xml:space="preserve">
+    <value>Autocats loaded.</value>
+  </data>
+  <data name="AutoCat_Name_Group" xml:space="preserve">
+    <value>Group of Autocats</value>
+  </data>
+  <data name="Profile_ErrorLoadingAutoCats" xml:space="preserve">
+    <value>Error loading AutoCats from profile.</value>
+  </data>
+  <data name="Profile_FailedToLoadAutoCats" xml:space="preserve">
+    <value>Failed to load AutoCats from profile: {0}</value>
+  </data>
+  <data name="Profile_LoadingAutoCats" xml:space="preserve">
+    <value>Loading AutoCats from file: {0}</value>
   </data>
 </root>

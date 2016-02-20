@@ -80,12 +80,18 @@
     <StartupObject>Depressurizer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="MaterialSkin, Version=0.0.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ObjectListView, Version=2.8.1.33936, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObjectListView.Official.2.8.1\lib\net20\ObjectListView.dll</HintPath>
+    <Reference Include="ObjectListView, Version=2.9.0.25611, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.9.0\lib\net20\ObjectListView.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -110,6 +116,24 @@
     </Compile>
     <Compile Include="AutoCat\AutoCatConfigPanel_Flags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_DevPub.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_DevPub.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Group.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Group.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Manual.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Manual.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
     </Compile>
     <Compile Include="AutoCat\AutoCatConfigPanel_Genre.cs">
       <SubType>UserControl</SubType>
@@ -143,9 +167,12 @@
     </Compile>
     <Compile Include="AutoCat\AutoCatFlags.cs" />
     <Compile Include="AutoCat\AutoCatGenre.cs" />
+    <Compile Include="AutoCat\AutoCatDevPub.cs" />
+    <Compile Include="AutoCat\AutoCatManual.cs" />
     <Compile Include="AutoCat\AutoCatTags.cs" />
     <Compile Include="AutoCat\AutoCatHltb.cs" />
     <Compile Include="AutoCat\AutoCatUserScore.cs" />
+    <Compile Include="AutoCat\AutoCatGroup.cs" />
     <Compile Include="AutoCat\AutoCatYear.cs" />
     <Compile Include="AutomaticModeForm.cs">
       <SubType>Form</SubType>
@@ -161,6 +188,12 @@
     </Compile>
     <Compile Include="DlgAbout.Designer.cs">
       <DependentUpon>DlgAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgAutoCatSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAutoCatSelect.Designer.cs">
+      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="DlgAutoCat.cs">
       <SubType>Form</SubType>
@@ -180,6 +213,8 @@
     <Compile Include="DlgAutomaticModeHelper.Designer.cs">
       <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameBanners.cs" />
+    <Compile Include="Filter.cs" />
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -187,6 +222,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Lib\Options.cs" />
+    <Compile Include="ListViewComparer.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
@@ -296,6 +332,15 @@
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Flags.resx">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_DevPub.resx">
+      <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Group.resx">
+      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Manual.resx">
+      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Genre.resx">
       <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
     </EmbeddedResource>
@@ -316,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAbout.resx">
       <DependentUpon>DlgAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCatSelect.resx">
+      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>

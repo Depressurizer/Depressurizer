@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -27,7 +28,7 @@ namespace Depressurizer {
 
         public virtual void LoadFromAutoCat( AutoCat ac ) { }
 
-        public static AutoCatConfigPanel CreatePanel( AutoCat ac, GameList ownedGames ) {
+        public static AutoCatConfigPanel CreatePanel( AutoCat ac, GameList ownedGames, List<AutoCat> autocats ) {
             AutoCatType t = ac.AutoCatType;
             switch( t ) {
                 case AutoCatType.Genre:
@@ -42,6 +43,12 @@ namespace Depressurizer {
                     return new AutoCatConfigPanel_UserScore();
                 case AutoCatType.Hltb:
                     return new AutoCatConfigPanel_Hltb();
+                case AutoCatType.Manual:
+                    return new AutoCatConfigPanel_Manual( ownedGames );
+                case AutoCatType.DevPub:
+                    return new AutoCatConfigPanel_DevPub( ownedGames );
+                case AutoCatType.Group:
+                    return new AutoCatConfigPanel_Group( autocats );
                 default:
                     return null;
             }

@@ -294,7 +294,8 @@ namespace Depressurizer {
             Queue<int> gamesToScrape = new Queue<int>();
 
             foreach( GameDBEntry g in Program.GameDB.Games.Values ) {
-                if( g.LastStoreScrape == 0 ) {
+                //Only scrape displayed games
+                if (( g.LastStoreScrape == 0 ) && ShouldDisplayGame(g)) {
                     gamesToScrape.Enqueue( g.Id );
                 }
             }

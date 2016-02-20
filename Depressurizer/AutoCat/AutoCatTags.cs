@@ -41,6 +41,7 @@ public class AutoCatTags : AutoCat {
 
         public const string TypeIdString = "AutoCatTags";
         private const string XmlName_Name = "Name",
+            XmlName_Filter = "Filter",
             XmlName_Prefix = "Prefix",
             XmlName_TagList = "Tags",
             XmlName_Tag = "Tag",
@@ -52,10 +53,11 @@ public class AutoCatTags : AutoCat {
             XmlName_ListExcludeGenres = "List_ExcludeGenres",
             XmlName_ListScoreSort = "List_ScoreSort";
 
-        public AutoCatTags( string name, string prefix = "",
+        public AutoCatTags( string name, string filter = null, string prefix = null,
             HashSet<string> tags = null, int maxTags = 0,
-            bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true )
+            bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true, bool selected = false)
             : base( name ) {
+            this.Filter = filter;
             this.Prefix = prefix;
 
             if( tags == null ) IncludedTags = new HashSet<string>();
@@ -68,10 +70,12 @@ public class AutoCatTags : AutoCat {
             this.ListTagsPerGame = listTagsPerGame;
             this.ListScoreSort = listScoreSort;
             this.ListExcludeGenres = listExcludeGenres;
+            this.Selected = selected;
         }
 
         protected AutoCatTags( AutoCatTags other )
             : base( other ) {
+            this.Filter = other.Filter;
             this.Prefix = other.Prefix;
             this.IncludedTags = new HashSet<string>( other.IncludedTags );
             this.MaxTags = other.MaxTags;
@@ -82,13 +86,14 @@ public class AutoCatTags : AutoCat {
             this.ListTagsPerGame = other.ListTagsPerGame;
             this.ListScoreSort = other.ListScoreSort;
             this.ListExcludeGenres = other.ListExcludeGenres;
+            this.Selected = other.Selected;
         }
 
         public override AutoCat Clone() {
             return new AutoCatTags( this );
         }
 
-        public override AutoCatResult CategorizeGame( GameInfo game ) {
+        public override AutoCatResult CategorizeGame( GameInfo game, Filter filter ) {
             if( games == null ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
                 throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
@@ -103,6 +108,8 @@ public class AutoCatTags : AutoCat {
             }
 
             if( !db.Contains( game.Id ) || db.Games[game.Id].LastStoreScrape == 0 ) return AutoCatResult.NotInDatabase;
+
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             List<string> gameTags = db.GetTagList( game.Id );
 
@@ -131,7 +138,8 @@ public class AutoCatTags : AutoCat {
             writer.WriteStartElement( TypeIdString );
 
             writer.WriteElementString( XmlName_Name, Name );
-            if( !string.IsNullOrEmpty( Prefix ) ) writer.WriteElementString( XmlName_Prefix, Prefix );
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString( XmlName_MaxTags, MaxTags.ToString() );
 
             if( IncludedTags != null && IncludedTags.Count > 0 ) {
@@ -156,6 +164,8 @@ public class AutoCatTags : AutoCat {
             string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
 
             AutoCatTags result = new AutoCatTags( name );
+
+            result.Filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
 
             string prefix;
             if( XmlUtil.TryGetStringFromNode( xElement[XmlName_Prefix], out prefix ) ) result.Prefix = prefix;

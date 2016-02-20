@@ -24,59 +24,91 @@ using System.Windows.Forms;
 namespace Depressurizer {
     public partial class DlgAutoCat : Form {
         public List<AutoCat> AutoCatList;
+        //public List<Filter> FilterList;
         private GameList ownedGames;
-        AutoCat current;
+        private AutoCat current;
+        private AutoCat initial;
+        private string profilePath;
 
         AutoCatConfigPanel currentConfigPanel = null;
 
-        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames ) {
+        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames, AutoCat selected, string profile ) {
             InitializeComponent();
 
             AutoCatList = new List<AutoCat>();
 
-            foreach( AutoCat c in autoCats ) {
-                AutoCatList.Add( c.Clone() );
+            profilePath = profile;
+
+            foreach (AutoCat c in autoCats) {
+                AutoCat clone = c.Clone();
+                AutoCatList.Add(clone);
+                if (c.Equals(selected))
+                {
+                    initial = clone;
+                }
             }
 
             this.ownedGames = ownedGames;
         }
 
-        #region UI Uptaters
+        #region UI Updaters
 
         private void FillAutocatList() {
             lstAutoCats.Items.Clear();
             foreach( AutoCat ac in AutoCatList ) {
                 lstAutoCats.Items.Add( ac );
             }
+            lstAutoCats.DisplayMember = "DisplayName";
         }
 
         private void RecreateConfigPanel() {
             if( currentConfigPanel != null ) {
-                this.splitContainer.Panel2.Controls.Remove( currentConfigPanel );
+                this.splitAutoCat.Panel2.Controls.Remove( currentConfigPanel );
             }
 
             if( current != null ) {
-                currentConfigPanel = AutoCatConfigPanel.CreatePanel( current, ownedGames );
+                currentConfigPanel = AutoCatConfigPanel.CreatePanel( current, ownedGames, AutoCatList );
             }
    
             if( currentConfigPanel != null ) {
                 currentConfigPanel.Dock = DockStyle.Fill;
-                this.splitContainer.Panel2.Controls.Add( currentConfigPanel );
+                this.splitAutoCat.Panel2.Controls.Add( currentConfigPanel );
             }
         }
 
         private void FillConfigPanel() {
             if( current != null && currentConfigPanel != null ) {
                 currentConfigPanel.LoadFromAutoCat( current );
+                if (current.Filter != null)
+                {
+                    chkFilter.Checked = true;
+                    cboFilter.Text = current.Filter;
+                }
+                else
+                {
+                    chkFilter.Checked = false;
+                }
             }
+        }
+
+        private void FillFilterList()
+        {
+            cboFilter.DataSource = null;
+            cboFilter.DataSource = ownedGames.Filters;
+            cboFilter.ValueMember = null;
+            cboFilter.DisplayMember = "Name";
+            cboFilter.Text = "";
         }
 
         #endregion
 
         #region Data modifiers
         private void SaveToAutoCat() {
-            if( current != null && currentConfigPanel != null ) {
-                currentConfigPanel.SaveToAutoCat( current );
+            if( current != null && currentConfigPanel != null )
+            {
+                currentConfigPanel.SaveToAutoCat(current);
+                if (chkFilter.Checked && cboFilter.Text != string.Empty) current.Filter = cboFilter.Text;
+                else current.Filter = null;
             }
         }
 
@@ -104,14 +136,16 @@ namespace Depressurizer {
                     }
                 }
             } while( res == DialogResult.OK && !good );
-            if( res == DialogResult.OK ) {
-                AutoCat newAutoCat = AutoCat.Create( t, name );
+            AutoCat newAutoCat = null;
+            if ( res == DialogResult.OK ) {
+                newAutoCat = AutoCat.Create( t, name );
                 if( newAutoCat != null ) {
                     AutoCatList.Add( newAutoCat );
                 }
             }
             AutoCatList.Sort();
             FillAutocatList();
+            if (newAutoCat != null) lstAutoCats.SelectedItem = newAutoCat;
         }
 
         private void RenameAutoCat( AutoCat ac ) {
@@ -149,10 +183,17 @@ namespace Depressurizer {
 
         #region Event Handlers
 
-        private void DlgAutoCat_Load( object sender, EventArgs e ) {
+        private void DlgAutoCat_Load(object sender, EventArgs e)
+        {
             FillAutocatList();
-
             RecreateConfigPanel();
+            FillFilterList();
+
+            if (this.initial != null)
+            {
+                lstAutoCats.SelectedItem = initial;
+            }
+
         }
 
         private void lstAutoCats_SelectedIndexChanged( object sender, EventArgs e ) {
@@ -162,6 +203,29 @@ namespace Depressurizer {
             current = lstAutoCats.SelectedItem as AutoCat;
             RecreateConfigPanel();
             FillConfigPanel();
+
+            if (lstAutoCats.SelectedItem != null)
+            {
+                btnUp.Enabled = (lstAutoCats.SelectedIndex == 0) ? false : true;
+                btnDown.Enabled = (lstAutoCats.SelectedIndex == (lstAutoCats.Items.Count - 1)) ? false : true;
+            }
+            else
+            {
+                btnUp.Enabled = false;
+                btnDown.Enabled = false;
+            }
+        }
+
+        private void btnUp_Click(object sender, EventArgs e)
+        {
+            Utility.MoveItem(lstAutoCats, -1);
+            RepositionAutoCats();
+        }
+
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            Utility.MoveItem(lstAutoCats, 1);
+            RepositionAutoCats();
         }
 
         private void cmdSave_Click( object sender, EventArgs e ) {
@@ -173,22 +237,57 @@ namespace Depressurizer {
         }
 
         private void cmdDelete_Click( object sender, EventArgs e ) {
+            int selectedIndex = lstAutoCats.SelectedIndex;
             RemoveAutoCat( lstAutoCats.SelectedItem as AutoCat );
+            // Select previous item after deleting.
+            if (lstAutoCats.Items.Count > 0)
+            {
+                if (selectedIndex > 0)
+                {
+                    lstAutoCats.SelectedItem = lstAutoCats.Items[selectedIndex - 1];
+                }
+                else
+                {
+                    lstAutoCats.SelectedItem = lstAutoCats.Items[selectedIndex];
+                }
+            }
         }
 
         private void cmdRename_Click( object sender, EventArgs e ) {
             RenameAutoCat( lstAutoCats.SelectedItem as AutoCat );
         }
 
+        private void chkFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkFilter.Checked)
+            {
+                cboFilter.Enabled = true;
+                FillFilterList();
+            }
+            else cboFilter.Enabled = false;
+        }
+
         #endregion
 
         #region Utility
+
+        private void RepositionAutoCats()
+        {
+            AutoCatList.Clear();
+            foreach (AutoCat ac in lstAutoCats.Items)
+            {
+                AutoCatList.Add(ac);
+            }
+        }
+
+
         private bool NameExists( string name ) {
             foreach( AutoCat ac in AutoCatList ) {
                 if( ac.Name == name ) return true;
             }
             return false;
         }
+
         #endregion
 
     }

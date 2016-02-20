@@ -18,6 +18,14 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System.IO;
 using System.Collections.Generic;
 using System;
+using System.Drawing;
+using System.Net;
+using System.Windows.Forms;
+using System.Net.Cache;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace Depressurizer {
     public static class Utility {
@@ -136,6 +144,113 @@ namespace Depressurizer {
             if( val.CompareTo( max ) > 0 ) return max;
             return val;
         }
+
+        public static Image GetImage(string url, RequestCacheLevel cache)
+        {
+            try
+            {
+                WebClient wc = new WebClient();
+                wc.CachePolicy = new RequestCachePolicy(cache);
+                byte[] bytes = wc.DownloadData(url);
+                MemoryStream ms = new MemoryStream(bytes);
+                return Image.FromStream(ms);
+            }
+            catch
+            {
+                Program.Logger.Write(Rallion.LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+            }
+            return null;
+        }
+
+        public static bool GrabBanner(int id)
+        {
+
+            Image banner = null;
+            string bannerURL = string.Format(Properties.Resources.UrlGameBanner, id.ToString());
+            try
+            {
+                banner = GetImage(bannerURL, RequestCacheLevel.CacheIfAvailable);
+            }
+            catch
+            {
+                Program.Logger.Write(Rallion.LoggerLevel.Warning,string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
+                return false;
+            }
+
+            if (banner != null)
+            {
+                string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id.ToString());
+                if (!Directory.Exists(Path.GetDirectoryName(bannerPath)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(bannerPath));
+                }
+                try
+                {
+
+                    banner.Save(bannerPath);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, bannerPath), e);
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsOnScreen(MaterialForm form)
+        {
+            Screen[] screens = Screen.AllScreens;
+            foreach (Screen screen in screens)
+            {
+                Point formTopLeft = new Point(form.Left, form.Top);
+
+                if (screen.WorkingArea.Contains(formTopLeft))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static string GetEnumDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+
+            DescriptionAttribute[] attributes =
+                (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            if (attributes != null && attributes.Length > 0)
+                return attributes[0].Description;
+            else
+                return value.ToString();
+        }
+
+        public static void MoveItem(ListBox lb, int direction)
+        {
+            // Checking selected item
+            if (lb.SelectedItem == null || lb.SelectedIndex < 0 || lb.SelectedItems.Count > 1)
+                return; // No selected item or more than one item selected - nothing to do
+
+            // Calculate new index using move direction
+            int newIndex = lb.SelectedIndex + direction;
+
+            // Checking bounds of the range
+            if (newIndex < 0 || newIndex >= lb.Items.Count)
+                return; // Index out of range - nothing to do
+
+            object selected = lb.SelectedItem;
+
+            // Removing removable element
+            lb.Items.Remove(selected);
+            // Insert it in new position
+            lb.Items.Insert(newIndex, selected);
+            // Restore selection
+            lb.SetSelected(newIndex, true);
+        }
+
         #endregion
 
         #region Steam-specific
@@ -144,8 +259,12 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="appId"></param>
         public static void LaunchStorePage( int appId ) {
-            System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStore, appId ) );
+            System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStoreApp, appId ) );
         }
         #endregion
+
+
     }
+
+
 }

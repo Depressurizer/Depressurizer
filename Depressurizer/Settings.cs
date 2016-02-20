@@ -56,7 +56,199 @@ namespace Depressurizer {
 
         public int SettingsVersion {
             get {
-                return 2;
+                return 3;
+            }
+        }
+
+        private int _x;
+        public int X
+        {
+            get
+            {
+                return _x;
+            }
+            set
+            {
+                if (_x != value)
+                {
+                    _x = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private int _y;
+        public int Y
+        {
+            get
+            {
+                return _y;
+            }
+            set
+            {
+                if (_y != value)
+                {
+                    _y = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private int _height;
+        public int Height
+        {
+            get
+            {
+                if (_height <= 350)
+                {
+                    Height = 600;
+                }
+                return _height;
+            }
+            set
+            {
+                if (_height != value)
+                {
+                    _height = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private int _width;
+        public int Width
+        {
+            get
+            {
+                if (_width <= 600)
+                {
+                    Width = 1000;
+                }
+                return _width;
+            }
+            set
+            {
+                if (_width != value)
+                {
+                    _width = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private int _splitContainer;
+        public int SplitContainer
+        {
+            get
+            {
+                if (_splitContainer <= 100)
+                {
+                    SplitContainer = 250;
+                }
+                return _splitContainer;
+            }
+            set
+            {
+                if (_splitContainer != value)
+                {
+                    _splitContainer = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public int SplitGameContainerHeight = 510;
+        private int _splitGame;
+        public int SplitGame
+        {
+            get
+            {
+                if (_splitGame <= 100)
+                {
+                    SplitGame = SplitGameContainerHeight - 150;
+                }
+                return _splitGame;
+            }
+            set
+            {
+                if (_splitGame != value)
+                {
+                    _splitGame = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public int SplitBrowserContainerWidth = 722;
+        private int _splitBrowser;
+        public int SplitBrowser
+        {
+            get
+            {
+                if (_splitBrowser <= 100)
+                {
+                    SplitBrowser = SplitBrowserContainerWidth - 300;
+                }
+                return _splitBrowser;
+            }
+            set
+            {
+                if ( _splitBrowser != value)
+                {
+                    _splitBrowser = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private string _filter;
+        public string Filter
+        {
+            get
+            {
+                return _filter;
+            }
+            set
+            {
+                if (_filter != value)
+                {
+                    _filter = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private string _category;
+        public string Category
+        {
+            get
+            {
+                return _category;
+            }
+            set
+            {
+                if (_category != value)
+                {
+                    _category = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        private string _autocats;
+        public string AutoCats
+        {
+            get
+            {
+                return _autocats;
+            }
+            set
+            {
+                if (_autocats != value)
+                {
+                    _autocats = value;
+                    outOfDate = true;
+                }
             }
         }
 
