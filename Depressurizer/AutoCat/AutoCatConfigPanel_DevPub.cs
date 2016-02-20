@@ -96,7 +96,7 @@ namespace Depressurizer {
             {
                 foreach (ListViewItem item in clbDevelopersSelected.CheckedItems)
                 {
-                    ac.Developers.Add(item.Text);
+                    ac.Developers.Add(item.Tag.ToString());
                 }
             }
 
@@ -105,7 +105,7 @@ namespace Depressurizer {
             {
                 foreach (ListViewItem item in clbPublishersSelected.CheckedItems)
                 {
-                    ac.Publishers.Add(item.Text);
+                    ac.Publishers.Add(item.Tag.ToString());
                 }
             }
         }
