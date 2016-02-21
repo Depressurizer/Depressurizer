@@ -3149,6 +3149,24 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Profile.
+        /// </summary>
+        internal static string MainForm_SaveProfile {
+            get {
+                return ResourceManager.GetString("MainForm_SaveProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save your current profile settings?.
+        /// </summary>
+        internal static string MainForm_SaveProfileConfirm {
+            get {
+                return ResourceManager.GetString("MainForm_SaveProfileConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving profile data failed:.
         /// </summary>
         internal static string MainForm_SavingProfileDataFailed {
@@ -3257,7 +3275,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unsaved changes.
+        ///   Looks up a localized string similar to Unsaved Changes.
         /// </summary>
         internal static string MainForm_UnsavedChanges {
             get {

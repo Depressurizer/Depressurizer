@@ -67,14 +67,14 @@ namespace Depressurizer {
             lstDevelopers.BeginUpdate();
             foreach (ListViewItem item in lstDevelopers.Items)
             {
-                item.Checked = ac.Developers.Contains(item.Text);
+                item.Checked = ac.Developers.Contains(item.Tag.ToString());
             }
             lstDevelopers.EndUpdate();
 
             lstPublishers.BeginUpdate();
             foreach (ListViewItem item in lstPublishers.Items)
             {
-                item.Checked = ac.Publishers.Contains(item.Text);
+                item.Checked = ac.Publishers.Contains(item.Tag.ToString());
             }
             lstPublishers.EndUpdate();
 

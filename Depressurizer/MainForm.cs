@@ -662,12 +662,13 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="path">Path to save to. If null, just saves profile to its current path.</param>
         /// <returns>True if successful, false if there is a failure</returns>
-        bool SaveProfile( string path = null ) {
+        bool SaveProfile( string path = null, bool exportSteam = false ) {
             if( !ProfileLoaded ) return false;
-            if( currentProfile.AutoExport ) {
+            if( exportSteam ) {
                 ExportConfig();
             }
             Settings.Instance.LstGamesState = Convert.ToBase64String(lstGames.SaveState());
+
             try {
                 if( path == null ) {
                     currentProfile.Save();
@@ -2267,7 +2268,12 @@ namespace Depressurizer {
 
         private void menu_File_SaveProfile_Click( object sender, EventArgs e ) {
             ClearStatus();
-            SaveProfile();
+            DlgClose close = new DlgClose(GlobalStrings.MainForm_SaveProfileConfirm, GlobalStrings.MainForm_SaveProfile, SystemIcons.Question.ToBitmap(), false, currentProfile.AutoExport);
+            DialogResult res = close.ShowDialog();
+            if (res == DialogResult.Yes)
+            {
+                SaveProfile(null, close.Export);
+            }
             FlushStatus();
         }
 
@@ -3396,14 +3402,18 @@ namespace Depressurizer {
         bool CheckForUnsaved() {
             if( !ProfileLoaded || !unsavedChanges ) return true;
 
-            DialogResult res = MessageBox.Show( GlobalStrings.MainForm_UnsavedChangesWillBeLost, GlobalStrings.MainForm_UnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning );
+            DlgClose close = new DlgClose(GlobalStrings.MainForm_UnsavedChangesWillBeLost, GlobalStrings.MainForm_UnsavedChanges, SystemIcons.Warning.ToBitmap(), true, currentProfile.AutoExport);
+            
+            DialogResult res = close.ShowDialog();
+
+            //DialogResult res = MessageBox.Show( GlobalStrings.MainForm_UnsavedChangesWillBeLost, GlobalStrings.MainForm_UnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning );
             if( res == System.Windows.Forms.DialogResult.No ) {
                 return true;
             }
             if( res == System.Windows.Forms.DialogResult.Cancel ) {
                 return false;
             }
-            return SaveProfile();
+            return SaveProfile(null, close.Export);
         }
 
         /// <summary>

@@ -43,6 +43,9 @@ namespace Depressurizer
         public List<string> Developers { get; set; }
         public List<string> Publishers { get; set; }
 
+        private IEnumerable<Tuple<string, int>> devList;
+        private IEnumerable<Tuple<string, int>> pubList;
+
         // Serialization keys
         public const string TypeIdString = "AutoCatDevPub";
         private const string
@@ -103,6 +106,8 @@ namespace Depressurizer
         {
             base.PreProcess(games, db);
             gamelist = games;
+            devList = Program.GameDB.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
+            pubList = Program.GameDB.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
         }
 
         public override void DeProcess()
@@ -141,7 +146,7 @@ namespace Depressurizer
                 {
                     if (Developers.Contains(devs[index]) || AllDevelopers)
                     {
-                        game.AddCategory(games.GetCategory(GetProcessedString(devs[index])));
+                        if (DevCount(devs[index]) >= MinCount) game.AddCategory(games.GetCategory(GetProcessedString(devs[index])));
                     }
                 }
             }
@@ -154,12 +159,30 @@ namespace Depressurizer
                 {
                     if (Publishers.Contains(pubs[index]) || AllPublishers)
                     {
-                        game.AddCategory(games.GetCategory(GetProcessedString(pubs[index])));
+                        if (PubCount(pubs[index]) >= MinCount) game.AddCategory(games.GetCategory(GetProcessedString(pubs[index])));
                     }
                 }
             }
 
             return AutoCatResult.Success;
+        }
+
+        private int DevCount(string name)
+        {
+            foreach (Tuple<string, int> dev in devList)
+            {
+                if (dev.Item1 == name) return dev.Item2;
+            }
+            return 0;
+        }
+
+        private int PubCount(string name)
+        {
+            foreach (Tuple<string, int> pub in pubList)
+            {
+                if (pub.Item1 == name) return pub.Item2;
+            }
+            return 0;
         }
 
         private string GetProcessedString(string baseString)
