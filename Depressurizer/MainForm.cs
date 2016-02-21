@@ -602,8 +602,9 @@ namespace Depressurizer {
             dlg.AddExtension = true;
             dlg.CheckFileExists = true;
             dlg.Filter = GlobalStrings.DlgProfile_Filter;
+            dlg.InitialDirectory = Path.GetDirectoryName(currentProfile.FilePath);
             DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
+            if( res == DialogResult.OK ) {
                 LoadProfile( dlg.FileName, false );
             }
         }
@@ -651,6 +652,7 @@ namespace Depressurizer {
             dlg.AddExtension = true;
             dlg.CheckPathExists = true;
             dlg.Filter = GlobalStrings.DlgProfile_Filter;
+            dlg.InitialDirectory = Path.GetDirectoryName(currentProfile.FilePath);
             DialogResult res = dlg.ShowDialog();
             if( res == System.Windows.Forms.DialogResult.OK ) {
                 SaveProfile( dlg.FileName );
@@ -662,9 +664,9 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="path">Path to save to. If null, just saves profile to its current path.</param>
         /// <returns>True if successful, false if there is a failure</returns>
-        bool SaveProfile( string path = null, bool exportSteam = false ) {
+        bool SaveProfile( string path = null ) {
             if( !ProfileLoaded ) return false;
-            if( exportSteam ) {
+            if( currentProfile.AutoExport ) {
                 ExportConfig();
             }
             Settings.Instance.LstGamesState = Convert.ToBase64String(lstGames.SaveState());
@@ -1500,7 +1502,7 @@ namespace Depressurizer {
             if( catCreationPossible ) {
                 OnCategoryChange();
             } else {
-                FillCategoryList();
+                FillCategoryList(false);
                 UpdateGameList();
             }
         }
@@ -1589,7 +1591,7 @@ namespace Depressurizer {
 
             currentProfile.GameData.Categories.Sort();
 
-            FillCategoryList();
+            FillCategoryList(true);
 
             lstMultiCat.BeginUpdate();
             foreach ( Category c in currentProfile.GameData.Categories ) {
@@ -1621,7 +1623,7 @@ namespace Depressurizer {
         /// Completely repopulates the category list. Maintains selection.
         /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
-        private void FillCategoryList()
+        private void FillCategoryList(bool sort)
         {
             object selected = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedItems[0].Tag : null;
             int selectedIndex = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedIndices[0] : -1;
@@ -1699,7 +1701,8 @@ namespace Depressurizer {
                     }
                 }
             }
-            SortCategories(currentSort);
+
+            if (sort) SortCategories(currentSort);
             lstCategories.EndUpdate();
 
             //Hide count column
@@ -2014,7 +2017,11 @@ namespace Depressurizer {
 
         private void SortCategories(CategorySort sort)
         {
+            // save new sort as current sort
             currentSort = sort;
+
+            // save currently selected games
+            SortedSet<int> selectedIds = GetSelectedGameIds();
 
             lstCategories.BeginUpdate();
 
@@ -2033,6 +2040,9 @@ namespace Depressurizer {
 
             // add Specials.
             InsertSpecials(specials);
+
+            // restore games selection
+            SelectGameSet(selectedIds);
 
             lstCategories.EndUpdate();
 
@@ -2272,7 +2282,8 @@ namespace Depressurizer {
             DialogResult res = close.ShowDialog();
             if (res == DialogResult.Yes)
             {
-                SaveProfile(null, close.Export);
+                currentProfile.AutoExport = close.Export;
+                SaveProfile(null);
             }
             FlushStatus();
         }
@@ -3413,7 +3424,8 @@ namespace Depressurizer {
             if( res == System.Windows.Forms.DialogResult.Cancel ) {
                 return false;
             }
-            return SaveProfile(null, close.Export);
+            currentProfile.AutoExport = close.Export;
+            return SaveProfile(null);
         }
 
         /// <summary>

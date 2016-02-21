@@ -2152,6 +2152,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile backup failed: {0}.
+        /// </summary>
+        internal static string Log_Profile_ConfigBackupFailed {
+            get {
+                return ResourceManager.GetString("Log_Profile_ConfigBackupFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This action will add the contents of a Steam community game list to the currently loaded game list. If you do not want to do this, close the open game list or profile first.
         ///Continue loading games?.
         /// </summary>

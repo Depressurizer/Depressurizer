@@ -1488,4 +1488,8 @@ A game must NOT be in any categories marked with an X ("Excluded").</value>
     <value>Save your current profile settings?</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="Log_Profile_ConfigBackupFailed" xml:space="preserve">
+    <value>Profile backup failed: {0}</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>

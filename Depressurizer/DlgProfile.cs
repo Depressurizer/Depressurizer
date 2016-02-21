@@ -75,7 +75,6 @@ namespace Depressurizer {
             chkSetStartup.Checked = false;
 
             chkAutoUpdate.Checked = Profile.AutoUpdate;
-            chkAutoExport.Checked = Profile.AutoExport;
             chkAutoImport.Checked = Profile.AutoImport;
             chkLocalUpdate.Checked = Profile.LocalUpdate;
             chkWebUpdate.Checked = Profile.WebUpdate;
@@ -316,7 +315,6 @@ namespace Depressurizer {
             p.SteamID64 = Int64.Parse( txtUserID.Text );
 
             p.AutoUpdate = chkAutoUpdate.Checked;
-            p.AutoExport = chkAutoExport.Checked;
             p.AutoImport = chkAutoImport.Checked;
             p.LocalUpdate = chkLocalUpdate.Checked;
             p.WebUpdate = chkLocalUpdate.Checked;

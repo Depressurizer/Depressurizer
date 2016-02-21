@@ -88,7 +88,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/rallion/depressurizer.
+        ///   Looks up a localized string similar to https://github.com/Theo47/depressurizer.
         /// </summary>
         internal static string DepressurizerHomepage {
             get {

@@ -726,11 +726,14 @@
   <data name="grpSaveOpt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="lblHelp_ExportDiscard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="lblHelp_ExportDiscard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lblHelp_ExportDiscard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>382, 42</value>
+    <value>382, 19</value>
   </data>
   <data name="lblHelp_ExportDiscard.Size" type="System.Drawing.Size, System.Drawing">
     <value>15, 15</value>
@@ -753,11 +756,14 @@
   <data name="&gt;&gt;lblHelp_ExportDiscard.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="chkExportDiscard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="chkExportDiscard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkExportDiscard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
+    <value>6, 19</value>
   </data>
   <data name="chkExportDiscard.Size" type="System.Drawing.Size, System.Drawing">
     <value>370, 17</value>
@@ -780,33 +786,6 @@
   <data name="&gt;&gt;chkExportDiscard.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="chkAutoExport.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkAutoExport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="chkAutoExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>311, 17</value>
-  </data>
-  <data name="chkAutoExport.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="chkAutoExport.Text" xml:space="preserve">
-    <value>Automatically export categories to Steam when saving profile</value>
-  </data>
-  <data name="&gt;&gt;chkAutoExport.Name" xml:space="preserve">
-    <value>chkAutoExport</value>
-  </data>
-  <data name="&gt;&gt;chkAutoExport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkAutoExport.Parent" xml:space="preserve">
-    <value>grpSaveOpt</value>
-  </data>
-  <data name="&gt;&gt;chkAutoExport.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="grpSaveOpt.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 77</value>
   </data>
@@ -814,7 +793,7 @@
     <value>3, 3, 0, 3</value>
   </data>
   <data name="grpSaveOpt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>550, 65</value>
+    <value>550, 42</value>
   </data>
   <data name="grpSaveOpt.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -979,7 +958,7 @@
     <value>3</value>
   </data>
   <data name="grpUpdateOpt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 148</value>
+    <value>6, 126</value>
   </data>
   <data name="grpUpdateOpt.Size" type="System.Drawing.Size, System.Drawing">
     <value>550, 65</value>
@@ -1063,7 +1042,7 @@
     <value>1</value>
   </data>
   <data name="grpOtherOpt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 219</value>
+    <value>6, 197</value>
   </data>
   <data name="grpOtherOpt.Size" type="System.Drawing.Size, System.Drawing">
     <value>550, 65</value>
@@ -1489,7 +1468,7 @@
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.5.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgProfile</value>

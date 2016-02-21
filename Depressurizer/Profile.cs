@@ -326,6 +326,15 @@ namespace Depressurizer {
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
 
+            try
+            {
+                Utility.BackupFile(path, Settings.Instance.ConfigBackupCount);
+            }
+            catch (Exception e)
+            {
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_Profile_ConfigBackupFailed, e.Message);
+            }
+
             XmlWriter writer;
             try {
                 writer = XmlWriter.Create( path, writeSettings );
