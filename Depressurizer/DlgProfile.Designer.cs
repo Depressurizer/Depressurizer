@@ -68,7 +68,6 @@ namespace Depressurizer {
             this.grpSaveOpt = new System.Windows.Forms.GroupBox();
             this.lblHelp_ExportDiscard = new System.Windows.Forms.Label();
             this.chkExportDiscard = new System.Windows.Forms.CheckBox();
-            this.chkAutoExport = new System.Windows.Forms.CheckBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tabOpts = new System.Windows.Forms.TabPage();
@@ -87,12 +86,12 @@ namespace Depressurizer {
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
+            this.chkIncludeUnknown = new System.Windows.Forms.CheckBox();
             this.lblHelp_BypassIgnoreOnImport = new System.Windows.Forms.Label();
             this.lblHelp_IncludeUnknown = new System.Windows.Forms.Label();
             this.chkBypassIgnoreOnImport = new System.Windows.Forms.CheckBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.chkIncludeUnknown = new System.Windows.Forms.CheckBox();
             this.grpUserInfo.SuspendLayout();
             this.grpProfInfo.SuspendLayout();
             this.grpActions.SuspendLayout();
@@ -285,7 +284,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.grpSaveOpt, "grpSaveOpt");
             this.grpSaveOpt.Controls.Add(this.lblHelp_ExportDiscard);
             this.grpSaveOpt.Controls.Add(this.chkExportDiscard);
-            this.grpSaveOpt.Controls.Add(this.chkAutoExport);
             this.grpSaveOpt.Name = "grpSaveOpt";
             this.grpSaveOpt.TabStop = false;
             // 
@@ -302,14 +300,6 @@ namespace Depressurizer {
             this.chkExportDiscard.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkExportDiscard.Name = "chkExportDiscard";
             this.chkExportDiscard.UseVisualStyleBackColor = true;
-            // 
-            // chkAutoExport
-            // 
-            resources.ApplyResources(this.chkAutoExport, "chkAutoExport");
-            this.chkAutoExport.Checked = true;
-            this.chkAutoExport.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoExport.Name = "chkAutoExport";
-            this.chkAutoExport.UseVisualStyleBackColor = true;
             // 
             // tabControl
             // 
@@ -456,6 +446,12 @@ namespace Depressurizer {
             this.grpIgnoreSettings.Name = "grpIgnoreSettings";
             this.grpIgnoreSettings.TabStop = false;
             // 
+            // chkIncludeUnknown
+            // 
+            resources.ApplyResources(this.chkIncludeUnknown, "chkIncludeUnknown");
+            this.chkIncludeUnknown.Name = "chkIncludeUnknown";
+            this.chkIncludeUnknown.UseVisualStyleBackColor = true;
+            // 
             // lblHelp_BypassIgnoreOnImport
             // 
             resources.ApplyResources(this.lblHelp_BypassIgnoreOnImport, "lblHelp_BypassIgnoreOnImport");
@@ -485,12 +481,6 @@ namespace Depressurizer {
             // ttHelp
             // 
             this.ttHelp.UseFading = false;
-            // 
-            // chkIncludeUnknown
-            // 
-            resources.ApplyResources(this.chkIncludeUnknown, "chkIncludeUnknown");
-            this.chkIncludeUnknown.Name = "chkIncludeUnknown";
-            this.chkIncludeUnknown.UseVisualStyleBackColor = true;
             // 
             // DlgProfile
             // 
@@ -550,7 +540,6 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkAutoUpdate;
         private System.Windows.Forms.GroupBox grpSaveOpt;
         private System.Windows.Forms.CheckBox chkExportDiscard;
-        private System.Windows.Forms.CheckBox chkAutoExport;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabMain;
         private System.Windows.Forms.TabPage tabOpts;

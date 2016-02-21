@@ -1334,4 +1334,7 @@ If unchecked, games with no times will be skipped.</value>
   <data name="MainForm_SaveProfileConfirm" xml:space="preserve">
     <value>Save your current profile settings?</value>
   </data>
+  <data name="Log_Profile_ConfigBackupFailed" xml:space="preserve">
+    <value>Profile backup failed: {0}</value>
+  </data>
 </root>

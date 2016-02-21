@@ -127,7 +127,7 @@
     <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
   </data>
   <data name="DepressurizerHomepage" xml:space="preserve">
-    <value>https://github.com/rallion/depressurizer</value>
+    <value>https://github.com/Theo47/depressurizer</value>
   </data>
   <data name="GameBannerPath" xml:space="preserve">
     <value>{0}\Game Banners\{1}.jpg</value>
