@@ -221,6 +221,7 @@ namespace Depressurizer {
                         return releaseDate.Year.ToString();
                 return GlobalStrings.MainForm_Unknown;
             };
+            colLastPlayed.AspectGetter = delegate (Object g) { return (((GameInfo)g).LastPlayed == DateTime.MinValue) ? null : ((GameInfo)g).LastPlayed.ToString("yyyy/MM/dd"); };
             colAchievements.AspectGetter = delegate(object g)
             {
                 int id = ((GameInfo)g).Id;
@@ -2705,6 +2706,37 @@ namespace Depressurizer {
             }
         }
 
+        private void menu_Profile_Restore_Profile_Click(object sender, EventArgs e)
+        {
+            string profilePath = Path.GetDirectoryName(currentProfile.FilePath);
+            DlgRestore restore = new DlgRestore(profilePath);
+
+            DialogResult res = restore.ShowDialog();
+
+            if (restore.Restored)
+            {
+                ClearStatus();
+                LoadProfile(currentProfile.FilePath, false);
+                FlushStatus();
+            }
+
+        }
+
+        private void menu_Profile_Restore_Config_Click(object sender, EventArgs e)
+        {
+            string sharedconfigPath = Path.GetDirectoryName(string.Format(Properties.Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(currentProfile.SteamID64)));
+            DlgRestore restore = new DlgRestore(sharedconfigPath);
+
+            DialogResult res = restore.ShowDialog();
+
+            if (restore.Restored)
+            {
+                ClearStatus();
+                ImportConfig();
+                FlushStatus();
+            }
+        }
+
         #endregion
 
         #region Controls (Buttons, Textboxes and Checkboxes)
@@ -3550,7 +3582,6 @@ namespace Depressurizer {
                 return true;
             }
         }
-
 
         /// <summary>
         /// Clustering strategy for columns with comma-seperated strings. (Tags, Categories, Flags, Genres etc)

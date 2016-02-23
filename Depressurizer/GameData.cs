@@ -884,7 +884,7 @@ namespace Depressurizer {
         #endregion
 
         /// <summary>
-        /// Updates the game list based on data from the localconfig file and the package cache.
+        /// Updates the game list based on data from the localconfig file and the package cache, including LastPlayed.
         /// </summary>
         /// <param name="accountId">64-bit account ID to update for</param>
         /// <param name="ignored">Set of games to ignore</param>
@@ -918,6 +918,10 @@ namespace Depressurizer {
                         }
                     }
                 }
+
+                // update LastPlayed
+                VdfFileNode appsNode = vdfFile.GetNodeAt(new string[] { "UserLocalConfigStore", "Software", "Valve", "Steam", "apps" }, false);
+                GetLastPlayedFromVdf(appsNode, ignored, includedTypes);
             }
 
             foreach( KeyValuePair<int, GameListingSource> kv in ownedApps ) {
@@ -1013,6 +1017,53 @@ namespace Depressurizer {
                 val,
                 m => ( (char)int.Parse( m.Groups["Value"].Value, NumberStyles.HexNumber ) ).ToString()
             );
+        }
+
+        /// <summary>
+        /// Get LastPlayed date from a VDF node containing a list of games.
+        /// Any games in the node not found in the game list will be added to the gamelist.
+        /// </summary>
+        /// <param name="appsNode">Node containing the game nodes</param>
+        /// <param name="ignore">Set of games to ignore</param>
+        /// <param name="forceInclude">Include games even if their type is not an included type</param>
+        private void GetLastPlayedFromVdf(VdfFileNode appsNode, SortedSet<int> ignore, AppTypes includedTypes)
+        {
+            Dictionary<string, VdfFileNode> gameNodeArray = appsNode.NodeArray;
+            if (gameNodeArray != null)
+            {
+                foreach (KeyValuePair<string, VdfFileNode> gameNodePair in gameNodeArray)
+                {
+                    int gameId;
+                    if (int.TryParse(gameNodePair.Key, out gameId))
+                    {
+                        if ((ignore != null && ignore.Contains(gameId)) || !Program.GameDB.IncludeItemInGameList(gameId, includedTypes))
+                        {
+                            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_SkippedProcessingGame, gameId);
+                        }
+                        else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
+                        {
+                            GameInfo game = null;
+
+                            // Add the game to the list if it doesn't exist already
+                            if (!Games.ContainsKey(gameId))
+                            {
+                                game = new GameInfo(gameId, Program.GameDB.GetName(gameId), this);
+                                Games.Add(gameId, game);
+                                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
+                            }
+                            else {
+                                game = Games[gameId];
+                            }
+
+                            if (gameNodePair.Value.ContainsKey("LastPlayed") && gameNodePair.Value["LastPlayed"].NodeInt != 0)
+                            {
+                                game.LastPlayed = Utility.GetDTFromUTime(gameNodePair.Value["LastPlayed"].NodeInt);
+                                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, game.LastPlayed.ToString());
+                            }    
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>

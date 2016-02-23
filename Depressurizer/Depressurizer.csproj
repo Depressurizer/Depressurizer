@@ -219,6 +219,12 @@
     <Compile Include="DlgClose.Designer.cs">
       <DependentUpon>DlgClose.cs</DependentUpon>
     </Compile>
+    <Compile Include="DlgRestore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgRestore.Designer.cs">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameBanners.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="Lib\ExtListView.cs">
@@ -385,6 +391,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgClose.resx">
       <DependentUpon>DlgClose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.es.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>

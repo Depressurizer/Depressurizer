@@ -1337,4 +1337,11 @@ If unchecked, games with no times will be skipped.</value>
   <data name="Log_Profile_ConfigBackupFailed" xml:space="preserve">
     <value>Profile backup failed: {0}</value>
   </data>
+  <data name="DlgRestore_ConfigConfirm" xml:space="preserve">
+    <value>Are you sure you want to overwrite your Steam config file with: {0}?
+Close Steam BEFORE restoring!</value>
+  </data>
+  <data name="DlgRestore_ProfileConfirm" xml:space="preserve">
+    <value>Are you sure you want to overwrite your profile with: {0}?</value>
+  </data>
 </root>
