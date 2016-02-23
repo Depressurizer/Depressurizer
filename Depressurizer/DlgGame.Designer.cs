@@ -54,6 +54,7 @@ namespace Depressurizer {
             this.chkHidden = new System.Windows.Forms.CheckBox();
             this.txtExecutable = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnBrowse = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtId
@@ -124,6 +125,13 @@ namespace Depressurizer {
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // btnBrowse
+            // 
+            resources.ApplyResources(this.btnBrowse, "btnBrowse");
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
             // DlgGame
             // 
             this.AcceptButton = this.cmdOk;
@@ -131,6 +139,7 @@ namespace Depressurizer {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ControlBox = false;
+            this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtExecutable);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chkHidden);
@@ -166,5 +175,6 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkHidden;
         private System.Windows.Forms.TextBox txtExecutable;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnBrowse;
     }
 }

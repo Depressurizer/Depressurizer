@@ -3560,6 +3560,7 @@ namespace Depressurizer {
                 //    // Steam game
                 //    gameIdentifier = g.Id.ToString();
                 //}
+                g.LastPlayed = DateTime.Now;
                 System.Diagnostics.Process.Start( g.Executable );
             }
         }

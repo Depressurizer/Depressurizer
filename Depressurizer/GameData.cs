@@ -1057,7 +1057,8 @@ namespace Depressurizer {
 
                             if (gameNodePair.Value.ContainsKey("LastPlayed") && gameNodePair.Value["LastPlayed"].NodeInt != 0)
                             {
-                                game.LastPlayed = Utility.GetDTFromUTime(gameNodePair.Value["LastPlayed"].NodeInt);
+                                DateTime dt = Utility.GetDTFromUTime(gameNodePair.Value["LastPlayed"].NodeInt);
+                                if (dt > game.LastPlayed) game.LastPlayed = dt;
                                 Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, game.LastPlayed.ToString());
                             }    
                         }
