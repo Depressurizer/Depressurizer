@@ -1209,13 +1209,13 @@ If unchecked, games with no times will be skipped.</value>
     <value>Scraping {0}: Error downloading game banner</value>
   </data>
   <data name="GameData_GetBanner" xml:space="preserve">
-    <value>Erroring getting game banner from {0}.</value>
+    <value>Error getting game banner from {0}.</value>
   </data>
   <data name="Utility_GetImage" xml:space="preserve">
-    <value>Erroring getting image from {0}.</value>
+    <value>Error getting image from {0}.</value>
   </data>
   <data name="Utility_SaveBanner" xml:space="preserve">
-    <value>Erroring saving game banner to {0}.</value>
+    <value>Error saving game banner to {0}.</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Tags" xml:space="preserve">
     <value>By Tags</value>

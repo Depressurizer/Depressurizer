@@ -1684,7 +1684,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Erroring getting game banner from {0}..
+        ///   Looks up a localized string similar to Error getting game banner from {0}..
         /// </summary>
         internal static string GameData_GetBanner {
             get {
@@ -3563,7 +3563,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Erroring getting image from {0}..
+        ///   Looks up a localized string similar to Error getting image from {0}..
         /// </summary>
         internal static string Utility_GetImage {
             get {
@@ -3572,7 +3572,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Erroring saving game banner to {0}..
+        ///   Looks up a localized string similar to Error saving game banner to {0}..
         /// </summary>
         internal static string Utility_SaveBanner {
             get {
