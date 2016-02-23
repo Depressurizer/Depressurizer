@@ -261,6 +261,9 @@
   <data name="&gt;&gt;splitCategories.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 56</value>
+  </metadata>
   <data name="mbtnClearFilters.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -276,9 +279,6 @@
   <data name="mbtnClearFilters.Text" xml:space="preserve">
     <value>X</value>
   </data>
-  <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>132, 56</value>
-  </metadata>
   <data name="mbtnClearFilters.ToolTip" xml:space="preserve">
     <value>Clear all filters</value>
   </data>
@@ -315,99 +315,6 @@
   <metadata name="contextCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>642, 17</value>
   </metadata>
-  <data name="nameascendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 22</value>
-  </data>
-  <data name="nameascendingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Name (ascending)</value>
-  </data>
-  <data name="namedescendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 22</value>
-  </data>
-  <data name="namedescendingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Name (descending)</value>
-  </data>
-  <data name="countascendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 22</value>
-  </data>
-  <data name="countascendingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Count (ascending)</value>
-  </data>
-  <data name="countdescendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 22</value>
-  </data>
-  <data name="countdescendingToolStripMenuItem.Text" xml:space="preserve">
-    <value>Count (descending)</value>
-  </data>
-  <data name="sortToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="sortToolStripMenuItem.Text" xml:space="preserve">
-    <value>Sort</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="contextCat_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_Add.Text" xml:space="preserve">
-    <value>Add Category...</value>
-  </data>
-  <data name="contextCat_Rename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_Rename.Text" xml:space="preserve">
-    <value>Rename Category...</value>
-  </data>
-  <data name="contextCat_Delete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_Delete.Text" xml:space="preserve">
-    <value>Delete Category</value>
-  </data>
-  <data name="contextCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="contextCat_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
-    <value>Remove Empty Categories</value>
-  </data>
-  <data name="contextCat_SetAdvanced_Allow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 22</value>
-  </data>
-  <data name="contextCat_SetAdvanced_Allow.Text" xml:space="preserve">
-    <value>Allow</value>
-  </data>
-  <data name="contextCat_SetAdvanced_Require.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 22</value>
-  </data>
-  <data name="contextCat_SetAdvanced_Require.Text" xml:space="preserve">
-    <value>Require</value>
-  </data>
-  <data name="contextCat_SetAdvanced_Exclude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 22</value>
-  </data>
-  <data name="contextCat_SetAdvanced_Exclude.Text" xml:space="preserve">
-    <value>Exclude</value>
-  </data>
-  <data name="contextCat_SetAdvanced_None.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 22</value>
-  </data>
-  <data name="contextCat_SetAdvanced_None.Text" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="contextCat_SetAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="contextCat_SetAdvanced.Text" xml:space="preserve">
-    <value>Set Filter</value>
-  </data>
-  <data name="contextCat_SetAdvanced.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="contextCat.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 148</value>
   </data>
@@ -453,7 +360,7 @@
     <value>lstCategories</value>
   </data>
   <data name="&gt;&gt;lstCategories.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.7.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.7.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;lstCategories.Parent" xml:space="preserve">
     <value>splitCategories.Panel2</value>
@@ -602,12 +509,6 @@
   <metadata name="contextAutoCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>381, 56</value>
   </metadata>
-  <data name="contextAutoCat_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 22</value>
-  </data>
-  <data name="contextAutoCat_Edit.Text" xml:space="preserve">
-    <value>Edit AutoCats...</value>
-  </data>
   <data name="contextAutoCat.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 26</value>
   </data>
@@ -1047,13 +948,13 @@
     <value>Title</value>
   </data>
   <data name="colTitle.Width" type="System.Int32, mscorlib">
-    <value>168</value>
+    <value>144</value>
   </data>
   <data name="colCategories.Text" xml:space="preserve">
     <value>Categories</value>
   </data>
   <data name="colCategories.Width" type="System.Int32, mscorlib">
-    <value>196</value>
+    <value>167</value>
   </data>
   <data name="colGenres.DisplayIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1077,7 +978,7 @@
     <value>Tags</value>
   </data>
   <data name="colTags.Width" type="System.Int32, mscorlib">
-    <value>117</value>
+    <value>116</value>
   </data>
   <data name="colFavorite.DisplayIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1107,7 +1008,7 @@
     <value>Review Score</value>
   </data>
   <data name="colReviewScore.Width" type="System.Int32, mscorlib">
-    <value>83</value>
+    <value>79</value>
   </data>
   <data name="colNumberOfReviews.DisplayIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1131,7 +1032,10 @@
     <value>Year</value>
   </data>
   <data name="colYear.Width" type="System.Int32, mscorlib">
-    <value>39</value>
+    <value>37</value>
+  </data>
+  <data name="colLastPlayed.Text" xml:space="preserve">
+    <value>Last Played</value>
   </data>
   <data name="colAchievements.DisplayIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1193,150 +1097,6 @@
   <metadata name="contextGame.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>234, 17</value>
   </metadata>
-  <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_LaunchGame.Text" xml:space="preserve">
-    <value>Play Game...</value>
-  </data>
-  <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_Add.Text" xml:space="preserve">
-    <value>Add New Game...</value>
-  </data>
-  <data name="contextGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_Edit.Text" xml:space="preserve">
-    <value>Edit Game...</value>
-  </data>
-  <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_Remove.Text" xml:space="preserve">
-    <value>Remove Game</value>
-  </data>
-  <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <metadata name="contextGameAddCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>500, 17</value>
-  </metadata>
-  <data name="contextGameAddCat_Create.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
-  </data>
-  <data name="contextGameAddCat_Create.Text" xml:space="preserve">
-    <value>Create New...</value>
-  </data>
-  <data name="contextGameAddCat.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 600</value>
-  </data>
-  <data name="contextGameAddCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 26</value>
-  </data>
-  <data name="&gt;&gt;contextGameAddCat.Name" xml:space="preserve">
-    <value>contextGameAddCat</value>
-  </data>
-  <data name="&gt;&gt;contextGameAddCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_AddCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_AddCat.Text" xml:space="preserve">
-    <value>Add Category</value>
-  </data>
-  <metadata name="contextGameRemCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>752, 17</value>
-  </metadata>
-  <data name="contextGameRemCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 4</value>
-  </data>
-  <data name="&gt;&gt;contextGameRemCat.Name" xml:space="preserve">
-    <value>contextGameRemCat</value>
-  </data>
-  <data name="&gt;&gt;contextGameRemCat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_RemCat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_RemCat.Text" xml:space="preserve">
-    <value>Remove Category</value>
-  </data>
-  <metadata name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>358, 17</value>
-  </metadata>
-  <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
-  </data>
-  <data name="contextGameFav_Yes.Text" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
-  </data>
-  <data name="contextGameFav_No.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 48</value>
-  </data>
-  <data name="&gt;&gt;contextGameFav.Name" xml:space="preserve">
-    <value>contextGameFav</value>
-  </data>
-  <data name="&gt;&gt;contextGameFav.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_SetFav.Text" xml:space="preserve">
-    <value>Set Favorite</value>
-  </data>
-  <metadata name="contextGameHidden.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>217, 56</value>
-  </metadata>
-  <data name="contextGameHidden_Yes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
-  </data>
-  <data name="contextGameHidden_Yes.Text" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="contextGameHidden_No.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
-  </data>
-  <data name="contextGameHidden_No.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="contextGameHidden.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 48</value>
-  </data>
-  <data name="&gt;&gt;contextGameHidden.Name" xml:space="preserve">
-    <value>contextGameHidden</value>
-  </data>
-  <data name="&gt;&gt;contextGameHidden.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="contextGame_SetHidden.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_SetHidden.Text" xml:space="preserve">
-    <value>Set Hidden</value>
-  </data>
-  <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 6</value>
-  </data>
-  <data name="contextGame_VisitStore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 22</value>
-  </data>
-  <data name="contextGame_VisitStore.Text" xml:space="preserve">
-    <value>Visit Store Page</value>
-  </data>
   <data name="contextGame.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 220</value>
   </data>
@@ -1399,7 +1159,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAfABCwHwAQsBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAQgBDAEIAQwBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1602,6 +1362,249 @@
   <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <data name="sortToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="sortToolStripMenuItem.Text" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="nameascendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 22</value>
+  </data>
+  <data name="nameascendingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Name (ascending)</value>
+  </data>
+  <data name="namedescendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 22</value>
+  </data>
+  <data name="namedescendingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Name (descending)</value>
+  </data>
+  <data name="countascendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 22</value>
+  </data>
+  <data name="countascendingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Count (ascending)</value>
+  </data>
+  <data name="countdescendingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 22</value>
+  </data>
+  <data name="countdescendingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Count (descending)</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 6</value>
+  </data>
+  <data name="contextCat_Add.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_Add.Text" xml:space="preserve">
+    <value>Add Category...</value>
+  </data>
+  <data name="contextCat_Rename.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_Rename.Text" xml:space="preserve">
+    <value>Rename Category...</value>
+  </data>
+  <data name="contextCat_Delete.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_Delete.Text" xml:space="preserve">
+    <value>Delete Category</value>
+  </data>
+  <data name="contextCat_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 6</value>
+  </data>
+  <data name="contextCat_RemoveEmpty.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_RemoveEmpty.Text" xml:space="preserve">
+    <value>Remove Empty Categories</value>
+  </data>
+  <data name="contextCat_SetAdvanced.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced.Text" xml:space="preserve">
+    <value>Set Filter</value>
+  </data>
+  <data name="contextCat_SetAdvanced.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Allow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Allow.Text" xml:space="preserve">
+    <value>Allow</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Require.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Require.Text" xml:space="preserve">
+    <value>Require</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Exclude.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced_Exclude.Text" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="contextCat_SetAdvanced_None.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 22</value>
+  </data>
+  <data name="contextCat_SetAdvanced_None.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="contextAutoCat_Edit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 22</value>
+  </data>
+  <data name="contextAutoCat_Edit.Text" xml:space="preserve">
+    <value>Edit AutoCats...</value>
+  </data>
+  <data name="contextGame_LaunchGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_LaunchGame.Text" xml:space="preserve">
+    <value>Play Game...</value>
+  </data>
+  <data name="contextGame_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 6</value>
+  </data>
+  <data name="contextGame_Add.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_Add.Text" xml:space="preserve">
+    <value>Add New Game...</value>
+  </data>
+  <data name="contextGame_Edit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_Edit.Text" xml:space="preserve">
+    <value>Edit Game...</value>
+  </data>
+  <data name="contextGame_Remove.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_Remove.Text" xml:space="preserve">
+    <value>Remove Game</value>
+  </data>
+  <data name="contextGame_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 6</value>
+  </data>
+  <metadata name="contextGameAddCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>500, 17</value>
+  </metadata>
+  <data name="contextGameAddCat_Create.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 22</value>
+  </data>
+  <data name="contextGameAddCat_Create.Text" xml:space="preserve">
+    <value>Create New...</value>
+  </data>
+  <data name="contextGameAddCat.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 600</value>
+  </data>
+  <data name="contextGameAddCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 26</value>
+  </data>
+  <data name="&gt;&gt;contextGameAddCat.Name" xml:space="preserve">
+    <value>contextGameAddCat</value>
+  </data>
+  <data name="&gt;&gt;contextGameAddCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_AddCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_AddCat.Text" xml:space="preserve">
+    <value>Add Category</value>
+  </data>
+  <metadata name="contextGameRemCat.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>752, 17</value>
+  </metadata>
+  <data name="contextGameRemCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 4</value>
+  </data>
+  <data name="&gt;&gt;contextGameRemCat.Name" xml:space="preserve">
+    <value>contextGameRemCat</value>
+  </data>
+  <data name="&gt;&gt;contextGameRemCat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_RemCat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_RemCat.Text" xml:space="preserve">
+    <value>Remove Category</value>
+  </data>
+  <metadata name="contextGameFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>358, 17</value>
+  </metadata>
+  <data name="contextGameFav_Yes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 22</value>
+  </data>
+  <data name="contextGameFav_Yes.Text" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="contextGameFav_No.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 22</value>
+  </data>
+  <data name="contextGameFav_No.Text" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="contextGameFav.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 48</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav.Name" xml:space="preserve">
+    <value>contextGameFav</value>
+  </data>
+  <data name="&gt;&gt;contextGameFav.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_SetFav.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_SetFav.Text" xml:space="preserve">
+    <value>Set Favorite</value>
+  </data>
+  <metadata name="contextGameHidden.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>217, 56</value>
+  </metadata>
+  <data name="contextGameHidden_Yes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 22</value>
+  </data>
+  <data name="contextGameHidden_Yes.Text" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="contextGameHidden_No.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 22</value>
+  </data>
+  <data name="contextGameHidden_No.Text" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="contextGameHidden.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 48</value>
+  </data>
+  <data name="&gt;&gt;contextGameHidden.Name" xml:space="preserve">
+    <value>contextGameHidden</value>
+  </data>
+  <data name="&gt;&gt;contextGameHidden.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextGame_SetHidden.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_SetHidden.Text" xml:space="preserve">
+    <value>Set Hidden</value>
+  </data>
+  <data name="contextGame_Sep3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 6</value>
+  </data>
+  <data name="contextGame_VisitStore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 22</value>
+  </data>
+  <data name="contextGame_VisitStore.Text" xml:space="preserve">
+    <value>Visit Store Page</value>
+  </data>
   <data name="mlblStatusSelection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
@@ -1685,7 +1688,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAAWABCgFgAQoBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAAXgBCgF4AQoBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1738,6 +1741,120 @@
   <data name="menuStrip.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 9.75pt</value>
   </data>
+  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 20</value>
+  </data>
+  <data name="menu_File.Text" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="menu_Profile_Update.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+U</value>
+  </data>
+  <data name="menu_Profile_Update.Size" type="System.Drawing.Size, System.Drawing">
+    <value>266, 22</value>
+  </data>
+  <data name="menu_Profile_Update.Text" xml:space="preserve">
+    <value>&amp;Update Game List</value>
+  </data>
+  <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 6</value>
+  </data>
+  <data name="menu_Profile_Import.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+I</value>
+  </data>
+  <data name="menu_Profile_Import.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 22</value>
+  </data>
+  <data name="menu_Profile_Import.Text" xml:space="preserve">
+    <value>&amp;Import Steam Config</value>
+  </data>
+  <data name="menu_Profile_Export.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+E</value>
+  </data>
+  <data name="menu_Profile_Export.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 22</value>
+  </data>
+  <data name="menu_Profile_Export.Text" xml:space="preserve">
+    <value>&amp;Export Steam Config</value>
+  </data>
+  <data name="menu_Profile_Restore_Config.ShowShortcutKeys" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="menu_Profile_Restore_Config.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 22</value>
+  </data>
+  <data name="menu_Profile_Restore_Config.Text" xml:space="preserve">
+    <value>Restore Steam Config</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 6</value>
+  </data>
+  <data name="menu_Profile_Edit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+P</value>
+  </data>
+  <data name="menu_Profile_Edit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>266, 22</value>
+  </data>
+  <data name="menu_Profile_Edit.Text" xml:space="preserve">
+    <value>Edit &amp;Profile Info</value>
+  </data>
+  <data name="menu_Profile_Restore_Profile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>241, 22</value>
+  </data>
+  <data name="menu_Profile_Restore_Profile.Text" xml:space="preserve">
+    <value>Restore Profile</value>
+  </data>
+  <data name="menu_Profile_Sep2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 6</value>
+  </data>
+  <data name="menu_Profile_AutoCats.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+T</value>
+  </data>
+  <data name="menu_Profile_AutoCats.Size" type="System.Drawing.Size, System.Drawing">
+    <value>266, 22</value>
+  </data>
+  <data name="menu_Profile_AutoCats.Text" xml:space="preserve">
+    <value>Edit Au&amp;toCats...</value>
+  </data>
+  <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 20</value>
+  </data>
+  <data name="menu_Profile.Text" xml:space="preserve">
+    <value>&amp;Profile</value>
+  </data>
+  <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="menu_Tools.Text" xml:space="preserve">
+    <value>&amp;Tools</value>
+  </data>
+  <data name="menu_About.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 20</value>
+  </data>
+  <data name="menu_About.Text" xml:space="preserve">
+    <value>&amp;About...</value>
+  </data>
+  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 0</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>313, 24</value>
+  </data>
+  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
   <data name="menu_File_NewProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+N</value>
   </data>
@@ -1786,17 +1903,17 @@
   <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 6</value>
   </data>
-  <data name="menu_File_Manual_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 22</value>
-  </data>
-  <data name="menu_File_Manual_Export.Text" xml:space="preserve">
-    <value>Local &amp;Config File...</value>
-  </data>
   <data name="menu_File_Manual.Size" type="System.Drawing.Size, System.Drawing">
     <value>223, 22</value>
   </data>
   <data name="menu_File_Manual.Text" xml:space="preserve">
     <value>&amp;Manual Export</value>
+  </data>
+  <data name="menu_File_Manual_Export.Size" type="System.Drawing.Size, System.Drawing">
+    <value>184, 22</value>
+  </data>
+  <data name="menu_File_Manual_Export.Text" xml:space="preserve">
+    <value>Local &amp;Config File...</value>
   </data>
   <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 6</value>
@@ -1806,69 +1923,6 @@
   </data>
   <data name="menu_File_Exit.Text" xml:space="preserve">
     <value>E&amp;xit</value>
-  </data>
-  <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 20</value>
-  </data>
-  <data name="menu_File.Text" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <data name="menu_Profile_Update.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+U</value>
-  </data>
-  <data name="menu_Profile_Update.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="menu_Profile_Update.Text" xml:space="preserve">
-    <value>&amp;Update Game List</value>
-  </data>
-  <data name="menu_Profile_Import.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+I</value>
-  </data>
-  <data name="menu_Profile_Import.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="menu_Profile_Import.Text" xml:space="preserve">
-    <value>&amp;Import Config File</value>
-  </data>
-  <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 6</value>
-  </data>
-  <data name="menu_Profile_Export.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+E</value>
-  </data>
-  <data name="menu_Profile_Export.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="menu_Profile_Export.Text" xml:space="preserve">
-    <value>&amp;Export Config File</value>
-  </data>
-  <data name="menu_Profile_Sep2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>223, 6</value>
-  </data>
-  <data name="menu_Profile_Edit.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+P</value>
-  </data>
-  <data name="menu_Profile_Edit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="menu_Profile_Edit.Text" xml:space="preserve">
-    <value>Edit &amp;Profile Info</value>
-  </data>
-  <data name="menu_Profile_AutoCats.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+T</value>
-  </data>
-  <data name="menu_Profile_AutoCats.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 22</value>
-  </data>
-  <data name="menu_Profile_AutoCats.Text" xml:space="preserve">
-    <value>Edit Au&amp;toCats...</value>
-  </data>
-  <data name="menu_Profile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
-  </data>
-  <data name="menu_Profile.Text" xml:space="preserve">
-    <value>&amp;Profile</value>
   </data>
   <metadata name="menu_Tools_Autocat_List.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1047, 17</value>
@@ -1942,39 +1996,6 @@
   <data name="menu_Tools_Settings.Text" xml:space="preserve">
     <value>&amp;Settings...</value>
   </data>
-  <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="menu_Tools.Text" xml:space="preserve">
-    <value>&amp;Tools</value>
-  </data>
-  <data name="menu_About.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 20</value>
-  </data>
-  <data name="menu_About.Text" xml:space="preserve">
-    <value>&amp;About...</value>
-  </data>
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 0</value>
-  </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 24</value>
-  </data>
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
-    <value>menuStrip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
   <data name="picAvatar.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -2002,6 +2023,9 @@
   <data name="&gt;&gt;picAvatar.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 56</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -2339,6 +2363,12 @@
   <data name="&gt;&gt;colYear.Type" xml:space="preserve">
     <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.9.0.25611, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
   </data>
+  <data name="&gt;&gt;colLastPlayed.Name" xml:space="preserve">
+    <value>colLastPlayed</value>
+  </data>
+  <data name="&gt;&gt;colLastPlayed.Type" xml:space="preserve">
+    <value>BrightIdeasSoftware.OLVColumn, ObjectListView, Version=2.9.0.25611, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4</value>
+  </data>
   <data name="&gt;&gt;colAchievements.Name" xml:space="preserve">
     <value>colAchievements</value>
   </data>
@@ -2585,17 +2615,17 @@
   <data name="&gt;&gt;menu_Profile_Update.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menu_Profile_Import.Name" xml:space="preserve">
-    <value>menu_Profile_Import</value>
-  </data>
-  <data name="&gt;&gt;menu_Profile_Import.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;menu_Profile_Sep1.Name" xml:space="preserve">
     <value>menu_Profile_Sep1</value>
   </data>
   <data name="&gt;&gt;menu_Profile_Sep1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Import.Name" xml:space="preserve">
+    <value>menu_Profile_Import</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Import.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;menu_Profile_Export.Name" xml:space="preserve">
     <value>menu_Profile_Export</value>
@@ -2603,10 +2633,10 @@
   <data name="&gt;&gt;menu_Profile_Export.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;menu_Profile_Sep2.Name" xml:space="preserve">
-    <value>menu_Profile_Sep2</value>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
   </data>
-  <data name="&gt;&gt;menu_Profile_Sep2.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;menu_Profile_Edit.Name" xml:space="preserve">
@@ -2619,6 +2649,18 @@
     <value>menu_Profile_AutoCats</value>
   </data>
   <data name="&gt;&gt;menu_Profile_AutoCats.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Sep2.Name" xml:space="preserve">
+    <value>menu_Profile_Sep2</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Sep2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Restore_Config.Name" xml:space="preserve">
+    <value>menu_Profile_Restore_Config</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Restore_Config.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;menu_Tools.Name" xml:space="preserve">
@@ -2697,7 +2739,13 @@
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Restore_Profile.Name" xml:space="preserve">
+    <value>menu_Profile_Restore_Profile</value>
+  </data>
+  <data name="&gt;&gt;menu_Profile_Restore_Profile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>

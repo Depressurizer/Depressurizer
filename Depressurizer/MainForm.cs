@@ -182,31 +182,31 @@ namespace Depressurizer {
             tlstGames = new TypedObjectListView<GameInfo>(this.lstGames);
             //Aspect Getters
             tlstGames.GenerateAspectGetters();
-            colGameID.AspectToStringConverter = delegate (Object g) { return String.Empty; };
+            colGameID.AspectToStringConverter = delegate (object g) { return String.Empty; };
             //colGameID.AspectToStringConverter = delegate(object obj)
             //{
             //    int id = (int)obj;
             //    return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
             //};
             //colTitle.AspectGetter = delegate (Object g) { return String.Empty; };
-            colCategories.AspectGetter = delegate(Object g) { return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized); };
-            colFavorite.AspectGetter = delegate(Object g) { return ((GameInfo)g).IsFavorite() ? "X" : String.Empty; };
-            colHidden.AspectGetter = delegate(Object g) { return ((GameInfo)g).Hidden ? "X" : String.Empty; };
-            colGenres.AspectGetter = delegate(Object g)
+            colCategories.AspectGetter = delegate(object g) { return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized); };
+            colFavorite.AspectGetter = delegate(object g) { return ((GameInfo)g).IsFavorite() ? "X" : String.Empty; };
+            colHidden.AspectGetter = delegate(object g) { return ((GameInfo)g).Hidden ? "X" : String.Empty; };
+            colGenres.AspectGetter = delegate(object g)
             {
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Genres != null)
                     return string.Join(", ", Program.GameDB.Games[id].Genres);
                 return GlobalStrings.MainForm_NoGenres;
             };
-            colFlags.AspectGetter = delegate(Object g)
+            colFlags.AspectGetter = delegate(object g)
             {
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Flags != null)
                     return string.Join(", ", Program.GameDB.Games[id].Flags);
                 return GlobalStrings.MainForm_NoFlags;
             };
-            colTags.AspectGetter = delegate(Object g)
+            colTags.AspectGetter = delegate(object g)
             {
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Tags != null)
@@ -221,20 +221,21 @@ namespace Depressurizer {
                         return releaseDate.Year.ToString();
                 return GlobalStrings.MainForm_Unknown;
             };
+            colLastPlayed.AspectGetter = delegate (object g) { return (((GameInfo)g).LastPlayed == DateTime.MinValue) ? DateTime.MinValue : ((GameInfo)g).LastPlayed; };
             colAchievements.AspectGetter = delegate(object g)
             {
                 int id = ((GameInfo)g).Id;
                 return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].Achievements : 0;
             };
-            colPlatforms.AspectGetter = delegate(Object g) { return Program.GameDB.Games[((GameInfo)g).Id].Platforms.ToString(); };
-            colDevelopers.AspectGetter = delegate(Object g)
+            colPlatforms.AspectGetter = delegate(object g) { return Program.GameDB.Games[((GameInfo)g).Id].Platforms.ToString(); };
+            colDevelopers.AspectGetter = delegate(object g)
             {
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Developers != null)
                     return string.Join(", ", Program.GameDB.Games[id].Developers);
                 return GlobalStrings.MainForm_Unknown;
             };
-            colPublishers.AspectGetter = delegate(Object g)
+            colPublishers.AspectGetter = delegate(object g)
             {
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Publishers != null)
@@ -346,6 +347,13 @@ namespace Depressurizer {
             };
             colHltbExtras.AspectToStringConverter = hltb;
             colHltbCompletionist.AspectToStringConverter = hltb;
+            colLastPlayed.AspectToStringConverter = delegate (object obj)
+            {
+                DateTime LastPlayed = (DateTime)obj;
+                Thread threadForCulture = new Thread(delegate () { });
+                string format = threadForCulture.CurrentCulture.DateTimeFormat.ShortDatePattern;
+                return (LastPlayed == DateTime.MinValue) ? null : LastPlayed.ToString(format);
+            };
 
             //Filtering
             colCategories.ClusteringStrategy = new CommaClusteringStrategy();
@@ -2705,6 +2713,37 @@ namespace Depressurizer {
             }
         }
 
+        private void menu_Profile_Restore_Profile_Click(object sender, EventArgs e)
+        {
+            string profilePath = Path.GetDirectoryName(currentProfile.FilePath);
+            DlgRestore restore = new DlgRestore(profilePath);
+
+            DialogResult res = restore.ShowDialog();
+
+            if (restore.Restored)
+            {
+                ClearStatus();
+                LoadProfile(currentProfile.FilePath, false);
+                FlushStatus();
+            }
+
+        }
+
+        private void menu_Profile_Restore_Config_Click(object sender, EventArgs e)
+        {
+            string sharedconfigPath = Path.GetDirectoryName(string.Format(Properties.Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(currentProfile.SteamID64)));
+            DlgRestore restore = new DlgRestore(sharedconfigPath);
+
+            DialogResult res = restore.ShowDialog();
+
+            if (restore.Restored)
+            {
+                ClearStatus();
+                ImportConfig();
+                FlushStatus();
+            }
+        }
+
         #endregion
 
         #region Controls (Buttons, Textboxes and Checkboxes)
@@ -3551,7 +3590,6 @@ namespace Depressurizer {
             }
         }
 
-
         /// <summary>
         /// Clustering strategy for columns with comma-seperated strings. (Tags, Categories, Flags, Genres etc)
         /// </summary>
@@ -3707,4 +3745,4 @@ namespace Depressurizer {
         public SortOrder Order;
     }
 
-}
+}

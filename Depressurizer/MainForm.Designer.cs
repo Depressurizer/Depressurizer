@@ -103,6 +103,7 @@ namespace Depressurizer {
             this.colNumberOfReviews = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colReviewLabel = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colYear = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colLastPlayed = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colAchievements = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colDevelopers = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colPublishers = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -154,12 +155,14 @@ namespace Depressurizer {
             this.menu_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Update = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Profile_Import = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menu_Profile_Import = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Export = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Profile_Sep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Profile_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_AutoCats = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Profile_Sep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menu_Profile_Restore_Config = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutocatAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Autocat_List = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -175,6 +178,7 @@ namespace Depressurizer {
             this.menu_About = new System.Windows.Forms.ToolStripMenuItem();
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.menu_Profile_Restore_Profile = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -676,6 +680,7 @@ namespace Depressurizer {
             this.lstGames.AllColumns.Add(this.colNumberOfReviews);
             this.lstGames.AllColumns.Add(this.colReviewLabel);
             this.lstGames.AllColumns.Add(this.colYear);
+            this.lstGames.AllColumns.Add(this.colLastPlayed);
             this.lstGames.AllColumns.Add(this.colAchievements);
             this.lstGames.AllColumns.Add(this.colDevelopers);
             this.lstGames.AllColumns.Add(this.colPublishers);
@@ -696,6 +701,7 @@ namespace Depressurizer {
             this.colTags,
             this.colReviewScore,
             this.colYear,
+            this.colLastPlayed,
             this.colFiller});
             this.lstGames.ContextMenuStrip = this.contextGame;
             this.lstGames.Cursor = System.Windows.Forms.Cursors.Default;
@@ -815,6 +821,11 @@ namespace Depressurizer {
             this.colYear.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colYear.Tag = "colYear";
             resources.ApplyResources(this.colYear, "colYear");
+            // 
+            // colLastPlayed
+            // 
+            this.colLastPlayed.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            resources.ApplyResources(this.colLastPlayed, "colLastPlayed");
             // 
             // colAchievements
             // 
@@ -1192,11 +1203,14 @@ namespace Depressurizer {
             // 
             this.menu_Profile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_Profile_Update,
-            this.menu_Profile_Import,
             this.menu_Profile_Sep1,
+            this.menu_Profile_Import,
             this.menu_Profile_Export,
-            this.menu_Profile_Sep2,
+            this.menu_Profile_Restore_Config,
+            this.toolStripSeparator2,
             this.menu_Profile_Edit,
+            this.menu_Profile_Restore_Profile,
+            this.menu_Profile_Sep2,
             this.menu_Profile_AutoCats});
             this.menu_Profile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(173)))), ((int)(((byte)(175)))));
             this.menu_Profile.Name = "menu_Profile";
@@ -1210,6 +1224,13 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Profile_Update, "menu_Profile_Update");
             this.menu_Profile_Update.Click += new System.EventHandler(this.menu_Profile_Update_Click);
             // 
+            // menu_Profile_Sep1
+            // 
+            this.menu_Profile_Sep1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.menu_Profile_Sep1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
+            this.menu_Profile_Sep1.Name = "menu_Profile_Sep1";
+            resources.ApplyResources(this.menu_Profile_Sep1, "menu_Profile_Sep1");
+            // 
             // menu_Profile_Import
             // 
             this.menu_Profile_Import.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
@@ -1217,13 +1238,6 @@ namespace Depressurizer {
             this.menu_Profile_Import.Name = "menu_Profile_Import";
             resources.ApplyResources(this.menu_Profile_Import, "menu_Profile_Import");
             this.menu_Profile_Import.Click += new System.EventHandler(this.menu_Profile_Import_Click);
-            // 
-            // menu_Profile_Sep1
-            // 
-            this.menu_Profile_Sep1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.menu_Profile_Sep1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
-            this.menu_Profile_Sep1.Name = "menu_Profile_Sep1";
-            resources.ApplyResources(this.menu_Profile_Sep1, "menu_Profile_Sep1");
             // 
             // menu_Profile_Export
             // 
@@ -1233,12 +1247,12 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Profile_Export, "menu_Profile_Export");
             this.menu_Profile_Export.Click += new System.EventHandler(this.menu_Profile_Export_Click);
             // 
-            // menu_Profile_Sep2
+            // toolStripSeparator2
             // 
-            this.menu_Profile_Sep2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.menu_Profile_Sep2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
-            this.menu_Profile_Sep2.Name = "menu_Profile_Sep2";
-            resources.ApplyResources(this.menu_Profile_Sep2, "menu_Profile_Sep2");
+            this.toolStripSeparator2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.toolStripSeparator2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // menu_Profile_Edit
             // 
@@ -1255,6 +1269,21 @@ namespace Depressurizer {
             this.menu_Profile_AutoCats.Name = "menu_Profile_AutoCats";
             resources.ApplyResources(this.menu_Profile_AutoCats, "menu_Profile_AutoCats");
             this.menu_Profile_AutoCats.Click += new System.EventHandler(this.menu_Profile_EditAutoCats_Click);
+            // 
+            // menu_Profile_Sep2
+            // 
+            this.menu_Profile_Sep2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.menu_Profile_Sep2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
+            this.menu_Profile_Sep2.Name = "menu_Profile_Sep2";
+            resources.ApplyResources(this.menu_Profile_Sep2, "menu_Profile_Sep2");
+            // 
+            // menu_Profile_Restore_Config
+            // 
+            this.menu_Profile_Restore_Config.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.menu_Profile_Restore_Config.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
+            this.menu_Profile_Restore_Config.Name = "menu_Profile_Restore_Config";
+            resources.ApplyResources(this.menu_Profile_Restore_Config, "menu_Profile_Restore_Config");
+            this.menu_Profile_Restore_Config.Click += new System.EventHandler(this.menu_Profile_Restore_Config_Click);
             // 
             // menu_Tools
             // 
@@ -1350,6 +1379,14 @@ namespace Depressurizer {
             this.picAvatar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(71)))), ((int)(((byte)(79)))));
             this.picAvatar.Name = "picAvatar";
             this.picAvatar.TabStop = false;
+            // 
+            // menu_Profile_Restore_Profile
+            // 
+            this.menu_Profile_Restore_Profile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.menu_Profile_Restore_Profile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
+            this.menu_Profile_Restore_Profile.Name = "menu_Profile_Restore_Profile";
+            resources.ApplyResources(this.menu_Profile_Restore_Profile, "menu_Profile_Restore_Profile");
+            this.menu_Profile_Restore_Profile.Click += new System.EventHandler(this.menu_Profile_Restore_Profile_Click);
             // 
             // FormMain
             // 
@@ -1532,6 +1569,10 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_Exclude;
         private System.Windows.Forms.ToolStripMenuItem contextCat_SetAdvanced_None;
         private BrightIdeasSoftware.OLVColumn colFiller;
+        private BrightIdeasSoftware.OLVColumn colLastPlayed;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem menu_Profile_Restore_Config;
+        private System.Windows.Forms.ToolStripMenuItem menu_Profile_Restore_Profile;
     }
 }
 

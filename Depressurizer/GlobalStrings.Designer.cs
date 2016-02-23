@@ -1466,6 +1466,25 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to overwrite your Steam config file with: {0}?
+        ///Close Steam BEFORE restoring!.
+        /// </summary>
+        internal static string DlgRestore_ConfigConfirm {
+            get {
+                return ResourceManager.GetString("DlgRestore_ConfigConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to overwrite your profile with: {0}?.
+        /// </summary>
+        internal static string DlgRestore_ProfileConfirm {
+            get {
+                return ResourceManager.GetString("DlgRestore_ProfileConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to That path does not exist. Are you sure?.
         /// </summary>
         internal static string DlgSteamPath_ThatPathDoesNotExist {

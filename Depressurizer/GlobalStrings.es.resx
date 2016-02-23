@@ -1492,4 +1492,13 @@ A game must NOT be in any categories marked with an X ("Excluded").</value>
     <value>Profile backup failed: {0}</value>
     <comment>TODO_LOCAL: Requires translation</comment>
   </data>
+  <data name="DlgRestore_ConfigConfirm" xml:space="preserve">
+    <value>Are you sure you want to overwrite your Steam config file with: {0}?
+Close Steam BEFORE restoring!</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
+  <data name="DlgRestore_ProfileConfirm" xml:space="preserve">
+    <value>Are you sure you want to overwrite your profile with: {0}?</value>
+    <comment>TODO_LOCAL: Requires translation</comment>
+  </data>
 </root>
