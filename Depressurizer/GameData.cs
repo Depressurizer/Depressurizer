@@ -90,7 +90,7 @@ namespace Depressurizer {
             {
                 if (value != String.Format(runSteam, Id.ToString()))
                 {
-                    if (File.Exists(value)) _executable = value;
+                    _executable = value;
                 }
             }
         }
