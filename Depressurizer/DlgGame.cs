@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Depressurizer {
@@ -83,6 +84,27 @@ namespace Depressurizer {
 
             DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            try
+            {
+                FileInfo f = new FileInfo(txtExecutable.Text);
+                dlg.InitialDirectory = f.DirectoryName;
+                dlg.FileName = f.Name;
+            }
+            catch (ArgumentException)
+            {
+            }
+
+            DialogResult res = dlg.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtExecutable.Text = dlg.FileName;
+            }
         }
     }
 }
