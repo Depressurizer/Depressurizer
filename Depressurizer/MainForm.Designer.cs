@@ -158,11 +158,12 @@ namespace Depressurizer {
             this.menu_Profile_Sep1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Profile_Import = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Export = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Profile_Restore_Config = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Profile_Edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Profile_AutoCats = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Profile_Restore_Profile = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Profile_Sep2 = new System.Windows.Forms.ToolStripSeparator();
-            this.menu_Profile_Restore_Config = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_Profile_AutoCats = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_AutocatAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Autocat_List = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -177,8 +178,8 @@ namespace Depressurizer {
             this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_About = new System.Windows.Forms.ToolStripMenuItem();
             this.picAvatar = new System.Windows.Forms.PictureBox();
+            this.imglistEarlyAccess = new System.Windows.Forms.ImageList(this.components);
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.menu_Profile_Restore_Profile = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -1247,6 +1248,14 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Profile_Export, "menu_Profile_Export");
             this.menu_Profile_Export.Click += new System.EventHandler(this.menu_Profile_Export_Click);
             // 
+            // menu_Profile_Restore_Config
+            // 
+            this.menu_Profile_Restore_Config.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.menu_Profile_Restore_Config.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
+            this.menu_Profile_Restore_Config.Name = "menu_Profile_Restore_Config";
+            resources.ApplyResources(this.menu_Profile_Restore_Config, "menu_Profile_Restore_Config");
+            this.menu_Profile_Restore_Config.Click += new System.EventHandler(this.menu_Profile_Restore_Config_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
@@ -1262,13 +1271,13 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Profile_Edit, "menu_Profile_Edit");
             this.menu_Profile_Edit.Click += new System.EventHandler(this.menu_Profile_Edit_Click);
             // 
-            // menu_Profile_AutoCats
+            // menu_Profile_Restore_Profile
             // 
-            this.menu_Profile_AutoCats.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.menu_Profile_AutoCats.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
-            this.menu_Profile_AutoCats.Name = "menu_Profile_AutoCats";
-            resources.ApplyResources(this.menu_Profile_AutoCats, "menu_Profile_AutoCats");
-            this.menu_Profile_AutoCats.Click += new System.EventHandler(this.menu_Profile_EditAutoCats_Click);
+            this.menu_Profile_Restore_Profile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.menu_Profile_Restore_Profile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
+            this.menu_Profile_Restore_Profile.Name = "menu_Profile_Restore_Profile";
+            resources.ApplyResources(this.menu_Profile_Restore_Profile, "menu_Profile_Restore_Profile");
+            this.menu_Profile_Restore_Profile.Click += new System.EventHandler(this.menu_Profile_Restore_Profile_Click);
             // 
             // menu_Profile_Sep2
             // 
@@ -1277,13 +1286,13 @@ namespace Depressurizer {
             this.menu_Profile_Sep2.Name = "menu_Profile_Sep2";
             resources.ApplyResources(this.menu_Profile_Sep2, "menu_Profile_Sep2");
             // 
-            // menu_Profile_Restore_Config
+            // menu_Profile_AutoCats
             // 
-            this.menu_Profile_Restore_Config.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.menu_Profile_Restore_Config.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
-            this.menu_Profile_Restore_Config.Name = "menu_Profile_Restore_Config";
-            resources.ApplyResources(this.menu_Profile_Restore_Config, "menu_Profile_Restore_Config");
-            this.menu_Profile_Restore_Config.Click += new System.EventHandler(this.menu_Profile_Restore_Config_Click);
+            this.menu_Profile_AutoCats.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+            this.menu_Profile_AutoCats.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
+            this.menu_Profile_AutoCats.Name = "menu_Profile_AutoCats";
+            resources.ApplyResources(this.menu_Profile_AutoCats, "menu_Profile_AutoCats");
+            this.menu_Profile_AutoCats.Click += new System.EventHandler(this.menu_Profile_EditAutoCats_Click);
             // 
             // menu_Tools
             // 
@@ -1380,13 +1389,13 @@ namespace Depressurizer {
             this.picAvatar.Name = "picAvatar";
             this.picAvatar.TabStop = false;
             // 
-            // menu_Profile_Restore_Profile
+            // imglistEarlyAccess
             // 
-            this.menu_Profile_Restore_Profile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.menu_Profile_Restore_Profile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(157)))), ((int)(((byte)(168)))), ((int)(((byte)(157)))));
-            this.menu_Profile_Restore_Profile.Name = "menu_Profile_Restore_Profile";
-            resources.ApplyResources(this.menu_Profile_Restore_Profile, "menu_Profile_Restore_Profile");
-            this.menu_Profile_Restore_Profile.Click += new System.EventHandler(this.menu_Profile_Restore_Profile_Click);
+            this.imglistEarlyAccess.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglistEarlyAccess.ImageStream")));
+            this.imglistEarlyAccess.TransparentColor = System.Drawing.Color.Transparent;
+            this.imglistEarlyAccess.Images.SetKeyName(0, "early_access_banner_english.png");
+            this.imglistEarlyAccess.Images.SetKeyName(1, "early_access_banner_russian.png");
+            this.imglistEarlyAccess.Images.SetKeyName(2, "early_access_banner_spanish.png");
             // 
             // FormMain
             // 
@@ -1573,6 +1582,7 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_Restore_Config;
         private System.Windows.Forms.ToolStripMenuItem menu_Profile_Restore_Profile;
+        private System.Windows.Forms.ImageList imglistEarlyAccess;
     }
 }
 

@@ -68,6 +68,7 @@ namespace Depressurizer {
         const string BIG_UP = "{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP}";
         const string BIG_DOWN = "{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN}";
         const string ADVANCED_FILTER = "ADVANCED_FILTER";
+        const string EARLY_ACCESS = "Early Access";
         #endregion
 
         Profile currentProfile;
@@ -1552,13 +1553,16 @@ namespace Depressurizer {
                 }
             }
 
-            StartBannerThread(new List<GameInfo>(displayedGames));
+            if (displayedGames.Count > 0)
+            {
+                StartBannerThread(new List<GameInfo>(displayedGames));
 
-            this.lstGames.Objects = displayedGames;
+                this.lstGames.Objects = displayedGames;
 
-            lstGames.BuildList();
+                lstGames.BuildList();
 
-            SelectGameSet(selectedIds);
+                SelectGameSet(selectedIds);
+            }
 
             lstGames.EndUpdate();
 
@@ -3324,7 +3328,20 @@ namespace Depressurizer {
             decoration.AdornmentCorner = ContentAlignment.TopLeft;
             decoration.ReferenceCorner = ContentAlignment.TopLeft;
             decoration.Transparency = 255;
-            e.SubItem.Decoration = decoration;
+            //e.SubItem.Decoration = decoration;
+            e.SubItem.Decorations.Add(decoration);
+
+            // Add Early Access banner
+            if (Program.GameDB.Games.ContainsKey(g.Id) && Program.GameDB.Games[g.Id].Tags != null)
+            {
+                if (Program.GameDB.Games[g.Id].Tags.Contains(EARLY_ACCESS)) {
+                    decoration = new ImageDecoration(imglistEarlyAccess.Images[0]);
+                    decoration.AdornmentCorner = ContentAlignment.TopLeft;
+                    decoration.ReferenceCorner = ContentAlignment.TopLeft;
+                    decoration.Transparency = 200;
+                    e.SubItem.Decorations.Add(decoration);
+                }
+            }
 
             TextDecoration td = new TextDecoration(g.Id.ToString(), ContentAlignment.BottomLeft);
             td.Font = new Font(this.lstGames.Font.Name, 8);

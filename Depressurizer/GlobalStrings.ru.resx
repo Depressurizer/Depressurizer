@@ -1,0 +1,1347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CDlgFetch_DownloadingGameList" xml:space="preserve">
+    <value>Downloading game list...</value>
+  </data>
+  <data name="CDlgFetch_FinishingDownload" xml:space="preserve">
+    <value>Finishing download...</value>
+  </data>
+  <data name="CDlgFetch_UpdatingGameList" xml:space="preserve">
+    <value>Updating Game List</value>
+  </data>
+  <data name="CDlgScrape_1minute" xml:space="preserve">
+    <value>&lt; 1 minute</value>
+  </data>
+  <data name="CDlgScrape_ApplyingData" xml:space="preserve">
+    <value>Applying data...</value>
+  </data>
+  <data name="CDlgScrape_ScrapingGameInfo" xml:space="preserve">
+    <value>Scraping game info</value>
+  </data>
+  <data name="CDlgScrape_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="DBEditDlg_AbortedUpdate" xml:space="preserve">
+    <value>Aborted. Updated {0} / {1} entries.</value>
+  </data>
+  <data name="DBEditDlg_AddedGame" xml:space="preserve">
+    <value>Added game with ID {0}.</value>
+  </data>
+  <data name="DBEditDlg_AreYouSureDeleteGames" xml:space="preserve">
+    <value>Delete {0} games from the database?</value>
+  </data>
+  <data name="DBEditDlg_AreYouSureToClear" xml:space="preserve">
+    <value>Are you sure you want to clear all data?</value>
+  </data>
+  <data name="DBEditDlg_CanceledListUpdate" xml:space="preserve">
+    <value>Canceled list update.</value>
+  </data>
+  <data name="DBEditDlg_ClearedAllData" xml:space="preserve">
+    <value>Cleared all data.</value>
+  </data>
+  <data name="DBEditDlg_Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="DBEditDlg_DatabaseSaved" xml:space="preserve">
+    <value>Database saved.</value>
+  </data>
+  <data name="DBEditDlg_DatabaseSaveFailed" xml:space="preserve">
+    <value>Database save failed.</value>
+  </data>
+  <data name="DBEditDlg_DeletedGames" xml:space="preserve">
+    <value>Deleted {0} games.</value>
+  </data>
+  <data name="DBEditDlg_DialogFilter" xml:space="preserve">
+    <value>GZip Files (*.gz)|*.gz|XML Files (*.xml)|*.xml|All Files|*.*</value>
+  </data>
+  <data name="DBEditDlg_EditedGame" xml:space="preserve">
+    <value>Edited game with ID {0}</value>
+  </data>
+  <data name="DBEditDlg_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DBEditDlg_ErrorSavingFile" xml:space="preserve">
+    <value>Error saving file: 
+
+{0}</value>
+  </data>
+  <data name="DBEditDlg_ErrorUpdatingGameList" xml:space="preserve">
+    <value>Error updating game list.</value>
+  </data>
+  <data name="DBEditDlg_ErrorUpdatingGames" xml:space="preserve">
+    <value>Error updating games.</value>
+  </data>
+  <data name="DBEditDlg_ErrorWhileUpdatingGameList" xml:space="preserve">
+    <value>An error occurred while updating the game list:
+
+{0}</value>
+  </data>
+  <data name="DBEditDlg_ErrorWhileUpdatingGames" xml:space="preserve">
+    <value>An error occurred while updating games:
+
+{0}</value>
+  </data>
+  <data name="DBEditDlg_FailedToAddGame" xml:space="preserve">
+    <value>Failed to add game with ID {0}.</value>
+  </data>
+  <data name="DBEditDlg_FileLoaded" xml:space="preserve">
+    <value>File loaded.</value>
+  </data>
+  <data name="DBEditDlg_FileSaved" xml:space="preserve">
+    <value>File saved.</value>
+  </data>
+  <data name="DBEditDlg_GameIdAlreadyExists" xml:space="preserve">
+    <value>Game with specified ID already exists.</value>
+  </data>
+  <data name="DBEditDlg_NoGamesToScrape" xml:space="preserve">
+    <value>No games to scrape.</value>
+  </data>
+  <data name="DBEditDlg_SaveFailed" xml:space="preserve">
+    <value>Save failed.</value>
+  </data>
+  <data name="DBEditDlg_SelectedDisplayedTotal" xml:space="preserve">
+    <value>{0} selected / {1} displayed / {2} total</value>
+  </data>
+  <data name="DBEditDlg_UnsavedChanges" xml:space="preserve">
+    <value>Unsaved changes</value>
+  </data>
+  <data name="DBEditDlg_UnsavedChangesSave" xml:space="preserve">
+    <value>There are unsaved changes. Save to the game database first?</value>
+  </data>
+  <data name="DBEditDlg_UpdateCanceled" xml:space="preserve">
+    <value>Update canceled.</value>
+  </data>
+  <data name="DBEditDlg_UpdatedEntries" xml:space="preserve">
+    <value>Updated {0} entries.</value>
+  </data>
+  <data name="DBEditDlg_UpdatedGameList" xml:space="preserve">
+    <value>Updated game list, added {0} games.</value>
+  </data>
+  <data name="Gen_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DlgGameDBEntry_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="DlgGameDBEntry_IDMustBeInteger" xml:space="preserve">
+    <value>Game ID must be an integer.</value>
+  </data>
+  <data name="CDlgDataScrape_FinishingUp" xml:space="preserve">
+    <value>Finishing up...</value>
+  </data>
+  <data name="CDlgDataScrape_InitiatingSteamStoreDataScrape" xml:space="preserve">
+    <value>Initiating Steam Store data scrape. {0} jobs to complete.</value>
+  </data>
+  <data name="CDlgDataScrape_ScrapeCompleted" xml:space="preserve">
+    <value>Scrape completed. {0} failures. {1} results. Merging results into game data.</value>
+  </data>
+  <data name="CDlgDataScrape_TimeRemaining" xml:space="preserve">
+    <value>
+Time Remaining:</value>
+  </data>
+  <data name="CDlgDataScrape_UpdatingComplete" xml:space="preserve">
+    <value>Updating...{0}/{1} complete.</value>
+  </data>
+  <data name="CDlgGetSteamID_AttemptingDownloadXMLProfile" xml:space="preserve">
+    <value>Attempting to download XML profile page for custom URL name {0}: {1}</value>
+  </data>
+  <data name="CDlgGetSteamID_ExceptionDownloadingXMLProfile" xml:space="preserve">
+    <value>Exception when downloading XML profile:
+{0}</value>
+  </data>
+  <data name="CDlgGetSteamID_FailedToDownloadProfile" xml:space="preserve">
+    <value>Failed to download profile data:</value>
+  </data>
+  <data name="CDlgGetSteamID_GettingIDFromURL" xml:space="preserve">
+    <value>Getting Steam ID from Custom URL...</value>
+  </data>
+  <data name="CDlgGetSteamID_GettingSteamID" xml:space="preserve">
+    <value>Getting Steam ID...</value>
+  </data>
+  <data name="CDlgGetSteamID_XMLProfileDownloaded" xml:space="preserve">
+    <value>Successfully downloaded XML profile.</value>
+  </data>
+  <data name="CDlgUpdateProfile_UpdatingGameList" xml:space="preserve">
+    <value>Updating game list...</value>
+  </data>
+  <data name="DlgFatalError_ClipboardUpdated" xml:space="preserve">
+    <value>Clipboard updated.</value>
+  </data>
+  <data name="DlgFatalError_CouldNotCopyClipboard" xml:space="preserve">
+    <value>Could not copy to clipboard.</value>
+  </data>
+  <data name="DlgFatalError_CouldNotSaveErrorInformation" xml:space="preserve">
+    <value>Could not save error information.</value>
+  </data>
+  <data name="DlgFatalError_ErrorInformationSaved" xml:space="preserve">
+    <value>Error information saved.</value>
+  </data>
+  <data name="DlgFatalError_FatalError" xml:space="preserve">
+    <value>{0} - Fatal Error</value>
+  </data>
+  <data name="DlgFatalError_FatalErrorOcurred" xml:space="preserve">
+    <value>A fatal error has occurred in {0}. The program will now terminate.</value>
+  </data>
+  <data name="DlgGame_CreateGame" xml:space="preserve">
+    <value>Create Game</value>
+  </data>
+  <data name="DlgGame_EditGame" xml:space="preserve">
+    <value>Edit Game</value>
+  </data>
+  <data name="DlgManualDownload_IfIDSelectedMustBeNumber" xml:space="preserve">
+    <value>If ID is selected, entry must be a number.</value>
+  </data>
+  <data name="DlgOptions_ErrorSavingSettingsFile" xml:space="preserve">
+    <value>Error saving settings file:</value>
+  </data>
+  <data name="DlgProfile_AccountIDMustBeNumber" xml:space="preserve">
+    <value>Account ID must be a number.</value>
+  </data>
+  <data name="DlgProfile_Cancelling" xml:space="preserve">
+    <value>Cancelling...</value>
+  </data>
+  <data name="DlgProfile_ClickUpdateToDisplayNames" xml:space="preserve">
+    <value>Click Update to get display names for the account numbers above.</value>
+  </data>
+  <data name="DlgProfile_CouldNotFindSteamProfile" xml:space="preserve">
+    <value>Could not find the Steam profile specified.</value>
+  </data>
+  <data name="DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName" xml:space="preserve">
+    <value>Exception raised when trying to scrape profile name for account {0}:</value>
+  </data>
+  <data name="DlgProfile_FailedToCreateParentDirectory" xml:space="preserve">
+    <value>Failed to create parent directory of profile file.</value>
+  </data>
+  <data name="DlgProfile_Filter" xml:space="preserve">
+    <value>Profiles (*.profile)|*.profile</value>
+  </data>
+  <data name="DlgProfile_NoAccountConfiguration" xml:space="preserve">
+    <value>No account configuration information was found in your Steam installation folder. You must enter your 64-bit account ID OR your Custom URL name manually.</value>
+  </data>
+  <data name="DlgProfile_UpdatingNames" xml:space="preserve">
+    <value>Updating names...</value>
+  </data>
+  <data name="DlgProfile_YouMustEnterValidProfilePath" xml:space="preserve">
+    <value>You must enter a valid profile file path.</value>
+  </data>
+  <data name="DlgSteamPath_ThatPathDoesNotExist" xml:space="preserve">
+    <value>That path does not exist. Are you sure?</value>
+  </data>
+  <data name="GameData_AccessDeniedSteamConfigFile" xml:space="preserve">
+    <value>Access denied on Steam config file:</value>
+  </data>
+  <data name="GameData_AddedNewGame" xml:space="preserve">
+    <value>Added new game found in Steam config: {0} - {1}</value>
+  </data>
+  <data name="GameData_AddingGameToConfigFile" xml:space="preserve">
+    <value>Adding game {0} to config file.</value>
+  </data>
+  <data name="GameData_AttemptingDownloadHTMLGameList" xml:space="preserve">
+    <value>Attempting to download HTML game list from URL {0}</value>
+  </data>
+  <data name="GameData_AttemptingDownloadXMLGameList" xml:space="preserve">
+    <value>Attempting to download XML game list from URL {0}</value>
+  </data>
+  <data name="GameData_CleaningUpSteamConfigTree" xml:space="preserve">
+    <value>Cleaning up steam config tree before writing to disk.</value>
+  </data>
+  <data name="GameData_ErrorOpeningConfigFileParam" xml:space="preserve">
+    <value>Error opening Steam config file: {0}</value>
+  </data>
+  <data name="GameData_ErrorOpeningSteamConfigFile" xml:space="preserve">
+    <value>Error opening Steam config file:</value>
+  </data>
+  <data name="GameData_ErrorParsingConfigFileParam" xml:space="preserve">
+    <value>Error parsing Steam config file: {0}</value>
+  </data>
+  <data name="GameData_ErrorParsingSteamConfigFile" xml:space="preserve">
+    <value>Error parsing Steam config file:</value>
+  </data>
+  <data name="GameData_ErrorSavingSteamConfigFile" xml:space="preserve">
+    <value>Error saving steam config file: {0}</value>
+  </data>
+  <data name="GameData_ExceptionDownloadHTMLGameList" xml:space="preserve">
+    <value>Exception when downloading HTML game list:
+{0}</value>
+  </data>
+  <data name="GameData_ExceptionDownloadXMLGameList" xml:space="preserve">
+    <value>Exception when downloading XML game list:
+{0}</value>
+  </data>
+  <data name="GameData_FailedToSaveSteamConfigBadPath" xml:space="preserve">
+    <value>Failed to save Steam config file: Invalid path specified.</value>
+  </data>
+  <data name="GameData_FailedToSaveSteamConfigFile" xml:space="preserve">
+    <value>Failed to save Steam config file:</value>
+  </data>
+  <data name="GameData_IntegratedGameIntoGameList" xml:space="preserve">
+    <value>Integrated game into game list: {0} - {1}. New: {2}</value>
+  </data>
+  <data name="GameData_IntegratedHTMLDataIntoGameList" xml:space="preserve">
+    <value>Integrated HTML data into game list. {0} total items, {1} new.</value>
+  </data>
+  <data name="GameData_IntegratedXMLDataIntoGameList" xml:space="preserve">
+    <value>Integrated XML data into game list. {0} total items, {1} new.</value>
+  </data>
+  <data name="GameData_LoadingErrorSteamConfig" xml:space="preserve">
+    <value>Loading existing Steam config failed: {0}</value>
+  </data>
+  <data name="GameData_OpeningSteamConfigFile" xml:space="preserve">
+    <value>Opening Steam config file: {0}</value>
+  </data>
+  <data name="GameData_ProcessedGame" xml:space="preserve">
+    <value>Processed game from Steam config: {0}, Cat: {1}</value>
+  </data>
+  <data name="GameData_ProfileNotPublic" xml:space="preserve">
+    <value>Profile is not public.</value>
+  </data>
+  <data name="GameData_RemovingGameCategoryFromSteamConfig" xml:space="preserve">
+    <value>Removing game {0} category info from Steam config file.</value>
+  </data>
+  <data name="GameData_SavingSteamConfigFile" xml:space="preserve">
+    <value>Saving Steam config file: {0}.</value>
+  </data>
+  <data name="GameData_SkippedIntegratingGame" xml:space="preserve">
+    <value>Skipped integrating game: {0} - {1}.</value>
+  </data>
+  <data name="GameData_SkippedProcessingGame" xml:space="preserve">
+    <value>Skipped processing game {0} from Steam config.</value>
+  </data>
+  <data name="GameData_SpecifiedProfileNotPublic" xml:space="preserve">
+    <value>The specified profile is not public.</value>
+  </data>
+  <data name="GameData_SteamConfigFileLoaded" xml:space="preserve">
+    <value>Steam config file loaded. {0} items found.</value>
+  </data>
+  <data name="GameData_SuccessDownloadHTMLGameList" xml:space="preserve">
+    <value>Successfully downloaded HTML game list.</value>
+  </data>
+  <data name="GameData_SuccessDownloadXMLGameList" xml:space="preserve">
+    <value>Successfully downloaded XML game list.</value>
+  </data>
+  <data name="GameData_WritingToDisk" xml:space="preserve">
+    <value>Writing to disk...</value>
+  </data>
+  <data name="GameDB_DownloadingSteamAppList" xml:space="preserve">
+    <value>Downloading Steam app list.</value>
+  </data>
+  <data name="GameDB_GameDBSaved" xml:space="preserve">
+    <value>GameDB saved.</value>
+  </data>
+  <data name="GameDB_GameDBXMLParsed" xml:space="preserve">
+    <value>GameDB XML document parsed.</value>
+  </data>
+  <data name="GameDB_GameDBXMLProcessed" xml:space="preserve">
+    <value>GameDB XML processed, load complete.</value>
+  </data>
+  <data name="GameDB_InitiatingStoreScrapeForGame" xml:space="preserve">
+    <value>Initiating store scrape for game id {0}</value>
+  </data>
+  <data name="GameDB_LoadedNewItemsFromAppList" xml:space="preserve">
+    <value>Loaded {0} new items from the app list.</value>
+  </data>
+  <data name="GameDB_LoadingGameDBFrom" xml:space="preserve">
+    <value>Loading GameDB from {0}</value>
+  </data>
+  <data name="GameDB_SavingGameDBTo" xml:space="preserve">
+    <value>Saving GameDB to {0}</value>
+  </data>
+  <data name="GameDB_ScrapingAgeCheckNoRedirect" xml:space="preserve">
+    <value>Scraping {0}: Age check with no redirect</value>
+  </data>
+  <data name="GameDB_ScrapingCouldNotParse" xml:space="preserve">
+    <value>Scraping {0}: Could not parse info from page</value>
+  </data>
+  <data name="GameDB_ScrapingHitAgeCheck" xml:space="preserve">
+    <value>Scraping {0}: Hit age check for id {1}</value>
+  </data>
+  <data name="GameDB_ScrapingPageRead" xml:space="preserve">
+    <value>Scraping {0}: Page read</value>
+  </data>
+  <data name="GameDB_ScrapingPageReadFailed" xml:space="preserve">
+    <value>Scraping {0}: Page read failed. {1}</value>
+  </data>
+  <data name="GameDB_ScrapingParsed" xml:space="preserve">
+    <value>Scraping {0}: Parsed. Genre: {1}</value>
+  </data>
+  <data name="GameDB_ScrapingParsedDLC" xml:space="preserve">
+    <value>Scraping {0}: Parsed. DLC. Genre: {1}</value>
+  </data>
+  <data name="GameDB_ScrapingReceivedSiteError" xml:space="preserve">
+    <value>Scraping {0}: Received Site Error</value>
+  </data>
+  <data name="GameDB_ScrapingRedirectedTo" xml:space="preserve">
+    <value>Scraping {0}: Redirecting to {1}</value>
+  </data>
+  <data name="GameDB_ScrapingRedirectedToMainStorePage" xml:space="preserve">
+    <value>Scraping {0}: Redirected to main store page</value>
+  </data>
+  <data name="GameDB_ScrapingRedirectedToNonApp" xml:space="preserve">
+    <value>Scraping {0}: Redirected to a non-app URL</value>
+  </data>
+  <data name="GameDB_ScrapingRedirectedToOtherApp" xml:space="preserve">
+    <value>Scraping {0}: Redirected to another app id ({1})</value>
+  </data>
+  <data name="GameDB_XMLAppListDownloaded" xml:space="preserve">
+    <value>XML App list downloaded.</value>
+  </data>
+  <data name="MainForm_AddContentsOfSteamCommunity" xml:space="preserve">
+    <value>This action will add the contents of a Steam community game list to the currently loaded game list. If you do not want to do this, close the open game list or profile first.
+Continue loading games?</value>
+  </data>
+  <data name="MainForm_AddContentsOfSteamConfigFile" xml:space="preserve">
+    <value>This action will add the contents of a Steam config file to the currently loaded game list, and will overwrite the category information for any existing games. If you do not want to do this, close the open profile or gamelist first.
+Continue loading file?</value>
+  </data>
+  <data name="MainForm_DataExported" xml:space="preserve">
+    <value>Data exported.</value>
+  </data>
+  <data name="MainForm_ExportFailed" xml:space="preserve">
+    <value>Export failed.</value>
+  </data>
+  <data name="MainForm_ImportedGames" xml:space="preserve">
+    <value>Imported {0} games.</value>
+  </data>
+  <data name="MainForm_ImportFailed" xml:space="preserve">
+    <value>Import failed.</value>
+  </data>
+  <data name="MainForm_NoGameInfoFound" xml:space="preserve">
+    <value>Warning: No game info found in the specified file.</value>
+  </data>
+  <data name="MainForm_NoGamesFound" xml:space="preserve">
+    <value>No games found.</value>
+  </data>
+  <data name="MainForm_AddedGame" xml:space="preserve">
+    <value>Added game.</value>
+  </data>
+  <data name="MainForm_All" xml:space="preserve">
+    <value>&lt;All&gt;</value>
+  </data>
+  <data name="MainForm_AutonameCanceled" xml:space="preserve">
+    <value>Autoname canceled.</value>
+  </data>
+  <data name="MainForm_AutonamedGames" xml:space="preserve">
+    <value>Autonamed {0} games.</value>
+  </data>
+  <data name="MainForm_CanceledDatabaseUpdate" xml:space="preserve">
+    <value>Canceled web update.</value>
+  </data>
+  <data name="MainForm_CategoryAdded" xml:space="preserve">
+    <value>Category '{0}' added.</value>
+  </data>
+  <data name="MainForm_CategoryDeleted" xml:space="preserve">
+    <value>{0} categories deleted.</value>
+  </data>
+  <data name="MainForm_CategoryNameReserved" xml:space="preserve">
+    <value>Category name '{0}' is reserved.</value>
+  </data>
+  <data name="MainForm_CategoryNamesNotEmpty" xml:space="preserve">
+    <value>Category names cannot be empty.</value>
+  </data>
+  <data name="MainForm_CategoryRenamed" xml:space="preserve">
+    <value>Category renamed.</value>
+  </data>
+  <data name="MainForm_ClearedData" xml:space="preserve">
+    <value>Cleared data.</value>
+  </data>
+  <data name="MainForm_CouldNotAddCategory" xml:space="preserve">
+    <value>Could not add category '{0}'</value>
+  </data>
+  <data name="MainForm_CouldNotDeleteCategory" xml:space="preserve">
+    <value>Could not delete categories.</value>
+  </data>
+  <data name="MainForm_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="MainForm_CreateCategory" xml:space="preserve">
+    <value>Create category</value>
+  </data>
+  <data name="MainForm_DeleteCategory" xml:space="preserve">
+    <value>Delete category '{0}'?</value>
+  </data>
+  <data name="MainForm_DownloadAborted" xml:space="preserve">
+    <value>Download aborted.</value>
+  </data>
+  <data name="MainForm_DownloadedGames" xml:space="preserve">
+    <value>Downloaded {0} games, {1} new, via {2}.</value>
+  </data>
+  <data name="MainForm_DownloadFailed" xml:space="preserve">
+    <value>Download failed.</value>
+  </data>
+  <data name="MainForm_EditedGame" xml:space="preserve">
+    <value>Edited game.</value>
+  </data>
+  <data name="MainForm_EnterNewCategoryName" xml:space="preserve">
+    <value>Enter new category name:</value>
+  </data>
+  <data name="MainForm_EnterNewName" xml:space="preserve">
+    <value>Enter new name:</value>
+  </data>
+  <data name="MainForm_ErrorDowloadingProfile" xml:space="preserve">
+    <value>There was an error downloading the profile data: 
+{0}</value>
+  </data>
+  <data name="MainForm_ErrorDownloadingGames" xml:space="preserve">
+    <value>Error downloading games.</value>
+  </data>
+  <data name="MainForm_ErrorDownloadingProfileData" xml:space="preserve">
+    <value>Error downloading profile data via {0}.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorExportingToSteam" xml:space="preserve">
+    <value>Error exporting to Steam.
+{0}</value>
+  </data>
+  <data name="MainForm_ErrorImportingSteamDataList" xml:space="preserve">
+    <value>Error importing steam data list.
+{0}</value>
+  </data>
+  <data name="MainForm_ErrorLoadingGameDB" xml:space="preserve">
+    <value>Error loading game database. Local category and DLC data will not be available.
+
+</value>
+  </data>
+  <data name="MainForm_Msg_ErrorLoadingProfile" xml:space="preserve">
+    <value>Error loading profile.
+{0}</value>
+  </data>
+  <data name="MainForm_ErrorOcurredOnGames" xml:space="preserve">
+    <value>Errors occurred on {0} games.</value>
+  </data>
+  <data name="MainForm_ErrorSavingFile" xml:space="preserve">
+    <value>Error saving file.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorSavingProfile" xml:space="preserve">
+    <value>Error saving profile.
+{0}</value>
+  </data>
+  <data name="MainForm_ExportedCategories" xml:space="preserve">
+    <value>Exported categories.</value>
+  </data>
+  <data name="MainForm_FailedLoadProfile" xml:space="preserve">
+    <value>Failed to load profile.</value>
+  </data>
+  <data name="MainForm_FailedSaveProfile" xml:space="preserve">
+    <value>Failed to save profile.</value>
+  </data>
+  <data name="MainForm_FailedToLoadStorePages" xml:space="preserve">
+    <value>Failed to load store pages for {0} games.</value>
+  </data>
+  <data name="MainForm_Favorite" xml:space="preserve">
+    <value>&lt;Favorite&gt;</value>
+  </data>
+  <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
+    <value>GameDB file does not exist.</value>
+  </data>
+  <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
+    <value>{0} games need have no web-sourced data in the local database. Scrape now?
+This could take up to a few seconds per game.</value>
+  </data>
+  <data name="MainForm_IgnoredGame" xml:space="preserve">
+    <value>Ignored {0} game{1}.</value>
+  </data>
+  <data name="MainForm_ImportedItems" xml:space="preserve">
+    <value>Imported {0} items.</value>
+  </data>
+  <data name="MainForm_NameIsInUse" xml:space="preserve">
+    <value>Name '{0}' is already in use.</value>
+  </data>
+  <data name="MainForm_NoGameDataFound" xml:space="preserve">
+    <value>No game data found. Please make sure the custom URL name is spelled correctly.</value>
+  </data>
+  <data name="MainForm_NoGamesInDownload" xml:space="preserve">
+    <value>No games in download.</value>
+  </data>
+  <data name="MainForm_NoProfileLoaded" xml:space="preserve">
+    <value>No profile loaded. Create one now?</value>
+  </data>
+  <data name="MainForm_Overwrite" xml:space="preserve">
+    <value>Overwrite?</value>
+  </data>
+  <data name="MainForm_OverwriteExistingNames" xml:space="preserve">
+    <value>Do you want to overwrite existing names? Saying "No" will only rename games that do not have a name set.</value>
+  </data>
+  <data name="MainForm_ProfileCreated" xml:space="preserve">
+    <value>Profile created.</value>
+  </data>
+  <data name="MainForm_ProfileEdited" xml:space="preserve">
+    <value>Profile edited.</value>
+  </data>
+  <data name="MainForm_ProfileLoaded" xml:space="preserve">
+    <value>Profile loaded.</value>
+  </data>
+  <data name="MainForm_ProfileSaved" xml:space="preserve">
+    <value>Profile saved.</value>
+  </data>
+  <data name="MainForm_RemovedEmptyCategories" xml:space="preserve">
+    <value>Removed {0} empty categories.</value>
+  </data>
+  <data name="MainForm_RemovedGame" xml:space="preserve">
+    <value>Removed {0} game{1}.</value>
+  </data>
+  <data name="MainForm_RemoveGame" xml:space="preserve">
+    <value>Remove {0} game{1}?</value>
+  </data>
+  <data name="MainForm_Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="MainForm_RenameCategory" xml:space="preserve">
+    <value>Rename category: {0}</value>
+  </data>
+  <data name="MainForm_SavingProfileDataFailed" xml:space="preserve">
+    <value>Saving profile data failed:</value>
+  </data>
+  <data name="MainForm_SelectedDisplayed" xml:space="preserve">
+    <value>{0} selected / {1} displayed</value>
+  </data>
+  <data name="MainForm_SomeSelectedGameHaveCategories" xml:space="preserve">
+    <value>Some of the selected games already have categories set. Would you like to overwrite these categories?</value>
+  </data>
+  <data name="MainForm_Uncategorized" xml:space="preserve">
+    <value>&lt;Uncategorized&gt;</value>
+  </data>
+  <data name="MainForm_UnignoredGame" xml:space="preserve">
+    <value>Unignored game {0}.</value>
+  </data>
+  <data name="MainForm_UnsavedChanges" xml:space="preserve">
+    <value>Unsaved Changes</value>
+  </data>
+  <data name="MainForm_UnsavedChangesWillBeLost" xml:space="preserve">
+    <value>Unsaved changes will be lost. Save first?</value>
+  </data>
+  <data name="MainForm_UpdatedCategories" xml:space="preserve">
+    <value>Updated {0} categories.</value>
+  </data>
+  <data name="MainForm_UpdatedViaWeb" xml:space="preserve">
+    <value>Updated {0} via web.</value>
+  </data>
+  <data name="MainForm_UpdatedViaWebAndAborted" xml:space="preserve">
+    <value>Updated {0} / {1} via web and aborted.</value>
+  </data>
+  <data name="MainForm_XMLDownloadFailed" xml:space="preserve">
+    <value>XML download failed.</value>
+  </data>
+  <data name="MainForm_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Profile_ErrorLoadingProfile" xml:space="preserve">
+    <value>Error loading profile.</value>
+  </data>
+  <data name="Profile_ErrorSavingProfileFile" xml:space="preserve">
+    <value>Error saving profile file.</value>
+  </data>
+  <data name="Profile_FailedToLoadProfile" xml:space="preserve">
+    <value>Failed to load profile: {0}</value>
+  </data>
+  <data name="Profile_FailedToOpenProfileFile" xml:space="preserve">
+    <value>Failed to open profile file for writing: {0}</value>
+  </data>
+  <data name="Profile_LoadingProfile" xml:space="preserve">
+    <value>Loading profile from file: {0}</value>
+  </data>
+  <data name="Profile_ProfileSaveComplete" xml:space="preserve">
+    <value>Profile save complete.</value>
+  </data>
+  <data name="Profile_SavingProfile" xml:space="preserve">
+    <value>Saving profile: {0}</value>
+  </data>
+  <data name="Program_ProgramClosing" xml:space="preserve">
+    <value>Program closing.</value>
+  </data>
+  <data name="Program_ProgramInitialized" xml:space="preserve">
+    <value>Program initialized. Logging level set to {0}.</value>
+  </data>
+  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
+    <value>Node is a value, not an array. Cannot get key {0}</value>
+  </data>
+  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
+    <value>Node is a value, not an array. Cannot set key {0}</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
+    <value>Unexpected character '{0}' found when expecting key.</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
+    <value>Unexpected character '{0}' found when expecting value.</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
+    <value>Unexpected end-of-file reached: Unterminated string.</value>
+  </data>
+  <data name="DlgProfile_EditProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="GameData_ErrorParsingScreenshots" xml:space="preserve">
+    <value>Error parsing gameId from Screenshots.vdf file for game '{0}'</value>
+    <comment>probably no longer needed</comment>
+  </data>
+  <data name="GameData_IntegratedShortCuts" xml:space="preserve">
+    <value>Integrated external games into game list. {0} total items.</value>
+  </data>
+  <data name="GameData_ErrorRemovingGame" xml:space="preserve">
+    <value>Couldn't remove game: {0} - {1}.</value>
+  </data>
+  <data name="GameData_ErrorRemovingSteamGame" xml:space="preserve">
+    <value>Only external games with negative identifier can be removed: {0}</value>
+  </data>
+  <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
+    <value>Removed game from game list: {0} - {1}.</value>
+  </data>
+  <data name="GameData_SavingShortcutConfigFile" xml:space="preserve">
+    <value>Saving Steam shortcuts config file: {0}.</value>
+  </data>
+  <data name="MainForm_External" xml:space="preserve">
+    <value>External</value>
+  </data>
+  <data name="AutoCatGenre_Exception_NoGameDB" xml:space="preserve">
+    <value>AutoCatGenre has no game database.</value>
+  </data>
+  <data name="AutoCatGenre_Exception_NoGameList" xml:space="preserve">
+    <value>AutoCatGenre has no game list.</value>
+  </data>
+  <data name="Category_Exception_ObjectNotCategory" xml:space="preserve">
+    <value>Object is not a Category</value>
+  </data>
+  <data name="Log_AutoCat_DBNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because database was null.</value>
+  </data>
+  <data name="Log_AutoCat_GamelistNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because gamelist was null.</value>
+  </data>
+  <data name="Log_AutoCat_GameNull" xml:space="preserve">
+    <value>Failed to Autocategorize game because game was null.</value>
+  </data>
+  <data name="Log_GameData_ConfigBackupFailed" xml:space="preserve">
+    <value>Steam config file backup failed: {0}</value>
+  </data>
+  <data name="Log_GameData_ShortcutBackupFailed" xml:space="preserve">
+    <value>Steam shortcut file backup failed: {0}</value>
+  </data>
+  <data name="MainForm_FailedToUpdate" xml:space="preserve">
+    <value>Failed to update {0} games.</value>
+  </data>
+  <data name="MainForm_SingleCategoryMode" xml:space="preserve">
+    <value>Single Category Mode</value>
+  </data>
+  <data name="MainForm_UpdatedDatabaseEntries" xml:space="preserve">
+    <value>Updated {0} database entries.</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre" xml:space="preserve">
+    <value>By Genre</value>
+  </data>
+  <data name="MainForm_LaunchFailed" xml:space="preserve">
+    <value>A non-Steam game must have been launched at least once from the Steam client before it can be launched externally.</value>
+  </data>
+  <data name="AutoCat_Name_Flags" xml:space="preserve">
+    <value>Store Flags</value>
+  </data>
+  <data name="AutoCat_Name_Genre" xml:space="preserve">
+    <value>Store Genre</value>
+  </data>
+  <data name="DlgAutoCat_MustHaveName" xml:space="preserve">
+    <value>AutoCat must have a name.</value>
+  </data>
+  <data name="DlgAutoCat_NameInUse" xml:space="preserve">
+    <value>Name is already in use.</value>
+  </data>
+  <data name="DlgAutoCat_RenameBoxButton" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="DlgAutoCat_RenameBoxLabel" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="DlgAutoCat_RenameBoxTitle" xml:space="preserve">
+    <value>Enter new AutoCat name</value>
+  </data>
+  <data name="DlgAutoCat_SelectValidType" xml:space="preserve">
+    <value>You must select a valid AutoCat type.</value>
+  </data>
+  <data name="DlgAutoCat_Help_Genre_RemoveExisting" xml:space="preserve">
+    <value>Remove any pre-existing categories that could potentially be added by this AutoCat.
+Removes any category that consists of the Prefix followed by one of the unchecked genres below.</value>
+  </data>
+  <data name="DlgAutoCat_Help_Prefix" xml:space="preserve">
+    <value>Optional. Text prefix placed before the name.</value>
+  </data>
+  <data name="DlgGameDBEntry_ParentMustBeInt" xml:space="preserve">
+    <value>Parent must be empty or integer.</value>
+  </data>
+  <data name="DBEditDlg_AppInfoUpdateFailed" xml:space="preserve">
+    <value>Failed to update from AppInfo:
+{0}</value>
+  </data>
+  <data name="DBEditDlg_Log_ExceptionAppInfo" xml:space="preserve">
+    <value>Exception when updating AppInfo: {0}</value>
+  </data>
+  <data name="DBEditDlg_Status_UpdatedAppInfo" xml:space="preserve">
+    <value>Updated {0} entries from AppInfo.</value>
+  </data>
+  <data name="DlgProfile_Help_BypassIgnoreOnImport" xml:space="preserve">
+    <value>Ignore app type restrictions when importing games from your existing category setup.
+Turn this on if you have games that Depressurizer refuses to recognize even after you categorize them in the Steam client and import categories.</value>
+  </data>
+  <data name="DlgProfile_Help_ExportDiscard" xml:space="preserve">
+    <value>Removes extraneous information for unrecognized games from your Steam config file.
+Does not remove games from your library or game list.
+Disable this if you are losing categories for games in your library that do not show up in Depressurizer.</value>
+  </data>
+  <data name="DlgProfile_Help_IncludeUnknown" xml:space="preserve">
+    <value>Include apps that are not in the database or are of unknown type.
+Normally, the game list includes only games that are listed as Games or Applications.</value>
+  </data>
+  <data name="DlgProfile_Help_LocalUpdate" xml:space="preserve">
+    <value>Parse files from your Steam installation to get a list of your games.
+Much faster and generally more accurate and reliable than a web update.</value>
+  </data>
+  <data name="DlgProfile_Help_WebUpdate" xml:space="preserve">
+    <value>Download a game list from your profile on the steamcommunity.com website.
+Requires your profile to be set to "Public".</value>
+  </data>
+  <data name="GameDB_Log_ScrapingNoAppId" xml:space="preserve">
+    <value>Scraping {0}: response URI ends with 'app', no ID found.</value>
+  </data>
+  <data name="Gen_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MainForm_Log_ExceptionAppInfo" xml:space="preserve">
+    <value>Exception when auto-updating DB from AppInfo.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionAutosavingDB" xml:space="preserve">
+    <value>Exception when autosaving database.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorAppInfo" xml:space="preserve">
+    <value>Error encountered when updating database from AppInfo: {0}</value>
+  </data>
+  <data name="MainForm_Msg_ErrorAutosavingDB" xml:space="preserve">
+    <value>Error saving database:
+{0}</value>
+  </data>
+  <data name="MainForm_Msg_LocalUpdateError" xml:space="preserve">
+    <value>Error updating from local files:
+{0}</value>
+  </data>
+  <data name="MainForm_Status_AppInfoAutoupdate" xml:space="preserve">
+    <value>Updated {0} DB entries from AppInfo.</value>
+  </data>
+  <data name="MainForm_Status_LocalUpdate" xml:space="preserve">
+    <value>Updated game list from config files, {0} found, {1} new.</value>
+  </data>
+  <data name="MainForm_Status_LocalUpdateFailed" xml:space="preserve">
+    <value>Failed to update from config files.</value>
+  </data>
+  <data name="MainForm_Status_SavedDB" xml:space="preserve">
+    <value>Saved DB.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionExport" xml:space="preserve">
+    <value>Exception encountered while exporting Steam config.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionImport" xml:space="preserve">
+    <value>Exception encountered while importing the Steam config.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionLoadingProfile" xml:space="preserve">
+    <value>Exception when loading profile.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionLocalUpdate" xml:space="preserve">
+    <value>Exception when performing local update.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionOnDBLoad" xml:space="preserve">
+    <value>Exception during initial DB load.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionSavingProfile" xml:space="preserve">
+    <value>Exception when saving profile.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionWebUpdate" xml:space="preserve">
+    <value>Exception encountered during game list web update.</value>
+  </data>
+  <data name="MainForm_Log_ExceptionWebUpdateDialog" xml:space="preserve">
+    <value>Exception encountered by game list web update dialog.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorManualExport" xml:space="preserve">
+    <value>Error exporting to file.
+{0}</value>
+  </data>
+  <data name="AutoCat_Name_Tags" xml:space="preserve">
+    <value>Store Tags</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListMinScore" xml:space="preserve">
+    <value>Tags that fall below this "score" will not show up on the list.</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListOwnedOnly" xml:space="preserve">
+    <value>Only use the games you own to generate the tag list.
+Otherwise, all games in the database will be used.</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListTagsPerGame" xml:space="preserve">
+    <value>Only this many tags from each game will be processed.
+Ex: Set to 10 to only process the first ten tags from each game and ignore the rest.
+Set to 0 to process all tags from each game.</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListWeightFactor" xml:space="preserve">
+    <value>With this set to 1, each tag's score is simply the number of games that it appears on.
+With this higher than one, tags earlier in games' tag lists receive a higher score.
+The higher the number, the more weight is placed on tag position.</value>
+  </data>
+  <data name="MainForm_DeleteCategoryMulti" xml:space="preserve">
+    <value>Delete {0} categories?</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListExcludeGenres" xml:space="preserve">
+    <value>Do not include tags that match Steam genre names, like Action or Strategy.</value>
+  </data>
+  <data name="DlgAutoCat_Help_ListScoreSort" xml:space="preserve">
+    <value>Sort tags by their score, with the higher scores first.
+Otherwise, sorts alphabetically.</value>
+  </data>
+  <data name="MainForm_Help_AdvancedCategories" xml:space="preserve">
+    <value>In advanced mode, games will be displayed if they meet the following criteria:
+If at least one category is marked with a CHECKMARK ("Allowed"), the game must belong to at least one of these categories.
+A game must be in all categories marked with a CIRCLE ("Required").
+A game must NOT be in any categories marked with an X ("Excluded").</value>
+  </data>
+  <data name="AutoCatGenrePanel_Help_TagFallback" xml:space="preserve">
+    <value>If a game exists in the database but has no genres defined, look for tags that match genre names instead.</value>
+  </data>
+  <data name="AutoCatYearPanel_Help_Unknown" xml:space="preserve">
+    <value>If checked, games with no release date will be autocategorized with the name below.
+If unchecked, games with no date will be skipped.</value>
+  </data>
+  <data name="AutoCat_Name_Year" xml:space="preserve">
+    <value>Release Year</value>
+  </data>
+  <data name="AutoCat_Name_UserScore" xml:space="preserve">
+    <value>User Score</value>
+  </data>
+  <data name="AutoCatUserScore_Dialog_ConfirmPreset" xml:space="preserve">
+    <value>This will erase your current rules. Continue?</value>
+  </data>
+  <data name="AutoCatUserScore_Help_Rules" xml:space="preserve">
+    <value>Each game will be assigned to a category with the name of the first rule that matches.
+If a game matches more than one rule, it will only be assigned to a category for the first one.
+If a game does not match any rules, no category will be assigned.</value>
+  </data>
+  <data name="AutoCatUserScore_NewRuleName" xml:space="preserve">
+    <value>New Rule</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Name_SteamLabels" xml:space="preserve">
+    <value>Steam Labels</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Mixed" xml:space="preserve">
+    <value>Mixed</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Negative1" xml:space="preserve">
+    <value>Mostly Negative</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Negative2" xml:space="preserve">
+    <value>Negative</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Negative3" xml:space="preserve">
+    <value>Very Negative</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Negative4" xml:space="preserve">
+    <value>Overwhelmingly Negative</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Positive1" xml:space="preserve">
+    <value>Mostly Positive</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Positive2" xml:space="preserve">
+    <value>Positive</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Positive3" xml:space="preserve">
+    <value>Very Positive</value>
+  </data>
+  <data name="AutoCatUserScore_Preset_Steam_Positive4" xml:space="preserve">
+    <value>Overwhelmingly Positive</value>
+  </data>
+  <data name="AutoMode_Help_Export" xml:space="preserve">
+    <value>Export your categories to Steam after running autocats.
+If this is disabled, changes will not show up in the Steam client.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_ImportCats" xml:space="preserve">
+    <value>Import existing categories from Steam before running autocat operations.
+If this is disabled, manual categorizations done through the client may be lost.</value>
+  </data>
+  <data name="AutoMode_Help_Launch" xml:space="preserve">
+    <value>Will launch Steam after completing autocats.</value>
+  </data>
+  <data name="AutoMode_Help_Output" xml:space="preserve">
+    <value>If set to Normal, the output window will remain open until you close it.
+If set to Quiet, the output window will automatically close unless errors are encountered.
+If set to Silent, the output window will always automatically close.</value>
+  </data>
+  <data name="AutoMode_Help_SaveDB" xml:space="preserve">
+    <value>Save the database if any changes are made to it.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_SaveProfile" xml:space="preserve">
+    <value>Save the profile after running autocats.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_SteamCheck" xml:space="preserve">
+    <value>If set to Check and Close, attempt to close Steam if it is running. (Recommended.)
+If set to Check and Abort, stop AutoCat operation if Steam is running.
+If set to Skip, don't check whether Steam is running.</value>
+  </data>
+  <data name="AutoMode_Help_Tolerant" xml:space="preserve">
+    <value>If disabled, will terminate after any error.
+If enabled, will continue if non-fatal errors are encountered.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_UpdateAppInfo" xml:space="preserve">
+    <value>Update the database with information from the local database before running autocat operations.
+Note that this data is not currently used for autocategorization, so it is unimportant.</value>
+  </data>
+  <data name="AutoMode_Help_UpdateLib" xml:space="preserve">
+    <value>Update your library with new games before running autocat operations.
+Will obey profile settings for update data source.
+Recommended: Enabled</value>
+  </data>
+  <data name="AutoMode_Help_UpdateWeb" xml:space="preserve">
+    <value>Attempt to download information for any games not found in the database.
+Can be slow, but will only download information for games that need it.
+If this is unchecked, newer games may not be categorized.
+Recommended: Enabled</value>
+  </data>
+  <data name="MainForm_NoFlags" xml:space="preserve">
+    <value>&lt;No Flags&gt;</value>
+  </data>
+  <data name="MainForm_NoGenres" xml:space="preserve">
+    <value>&lt;No Genres&gt;</value>
+  </data>
+  <data name="MainForm_NoTags" xml:space="preserve">
+    <value>&lt;No Tags&gt;</value>
+  </data>
+  <data name="MainForm_Unknown" xml:space="preserve">
+    <value>&lt;Unknown&gt;</value>
+  </data>
+  <data name="GameDB_RedirectsToItself" xml:space="preserve">
+    <value>Scraping {0}: Redirects to itself</value>
+  </data>
+  <data name="GameDB_TooManyRedirects" xml:space="preserve">
+    <value>Scraping {0}: Too Many Redirects</value>
+  </data>
+  <data name="MainForm_Hidden" xml:space="preserve">
+    <value>&lt;Hidden&gt;</value>
+  </data>
+  <data name="MainForm_Log_ExceptionHltb" xml:space="preserve">
+    <value>Exception when auto-updating DB from HLTB.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorHltb" xml:space="preserve">
+    <value>Error encountered when updating database from HLTB: {0}</value>
+  </data>
+  <data name="MainForm_Status_HltbAutoupdate" xml:space="preserve">
+    <value>Updated {0} DB entries from HLTB.</value>
+  </data>
+  <data name="AutoMode_Help_UpdateHltb" xml:space="preserve">
+    <value>Update the database with information from HLTB before running any autocat operations.
+Only updates if an update didn't occur for more than half a week.
+Slows operation by about 15-20 secs if an update occurs.
+Recommended: Enabled.</value>
+  </data>
+  <data name="CDlgHltb_Title" xml:space="preserve">
+    <value>Updating HLTB times</value>
+  </data>
+  <data name="CDlgHltb_UpdateHltb" xml:space="preserve">
+    <value>Updating HowLongToBeat.com times...</value>
+  </data>
+  <data name="DBEditDlg_CanceledHltbUpdate" xml:space="preserve">
+    <value>Canceled HLTB update.</value>
+  </data>
+  <data name="DBEditDlg_ErrorUpdatingHltb" xml:space="preserve">
+    <value>Error updating from HLTB.</value>
+  </data>
+  <data name="DBEditDlg_ErrorWhileUpdatingHltb" xml:space="preserve">
+    <value>An error occured while updating from howlongtobeatsteam.com: {0}</value>
+  </data>
+  <data name="DBEditDlg_HltbUpdateFailed" xml:space="preserve">
+    <value>Failed to update from HLTB: {0}</value>
+  </data>
+  <data name="DBEditDlg_Log_ExceptionHltb" xml:space="preserve">
+    <value>Exception when updating from HLTB: {0}</value>
+  </data>
+  <data name="DBEditDlg_Status_UpdatedHltb" xml:space="preserve">
+    <value>Updated {0} entries from HLTB.</value>
+  </data>
+  <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
+    <value>Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times. </value>
+  </data>
+  <data name="MainForm_NoHltbTime" xml:space="preserve">
+    <value>--</value>
+  </data>
+  <data name="AutoCat_Name_Hltb" xml:space="preserve">
+    <value>HLTB time</value>
+  </data>
+  <data name="AutocatHltb_Help_Unknown" xml:space="preserve">
+    <value>If checked, games with no times in all 3 types will be autocategorized with the name below.
+If unchecked, games with no times will be skipped.</value>
+  </data>
+  <data name="MainForm_Msg_UpdateFound" xml:space="preserve">
+    <value>There is a new update to depressurizer. Do you want to visit the download page?</value>
+  </data>
+  <data name="MainForm_Log_ExceptionDepressurizerUpdate" xml:space="preserve">
+    <value>Exception while checking for new updates to depressurizer.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorDepressurizerUpdate" xml:space="preserve">
+    <value>Error encountered while checking for new updates to depressurizer: {0}</value>
+  </data>
+  <data name="MainForm_Msg_UpdateFoundTitle" xml:space="preserve">
+    <value>Update Found</value>
+  </data>
+  <data name="AutoCat_NothingSelected" xml:space="preserve">
+    <value>No AutoCats selected. Select at least one AutoCat before running.</value>
+  </data>
+  <data name="AutoCatSelected_NothingSelected" xml:space="preserve">
+    <value>No games are currently selected.  Auto-Categorize will not do anything.</value>
+  </data>
+  <data name="GameDB_GameBannerError" xml:space="preserve">
+    <value>Scraping {0}: Error downloading game banner</value>
+  </data>
+  <data name="GameData_GetBanner" xml:space="preserve">
+    <value>Error getting game banner from {0}.</value>
+  </data>
+  <data name="Utility_GetImage" xml:space="preserve">
+    <value>Error getting image from {0}.</value>
+  </data>
+  <data name="Utility_SaveBanner" xml:space="preserve">
+    <value>Error saving game banner to {0}.</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Tags" xml:space="preserve">
+    <value>By Tags</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_UserScore" xml:space="preserve">
+    <value>By User Score</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Year" xml:space="preserve">
+    <value>By Year</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Flags" xml:space="preserve">
+    <value>By Flags</value>
+  </data>
+  <data name="Filter_ErrorSavingFilterFile" xml:space="preserve">
+    <value>Error saving filter file: {0}</value>
+  </data>
+  <data name="Filter_FailedToOpenFilterFile" xml:space="preserve">
+    <value>Failed to open filter file for writing: {0}</value>
+  </data>
+  <data name="Filter_FilterSaveComplete" xml:space="preserve">
+    <value>Filter save complete.</value>
+  </data>
+  <data name="Filter_SavingFilter" xml:space="preserve">
+    <value>Saving filter: {0}</value>
+  </data>
+  <data name="AutoCat_Name_Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="DlgAutoCat_Help_Manual_RemoveAll" xml:space="preserve">
+    <value>Remove all pre-existing categories.</value>
+  </data>
+  <data name="Filter_Exception_ObjectNotFilter" xml:space="preserve">
+    <value>Object is not a filter</value>
+  </data>
+  <data name="MainForm_AdminRights" xml:space="preserve">
+    <value>Run once with Admin rights to set browser registry key.</value>
+  </data>
+  <data name="MainForm_CouldNotAddFilter" xml:space="preserve">
+    <value>Could not add filter '{0}'</value>
+  </data>
+  <data name="MainForm_CouldNotDeleteFilter" xml:space="preserve">
+    <value>Could not delete filter.</value>
+  </data>
+  <data name="MainForm_DeleteFilter" xml:space="preserve">
+    <value>Delete filter '{0}'?</value>
+  </data>
+  <data name="MainForm_EnterNewFilterName" xml:space="preserve">
+    <value>Enter new filter name:</value>
+  </data>
+  <data name="MainForm_FilterAdded" xml:space="preserve">
+    <value>Filter '{0}' added.</value>
+  </data>
+  <data name="MainForm_FilterDeleted" xml:space="preserve">
+    <value>{0} filters deleted.</value>
+  </data>
+  <data name="MainForm_FilterExists" xml:space="preserve">
+    <value>Filter {0} already exists.</value>
+  </data>
+  <data name="MainForm_FilterNamesNotEmpty" xml:space="preserve">
+    <value>Filter names cannot be empty.</value>
+  </data>
+  <data name="MainForm_FilterRenamed" xml:space="preserve">
+    <value>Filter renamed.</value>
+  </data>
+  <data name="MainForm_OverwriteFilterName" xml:space="preserve">
+    <value>Do you want to overwrite filter: {0}</value>
+  </data>
+  <data name="MainForm_RenameFilter" xml:space="preserve">
+    <value>Rename filter: {0}</value>
+  </data>
+  <data name="MainForm_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="MainForm_SaveFilter" xml:space="preserve">
+    <value>Save Filter</value>
+  </data>
+  <data name="AutoCat_Name_DevPub" xml:space="preserve">
+    <value>Developers &amp; Publishers</value>
+  </data>
+  <data name="DlgAutoCat_Help_DevSelected" xml:space="preserve">
+    <value>Show/hide selected Developers</value>
+  </data>
+  <data name="DlgAutoCat_Help_MinScore" xml:space="preserve">
+    <value>Developers and Publishers with game counts lower than this will not show up on the list.</value>
+  </data>
+  <data name="DlgAutoCat_Help_PubSelected" xml:space="preserve">
+    <value>Show/hide selected Publishers</value>
+  </data>
+  <data name="MainForm_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_DevPub" xml:space="preserve">
+    <value>By Developer &amp; Publisher</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
+    <value>By HowLongToBeat</value>
+  </data>
+  <data name="AutoCatGroup_AutoCatsLoaded" xml:space="preserve">
+    <value>Autocats loaded.</value>
+  </data>
+  <data name="AutoCat_Name_Group" xml:space="preserve">
+    <value>Group of Autocats</value>
+  </data>
+  <data name="Profile_ErrorLoadingAutoCats" xml:space="preserve">
+    <value>Error loading AutoCats from profile.</value>
+  </data>
+  <data name="Profile_FailedToLoadAutoCats" xml:space="preserve">
+    <value>Failed to load AutoCats from profile: {0}</value>
+  </data>
+  <data name="Profile_LoadingAutoCats" xml:space="preserve">
+    <value>Loading AutoCats from file: {0}</value>
+  </data>
+  <data name="MainForm_SaveProfile" xml:space="preserve">
+    <value>Save Profile</value>
+  </data>
+  <data name="MainForm_SaveProfileConfirm" xml:space="preserve">
+    <value>Save your current profile settings?</value>
+  </data>
+  <data name="Log_Profile_ConfigBackupFailed" xml:space="preserve">
+    <value>Profile backup failed: {0}</value>
+  </data>
+  <data name="DlgRestore_ConfigConfirm" xml:space="preserve">
+    <value>Are you sure you want to overwrite your Steam config file with: {0}?
+Close Steam BEFORE restoring!</value>
+  </data>
+  <data name="DlgRestore_ProfileConfirm" xml:space="preserve">
+    <value>Are you sure you want to overwrite your profile with: {0}?</value>
+  </data>
+</root>
