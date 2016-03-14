@@ -2835,6 +2835,11 @@ namespace Depressurizer {
             FlushStatus();
         }
 
+        private void lvAutoCatType_Layout(object sender, LayoutEventArgs e)
+        {
+            lvAutoCatType.Columns[0].Width = lvAutoCatType.DisplayRectangle.Width;
+        }
+
         private void UpdateAutoCatSelected_StatusMessage()
         {
             if ((tlstGames.SelectedObjects.Count == 0) && mchkAutoCatSelected.Checked)

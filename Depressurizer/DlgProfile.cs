@@ -467,7 +467,8 @@ namespace Depressurizer {
 
                     lstUsers.Items.RemoveAt( index );
                     lstUsers.Items.Insert( index, u );
-                    if( selected ) lstUsers.SelectedIndex = index;
+                    if (selected) lstUsers.SelectedIndex = index;
+                    else lstUsers.SelectedIndex = 0;
                 }
             }
         }

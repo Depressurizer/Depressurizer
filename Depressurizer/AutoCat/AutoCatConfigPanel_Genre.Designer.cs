@@ -178,11 +178,11 @@
             // lblIgnore
             // 
             this.lblIgnore.AutoSize = true;
-            this.lblIgnore.Location = new System.Drawing.Point(3, 129);
+            this.lblIgnore.Location = new System.Drawing.Point(7, 129);
             this.lblIgnore.Name = "lblIgnore";
-            this.lblIgnore.Size = new System.Drawing.Size(104, 13);
+            this.lblIgnore.Size = new System.Drawing.Size(44, 13);
             this.lblIgnore.TabIndex = 9;
-            this.lblIgnore.Text = "Categories to ignore:";
+            this.lblIgnore.Text = "Genres:";
             // 
             // chkRemoveExisting
             // 

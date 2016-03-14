@@ -71,7 +71,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>prgm2.ico</ApplicationIcon>
+    <ApplicationIcon>depressurizer_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
@@ -535,6 +535,7 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="depressurizer_icon.ico" />
     <Content Include="prgm2.ico" />
   </ItemGroup>
   <ItemGroup>
