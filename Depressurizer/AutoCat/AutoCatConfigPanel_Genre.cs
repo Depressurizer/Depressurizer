@@ -39,7 +39,10 @@ namespace Depressurizer {
                 SortedSet<string> genreList = Program.GameDB.GetAllGenres();
             
                 foreach( string s in genreList ) {
-                    lstIgnore.Items.Add( s );
+                    ListViewItem l = new ListViewItem();
+                    l.Text = s;
+                    l.Checked = true;
+                    lstIgnore.Items.Add(l);
                 }
             }
         }
@@ -53,7 +56,7 @@ namespace Depressurizer {
             txtPrefix.Text = ac.Prefix;
 
             foreach( ListViewItem item in lstIgnore.Items ) {
-                item.Checked = ac.IgnoredGenres.Contains( item.Text );
+                item.Checked = !ac.IgnoredGenres.Contains( item.Text );
             }
         }
 
@@ -67,7 +70,7 @@ namespace Depressurizer {
 
             ac.IgnoredGenres.Clear();
             foreach( ListViewItem i in lstIgnore.Items ) {
-                if( i.Checked ) {
+                if( !i.Checked ) {
                     ac.IgnoredGenres.Add( i.Text );
                 }
             }
@@ -86,5 +89,6 @@ namespace Depressurizer {
         private void cmdUncheckAll_Click( object sender, EventArgs e ) {
             SetAllListCheckStates( lstIgnore, false );
         }
+
     }
 }

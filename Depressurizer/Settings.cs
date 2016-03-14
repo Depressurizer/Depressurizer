@@ -38,7 +38,8 @@ namespace Depressurizer {
     {
         windows,
         en,
-        es
+        es,
+        ru
     }
 
     class Settings : AppSettings {
@@ -478,6 +479,9 @@ namespace Depressurizer {
                     break;
                 case UserLanguage.es:
                     newCulture = new CultureInfo("es");
+                    break;
+                case UserLanguage.ru:
+                    newCulture = new CultureInfo("ru");
                     break;
                 default:
                     newCulture = Thread.CurrentThread.CurrentCulture;

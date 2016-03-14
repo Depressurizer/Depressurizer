@@ -71,7 +71,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>prgm2.ico</ApplicationIcon>
+    <ApplicationIcon>depressurizer_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
@@ -227,6 +227,11 @@
     </Compile>
     <Compile Include="GameBanners.cs" />
     <Compile Include="Filter.cs" />
+    <Compile Include="GlobalStrings.ru.Designer.cs">
+      <DependentUpon>GlobalStrings.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -398,6 +403,10 @@
     <EmbeddedResource Include="DlgRestore.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalStrings.es.Designer.cs</LastGenOutput>
@@ -526,6 +535,7 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="depressurizer_icon.ico" />
     <Content Include="prgm2.ico" />
   </ItemGroup>
   <ItemGroup>
