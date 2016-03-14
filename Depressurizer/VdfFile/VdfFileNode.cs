@@ -385,7 +385,7 @@ namespace Depressurizer {
         }
 
         /// <summary>
-        /// Reads a from the specified stream until it reaches a string terminator (double quote with no escaping slash).
+        /// Reads from the specified stream until it reaches a string terminator (double quote with no escaping slash).
         /// The opening double quote should already be read, and the last one will be discarded.
         /// </summary>
         /// <param name="stream">The stream to read from. After the operation, the stream position will be just past the closing quote.</param>
@@ -395,17 +395,12 @@ namespace Depressurizer {
 
             bool endOfStream = false;
             bool stringDone = false;
-            StringBuilder sb = new StringBuilder();
-            char nextChar;
+            List<Byte> bytes = new List<byte>();
             do {
                 try {
-                    nextChar = reader.ReadChar();
-
-                    if( nextChar == 0 ) {
-                        stringDone = true;
-                    } else {
-                        sb.Append( (char)nextChar );
-                    }
+                    Byte b = reader.ReadByte();
+                    if (b == 0) stringDone = true;
+                    else bytes.Add(b);
                 } catch( EndOfStreamException ) {
                     endOfStream = true;
                 }
@@ -416,7 +411,10 @@ namespace Depressurizer {
                     throw new ParseException( GlobalStrings.TextVdfFile_UnexpectedEOF );
                 }
             }
-            return sb.ToString();
+
+            String token = UTF8Encoding.UTF8.GetString(bytes.ToArray());
+
+            return token;
         }
 
         /// <summary>
