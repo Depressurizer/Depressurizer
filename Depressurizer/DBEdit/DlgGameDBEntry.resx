@@ -502,7 +502,7 @@
     <value>grpPlat</value>
   </data>
   <data name="&gt;&gt;chkPlatWin.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="chkPlatMac.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -529,13 +529,13 @@
     <value>grpPlat</value>
   </data>
   <data name="&gt;&gt;chkPlatMac.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="chkPlatLinux.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkPlatLinux.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 76</value>
+    <value>14, 71</value>
   </data>
   <data name="chkPlatLinux.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 17</value>
@@ -556,6 +556,30 @@
     <value>grpPlat</value>
   </data>
   <data name="&gt;&gt;chkPlatLinux.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="chkPlatSteamplay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 90</value>
+  </data>
+  <data name="chkPlatSteamplay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 24</value>
+  </data>
+  <data name="chkPlatSteamplay.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="chkPlatSteamplay.Text" xml:space="preserve">
+    <value>Steamplay</value>
+  </data>
+  <data name="&gt;&gt;chkPlatSteamplay.Name" xml:space="preserve">
+    <value>chkPlatSteamplay</value>
+  </data>
+  <data name="&gt;&gt;chkPlatSteamplay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkPlatSteamplay.Parent" xml:space="preserve">
+    <value>grpPlat</value>
+  </data>
+  <data name="&gt;&gt;chkPlatSteamplay.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="lblDev.AutoSize" type="System.Boolean, mscorlib">
@@ -742,10 +766,10 @@
     <value>Top, Right</value>
   </data>
   <data name="grpPlat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>462, 195</value>
+    <value>460, 195</value>
   </data>
   <data name="grpPlat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 111</value>
+    <value>92, 120</value>
   </data>
   <data name="grpPlat.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
@@ -1134,102 +1158,6 @@
   <data name="grpHltb.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="&gt;&gt;numHltbCompletionist.Name" xml:space="preserve">
-    <value>numHltbCompletionist</value>
-  </data>
-  <data name="&gt;&gt;numHltbCompletionist.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numHltbCompletionist.Parent" xml:space="preserve">
-    <value>grpHltb</value>
-  </data>
-  <data name="&gt;&gt;numHltbCompletionist.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>grpHltb</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;numHltbExtras.Name" xml:space="preserve">
-    <value>numHltbExtras</value>
-  </data>
-  <data name="&gt;&gt;numHltbExtras.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numHltbExtras.Parent" xml:space="preserve">
-    <value>grpHltb</value>
-  </data>
-  <data name="&gt;&gt;numHltbExtras.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>grpHltb</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;numHltbMain.Name" xml:space="preserve">
-    <value>numHltbMain</value>
-  </data>
-  <data name="&gt;&gt;numHltbMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numHltbMain.Parent" xml:space="preserve">
-    <value>grpHltb</value>
-  </data>
-  <data name="&gt;&gt;numHltbMain.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>grpHltb</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="grpHltb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 271</value>
-  </data>
-  <data name="grpHltb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 44</value>
-  </data>
-  <data name="grpHltb.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="grpHltb.Text" xml:space="preserve">
-    <value>HowLongToBeat.com times (in mins)</value>
-  </data>
-  <data name="&gt;&gt;grpHltb.Name" xml:space="preserve">
-    <value>grpHltb</value>
-  </data>
-  <data name="&gt;&gt;grpHltb.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpHltb.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;grpHltb.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="numHltbCompletionist.Location" type="System.Drawing.Point, System.Drawing">
     <value>355, 19</value>
   </data>
@@ -1391,6 +1319,30 @@
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="grpHltb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 271</value>
+  </data>
+  <data name="grpHltb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>431, 44</value>
+  </data>
+  <data name="grpHltb.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="grpHltb.Text" xml:space="preserve">
+    <value>HowLongToBeat.com times (in mins)</value>
+  </data>
+  <data name="&gt;&gt;grpHltb.Name" xml:space="preserve">
+    <value>grpHltb</value>
+  </data>
+  <data name="&gt;&gt;grpHltb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpHltb.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpHltb.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

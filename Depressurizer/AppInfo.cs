@@ -28,7 +28,8 @@ namespace Depressurizer {
         Windows = 1,
         Mac = 1 << 1,
         Linux = 1 << 2,
-        All = Windows | Mac | Linux
+        Steamplay = 1 << 3,
+        All = Windows | Mac | Linux | Steamplay
     }
 
     [Flags]

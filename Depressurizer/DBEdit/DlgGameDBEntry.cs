@@ -76,6 +76,7 @@ namespace Depressurizer {
                 chkPlatWin.Checked = Game.Platforms.HasFlag( AppPlatforms.Windows );
                 chkPlatMac.Checked = Game.Platforms.HasFlag( AppPlatforms.Mac );
                 chkPlatLinux.Checked = Game.Platforms.HasFlag( AppPlatforms.Linux );
+                chkPlatSteamplay.Checked = Game.Platforms.HasFlag(AppPlatforms.Steamplay);
 
                 chkWebUpdate.Checked = Game.LastStoreScrape > 0;
                 chkAppInfoUpdate.Checked = Game.LastAppInfoUpdate > 0;
@@ -136,6 +137,7 @@ namespace Depressurizer {
             if( chkPlatWin.Checked ) Game.Platforms |= AppPlatforms.Windows;
             if( chkPlatMac.Checked ) Game.Platforms |= AppPlatforms.Mac;
             if( chkPlatLinux.Checked ) Game.Platforms |= AppPlatforms.Linux;
+            if (chkPlatSteamplay.Checked) Game.Platforms |= AppPlatforms.Steamplay;
 
             Game.LastStoreScrape = chkWebUpdate.Checked ? Utility.GetUTime( dateWeb.Value ) : 0;
             Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? Utility.GetUTime( dateAppInfo.Value ) : 0;

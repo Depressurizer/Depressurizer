@@ -679,8 +679,6 @@ namespace Depressurizer {
             this.lstGames.Cursor = System.Windows.Forms.Cursors.Default;
             this.lstGames.FullRowSelect = true;
             this.lstGames.HideSelection = false;
-            this.lstGames.HighlightBackgroundColor = System.Drawing.Color.Gray;
-            this.lstGames.HighlightForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lstGames.Name = "lstGames";
             this.lstGames.RowHeight = 45;
             this.lstGames.SelectedBackColor = System.Drawing.Color.Gray;
