@@ -39,7 +39,7 @@ namespace Depressurizer
         public string Name;
         public AppTypes AppType = AppTypes.Unknown;
         public int ParentId = -1;
-        public AppPlatforms Platforms = AppPlatforms.All;
+        public AppPlatforms Platforms = AppPlatforms.None;
 
         // Basics:
         public List<string> Genres = new List<string>();
@@ -84,6 +84,11 @@ namespace Depressurizer
         private static Regex regReviews = new Regex(@"data-store-tooltip=""([\d]+)% of the ([\d,]+) user reviews for this (?:game|software) are positive.""", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private static Regex regAchievements = new Regex(@"Includes (\d+) Steam Achievements", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+        private static Regex regPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
+        private static Regex regPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
+        private static Regex regPlatformLinux = new Regex(@"<span class=""platform_img linux""></span>", RegexOptions.Compiled);
+        private static Regex regPlatformSteamplay = new Regex(@"<span class=""platform_img steamplay""></span>", RegexOptions.Compiled);
         #endregion
 
         #region Scraping
@@ -393,11 +398,23 @@ namespace Depressurizer
                 }
             }
 
+            // Get metacritic url
             m = regMetalink.Match(page);
             if (m.Success)
             {
                 this.MC_Url = m.Groups[1].Captures[0].Value;
             }
+
+            // Get Platforms
+            m = regPlatformWindows.Match(page);
+            if (m.Success) this.Platforms |= AppPlatforms.Windows;
+            m = regPlatformMac.Match(page);
+            if (m.Success) this.Platforms |= AppPlatforms.Mac;
+            m = regPlatformLinux.Match(page);
+            if (m.Success) this.Platforms |= AppPlatforms.Linux;
+            m = regPlatformSteamplay.Match(page);
+            if (m.Success) this.Platforms |= AppPlatforms.Steamplay;
+
         }
         #endregion
 
@@ -417,7 +434,7 @@ namespace Depressurizer
                 this.AppType = other.AppType;
             }
 
-            if (other.LastAppInfoUpdate >= this.LastAppInfoUpdate)
+            if (other.LastStoreScrape >= this.LastStoreScrape || (this.LastStoreScrape == 0 && other.LastAppInfoUpdate > this.LastAppInfoUpdate) || this.Platforms==AppPlatforms.None)
             {
                 this.Platforms = other.Platforms;
             }
@@ -1080,7 +1097,7 @@ namespace Depressurizer
                 entry.LastAppInfoUpdate = timestamp;
                 if (aInf.AppType != AppTypes.Unknown) entry.AppType = aInf.AppType;
                 if (!string.IsNullOrEmpty(aInf.Name)) entry.Name = aInf.Name;
-                if (aInf.Platforms > AppPlatforms.None) entry.Platforms = aInf.Platforms;
+                if (entry.Platforms == AppPlatforms.None || (entry.LastStoreScrape == 0 && aInf.Platforms > AppPlatforms.None)) entry.Platforms = aInf.Platforms;
                 if (aInf.Parent > 0) entry.ParentId = aInf.Parent;
                 updated++;
             }
