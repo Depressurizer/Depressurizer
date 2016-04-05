@@ -276,7 +276,9 @@ namespace Depressurizer {
             this.cmbLanguage.Items.AddRange(new object[] {
             resources.GetString("cmbLanguage.Items"),
             resources.GetString("cmbLanguage.Items1"),
-            resources.GetString("cmbLanguage.Items2")});
+            resources.GetString("cmbLanguage.Items2"),
+            resources.GetString("cmbLanguage.Items3"),
+            resources.GetString("cmbLanguage.Items4")});
             resources.ApplyResources(this.cmbLanguage, "cmbLanguage");
             this.cmbLanguage.Name = "cmbLanguage";
             // 

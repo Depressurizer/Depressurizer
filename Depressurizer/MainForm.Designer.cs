@@ -49,6 +49,9 @@ namespace Depressurizer {
             this.mbtnFilterDelete = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mbtnFilterRename = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mbtnFilterSave = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.mbtnCatAdd = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.mbtnCatRename = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.mbtnCatDelete = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mbtnClearFilters = new MaterialSkin.Controls.MaterialRaisedButton();
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,15 +73,13 @@ namespace Depressurizer {
             this.mlblCategoryCount = new MaterialSkin.Controls.MaterialLabel();
             this.mbtnAutoCategorize = new MaterialSkin.Controls.MaterialRaisedButton();
             this.mchkAutoCatSelected = new MaterialSkin.Controls.MaterialCheckBox();
-            this.mbtnCatAdd = new MaterialSkin.Controls.MaterialRaisedButton();
             this.lvAutoCatType = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextAutoCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextAutoCat_Edit = new System.Windows.Forms.ToolStripMenuItem();
-            this.mbtnCatRename = new MaterialSkin.Controls.MaterialRaisedButton();
             this.cmbAutoCatType = new System.Windows.Forms.ComboBox();
             this.mchkAdvancedCategories = new MaterialSkin.Controls.MaterialCheckBox();
-            this.mbtnCatDelete = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.splitBrowser = new System.Windows.Forms.SplitContainer();
             this.splitGame = new System.Windows.Forms.SplitContainer();
             this.mbtnSearchClear = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -177,7 +178,6 @@ namespace Depressurizer {
             this.menu_About = new System.Windows.Forms.ToolStripMenuItem();
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.imglistEarlyAccess = new System.Windows.Forms.ImageList(this.components);
-            this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.lstCategories = new Depressurizer.Lib.ExtListView();
             this.columnCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -287,6 +287,33 @@ namespace Depressurizer {
             this.mbtnFilterSave.Name = "mbtnFilterSave";
             this.mbtnFilterSave.UseVisualStyleBackColor = true;
             this.mbtnFilterSave.Click += new System.EventHandler(this.mbtnSaveFilter_Click);
+            // 
+            // mbtnCatAdd
+            // 
+            this.mbtnCatAdd.Depth = 0;
+            resources.ApplyResources(this.mbtnCatAdd, "mbtnCatAdd");
+            this.mbtnCatAdd.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnCatAdd.Name = "mbtnCatAdd";
+            this.mbtnCatAdd.UseVisualStyleBackColor = true;
+            this.mbtnCatAdd.Click += new System.EventHandler(this.mbtnCatAdd_Click);
+            // 
+            // mbtnCatRename
+            // 
+            this.mbtnCatRename.Depth = 0;
+            resources.ApplyResources(this.mbtnCatRename, "mbtnCatRename");
+            this.mbtnCatRename.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnCatRename.Name = "mbtnCatRename";
+            this.mbtnCatRename.UseVisualStyleBackColor = true;
+            this.mbtnCatRename.Click += new System.EventHandler(this.mbtnCatRename_Click);
+            // 
+            // mbtnCatDelete
+            // 
+            this.mbtnCatDelete.Depth = 0;
+            resources.ApplyResources(this.mbtnCatDelete, "mbtnCatDelete");
+            this.mbtnCatDelete.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnCatDelete.Name = "mbtnCatDelete";
+            this.mbtnCatDelete.UseVisualStyleBackColor = true;
+            this.mbtnCatDelete.Click += new System.EventHandler(this.mbtnCatDelete_Click);
             // 
             // mbtnClearFilters
             // 
@@ -445,15 +472,6 @@ namespace Depressurizer {
             this.mchkAutoCatSelected.UseVisualStyleBackColor = true;
             this.mchkAutoCatSelected.CheckedChanged += new System.EventHandler(this.mchkAutoCatSelected_CheckedChanged);
             // 
-            // mbtnCatAdd
-            // 
-            this.mbtnCatAdd.Depth = 0;
-            resources.ApplyResources(this.mbtnCatAdd, "mbtnCatAdd");
-            this.mbtnCatAdd.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mbtnCatAdd.Name = "mbtnCatAdd";
-            this.mbtnCatAdd.UseVisualStyleBackColor = true;
-            this.mbtnCatAdd.Click += new System.EventHandler(this.mbtnCatAdd_Click);
-            // 
             // lvAutoCatType
             // 
             this.lvAutoCatType.Activation = System.Windows.Forms.ItemActivation.OneClick;
@@ -496,15 +514,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.contextAutoCat_Edit, "contextAutoCat_Edit");
             this.contextAutoCat_Edit.Click += new System.EventHandler(this.contextAutoCat_Edit_Click);
             // 
-            // mbtnCatRename
-            // 
-            this.mbtnCatRename.Depth = 0;
-            resources.ApplyResources(this.mbtnCatRename, "mbtnCatRename");
-            this.mbtnCatRename.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mbtnCatRename.Name = "mbtnCatRename";
-            this.mbtnCatRename.UseVisualStyleBackColor = true;
-            this.mbtnCatRename.Click += new System.EventHandler(this.mbtnCatRename_Click);
-            // 
             // cmbAutoCatType
             // 
             resources.ApplyResources(this.cmbAutoCatType, "cmbAutoCatType");
@@ -525,14 +534,13 @@ namespace Depressurizer {
             this.mchkAdvancedCategories.UseVisualStyleBackColor = true;
             this.mchkAdvancedCategories.CheckedChanged += new System.EventHandler(this.mchkAdvancedCategories_CheckedChanged);
             // 
-            // mbtnCatDelete
+            // materialDivider1
             // 
-            this.mbtnCatDelete.Depth = 0;
-            resources.ApplyResources(this.mbtnCatDelete, "mbtnCatDelete");
-            this.mbtnCatDelete.MouseState = MaterialSkin.MouseState.HOVER;
-            this.mbtnCatDelete.Name = "mbtnCatDelete";
-            this.mbtnCatDelete.UseVisualStyleBackColor = true;
-            this.mbtnCatDelete.Click += new System.EventHandler(this.mbtnCatDelete_Click);
+            resources.ApplyResources(this.materialDivider1, "materialDivider1");
+            this.materialDivider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialDivider1.Depth = 0;
+            this.materialDivider1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialDivider1.Name = "materialDivider1";
             // 
             // splitBrowser
             // 
@@ -679,6 +687,8 @@ namespace Depressurizer {
             this.lstGames.Cursor = System.Windows.Forms.Cursors.Default;
             this.lstGames.FullRowSelect = true;
             this.lstGames.HideSelection = false;
+            this.lstGames.HighlightBackgroundColor = System.Drawing.Color.Gray;
+            this.lstGames.HighlightForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lstGames.Name = "lstGames";
             this.lstGames.RowHeight = 45;
             this.lstGames.SelectedBackColor = System.Drawing.Color.Gray;
@@ -1365,14 +1375,6 @@ namespace Depressurizer {
             this.imglistEarlyAccess.Images.SetKeyName(0, "early_access_banner_english.png");
             this.imglistEarlyAccess.Images.SetKeyName(1, "early_access_banner_russian.png");
             this.imglistEarlyAccess.Images.SetKeyName(2, "early_access_banner_spanish.png");
-            // 
-            // materialDivider1
-            // 
-            resources.ApplyResources(this.materialDivider1, "materialDivider1");
-            this.materialDivider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialDivider1.Depth = 0;
-            this.materialDivider1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialDivider1.Name = "materialDivider1";
             // 
             // lstCategories
             // 

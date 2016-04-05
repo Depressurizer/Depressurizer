@@ -227,11 +227,6 @@
     </Compile>
     <Compile Include="GameBanners.cs" />
     <Compile Include="Filter.cs" />
-    <Compile Include="GlobalStrings.ru.Designer.cs">
-      <DependentUpon>GlobalStrings.ru.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -376,6 +371,18 @@
     <EmbeddedResource Include="AutomaticModeForm.resx">
       <DependentUpon>AutomaticModeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.ru.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.uk.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.ru.resx">
+      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.uk.resx">
+      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgAbout.resx">
       <DependentUpon>DlgAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -391,11 +398,47 @@
     <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
       <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutomaticModeHelper.ru.resx">
+      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutomaticModeHelper.uk.resx">
+      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgClose.es.resx">
       <DependentUpon>DlgClose.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgClose.resx">
       <DependentUpon>DlgClose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgClose.ru.resx">
+      <DependentUpon>DlgClose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgClose.uk.resx">
+      <DependentUpon>DlgClose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.ru.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.uk.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgManualDownload.ru.resx">
+      <DependentUpon>DlgManualDownload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgManualDownload.uk.resx">
+      <DependentUpon>DlgManualDownload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgOptions.ru.resx">
+      <DependentUpon>DlgOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgOptions.uk.resx">
+      <DependentUpon>DlgOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.ru.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.uk.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgRestore.es.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
@@ -403,9 +446,17 @@
     <EmbeddedResource Include="DlgRestore.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalStrings.ru.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalStrings.ru.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="DlgRestore.ru.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.uk.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgSteamPath.ru.resx">
+      <DependentUpon>DlgSteamPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgSteamPath.uk.resx">
+      <DependentUpon>DlgSteamPath.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -439,6 +490,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgOptions.es.resx">
       <DependentUpon>DlgOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgProfile.es.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
@@ -450,6 +502,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.ru.resx" />
+    <EmbeddedResource Include="GlobalStrings.uk.resx" />
     <EmbeddedResource Include="Lib\CancelableDlg.es.resx">
       <DependentUpon>CancelableDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -459,16 +513,34 @@
     <EmbeddedResource Include="DlgProfile.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Lib\CancelableDlg.ru.resx">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\CancelableDlg.uk.resx">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgFatalError.es.resx">
       <DependentUpon>DlgFatalError.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgFatalError.resx">
       <DependentUpon>DlgFatalError.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgFatalError.ru.resx">
+      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgFatalError.uk.resx">
+      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.es.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.ru.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.uk.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.es.resx">
@@ -480,6 +552,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgOptions.resx">
       <DependentUpon>DlgOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.ru.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.uk.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -489,6 +568,8 @@
     <EmbeddedResource Include="DlgSteamPath.resx">
       <DependentUpon>DlgSteamPath.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ru.resx" />
+    <EmbeddedResource Include="Properties\Resources.uk.resx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

@@ -118,363 +118,252 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AutoCat_Name_DevPub" xml:space="preserve">
-    <value>Разработчики &amp; Издатели</value>
+    <value>Розробники &amp; Видавці</value>
   </data>
   <data name="AutoCat_Name_Flags" xml:space="preserve">
-    <value>Поддержка игры</value>
+    <value>Підтримка гри</value>
   </data>
   <data name="AutoCat_Name_Genre" xml:space="preserve">
     <value>Жанр</value>
   </data>
   <data name="AutoCat_Name_Group" xml:space="preserve">
-    <value>Группа Автокатегорий</value>
+    <value>Група Автокатегорій</value>
   </data>
   <data name="AutoCat_Name_Hltb" xml:space="preserve">
-    <value>HLTB время игры</value>
+    <value>HLTB час гри</value>
   </data>
   <data name="AutoCat_Name_Manual" xml:space="preserve">
-    <value>Ручной выбор</value>
+    <value>Особистий вибір</value>
   </data>
   <data name="AutoCat_Name_Tags" xml:space="preserve">
-    <value>Тэги</value>
+    <value>Теги</value>
   </data>
   <data name="AutoCat_Name_UserScore" xml:space="preserve">
-    <value>Отзывы</value>
+    <value>Відгуки</value>
   </data>
   <data name="AutoCat_Name_Year" xml:space="preserve">
-    <value>Дата релиза</value>
+    <value>Дата релізу</value>
   </data>
   <data name="AutoCat_NothingSelected" xml:space="preserve">
-    <value>Не выбран не один АвтоКат. Выбирете хотя бы один Автокад перед запуском.</value>
+    <value>Жоден з АвтоКат не вибранний. Оберіть хоча б один перед запуском.</value>
   </data>
   <data name="AutoCatGenre_Exception_NoGameDB" xml:space="preserve">
-    <value>АвтоКат Жанр нет базы данных игры.</value>
+    <value>АвтоКат Жанр немає бази данних гри.</value>
   </data>
   <data name="AutoCatGenre_Exception_NoGameList" xml:space="preserve">
-    <value>АвтоКат Жанр нет списка игр.</value>
+    <value>АвтоКат Жанр немає списку ігор.</value>
   </data>
   <data name="AutoCatGenrePanel_Help_TagFallback" xml:space="preserve">
-    <value>Если игра есть в базе данных, но не определен жанр - ищит название жанра по тэгам.</value>
+    <value>Якщо гра є у базі данних, але не визначений жанр - шукає назву жанра по тегам.</value>
   </data>
   <data name="AutoCatGroup_AutoCatsLoaded" xml:space="preserve">
-    <value>АвтоКат Загруженны.</value>
+    <value>АвтоКат завантаженні.</value>
   </data>
   <data name="AutoCatSelected_NothingSelected" xml:space="preserve">
-    <value>Игры не выбраны. АвтоКат ничего не изменит.</value>
+    <value>Ігри не вибрані. АвтоКат нічого не змінять.</value>
   </data>
   <data name="AutoCatUserScore_Dialog_ConfirmPreset" xml:space="preserve">
-    <value>Это удалит ваши правила. Продолжить?</value>
+    <value>Це видалить ваші правила. Продовжити?</value>
   </data>
   <data name="AutoCatUserScore_Help_Rules" xml:space="preserve">
-    <value>Каждая игра будет определена в категорию по имени первого подходящего правила. Если игра подходит к нескольким правилам - она будет определенна только в первую подходящую. Если игра не подходит ни к одному правилу - не будет определена ни в одну категорию.</value>
+    <value>Кожна гра буде призначена в категорію по імені першого підходящего правила. Якщо гра підходить під декілька правил - буде призначена тільки в перше підходяще. Якщо гра не підходить під жодне з правил - не буде призначена в жодну категорію.</value>
   </data>
   <data name="AutoCatUserScore_NewRuleName" xml:space="preserve">
-    <value>Новое правило</value>
+    <value>Нове правило</value>
   </data>
   <data name="AutoCatUserScore_Preset_Name_SteamLabels" xml:space="preserve">
-    <value>Steam метки</value>
+    <value>Steam позначки</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Mixed" xml:space="preserve">
-    <value>Смешанные</value>
+    <value>Змішані</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative1" xml:space="preserve">
-    <value>В основном Негативные</value>
+    <value>Переважно Негативні</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative2" xml:space="preserve">
-    <value>Негативные</value>
+    <value>Негативні</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative3" xml:space="preserve">
-    <value>Очень Негативные</value>
+    <value>Дуже Негативні</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative4" xml:space="preserve">
-    <value>Крайне негативные</value>
+    <value>Виключно Негативні</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive1" xml:space="preserve">
-    <value>В основном Позитивные</value>
+    <value>Переважно Позитивні</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive2" xml:space="preserve">
-    <value>Позитивные</value>
+    <value>Позитивні</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive3" xml:space="preserve">
-    <value>Очень Позитивные</value>
+    <value>Дуже Позитивні</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive4" xml:space="preserve">
-    <value>Крайне Позитивные</value>
+    <value>Виключно Позитивні</value>
   </data>
   <data name="AutoMode_Help_Launch" xml:space="preserve">
-    <value>Запустит Steam после окончания АвтоКат.</value>
+    <value>Запустить Steam після закінчення АвтоКат.</value>
   </data>
   <data name="AutoMode_Help_Output" xml:space="preserve">
-    <value>Если установленно Обычный - окно будет открыто пока его не закрыть вручную. Если установленно Тихий - окно закроется автоматически, если не будет ошибок. Если установленно Безшумный - окно закроется автоматически.</value>
+    <value>Якщо вибрано Звичайний - вікно буде відкрите поки його не закрти вручну. Якщо вибрано Тихий - вікно закриється автоматично, якщо не буде помилок. Якщо вибрано Безшумний - вікно закриється автоматично.</value>
   </data>
   <data name="AutoMode_Help_SaveDB" xml:space="preserve">
-    <value>Сохранить базу данных при любых измениях в ней. Рекомендуется: Включить</value>
+    <value>Зберігти базу данних при будь яких змінах в ній. Рекомендується: Увімкнути</value>
   </data>
   <data name="AutoMode_Help_SaveProfile" xml:space="preserve">
-    <value>Сохраняет профиль после окончания АвтоКат. Рекомендуется: Включить</value>
+    <value>Зберігає профіль після закінчення АвтоКат. Рекомендується: Увімкнути</value>
   </data>
   <data name="AutoMode_Help_SteamCheck" xml:space="preserve">
-    <value>Если выбрано Проверить и Закрыть - закроет Steam если он запущен. (Рекомендуется) Если выбрано Проверить и Отменить - отменит АвтоКат если Steam запущен. Если выбрано Пропустить - не будет проверять запущен ли Steam.</value>
+    <value>Якщо вибрано Перевірити і Закрити - закриє Steam якщо він запущений. (Рекомендується) Якщо вибрано Перевірити і Відмінити - відмінить АвтоКат якщо Steam запущений. Якщо вибрано Пропустити - не буде перевіряти чи запущений Steam.</value>
   </data>
   <data name="AutoMode_Help_Tolerant" xml:space="preserve">
-    <value>Если выключено - будет прекращенно после ошибки. Если включено - продолжит если не будет критических ошибок. Рекомендуется: Включено</value>
+    <value>Якщо виключено - буде припинено після помилки. Якщо включено - продовжить якщо не буде критичних помилок. Рекомендується: Включено</value>
   </data>
   <data name="Category_Exception_ObjectNotCategory" xml:space="preserve">
-    <value>Объект не является Категорией</value>
+    <value>Об'єкт не відноситься до Категорій</value>
   </data>
   <data name="CDlgDataScrape_FinishingUp" xml:space="preserve">
-    <value>Заканчиваю...</value>
+    <value>Закінчую...</value>
   </data>
   <data name="CDlgDataScrape_ScrapeCompleted" xml:space="preserve">
-    <value>Сбор завершен. {0} ошибок. {1} успешно. Объединение результатов в игровые данные.</value>
+    <value>Збір завершений. {0} помилок. {1} успешно. Об'єднання результатів в ігрові дані.</value>
   </data>
   <data name="CDlgDataScrape_TimeRemaining" xml:space="preserve">
-    <value>Осталось времени:</value>
+    <value>Часу залишилось:</value>
   </data>
   <data name="CDlgDataScrape_UpdatingComplete" xml:space="preserve">
-    <value>Обновление...{0}/{1} законченно.</value>
+    <value>Оновлення...{0}/{1} закінчено.</value>
   </data>
   <data name="CDlgFetch_DownloadingGameList" xml:space="preserve">
-    <value>Скачивание списка игр...</value>
+    <value>Завантаження списку ігр...</value>
   </data>
   <data name="CDlgFetch_FinishingDownload" xml:space="preserve">
-    <value>Заканчиваем скачивание...</value>
+    <value>Завершуємо завантаження...</value>
   </data>
   <data name="CDlgFetch_UpdatingGameList" xml:space="preserve">
-    <value>Обновление списка игр</value>
+    <value>Оновлення списку ігр</value>
   </data>
   <data name="CDlgGetSteamID_FailedToDownloadProfile" xml:space="preserve">
-    <value>Не удалось загрузить данные профиля:</value>
+    <value>Не вдалось завантажити данні профілю:</value>
   </data>
   <data name="CDlgGetSteamID_GettingIDFromURL" xml:space="preserve">
-    <value>Получение Steam ID с пользовательского URL...</value>
+    <value>Отримання Steam ID з URL користувача...</value>
   </data>
   <data name="CDlgGetSteamID_GettingSteamID" xml:space="preserve">
-    <value>Получение Steam ID...</value>
+    <value>Отримання Steam ID...</value>
   </data>
   <data name="CDlgGetSteamID_XMLProfileDownloaded" xml:space="preserve">
-    <value>Успешно загружен XML профиль.</value>
+    <value>Успішно завантажен XML профіль.</value>
   </data>
   <data name="CDlgHltb_Title" xml:space="preserve">
-    <value>Обновление время игры HLTB</value>
+    <value>Оновлення часу гри HLTB</value>
   </data>
   <data name="CDlgHltb_UpdateHltb" xml:space="preserve">
-    <value>Обновление время игры HowLongToBeat.com...</value>
+    <value>Оновлення часу гри HowLongToBeat.com...</value>
   </data>
   <data name="CDlgScrape_1minute" xml:space="preserve">
-    <value>&lt; 1 минуты</value>
+    <value>&lt; 1 хвилини</value>
   </data>
   <data name="CDlgScrape_ScrapingGameInfo" xml:space="preserve">
-    <value>Сбор информации про игру</value>
+    <value>Збір інформацію про гру</value>
   </data>
   <data name="CDlgScrape_Unknown" xml:space="preserve">
-    <value>Неизсвестно</value>
+    <value>Не відомо</value>
   </data>
   <data name="CDlgUpdateProfile_UpdatingGameList" xml:space="preserve">
-    <value>Обновление списка игр...</value>
+    <value>Оновлення списку ігор...</value>
   </data>
   <data name="DBEditDlg_AbortedUpdate" xml:space="preserve">
-    <value>Отмененно. Обновленно {0} / {1} записей.</value>
+    <value>Відміненно. Оновленно {0} / {1} записів.</value>
   </data>
   <data name="DBEditDlg_AddedGame" xml:space="preserve">
-    <value>Добавленна игра с ID {0}.</value>
+    <value>Додана гра з ID {0}.</value>
   </data>
   <data name="DBEditDlg_AppInfoUpdateFailed" xml:space="preserve">
-    <value>Не удалось обновить с AppInfo: {0}</value>
+    <value>Не вийшло оновити з AppInfo: {0}</value>
   </data>
   <data name="DBEditDlg_AreYouSureDeleteGames" xml:space="preserve">
-    <value>Удалить {0} игр с базы данных?</value>
+    <value>Видалити {0} ігр з бази даних?</value>
   </data>
   <data name="DBEditDlg_AreYouSureToClear" xml:space="preserve">
-    <value>Вы уверенны что хотите удалить все данные?</value>
+    <value>Ви впевненні що хочете видалити всі дані?</value>
   </data>
   <data name="DBEditDlg_CanceledHltbUpdate" xml:space="preserve">
-    <value>Отмененно обновление с HLTB.</value>
+    <value>Відміненно оновлення з HLTB.</value>
   </data>
   <data name="DBEditDlg_CanceledListUpdate" xml:space="preserve">
-    <value>Отмененно обновление списка.</value>
+    <value>Відміненно оновлення списку.</value>
   </data>
   <data name="DBEditDlg_ClearedAllData" xml:space="preserve">
-    <value>Очищенно все данные.</value>
+    <value>Очищенно всі дані.</value>
   </data>
   <data name="DBEditDlg_Confirm" xml:space="preserve">
-    <value>Подтвердите</value>
+    <value>Підтвердіть</value>
   </data>
   <data name="DBEditDlg_DatabaseSaved" xml:space="preserve">
-    <value>База данных сохраненна.</value>
+    <value>База даних збереженна</value>
   </data>
   <data name="DBEditDlg_DatabaseSaveFailed" xml:space="preserve">
-    <value>Не удалось сохранить базу данных.</value>
+    <value>Не вдалось зберігти базу даних.</value>
   </data>
   <data name="DBEditDlg_DeletedGames" xml:space="preserve">
-    <value>Удалено {0} игр.</value>
+    <value>Виданено {0} ігр.</value>
   </data>
   <data name="DBEditDlg_EditedGame" xml:space="preserve">
-    <value>Игра ID {0} отредактированна</value>
+    <value>Гра ID {0} відредагована</value>
   </data>
   <data name="DBEditDlg_Error" xml:space="preserve">
-    <value>Ошибка</value>
+    <value>Помилка</value>
   </data>
   <data name="DBEditDlg_ErrorSavingFile" xml:space="preserve">
-    <value>Ошибка сохранения файла: {0}</value>
+    <value>Помилка збереження файла: {0}</value>
   </data>
   <data name="DBEditDlg_ErrorUpdatingGameList" xml:space="preserve">
-    <value>Ошибка обновления списка игр.</value>
+    <value>Помилка оновлення списку ігр</value>
   </data>
   <data name="DBEditDlg_ErrorUpdatingGames" xml:space="preserve">
-    <value>Ошибка обновления игр.</value>
+    <value>Помилка оновлення ігр.</value>
   </data>
   <data name="DBEditDlg_ErrorUpdatingHltb" xml:space="preserve">
-    <value>Ошибка обновления с HLTB.</value>
+    <value>Помилка оновлення з HLTB.</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingGameList" xml:space="preserve">
-    <value>Произошла ошибка при обновлении списка игр: {0}</value>
+    <value>Відбулася помилка при оновленні списку ігр: {0}</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingGames" xml:space="preserve">
-    <value>Произошла ошибка при обновлении игр: {0}</value>
+    <value>Відбулася помилка при оновленні ігр: {0}</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingHltb" xml:space="preserve">
-    <value>Произошла ошибка при обновлении с howlongtobeatsteam.com: {0}</value>
+    <value>Відбулася помилка при оновленні з howlongtobeatsteam.com: {0}</value>
   </data>
   <data name="DBEditDlg_FailedToAddGame" xml:space="preserve">
-    <value>Не удалось добавить игру с ID {0}.</value>
+    <value>Не вдалося додати гру з ID {0}.</value>
   </data>
   <data name="DBEditDlg_FileLoaded" xml:space="preserve">
-    <value>Файл загружен.</value>
+    <value>Файл завантажений.</value>
   </data>
   <data name="DBEditDlg_FileSaved" xml:space="preserve">
-    <value>Файл сохранен.</value>
+    <value>Файл збережений.</value>
   </data>
   <data name="DBEditDlg_GameIdAlreadyExists" xml:space="preserve">
-    <value>Игра с таким ID уже существует.</value>
+    <value>Гра з таким ID вже існує.</value>
   </data>
   <data name="DBEditDlg_HltbUpdateFailed" xml:space="preserve">
-    <value>Не удалось обновиться с HLTB: {0}</value>
+    <value>Не вдалося оновитися з HLTB: {0}</value>
   </data>
   <data name="DBEditDlg_Log_ExceptionAppInfo" xml:space="preserve">
-    <value>Исключение при обновлении AppInfo: {0}</value>
+    <value>Виключення при оновленні AppInfo: {0}</value>
   </data>
   <data name="DBEditDlg_Log_ExceptionHltb" xml:space="preserve">
-    <value>Исключение при обновлении с HLTB: {0}</value>
+    <value>Виключення при оновленні з HLTB: {0}</value>
   </data>
   <data name="DBEditDlg_NoGamesToScrape" xml:space="preserve">
-    <value>Нет игр для сбора.</value>
+    <value>Немає ігр для збору.</value>
   </data>
   <data name="DBEditDlg_SaveFailed" xml:space="preserve">
-    <value>Не удалось сохранить.</value>
+    <value>Не вдалося зберігти.</value>
   </data>
   <data name="DBEditDlg_SelectedDisplayedTotal" xml:space="preserve">
-    <value>{0} выбрано / {1} показано / {2} всего</value>
-  </data>
-  <data name="DBEditDlg_UnsavedChanges" xml:space="preserve">
-    <value>Несохраненные изменения</value>
-  </data>
-  <data name="DBEditDlg_UpdateCanceled" xml:space="preserve">
-    <value>Обновление отменено.</value>
-  </data>
-  <data name="DBEditDlg_UpdatedGameList" xml:space="preserve">
-    <value>Обновлен список игр, добавлено {0} игр.</value>
-  </data>
-  <data name="DlgAutoCat_Help_DevSelected" xml:space="preserve">
-    <value>Показать/скрыть выбранных разработчиков</value>
-  </data>
-  <data name="DlgAutoCat_Help_PubSelected" xml:space="preserve">
-    <value>Показать/скрыть выбранных издателей</value>
-  </data>
-  <data name="DlgAutoCat_MustHaveName" xml:space="preserve">
-    <value>Автокатегория должна иметь имя.</value>
-  </data>
-  <data name="DlgAutoCat_NameInUse" xml:space="preserve">
-    <value>Такое имя уже используется.</value>
-  </data>
-  <data name="DlgAutoCat_RenameBoxButton" xml:space="preserve">
-    <value>Переименовать</value>
-  </data>
-  <data name="DlgAutoCat_RenameBoxLabel" xml:space="preserve">
-    <value>Имя:</value>
-  </data>
-  <data name="DlgAutoCat_RenameBoxTitle" xml:space="preserve">
-    <value>Ввести новое имя для автокатегории</value>
-  </data>
-  <data name="DlgGame_CreateGame" xml:space="preserve">
-    <value>Создать игру</value>
-  </data>
-  <data name="DlgGame_EditGame" xml:space="preserve">
-    <value>Редактировать игру</value>
-  </data>
-  <data name="DlgGameDBEntry_Add" xml:space="preserve">
-    <value>Добавить</value>
-  </data>
-  <data name="DlgProfile_Cancelling" xml:space="preserve">
-    <value>Отменяю...</value>
-  </data>
-  <data name="DlgProfile_EditProfile" xml:space="preserve">
-    <value>Редактировать профиль</value>
-  </data>
-  <data name="DlgProfile_Help_WebUpdate" xml:space="preserve">
-    <value>Скачиваю список игр из твоего профиля из сайта steamcommunity.com. Требуется публичный профиль.</value>
-  </data>
-  <data name="DlgProfile_UpdatingNames" xml:space="preserve">
-    <value>Обновляю имена...</value>
-  </data>
-  <data name="DlgSteamPath_ThatPathDoesNotExist" xml:space="preserve">
-    <value>Этот путь не существует. Ты уверен?</value>
-  </data>
-  <data name="Gen_Error" xml:space="preserve">
-    <value>Ошибка</value>
-  </data>
-  <data name="Gen_Warning" xml:space="preserve">
-    <value>Внимание</value>
-  </data>
-  <data name="MainForm_AddedGame" xml:space="preserve">
-    <value>Добавлена игра.</value>
-  </data>
-  <data name="MainForm_CategoryRenamed" xml:space="preserve">
-    <value>Категория переименована.</value>
-  </data>
-  <data name="MainForm_Create" xml:space="preserve">
-    <value>Создать</value>
-  </data>
-  <data name="MainForm_CreateCategory" xml:space="preserve">
-    <value>Создать категорию</value>
-  </data>
-  <data name="MainForm_DownloadAborted" xml:space="preserve">
-    <value>Скачивание прервано</value>
-  </data>
-  <data name="MainForm_DownloadedGames" xml:space="preserve">
-    <value>Скачано {0} игр, {1} новых, из {2}.</value>
-  </data>
-  <data name="MainForm_EnterNewCategoryName" xml:space="preserve">
-    <value>Введите новое название для категории:</value>
-  </data>
-  <data name="MainForm_EnterNewFilterName" xml:space="preserve">
-    <value>Введите новое название для фильтра:</value>
-  </data>
-  <data name="MainForm_EnterNewName" xml:space="preserve">
-    <value>Введите новое имя:</value>
-  </data>
-  <data name="MainForm_ErrorSavingFile" xml:space="preserve">
-    <value>Ошибка в сохранении файла.</value>
-  </data>
-  <data name="MainForm_FailedLoadProfile" xml:space="preserve">
-    <value>Не могу загрузить профиль.</value>
-  </data>
-  <data name="MainForm_FailedSaveProfile" xml:space="preserve">
-    <value>Не могу сохранить профиль.</value>
-  </data>
-  <data name="MainForm_Favorite" xml:space="preserve">
-    <value>&lt;Избранное&gt;</value>
-  </data>
-  <data name="MainForm_FilterRenamed" xml:space="preserve">
-    <value>Фильтр переименован.</value>
-  </data>
-  <data name="MainForm_Hidden" xml:space="preserve">
-    <value>&lt;Скрытые&gt;</value>
-  </data>
-  <data name="MainForm_IgnoredGame" xml:space="preserve">
-    <value>Проигнорированно {0} игр{1}.</value>
-  </data>
-  <data name="MainForm_ImportedGames" xml:space="preserve">
-    <value>Импортированно {0} игр.</value>
+    <value>{0} вибрано / {1} показано / {2} всього</value>
   </data>
 </root>

@@ -157,20 +157,23 @@
   <data name="chkIgnoreExternal.Size" type="System.Drawing.Size, System.Drawing">
     <value>245, 17</value>
   </data>
-  <data name="chkIgnoreExternal.Text" xml:space="preserve">
-    <value>Ignorar juegos externos al importar y descargar</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Configuración</value>
   </data>
   <data name="chkIgnoreDlc.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 17</value>
   </data>
-  <data name="chkIgnoreDlc.Text" xml:space="preserve">
-    <value>Ignorar DLC al importar y descargar</value>
+  <data name="chkIgnoreExternal.Text" xml:space="preserve">
+    <value>Ignorar juegos externos al importar y descargar</value>
   </data>
   <data name="grpSaving.Text" xml:space="preserve">
     <value>Operaciones manuales</value>
   </data>
   <data name="chkFullAutocat.Size" type="System.Drawing.Size, System.Drawing">
     <value>338, 17</value>
+  </data>
+  <data name="chkIgnoreDlc.Text" xml:space="preserve">
+    <value>Ignorar DLC al importar y descargar</value>
   </data>
   <data name="chkFullAutocat.Text" xml:space="preserve">
     <value>Usar lista completa de géneros en lugar de solo el género principal</value>
@@ -215,28 +218,25 @@
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>106, 13</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Copias de seguridad:</value>
-  </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 13</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Max. tamaño (bytes):</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Copias de seguridad:</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 13</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Nivel de registro: </value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Max. tamaño (bytes):</value>
   </data>
   <data name="tabLogging.Size" type="System.Drawing.Size, System.Drawing">
     <value>536, 363</value>
   </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Nivel de registro: </value>
+  </data>
   <data name="tabLogging.Text" xml:space="preserve">
     <value>Registro</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Configuración</value>
   </data>
 </root>

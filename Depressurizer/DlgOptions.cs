@@ -84,6 +84,12 @@ namespace Depressurizer {
                 case UserLanguage.es:
                     cmbLanguage.SelectedIndex = 2;
                     break;
+                case UserLanguage.ru:
+                    cmbLanguage.SelectedIndex = 3;
+                    break;
+                case UserLanguage.uk:
+                    cmbLanguage.SelectedIndex = 4;
+                    break;
                 default:
                     cmbLanguage.SelectedIndex = 0;
                     break;
@@ -139,6 +145,12 @@ namespace Depressurizer {
                     break;
                 case 2:
                     settings.UserLang = UserLanguage.es;
+                    break;
+                case 3:
+                    settings.UserLang = UserLanguage.ru;
+                    break;
+                case 4:
+                    settings.UserLang = UserLanguage.uk;
                     break;
             }
 
