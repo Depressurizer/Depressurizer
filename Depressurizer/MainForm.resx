@@ -534,7 +534,7 @@
     <value>lstCategories</value>
   </data>
   <data name="&gt;&gt;lstCategories.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.7.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.7.1.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;lstCategories.Parent" xml:space="preserve">
     <value>splitCategories.Panel2</value>
@@ -4705,7 +4705,7 @@
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.1.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.1.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>
