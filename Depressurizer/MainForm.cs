@@ -2419,7 +2419,9 @@ namespace Depressurizer {
         /// <param name="resources"></param> Resource manager
         /// <param name="newCulture"></param> Culture of language to load
         private void changeLanguageControls( Control c, ComponentResourceManager resources, CultureInfo newCulture ) {
-            if( c != null ) {
+            if( c != null )
+            {
+                Rectangle currentBounds = c.Bounds;
                 if( c.GetType() == typeof( MenuStrip ) ) {
                     foreach( ToolStripDropDownItem mItem in ( c as MenuStrip ).Items )
                         changeLanguageToolStripItems( mItem, resources, newCulture );
@@ -2436,6 +2438,7 @@ namespace Depressurizer {
                         changeLanguageControls(childControl, resources, newCulture);
                 }
                 resources.ApplyResources( c, c.Name, newCulture );
+                c.Bounds = currentBounds;
             }
         }
 
@@ -2453,39 +2456,19 @@ namespace Depressurizer {
                 ComponentResourceManager resources = new ComponentResourceManager( typeof( FormMain ) );
                 resources.ApplyResources( this, this.Name, Thread.CurrentThread.CurrentUICulture );
 
-                // If the window is maximized, un-maximize it
-                bool maximized = false;
-                if( this.WindowState == FormWindowState.Maximized ) {
-                    maximized = true;
-                    this.WindowState = FormWindowState.Normal;
-                }
-
                 // jpodadera. Save actual size and recover original size before reload resources of controls
-                int actualWidth = this.Width;
-                int actualHeight = this.Height;
                 int actualSplitDistanceMain = this.splitContainer.SplitterDistance;
                 int actualSplitDistanceSecondary = this.splitGame.SplitterDistance;
+                int actualSplitDistanceCategories = this.splitCategories.SplitterDistance;
                 int actualSplitDistanceBrowser = this.splitBrowser.SplitterDistance;
-
-                this.Width = this.originalWidth;
-                this.Height = this.originalHeight;
-                this.splitContainer.SplitterDistance = this.originalSplitDistanceMain;
-                this.splitGame.SplitterDistance = this.originalSplitDistanceSecondary;
-                this.splitBrowser.SplitterDistance = this.originalSplitDistanceBrowser;
 
                 changeLanguageControls( this, resources, Thread.CurrentThread.CurrentUICulture );
 
                 // jpodadera. Recover previous size
-                this.Width = actualWidth;
-                this.Height = actualHeight;
                 splitContainer.SplitterDistance = actualSplitDistanceMain;
                 splitGame.SplitterDistance = actualSplitDistanceSecondary;
+                splitCategories.SplitterDistance = actualSplitDistanceCategories;
                 splitBrowser.SplitterDistance = actualSplitDistanceBrowser;
-
-                // Re-maximize if it was maximized before
-                if( maximized ) {
-                    this.WindowState = FormWindowState.Maximized;
-                }
 
                 FullListRefresh();
             }
