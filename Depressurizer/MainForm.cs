@@ -297,7 +297,6 @@ namespace Depressurizer {
                 return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].HltbCompletionist : 0;
             };
 
-
             //Aspect to String Converters
             colNumberOfReviews.AspectToStringConverter = delegate(object obj)
             {
@@ -3311,7 +3310,7 @@ namespace Depressurizer {
 
             // Add game banner to ID column
             GameInfo g = (GameInfo)e.Model;
-            ImageDecoration decoration = new ImageDecoration(g.Banner());
+            ImageDecoration decoration = new ImageDecoration(g.Banner);
             decoration.ShrinkToWidth = true;
             decoration.AdornmentCorner = ContentAlignment.TopLeft;
             decoration.ReferenceCorner = ContentAlignment.TopLeft;
@@ -3322,23 +3321,28 @@ namespace Depressurizer {
             // Add Early Access banner
             if (Program.GameDB.Games.ContainsKey(g.Id) && Program.GameDB.Games[g.Id].Tags != null)
             {
-                if (Program.GameDB.Games[g.Id].Tags.Contains(EARLY_ACCESS)) {
-                    decoration = new ImageDecoration(imglistEarlyAccess.Images[0]);
-                    decoration.AdornmentCorner = ContentAlignment.TopLeft;
-                    decoration.ReferenceCorner = ContentAlignment.TopLeft;
-                    decoration.Transparency = 200;
+                if (Program.GameDB.Games[g.Id].Tags.Contains(EARLY_ACCESS))
+                {
+                    decoration = new ImageDecoration(imglistEarlyAccess.Images[0])
+                    {
+                        AdornmentCorner = ContentAlignment.TopLeft,
+                        ReferenceCorner = ContentAlignment.TopLeft,
+                        Transparency = 200
+                    };
                     e.SubItem.Decorations.Add(decoration);
                 }
             }
 
-            TextDecoration td = new TextDecoration(g.Id.ToString(), ContentAlignment.BottomLeft);
-            td.Font = new Font(this.lstGames.Font.Name, 8);
-            td.Wrap = false;
+            TextDecoration td = new TextDecoration(g.Id.ToString(), ContentAlignment.BottomLeft)
+            {
+                Font = new Font(this.lstGames.Font.Name, 8),
+                Wrap = false,
+                TextColor = textColor,
+                BackColor = listBackground,
+                CornerRounding = 4,
+                Transparency = 200
+            };
 
-            td.TextColor = textColor;
-            td.BackColor = listBackground;
-            td.CornerRounding = 4;
-            td.Transparency = 200;
 
             e.SubItem.Decorations.Add(td);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,13 +27,17 @@ namespace Depressurizer
                 {
                     return;
                 }
-                else
+
+                if (g.Id < 0) continue; //external game
+                string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id.ToString());
+                if (!File.Exists(bannerFile))
                 {
-                    string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id.ToString());
-                    if (!File.Exists(bannerFile))
-                    {
-                        Utility.GrabBanner(g.Id);
-                    }
+                    Utility.GrabBanner(g.Id);
+                }
+
+                if (g.Banner == null && File.Exists(bannerFile))
+                {
+                    g.Banner = Image.FromFile(bannerFile);
                 }
             }
         }

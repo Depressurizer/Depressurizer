@@ -55,6 +55,7 @@ namespace Depressurizer {
         public SortedSet<Category> Categories;
         public GameListingSource Source;
         public DateTime LastPlayed;
+        public Image Banner;
 
         private string _launchStr = null;
         /// <summary>
@@ -146,27 +147,6 @@ namespace Depressurizer {
             if (Categories.Overlaps(f.Exclude)) return false;
 
             return true;
-        }
-
-        public Image Banner()
-        {
-            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), Id.ToString());
-            try
-            {
-                if (!File.Exists(bannerPath))
-                {
-                    if (!Utility.GrabBanner(Id))
-                    {
-                        return null;
-                    }
-                }
-                return Image.FromFile(bannerPath);
-            }
-            catch (Exception e)
-            {
-                Program.Logger.WriteException(string.Format(GlobalStrings.GameData_GetBanner, bannerPath), e);
-                return null;
-            }
         }
 
         #region Category Modifiers
