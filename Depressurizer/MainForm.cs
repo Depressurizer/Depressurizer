@@ -1992,31 +1992,6 @@ namespace Depressurizer
                     }
                 }
             }
-            foreach (ListViewItem catItem in lstMultiCat.Items)
-            {
-                if (catItem.StateImageIndex != 2)
-                {
-                    Category cat = catItem.Tag as Category;
-                    if (cat != null)
-                    {
-                        if (first)
-                        {
-                            catItem.StateImageIndex = game.ContainsCategory(cat) ? 1 : 0;
-                        }
-                        else
-                        {
-                            if (game.ContainsCategory(cat))
-                            {
-                                if (catItem.StateImageIndex == 0) catItem.StateImageIndex = 2;
-                            }
-                            else
-                            {
-                                if (catItem.StateImageIndex == 1) catItem.StateImageIndex = 2;
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         //void AddGameToCheckboxStates( GameInfo game, bool first ) {
