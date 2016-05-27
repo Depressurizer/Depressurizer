@@ -16,6 +16,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+using System.Windows.Forms;
+
 namespace Depressurizer {
     partial class FormMain {
         /// <summary>
@@ -55,7 +58,6 @@ namespace Depressurizer {
             this.mbtnClearFilters = new MaterialSkin.Controls.MaterialRaisedButton();
             this.lstCategories = new Depressurizer.Lib.ExtListView();
             this.columnCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextCat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nameascendingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -332,8 +334,7 @@ namespace Depressurizer {
             this.lstCategories.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
             this.lstCategories.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstCategories.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnCategory,
-            this.columnCount});
+            this.columnCategory});
             this.lstCategories.ContextMenuStrip = this.contextCat;
             this.lstCategories.FullRowSelect = true;
             this.lstCategories.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
@@ -344,6 +345,7 @@ namespace Depressurizer {
             this.lstCategories.Name = "lstCategories";
             this.lstCategories.ShowGroups = false;
             this.lstCategories.UseCompatibleStateImageBehavior = false;
+            this.lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
             this.lstCategories.View = System.Windows.Forms.View.Details;
             this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
@@ -358,10 +360,6 @@ namespace Depressurizer {
             // columnCategory
             // 
             resources.ApplyResources(this.columnCategory, "columnCategory");
-            // 
-            // columnCount
-            // 
-            resources.ApplyResources(this.columnCount, "columnCount");
             // 
             // contextCat
             // 
@@ -725,8 +723,6 @@ namespace Depressurizer {
             this.lstGames.Cursor = System.Windows.Forms.Cursors.Default;
             this.lstGames.FullRowSelect = true;
             this.lstGames.HideSelection = false;
-            this.lstGames.HighlightBackgroundColor = System.Drawing.Color.Gray;
-            this.lstGames.HighlightForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lstGames.Name = "lstGames";
             this.lstGames.RowHeight = 45;
             this.lstGames.SelectedBackColor = System.Drawing.Color.Gray;
@@ -1576,7 +1572,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ToolStripMenuItem contextAutoCat_Edit;
         private System.Windows.Forms.PictureBox picAvatar;
         private MaterialSkin.Controls.MaterialLabel mlblCategoryCount;
-        private System.Windows.Forms.ColumnHeader columnCount;
         private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nameascendingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem namedescendingToolStripMenuItem;

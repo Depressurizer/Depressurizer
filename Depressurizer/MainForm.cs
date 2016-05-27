@@ -101,9 +101,6 @@ namespace Depressurizer
         // Used to prevent double clicking in Autocat listview from changing checkstate
         bool doubleClick = false;
 
-        // save current sort for Categories
-        CategorySort currentSort = new CategorySort { Column = 0, Order = SortOrder.Ascending };
-
         #region Filter caching fields
         object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
         string lastFilterString = "";
@@ -1847,31 +1844,22 @@ namespace Depressurizer
                 ListViewItem i = new ListViewItem(GlobalStrings.MainForm_All + " (" + (currentProfile.GameData.Games.Count - hidden) + ")");
                 i.Tag = GlobalStrings.MainForm_All;
                 i.Name = GlobalStrings.MainForm_All;
-                i.SubItems.Add((currentProfile.GameData.Games.Count - hidden).ToString());
-                i.Group = lstCategories.Groups[0];
                 lstCategories.Items.Add(i);
             }
 
             ListViewItem lvi = new ListViewItem(GlobalStrings.MainForm_Uncategorized + " (" + uncategorized + ")");
             lvi.Tag = GlobalStrings.MainForm_Uncategorized;
             lvi.Name = GlobalStrings.MainForm_Uncategorized;
-            lvi.SubItems.Add(uncategorized.ToString());
-            lvi.Group = lstCategories.Groups[0];
             lstCategories.Items.Add(lvi);
 
             lvi = new ListViewItem(GlobalStrings.MainForm_Hidden + " (" + hidden + ")");
             lvi.Tag = GlobalStrings.MainForm_Hidden;
             lvi.Name = GlobalStrings.MainForm_Hidden;
-            lvi.SubItems.Add(hidden.ToString());
-            lvi.Group = lstCategories.Groups[0];
             lstCategories.Items.Add(lvi);
 
             foreach (Category c in currentProfile.GameData.Categories)
             {
                 ListViewItem l = CreateCategoryListViewItem(c);
-                l.SubItems.Add(c.Count.ToString());
-                if (c == currentProfile.GameData.FavoriteCategory) l.Group = lstCategories.Groups[0];
-                else l.Group = lstCategories.Groups[1];
                 lstCategories.Items.Add(l);
             }
 
@@ -1898,11 +1886,9 @@ namespace Depressurizer
                 }
             }
 
-            if (sort) SortCategories(currentSort);
+            //if (sort)
+                lstCategories.Sort();
             lstCategories.EndUpdate();
-
-            //Hide count column
-            lstCategories.Columns[1].Width = 0;
 
         }
 
@@ -2197,84 +2183,6 @@ namespace Depressurizer
             bool sCat = Settings.Instance.SingleCatMode;
             menu_Tools_SingleCat.Checked = sCat;
             UpdateTitle();
-        }
-
-        #endregion
-
-        #region Category List Sorting
-
-        private void SortCategories(CategorySort sort)
-        {
-            // save new sort as current sort
-            currentSort = sort;
-
-            // save currently selected games
-            SortedSet<int> selectedIds = GetSelectedGameIds();
-
-            lstCategories.BeginUpdate();
-
-            // save and remove Specials from list.
-            List<ListViewItem> specials = RemoveSpecials();
-
-            // Create a comparer.
-            lstCategories.ListViewItemSorter =
-                new ListViewComparer(sort.Column, sort.Order);
-
-            // Sort.
-            lstCategories.Sort();
-
-            // remove sort so that Specials will not get sorted as they are added.
-            lstCategories.ListViewItemSorter = null;
-
-            // add Specials.
-            InsertSpecials(specials);
-
-            // restore games selection
-            SelectGameSet(selectedIds);
-
-            lstCategories.EndUpdate();
-
-        }
-
-        private List<ListViewItem> RemoveSpecials()
-        {
-            List<ListViewItem> specials = new List<ListViewItem>();
-
-            foreach (ListViewItem l in lstCategories.Items)
-            {
-                if ((l.Name == GlobalStrings.MainForm_All) ||
-                    (l.Name == GlobalStrings.MainForm_Uncategorized) ||
-                    (l.Name == GlobalStrings.MainForm_Hidden) ||
-                    (l.Name == currentProfile.GameData.FavoriteCategory.Name)) specials.Add(l);
-
-            }
-            foreach (ListViewItem l in specials)
-            {
-                lstCategories.Items.Remove(l);
-            }
-            return specials;
-        }
-
-        private void InsertSpecials(List<ListViewItem> specials)
-        {
-            InsertSpecial(GlobalStrings.MainForm_Hidden, specials);
-            InsertSpecial(GlobalStrings.MainForm_Uncategorized, specials);
-            InsertSpecial(currentProfile.GameData.FavoriteCategory.Name, specials);
-            InsertSpecial(GlobalStrings.MainForm_All, specials);
-        }
-
-        private void InsertSpecial(string special, List<ListViewItem> specials)
-        {
-            foreach (ListViewItem l in specials)
-            {
-                if (l.Name == special)
-                {
-                    // put Hidden at the end
-                    if (special == GlobalStrings.MainForm_Hidden) lstCategories.Items.Add(l);
-                    // all other Specials get added at the top
-                    else lstCategories.Items.Insert(0, l);
-                }
-            }
         }
 
         #endregion
@@ -2837,26 +2745,27 @@ namespace Depressurizer
 
         private void nameascendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CategorySort sort = new CategorySort { Column = 0, Order = SortOrder.Ascending };
-            SortCategories(sort);
+            lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
+
+            lstCategories.Sort();
         }
 
         private void namedescendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CategorySort sort = new CategorySort { Column = 0, Order = SortOrder.Descending };
-            SortCategories(sort);
+            lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Descending);
+            lstCategories.Sort();
         }
 
         private void countascendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CategorySort sort = new CategorySort { Column = 1, Order = SortOrder.Ascending };
-            SortCategories(sort);
+            lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Count, SortOrder.Ascending);
+            lstCategories.Sort();
         }
 
         private void countdescendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CategorySort sort = new CategorySort { Column = 1, Order = SortOrder.Descending };
-            SortCategories(sort);
+            lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Count, SortOrder.Descending);
+            lstCategories.Sort();
         }
 
         private void contextCat_SetAdvanced_Allow_Click(object sender, EventArgs e)
