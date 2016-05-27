@@ -17,6 +17,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using Rallion;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -95,7 +96,7 @@ namespace Depressurizer
         GameBanners bannerGrabber;
         Thread bannerThread;
 
-        // used to prevent moving the filler column in the game list
+            // used to prevent moving the filler column in the game list
         Thread columnReorderThread;
 
         // Used to prevent double clicking in Autocat listview from changing checkstate
@@ -103,7 +104,6 @@ namespace Depressurizer
 
         #region Filter caching fields
         object lastSelectedCat = null;      // Stores last selected category to minimize game list refreshes
-        string lastFilterString = "";
         Filter advFilter = new Filter(ADVANCED_FILTER);
         #endregion
 
@@ -189,9 +189,21 @@ namespace Depressurizer
             //    return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
             //};
             //colTitle.AspectGetter = delegate (Object g) { return String.Empty; };
-            colCategories.AspectGetter = delegate (object g) { return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized); };
-            colFavorite.AspectGetter = delegate (object g) { return ((GameInfo)g).IsFavorite() ? "X" : String.Empty; };
-            colHidden.AspectGetter = delegate (object g) { return ((GameInfo)g).Hidden ? "X" : String.Empty; };
+            colCategories.AspectGetter = delegate(object g)
+            {
+                if ((GameInfo) g == null) return string.Empty;
+                return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized);
+            };
+            colFavorite.AspectGetter = delegate(object g)
+            {
+                if ((GameInfo) g == null) return string.Empty;
+                return ((GameInfo)g).IsFavorite() ? "X" : String.Empty;
+            };
+            colHidden.AspectGetter = delegate(object g)
+            {
+                if ((GameInfo) g == null) return string.Empty;
+                return ((GameInfo)g).Hidden ? "X" : String.Empty;
+            };
             colGenres.AspectGetter = delegate (object g)
             {
                 int id = ((GameInfo)g).Id;
@@ -360,6 +372,10 @@ namespace Depressurizer
             colFlags.ClusteringStrategy = new CommaClusteringStrategy();
             colTags.ClusteringStrategy = new CommaClusteringStrategy();
             colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
+            lstGames.AdditionalFilter = new ModelFilter(delegate (object g)
+            {
+                return ShouldDisplayGame((GameInfo)g);
+            });
 
             //Formating
             lstGames.RowFormatter = delegate (OLVListItem lvi)
@@ -1031,7 +1047,7 @@ namespace Depressurizer
                 Category newCat = currentProfile.GameData.AddCategory(dlg.Value);
                 if (newCat != null)
                 {
-                    OnCategoryChange();
+                    FillAllCategoryLists();
                     MakeChange(true);
                     AddStatus(string.Format(GlobalStrings.MainForm_CategoryAdded, newCat.Name));
                     return newCat;
@@ -1045,7 +1061,7 @@ namespace Depressurizer
         }
 
         /// <summary>
-        /// Deletes the selected categories and updates the UI. Prompts user for confirmation. Will completely rebuild the gamelist.
+        /// Deletes the selected categories and updates the UI. Prompts user for confirmation.
         /// </summary>
         void DeleteCategory()
         {
@@ -1081,7 +1097,8 @@ namespace Depressurizer
                     }
                     if (deleted > 0)
                     {
-                        FullListRefresh();
+                        FillAllCategoryLists();
+                        RebuildGamelist();
                         MakeChange(true);
                         AddStatus(string.Format(GlobalStrings.MainForm_CategoryDeleted, deleted));
                     }
@@ -1115,7 +1132,8 @@ namespace Depressurizer
                             Category newCat = currentProfile.GameData.RenameCategory(c, newName);
                             if (newCat != null)
                             {
-                                OnCategoryChange();
+                                FillAllCategoryLists();
+                                RebuildGamelist();
                                 MakeChange(true);
                                 for (int index = 2; index < lstCategories.Items.Count; index++)
                                 {
@@ -1172,7 +1190,7 @@ namespace Depressurizer
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    OnGameChange(true);
+                    FilterGamelist(false);
                     MakeChange(true);
                     AddStatus(GlobalStrings.MainForm_EditedGame);
                     Cursor.Current = Cursors.Default;
@@ -1219,7 +1237,7 @@ namespace Depressurizer
                         AddStatus(string.Format(GlobalStrings.MainForm_IgnoredGame, ignored, (ignored == 1) ? "" : "s"));
                         MakeChange(true);
                     }
-                    OnGameChange(false);
+                    UpdateGameList();
                     Cursor.Current = Cursors.Default;
                 }
             }
@@ -1231,7 +1249,7 @@ namespace Depressurizer
         /// <param name="cat">Category to add</param>
         /// <param name="refreshCatList">If true, refresh category views afterwards</param>
         /// <param name="forceClearOthers">If true, remove other categories from the affected games.</param>
-        void AddCategoryToSelectedGames(Category cat, bool refreshCatList, bool forceClearOthers)
+        void AddCategoryToSelectedGames(Category cat, bool forceClearOthers)
         {
             if (lstGames.SelectedObjects.Count > 0)
             {
@@ -1254,7 +1272,16 @@ namespace Depressurizer
                         }
                     }
                 }
-                OnGameChange(refreshCatList);
+                FillAllCategoryLists();
+                if (forceClearOthers)
+                {
+                    FilterGamelist(false);
+                }
+                if (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
+                {
+                    FilterGamelist(false);
+                }
+                else RebuildGamelist();
                 MakeChange(true);
                 Cursor.Current = Cursors.Default;
             }
@@ -1273,7 +1300,12 @@ namespace Depressurizer
                 {
                     g.RemoveCategory(cat);
                 }
-                OnGameChange(false);
+                FillAllCategoryLists();
+                if (lstCategories.SelectedItems[0].Tag is Category && (Category) lstCategories.SelectedItems[0].Tag == cat)
+                {
+                    FilterGamelist(false);
+                }
+                else FilterGamelist(true);
                 MakeChange(true);
                 Cursor.Current = Cursors.Default;
             }
@@ -1292,7 +1324,8 @@ namespace Depressurizer
                 {
                     g.SetFavorite(fav);
                 }
-                OnGameChange(false);
+                FillCategoryList(false);
+                RebuildGamelist();
                 MakeChange(true);
                 Cursor.Current = Cursors.Default;
             }
@@ -1311,7 +1344,8 @@ namespace Depressurizer
                 {
                     g.SetHidden(hidden);
                 }
-                OnGameChange(false);
+                FillCategoryList(false);
+                FilterGamelist(false);
                 MakeChange(true);
                 Cursor.Current = Cursors.Default;
             }
@@ -1472,7 +1506,11 @@ namespace Depressurizer
             AddStatus(string.Format(GlobalStrings.MainForm_UpdatedCategories, updated));
             if (gamesToUpdate.Count > updated) AddStatus(string.Format(GlobalStrings.MainForm_FailedToUpdate, gamesToUpdate.Count - updated));
             if (updated > 0) MakeChange(true);
-            if (refresh) FullListRefresh();
+            if (refresh)
+            {
+                FillAllCategoryLists();
+                FilterGamelist(true);
+            }
 
             Cursor.Current = Cursors.Default;
         }
@@ -1512,7 +1550,7 @@ namespace Depressurizer
                 MakeChange(true);
             }
 
-            UpdateGameList();
+            RebuildGamelist();
 
             Cursor.Current = Cursors.Default;
         }
@@ -1524,7 +1562,7 @@ namespace Depressurizer
         {
             int count = currentProfile.GameData.RemoveEmptyCategories();
             AddStatus(string.Format(GlobalStrings.MainForm_RemovedEmptyCategories, count));
-            OnCategoryChange();
+            FillAllCategoryLists();
         }
 
         #endregion
@@ -1632,7 +1670,6 @@ namespace Depressurizer
                         cboFilter.SelectedIndex = i;
                         cboFilter.Text = name;
                         ApplyFilter((Filter)cboFilter.SelectedItem);
-                        OnViewChange();
                     }
                 }
             }
@@ -1666,104 +1703,97 @@ namespace Depressurizer
         }
 
         /// <summary>
-        /// Does all list-updating that should be done when adding, removing, or renaming a category.
-        /// </summary>
-        /// 
-        private void OnCategoryChange()
-        {
-            FillAllCategoryLists();
-
-            UpdateGameList();
-        }
-
-        /// <summary>
-        /// Does all list-updating that should be done when modifying one or more existing game entry.
-        /// </summary>
-        /// <param name="catCreationPossible">True if it's possible that a new category was added for the game.</param>
-        /// <param name="limitToSelection">If true, only update entries for selected games instead of all of them</param>
-        private void OnGameChange(bool catCreationPossible)
-        {
-            if (catCreationPossible)
-            {
-                OnCategoryChange();
-            }
-            else
-            {
-                FillCategoryList(false);
-                UpdateGameList();
-            }
-        }
-
-        /// <summary>
         /// Does all list updating that's required if the filter changes (category selection changes).
         /// </summary>
-        private void OnViewChange() {
-            FillGameList();
+        private void OnViewChange()
+        {
+            FilterGamelist(false);
         }
 
         /// <summary>
         /// Completely regenerates both the category and game lists
         /// </summary>
-        private void FullListRefresh() {
+        private void FullListRefresh()
+        {
             FillAllCategoryLists();
             FillGameList();
         }
 
         /// <summary>
-        /// Completely re-populates the game list based on the current category selection.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
+        /// Filters game list based on based on the current category selection and advanced filters
         /// </summary>
-        private void FillGameList() {
+        /// <param name="preserveSelection">If true, will try to preserve game selection</param>
+        private void FilterGamelist(bool preserveSelection)
+        {
             Cursor = Cursors.WaitCursor;
             lstGames.BeginUpdate();
-            SortedSet<int> selectedIds = GetSelectedGameIds();
+            if (!preserveSelection)
+                lstGames.DeselectAll();
+            lstGames.UpdateColumnFiltering();
+            lstGames.BuildList();
+            lstGames.EndUpdate();
 
-            displayedGames.Clear();
-            if( currentProfile != null ) {
-                foreach( GameInfo g in currentProfile.GameData.Games.Values ) {
-                    if( ShouldDisplayGame( g ) ) {
-                        displayedGames.Add(g);
-                    }
-					if ( g.Name == null ) {
+            Cursor = Cursors.Default;
+        }
+
+        /// <summary>
+        /// Rebuild all the list view items in the gamelist, preserving as much state as is possible
+        /// </summary>
+        private void RebuildGamelist()
+        {
+            lstGames.BuildList();
+        }
+
+        /// <summary>
+        /// Updates list item for every game on the list, removing games that no longer need to be there, but not adding new ones.
+        /// </summary>
+        private void UpdateGameList()
+        {
+            List<GameInfo> gamelist = lstGames.Objects.Cast<GameInfo>().ToList();
+            foreach (GameInfo g in gamelist)
+            {
+                if (currentProfile != null && (!currentProfile.GameData.Games.ContainsKey(g.Id) || (g.Id < 0 && !currentProfile.IncludeShortcuts)))
+               gamelist.Remove(g);
+            }
+        }
+
+        /// <summary>
+        /// Completely re-populates the game list.
+        /// </summary>
+        private void FillGameList()
+        {
+            List<GameInfo> gamelist = new List<GameInfo>();
+            Cursor = Cursors.WaitCursor;
+            if (currentProfile != null)
+            {
+                foreach (GameInfo g in currentProfile.GameData.Games.Values)
+                {
+                    if (g.Id < 0 && !currentProfile.IncludeShortcuts) continue;
+                    gamelist.Add(g);
+                    if (g.Name == null)
+                    {
                         g.Name = string.Empty;
-                        displayedGames.Add(g);
-					}
+                        gamelist.Add(g);
                     }
                 }
-
-            if (displayedGames.Count > 0)
-                    {
-                StartBannerThread(new List<GameInfo>(displayedGames));
-
-                this.lstGames.Objects = displayedGames;
-
-                lstGames.BuildList();
-
-                SelectGameSet(selectedIds);
             }
 
-            lstGames.EndUpdate();
+            if (gamelist.Count > 0)
+            {
+                StartBannerThread(new List<GameInfo>(gamelist));
+            }
+
+            lstGames.SetObjects(gamelist);
+
+            lstGames.BuildList();
 
             mbtnAutoCategorize.Text = string.Format(Properties.Resources.AutoCat_ButtonLabel, AutoCatGameCount());
 
             Cursor = Cursors.Default;
         }
 
-        private void StartBannerThread(List<GameInfo> games)
-        {
-            if ((bannerThread != null) && (bannerThread.IsAlive))
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-            bannerGrabber = new GameBanners(games);
-            bannerThread = new Thread(bannerGrabber.Grab);
-            bannerThread.Start();
-        }
-
         /// <summary>
         /// Completely repopulates the category list and combobox. Maintains selection on both.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillAllCategoryLists()
         {
@@ -1814,7 +1844,6 @@ namespace Depressurizer
 
         /// <summary>
         /// Completely repopulates the category list. Maintains selection.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
         /// </summary>
         private void FillCategoryList(bool sort)
         {
@@ -1889,7 +1918,18 @@ namespace Depressurizer
             //if (sort)
                 lstCategories.Sort();
             lstCategories.EndUpdate();
+        }
 
+        private void StartBannerThread(List<GameInfo> games)
+        {
+            if ((bannerThread != null) && (bannerThread.IsAlive))
+            {
+                bannerGrabber.Stop();
+                Thread.Sleep(100);
+            }
+            bannerGrabber = new GameBanners(games);
+            bannerThread = new Thread(bannerGrabber.Grab);
+            bannerThread.Start();
         }
 
         private ListViewItem CreateCategoryListViewItem(Category c)
@@ -2001,44 +2041,6 @@ namespace Depressurizer
         //    }
         //    ignoreCheckChanges = false;
         //}
-
-        /// <summary>
-        /// Updates list item for every game on the list, removing games that no longer need to be there, but not adding new ones.
-        /// Try to avoid calling this directly. Look at OnCategoryChange, OnGameChange, OnViewChange, and FullListRefresh.
-        /// </summary>
-        void UpdateGameList() {
-
-            SortedSet<int> selectedIds = GetSelectedGameIds();
-
-            displayedGames.RemoveAll(ShouldHideGame);
-            lstGames.SetObjects(displayedGames);
-            lstGames.BuildList();
-
-            SelectGameSet(selectedIds);
-
-        }
-
-        private SortedSet<int> GetSelectedGameIds()
-        {
-            SortedSet<int> selectedGameIds = new SortedSet<int>();
-            foreach (GameInfo g in tlstGames.SelectedObjects)
-            {
-                selectedGameIds.Add(g.Id);
-            }
-            return selectedGameIds;
-        }
-
-        private void SelectGameSet(SortedSet<int> selectedGameIds)
-        {
-            lstGames.DeselectAll();
-            List<GameInfo> stillSelected = new List<GameInfo>();
-            foreach (GameInfo g in tlstGames.Objects)
-            {
-                if (selectedGameIds.Contains(g.Id))
-                    stillSelected.Add(g);
-            }
-            lstGames.SelectedObjects = stillSelected;
-        }
 
         private bool ShouldHideGame(GameInfo g)
         {
@@ -2208,7 +2210,7 @@ namespace Depressurizer
             }
             // allow the form to refresh before the time-consuming stuff happens
             Application.DoEvents();
-            FillAllCategoryLists();
+            FillCategoryList(false);
             OnViewChange();
             Cursor.Current = Cursors.Default;
         }
@@ -2335,19 +2337,22 @@ namespace Depressurizer
                     {
                         currentProfile.GameData.AddGameCategory((int[])e.Data.GetData(typeof(int[])), dropCat);
                     }
-                    OnGameChange(false);
+                    FillAllCategoryLists();
+                    FilterGamelist(false);
                     MakeChange(true);
                 }
                 else if ((string)dropItem.Tag == GlobalStrings.MainForm_Uncategorized)
                 {
                     currentProfile.GameData.ClearGameCategories((int[])e.Data.GetData(typeof(int[])), true);
-                    OnGameChange(false);
+                    FillCategoryList(false);
+                    FilterGamelist(false);
                     MakeChange(true);
                 }
                 else if ((string)dropItem.Tag == GlobalStrings.MainForm_Hidden)
                 {
                     currentProfile.GameData.HideGames((int[])e.Data.GetData(typeof(int[])), true);
-                    OnGameChange(false);
+                    FillCategoryList(false);
+                    FilterGamelist(false);
                     MakeChange(true);
                 }
 
@@ -2683,7 +2688,7 @@ namespace Depressurizer
             if (c != null)
             {
                 ClearStatus();
-                AddCategoryToSelectedGames(c, true, false);
+                AddCategoryToSelectedGames(c, false);
                 FlushStatus();
             }
         }
@@ -2695,7 +2700,7 @@ namespace Depressurizer
             {
                 ClearStatus();
                 Category c = menuItem.Tag as Category;
-                AddCategoryToSelectedGames(c, false, false);
+                AddCategoryToSelectedGames(c, false);
                 FlushStatus();
             }
         }
@@ -3002,14 +3007,7 @@ namespace Depressurizer
 
         private void mtxtSearch_TextChanged(object sender, EventArgs e)
         {
-            if (mtxtSearch.Text.IndexOf(lastFilterString, StringComparison.CurrentCultureIgnoreCase) == -1)
-            {
-                FillGameList();
-            }
-            else {
-                UpdateGameList();
-            }
-            lastFilterString = mtxtSearch.Text;
+            FilterGamelist(false);
         }
 
         private void mbtnCatAdd_Click(object sender, EventArgs e)
@@ -3066,8 +3064,8 @@ namespace Depressurizer
                     }
                     //RunAutoCats(currentProfile.AutoCats);  WILL THIS WORK?  ARE AUTOCATS SELECTED VALUES SET CORRECTLY
                     RunAutoCats(autocats, true);
-                    FullListRefresh();
                     RemoveEmptyCats();
+                    FilterGamelist(true);
                 }
             }
         }
@@ -3135,7 +3133,7 @@ namespace Depressurizer
             if (ValidateCategoryName(txtAddCatAndAssign.Text))
             {
                 Category cat = currentProfile.GameData.GetCategory(txtAddCatAndAssign.Text);
-                AddCategoryToSelectedGames(cat, true, false);
+                AddCategoryToSelectedGames(cat, false);
                 txtAddCatAndAssign.Clear();
             }
         }
@@ -3569,7 +3567,7 @@ namespace Depressurizer
                     Category cat = item.Tag as Category;
                     if (cat != null)
                     {
-                        AddCategoryToSelectedGames(cat, false, false);
+                        AddCategoryToSelectedGames(cat, false);
                     }
                 }
                 else if (item.StateImageIndex == 1 || (item.StateImageIndex == 2 && !modKey))
@@ -3702,9 +3700,15 @@ namespace Depressurizer
                 return (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Hidden);
             }
 
+            if (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
+            {
+                return !g.HasCategories();
+            }
 
             if (lstCategories.SelectedItems[0].Tag is Category)
             {
+                if (((Category) lstCategories.SelectedItems[0].Tag).Name == GlobalStrings.MainForm_Favorite)
+                    return g.IsFavorite();
                 return g.ContainsCategory(lstCategories.SelectedItems[0].Tag as Category);
             }
             else
