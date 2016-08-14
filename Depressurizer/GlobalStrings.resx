@@ -650,7 +650,7 @@ Continue loading file?</value>
     <value>GameDB file does not exist.</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
-    <value>{0} games need have no web-sourced data in the local database. Scrape now?
+    <value>{0} games have no web-sourced data in the local database. Scrape now?
 This could take up to a few seconds per game.</value>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
