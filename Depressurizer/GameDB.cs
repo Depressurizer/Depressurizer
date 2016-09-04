@@ -274,6 +274,7 @@ namespace Depressurizer
             // Cookie bypasses the age gate
             req.CookieContainer = new CookieContainer(1);
             req.CookieContainer.Add(new Cookie("birthtime", "-2208959999", "/", "store.steampowered.com"));
+            req.CookieContainer.Add(new Cookie("mature_content", "1", "/", "store.steampowered.com"));
             // Cookies get discarded on automatic redirects so we have to follow them manually
             req.AllowAutoRedirect = false;
             return req;
