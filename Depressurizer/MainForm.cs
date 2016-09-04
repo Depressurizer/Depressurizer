@@ -1237,7 +1237,7 @@ namespace Depressurizer
                         AddStatus(string.Format(GlobalStrings.MainForm_IgnoredGame, ignored, (ignored == 1) ? "" : "s"));
                         MakeChange(true);
                     }
-                    UpdateGameList();
+                    FillGameList();
                     Cursor.Current = Cursors.Default;
                 }
             }
