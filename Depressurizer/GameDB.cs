@@ -265,12 +265,6 @@ namespace Depressurizer
                 result = AppTypes.Unknown;
             }
 
-            // Get Game Banner
-            if (!Utility.GrabBanner(id))
-            {
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_GameBannerError, id);
-            }
-
             return result;
         }
 

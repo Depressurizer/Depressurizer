@@ -55,7 +55,6 @@ namespace Depressurizer {
         public SortedSet<Category> Categories;
         public GameListingSource Source;
         public DateTime LastPlayed;
-        public Image Banner;
 
         private string _launchStr = null;
         /// <summary>

@@ -34,11 +34,6 @@ namespace Depressurizer
                 {
                     Utility.GrabBanner(g.Id);
                 }
-
-                if (g.Banner == null && File.Exists(bannerFile))
-                {
-                    g.Banner = Image.FromFile(bannerFile);
-                }
             }
         }
 

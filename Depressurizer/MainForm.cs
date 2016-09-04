@@ -3496,7 +3496,10 @@ namespace Depressurizer
 
             // Add game banner to ID column
             GameInfo g = (GameInfo)e.Model;
-            ImageDecoration decoration = new ImageDecoration(g.Banner);
+            string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id.ToString());
+            if (!File.Exists(bannerFile)) return;
+
+            ImageDecoration decoration = new ImageDecoration(Image.FromFile(bannerFile));
             decoration.ShrinkToWidth = true;
             decoration.AdornmentCorner = ContentAlignment.TopLeft;
             decoration.ReferenceCorner = ContentAlignment.TopLeft;
