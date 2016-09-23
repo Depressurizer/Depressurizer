@@ -35,6 +35,7 @@ namespace Depressurizer {
 
             // Set up help tooltips
             ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip( helpUseWilsonScore, GlobalStrings.DlgAutoCat_Help_UseWilsonScore );
             ttHelp.Ext_SetToolTip( helpRules, GlobalStrings.AutoCatUserScore_Help_Rules );
 
             // Set up bindings.
@@ -66,6 +67,7 @@ namespace Depressurizer {
             if( ac == null ) return;
 
             acScore.Prefix = txtPrefix.Text;
+            acScore.UseWilsonScore = chkUseWilsonScore.Checked;
             acScore.Rules = new List<UserScore_Rule>( ruleList );
         }
 
@@ -74,6 +76,7 @@ namespace Depressurizer {
             if( ac == null ) return;
 
             txtPrefix.Text = acScore.Prefix;
+            chkUseWilsonScore.Checked = acScore.UseWilsonScore;
 
             ruleList.Clear();
             foreach( UserScore_Rule rule in acScore.Rules ) {
