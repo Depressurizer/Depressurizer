@@ -253,6 +253,12 @@ USAGE GUIDE
 			http://howlongtobeat.com/ which indicate how long it takes to beat a 
 			game.
 
+			To use this method, you must create a set of categories to assign,
+			and define the criteria for a game to be placed in that category.
+			Each game will only be assigned to the category for the first rule
+			that matches it. If a game does not match any rules, it will not be
+			assigned to a category.
+			
 		DevPub
 
 			Categorize games based on their Developers and/or Publishers.
