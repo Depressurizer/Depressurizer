@@ -79,7 +79,9 @@ namespace Depressurizer {
         [Description("AutoCatDevPub")]
         DevPub,
         [Description("AutoCatGroup")]
-        Group
+        Group,
+        [Description("AutoCatName")]
+        Name
     }
 
     public enum AutoCatResult {
@@ -213,6 +215,9 @@ namespace Depressurizer {
                 case AutoCatGroup.TypeIdString:
                     result = AutoCatGroup.LoadFromXmlElement(xElement);
                     break;
+                case AutoCatName.TypeIdString:
+                    result = AutoCatName.LoadFromXmlElement(xElement);
+                    break;
                 default:
                     break;
             }
@@ -239,6 +244,8 @@ namespace Depressurizer {
                     return new AutoCatDevPub(name);
                 case AutoCatType.Group:
                     return new AutoCatGroup(name);
+                case AutoCatType.Name:
+                    return new AutoCatName(name);
                 default:
                     return null;
             }

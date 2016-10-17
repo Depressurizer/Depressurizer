@@ -38,8 +38,8 @@ namespace Depressurizer {
 
             // To add new types to this  dialog, add the name and type to these arrays. The indexes must line up.
             // This method allows adding new types in one place AND allows localization to work properly
-            typeNames = new string[] { GlobalStrings.AutoCat_Name_Genre, GlobalStrings.AutoCat_Name_Flags, GlobalStrings.AutoCat_Name_Tags, GlobalStrings.AutoCat_Name_Year, GlobalStrings.AutoCat_Name_UserScore, GlobalStrings.AutoCat_Name_Hltb, GlobalStrings.AutoCat_Name_Manual, GlobalStrings.AutoCat_Name_DevPub, GlobalStrings.AutoCat_Name_Group };
-            types = new AutoCatType[] { AutoCatType.Genre, AutoCatType.Flags, AutoCatType.Tags, AutoCatType.Year, AutoCatType.UserScore, AutoCatType.Hltb, AutoCatType.Manual, AutoCatType.DevPub, AutoCatType.Group };
+            typeNames = new string[] { GlobalStrings.AutoCat_Name_Genre, GlobalStrings.AutoCat_Name_Flags, GlobalStrings.AutoCat_Name_Tags, GlobalStrings.AutoCat_Name_Year, GlobalStrings.AutoCat_Name_UserScore, GlobalStrings.AutoCat_Name_Hltb, GlobalStrings.AutoCat_Name_Manual, GlobalStrings.AutoCat_Name_DevPub, GlobalStrings.AutoCat_Name_Group,GlobalStrings.AutoCat_Name_Name };
+            types = new AutoCatType[] { AutoCatType.Genre, AutoCatType.Flags, AutoCatType.Tags, AutoCatType.Year, AutoCatType.UserScore, AutoCatType.Hltb, AutoCatType.Manual, AutoCatType.DevPub, AutoCatType.Group, AutoCatType.Name };
 
             SelectedName = name;
             SelectedType = type;

@@ -49,6 +49,8 @@ namespace Depressurizer {
                     return new AutoCatConfigPanel_DevPub( ownedGames );
                 case AutoCatType.Group:
                     return new AutoCatConfigPanel_Group( autocats );
+                case AutoCatType.Name:
+                    return new AutoCatConfigPanel_Name();
                 default:
                     return null;
             }

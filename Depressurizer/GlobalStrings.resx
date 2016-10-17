@@ -1344,4 +1344,7 @@ Close Steam BEFORE restoring!</value>
   <data name="DlgRestore_ProfileConfirm" xml:space="preserve">
     <value>Are you sure you want to overwrite your profile with: {0}?</value>
   </data>
+  <data name="AutoCat_Name_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>

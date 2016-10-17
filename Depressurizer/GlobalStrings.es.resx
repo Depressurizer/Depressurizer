@@ -800,32 +800,29 @@ Tiempo Restante:</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Genre" xml:space="preserve">
     <value>por Género</value>
-    
   </data>
   <data name="GameDB_TooManyRedirects" xml:space="preserve">
     <value>Scraping {0}: Too Many Redirects</value>
-    
   </data>
   <data name="MainForm_NoHltbTime" xml:space="preserve">
     <value>--</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Tags" xml:space="preserve">
     <value>por Etiquetas</value>
-    
   </data>
   <data name="Profile_DefaultAutoCatName_UserScore" xml:space="preserve">
     <value>por Puntuación</value>
-    
   </data>
   <data name="Profile_DefaultAutoCatName_Year" xml:space="preserve">
     <value>por Año</value>
-    
   </data>
   <data name="MainForm_OverwriteFilterName" xml:space="preserve">
     <value>Do you want to overwrite filter: {0}</value>
-    
   </data>
   <data name="MainForm_No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="AutoCat_Name_Name" xml:space="preserve">
+    <value>Nombre</value>
   </data>
 </root>
