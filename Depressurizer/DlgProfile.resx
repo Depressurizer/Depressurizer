@@ -850,7 +850,7 @@
     <value>True</value>
   </data>
   <data name="lblHelp_LocalUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>304, 19</value>
+    <value>382, 21</value>
   </data>
   <data name="lblHelp_LocalUpdate.Size" type="System.Drawing.Size, System.Drawing">
     <value>15, 15</value>
@@ -933,17 +933,20 @@
   <data name="chkLocalUpdate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="chkLocalUpdate.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="chkLocalUpdate.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
   </data>
   <data name="chkLocalUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 17</value>
+    <value>378, 17</value>
   </data>
   <data name="chkLocalUpdate.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="chkLocalUpdate.Text" xml:space="preserve">
-    <value>Update from local Steam files before trying a web update</value>
+    <value>Update from local Steam files before trying a web update (disabled for now)</value>
   </data>
   <data name="&gt;&gt;chkLocalUpdate.Name" xml:space="preserve">
     <value>chkLocalUpdate</value>
@@ -1468,7 +1471,7 @@
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.1.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgProfile</value>
