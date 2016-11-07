@@ -542,7 +542,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
-                MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message);
+                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -563,7 +563,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionHltb, e);
-                MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorHltb, e.Message);
+                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -3868,9 +3868,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
-                MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message);
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
-                MessageBox.Show(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message);
+                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
