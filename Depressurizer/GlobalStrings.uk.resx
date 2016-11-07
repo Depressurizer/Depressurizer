@@ -366,4 +366,7 @@
   <data name="DBEditDlg_SelectedDisplayedTotal" xml:space="preserve">
     <value>{0} вибрано / {1} показано / {2} всього</value>
   </data>
+  <data name="AutoCat_Name_Name" xml:space="preserve">
+    <value>Назва</value>
+  </data>
 </root>

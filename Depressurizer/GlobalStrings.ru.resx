@@ -477,4 +477,7 @@
   <data name="MainForm_ImportedGames" xml:space="preserve">
     <value>Импортированно {0} игр.</value>
   </data>
+  <data name="AutoCat_Name_Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
 </root>

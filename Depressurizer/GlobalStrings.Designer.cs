@@ -115,6 +115,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string AutoCat_Name_Name {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Store Tags.
         /// </summary>
         internal static string AutoCat_Name_Tags {

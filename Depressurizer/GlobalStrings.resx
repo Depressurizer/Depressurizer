@@ -1350,5 +1350,8 @@ Close Steam BEFORE restoring!</value>
 There would be 95% confidence that the “real” positive fraction is at least the score calculated.
 This calculation reduces the rating if the number of reviews is too low.
 See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
+</data>
+  <data name="AutoCat_Name_Name" xml:space="preserve">
+    <value>Name</value>
   </data>
 </root>
