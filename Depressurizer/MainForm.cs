@@ -3522,7 +3522,6 @@ namespace Depressurizer
             string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id);
             if (!File.Exists(bannerFile)) return;
 
-            Image img = Image.FromFile(bannerFile);
             ImageDecoration decoration = new ImageDecoration(Image.FromFile(bannerFile));
             decoration.ShrinkToWidth = true;
             decoration.AdornmentCorner = ContentAlignment.TopLeft;
