@@ -47,6 +47,8 @@
             this.helpPrefix = new System.Windows.Forms.Label();
             this.lblPrefix = new System.Windows.Forms.Label();
             this.txtPrefix = new System.Windows.Forms.TextBox();
+            this.helpUseWilsonScore = new System.Windows.Forms.Label();
+            this.chkUseWilsonScore = new System.Windows.Forms.CheckBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpMain.SuspendLayout();
             this.groupPresets.SuspendLayout();
@@ -64,6 +66,8 @@
             this.grpMain.Controls.Add(this.helpPrefix);
             this.grpMain.Controls.Add(this.lblPrefix);
             this.grpMain.Controls.Add(this.txtPrefix);
+            this.grpMain.Controls.Add(this.helpUseWilsonScore);
+            this.grpMain.Controls.Add(this.chkUseWilsonScore);
             this.grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpMain.Location = new System.Drawing.Point(0, 0);
             this.grpMain.Name = "grpMain";
@@ -327,6 +331,26 @@
             this.txtPrefix.Size = new System.Drawing.Size(165, 20);
             this.txtPrefix.TabIndex = 1;
             // 
+            // helpUseWilsonScore
+            // 
+            this.helpUseWilsonScore.AutoSize = true;
+            this.helpUseWilsonScore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.helpUseWilsonScore.Location = new System.Drawing.Point(391, 22);
+            this.helpUseWilsonScore.Name = "helpUseWilsonScore";
+            this.helpUseWilsonScore.Size = new System.Drawing.Size(15, 15);
+            this.helpUseWilsonScore.TabIndex = 7;
+            this.helpUseWilsonScore.Text = "?";
+            // 
+            // chkUseWilsonScore
+            // 
+            this.chkUseWilsonScore.AutoSize = true;
+            this.chkUseWilsonScore.Location = new System.Drawing.Point(274, 21);
+            this.chkUseWilsonScore.Name = "chkUseWilsonScore";
+            this.chkUseWilsonScore.Size = new System.Drawing.Size(111, 17);
+            this.chkUseWilsonScore.TabIndex = 6;
+            this.chkUseWilsonScore.Text = "Use Wilson Score";
+            this.chkUseWilsonScore.UseVisualStyleBackColor = true;
+            // 
             // AutoCatConfigPanel_UserScore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,6 +378,8 @@
         private System.Windows.Forms.Label helpPrefix;
         private System.Windows.Forms.Label lblPrefix;
         private System.Windows.Forms.TextBox txtPrefix;
+        private System.Windows.Forms.Label helpUseWilsonScore;
+        private System.Windows.Forms.CheckBox chkUseWilsonScore;
         private System.Windows.Forms.GroupBox grpRules;
         private System.Windows.Forms.Button cmdRuleDown;
         private System.Windows.Forms.Button cmdRuleUp;

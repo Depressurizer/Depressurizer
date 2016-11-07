@@ -615,7 +615,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="depressurizer_icon.ico" />
-    <Content Include="prgm2.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

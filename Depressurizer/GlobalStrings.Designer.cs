@@ -1136,6 +1136,18 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use the lower bound of the Wilson 95% confidence interval instead of the positive reviews fraction.
+        ///There would be 95% confidence that the “real” positive fraction is at least the score calculated.
+        ///This calculation reduces the rating if the number of reviews is too low.
+        ///See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html.
+        /// </summary>
+        internal static string DlgAutoCat_Help_UseWilsonScore {
+            get {
+                return ResourceManager.GetString("DlgAutoCat_Help_UseWilsonScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AutoCat must have a name..
         /// </summary>
         internal static string DlgAutoCat_MustHaveName {
