@@ -220,6 +220,7 @@ namespace Depressurizer
             };
             colTags.AspectGetter = delegate (object g)
             {
+                if (g == null) return GlobalStrings.MainForm_NoTags;
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Tags != null)
                     return string.Join(", ", Program.GameDB.Games[id].Tags);
