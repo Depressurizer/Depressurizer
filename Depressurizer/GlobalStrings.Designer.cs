@@ -1420,7 +1420,8 @@ namespace Depressurizer {
         
         /// <summary>
         ///   Looks up a localized string similar to Parse files from your Steam installation to get a list of your games.
-        ///Much faster and generally more accurate and reliable than a web update..
+        ///Much faster and generally more accurate and reliable than a web update.
+        ///Disabled till the parsing from packageinfo.vdf is fixed..
         /// </summary>
         internal static string DlgProfile_Help_LocalUpdate {
             get {

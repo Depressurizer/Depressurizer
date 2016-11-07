@@ -272,9 +272,10 @@ namespace Depressurizer
         {
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             // Cookie bypasses the age gate
-            req.CookieContainer = new CookieContainer(1);
-            req.CookieContainer.Add(new Cookie("birthtime", "-2208959999", "/", "store.steampowered.com"));
+            req.CookieContainer = new CookieContainer(3);
+            req.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));
             req.CookieContainer.Add(new Cookie("mature_content", "1", "/", "store.steampowered.com"));
+            req.CookieContainer.Add(new Cookie("lastagecheckage", "1-January-1955", "/", "store.steampowered.com"));
             // Cookies get discarded on automatic redirects so we have to follow them manually
             req.AllowAutoRedirect = false;
             return req;

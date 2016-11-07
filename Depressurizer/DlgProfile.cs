@@ -317,7 +317,7 @@ namespace Depressurizer {
             p.AutoUpdate = chkAutoUpdate.Checked;
             p.AutoImport = chkAutoImport.Checked;
             p.LocalUpdate = chkLocalUpdate.Checked;
-            p.WebUpdate = chkLocalUpdate.Checked;
+            p.WebUpdate = chkWebUpdate.Checked;
             p.ExportDiscard = chkExportDiscard.Checked;
             p.IncludeShortcuts = chkIncludeShortcuts.Checked;
             p.OverwriteOnDownload = chkOverwriteNames.Checked;
