@@ -11,7 +11,6 @@ namespace Depressurizer
     class AutoCatName : AutoCat
     {
         public string Prefix { get; set; }
-        public string Name { get; set; }
         public bool SkipThe { get; set; }
         public bool GroupNumbers { get; set; }
 

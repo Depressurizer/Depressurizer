@@ -17,7 +17,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using Rallion;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -191,21 +190,22 @@ namespace Depressurizer
             //colTitle.AspectGetter = delegate (Object g) { return String.Empty; };
             colCategories.AspectGetter = delegate(object g)
             {
-                if ((GameInfo) g == null) return string.Empty;
+                if ( g == null) return string.Empty;
                 return ((GameInfo)g).GetCatString(GlobalStrings.MainForm_Uncategorized);
             };
             colFavorite.AspectGetter = delegate(object g)
             {
-                if ((GameInfo) g == null) return string.Empty;
+                if ( g == null) return string.Empty;
                 return ((GameInfo)g).IsFavorite() ? "X" : String.Empty;
             };
             colHidden.AspectGetter = delegate(object g)
             {
-                if ((GameInfo) g == null) return string.Empty;
+                if ( g == null) return string.Empty;
                 return ((GameInfo)g).Hidden ? "X" : String.Empty;
             };
             colGenres.AspectGetter = delegate (object g)
             {
+                if (g == null) return GlobalStrings.MainForm_NoGenres;
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Genres != null)
                     return string.Join(", ", Program.GameDB.Games[id].Genres);
@@ -213,6 +213,7 @@ namespace Depressurizer
             };
             colFlags.AspectGetter = delegate (object g)
             {
+                if (g == null) return GlobalStrings.MainForm_NoFlags;
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Flags != null)
                     return string.Join(", ", Program.GameDB.Games[id].Flags);
@@ -228,21 +229,32 @@ namespace Depressurizer
             };
             colYear.AspectGetter = delegate (object g)
             {
+                if (g == null) return GlobalStrings.MainForm_Unknown;
                 int id = ((GameInfo)g).Id;
                 DateTime releaseDate;
                 if (Program.GameDB.Games.ContainsKey(id) && DateTime.TryParse(Program.GameDB.Games[id].SteamReleaseDate, out releaseDate))
                     return releaseDate.Year.ToString();
                 return GlobalStrings.MainForm_Unknown;
             };
-            colLastPlayed.AspectGetter = delegate (object g) { return (((GameInfo)g).LastPlayed == DateTime.MinValue) ? DateTime.MinValue : ((GameInfo)g).LastPlayed; };
+            colLastPlayed.AspectGetter = delegate(object g)
+            {
+                if (g == null) return DateTime.MinValue;
+                return (((GameInfo)g).LastPlayed == DateTime.MinValue) ? DateTime.MinValue : ((GameInfo)g).LastPlayed;
+            };
             colAchievements.AspectGetter = delegate (object g)
             {
+                if (g == null) return 0;
                 int id = ((GameInfo)g).Id;
                 return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].Achievements : 0;
             };
-            colPlatforms.AspectGetter = delegate (object g) { return Program.GameDB.Games[((GameInfo)g).Id].Platforms.ToString(); };
+            colPlatforms.AspectGetter = delegate(object g)
+            {
+                if (g == null) return "";
+                return Program.GameDB.Games[((GameInfo)g).Id].Platforms.ToString();
+            };
             colDevelopers.AspectGetter = delegate (object g)
             {
+                if (g == null) return GlobalStrings.MainForm_Unknown;
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Developers != null)
                     return string.Join(", ", Program.GameDB.Games[id].Developers);
@@ -250,6 +262,7 @@ namespace Depressurizer
             };
             colPublishers.AspectGetter = delegate (object g)
             {
+                if (g == null) return GlobalStrings.MainForm_Unknown;
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Publishers != null)
                     return string.Join(", ", Program.GameDB.Games[id].Publishers);
@@ -257,16 +270,19 @@ namespace Depressurizer
             };
             colNumberOfReviews.AspectGetter = delegate (object g)
             {
+                if (g == null) return 0;
                 int id = ((GameInfo)g).Id;
                 return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].ReviewTotal : 0;
             };
             colReviewScore.AspectGetter = delegate (object g)
             {
+                if (g == null) return 0;
                 int id = ((GameInfo)g).Id;
                 return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].ReviewPositivePercentage : 0;
             };
             colReviewLabel.AspectGetter = delegate (object g)
             {
+                if (g == null) return 0;
                 int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id))
                 {
@@ -295,16 +311,19 @@ namespace Depressurizer
             };
             colHltbMain.AspectGetter = delegate (object g)
             {
+                if (g == null) return 0;
                 int id = ((GameInfo)g).Id;
                 return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].HltbMain : 0;
             };
             colHltbExtras.AspectGetter = delegate (object g)
             {
+                if (g == null) return 0;
                 int id = ((GameInfo)g).Id;
                 return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].HltbExtras : 0;
             };
             colHltbCompletionist.AspectGetter = delegate (object g)
             {
+                if (g == null) return 0;
                 int id = ((GameInfo)g).Id;
                 return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].HltbCompletionist : 0;
             };
@@ -375,13 +394,14 @@ namespace Depressurizer
             colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
             lstGames.AdditionalFilter = new ModelFilter(delegate (object g)
             {
+                if (g == null) return false;
                 return ShouldDisplayGame((GameInfo)g);
             });
 
             //Formating
             lstGames.RowFormatter = delegate (OLVListItem lvi)
             {
-                if (((GameInfo)lvi.RowObject).Id < 0)
+                if (lvi.RowObject!=null && ((GameInfo)lvi.RowObject).Id < 0)
                     lvi.Font = new Font(lvi.Font, lvi.Font.Style | FontStyle.Italic);
             };
 
@@ -3495,11 +3515,14 @@ namespace Depressurizer
             if (e.ColumnIndex != 0)
                 return;
 
+            if (e.Model == null) return; 
+
             // Add game banner to ID column
             GameInfo g = (GameInfo)e.Model;
-            string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id.ToString());
+            string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id);
             if (!File.Exists(bannerFile)) return;
 
+            Image img = Image.FromFile(bannerFile);
             ImageDecoration decoration = new ImageDecoration(Image.FromFile(bannerFile));
             decoration.ShrinkToWidth = true;
             decoration.AdornmentCorner = ContentAlignment.TopLeft;
@@ -3539,6 +3562,7 @@ namespace Depressurizer
 
         private void lstGames_FormatRow(object sender, FormatRowEventArgs e)
         {
+            if (e.Model == null) return;
             GameInfo g = (GameInfo)e.Model;
             if (g.IsFavorite()) e.Item.BackColor = listBackground;
             if (g.Hidden) e.Item.BackColor = primaryLight;
