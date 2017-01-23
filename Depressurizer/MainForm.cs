@@ -3522,26 +3522,34 @@ namespace Depressurizer
             string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id);
             if (!File.Exists(bannerFile)) return;
 
-            ImageDecoration decoration = new ImageDecoration(Image.FromFile(bannerFile));
-            decoration.ShrinkToWidth = true;
-            decoration.AdornmentCorner = ContentAlignment.TopLeft;
-            decoration.ReferenceCorner = ContentAlignment.TopLeft;
-            decoration.Transparency = 255;
-            //e.SubItem.Decoration = decoration;
-            e.SubItem.Decorations.Add(decoration);
+            try
+            {
+                ImageDecoration decoration = new ImageDecoration(Image.FromFile(bannerFile));
+                decoration.ShrinkToWidth = true;
+                decoration.AdornmentCorner = ContentAlignment.TopLeft;
+                decoration.ReferenceCorner = ContentAlignment.TopLeft;
+                decoration.Transparency = 255;
+                //e.SubItem.Decoration = decoration;
+                e.SubItem.Decorations.Add(decoration);
+            }
+            catch
+            {
+                // Some images used to get saved in a corrupted state, and would throw an exception when loaded here.
+                // Just in case there are still images like that around, drop exceptions from them.
+            }
 
             // Add Early Access banner
             if (Program.GameDB.Games.ContainsKey(g.Id) && Program.GameDB.Games[g.Id].Tags != null)
             {
                 if (Program.GameDB.Games[g.Id].Tags.Contains(EARLY_ACCESS))
                 {
-                    decoration = new ImageDecoration(imglistEarlyAccess.Images[0])
+                    ImageDecoration earlyAccessDecoration = new ImageDecoration(imglistEarlyAccess.Images[0])
                     {
                         AdornmentCorner = ContentAlignment.TopLeft,
                         ReferenceCorner = ContentAlignment.TopLeft,
                         Transparency = 200
                     };
-                    e.SubItem.Decorations.Add(decoration);
+                    e.SubItem.Decorations.Add(earlyAccessDecoration);
                 }
             }
 
