@@ -154,11 +154,7 @@ namespace Depressurizer {
         {
             try
             {
-                WebClient wc = new WebClient();
-                wc.CachePolicy = new RequestCachePolicy(cache);
-                byte[] bytes = wc.DownloadData(url);
-                MemoryStream ms = new MemoryStream(bytes);
-                return Image.FromStream(ms);
+                return Image.FromStream(GetRemoteImageStream(url, id));
             }
             catch
             {
@@ -167,41 +163,84 @@ namespace Depressurizer {
             return null;
         }
 
-        public static bool GrabBanner(int id)
+        public static Stream GetRemoteImageStream(string url, int id = 0)
         {
-            
-            Image banner = null;
-            string bannerURL = string.Format(Properties.Resources.UrlGameBanner, id.ToString());
             try
             {
-                banner = GetImage(bannerURL, RequestCacheLevel.CacheIfAvailable, id);
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+
+                // Check that the remote file was found. The ContentType
+                // check is performed since a request for a non-existent
+                // image file might be redirected to a 404-page, which would
+                // yield the StatusCode "OK", even though the image was not
+                // found.
+                if ((response.StatusCode == HttpStatusCode.OK ||
+                     response.StatusCode == HttpStatusCode.Moved ||
+                     response.StatusCode == HttpStatusCode.Redirect) &&
+                     response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+                {
+                    return response.GetResponseStream();
+                }
             }
             catch
             {
-                Program.Logger.Write(Rallion.LoggerLevel.Warning,string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
+                if (!ignoreWarning.Contains(id)) Program.Logger.Write(Rallion.LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+            }
+            return null;
+        }
+
+        public static bool SaveRemoteImageToFile(string url, string localPath, int id = 0)
+        {
+            try
+            {
+                using (Stream inputStream = GetRemoteImageStream(url, id))
+                {
+                    if (inputStream == null)
+                    {
+                        return false;
+                    }
+
+                    using (Stream outputStream = File.OpenWrite(localPath))
+                    {
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        do
+                        {
+                            bytesRead = inputStream.Read(buffer, 0, buffer.Length);
+                            outputStream.Write(buffer, 0, bytesRead);
+                        } while (bytesRead != 0);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, localPath), e);
                 return false;
             }
+        }
 
-            if (banner != null)
+        public static bool GrabBanner(int id)
+        {
+            string bannerURL = string.Format(Properties.Resources.UrlGameBanner, id.ToString());
+            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id.ToString());
+
+            try
             {
-                string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id.ToString());
                 if (!Directory.Exists(Path.GetDirectoryName(bannerPath)))
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(bannerPath));
                 }
-                try
-                {
 
-                    banner.Save(bannerPath);
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, bannerPath), e);
-                    return false;
-                }
+                return SaveRemoteImageToFile(bannerURL, bannerPath, id);
             }
-            return false;
+            catch
+            {
+                Program.Logger.Write(Rallion.LoggerLevel.Warning, string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
+                return false;
+            }
         }
 
         public static bool IsOnScreen(MaterialForm form)
