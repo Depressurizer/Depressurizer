@@ -37,10 +37,11 @@ namespace Depressurizer {
     enum UserLanguage
     {
         windows,
-        en,
-        es,
-        ru,
-        uk  //Ukranian
+        en, // English
+        es, // Spanish
+        ru, // Russian
+        uk, // Ukranian
+        nl  // Dutch
     }
 
     class Settings : AppSettings {
@@ -486,6 +487,9 @@ namespace Depressurizer {
                     break;
                 case UserLanguage.uk:
                     newCulture = new CultureInfo("uk");
+                    break;
+                case UserLanguage.nl:
+                    newCulture = new CultureInfo("nl");
                     break;
                 default:
                     newCulture = Thread.CurrentThread.CurrentCulture;
