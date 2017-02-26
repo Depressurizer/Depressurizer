@@ -809,10 +809,10 @@ Dit kan oplopen tot een paar seconden per spel.</value>
     <value>External</value>
   </data>
   <data name="AutoCatGenre_Exception_NoGameDB" xml:space="preserve">
-    <value>AutoCatGenre has no game database.</value>
+    <value>AutoCatGenre heeft geen spel database</value>
   </data>
   <data name="AutoCatGenre_Exception_NoGameList" xml:space="preserve">
-    <value>AutoCatGenre has no game list.</value>
+    <value>AutoCatGenre heeft geen spel lijst.</value>
   </data>
   <data name="Category_Exception_ObjectNotCategory" xml:space="preserve">
     <value>Object is not a Category</value>
@@ -848,10 +848,10 @@ Dit kan oplopen tot een paar seconden per spel.</value>
     <value>Een niet-Steam spel moet ten minste een keer gelanceerd zijn uit de Steam client voordat het extern kan worden gestart.</value>
   </data>
   <data name="AutoCat_Name_Flags" xml:space="preserve">
-    <value>Store Flags</value>
+    <value>Winkel Flags</value>
   </data>
   <data name="AutoCat_Name_Genre" xml:space="preserve">
-    <value>Store Genre</value>
+    <value>Winkel Genre</value>
   </data>
   <data name="DlgAutoCat_MustHaveName" xml:space="preserve">
     <value>AutoCat must have a name.</value>
@@ -1013,58 +1013,58 @@ A game must be in all categories marked with a CIRCLE ("Required").
 A game must NOT be in any categories marked with an X ("Excluded").</value>
   </data>
   <data name="AutoCatGenrePanel_Help_TagFallback" xml:space="preserve">
-    <value>If a game exists in the database but has no genres defined, look for tags that match genre names instead.</value>
+    <value>Als een spel in de database bestaat maar geen genres heeft, zoek dan naar tags die gelijk zijn aan het genre.</value>
   </data>
   <data name="AutoCatYearPanel_Help_Unknown" xml:space="preserve">
-    <value>If checked, games with no release date will be autocategorized with the name below.
-If unchecked, games with no date will be skipped.</value>
+    <value>Indien aangevinkt, zullen spellen zonder releasedatum worden autocategorized met de naam hieronder.
+Indien niet aangevinkt, zal games met geen datum worden overgeslagen.</value>
   </data>
   <data name="AutoCat_Name_Year" xml:space="preserve">
-    <value>Release Year</value>
+    <value>Releasejaar</value>
   </data>
   <data name="AutoCat_Name_UserScore" xml:space="preserve">
-    <value>User Score</value>
+    <value>Gebruikers Score</value>
   </data>
   <data name="AutoCatUserScore_Dialog_ConfirmPreset" xml:space="preserve">
-    <value>This will erase your current rules. Continue?</value>
+    <value>Dit zal uw huidige regels te wissen. Doorgaan?</value>
   </data>
   <data name="AutoCatUserScore_Help_Rules" xml:space="preserve">
-    <value>Each game will be assigned to a category with the name of the first rule that matches.
-If a game matches more than one rule, it will only be assigned to a category for the first one.
-If a game does not match any rules, no category will be assigned.</value>
+    <value>Elk spel wordt toegewezen aan een categorie met de naam van de eerste regel die past.
+Als een spel overeenkomt met meer dan één regel zal deze alleen aan de eerste categorie worden toegewezen.
+Als een spel met geen regels overeenkomt, zal geen enkele categorie worden toegewezen.</value>
   </data>
   <data name="AutoCatUserScore_NewRuleName" xml:space="preserve">
-    <value>New Rule</value>
+    <value>Nieuwe Regels</value>
   </data>
   <data name="AutoCatUserScore_Preset_Name_SteamLabels" xml:space="preserve">
     <value>Steam Labels</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Mixed" xml:space="preserve">
-    <value>Mixed</value>
+    <value>Gemengd</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative1" xml:space="preserve">
-    <value>Mostly Negative</value>
+    <value>Grotendeels Negatief</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative2" xml:space="preserve">
-    <value>Negative</value>
+    <value>Negatief</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative3" xml:space="preserve">
-    <value>Very Negative</value>
+    <value>Zeer Negatief</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative4" xml:space="preserve">
-    <value>Overwhelmingly Negative</value>
+    <value>Overweldigend Negatief</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive1" xml:space="preserve">
-    <value>Mostly Positive</value>
+    <value>Grotendeels Positief</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive2" xml:space="preserve">
-    <value>Positive</value>
+    <value>Positief</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive3" xml:space="preserve">
-    <value>Very Positive</value>
+    <value>Zeer Positief</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive4" xml:space="preserve">
-    <value>Overwhelmingly Positive</value>
+    <value>Overweldigend Positief</value>
   </data>
   <data name="AutoMode_Help_Export" xml:space="preserve">
     <value>Export your categories to Steam after running autocats.
@@ -1183,11 +1183,11 @@ Recommended: Enabled.</value>
     <value>--</value>
   </data>
   <data name="AutoCat_Name_Hltb" xml:space="preserve">
-    <value>HLTB time</value>
+    <value>HLTB tijd</value>
   </data>
   <data name="AutocatHltb_Help_Unknown" xml:space="preserve">
-    <value>If checked, games with no times in all 3 types will be autocategorized with the name below.
-If unchecked, games with no times will be skipped.</value>
+    <value>Indien aangevinkt, zullen spellen zonder enige match alle 3 de types worden autocategorized met de naam hieronder.
+Indien niet aangevinkt, zal spelen zonder tijd worden overgeslagen.</value>
   </data>
   <data name="MainForm_Msg_UpdateFound" xml:space="preserve">
     <value>There is a new update to depressurizer. Do you want to visit the download page?</value>
@@ -1202,10 +1202,10 @@ If unchecked, games with no times will be skipped.</value>
     <value>Update Found</value>
   </data>
   <data name="AutoCat_NothingSelected" xml:space="preserve">
-    <value>No AutoCats selected. Select at least one AutoCat before running.</value>
+    <value>Geen AutoCats geselecteerd. Selecteer tenminste een AutoCat voor executie.</value>
   </data>
   <data name="AutoCatSelected_NothingSelected" xml:space="preserve">
-    <value>No games are currently selected.  Auto-Categorize will not do anything.</value>
+    <value>Geen spellen geselecteerd.  Auto-Categorize zal niks uitvoeren.</value>
   </data>
   <data name="GameDB_GameBannerError" xml:space="preserve">
     <value>Scraping {0}: Error downloading game banner</value>
@@ -1244,7 +1244,7 @@ If unchecked, games with no times will be skipped.</value>
     <value>Saving filter: {0}</value>
   </data>
   <data name="AutoCat_Name_Manual" xml:space="preserve">
-    <value>Manual</value>
+    <value>Handleiding</value>
   </data>
   <data name="DlgAutoCat_Help_Manual_RemoveAll" xml:space="preserve">
     <value>Remove all pre-existing categories.</value>
@@ -1295,7 +1295,7 @@ If unchecked, games with no times will be skipped.</value>
     <value>Save Filter</value>
   </data>
   <data name="AutoCat_Name_DevPub" xml:space="preserve">
-    <value>Developers &amp; Publishers</value>
+    <value>Ontwikkerlaars &amp; Uitgevers</value>
   </data>
   <data name="DlgAutoCat_Help_DevSelected" xml:space="preserve">
     <value>Show/hide selected Developers</value>
@@ -1316,10 +1316,10 @@ If unchecked, games with no times will be skipped.</value>
     <value>By HowLongToBeat</value>
   </data>
   <data name="AutoCatGroup_AutoCatsLoaded" xml:space="preserve">
-    <value>Autocats loaded.</value>
+    <value>Autocats geladen.</value>
   </data>
   <data name="AutoCat_Name_Group" xml:space="preserve">
-    <value>Group of Autocats</value>
+    <value>Groep van Autocats</value>
   </data>
   <data name="Profile_ErrorLoadingAutoCats" xml:space="preserve">
     <value>Error loading AutoCats from profile.</value>
@@ -1353,6 +1353,6 @@ This calculation reduces the rating if the number of reviews is too low.
 See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="AutoCat_Name_Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Naam</value>
   </data>
 </root>
