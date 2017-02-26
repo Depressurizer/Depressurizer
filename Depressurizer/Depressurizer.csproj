@@ -408,6 +408,9 @@
     <EmbeddedResource Include="DlgAutoCatCreate.resx">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutomaticModeHelper.nl.resx">
+      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
       <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
@@ -420,6 +423,9 @@
     <EmbeddedResource Include="DlgClose.es.resx">
       <DependentUpon>DlgClose.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgClose.nl.resx">
+      <DependentUpon>DlgClose.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgClose.resx">
       <DependentUpon>DlgClose.cs</DependentUpon>
     </EmbeddedResource>
@@ -429,11 +435,17 @@
     <EmbeddedResource Include="DlgClose.uk.resx">
       <DependentUpon>DlgClose.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.nl.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgGame.ru.resx">
       <DependentUpon>DlgGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgGame.uk.resx">
       <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgManualDownload.nl.resx">
+      <DependentUpon>DlgManualDownload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgManualDownload.ru.resx">
       <DependentUpon>DlgManualDownload.cs</DependentUpon>
@@ -441,11 +453,17 @@
     <EmbeddedResource Include="DlgManualDownload.uk.resx">
       <DependentUpon>DlgManualDownload.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgOptions.nl.resx">
+      <DependentUpon>DlgOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgOptions.ru.resx">
       <DependentUpon>DlgOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgOptions.uk.resx">
       <DependentUpon>DlgOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.nl.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgProfile.ru.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
@@ -456,6 +474,9 @@
     <EmbeddedResource Include="DlgRestore.es.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.nl.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DlgRestore.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </EmbeddedResource>
@@ -464,6 +485,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgRestore.uk.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgSteamPath.nl.resx">
+      <DependentUpon>DlgSteamPath.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgSteamPath.ru.resx">
       <DependentUpon>DlgSteamPath.cs</DependentUpon>
