@@ -232,6 +232,11 @@
     </Compile>
     <Compile Include="GameBanners.cs" />
     <Compile Include="Filter.cs" />
+    <Compile Include="GlobalStrings.nl.Designer.cs">
+      <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -465,6 +470,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgSteamPath.uk.resx">
       <DependentUpon>DlgSteamPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.nl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.nl.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
