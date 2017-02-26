@@ -127,10 +127,10 @@
     <value>Updating Game List</value>
   </data>
   <data name="CDlgScrape_1minute" xml:space="preserve">
-    <value>&lt; 1 minute</value>
+    <value>&lt; 1 minuut</value>
   </data>
   <data name="CDlgScrape_ApplyingData" xml:space="preserve">
-    <value>Applying data...</value>
+    <value>Toepassen van data ...</value>
   </data>
   <data name="CDlgScrape_ScrapingGameInfo" xml:space="preserve">
     <value>Scraping game info</value>
@@ -139,10 +139,10 @@
     <value>Unknown</value>
   </data>
   <data name="DBEditDlg_AbortedUpdate" xml:space="preserve">
-    <value>Aborted. Updated {0} / {1} entries.</value>
+    <value>Afgebroken. Bijgewerkt {0} / {1} totaal.</value>
   </data>
   <data name="DBEditDlg_AddedGame" xml:space="preserve">
-    <value>Added game with ID {0}.</value>
+    <value>Spel met ID {0} toegevoegd.</value>
   </data>
   <data name="DBEditDlg_AreYouSureDeleteGames" xml:space="preserve">
     <value>Delete {0} games from the database?</value>
@@ -189,12 +189,12 @@
     <value>Error updating games.</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingGameList" xml:space="preserve">
-    <value>An error occurred while updating the game list:
+    <value>Er is een fout opgetreden tijdens het bijwerken van de spellenlijst:
 
 {0}</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingGames" xml:space="preserve">
-    <value>An error occurred while updating games:
+    <value>Er is een fout opgetreden tijdens het bijwerken van de spellen:
 
 {0}</value>
   </data>
@@ -217,7 +217,7 @@
     <value>Save failed.</value>
   </data>
   <data name="DBEditDlg_SelectedDisplayedTotal" xml:space="preserve">
-    <value>{0} selected / {1} displayed / {2} total</value>
+    <value>{0} geselecteerd / {1} weergegeven / {2} in totaal</value>
   </data>
   <data name="DBEditDlg_UnsavedChanges" xml:space="preserve">
     <value>Unsaved changes</value>
@@ -238,7 +238,7 @@
     <value>Warning</value>
   </data>
   <data name="DlgGameDBEntry_Add" xml:space="preserve">
-    <value>Add</value>
+    <value>Toevoegen</value>
   </data>
   <data name="DlgGameDBEntry_IDMustBeInteger" xml:space="preserve">
     <value>Game ID must be an integer.</value>
@@ -294,10 +294,10 @@ Time Remaining:</value>
     <value>Error information saved.</value>
   </data>
   <data name="DlgFatalError_FatalError" xml:space="preserve">
-    <value>{0} - Fatal Error</value>
+    <value>{0} - Fatale Error</value>
   </data>
   <data name="DlgFatalError_FatalErrorOcurred" xml:space="preserve">
-    <value>A fatal error has occurred in {0}. The program will now terminate.</value>
+    <value>Een fatale fout heeft opgetreden in {0}. Het programma wordt nu afgesloten!</value>
   </data>
   <data name="DlgGame_CreateGame" xml:space="preserve">
     <value>Create Game</value>
@@ -312,7 +312,7 @@ Time Remaining:</value>
     <value>Error saving settings file:</value>
   </data>
   <data name="DlgProfile_AccountIDMustBeNumber" xml:space="preserve">
-    <value>Account ID must be a number.</value>
+    <value>Account-ID moet een getal zijn.</value>
   </data>
   <data name="DlgProfile_Cancelling" xml:space="preserve">
     <value>Cancelling...</value>
@@ -345,13 +345,13 @@ Time Remaining:</value>
     <value>That path does not exist. Are you sure?</value>
   </data>
   <data name="GameData_AccessDeniedSteamConfigFile" xml:space="preserve">
-    <value>Access denied on Steam config file:</value>
+    <value>Toegang geweigerd tot Steam configuratie bestand:</value>
   </data>
   <data name="GameData_AddedNewGame" xml:space="preserve">
-    <value>Added new game found in Steam config: {0} - {1}</value>
+    <value>Nieuw spel toegevoegd, gevonden in Steam config: {0} - {1}</value>
   </data>
   <data name="GameData_AddingGameToConfigFile" xml:space="preserve">
-    <value>Adding game {0} to config file.</value>
+    <value>Spel {0} toevoegen aan configuratie bestand.</value>
   </data>
   <data name="GameData_AttemptingDownloadHTMLGameList" xml:space="preserve">
     <value>Attempting to download HTML game list from URL {0}</value>
@@ -529,10 +529,10 @@ Continue loading file?</value>
     <value>No games found.</value>
   </data>
   <data name="MainForm_AddedGame" xml:space="preserve">
-    <value>Added game.</value>
+    <value>Spel toegevoegd.</value>
   </data>
   <data name="MainForm_All" xml:space="preserve">
-    <value>&lt;All&gt;</value>
+    <value>&lt;Alles&gt;</value>
   </data>
   <data name="MainForm_AutonameCanceled" xml:space="preserve">
     <value>Autoname canceled.</value>
@@ -547,7 +547,7 @@ Continue loading file?</value>
     <value>Category '{0}' added.</value>
   </data>
   <data name="MainForm_CategoryDeleted" xml:space="preserve">
-    <value>{0} categories deleted.</value>
+    <value>{0} categorieën verwijderd.</value>
   </data>
   <data name="MainForm_CategoryNameReserved" xml:space="preserve">
     <value>Category name '{0}' is reserved.</value>
@@ -644,14 +644,15 @@ Continue loading file?</value>
     <value>Failed to load store pages for {0} games.</value>
   </data>
   <data name="MainForm_Favorite" xml:space="preserve">
-    <value>&lt;Favorite&gt;</value>
+    <value>&lt;Favoriet&gt;</value>
   </data>
   <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
     <value>GameDB file does not exist.</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
-    <value>{0} games have no web-sourced data in the local database. Scrape now?
-This could take up to a few seconds per game.</value>
+    <value>{0} games hebben geen web-sourced data in de lokale database. Nu ophalen?
+Dit kan oplopen tot een paar seconden per spel.</value>
+    <comment>!</comment>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
     <value>Ignored {0} game{1}.</value>
@@ -708,13 +709,14 @@ This could take up to a few seconds per game.</value>
     <value>Saving profile data failed:</value>
   </data>
   <data name="MainForm_SelectedDisplayed" xml:space="preserve">
-    <value>{0} selected / {1} displayed</value>
+    <value>{0} geselecteerd / {1} weergegeven</value>
   </data>
   <data name="MainForm_SomeSelectedGameHaveCategories" xml:space="preserve">
     <value>Some of the selected games already have categories set. Would you like to overwrite these categories?</value>
   </data>
   <data name="MainForm_Uncategorized" xml:space="preserve">
-    <value>&lt;Uncategorized&gt;</value>
+    <value>&lt;Ongesorteerd&gt;</value>
+    <comment>!</comment>
   </data>
   <data name="MainForm_UnignoredGame" xml:space="preserve">
     <value>Unignored game {0}.</value>
@@ -787,7 +789,6 @@ This could take up to a few seconds per game.</value>
   </data>
   <data name="GameData_ErrorParsingScreenshots" xml:space="preserve">
     <value>Error parsing gameId from Screenshots.vdf file for game '{0}'</value>
-    <comment>probably no longer needed</comment>
   </data>
   <data name="GameData_IntegratedShortCuts" xml:space="preserve">
     <value>Integrated external games into game list. {0} total items.</value>
@@ -844,7 +845,7 @@ This could take up to a few seconds per game.</value>
     <value>By Genre</value>
   </data>
   <data name="MainForm_LaunchFailed" xml:space="preserve">
-    <value>A non-Steam game must have been launched at least once from the Steam client before it can be launched externally.</value>
+    <value>Een niet-Steam spel moet ten minste een keer gelanceerd zijn uit de Steam client voordat het extern kan worden gestart.</value>
   </data>
   <data name="AutoCat_Name_Flags" xml:space="preserve">
     <value>Store Flags</value>
@@ -1116,16 +1117,16 @@ If this is unchecked, newer games may not be categorized.
 Recommended: Enabled</value>
   </data>
   <data name="MainForm_NoFlags" xml:space="preserve">
-    <value>&lt;No Flags&gt;</value>
+    <value>&lt;Geen Flags&gt;</value>
   </data>
   <data name="MainForm_NoGenres" xml:space="preserve">
-    <value>&lt;No Genres&gt;</value>
+    <value>&lt;Geen Genres&gt;</value>
   </data>
   <data name="MainForm_NoTags" xml:space="preserve">
-    <value>&lt;No Tags&gt;</value>
+    <value>&lt;Geen Tags&gt;</value>
   </data>
   <data name="MainForm_Unknown" xml:space="preserve">
-    <value>&lt;Unknown&gt;</value>
+    <value>&lt;Onbekend&gt;</value>
   </data>
   <data name="GameDB_RedirectsToItself" xml:space="preserve">
     <value>Scraping {0}: Redirects to itself</value>
@@ -1134,7 +1135,7 @@ Recommended: Enabled</value>
     <value>Scraping {0}: Too Many Redirects</value>
   </data>
   <data name="MainForm_Hidden" xml:space="preserve">
-    <value>&lt;Hidden&gt;</value>
+    <value>&lt;Verborgen&gt;</value>
   </data>
   <data name="MainForm_Log_ExceptionHltb" xml:space="preserve">
     <value>Exception when auto-updating DB from HLTB.</value>
@@ -1164,7 +1165,7 @@ Recommended: Enabled.</value>
     <value>Error updating from HLTB.</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingHltb" xml:space="preserve">
-    <value>An error occured while updating from howlongtobeatsteam.com: {0}</value>
+    <value>Er is een fout opgetreden tijdens het bijwerken van howlongtobeatsteam.com: {0}</value>
   </data>
   <data name="DBEditDlg_HltbUpdateFailed" xml:space="preserve">
     <value>Failed to update from HLTB: {0}</value>
@@ -1270,7 +1271,7 @@ If unchecked, games with no times will be skipped.</value>
     <value>Filter '{0}' added.</value>
   </data>
   <data name="MainForm_FilterDeleted" xml:space="preserve">
-    <value>{0} filters deleted.</value>
+    <value>{0} filters verwijderd.</value>
   </data>
   <data name="MainForm_FilterExists" xml:space="preserve">
     <value>Filter {0} already exists.</value>
