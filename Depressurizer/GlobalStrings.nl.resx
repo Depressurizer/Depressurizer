@@ -136,7 +136,7 @@
     <value>Scraping game info</value>
   </data>
   <data name="CDlgScrape_Unknown" xml:space="preserve">
-    <value>Unknown</value>
+    <value>Onbekend</value>
   </data>
   <data name="DBEditDlg_AbortedUpdate" xml:space="preserve">
     <value>Afgebroken. Bijgewerkt {0} / {1} totaal.</value>
@@ -235,7 +235,7 @@
     <value>Updated Game Lijst, {0} spellen toegevoegd</value>
   </data>
   <data name="Gen_Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Waarschuwing</value>
   </data>
   <data name="DlgGameDBEntry_Add" xml:space="preserve">
     <value>Toevoegen</value>
@@ -339,10 +339,10 @@ Overgebleven tijd:</value>
     <value>Updating names...</value>
   </data>
   <data name="DlgProfile_YouMustEnterValidProfilePath" xml:space="preserve">
-    <value>You must enter a valid profile file path.</value>
+    <value>Je moet een geldig profiel bestand pad in te voeren.</value>
   </data>
   <data name="DlgSteamPath_ThatPathDoesNotExist" xml:space="preserve">
-    <value>That path does not exist. Are you sure?</value>
+    <value>Locatie niet gevonden. Weet u het zeker?</value>
   </data>
   <data name="GameData_AccessDeniedSteamConfigFile" xml:space="preserve">
     <value>Toegang geweigerd tot Steam configuratie bestand:</value>
@@ -416,7 +416,7 @@ Overgebleven tijd:</value>
     <value>Removing game {0} category info from Steam config file.</value>
   </data>
   <data name="GameData_SavingSteamConfigFile" xml:space="preserve">
-    <value>Saving Steam config file: {0}.</value>
+    <value>Steam config bestand opslaan in: {0}.</value>
   </data>
   <data name="GameData_SkippedIntegratingGame" xml:space="preserve">
     <value>Skipped integrating game: {0} - {1}.</value>
@@ -425,7 +425,7 @@ Overgebleven tijd:</value>
     <value>Skipped processing game {0} from Steam config.</value>
   </data>
   <data name="GameData_SpecifiedProfileNotPublic" xml:space="preserve">
-    <value>The specified profile is not public.</value>
+    <value>Gekozen profiel is niet publiek toegankelijk.</value>
   </data>
   <data name="GameData_SteamConfigFileLoaded" xml:space="preserve">
     <value>Steam config file loaded. {0} items found.</value>
@@ -437,7 +437,7 @@ Overgebleven tijd:</value>
     <value>Successfully downloaded XML game list.</value>
   </data>
   <data name="GameData_WritingToDisk" xml:space="preserve">
-    <value>Writing to disk...</value>
+    <value>Schrijven naar schijf ...</value>
   </data>
   <data name="GameDB_DownloadingSteamAppList" xml:space="preserve">
     <value>Downloading Steam app list.</value>
@@ -461,7 +461,7 @@ Overgebleven tijd:</value>
     <value>Loading GameDB from {0}</value>
   </data>
   <data name="GameDB_SavingGameDBTo" xml:space="preserve">
-    <value>Saving GameDB to {0}</value>
+    <value>GameDB opslaan in {0}</value>
   </data>
   <data name="GameDB_ScrapingAgeCheckNoRedirect" xml:space="preserve">
     <value>Scraping {0}: Age check with no redirect</value>
@@ -500,30 +500,30 @@ Overgebleven tijd:</value>
     <value>Scraping {0}: Redirected to another app id ({1})</value>
   </data>
   <data name="GameDB_XMLAppListDownloaded" xml:space="preserve">
-    <value>XML App list downloaded.</value>
+    <value>XML App lijst gedownloadt.</value>
   </data>
   <data name="MainForm_AddContentsOfSteamCommunity" xml:space="preserve">
-    <value>This action will add the contents of a Steam community game list to the currently loaded game list. If you do not want to do this, close the open game list or profile first.
-Continue loading games?</value>
+    <value>Deze actie zal de inhoud van een Steam Community spel lijst toe te voegen aan de op dat moment geladen spel lijst. Als u niet wilt om dit te doen, sluit de open spel lijst of profileren eerste.
+Doorgaan laden games?</value>
   </data>
   <data name="MainForm_AddContentsOfSteamConfigFile" xml:space="preserve">
-    <value>This action will add the contents of a Steam config file to the currently loaded game list, and will overwrite the category information for any existing games. If you do not want to do this, close the open profile or gamelist first.
-Continue loading file?</value>
+    <value>Deze actie zal de inhoud van een Steam configuratiebestand toe te voegen aan de op dat moment geladen spel lijst en zal de categorie informatie voor alle bestaande games overschrijven. Als u niet wilt om dit te doen, sluit de open profiel of gamelist eerste.
+Doorgaan met het laden van bestand?</value>
   </data>
   <data name="MainForm_DataExported" xml:space="preserve">
-    <value>Data exported.</value>
+    <value>Data geexporteerd.</value>
   </data>
   <data name="MainForm_ExportFailed" xml:space="preserve">
-    <value>Export failed.</value>
+    <value>Export is mislukt.</value>
   </data>
   <data name="MainForm_ImportedGames" xml:space="preserve">
     <value>Imported {0} games.</value>
   </data>
   <data name="MainForm_ImportFailed" xml:space="preserve">
-    <value>Import failed.</value>
+    <value>Importeren mislukt.</value>
   </data>
   <data name="MainForm_NoGameInfoFound" xml:space="preserve">
-    <value>Warning: No game info found in the specified file.</value>
+    <value>Waarschuwing: Geen spel informatie gevonden in het bestand.</value>
   </data>
   <data name="MainForm_NoGamesFound" xml:space="preserve">
     <value>Geen spellen gevonden.</value>
@@ -535,85 +535,85 @@ Continue loading file?</value>
     <value>&lt;Alles&gt;</value>
   </data>
   <data name="MainForm_AutonameCanceled" xml:space="preserve">
-    <value>Autoname canceled.</value>
+    <value>Autoname geannuleerd</value>
   </data>
   <data name="MainForm_AutonamedGames" xml:space="preserve">
     <value>Autonamed {0} games.</value>
   </data>
   <data name="MainForm_CanceledDatabaseUpdate" xml:space="preserve">
-    <value>Canceled web update.</value>
+    <value>Web-update geannuleerd...</value>
   </data>
   <data name="MainForm_CategoryAdded" xml:space="preserve">
-    <value>Category '{0}' added.</value>
+    <value>Categorie '{0}' toegevoegd.</value>
   </data>
   <data name="MainForm_CategoryDeleted" xml:space="preserve">
     <value>{0} categorieën verwijderd.</value>
   </data>
   <data name="MainForm_CategoryNameReserved" xml:space="preserve">
-    <value>Category name '{0}' is reserved.</value>
+    <value>Categorie naam '{0}' is gereserveerd.</value>
   </data>
   <data name="MainForm_CategoryNamesNotEmpty" xml:space="preserve">
-    <value>Category names cannot be empty.</value>
+    <value>Categorie naam mag niet leeg zijn.</value>
   </data>
   <data name="MainForm_CategoryRenamed" xml:space="preserve">
-    <value>Category renamed.</value>
+    <value>Categorie hernoemd</value>
   </data>
   <data name="MainForm_ClearedData" xml:space="preserve">
     <value>Cleared data.</value>
   </data>
   <data name="MainForm_CouldNotAddCategory" xml:space="preserve">
-    <value>Could not add category '{0}'</value>
+    <value>Kon categorie '{0}' niet toevoegen</value>
   </data>
   <data name="MainForm_CouldNotDeleteCategory" xml:space="preserve">
-    <value>Could not delete categories.</value>
+    <value>Kon categorieën niet verwijderen.</value>
   </data>
   <data name="MainForm_Create" xml:space="preserve">
-    <value>Create</value>
+    <value>Maken</value>
   </data>
   <data name="MainForm_CreateCategory" xml:space="preserve">
-    <value>Create category</value>
+    <value>Categorie maken</value>
   </data>
   <data name="MainForm_DeleteCategory" xml:space="preserve">
-    <value>Delete category '{0}'?</value>
+    <value>Categorie '{0}' verwijderen?</value>
   </data>
   <data name="MainForm_DownloadAborted" xml:space="preserve">
-    <value>Download aborted.</value>
+    <value>Download geannuleerd.</value>
   </data>
   <data name="MainForm_DownloadedGames" xml:space="preserve">
-    <value>Downloaded {0} games, {1} new, via {2}.</value>
+    <value>Downloaded {0} spellen, {1} nieuw, via {2}.</value>
   </data>
   <data name="MainForm_DownloadFailed" xml:space="preserve">
-    <value>Download failed.</value>
+    <value>Download mislukt.</value>
   </data>
   <data name="MainForm_EditedGame" xml:space="preserve">
-    <value>Edited game.</value>
+    <value>Aangepast spel.</value>
   </data>
   <data name="MainForm_EnterNewCategoryName" xml:space="preserve">
-    <value>Enter new category name:</value>
+    <value>Voer nieuwe categorie naam:</value>
   </data>
   <data name="MainForm_EnterNewName" xml:space="preserve">
-    <value>Enter new name:</value>
+    <value>Voer een nieuwe naam:</value>
   </data>
   <data name="MainForm_ErrorDowloadingProfile" xml:space="preserve">
-    <value>There was an error downloading the profile data: 
+    <value>Er is een fout opgetreden het downloaden van de gegevens:
 {0}</value>
   </data>
   <data name="MainForm_ErrorDownloadingGames" xml:space="preserve">
-    <value>Error downloading games.</value>
+    <value>Fout bij het downloaden van games.</value>
   </data>
   <data name="MainForm_ErrorDownloadingProfileData" xml:space="preserve">
-    <value>Error downloading profile data via {0}.</value>
+    <value>Fout bij het downloaden van gegevens via {0}.</value>
   </data>
   <data name="MainForm_Msg_ErrorExportingToSteam" xml:space="preserve">
     <value>Error exporting to Steam.
 {0}</value>
   </data>
   <data name="MainForm_ErrorImportingSteamDataList" xml:space="preserve">
-    <value>Error importing steam data list.
+    <value>Fout bij het importeren van Steam data lijst.
 {0}</value>
   </data>
   <data name="MainForm_ErrorLoadingGameDB" xml:space="preserve">
-    <value>Error loading game database. Local category and DLC data will not be available.
+    <value>Error loading game database. Lokale categorie en DLC gegevens zullen niet beschikbaar zijn.
 
 </value>
   </data>
@@ -622,26 +622,26 @@ Continue loading file?</value>
 {0}</value>
   </data>
   <data name="MainForm_ErrorOcurredOnGames" xml:space="preserve">
-    <value>Errors occurred on {0} games.</value>
+    <value>Fouten gebeurde op {0} games.</value>
   </data>
   <data name="MainForm_ErrorSavingFile" xml:space="preserve">
-    <value>Error saving file.</value>
+    <value>Fout bij opslaan bestand.</value>
   </data>
   <data name="MainForm_Msg_ErrorSavingProfile" xml:space="preserve">
     <value>Error saving profile.
 {0}</value>
   </data>
   <data name="MainForm_ExportedCategories" xml:space="preserve">
-    <value>Exported categories.</value>
+    <value>Geëxporteerd categorieën.</value>
   </data>
   <data name="MainForm_FailedLoadProfile" xml:space="preserve">
-    <value>Failed to load profile.</value>
+    <value>Kan profiel te laden.</value>
   </data>
   <data name="MainForm_FailedSaveProfile" xml:space="preserve">
-    <value>Failed to save profile.</value>
+    <value>Kan profiel niet opslaan.</value>
   </data>
   <data name="MainForm_FailedToLoadStorePages" xml:space="preserve">
-    <value>Failed to load store pages for {0} games.</value>
+    <value>Kan opslaan van pagina's voor {0} spellen niet laden.</value>
   </data>
   <data name="MainForm_Favorite" xml:space="preserve">
     <value>&lt;Favoriet&gt;</value>
@@ -655,16 +655,16 @@ Dit kan oplopen tot een paar seconden per spel.</value>
     <comment>!</comment>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
-    <value>Ignored {0} game{1}.</value>
+    <value>{0} game{1} genegeerd.</value>
   </data>
   <data name="MainForm_ImportedItems" xml:space="preserve">
     <value>Imported {0} items.</value>
   </data>
   <data name="MainForm_NameIsInUse" xml:space="preserve">
-    <value>Name '{0}' is already in use.</value>
+    <value>Naam '{0}' is al in gebruik.</value>
   </data>
   <data name="MainForm_NoGameDataFound" xml:space="preserve">
-    <value>No game data found. Please make sure the custom URL name is spelled correctly.</value>
+    <value>Geen spelgegevens gevonden. Zorg ervoor dat de naam aangepaste URL correct is gespeld.</value>
   </data>
   <data name="MainForm_NoGamesInDownload" xml:space="preserve">
     <value>Geen spellen gedownload.</value>
@@ -676,7 +676,7 @@ Dit kan oplopen tot een paar seconden per spel.</value>
     <value>Overschrijven?</value>
   </data>
   <data name="MainForm_OverwriteExistingNames" xml:space="preserve">
-    <value>Do you want to overwrite existing names? Saying "No" will only rename games that do not have a name set.</value>
+    <value>Wilt u de bestaande namen overschrijven? Zeggen "Nee" wordt alleen de naam van games die geen naam set hebben.</value>
   </data>
   <data name="MainForm_ProfileCreated" xml:space="preserve">
     <value>Profiel aangemaakt</value>
@@ -803,10 +803,10 @@ Dit kan oplopen tot een paar seconden per spel.</value>
     <value>Removed game from game list: {0} - {1}.</value>
   </data>
   <data name="GameData_SavingShortcutConfigFile" xml:space="preserve">
-    <value>Saving Steam shortcuts config file: {0}.</value>
+    <value>Steam shortcuts config bestand opslaan in: {0}.</value>
   </data>
   <data name="MainForm_External" xml:space="preserve">
-    <value>External</value>
+    <value>Extern</value>
   </data>
   <data name="AutoCatGenre_Exception_NoGameDB" xml:space="preserve">
     <value>AutoCatGenre heeft geen spel database</value>
@@ -833,7 +833,7 @@ Dit kan oplopen tot een paar seconden per spel.</value>
     <value>Steam shortcut file backup failed: {0}</value>
   </data>
   <data name="MainForm_FailedToUpdate" xml:space="preserve">
-    <value>Failed to update {0} games.</value>
+    <value>Kan {0} spellen niet bijwerken.</value>
   </data>
   <data name="MainForm_SingleCategoryMode" xml:space="preserve">
     <value>Enkele Categorie Modes</value>
@@ -863,13 +863,13 @@ Dit kan oplopen tot een paar seconden per spel.</value>
     <value>Rename</value>
   </data>
   <data name="DlgAutoCat_RenameBoxLabel" xml:space="preserve">
-    <value>Name:</value>
+    <value>Naam:</value>
   </data>
   <data name="DlgAutoCat_RenameBoxTitle" xml:space="preserve">
-    <value>Enter new AutoCat name</value>
+    <value>Vul een nieuwe AutoCat naam in</value>
   </data>
   <data name="DlgAutoCat_SelectValidType" xml:space="preserve">
-    <value>You must select a valid AutoCat type.</value>
+    <value>U moet een geldig AutoCad-type selecteren.</value>
   </data>
   <data name="DlgAutoCat_Help_Genre_RemoveExisting" xml:space="preserve">
     <value>Verwijder alle bestaande categorieën die zouden kunnen worden toegevoegd door deze Autocat.
@@ -977,7 +977,7 @@ Requires your profile to be set to "Public".</value>
 {0}</value>
   </data>
   <data name="AutoCat_Name_Tags" xml:space="preserve">
-    <value>Store Tags</value>
+    <value>Winkel Tags</value>
   </data>
   <data name="DlgAutoCat_Help_ListMinScore" xml:space="preserve">
     <value>Tags die daaronder vallen "score" zal niet te zien op de lijst.</value>
@@ -992,12 +992,12 @@ Ex: Set to 10 to only process the first ten tags from each game and ignore the r
 Set to 0 to process all tags from each game.</value>
   </data>
   <data name="DlgAutoCat_Help_ListWeightFactor" xml:space="preserve">
-    <value>With this set to 1, each tag's score is simply the number of games that it appears on.
-With this higher than one, tags earlier in games' tag lists receive a higher score.
-The higher the number, the more weight is placed on tag position.</value>
+    <value>Met deze set 1, elke tag score is gewoon het aantal games dat het lijkt op.
+Met deze hoger dan een, markeringen eerder in games 'tag-lijsten krijgen een hogere score.
+Hoe hoger het getal, hoe meer gewicht gelegd op tag positie.</value>
   </data>
   <data name="MainForm_DeleteCategoryMulti" xml:space="preserve">
-    <value>Delete {0} categories?</value>
+    <value>Verwijder {0} categorieën?</value>
   </data>
   <data name="DlgAutoCat_Help_ListExcludeGenres" xml:space="preserve">
     <value>Gebruik geen labels die overeenkomen met Steam genre namen, zoals Actie of strategie bevatten.</value>
@@ -1007,10 +1007,10 @@ The higher the number, the more weight is placed on tag position.</value>
 Otherwise, sorts alphabetically.</value>
   </data>
   <data name="MainForm_Help_AdvancedCategories" xml:space="preserve">
-    <value>In advanced mode, games will be displayed if they meet the following criteria:
-If at least one category is marked with a CHECKMARK ("Allowed"), the game must belong to at least one of these categories.
-A game must be in all categories marked with a CIRCLE ("Required").
-A game must NOT be in any categories marked with an X ("Excluded").</value>
+    <value>In de geavanceerde modus zal spelen worden weergegeven als zij voldoen aan de volgende criteria:
+Als tenminste één categorie wordt aangeduid met een vinkje ("toegestaan"), moet het spel behoren tot ten minste één van deze categorieën.
+Een spel moet in alle categorieën gemarkeerd met een cirkel ("noodzakelijke").
+Een spel mag niet in elke categorie gemarkeerd met een X ("Uitgesloten").</value>
   </data>
   <data name="AutoCatGenrePanel_Help_TagFallback" xml:space="preserve">
     <value>Als een spel in de database bestaat maar geen genres heeft, zoek dan naar tags die gelijk zijn aan het genre.</value>
@@ -1177,7 +1177,7 @@ Aanbevolen: Ingeschakeld.</value>
     <value>Uitzondering bij het updaten van HLTB: {0}</value>
   </data>
   <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
-    <value>Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times. </value>
+    <value>Of het nu om toegerekende (statistisch waarschijnlijke) keer te gebruiken van howlongtobeatsteam.com voor ontbrekende tijden.</value>
   </data>
   <data name="MainForm_NoHltbTime" xml:space="preserve">
     <value>--</value>
@@ -1241,7 +1241,7 @@ Indien niet aangevinkt, zal spelen zonder tijd worden overgeslagen.</value>
     <value>Filter save complete.</value>
   </data>
   <data name="Filter_SavingFilter" xml:space="preserve">
-    <value>Saving filter: {0}</value>
+    <value>Filter opslaan: {0}</value>
   </data>
   <data name="AutoCat_Name_Manual" xml:space="preserve">
     <value>Handleiding</value>
@@ -1253,19 +1253,19 @@ Indien niet aangevinkt, zal spelen zonder tijd worden overgeslagen.</value>
     <value>Object is not a filter</value>
   </data>
   <data name="MainForm_AdminRights" xml:space="preserve">
-    <value>Run once with Admin rights to set browser registry key.</value>
+    <value>Run eenmaal met Admin rechten op browser registersleutel in te stellen.</value>
   </data>
   <data name="MainForm_CouldNotAddFilter" xml:space="preserve">
-    <value>Could not add filter '{0}'</value>
+    <value>Kon filter '{0}' niet toevoegen.</value>
   </data>
   <data name="MainForm_CouldNotDeleteFilter" xml:space="preserve">
-    <value>Could not delete filter.</value>
+    <value>Kon filter niet verwijderen.</value>
   </data>
   <data name="MainForm_DeleteFilter" xml:space="preserve">
-    <value>Delete filter '{0}'?</value>
+    <value>Filter '{0}' verwijderen?</value>
   </data>
   <data name="MainForm_EnterNewFilterName" xml:space="preserve">
-    <value>Enter new filter name:</value>
+    <value>Voer nieuwe filter naam:</value>
   </data>
   <data name="MainForm_FilterAdded" xml:space="preserve">
     <value>Filter '{0}' toegevoegd.</value>
@@ -1283,7 +1283,7 @@ Indien niet aangevinkt, zal spelen zonder tijd worden overgeslagen.</value>
     <value>Filter hernoemd.</value>
   </data>
   <data name="MainForm_OverwriteFilterName" xml:space="preserve">
-    <value>Do you want to overwrite filter: {0}</value>
+    <value>Wilt u filter overschrijven: {0}</value>
   </data>
   <data name="MainForm_RenameFilter" xml:space="preserve">
     <value>Hernoem filter: {0}</value>
@@ -1304,7 +1304,7 @@ Indien niet aangevinkt, zal spelen zonder tijd worden overgeslagen.</value>
     <value>Developers and Publishers with game counts lower than this will not show up on the list.</value>
   </data>
   <data name="DlgAutoCat_Help_PubSelected" xml:space="preserve">
-    <value>Show/hide selected Publishers</value>
+    <value>Toon/Verberg geselecteerde Uitgevers</value>
   </data>
   <data name="MainForm_No" xml:space="preserve">
     <value>Nee</value>
