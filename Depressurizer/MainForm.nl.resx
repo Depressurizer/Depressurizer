@@ -1417,7 +1417,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABW
-        CAAAAk1TRnQBSQFMAgEBAwEAAaABDQGkAQ0BEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAwEAAaABDQGoAQ0BEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1703,7 +1703,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACw
-        CQAAAk1TRnQBSQFMAgEBAwEAARABDAEUAQwBEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CQAAAk1TRnQBSQFMAgEBAwEAARABDAEYAQwBEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1763,7 +1763,7 @@
     <value>223, 22</value>
   </data>
   <data name="menu_File_NewProfile.Text" xml:space="preserve">
-    <value>&amp;New Profile...</value>
+    <value>&amp;Nieuw Profiel...</value>
   </data>
   <data name="menu_File_LoadProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Alt+L</value>
@@ -1772,7 +1772,7 @@
     <value>223, 22</value>
   </data>
   <data name="menu_File_LoadProfile.Text" xml:space="preserve">
-    <value>&amp;Load Profile...</value>
+    <value>&amp;Laad Profiel...</value>
   </data>
   <data name="menu_File_SaveProfile.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+S</value>
@@ -1781,7 +1781,7 @@
     <value>223, 22</value>
   </data>
   <data name="menu_File_SaveProfile.Text" xml:space="preserve">
-    <value>&amp;Save Profile</value>
+    <value>&amp;Profiel Opslaan</value>
   </data>
   <data name="menu_File_SaveProfileAs.Size" type="System.Drawing.Size, System.Drawing">
     <value>223, 22</value>
@@ -1799,7 +1799,7 @@
     <value>223, 22</value>
   </data>
   <data name="menu_File_Close.Text" xml:space="preserve">
-    <value>&amp;Close Profile</value>
+    <value>&amp;Sluit Profiel</value>
   </data>
   <data name="menu_File_Sep2.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 6</value>
@@ -1814,7 +1814,7 @@
     <value>223, 22</value>
   </data>
   <data name="menu_File_Manual.Text" xml:space="preserve">
-    <value>&amp;Manual Export</value>
+    <value>&amp;Handmatig Exporteren</value>
   </data>
   <data name="menu_File_Sep3.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 6</value>
@@ -1829,7 +1829,7 @@
     <value>41, 20</value>
   </data>
   <data name="menu_File.Text" xml:space="preserve">
-    <value>&amp;File</value>
+    <value>&amp;Bestand</value>
   </data>
   <data name="menu_Profile_Update.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+U</value>
@@ -1838,7 +1838,7 @@
     <value>241, 22</value>
   </data>
   <data name="menu_Profile_Update.Text" xml:space="preserve">
-    <value>&amp;Update Game List</value>
+    <value>&amp;Update Spellen Lijst</value>
   </data>
   <data name="menu_Profile_Sep1.Size" type="System.Drawing.Size, System.Drawing">
     <value>238, 6</value>
@@ -1850,7 +1850,7 @@
     <value>241, 22</value>
   </data>
   <data name="menu_Profile_Import.Text" xml:space="preserve">
-    <value>&amp;Import Steam Config</value>
+    <value>&amp;Importeer Steam Config</value>
   </data>
   <data name="menu_Profile_Export.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+E</value>
@@ -1859,7 +1859,7 @@
     <value>241, 22</value>
   </data>
   <data name="menu_Profile_Export.Text" xml:space="preserve">
-    <value>&amp;Export Steam Config</value>
+    <value>&amp;Exporteer Steam Config</value>
   </data>
   <data name="menu_Profile_Restore_Config.ShowShortcutKeys" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1904,7 +1904,7 @@
     <value>56, 20</value>
   </data>
   <data name="menu_Profile.Text" xml:space="preserve">
-    <value>&amp;Profile</value>
+    <value>&amp;Profiel</value>
   </data>
   <data name="menu_Tools_Autocat_List.TrayLocation" type="System.Drawing.Point, System.Drawing">
     <value>1047, 17</value>
@@ -1934,7 +1934,7 @@
     <value>243, 22</value>
   </data>
   <data name="menu_Tools_RemoveEmpty.Text" xml:space="preserve">
-    <value>&amp;Remove Empty Categories</value>
+    <value>&amp;Verwijder Lege catogorieën</value>
   </data>
   <data name="menu_Tools_Sep1.Size" type="System.Drawing.Size, System.Drawing">
     <value>240, 6</value>
@@ -1976,7 +1976,7 @@
     <value>243, 22</value>
   </data>
   <data name="menu_Tools_Settings.Text" xml:space="preserve">
-    <value>&amp;Settings...</value>
+    <value>&amp;Instellingen...</value>
   </data>
   <data name="menu_Tools.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 20</value>
@@ -1988,7 +1988,7 @@
     <value>66, 20</value>
   </data>
   <data name="menu_About.Text" xml:space="preserve">
-    <value>&amp;About...</value>
+    <value>&amp;Over...</value>
   </data>
   <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 0</value>
@@ -2046,7 +2046,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADs
-        gAAAAk1TRnQBSQFMAgEBAwEAAUABAQFEAQEBPAEAATwBAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAHw
+        gAAAAk1TRnQBSQFMAgEBAwEAAUABAQFIAQEBPAEAATwBAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAHw
         AwABPAMAAQEBAAEgBgAB4f8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/ACEAAwIBA+wAAwIBA+wA
         AwIBA/8A3QADDAEQAwIBA+gAAwwBEAMCAQPoAAMMARADAgED/wDZAAMhATADDAEQAwIBA+QAAyEBMAMM
         ARADAgED5AADIQEwAwwBEAMCAQP/ANUAAzcBWgMhATEDDQERAwIBA+AAAzcBWgMhATEDDQERAwIBA+AA
