@@ -59,6 +59,8 @@ namespace Depressurizer {
             this.cmbDatSrc = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.grpDepressurizerUpdates = new System.Windows.Forms.GroupBox();
+            this.chkCheckForDepressurizerUpdates = new System.Windows.Forms.CheckBox();
             this.grpDatabase = new System.Windows.Forms.GroupBox();
             this.helpIncludeImputedTimes = new System.Windows.Forms.Label();
             this.chkIncludeImputedTimes = new System.Windows.Forms.CheckBox();
@@ -75,20 +77,18 @@ namespace Depressurizer {
             this.label1 = new System.Windows.Forms.Label();
             this.cmbLogLevel = new System.Windows.Forms.ComboBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.grpDepressurizerUpdates = new System.Windows.Forms.GroupBox();
-            this.chkCheckForDepressurizerUpdates = new System.Windows.Forms.CheckBox();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
             this.grpDatSrc.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
+            this.grpDepressurizerUpdates.SuspendLayout();
             this.grpDatabase.SuspendLayout();
             this.grpLanguage.SuspendLayout();
             this.tabLogging.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
-            this.grpDepressurizerUpdates.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -221,6 +221,19 @@ namespace Depressurizer {
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
+            // grpDepressurizerUpdates
+            // 
+            resources.ApplyResources(this.grpDepressurizerUpdates, "grpDepressurizerUpdates");
+            this.grpDepressurizerUpdates.Controls.Add(this.chkCheckForDepressurizerUpdates);
+            this.grpDepressurizerUpdates.Name = "grpDepressurizerUpdates";
+            this.grpDepressurizerUpdates.TabStop = false;
+            // 
+            // chkCheckForDepressurizerUpdates
+            // 
+            resources.ApplyResources(this.chkCheckForDepressurizerUpdates, "chkCheckForDepressurizerUpdates");
+            this.chkCheckForDepressurizerUpdates.Name = "chkCheckForDepressurizerUpdates";
+            this.chkCheckForDepressurizerUpdates.UseVisualStyleBackColor = true;
+            // 
             // grpDatabase
             // 
             resources.ApplyResources(this.grpDatabase, "grpDatabase");
@@ -278,7 +291,8 @@ namespace Depressurizer {
             resources.GetString("cmbLanguage.Items1"),
             resources.GetString("cmbLanguage.Items2"),
             resources.GetString("cmbLanguage.Items3"),
-            resources.GetString("cmbLanguage.Items4")});
+            resources.GetString("cmbLanguage.Items4"),
+            resources.GetString("cmbLanguage.Items5")});
             resources.ApplyResources(this.cmbLanguage, "cmbLanguage");
             this.cmbLanguage.Name = "cmbLanguage";
             // 
@@ -346,19 +360,6 @@ namespace Depressurizer {
             this.cmbLogLevel.FormattingEnabled = true;
             this.cmbLogLevel.Name = "cmbLogLevel";
             // 
-            // grpDepressurizerUpdates
-            // 
-            resources.ApplyResources(this.grpDepressurizerUpdates, "grpDepressurizerUpdates");
-            this.grpDepressurizerUpdates.Controls.Add(this.chkCheckForDepressurizerUpdates);
-            this.grpDepressurizerUpdates.Name = "grpDepressurizerUpdates";
-            this.grpDepressurizerUpdates.TabStop = false;
-            // 
-            // chkCheckForDepressurizerUpdates
-            // 
-            resources.ApplyResources(this.chkCheckForDepressurizerUpdates, "chkCheckForDepressurizerUpdates");
-            this.chkCheckForDepressurizerUpdates.Name = "chkCheckForDepressurizerUpdates";
-            this.chkCheckForDepressurizerUpdates.UseVisualStyleBackColor = true;
-            // 
             // DlgOptions
             // 
             resources.ApplyResources(this, "$this");
@@ -380,6 +381,8 @@ namespace Depressurizer {
             this.grpDatSrc.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
+            this.grpDepressurizerUpdates.ResumeLayout(false);
+            this.grpDepressurizerUpdates.PerformLayout();
             this.grpDatabase.ResumeLayout(false);
             this.grpDatabase.PerformLayout();
             this.grpLanguage.ResumeLayout(false);
@@ -387,8 +390,6 @@ namespace Depressurizer {
             this.tabLogging.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).EndInit();
-            this.grpDepressurizerUpdates.ResumeLayout(false);
-            this.grpDepressurizerUpdates.PerformLayout();
             this.ResumeLayout(false);
 
         }
