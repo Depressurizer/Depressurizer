@@ -86,7 +86,7 @@ namespace Depressurizer {
         public bool AutoImport = false;
         public bool AutoExport = true;
 
-        public bool LocalUpdate = false; //disable local update till parsing from packageinfo.vdf is fixed
+        public bool LocalUpdate = true;
         public bool WebUpdate = true;
 
         public bool ExportDiscard = true;
@@ -163,8 +163,7 @@ namespace Depressurizer {
                 profile.AutoImport = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoImport], profile.AutoImport );
                 profile.AutoExport = XmlUtil.GetBoolFromNode( profileNode[XmlName_AutoExport], profile.AutoExport );
 
-                //disable local update till parsing from packageinfo.vdf is fixed
-                //profile.LocalUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_LocalUpdate], profile.LocalUpdate );
+                profile.LocalUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_LocalUpdate], profile.LocalUpdate );
                 profile.WebUpdate = XmlUtil.GetBoolFromNode( profileNode[XmlName_WebUpdate], profile.WebUpdate );
 
                 profile.IncludeUnknown = XmlUtil.GetBoolFromNode( profileNode[XmlName_IncludeUnknown], profile.IncludeUnknown );

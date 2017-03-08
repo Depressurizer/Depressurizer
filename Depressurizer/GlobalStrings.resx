@@ -905,8 +905,7 @@ Normally, the game list includes only games that are listed as Games or Applicat
   </data>
   <data name="DlgProfile_Help_LocalUpdate" xml:space="preserve">
     <value>Parse files from your Steam installation to get a list of your games.
-Much faster and generally more accurate and reliable than a web update.
-Disabled till the parsing from packageinfo.vdf is fixed.</value>
+Much faster and generally more accurate and reliable than a web update.</value>
   </data>
   <data name="DlgProfile_Help_WebUpdate" xml:space="preserve">
     <value>Download a game list from your profile on the steamcommunity.com website.
