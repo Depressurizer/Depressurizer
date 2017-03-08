@@ -362,6 +362,8 @@ namespace Depressurizer {
             // chkLocalUpdate
             // 
             resources.ApplyResources(this.chkLocalUpdate, "chkLocalUpdate");
+            this.chkLocalUpdate.Checked = true;
+            this.chkLocalUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLocalUpdate.Name = "chkLocalUpdate";
             this.chkLocalUpdate.UseVisualStyleBackColor = true;
             // 
