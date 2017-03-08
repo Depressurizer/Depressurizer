@@ -571,20 +571,35 @@ namespace Depressurizer
         /// </summary>
         private void UpdateGameDBFromHltb()
         {
-            try
+            this.Cursor = Cursors.WaitCursor;
+
+            HltbPrcDlg dlg = new HltbPrcDlg();
+            DialogResult res = dlg.ShowDialog();
+
+            if (dlg.Error != null)
             {
-                int num = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
-                AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, num));
-                if (num > 0 && Settings.Instance.AutosaveDB)
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
+                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, dlg.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
+            }
+            else
+            {
+                if (res == DialogResult.Cancel || res == DialogResult.Abort)
                 {
-                    SaveGameDB();
+                    AddStatus(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+                }
+                else
+                {
+                    AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dlg.Updated));
+                    if (dlg.Updated > 0 && Settings.Instance.AutosaveDB)
+                    {
+                        SaveGameDB();
+                    }
                 }
             }
-            catch (Exception e)
-            {
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionHltb, e);
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+
+            FullListRefresh();
+            this.Cursor = Cursors.Default;
         }
 
         #endregion
