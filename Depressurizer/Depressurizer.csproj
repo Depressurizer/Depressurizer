@@ -185,7 +185,7 @@
     <Compile Include="AutomaticModeForm.Designer.cs">
       <DependentUpon>AutomaticModeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DBEdit\CDlgHltb.cs">
+    <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DlgAbout.cs">
