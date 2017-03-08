@@ -807,26 +807,8 @@
   <data name="cmbLanguage.Items4" xml:space="preserve">
     <value>Ukranian</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="tabLogging.Text" xml:space="preserve">
-    <value>Logging</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Logging Level: </value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Max file size (bytes):</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Backups to keep:</value>
-  </data>
-  <data name="tabGeneral.Text" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="grpLanguage.Text" xml:space="preserve">
-    <value>Language</value>
+  <data name="cmbLanguage.Items5" xml:space="preserve">
+    <value>Dutch</value>
   </data>
   <data name="cmbLanguage.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 19</value>
@@ -858,6 +840,9 @@
   <data name="grpLanguage.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
+  <data name="grpLanguage.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="&gt;&gt;grpLanguage.Name" xml:space="preserve">
     <value>grpLanguage</value>
   </data>
@@ -881,6 +866,9 @@
   </data>
   <data name="tabGeneral.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="tabGeneral.Text" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="&gt;&gt;tabGeneral.Name" xml:space="preserve">
     <value>tabGeneral</value>
@@ -954,6 +942,9 @@
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Backups to keep:</value>
+  </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
   </data>
@@ -981,6 +972,9 @@
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Max file size (bytes):</value>
+  </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
   </data>
@@ -1007,6 +1001,9 @@
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Logging Level: </value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -1051,10 +1048,13 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabLogging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 369</value>
+    <value>560, 420</value>
   </data>
   <data name="tabLogging.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
+  </data>
+  <data name="tabLogging.Text" xml:space="preserve">
+    <value>Logging</value>
   </data>
   <data name="&gt;&gt;tabLogging.Name" xml:space="preserve">
     <value>tabLogging</value>
@@ -1104,11 +1104,14 @@
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
   </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="&gt;&gt;ttHelp.Name" xml:space="preserve">
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.6.2.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.1.4, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgOptions</value>
