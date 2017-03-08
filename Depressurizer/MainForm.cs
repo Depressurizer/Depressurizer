@@ -699,7 +699,7 @@ namespace Depressurizer
             dlg.AddExtension = true;
             dlg.CheckFileExists = true;
             dlg.Filter = GlobalStrings.DlgProfile_Filter;
-            dlg.InitialDirectory = Path.GetDirectoryName(currentProfile.FilePath);
+            dlg.InitialDirectory = Path.GetDirectoryName(currentProfile == null ? Assembly.GetExecutingAssembly().CodeBase : currentProfile.FilePath);
             DialogResult res = dlg.ShowDialog();
             if (res == DialogResult.OK)
             {
