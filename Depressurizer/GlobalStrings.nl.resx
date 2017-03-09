@@ -1309,8 +1309,8 @@ Indien niet aangevinkt, zal spelen zonder tijd worden overgeslagen.</value>
   <data name="MainForm_No" xml:space="preserve">
     <value>Nee</value>
   </data>
-  <data name="Profile_DefaultAutoCatName_DevPub" xml:space="preserve">
-    <value>Bij Ontwikkelaars &amp; Uitgevers</value>
+  <data name="Profile_DefaultAutoCatName_Developer" xml:space="preserve">
+    <value>Bij Ontwikkelaars</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
     <value>Bij HowLongToBeat</value>
@@ -1354,5 +1354,8 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="AutoCat_Name_Name" xml:space="preserve">
     <value>Naam</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Publisher" xml:space="preserve">
+    <value>Bij Uitgevers</value>
   </data>
 </root>

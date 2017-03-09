@@ -3396,11 +3396,74 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By Developer &amp; Publisher.
+        ///   Looks up a localized string similar to Developer.
         /// </summary>
-        internal static string Profile_DefaultAutoCatName_DevPub {
+        internal static string Name_Developer {
             get {
-                return ResourceManager.GetString("Profile_DefaultAutoCatName_DevPub", resourceCulture);
+                return ResourceManager.GetString("Name_Developer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flags.
+        /// </summary>
+        internal static string Name_Flags {
+            get {
+                return ResourceManager.GetString("Name_Flags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genre.
+        /// </summary>
+        internal static string Name_Genre {
+            get {
+                return ResourceManager.GetString("Name_Genre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publisher.
+        /// </summary>
+        internal static string Name_Publisher {
+            get {
+                return ResourceManager.GetString("Name_Publisher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score.
+        /// </summary>
+        internal static string Name_Score {
+            get {
+                return ResourceManager.GetString("Name_Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        internal static string Name_Tags {
+            get {
+                return ResourceManager.GetString("Name_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year.
+        /// </summary>
+        internal static string Name_Year {
+            get {
+                return ResourceManager.GetString("Name_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Developer.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Developer {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Developer", resourceCulture);
             }
         }
         
@@ -3428,6 +3491,15 @@ namespace Depressurizer {
         internal static string Profile_DefaultAutoCatName_Hltb {
             get {
                 return ResourceManager.GetString("Profile_DefaultAutoCatName_Hltb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Publisher.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Publisher {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Publisher", resourceCulture);
             }
         }
         

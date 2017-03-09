@@ -432,15 +432,51 @@ namespace Depressurizer {
         }
 
         public static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
-            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre ) );
-            list.Add(new AutoCatYear(GlobalStrings.Profile_DefaultAutoCatName_Year));
-            AutoCatUserScore ac = new AutoCatUserScore(GlobalStrings.Profile_DefaultAutoCatName_UserScore);
+            //By Genre
+            list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre, null, "("+ GlobalStrings.Name_Genre + ") " ) );
+
+            //By Year
+            list.Add(new AutoCatYear(GlobalStrings.Profile_DefaultAutoCatName_Year, null, "(" + GlobalStrings.Name_Year + ") "));
+            
+            //By Score
+            AutoCatUserScore ac = new AutoCatUserScore(GlobalStrings.Profile_DefaultAutoCatName_UserScore, null, "(" + GlobalStrings.Name_Score + ") ");
             ac.GenerateSteamRules(ac.Rules);
             list.Add(ac);
-            list.Add(new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Tags));
-            list.Add(new AutoCatFlags(GlobalStrings.Profile_DefaultAutoCatName_Flags));
-            list.Add(new AutoCatDevPub(GlobalStrings.Profile_DefaultAutoCatName_DevPub));
-            list.Add(new AutoCatHltb(GlobalStrings.Profile_DefaultAutoCatName_Hltb));
+
+            //By Tags
+            AutoCatTags act = new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Tags, null, "(" + GlobalStrings.Name_Tags + ") ");
+            foreach (Tuple<string, float> tag in Program.GameDB.CalculateSortedTagList(null, 1, 20, 0, false, false))
+            {
+                act.IncludedTags.Add(tag.Item1);
+            }
+            list.Add(act);
+            
+            //By Flags
+            AutoCatFlags acf = new AutoCatFlags(GlobalStrings.Profile_DefaultAutoCatName_Flags, null, "(" + GlobalStrings.Name_Flags + ") ");
+            foreach (string flag in Program.GameDB.GetAllStoreFlags())
+            {
+                acf.IncludedFlags.Add(flag);
+            }
+            list.Add(acf);
+
+            //By Developer
+            AutoCatDevPub acd = new AutoCatDevPub(GlobalStrings.Profile_DefaultAutoCatName_Developer, null, "(" + GlobalStrings.Name_Developer + ") ");
+            acd.AllDevelopers = true;
+            list.Add(acd);
+
+            //By Publisher
+            AutoCatDevPub acp = new AutoCatDevPub(GlobalStrings.Profile_DefaultAutoCatName_Publisher, null, "(" + GlobalStrings.Name_Publisher + ") ");
+            acp.AllPublishers = true;
+            list.Add(acp);
+
+            //By HLTB
+            AutoCatHltb ach = new AutoCatHltb(GlobalStrings.Profile_DefaultAutoCatName_Hltb, null, "(HLTB) ", false);
+            ach.Rules.Add(new Hltb_Rule("0-5", 0, 5, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("5-10", 5, 10, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("10-20", 10, 20, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("20-50", 20, 50, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("50+", 20, 0, TimeType.Extras));
+            list.Add(ach);
         }
 
         #endregion

@@ -1307,8 +1307,8 @@ If unchecked, games with no times will be skipped.</value>
   <data name="MainForm_No" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="Profile_DefaultAutoCatName_DevPub" xml:space="preserve">
-    <value>By Developer &amp; Publisher</value>
+  <data name="Profile_DefaultAutoCatName_Developer" xml:space="preserve">
+    <value>By Developer</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
     <value>By HowLongToBeat</value>
@@ -1352,5 +1352,29 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
 </data>
   <data name="AutoCat_Name_Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="Name_Genre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="Name_Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Name_Score" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="Name_Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="Name_Flags" xml:space="preserve">
+    <value>Flags</value>
+  </data>
+  <data name="Name_Developer" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="Name_Publisher" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Publisher" xml:space="preserve">
+    <value>By Publisher</value>
   </data>
 </root>
