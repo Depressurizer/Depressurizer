@@ -388,7 +388,7 @@ namespace Depressurizer {
                         {
                             catName = GameList.FAVORITE_CONFIG_VALUE;
                         }
-                        writer.WriteElementString( XmlName_Game_Category, c.Name );
+                        writer.WriteElementString( XmlName_Game_Category, catName);
                     }
                     writer.WriteEndElement(); // categories
 
