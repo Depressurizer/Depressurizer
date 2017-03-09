@@ -132,7 +132,7 @@ namespace Depressurizer {
             long fileLength = bReader.BaseStream.Length;
 
             // seek to common: start of a new entry
-            byte[] start = new byte[] {0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00}; // 0x02 0x00 c o m m o n 0x00
+            byte[] start = new byte[] {0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00}; // 0x00 0x00 c o m m o n 0x00
 
             VdfFileNode.ReadBin_SeekTo( bReader, start, fileLength );
 

@@ -372,7 +372,6 @@ namespace Depressurizer {
 
         public static void ReadBin_SeekTo( BinaryReader stream, byte[] str, long fileLength ) {
             int indexAt = 0;
-            int goalIndex = str.Length;
 
             while( indexAt < str.Length && stream.BaseStream.Position < fileLength ) {
 

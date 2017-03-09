@@ -885,7 +885,7 @@ namespace Depressurizer {
                         int ownedPackageId;
                         if( int.TryParse( key, out ownedPackageId ) ) {
                             PackageInfo ownedPackage = allPackages[ownedPackageId];
-                            if( ownedPackageId != 0 && !ownedPackage.IsExpired ) {
+                            if( ownedPackageId != 0) {
                                 GameListingSource src =
                                     ( ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ) ?
                                     GameListingSource.PackageFree : GameListingSource.PackageNormal;
