@@ -69,7 +69,8 @@ namespace Depressurizer
 
         #region Regex
         // If this regex maches a store page, the app is a game
-        private static Regex regGamecheck = new Regex("<a[^>]*>All (?:Games|Software)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regGamecheck = new Regex("<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regSoftwarecheck = new Regex("<a[^>]*>All Software</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private static Regex regGenre = new Regex("<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private static Regex regFlags = new Regex("<a class=\\\"name\\\" href=\\\"http://store.steampowered.com/search/\\?category2=.*?\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -236,7 +237,7 @@ namespace Depressurizer
                 Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingReceivedSiteError, id);
                 result = AppTypes.Unknown;
             }
-            else if (regGamecheck.IsMatch(page))
+            else if (regGamecheck.IsMatch(page) || regSoftwarecheck.IsMatch(page))
             { // Here we should have an app, but make sure.
 
                 GetAllDataFromPage(page);
@@ -250,7 +251,7 @@ namespace Depressurizer
                 else
                 {
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id, string.Join(",", Genres));
-                    result = AppTypes.Game;
+                    result = regSoftwarecheck.IsMatch(page) ? AppTypes.Application : AppTypes.Game;
                 }
             }
             else
