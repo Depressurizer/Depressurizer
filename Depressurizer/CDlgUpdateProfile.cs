@@ -122,8 +122,6 @@ namespace Depressurizer {
             try {
                 FetchXml();
                 return;
-            } catch( ProfileAccessException e ) {
-                throw e;
             } catch( Exception ) { }
             Failover = true;
             FetchHtml();

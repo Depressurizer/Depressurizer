@@ -802,6 +802,10 @@ namespace Depressurizer {
                 }
                 doc.Load( response.GetResponseStream() );
                 response.Close();
+                if (doc.InnerText.Contains("This profile is private."))
+                {
+                    throw new ProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
+                }
                 Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SuccessDownloadXMLGameList, url );
                 return doc;
             } catch( ProfileAccessException e ) {
