@@ -409,7 +409,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdAccept.Location" type="System.Drawing.Point, System.Drawing">
-    <value>505, 464</value>
+    <value>505, 480</value>
   </data>
   <data name="cmdAccept.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -439,7 +439,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>424, 464</value>
+    <value>424, 480</value>
   </data>
   <data name="cmdCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -466,7 +466,7 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="grpSaving.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 370</value>
+    <value>6, 387</value>
   </data>
   <data name="grpSaving.Size" type="System.Drawing.Size, System.Drawing">
     <value>548, 44</value>
@@ -526,7 +526,7 @@
     <value>0</value>
   </data>
   <data name="grpDatSrc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 312</value>
+    <value>6, 329</value>
   </data>
   <data name="grpDatSrc.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 52</value>
@@ -586,7 +586,7 @@
     <value>0</value>
   </data>
   <data name="grpDepressurizerUpdates.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 262</value>
+    <value>6, 281</value>
   </data>
   <data name="grpDepressurizerUpdates.Size" type="System.Drawing.Size, System.Drawing">
     <value>548, 44</value>
@@ -611,6 +611,87 @@
   </data>
   <data name="grpDatabase.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="numScrapePromptDays.Location" type="System.Drawing.Point, System.Drawing">
+    <value>409, 87</value>
+  </data>
+  <data name="numScrapePromptDays.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 20</value>
+  </data>
+  <data name="numScrapePromptDays.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;numScrapePromptDays.Name" xml:space="preserve">
+    <value>numScrapePromptDays</value>
+  </data>
+  <data name="&gt;&gt;numScrapePromptDays.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numScrapePromptDays.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;numScrapePromptDays.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblScrapePrompt2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblScrapePrompt2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblScrapePrompt2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>461, 89</value>
+  </data>
+  <data name="lblScrapePrompt2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 13</value>
+  </data>
+  <data name="lblScrapePrompt2.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="lblScrapePrompt2.Text" xml:space="preserve">
+    <value>days.</value>
+  </data>
+  <data name="&gt;&gt;lblScrapePrompt2.Name" xml:space="preserve">
+    <value>lblScrapePrompt2</value>
+  </data>
+  <data name="&gt;&gt;lblScrapePrompt2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblScrapePrompt2.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;lblScrapePrompt2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lblScapePrompt1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblScapePrompt1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblScapePrompt1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 89</value>
+  </data>
+  <data name="lblScapePrompt1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>402, 13</value>
+  </data>
+  <data name="lblScapePrompt1.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="lblScapePrompt1.Text" xml:space="preserve">
+    <value>When autocategorizing, prompt to re-scrape if web-sourced game data is older than </value>
+  </data>
+  <data name="&gt;&gt;lblScapePrompt1.Name" xml:space="preserve">
+    <value>lblScapePrompt1</value>
+  </data>
+  <data name="&gt;&gt;lblScapePrompt1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblScapePrompt1.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;lblScapePrompt1.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="helpIncludeImputedTimes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -643,7 +724,7 @@
     <value>grpDatabase</value>
   </data>
   <data name="&gt;&gt;helpIncludeImputedTimes.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="chkIncludeImputedTimes.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -673,7 +754,7 @@
     <value>grpDatabase</value>
   </data>
   <data name="&gt;&gt;chkIncludeImputedTimes.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="chkUpdateHltbOnStartup.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -703,7 +784,7 @@
     <value>grpDatabase</value>
   </data>
   <data name="&gt;&gt;chkUpdateHltbOnStartup.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="chkAutosaveDB.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -733,7 +814,7 @@
     <value>grpDatabase</value>
   </data>
   <data name="&gt;&gt;chkAutosaveDB.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="chkUpdateAppInfoOnStartup.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -763,13 +844,13 @@
     <value>grpDatabase</value>
   </data>
   <data name="&gt;&gt;chkUpdateAppInfoOnStartup.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="grpDatabase.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 163</value>
   </data>
   <data name="grpDatabase.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 93</value>
+    <value>548, 112</value>
   </data>
   <data name="grpDatabase.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -832,7 +913,7 @@
     <value>0</value>
   </data>
   <data name="grpLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>294, 312</value>
+    <value>294, 329</value>
   </data>
   <data name="grpLanguage.Size" type="System.Drawing.Size, System.Drawing">
     <value>260, 52</value>
@@ -862,7 +943,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabGeneral.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 420</value>
+    <value>560, 436</value>
   </data>
   <data name="tabGeneral.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1048,7 +1129,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabLogging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 420</value>
+    <value>560, 436</value>
   </data>
   <data name="tabLogging.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1072,7 +1153,7 @@
     <value>12, 12</value>
   </data>
   <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 446</value>
+    <value>568, 462</value>
   </data>
   <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1099,7 +1180,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>592, 497</value>
+    <value>592, 513</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

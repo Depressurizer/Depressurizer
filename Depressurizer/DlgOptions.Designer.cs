@@ -62,6 +62,9 @@ namespace Depressurizer {
             this.grpDepressurizerUpdates = new System.Windows.Forms.GroupBox();
             this.chkCheckForDepressurizerUpdates = new System.Windows.Forms.CheckBox();
             this.grpDatabase = new System.Windows.Forms.GroupBox();
+            this.numScrapePromptDays = new System.Windows.Forms.NumericUpDown();
+            this.lblScrapePrompt2 = new System.Windows.Forms.Label();
+            this.lblScapePrompt1 = new System.Windows.Forms.Label();
             this.helpIncludeImputedTimes = new System.Windows.Forms.Label();
             this.chkIncludeImputedTimes = new System.Windows.Forms.CheckBox();
             this.chkUpdateHltbOnStartup = new System.Windows.Forms.CheckBox();
@@ -85,6 +88,7 @@ namespace Depressurizer {
             this.tabGeneral.SuspendLayout();
             this.grpDepressurizerUpdates.SuspendLayout();
             this.grpDatabase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).BeginInit();
             this.grpLanguage.SuspendLayout();
             this.tabLogging.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
@@ -237,6 +241,9 @@ namespace Depressurizer {
             // grpDatabase
             // 
             resources.ApplyResources(this.grpDatabase, "grpDatabase");
+            this.grpDatabase.Controls.Add(this.numScrapePromptDays);
+            this.grpDatabase.Controls.Add(this.lblScrapePrompt2);
+            this.grpDatabase.Controls.Add(this.lblScapePrompt1);
             this.grpDatabase.Controls.Add(this.helpIncludeImputedTimes);
             this.grpDatabase.Controls.Add(this.chkIncludeImputedTimes);
             this.grpDatabase.Controls.Add(this.chkUpdateHltbOnStartup);
@@ -244,6 +251,26 @@ namespace Depressurizer {
             this.grpDatabase.Controls.Add(this.chkUpdateAppInfoOnStartup);
             this.grpDatabase.Name = "grpDatabase";
             this.grpDatabase.TabStop = false;
+            // 
+            // numScrapePromptDays
+            // 
+            resources.ApplyResources(this.numScrapePromptDays, "numScrapePromptDays");
+            this.numScrapePromptDays.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numScrapePromptDays.Name = "numScrapePromptDays";
+            // 
+            // lblScrapePrompt2
+            // 
+            resources.ApplyResources(this.lblScrapePrompt2, "lblScrapePrompt2");
+            this.lblScrapePrompt2.Name = "lblScrapePrompt2";
+            // 
+            // lblScapePrompt1
+            // 
+            resources.ApplyResources(this.lblScapePrompt1, "lblScapePrompt1");
+            this.lblScapePrompt1.Name = "lblScapePrompt1";
             // 
             // helpIncludeImputedTimes
             // 
@@ -385,6 +412,7 @@ namespace Depressurizer {
             this.grpDepressurizerUpdates.PerformLayout();
             this.grpDatabase.ResumeLayout(false);
             this.grpDatabase.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).EndInit();
             this.grpLanguage.ResumeLayout(false);
             this.tabLogging.ResumeLayout(false);
             this.tabLogging.PerformLayout();
@@ -431,5 +459,8 @@ namespace Depressurizer {
         private System.Windows.Forms.Label helpIncludeImputedTimes;
         private System.Windows.Forms.GroupBox grpDepressurizerUpdates;
         private System.Windows.Forms.CheckBox chkCheckForDepressurizerUpdates;
+        private System.Windows.Forms.Label lblScrapePrompt2;
+        private System.Windows.Forms.Label lblScapePrompt1;
+        private System.Windows.Forms.NumericUpDown numScrapePromptDays;
     }
 }
