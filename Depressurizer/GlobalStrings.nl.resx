@@ -650,8 +650,7 @@ Doorgaan met het laden van bestand?</value>
     <value>GameDB bestand bestaat niet.</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
-    <value>{0} games hebben geen web-sourced data in de lokale database. Nu ophalen?
-Dit kan oplopen tot een paar seconden per spel.</value>
+    <value>{0} games hebben geen web-sourced data in de lokale database</value>
     <comment>!</comment>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
@@ -1357,5 +1356,12 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Publisher" xml:space="preserve">
     <value>Bij Uitgevers</value>
+    </data>
+  <data name="MainForm_ScrapeNow" xml:space="preserve">
+    <value>Nu ophalen?
+Dit kan oplopen tot een paar seconden per spel.</value>
+  </data>
+  <data name="Text_And" xml:space="preserve">
+    <value>en</value>
   </data>
 </root>
