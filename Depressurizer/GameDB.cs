@@ -68,23 +68,24 @@ namespace Depressurizer
         #endregion
 
         #region Regex
-        // If this regex maches a store page, the app is a game
-        private static Regex regGamecheck = new Regex("<a[^>]*>All Games</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex regSoftwarecheck = new Regex("<a[^>]*>All Software</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        // If these regexes maches a store page, the app is a game, software or dlc respectively
+        private static Regex regGamecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
+        private static Regex regSoftwarecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
+        private static Regex regDLCcheck = new Regex(@"<img class=""category_icon"" src=""http://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
 
-        private static Regex regGenre = new Regex("<div class=\\\"details_block\\\">\\s*<b>Title:</b>[^<]*<br>\\s*<b>Genre:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex regFlags = new Regex("<a class=\\\"name\\\" href=\\\"http://store.steampowered.com/search/\\?category2=.*?\">([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex regTags = new Regex("<a[^>]*class=\\\"app_tag\\\"[^>]*>([^<]*)</a>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>[^<]*<br>\s*<b>[^:]*:</b>\s*(<a[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+        private static Regex regFlags = new Regex(@"<a class=""name"" href=""http://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
+        private static Regex regTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
 
-        private static Regex regDevelopers = new Regex("<b>Developer:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex regPublishers = new Regex("<b>Publisher:</b>\\s*(<a[^>]*>([^<]+)</a>,?\\s*)+\\s*<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regDevelopers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?developer=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+        private static Regex regPublishers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
 
-        private static Regex regRelDate = new Regex("<b>Release Date:</b>\\s*([^<]*)<br>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static Regex regMetalink = new Regex("<div id=\\\"game_area_metalink\\\">\\s*<a href=\\\"http://www.metacritic.com/game/pc/([^\\\"]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regRelDate = new Regex(regPublishers + @"\s*<b>[^:]*:</b>\s*(.*)\s*<br>", RegexOptions.Compiled);
+        private static Regex regMetalink = new Regex(@"<div id=""game_area_metalink"">\s*<a href=""http://www\.metacritic\.com/game/pc/([^""]*)\?ftag=", RegexOptions.Compiled);
 
-        private static Regex regReviews = new Regex(@"data-store-tooltip=""([\d]+)% of the ([\d,]+) user reviews for this (?:game|software) are positive.""", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
 
-        private static Regex regAchievements = new Regex(@"Includes (\d+) Steam Achievements", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static Regex regAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
 
         private static Regex regPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
         private static Regex regPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
@@ -243,7 +244,7 @@ namespace Depressurizer
                 GetAllDataFromPage(page);
 
                 // Check whether it's DLC and return appropriately
-                if (Flags.Contains("Downloadable Content"))
+                if (regDLCcheck.IsMatch(page))
                 {
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, string.Join(",", Genres));
                     result = AppTypes.DLC;
@@ -377,7 +378,7 @@ namespace Depressurizer
             m = regRelDate.Match(page);
             if (m.Success)
             {
-                this.SteamReleaseDate = m.Groups[1].Captures[0].Value;
+                this.SteamReleaseDate = m.Groups[3].Captures[0].Value;
             }
 
             // Get user review data
