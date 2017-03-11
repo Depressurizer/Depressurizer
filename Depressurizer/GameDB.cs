@@ -1111,6 +1111,7 @@ namespace Depressurizer
 
                 using (WebClient wc = new WebClient())
                 {
+                    wc.Encoding = System.Text.Encoding.UTF8;
                     string json = wc.DownloadString(Properties.Resources.UrlHLTBAll);
                     JObject parsedJson = JObject.Parse(json);
                     dynamic games = parsedJson.SelectToken("Games");
