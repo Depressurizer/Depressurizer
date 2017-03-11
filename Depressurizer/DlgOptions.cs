@@ -67,6 +67,7 @@ namespace Depressurizer {
             chkUpdateHltbOnStartup.Checked = settings.UpdateHltbOnStart;
             chkIncludeImputedTimes.Checked = settings.IncludeImputedTimes;
             chkAutosaveDB.Checked = settings.AutosaveDB;
+            numScrapePromptDays.Value = settings.ScrapePromptDays;
 
             chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates; 
             
@@ -129,6 +130,7 @@ namespace Depressurizer {
             settings.UpdateHltbOnStart = chkUpdateHltbOnStartup.Checked;
             settings.IncludeImputedTimes = chkIncludeImputedTimes.Checked;
             settings.AutosaveDB = chkAutosaveDB.Checked;
+            settings.ScrapePromptDays = (int) numScrapePromptDays.Value;
 
             settings.CheckForDepressurizerUpdates = chkCheckForDepressurizerUpdates.Checked;
 

@@ -2675,8 +2675,16 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} games have no web-sourced data in the local database. Scrape now?
-        ///This could take up to a few seconds per game..
+        ///   Looks up a localized string similar to {0} games have web-sourced data older than {1} days.
+        /// </summary>
+        internal static string MainForm_GamesHaveOldDataInGameDB {
+            get {
+                return ResourceManager.GetString("MainForm_GamesHaveOldDataInGameDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} games have no web-sourced data in the local database.
         /// </summary>
         internal static string MainForm_GamesNotFoundInGameDB {
             get {
@@ -3225,6 +3233,16 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scrape now?
+        ///This could take up to a few seconds per game..
+        /// </summary>
+        internal static string MainForm_ScrapeNow {
+            get {
+                return ResourceManager.GetString("MainForm_ScrapeNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} selected / {1} displayed.
         /// </summary>
         internal static string MainForm_SelectedDisplayed {
@@ -3635,6 +3653,15 @@ namespace Depressurizer {
         internal static string Program_ProgramInitialized {
             get {
                 return ResourceManager.GetString("Program_ProgramInitialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        internal static string Text_And {
+            get {
+                return ResourceManager.GetString("Text_And", resourceCulture);
             }
         }
         
