@@ -367,6 +367,23 @@ namespace Depressurizer {
             }
         }
 
+        private int _scrapePromptDays = 30;
+        public int ScrapePromptDays
+        {
+            get
+            {
+                return _scrapePromptDays;
+            }
+            set
+            {
+                if (_scrapePromptDays != value)
+                {
+                    _scrapePromptDays = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
         private bool _checkForDepressurizerUpdates = true;
         public bool CheckForDepressurizerUpdates
         {

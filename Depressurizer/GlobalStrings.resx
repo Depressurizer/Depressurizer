@@ -650,8 +650,7 @@ Continue loading file?</value>
     <value>GameDB file does not exist.</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
-    <value>{0} games have no web-sourced data in the local database. Scrape now?
-This could take up to a few seconds per game.</value>
+    <value>{0} games have no web-sourced data in the local database</value>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
     <value>Ignored {0} game{1}.</value>
@@ -1352,5 +1351,15 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
 </data>
   <data name="AutoCat_Name_Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="MainForm_ScrapeNow" xml:space="preserve">
+    <value>Scrape now?
+This could take up to a few seconds per game.</value>
+  </data>
+  <data name="MainForm_GamesHaveOldDataInGameDB" xml:space="preserve">
+    <value>{0} games have web-sourced data older than {1} days</value>
+  </data>
+  <data name="Text_And" xml:space="preserve">
+    <value>and</value>
   </data>
 </root>
