@@ -196,7 +196,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://www.howlongtobeatsteam.com/api/games/library/cached/all.
+        ///   Looks up a localized string similar to https://www.howlongtobeatsteam.com/api/games/library/cached/all.
         /// </summary>
         internal static string UrlHLTBAll {
             get {

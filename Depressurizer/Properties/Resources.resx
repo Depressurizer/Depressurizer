@@ -163,7 +163,7 @@
     <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
   </data>
   <data name="UrlHLTBAll" xml:space="preserve">
-    <value>http://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
+    <value>https://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
   </data>
   <data name="UrlLatestRelease" xml:space="preserve">
     <value>https://api.github.com/repos/Theo47/depressurizer/releases/latest</value>
