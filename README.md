@@ -48,78 +48,87 @@ By default, Depressurizer will automatically load and update your profile the ne
 
 There are several ways to manually modify your games within Depressurizer.
 
-**1) The Game Panel**
+- **The Game Panel**
 
-Changes made to the checkboxes at the bottom of the screen will automatically apply to ALL selected games. The checkboxes will update to reflect the current categories of the selected games.
+  Changes made to the checkboxes at the bottom of the screen will automatically apply to ALL selected games. The checkboxes will update to reflect the current categories of the selected games.
 
-**2) Drag and Drop**
+- **Drag and Drop**
 
-If you select games in the list, and drag them to a category in the list on the left, you can add them to the selected category. You can drag them to "favorites" to set them as favorites, or to Uncategorized to clear their categories. 
+  If you select games in the list, and drag them to a category in the list on the left, you can add them to the selected category. You can drag them to "favorites" to set them as favorites, or to Uncategorized to clear their categories.
+ 
+  If you hold `Ctrl` when you drag items, you can remove them from the selected category instead of adding them.
 
-If you hold Ctrl when you drag items, you can remove them from the selected category instead of adding them.
+- **Context menu**
 
-**3) Context menu**
-
-If you right click on the game list, there are options to add categories, remove categories, or alter the Favorite setting for the selected games.
+  If you right click on the game list, there are options to add categories, remove categories, or alter the Favorite setting for the selected games.
 
 #### Game Filtering
 
 There are a few ways to filter your game list.
 
-You can use simple category filtering, which lets you select a category and view all games in that category. You can also view all games, all "favorited" games, or all games not assigned to any category.
+- **Simple Filter**
 
-You can right click on any of the columns titles on the gamelist to filter games based on the data displayed on the selected column.
+  You can use simple category filter, which lets you select a category and view all games in that category. You can also view all games, all "favorite" games, or all games not assigned to any category.
 
-You can also use advanced filtering, which lets you view games based on combinations of categories. In order for a game to be displayed, it must match the criteria that you specify.
- - **Allowed** is indicated by a green checkmark. If any categories are Allowed, then only games that are in *at least one* of these categories will be displayed. It's not necessary to allow categories all the time: if no categories are set to allowed, then the filtering ignores this criteria.
- - **Required** is indicated by a blue circle. Only games that are in *all* Required categories are displayed.
- - **Excluded** is indicated by a red X. Only games that are in *no* Excluded categories are displayed.
+- **Column-based Filter**
+
+  You can right click on any of the columns titles on the game list to filter games based on the data displayed on the selected column.
+
+- **Advanced Filter**
+
+  You can also use advanced filter, which lets you view games based on combinations of categories. In order for a game to be displayed, it must match the criteria that you specify.
+
+  - **Allowed** is indicated by a green check-mark (✓). If any categories are Allowed, then only games that are in *at least one* of these categories will be displayed. It's not necessary to allow categories all the time: if no categories are set to allowed, then the filtering ignores this criteria.
+  - **Required** is indicated by a blue circle (○). Only games that are in *all* Required categories are displayed.
+  - **Excluded** is indicated by a red cross (╳). Only games that are in *no* Excluded categories are displayed.
  
-This advanced filtering can be useful to find games that are not categorized the way that you want. You can use it to find games that are in two categories that should be mutually exclusive by setting them both to Required. If you have a set of categories where all your games should be in at least one, you can set all of them to Excluded to find games that are in none of them.
+  This advanced filter can be useful to find games that are not categorized the way that you want. You can use it to find games that are in two categories that should be mutually exclusive by setting them both to Required. If you have a set of categories where all your games should be in at least one, you can set all of them to Excluded to find games that are in none of them.
 
-New with v.0.7.0, you can now save Filters and apply them as needed.  Filters can now also be applied to AutoCats to greater control the auto-categorization process.
+  *New with v.0.7.0*: you can now save Advanced Filters and apply them as needed. Advanced Filters can now also be applied to AutoCats to greater control the auto-categorization process.
 
-Finally, you can always type into the Search box to find games with particular names. It will filter your current view to only games which have names that contain your search term.
+- **Search Filter**
 
-#### Autocategorization
+  Finally, you can always type into the Search box to find games with particular names. It will filter your current view to only games which have names that contain your search term.
 
-Autocategorization in Depressurizer is based around different schemes that determine what categories to add to (or remove from) each game. These schemes are configurable, and are referred to as "AutoCats".
+#### Auto-categorization
+
+Auto-categorization in Depressurizer is based around different schemes that determine what categories to add to (or remove from) each game. These schemes are configurable, and are referred to as "AutoCats".
 
 You can auto-categorize your games by clicking the Auto-categorize button below the game list. This will apply any AutoCats selected in the list above the button, to the displayed list of games.  AutoCats are applied in the order listed.
 
-You can autocategorize all games by using the "Autocat All" item in the Tools menu.
+You can auto-categorize all games by using the "AutoCat All" item in the Tools menu.
 
-To modify, delete or create new AutoCats, click the "Edit AutoCats..." item in the Profile menu.  You can also double-click on any AutoCat,or use the context menu.
+To modify, delete or create new AutoCats, click the "Edit AutoCats..." item in the Profile menu.  You can also double-click on any AutoCat, or use the context menu.
 
 There are currently nine types of AutoCat:
 
  - **Genre:** This type autocategorizes games based on the genres it is assigned in the Steam store. It has several configuration options.
 
-  - *Prefix (optional):* This is just a text prefix added to the beginning of all category names assigned by this scheme.
+   - *Prefix (optional):* This is just a text prefix added to the beginning of all category names assigned by this scheme.
 
-  - *Max Categories:* This is the maximum number of categories that will be assigned to each game. If a particular game has more categories, they will be ignored. 0 indicates no maximum.
+   - *Max Categories:* This is the maximum number of categories that will be assigned to each game. If a particular game has more categories, they will be ignored. 0 indicates no maximum.
 
-  - *Remove Existing Genre Categories:* This will remove other categories ONLY if they could potentially be added by this scheme. If a game already belongs to a category that has the name of a genre, with the Prefix, it will be removed before new categories are added to it.
+   - *Remove Existing Genre Categories:* This will remove other categories ONLY if they could potentially be added by this scheme. If a game already belongs to a category that has the name of a genre, with the Prefix, it will be removed before new categories are added to it.
 
-  - *Use Tags if no genres are set:* Some games in the Steam store do not have any actual genres set, but they do generally still have tags. This will use those tags if no genres exist. It will only assign categories that match the names of Steam store genres.
+   - *Use Tags if no genres are set:* Some games in the Steam store do not have any actual genres set, but they do generally still have tags. This will use those tags if no genres exist. It will only assign categories that match the names of Steam store genres.
   
-  - *Ignored Genres:* If you don't want a particular genre to be added as a category, select it here.
+   - *Ignored Genres:* If you don't want a particular genre to be added as a category, select it here.
 
  - **Flags:** This refers to the items on the right-hand side of the Steam Store pages that indicate certain features. For example, all games with the "Local Co-op" feature listed will be placed into a "Local Co-op" category.
 
-  - *Prefix (optional):* This is just a text prefix added to the beginning of all genre names assigned by this scheme.
+   - *Prefix (optional):* This is just a text prefix added to the beginning of all genre names assigned by this scheme.
 
-  - *Included Flags:* Only the items selected in this list will be used.
+   - *Included Flags:* Only the items selected in this list will be used.
 
  - **Tags:** This refers to the user-created tags. There are many more tags than there are genres or flags, so there are some options here to limit the ones you have to deal with.
 
-  - *Prefix (optional):* This is just a text prefix added to the beginning of all category names assigned by this scheme.
+   - *Prefix (optional):* This is just a text prefix added to the beginning of all category names assigned by this scheme.
 
-  - *Max categories per game:* This is the maximum number of categories that will be assigned to each game. 0 indicates no maximum.
+   - *Max categories per game:* This is the maximum number of categories that will be assigned to each game. 0 indicates no maximum.
 
-  - *Included tags:* These are the tags you can have added to your games as categories. Only the checked tags will be used. These tags are obtained by scanning the built-in game database. Each tag has a popularity score, shown in brackets after the name.  Click the ">" button to slide out a panel showing all selected tags.
+   - *Included tags:* These are the tags you can have added to your games as categories. Only the checked tags will be used. These tags are obtained by scanning the built-in game database. Each tag has a popularity score, shown in brackets after the name.  Click the ">" button to slide out a panel showing all selected tags.
 
-  - *List options:* These options affect the tags that show up in the list, and the order that they show up in. Click "Rebuild" to update the list with the new settings. These settings will not affect which categories are actually added to games when the autocategorization is performed, but they may limit the tags that you have to choose from. They aim to mitigate the difficulty of dealing with a huge list of tags.
+   - *List options:* These options affect the tags that show up in the list, and the order that they show up in. Click "Rebuild" to update the list with the new settings. These settings will not affect which categories are actually added to games when the autocategorization is performed, but they may limit the tags that you have to choose from. They aim to mitigate the difficulty of dealing with a huge list of tags.
 
    - *Minimum tag score:* Any tags with a lower score than this value will not appear in the list. Each tag's score may depend on the other options in this section.
 
@@ -142,8 +151,6 @@ There are currently nine types of AutoCat:
  - **Manual:** Manual manipulation of categories.  For example, use a Filter to gather the subset of games in categories Pool, Football, Baseball & Golf. Add all of those categories to the Remove list, and then add Sports to the Add list.  Running the AutoCat will remove the individual sports categories and place them all in a generic Sports category.
  
  - **Group:**  Place and order multiple AutoCats into a single AutoCat.  Any Filter applied to a group will take precedence over a Filter applied to an AutoCat.
- 
- 
 
 #### Automatic Mode 
 
@@ -188,7 +195,7 @@ The program trusts that any game that it finds in your Steam config file should 
 
 To remove a specific item, just select it and click "Delete Game". This will remove it from your list and (by default) ignore it going forward.
 
-##### Why do some of my games not autocategorize at all?
+##### Why do some of my games not auto-categorize at all?
 
 The program database might be out of date. Also, the program relies on the Steam Store data for autocategorization info. Sometimes, a game that is on your account might not HAVE a Store page any more, so the database won't have any data on it.
 
