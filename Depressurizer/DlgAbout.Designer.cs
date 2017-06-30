@@ -38,9 +38,9 @@
             this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdClose.Location = new System.Drawing.Point(7, 146);
+            this.cmdClose.Location = new System.Drawing.Point(7, 150);
             this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(444, 23);
+            this.cmdClose.Size = new System.Drawing.Size(444, 40);
             this.cmdClose.TabIndex = 0;
             this.cmdClose.Text = "Close";
             this.cmdClose.UseVisualStyleBackColor = true;
@@ -59,7 +59,7 @@
             this.flowLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayout.Location = new System.Drawing.Point(7, 7);
             this.flowLayout.Name = "flowLayout";
-            this.flowLayout.Size = new System.Drawing.Size(444, 133);
+            this.flowLayout.Size = new System.Drawing.Size(444, 140);
             this.flowLayout.TabIndex = 5;
             // 
             // lblName
@@ -129,7 +129,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdClose;
-            this.ClientSize = new System.Drawing.Size(458, 176);
+            this.ClientSize = new System.Drawing.Size(458, 200);
             this.ControlBox = false;
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.flowLayout);
