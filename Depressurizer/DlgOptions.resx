@@ -199,10 +199,94 @@
     <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;grpSteamDir.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="grpStartup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;radNone.Name" xml:space="preserve">
+    <value>radNone</value>
+  </data>
+  <data name="&gt;&gt;radNone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radNone.Parent" xml:space="preserve">
+    <value>grpStartup</value>
+  </data>
+  <data name="&gt;&gt;radNone.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;radCreate.Name" xml:space="preserve">
+    <value>radCreate</value>
+  </data>
+  <data name="&gt;&gt;radCreate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radCreate.Parent" xml:space="preserve">
+    <value>grpStartup</value>
+  </data>
+  <data name="&gt;&gt;radCreate.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;radLoad.Name" xml:space="preserve">
+    <value>radLoad</value>
+  </data>
+  <data name="&gt;&gt;radLoad.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radLoad.Parent" xml:space="preserve">
+    <value>grpStartup</value>
+  </data>
+  <data name="&gt;&gt;radLoad.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cmdDefaultProfileBrowse.Name" xml:space="preserve">
+    <value>cmdDefaultProfileBrowse</value>
+  </data>
+  <data name="&gt;&gt;cmdDefaultProfileBrowse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmdDefaultProfileBrowse.Parent" xml:space="preserve">
+    <value>grpStartup</value>
+  </data>
+  <data name="&gt;&gt;cmdDefaultProfileBrowse.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;txtDefaultProfile.Name" xml:space="preserve">
+    <value>txtDefaultProfile</value>
+  </data>
+  <data name="&gt;&gt;txtDefaultProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtDefaultProfile.Parent" xml:space="preserve">
+    <value>grpStartup</value>
+  </data>
+  <data name="&gt;&gt;txtDefaultProfile.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="grpStartup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 66</value>
+  </data>
+  <data name="grpStartup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>548, 91</value>
+  </data>
+  <data name="grpStartup.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="grpStartup.Text" xml:space="preserve">
+    <value>On Startup</value>
+  </data>
+  <data name="&gt;&gt;grpStartup.Name" xml:space="preserve">
+    <value>grpStartup</value>
+  </data>
+  <data name="&gt;&gt;grpStartup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpStartup.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
+  <data name="&gt;&gt;grpStartup.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="radNone.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -348,30 +432,6 @@
   <data name="&gt;&gt;txtDefaultProfile.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="grpStartup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 66</value>
-  </data>
-  <data name="grpStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 91</value>
-  </data>
-  <data name="grpStartup.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="grpStartup.Text" xml:space="preserve">
-    <value>On Startup</value>
-  </data>
-  <data name="&gt;&gt;grpStartup.Name" xml:space="preserve">
-    <value>grpStartup</value>
-  </data>
-  <data name="&gt;&gt;grpStartup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpStartup.Parent" xml:space="preserve">
-    <value>tabGeneral</value>
-  </data>
-  <data name="&gt;&gt;grpStartup.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="chkRemoveExtraEntries.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -409,7 +469,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdAccept.Location" type="System.Drawing.Point, System.Drawing">
-    <value>505, 480</value>
+    <value>505, 475</value>
   </data>
   <data name="cmdAccept.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -439,7 +499,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>424, 480</value>
+    <value>424, 475</value>
   </data>
   <data name="cmdCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -466,10 +526,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="grpSaving.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 387</value>
+    <value>6, 386</value>
   </data>
   <data name="grpSaving.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 44</value>
+    <value>548, 41</value>
   </data>
   <data name="grpSaving.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -487,31 +547,10 @@
     <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;grpSaving.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="grpDatSrc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
-  </data>
-  <data name="cmbDatSrc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="cmbDatSrc.Items" xml:space="preserve">
-    <value>Prefer XML</value>
-  </data>
-  <data name="cmbDatSrc.Items1" xml:space="preserve">
-    <value>Use XML Only</value>
-  </data>
-  <data name="cmbDatSrc.Items2" xml:space="preserve">
-    <value>Use HTML Only</value>
-  </data>
-  <data name="cmbDatSrc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 19</value>
-  </data>
-  <data name="cmbDatSrc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 21</value>
-  </data>
-  <data name="cmbDatSrc.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="&gt;&gt;cmbDatSrc.Name" xml:space="preserve">
     <value>cmbDatSrc</value>
@@ -526,10 +565,10 @@
     <value>0</value>
   </data>
   <data name="grpDatSrc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 329</value>
+    <value>423, 328</value>
   </data>
   <data name="grpDatSrc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>284, 52</value>
+    <value>131, 52</value>
   </data>
   <data name="grpDatSrc.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -547,13 +586,460 @@
     <value>tabGeneral</value>
   </data>
   <data name="&gt;&gt;grpDatSrc.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
+  </data>
+  <data name="cmbDatSrc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="cmbDatSrc.Items" xml:space="preserve">
+    <value>Prefer XML</value>
+  </data>
+  <data name="cmbDatSrc.Items1" xml:space="preserve">
+    <value>Use XML Only</value>
+  </data>
+  <data name="cmbDatSrc.Items2" xml:space="preserve">
+    <value>Use HTML Only</value>
+  </data>
+  <data name="cmbDatSrc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 18</value>
+  </data>
+  <data name="cmbDatSrc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 21</value>
+  </data>
+  <data name="cmbDatSrc.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cmbDatSrc.Name" xml:space="preserve">
+    <value>cmbDatSrc</value>
+  </data>
+  <data name="&gt;&gt;cmbDatSrc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbDatSrc.Parent" xml:space="preserve">
+    <value>grpDatSrc</value>
+  </data>
+  <data name="&gt;&gt;cmbDatSrc.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="tabControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="grpStoreLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;cmbStoreLanguage.Name" xml:space="preserve">
+    <value>cmbStoreLanguage</value>
+  </data>
+  <data name="&gt;&gt;cmbStoreLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbStoreLanguage.Parent" xml:space="preserve">
+    <value>grpStoreLanguage</value>
+  </data>
+  <data name="&gt;&gt;cmbStoreLanguage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpStoreLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>215, 328</value>
+  </data>
+  <data name="grpStoreLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 52</value>
+  </data>
+  <data name="grpStoreLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="grpStoreLanguage.Text" xml:space="preserve">
+    <value>Steam Store Language</value>
+  </data>
+  <data name="&gt;&gt;grpStoreLanguage.Name" xml:space="preserve">
+    <value>grpStoreLanguage</value>
+  </data>
+  <data name="&gt;&gt;grpStoreLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpStoreLanguage.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
+  <data name="&gt;&gt;grpStoreLanguage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="grpDepressurizerUpdates.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;chkCheckForDepressurizerUpdates.Name" xml:space="preserve">
+    <value>chkCheckForDepressurizerUpdates</value>
+  </data>
+  <data name="&gt;&gt;chkCheckForDepressurizerUpdates.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkCheckForDepressurizerUpdates.Parent" xml:space="preserve">
+    <value>grpDepressurizerUpdates</value>
+  </data>
+  <data name="&gt;&gt;chkCheckForDepressurizerUpdates.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpDepressurizerUpdates.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 281</value>
+  </data>
+  <data name="grpDepressurizerUpdates.Size" type="System.Drawing.Size, System.Drawing">
+    <value>548, 41</value>
+  </data>
+  <data name="grpDepressurizerUpdates.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="grpDepressurizerUpdates.Text" xml:space="preserve">
+    <value>Depressurizer Updates</value>
+  </data>
+  <data name="&gt;&gt;grpDepressurizerUpdates.Name" xml:space="preserve">
+    <value>grpDepressurizerUpdates</value>
+  </data>
+  <data name="&gt;&gt;grpDepressurizerUpdates.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpDepressurizerUpdates.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
+  <data name="&gt;&gt;grpDepressurizerUpdates.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="grpDatabase.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;numScrapePromptDays.Name" xml:space="preserve">
+    <value>numScrapePromptDays</value>
+  </data>
+  <data name="&gt;&gt;numScrapePromptDays.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numScrapePromptDays.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;numScrapePromptDays.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;lblScrapePrompt2.Name" xml:space="preserve">
+    <value>lblScrapePrompt2</value>
+  </data>
+  <data name="&gt;&gt;lblScrapePrompt2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblScrapePrompt2.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;lblScrapePrompt2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lblScapePrompt1.Name" xml:space="preserve">
+    <value>lblScapePrompt1</value>
+  </data>
+  <data name="&gt;&gt;lblScapePrompt1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblScapePrompt1.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;lblScapePrompt1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;helpIncludeImputedTimes.Name" xml:space="preserve">
+    <value>helpIncludeImputedTimes</value>
+  </data>
+  <data name="&gt;&gt;helpIncludeImputedTimes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpIncludeImputedTimes.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;helpIncludeImputedTimes.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;chkIncludeImputedTimes.Name" xml:space="preserve">
+    <value>chkIncludeImputedTimes</value>
+  </data>
+  <data name="&gt;&gt;chkIncludeImputedTimes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkIncludeImputedTimes.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;chkIncludeImputedTimes.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateHltbOnStartup.Name" xml:space="preserve">
+    <value>chkUpdateHltbOnStartup</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateHltbOnStartup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateHltbOnStartup.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateHltbOnStartup.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;chkAutosaveDB.Name" xml:space="preserve">
+    <value>chkAutosaveDB</value>
+  </data>
+  <data name="&gt;&gt;chkAutosaveDB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkAutosaveDB.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;chkAutosaveDB.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfoOnStartup.Name" xml:space="preserve">
+    <value>chkUpdateAppInfoOnStartup</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfoOnStartup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfoOnStartup.Parent" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;chkUpdateAppInfoOnStartup.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="grpDatabase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 163</value>
+  </data>
+  <data name="grpDatabase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>548, 112</value>
+  </data>
+  <data name="grpDatabase.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="grpDatabase.Text" xml:space="preserve">
+    <value>Database Options</value>
+  </data>
+  <data name="&gt;&gt;grpDatabase.Name" xml:space="preserve">
+    <value>grpDatabase</value>
+  </data>
+  <data name="&gt;&gt;grpDatabase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpDatabase.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
+  <data name="&gt;&gt;grpDatabase.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="grpUILanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="cmbUILanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 19</value>
+  </data>
+  <data name="cmbUILanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 21</value>
+  </data>
+  <data name="cmbUILanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cmbUILanguage.Name" xml:space="preserve">
+    <value>cmbUILanguage</value>
+  </data>
+  <data name="&gt;&gt;cmbUILanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbUILanguage.Parent" xml:space="preserve">
+    <value>grpUILanguage</value>
+  </data>
+  <data name="&gt;&gt;cmbUILanguage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpUILanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 328</value>
+  </data>
+  <data name="grpUILanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 52</value>
+  </data>
+  <data name="grpUILanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="grpUILanguage.Text" xml:space="preserve">
+    <value>Program UI Language</value>
+  </data>
+  <data name="&gt;&gt;grpUILanguage.Name" xml:space="preserve">
+    <value>grpUILanguage</value>
+  </data>
+  <data name="&gt;&gt;grpUILanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpUILanguage.Parent" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
+  <data name="&gt;&gt;grpUILanguage.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabGeneral.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabGeneral.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabGeneral.Size" type="System.Drawing.Size, System.Drawing">
+    <value>560, 431</value>
+  </data>
+  <data name="tabGeneral.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabGeneral.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="&gt;&gt;tabGeneral.Name" xml:space="preserve">
+    <value>tabGeneral</value>
+  </data>
+  <data name="&gt;&gt;tabGeneral.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabGeneral.Parent" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="&gt;&gt;tabGeneral.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;numLogBackup.Name" xml:space="preserve">
+    <value>numLogBackup</value>
+  </data>
+  <data name="&gt;&gt;numLogBackup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numLogBackup.Parent" xml:space="preserve">
+    <value>tabLogging</value>
+  </data>
+  <data name="&gt;&gt;numLogBackup.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;numLogSize.Name" xml:space="preserve">
+    <value>numLogSize</value>
+  </data>
+  <data name="&gt;&gt;numLogSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numLogSize.Parent" xml:space="preserve">
+    <value>tabLogging</value>
+  </data>
+  <data name="&gt;&gt;numLogSize.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>tabLogging</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>tabLogging</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>tabLogging</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;cmbLogLevel.Name" xml:space="preserve">
+    <value>cmbLogLevel</value>
+  </data>
+  <data name="&gt;&gt;cmbLogLevel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbLogLevel.Parent" xml:space="preserve">
+    <value>tabLogging</value>
+  </data>
+  <data name="&gt;&gt;cmbLogLevel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tabLogging.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabLogging.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabLogging.Size" type="System.Drawing.Size, System.Drawing">
+    <value>560, 431</value>
+  </data>
+  <data name="tabLogging.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tabLogging.Text" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="&gt;&gt;tabLogging.Name" xml:space="preserve">
+    <value>tabLogging</value>
+  </data>
+  <data name="&gt;&gt;tabLogging.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabLogging.Parent" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="&gt;&gt;tabLogging.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>568, 457</value>
+  </data>
+  <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
+    <value>tabControl</value>
+  </data>
+  <data name="&gt;&gt;tabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cmbStoreLanguage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 19</value>
+  </data>
+  <data name="cmbStoreLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 21</value>
+  </data>
+  <data name="cmbStoreLanguage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cmbStoreLanguage.Name" xml:space="preserve">
+    <value>cmbStoreLanguage</value>
+  </data>
+  <data name="&gt;&gt;cmbStoreLanguage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbStoreLanguage.Parent" xml:space="preserve">
+    <value>grpStoreLanguage</value>
+  </data>
+  <data name="&gt;&gt;cmbStoreLanguage.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="chkCheckForDepressurizerUpdates.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -584,33 +1070,6 @@
   </data>
   <data name="&gt;&gt;chkCheckForDepressurizerUpdates.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="grpDepressurizerUpdates.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 281</value>
-  </data>
-  <data name="grpDepressurizerUpdates.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 44</value>
-  </data>
-  <data name="grpDepressurizerUpdates.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="grpDepressurizerUpdates.Text" xml:space="preserve">
-    <value>Depressurizer Updates</value>
-  </data>
-  <data name="&gt;&gt;grpDepressurizerUpdates.Name" xml:space="preserve">
-    <value>grpDepressurizerUpdates</value>
-  </data>
-  <data name="&gt;&gt;grpDepressurizerUpdates.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpDepressurizerUpdates.Parent" xml:space="preserve">
-    <value>tabGeneral</value>
-  </data>
-  <data name="&gt;&gt;grpDepressurizerUpdates.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="grpDatabase.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
   </data>
   <data name="numScrapePromptDays.Location" type="System.Drawing.Point, System.Drawing">
     <value>409, 87</value>
@@ -846,123 +1305,6 @@
   <data name="&gt;&gt;chkUpdateAppInfoOnStartup.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="grpDatabase.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 163</value>
-  </data>
-  <data name="grpDatabase.Size" type="System.Drawing.Size, System.Drawing">
-    <value>548, 112</value>
-  </data>
-  <data name="grpDatabase.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="grpDatabase.Text" xml:space="preserve">
-    <value>Database Options</value>
-  </data>
-  <data name="&gt;&gt;grpDatabase.Name" xml:space="preserve">
-    <value>grpDatabase</value>
-  </data>
-  <data name="&gt;&gt;grpDatabase.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpDatabase.Parent" xml:space="preserve">
-    <value>tabGeneral</value>
-  </data>
-  <data name="&gt;&gt;grpDatabase.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="grpLanguage.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="cmbLanguage.Items" xml:space="preserve">
-    <value>Default</value>
-  </data>
-  <data name="cmbLanguage.Items1" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="cmbLanguage.Items2" xml:space="preserve">
-    <value>Spanish</value>
-  </data>
-  <data name="cmbLanguage.Items3" xml:space="preserve">
-    <value>Russian</value>
-  </data>
-  <data name="cmbLanguage.Items4" xml:space="preserve">
-    <value>Ukranian</value>
-  </data>
-  <data name="cmbLanguage.Items5" xml:space="preserve">
-    <value>Dutch</value>
-  </data>
-  <data name="cmbLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 19</value>
-  </data>
-  <data name="cmbLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 21</value>
-  </data>
-  <data name="cmbLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cmbLanguage.Name" xml:space="preserve">
-    <value>cmbLanguage</value>
-  </data>
-  <data name="&gt;&gt;cmbLanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmbLanguage.Parent" xml:space="preserve">
-    <value>grpLanguage</value>
-  </data>
-  <data name="&gt;&gt;cmbLanguage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="grpLanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>294, 329</value>
-  </data>
-  <data name="grpLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 52</value>
-  </data>
-  <data name="grpLanguage.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="grpLanguage.Text" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="&gt;&gt;grpLanguage.Name" xml:space="preserve">
-    <value>grpLanguage</value>
-  </data>
-  <data name="&gt;&gt;grpLanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpLanguage.Parent" xml:space="preserve">
-    <value>tabGeneral</value>
-  </data>
-  <data name="&gt;&gt;grpLanguage.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabGeneral.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabGeneral.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabGeneral.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 436</value>
-  </data>
-  <data name="tabGeneral.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabGeneral.Text" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="&gt;&gt;tabGeneral.Name" xml:space="preserve">
-    <value>tabGeneral</value>
-  </data>
-  <data name="&gt;&gt;tabGeneral.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabGeneral.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabGeneral.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="numLogBackup.Location" type="System.Drawing.Point, System.Drawing">
     <value>130, 59</value>
   </data>
@@ -1122,54 +1464,6 @@
   <data name="&gt;&gt;cmbLogLevel.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="tabLogging.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tabLogging.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tabLogging.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 436</value>
-  </data>
-  <data name="tabLogging.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tabLogging.Text" xml:space="preserve">
-    <value>Logging</value>
-  </data>
-  <data name="&gt;&gt;tabLogging.Name" xml:space="preserve">
-    <value>tabLogging</value>
-  </data>
-  <data name="&gt;&gt;tabLogging.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabLogging.Parent" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabLogging.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="tabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 462</value>
-  </data>
-  <data name="tabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabControl.Name" xml:space="preserve">
-    <value>tabControl</value>
-  </data>
-  <data name="&gt;&gt;tabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="ttHelp.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -1180,7 +1474,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>592, 513</value>
+    <value>592, 508</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

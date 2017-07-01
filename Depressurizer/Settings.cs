@@ -17,6 +17,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
 using System.Globalization;
+using System.Linq;
+using System.Net;
 using System.Threading;
 using Rallion;
 
@@ -34,7 +36,7 @@ namespace Depressurizer {
         WebsiteOnly
     }
 
-    enum UserLanguage
+    enum UILanguage
     {
         windows,
         en, // English
@@ -42,6 +44,37 @@ namespace Depressurizer {
         ru, // Russian
         uk, // Ukranian
         nl  // Dutch
+    }
+
+    public enum StoreLanguage
+    {
+        windows,
+        bg, // Bulgarian
+        cs, // Czech
+        da, // Danish
+        nl, // Dutch
+        en, // English
+        fi, // Finnish
+        fr, // French
+        de, // German
+        el, // Greek
+        hu, // Hungarian
+        it, // Italian
+        ja, // Japanese
+        ko, // Korean
+        no, // Norwegian
+        pl, // Polish
+        pt, // Portuguese
+        pt_BR, // Portuguese (Brasil)
+        ro, // Romanian
+        ru, // Russian
+        zh_Hans, // Simplified Chinese
+        es, // Spanish
+        sv, // Swedish
+        th, // Thai
+        zh_Hant, // Traditional Chinese
+        tr, // Turkish
+        uk, // Ukrainian
     }
 
     class Settings : AppSettings {
@@ -469,8 +502,64 @@ namespace Depressurizer {
             }
         }
 
-        private UserLanguage _userLanguage = UserLanguage.windows;
-        public UserLanguage UserLang
+        //Language of steam store. Used in browser and when scraping tags, genres, etc
+        private StoreLanguage _storeLanguage = StoreLanguage.windows;
+        public StoreLanguage StoreLang
+        {
+            get
+            {
+                return _storeLanguage;
+            }
+            set
+            {
+                if (_storeLanguage != value)
+                {
+                    _storeLanguage = value;
+                    outOfDate = true;
+                    changeStoreLanguage(_storeLanguage);
+                }
+            }
+        }
+
+        private void changeStoreLanguage(StoreLanguage storeLanguage)
+        {
+            if (Program.GameDB == null) return;
+            StoreLanguage dbLanguage = StoreLanguage.en;
+            if (storeLanguage == StoreLanguage.windows)
+            {
+                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+                if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
+                    dbLanguage =
+                        (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
+                else
+                {
+                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name =="zh-Hans")
+                        dbLanguage = StoreLanguage.zh_Hans;
+                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
+                        dbLanguage = StoreLanguage.zh_Hant;
+                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
+                        dbLanguage = StoreLanguage.pt_BR;
+                }
+            }
+            else dbLanguage = storeLanguage;
+            if (Program.GameDB.dbLanguage != dbLanguage)
+            {
+                Program.GameDB.dbLanguage = dbLanguage;
+                foreach (GameDBEntry g in Program.GameDB.Games.Values)
+                {
+                    g.Tags = null;
+                    g.Flags = null;
+                    g.Genres = null;
+                    g.SteamReleaseDate = null;
+                }
+                Program.GameDB.Save("GameDB.xml.gz");
+            }
+            string test = Thread.CurrentThread.CurrentCulture.Name;
+        }
+
+        //Depressurizer UI language
+        private UILanguage _userLanguage = UILanguage.windows;
+        public UILanguage UserLang
         {
             get
             {
@@ -487,25 +576,25 @@ namespace Depressurizer {
             }
         }
 
-        private void changeLanguage(UserLanguage userLanguage)
+        private void changeLanguage(UILanguage userLanguage)
         {
             CultureInfo newCulture;
 
             switch (userLanguage)
             {
-                case UserLanguage.en:
+                case UILanguage.en:
                     newCulture = new CultureInfo("en");
                     break;
-                case UserLanguage.es:
+                case UILanguage.es:
                     newCulture = new CultureInfo("es");
                     break;
-                case UserLanguage.ru:
+                case UILanguage.ru:
                     newCulture = new CultureInfo("ru");
                     break;
-                case UserLanguage.uk:
+                case UILanguage.uk:
                     newCulture = new CultureInfo("uk");
                     break;
-                case UserLanguage.nl:
+                case UILanguage.nl:
                     newCulture = new CultureInfo("nl");
                     break;
                 default:
