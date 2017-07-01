@@ -17,6 +17,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
 using System.Globalization;
+using System.Linq;
+using System.Net;
 using System.Threading;
 using Rallion;
 
@@ -44,7 +46,7 @@ namespace Depressurizer {
         nl  // Dutch
     }
 
-    enum StoreLanguage
+    public enum StoreLanguage
     {
         windows,
         bg, // Bulgarian
@@ -514,8 +516,45 @@ namespace Depressurizer {
                 {
                     _storeLanguage = value;
                     outOfDate = true;
+                    changeStoreLanguage(_storeLanguage);
                 }
             }
+        }
+
+        private void changeStoreLanguage(StoreLanguage storeLanguage)
+        {
+            if (Program.GameDB == null) return;
+            StoreLanguage dbLanguage = StoreLanguage.en;
+            if (storeLanguage == StoreLanguage.windows)
+            {
+                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+                if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
+                    dbLanguage =
+                        (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
+                else
+                {
+                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name =="zh-Hans")
+                        dbLanguage = StoreLanguage.zh_Hans;
+                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
+                        dbLanguage = StoreLanguage.zh_Hant;
+                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
+                        dbLanguage = StoreLanguage.pt_BR;
+                }
+            }
+            else dbLanguage = storeLanguage;
+            if (Program.GameDB.dbLanguage != dbLanguage)
+            {
+                Program.GameDB.dbLanguage = dbLanguage;
+                foreach (GameDBEntry g in Program.GameDB.Games.Values)
+                {
+                    g.Tags = null;
+                    g.Flags = null;
+                    g.Genres = null;
+                    g.SteamReleaseDate = null;
+                }
+                Program.GameDB.Save("GameDB.xml.gz");
+            }
+            string test = Thread.CurrentThread.CurrentCulture.Name;
         }
 
         //Depressurizer UI language
