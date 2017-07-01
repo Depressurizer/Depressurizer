@@ -293,7 +293,7 @@ namespace Depressurizer {
 
                 game.Hidden = XmlUtil.GetBoolFromNode( node[XmlName_Game_Hidden], false );
                 game.Executable = XmlUtil.GetStringFromNode(node[XmlName_Game_Executable], null);
-                game.LastPlayed = Convert.ToDateTime(XmlUtil.GetStringFromNode(node[XmlName_Game_LastPlayed], null));
+                game.LastPlayed = XmlUtil.GetIntFromNode(node[XmlName_Game_LastPlayed], 0);
 
                 if ( profileVersion < 1 ) {
                     string catName;
@@ -377,7 +377,7 @@ namespace Depressurizer {
 
                     writer.WriteElementString( XmlName_Game_Hidden, g.Hidden.ToString() );
                     
-                    if (g.LastPlayed != DateTime.MinValue) writer.WriteElementString(XmlName_Game_LastPlayed, g.LastPlayed.ToString());
+                    if (g.LastPlayed != 0) writer.WriteElementString(XmlName_Game_LastPlayed, g.LastPlayed.ToString());
 
                     if (!g.Executable.Contains("steam://")) writer.WriteElementString(XmlName_Game_Executable, g.Executable);
 
