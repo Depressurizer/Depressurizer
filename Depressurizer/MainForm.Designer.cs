@@ -345,7 +345,6 @@ namespace Depressurizer {
             this.lstCategories.Name = "lstCategories";
             this.lstCategories.ShowGroups = false;
             this.lstCategories.UseCompatibleStateImageBehavior = false;
-            this.lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
             this.lstCategories.View = System.Windows.Forms.View.Details;
             this.lstCategories.SelectionChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
             this.lstCategories.SelectedIndexChanged += new System.EventHandler(this.lstCategories_SelectedIndexChanged);
@@ -768,6 +767,7 @@ namespace Depressurizer {
             this.colCategories.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colCategories.Tag = "colCategories";
             resources.ApplyResources(this.colCategories, "colCategories");
+            this.colCategories.WordWrap = true;
             // 
             // colGenres
             // 
@@ -775,6 +775,7 @@ namespace Depressurizer {
             this.colGenres.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colGenres.IsVisible = false;
             this.colGenres.Tag = "colGenres";
+            this.colGenres.WordWrap = true;
             // 
             // colFlags
             // 
@@ -782,12 +783,14 @@ namespace Depressurizer {
             this.colFlags.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colFlags.IsVisible = false;
             this.colFlags.Tag = "colFlags";
+            this.colFlags.WordWrap = true;
             // 
             // colTags
             // 
             this.colTags.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colTags.Tag = "colTags";
             resources.ApplyResources(this.colTags, "colTags");
+            this.colTags.WordWrap = true;
             // 
             // colFavorite
             // 
