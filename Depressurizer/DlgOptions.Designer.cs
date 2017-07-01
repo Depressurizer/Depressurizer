@@ -59,6 +59,8 @@ namespace Depressurizer {
             this.cmbDatSrc = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.grpStoreLanguage = new System.Windows.Forms.GroupBox();
+            this.cmbStoreLanguage = new System.Windows.Forms.ComboBox();
             this.grpDepressurizerUpdates = new System.Windows.Forms.GroupBox();
             this.chkCheckForDepressurizerUpdates = new System.Windows.Forms.CheckBox();
             this.grpDatabase = new System.Windows.Forms.GroupBox();
@@ -70,8 +72,8 @@ namespace Depressurizer {
             this.chkUpdateHltbOnStartup = new System.Windows.Forms.CheckBox();
             this.chkAutosaveDB = new System.Windows.Forms.CheckBox();
             this.chkUpdateAppInfoOnStartup = new System.Windows.Forms.CheckBox();
-            this.grpLanguage = new System.Windows.Forms.GroupBox();
-            this.cmbLanguage = new System.Windows.Forms.ComboBox();
+            this.grpUILanguage = new System.Windows.Forms.GroupBox();
+            this.cmbUILanguage = new System.Windows.Forms.ComboBox();
             this.tabLogging = new System.Windows.Forms.TabPage();
             this.numLogBackup = new System.Windows.Forms.NumericUpDown();
             this.numLogSize = new System.Windows.Forms.NumericUpDown();
@@ -86,10 +88,11 @@ namespace Depressurizer {
             this.grpDatSrc.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
+            this.grpStoreLanguage.SuspendLayout();
             this.grpDepressurizerUpdates.SuspendLayout();
             this.grpDatabase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).BeginInit();
-            this.grpLanguage.SuspendLayout();
+            this.grpUILanguage.SuspendLayout();
             this.tabLogging.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
@@ -214,9 +217,10 @@ namespace Depressurizer {
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.grpStoreLanguage);
             this.tabGeneral.Controls.Add(this.grpDepressurizerUpdates);
             this.tabGeneral.Controls.Add(this.grpDatabase);
-            this.tabGeneral.Controls.Add(this.grpLanguage);
+            this.tabGeneral.Controls.Add(this.grpUILanguage);
             this.tabGeneral.Controls.Add(this.grpSteamDir);
             this.tabGeneral.Controls.Add(this.grpDatSrc);
             this.tabGeneral.Controls.Add(this.grpStartup);
@@ -224,6 +228,20 @@ namespace Depressurizer {
             resources.ApplyResources(this.tabGeneral, "tabGeneral");
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // grpStoreLanguage
+            // 
+            resources.ApplyResources(this.grpStoreLanguage, "grpStoreLanguage");
+            this.grpStoreLanguage.Controls.Add(this.cmbStoreLanguage);
+            this.grpStoreLanguage.Name = "grpStoreLanguage";
+            this.grpStoreLanguage.TabStop = false;
+            // 
+            // cmbStoreLanguage
+            // 
+            this.cmbStoreLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStoreLanguage.FormattingEnabled = true;
+            resources.ApplyResources(this.cmbStoreLanguage, "cmbStoreLanguage");
+            this.cmbStoreLanguage.Name = "cmbStoreLanguage";
             // 
             // grpDepressurizerUpdates
             // 
@@ -302,26 +320,19 @@ namespace Depressurizer {
             this.chkUpdateAppInfoOnStartup.Name = "chkUpdateAppInfoOnStartup";
             this.chkUpdateAppInfoOnStartup.UseVisualStyleBackColor = true;
             // 
-            // grpLanguage
+            // grpUILanguage
             // 
-            resources.ApplyResources(this.grpLanguage, "grpLanguage");
-            this.grpLanguage.Controls.Add(this.cmbLanguage);
-            this.grpLanguage.Name = "grpLanguage";
-            this.grpLanguage.TabStop = false;
+            resources.ApplyResources(this.grpUILanguage, "grpUILanguage");
+            this.grpUILanguage.Controls.Add(this.cmbUILanguage);
+            this.grpUILanguage.Name = "grpUILanguage";
+            this.grpUILanguage.TabStop = false;
             // 
-            // cmbLanguage
+            // cmbUILanguage
             // 
-            this.cmbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbLanguage.FormattingEnabled = true;
-            this.cmbLanguage.Items.AddRange(new object[] {
-            resources.GetString("cmbLanguage.Items"),
-            resources.GetString("cmbLanguage.Items1"),
-            resources.GetString("cmbLanguage.Items2"),
-            resources.GetString("cmbLanguage.Items3"),
-            resources.GetString("cmbLanguage.Items4"),
-            resources.GetString("cmbLanguage.Items5")});
-            resources.ApplyResources(this.cmbLanguage, "cmbLanguage");
-            this.cmbLanguage.Name = "cmbLanguage";
+            this.cmbUILanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbUILanguage.FormattingEnabled = true;
+            resources.ApplyResources(this.cmbUILanguage, "cmbUILanguage");
+            this.cmbUILanguage.Name = "cmbUILanguage";
             // 
             // tabLogging
             // 
@@ -408,12 +419,13 @@ namespace Depressurizer {
             this.grpDatSrc.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
+            this.grpStoreLanguage.ResumeLayout(false);
             this.grpDepressurizerUpdates.ResumeLayout(false);
             this.grpDepressurizerUpdates.PerformLayout();
             this.grpDatabase.ResumeLayout(false);
             this.grpDatabase.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).EndInit();
-            this.grpLanguage.ResumeLayout(false);
+            this.grpUILanguage.ResumeLayout(false);
             this.tabLogging.ResumeLayout(false);
             this.tabLogging.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
@@ -449,8 +461,8 @@ namespace Depressurizer {
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbLogLevel;
-        private System.Windows.Forms.GroupBox grpLanguage;
-        private System.Windows.Forms.ComboBox cmbLanguage;
+        private System.Windows.Forms.GroupBox grpUILanguage;
+        private System.Windows.Forms.ComboBox cmbUILanguage;
         private System.Windows.Forms.GroupBox grpDatabase;
         private System.Windows.Forms.CheckBox chkAutosaveDB;
         private System.Windows.Forms.CheckBox chkUpdateAppInfoOnStartup;
@@ -462,5 +474,7 @@ namespace Depressurizer {
         private System.Windows.Forms.Label lblScrapePrompt2;
         private System.Windows.Forms.Label lblScapePrompt1;
         private System.Windows.Forms.NumericUpDown numScrapePromptDays;
+        private System.Windows.Forms.GroupBox grpStoreLanguage;
+        private System.Windows.Forms.ComboBox cmbStoreLanguage;
     }
 }

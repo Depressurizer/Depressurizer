@@ -34,7 +34,7 @@ namespace Depressurizer {
         WebsiteOnly
     }
 
-    enum UserLanguage
+    enum UILanguage
     {
         windows,
         en, // English
@@ -42,6 +42,37 @@ namespace Depressurizer {
         ru, // Russian
         uk, // Ukranian
         nl  // Dutch
+    }
+
+    enum StoreLanguage
+    {
+        windows,
+        bg, // Bulgarian
+        cs, // Czech
+        da, // Danish
+        nl, // Dutch
+        en, // English
+        fi, // Finnish
+        fr, // French
+        de, // German
+        el, // Greek
+        hu, // Hungarian
+        it, // Italian
+        ja, // Japanese
+        ko, // Korean
+        no, // Norwegian
+        pl, // Polish
+        pt, // Portuguese
+        pt_BR, // Portuguese (Brasil)
+        ro, // Romanian
+        ru, // Russian
+        zh_Hans, // Simplified Chinese
+        es, // Spanish
+        sv, // Swedish
+        th, // Thai
+        zh_Hant, // Traditional Chinese
+        tr, // Turkish
+        uk, // Ukrainian
     }
 
     class Settings : AppSettings {
@@ -469,8 +500,27 @@ namespace Depressurizer {
             }
         }
 
-        private UserLanguage _userLanguage = UserLanguage.windows;
-        public UserLanguage UserLang
+        //Language of steam store. Used in browser and when scraping tags, genres, etc
+        private StoreLanguage _storeLanguage = StoreLanguage.windows;
+        public StoreLanguage StoreLang
+        {
+            get
+            {
+                return _storeLanguage;
+            }
+            set
+            {
+                if (_storeLanguage != value)
+                {
+                    _storeLanguage = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        //Depressurizer UI language
+        private UILanguage _userLanguage = UILanguage.windows;
+        public UILanguage UserLang
         {
             get
             {
@@ -487,25 +537,25 @@ namespace Depressurizer {
             }
         }
 
-        private void changeLanguage(UserLanguage userLanguage)
+        private void changeLanguage(UILanguage userLanguage)
         {
             CultureInfo newCulture;
 
             switch (userLanguage)
             {
-                case UserLanguage.en:
+                case UILanguage.en:
                     newCulture = new CultureInfo("en");
                     break;
-                case UserLanguage.es:
+                case UILanguage.es:
                     newCulture = new CultureInfo("es");
                     break;
-                case UserLanguage.ru:
+                case UILanguage.ru:
                     newCulture = new CultureInfo("ru");
                     break;
-                case UserLanguage.uk:
+                case UILanguage.uk:
                     newCulture = new CultureInfo("uk");
                     break;
-                case UserLanguage.nl:
+                case UILanguage.nl:
                     newCulture = new CultureInfo("nl");
                     break;
                 default:
