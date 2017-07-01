@@ -241,7 +241,8 @@ namespace Depressurizer
             colLastPlayed.AspectGetter = delegate(object g)
             {
                 if (g == null) return DateTime.MinValue;
-                return (((GameInfo)g).LastPlayed == DateTime.MinValue) ? DateTime.MinValue : ((GameInfo)g).LastPlayed;
+                if (((GameInfo)g).LastPlayed<=0) return DateTime.MinValue; 
+                return Utility.GetDTFromUTime(((GameInfo)g).LastPlayed).Date;
             };
             colAchievements.AspectGetter = delegate (object g)
             {
@@ -3859,7 +3860,7 @@ namespace Depressurizer
                 //    // Steam game
                 //    gameIdentifier = g.Id.ToString();
                 //}
-                g.LastPlayed = DateTime.Now;
+                g.LastPlayed = Utility.GetCurrentUTime();
                 System.Diagnostics.Process.Start(g.Executable);
             }
         }

@@ -54,7 +54,7 @@ namespace Depressurizer {
         public bool Hidden;
         public SortedSet<Category> Categories;
         public GameListingSource Source;
-        public DateTime LastPlayed;
+        public int LastPlayed;
 
         private string _launchStr = null;
         /// <summary>
@@ -1040,9 +1040,8 @@ namespace Depressurizer {
 
                             if (gameNodePair.Value.ContainsKey("LastPlayed") && gameNodePair.Value["LastPlayed"].NodeInt != 0)
                             {
-                                DateTime dt = Utility.GetDTFromUTime(gameNodePair.Value["LastPlayed"].NodeInt);
-                                if (dt > game.LastPlayed) game.LastPlayed = dt;
-                                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, game.LastPlayed.ToString());
+                                game.LastPlayed = gameNodePair.Value["LastPlayed"].NodeInt;
+                                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId, Utility.GetDTFromUTime(game.LastPlayed).Date);
                             }    
                         }
                     }
