@@ -125,7 +125,17 @@ namespace Depressurizer
             HttpWebResponse resp = null;
             try
             {
-                HttpWebRequest req = GetSteamRequest(string.Format(Properties.Resources.UrlSteamStoreApp, id));
+                string storeLanguage = "en";
+                if (Program.GameDB != null)
+                {
+                    if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans) storeLanguage = "schinese";
+                    else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant) storeLanguage = "tchinese";
+                    else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR) storeLanguage = "brazilian";
+                    else storeLanguage = CultureInfo
+                        .GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName
+                        .ToLowerInvariant();
+                }
+                HttpWebRequest req = GetSteamRequest(string.Format(Properties.Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
@@ -477,6 +487,7 @@ namespace Depressurizer
         private SortedSet<string> allStoreDevelopers;
         private SortedSet<string> allStorePublishers;
         public int LastHltbUpdate;
+        public StoreLanguage dbLanguage = StoreLanguage.en;
         // Utility
         static char[] genreSep = new char[] { ',' };
 
@@ -484,6 +495,7 @@ namespace Depressurizer
         private const string
             XmlName_Version = "version",
             XmlName_LastHltbUpdate = "lastHltbUpdate",
+            XmlName_dbLanguage = "dbLanguage",
             XmlName_GameList = "gamelist",
             XmlName_Game = "game",
             XmlName_Game_Id = "id",
@@ -1179,6 +1191,8 @@ namespace Depressurizer
 
                 writer.WriteElementString(XmlName_LastHltbUpdate, LastHltbUpdate.ToString());
 
+                writer.WriteElementString(XmlName_dbLanguage, Enum.GetName(typeof(StoreLanguage), dbLanguage));
+
                 foreach (GameDBEntry g in Games.Values)
                 {
 
@@ -1326,6 +1340,8 @@ namespace Depressurizer
                 int fileVersion = XmlUtil.GetIntFromNode(gameListNode[XmlName_Version], 0);
 
                 LastHltbUpdate = XmlUtil.GetIntFromNode(gameListNode[XmlName_LastHltbUpdate], 0);
+
+                dbLanguage = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), XmlUtil.GetStringFromNode(gameListNode[XmlName_dbLanguage], "en"), true);
 
                 foreach (XmlNode gameNode in gameListNode.SelectNodes(XmlName_Game))
                 {

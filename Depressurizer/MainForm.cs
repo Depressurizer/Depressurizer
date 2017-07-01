@@ -28,6 +28,7 @@ using System.Text;
 using System.Threading;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Serialization.Advanced;
 using BrightIdeasSoftware;
 using Newtonsoft.Json.Linq;
 using MaterialSkin;
@@ -232,7 +233,8 @@ namespace Depressurizer
                 if (g == null) return GlobalStrings.MainForm_Unknown;
                 int id = ((GameInfo)g).Id;
                 DateTime releaseDate;
-                if (Program.GameDB.Games.ContainsKey(id) && DateTime.TryParse(Program.GameDB.Games[id].SteamReleaseDate, out releaseDate))
+                CultureInfo culture = Utility.GetCultureInfoFromStoreLanguage(Program.GameDB.dbLanguage);
+                if (Program.GameDB.Games.ContainsKey(id) && DateTime.TryParse(Program.GameDB.Games[id].SteamReleaseDate, culture, DateTimeStyles.None, out releaseDate))
                     return releaseDate.Year.ToString();
                 return GlobalStrings.MainForm_Unknown;
             };
@@ -3461,10 +3463,20 @@ namespace Depressurizer
 
         private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string storeLanguage="en";
             contextGameFav_Yes.Checked = false;
             contextGameFav_No.Checked = false;
             contextGameHidden_Yes.Checked = false;
             contextGameHidden_No.Checked = false;
+            if (Program.GameDB != null)
+            {
+                if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans) storeLanguage = "schinese";
+                else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant) storeLanguage = "tchinese";
+                else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR) storeLanguage = "brazilian";
+                else storeLanguage = CultureInfo
+                    .GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName
+                    .ToLowerInvariant();
+            }
 
             if (lstGames.SelectedObjects.Count > 0)
             {
@@ -3479,7 +3491,7 @@ namespace Depressurizer
                 if (webBrowser1.Visible)
                 {
                     webBrowser1.ScriptErrorsSuppressed = true;
-                    webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp, g.Id));
+                    webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp +"?l=" + storeLanguage, g.Id));
                 }
             }
             else if (webBrowser1.Visible)
@@ -3490,12 +3502,12 @@ namespace Depressurizer
                     {
                         GameInfo g = tlstGames.Objects[0];
                         webBrowser1.ScriptErrorsSuppressed = true;
-                        webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp, g.Id));
+                        webBrowser1.Navigate(string.Format(Properties.Resources.UrlSteamStoreApp + "?l=" + storeLanguage, g.Id));
                     }
                     else
                     {
                         webBrowser1.ScriptErrorsSuppressed = true;
-                        webBrowser1.Navigate(Properties.Resources.UrlSteamStore);
+                        webBrowser1.Navigate(Properties.Resources.UrlSteamStore + "?l=" + storeLanguage);
                     }
                 }
                 catch
