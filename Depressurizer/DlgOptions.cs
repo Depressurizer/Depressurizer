@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 using Rallion;
 
@@ -32,7 +34,53 @@ namespace Depressurizer {
         private void OptionsForm_Load( object sender, EventArgs e ) {
             string[] levels = Enum.GetNames( typeof(LoggerLevel) );
             cmbLogLevel.Items.AddRange( levels );
-            
+
+            //UI languages
+            List<string> UILanguages = new List<string>();
+            foreach (string l in Enum.GetNames(typeof(UILanguage)))
+            {
+                string name;
+                switch (l)
+                {
+                    case "windows":
+                        name = "Default";
+                        break;
+                    default:
+                        name = CultureInfo.GetCultureInfo(l).NativeName;
+                        break;
+                }
+                UILanguages.Add(name);
+            }
+            cmbUILanguage.Items.AddRange(UILanguages.ToArray());
+
+            //Store Languages
+            List<string> storeLanguages = new List<string>();
+            foreach (string l in Enum.GetNames(typeof(StoreLanguage)))
+            {
+                string name;
+                switch (l)
+                {
+                    case "windows":
+                        name = "Default";
+                        break;
+                    case "zh_Hans":
+                        name = CultureInfo.GetCultureInfo("zh-Hans").NativeName;
+                        break;
+                    case "zh_Hant":
+                        name = CultureInfo.GetCultureInfo("zh-Hant").NativeName;
+                        break;
+                    case "pt_BR":
+                        name = CultureInfo.GetCultureInfo("pt-BR").NativeName;
+                        break;
+                    default:
+                        name = CultureInfo.GetCultureInfo(l).NativeName;
+                        break;
+
+                }
+                storeLanguages.Add(name);
+            }
+            cmbStoreLanguage.Items.AddRange(storeLanguages.ToArray());
+
             FillFieldsFromSettings();
         }
 
@@ -77,27 +125,9 @@ namespace Depressurizer {
             numLogSize.Value = settings.LogSize;
             numLogBackup.Value = settings.LogBackups;
 
-            switch (settings.UserLang)
-            {
-                case UserLanguage.en:
-                    cmbLanguage.SelectedIndex = 1;
-                    break;
-                case UserLanguage.es:
-                    cmbLanguage.SelectedIndex = 2;
-                    break;
-                case UserLanguage.ru:
-                    cmbLanguage.SelectedIndex = 3;
-                    break;
-                case UserLanguage.uk:
-                    cmbLanguage.SelectedIndex = 4;
-                    break;
-                case UserLanguage.nl:
-                    cmbLanguage.SelectedIndex = 5;
-                    break;
-                default:
-                    cmbLanguage.SelectedIndex = 0;
-                    break;
-            }
+            //supported languages have an enum value of 1-5 (en, es, ru, uk, nl). 0 is windows language.
+            cmbUILanguage.SelectedIndex = (int)settings.UserLang;
+            cmbStoreLanguage.SelectedIndex = (int)settings.StoreLang;
         }
 
         private void SaveFieldsToSettings() {
@@ -140,27 +170,8 @@ namespace Depressurizer {
             settings.LogSize = (int)numLogSize.Value;
             settings.LogBackups = (int)numLogBackup.Value;
 
-            switch (cmbLanguage.SelectedIndex)
-            {
-                case 0:
-                    settings.UserLang = UserLanguage.windows;
-                    break;
-                case 1:
-                    settings.UserLang = UserLanguage.en;
-                    break;
-                case 2:
-                    settings.UserLang = UserLanguage.es;
-                    break;
-                case 3:
-                    settings.UserLang = UserLanguage.ru;
-                    break;
-                case 4:
-                    settings.UserLang = UserLanguage.uk;
-                    break;
-                case 5:
-                    settings.UserLang = UserLanguage.nl;
-                    break;
-            }
+            settings.UserLang = (UILanguage)cmbUILanguage.SelectedIndex;
+            settings.StoreLang = (StoreLanguage)cmbStoreLanguage.SelectedIndex;
 
             try {
                 settings.Save();
