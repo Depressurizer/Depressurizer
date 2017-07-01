@@ -15,18 +15,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Rallion;
-using System.IO.Compression;
-using System.Globalization;
-using System.Linq;
-using System.Drawing;
+using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
+using Rallion;
 
 namespace Depressurizer
 {
@@ -45,26 +47,26 @@ namespace Depressurizer
         public List<string> Genres = new List<string>();
         public List<string> Flags = new List<string>();
         public List<string> Tags = new List<string>();
-        public List<string> Developers = null;
-        public List<string> Publishers = null;
-        public string SteamReleaseDate = null;
-        public int Achievements = 0;
+        public List<string> Developers;
+        public List<string> Publishers;
+        public string SteamReleaseDate;
+        public int Achievements;
 
         public string Banner = null;
 
-        public int ReviewTotal = 0;
-        public int ReviewPositivePercentage = 0;
+        public int ReviewTotal;
+        public int ReviewPositivePercentage;
 
         //howlongtobeat.com times
-        public int HltbMain = 0;
+        public int HltbMain;
         public int HltbExtras = -0;
-        public int HltbCompletionist = 0;
+        public int HltbCompletionist;
 
         // Metacritic:
-        public string MC_Url = null;
+        public string MC_Url;
 
-        public int LastStoreScrape = 0;
-        public int LastAppInfoUpdate = 0;
+        public int LastStoreScrape;
+        public int LastAppInfoUpdate;
         #endregion
 
         #region Regex
@@ -100,7 +102,7 @@ namespace Depressurizer
         /// <returns>The type determined during the scrape</returns>
         public AppTypes ScrapeStore()
         {
-            AppTypes result = ScrapeStoreHelper(this.Id);
+            AppTypes result = ScrapeStoreHelper(Id);
             SetTypeFromStoreScrape(result);
             return result;
         }
@@ -135,14 +137,14 @@ namespace Depressurizer
                         .GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName
                         .ToLowerInvariant();
                 }
-                HttpWebRequest req = GetSteamRequest(string.Format(Properties.Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
+                HttpWebRequest req = GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
                 while (resp.StatusCode == HttpStatusCode.Found && count<5)
                 {
                     resp.Close();
-                    if (resp.Headers[HttpResponseHeader.Location] == Properties.Resources.UrlSteamStore)
+                    if (resp.Headers[HttpResponseHeader.Location] == Resources.UrlSteamStore)
                     {
                         // If we are redirected to the store front page
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
@@ -273,7 +275,7 @@ namespace Depressurizer
 
             if (redirectTarget != -1)
             {
-                this.ParentId = redirectTarget;
+                ParentId = redirectTarget;
                 result = AppTypes.Unknown;
             }
 
@@ -299,9 +301,9 @@ namespace Depressurizer
         /// <param name="typeFromStore">Type found from the store scrape</param>
         private void SetTypeFromStoreScrape(AppTypes typeFromStore)
         {
-            if (this.AppType == AppTypes.Unknown || (typeFromStore != AppTypes.Unknown && LastAppInfoUpdate == 0))
+            if (AppType == AppTypes.Unknown || (typeFromStore != AppTypes.Unknown && LastAppInfoUpdate == 0))
             {
-                this.AppType = typeFromStore;
+                AppType = typeFromStore;
             }
         }
 
@@ -330,7 +332,7 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string flag = ma.Groups[1].Value;
-                    if (!string.IsNullOrWhiteSpace(flag)) this.Flags.Add(flag);
+                    if (!string.IsNullOrWhiteSpace(flag)) Flags.Add(flag);
                 }
             }
 
@@ -342,7 +344,7 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string tag = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(tag)) this.Tags.Add(tag);
+                    if (!string.IsNullOrWhiteSpace(tag)) Tags.Add(tag);
                 }
             }
 
@@ -358,7 +360,7 @@ namespace Depressurizer
                 int num = 0;
                 if (int.TryParse(m.Groups[1].Value, out num))
                 {
-                    this.Achievements = num;
+                    Achievements = num;
                 }
             }
 
@@ -388,7 +390,7 @@ namespace Depressurizer
             m = regRelDate.Match(page);
             if (m.Success)
             {
-                this.SteamReleaseDate = m.Groups[3].Captures[0].Value;
+                SteamReleaseDate = m.Groups[3].Captures[0].Value;
             }
 
             // Get user review data
@@ -398,11 +400,11 @@ namespace Depressurizer
                 int num = 0;
                 if (int.TryParse(m.Groups[1].Value, out num))
                 {
-                    this.ReviewPositivePercentage = num;
+                    ReviewPositivePercentage = num;
                 }
                 if (int.TryParse(m.Groups[2].Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out num))
                 {
-                    this.ReviewTotal = num;
+                    ReviewTotal = num;
                 }
             }
 
@@ -410,18 +412,18 @@ namespace Depressurizer
             m = regMetalink.Match(page);
             if (m.Success)
             {
-                this.MC_Url = m.Groups[1].Captures[0].Value;
+                MC_Url = m.Groups[1].Captures[0].Value;
             }
 
             // Get Platforms
             m = regPlatformWindows.Match(page);
-            if (m.Success) this.Platforms |= AppPlatforms.Windows;
+            if (m.Success) Platforms |= AppPlatforms.Windows;
             m = regPlatformMac.Match(page);
-            if (m.Success) this.Platforms |= AppPlatforms.Mac;
+            if (m.Success) Platforms |= AppPlatforms.Mac;
             m = regPlatformLinux.Match(page);
-            if (m.Success) this.Platforms |= AppPlatforms.Linux;
+            if (m.Success) Platforms |= AppPlatforms.Linux;
             m = regPlatformSteamplay.Match(page);
-            if (m.Success) this.Platforms |= AppPlatforms.Steamplay;
+            if (m.Success) Platforms |= AppPlatforms.Steamplay;
 
         }
         #endregion
@@ -434,17 +436,17 @@ namespace Depressurizer
         /// <param name="other">GameDBEntry containing info to be merged into this entry.</param>
         public void MergeIn(GameDBEntry other)
         {
-            bool useAppInfoFields = other.LastAppInfoUpdate > this.LastAppInfoUpdate || (this.LastAppInfoUpdate == 0 && other.LastStoreScrape >= this.LastStoreScrape);
-            bool useScrapeOnlyFields = other.LastStoreScrape >= this.LastStoreScrape;
+            bool useAppInfoFields = other.LastAppInfoUpdate > LastAppInfoUpdate || (LastAppInfoUpdate == 0 && other.LastStoreScrape >= LastStoreScrape);
+            bool useScrapeOnlyFields = other.LastStoreScrape >= LastStoreScrape;
 
-            if (other.AppType != AppTypes.Unknown && (this.AppType == AppTypes.Unknown || useAppInfoFields))
+            if (other.AppType != AppTypes.Unknown && (AppType == AppTypes.Unknown || useAppInfoFields))
             {
-                this.AppType = other.AppType;
+                AppType = other.AppType;
             }
 
-            if (other.LastStoreScrape >= this.LastStoreScrape || (this.LastStoreScrape == 0 && other.LastAppInfoUpdate > this.LastAppInfoUpdate) || this.Platforms==AppPlatforms.None)
+            if (other.LastStoreScrape >= LastStoreScrape || (LastStoreScrape == 0 && other.LastAppInfoUpdate > LastAppInfoUpdate) || Platforms==AppPlatforms.None)
             {
-                this.Platforms = other.Platforms;
+                Platforms = other.Platforms;
             }
 
             if (useAppInfoFields)
@@ -461,19 +463,19 @@ namespace Depressurizer
                 if (other.Developers != null && other.Developers.Count > 0) Developers = other.Developers;
                 if (other.Publishers != null && other.Publishers.Count > 0) Publishers = other.Publishers;
                 if (!string.IsNullOrEmpty(other.SteamReleaseDate)) SteamReleaseDate = other.SteamReleaseDate;
-                if (other.Achievements != 0) this.Achievements = other.Achievements;
+                if (other.Achievements != 0) Achievements = other.Achievements;
 
                 if (other.ReviewTotal != 0)
                 {
-                    this.ReviewTotal = other.ReviewTotal;
-                    this.ReviewPositivePercentage = other.ReviewPositivePercentage;
+                    ReviewTotal = other.ReviewTotal;
+                    ReviewPositivePercentage = other.ReviewPositivePercentage;
                 }
 
                 if (!string.IsNullOrEmpty(other.MC_Url)) MC_Url = other.MC_Url;
             }
 
-            if (other.LastStoreScrape > this.LastStoreScrape) this.LastStoreScrape = other.LastStoreScrape;
-            if (other.LastAppInfoUpdate > this.LastAppInfoUpdate) this.LastAppInfoUpdate = other.LastAppInfoUpdate;
+            if (other.LastStoreScrape > LastStoreScrape) LastStoreScrape = other.LastStoreScrape;
+            if (other.LastAppInfoUpdate > LastAppInfoUpdate) LastAppInfoUpdate = other.LastAppInfoUpdate;
         }
     }
 
@@ -489,7 +491,7 @@ namespace Depressurizer
         public int LastHltbUpdate;
         public StoreLanguage dbLanguage = StoreLanguage.en;
         // Utility
-        static char[] genreSep = new char[] { ',' };
+        static char[] genreSep = { ',' };
 
         private const int VERSION = 1;
         private const string
@@ -650,10 +652,7 @@ namespace Depressurizer
             {
                 return CalculateAllGenres();
             }
-            else
-            {
-                return allStoreGenres;
-            }
+            return allStoreGenres;
         }
 
         /// <summary>
@@ -694,10 +693,7 @@ namespace Depressurizer
             {
                 return CalculateAllDevelopers();
             }
-            else
-            {
-                return allStoreDevelopers;
-            }
+            return allStoreDevelopers;
         }
 
         /// <summary>
@@ -738,10 +734,7 @@ namespace Depressurizer
             {
                 return CalculateAllPublishers();
             }
-            else
-            {
-                return allStorePublishers;
-            }
+            return allStorePublishers;
         }
         /// <summary>
         /// Gets a list of all Steam store publishers found in the entire database.
@@ -781,10 +774,7 @@ namespace Depressurizer
             {
                 return CalculateAllStoreFlags();
             }
-            else
-            {
-                return allStoreFlags;
-            }
+            return allStoreFlags;
         }
 
         /// <summary>
@@ -997,7 +987,7 @@ namespace Depressurizer
                         }
                         else
                         {
-                            float interp = (float)i / (float)(tagsToLoad - 1);
+                            float interp = i / (float)(tagsToLoad - 1);
                             score = (1 - interp) * weightFactor + interp;
                         }
                     }
@@ -1036,7 +1026,7 @@ namespace Depressurizer
         public static XmlDocument FetchAppListFromWeb()
         {
             XmlDocument doc = new XmlDocument();
-            Program.Logger.Write(Rallion.LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList);
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList);
             WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
             using (WebResponse resp = req.GetResponse())
             {
@@ -1125,8 +1115,8 @@ namespace Depressurizer
 
                 using (WebClient wc = new WebClient())
                 {
-                    wc.Encoding = System.Text.Encoding.UTF8;
-                    string json = wc.DownloadString(Properties.Resources.UrlHLTBAll);
+                    wc.Encoding = Encoding.UTF8;
+                    string json = wc.DownloadString(Resources.UrlHLTBAll);
                     JObject parsedJson = JObject.Parse(json);
                     dynamic games = parsedJson.SelectToken("Games");
                     foreach (dynamic g in games)
@@ -1377,10 +1367,10 @@ namespace Depressurizer
                     }
                     else
                     {
-                        g.AppType = XmlUtil.GetEnumFromNode<AppTypes>(gameNode[XmlName_Game_Type], AppTypes.Unknown);
+                        g.AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppTypes.Unknown);
                     }
 
-                    g.Platforms = XmlUtil.GetEnumFromNode<AppPlatforms>(gameNode[XmlName_Game_Platforms], AppPlatforms.All);
+                    g.Platforms = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Platforms], AppPlatforms.All);
 
                     g.ParentId = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Parent], -1);
 
