@@ -184,6 +184,9 @@ namespace Depressurizer {
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.imglistEarlyAccess = new System.Windows.Forms.ImageList(this.components);
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.colVRHeadsets = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colVRInput = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colVRPlayArea = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -703,6 +706,9 @@ namespace Depressurizer {
             this.lstGames.AllColumns.Add(this.colHltbExtras);
             this.lstGames.AllColumns.Add(this.colHltbCompletionist);
             this.lstGames.AllColumns.Add(this.colPlatforms);
+            this.lstGames.AllColumns.Add(this.colVRHeadsets);
+            this.lstGames.AllColumns.Add(this.colVRInput);
+            this.lstGames.AllColumns.Add(this.colVRPlayArea);
             this.lstGames.AllColumns.Add(this.colFiller);
             this.lstGames.AllowColumnReorder = true;
             resources.ApplyResources(this.lstGames, "lstGames");
@@ -1413,6 +1419,30 @@ namespace Depressurizer {
             this.imglistEarlyAccess.Images.SetKeyName(1, "early_access_banner_russian.png");
             this.imglistEarlyAccess.Images.SetKeyName(2, "early_access_banner_spanish.png");
             // 
+            // colVRHeadsets
+            // 
+            resources.ApplyResources(this.colVRHeadsets, "colVRHeadsets");
+            this.colVRHeadsets.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colVRHeadsets.IsVisible = false;
+            this.colVRHeadsets.Tag = "colVRHeadsets";
+            this.colVRHeadsets.WordWrap = true;
+            // 
+            // colVRInput
+            // 
+            resources.ApplyResources(this.colVRInput, "colVRInput");
+            this.colVRInput.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colVRInput.IsVisible = false;
+            this.colVRInput.Tag = "colVRInput";
+            this.colVRInput.WordWrap = true;
+            // 
+            // colVRPlayArea
+            // 
+            resources.ApplyResources(this.colVRPlayArea, "colVRPlayArea");
+            this.colVRPlayArea.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colVRPlayArea.IsVisible = false;
+            this.colVRPlayArea.Tag = "colVRPlayArea";
+            this.colVRPlayArea.WordWrap = true;
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1600,6 +1630,9 @@ namespace Depressurizer {
         private System.Windows.Forms.ImageList imglistEarlyAccess;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private MaterialSkin.Controls.MaterialDivider materialDivider1;
+        private BrightIdeasSoftware.OLVColumn colVRHeadsets;
+        private BrightIdeasSoftware.OLVColumn colVRInput;
+        private BrightIdeasSoftware.OLVColumn colVRPlayArea;
     }
 }
 

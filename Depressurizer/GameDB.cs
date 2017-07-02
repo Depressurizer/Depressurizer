@@ -33,6 +33,13 @@ using Rallion;
 namespace Depressurizer
 {
 
+    public struct VrSupport
+    {
+        public List<string> Headsets;
+        public List<string> Input;
+        public List<string> PlayArea;
+    }
+
     public class GameDBEntry
     {
 
@@ -51,6 +58,8 @@ namespace Depressurizer
         public List<string> Publishers;
         public string SteamReleaseDate;
         public int Achievements;
+
+        public VrSupport vrSupport;
 
         public string Banner = null;
 
@@ -88,6 +97,14 @@ namespace Depressurizer
         private static Regex regReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
 
         private static Regex regAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
+
+        //VR Support
+        //regVrSupportHeadsetsSection, regVrSupportInputSection and regVrSupportPlayAreaSection match the whole Headsets, Input and Play Area sections respectively
+        //regVrSupportFlagMatch matches the flags inside those sections
+        private static Regex regVrSupportHeadsetsSection = new Regex(@"<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">", RegexOptions.Compiled);
+        private static Regex regVrSupportInputSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">", RegexOptions.Compiled);
+        private static Regex regVrSupportPlayAreaSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)", RegexOptions.Compiled);
+        private static Regex regVrSupportFlagMatch = new Regex(@"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""http:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>", RegexOptions.Compiled);
 
         private static Regex regPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
         private static Regex regPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
@@ -348,6 +365,45 @@ namespace Depressurizer
                 }
             }
 
+            //Get VR Support headsets
+            m = regVrSupportHeadsetsSection.Match(page);
+            if (m.Success)
+            {
+                matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
+                vrSupport.Headsets = new List<string>();
+                foreach (Match ma in matches)
+                {
+                    string headset = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
+                    if (!string.IsNullOrWhiteSpace(headset)) vrSupport.Headsets.Add(headset);
+                }
+            }
+
+            //Get VR Support Input
+            m = regVrSupportInputSection.Match(page);
+            if (m.Success)
+            {
+                matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
+                vrSupport.Input = new List<string>();
+                foreach (Match ma in matches)
+                {
+                    string input = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
+                    if (!string.IsNullOrWhiteSpace(input)) vrSupport.Input.Add(input);
+                }
+            }
+
+            //Get VR Support Play Area
+            m = regVrSupportPlayAreaSection.Match(page);
+            if (m.Success)
+            {
+                matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
+                vrSupport.PlayArea = new List<string>();
+                foreach (Match ma in matches)
+                {
+                    string playArea = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
+                    if (!string.IsNullOrWhiteSpace(playArea)) vrSupport.PlayArea.Add(playArea);
+                }
+            }
+
             //Get Achievement number
             m = regAchievements.Match(page);
             if (m.Success)
@@ -464,6 +520,9 @@ namespace Depressurizer
                 if (other.Publishers != null && other.Publishers.Count > 0) Publishers = other.Publishers;
                 if (!string.IsNullOrEmpty(other.SteamReleaseDate)) SteamReleaseDate = other.SteamReleaseDate;
                 if (other.Achievements != 0) Achievements = other.Achievements;
+                if (other.vrSupport.Headsets != null && other.vrSupport.Headsets.Count > 0) vrSupport.Headsets = other.vrSupport.Headsets;
+                if (other.vrSupport.Input != null && other.vrSupport.Input.Count > 0) vrSupport.Input = other.vrSupport.Input;
+                if (other.vrSupport.PlayArea != null && other.vrSupport.PlayArea.Count > 0) vrSupport.PlayArea = other.vrSupport.PlayArea;
 
                 if (other.ReviewTotal != 0)
                 {
@@ -494,6 +553,7 @@ namespace Depressurizer
         static char[] genreSep = { ',' };
 
         private const int VERSION = 1;
+
         private const string
             XmlName_Version = "version",
             XmlName_LastHltbUpdate = "lastHltbUpdate",
@@ -519,7 +579,11 @@ namespace Depressurizer
             XmlName_Game_Date = "steamDate",
             XmlName_Game_HltbMain = "hltbMain",
             XmlName_Game_HltbExtras = "hltbExtras",
-            XmlName_Game_HltbCompletionist = "hltbCompletionist";
+            XmlName_Game_HltbCompletionist = "hltbCompletionist",
+            XmlName_Game_vrSupport = "vrSupport",
+            XmlName_Game_vrSupport_Headsets = "Headset",
+            XmlName_Game_vrSupport_Input = "Input",
+            XmlName_Game_vrSupport_PlayArea = "PlayArea";
 
         #region Accessors
 
@@ -595,6 +659,21 @@ namespace Depressurizer
             }
             return null;
         }
+
+        public VrSupport GetVrSupport(int gameId, int depth = 3)
+        {
+            if (Games.ContainsKey(gameId))
+            {
+                VrSupport res = Games[gameId].vrSupport;
+                if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) && (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+                {
+                    res = GetVrSupport(Games[gameId].ParentId, depth - 1);
+                }
+                return res;
+            }
+            return new VrSupport();
+        }
+
 
         public List<string> GetDevelopers(int gameId, int depth = 3)
         {
@@ -1244,6 +1323,34 @@ namespace Depressurizer
                         }
                     }
 
+                    //vr support
+                    writer.WriteStartElement(XmlName_Game_vrSupport);
+                    if (g.vrSupport.Headsets != null)
+                    {
+                        foreach (string str in g.vrSupport.Headsets)
+                        {
+                            writer.WriteElementString(XmlName_Game_vrSupport_Headsets, str);
+                        }
+                    }
+
+                    if (g.vrSupport.Input != null)
+                    {
+                        foreach (string str in g.vrSupport.Input)
+                        {
+                            writer.WriteElementString(XmlName_Game_vrSupport_Input, str);
+                        }
+                    }
+
+                    if (g.vrSupport.PlayArea != null)
+                    {
+                        foreach (string str in g.vrSupport.PlayArea)
+                        {
+                            writer.WriteElementString(XmlName_Game_vrSupport_PlayArea, str);
+                        }
+                    }
+
+                    writer.WriteEndElement();
+
                     if (g.Achievements > 0)
                     {
                         writer.WriteElementString(XmlName_Game_Achievements, g.Achievements.ToString());
@@ -1394,6 +1501,13 @@ namespace Depressurizer
                     }
 
                     g.Tags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Tag));
+
+                    foreach (XmlNode vrNode in gameNode.SelectNodes(XmlName_Game_vrSupport))
+                    {
+                        g.vrSupport.Headsets = XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Headsets));
+                        g.vrSupport.Input = XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Input));
+                        g.vrSupport.PlayArea= XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_PlayArea));
+                    }
 
                     g.Developers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Developer));
 
