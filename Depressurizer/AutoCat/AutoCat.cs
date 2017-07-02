@@ -70,29 +70,17 @@ namespace Depressurizer
         protected GameList games;
         protected GameDB db;
 
-        public abstract AutoCatType AutoCatType {
-            get;
-        }
+        public abstract AutoCatType AutoCatType { get; }
 
         public string Name { get; set; }
 
-        public virtual string DisplayName
-        {
-            get
-            {
-                string displayName = Name;
-                if (Filter != null) displayName += "*";
-                return displayName;
-            }
-        }
+        public virtual string DisplayName => Filter != null ? (Name += "*") : Name;
 
         public string Filter { get; set; }
 
         public bool Selected { get; set; }
 
-        public override string ToString() {
-            return Name;
-        }
+        public override string ToString() => Name;
 
         protected AutoCat( string name ) {
             Name = name;
@@ -106,12 +94,10 @@ namespace Depressurizer
 
         public abstract AutoCat Clone();
 
-        public int CompareTo( object other ) {
-            if( other is AutoCat ) {
-                return string.Compare( this.Name, ( other as AutoCat ).Name );
-            } else {
-                return 1;
-            }
+        public int CompareTo( object other )
+        {
+            AutoCat cat = other as AutoCat;
+            return cat != null ? string.CompareOrdinal( this.Name, cat.Name ) : 1;
         }
 
         /// <summary>
