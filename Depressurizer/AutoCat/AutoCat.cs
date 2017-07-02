@@ -65,11 +65,8 @@ namespace Depressurizer
     /// This is a preliminary form, and may change in future versions.
     /// Returning only true / false on a categorization attempt may prove too simplistic.
     /// </summary>
-    public abstract class AutoCat : IComparable {
-
-        private const string
-            XmlName_Filter = "Filter";
-
+    public abstract class AutoCat : IComparable
+    {
         protected GameList games;
         protected GameDB db;
 
