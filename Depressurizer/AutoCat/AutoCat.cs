@@ -67,8 +67,8 @@ namespace Depressurizer
     /// </summary>
     public abstract class AutoCat : IComparable
     {
-        protected GameList games;
-        protected GameDB db;
+        protected GameList Games;
+        protected GameDB Db;
 
         public abstract AutoCatType AutoCatType { get; }
 
@@ -105,8 +105,8 @@ namespace Depressurizer
         /// After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
         public virtual void PreProcess( GameList games, GameDB db ) {
-            this.games = games;
-            this.db = db;
+            this.Games = games;
+            this.Db = db;
         }
 
         /// <summary>
@@ -115,8 +115,8 @@ namespace Depressurizer
         /// <param name="gameId">The game ID to process</param>
         /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
         public virtual AutoCatResult CategorizeGame( int gameId, Filter filter ) {
-            if( games.Games.ContainsKey( gameId ) ) {
-                return CategorizeGame( games.Games[gameId], filter );
+            if( Games.Games.ContainsKey( gameId ) ) {
+                return CategorizeGame( Games.Games[gameId], filter );
             }
             return AutoCatResult.Failure;
         }
@@ -129,8 +129,8 @@ namespace Depressurizer
         public abstract AutoCatResult CategorizeGame( GameInfo game, Filter filter );
 
         public virtual void DeProcess() {
-            games = null;
-            db = null;
+            Games = null;
+            Db = null;
         }
 
         public abstract void WriteToXml( XmlWriter writer );

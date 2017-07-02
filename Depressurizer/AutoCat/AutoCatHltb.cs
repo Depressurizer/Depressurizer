@@ -1,19 +1,20 @@
 ﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013, 2014 Steve Labbe.
+    This file is part of Depressurizer.
+    Original work Copyright 2011, 2012, 2013 Steve Labbe.
+    Modified work Copyright 2017 Martijn Vegter.
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    Depressurizer is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    Depressurizer is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using Rallion;
@@ -106,11 +107,11 @@ namespace Depressurizer {
 
         #region Autocategorization
         public override AutoCatResult CategorizeGame( GameInfo game, Filter filter ) {
-            if( games == null ) {
+            if( Games == null ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
                 throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
             }
-            if( db == null ) {
+            if( Db == null ) {
                 Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull );
                 throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameDB );
             }
@@ -119,15 +120,15 @@ namespace Depressurizer {
                 return AutoCatResult.Failure;
             }
 
-            if( !db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
+            if( !Db.Contains( game.Id ) ) return AutoCatResult.NotInDatabase;
 
             if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             string result = null;
             
-            float hltbMain = db.Games[game.Id].HltbMain/60.0f;
-            float hltbExtras = db.Games[game.Id].HltbExtras/60.0f;
-            float hltbCompletionist = db.Games[game.Id].HltbCompletionist/60.0f;
+            float hltbMain = Db.Games[game.Id].HltbMain/60.0f;
+            float hltbExtras = Db.Games[game.Id].HltbExtras/60.0f;
+            float hltbCompletionist = Db.Games[game.Id].HltbCompletionist/60.0f;
 
             if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
                 result = UnknownText;
@@ -145,7 +146,7 @@ namespace Depressurizer {
 
             if( result != null ) {
                 result = GetProcessedString( result );
-                game.AddCategory( games.GetCategory( result ) );
+                game.AddCategory( Games.GetCategory( result ) );
             }
             return AutoCatResult.Success;
         }
