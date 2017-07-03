@@ -82,12 +82,20 @@ namespace Depressurizer
 
         public override string ToString() => Name;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
         protected AutoCat( string name )
         {
             Name = name;
             Filter = null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
         protected AutoCat( AutoCat other )
         {
             Name = other.Name;
@@ -136,6 +144,11 @@ namespace Depressurizer
 
         public abstract void WriteToXml( XmlWriter writer );
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xElement"></param>
+        /// <returns></returns>
         public static AutoCat LoadAutoCatFromXmlElement( XmlElement xElement )
         {
             switch( xElement.Name )
@@ -165,6 +178,12 @@ namespace Depressurizer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static AutoCat Create( AutoCatType type, string name )
         {
             switch( type )
