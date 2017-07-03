@@ -27,9 +27,7 @@ namespace Depressurizer {
 
     public class AutoCatFlags : AutoCat {
 
-        public override AutoCatType AutoCatType {
-            get { return AutoCatType.Flags; }
-        }
+        public override AutoCatType AutoCatType => AutoCatType.Flags;
 
         // AutoCat configuration
         public string Prefix { get; set; }
