@@ -58,9 +58,7 @@ namespace Depressurizer {
             this.Selected = other.Selected;
         }
 
-        public override AutoCat Clone() {
-            return new AutoCatFlags( this );
-        }
+        public override AutoCat Clone() => new AutoCatFlags( this );
 
         public override AutoCatResult CategorizeGame( GameInfo game, Filter filter ) {
             if( Games == null ) {
