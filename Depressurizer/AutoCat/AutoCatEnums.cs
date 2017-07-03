@@ -23,28 +23,17 @@ namespace Depressurizer
 {
     public enum AutoCatType
     {
-        [Description("None")]
-        None,
-        [Description("AutoCatGenre")]
-        Genre,
-        [Description("AutoCatFlags")]
-        Flags,
-        [Description("AutoCatTags")]
-        Tags,
-        [Description("AutoCatYear")]
-        Year,
-        [Description("AutoCatUserScore")]
-        UserScore,
-        [Description("AutoCatHltb")]
-        Hltb,
-        [Description("AutoCatManual")]
-        Manual,
-        [Description("AutoCatDevPub")]
-        DevPub,
-        [Description("AutoCatGroup")]
-        Group,
-        [Description("AutoCatName")]
-        Name
+        [Description("None")] None,
+        [Description("AutoCatGenre")] Genre,
+        [Description("AutoCatFlags")] Flags,
+        [Description("AutoCatTags")] Tags,
+        [Description("AutoCatYear")] Year,
+        [Description("AutoCatUserScore")] UserScore,
+        [Description("AutoCatHltb")] Hltb,
+        [Description("AutoCatManual")] Manual,
+        [Description("AutoCatDevPub")] DevPub,
+        [Description("AutoCatGroup")] Group,
+        [Description("AutoCatName")] Name
     }
 
     public enum AutoCatResult
