@@ -167,10 +167,7 @@ namespace Depressurizer
             return AutoCatResult.Success;
         }
 
-        private int DevCount(string name)
-        {
-            return (from dev in _devList where dev.Item1 == name select dev.Item2).FirstOrDefault();
-        }
+        private int DevCount(string name) => (from dev in _devList where dev.Item1 == name select dev.Item2).FirstOrDefault();
 
         private int PubCount(string name)
         {
