@@ -46,7 +46,7 @@ namespace Depressurizer {
             : base( name ) {
             Filter = filter;
             Prefix = prefix;
-            IncludedFlags = ( flags == null ) ? ( new List<string>() ) : flags;
+            IncludedFlags = flags ?? new List<string>();
             Selected = selected;
         }
 
