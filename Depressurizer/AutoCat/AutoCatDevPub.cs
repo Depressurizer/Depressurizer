@@ -20,6 +20,7 @@
 using Rallion;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 
 namespace Depressurizer
@@ -168,11 +169,7 @@ namespace Depressurizer
 
         private int DevCount(string name)
         {
-            foreach (Tuple<string, int> dev in _devList)
-            {
-                if (dev.Item1 == name) return dev.Item2;
-            }
-            return 0;
+            return (from dev in _devList where dev.Item1 == name select dev.Item2).FirstOrDefault();
         }
 
         private int PubCount(string name)
