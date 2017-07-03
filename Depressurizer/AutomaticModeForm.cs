@@ -17,7 +17,6 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Rallion;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,6 +26,7 @@ using System.Windows.Forms;
 using System.Xml;
 using Depressurizer.AutoCat;
 using Depressurizer.DBEdit;
+using Depressurizer.Lib;
 
 namespace Depressurizer {
 

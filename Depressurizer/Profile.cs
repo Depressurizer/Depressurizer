@@ -23,7 +23,7 @@ using System.Xml;
 using System.Drawing;
 using System.IO;
 using Depressurizer.AutoCat;
-using Rallion;
+using Depressurizer.Lib;
 using Depressurizer.Model;
 
 namespace Depressurizer {

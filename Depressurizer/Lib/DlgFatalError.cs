@@ -22,9 +22,8 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using Depressurizer;
 
-namespace Rallion
+namespace Depressurizer.Lib
 {
     internal delegate DialogResult DLG_MessageBox(string text);
 

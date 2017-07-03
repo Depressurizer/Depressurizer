@@ -20,7 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Rallion;
+using Depressurizer.Lib;
 
 namespace Depressurizer.DBEdit
 {

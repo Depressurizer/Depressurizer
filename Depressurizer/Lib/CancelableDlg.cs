@@ -21,7 +21,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Rallion
+namespace Depressurizer.Lib
 {
     public partial class CancelableDlg : Form
     {

@@ -19,7 +19,7 @@
 
 using System.Windows.Forms;
 
-namespace Rallion
+namespace Depressurizer.Lib
 {
     public partial class GetStringDlg : Form
     {
