@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.Xml;
 using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCat
 {
     /// <summary>
     ///     Autocategorization scheme that adds and removes manual categories.

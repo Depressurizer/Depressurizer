@@ -21,7 +21,7 @@ using System;
 using System.Xml;
 using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCat
 {
     internal class AutoCatYear : AutoCat
     {

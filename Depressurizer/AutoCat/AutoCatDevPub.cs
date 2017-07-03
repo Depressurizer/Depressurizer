@@ -23,7 +23,7 @@ using System.Linq;
 using System.Xml;
 using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCat
 {
     /// <summary>
     ///     Autocategorization scheme that adds developer and publisher categories.

@@ -24,7 +24,7 @@ using System.Xml;
 using Depressurizer.Model;
 using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCat
 {
     public class AutoCatHltb : AutoCat
     {
