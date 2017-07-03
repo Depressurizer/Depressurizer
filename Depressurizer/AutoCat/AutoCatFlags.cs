@@ -17,11 +17,11 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using Rallion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -37,7 +37,11 @@ namespace Depressurizer
         // Serialization constants
         public const string TypeIdString = "AutoCatFlags";
 
-        private const string XmlNameName = "Name", XmlNameFilter = "Filter", XmlNamePrefix = "Prefix", XmlNameFlagList = "Flags", XmlNameFlag = "Flag";
+        private const string XmlNameName = "Name";
+        private const string XmlNameFilter = "Filter";
+        private const string XmlNamePrefix = "Prefix";
+        private const string XmlNameFlagList = "Flags";
+        private const string XmlNameFlag = "Flag";
 
         public AutoCatFlags(string name, string filter = null, string prefix = null, List<string> flags = null, bool selected = false) : base(name)
         {
