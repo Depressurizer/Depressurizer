@@ -17,7 +17,6 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Rallion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,6 +33,7 @@ using System.Xml.Serialization.Advanced;
 using BrightIdeasSoftware;
 using Depressurizer.AutoCat;
 using Depressurizer.DBEdit;
+using Depressurizer.Lib;
 using Newtonsoft.Json.Linq;
 using MaterialSkin;
 using MaterialSkin.Controls;

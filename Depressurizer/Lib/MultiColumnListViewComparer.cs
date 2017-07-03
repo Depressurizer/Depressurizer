@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Depressurizer
+namespace Depressurizer.Lib
 {
     /// <summary>
     ///     Implements the manual sorting of ListView items by columns. Supports sorting string representations of integers

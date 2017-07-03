@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Depressurizer
+namespace Depressurizer.Lib
 {
     public static class XmlUtil
     {

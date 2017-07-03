@@ -18,7 +18,7 @@
 */
 
 using System.Xml;
-using Rallion;
+using Depressurizer.Lib;
 
 namespace Depressurizer.DBEdit
 {

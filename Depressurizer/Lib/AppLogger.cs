@@ -23,7 +23,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace Rallion
+namespace Depressurizer.Lib
 {
     public enum LoggerLevel
     {
