@@ -169,10 +169,7 @@ namespace Depressurizer
 
         private int DevCount(string name) => (from dev in _devList where dev.Item1 == name select dev.Item2).FirstOrDefault();
 
-        private int PubCount(string name)
-        {
-            return (from pub in _pubList where pub.Item1 == name select pub.Item2).FirstOrDefault();
-        }
+        private int PubCount(string name) => (from pub in _pubList where pub.Item1 == name select pub.Item2).FirstOrDefault();
 
         private string GetProcessedString(string baseString)
         {
