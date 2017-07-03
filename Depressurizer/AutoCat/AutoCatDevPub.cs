@@ -171,11 +171,7 @@ namespace Depressurizer
 
         private int PubCount(string name)
         {
-            foreach (Tuple<string, int> pub in _pubList)
-            {
-                if (pub.Item1 == name) return pub.Item2;
-            }
-            return 0;
+            return (from pub in _pubList where pub.Item1 == name select pub.Item2).FirstOrDefault();
         }
 
         private string GetProcessedString(string baseString)
