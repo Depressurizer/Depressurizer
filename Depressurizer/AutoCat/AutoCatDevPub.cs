@@ -178,8 +178,14 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlNameName, Name);
-            if (Filter != null) writer.WriteElementString(XmlNameFilter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlNamePrefix, Prefix);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlNameFilter, Filter);
+            }
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlNamePrefix, Prefix);
+            }
             writer.WriteElementString(XmlNameOwnedOnly, OwnedOnly.ToString());
             writer.WriteElementString(XmlNameMinCount, MinCount.ToString());
             writer.WriteElementString(XmlNameAllDevelopers, AllDevelopers.ToString());
