@@ -1,20 +1,22 @@
 ﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+    This file is part of Depressurizer.
+    Original work Copyright 2011, 2012, 2013 Steve Labbe.
+    Modified work Copyright 2017 Martijn Vegter.
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    Depressurizer is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    Depressurizer is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using Rallion;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization.Advanced;
 using BrightIdeasSoftware;
+using Depressurizer.AutoCat;
 using Newtonsoft.Json.Linq;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -971,7 +974,7 @@ namespace Depressurizer
         /// <summary>
         /// Creates an Edit AutoCats dialog for the user
         /// </summary>
-        private void EditAutoCats(AutoCat selected)
+        private void EditAutoCats(AutoCat.AutoCat selected)
         {
             if (!ProfileLoaded) return;
             DlgAutoCat dlg = new DlgAutoCat(currentProfile.AutoCats, currentProfile.GameData, selected, currentProfile.FilePath);
@@ -1452,7 +1455,7 @@ namespace Depressurizer
         /// </summary>
         /// <param name="selectedOnly">If true, runs on the selected games, otherwise, runs on all games.</param>
         /// <param name="autoCat">The autocat object to use.</param>
-        private void Autocategorize(bool selectedOnly, AutoCat autoCat, bool scrape = true, bool refresh = true)
+        private void Autocategorize(bool selectedOnly, AutoCat.AutoCat autoCat, bool scrape = true, bool refresh = true)
         {
             if (autoCat == null) return;
 
@@ -2126,7 +2129,7 @@ namespace Depressurizer
 
             if (currentProfile != null)
             {
-                foreach (AutoCat ac in currentProfile.AutoCats)
+                foreach (AutoCat.AutoCat ac in currentProfile.AutoCats)
                 {
                     if (ac != null)
                     {
@@ -2532,10 +2535,10 @@ namespace Depressurizer
         private void menu_Profile_EditAutoCats_Click(object sender, EventArgs e)
         {
             ClearStatus();
-            AutoCat selected = null;
+            AutoCat.AutoCat selected = null;
             if (lvAutoCatType.Items.Count > 0)
             {
-                selected = ((AutoCat)this.lvAutoCatType.Items[0].Tag);
+                selected = ((AutoCat.AutoCat)this.lvAutoCatType.Items[0].Tag);
             }
             EditAutoCats(selected);
             FlushStatus();
@@ -2546,7 +2549,7 @@ namespace Depressurizer
             ToolStripItem item = sender as ToolStripItem;
             if (item != null)
             {
-                AutoCat autoCat = item.Tag as AutoCat;
+                AutoCat.AutoCat autoCat = item.Tag as AutoCat.AutoCat;
                 if (autoCat != null)
                 {
                     ClearStatus();
@@ -2780,20 +2783,20 @@ namespace Depressurizer
         private void contextAutoCat_Edit_Click(object sender, EventArgs e)
         {
             ClearStatus();
-            AutoCat selected = null;
+            AutoCat.AutoCat selected = null;
             if (lvAutoCatType.SelectedItems.Count > 0)
             {
-                selected = ((AutoCat)this.lvAutoCatType.SelectedItems[0].Tag);
+                selected = ((AutoCat.AutoCat)this.lvAutoCatType.SelectedItems[0].Tag);
             }
             else if (lvAutoCatType.CheckedItems.Count > 0)
             {
-                selected = ((AutoCat)this.lvAutoCatType.CheckedItems[0].Tag);
+                selected = ((AutoCat.AutoCat)this.lvAutoCatType.CheckedItems[0].Tag);
             }
             else
             {
                 if (lvAutoCatType.Items.Count > 0)
                 {
-                    selected = ((AutoCat)this.lvAutoCatType.Items[0].Tag);
+                    selected = ((AutoCat.AutoCat)this.lvAutoCatType.Items[0].Tag);
                 }
             }
             EditAutoCats(selected);
@@ -3000,7 +3003,7 @@ namespace Depressurizer
 
         private void lvAutoCatType_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            ((AutoCat)e.Item.Tag).Selected = e.Item.Checked;
+            ((AutoCat.AutoCat)e.Item.Tag).Selected = e.Item.Checked;
         }
 
         private void lvAutoCatType_MouseDown(object sender, MouseEventArgs e)
@@ -3014,20 +3017,20 @@ namespace Depressurizer
         private void lvAutoCatType_DoubleClick(object sender, EventArgs e)
         {
             ClearStatus();
-            AutoCat selected = null;
+            AutoCat.AutoCat selected = null;
             if (lvAutoCatType.SelectedItems.Count > 0)
             {
-                selected = ((AutoCat)this.lvAutoCatType.SelectedItems[0].Tag);
+                selected = ((AutoCat.AutoCat)this.lvAutoCatType.SelectedItems[0].Tag);
             }
             else if (lvAutoCatType.CheckedItems.Count > 0)
             {
-                selected = ((AutoCat)this.lvAutoCatType.CheckedItems[0].Tag);
+                selected = ((AutoCat.AutoCat)this.lvAutoCatType.CheckedItems[0].Tag);
             }
             else
             {
                 if (lvAutoCatType.Items.Count > 0)
                 {
-                    selected = ((AutoCat)this.lvAutoCatType.Items[0].Tag);
+                    selected = ((AutoCat.AutoCat)this.lvAutoCatType.Items[0].Tag);
                 }
             }
             EditAutoCats(selected);
@@ -3108,10 +3111,10 @@ namespace Depressurizer
                 }
                 else
                 {
-                    List<AutoCat> autocats = new List<AutoCat>();
+                    List<AutoCat.AutoCat> autocats = new List<AutoCat.AutoCat>();
                     foreach (ListViewItem item in lvAutoCatType.CheckedItems)
                     {
-                        AutoCat ac = ((AutoCat)item.Tag);
+                        AutoCat.AutoCat ac = ((AutoCat.AutoCat)item.Tag);
                         autocats.Add(ac);
                     }
                     //RunAutoCats(currentProfile.AutoCats);  WILL THIS WORK?  ARE AUTOCATS SELECTED VALUES SET CORRECTLY
@@ -3122,9 +3125,9 @@ namespace Depressurizer
             }
         }
 
-        private void RunAutoCats(List<AutoCat> autocats, bool first, bool group = false)
+        private void RunAutoCats(List<AutoCat.AutoCat> autocats, bool first, bool group = false)
         {
-            foreach (AutoCat ac in autocats)
+            foreach (AutoCat.AutoCat ac in autocats)
             {
                 if (ac != null)
                 {

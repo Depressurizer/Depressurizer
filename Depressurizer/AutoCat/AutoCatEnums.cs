@@ -19,7 +19,7 @@
 
 using System.ComponentModel;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCat
 {
     public enum AutoCatYearGrouping
     {

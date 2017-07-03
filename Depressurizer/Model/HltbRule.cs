@@ -17,6 +17,8 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using Depressurizer.AutoCat;
+
 namespace Depressurizer.Model
 {
     public class HltbRule

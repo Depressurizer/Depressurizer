@@ -23,7 +23,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Depressurizer.Model;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCat
 {
     public partial class AutoCatConfigPanel_UserScore : AutoCatConfigPanel
     {

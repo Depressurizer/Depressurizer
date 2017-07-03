@@ -58,7 +58,7 @@ using System.Xml;
  * 4) Update the arrays in the DlgAutoCatCreate constructor to allow creating AutoCats of your type.
  */
 
-namespace Depressurizer
+namespace Depressurizer.AutoCat
 {
     /// <summary>
     ///     Abstract base class for autocategorization schemes. Call PreProcess before any set of autocat operations.

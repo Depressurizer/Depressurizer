@@ -1,46 +1,49 @@
 ﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+    This file is part of Depressurizer.
+    Original work Copyright 2011, 2012, 2013 Steve Labbe.
+    Modified work Copyright 2017 Martijn Vegter.
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    Depressurizer is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    Depressurizer is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using Rallion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Depressurizer.AutoCat;
 
 namespace Depressurizer {
     public partial class DlgAutoCat : Form {
-        public List<AutoCat> AutoCatList;
+        public List<AutoCat.AutoCat> AutoCatList;
         //public List<Filter> FilterList;
         private GameList ownedGames;
-        private AutoCat current;
-        private AutoCat initial;
+        private AutoCat.AutoCat current;
+        private AutoCat.AutoCat initial;
         private string profilePath;
 
         AutoCatConfigPanel currentConfigPanel = null;
 
-        public DlgAutoCat( List<AutoCat> autoCats, GameList ownedGames, AutoCat selected, string profile ) {
+        public DlgAutoCat( List<AutoCat.AutoCat> autoCats, GameList ownedGames, AutoCat.AutoCat selected, string profile ) {
             InitializeComponent();
 
-            AutoCatList = new List<AutoCat>();
+            AutoCatList = new List<AutoCat.AutoCat>();
 
             profilePath = profile;
 
-            foreach (AutoCat c in autoCats) {
-                AutoCat clone = c.Clone();
+            foreach (AutoCat.AutoCat c in autoCats) {
+                AutoCat.AutoCat clone = c.Clone();
                 AutoCatList.Add(clone);
                 if (c.Equals(selected))
                 {
@@ -55,7 +58,7 @@ namespace Depressurizer {
 
         private void FillAutocatList() {
             lstAutoCats.Items.Clear();
-            foreach( AutoCat ac in AutoCatList ) {
+            foreach( AutoCat.AutoCat ac in AutoCatList ) {
                 lstAutoCats.Items.Add( ac );
             }
             lstAutoCats.DisplayMember = "DisplayName";
@@ -136,9 +139,9 @@ namespace Depressurizer {
                     }
                 }
             } while( res == DialogResult.OK && !good );
-            AutoCat newAutoCat = null;
+            AutoCat.AutoCat newAutoCat = null;
             if ( res == DialogResult.OK ) {
-                newAutoCat = AutoCat.Create( t, name );
+                newAutoCat = AutoCat.AutoCat.Create( t, name );
                 if( newAutoCat != null ) {
                     AutoCatList.Add( newAutoCat );
                 }
@@ -148,7 +151,7 @@ namespace Depressurizer {
             if (newAutoCat != null) lstAutoCats.SelectedItem = newAutoCat;
         }
 
-        private void RenameAutoCat( AutoCat ac ) {
+        private void RenameAutoCat( AutoCat.AutoCat ac ) {
             if( ac == null ) return;
 
             bool good = true;
@@ -174,7 +177,7 @@ namespace Depressurizer {
             FillAutocatList();
         }
 
-        private void RemoveAutoCat( AutoCat ac ) {
+        private void RemoveAutoCat( AutoCat.AutoCat ac ) {
             if( ac == null ) return;
             lstAutoCats.Items.Remove( ac );
             AutoCatList.Remove( ac );
@@ -200,7 +203,7 @@ namespace Depressurizer {
             if( this.current != null ) {
                 SaveToAutoCat();
             }
-            current = lstAutoCats.SelectedItem as AutoCat;
+            current = lstAutoCats.SelectedItem as AutoCat.AutoCat;
             RecreateConfigPanel();
             FillConfigPanel();
 
@@ -238,7 +241,7 @@ namespace Depressurizer {
 
         private void cmdDelete_Click( object sender, EventArgs e ) {
             int selectedIndex = lstAutoCats.SelectedIndex;
-            RemoveAutoCat( lstAutoCats.SelectedItem as AutoCat );
+            RemoveAutoCat( lstAutoCats.SelectedItem as AutoCat.AutoCat );
             // Select previous item after deleting.
             if (lstAutoCats.Items.Count > 0)
             {
@@ -254,7 +257,7 @@ namespace Depressurizer {
         }
 
         private void cmdRename_Click( object sender, EventArgs e ) {
-            RenameAutoCat( lstAutoCats.SelectedItem as AutoCat );
+            RenameAutoCat( lstAutoCats.SelectedItem as AutoCat.AutoCat );
         }
 
         private void chkFilter_CheckedChanged(object sender, EventArgs e)
@@ -274,7 +277,7 @@ namespace Depressurizer {
         private void RepositionAutoCats()
         {
             AutoCatList.Clear();
-            foreach (AutoCat ac in lstAutoCats.Items)
+            foreach (AutoCat.AutoCat ac in lstAutoCats.Items)
             {
                 AutoCatList.Add(ac);
             }
@@ -282,7 +285,7 @@ namespace Depressurizer {
 
 
         private bool NameExists( string name ) {
-            foreach( AutoCat ac in AutoCatList ) {
+            foreach( AutoCat.AutoCat ac in AutoCatList ) {
                 if( ac.Name == name ) return true;
             }
             return false;

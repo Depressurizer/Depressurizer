@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Drawing;
 using System.IO;
+using Depressurizer.AutoCat;
 using Rallion;
 using Depressurizer.Model;
 
@@ -80,7 +81,7 @@ namespace Depressurizer {
 
         public SortedSet<int> IgnoreList = new SortedSet<int>();
 
-        public List<AutoCat> AutoCats = new List<AutoCat>();
+        public List<AutoCat.AutoCat> AutoCats = new List<AutoCat.AutoCat>();
 
         public Int64 SteamID64 = 0;
 
@@ -220,7 +221,7 @@ namespace Depressurizer {
                     foreach( XmlNode node in autoCatNodes ) {
                         XmlElement autocatElement = node as XmlElement;
                         if( node != null ) {
-                            AutoCat autocat = AutoCat.LoadAutoCatFromXmlElement( autocatElement );
+                            AutoCat.AutoCat autocat = AutoCat.AutoCat.LoadAutoCatFromXmlElement( autocatElement );
                             if( autocat != null ) {
                                 profile.AutoCats.Add( autocat );
                             }
@@ -412,7 +413,7 @@ namespace Depressurizer {
 
             writer.WriteStartElement( XmlName_AutoCatList );
 
-            foreach( AutoCat autocat in AutoCats ) {
+            foreach( AutoCat.AutoCat autocat in AutoCats ) {
                 autocat.WriteToXml( writer );
             }
 
@@ -434,7 +435,7 @@ namespace Depressurizer {
             return true;
         }
 
-        public static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
+        public static void GenerateDefaultAutoCatSet( List<AutoCat.AutoCat> list ) {
             //By Genre
             list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre, null, "("+ GlobalStrings.Name_Genre + ") " ) );
 
@@ -519,11 +520,11 @@ namespace Depressurizer {
         }
 
         // find and return AutoCat using the name
-        public AutoCat GetAutoCat(string name)
+        public AutoCat.AutoCat GetAutoCat(string name)
         {
             if (string.IsNullOrEmpty(name)) return null;
 
-            foreach (AutoCat ac in AutoCats)
+            foreach (AutoCat.AutoCat ac in AutoCats)
             {
                 if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase)) return ac;
             }
@@ -533,18 +534,18 @@ namespace Depressurizer {
 
         // using a list of AutoCat names (strings), return a cloned list of AutoCats replacing the filter with a new one if a new filter is provided.
         // This is used to help process AutoCatGroup.
-        public List<AutoCat> CloneAutoCatList(List<string> acList, Filter filter)
+        public List<AutoCat.AutoCat> CloneAutoCatList(List<string> acList, Filter filter)
         {
-            List<AutoCat> newList = new List<AutoCat>();
+            List<AutoCat.AutoCat> newList = new List<AutoCat.AutoCat>();
             foreach (string s in acList)
             {
                 // find the AutoCat based on name
-                AutoCat ac = GetAutoCat(s);
+                AutoCat.AutoCat ac = GetAutoCat(s);
                 if (ac != null)
                 {
                     // add a cloned copy of the Autocat and replace the filter if one is provided.
                     // a cloned copy is used so that the selected property can be assigned without effecting lvAutoCatType on the Main form.
-                    AutoCat clone = ac.Clone();
+                    AutoCat.AutoCat clone = ac.Clone();
                     if (filter != null) clone.Filter = filter.Name;
                     newList.Add(clone);
                 }
