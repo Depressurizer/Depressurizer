@@ -171,10 +171,7 @@ namespace Depressurizer
 
         private int PubCount(string name) => (from pub in _pubList where pub.Item1 == name select pub.Item2).FirstOrDefault();
 
-        private string GetProcessedString(string baseString)
-        {
-            return string.IsNullOrEmpty(Prefix) ? baseString : Prefix + baseString;
-        }
+        private string GetProcessedString(string baseString) => string.IsNullOrEmpty(Prefix) ? baseString : Prefix + baseString;
 
         public override void WriteToXml(XmlWriter writer)
         {
