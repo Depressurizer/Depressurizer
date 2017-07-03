@@ -48,17 +48,17 @@ namespace Depressurizer
         // Serialization keys
         public const string TypeIdString = "AutoCatDevPub";
         private const string
-            XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_AllDevelopers = "AllDevelopers",
-            XmlName_AllPublishers = "AllPublishers",
-            XmlName_Prefix = "Prefix",
-            XmlName_OwnedOnly = "OwnedOnly",
-            XmlName_MinCount = "MinCount",
-            XmlName_Developers = "Developers",
-            XmlName_Developer = "Developer",
-            XmlName_Publishers = "Publishers",
-            XmlName_Publisher = "Publisher";
+            XmlNameName = "Name",
+            XmlNameFilter = "Filter",
+            XmlNameAllDevelopers = "AllDevelopers",
+            XmlNameAllPublishers = "AllPublishers",
+            XmlNamePrefix = "Prefix",
+            XmlNameOwnedOnly = "OwnedOnly",
+            XmlNameMinCount = "MinCount",
+            XmlNameDevelopers = "Developers",
+            XmlNameDeveloper = "Developer",
+            XmlNamePublishers = "Publishers",
+            XmlNamePublisher = "Publisher";
 
         private GameList gamelist;
 
@@ -199,30 +199,30 @@ namespace Depressurizer
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_OwnedOnly, OwnedOnly.ToString());
-            writer.WriteElementString(XmlName_MinCount, MinCount.ToString());
-            writer.WriteElementString(XmlName_AllDevelopers, AllDevelopers.ToString());
-            writer.WriteElementString(XmlName_AllPublishers, AllPublishers.ToString());
+            writer.WriteElementString(XmlNameName, Name);
+            if (Filter != null) writer.WriteElementString(XmlNameFilter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlNamePrefix, Prefix);
+            writer.WriteElementString(XmlNameOwnedOnly, OwnedOnly.ToString());
+            writer.WriteElementString(XmlNameMinCount, MinCount.ToString());
+            writer.WriteElementString(XmlNameAllDevelopers, AllDevelopers.ToString());
+            writer.WriteElementString(XmlNameAllPublishers, AllPublishers.ToString());
 
             if (Developers.Count > 0)
             {
-                writer.WriteStartElement(XmlName_Developers);
+                writer.WriteStartElement(XmlNameDevelopers);
                 foreach (string s in Developers)
                 {
-                    writer.WriteElementString(XmlName_Developer, s);
+                    writer.WriteElementString(XmlNameDeveloper, s);
                 }
                 writer.WriteEndElement();
             }
 
             if (Publishers.Count > 0)
             {
-                writer.WriteStartElement(XmlName_Publishers);
+                writer.WriteStartElement(XmlNamePublishers);
                 foreach (string s in Publishers)
                 {
-                    writer.WriteElementString(XmlName_Publisher, s);
+                    writer.WriteElementString(XmlNamePublisher, s);
                 }
                 writer.WriteEndElement();
             }
@@ -232,20 +232,20 @@ namespace Depressurizer
 
         public static AutoCatDevPub LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            bool AllDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllDevelopers], false);
-            bool AllPublishers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllPublishers], false);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            bool owned = XmlUtil.GetBoolFromNode(xElement[XmlName_OwnedOnly], false);
-            int count = XmlUtil.GetIntFromNode(xElement[XmlName_MinCount], 0);
+            string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
+            bool AllDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlNameAllDevelopers], false);
+            bool AllPublishers = XmlUtil.GetBoolFromNode(xElement[XmlNameAllPublishers], false);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
+            bool owned = XmlUtil.GetBoolFromNode(xElement[XmlNameOwnedOnly], false);
+            int count = XmlUtil.GetIntFromNode(xElement[XmlNameMinCount], 0);
 
             List<string> devs = new List<string>();
 
-            XmlElement devsListElement = xElement[XmlName_Developers];
+            XmlElement devsListElement = xElement[XmlNameDevelopers];
             if (devsListElement != null)
             {
-                XmlNodeList devNodes = devsListElement.SelectNodes(XmlName_Developer);
+                XmlNodeList devNodes = devsListElement.SelectNodes(XmlNameDeveloper);
                 foreach (XmlNode node in devNodes)
                 {
                     string s;
@@ -258,10 +258,10 @@ namespace Depressurizer
 
             List<string> pubs = new List<string>();
 
-            XmlElement pubsListElement = xElement[XmlName_Publishers];
+            XmlElement pubsListElement = xElement[XmlNamePublishers];
             if (pubsListElement != null)
             {
-                XmlNodeList pubNodes = pubsListElement.SelectNodes(XmlName_Publisher);
+                XmlNodeList pubNodes = pubsListElement.SelectNodes(XmlNamePublisher);
                 foreach (XmlNode node in pubNodes)
                 {
                     string s;
