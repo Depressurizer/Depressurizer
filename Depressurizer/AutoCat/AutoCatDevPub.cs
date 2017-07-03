@@ -150,15 +150,15 @@ namespace Depressurizer
                 }
             }
 
-            List<string> pubs = Db.GetPublishers(game.Id);
+            List<string> publishers = Db.GetPublishers(game.Id);
 
-            if (pubs != null)
+            if (publishers != null)
             {
-                for (int index = 0; index < pubs.Count; index++)
+                foreach (string publisher in publishers)
                 {
-                    if (Publishers.Contains(pubs[index]) || AllPublishers)
+                    if (Publishers.Contains(publisher) || AllPublishers)
                     {
-                        if (PubCount(pubs[index]) >= MinCount) game.AddCategory(Games.GetCategory(GetProcessedString(pubs[index])));
+                        if (PubCount(publisher) >= MinCount) game.AddCategory(Games.GetCategory(GetProcessedString(publisher)));
                     }
                 }
             }
