@@ -132,7 +132,7 @@ namespace Depressurizer
 
         public abstract void WriteToXml( XmlWriter writer );
 
-        public static AutoCat LoadACFromXmlElement( XmlElement xElement ) {
+        public static AutoCat LoadAutoCatFromXmlElement( XmlElement xElement ) {
             string type = xElement.Name;
 
             switch( type ) {
