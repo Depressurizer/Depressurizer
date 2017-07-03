@@ -97,7 +97,7 @@ namespace Depressurizer
         public int CompareTo( object other )
         {
             AutoCat cat = other as AutoCat;
-            return cat != null ? string.CompareOrdinal( this.Name, cat.Name ) : 1;
+            return cat != null ? string.CompareOrdinal( Name, cat.Name ) : 1;
         }
 
         /// <summary>
