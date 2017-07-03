@@ -131,9 +131,15 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!Db.Contains(game.Id) || Db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
+            if (!Db.Contains(game.Id) || Db.Games[game.Id].LastStoreScrape == 0)
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
             List<string> developers = Db.GetDevelopers(game.Id);
 
