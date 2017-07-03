@@ -93,10 +93,7 @@ namespace Depressurizer
             Selected = other.Selected;
         }
 
-        public override AutoCat Clone()
-        {
-            return new AutoCatDevPub(this);
-        }
+        public override AutoCat Clone() => new AutoCatDevPub(this);
 
         /// <summary>
         /// Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is false.
