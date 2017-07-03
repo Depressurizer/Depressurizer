@@ -31,10 +31,7 @@ namespace Depressurizer
     public class AutoCatDevPub : AutoCat
     {
 
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.DevPub; }
-        }
+        public override AutoCatType AutoCatType => AutoCatType.DevPub;
 
         // Autocat configuration
         public bool AllDevelopers { get; set; }
