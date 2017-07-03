@@ -21,6 +21,13 @@ using System.ComponentModel;
 
 namespace Depressurizer
 {
+    public enum AutoCatYearGrouping
+    {
+        None,
+        Decade,
+        HalfDecade
+    }
+
     public enum AutoCatType
     {
         [Description("None")] None,
