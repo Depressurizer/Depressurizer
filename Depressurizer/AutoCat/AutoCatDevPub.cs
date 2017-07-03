@@ -17,25 +17,24 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Rallion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using Rallion;
 
 namespace Depressurizer
 {
-
     /// <summary>
-    /// Autocategorization scheme that adds developer and publisher categories.
+    ///     Autocategorization scheme that adds developer and publisher categories.
     /// </summary>
     public class AutoCatDevPub : AutoCat
     {
-
         public override AutoCatType AutoCatType => AutoCatType.DevPub;
 
         // Autocat configuration
         public bool AllDevelopers { get; set; }
+
         public bool AllPublishers { get; set; }
         public string Prefix { get; set; }
         public bool OwnedOnly { get; set; }
@@ -43,31 +42,21 @@ namespace Depressurizer
         public List<string> Developers { get; set; }
         public List<string> Publishers { get; set; }
 
-        private IEnumerable<Tuple<string, int>> _devList;
-        private IEnumerable<Tuple<string, int>> _pubList;
-
         // Serialization keys
         public const string TypeIdString = "AutoCatDevPub";
-        private const string
-            XmlNameName = "Name",
-            XmlNameFilter = "Filter",
-            XmlNameAllDevelopers = "AllDevelopers",
-            XmlNameAllPublishers = "AllPublishers",
-            XmlNamePrefix = "Prefix",
-            XmlNameOwnedOnly = "OwnedOnly",
-            XmlNameMinCount = "MinCount",
-            XmlNameDevelopers = "Developers",
-            XmlNameDeveloper = "Developer",
-            XmlNamePublishers = "Publishers",
-            XmlNamePublisher = "Publisher";
+
+        private const string XmlNameName = "Name", XmlNameFilter = "Filter", XmlNameAllDevelopers = "AllDevelopers", XmlNameAllPublishers = "AllPublishers", XmlNamePrefix = "Prefix", XmlNameOwnedOnly = "OwnedOnly", XmlNameMinCount = "MinCount", XmlNameDevelopers = "Developers", XmlNameDeveloper = "Developer", XmlNamePublishers = "Publishers", XmlNamePublisher = "Publisher";
+
+        private IEnumerable<Tuple<string, int>> _devList;
 
         private GameList _gamelist;
+        private IEnumerable<Tuple<string, int>> _pubList;
 
         /// <summary>
-        /// Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally, assigns categories from another list.
+        ///     Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally,
+        ///     assigns categories from another list.
         /// </summary>
-        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool owned = true, int count = 0, bool developersAll = false, bool publishersAll = false, List<string> developers = null, List<string> publishers = null, bool selected = false)
-            : base(name)
+        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool owned = true, int count = 0, bool developersAll = false, bool publishersAll = false, List<string> developers = null, List<string> publishers = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -80,8 +69,7 @@ namespace Depressurizer
             Selected = selected;
         }
 
-        protected AutoCatDevPub(AutoCatDevPub other)
-            : base(other)
+        protected AutoCatDevPub(AutoCatDevPub other) : base(other)
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
@@ -97,7 +85,8 @@ namespace Depressurizer
         public override AutoCat Clone() => new AutoCatDevPub(this);
 
         /// <summary>
-        /// Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is false.
+        ///     Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is
+        ///     false.
         /// </summary>
         public override void PreProcess(GameList games, GameDB db)
         {
@@ -120,18 +109,20 @@ namespace Depressurizer
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
+
             if (Db == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
             }
+
             if (game == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 
-            if (!Db.Contains(game.Id) || Db.Games[game.Id].LastStoreScrape == 0)
+            if (!Db.Contains(game.Id) || (Db.Games[game.Id].LastStoreScrape == 0))
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -207,6 +198,7 @@ namespace Depressurizer
                 {
                     writer.WriteElementString(XmlNameDeveloper, s);
                 }
+
                 writer.WriteEndElement();
             }
 
@@ -217,6 +209,7 @@ namespace Depressurizer
                 {
                     writer.WriteElementString(XmlNamePublisher, s);
                 }
+
                 writer.WriteEndElement();
             }
 
@@ -271,5 +264,4 @@ namespace Depressurizer
             return result;
         }
     }
-
 }
