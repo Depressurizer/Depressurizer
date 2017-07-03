@@ -138,42 +138,30 @@ namespace Depressurizer
         public static AutoCat LoadACFromXmlElement( XmlElement xElement ) {
             string type = xElement.Name;
 
-            AutoCat result = null;
             switch( type ) {
                 case AutoCatGenre.TypeIdString:
-                    result = AutoCatGenre.LoadFromXmlElement( xElement );
-                    break;
+                    return AutoCatGenre.LoadFromXmlElement( xElement );
                 case AutoCatFlags.TypeIdString:
-                    result = AutoCatFlags.LoadFromXmlElement( xElement );
-                    break;
+                    return AutoCatFlags.LoadFromXmlElement( xElement );
                 case AutoCatTags.TypeIdString:
-                    result = AutoCatTags.LoadFromXmlElement( xElement );
-                    break;
+                    return AutoCatTags.LoadFromXmlElement( xElement );
                 case AutoCatYear.TypeIdString:
-                    result = AutoCatYear.LoadFromXmlElement( xElement );
-                    break;
+                    return AutoCatYear.LoadFromXmlElement( xElement );
                 case AutoCatUserScore.TypeIdString:
-                    result = AutoCatUserScore.LoadFromXmlElement( xElement );
-                    break;
+                    return AutoCatUserScore.LoadFromXmlElement( xElement );
                 case AutoCatHltb.TypeIdString:
-                    result = AutoCatHltb.LoadFromXmlElement(xElement);
-                    break;
+                    return AutoCatHltb.LoadFromXmlElement(xElement);
                 case AutoCatManual.TypeIdString:
-                    result = AutoCatManual.LoadFromXmlElement(xElement);
-                    break;
+                    return AutoCatManual.LoadFromXmlElement(xElement);
                 case AutoCatDevPub.TypeIdString:
-                    result = AutoCatDevPub.LoadFromXmlElement(xElement);
-                    break;
+                    return AutoCatDevPub.LoadFromXmlElement(xElement);
                 case AutoCatGroup.TypeIdString:
-                    result = AutoCatGroup.LoadFromXmlElement(xElement);
-                    break;
+                    return AutoCatGroup.LoadFromXmlElement(xElement);
                 case AutoCatName.TypeIdString:
-                    result = AutoCatName.LoadFromXmlElement(xElement);
-                    break;
+                    return AutoCatName.LoadFromXmlElement(xElement);
                 default:
-                    break;
+                    return null;
             }
-            return result;
         }
 
         public static AutoCat Create( AutoCatType type, string name )
