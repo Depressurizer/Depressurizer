@@ -165,7 +165,10 @@ namespace Depressurizer
                 {
                     if (Publishers.Contains(publisher) || AllPublishers)
                     {
-                        if (PubCount(publisher) >= MinCount) game.AddCategory(Games.GetCategory(GetProcessedString(publisher)));
+                        if (PubCount(publisher) >= MinCount)
+                        {
+                            game.AddCategory(Games.GetCategory(GetProcessedString(publisher)));
+                        }
                     }
                 }
             }
