@@ -15,30 +15,36 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public partial class AutoCatConfigPanel_Genre : AutoCatConfigPanel {
-        public AutoCatConfigPanel_Genre() {
-            
+namespace Depressurizer
+{
+    public partial class AutoCatConfigPanel_Genre : AutoCatConfigPanel
+    {
+        public AutoCatConfigPanel_Genre()
+        {
             InitializeComponent();
 
-            ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
-            ttHelp.Ext_SetToolTip( helpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting );
-            ttHelp.Ext_SetToolTip( helpTagFallback, GlobalStrings.AutoCatGenrePanel_Help_TagFallback );
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
+            ttHelp.Ext_SetToolTip(helpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting);
+            ttHelp.Ext_SetToolTip(helpTagFallback, GlobalStrings.AutoCatGenrePanel_Help_TagFallback);
 
             FillGenreList();
         }
 
-        public void FillGenreList() {
+        public void FillGenreList()
+        {
             lstIgnore.Items.Clear();
 
-            if( Program.GameDB != null ) {
+            if (Program.GameDB != null)
+            {
                 SortedSet<string> genreList = Program.GameDB.GetAllGenres();
-            
-                foreach( string s in genreList ) {
+
+                foreach (string s in genreList)
+                {
                     ListViewItem l = new ListViewItem();
                     l.Text = s;
                     l.Checked = true;
@@ -47,48 +53,64 @@ namespace Depressurizer {
             }
         }
 
-        public override void LoadFromAutoCat( AutoCat autocat ) {
+        public override void LoadFromAutoCat(AutoCat autocat)
+        {
             AutoCatGenre ac = autocat as AutoCatGenre;
-            if( ac == null ) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             chkRemoveExisting.Checked = ac.RemoveOtherGenres;
             chkTagFallback.Checked = ac.TagFallback;
             numMaxCats.Value = ac.MaxCategories;
             txtPrefix.Text = ac.Prefix;
 
-            foreach( ListViewItem item in lstIgnore.Items ) {
-                item.Checked = !ac.IgnoredGenres.Contains( item.Text );
+            foreach (ListViewItem item in lstIgnore.Items)
+            {
+                item.Checked = !ac.IgnoredGenres.Contains(item.Text);
             }
         }
 
-        public override void SaveToAutoCat( AutoCat autocat ) {
+        public override void SaveToAutoCat(AutoCat autocat)
+        {
             AutoCatGenre ac = autocat as AutoCatGenre;
-            if( ac == null ) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
-            ac.MaxCategories = (int)numMaxCats.Value;
+            ac.MaxCategories = (int) numMaxCats.Value;
             ac.RemoveOtherGenres = chkRemoveExisting.Checked;
             ac.TagFallback = chkTagFallback.Checked;
 
             ac.IgnoredGenres.Clear();
-            foreach( ListViewItem i in lstIgnore.Items ) {
-                if( !i.Checked ) {
-                    ac.IgnoredGenres.Add( i.Text );
+            foreach (ListViewItem i in lstIgnore.Items)
+            {
+                if (!i.Checked)
+                {
+                    ac.IgnoredGenres.Add(i.Text);
                 }
             }
         }
 
-        private void SetAllListCheckStates( ListView list, bool to ) {
-            foreach( ListViewItem item in list.Items ) {
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
                 item.Checked = to;
             }
         }
 
-        private void cmdCheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( lstIgnore, true );
+        private void cmdCheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstIgnore, true);
         }
 
-        private void cmdUncheckAll_Click( object sender, EventArgs e ) {
-            SetAllListCheckStates( lstIgnore, false );
+        private void cmdUncheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstIgnore, false);
         }
-
     }
 }
