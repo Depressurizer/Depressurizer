@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.Text;
 using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.DBEdit
 {
     internal class DbScrapeDlg : CancelableDlg
     {

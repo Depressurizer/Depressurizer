@@ -20,7 +20,7 @@
 using System.Xml;
 using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.DBEdit
 {
     internal class FetchPrcDlg : CancelableDlg
     {

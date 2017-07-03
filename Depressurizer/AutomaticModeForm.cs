@@ -26,6 +26,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using Depressurizer.AutoCat;
+using Depressurizer.DBEdit;
 
 namespace Depressurizer {
 

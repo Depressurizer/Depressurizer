@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Depressurizer
+namespace Depressurizer.DBEdit
 {
     public partial class GameDBEntryDialog : Form
     {
