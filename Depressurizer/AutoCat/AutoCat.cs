@@ -61,15 +61,12 @@ using System.Xml;
 namespace Depressurizer
 {
     /// <summary>
-    /// Abstract base class for autocategorization schemes. Call PreProcess before any set of autocat operations.
-    /// This is a preliminary form, and may change in future versions.
-    /// Returning only true / false on a categorization attempt may prove too simplistic.
+    ///     Abstract base class for autocategorization schemes. Call PreProcess before any set of autocat operations.
+    ///     This is a preliminary form, and may change in future versions.
+    ///     Returning only true / false on a categorization attempt may prove too simplistic.
     /// </summary>
     public abstract class AutoCat : IComparable
     {
-        protected GameList Games;
-        protected GameDB Db;
-
         public abstract AutoCatType AutoCatType { get; }
 
         public string Name { get; set; }
@@ -80,61 +77,70 @@ namespace Depressurizer
 
         public bool Selected { get; set; }
 
-        public override string ToString() => Name;
+        protected GameDB Db;
+
+        protected GameList Games;
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="name"></param>
-        protected AutoCat( string name )
+        protected AutoCat(string name)
         {
             Name = name;
             Filter = null;
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="other"></param>
-        protected AutoCat( AutoCat other )
+        protected AutoCat(AutoCat other)
         {
             Name = other.Name;
             Filter = other.Filter;
         }
 
-        public abstract AutoCat Clone();
-
-        public int CompareTo( object other )
+        public int CompareTo(object other)
         {
             AutoCat cat = other as AutoCat;
-            return cat != null ? string.CompareOrdinal( Name, cat.Name ) : 1;
+            return cat != null ? string.CompareOrdinal(Name, cat.Name) : 1;
         }
 
+        public override string ToString() => Name;
+
+        public abstract AutoCat Clone();
+
         /// <summary>
-        /// Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis or other preparation.
-        /// After this is called, no configuration options should be changed before using CategorizeGame.
+        ///     Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis
+        ///     or other preparation.
+        ///     After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
-        public virtual void PreProcess( GameList games, GameDB db )
+        public virtual void PreProcess(GameList games, GameDB db)
         {
             Games = games;
             Db = db;
         }
 
         /// <summary>
-        /// Applies this autocategorization scheme to the game with the given ID.
+        ///     Applies this autocategorization scheme to the game with the given ID.
         /// </summary>
         /// <param name="gameId">The game ID to process</param>
         /// <param name="filter"></param>
-        /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
-        public virtual AutoCatResult CategorizeGame( int gameId, Filter filter ) => Games.Games.ContainsKey( gameId ) ? CategorizeGame( Games.Games[gameId], filter ) : AutoCatResult.Failure;
+        /// <returns>
+        ///     False if the game was not found in database. This allows the calling function to potentially re-scrape data
+        ///     and reattempt.
+        /// </returns>
+        public virtual AutoCatResult CategorizeGame(int gameId, Filter filter) => Games.Games.ContainsKey(gameId) ? CategorizeGame(Games.Games[gameId], filter) : AutoCatResult.Failure;
 
         /// <summary>
-        /// Applies this autocategorization scheme to the game with the given ID.
+        ///     Applies this autocategorization scheme to the game with the given ID.
         /// </summary>
         /// <param name="game">The GameInfo object to process</param>
         /// <param name="filter"></param>
-        /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
-        public abstract AutoCatResult CategorizeGame( GameInfo game, Filter filter );
+        /// <returns>
+        ///     False if the game was not found in database. This allows the calling function to potentially re-scrape data
+        ///     and reattempt.
+        /// </returns>
+        public abstract AutoCatResult CategorizeGame(GameInfo game, Filter filter);
 
         public virtual void DeProcess()
         {
@@ -142,27 +148,26 @@ namespace Depressurizer
             Db = null;
         }
 
-        public abstract void WriteToXml( XmlWriter writer );
+        public abstract void WriteToXml(XmlWriter writer);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="xElement"></param>
         /// <returns></returns>
-        public static AutoCat LoadAutoCatFromXmlElement( XmlElement xElement )
+        public static AutoCat LoadAutoCatFromXmlElement(XmlElement xElement)
         {
-            switch( xElement.Name )
+            switch (xElement.Name)
             {
                 case AutoCatGenre.TypeIdString:
-                    return AutoCatGenre.LoadFromXmlElement( xElement );
+                    return AutoCatGenre.LoadFromXmlElement(xElement);
                 case AutoCatFlags.TypeIdString:
-                    return AutoCatFlags.LoadFromXmlElement( xElement );
+                    return AutoCatFlags.LoadFromXmlElement(xElement);
                 case AutoCatTags.TypeIdString:
-                    return AutoCatTags.LoadFromXmlElement( xElement );
+                    return AutoCatTags.LoadFromXmlElement(xElement);
                 case AutoCatYear.TypeIdString:
-                    return AutoCatYear.LoadFromXmlElement( xElement );
+                    return AutoCatYear.LoadFromXmlElement(xElement);
                 case AutoCatUserScore.TypeIdString:
-                    return AutoCatUserScore.LoadFromXmlElement( xElement );
+                    return AutoCatUserScore.LoadFromXmlElement(xElement);
                 case AutoCatHltb.TypeIdString:
                     return AutoCatHltb.LoadFromXmlElement(xElement);
                 case AutoCatManual.TypeIdString:
@@ -179,27 +184,26 @@ namespace Depressurizer
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="type"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static AutoCat Create( AutoCatType type, string name )
+        public static AutoCat Create(AutoCatType type, string name)
         {
-            switch( type )
+            switch (type)
             {
                 case AutoCatType.Genre:
-                    return new AutoCatGenre( name );
+                    return new AutoCatGenre(name);
                 case AutoCatType.Flags:
-                    return new AutoCatFlags( name );
+                    return new AutoCatFlags(name);
                 case AutoCatType.Tags:
-                    return new AutoCatTags( name );
+                    return new AutoCatTags(name);
                 case AutoCatType.Year:
-                    return new AutoCatYear( name );
+                    return new AutoCatYear(name);
                 case AutoCatType.UserScore:
-                    return new AutoCatUserScore( name );
+                    return new AutoCatUserScore(name);
                 case AutoCatType.Hltb:
-                    return new AutoCatHltb( name );
+                    return new AutoCatHltb(name);
                 case AutoCatType.Manual:
                     return new AutoCatManual(name);
                 case AutoCatType.DevPub:
