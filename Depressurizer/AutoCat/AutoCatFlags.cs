@@ -36,11 +36,11 @@ namespace Depressurizer {
         // Serialization constants
         public const string TypeIdString = "AutoCatFlags";
         private const string
-            XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Prefix = "Prefix",
-            XmlName_FlagList = "Flags",
-            XmlName_Flag = "Flag";
+            XmlNameName = "Name",
+            XmlNameFilter = "Filter",
+            XmlNamePrefix = "Prefix",
+            XmlNameFlagList = "Flags",
+            XmlNameFlag = "Flag";
 
         public AutoCatFlags( string name, string filter = null, string prefix = null, List<string> flags = null, bool selected = false)
             : base( name ) {
@@ -102,14 +102,14 @@ namespace Depressurizer {
         public override void WriteToXml( XmlWriter writer ) {
             writer.WriteStartElement( TypeIdString );
 
-            writer.WriteElementString( XmlName_Name, Name );
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString( XmlName_Prefix, Prefix );
+            writer.WriteElementString( XmlNameName, Name );
+            if (Filter != null) writer.WriteElementString(XmlNameFilter, Filter);
+            if (Prefix != null) writer.WriteElementString( XmlNamePrefix, Prefix );
 
-            writer.WriteStartElement( XmlName_FlagList );
+            writer.WriteStartElement( XmlNameFlagList );
 
             foreach( string s in IncludedFlags ) {
-                writer.WriteElementString( XmlName_Flag, s );
+                writer.WriteElementString( XmlNameFlag, s );
             }
 
             writer.WriteEndElement(); // flag list
@@ -117,14 +117,14 @@ namespace Depressurizer {
         }
 
         public static AutoCatFlags LoadFromXmlElement( XmlElement xElement ) {
-            string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
+            string name = XmlUtil.GetStringFromNode( xElement[XmlNameName], TypeIdString );
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
+            string prefix = XmlUtil.GetStringFromNode( xElement[XmlNamePrefix], null );
             List<string> flags = new List<string>();
 
-            XmlElement flagListElement = xElement[XmlName_FlagList];
+            XmlElement flagListElement = xElement[XmlNameFlagList];
             if( flagListElement != null ) {
-                XmlNodeList flagElements = flagListElement.SelectNodes( XmlName_Flag );
+                XmlNodeList flagElements = flagListElement.SelectNodes( XmlNameFlag );
                 foreach( XmlNode n in flagElements ) {
                     string flag;
                     if( XmlUtil.TryGetStringFromNode( n, out flag ) ) {
