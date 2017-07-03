@@ -45,7 +45,17 @@ namespace Depressurizer
         // Serialization keys
         public const string TypeIdString = "AutoCatDevPub";
 
-        private const string XmlNameName = "Name", XmlNameFilter = "Filter", XmlNameAllDevelopers = "AllDevelopers", XmlNameAllPublishers = "AllPublishers", XmlNamePrefix = "Prefix", XmlNameOwnedOnly = "OwnedOnly", XmlNameMinCount = "MinCount", XmlNameDevelopers = "Developers", XmlNameDeveloper = "Developer", XmlNamePublishers = "Publishers", XmlNamePublisher = "Publisher";
+        private const string XmlNameName = "Name";
+        private const string XmlNameFilter = "Filter";
+        private const string XmlNameAllDevelopers = "AllDevelopers";
+        private const string XmlNameAllPublishers = "AllPublishers";
+        private const string XmlNamePrefix = "Prefix";
+        private const string XmlNameOwnedOnly = "OwnedOnly";
+        private const string XmlNameMinCount = "MinCount";
+        private const string XmlNameDevelopers = "Developers";
+        private const string XmlNameDeveloper = "Developer";
+        private const string XmlNamePublishers = "Publishers";
+        private const string XmlNamePublisher = "Publisher";
 
         private IEnumerable<Tuple<string, int>> _devList;
 
