@@ -82,12 +82,14 @@ namespace Depressurizer
 
         public override string ToString() => Name;
 
-        protected AutoCat( string name ) {
+        protected AutoCat( string name )
+        {
             Name = name;
             Filter = null;
         }
 
-        protected AutoCat( AutoCat other ) {
+        protected AutoCat( AutoCat other )
+        {
             Name = other.Name;
             Filter = other.Filter;
         }
@@ -104,7 +106,8 @@ namespace Depressurizer
         /// Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis or other preparation.
         /// After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
-        public virtual void PreProcess( GameList games, GameDB db ) {
+        public virtual void PreProcess( GameList games, GameDB db )
+        {
             Games = games;
             Db = db;
         }
@@ -125,17 +128,18 @@ namespace Depressurizer
         /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
         public abstract AutoCatResult CategorizeGame( GameInfo game, Filter filter );
 
-        public virtual void DeProcess() {
+        public virtual void DeProcess()
+        {
             Games = null;
             Db = null;
         }
 
         public abstract void WriteToXml( XmlWriter writer );
 
-        public static AutoCat LoadAutoCatFromXmlElement( XmlElement xElement ) {
-            string type = xElement.Name;
-
-            switch( type ) {
+        public static AutoCat LoadAutoCatFromXmlElement( XmlElement xElement )
+        {
+            switch( xElement.Name )
+            {
                 case AutoCatGenre.TypeIdString:
                     return AutoCatGenre.LoadFromXmlElement( xElement );
                 case AutoCatFlags.TypeIdString:
@@ -192,5 +196,4 @@ namespace Depressurizer
             }
         }
     }
-
 }
