@@ -239,11 +239,14 @@ namespace Depressurizer
             if (devsListElement != null)
             {
                 XmlNodeList devNodes = devsListElement.SelectNodes(XmlNameDeveloper);
-                foreach (XmlNode node in devNodes)
+                if (devNodes != null)
                 {
-                    if (XmlUtil.TryGetStringFromNode(node, out string s))
+                    foreach (XmlNode node in devNodes)
                     {
-                        devs.Add(s);
+                        if (XmlUtil.TryGetStringFromNode(node, out string s))
+                        {
+                            devs.Add(s);
+                        }
                     }
                 }
             }
