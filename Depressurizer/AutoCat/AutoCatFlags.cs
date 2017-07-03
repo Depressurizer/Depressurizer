@@ -52,10 +52,10 @@ namespace Depressurizer {
 
         protected AutoCatFlags( AutoCatFlags other )
             : base( other ) {
-            this.Filter = other.Filter;
-            this.Prefix = other.Prefix;
-            this.IncludedFlags = new List<string>( other.IncludedFlags );
-            this.Selected = other.Selected;
+            Filter = other.Filter;
+            Prefix = other.Prefix;
+            IncludedFlags = new List<string>( other.IncludedFlags );
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() => new AutoCatFlags( this );
