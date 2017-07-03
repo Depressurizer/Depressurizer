@@ -1,30 +1,33 @@
 ﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+    This file is part of Depressurizer.
+    Original work Copyright 2011, 2012, 2013 Steve Labbe.
+    Modified work Copyright 2017 Martijn Vegter.
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    Depressurizer is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    Depressurizer is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Depressurizer.Model;
 
 namespace Depressurizer {
     public partial class AutoCatConfigPanel_Hltb : AutoCatConfigPanel {
 
-        BindingList<Hltb_Rule> ruleList = new BindingList<Hltb_Rule>();
+        BindingList<HltbRule> ruleList = new BindingList<HltbRule>();
         BindingSource binding = new BindingSource();
 
         public AutoCatConfigPanel_Hltb() {
@@ -67,7 +70,7 @@ namespace Depressurizer {
             acHltb.Prefix = txtPrefix.Text;
             acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
             acHltb.UnknownText = txtUnknownText.Text;
-            acHltb.Rules = new List<Hltb_Rule>( ruleList );
+            acHltb.Rules = new List<HltbRule>( ruleList );
         }
 
         public override void LoadFromAutoCat( AutoCat ac ) {
@@ -81,8 +84,8 @@ namespace Depressurizer {
             acHltb.UnknownText = txtUnknownText.Text;
 
             ruleList.Clear();
-            foreach( Hltb_Rule rule in acHltb.Rules ) {
-                ruleList.Add( new Hltb_Rule( rule ) );
+            foreach(HltbRule rule in acHltb.Rules ) {
+                ruleList.Add( new HltbRule( rule ) );
             }
             UpdateEnabledSettings();
         }
@@ -111,7 +114,7 @@ namespace Depressurizer {
             int alterIndex = mainIndex + offset;
             if( mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 || alterIndex >= lstRules.Items.Count ) return;
 
-            Hltb_Rule mainItem = ruleList[mainIndex];
+            HltbRule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
             if( selectMoved ) lstRules.SelectedIndex = alterIndex;
@@ -121,7 +124,7 @@ namespace Depressurizer {
         /// Adds a new rule to the end of the list and selects it.
         /// </summary>
         private void AddRule() {
-            Hltb_Rule newRule = new Hltb_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0, (TimeType)cmbTimeType.SelectedItem);
+            HltbRule newRule = new HltbRule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0, (TimeType)cmbTimeType.SelectedItem);
             ruleList.Add( newRule );
             lstRules.SelectedIndex = lstRules.Items.Count - 1;
         }
