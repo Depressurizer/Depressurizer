@@ -33,6 +33,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization.Advanced;
 using BrightIdeasSoftware;
 using Depressurizer.AutoCat;
+using Depressurizer.DBEdit;
 using Newtonsoft.Json.Linq;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -2575,7 +2576,7 @@ namespace Depressurizer
 
         private void menu_Tools_DBEdit_Click(object sender, EventArgs e)
         {
-            Depressurizer.DBEditDlg dlg = new Depressurizer.DBEditDlg((currentProfile != null) ? currentProfile.GameData : null);
+            DBEditDlg dlg = new DBEditDlg((currentProfile != null) ? currentProfile.GameData : null);
             dlg.ShowDialog();
             LoadGameDB();
         }

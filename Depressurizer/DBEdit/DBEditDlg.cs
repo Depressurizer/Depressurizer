@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using Depressurizer.Properties;
 using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.DBEdit
 {
     public partial class DBEditDlg : Form
     {
