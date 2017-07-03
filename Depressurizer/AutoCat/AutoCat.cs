@@ -115,11 +115,9 @@ namespace Depressurizer
         /// <param name="gameId">The game ID to process</param>
         /// <param name="filter"></param>
         /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
-        public virtual AutoCatResult CategorizeGame( int gameId, Filter filter ) {
-            if( Games.Games.ContainsKey( gameId ) ) {
-                return CategorizeGame( Games.Games[gameId], filter );
-            }
-            return AutoCatResult.Failure;
+        public virtual AutoCatResult CategorizeGame( int gameId, Filter filter )
+        {
+            return Games.Games.ContainsKey( gameId ) ? CategorizeGame( Games.Games[gameId], filter ) : AutoCatResult.Failure;
         }
 
         /// <summary>
