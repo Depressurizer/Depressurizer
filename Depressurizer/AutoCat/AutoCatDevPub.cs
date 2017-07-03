@@ -227,8 +227,8 @@ namespace Depressurizer
         {
             string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
             string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
-            bool AllDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlNameAllDevelopers], false);
-            bool AllPublishers = XmlUtil.GetBoolFromNode(xElement[XmlNameAllPublishers], false);
+            bool allDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlNameAllDevelopers], false);
+            bool allPublishers = XmlUtil.GetBoolFromNode(xElement[XmlNameAllPublishers], false);
             string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
             bool owned = XmlUtil.GetBoolFromNode(xElement[XmlNameOwnedOnly], false);
             int count = XmlUtil.GetIntFromNode(xElement[XmlNameMinCount], 0);
@@ -265,7 +265,7 @@ namespace Depressurizer
                 }
             }
 
-            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, owned, count, AllDevelopers, AllPublishers, devs, pubs);
+            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, owned, count, allDevelopers, allPublishers, devs, pubs);
             return result;
         }
     }
