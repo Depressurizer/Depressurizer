@@ -74,12 +74,21 @@ namespace Depressurizer {
                 return AutoCatResult.Failure;
             }
 
-            if( !Db.Contains( game.Id ) || Db.Games[game.Id].LastStoreScrape == 0 ) return AutoCatResult.NotInDatabase;
+            if( !Db.Contains( game.Id ) || Db.Games[game.Id].LastStoreScrape == 0 )
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
             List<string> gameFlags = Db.GetFlagList( game.Id );
-            if( gameFlags == null ) gameFlags = new List<string>();
+            if( gameFlags == null )
+            {
+                gameFlags = new List<string>();
+            }
             IEnumerable<string> categories = gameFlags.Intersect( IncludedFlags );
 
             foreach( string catString in categories ) {
