@@ -42,8 +42,8 @@ namespace Depressurizer
         public List<string> Developers { get; set; }
         public List<string> Publishers { get; set; }
 
-        private IEnumerable<Tuple<string, int>> devList;
-        private IEnumerable<Tuple<string, int>> pubList;
+        private IEnumerable<Tuple<string, int>> _devList;
+        private IEnumerable<Tuple<string, int>> _pubList;
 
         // Serialization keys
         public const string TypeIdString = "AutoCatDevPub";
@@ -105,8 +105,8 @@ namespace Depressurizer
         {
             base.PreProcess(games, db);
             gamelist = games;
-            devList = Program.GameDB.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
-            pubList = Program.GameDB.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
+            _devList = Program.GameDB.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
+            _pubList = Program.GameDB.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
         }
 
         public override void DeProcess()
@@ -168,7 +168,7 @@ namespace Depressurizer
 
         private int DevCount(string name)
         {
-            foreach (Tuple<string, int> dev in devList)
+            foreach (Tuple<string, int> dev in _devList)
             {
                 if (dev.Item1 == name) return dev.Item2;
             }
@@ -177,7 +177,7 @@ namespace Depressurizer
 
         private int PubCount(string name)
         {
-            foreach (Tuple<string, int> pub in pubList)
+            foreach (Tuple<string, int> pub in _pubList)
             {
                 if (pub.Item1 == name) return pub.Item2;
             }
