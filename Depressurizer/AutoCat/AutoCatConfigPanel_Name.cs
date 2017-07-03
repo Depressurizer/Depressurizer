@@ -16,24 +16,37 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace Depressurizer {
-    public partial class AutoCatConfigPanel_Name : AutoCatConfigPanel {
-        public AutoCatConfigPanel_Name() {
+namespace Depressurizer
+{
+    public partial class AutoCatConfigPanel_Name : AutoCatConfigPanel
+    {
+        public AutoCatConfigPanel_Name()
+        {
             InitializeComponent();
-            ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
         }
 
-        public override void LoadFromAutoCat( AutoCat ac ) {
+        public override void LoadFromAutoCat(AutoCat ac)
+        {
             AutoCatName acName = ac as AutoCatName;
-            if( acName == null ) return;
-            txtPrefix.Text = (acName.Prefix == null) ? string.Empty : acName.Prefix;
+            if (acName == null)
+            {
+                return;
+            }
+
+            txtPrefix.Text = acName.Prefix == null ? string.Empty : acName.Prefix;
             cbSkipThe.Checked = acName.SkipThe;
             cbGroupNumbers.Checked = acName.GroupNumbers;
         }
 
-        public override void SaveToAutoCat( AutoCat autocat ) {
+        public override void SaveToAutoCat(AutoCat autocat)
+        {
             AutoCatName ac = autocat as AutoCatName;
-            if( ac == null ) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
             ac.GroupNumbers = cbGroupNumbers.Checked;
             ac.SkipThe = cbSkipThe.Checked;
