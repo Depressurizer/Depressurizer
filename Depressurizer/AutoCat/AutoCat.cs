@@ -105,8 +105,8 @@ namespace Depressurizer
         /// After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
         public virtual void PreProcess( GameList games, GameDB db ) {
-            this.Games = games;
-            this.Db = db;
+            Games = games;
+            Db = db;
         }
 
         /// <summary>
