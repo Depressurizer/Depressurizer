@@ -176,8 +176,10 @@ namespace Depressurizer
             return result;
         }
 
-        public static AutoCat Create( AutoCatType type, string name ) {
-            switch( type ) {
+        public static AutoCat Create( AutoCatType type, string name )
+        {
+            switch( type )
+            {
                 case AutoCatType.Genre:
                     return new AutoCatGenre( name );
                 case AutoCatType.Flags:
@@ -198,8 +200,10 @@ namespace Depressurizer
                     return new AutoCatGroup(name);
                 case AutoCatType.Name:
                     return new AutoCatName(name);
-                default:
+                case AutoCatType.None:
                     return null;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
         }
     }
