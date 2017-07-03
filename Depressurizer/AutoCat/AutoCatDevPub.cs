@@ -60,7 +60,7 @@ namespace Depressurizer
             XmlNamePublishers = "Publishers",
             XmlNamePublisher = "Publisher";
 
-        private GameList gamelist;
+        private GameList _gamelist;
 
         /// <summary>
         /// Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally, assigns categories from another list.
@@ -104,15 +104,15 @@ namespace Depressurizer
         public override void PreProcess(GameList games, GameDB db)
         {
             base.PreProcess(games, db);
-            gamelist = games;
-            _devList = Program.GameDB.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
-            _pubList = Program.GameDB.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
+            _gamelist = games;
+            _devList = Program.GameDB.CalculateSortedDevList(OwnedOnly ? _gamelist : null, MinCount);
+            _pubList = Program.GameDB.CalculateSortedPubList(OwnedOnly ? _gamelist : null, MinCount);
         }
 
         public override void DeProcess()
         {
             base.DeProcess();
-            gamelist = null;
+            _gamelist = null;
         }
 
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
