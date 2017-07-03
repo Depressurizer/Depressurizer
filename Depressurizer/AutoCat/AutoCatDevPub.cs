@@ -260,8 +260,7 @@ namespace Depressurizer
                 {
                     foreach (XmlNode node in pubNodes)
                     {
-                        string s;
-                        if (XmlUtil.TryGetStringFromNode(node, out s))
+                        if (XmlUtil.TryGetStringFromNode(node, out string s))
                         {
                             pubs.Add(s);
                         }
