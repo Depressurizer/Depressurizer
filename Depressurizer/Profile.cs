@@ -23,6 +23,7 @@ using System.Xml;
 using System.Drawing;
 using System.IO;
 using Rallion;
+using Depressurizer.Model;
 
 namespace Depressurizer {
     public class Profile {
@@ -473,11 +474,11 @@ namespace Depressurizer {
 
             //By HLTB
             AutoCatHltb ach = new AutoCatHltb(GlobalStrings.Profile_DefaultAutoCatName_Hltb, null, "(HLTB) ", false);
-            ach.Rules.Add(new Hltb_Rule("0-5", 0, 5, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule("5-10", 5, 10, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule("10-20", 10, 20, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule("20-50", 20, 50, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule("50+", 20, 0, TimeType.Extras));
+            ach.Rules.Add(new HltbRule("0-5", 0, 5, TimeType.Extras));
+            ach.Rules.Add(new HltbRule("5-10", 5, 10, TimeType.Extras));
+            ach.Rules.Add(new HltbRule("10-20", 10, 20, TimeType.Extras));
+            ach.Rules.Add(new HltbRule("20-50", 20, 50, TimeType.Extras));
+            ach.Rules.Add(new HltbRule("50+", 20, 0, TimeType.Extras));
             list.Add(ach);
         }
 

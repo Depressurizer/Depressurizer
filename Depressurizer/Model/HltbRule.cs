@@ -17,37 +17,29 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.ComponentModel;
-
-namespace Depressurizer
+namespace Depressurizer.Model
 {
-    public enum AutoCatType
+    public class HltbRule
     {
-        [Description("None")] None,
-        [Description("AutoCatGenre")] Genre,
-        [Description("AutoCatFlags")] Flags,
-        [Description("AutoCatTags")] Tags,
-        [Description("AutoCatYear")] Year,
-        [Description("AutoCatUserScore")] UserScore,
-        [Description("AutoCatHltb")] Hltb,
-        [Description("AutoCatManual")] Manual,
-        [Description("AutoCatDevPub")] DevPub,
-        [Description("AutoCatGroup")] Group,
-        [Description("AutoCatName")] Name
-    }
+        public string Name { get; set; }
+        public float MinHours { get; set; }
+        public float MaxHours { get; set; }
+        public TimeType TimeType { get; set; }
 
-    public enum TimeType
-    {
-        Main,
-        Extras,
-        Completionist
-    }
+        public HltbRule(string name, float minHours, float maxHours, TimeType timeType)
+        {
+            Name = name;
+            MinHours = minHours;
+            MaxHours = maxHours;
+            TimeType = timeType;
+        }
 
-    public enum AutoCatResult
-    {
-        Success,
-        Failure,
-        NotInDatabase,
-        Filtered
+        public HltbRule(HltbRule other)
+        {
+            Name = other.Name;
+            MinHours = other.MinHours;
+            MaxHours = other.MaxHours;
+            TimeType = other.TimeType;
+        }
     }
 }
