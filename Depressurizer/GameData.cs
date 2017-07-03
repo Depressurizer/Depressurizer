@@ -28,6 +28,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using Depressurizer.Lib;
+using Depressurizer.VdfFile;
+using ValueType = Depressurizer.VdfFile.ValueType;
 
 namespace Depressurizer {
 
