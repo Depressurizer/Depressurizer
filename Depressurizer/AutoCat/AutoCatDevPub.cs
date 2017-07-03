@@ -74,8 +74,8 @@ namespace Depressurizer
             MinCount = count;
             AllDevelopers = developersAll;
             AllPublishers = publishersAll;
-            Developers = (developers == null) ? new List<string>() : developers;
-            Publishers = (publishers == null) ? new List<string>() : publishers;
+            Developers = developers ?? new List<string>();
+            Publishers = publishers ?? new List<string>();
             Selected = selected;
         }
 
