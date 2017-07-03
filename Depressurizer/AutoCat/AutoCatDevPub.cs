@@ -253,17 +253,15 @@ namespace Depressurizer
             List<string> pubs = new List<string>();
 
             XmlElement pubsListElement = xElement[XmlNamePublishers];
-            if (pubsListElement != null)
+
+            XmlNodeList pubNodes = pubsListElement?.SelectNodes(XmlNamePublisher);
+            if (pubNodes != null)
             {
-                XmlNodeList pubNodes = pubsListElement.SelectNodes(XmlNamePublisher);
-                if (pubNodes != null)
+                foreach (XmlNode node in pubNodes)
                 {
-                    foreach (XmlNode node in pubNodes)
+                    if (XmlUtil.TryGetStringFromNode(node, out string s))
                     {
-                        if (XmlUtil.TryGetStringFromNode(node, out string s))
-                        {
-                            pubs.Add(s);
-                        }
+                        pubs.Add(s);
                     }
                 }
             }
