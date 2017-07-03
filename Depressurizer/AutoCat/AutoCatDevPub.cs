@@ -236,17 +236,15 @@ namespace Depressurizer
             List<string> devs = new List<string>();
 
             XmlElement devsListElement = xElement[XmlNameDevelopers];
-            if (devsListElement != null)
+
+            XmlNodeList devNodes = devsListElement?.SelectNodes(XmlNameDeveloper);
+            if (devNodes != null)
             {
-                XmlNodeList devNodes = devsListElement.SelectNodes(XmlNameDeveloper);
-                if (devNodes != null)
+                foreach (XmlNode node in devNodes)
                 {
-                    foreach (XmlNode node in devNodes)
+                    if (XmlUtil.TryGetStringFromNode(node, out string s))
                     {
-                        if (XmlUtil.TryGetStringFromNode(node, out string s))
-                        {
-                            devs.Add(s);
-                        }
+                        devs.Add(s);
                     }
                 }
             }
