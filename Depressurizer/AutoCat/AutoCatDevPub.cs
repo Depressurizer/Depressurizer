@@ -134,15 +134,18 @@ namespace Depressurizer
 
             if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            List<string> devs = Db.GetDevelopers(game.Id);
+            List<string> developers = Db.GetDevelopers(game.Id);
 
-            if (devs != null)
+            if (developers != null)
             {
-                for (int index = 0; index < devs.Count; index++)
+                foreach (string developer in developers)
                 {
-                    if (Developers.Contains(devs[index]) || AllDevelopers)
+                    if (Developers.Contains(developer) || AllDevelopers)
                     {
-                        if (DevCount(devs[index]) >= MinCount) game.AddCategory(Games.GetCategory(GetProcessedString(devs[index])));
+                        if (DevCount(developer) >= MinCount)
+                        {
+                            game.AddCategory(Games.GetCategory(GetProcessedString(developer)));
+                        }
                     }
                 }
             }
