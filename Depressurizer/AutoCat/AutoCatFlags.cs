@@ -126,15 +126,20 @@ namespace Depressurizer {
             List<string> flags = new List<string>();
 
             XmlElement flagListElement = xElement[XmlNameFlagList];
-            if( flagListElement != null ) {
-                XmlNodeList flagElements = flagListElement.SelectNodes( XmlNameFlag );
-                foreach( XmlNode n in flagElements ) {
-                    string flag;
-                    if( XmlUtil.TryGetStringFromNode( n, out flag ) ) {
-                        flags.Add( flag );
+
+            XmlNodeList flagElements = flagListElement?.SelectNodes( XmlNameFlag );
+            if (flagElements != null)
+            {
+                for (int i = 0; i < flagElements.Count; i++)
+                {
+                    XmlNode n = flagElements[i];
+                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
+                    {
+                        flags.Add(flag);
                     }
                 }
             }
+
             return new AutoCatFlags( name, filter, prefix, flags );
         }
 
