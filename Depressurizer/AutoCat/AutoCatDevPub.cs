@@ -257,8 +257,9 @@ namespace Depressurizer
             XmlNodeList pubNodes = pubsListElement?.SelectNodes(XmlNamePublisher);
             if (pubNodes != null)
             {
-                foreach (XmlNode node in pubNodes)
+                for (int i = 0; i < pubNodes.Count; i++)
                 {
+                    XmlNode node = pubNodes[i];
                     if (XmlUtil.TryGetStringFromNode(node, out string s))
                     {
                         pubs.Add(s);
