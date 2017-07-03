@@ -74,7 +74,7 @@ namespace Depressurizer {
                 return AutoCatResult.Failure;
             }
 
-            if( !Db.Contains( game.Id ) || Db.Games[game.Id].LastStoreScrape == 0 )
+            if( !Db.Contains( game.Id ) || (Db.Games[game.Id].LastStoreScrape == 0) )
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -84,11 +84,7 @@ namespace Depressurizer {
                 return AutoCatResult.Filtered;
             }
 
-            List<string> gameFlags = Db.GetFlagList( game.Id );
-            if( gameFlags == null )
-            {
-                gameFlags = new List<string>();
-            }
+            List<string> gameFlags = Db.GetFlagList( game.Id ) ?? new List<string>();
             IEnumerable<string> categories = gameFlags.Intersect( IncludedFlags );
 
             foreach( string catString in categories ) {
