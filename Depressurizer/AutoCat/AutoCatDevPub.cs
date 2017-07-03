@@ -173,13 +173,7 @@ namespace Depressurizer
 
         private string GetProcessedString(string baseString)
         {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-            else {
-                return Prefix + baseString;
-            }
+            return string.IsNullOrEmpty(Prefix) ? baseString : Prefix + baseString;
         }
 
         public override void WriteToXml(XmlWriter writer)
