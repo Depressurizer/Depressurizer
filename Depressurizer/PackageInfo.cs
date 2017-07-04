@@ -19,11 +19,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Text;
 using Depressurizer.VdfFile;
 using ValueType = Depressurizer.VdfFile.ValueType;
 
