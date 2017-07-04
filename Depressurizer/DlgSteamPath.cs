@@ -21,43 +21,56 @@ using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-namespace Depressurizer {
-    public partial class DlgSteamPath : Form {
-        public string Path {
-            get {
-                return txtPath.Text.Trim().TrimEnd('\\');
-            }
+namespace Depressurizer
+{
+    public partial class DlgSteamPath : Form
+    {
+        public string Path
+        {
+            get { return txtPath.Text.Trim().TrimEnd('\\'); }
         }
-        
-        public DlgSteamPath() {
+
+        public DlgSteamPath()
+        {
             InitializeComponent();
             txtPath.Text = GetSteamPath();
         }
 
-        private void cmdOk_Click( object sender, EventArgs e ) {
-            if( !Directory.Exists( Path ) ) {
-                DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if( res == DialogResult.No ) {
+        private void cmdOk_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Path))
+            {
+                DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist,
+                    GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button2);
+                if (res == DialogResult.No)
+                {
                     return;
                 }
             }
             Close();
         }
 
-        private void cmdBrowse_Click( object sender, EventArgs e ) {
+        private void cmdBrowse_Click(object sender, EventArgs e)
+        {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
             DialogResult res = dlg.ShowDialog();
-            if( res == DialogResult.OK ) {
+            if (res == DialogResult.OK)
+            {
                 txtPath.Text = dlg.SelectedPath;
             }
         }
 
-        private string GetSteamPath() {
-            try {
-                string s = Registry.GetValue( @"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null ) as string;
-                if( s == null ) s = string.Empty;
-                return s.Replace( '/', '\\' );
-            } catch {
+        private string GetSteamPath()
+        {
+            try
+            {
+                string s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
+                if (s == null) s = string.Empty;
+                return s.Replace('/', '\\');
+            }
+            catch
+            {
                 return string.Empty;
             }
         }

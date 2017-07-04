@@ -47,7 +47,8 @@ namespace Depressurizer.AutoCat
         public const string XmlNameRuleMaxReviews = "MaxReviews";
         public List<UserScoreRule> Rules;
 
-        public AutoCatUserScore(string name = TypeIdString, string filter = null, string prefix = null, bool useWilsonScore = false, List<UserScoreRule> rules = null, bool selected = false) : base(name)
+        public AutoCatUserScore(string name = TypeIdString, string filter = null, string prefix = null,
+            bool useWilsonScore = false, List<UserScoreRule> rules = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -127,14 +128,18 @@ namespace Depressurizer.AutoCat
                 // $n$ is the total number of ratings (the sample size), and
                 // $z$ is the $1-{\frac {\alpha}{2}}$ quantile of a standard normal distribution
                 // for 95% confidence, the $z = 1.96$
-                double z = 1.96; // normal distribution of (1-(1-confidence)/2), i.e. normal distribution of 0.975 for 95% confidence
+                double
+                    z = 1.96; // normal distribution of (1-(1-confidence)/2), i.e. normal distribution of 0.975 for 95% confidence
                 double p = score / 100.0;
                 double n = reviews;
-                p = Math.Round(100 * (((p + ((z * z) / (2 * n))) - (z * Math.Sqrt(((p * (1 - p)) + ((z * z) / (4 * n))) / n))) / (1 + ((z * z) / n))));
+                p = Math.Round(100 * (((p + ((z * z) / (2 * n))) -
+                                       (z * Math.Sqrt(((p * (1 - p)) + ((z * z) / (4 * n))) / n))) /
+                                      (1 + ((z * z) / n))));
                 // debug: System.Windows.Forms.MessageBox.Show("score " + score + " of " + reviews + " is\tp = " + p + "\n");
                 score = Convert.ToInt32(p);
             }
-            string result = (from rule in Rules where CheckRule(rule, score, reviews) select rule.Name).FirstOrDefault();
+            string result = (from rule in Rules where CheckRule(rule, score, reviews) select rule.Name)
+                .FirstOrDefault();
 
             if (result != null)
             {
@@ -144,7 +149,11 @@ namespace Depressurizer.AutoCat
             return AutoCatResult.Success;
         }
 
-        private static bool CheckRule(UserScoreRule rule, int score, int reviews) => (score >= rule.MinScore) && (score <= rule.MaxScore) && (rule.MinReviews <= reviews) && ((rule.MaxReviews == 0) || (rule.MaxReviews >= reviews));
+        private static bool CheckRule(UserScoreRule rule, int score, int reviews) => (score >= rule.MinScore) &&
+                                                                                     (score <= rule.MaxScore) &&
+                                                                                     (rule.MinReviews <= reviews) &&
+                                                                                     ((rule.MaxReviews == 0) ||
+                                                                                      (rule.MaxReviews >= reviews));
 
         private string GetProcessedString(string s)
         {

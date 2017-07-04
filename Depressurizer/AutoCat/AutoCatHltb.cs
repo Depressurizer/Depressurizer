@@ -48,7 +48,9 @@ namespace Depressurizer.AutoCat
         public const string XmlNameRuleTimeType = "TimeType";
         public List<HltbRule> Rules;
 
-        public AutoCatHltb(string name = TypeIdString, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<HltbRule> rules = null, bool selected = false) : base(name)
+        public AutoCatHltb(string name = TypeIdString, string filter = null, string prefix = null,
+            bool includeUnknown = true, string unknownText = "", List<HltbRule> rules = null,
+            bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;

@@ -28,7 +28,9 @@ namespace Depressurizer.AutoCat
     public partial class AutoCatConfigPanel_UserScore : AutoCatConfigPanel
     {
         private readonly BindingSource binding = new BindingSource();
-        private readonly Dictionary<string, UserScorePresetDelegate> presetMap = new Dictionary<string, UserScorePresetDelegate>();
+
+        private readonly Dictionary<string, UserScorePresetDelegate> presetMap =
+            new Dictionary<string, UserScorePresetDelegate>();
 
         private readonly BindingList<UserScoreRule> ruleList = new BindingList<UserScoreRule>();
 
@@ -109,7 +111,8 @@ namespace Depressurizer.AutoCat
         {
             bool ruleSelected = lstRules.SelectedIndex >= 0;
 
-            txtRuleName.Enabled = numRuleMaxScore.Enabled = numRuleMinScore.Enabled = numRuleMinReviews.Enabled = numRuleMaxReviews.Enabled = cmdRuleRemove.Enabled = ruleSelected;
+            txtRuleName.Enabled = numRuleMaxScore.Enabled = numRuleMinScore.Enabled = numRuleMinReviews.Enabled =
+                numRuleMaxReviews.Enabled = cmdRuleRemove.Enabled = ruleSelected;
             cmdRuleUp.Enabled = ruleSelected && (lstRules.SelectedIndex != 0);
             cmdRuleDown.Enabled = ruleSelected = ruleSelected && (lstRules.SelectedIndex != (lstRules.Items.Count - 1));
         }
@@ -124,7 +127,8 @@ namespace Depressurizer.AutoCat
         private void MoveItem(int mainIndex, int offset, bool selectMoved)
         {
             int alterIndex = mainIndex + offset;
-            if ((mainIndex < 0) || (mainIndex >= lstRules.Items.Count) || (alterIndex < 0) || (alterIndex >= lstRules.Items.Count))
+            if ((mainIndex < 0) || (mainIndex >= lstRules.Items.Count) || (alterIndex < 0) ||
+                (alterIndex >= lstRules.Items.Count))
             {
                 return;
             }
@@ -147,7 +151,9 @@ namespace Depressurizer.AutoCat
         {
             if ((name != null) && presetMap.ContainsKey(name))
             {
-                if ((ruleList.Count == 0) || (MessageBox.Show(GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+                if ((ruleList.Count == 0) ||
+                    (MessageBox.Show(GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset, GlobalStrings.Gen_Warning,
+                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
                 {
                     UserScorePresetDelegate dlgt = presetMap[name];
                     ruleList.Clear();

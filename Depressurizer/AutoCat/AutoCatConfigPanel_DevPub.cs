@@ -155,7 +155,9 @@ namespace Depressurizer.AutoCat
             if (Program.GameDB != null)
             {
                 Cursor = Cursors.WaitCursor;
-                IEnumerable<Tuple<string, int>> devList = Program.GameDB.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
+                IEnumerable<Tuple<string, int>> devList =
+                    Program.GameDB.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null,
+                        (int) list_numScore.Value);
                 clbDevelopersSelected.Items.Clear();
                 lstDevelopers.BeginUpdate();
                 lstDevelopers.Items.Clear();
@@ -184,7 +186,9 @@ namespace Depressurizer.AutoCat
             if (Program.GameDB != null)
             {
                 Cursor = Cursors.WaitCursor;
-                IEnumerable<Tuple<string, int>> pubList = Program.GameDB.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
+                IEnumerable<Tuple<string, int>> pubList =
+                    Program.GameDB.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null,
+                        (int) list_numScore.Value);
                 clbPublishersSelected.Items.Clear();
                 lstPublishers.BeginUpdate();
                 lstPublishers.Items.Clear();

@@ -24,12 +24,11 @@ using Depressurizer.Lib;
 
 namespace Depressurizer
 {
-
     public class Filter : IComparable
     {
-
         // Serialization strings
         private const string TypeIdString = "Filter";
+
         private const string
             XmlName_Name = "Name",
             XmlName_Uncategorized = "Uncategorized",
@@ -58,12 +57,10 @@ namespace Depressurizer
         public int Hidden;
 
         private SortedSet<Category> _allow;
+
         public SortedSet<Category> Allow
         {
-            get
-            {
-                return _allow;
-            }
+            get { return _allow; }
             set
             {
                 _allow = new SortedSet<Category>(value);
@@ -75,12 +72,10 @@ namespace Depressurizer
         }
 
         private SortedSet<Category> _require;
+
         public SortedSet<Category> Require
         {
-            get
-            {
-                return _require;
-            }
+            get { return _require; }
             set
             {
                 _require = new SortedSet<Category>(value);
@@ -92,12 +87,10 @@ namespace Depressurizer
         }
 
         private SortedSet<Category> _exclude;
+
         public SortedSet<Category> Exclude
         {
-            get
-            {
-                return _exclude;
-            }
+            get { return _exclude; }
             set
             {
                 _exclude = new SortedSet<Category>(value);

@@ -66,7 +66,9 @@ namespace Depressurizer.AutoCat
         /// <param name="tagFallback"></param>
         /// <param name="ignore"></param>
         /// <param name="selected"></param>
-        public AutoCatGenre(string name, string filter = null, string prefix = null, int maxCategories = 0, bool removeOthers = false, bool tagFallback = true, List<string> ignore = null, bool selected = false) : base(name)
+        public AutoCatGenre(string name, string filter = null, string prefix = null, int maxCategories = 0,
+            bool removeOthers = false, bool tagFallback = true, List<string> ignore = null,
+            bool selected = false) : base(name)
         {
             Filter = filter;
             MaxCategories = maxCategories;
@@ -110,7 +112,8 @@ namespace Depressurizer.AutoCat
 
                 foreach (string cStr in genreStrings)
                 {
-                    if (games.CategoryExists(string.IsNullOrEmpty(Prefix) ? cStr : Prefix + cStr) && !IgnoredGenres.Contains(cStr))
+                    if (games.CategoryExists(string.IsNullOrEmpty(Prefix) ? cStr : Prefix + cStr) &&
+                        !IgnoredGenres.Contains(cStr))
                     {
                         _genreCategories.Add(games.GetCategory(cStr));
                     }

@@ -129,7 +129,7 @@ namespace Depressurizer
             //else if (cat_x.Name == GlobalStrings.MainForm_Favorite) return 1;
 
             // Compare categories.
-            int result =0;
+            int result = 0;
 
             if (SortMode == categorySortMode.Name)
             {

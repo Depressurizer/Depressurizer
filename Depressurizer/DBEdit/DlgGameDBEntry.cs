@@ -31,9 +31,7 @@ namespace Depressurizer.DBEdit
 
         public GameDBEntry Game;
 
-        public GameDBEntryDialog() : this(null)
-        {
-        }
+        public GameDBEntryDialog() : this(null) { }
 
         public GameDBEntryDialog(GameDBEntry game)
         {
@@ -101,12 +99,17 @@ namespace Depressurizer.DBEdit
                 {
                     txtRelease.Text = Game.SteamReleaseDate;
                 }
-                numAchievements.Value = Utility.Clamp(Game.Achievements, (int) numAchievements.Minimum, (int) numAchievements.Maximum);
-                numReviewScore.Value = Utility.Clamp(Game.ReviewPositivePercentage, (int) numReviewScore.Minimum, (int) numReviewScore.Maximum);
-                numReviewCount.Value = Utility.Clamp(Game.ReviewTotal, (int) numReviewCount.Minimum, (int) numReviewCount.Maximum);
+                numAchievements.Value = Utility.Clamp(Game.Achievements, (int) numAchievements.Minimum,
+                    (int) numAchievements.Maximum);
+                numReviewScore.Value = Utility.Clamp(Game.ReviewPositivePercentage, (int) numReviewScore.Minimum,
+                    (int) numReviewScore.Maximum);
+                numReviewCount.Value = Utility.Clamp(Game.ReviewTotal, (int) numReviewCount.Minimum,
+                    (int) numReviewCount.Maximum);
                 numHltbMain.Value = Utility.Clamp(Game.HltbMain, (int) numHltbMain.Minimum, (int) numHltbMain.Maximum);
-                numHltbExtras.Value = Utility.Clamp(Game.HltbExtras, (int) numHltbExtras.Minimum, (int) numHltbExtras.Maximum);
-                numHltbCompletionist.Value = Utility.Clamp(Game.HltbCompletionist, (int) numHltbCompletionist.Minimum, (int) numHltbCompletionist.Maximum);
+                numHltbExtras.Value = Utility.Clamp(Game.HltbExtras, (int) numHltbExtras.Minimum,
+                    (int) numHltbExtras.Maximum);
+                numHltbCompletionist.Value = Utility.Clamp(Game.HltbCompletionist, (int) numHltbCompletionist.Minimum,
+                    (int) numHltbCompletionist.Maximum);
                 chkPlatWin.Checked = Game.Platforms.HasFlag(AppPlatforms.Windows);
                 chkPlatMac.Checked = Game.Platforms.HasFlag(AppPlatforms.Mac);
                 chkPlatLinux.Checked = Game.Platforms.HasFlag(AppPlatforms.Linux);

@@ -59,7 +59,8 @@ namespace Depressurizer.AutoCat
         ///     Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally,
         ///     assigns categories from another list.
         /// </summary>
-        public AutoCatManual(string name, string filter = null, string prefix = null, bool removeAll = false, List<string> remove = null, List<string> add = null, bool selected = false) : base(name)
+        public AutoCatManual(string name, string filter = null, string prefix = null, bool removeAll = false,
+            List<string> remove = null, List<string> add = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
