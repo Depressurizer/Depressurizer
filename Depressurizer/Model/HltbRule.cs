@@ -17,30 +17,31 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Xml;
-using Depressurizer.Lib;
+using Depressurizer.AutoCat;
 
-namespace Depressurizer {
-    class HltbPrcDlg : CancelableDlg {
-        public int Updated { get; private set; }
+namespace Depressurizer.Model
+{
+    public class HltbRule
+    {
+        public string Name { get; set; }
+        public float MinHours { get; set; }
+        public float MaxHours { get; set; }
+        public TimeType TimeType { get; set; }
 
-        public HltbPrcDlg()
-            : base(GlobalStrings.CDlgHltb_Title, false)
+        public HltbRule(string name, float minHours, float maxHours, TimeType timeType)
         {
-            SetText(GlobalStrings.CDlgHltb_UpdateHltb);
-            Updated = 0;
+            Name = name;
+            MinHours = minHours;
+            MaxHours = maxHours;
+            TimeType = timeType;
         }
 
-        protected override void RunProcess() {
-            Updated = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
-            OnThreadCompletion();
-        }
-
-        protected override void Finish() {
-            if( !this.Canceled && Error == null ) {
-                OnJobCompletion();
-            }
+        public HltbRule(HltbRule other)
+        {
+            Name = other.Name;
+            MinHours = other.MinHours;
+            MaxHours = other.MaxHours;
+            TimeType = other.TimeType;
         }
     }
 }

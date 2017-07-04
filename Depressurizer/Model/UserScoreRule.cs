@@ -17,30 +17,32 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Xml;
-using Depressurizer.Lib;
+namespace Depressurizer.Model
+{
+    public class UserScoreRule
+    {
+        public string Name { get; set; }
+        public int MinScore { get; set; }
+        public int MaxScore { get; set; }
+        public int MinReviews { get; set; }
+        public int MaxReviews { get; set; }
 
-namespace Depressurizer {
-    class HltbPrcDlg : CancelableDlg {
-        public int Updated { get; private set; }
-
-        public HltbPrcDlg()
-            : base(GlobalStrings.CDlgHltb_Title, false)
+        public UserScoreRule(string name, int minScore, int maxScore, int minReviews, int maxReviews)
         {
-            SetText(GlobalStrings.CDlgHltb_UpdateHltb);
-            Updated = 0;
+            Name = name;
+            MinScore = minScore;
+            MaxScore = maxScore;
+            MinReviews = minReviews;
+            MaxReviews = maxReviews;
         }
 
-        protected override void RunProcess() {
-            Updated = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
-            OnThreadCompletion();
-        }
-
-        protected override void Finish() {
-            if( !this.Canceled && Error == null ) {
-                OnJobCompletion();
-            }
+        public UserScoreRule(UserScoreRule other)
+        {
+            Name = other.Name;
+            MinScore = other.MinScore;
+            MaxScore = other.MaxScore;
+            MinReviews = other.MinReviews;
+            MaxReviews = other.MaxReviews;
         }
     }
 }

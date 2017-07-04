@@ -1,39 +1,41 @@
 ﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+    This file is part of Depressurizer.
+    Original work Copyright 2011, 2012, 2013 Steve Labbe.
+    Modified work Copyright 2017 Martijn Vegter.
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    Depressurizer is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    Depressurizer is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
-using Rallion;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Depressurizer.AutoCat;
 
 namespace Depressurizer {
     public partial class DlgAutoCatSelect : Form {
-        public List<AutoCat> AutoCatList;
+        public List<AutoCat.AutoCat> AutoCatList;
         public string originalGroup;
 
-        public DlgAutoCatSelect( List<AutoCat> autoCats, string name ) {
+        public DlgAutoCatSelect( List<AutoCat.AutoCat> autoCats, string name ) {
             InitializeComponent();
 
-            AutoCatList = new List<AutoCat>();
+            AutoCatList = new List<AutoCat.AutoCat>();
             originalGroup = name;
 
-            foreach (AutoCat c in autoCats) {
-                AutoCat clone = c.Clone();
+            foreach (AutoCat.AutoCat c in autoCats) {
+                AutoCat.AutoCat clone = c.Clone();
                 clone.Selected = false;
                 AutoCatList.Add(clone);
             }
@@ -43,7 +45,7 @@ namespace Depressurizer {
 
         private void FillAutocatList() {
             clbAutocats.Items.Clear();
-            foreach( AutoCat ac in AutoCatList ) {
+            foreach( AutoCat.AutoCat ac in AutoCatList ) {
                 if (ac.Name != originalGroup)
                 {
                     bool addAC = true;
@@ -68,7 +70,7 @@ namespace Depressurizer {
 
         private void clbAutocats_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            ((AutoCat)clbAutocats.Items[e.Index]).Selected = e.NewValue == CheckState.Checked ? true : false;
+            ((AutoCat.AutoCat)clbAutocats.Items[e.Index]).Selected = e.NewValue == CheckState.Checked ? true : false;
         }
 
         #endregion
@@ -103,11 +105,11 @@ namespace Depressurizer {
         }
 
         // find and return AutoCat using the name
-        public AutoCat GetAutoCat(string name)
+        public AutoCat.AutoCat GetAutoCat(string name)
         {
             if (string.IsNullOrEmpty(name)) return null;
 
-            foreach (AutoCat ac in AutoCatList)
+            foreach (AutoCat.AutoCat ac in AutoCatList)
             {
                 if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase)) return ac;
             }
@@ -117,7 +119,7 @@ namespace Depressurizer {
 
         private bool IsGroup(string find)
         {
-            AutoCat test = GetAutoCat(find);
+            AutoCat.AutoCat test = GetAutoCat(find);
             return (test.AutoCatType == AutoCatType.Group) ? true : false;
         }
 
