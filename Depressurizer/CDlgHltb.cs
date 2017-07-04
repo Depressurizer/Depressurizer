@@ -17,8 +17,6 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Xml;
 using Depressurizer.Lib;
 
 namespace Depressurizer {

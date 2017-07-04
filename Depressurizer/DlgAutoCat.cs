@@ -19,7 +19,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Depressurizer.AutoCat;
 using Depressurizer.Lib;
