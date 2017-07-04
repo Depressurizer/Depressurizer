@@ -201,12 +201,12 @@ namespace Depressurizer
             colFavorite.AspectGetter = delegate(object g)
             {
                 if ( g == null) return string.Empty;
-                return ((GameInfo)g).IsFavorite() ? "X" : String.Empty;
+                return ((GameInfo)g).IsFavorite() ? "X" : string.Empty;
             };
             colHidden.AspectGetter = delegate(object g)
             {
                 if ( g == null) return string.Empty;
-                return ((GameInfo)g).Hidden ? "X" : String.Empty;
+                return ((GameInfo)g).Hidden ? "X" : string.Empty;
             };
             colGenres.AspectGetter = delegate (object g)
             {
@@ -231,6 +231,30 @@ namespace Depressurizer
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Tags != null)
                     return string.Join(", ", Program.GameDB.Games[id].Tags);
                 return GlobalStrings.MainForm_NoTags;
+            };
+            colVRHeadsets.AspectGetter = delegate (object g)
+            {
+                if (g == null) return string.Empty;
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.Headsets != null)
+                    return string.Join(", ", Program.GameDB.Games[id].vrSupport.Headsets);
+                return string.Empty;
+            };
+            colVRInput.AspectGetter = delegate (object g)
+            {
+                if (g == null) return string.Empty;
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.Input != null)
+                    return string.Join(", ", Program.GameDB.Games[id].vrSupport.Input);
+                return string.Empty;
+            };
+            colVRPlayArea.AspectGetter = delegate (object g)
+            {
+                if (g == null) return string.Empty;
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.PlayArea != null)
+                    return string.Join(", ", Program.GameDB.Games[id].vrSupport.PlayArea);
+                return string.Empty;
             };
             colYear.AspectGetter = delegate (object g)
             {
@@ -398,6 +422,9 @@ namespace Depressurizer
             colGenres.ClusteringStrategy = new CommaClusteringStrategy();
             colFlags.ClusteringStrategy = new CommaClusteringStrategy();
             colTags.ClusteringStrategy = new CommaClusteringStrategy();
+            colVRHeadsets.ClusteringStrategy = new CommaClusteringStrategy();
+            colVRInput.ClusteringStrategy = new CommaClusteringStrategy();
+            colVRPlayArea.ClusteringStrategy = new CommaClusteringStrategy();
             colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
             lstGames.AdditionalFilter = new ModelFilter(delegate (object g)
             {

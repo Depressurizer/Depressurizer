@@ -553,6 +553,7 @@ namespace Depressurizer {
                     g.Flags = null;
                     g.Genres = null;
                     g.SteamReleaseDate = null;
+                    g.LastStoreScrape = 0;
                 }
                 Program.GameDB.Save("GameDB.xml.gz");
             }
