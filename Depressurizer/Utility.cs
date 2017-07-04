@@ -32,16 +32,19 @@ using System.Windows.Forms;
 using Depressurizer.Lib;
 using MaterialSkin.Controls;
 
-namespace Depressurizer {
-    public static class Utility {
-
+namespace Depressurizer
+{
+    public static class Utility
+    {
         #region File Backups
+
         /// <summary>
         /// Moves a file to back it up in anticipation of a save. Maintains a certain number of old versions of the file.
         /// </summary>
         /// <param name="filePath">File to move</param>
         /// <param name="maxBackups">The number of old versions to maintain</param>
-        public static void BackupFile(string filePath, int maxBackups) {
+        public static void BackupFile(string filePath, int maxBackups)
+        {
             if (maxBackups < 1) return;
             string targetPath = BackupFile_ClearSlot(filePath, maxBackups, 1);
             File.Copy(filePath, targetPath);
@@ -54,12 +57,15 @@ namespace Depressurizer {
         /// <param name="maxBackups">The number of backups that we're looking to keep</param>
         /// <param name="current">The number of the backup file to process. For example, if 1, this is clearing a spot for the most recent backup.</param>
         /// <returns>The path of the cleared slot</returns>
-        private static string BackupFile_ClearSlot(string basePath, int maxBackups, int current) {
+        private static string BackupFile_ClearSlot(string basePath, int maxBackups, int current)
+        {
             string thisPath = BackupFile_GetName(basePath, current);
-            if (!File.Exists(thisPath)) {
+            if (!File.Exists(thisPath))
+            {
                 return thisPath;
             }
-            if (current >= maxBackups) {
+            if (current >= maxBackups)
+            {
                 File.Delete(thisPath);
                 return thisPath;
             }
@@ -74,13 +80,16 @@ namespace Depressurizer {
         /// <param name="baseName">Name of the current version of the file</param>
         /// <param name="slotNum">Slot number to get the name for</param>
         /// <returns>The name</returns>
-        private static string BackupFile_GetName(string baseName, int slotNum) {
+        private static string BackupFile_GetName(string baseName, int slotNum)
+        {
             if (slotNum == 0) return baseName;
             return string.Format("{0}.bak_{1}", baseName, slotNum);
         }
+
         #endregion
 
         #region Date and time
+
         /// <summary>
         /// Unix epoch
         /// </summary>
@@ -89,13 +98,29 @@ namespace Depressurizer {
         /// <summary>
         ///  Steam Games without banners, ignore 404 warning
         /// </summary>
-        static List<int> ignoreWarning = new List<int> { 2430, 17340, 39530, 44630, 208610, 215060, 219540, 228020, 228040, 228060, 228080, 228100, 404730 };
+        static List<int> ignoreWarning = new List<int>
+        {
+            2430,
+            17340,
+            39530,
+            44630,
+            208610,
+            215060,
+            219540,
+            228020,
+            228040,
+            228060,
+            228080,
+            228100,
+            404730
+        };
 
         /// <summary>
         /// Gets the current time as Unix timestamp
         /// </summary>
         /// <returns>Int containing Unix time</returns>
-        public static int GetCurrentUTime() {
+        public static int GetCurrentUTime()
+        {
             return GetUTime(DateTime.UtcNow);
         }
 
@@ -104,11 +129,12 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="dt">DateTime to convert</param>
         /// <returns>int containing unix time</returns>
-        public static int GetUTime(DateTime dt) {
+        public static int GetUTime(DateTime dt)
+        {
             double tSecs = (dt - epoch).TotalSeconds;
             if (tSecs > int.MaxValue) return int.MaxValue;
             if (tSecs < 0) return 0;
-            return (int)tSecs;
+            return (int) tSecs;
         }
 
         /// <summary>
@@ -116,26 +142,33 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="uTime">Unix time to convert</param>
         /// <returns>DateTime representation</returns>
-        public static DateTime GetDTFromUTime(int uTime) {
+        public static DateTime GetDTFromUTime(int uTime)
+        {
             return epoch.AddSeconds(uTime);
         }
+
         #endregion
 
         #region General
+
         /// <summary>
         /// Compares two lists of strings for equality / sorting purposes.
         /// </summary>
         /// <param name="a">First list</param>
         /// <param name="b">Second list</param>
         /// <returns>0 if equal, negative if a is greater, positive if b is greater</returns>
-        public static int CompareLists(List<string> a, List<string> b) {
-            if (a == null) {
+        public static int CompareLists(List<string> a, List<string> b)
+        {
+            if (a == null)
+            {
                 return (b == null) ? 0 : 1;
             }
-            if (b == null) {
+            if (b == null)
+            {
                 return -1;
             }
-            for (int i = 0; i < a.Count && i < b.Count; i++) {
+            for (int i = 0; i < a.Count && i < b.Count; i++)
+            {
                 int res = string.Compare(a[i], b[i]);
                 if (res != 0) return res;
             }
@@ -150,7 +183,8 @@ namespace Depressurizer {
         /// <param name="min">Minimum return value</param>
         /// <param name="max">Maximum return value</param>
         /// <returns>If val is between min and max, return val. If greater than max, return max. If less than min, return min.</returns>
-        public static T Clamp<T>(T val, T min, T max) where T : IComparable<T> {
+        public static T Clamp<T>(T val, T min, T max) where T : IComparable<T>
+        {
             if (val.CompareTo(min) < 0) return min;
             if (val.CompareTo(max) > 0) return max;
             return val;
@@ -164,7 +198,8 @@ namespace Depressurizer {
             }
             catch
             {
-                if (!ignoreWarning.Contains(id)) Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+                if (!ignoreWarning.Contains(id))
+                    Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
         }
@@ -184,14 +219,15 @@ namespace Depressurizer {
                 if ((response.StatusCode == HttpStatusCode.OK ||
                      response.StatusCode == HttpStatusCode.Moved ||
                      response.StatusCode == HttpStatusCode.Redirect) &&
-                     response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+                    response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
                 {
                     return response.GetResponseStream();
                 }
             }
             catch
             {
-                if (!ignoreWarning.Contains(id)) Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+                if (!ignoreWarning.Contains(id))
+                    Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
         }
@@ -231,7 +267,8 @@ namespace Depressurizer {
         public static bool GrabBanner(int id)
         {
             string bannerURL = string.Format(Properties.Resources.UrlGameBanner, id);
-            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id);
+            string bannerPath = string.Format(Properties.Resources.GameBannerPath,
+                Path.GetDirectoryName(Application.ExecutablePath), id);
 
             try
             {
@@ -270,7 +307,7 @@ namespace Depressurizer {
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
             DescriptionAttribute[] attributes =
-                (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                (DescriptionAttribute[]) fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             if (attributes != null && attributes.Length > 0)
                 return attributes[0].Description;
@@ -303,13 +340,16 @@ namespace Depressurizer {
         #endregion
 
         #region Steam-specific
+
         /// <summary>
         /// Opens the store page for the specified app in the default browser.
         /// </summary>
         /// <param name="appId"></param>
-        public static void LaunchStorePage( int appId ) {
-            System.Diagnostics.Process.Start( string.Format( Properties.Resources.UrlSteamStoreApp, appId ) );
+        public static void LaunchStorePage(int appId)
+        {
+            System.Diagnostics.Process.Start(string.Format(Properties.Resources.UrlSteamStoreApp, appId));
         }
+
         #endregion
 
         #region Language
@@ -341,11 +381,8 @@ namespace Depressurizer {
                 culture = CultureInfo.GetCultureInfo(l);
             }
             return culture;
-
         }
+
         #endregion
     }
-
-
-
 }

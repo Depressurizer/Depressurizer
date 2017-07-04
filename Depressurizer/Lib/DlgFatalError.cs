@@ -37,6 +37,7 @@ namespace Depressurizer.Lib
         private int ShortHeight => (Height - ClientSize.Height) + cmdClose.Bottom + 10;
 
         #endregion
+
         #region Constants
 
         /// <summary>
@@ -233,7 +234,8 @@ namespace Depressurizer.Lib
                 if (res == DialogResult.OK)
                 {
                     StreamWriter fstr = new StreamWriter(dlg.FileName);
-                    string data = string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine, ex.StackTrace);
+                    string data = string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine,
+                        ex.StackTrace);
                     fstr.Write(data);
                     fstr.Close();
                     MessageBox.Show(GlobalStrings.DlgFatalError_ErrorInformationSaved);
@@ -261,7 +263,8 @@ namespace Depressurizer.Lib
                 string dMsg = GlobalStrings.DlgFatalError_CouldNotCopyClipboard;
                 try
                 {
-                    string data = string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine, ex.StackTrace);
+                    string data = string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine,
+                        ex.StackTrace);
                     Clipboard.SetText(data);
                     dMsg = GlobalStrings.DlgFatalError_ClipboardUpdated;
                 }

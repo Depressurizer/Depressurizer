@@ -45,7 +45,9 @@ namespace Depressurizer.AutoCat
         public const string XmlNameUnknownText = "UnknownText";
         public const string XmlNameGroupingMode = "GroupingMode";
 
-        public AutoCatYear(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYearGrouping groupMode = AutoCatYearGrouping.None, bool selected = false) : base(name)
+        public AutoCatYear(string name, string filter = null, string prefix = null, bool includeUnknown = true,
+            string unknownText = null, AutoCatYearGrouping groupMode = AutoCatYearGrouping.None,
+            bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -173,7 +175,8 @@ namespace Depressurizer.AutoCat
             string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
             bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlNameIncludeUnknown], true);
             string unknownText = XmlUtil.GetStringFromNode(xElement[XmlNameUnknownText], null);
-            AutoCatYearGrouping groupMode = XmlUtil.GetEnumFromNode(xElement[XmlNameGroupingMode], AutoCatYearGrouping.None);
+            AutoCatYearGrouping groupMode =
+                XmlUtil.GetEnumFromNode(xElement[XmlNameGroupingMode], AutoCatYearGrouping.None);
 
             return new AutoCatYear(name, filter, prefix, includeUnknown, unknownText, groupMode);
         }

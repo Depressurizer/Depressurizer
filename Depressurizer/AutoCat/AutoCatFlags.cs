@@ -43,7 +43,8 @@ namespace Depressurizer.AutoCat
         private const string XmlNameFlagList = "Flags";
         private const string XmlNameFlag = "Flag";
 
-        public AutoCatFlags(string name, string filter = null, string prefix = null, List<string> flags = null, bool selected = false) : base(name)
+        public AutoCatFlags(string name, string filter = null, string prefix = null, List<string> flags = null,
+            bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;

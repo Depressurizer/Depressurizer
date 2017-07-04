@@ -66,7 +66,9 @@ namespace Depressurizer.AutoCat
         ///     Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally,
         ///     assigns categories from another list.
         /// </summary>
-        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool owned = true, int count = 0, bool developersAll = false, bool publishersAll = false, List<string> developers = null, List<string> publishers = null, bool selected = false) : base(name)
+        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool owned = true, int count = 0,
+            bool developersAll = false, bool publishersAll = false, List<string> developers = null,
+            List<string> publishers = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -177,11 +179,15 @@ namespace Depressurizer.AutoCat
             return AutoCatResult.Success;
         }
 
-        private int DevCount(string name) => (from dev in _devList where dev.Item1 == name select dev.Item2).FirstOrDefault();
+        private int DevCount(string name) => (from dev in _devList where dev.Item1 == name select dev.Item2)
+            .FirstOrDefault();
 
-        private int PubCount(string name) => (from pub in _pubList where pub.Item1 == name select pub.Item2).FirstOrDefault();
+        private int PubCount(string name) => (from pub in _pubList where pub.Item1 == name select pub.Item2)
+            .FirstOrDefault();
 
-        private string GetProcessedString(string baseString) => string.IsNullOrEmpty(Prefix) ? baseString : Prefix + baseString;
+        private string GetProcessedString(string baseString) => string.IsNullOrEmpty(Prefix)
+            ? baseString
+            : Prefix + baseString;
 
         public override void WriteToXml(XmlWriter writer)
         {
@@ -270,7 +276,8 @@ namespace Depressurizer.AutoCat
                 }
             }
 
-            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, owned, count, allDevelopers, allPublishers, devs, pubs);
+            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, owned, count, allDevelopers, allPublishers,
+                devs, pubs);
             return result;
         }
     }
