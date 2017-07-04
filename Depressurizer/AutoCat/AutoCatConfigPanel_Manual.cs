@@ -1,40 +1,44 @@
 ﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+    This file is part of Depressurizer.
+    Original work Copyright 2011, 2012, 2013 Steve Labbe.
+    Modified work Copyright 2017 Martijn Vegter.
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    Depressurizer is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    Depressurizer is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public partial class AutoCatConfigPanel_Manual : AutoCatConfigPanel {
+namespace Depressurizer.AutoCat
+{
+    public partial class AutoCatConfigPanel_Manual : AutoCatConfigPanel
+    {
+        private bool loaded;
+        private readonly GameList ownedGames;
 
         // used to remove unchecked items from the Add and Remove checkedlistbox.
         private Thread workerThread;
-        private bool loaded = false;
-        private GameList ownedGames;
 
-        public AutoCatConfigPanel_Manual(GameList gamelist) {
-            
+        public AutoCatConfigPanel_Manual(GameList gamelist)
+        {
             InitializeComponent();
 
             ownedGames = gamelist;
 
-            ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
 
             FillRemoveList();
             FillAddList();
@@ -52,7 +56,11 @@ namespace Depressurizer {
         public override void LoadFromAutoCat(AutoCat autocat)
         {
             AutoCatManual ac = autocat as AutoCatManual;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             chkRemoveAll.Checked = ac.RemoveAllCategories;
             txtPrefix.Text = ac.Prefix;
 
@@ -64,6 +72,7 @@ namespace Depressurizer {
                 item.Checked = ac.RemoveCategories.Contains(item.Name);
                 found.Add(item.Name);
             }
+
             lstRemove.EndUpdate();
 
             foreach (string s in ac.RemoveCategories)
@@ -84,6 +93,7 @@ namespace Depressurizer {
                 item.Checked = ac.AddCategories.Contains(item.Name);
                 found.Add(item.Name);
             }
+
             lstAdd.EndUpdate();
 
             foreach (string s in ac.AddCategories)
@@ -106,7 +116,11 @@ namespace Depressurizer {
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatManual ac = autocat as AutoCatManual;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
             ac.RemoveAllCategories = chkRemoveAll.Checked;
 
@@ -125,6 +139,7 @@ namespace Depressurizer {
                 ac.AddCategories.Add(item.Name);
             }
         }
+
         #endregion
 
         #region UI Updaters
@@ -144,6 +159,7 @@ namespace Depressurizer {
                     lstRemove.Items.Add(l);
                 }
             }
+
             lstRemove.Columns[0].Width = -1;
             SortRemove(1, SortOrder.Descending);
             lstRemove.EndUpdate();
@@ -164,6 +180,7 @@ namespace Depressurizer {
                     lstAdd.Items.Add(l);
                 }
             }
+
             lstAdd.Columns[0].Width = -1;
             SortAdd(1, SortOrder.Descending);
             lstAdd.EndUpdate();
@@ -171,16 +188,18 @@ namespace Depressurizer {
 
         private void UpdateRemoveCount()
         {
-            groupRemove.Text = "Remove (" + clbRemoveSelected.Items.Count.ToString() + "):";
+            groupRemove.Text = "Remove (" + clbRemoveSelected.Items.Count + "):";
         }
 
         private void UpdateAddCount()
         {
-            groupAdd.Text = "Add (" + clbAddSelected.Items.Count.ToString() + "):";
+            groupAdd.Text = "Add (" + clbAddSelected.Items.Count + "):";
         }
 
-        private void SetAllListCheckStates( ListView list, bool to ) {
-            foreach( ListViewItem item in list.Items ) {
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
                 item.Checked = to;
             }
         }
@@ -263,10 +282,13 @@ namespace Depressurizer {
 
         private void lstRemove_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked) clbRemoveSelected.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            if (e.Item.Checked)
             {
-                workerThread = new Thread(new ParameterizedThreadStart(RemoveItemWorker));
+                clbRemoveSelected.Items.Add(e.Item, true);
+            }
+            else if (!e.Item.Checked && loaded)
+            {
+                workerThread = new Thread(RemoveItemWorker);
                 workerThread.Start(e.Item);
             }
             UpdateRemoveCount();
@@ -276,7 +298,7 @@ namespace Depressurizer {
         {
             if (e.NewValue == CheckState.Unchecked)
             {
-                ((ListViewItem)clbRemoveSelected.Items[e.Index]).Checked = false;
+                ((ListViewItem) clbRemoveSelected.Items[e.Index]).Checked = false;
             }
         }
 
@@ -298,14 +320,14 @@ namespace Depressurizer {
 
         #region Helper Thread 
 
-        delegate void RemoveItemCallback(ListViewItem obj);
+        private delegate void RemoveItemCallback(ListViewItem obj);
 
         private void RemoveItem(ListViewItem obj)
         {
-            if (this.clbRemoveSelected.InvokeRequired)
+            if (clbRemoveSelected.InvokeRequired)
             {
-                RemoveItemCallback callback = new RemoveItemCallback(RemoveItem);
-                this.Invoke(callback, new object[] { obj });
+                RemoveItemCallback callback = RemoveItem;
+                Invoke(callback, obj);
             }
             else
             {
@@ -341,10 +363,13 @@ namespace Depressurizer {
 
         private void lstAdd_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked) clbAddSelected.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            if (e.Item.Checked)
             {
-                workerThread = new Thread(new ParameterizedThreadStart(AddItemWorker));
+                clbAddSelected.Items.Add(e.Item, true);
+            }
+            else if (!e.Item.Checked && loaded)
+            {
+                workerThread = new Thread(AddItemWorker);
                 workerThread.Start(e.Item);
             }
             UpdateAddCount();
@@ -354,7 +379,7 @@ namespace Depressurizer {
         {
             if (e.NewValue == CheckState.Unchecked)
             {
-                ((ListViewItem)clbAddSelected.Items[e.Index]).Checked = false;
+                ((ListViewItem) clbAddSelected.Items[e.Index]).Checked = false;
             }
         }
 
@@ -376,14 +401,14 @@ namespace Depressurizer {
 
         #region Helper Thread
 
-        delegate void AddItemCallback(ListViewItem obj);
+        private delegate void AddItemCallback(ListViewItem obj);
 
         private void AddItem(ListViewItem obj)
         {
-            if (this.clbAddSelected.InvokeRequired)
+            if (clbAddSelected.InvokeRequired)
             {
-                AddItemCallback callback = new AddItemCallback(AddItem);
-                this.Invoke(callback, new object[] { obj });
+                AddItemCallback callback = AddItem;
+                Invoke(callback, obj);
             }
             else
             {
@@ -394,7 +419,7 @@ namespace Depressurizer {
 
         private void AddItemWorker(object obj)
         {
-            AddItem((ListViewItem)obj);
+            AddItem((ListViewItem) obj);
         }
 
         #endregion
@@ -406,8 +431,7 @@ namespace Depressurizer {
         private void SortRemove(int c, SortOrder so)
         {
             // Create a comparer.
-            lstRemove.ListViewItemSorter =
-                new ListViewComparer(c, so);
+            lstRemove.ListViewItemSorter = new ListViewComparer(c, so);
 
             // Sort.
             lstRemove.Sort();
@@ -416,8 +440,7 @@ namespace Depressurizer {
         private void SortAdd(int c, SortOrder so)
         {
             // Create a comparer.
-            lstAdd.ListViewItemSorter =
-                new ListViewComparer(c, so);
+            lstAdd.ListViewItemSorter = new ListViewComparer(c, so);
 
             // Sort.
             lstAdd.Sort();
@@ -432,6 +455,5 @@ namespace Depressurizer {
         }
 
         #endregion
-
     }
 }

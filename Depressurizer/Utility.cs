@@ -1,20 +1,22 @@
 ﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+    This file is part of Depressurizer.
+    Original work Copyright 2011, 2012, 2013 Steve Labbe.
+    Modified work Copyright 2017 Martijn Vegter.
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    Depressurizer is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    Depressurizer is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System.IO;
 using System.Collections.Generic;
 using System;
@@ -29,6 +31,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using Depressurizer.Lib;
 
 namespace Depressurizer {
     public static class Utility {
@@ -161,7 +164,7 @@ namespace Depressurizer {
             }
             catch
             {
-                if (!ignoreWarning.Contains(id)) Program.Logger.Write(Rallion.LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+                if (!ignoreWarning.Contains(id)) Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
         }
@@ -188,7 +191,7 @@ namespace Depressurizer {
             }
             catch
             {
-                if (!ignoreWarning.Contains(id)) Program.Logger.Write(Rallion.LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+                if (!ignoreWarning.Contains(id)) Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
         }
@@ -241,7 +244,7 @@ namespace Depressurizer {
             }
             catch
             {
-                Program.Logger.Write(Rallion.LoggerLevel.Warning, string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
+                Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
                 return false;
             }
         }
