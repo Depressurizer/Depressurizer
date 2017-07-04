@@ -245,7 +245,7 @@ namespace NDesk.Options {
 		public OptionContext (OptionSet set)
 		{
 			this.set = set;
-			this.c   = new OptionValueCollection (this);
+			c   = new OptionValueCollection (this);
 		}
 
 		public Option Option {
@@ -275,7 +275,7 @@ namespace NDesk.Options {
 	public enum OptionValueType {
 		None, 
 		Optional,
-		Required,
+		Required
 	}
 
 	public abstract class Option {
@@ -300,23 +300,23 @@ namespace NDesk.Options {
 				throw new ArgumentOutOfRangeException ("maxValueCount");
 
 			this.prototype   = prototype;
-			this.names       = prototype.Split ('|');
+			names       = prototype.Split ('|');
 			this.description = description;
-			this.count       = maxValueCount;
-			this.type        = ParsePrototype ();
+			count       = maxValueCount;
+			type        = ParsePrototype ();
 
-			if (this.count == 0 && type != OptionValueType.None)
+			if (count == 0 && type != OptionValueType.None)
 				throw new ArgumentException (
 						"Cannot provide maxValueCount of 0 for OptionValueType.Required or " +
 							"OptionValueType.Optional.",
 						"maxValueCount");
-			if (this.type == OptionValueType.None && maxValueCount > 1)
+			if (type == OptionValueType.None && maxValueCount > 1)
 				throw new ArgumentException (
 						string.Format ("Cannot provide maxValueCount of {0} for OptionValueType.None.", maxValueCount),
 						"maxValueCount");
 			if (Array.IndexOf (names, "<>") >= 0 && 
-					((names.Length == 1 && this.type != OptionValueType.None) ||
-					 (names.Length > 1 && this.MaxValueCount > 1)))
+					((names.Length == 1 && type != OptionValueType.None) ||
+					 (names.Length > 1 && MaxValueCount > 1)))
 				throw new ArgumentException (
 						"The default option handler '<>' cannot require values.",
 						"prototype");
@@ -360,7 +360,7 @@ namespace NDesk.Options {
 		internal string[] Names           {get {return names;}}
 		internal string[] ValueSeparators {get {return separators;}}
 
-		static readonly char[] NameTerminator = new char[]{'=', ':'};
+		static readonly char[] NameTerminator = {'=', ':'};
 
 		private OptionValueType ParsePrototype ()
 		{
@@ -393,11 +393,11 @@ namespace NDesk.Options {
 						"prototype");
 			if (count > 1) {
 				if (seps.Count == 0)
-					this.separators = new string[]{":", "="};
+					separators = new[]{":", "="};
 				else if (seps.Count == 1 && seps [0].Length == 0)
-					this.separators = null;
+					separators = null;
 				else
-					this.separators = seps.ToArray ();
+					separators = seps.ToArray ();
 			}
 
 			return type == '=' ? OptionValueType.Required : OptionValueType.Optional;
@@ -462,23 +462,23 @@ namespace NDesk.Options {
 		public OptionException (string message, string optionName)
 			: base (message)
 		{
-			this.option = optionName;
+			option = optionName;
 		}
 
 		public OptionException (string message, string optionName, Exception innerException)
 			: base (message, innerException)
 		{
-			this.option = optionName;
+			option = optionName;
 		}
 
 		protected OptionException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
-			this.option = info.GetString ("OptionName");
+			option = info.GetString ("OptionName");
 		}
 
 		public string OptionName {
-			get {return this.option;}
+			get {return option;}
 		}
 
 		[SecurityPermission (SecurityAction.LinkDemand, SerializationFormatter = true)]
@@ -821,7 +821,7 @@ namespace NDesk.Options {
 			if (option != null)
 				foreach (string o in c.Option.ValueSeparators != null 
 						? option.Split (c.Option.ValueSeparators, StringSplitOptions.None)
-						: new string[]{option}) {
+						: new[]{option}) {
 					c.OptionValues.Add (o);
 				}
 			if (c.OptionValues.Count == c.Option.MaxValueCount || 
@@ -858,7 +858,7 @@ namespace NDesk.Options {
 				return false;
 			for (int i = 0; i < n.Length; ++i) {
 				Option p;
-				string opt = f + n [i].ToString ();
+				string opt = f + n [i];
 				string rn = n [i].ToString ();
 				if (!Contains (rn)) {
 					if (i == 0)
@@ -983,9 +983,9 @@ namespace NDesk.Options {
 				return maxIndex == 1 ? "VALUE" : "VALUE" + (index + 1);
 			string[] nameStart;
 			if (maxIndex == 1)
-				nameStart = new string[]{"{0:", "{"};
+				nameStart = new[]{"{0:", "{"};
 			else
-				nameStart = new string[]{"{" + index + ":"};
+				nameStart = new[]{"{" + index + ":"};
 			for (int i = 0; i < nameStart.Length; ++i) {
 				int start, j = 0;
 				do {

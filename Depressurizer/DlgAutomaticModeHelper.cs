@@ -150,7 +150,7 @@ namespace Depressurizer {
             dlg.FileName = "Depressurizer Auto";
 
             DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
+            if( res == DialogResult.OK ) {
                     WshShell shell = new WshShell();
                     IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut( dlg.FileName );
                     shortcut.TargetPath = Application.ExecutablePath;
