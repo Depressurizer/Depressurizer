@@ -184,18 +184,18 @@ namespace Depressurizer {
 
         #region Event handlers
         private void cmdCancel_Click( object sender, EventArgs e ) {
-            this.Close();
+            Close();
         }
 
         private void cmdAccept_Click( object sender, EventArgs e ) {
             SaveFieldsToSettings();
-            this.Close();
+            Close();
         }
 
         private void cmdSteamPathBrowse_Click( object sender, EventArgs e ) {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
             DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
+            if( res == DialogResult.OK ) {
                 txtSteamPath.Text = dlg.SelectedPath;
             }
         }
@@ -203,7 +203,7 @@ namespace Depressurizer {
         private void cmdDefaultProfileBrowse_Click( object sender, EventArgs e ) {
             OpenFileDialog dlg = new OpenFileDialog();
             DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
+            if( res == DialogResult.OK ) {
                 txtDefaultProfile.Text = dlg.FileName;
             }
         }

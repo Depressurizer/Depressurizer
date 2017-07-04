@@ -52,7 +52,7 @@ namespace Depressurizer {
                 long length = new FileInfo(path).Length;
                 length = length / 1024;
                 lblDateStamp.Text = dt.ToString();
-                lblSize.Text = length.ToString() + " KB";
+                lblSize.Text = length + " KB";
                 btnRestore.Enabled = true;
             }
             else
@@ -72,14 +72,14 @@ namespace Depressurizer {
                 if (((ComboItem)cboRestore.SelectedItem).Restore())
                 {
                     Restored = true;
-                    this.Close();
+                    Close();
                 }
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 

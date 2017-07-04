@@ -32,7 +32,7 @@ namespace Depressurizer {
 
         public DlgGame( GameList data, GameInfo game = null )
             : this() {
-            this.Data = data;
+            Data = data;
             Game = game;
             editMode = Game != null;
         }
@@ -54,8 +54,8 @@ namespace Depressurizer {
         }
 
         private void cmdCancel_Click( object sender, EventArgs e ) {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Close();
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
 
         private void cmdOk_Click( object sender, EventArgs e ) {
@@ -71,19 +71,18 @@ namespace Depressurizer {
                 if( Data.Games.ContainsKey( id ) ) {
                     MessageBox.Show( GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error );
                     return;
-                } else {
-                    Game = new GameInfo( id, txtName.Text, Data, txtExecutable.Text );
-                    Game.ApplySource( GameListingSource.Manual );
-                    Data.Games.Add( id, Game );
                 }
+                Game = new GameInfo( id, txtName.Text, Data, txtExecutable.Text );
+                Game.ApplySource( GameListingSource.Manual );
+                Data.Games.Add( id, Game );
             }
 
             Game.SetFavorite( chkFavorite.Checked );
 
             Game.Hidden = chkHidden.Checked;
 
-            DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
