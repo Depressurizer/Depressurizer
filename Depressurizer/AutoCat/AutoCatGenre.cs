@@ -75,12 +75,12 @@ namespace Depressurizer {
 
         protected AutoCatGenre( AutoCatGenre other )
             : base( other ) {
-            this.Filter = other.Filter;
-            this.MaxCategories = other.MaxCategories;
-            this.RemoveOtherGenres = other.RemoveOtherGenres;
-            this.TagFallback = other.TagFallback;
-            this.Prefix = other.Prefix;
-            this.IgnoredGenres = new List<string>( other.IgnoredGenres );
+            Filter = other.Filter;
+            MaxCategories = other.MaxCategories;
+            RemoveOtherGenres = other.RemoveOtherGenres;
+            TagFallback = other.TagFallback;
+            Prefix = other.Prefix;
+            IgnoredGenres = new List<string>( other.IgnoredGenres );
             Selected = other.Selected;
         }
 
@@ -108,7 +108,7 @@ namespace Depressurizer {
 
         public override void DeProcess() {
             base.DeProcess();
-            this.genreCategories = null;
+            genreCategories = null;
         }
 
         public override AutoCatResult CategorizeGame( GameInfo game , Filter filter ) {
@@ -150,12 +150,12 @@ namespace Depressurizer {
             return AutoCatResult.Success;
         }
 
-        private string GetProcessedString( string baseString ) {
+        private string GetProcessedString( string baseString )
+        {
             if( string.IsNullOrEmpty( Prefix ) ) {
                 return baseString;
-            } else {
-                return Prefix + baseString;
             }
+            return Prefix + baseString;
         }
 
         public override void WriteToXml( XmlWriter writer ) {

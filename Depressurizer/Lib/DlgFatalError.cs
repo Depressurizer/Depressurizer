@@ -59,7 +59,7 @@ namespace Rallion {
         /// </summary>
         private int ShortHeight {
             get {
-                return ( this.Height - this.ClientSize.Height ) + cmdClose.Bottom + 10;
+                return ( Height - ClientSize.Height ) + cmdClose.Bottom + 10;
             }
         }
         #endregion
@@ -69,11 +69,11 @@ namespace Rallion {
         /// Starts catching all unhandled exceptions for processing.
         /// </summary>
         public static void InitializeHandler() {
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler( CurrentDomain_UnhandledException );
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler( Application_ThreadException );
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Application.ThreadException += Application_ThreadException;
         }
 
-        private static void Application_ThreadException( object sender, System.Threading.ThreadExceptionEventArgs e ) {
+        private static void Application_ThreadException( object sender, ThreadExceptionEventArgs e ) {
             HandleUnhandledException( e.Exception );
         }
 
@@ -106,12 +106,12 @@ namespace Rallion {
 
             string appName = Application.ProductName;
 
-            this.Text = string.Format(GlobalStrings.DlgFatalError_FatalError, appName);
+            Text = string.Format(GlobalStrings.DlgFatalError_FatalError, appName);
             lblMessage.Text = string.Format(GlobalStrings.DlgFatalError_FatalErrorOcurred, appName);
 
             FillFields();
 
-            this.Activate();
+            Activate();
         }
 
         private void FillFields() {
@@ -129,8 +129,8 @@ namespace Rallion {
             if( ShowingInfo ) return;
 
             // Increase the form height and allow resizing
-            this.MinimumSize = new Size( MIN_WIDTH, MIN_HEIGHT );
-            this.MaximumSize = new Size( MAX_WIDTH, MAX_HEIGHT );
+            MinimumSize = new Size( MIN_WIDTH, MIN_HEIGHT );
+            MaximumSize = new Size( MAX_WIDTH, MAX_HEIGHT );
             Height = ShortHeight + currentInfoHeight;
             // Show extra components
             grpMoreInfo.Visible = grpMoreInfo.Enabled = ShowingInfo = true;
@@ -188,7 +188,7 @@ namespace Rallion {
                 dlg.InitialDirectory = Environment.CurrentDirectory;
                 dlg.FileName = "dError_" + DateTime.Now.ToString( "yyyyMMddhhmmss" ) + ".log";
                 DialogResult res = dlg.ShowDialog();
-                if( res == System.Windows.Forms.DialogResult.OK ) {
+                if( res == DialogResult.OK ) {
                     StreamWriter fstr = new StreamWriter( dlg.FileName );
                     string data = string.Format( "{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine, ex.StackTrace );
                     fstr.Write( data );
@@ -216,8 +216,8 @@ namespace Rallion {
                     dMsg = GlobalStrings.DlgFatalError_ClipboardUpdated;
 
                 } finally {
-                    if( this.InvokeRequired ) {
-                        this.Invoke( new DLG_MessageBox( MessageBox.Show ), new object[] { dMsg } );
+                    if( InvokeRequired ) {
+                        Invoke( new DLG_MessageBox( MessageBox.Show ), dMsg);
                     } else {
                         MessageBox.Show( dMsg );
                     }

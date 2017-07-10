@@ -31,7 +31,7 @@ namespace Depressurizer {
             InitializeComponent();
 
             //initialize combobox
-            this.cmbTimeType.Items.AddRange(new object[] {
+            cmbTimeType.Items.AddRange(new object[] {
             TimeType.Main,
             TimeType.Extras,
             TimeType.Completionist});

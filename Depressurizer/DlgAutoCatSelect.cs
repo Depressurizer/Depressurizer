@@ -49,7 +49,7 @@ namespace Depressurizer {
                     bool addAC = true;
                     if (ac.AutoCatType == AutoCatType.Group)
                     {
-                        addAC = SafeGroup(((AutoCatGroup)ac).Autocats, new List<string>(new string[] { originalGroup }));
+                        addAC = SafeGroup(((AutoCatGroup)ac).Autocats, new List<string>(new[] { originalGroup }));
                     }
                     if (addAC) clbAutocats.Items.Add(ac);
                 }
@@ -87,15 +87,12 @@ namespace Depressurizer {
                     {
                         return false;
                     }
-                    else
-                    {
-                        // add new group to group list
-                        groups.Add(ac);
-                        // get AutoCat from group name
-                        AutoCatGroup group = GetAutoCat(ac) as AutoCatGroup;
-                        // send new group to SafeGroup to continue testing
-                        return SafeGroup(group.Autocats, groups);
-                    }
+                    // add new group to group list
+                    groups.Add(ac);
+                    // get AutoCat from group name
+                    AutoCatGroup group = GetAutoCat(ac) as AutoCatGroup;
+                    // send new group to SafeGroup to continue testing
+                    return SafeGroup(group.Autocats, groups);
                 }
             }
             // no duplicate group found.  All good! RETURN TRUE.

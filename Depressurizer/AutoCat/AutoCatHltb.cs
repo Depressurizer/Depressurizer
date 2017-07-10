@@ -175,11 +175,11 @@ namespace Depressurizer {
         public override void WriteToXml( XmlWriter writer ) {
             writer.WriteStartElement( TypeIdString );
 
-            writer.WriteElementString( XmlName_Name, this.Name );
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, this.Filter);
-            if (Prefix != null) writer.WriteElementString( XmlName_Prefix, this.Prefix );
-            writer.WriteElementString(XmlName_IncludeUnknown, this.IncludeUnknown.ToString());
-            writer.WriteElementString(XmlName_UnknownText, this.UnknownText);
+            writer.WriteElementString( XmlName_Name, Name );
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString( XmlName_Prefix, Prefix );
+            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString());
+            writer.WriteElementString(XmlName_UnknownText, UnknownText);
 
 
             foreach( Hltb_Rule rule in Rules ) {

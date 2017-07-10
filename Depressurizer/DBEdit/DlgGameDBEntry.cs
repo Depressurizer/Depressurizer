@@ -59,7 +59,7 @@ namespace Depressurizer {
 
                 cmbType.SelectedItem = Game.AppType;
 
-                this.txtName.Text = Game.Name;
+                txtName.Text = Game.Name;
                 if( Game.Genres != null ) txtGenres.Text = string.Join( ",", Game.Genres );
                 if( Game.Flags != null ) txtFlags.Text = string.Join( ",", Game.Flags );
                 if( Game.Tags != null ) txtTags.Text = string.Join( ",", Game.Tags );
@@ -145,7 +145,7 @@ namespace Depressurizer {
             return true;
         }
 
-        private readonly char[] SPLIT_CHAR = new char[] { ',' };
+        private readonly char[] SPLIT_CHAR = { ',' };
 
         private List<string> SplitAndTrim( string s ) {
             if( string.IsNullOrWhiteSpace( s ) ) return null;
@@ -160,13 +160,13 @@ namespace Depressurizer {
         }
 
         private void cmdCancel_Click( object sender, EventArgs e ) {
-            DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 
         private void cmdSave_Click( object sender, EventArgs e ) {
             if( SaveToGame() ) {
-                DialogResult = System.Windows.Forms.DialogResult.OK;
+                DialogResult = DialogResult.OK;
                 Close();
             }
         }

@@ -159,10 +159,10 @@ namespace Depressurizer {
 
         #region Serialization
 
-        public override void WriteToXml( System.Xml.XmlWriter writer ) {
+        public override void WriteToXml( XmlWriter writer ) {
             writer.WriteStartElement( TypeIdString );
 
-            writer.WriteElementString( XmlName_Name, this.Name );
+            writer.WriteElementString( XmlName_Name, Name );
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString( XmlName_UseWilsonScore, UseWilsonScore.ToString());

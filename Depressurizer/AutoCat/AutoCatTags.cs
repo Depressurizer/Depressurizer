@@ -57,36 +57,36 @@ public class AutoCatTags : AutoCat {
             HashSet<string> tags = null, int maxTags = 0,
             bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true, bool selected = false)
             : base( name ) {
-            this.Filter = filter;
-            this.Prefix = prefix;
+            Filter = filter;
+            Prefix = prefix;
 
             if( tags == null ) IncludedTags = new HashSet<string>();
             else IncludedTags = tags;
 
-            this.MaxTags = maxTags;
-            this.ListOwnedOnly = listOwnedOnly;
-            this.ListWeightFactor = listWeightFactor;
-            this.ListMinScore = listMinScore;
-            this.ListTagsPerGame = listTagsPerGame;
-            this.ListScoreSort = listScoreSort;
-            this.ListExcludeGenres = listExcludeGenres;
-            this.Selected = selected;
+            MaxTags = maxTags;
+            ListOwnedOnly = listOwnedOnly;
+            ListWeightFactor = listWeightFactor;
+            ListMinScore = listMinScore;
+            ListTagsPerGame = listTagsPerGame;
+            ListScoreSort = listScoreSort;
+            ListExcludeGenres = listExcludeGenres;
+            Selected = selected;
         }
 
         protected AutoCatTags( AutoCatTags other )
             : base( other ) {
-            this.Filter = other.Filter;
-            this.Prefix = other.Prefix;
-            this.IncludedTags = new HashSet<string>( other.IncludedTags );
-            this.MaxTags = other.MaxTags;
+            Filter = other.Filter;
+            Prefix = other.Prefix;
+            IncludedTags = new HashSet<string>( other.IncludedTags );
+            MaxTags = other.MaxTags;
 
-            this.ListOwnedOnly = other.ListOwnedOnly;
-            this.ListWeightFactor = other.ListWeightFactor;
-            this.ListMinScore = other.ListMinScore;
-            this.ListTagsPerGame = other.ListTagsPerGame;
-            this.ListScoreSort = other.ListScoreSort;
-            this.ListExcludeGenres = other.ListExcludeGenres;
-            this.Selected = other.Selected;
+            ListOwnedOnly = other.ListOwnedOnly;
+            ListWeightFactor = other.ListWeightFactor;
+            ListMinScore = other.ListMinScore;
+            ListTagsPerGame = other.ListTagsPerGame;
+            ListScoreSort = other.ListScoreSort;
+            ListExcludeGenres = other.ListExcludeGenres;
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() {
@@ -126,12 +126,12 @@ public class AutoCatTags : AutoCat {
             return AutoCatResult.Success;
         }
 
-        public string GetProcessedString( string s ) {
+        public string GetProcessedString( string s )
+        {
             if( string.IsNullOrEmpty( Prefix ) ) {
                 return s;
-            } else {
-                return Prefix + s;
             }
+            return Prefix + s;
         }
 
         public override void WriteToXml( XmlWriter writer ) {

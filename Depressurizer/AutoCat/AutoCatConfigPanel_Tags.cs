@@ -25,8 +25,8 @@ namespace Depressurizer {
 
         // used to remove unchecked items from the Tags checkedlistbox.
         private Thread workerThread;
-        private GameList ownedGames = null;
-        private bool loaded = false;
+        private GameList ownedGames;
+        private bool loaded;
 
         public AutoCatConfigPanel_Tags(GameList ownedGames ) {
             this.ownedGames = ownedGames;
@@ -70,7 +70,7 @@ namespace Depressurizer {
             SortTags(1, SortOrder.Descending);
             lstIncluded.EndUpdate();
             
-            cmdListRebuild.Text = "Rebuild List (" + lstIncluded.Items.Count.ToString() + ")";
+            cmdListRebuild.Text = "Rebuild List (" + lstIncluded.Items.Count + ")";
             loaded = true;
 
         }
@@ -146,10 +146,10 @@ namespace Depressurizer {
             if (e.Item.Checked) clbTags.Items.Add(e.Item, true);
             else if ((!e.Item.Checked) && loaded)
             {
-                workerThread = new Thread(new ParameterizedThreadStart(TagItemWorker));
+                workerThread = new Thread(TagItemWorker);
                 workerThread.Start(e.Item);
             }
-            lblIncluded.Text = "Included tags (" + clbTags.Items.Count.ToString() + "):";
+            lblIncluded.Text = "Included tags (" + clbTags.Items.Count + "):";
         }
 
         private void btnTagSelected_Click(object sender, EventArgs e)
@@ -192,15 +192,15 @@ namespace Depressurizer {
 
         private void TagItem(ListViewItem obj)
         {
-            if (this.clbTags.InvokeRequired)
+            if (clbTags.InvokeRequired)
             {
-                TagItemCallback callback = new TagItemCallback(TagItem);
-                this.Invoke(callback, new object[] { obj });
+                TagItemCallback callback = TagItem;
+                Invoke(callback, obj);
             }
             else
             {
                 clbTags.Items.Remove(obj);
-                lblIncluded.Text = "Included tags (" + clbTags.Items.Count.ToString() + "):";
+                lblIncluded.Text = "Included tags (" + clbTags.Items.Count + "):";
             }
         }
 

@@ -388,8 +388,8 @@ namespace Rallion {
 
             //Status
             LogFile = null;
-            this.CurrentFileRecords = 0;
-            this.CurrentFileStartTime = new DateTime( 0 );
+            CurrentFileRecords = 0;
+            CurrentFileStartTime = new DateTime( 0 );
             IsActiveSession = false;
             IsSuspended = false;
         }
@@ -426,10 +426,10 @@ namespace Rallion {
         /// <param name="template">String to build the name from. If none is passed, will just use the class field.</param>
         /// <returns>String containing the filename to use.</returns>
         private string GenerateFileName( string template = null ) {
-            if( template == null ) template = this.FileNameTemplate;
+            if( template == null ) template = FileNameTemplate;
             template = template.Replace( ":d", DateTime.Now.ToString( "yyyyMMdd" ) );
             template = template.Replace( ":t", DateTime.Now.ToString( "hhmmss" ) );
-            template = template.Replace( ":n", System.Reflection.Assembly.GetCallingAssembly().GetName().Name );
+            template = template.Replace( ":n", Assembly.GetCallingAssembly().GetName().Name );
             return template;
         }
 
@@ -466,7 +466,7 @@ namespace Rallion {
         /// <param name="backupNum">Number of this backup. 0 indicates that it is not the backup, it is current.</param>
         /// <returns>Full path of the backup file</returns>
         private string GetBackupFileName( string baseFile, int backupNum ) {
-            return ( backupNum == 0 ) ? baseFile : ( baseFile + '.' + backupNum.ToString() );
+            return ( backupNum == 0 ) ? baseFile : ( baseFile + '.' + backupNum );
         }
 
         /// <summary>
@@ -540,8 +540,8 @@ namespace Rallion {
                     outputStream = null;
                 }
                 LogFile = null;
-                this.CurrentFileRecords = -1;
-                this.CurrentFileStartTime = new DateTime( 0 );
+                CurrentFileRecords = -1;
+                CurrentFileStartTime = new DateTime( 0 );
                 IsActiveSession = false;
                 IsSuspended = false;
             }
@@ -608,7 +608,7 @@ namespace Rallion {
         }
 
         public void WriteException( string message, Exception e ) {
-            Write( LoggerLevel.Error, message + Environment.NewLine + e.ToString() );
+            Write( LoggerLevel.Error, message + Environment.NewLine + e );
         }
 
         /// <summary>

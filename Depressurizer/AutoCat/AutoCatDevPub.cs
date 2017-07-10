@@ -191,9 +191,7 @@ namespace Depressurizer
             {
                 return baseString;
             }
-            else {
-                return Prefix + baseString;
-            }
+            return Prefix + baseString;
         }
 
         public override void WriteToXml(XmlWriter writer)

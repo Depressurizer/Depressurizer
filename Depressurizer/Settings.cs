@@ -74,7 +74,7 @@ namespace Depressurizer {
         th, // Thai
         zh_Hant, // Traditional Chinese
         tr, // Turkish
-        uk, // Ukrainian
+        uk // Ukrainian
     }
 
     class Settings : AppSettings {
@@ -288,7 +288,7 @@ namespace Depressurizer {
             }
         }
 
-        private string _steamPath = null;
+        private string _steamPath;
         public string SteamPath {
             get {
                 return _steamPath;
@@ -327,7 +327,7 @@ namespace Depressurizer {
             }
         }
 
-        private string _profileToLoad = null;
+        private string _profileToLoad;
         public string ProfileToLoad {
             get {
                 return _profileToLoad;
@@ -606,7 +606,7 @@ namespace Depressurizer {
             Thread.CurrentThread.CurrentUICulture = newCulture;
         }
 
-        private bool _singleCatMode = false;
+        private bool _singleCatMode;
         public bool SingleCatMode {
             get {
                 return _singleCatMode;
@@ -637,8 +637,8 @@ namespace Depressurizer {
         }
 
         private Settings()
-            : base() {
-            FilePath = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";
+        {
+            FilePath = Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Settings.xml";
         }
 
         public override void Load() {

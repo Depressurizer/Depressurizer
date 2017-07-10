@@ -33,7 +33,7 @@ namespace Depressurizer {
 
         // Meta properies
         public override AutoCatType AutoCatType {
-            get { return Depressurizer.AutoCatType.Year; }
+            get { return AutoCatType.Year; }
         }
 
         // Serialization strings
@@ -51,22 +51,22 @@ namespace Depressurizer {
         #region Construction
         public AutoCatYear( string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYear_Grouping groupMode = AutoCatYear_Grouping.None, bool selected = false)
             : base( name ) {
-            this.Filter = filter;
-            this.Prefix = prefix;
-            this.IncludeUnknown = includeUnknown;
-            this.UnknownText = unknownText;
-            this.GroupingMode = groupMode;
-            this.Selected = selected;
+            Filter = filter;
+            Prefix = prefix;
+            IncludeUnknown = includeUnknown;
+            UnknownText = unknownText;
+            GroupingMode = groupMode;
+            Selected = selected;
         }
 
         protected AutoCatYear( AutoCatYear other )
             : base( other ) {
-            this.Filter = other.Filter;
-            this.Prefix = other.Prefix;
-            this.IncludeUnknown = other.IncludeUnknown;
-            this.UnknownText = other.UnknownText;
-            this.GroupingMode = other.GroupingMode;
-            this.Selected = other.Selected;
+            Filter = other.Filter;
+            Prefix = other.Prefix;
+            IncludeUnknown = other.IncludeUnknown;
+            UnknownText = other.UnknownText;
+            GroupingMode = other.GroupingMode;
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() {
@@ -121,9 +121,8 @@ namespace Depressurizer {
 
             if( string.IsNullOrEmpty( Prefix ) ) {
                 return result;
-            } else {
-                return Prefix + result;
             }
+            return Prefix + result;
         }
 
         private string GetRangeString( int year, int rangeSize ) {
@@ -152,7 +151,7 @@ namespace Depressurizer {
             string prefix = XmlUtil.GetStringFromNode( xElement[XmlName_Prefix], null );
             bool includeUnknown = XmlUtil.GetBoolFromNode( xElement[XmlName_IncludeUnknown], true );
             string unknownText = XmlUtil.GetStringFromNode( xElement[XmlName_UnknownText], null );
-            AutoCatYear_Grouping groupMode = XmlUtil.GetEnumFromNode<AutoCatYear_Grouping>( xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None );
+            AutoCatYear_Grouping groupMode = XmlUtil.GetEnumFromNode( xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None );
 
             return new AutoCatYear( name, filter, prefix, includeUnknown, unknownText, groupMode );
         }

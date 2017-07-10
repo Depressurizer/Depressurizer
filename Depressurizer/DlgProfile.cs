@@ -28,10 +28,10 @@ namespace Depressurizer {
 
     public partial class DlgProfile : Form {
         public Profile Profile;
-        private bool editMode = false;
+        private bool editMode;
 
         private ThreadLocker currentThreadLock = new ThreadLocker();
-        private int currentThreadCount = 0;
+        private int currentThreadCount;
 
         public bool DownloadNow {
             get {
@@ -82,7 +82,7 @@ namespace Depressurizer {
             chkIncludeShortcuts.Checked = Profile.IncludeShortcuts;
             chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
 
-            this.Text = GlobalStrings.DlgProfile_EditProfile;
+            Text = GlobalStrings.DlgProfile_EditProfile;
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
             chkIncludeUnknown.Checked = Profile.IncludeUnknown;
@@ -140,7 +140,7 @@ namespace Depressurizer {
             if( editMode ) {
                 InitializeEditMode();
             } else {
-                txtFilePath.Text = System.Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
+                txtFilePath.Text = Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ) + @"\Depressurizer\Default.profile";
 
                 if( lstUsers.Items.Count == 0 ) {
                     MessageBox.Show( GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
@@ -168,20 +168,20 @@ namespace Depressurizer {
             dlg.AddExtension = true;
             dlg.Filter = GlobalStrings.DlgProfile_Filter;
             DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
+            if( res == DialogResult.OK ) {
                 txtFilePath.Text = dlg.FileName;
             }
         }
 
         private void cmdCancel_Click( object sender, EventArgs e ) {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Close();
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
 
         private void cmdOk_Click( object sender, EventArgs e ) {
             if( Apply() ) {
-                this.DialogResult = System.Windows.Forms.DialogResult.OK;
-                this.Close();
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
 
@@ -242,7 +242,7 @@ namespace Depressurizer {
                 CDlgGetSteamID dlg = new CDlgGetSteamID( txtUserUrl.Text );
                 dlg.ShowDialog();
 
-                if( dlg.DialogResult == System.Windows.Forms.DialogResult.Cancel ) {
+                if( dlg.DialogResult == DialogResult.Cancel ) {
                     return false;
                 }
 
@@ -259,9 +259,8 @@ namespace Depressurizer {
                     return true;
                 }
                 return false;
-            } else {
-                return CreateProfile();
             }
+            return CreateProfile();
         }
 
         private bool CreateProfile() {
@@ -298,7 +297,7 @@ namespace Depressurizer {
                 return false;
             }
 
-            this.Profile = profile;
+            Profile = profile;
             return true;
         }
 
@@ -419,7 +418,7 @@ namespace Depressurizer {
                 currentThreadLock = new ThreadLocker();
                 SetUpdateInterfaceRunning();
                 for( int i = 0; i < threads; i++ ) {
-                    Thread t = new Thread( this.NameUpdateThread );
+                    Thread t = new Thread( NameUpdateThread );
                     currentThreadCount++;
                     t.Start( new UpdateData( q, currentThreadLock ) );
                 }
@@ -453,8 +452,8 @@ namespace Depressurizer {
         }
 
         private void UpdateDisplayNameInList( int index, string name ) {
-            if( this.InvokeRequired ) {
-                Invoke( new UpdateDelegate( UpdateDisplayNameInList ), new object[] { index, name } );
+            if( InvokeRequired ) {
+                Invoke( new UpdateDelegate( UpdateDisplayNameInList ), index, name);
             } else {
 
                 UserRecord u = lstUsers.Items[index] as UserRecord;
@@ -531,17 +530,17 @@ namespace Depressurizer {
                 DirName = dir;
             }
 
-            public override string ToString() {
+            public override string ToString()
+            {
                 if( DisplayName == null ) {
                     return DirName;
-                } else {
-                    return String.Format( "{0} - {1}", DirName, DisplayName );
                 }
+                return String.Format( "{0} - {1}", DirName, DisplayName );
             }
         }
 
         public class ThreadLocker {
-            private bool _abort = false;
+            private bool _abort;
 
             public bool Aborted {
                 get {
@@ -586,8 +585,6 @@ namespace Depressurizer {
     }
 
     class IgnoreListViewItemComparer : IComparer {
-        public IgnoreListViewItemComparer() { }
-
         public int Compare( object x, object y ) {
             int a, b;
             if( int.TryParse( ( (ListViewItem)x ).Text, out a ) && int.TryParse( ( (ListViewItem)y ).Text, out b ) ) {
