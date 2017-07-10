@@ -22,22 +22,18 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Depressurizer.AutoCat;
 
-namespace Depressurizer
-{
-    public partial class DlgAutoCatSelect : Form
-    {
+namespace Depressurizer {
+    public partial class DlgAutoCatSelect : Form {
         public List<AutoCat.AutoCat> AutoCatList;
         public string originalGroup;
 
-        public DlgAutoCatSelect(List<AutoCat.AutoCat> autoCats, string name)
-        {
+        public DlgAutoCatSelect( List<AutoCat.AutoCat> autoCats, string name ) {
             InitializeComponent();
 
             AutoCatList = new List<AutoCat.AutoCat>();
             originalGroup = name;
 
-            foreach (AutoCat.AutoCat c in autoCats)
-            {
+            foreach (AutoCat.AutoCat c in autoCats) {
                 AutoCat.AutoCat clone = c.Clone();
                 clone.Selected = false;
                 AutoCatList.Add(clone);
@@ -46,17 +42,15 @@ namespace Depressurizer
 
         #region UI Uptaters
 
-        private void FillAutocatList()
-        {
+        private void FillAutocatList() {
             clbAutocats.Items.Clear();
-            foreach (AutoCat.AutoCat ac in AutoCatList)
-            {
+            foreach( AutoCat.AutoCat ac in AutoCatList ) {
                 if (ac.Name != originalGroup)
                 {
                     bool addAC = true;
                     if (ac.AutoCatType == AutoCatType.Group)
                     {
-                        addAC = SafeGroup(((AutoCatGroup) ac).Autocats, new List<string>(new[] {originalGroup}));
+                        addAC = SafeGroup(((AutoCatGroup)ac).Autocats, new List<string>(new[] { originalGroup }));
                     }
                     if (addAC) clbAutocats.Items.Add(ac);
                 }
@@ -75,7 +69,7 @@ namespace Depressurizer
 
         private void clbAutocats_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            ((AutoCat.AutoCat) clbAutocats.Items[e.Index]).Selected = e.NewValue == CheckState.Checked ? true : false;
+            ((AutoCat.AutoCat)clbAutocats.Items[e.Index]).Selected = e.NewValue == CheckState.Checked ? true : false;
         }
 
         #endregion

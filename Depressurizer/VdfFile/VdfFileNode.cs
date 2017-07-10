@@ -79,9 +79,7 @@ namespace Depressurizer.VdfFile
         /// <summary>
         ///     Quick shortcut for casting data to a a dictionary
         /// </summary>
-        public Dictionary<string, VdfFileNode> NodeArray => NodeType == ValueType.Array
-            ? NodeData as Dictionary<string, VdfFileNode>
-            : null;
+        public Dictionary<string, VdfFileNode> NodeArray => NodeType == ValueType.Array ? NodeData as Dictionary<string, VdfFileNode> : null;
 
         /// <summary>
         ///     Quick shortcut for casting data to string
@@ -209,8 +207,7 @@ namespace Depressurizer.VdfFile
         /// </summary>
         /// <param name="key">The key to look for</param>
         /// <returns>True if the key was found, false otherwise</returns>
-        public bool ContainsKey(string key) => (NodeType == ValueType.Array) &&
-                                               ((Dictionary<string, VdfFileNode>) NodeData).ContainsKey(key);
+        public bool ContainsKey(string key) => (NodeType == ValueType.Array) && ((Dictionary<string, VdfFileNode>) NodeData).ContainsKey(key);
 
         /// <summary>
         ///     Removes the subnode with the given key. Can only be called on array nodes.
@@ -580,8 +577,7 @@ namespace Depressurizer.VdfFile
                 }
                 else
                 {
-                    throw new ParseException(
-                        string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterValue, nextChar));
+                    throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterValue, nextChar));
                 }
 
                 if (useFirstAsRoot)
@@ -739,8 +735,12 @@ namespace Depressurizer.VdfFile
 
     public class ParseException : ApplicationException
     {
-        public ParseException() { }
+        public ParseException()
+        {
+        }
 
-        public ParseException(string message) : base(message) { }
+        public ParseException(string message) : base(message)
+        {
+        }
     }
 }

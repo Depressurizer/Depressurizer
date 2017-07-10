@@ -163,8 +163,7 @@ namespace Depressurizer.Lib
             return false;
         }
 
-        public static TEnum GetEnumFromNode<TEnum>(XmlNode node, TEnum defaultValue)
-            where TEnum : struct, IComparable, IConvertible, IFormattable
+        public static TEnum GetEnumFromNode<TEnum>(XmlNode node, TEnum defaultValue) where TEnum : struct, IComparable, IConvertible, IFormattable
         {
             if (node != null)
             {

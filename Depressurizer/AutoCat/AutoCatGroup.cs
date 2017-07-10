@@ -53,8 +53,7 @@ namespace Depressurizer.AutoCat
         public const string XmlNameAutocats = "Autocats";
         public const string XmlNameAutocat = "Autocat";
 
-        public AutoCatGroup(string name, string filter = null, List<string> autocats = null,
-            bool selected = false) : base(name)
+        public AutoCatGroup(string name, string filter = null, List<string> autocats = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Autocats = autocats ?? new List<string>();
@@ -131,8 +130,7 @@ namespace Depressurizer.AutoCat
         {
             string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
             string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
-            List<string> autocats =
-                XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlNameAutocats + "/" + XmlNameAutocat));
+            List<string> autocats = XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlNameAutocats + "/" + XmlNameAutocat));
 
             return new AutoCatGroup(name, filter, autocats);
         }
