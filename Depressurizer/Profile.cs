@@ -52,6 +52,7 @@ namespace Depressurizer
             XmlName_Filter = "Filter",
             XmlName_FilterName = "Name",
             XmlName_FilterUncategorized = "Uncategorized",
+            XmlName_FilterVR = "VR",
             XmlName_FilterHidden = "Hidden",
             XmlName_FilterAllow = "Allow",
             XmlName_FilterRequire = "Require",
@@ -277,6 +278,10 @@ namespace Depressurizer
                 if (!XmlUtil.TryGetIntFromNode(node[XmlName_FilterHidden], out f.Hidden))
                 {
                     f.Hidden = -1;
+                }
+                if (!XmlUtil.TryGetIntFromNode(node[XmlName_FilterVR], out f.VR))
+                {
+                    f.VR = -1;
                 }
                 XmlNodeList filterNodes = node.SelectNodes(XmlName_FilterAllow);
                 foreach (XmlNode fNode in filterNodes)

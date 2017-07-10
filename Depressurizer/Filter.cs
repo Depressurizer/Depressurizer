@@ -14,6 +14,7 @@ namespace Depressurizer
             XmlName_Name = "Name",
             XmlName_Uncategorized = "Uncategorized",
             XmlName_Hidden = "Hidden",
+            XmlName_VR = "VR",
             XmlName_Allow = "Allow",
             XmlName_Require = "Require",
             XmlName_Exclude = "Exclude";
@@ -23,6 +24,7 @@ namespace Depressurizer
             Name = name;
             Uncategorized = -1;
             Hidden = -1;
+            VR = -1;
             Allow = new SortedSet<Category>();
             Require = new SortedSet<Category>();
             Exclude = new SortedSet<Category>();
@@ -36,6 +38,7 @@ namespace Depressurizer
         public string Name;
         public int Uncategorized;
         public int Hidden;
+        public int VR;
 
         private SortedSet<Category> _allow;
 
@@ -105,6 +108,7 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Name, Name);
             writer.WriteElementString(XmlName_Uncategorized, Uncategorized.ToString());
             writer.WriteElementString(XmlName_Hidden, Hidden.ToString());
+            writer.WriteElementString(XmlName_VR, VR.ToString());
 
             foreach (Category c in Allow)
             {

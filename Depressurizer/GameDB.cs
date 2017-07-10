@@ -735,6 +735,25 @@ namespace Depressurizer
             return null;
         }
 
+        /// <summary>
+        /// Returns whether the game supports VR
+        /// </summary>
+        public bool SupportsVr(int gameId, int depth = 3)
+        {
+            if (Games.ContainsKey(gameId))
+            {
+                VrSupport res = Games[gameId].vrSupport;
+                if ((res.Headsets != null && res.Headsets.Count > 0) || (res.Input != null && res.Input.Count > 0) ||
+                    (res.PlayArea != null && res.PlayArea.Count > 0) && depth > 0 && Games[gameId].ParentId > 0)
+                {
+                    return true;
+                }
+                if (depth > 0 && Games[gameId].ParentId > 0)
+                   return SupportsVr(Games[gameId].ParentId, depth - 1);
+            }
+            return false;
+        }
+
         public VrSupport GetVrSupport(int gameId, int depth = 3)
         {
             if (Games.ContainsKey(gameId))
