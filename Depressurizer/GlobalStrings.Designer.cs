@@ -3405,6 +3405,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;VR&gt;.
+        /// </summary>
+        internal static string MainForm_VR {
+            get {
+                return ResourceManager.GetString("MainForm_VR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XML download failed..
         /// </summary>
         internal static string MainForm_XMLDownloadFailed {

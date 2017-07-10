@@ -101,6 +101,7 @@ namespace Depressurizer
             specialCategories.Add(GlobalStrings.MainForm_Uncategorized);
             specialCategories.Add(GlobalStrings.MainForm_Hidden);
             specialCategories.Add(GlobalStrings.MainForm_Favorite);
+            specialCategories.Add(GlobalStrings.MainForm_VR);
 
             foreach (string s in specialCategories)
             {
@@ -111,20 +112,14 @@ namespace Depressurizer
             Category cat_x = item_x.Tag as Category;
             Category cat_y = item_y.Tag as Category;
 
-            //if (cat_x.Name == GlobalStrings.MainForm_Favorite) return -1;
-            //else if (cat_x.Name == GlobalStrings.MainForm_Favorite) return 1;
-
             // Compare categories.
-            int result = 0;
+            int result;
 
-            if (SortMode == categorySortMode.Name)
-            {
-                result = string.Compare(cat_x.Name, cat_y.Name, StringComparison.CurrentCultureIgnoreCase);
-            }
-            else if (SortMode == categorySortMode.Count)
+            if (SortMode == categorySortMode.Count)
             {
                 result = cat_x.Count.CompareTo(cat_y.Count);
             }
+            else result = string.Compare(cat_x.Name, cat_y.Name, StringComparison.CurrentCultureIgnoreCase);
 
             // Return the correct result depending on whether
             // we're sorting ascending or descending.
