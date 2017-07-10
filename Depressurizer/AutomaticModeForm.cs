@@ -1,22 +1,21 @@
 ﻿/*
-    This file is part of Depressurizer.
-    Original work Copyright 2011, 2012, 2013 Steve Labbe.
-    Modified work Copyright 2017 Martijn Vegter.
+This file is part of Depressurizer.
+Copyright 2011, 2012, 2013 Steve Labbe.
 
-    Depressurizer is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Depressurizer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    Depressurizer is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+Depressurizer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+using Rallion;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,9 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-using Depressurizer.AutoCat;
-using Depressurizer.DBEdit;
-using Depressurizer.Lib;
+
 
 namespace Depressurizer {
 
@@ -472,14 +469,14 @@ namespace Depressurizer {
             WriteLine( "Starting autocategorization..." );
             bool success = false;
             try {
-                List<AutoCat.AutoCat> acList = new List<AutoCat.AutoCat>();
+                List<AutoCat> acList = new List<AutoCat>();
                 if( doAll ) {
-                    foreach( AutoCat.AutoCat a in p.AutoCats ) {
+                    foreach( AutoCat a in p.AutoCats ) {
                         acList.Add( a );
                     }
                 } else {
                     foreach( string s in autocatStrings ) {
-                        foreach( AutoCat.AutoCat a in p.AutoCats ) {
+                        foreach( AutoCat a in p.AutoCats ) {
                             if( a.Name == s && !acList.Contains( a ) ) {
                                 acList.Add( a );
                             }
@@ -496,9 +493,9 @@ namespace Depressurizer {
             return success;
         }
 
-        private void RunAutoCats(Profile p, List<AutoCat.AutoCat> autocats)
+        private void RunAutoCats(Profile p, List<AutoCat> autocats)
         {
-            foreach (AutoCat.AutoCat ac in autocats)
+            foreach (AutoCat ac in autocats)
             {
                 Write("Running autocat '" + ac.Name + "'...");
                 ac.PreProcess(p.GameData, Program.GameDB);

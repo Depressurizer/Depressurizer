@@ -175,7 +175,6 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Year.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatEnums.cs" />
     <Compile Include="AutoCat\AutoCatVrSupport.cs" />
     <Compile Include="AutoCat\AutoCatFlags.cs" />
     <Compile Include="AutoCat\AutoCatGenre.cs" />
@@ -253,8 +252,6 @@
     </Compile>
     <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
-    <Compile Include="Model\HltbRule.cs" />
-    <Compile Include="Model\UserScoreRule.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">

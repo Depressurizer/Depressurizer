@@ -1,30 +1,26 @@
 ﻿/*
-    This file is part of Depressurizer.
-    Original work Copyright 2011, 2012, 2013 Steve Labbe.
-    Modified work Copyright 2017 Martijn Vegter.
+This file is part of Depressurizer.
+Copyright 2011, 2012, 2013 Steve Labbe.
 
-    Depressurizer is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Depressurizer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    Depressurizer is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+Depressurizer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Drawing;
 using System.IO;
-using Depressurizer.AutoCat;
-using Depressurizer.Lib;
-using Depressurizer.Model;
+using Rallion;
 
 namespace Depressurizer {
     public class Profile {
@@ -81,7 +77,7 @@ namespace Depressurizer {
 
         public SortedSet<int> IgnoreList = new SortedSet<int>();
 
-        public List<AutoCat.AutoCat> AutoCats = new List<AutoCat.AutoCat>();
+        public List<AutoCat> AutoCats = new List<AutoCat>();
 
         public Int64 SteamID64 = 0;
 
@@ -221,7 +217,7 @@ namespace Depressurizer {
                     foreach( XmlNode node in autoCatNodes ) {
                         XmlElement autocatElement = node as XmlElement;
                         if( node != null ) {
-                            AutoCat.AutoCat autocat = AutoCat.AutoCat.LoadAutoCatFromXmlElement( autocatElement );
+                            AutoCat autocat = AutoCat.LoadACFromXmlElement( autocatElement );
                             if( autocat != null ) {
                                 profile.AutoCats.Add( autocat );
                             }
@@ -413,7 +409,7 @@ namespace Depressurizer {
 
             writer.WriteStartElement( XmlName_AutoCatList );
 
-            foreach( AutoCat.AutoCat autocat in AutoCats ) {
+            foreach( AutoCat autocat in AutoCats ) {
                 autocat.WriteToXml( writer );
             }
 
@@ -435,7 +431,7 @@ namespace Depressurizer {
             return true;
         }
 
-        public static void GenerateDefaultAutoCatSet( List<AutoCat.AutoCat> list ) {
+        public static void GenerateDefaultAutoCatSet( List<AutoCat> list ) {
             //By Genre
             list.Add( new AutoCatGenre( GlobalStrings.Profile_DefaultAutoCatName_Genre, null, "("+ GlobalStrings.Name_Genre + ") " ) );
 
@@ -475,11 +471,11 @@ namespace Depressurizer {
 
             //By HLTB
             AutoCatHltb ach = new AutoCatHltb(GlobalStrings.Profile_DefaultAutoCatName_Hltb, null, "(HLTB) ", false);
-            ach.Rules.Add(new HltbRule("0-5", 0, 5, TimeType.Extras));
-            ach.Rules.Add(new HltbRule("5-10", 5, 10, TimeType.Extras));
-            ach.Rules.Add(new HltbRule("10-20", 10, 20, TimeType.Extras));
-            ach.Rules.Add(new HltbRule("20-50", 20, 50, TimeType.Extras));
-            ach.Rules.Add(new HltbRule("50+", 20, 0, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("0-5", 0, 5, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("5-10", 5, 10, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("10-20", 10, 20, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("20-50", 20, 50, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule("50+", 20, 0, TimeType.Extras));
             list.Add(ach);
         }
 
@@ -520,11 +516,11 @@ namespace Depressurizer {
         }
 
         // find and return AutoCat using the name
-        public AutoCat.AutoCat GetAutoCat(string name)
+        public AutoCat GetAutoCat(string name)
         {
             if (string.IsNullOrEmpty(name)) return null;
 
-            foreach (AutoCat.AutoCat ac in AutoCats)
+            foreach (AutoCat ac in AutoCats)
             {
                 if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase)) return ac;
             }
@@ -534,18 +530,18 @@ namespace Depressurizer {
 
         // using a list of AutoCat names (strings), return a cloned list of AutoCats replacing the filter with a new one if a new filter is provided.
         // This is used to help process AutoCatGroup.
-        public List<AutoCat.AutoCat> CloneAutoCatList(List<string> acList, Filter filter)
+        public List<AutoCat> CloneAutoCatList(List<string> acList, Filter filter)
         {
-            List<AutoCat.AutoCat> newList = new List<AutoCat.AutoCat>();
+            List<AutoCat> newList = new List<AutoCat>();
             foreach (string s in acList)
             {
                 // find the AutoCat based on name
-                AutoCat.AutoCat ac = GetAutoCat(s);
+                AutoCat ac = GetAutoCat(s);
                 if (ac != null)
                 {
                     // add a cloned copy of the Autocat and replace the filter if one is provided.
                     // a cloned copy is used so that the selected property can be assigned without effecting lvAutoCatType on the Main form.
-                    AutoCat.AutoCat clone = ac.Clone();
+                    AutoCat clone = ac.Clone();
                     if (filter != null) clone.Filter = filter.Name;
                     newList.Add(clone);
                 }
