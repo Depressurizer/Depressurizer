@@ -16,10 +16,10 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using NDesk.Options;
-using Rallion;
 using System;
 using System.Windows.Forms;
+using NDesk.Options;
+using Rallion;
 
 namespace Depressurizer
 {

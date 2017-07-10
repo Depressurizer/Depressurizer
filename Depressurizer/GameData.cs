@@ -1,4 +1,12 @@
-﻿using Rallion;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Xml;
+using Rallion;
 /*
 This file is part of Depressurizer.
 Copyright 2011, 2012, 2013 Steve Labbe.
@@ -16,16 +24,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Drawing;
-using System.Globalization;
-using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Xml;
 
 namespace Depressurizer
 {
