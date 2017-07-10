@@ -15,6 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using Rallion;
 using System;
 using System.Collections.Generic;
@@ -22,13 +23,11 @@ using System.Xml;
 
 namespace Depressurizer
 {
-
     /// <summary>
     /// Autocategorization scheme that adds developer and publisher categories.
     /// </summary>
     public class AutoCatDevPub : AutoCat
     {
-
         public override AutoCatType AutoCatType
         {
             get { return AutoCatType.DevPub; }
@@ -36,6 +35,7 @@ namespace Depressurizer
 
         // Autocat configuration
         public bool AllDevelopers { get; set; }
+
         public bool AllPublishers { get; set; }
         public string Prefix { get; set; }
         public bool OwnedOnly { get; set; }
@@ -48,6 +48,7 @@ namespace Depressurizer
 
         // Serialization keys
         public const string TypeIdString = "AutoCatDevPub";
+
         private const string
             XmlName_Name = "Name",
             XmlName_Filter = "Filter",
@@ -66,7 +67,9 @@ namespace Depressurizer
         /// <summary>
         /// Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally, assigns categories from another list.
         /// </summary>
-        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool owned = true, int count = 0, bool developersAll = false, bool publishersAll = false, List<string> developers = null, List<string> publishers = null, bool selected = false)
+        public AutoCatDevPub(string name, string filter = null, string prefix = null, bool owned = true, int count = 0,
+            bool developersAll = false, bool publishersAll = false, List<string> developers = null,
+            List<string> publishers = null, bool selected = false)
             : base(name)
         {
             Filter = filter;
@@ -146,7 +149,8 @@ namespace Depressurizer
                 {
                     if (Developers.Contains(devs[index]) || AllDevelopers)
                     {
-                        if (DevCount(devs[index]) >= MinCount) game.AddCategory(games.GetCategory(GetProcessedString(devs[index])));
+                        if (DevCount(devs[index]) >= MinCount)
+                            game.AddCategory(games.GetCategory(GetProcessedString(devs[index])));
                     }
                 }
             }
@@ -159,7 +163,8 @@ namespace Depressurizer
                 {
                     if (Publishers.Contains(pubs[index]) || AllPublishers)
                     {
-                        if (PubCount(pubs[index]) >= MinCount) game.AddCategory(games.GetCategory(GetProcessedString(pubs[index])));
+                        if (PubCount(pubs[index]) >= MinCount)
+                            game.AddCategory(games.GetCategory(GetProcessedString(pubs[index])));
                     }
                 }
             }
@@ -271,9 +276,9 @@ namespace Depressurizer
                 }
             }
 
-            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, owned, count, AllDevelopers, AllPublishers, devs, pubs);
+            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, owned, count, AllDevelopers, AllPublishers,
+                devs, pubs);
             return result;
         }
     }
-
 }

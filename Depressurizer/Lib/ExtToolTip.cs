@@ -15,16 +15,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Depressurizer.Lib {
-
+namespace Depressurizer.Lib
+{
     /// <summary>
     /// ToolTip extension that allows you to bypass timers and have the tooltip always show when the mouse is over a particular control.
     /// </summary>
-    public class ExtToolTip : ToolTip {
+    public class ExtToolTip : ToolTip
+    {
         private Dictionary<Control, string> bindings = new Dictionary<Control, string>();
 
         /// <summary>
@@ -32,26 +34,33 @@ namespace Depressurizer.Lib {
         /// </summary>
         /// <param name="c">Control to apply the tooltip to</param>
         /// <param name="s">String to show in the tooltip</param>
-        public void Ext_SetToolTip( Control c, string s ) {
+        public void Ext_SetToolTip(Control c, string s)
+        {
             bindings[c] = s;
             c.MouseEnter += Ext_Control_MouseEnter;
             c.MouseLeave += Ext_Control_MouseLeave;
         }
 
-        private void Ext_Control_MouseLeave( object sender, EventArgs e ) {
+        private void Ext_Control_MouseLeave(object sender, EventArgs e)
+        {
             Control c = sender as Control;
-            if( c != null ) {
-                Hide( c );
+            if (c != null)
+            {
+                Hide(c);
             }
         }
 
-        private void Ext_Control_MouseEnter( object sender, EventArgs e ) {
+        private void Ext_Control_MouseEnter(object sender, EventArgs e)
+        {
             Control c = sender as Control;
-            if( c != null ) {
-                if( bindings.ContainsKey( c ) ) {
+            if (c != null)
+            {
+                if (bindings.ContainsKey(c))
+                {
                     string s = bindings[c];
-                    if( s != null ) {
-                        Show( s, c, c.Width, c.Height );
+                    if (s != null)
+                    {
+                        Show(s, c, c.Width, c.Height);
                     }
                 }
             }

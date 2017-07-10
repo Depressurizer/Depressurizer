@@ -15,24 +15,29 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using Rallion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public partial class DlgAutoCatSelect : Form {
+namespace Depressurizer
+{
+    public partial class DlgAutoCatSelect : Form
+    {
         public List<AutoCat> AutoCatList;
         public string originalGroup;
 
-        public DlgAutoCatSelect( List<AutoCat> autoCats, string name ) {
+        public DlgAutoCatSelect(List<AutoCat> autoCats, string name)
+        {
             InitializeComponent();
 
             AutoCatList = new List<AutoCat>();
             originalGroup = name;
 
-            foreach (AutoCat c in autoCats) {
+            foreach (AutoCat c in autoCats)
+            {
                 AutoCat clone = c.Clone();
                 clone.Selected = false;
                 AutoCatList.Add(clone);
@@ -41,15 +46,17 @@ namespace Depressurizer {
 
         #region UI Uptaters
 
-        private void FillAutocatList() {
+        private void FillAutocatList()
+        {
             clbAutocats.Items.Clear();
-            foreach( AutoCat ac in AutoCatList ) {
+            foreach (AutoCat ac in AutoCatList)
+            {
                 if (ac.Name != originalGroup)
                 {
                     bool addAC = true;
                     if (ac.AutoCatType == AutoCatType.Group)
                     {
-                        addAC = SafeGroup(((AutoCatGroup)ac).Autocats, new List<string>(new[] { originalGroup }));
+                        addAC = SafeGroup(((AutoCatGroup) ac).Autocats, new List<string>(new[] {originalGroup}));
                     }
                     if (addAC) clbAutocats.Items.Add(ac);
                 }
@@ -68,7 +75,7 @@ namespace Depressurizer {
 
         private void clbAutocats_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            ((AutoCat)clbAutocats.Items[e.Index]).Selected = e.NewValue == CheckState.Checked ? true : false;
+            ((AutoCat) clbAutocats.Items[e.Index]).Selected = e.NewValue == CheckState.Checked ? true : false;
         }
 
         #endregion

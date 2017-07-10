@@ -16,10 +16,7 @@ namespace Depressurizer
 
         public override AutoCatType AutoCatType
         {
-            get
-            {
-                return AutoCatType.Name;
-            }
+            get { return AutoCatType.Name; }
         }
 
         public const string TypeIdString = "AutoCatName";
@@ -28,7 +25,7 @@ namespace Depressurizer
         public const string XmlName_SkipThe = "SkipThe";
         public const string XmlName_GroupNumbers = "GroupNumbers";
 
-        public AutoCatName(string name, string prefix="",bool skipThe = true, bool groupNumbers = false):base(name)
+        public AutoCatName(string name, string prefix = "", bool skipThe = true, bool groupNumbers = false) : base(name)
         {
             Name = name;
             Prefix = prefix;
@@ -56,12 +53,13 @@ namespace Depressurizer
 
             if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
 
-            
+
             string cat = game.Name.Substring(0, 1);
             cat = cat.ToUpper();
-            if (SkipThe && cat == "T" && game.Name.Substring(0, 4).ToUpper() == "THE ") cat = game.Name.Substring(4, 1).ToUpper();
+            if (SkipThe && cat == "T" && game.Name.Substring(0, 4).ToUpper() == "THE ")
+                cat = game.Name.Substring(4, 1).ToUpper();
             if (GroupNumbers && Char.IsDigit(cat[0])) cat = "#";
-            if (Prefix!=null) cat = Prefix + cat;
+            if (Prefix != null) cat = Prefix + cat;
 
             game.AddCategory(games.GetCategory(cat));
 
@@ -70,7 +68,7 @@ namespace Depressurizer
 
         public override AutoCat Clone()
         {
-            return new AutoCatName(Name,Prefix,SkipThe, GroupNumbers);
+            return new AutoCatName(Name, Prefix, SkipThe, GroupNumbers);
         }
 
         public override void WriteToXml(XmlWriter writer)
@@ -92,7 +90,7 @@ namespace Depressurizer
             bool skipThe = Boolean.Parse(XmlUtil.GetStringFromNode(xElement[XmlName_SkipThe], null));
             bool groupNumbers = Boolean.Parse(XmlUtil.GetStringFromNode(xElement[XmlName_GroupNumbers], null));
 
-            return new AutoCatName(name, prefix,skipThe,groupNumbers);
+            return new AutoCatName(name, prefix, skipThe, groupNumbers);
         }
     }
 }

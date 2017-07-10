@@ -15,35 +15,39 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public partial class AutoCatConfigPanel_Group : AutoCatConfigPanel {
-
+namespace Depressurizer
+{
+    public partial class AutoCatConfigPanel_Group : AutoCatConfigPanel
+    {
         //private List<string> stringAutocats;
         private List<AutoCat> Autocats;
+
         private AutoCat current;
 
-        public AutoCatConfigPanel_Group(List<AutoCat> autocats) {
-            
+        public AutoCatConfigPanel_Group(List<AutoCat> autocats)
+        {
             InitializeComponent();
 
             Autocats = autocats;
-
         }
 
         #region Data modifiers
 
-        public override void LoadFromAutoCat( AutoCat autocat ) {
+        public override void LoadFromAutoCat(AutoCat autocat)
+        {
             AutoCatGroup ac = autocat as AutoCatGroup;
             current = autocat;
             if (ac == null) return;
             FillAutocatList(ac.Autocats);
         }
 
-        public override void SaveToAutoCat( AutoCat autocat ) {
+        public override void SaveToAutoCat(AutoCat autocat)
+        {
             AutoCatGroup ac = autocat as AutoCatGroup;
             if (ac == null) return;
             ac.Autocats = GetGroup();
@@ -150,7 +154,7 @@ namespace Depressurizer {
         public List<string> GetGroup()
         {
             List<string> group = new List<string>();
-            foreach(string name in lbAutocats.Items)
+            foreach (string name in lbAutocats.Items)
             {
                 group.Add(name);
             }
@@ -158,6 +162,5 @@ namespace Depressurizer {
         }
 
         #endregion
-
     }
 }

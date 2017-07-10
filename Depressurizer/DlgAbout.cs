@@ -15,35 +15,43 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public partial class DlgAbout : Form {
-        public DlgAbout() {
+namespace Depressurizer
+{
+    public partial class DlgAbout : Form
+    {
+        public DlgAbout()
+        {
             InitializeComponent();
         }
 
-        private void DlgAbout_Load( object sender, EventArgs e ) {
+        private void DlgAbout_Load(object sender, EventArgs e)
+        {
             lblVersion.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             int oldLen = lnkHomepage.Text.Length;
             lnkHomepage.Text += Properties.Resources.DepressurizerHomepage;
-            lnkHomepage.LinkArea = new LinkArea( oldLen, lnkHomepage.Text.Length - oldLen );
+            lnkHomepage.LinkArea = new LinkArea(oldLen, lnkHomepage.Text.Length - oldLen);
         }
 
-        private void lnkHomepage_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e ) {
-            Process.Start( Properties.Resources.DepressurizerHomepage );
+        private void lnkHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(Properties.Resources.DepressurizerHomepage);
         }
 
-        private void lnkLicense_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e ) {
-            Process.Start( "http://www.gnu.org/licenses/" );
+        private void lnkLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("http://www.gnu.org/licenses/");
         }
 
-        private void lnkNDesk_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e ) {
-            Process.Start( "http://www.novell.com" );
+        private void lnkNDesk_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("http://www.novell.com");
         }
     }
 }

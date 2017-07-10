@@ -15,12 +15,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Xml;
 using Rallion;
 
-namespace Depressurizer {
-    class FetchPrcDlg : CancelableDlg {
+namespace Depressurizer
+{
+    class FetchPrcDlg : CancelableDlg
+    {
         public int Added { get; private set; }
         XmlDocument doc;
 
@@ -31,16 +34,19 @@ namespace Depressurizer {
             Added = 0;
         }
 
-        protected override void RunProcess() {
+        protected override void RunProcess()
+        {
             Added = 0;
             doc = GameDB.FetchAppListFromWeb();
             OnThreadCompletion();
         }
 
-        protected override void Finish() {
-            if( !Canceled && doc != null && Error == null ) {
+        protected override void Finish()
+        {
+            if (!Canceled && doc != null && Error == null)
+            {
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
-                Added = Program.GameDB.IntegrateAppList( doc );
+                Added = Program.GameDB.IntegrateAppList(doc);
                 OnJobCompletion();
             }
         }
