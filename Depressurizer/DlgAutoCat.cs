@@ -281,14 +281,7 @@ namespace Depressurizer
             // Select previous item after deleting.
             if (lstAutoCats.Items.Count > 0)
             {
-                if (selectedIndex > 0)
-                {
-                    lstAutoCats.SelectedItem = lstAutoCats.Items[selectedIndex - 1];
-                }
-                else
-                {
-                    lstAutoCats.SelectedItem = lstAutoCats.Items[selectedIndex];
-                }
+                lstAutoCats.SelectedItem = selectedIndex > 0 ? lstAutoCats.Items[selectedIndex - 1] : lstAutoCats.Items[selectedIndex];
             }
         }
 

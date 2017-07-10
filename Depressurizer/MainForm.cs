@@ -1180,16 +1180,7 @@ namespace Depressurizer
             if (toDelete.Count > 0)
             {
                 DialogResult res;
-                if (toDelete.Count == 1)
-                {
-                    res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteCategory, toDelete[0].Name),
-                        GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteCategoryMulti, toDelete.Count),
-                        GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                }
+                res = MessageBox.Show(toDelete.Count == 1 ? string.Format(GlobalStrings.MainForm_DeleteCategory, toDelete[0].Name) : string.Format(GlobalStrings.MainForm_DeleteCategoryMulti, toDelete.Count), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (res == DialogResult.Yes)
                 {
                     int deleted = 0;
@@ -2034,14 +2025,7 @@ namespace Depressurizer
 
             if (selected == null)
             {
-                if (selectedIndex >= 0)
-                {
-                    lstCategories.SelectedIndices.Add(selectedIndex);
-                }
-                else
-                {
-                    lstCategories.SelectedIndices.Add(0);
-                }
+                lstCategories.SelectedIndices.Add(selectedIndex >= 0 ? selectedIndex : 0);
             }
             else
             {
@@ -2360,8 +2344,7 @@ namespace Depressurizer
         {
             if (contextGame.IsDropDown)
             {
-                if (e.Delta > 0) SendKeys.SendWait(BIG_UP);
-                else SendKeys.SendWait(BIG_DOWN);
+                SendKeys.SendWait(e.Delta > 0 ? BIG_UP : BIG_DOWN);
             }
         }
 
@@ -2382,8 +2365,7 @@ namespace Depressurizer
             settings.SplitGame = splitGame.SplitterDistance;
             settings.SplitBrowser = splitBrowser.SplitterDistance;
 
-            if (AdvancedCategoryFilter) settings.Filter = cboFilter.Text;
-            else settings.Filter = string.Empty;
+            settings.Filter = AdvancedCategoryFilter ? cboFilter.Text : string.Empty;
 
             if (lstCategories.SelectedItems.Count > 0) settings.Category = lstCategories.SelectedItems[0].Name;
 

@@ -1674,14 +1674,7 @@ namespace Depressurizer
                     if (fileVersion < 1)
                     {
                         int steamDate = XmlUtil.GetIntFromNode(gameNode["steamDate"], 0);
-                        if (steamDate > 0)
-                        {
-                            g.SteamReleaseDate = DateTime.FromOADate(steamDate).ToString("MMM d, yyyy");
-                        }
-                        else
-                        {
-                            g.SteamReleaseDate = null;
-                        }
+                        g.SteamReleaseDate = steamDate > 0 ? DateTime.FromOADate(steamDate).ToString("MMM d, yyyy") : null;
                     }
                     else
                     {
