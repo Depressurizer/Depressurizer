@@ -620,6 +620,7 @@ namespace Depressurizer
         private SortedSet<string> allStoreFlags;
         private SortedSet<string> allStoreDevelopers;
         private SortedSet<string> allStorePublishers;
+        private VrSupport allVrSupportFlags;
         public int LastHltbUpdate;
 
         public StoreLanguage dbLanguage = StoreLanguage.en;
@@ -958,6 +959,52 @@ namespace Depressurizer
                 }
             }
             return allStoreFlags;
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store flags found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A set of genres, as strings</returns>
+        public VrSupport GetAllVrSupportFlags()
+        {
+            if (allVrSupportFlags.Headsets == null || allVrSupportFlags.Input == null || allVrSupportFlags.PlayArea == null)
+            {
+                return CalculateAllVrSupportFlags();
+            }
+            return allVrSupportFlags;
+        }
+
+        /// <summary>
+        /// Gets a list of all Steam store flags found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A set of genres, as strings</returns>
+        public VrSupport CalculateAllVrSupportFlags()
+        {
+            SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            SortedSet<string> playArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (GameDBEntry entry in Games.Values)
+            {
+                if (entry.vrSupport.Headsets != null)
+                {
+                    headsets.UnionWith(entry.vrSupport.Headsets);
+                }
+                if (entry.vrSupport.Input != null)
+                {
+                    input.UnionWith(entry.vrSupport.Input);
+                }
+                if (entry.vrSupport.PlayArea != null)
+                {
+                    playArea.UnionWith(entry.vrSupport.PlayArea);
+                }
+            }
+            allVrSupportFlags.Headsets = headsets.ToList();
+            allVrSupportFlags.Input = input.ToList();
+            allVrSupportFlags.PlayArea = playArea.ToList();
+            return allVrSupportFlags;
         }
 
         /// <summary>

@@ -42,12 +42,13 @@ namespace Depressurizer
                 GlobalStrings.AutoCat_Name_Genre, GlobalStrings.AutoCat_Name_Flags, GlobalStrings.AutoCat_Name_Tags,
                 GlobalStrings.AutoCat_Name_Year, GlobalStrings.AutoCat_Name_UserScore, GlobalStrings.AutoCat_Name_Hltb,
                 GlobalStrings.AutoCat_Name_Manual, GlobalStrings.AutoCat_Name_DevPub, GlobalStrings.AutoCat_Name_Group,
-                GlobalStrings.AutoCat_Name_Name
+                GlobalStrings.AutoCat_Name_Name, GlobalStrings.AutoCat_Name_VrSupport
             };
             types = new[]
             {
                 AutoCatType.Genre, AutoCatType.Flags, AutoCatType.Tags, AutoCatType.Year, AutoCatType.UserScore,
-                AutoCatType.Hltb, AutoCatType.Manual, AutoCatType.DevPub, AutoCatType.Group, AutoCatType.Name
+                AutoCatType.Hltb, AutoCatType.Manual, AutoCatType.DevPub, AutoCatType.Group, AutoCatType.Name,
+                AutoCatType.VrSupport
             };
 
             SelectedName = name;

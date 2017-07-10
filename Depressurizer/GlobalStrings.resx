@@ -1348,7 +1348,7 @@ Close Steam BEFORE restoring!</value>
 There would be 95% confidence that the “real” positive fraction is at least the score calculated.
 This calculation reduces the rating if the number of reviews is too low.
 See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
-</data>
+  </data>
   <data name="AutoCat_Name_Name" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -1375,7 +1375,7 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Publisher" xml:space="preserve">
     <value>By Publisher</value>
-    </data>
+  </data>
   <data name="MainForm_ScrapeNow" xml:space="preserve">
     <value>Scrape now?
 This could take up to a few seconds per game.</value>
@@ -1385,5 +1385,8 @@ This could take up to a few seconds per game.</value>
   </data>
   <data name="Text_And" xml:space="preserve">
     <value>and</value>
+  </data>
+  <data name="AutoCat_Name_VrSupport" xml:space="preserve">
+    <value>VR Support</value>
   </data>
 </root>

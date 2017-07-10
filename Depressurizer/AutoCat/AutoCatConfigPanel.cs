@@ -56,6 +56,8 @@ namespace Depressurizer.AutoCat
                     return new AutoCatConfigPanel_Group(autocats);
                 case AutoCatType.Name:
                     return new AutoCatConfigPanel_Name();
+                case AutoCatType.VrSupport:
+                    return new AutoCatConfigPanel_VrSupport();
                 default:
                     return null;
             }
