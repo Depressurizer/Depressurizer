@@ -53,12 +53,12 @@ namespace Depressurizer {
             AutomaticModeOptions autoOpts = ParseAutoOptions( args );
 
             if( autoOpts != null ) {
-                Logger.Write( LoggerLevel.Info, "Automatic mode set, loading automatic mode form." );
-                Logger.WriteObject( LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:" );
+                Program.Logger.Write( LoggerLevel.Info, "Automatic mode set, loading automatic mode form." );
+                Program.Logger.WriteObject( LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:" );
                 Application.Run( new AutomaticModeForm( autoOpts ) );
 
             } else {
-                Logger.Write( LoggerLevel.Info, "Automatic mode not set, loading main form." );
+                Program.Logger.Write( LoggerLevel.Info, "Automatic mode not set, loading main form." );
                 Application.Run( new FormMain() );
 
             }
@@ -72,8 +72,7 @@ namespace Depressurizer {
             AutomaticModeOptions config = new AutomaticModeOptions();
             bool auto = false;
 
-            var opts = new OptionSet
-            {
+            var opts = new OptionSet() {
                 { "auto",           v => auto = true },
                 { "p|profile=",     v => config.CustomProfile = v },
                 { "checksteam",     v => config.CheckSteam = ( v != null ) },

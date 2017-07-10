@@ -132,8 +132,7 @@ namespace Depressurizer {
         public static int CompareLists(List<string> a, List<string> b) {
             if (a == null) {
                 return (b == null) ? 0 : 1;
-            }
-            if (b == null) {
+            } else if (b == null) {
                 return -1;
             }
             for (int i = 0; i < a.Count && i < b.Count; i++) {
@@ -231,8 +230,8 @@ namespace Depressurizer {
 
         public static bool GrabBanner(int id)
         {
-            string bannerURL = string.Format(Properties.Resources.UrlGameBanner, id);
-            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id);
+            string bannerURL = string.Format(Properties.Resources.UrlGameBanner, id.ToString());
+            string bannerPath = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id.ToString());
 
             try
             {
@@ -275,7 +274,8 @@ namespace Depressurizer {
 
             if (attributes != null && attributes.Length > 0)
                 return attributes[0].Description;
-            return value.ToString();
+            else
+                return value.ToString();
         }
 
         public static void MoveItem(ListBox lb, int direction)
