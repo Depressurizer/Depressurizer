@@ -15,28 +15,32 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    [TypeDescriptionProvider( typeof( InstantiableClassProvider<AutoCatConfigPanel, UserControl> ) )]
-    public class AutoCatConfigPanel : UserControl {
+namespace Depressurizer
+{
+    [TypeDescriptionProvider(typeof(InstantiableClassProvider<AutoCatConfigPanel, UserControl>))]
+    public class AutoCatConfigPanel : UserControl
+    {
+        public virtual void SaveToAutoCat(AutoCat ac) { }
 
-        public virtual void SaveToAutoCat( AutoCat ac ) { }
+        public virtual void LoadFromAutoCat(AutoCat ac) { }
 
-        public virtual void LoadFromAutoCat( AutoCat ac ) { }
-
-        public static AutoCatConfigPanel CreatePanel( AutoCat ac, GameList ownedGames, List<AutoCat> autocats ) {
+        public static AutoCatConfigPanel CreatePanel(AutoCat ac, GameList ownedGames, List<AutoCat> autocats)
+        {
             AutoCatType t = ac.AutoCatType;
-            switch( t ) {
+            switch (t)
+            {
                 case AutoCatType.Genre:
                     return new AutoCatConfigPanel_Genre();
                 case AutoCatType.Flags:
                     return new AutoCatConfigPanel_Flags();
                 case AutoCatType.Tags:
-                    return new AutoCatConfigPanel_Tags( ownedGames );
+                    return new AutoCatConfigPanel_Tags(ownedGames);
                 case AutoCatType.Year:
                     return new AutoCatConfigPanel_Year();
                 case AutoCatType.UserScore:
@@ -44,11 +48,11 @@ namespace Depressurizer {
                 case AutoCatType.Hltb:
                     return new AutoCatConfigPanel_Hltb();
                 case AutoCatType.Manual:
-                    return new AutoCatConfigPanel_Manual( ownedGames );
+                    return new AutoCatConfigPanel_Manual(ownedGames);
                 case AutoCatType.DevPub:
-                    return new AutoCatConfigPanel_DevPub( ownedGames );
+                    return new AutoCatConfigPanel_DevPub(ownedGames);
                 case AutoCatType.Group:
-                    return new AutoCatConfigPanel_Group( autocats );
+                    return new AutoCatConfigPanel_Group(autocats);
                 case AutoCatType.Name:
                     return new AutoCatConfigPanel_Name();
                 case AutoCatType.VrSupport:
@@ -56,25 +60,30 @@ namespace Depressurizer {
                 default:
                     return null;
             }
-
         }
     }
 
-    internal class InstantiableClassProvider<TAbstract, TInstantiable> : TypeDescriptionProvider {
-        public InstantiableClassProvider() : base( TypeDescriptor.GetProvider( typeof( TAbstract ) ) ) { }
+    internal class InstantiableClassProvider<TAbstract, TInstantiable> : TypeDescriptionProvider
+    {
+        public InstantiableClassProvider() : base(TypeDescriptor.GetProvider(typeof(TAbstract))) { }
 
-        public override Type GetReflectionType( Type objectType, object instance ) {
-            if( objectType == typeof( TAbstract ) ) {
-                return typeof( TInstantiable );
+        public override Type GetReflectionType(Type objectType, object instance)
+        {
+            if (objectType == typeof(TAbstract))
+            {
+                return typeof(TInstantiable);
             }
-            return base.GetReflectionType( objectType, instance );
+            return base.GetReflectionType(objectType, instance);
         }
 
-        public override object CreateInstance( IServiceProvider provider, Type objectType, Type[] argTypes, object[] args ) {
-            if( objectType == typeof( TAbstract ) ) {
-                objectType = typeof( TInstantiable );
+        public override object CreateInstance(IServiceProvider provider, Type objectType, Type[] argTypes,
+            object[] args)
+        {
+            if (objectType == typeof(TAbstract))
+            {
+                objectType = typeof(TInstantiable);
             }
-            return base.CreateInstance( provider, objectType, argTypes, args );
+            return base.CreateInstance(provider, objectType, argTypes, args);
         }
     }
 }

@@ -58,35 +58,26 @@ using System.Xml;
  * 4) Update the arrays in the DlgAutoCatCreate constructor to allow creating AutoCats of your type.
  */
 
-namespace Depressurizer {
-    public enum AutoCatType {
-        [Description("None")]
-        None,
-        [Description("AutoCatGenre")]
-        Genre,
-        [Description("AutoCatFlags")]
-        Flags,
-        [Description("AutoCatTags")]
-        Tags,
-        [Description("AutoCatYear")]
-        Year,
-        [Description("AutoCatUserScore")]
-        UserScore,
-        [Description("AutoCatHltb")]
-        Hltb,
-        [Description("AutoCatManual")]
-        Manual,
-        [Description("AutoCatDevPub")]
-        DevPub,
-        [Description("AutoCatGroup")]
-        Group,
-        [Description("AutoCatName")]
-        Name,
-        [Description("AutoCatVrSupport")]
-        VrSupport
+namespace Depressurizer
+{
+    public enum AutoCatType
+    {
+        [Description("None")] None,
+        [Description("AutoCatGenre")] Genre,
+        [Description("AutoCatFlags")] Flags,
+        [Description("AutoCatTags")] Tags,
+        [Description("AutoCatYear")] Year,
+        [Description("AutoCatUserScore")] UserScore,
+        [Description("AutoCatHltb")] Hltb,
+        [Description("AutoCatManual")] Manual,
+        [Description("AutoCatDevPub")] DevPub,
+        [Description("AutoCatGroup")] Group,
+        [Description("AutoCatName")] Name,
+        [Description("AutoCatVrSupport")] VrSupport
     }
 
-    public enum AutoCatResult {
+    public enum AutoCatResult
+    {
         Success,
         Failure,
         NotInDatabase,
@@ -98,17 +89,15 @@ namespace Depressurizer {
     /// This is a preliminary form, and may change in future versions.
     /// Returning only true / false on a categorization attempt may prove too simplistic.
     /// </summary>
-    public abstract class AutoCat : IComparable {
-
+    public abstract class AutoCat : IComparable
+    {
         private const string
             XmlName_Filter = "Filter";
 
         protected GameList games;
         protected GameDB db;
 
-        public abstract AutoCatType AutoCatType {
-            get;
-        }
+        public abstract AutoCatType AutoCatType { get; }
 
         public string Name { get; set; }
 
@@ -126,26 +115,30 @@ namespace Depressurizer {
 
         public bool Selected { get; set; }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return Name;
         }
 
-        protected AutoCat( string name ) {
+        protected AutoCat(string name)
+        {
             Name = name;
             Filter = null;
         }
 
-        protected AutoCat( AutoCat other ) {
+        protected AutoCat(AutoCat other)
+        {
             Name = other.Name;
             Filter = other.Filter;
         }
 
         public abstract AutoCat Clone();
 
-        public int CompareTo( object other )
+        public int CompareTo(object other)
         {
-            if( other is AutoCat ) {
-                return string.Compare( Name, ( other as AutoCat ).Name );
+            if (other is AutoCat)
+            {
+                return string.Compare(Name, (other as AutoCat).Name);
             }
             return 1;
         }
@@ -154,7 +147,8 @@ namespace Depressurizer {
         /// Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis or other preparation.
         /// After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
-        public virtual void PreProcess( GameList games, GameDB db ) {
+        public virtual void PreProcess(GameList games, GameDB db)
+        {
             this.games = games;
             this.db = db;
         }
@@ -164,9 +158,11 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="gameId">The game ID to process</param>
         /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
-        public virtual AutoCatResult CategorizeGame( int gameId, Filter filter ) {
-            if( games.Games.ContainsKey( gameId ) ) {
-                return CategorizeGame( games.Games[gameId], filter );
+        public virtual AutoCatResult CategorizeGame(int gameId, Filter filter)
+        {
+            if (games.Games.ContainsKey(gameId))
+            {
+                return CategorizeGame(games.Games[gameId], filter);
             }
             return AutoCatResult.Failure;
         }
@@ -176,34 +172,37 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="game">The GameInfo object to process</param>
         /// <returns>False if the game was not found in database. This allows the calling function to potentially re-scrape data and reattempt.</returns>
-        public abstract AutoCatResult CategorizeGame( GameInfo game, Filter filter );
+        public abstract AutoCatResult CategorizeGame(GameInfo game, Filter filter);
 
-        public virtual void DeProcess() {
+        public virtual void DeProcess()
+        {
             games = null;
             db = null;
         }
 
-        public abstract void WriteToXml( XmlWriter writer );
+        public abstract void WriteToXml(XmlWriter writer);
 
-        public static AutoCat LoadACFromXmlElement( XmlElement xElement ) {
+        public static AutoCat LoadACFromXmlElement(XmlElement xElement)
+        {
             string type = xElement.Name;
 
             AutoCat result = null;
-            switch( type ) {
+            switch (type)
+            {
                 case AutoCatGenre.TypeIdString:
-                    result = AutoCatGenre.LoadFromXmlElement( xElement );
+                    result = AutoCatGenre.LoadFromXmlElement(xElement);
                     break;
                 case AutoCatFlags.TypeIdString:
-                    result = AutoCatFlags.LoadFromXmlElement( xElement );
+                    result = AutoCatFlags.LoadFromXmlElement(xElement);
                     break;
                 case AutoCatTags.TypeIdString:
-                    result = AutoCatTags.LoadFromXmlElement( xElement );
+                    result = AutoCatTags.LoadFromXmlElement(xElement);
                     break;
                 case AutoCatYear.TypeIdString:
-                    result = AutoCatYear.LoadFromXmlElement( xElement );
+                    result = AutoCatYear.LoadFromXmlElement(xElement);
                     break;
                 case AutoCatUserScore.TypeIdString:
-                    result = AutoCatUserScore.LoadFromXmlElement( xElement );
+                    result = AutoCatUserScore.LoadFromXmlElement(xElement);
                     break;
                 case AutoCatHltb.TypeIdString:
                     result = AutoCatHltb.LoadFromXmlElement(xElement);
@@ -227,20 +226,22 @@ namespace Depressurizer {
             return result;
         }
 
-        public static AutoCat Create( AutoCatType type, string name ) {
-            switch( type ) {
+        public static AutoCat Create(AutoCatType type, string name)
+        {
+            switch (type)
+            {
                 case AutoCatType.Genre:
-                    return new AutoCatGenre( name );
+                    return new AutoCatGenre(name);
                 case AutoCatType.Flags:
-                    return new AutoCatFlags( name );
+                    return new AutoCatFlags(name);
                 case AutoCatType.Tags:
-                    return new AutoCatTags( name );
+                    return new AutoCatTags(name);
                 case AutoCatType.Year:
-                    return new AutoCatYear( name );
+                    return new AutoCatYear(name);
                 case AutoCatType.UserScore:
-                    return new AutoCatUserScore( name );
+                    return new AutoCatUserScore(name);
                 case AutoCatType.Hltb:
-                    return new AutoCatHltb( name );
+                    return new AutoCatHltb(name);
                 case AutoCatType.Manual:
                     return new AutoCatManual(name);
                 case AutoCatType.DevPub:
@@ -258,5 +259,4 @@ namespace Depressurizer {
             }
         }
     }
-
 }

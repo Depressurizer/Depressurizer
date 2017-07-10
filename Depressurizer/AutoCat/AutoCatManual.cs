@@ -15,6 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using Rallion;
 using System;
 using System.Collections.Generic;
@@ -22,13 +23,11 @@ using System.Xml;
 
 namespace Depressurizer
 {
-
     /// <summary>
     /// Autocategorization scheme that adds and removes manual categories.
     /// </summary>
     public class AutoCatManual : AutoCat
     {
-
         public override AutoCatType AutoCatType
         {
             get { return AutoCatType.Manual; }
@@ -36,6 +35,7 @@ namespace Depressurizer
 
         // Autocat configuration
         public bool RemoveAllCategories { get; set; }
+
         public string Prefix { get; set; }
         public bool MaxCount { get; set; }
         public int MinCount { get; set; }
@@ -45,6 +45,7 @@ namespace Depressurizer
 
         // Serialization keys
         public const string TypeIdString = "AutoCatManual";
+
         private const string
             XmlName_Name = "Name",
             XmlName_Filter = "Filter",
@@ -60,7 +61,8 @@ namespace Depressurizer
         /// <summary>
         /// Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally, assigns categories from another list.
         /// </summary>
-        public AutoCatManual(string name, string filter = null, string prefix = null, bool removeAll = false, List<string> remove = null, List<string> add = null, bool selected = false)
+        public AutoCatManual(string name, string filter = null, string prefix = null, bool removeAll = false,
+            List<string> remove = null, List<string> add = null, bool selected = false)
             : base(name)
         {
             Filter = filter;
@@ -146,7 +148,7 @@ namespace Depressurizer
                         gamelist.RemoveCategory(c);
                     }
                 }
-            } 
+            }
 
             if (AddCategories != null)
             {
@@ -238,5 +240,4 @@ namespace Depressurizer
             return result;
         }
     }
-
 }

@@ -15,40 +15,51 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Rallion {
-    public partial class CancelableDlg : Form {
+namespace Rallion
+{
+    public partial class CancelableDlg : Form
+    {
         #region Fields
+
         protected object abortLock = new object();
 
         protected int threadsToRun = 5;
         protected int runningThreads;
 
         protected int totalJobs = 1;
-        public int JobsTotal {
-            get {
-                return totalJobs;
-            }
+
+        public int JobsTotal
+        {
+            get { return totalJobs; }
         }
+
         protected int jobsCompleted;
-        public int JobsCompleted {
-            get {
-                return jobsCompleted;
-            }
+
+        public int JobsCompleted
+        {
+            get { return jobsCompleted; }
         }
 
         private bool _stopped;
-        protected bool Stopped {
-            get {
-                lock( abortLock ) {
+
+        protected bool Stopped
+        {
+            get
+            {
+                lock (abortLock)
+                {
                     return _stopped;
                 }
             }
-            set {
-                lock( abortLock ) {
+            set
+            {
+                lock (abortLock)
+                {
                     _stopped = value;
                 }
             }
@@ -59,13 +70,17 @@ namespace Rallion {
         public Exception Error { get; protected set; }
 
         delegate void SimpleDelegate();
-        delegate void TextUpdateDelegate( string s );
-        delegate void EndProcDelegate( bool b );
+
+        delegate void TextUpdateDelegate(string s);
+
+        delegate void EndProcDelegate(bool b);
+
         #endregion
 
         #region Initialization
 
-        public CancelableDlg( string title, bool stopButton ) {
+        public CancelableDlg(string title, bool stopButton)
+        {
             InitializeComponent();
             Text = title;
             Canceled = false;
@@ -73,103 +88,144 @@ namespace Rallion {
             cmdStop.Enabled = cmdStop.Visible = stopButton;
         }
 
-        protected virtual void UpdateForm_Load( object sender, EventArgs e ) {
-            threadsToRun = Math.Min( threadsToRun, totalJobs );
-            for( int i = 0; i < threadsToRun; i++ ) {
-                Thread t = new Thread( RunProcessChecked );
+        protected virtual void UpdateForm_Load(object sender, EventArgs e)
+        {
+            threadsToRun = Math.Min(threadsToRun, totalJobs);
+            for (int i = 0; i < threadsToRun; i++)
+            {
+                Thread t = new Thread(RunProcessChecked);
                 t.Start();
                 runningThreads++;
             }
             UpdateText();
         }
 
-        private void RunProcessChecked() {
-            try {
+        private void RunProcessChecked()
+        {
+            try
+            {
                 RunProcess();
-            } catch( Exception e ) {
-                lock( abortLock ) {
+            }
+            catch (Exception e)
+            {
+                lock (abortLock)
+                {
                     Stopped = true;
                     Error = e;
                 }
-                if( IsHandleCreated ) {
-                    Invoke( new SimpleDelegate( Finish ) );
-                    Invoke( new SimpleDelegate( Close ) );
+                if (IsHandleCreated)
+                {
+                    Invoke(new SimpleDelegate(Finish));
+                    Invoke(new SimpleDelegate(Close));
                 }
             }
         }
+
         #endregion
 
         #region Methods to override
+
         protected virtual void RunProcess() { }
 
         protected virtual void UpdateText() { }
 
         protected virtual void Finish() { }
+
         #endregion
 
         #region Status Updaters
-        protected void OnJobCompletion() {
-            lock( abortLock ) {
+
+        protected void OnJobCompletion()
+        {
+            lock (abortLock)
+            {
                 jobsCompleted++;
             }
             UpdateText();
         }
 
-        protected void OnThreadCompletion() {
-            if( InvokeRequired ) {
-                Invoke( new SimpleDelegate( OnThreadCompletion ) );
-            } else {
+        protected void OnThreadCompletion()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new SimpleDelegate(OnThreadCompletion));
+            }
+            else
+            {
                 runningThreads--;
-                if( runningThreads <= 0 ) {
+                if (runningThreads <= 0)
+                {
                     Close();
                 }
             }
         }
+
         #endregion
 
         #region Event Handlers
-        private void cmdStop_Click( object sender, EventArgs e ) {
+
+        private void cmdStop_Click(object sender, EventArgs e)
+        {
             Stopped = true;
             DisableAbort();
             Close();
         }
 
-        private void UpdateForm_FormClosing( object sender, FormClosingEventArgs e ) {
-            lock( abortLock ) {
+        private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            lock (abortLock)
+            {
                 Stopped = true;
             }
             DisableAbort();
             //DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
             Finish();
-            if( jobsCompleted >= totalJobs ) {
+            if (jobsCompleted >= totalJobs)
+            {
                 DialogResult = DialogResult.OK;
-            } else if( Canceled ) {
+            }
+            else if (Canceled)
+            {
                 DialogResult = DialogResult.Cancel;
-            } else {
+            }
+            else
+            {
                 DialogResult = DialogResult.Abort;
             }
         }
+
         #endregion
 
         #region UI Updaters
-        protected void SetText( string s ) {
-            if( InvokeRequired ) {
-                Invoke( new TextUpdateDelegate( SetText ), s );
-            } else {
+
+        protected void SetText(string s)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new TextUpdateDelegate(SetText), s);
+            }
+            else
+            {
                 lblText.Text = s;
             }
         }
 
-        protected void DisableAbort() {
-            if( InvokeRequired ) {
-                Invoke( new SimpleDelegate( DisableAbort ) );
-            } else {
+        protected void DisableAbort()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new SimpleDelegate(DisableAbort));
+            }
+            else
+            {
                 cmdStop.Enabled = cmdCancel.Enabled = false;
             }
         }
+
         #endregion
 
-        private void cmdCancel_Click( object sender, EventArgs e ) {
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
             Stopped = true;
             Canceled = true;
             DisableAbort();

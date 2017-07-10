@@ -15,26 +15,29 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public partial class AutoCatConfigPanel_Manual : AutoCatConfigPanel {
-
+namespace Depressurizer
+{
+    public partial class AutoCatConfigPanel_Manual : AutoCatConfigPanel
+    {
         // used to remove unchecked items from the Add and Remove checkedlistbox.
         private Thread workerThread;
+
         private bool loaded;
         private GameList ownedGames;
 
-        public AutoCatConfigPanel_Manual(GameList gamelist) {
-            
+        public AutoCatConfigPanel_Manual(GameList gamelist)
+        {
             InitializeComponent();
 
             ownedGames = gamelist;
 
-            ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
 
             FillRemoveList();
             FillAddList();
@@ -125,6 +128,7 @@ namespace Depressurizer {
                 ac.AddCategories.Add(item.Name);
             }
         }
+
         #endregion
 
         #region UI Updaters
@@ -179,8 +183,10 @@ namespace Depressurizer {
             groupAdd.Text = "Add (" + clbAddSelected.Items.Count + "):";
         }
 
-        private void SetAllListCheckStates( ListView list, bool to ) {
-            foreach( ListViewItem item in list.Items ) {
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
                 item.Checked = to;
             }
         }
@@ -276,7 +282,7 @@ namespace Depressurizer {
         {
             if (e.NewValue == CheckState.Unchecked)
             {
-                ((ListViewItem)clbRemoveSelected.Items[e.Index]).Checked = false;
+                ((ListViewItem) clbRemoveSelected.Items[e.Index]).Checked = false;
             }
         }
 
@@ -354,7 +360,7 @@ namespace Depressurizer {
         {
             if (e.NewValue == CheckState.Unchecked)
             {
-                ((ListViewItem)clbAddSelected.Items[e.Index]).Checked = false;
+                ((ListViewItem) clbAddSelected.Items[e.Index]).Checked = false;
             }
         }
 
@@ -394,7 +400,7 @@ namespace Depressurizer {
 
         private void AddItemWorker(object obj)
         {
-            AddItem((ListViewItem)obj);
+            AddItem((ListViewItem) obj);
         }
 
         #endregion
@@ -432,6 +438,5 @@ namespace Depressurizer {
         }
 
         #endregion
-
     }
 }

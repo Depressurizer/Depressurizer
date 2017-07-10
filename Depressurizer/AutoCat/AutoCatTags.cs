@@ -15,16 +15,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using Rallion;
 using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Depressurizer {
-
-public class AutoCatTags : AutoCat {
-
-        public override AutoCatType AutoCatType {
+namespace Depressurizer
+{
+    public class AutoCatTags : AutoCat
+    {
+        public override AutoCatType AutoCatType
+        {
             get { return AutoCatType.Tags; }
         }
 
@@ -40,6 +42,7 @@ public class AutoCatTags : AutoCat {
         public bool ListExcludeGenres { get; set; }
 
         public const string TypeIdString = "AutoCatTags";
+
         private const string XmlName_Name = "Name",
             XmlName_Filter = "Filter",
             XmlName_Prefix = "Prefix",
@@ -53,14 +56,16 @@ public class AutoCatTags : AutoCat {
             XmlName_ListExcludeGenres = "List_ExcludeGenres",
             XmlName_ListScoreSort = "List_ScoreSort";
 
-        public AutoCatTags( string name, string filter = null, string prefix = null,
+        public AutoCatTags(string name, string filter = null, string prefix = null,
             HashSet<string> tags = null, int maxTags = 0,
-            bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true, bool selected = false)
-            : base( name ) {
+            bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0,
+            bool listScoreSort = true, bool listExcludeGenres = true, bool selected = false)
+            : base(name)
+        {
             Filter = filter;
             Prefix = prefix;
 
-            if( tags == null ) IncludedTags = new HashSet<string>();
+            if (tags == null) IncludedTags = new HashSet<string>();
             else IncludedTags = tags;
 
             MaxTags = maxTags;
@@ -73,11 +78,12 @@ public class AutoCatTags : AutoCat {
             Selected = selected;
         }
 
-        protected AutoCatTags( AutoCatTags other )
-            : base( other ) {
+        protected AutoCatTags(AutoCatTags other)
+            : base(other)
+        {
             Filter = other.Filter;
             Prefix = other.Prefix;
-            IncludedTags = new HashSet<string>( other.IncludedTags );
+            IncludedTags = new HashSet<string>(other.IncludedTags);
             MaxTags = other.MaxTags;
 
             ListOwnedOnly = other.ListOwnedOnly;
@@ -89,35 +95,43 @@ public class AutoCatTags : AutoCat {
             Selected = other.Selected;
         }
 
-        public override AutoCat Clone() {
-            return new AutoCatTags( this );
+        public override AutoCat Clone()
+        {
+            return new AutoCatTags(this);
         }
 
-        public override AutoCatResult CategorizeGame( GameInfo game, Filter filter ) {
-            if( games == null ) {
-                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull );
-                throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameList );
+        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
+        {
+            if (games == null)
+            {
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
+                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
-            if( db == null ) {
-                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull );
-                throw new ApplicationException( GlobalStrings.AutoCatGenre_Exception_NoGameDB );
+            if (db == null)
+            {
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
+                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
             }
-            if( game == null ) {
-                Program.Logger.Write( LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull );
+            if (game == null)
+            {
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 
-            if( !db.Contains( game.Id ) || db.Games[game.Id].LastStoreScrape == 0 ) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
 
             if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            List<string> gameTags = db.GetTagList( game.Id );
+            List<string> gameTags = db.GetTagList(game.Id);
 
-            if( gameTags != null ) {
+            if (gameTags != null)
+            {
                 int added = 0;
-                for( int index = 0; index < gameTags.Count && ( MaxTags == 0 || added < MaxTags ); index++ ) {
-                    if( IncludedTags.Contains( gameTags[index] ) ) {
-                        game.AddCategory( games.GetCategory( GetProcessedString( gameTags[index] ) ) );
+                for (int index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
+                {
+                    if (IncludedTags.Contains(gameTags[index]))
+                    {
+                        game.AddCategory(games.GetCategory(GetProcessedString(gameTags[index])));
                         added++;
                     }
                 }
@@ -126,76 +140,87 @@ public class AutoCatTags : AutoCat {
             return AutoCatResult.Success;
         }
 
-        public string GetProcessedString( string s )
+        public string GetProcessedString(string s)
         {
-            if( string.IsNullOrEmpty( Prefix ) ) {
+            if (string.IsNullOrEmpty(Prefix))
+            {
                 return s;
             }
             return Prefix + s;
         }
 
-        public override void WriteToXml( XmlWriter writer ) {
-            writer.WriteStartElement( TypeIdString );
+        public override void WriteToXml(XmlWriter writer)
+        {
+            writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString( XmlName_Name, Name );
+            writer.WriteElementString(XmlName_Name, Name);
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString( XmlName_MaxTags, MaxTags.ToString() );
+            writer.WriteElementString(XmlName_MaxTags, MaxTags.ToString());
 
-            if( IncludedTags != null && IncludedTags.Count > 0 ) {
-                writer.WriteStartElement( XmlName_TagList );
-                foreach( string s in IncludedTags ) {
-                    writer.WriteElementString( XmlName_Tag, s );
+            if (IncludedTags != null && IncludedTags.Count > 0)
+            {
+                writer.WriteStartElement(XmlName_TagList);
+                foreach (string s in IncludedTags)
+                {
+                    writer.WriteElementString(XmlName_Tag, s);
                 }
                 writer.WriteEndElement();
             }
 
-            writer.WriteElementString( XmlName_ListOwnedOnly, ListOwnedOnly.ToString() );
-            writer.WriteElementString( XmlName_ListWeightFactor, ListWeightFactor.ToString() );
-            writer.WriteElementString( XmlName_ListMinScore, ListMinScore.ToString() );
-            writer.WriteElementString( XmlName_ListTagsPerGame, ListTagsPerGame.ToString() );
-            writer.WriteElementString( XmlName_ListScoreSort, ListScoreSort.ToString() );
-            writer.WriteElementString( XmlName_ListExcludeGenres, ListExcludeGenres.ToString() );
+            writer.WriteElementString(XmlName_ListOwnedOnly, ListOwnedOnly.ToString());
+            writer.WriteElementString(XmlName_ListWeightFactor, ListWeightFactor.ToString());
+            writer.WriteElementString(XmlName_ListMinScore, ListMinScore.ToString());
+            writer.WriteElementString(XmlName_ListTagsPerGame, ListTagsPerGame.ToString());
+            writer.WriteElementString(XmlName_ListScoreSort, ListScoreSort.ToString());
+            writer.WriteElementString(XmlName_ListExcludeGenres, ListExcludeGenres.ToString());
 
             writer.WriteEndElement();
         }
 
-        public static AutoCatTags LoadFromXmlElement( XmlElement xElement ) {
-            string name = XmlUtil.GetStringFromNode( xElement[XmlName_Name], TypeIdString );
+        public static AutoCatTags LoadFromXmlElement(XmlElement xElement)
+        {
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
 
-            AutoCatTags result = new AutoCatTags( name );
+            AutoCatTags result = new AutoCatTags(name);
 
             result.Filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
 
             string prefix;
-            if( XmlUtil.TryGetStringFromNode( xElement[XmlName_Prefix], out prefix ) ) result.Prefix = prefix;
+            if (XmlUtil.TryGetStringFromNode(xElement[XmlName_Prefix], out prefix)) result.Prefix = prefix;
 
             int maxTags;
-            if( XmlUtil.TryGetIntFromNode( xElement[XmlName_MaxTags], out maxTags ) ) result.MaxTags = maxTags;
+            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_MaxTags], out maxTags)) result.MaxTags = maxTags;
 
             bool listOwnedOnly;
-            if( XmlUtil.TryGetBoolFromNode( xElement[XmlName_ListOwnedOnly], out listOwnedOnly ) ) result.ListOwnedOnly = listOwnedOnly;
+            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListOwnedOnly], out listOwnedOnly))
+                result.ListOwnedOnly = listOwnedOnly;
 
             float listWeightFactor;
-            if( XmlUtil.TryGetFloatFromNode( xElement[XmlName_ListWeightFactor], out listWeightFactor ) ) result.ListWeightFactor = listWeightFactor;
+            if (XmlUtil.TryGetFloatFromNode(xElement[XmlName_ListWeightFactor], out listWeightFactor))
+                result.ListWeightFactor = listWeightFactor;
 
             int listMinScore;
-            if( XmlUtil.TryGetIntFromNode( xElement[XmlName_ListMinScore], out listMinScore ) ) result.ListMinScore = listMinScore;
+            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListMinScore], out listMinScore))
+                result.ListMinScore = listMinScore;
 
             int listTagsPerGame;
-            if( XmlUtil.TryGetIntFromNode( xElement[XmlName_ListTagsPerGame], out listTagsPerGame ) ) result.ListTagsPerGame = listTagsPerGame;
+            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListTagsPerGame], out listTagsPerGame))
+                result.ListTagsPerGame = listTagsPerGame;
 
             bool listScoreSort;
-            if( XmlUtil.TryGetBoolFromNode( xElement[XmlName_ListScoreSort], out listScoreSort ) ) result.ListScoreSort = listScoreSort;
+            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListScoreSort], out listScoreSort))
+                result.ListScoreSort = listScoreSort;
 
             bool listExcludeGenres;
-            if( XmlUtil.TryGetBoolFromNode( xElement[XmlName_ListExcludeGenres], out listExcludeGenres ) ) result.ListExcludeGenres = listExcludeGenres;
+            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListExcludeGenres], out listExcludeGenres))
+                result.ListExcludeGenres = listExcludeGenres;
 
-            List<string> tagList = XmlUtil.GetStringsFromNodeList( xElement.SelectNodes( XmlName_TagList + "/" + XmlName_Tag ) );
-            result.IncludedTags = ( tagList == null ) ? new HashSet<string>() : new HashSet<string>( tagList );
+            List<string> tagList =
+                XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_TagList + "/" + XmlName_Tag));
+            result.IncludedTags = (tagList == null) ? new HashSet<string>() : new HashSet<string>(tagList);
 
             return result;
         }
     }
-
 }

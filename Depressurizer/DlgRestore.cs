@@ -15,38 +15,38 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Linq;
 
-namespace Depressurizer {
-    public partial class DlgRestore : Form {
-
+namespace Depressurizer
+{
+    public partial class DlgRestore : Form
+    {
         public bool Restored;
-        
-        public DlgRestore(string path) {
+
+        public DlgRestore(string path)
+        {
             InitializeComponent();
 
-            var files = Directory.EnumerateFiles(path, "*.*", SearchOption.TopDirectoryOnly).
-                Where(s => s.EndsWith(".bak_1") || s.EndsWith(".bak_2") || s.EndsWith(".bak_3"));
+            var files = Directory.EnumerateFiles(path, "*.*", SearchOption.TopDirectoryOnly)
+                .Where(s => s.EndsWith(".bak_1") || s.EndsWith(".bak_2") || s.EndsWith(".bak_3"));
 
             foreach (string f in files)
             {
-
                 cboRestore.Items.Add(new ComboItem(Path.GetFileName(f), f));
             }
-
         }
 
         private void cboRestore_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            if (File.Exists(((ComboItem)cboRestore.SelectedItem).Path))
+            if (File.Exists(((ComboItem) cboRestore.SelectedItem).Path))
             {
                 rtbRestore.Text = "";
-                string path = ((ComboItem)cboRestore.SelectedItem).Path;
+                string path = ((ComboItem) cboRestore.SelectedItem).Path;
                 rtbRestore.Text = File.ReadAllText(path);
                 DateTime dt = File.GetLastWriteTime(path);
                 long length = new FileInfo(path).Length;
@@ -63,13 +63,16 @@ namespace Depressurizer {
 
         private void btnRestore_Click(object sender, EventArgs e)
         {
-            string name = ((ComboItem)cboRestore.SelectedItem).Name;
-            string message = name.Contains("vdf") ? String.Format(GlobalStrings.DlgRestore_ConfigConfirm, name) : String.Format(GlobalStrings.DlgRestore_ProfileConfirm, name);
-            DialogResult result = MessageBox.Show(message, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            string name = ((ComboItem) cboRestore.SelectedItem).Name;
+            string message = name.Contains("vdf")
+                ? String.Format(GlobalStrings.DlgRestore_ConfigConfirm, name)
+                : String.Format(GlobalStrings.DlgRestore_ProfileConfirm, name);
+            DialogResult result = MessageBox.Show(message, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
             {
-                if (((ComboItem)cboRestore.SelectedItem).Restore())
+                if (((ComboItem) cboRestore.SelectedItem).Restore())
                 {
                     Restored = true;
                     Close();
@@ -90,7 +93,8 @@ namespace Depressurizer {
 
         public ComboItem(string name, string path)
         {
-            Name = name; Path = path;
+            Name = name;
+            Path = path;
         }
 
         public override string ToString()
@@ -112,7 +116,6 @@ namespace Depressurizer {
             {
                 return false;
             }
-
         }
     }
 }

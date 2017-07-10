@@ -15,19 +15,22 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Rallion;
 
-namespace Depressurizer {
-    class DbScrapeDlg : CancelableDlg {
+namespace Depressurizer
+{
+    class DbScrapeDlg : CancelableDlg
+    {
         Queue<int> jobs;
         List<GameDBEntry> results;
 
         DateTime start;
 
-        public DbScrapeDlg( Queue<int> jobs )
+        public DbScrapeDlg(Queue<int> jobs)
             : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
             this.jobs = jobs;
@@ -36,24 +39,29 @@ namespace Depressurizer {
             results = new List<GameDBEntry>();
         }
 
-        protected override void UpdateForm_Load( object sender, EventArgs e ) {
+        protected override void UpdateForm_Load(object sender, EventArgs e)
+        {
             start = DateTime.Now;
-            base.UpdateForm_Load( sender, e );
+            base.UpdateForm_Load(sender, e);
         }
 
-        private int GetNextGameId() {
-            lock( jobs )
+        private int GetNextGameId()
+        {
+            lock (jobs)
             {
-                if( jobs.Count > 0 ) {
+                if (jobs.Count > 0)
+                {
                     return jobs.Dequeue();
                 }
                 return 0;
             }
         }
 
-        protected override void RunProcess() {
+        protected override void RunProcess()
+        {
             bool stillRunning = true;
-            while( !Stopped && stillRunning ) {
+            while (!Stopped && stillRunning)
+            {
                 stillRunning = RunNextJob();
             }
             OnThreadCompletion();
@@ -63,12 +71,14 @@ namespace Depressurizer {
         /// Runs the next job in the queue, in a thread-safe manner. Aborts ASAP if the form is closed.
         /// </summary>
         /// <returns>True if a job was run, false if it was aborted first</returns>
-        private bool RunNextJob() {
+        private bool RunNextJob()
+        {
             int id = GetNextGameId();
-            if( id == 0 ) {
+            if (id == 0)
+            {
                 return false;
             }
-            if( Stopped ) return false;
+            if (Stopped) return false;
 
             GameDBEntry newGame = new GameDBEntry();
             newGame.Id = id;
@@ -76,10 +86,11 @@ namespace Depressurizer {
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
-            lock( abortLock )
+            lock (abortLock)
             {
-                if( !Stopped ) {
-                    results.Add( newGame );
+                if (!Stopped)
+                {
+                    results.Add(newGame);
                     OnJobCompletion();
                     return true;
                 }
@@ -87,47 +98,62 @@ namespace Depressurizer {
             }
         }
 
-        protected override void Finish() {
-            if( !Canceled ) {
+        protected override void Finish()
+        {
+            if (!Canceled)
+            {
                 SetText(GlobalStrings.CDlgScrape_ApplyingData);
 
-                if( results != null ) {
-                    foreach( GameDBEntry g in results ) {
-                        if( Program.GameDB.Contains( g.Id ) ) {
-                            Program.GameDB.Games[g.Id].MergeIn( g );
-                        } else {
-                            Program.GameDB.Games.Add( g.Id, g );
+                if (results != null)
+                {
+                    foreach (GameDBEntry g in results)
+                    {
+                        if (Program.GameDB.Contains(g.Id))
+                        {
+                            Program.GameDB.Games[g.Id].MergeIn(g);
+                        }
+                        else
+                        {
+                            Program.GameDB.Games.Add(g.Id, g);
                         }
                     }
                 }
             }
         }
 
-        protected override void UpdateText() {
+        protected override void UpdateText()
+        {
             TimeSpan timeRemaining = TimeSpan.Zero;
-            if( jobsCompleted > 0 ) {
-                double msElapsed = ( DateTime.Now - start ).TotalMilliseconds;
+            if (jobsCompleted > 0)
+            {
+                double msElapsed = (DateTime.Now - start).TotalMilliseconds;
                 double msPerItem = msElapsed / jobsCompleted;
-                double msRemaining = msPerItem * ( totalJobs - jobsCompleted );
-                timeRemaining = TimeSpan.FromMilliseconds( msRemaining );
+                double msRemaining = msPerItem * (totalJobs - jobsCompleted);
+                timeRemaining = TimeSpan.FromMilliseconds(msRemaining);
             }
 
             StringBuilder sb = new StringBuilder();
             sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, jobsCompleted, totalJobs));
 
             sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
-            if( timeRemaining == TimeSpan.Zero ) {
+            if (timeRemaining == TimeSpan.Zero)
+            {
                 sb.Append(GlobalStrings.CDlgScrape_Unknown);
-            } else if( timeRemaining.TotalMinutes < 1.0 ) {
-                sb.Append(GlobalStrings.CDlgScrape_1minute);
-            } else {
-                double hours = timeRemaining.TotalHours;
-                if( hours >= 1.0 ) {
-                    sb.Append( string.Format( "{0:F0}h", hours ) );
-                }
-                sb.Append( string.Format( "{0:D2}m", timeRemaining.Minutes ) );
             }
-            SetText( sb.ToString() );
+            else if (timeRemaining.TotalMinutes < 1.0)
+            {
+                sb.Append(GlobalStrings.CDlgScrape_1minute);
+            }
+            else
+            {
+                double hours = timeRemaining.TotalHours;
+                if (hours >= 1.0)
+                {
+                    sb.Append(string.Format("{0:F0}h", hours));
+                }
+                sb.Append(string.Format("{0:D2}m", timeRemaining.Minutes));
+            }
+            SetText(sb.ToString());
         }
     }
 }

@@ -15,26 +15,29 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public partial class AutoCatConfigPanel_DevPub : AutoCatConfigPanel {
-
+namespace Depressurizer
+{
+    public partial class AutoCatConfigPanel_DevPub : AutoCatConfigPanel
+    {
         // used to remove unchecked items from the Add and Remove checkedlistbox.
         private Thread workerThread;
+
         private bool loaded;
         private GameList ownedGames;
 
-        public AutoCatConfigPanel_DevPub(GameList g) {
-            
+        public AutoCatConfigPanel_DevPub(GameList g)
+        {
             InitializeComponent();
 
             ownedGames = g;
 
-            ttHelp.Ext_SetToolTip( helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix );
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
             ttHelp.Ext_SetToolTip(list_helpScore, GlobalStrings.DlgAutoCat_Help_MinScore);
             ttHelp.Ext_SetToolTip(list_helpOwnedOnly, GlobalStrings.DlgAutoCat_Help_ListOwnedOnly);
             ttHelp.Ext_SetToolTip(btnDevSelected, GlobalStrings.DlgAutoCat_Help_DevSelected);
@@ -46,7 +49,6 @@ namespace Depressurizer {
             //Hide count columns
             lstDevelopers.Columns[1].Width = 0;
             lstPublishers.Columns[1].Width = 0;
-
         }
 
         #region Data Modifiers
@@ -87,7 +89,7 @@ namespace Depressurizer {
             if (ac == null) return;
             ac.Prefix = txtPrefix.Text;
             ac.OwnedOnly = chkOwnedOnly.Checked;
-            ac.MinCount = (int)list_numScore.Value;
+            ac.MinCount = (int) list_numScore.Value;
             ac.AllDevelopers = chkAllDevelopers.Checked;
             ac.AllPublishers = chkAllPublishers.Checked;
 
@@ -119,7 +121,9 @@ namespace Depressurizer {
             if (Program.GameDB != null)
             {
                 Cursor = Cursors.WaitCursor;
-                IEnumerable<Tuple<string, int>> devList = Program.GameDB.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int)list_numScore.Value);
+                IEnumerable<Tuple<string, int>> devList =
+                    Program.GameDB.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null,
+                        (int) list_numScore.Value);
                 clbDevelopersSelected.Items.Clear();
                 lstDevelopers.BeginUpdate();
                 lstDevelopers.Items.Clear();
@@ -144,7 +148,9 @@ namespace Depressurizer {
             if (Program.GameDB != null)
             {
                 Cursor = Cursors.WaitCursor;
-                IEnumerable<Tuple<string, int>> pubList = Program.GameDB.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int)list_numScore.Value);
+                IEnumerable<Tuple<string, int>> pubList =
+                    Program.GameDB.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null,
+                        (int) list_numScore.Value);
                 clbPublishersSelected.Items.Clear();
                 lstPublishers.BeginUpdate();
                 lstPublishers.Items.Clear();
@@ -307,7 +313,7 @@ namespace Depressurizer {
         {
             if (e.NewValue == CheckState.Unchecked)
             {
-                ((ListViewItem)clbDevelopersSelected.Items[e.Index]).Checked = false;
+                ((ListViewItem) clbDevelopersSelected.Items[e.Index]).Checked = false;
             }
         }
 
@@ -346,7 +352,7 @@ namespace Depressurizer {
 
         private void DevelopersItemWorker(object obj)
         {
-            DevelopersRemoveItem((ListViewItem)obj);
+            DevelopersRemoveItem((ListViewItem) obj);
         }
 
         #endregion
@@ -401,7 +407,7 @@ namespace Depressurizer {
         {
             if (e.NewValue == CheckState.Unchecked)
             {
-                ((ListViewItem)clbPublishersSelected.Items[e.Index]).Checked = false;
+                ((ListViewItem) clbPublishersSelected.Items[e.Index]).Checked = false;
             }
         }
 
@@ -440,13 +446,11 @@ namespace Depressurizer {
 
         private void PublishersItemWorker(object obj)
         {
-            PublishersRemoveItem((ListViewItem)obj);
+            PublishersRemoveItem((ListViewItem) obj);
         }
 
         #endregion
 
         #endregion
-
-
     }
 }

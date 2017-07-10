@@ -15,35 +15,45 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Windows.Forms;
 
-namespace Depressurizer {
-    public partial class DlgManualDownload : Form {
+namespace Depressurizer
+{
+    public partial class DlgManualDownload : Form
+    {
         public Int64 IdVal;
         public string UrlVal;
         public bool Custom;
 
-        public DlgManualDownload() {
+        public DlgManualDownload()
+        {
             InitializeComponent();
         }
 
-        private void cmdOk_Click( object sender, EventArgs e ) {
-            if( radId.Checked ) {
-                if( Int64.TryParse( txtEntry.Text, out IdVal ) ) {
+        private void cmdOk_Click(object sender, EventArgs e)
+        {
+            if (radId.Checked)
+            {
+                if (Int64.TryParse(txtEntry.Text, out IdVal))
+                {
                     Custom = false;
                     DialogResult = DialogResult.OK;
                     Close();
-                } else {
+                }
+                else
+                {
                     MessageBox.Show(this, GlobalStrings.DlgManualDownload_IfIDSelectedMustBeNumber);
                 }
-            } else {
+            }
+            else
+            {
                 Custom = true;
                 UrlVal = txtEntry.Text;
                 DialogResult = DialogResult.OK;
                 Close();
             }
         }
-
     }
 }

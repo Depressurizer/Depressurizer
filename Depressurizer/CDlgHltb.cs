@@ -15,12 +15,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Xml;
 using Rallion;
 
-namespace Depressurizer {
-    class HltbPrcDlg : CancelableDlg {
+namespace Depressurizer
+{
+    class HltbPrcDlg : CancelableDlg
+    {
         public int Updated { get; private set; }
 
         public HltbPrcDlg()
@@ -30,13 +33,16 @@ namespace Depressurizer {
             Updated = 0;
         }
 
-        protected override void RunProcess() {
+        protected override void RunProcess()
+        {
             Updated = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
             OnThreadCompletion();
         }
 
-        protected override void Finish() {
-            if( !Canceled && Error == null ) {
+        protected override void Finish()
+        {
+            if (!Canceled && Error == null)
+            {
                 OnJobCompletion();
             }
         }

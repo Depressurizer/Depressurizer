@@ -15,14 +15,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Xml;
 using Rallion;
 
-namespace Depressurizer {
-
-    class CDlgUpdateProfile : CancelableDlg {
+namespace Depressurizer
+{
+    class CDlgUpdateProfile : CancelableDlg
+    {
         public int Fetched { get; private set; }
         public int Added { get; private set; }
         public int Removed { get; private set; }
@@ -42,8 +44,10 @@ namespace Depressurizer {
         private SortedSet<int> ignore;
         private bool includeUnknown;
 
-        public CDlgUpdateProfile( GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool inclUnknown )
-            : base( GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true ) {
+        public CDlgUpdateProfile(GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore,
+            bool inclUnknown)
+            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        {
             custom = false;
             SteamId = accountId;
 
@@ -59,11 +63,13 @@ namespace Depressurizer {
 
             includeUnknown = inclUnknown;
 
-            SetText( GlobalStrings.CDlgFetch_DownloadingGameList );
+            SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        public CDlgUpdateProfile( GameList data, string customUrl, bool overwrite, SortedSet<int> ignore, bool inclUnknown )
-            : base( GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true ) {
+        public CDlgUpdateProfile(GameList data, string customUrl, bool overwrite, SortedSet<int> ignore,
+            bool inclUnknown)
+            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        {
             custom = true;
             this.customUrl = customUrl;
 
@@ -79,13 +85,15 @@ namespace Depressurizer {
 
             includeUnknown = inclUnknown;
 
-            SetText( GlobalStrings.CDlgFetch_DownloadingGameList );
+            SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        protected override void RunProcess() {
+        protected override void RunProcess()
+        {
             Added = 0;
             Fetched = 0;
-            switch( Settings.Instance.ListSource ) {
+            switch (Settings.Instance.ListSource)
+            {
                 case GameListSource.XmlPreferred:
                     FetchXmlPref();
                     break;
@@ -100,49 +108,65 @@ namespace Depressurizer {
             OnThreadCompletion();
         }
 
-        protected void FetchXml() {
+        protected void FetchXml()
+        {
             UseHtml = false;
-            if( custom ) {
-                doc = GameList.FetchXmlGameList( customUrl );
-            } else {
-                doc = GameList.FetchXmlGameList( SteamId );
+            if (custom)
+            {
+                doc = GameList.FetchXmlGameList(customUrl);
+            }
+            else
+            {
+                doc = GameList.FetchXmlGameList(SteamId);
             }
         }
 
-        protected void FetchHtml() {
+        protected void FetchHtml()
+        {
             UseHtml = true;
-            if( custom ) {
-                htmlDoc = GameList.FetchHtmlGameList( customUrl );
-            } else {
-                htmlDoc = GameList.FetchHtmlGameList( SteamId );
+            if (custom)
+            {
+                htmlDoc = GameList.FetchHtmlGameList(customUrl);
+            }
+            else
+            {
+                htmlDoc = GameList.FetchHtmlGameList(SteamId);
             }
         }
 
-        protected void FetchXmlPref() {
-            try {
+        protected void FetchXmlPref()
+        {
+            try
+            {
                 FetchXml();
                 return;
-            } catch( Exception ) { }
+            }
+            catch (Exception) { }
             Failover = true;
             FetchHtml();
         }
 
-        protected override void Finish() {
-            if( !Canceled && Error == null && ( UseHtml ? ( htmlDoc != null ) : ( doc != null ) ) ) {
-                SetText( GlobalStrings.CDlgFetch_FinishingDownload );
-                if( UseHtml ) {
+        protected override void Finish()
+        {
+            if (!Canceled && Error == null && (UseHtml ? (htmlDoc != null) : (doc != null)))
+            {
+                SetText(GlobalStrings.CDlgFetch_FinishingDownload);
+                if (UseHtml)
+                {
                     int newItems;
-                    Fetched = data.IntegrateHtmlGameList( htmlDoc, overwrite, ignore, includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems );
+                    Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore,
+                        includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
                     Added = newItems;
-                } else {
+                }
+                else
+                {
                     int newItems;
-                    Fetched = data.IntegrateXmlGameList( doc, overwrite, ignore, includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems );
+                    Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore,
+                        includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
                     Added = newItems;
                 }
                 OnJobCompletion();
             }
         }
-
-
     }
 }

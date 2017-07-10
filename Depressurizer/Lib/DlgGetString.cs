@@ -15,33 +15,32 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System.Windows.Forms;
 
-namespace Rallion {
-    public partial class GetStringDlg : Form {
-
-        public string Value {
-            get {
-                return txtValue.Text;
-            }
-            set {
-                txtValue.Text = ( value == null ) ? string.Empty : value;
-            }
+namespace Rallion
+{
+    public partial class GetStringDlg : Form
+    {
+        public string Value
+        {
+            get { return txtValue.Text; }
+            set { txtValue.Text = (value == null) ? string.Empty : value; }
         }
 
-        public string LabelText {
-            set {
-                lblValue.Text = ( value == null ) ? string.Empty : value;
-            }
+        public string LabelText
+        {
+            set { lblValue.Text = (value == null) ? string.Empty : value; }
         }
 
-        public string AcceptButtonText {
-            set {
-                cmdOk.Text = ( value == null ) ? string.Empty : value;
-            }
+        public string AcceptButtonText
+        {
+            set { cmdOk.Text = (value == null) ? string.Empty : value; }
         }
 
-        public GetStringDlg( string initialValue = "", string title = "Enter value", string label = "Enter value:", string accept = "OK" ) {
+        public GetStringDlg(string initialValue = "", string title = "Enter value", string label = "Enter value:",
+            string accept = "OK")
+        {
             InitializeComponent();
             Value = initialValue;
             Text = title;
