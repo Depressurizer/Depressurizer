@@ -40,7 +40,7 @@ namespace Depressurizer {
         {
             get
             {
-                string displayName = Name + "[" + Autocats.Count.ToString() + "]";
+                string displayName = Name + "[" + Autocats.Count + "]";
                 if (Filter != null) displayName += "*";
                 return displayName;
             }

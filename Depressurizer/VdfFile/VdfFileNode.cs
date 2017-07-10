@@ -43,7 +43,7 @@ namespace Depressurizer {
         /// <exception cref="ApplicationException">Thrown if used on a value node.</exception>
         public VdfFileNode this[string key] {
             get {
-                if( this.NodeType != ValueType.Array ) {
+                if( NodeType != ValueType.Array ) {
                     throw new ApplicationException( string.Format( GlobalStrings.TextVdfFile_CanNotGetKey, key ) );
                 }
                 Dictionary<string, VdfFileNode> arrayData = (Dictionary<string, VdfFileNode>)NodeData;
@@ -53,7 +53,7 @@ namespace Depressurizer {
                 return arrayData[key];
             }
             set {
-                if( this.NodeType == ValueType.String ) {
+                if( NodeType == ValueType.String ) {
                     throw new ApplicationException( string.Format( GlobalStrings.TextVdfFile_CanNotSetKey, key ) );
                 }
                 Dictionary<string, VdfFileNode> arrayData = (Dictionary<string, VdfFileNode>)NodeData;
@@ -90,7 +90,7 @@ namespace Depressurizer {
             get {
                 if( NodeType == ValueType.Int )
                     return ( (int)NodeData );
-                else if( NodeType == ValueType.String ) {
+                if( NodeType == ValueType.String ) {
                     int res = 0;
                     int.TryParse( NodeString, out res );
                     return res;
@@ -122,7 +122,7 @@ namespace Depressurizer {
         /// <param name="value">Value of the integer</param>
         public VdfFileNode( int value ) {
             NodeType = ValueType.Int;
-            NodeData = (Int32)( value );
+            NodeData = value;
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Depressurizer {
         /// <param name="value">Value of the unsigned 64-bit integer</param>
         public VdfFileNode( ulong value ) {
             NodeType = ValueType.Int;
-            NodeData = (UInt64)( value );
+            NodeData = value;
         }
 
         #region Utility
@@ -140,12 +140,12 @@ namespace Depressurizer {
         /// Checks whether or not this node has any children
         /// </summary>
         /// <returns>True if an array with no children, false otherwise</returns>
-        protected bool IsEmpty() {
+        protected bool IsEmpty()
+        {
             if( NodeArray != null ) {
                 return NodeArray.Count == 0;
-            } else {
-                return ( NodeData as string ) == null;
             }
+            return ( NodeData as string ) == null;
         }
 
         #endregion
@@ -163,11 +163,12 @@ namespace Depressurizer {
             if( index >= args.Length ) {
                 return this;
             }
-            if( this.NodeType == ValueType.Array ) {
+            if( NodeType == ValueType.Array ) {
                 Dictionary<String, VdfFileNode> data = (Dictionary<String, VdfFileNode>)NodeData;
                 if( ContainsKey( args[index] ) ) {
                     return data[args[index]].GetNodeAt( args, create, index + 1 );
-                } else if( create ) {
+                }
+                if( create ) {
                     VdfFileNode newNode = new VdfFileNode();
                     data.Add( args[index], newNode );
                     return newNode.GetNodeAt( args, create, index + 1 );
@@ -209,7 +210,7 @@ namespace Depressurizer {
         public void CleanTree() {
             Dictionary<string, VdfFileNode> nodes = NodeArray;
             if( nodes != null ) {
-                string[] keys = nodes.Keys.ToArray<string>();
+                string[] keys = nodes.Keys.ToArray();
                 foreach( string key in keys ) {
                     nodes[key].CleanTree();
                     if( nodes[key].IsEmpty() ) {
@@ -220,9 +221,9 @@ namespace Depressurizer {
         }
 
         public void MakeArray() {
-            if( this.NodeType != ValueType.Array ) {
-                this.NodeType = ValueType.Array;
-                this.NodeData = new Dictionary<string, VdfFileNode>( StringComparer.OrdinalIgnoreCase );
+            if( NodeType != ValueType.Array ) {
+                NodeType = ValueType.Array;
+                NodeData = new Dictionary<string, VdfFileNode>( StringComparer.OrdinalIgnoreCase );
             }
         }
         #endregion
@@ -252,7 +253,8 @@ namespace Depressurizer {
                 string key = null;
                 if( endOfStream || nextByte == 8 || stream.BaseStream.Position == streamLength ) {
                     break;
-                } else if( nextByte == 0 ) {
+                }
+                if( nextByte == 0 ) {
                     key = ReadBin_GetStringToken( stream );
                     VdfFileNode newNode;
                     newNode = LoadFromBinary( stream, streamLength );
@@ -271,7 +273,7 @@ namespace Depressurizer {
                 } else if( nextByte == 0xFF ) {
                     return null;
                 } else {
-                    throw new ParseException( string.Format( GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextByte.ToString() ) );
+                    throw new ParseException( string.Format( GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextByte ) );
                 }
             }
             return thisLevel;
@@ -478,7 +480,8 @@ namespace Depressurizer {
                 string key = null;
                 if( stream.EndOfStream || nextChar == '}' ) {
                     break;
-                } else if( nextChar == '"' ) {
+                }
+                if( nextChar == '"' ) {
                     key = ReadText_GetStringToken( stream );
                 } else {
                     throw new ParseException( string.Format( GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextChar ) );
@@ -535,8 +538,6 @@ namespace Depressurizer {
                         stream.WriteLine();
                     }
                 }
-            } else {
-
             }
         }
 
@@ -629,7 +630,7 @@ namespace Depressurizer {
         #endregion
     }
     public class ParseException : ApplicationException {
-        public ParseException() : base() { }
+        public ParseException() { }
         public ParseException( string message ) : base( message ) { }
     }
 }

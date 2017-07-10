@@ -33,14 +33,14 @@ namespace Rallion {
                 return totalJobs;
             }
         }
-        protected int jobsCompleted = 0;
+        protected int jobsCompleted;
         public int JobsCompleted {
             get {
                 return jobsCompleted;
             }
         }
 
-        private bool _stopped = false;
+        private bool _stopped;
         protected bool Stopped {
             get {
                 lock( abortLock ) {
@@ -67,7 +67,7 @@ namespace Rallion {
 
         public CancelableDlg( string title, bool stopButton ) {
             InitializeComponent();
-            this.Text = title;
+            Text = title;
             Canceled = false;
 
             cmdStop.Enabled = cmdStop.Visible = stopButton;
@@ -76,7 +76,7 @@ namespace Rallion {
         protected virtual void UpdateForm_Load( object sender, EventArgs e ) {
             threadsToRun = Math.Min( threadsToRun, totalJobs );
             for( int i = 0; i < threadsToRun; i++ ) {
-                Thread t = new Thread( new ThreadStart( RunProcessChecked ) );
+                Thread t = new Thread( RunProcessChecked );
                 t.Start();
                 runningThreads++;
             }
@@ -93,7 +93,7 @@ namespace Rallion {
                 }
                 if( IsHandleCreated ) {
                     Invoke( new SimpleDelegate( Finish ) );
-                    Invoke( new SimpleDelegate( this.Close ) );
+                    Invoke( new SimpleDelegate( Close ) );
                 }
             }
         }
@@ -121,7 +121,7 @@ namespace Rallion {
             } else {
                 runningThreads--;
                 if( runningThreads <= 0 ) {
-                    this.Close();
+                    Close();
                 }
             }
         }
@@ -131,7 +131,7 @@ namespace Rallion {
         private void cmdStop_Click( object sender, EventArgs e ) {
             Stopped = true;
             DisableAbort();
-            this.Close();
+            Close();
         }
 
         private void UpdateForm_FormClosing( object sender, FormClosingEventArgs e ) {
@@ -153,8 +153,8 @@ namespace Rallion {
 
         #region UI Updaters
         protected void SetText( string s ) {
-            if( this.InvokeRequired ) {
-                this.Invoke( new TextUpdateDelegate( SetText ), s );
+            if( InvokeRequired ) {
+                Invoke( new TextUpdateDelegate( SetText ), s );
             } else {
                 lblText.Text = s;
             }
@@ -173,7 +173,7 @@ namespace Rallion {
             Stopped = true;
             Canceled = true;
             DisableAbort();
-            this.Close();
+            Close();
         }
     }
 }

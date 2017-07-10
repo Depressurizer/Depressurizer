@@ -24,7 +24,7 @@ namespace Depressurizer {
     public partial class DlgSteamPath : Form {
         public string Path {
             get {
-                return txtPath.Text.Trim().TrimEnd( new char[] { '\\' } );
+                return txtPath.Text.Trim().TrimEnd('\\');
             }
         }
         
@@ -36,17 +36,17 @@ namespace Depressurizer {
         private void cmdOk_Click( object sender, EventArgs e ) {
             if( !Directory.Exists( Path ) ) {
                 DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-                if( res == System.Windows.Forms.DialogResult.No ) {
+                if( res == DialogResult.No ) {
                     return;
                 }
             }
-            this.Close();
+            Close();
         }
 
         private void cmdBrowse_Click( object sender, EventArgs e ) {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
             DialogResult res = dlg.ShowDialog();
-            if( res == System.Windows.Forms.DialogResult.OK ) {
+            if( res == DialogResult.OK ) {
                 txtPath.Text = dlg.SelectedPath;
             }
         }

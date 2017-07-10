@@ -132,7 +132,7 @@ namespace Depressurizer {
                 if( textNode != null ) {
                     string str = textNode.InnerText;
                     TEnum res = defaultValue;
-                    if( Enum.TryParse<TEnum>( str, out res ) ) {
+                    if( Enum.TryParse( str, out res ) ) {
                         return res;
                     }
                 }

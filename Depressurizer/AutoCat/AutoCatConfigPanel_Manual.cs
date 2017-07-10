@@ -25,7 +25,7 @@ namespace Depressurizer {
 
         // used to remove unchecked items from the Add and Remove checkedlistbox.
         private Thread workerThread;
-        private bool loaded = false;
+        private bool loaded;
         private GameList ownedGames;
 
         public AutoCatConfigPanel_Manual(GameList gamelist) {
@@ -171,12 +171,12 @@ namespace Depressurizer {
 
         private void UpdateRemoveCount()
         {
-            groupRemove.Text = "Remove (" + clbRemoveSelected.Items.Count.ToString() + "):";
+            groupRemove.Text = "Remove (" + clbRemoveSelected.Items.Count + "):";
         }
 
         private void UpdateAddCount()
         {
-            groupAdd.Text = "Add (" + clbAddSelected.Items.Count.ToString() + "):";
+            groupAdd.Text = "Add (" + clbAddSelected.Items.Count + "):";
         }
 
         private void SetAllListCheckStates( ListView list, bool to ) {
@@ -266,7 +266,7 @@ namespace Depressurizer {
             if (e.Item.Checked) clbRemoveSelected.Items.Add(e.Item, true);
             else if ((!e.Item.Checked) && loaded)
             {
-                workerThread = new Thread(new ParameterizedThreadStart(RemoveItemWorker));
+                workerThread = new Thread(RemoveItemWorker);
                 workerThread.Start(e.Item);
             }
             UpdateRemoveCount();
@@ -302,10 +302,10 @@ namespace Depressurizer {
 
         private void RemoveItem(ListViewItem obj)
         {
-            if (this.clbRemoveSelected.InvokeRequired)
+            if (clbRemoveSelected.InvokeRequired)
             {
-                RemoveItemCallback callback = new RemoveItemCallback(RemoveItem);
-                this.Invoke(callback, new object[] { obj });
+                RemoveItemCallback callback = RemoveItem;
+                Invoke(callback, obj);
             }
             else
             {
@@ -344,7 +344,7 @@ namespace Depressurizer {
             if (e.Item.Checked) clbAddSelected.Items.Add(e.Item, true);
             else if ((!e.Item.Checked) && loaded)
             {
-                workerThread = new Thread(new ParameterizedThreadStart(AddItemWorker));
+                workerThread = new Thread(AddItemWorker);
                 workerThread.Start(e.Item);
             }
             UpdateAddCount();
@@ -380,10 +380,10 @@ namespace Depressurizer {
 
         private void AddItem(ListViewItem obj)
         {
-            if (this.clbAddSelected.InvokeRequired)
+            if (clbAddSelected.InvokeRequired)
             {
-                AddItemCallback callback = new AddItemCallback(AddItem);
-                this.Invoke(callback, new object[] { obj });
+                AddItemCallback callback = AddItem;
+                Invoke(callback, obj);
             }
             else
             {

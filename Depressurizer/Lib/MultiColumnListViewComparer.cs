@@ -38,9 +38,9 @@ namespace Depressurizer {
         private HashSet<int> _revCols = new HashSet<int>();
 
         public MultiColumnListViewComparer( int column = 0, int dir = 1 ) {
-            this._col = column;
-            this._direction = dir;
-            this._asInt = _intCols.Contains( _col );
+            _col = column;
+            _direction = dir;
+            _asInt = _intCols.Contains( _col );
         }
 
         public void SetSortCol( int clickedCol, int forceDir = 0 ) {
@@ -139,15 +139,15 @@ namespace Depressurizer {
 
             [Flags]
             public enum Mask {
-                Format = 0x4,       // HDI_FORMAT
-            };
+                Format = 0x4       // HDI_FORMAT
+            }
 
             [Flags]
             public enum Format {
                 SortDown = 0x200,   // HDF_SORTDOWN
-                SortUp = 0x400,     // HDF_SORTUP
-            };
-        };
+                SortUp = 0x400     // HDF_SORTUP
+            }
+        }
 
         public const int LVM_FIRST = 0x1000;
         public const int LVM_GETHEADER = LVM_FIRST + 31;

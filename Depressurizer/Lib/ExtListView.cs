@@ -29,13 +29,13 @@ namespace Depressurizer.Lib {
 
         public event EventHandler SelectionChanged;
 
-        private bool isSelecting = false;
+        private bool isSelecting;
         private IComparer suspendedComparer;
-        private int suspendSortDepth = 0;
+        private int suspendSortDepth;
 
         public ExtListView()
-            : base() {
-            this.SelectedIndexChanged += ExtListView_SelectedIndexChanged;
+        {
+            SelectedIndexChanged += ExtListView_SelectedIndexChanged;
         }
 
         public void ExtBeginUpdate() {
@@ -53,8 +53,8 @@ namespace Depressurizer.Lib {
         /// </summary>
         public void SuspendSorting() {
             if( suspendSortDepth == 0 ) {
-                suspendedComparer = this.ListViewItemSorter;
-                this.ListViewItemSorter = null;
+                suspendedComparer = ListViewItemSorter;
+                ListViewItemSorter = null;
             }
             suspendSortDepth++;
         }
@@ -66,7 +66,7 @@ namespace Depressurizer.Lib {
         public void ResumeSorting( bool sortNow = false ) {
             if( suspendSortDepth == 0 ) return;
             if( suspendSortDepth == 1 ) {
-                this.ListViewItemSorter = suspendedComparer;
+                ListViewItemSorter = suspendedComparer;
                 suspendedComparer = null;
                 if( sortNow ) Sort();
             }

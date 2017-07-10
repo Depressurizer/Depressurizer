@@ -16,7 +16,7 @@ namespace Depressurizer
 
         public GameBanners(List<GameInfo> games)
         {
-            this._games = games;
+            _games = games;
         }
 
         public void Grab()
@@ -29,7 +29,7 @@ namespace Depressurizer
                 }
 
                 if (g.Id < 0) continue; //external game
-                string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id.ToString());
+                string bannerFile = string.Format(Properties.Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id);
                 if (!File.Exists(bannerFile))
                 {
                     Utility.GrabBanner(g.Id);

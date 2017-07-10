@@ -30,7 +30,7 @@ namespace Rallion {
 
         protected readonly object threadLock = new object();
 
-        protected bool outOfDate = false;
+        protected bool outOfDate;
 
         public string FilePath;
 
@@ -44,7 +44,7 @@ namespace Rallion {
         /// <param name="force">If false, will only save if the flag indicates that changes have been made. If true, always saves.</param>
         public void Save( bool force = false ) {
             if( force || outOfDate ) {
-                Type t = this.GetType();
+                Type t = GetType();
 
                 PropertyInfo[] properties = t.GetProperties();
                 XmlDocument doc = new XmlDocument();
@@ -72,7 +72,7 @@ namespace Rallion {
         /// Loads settings from the defined config file.
         /// </summary>
         public virtual void Load() {
-            Type type = this.GetType();
+            Type type = GetType();
             if( File.Exists( FilePath ) ) {
                 XmlDocument doc = new XmlDocument();
                 try {
@@ -84,7 +84,7 @@ namespace Rallion {
                             string value = node.InnerText;
                             PropertyInfo pi = type.GetProperty( name );
                             if( pi != null ) {
-                                this.SetProperty( pi, value );
+                                SetProperty( pi, value );
                             }
                         }
                     }

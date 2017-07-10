@@ -55,11 +55,11 @@ namespace Depressurizer {
         public int Parent; // 0 if none
 
         public AppInfo( int id, string name = null, AppTypes type = AppTypes.Unknown, AppPlatforms platforms = AppPlatforms.All ) {
-            this.Id = id;
-            this.Name = name;
-            this.AppType = type;
+            Id = id;
+            Name = name;
+            AppType = type;
 
-            this.Platforms = platforms;
+            Platforms = platforms;
         }
 
         public static AppInfo FromVdfNode( VdfFileNode commonNode ) {
@@ -67,7 +67,7 @@ namespace Depressurizer {
 
             AppInfo result = null;
 
-            VdfFileNode idNode = commonNode.GetNodeAt( new string[] { "gameid" }, false );
+            VdfFileNode idNode = commonNode.GetNodeAt( new[] { "gameid" }, false );
             int id = -1;
             if( idNode != null ) {
                 if( idNode.NodeType == ValueType.Int ) {
@@ -82,17 +82,17 @@ namespace Depressurizer {
             if( id >= 0 ) {
                 // Get name
                 string name = null;
-                VdfFileNode nameNode = commonNode.GetNodeAt( new string[] { "name" }, false );
+                VdfFileNode nameNode = commonNode.GetNodeAt( new[] { "name" }, false );
                 if( nameNode != null ) name = nameNode.NodeData.ToString();
 
                 // Get type
                 string typeStr = null;
                 AppTypes type = AppTypes.Unknown;
-                VdfFileNode typeNode = commonNode.GetNodeAt( new string[] { "type" }, false );
+                VdfFileNode typeNode = commonNode.GetNodeAt( new[] { "type" }, false );
                 if( typeNode != null ) typeStr = typeNode.NodeData.ToString();
 
                 if( typeStr != null ) {
-                    if( !Enum.TryParse<AppTypes>( typeStr, true, out type ) ) {
+                    if( !Enum.TryParse( typeStr, true, out type ) ) {
                         type = AppTypes.Other;
                     }
                 }
@@ -100,7 +100,7 @@ namespace Depressurizer {
                 // Get platforms
                 string oslist = null;
                 AppPlatforms platforms = AppPlatforms.None;
-                VdfFileNode oslistNode = commonNode.GetNodeAt( new string[] { "oslist" }, false );
+                VdfFileNode oslistNode = commonNode.GetNodeAt( new[] { "oslist" }, false );
                 if( oslistNode != null ) {
                     oslist = oslistNode.NodeData.ToString();
                     if( oslist.IndexOf( "windows", StringComparison.OrdinalIgnoreCase ) != -1 ) {
@@ -117,7 +117,7 @@ namespace Depressurizer {
                 result = new AppInfo( id, name, type, platforms );
 
                 // Get parent
-                VdfFileNode parentNode = commonNode.GetNodeAt( new string[] { "parent" }, false );
+                VdfFileNode parentNode = commonNode.GetNodeAt( new[] { "parent" }, false );
                 if( parentNode != null ) {
                     result.Parent = parentNode.NodeInt;
                 }
@@ -132,13 +132,13 @@ namespace Depressurizer {
             long fileLength = bReader.BaseStream.Length;
 
             // seek to common: start of a new entry
-            byte[] start = new byte[] {0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00}; // 0x00 0x00 c o m m o n 0x00
+            byte[] start = {0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00}; // 0x00 0x00 c o m m o n 0x00
 
             VdfFileNode.ReadBin_SeekTo( bReader, start, fileLength );
 
             VdfFileNode node = VdfFileNode.LoadFromBinary( bReader, fileLength );
             while( node != null ) {
-                AppInfo app = AppInfo.FromVdfNode( node );
+                AppInfo app = FromVdfNode( node );
                 if( app != null ) {
                     result.Add( app.Id, app );
                 }

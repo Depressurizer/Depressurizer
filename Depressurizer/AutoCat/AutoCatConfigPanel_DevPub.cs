@@ -25,7 +25,7 @@ namespace Depressurizer {
 
         // used to remove unchecked items from the Add and Remove checkedlistbox.
         private Thread workerThread;
-        private bool loaded = false;
+        private bool loaded;
         private GameList ownedGames;
 
         public AutoCatConfigPanel_DevPub(GameList g) {
@@ -134,7 +134,7 @@ namespace Depressurizer {
                 lstDevelopers.Columns[0].Width = -1;
                 SortDevelopers(1, SortOrder.Descending);
                 lstDevelopers.EndUpdate();
-                chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count.ToString() + ")";
+                chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count + ")";
                 Cursor = Cursors.Default;
             }
         }
@@ -159,7 +159,7 @@ namespace Depressurizer {
                 lstPublishers.Columns[0].Width = -1;
                 SortPublishers(1, SortOrder.Descending);
                 lstPublishers.EndUpdate();
-                chkAllPublishers.Text = "All (" + lstPublishers.Items.Count.ToString() + ")";
+                chkAllPublishers.Text = "All (" + lstPublishers.Items.Count + ")";
                 Cursor = Cursors.Default;
             }
         }
@@ -298,7 +298,7 @@ namespace Depressurizer {
             if (e.Item.Checked) clbDevelopersSelected.Items.Add(e.Item, true);
             else if ((!e.Item.Checked) && loaded && clbDevelopersSelected.Items.Contains(e.Item))
             {
-                workerThread = new Thread(new ParameterizedThreadStart(DevelopersItemWorker));
+                workerThread = new Thread(DevelopersItemWorker);
                 workerThread.Start(e.Item);
             }
         }
@@ -333,10 +333,10 @@ namespace Depressurizer {
 
         private void DevelopersRemoveItem(ListViewItem obj)
         {
-            if (this.clbDevelopersSelected.InvokeRequired)
+            if (clbDevelopersSelected.InvokeRequired)
             {
-                DevItemCallback callback = new DevItemCallback(DevelopersRemoveItem);
-                this.Invoke(callback, new object[] { obj });
+                DevItemCallback callback = DevelopersRemoveItem;
+                Invoke(callback, obj);
             }
             else
             {
@@ -392,7 +392,7 @@ namespace Depressurizer {
             if (e.Item.Checked) clbPublishersSelected.Items.Add(e.Item, true);
             else if ((!e.Item.Checked) && loaded && clbPublishersSelected.Items.Contains(e.Item))
             {
-                workerThread = new Thread(new ParameterizedThreadStart(PublishersItemWorker));
+                workerThread = new Thread(PublishersItemWorker);
                 workerThread.Start(e.Item);
             }
         }
@@ -427,10 +427,10 @@ namespace Depressurizer {
 
         private void PublishersRemoveItem(ListViewItem obj)
         {
-            if (this.clbPublishersSelected.InvokeRequired)
+            if (clbPublishersSelected.InvokeRequired)
             {
-                PubItemCallback callback = new PubItemCallback(PublishersRemoveItem);
-                this.Invoke(callback, new object[] { obj });
+                PubItemCallback callback = PublishersRemoveItem;
+                Invoke(callback, obj);
             }
             else
             {

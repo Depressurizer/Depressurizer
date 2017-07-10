@@ -28,7 +28,7 @@ namespace Depressurizer {
             InitializeComponent();
 
             lblMessage.Text = message;
-            this.Text = title;
+            Text = title;
             pictureBox1.Image = picture;
             btnCancel.Visible = cancel;
             chkSaveSteam.Checked = exportSteam;

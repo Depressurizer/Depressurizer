@@ -56,7 +56,7 @@ namespace Depressurizer {
         public GameListingSource Source;
         public int LastPlayed;
 
-        private string _launchStr = null;
+        private string _launchStr;
         /// <summary>
         /// ID String to use to launch this game. Uses the ID for steam games, but non-steam game IDs need to be set.
         /// </summary>
@@ -73,7 +73,7 @@ namespace Depressurizer {
 
         public Category FavoriteCategory {
             get {
-                if( this.GameList == null ) return null;
+                if( GameList == null ) return null;
                 return GameList.FavoriteCategory;
             }
         }
@@ -83,12 +83,12 @@ namespace Depressurizer {
         {
             get
             {
-                if (_executable == null) return String.Format(runSteam, Id.ToString());
-                else return _executable;
+                if (_executable == null) return String.Format(runSteam, Id);
+                return _executable;
             }
             set
             {
-                if (value != String.Format(runSteam, Id.ToString()))
+                if (value != String.Format(runSteam, Id))
                 {
                     _executable = value;
                 }
@@ -107,12 +107,12 @@ namespace Depressurizer {
             Name = name;
             Hidden = false;
             Categories = new SortedSet<Category>();
-            this.GameList = list;
+            GameList = list;
             Executable = executable;
         }
 
         public void ApplySource( GameListingSource src ) {
-            if( this.Source < src ) this.Source = src;
+            if( Source < src ) Source = src;
         }
 
         public bool IncludeGame(Filter f)
@@ -155,7 +155,7 @@ namespace Depressurizer {
         /// </summary>
         /// <param name="newCat">Category to add</param>
         public void AddCategory( Category newCat ) {
-            if (newCat != null && Categories.Add(newCat) && !this.Hidden)
+            if (newCat != null && Categories.Add(newCat) && !Hidden)
             {
                 newCat.Count++;
             }
@@ -170,7 +170,7 @@ namespace Depressurizer {
             {
                 if (!Categories.Contains(cat))
                 {
-                    this.AddCategory(cat);
+                    AddCategory(cat);
                 }
             }
         }
@@ -181,7 +181,7 @@ namespace Depressurizer {
         /// <param name="remCat">Category to remove</param>
         public void RemoveCategory( Category remCat )
         {
-            if (Categories.Remove(remCat) && !this.Hidden)
+            if (Categories.Remove(remCat) && !Hidden)
                 remCat.Count--;
         }
 
@@ -194,7 +194,7 @@ namespace Depressurizer {
             {
                 if (!Categories.Contains(cat))
                 {
-                    this.RemoveCategory(cat);
+                    RemoveCategory(cat);
                 }
             }
         }
@@ -205,7 +205,7 @@ namespace Depressurizer {
         /// </summary>
         public void ClearCategories( bool alsoClearFavorite = false ) {
             foreach (Category cat in Categories)
-                if (!this.Hidden) cat.Count--;
+                if (!Hidden) cat.Count--;
             if( alsoClearFavorite ) {
                 Categories.Clear();
             } else {
@@ -214,7 +214,7 @@ namespace Depressurizer {
                 if (restore)
                 {
                     Categories.Add( FavoriteCategory );
-                    if (!this.Hidden) FavoriteCategory.Count++;
+                    if (!Hidden) FavoriteCategory.Count++;
                 }
             }
         }
@@ -428,11 +428,10 @@ namespace Depressurizer {
         public Category AddCategory( string name ) {
             if( string.IsNullOrEmpty( name ) || CategoryExists( name ) ) {
                 return null;
-            } else {
-                Category newCat = new Category( name );
-                Categories.Add( newCat );
-                return newCat;
             }
+            Category newCat = new Category( name );
+            Categories.Add( newCat );
+            return newCat;
         }
 
         /// <summary>
@@ -554,11 +553,9 @@ namespace Depressurizer {
             {
                 return null;
             }
-            else {
-                Filter newFilter = new Filter(name);
-                Filters.Add(newFilter);
-                return newFilter;
-            }
+            Filter newFilter = new Filter(name);
+            Filters.Add(newFilter);
+            return newFilter;
         }
 
         /// <summary>
@@ -607,11 +604,11 @@ namespace Depressurizer {
         }
 
         public void SetGameCategories( int gameID, Category cat, bool preserveFavorites ) {
-            SetGameCategories( gameID, new List<Category>() { cat }, preserveFavorites );
+            SetGameCategories( gameID, new List<Category> { cat }, preserveFavorites );
         }
 
         public void SetGameCategories( int[] gameIDs, Category cat, bool preserveFavorites ) {
-            SetGameCategories( gameIDs, new List<Category>() { cat }, preserveFavorites );
+            SetGameCategories( gameIDs, new List<Category> { cat }, preserveFavorites );
         }
 
         /// <summary>
@@ -883,7 +880,7 @@ namespace Depressurizer {
             string localConfigPath = string.Format( Properties.Resources.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName( accountId ) );
             VdfFileNode vdfFile = VdfFileNode.LoadFromText( new StreamReader( localConfigPath ) );
             if( vdfFile != null ) {
-                VdfFileNode licensesNode = vdfFile.GetNodeAt( new string[] { "UserLocalConfigStore", "Licenses" }, false );
+                VdfFileNode licensesNode = vdfFile.GetNodeAt( new[] { "UserLocalConfigStore", "Licenses" }, false );
                 if( licensesNode != null && licensesNode.NodeType == ValueType.Array ) {
                     foreach( string key in licensesNode.NodeArray.Keys ) {
                         int ownedPackageId;
@@ -903,7 +900,7 @@ namespace Depressurizer {
                 }
 
                 // update LastPlayed
-                VdfFileNode appsNode = vdfFile.GetNodeAt(new string[] { "UserLocalConfigStore", "Software", "Valve", "Steam", "apps" }, false);
+                VdfFileNode appsNode = vdfFile.GetNodeAt(new[] { "UserLocalConfigStore", "Software", "Valve", "Steam", "apps" }, false);
                 GetLastPlayedFromVdf(appsNode, ignored, includedTypes);
             }
 
@@ -1175,7 +1172,7 @@ namespace Depressurizer {
                 throw new ApplicationException( GlobalStrings.GameData_ErrorOpeningSteamConfigFile + e.Message, e );
             }
 
-            VdfFileNode appsNode = dataRoot.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
+            VdfFileNode appsNode = dataRoot.GetNodeAt( new[] { "Software", "Valve", "Steam", "apps" }, true );
             int count = IntegrateGamesFromVdf( appsNode, ignore, includedTypes );
             Program.Logger.Write( LoggerLevel.Info, GlobalStrings.GameData_SteamConfigFileLoaded, count );
             return count;
@@ -1229,7 +1226,7 @@ namespace Depressurizer {
                 Program.Logger.Write( LoggerLevel.Warning, GlobalStrings.GameData_LoadingErrorSteamConfig, e.Message );
             }
 
-            VdfFileNode appListNode = fileData.GetNodeAt( new string[] { "Software", "Valve", "Steam", "apps" }, true );
+            VdfFileNode appListNode = fileData.GetNodeAt( new[] { "Software", "Valve", "Steam", "apps" }, true );
 
             // Run through all Delete category data for any games not found in the GameList
             if( discardMissing ) {
@@ -1251,10 +1248,10 @@ namespace Depressurizer {
             foreach( GameInfo game in Games.Values ) {
                 if( game.Id > 0 ) { // External games have negative identifier
                     Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile, game.Id );
-                    VdfFileNode gameNode = (VdfFileNode)appListNode[game.Id.ToString()];
+                    VdfFileNode gameNode = appListNode[game.Id.ToString()];
                     gameNode.MakeArray();
 
-                    VdfFileNode tagsNode = (VdfFileNode)gameNode["tags"];
+                    VdfFileNode tagsNode = gameNode["tags"];
                     tagsNode.MakeArray();
 
                     Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
@@ -1350,7 +1347,7 @@ namespace Depressurizer {
                 StringDictionary launchIds = new StringDictionary();
                 LoadShortcutLaunchIds( SteamId, out launchIds );
 
-                VdfFileNode appsNode = dataRoot.GetNodeAt( new string[] { "shortcuts" }, false );
+                VdfFileNode appsNode = dataRoot.GetNodeAt( new[] { "shortcuts" }, false );
                 foreach( KeyValuePair<string, VdfFileNode> shortcutPair in appsNode.NodeArray ) {
                     VdfFileNode nodeGame = shortcutPair.Value;
                     int nodeId = -1;
@@ -1364,7 +1361,7 @@ namespace Depressurizer {
 
                         Program.Logger.Write( LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile, game.Id );
 
-                        VdfFileNode tagsNode = nodeGame.GetNodeAt( new string[] { "tags" }, true );
+                        VdfFileNode tagsNode = nodeGame.GetNodeAt( new[] { "tags" }, true );
                         Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
                         if( tags != null ) {
                             tags.Clear();
@@ -1430,7 +1427,7 @@ namespace Depressurizer {
                 reader = new StreamReader( filePath, false );
                 VdfFileNode dataRoot = VdfFileNode.LoadFromText( reader, true );
 
-                VdfFileNode appsNode = dataRoot.GetNodeAt( new string[] { "shortcutnames" }, false );
+                VdfFileNode appsNode = dataRoot.GetNodeAt( new[] { "shortcutnames" }, false );
 
                 foreach( KeyValuePair<string, VdfFileNode> shortcutPair in appsNode.NodeArray ) {
                     string launchId = shortcutPair.Key;
@@ -1475,7 +1472,7 @@ namespace Depressurizer {
 
                 VdfFileNode dataRoot = VdfFileNode.LoadFromBinary( binReader );
 
-                VdfFileNode shortcutsNode = dataRoot.GetNodeAt( new string[] { "shortcuts" }, false );
+                VdfFileNode shortcutsNode = dataRoot.GetNodeAt( new[] { "shortcuts" }, false );
 
                 if( shortcutsNode != null ) {
 
@@ -1536,7 +1533,7 @@ namespace Depressurizer {
         /// <param name="shortcutLaunchIds">List of launch IDs referenced by name</param>
         /// <returns>The index of the matching game if found, -1 otherwise.</returns>
         private int FindMatchingShortcut( int shortcutId, VdfFileNode shortcutNode, List<GameInfo> gamesToMatchAgainst, StringDictionary shortcutLaunchIds ) {
-            VdfFileNode nodeName = shortcutNode.GetNodeAt( new string[] { "appname" }, false );
+            VdfFileNode nodeName = shortcutNode.GetNodeAt( new[] { "appname" }, false );
             string gameName = ( nodeName != null ) ? nodeName.NodeString : null;
             string launchId = shortcutLaunchIds[gameName];
             // First, look for games with matching launch IDs.
@@ -1566,7 +1563,7 @@ namespace Depressurizer {
         /// <returns>True if the game was successfully added</returns>
         private bool IntegrateShortcut( int gameId, VdfFileNode gameNode, StringDictionary launchIds ) {
 
-            VdfFileNode nodeName = gameNode.GetNodeAt( new string[] { "appname" }, false );
+            VdfFileNode nodeName = gameNode.GetNodeAt( new[] { "appname" }, false );
             string gameName = ( nodeName != null ) ? nodeName.NodeString : null;
             // The ID of the created game must be negative
             int newId = -( gameId + 1 );
@@ -1584,10 +1581,10 @@ namespace Depressurizer {
             game.LaunchString = launchIds[gameName];
 
             // Fill in categories
-            VdfFileNode tagsNode = gameNode.GetNodeAt( new string[] { "tags" }, false );
+            VdfFileNode tagsNode = gameNode.GetNodeAt( new[] { "tags" }, false );
             foreach( KeyValuePair<string, VdfFileNode> tag in tagsNode.NodeArray ) {
                 string tagName = tag.Value.NodeString;
-                game.AddCategory( this.GetCategory( tagName ) );
+                game.AddCategory( GetCategory( tagName ) );
             }
 
             // Fill in Hidden

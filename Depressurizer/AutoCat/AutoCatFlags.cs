@@ -52,10 +52,10 @@ namespace Depressurizer {
 
         protected AutoCatFlags( AutoCatFlags other )
             : base( other ) {
-            this.Filter = other.Filter;
-            this.Prefix = other.Prefix;
-            this.IncludedFlags = new List<string>( other.IncludedFlags );
-            this.Selected = other.Selected;
+            Filter = other.Filter;
+            Prefix = other.Prefix;
+            IncludedFlags = new List<string>( other.IncludedFlags );
+            Selected = other.Selected;
         }
 
         public override AutoCat Clone() {
@@ -91,12 +91,12 @@ namespace Depressurizer {
             return AutoCatResult.Success;
         }
 
-        private string GetProcessedString( string baseString ) {
+        private string GetProcessedString( string baseString )
+        {
             if( string.IsNullOrEmpty( Prefix ) ) {
                 return baseString;
-            } else {
-                return Prefix + baseString;
             }
+            return Prefix + baseString;
         }
 
         public override void WriteToXml( XmlWriter writer ) {

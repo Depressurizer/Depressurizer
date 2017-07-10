@@ -142,12 +142,12 @@ namespace Depressurizer {
 
         public abstract AutoCat Clone();
 
-        public int CompareTo( object other ) {
+        public int CompareTo( object other )
+        {
             if( other is AutoCat ) {
-                return string.Compare( this.Name, ( other as AutoCat ).Name );
-            } else {
-                return 1;
+                return string.Compare( Name, ( other as AutoCat ).Name );
             }
+            return 1;
         }
 
         /// <summary>

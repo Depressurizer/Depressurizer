@@ -30,7 +30,7 @@ namespace Depressurizer {
         public bool UseHtml { get; private set; }
         public bool Failover { get; private set; }
 
-        private Int64 SteamId = 0;
+        private Int64 SteamId;
         private string customUrl;
         private bool custom;
         private GameList data;
@@ -45,7 +45,7 @@ namespace Depressurizer {
         public CDlgUpdateProfile( GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore, bool inclUnknown )
             : base( GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true ) {
             custom = false;
-            this.SteamId = accountId;
+            SteamId = accountId;
 
             Added = 0;
             Fetched = 0;
@@ -57,7 +57,7 @@ namespace Depressurizer {
             this.overwrite = overwrite;
             this.ignore = ignore;
 
-            this.includeUnknown = inclUnknown;
+            includeUnknown = inclUnknown;
 
             SetText( GlobalStrings.CDlgFetch_DownloadingGameList );
         }
@@ -77,7 +77,7 @@ namespace Depressurizer {
             this.overwrite = overwrite;
             this.ignore = ignore;
 
-            this.includeUnknown = inclUnknown;
+            includeUnknown = inclUnknown;
 
             SetText( GlobalStrings.CDlgFetch_DownloadingGameList );
         }

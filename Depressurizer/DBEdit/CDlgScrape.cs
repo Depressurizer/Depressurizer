@@ -25,13 +25,13 @@ namespace Depressurizer {
         Queue<int> jobs;
         List<GameDBEntry> results;
 
-        System.DateTime start;
+        DateTime start;
 
         public DbScrapeDlg( Queue<int> jobs )
             : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
             this.jobs = jobs;
-            this.totalJobs = jobs.Count;
+            totalJobs = jobs.Count;
 
             results = new List<GameDBEntry>();
         }
@@ -42,12 +42,12 @@ namespace Depressurizer {
         }
 
         private int GetNextGameId() {
-            lock( jobs ) {
+            lock( jobs )
+            {
                 if( jobs.Count > 0 ) {
                     return jobs.Dequeue();
-                } else {
-                    return 0;
                 }
+                return 0;
             }
         }
 
@@ -76,14 +76,14 @@ namespace Depressurizer {
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
-            lock( abortLock ) {
+            lock( abortLock )
+            {
                 if( !Stopped ) {
                     results.Add( newGame );
                     OnJobCompletion();
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             }
         }
 
@@ -107,7 +107,7 @@ namespace Depressurizer {
             TimeSpan timeRemaining = TimeSpan.Zero;
             if( jobsCompleted > 0 ) {
                 double msElapsed = ( DateTime.Now - start ).TotalMilliseconds;
-                double msPerItem = msElapsed / (double)jobsCompleted;
+                double msPerItem = msElapsed / jobsCompleted;
                 double msRemaining = msPerItem * ( totalJobs - jobsCompleted );
                 timeRemaining = TimeSpan.FromMilliseconds( msRemaining );
             }

@@ -71,7 +71,7 @@ namespace Depressurizer {
         public const int VERSION = 3;
         #endregion
 
-        public string FilePath = null;
+        public string FilePath;
 
         public GameList GameData = new GameList();
 
@@ -79,11 +79,11 @@ namespace Depressurizer {
 
         public List<AutoCat> AutoCats = new List<AutoCat>();
 
-        public Int64 SteamID64 = 0;
+        public Int64 SteamID64;
 
         public bool AutoUpdate = true;
 
-        public bool AutoImport = false;
+        public bool AutoImport;
         public bool AutoExport = true;
 
         public bool LocalUpdate = true;
@@ -91,11 +91,11 @@ namespace Depressurizer {
 
         public bool ExportDiscard = true;
 
-        public bool OverwriteOnDownload = false;
+        public bool OverwriteOnDownload;
 
         public bool AutoIgnore = true;
-        public bool IncludeUnknown = false;
-        public bool BypassIgnoreOnImport = false;
+        public bool IncludeUnknown;
+        public bool BypassIgnoreOnImport;
 
         public bool IncludeShortcuts = true;
 
@@ -280,7 +280,7 @@ namespace Depressurizer {
         private static void AddGameFromXmlNode( XmlNode node, Profile profile, int profileVersion ) {
             int id;
             if( XmlUtil.TryGetIntFromNode( node[XmlName_Game_Id], out id ) ) {
-                GameListingSource source = XmlUtil.GetEnumFromNode<GameListingSource>( node[XmlName_Game_Source], GameListingSource.Unknown );
+                GameListingSource source = XmlUtil.GetEnumFromNode( node[XmlName_Game_Source], GameListingSource.Unknown );
 
                 if( source < GameListingSource.Manual && profile.IgnoreList.Contains( id ) ) {
                     return;
@@ -498,7 +498,7 @@ namespace Depressurizer {
             try
             {
                 XmlDocument xml = new XmlDocument();
-                string profile = string.Format(Properties.Resources.UrlSteamProfile, this.SteamID64.ToString());
+                string profile = string.Format(Properties.Resources.UrlSteamProfile, SteamID64);
                 xml.Load(profile);
 
                 XmlNodeList xnList = xml.SelectNodes(Properties.Resources.XmlNodeAvatar);
