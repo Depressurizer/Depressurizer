@@ -17,7 +17,7 @@
     along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace Depressurizer.AutoCat {
+namespace Depressurizer {
     partial class AutoCatConfigPanel_VrSupport {
         /// <summary> 
         /// Required designer variable.

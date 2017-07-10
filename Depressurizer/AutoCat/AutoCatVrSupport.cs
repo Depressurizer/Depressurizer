@@ -22,8 +22,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using Depressurizer.Lib;
+using Rallion;
 
-namespace Depressurizer.AutoCat
+namespace Depressurizer
 {
     public class AutoCatVrSupport : AutoCat
     {
@@ -69,13 +70,13 @@ namespace Depressurizer.AutoCat
 
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
-            if (Games == null)
+            if (games == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
-            if (Db == null)
+            if (db == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
@@ -87,7 +88,7 @@ namespace Depressurizer.AutoCat
                 return AutoCatResult.Failure;
             }
 
-            if (!Db.Contains(game.Id) || (Db.Games[game.Id].LastStoreScrape == 0))
+            if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -97,7 +98,7 @@ namespace Depressurizer.AutoCat
                 return AutoCatResult.Filtered;
             }
 
-            VrSupport vrSupport = Db.GetVrSupport(game.Id);
+            VrSupport vrSupport = db.GetVrSupport(game.Id);
 
             vrSupport.Headsets = vrSupport.Headsets ?? new List<string>();
             vrSupport.Input = vrSupport.Input ?? new List<string>();
@@ -109,19 +110,19 @@ namespace Depressurizer.AutoCat
 
             foreach (string catString in headsets)
             {
-                Category c = Games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetProcessedString(catString));
                 game.AddCategory(c);
             }
 
             foreach (string catString in input)
             {
-                Category c = Games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetProcessedString(catString));
                 game.AddCategory(c);
             }
 
             foreach (string catString in playArea)
             {
-                Category c = Games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetProcessedString(catString));
                 game.AddCategory(c);
             }
 
