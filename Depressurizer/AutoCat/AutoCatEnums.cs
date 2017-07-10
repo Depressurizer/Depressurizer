@@ -40,7 +40,8 @@ namespace Depressurizer.AutoCat
         [Description("AutoCatManual")] Manual,
         [Description("AutoCatDevPub")] DevPub,
         [Description("AutoCatGroup")] Group,
-        [Description("AutoCatName")] Name
+        [Description("AutoCatName")] Name,
+        [Description("AutoCatVrSupport")] VrSupport
     }
 
     public enum TimeType

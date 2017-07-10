@@ -564,10 +564,10 @@ namespace Depressurizer
                     g.Genres = null;
                     g.SteamReleaseDate = null;
                     g.LastStoreScrape = 0;
+                    g.vrSupport = new VrSupport();
                 }
                 Program.GameDB.Save("GameDB.xml.gz");
             }
-            string test = Thread.CurrentThread.CurrentCulture.Name;
         }
 
         //Depressurizer UI language

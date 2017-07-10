@@ -142,6 +142,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VR Support.
+        /// </summary>
+        internal static string AutoCat_Name_VrSupport {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_VrSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Release Year.
         /// </summary>
         internal static string AutoCat_Name_Year {

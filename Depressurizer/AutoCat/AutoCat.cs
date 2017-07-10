@@ -71,7 +71,15 @@ namespace Depressurizer.AutoCat
 
         public string Name { get; set; }
 
-        public virtual string DisplayName => Filter != null ? (Name += "*") : Name;
+        public virtual string DisplayName
+        {
+            get
+            {
+                string displayName = Name;
+                if (Filter != null) displayName += "*";
+                return displayName;
+            }
+        }
 
         public string Filter { get; set; }
 
@@ -180,6 +188,8 @@ namespace Depressurizer.AutoCat
                     return AutoCatGroup.LoadFromXmlElement(xElement);
                 case AutoCatName.TypeIdString:
                     return AutoCatName.LoadFromXmlElement(xElement);
+                case AutoCatVrSupport.TypeIdString:
+                    return AutoCatVrSupport.LoadFromXmlElement(xElement);
                 default:
                     return null;
             }
@@ -214,6 +224,8 @@ namespace Depressurizer.AutoCat
                     return new AutoCatGroup(name);
                 case AutoCatType.Name:
                     return new AutoCatName(name);
+                case AutoCatType.VrSupport:
+                    return new AutoCatVrSupport(name);
                 case AutoCatType.None:
                     return null;
                 default:
