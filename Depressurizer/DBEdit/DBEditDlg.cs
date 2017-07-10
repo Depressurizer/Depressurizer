@@ -78,14 +78,8 @@ namespace Depressurizer
             DialogResult res = dlg.ShowDialog();
             if (res == DialogResult.OK)
             {
-                if (Save(dlg.FileName))
-                {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_FileSaved);
-                }
-                else
-                {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_SaveFailed);
-                }
+                AddStatusMsg(
+                    Save(dlg.FileName) ? GlobalStrings.DBEditDlg_FileSaved : GlobalStrings.DBEditDlg_SaveFailed);
             }
         }
 

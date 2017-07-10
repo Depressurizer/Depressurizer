@@ -111,27 +111,13 @@ namespace Depressurizer
         protected void FetchXml()
         {
             UseHtml = false;
-            if (custom)
-            {
-                doc = GameList.FetchXmlGameList(customUrl);
-            }
-            else
-            {
-                doc = GameList.FetchXmlGameList(SteamId);
-            }
+            doc = custom ? GameList.FetchXmlGameList(customUrl) : GameList.FetchXmlGameList(SteamId);
         }
 
         protected void FetchHtml()
         {
             UseHtml = true;
-            if (custom)
-            {
-                htmlDoc = GameList.FetchHtmlGameList(customUrl);
-            }
-            else
-            {
-                htmlDoc = GameList.FetchHtmlGameList(SteamId);
-            }
+            htmlDoc = custom ? GameList.FetchHtmlGameList(customUrl) : GameList.FetchHtmlGameList(SteamId);
         }
 
         protected void FetchXmlPref()

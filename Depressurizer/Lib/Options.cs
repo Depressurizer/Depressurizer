@@ -1151,10 +1151,7 @@ namespace NDesk.Options
             if (description == null)
                 return maxIndex == 1 ? "VALUE" : "VALUE" + (index + 1);
             string[] nameStart;
-            if (maxIndex == 1)
-                nameStart = new[] {"{0:", "{"};
-            else
-                nameStart = new[] {"{" + index + ":"};
+            nameStart = maxIndex == 1 ? new[] {"{0:", "{"} : new[] {"{" + index + ":"};
             for (int i = 0; i < nameStart.Length; ++i)
             {
                 int start, j = 0;

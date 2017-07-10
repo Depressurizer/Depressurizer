@@ -573,8 +573,7 @@ namespace Depressurizer
 
                     lstUsers.Items.RemoveAt(index);
                     lstUsers.Items.Insert(index, u);
-                    if (selected) lstUsers.SelectedIndex = index;
-                    else lstUsers.SelectedIndex = 0;
+                    lstUsers.SelectedIndex = selected ? index : 0;
                 }
             }
         }

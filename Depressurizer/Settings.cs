@@ -85,14 +85,7 @@ namespace Depressurizer
 
         public static Settings Instance
         {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new Settings();
-                }
-                return instance;
-            }
+            get { return instance ?? (instance = new Settings()); }
         }
 
         public int SettingsVersion

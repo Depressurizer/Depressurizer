@@ -170,15 +170,7 @@ namespace Depressurizer
                 profile.SteamID64 = accId;
 
                 // Get other attributes
-                if (profileVersion < 3)
-                {
-                    profile.AutoUpdate =
-                        XmlUtil.GetBoolFromNode(profileNode[XmlName_Old_AutoDownload], profile.AutoUpdate);
-                }
-                else
-                {
-                    profile.AutoUpdate = XmlUtil.GetBoolFromNode(profileNode[XmlName_AutoUpdate], profile.AutoUpdate);
-                }
+                profile.AutoUpdate = XmlUtil.GetBoolFromNode(profileVersion < 3 ? profileNode[XmlName_Old_AutoDownload] : profileNode[XmlName_AutoUpdate], profile.AutoUpdate);
 
                 profile.AutoImport = XmlUtil.GetBoolFromNode(profileNode[XmlName_AutoImport], profile.AutoImport);
                 profile.AutoExport = XmlUtil.GetBoolFromNode(profileNode[XmlName_AutoExport], profile.AutoExport);

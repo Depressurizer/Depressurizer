@@ -26,24 +26,10 @@ namespace Depressurizer
 
             // Get the corresponding sub-item values.
             string string_x;
-            if (item_x.SubItems.Count <= ColumnNumber)
-            {
-                string_x = "";
-            }
-            else
-            {
-                string_x = item_x.SubItems[ColumnNumber].Text;
-            }
+            string_x = item_x.SubItems.Count <= ColumnNumber ? "" : item_x.SubItems[ColumnNumber].Text;
 
             string string_y;
-            if (item_y.SubItems.Count <= ColumnNumber)
-            {
-                string_y = "";
-            }
-            else
-            {
-                string_y = item_y.SubItems[ColumnNumber].Text;
-            }
+            string_y = item_y.SubItems.Count <= ColumnNumber ? "" : item_y.SubItems[ColumnNumber].Text;
 
             // Compare them.
             int result;
