@@ -69,7 +69,9 @@ namespace Depressurizer.Lib
                 {
                     doc.Save(FilePath);
                 }
-                catch (IOException) { }
+                catch (IOException)
+                {
+                }
                 outOfDate = false;
             }
         }
@@ -101,8 +103,12 @@ namespace Depressurizer.Lib
                         }
                     }
                 }
-                catch (XmlException) { }
-                catch (IOException) { }
+                catch (XmlException)
+                {
+                }
+                catch (IOException)
+                {
+                }
 
                 outOfDate = false;
             }
@@ -130,7 +136,9 @@ namespace Depressurizer.Lib
                     propertyInfo.SetValue(this, int.Parse(value), null);
                 }
             }
-            catch { }
+            catch
+            {
+            }
         }
     }
 }

@@ -73,7 +73,6 @@ namespace Depressurizer.Lib
         }
 
         #endregion
-
         #region Fields
 
         #region Internals
@@ -539,8 +538,7 @@ namespace Depressurizer.Lib
             string targetName = GetPath() + Path.DirectorySeparatorChar + GenerateFileName();
             if (!AllowAppend || forceNew)
             {
-                DisplaceFile(targetName, 0,
-                    MaxBackup); // If we need to make a new file, make sure there isn't a file in the way
+                DisplaceFile(targetName, 0, MaxBackup); // If we need to make a new file, make sure there isn't a file in the way
             }
             return new FileInfo(GetPath() + Path.DirectorySeparatorChar + GenerateFileName());
         }
@@ -603,9 +601,7 @@ namespace Depressurizer.Lib
         /// <param name="baseFile">Full path of the actual log filename</param>
         /// <param name="backupNum">Number of this backup. 0 indicates that it is not the backup, it is current.</param>
         /// <returns>Full path of the backup file</returns>
-        private string GetBackupFileName(string baseFile, int backupNum) => backupNum == 0
-            ? baseFile
-            : baseFile + '.' + backupNum;
+        private string GetBackupFileName(string baseFile, int backupNum) => backupNum == 0 ? baseFile : baseFile + '.' + backupNum;
 
         /// <summary>
         ///     Counts the lines in a file.
@@ -642,8 +638,7 @@ namespace Depressurizer.Lib
             {
                 return false;
             }
-            if ((MaxFileDuration != null) && (MaxFileDuration.Ticks != 0) &&
-                ((DateTime.Now - CurrentFileStartTime) > MaxFileDuration))
+            if ((MaxFileDuration != null) && (MaxFileDuration.Ticks != 0) && ((DateTime.Now - CurrentFileStartTime) > MaxFileDuration))
             {
                 return false;
             }

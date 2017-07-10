@@ -20,14 +20,12 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Depressurizer
-{
-    public partial class DlgClose : Form
-    {
+namespace Depressurizer {
+    public partial class DlgClose : Form {
+
         public bool Export;
 
-        public DlgClose(string message, string title, Image picture, bool cancel, bool exportSteam)
-        {
+        public DlgClose(string message, string title, Image picture, bool cancel, bool exportSteam) {
             InitializeComponent();
 
             lblMessage.Text = message;
@@ -35,6 +33,7 @@ namespace Depressurizer
             pictureBox1.Image = picture;
             btnCancel.Visible = cancel;
             chkSaveSteam.Checked = exportSteam;
+
         }
 
         private void chkSaveSteam_CheckedChanged(object sender, EventArgs e)

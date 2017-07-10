@@ -23,22 +23,19 @@ using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Lib;
 
-namespace Depressurizer
-{
-    public partial class DlgOptions : Form
-    {
-        public DlgOptions()
-        {
+namespace Depressurizer {
+    public partial class DlgOptions : Form {
+
+        public DlgOptions() {
             InitializeComponent();
 
             // Set up help tooltips
             ttHelp.Ext_SetToolTip(helpIncludeImputedTimes, GlobalStrings.DlgOptions_Help_IncludeImputedTimes);
         }
 
-        private void OptionsForm_Load(object sender, EventArgs e)
-        {
-            string[] levels = Enum.GetNames(typeof(LoggerLevel));
-            cmbLogLevel.Items.AddRange(levels);
+        private void OptionsForm_Load( object sender, EventArgs e ) {
+            string[] levels = Enum.GetNames( typeof(LoggerLevel) );
+            cmbLogLevel.Items.AddRange( levels );
 
             //UI languages
             List<string> UILanguages = new List<string>();
@@ -80,6 +77,7 @@ namespace Depressurizer
                     default:
                         name = CultureInfo.GetCultureInfo(l).NativeName;
                         break;
+
                 }
                 storeLanguages.Add(name);
             }
@@ -88,13 +86,11 @@ namespace Depressurizer
             FillFieldsFromSettings();
         }
 
-        private void FillFieldsFromSettings()
-        {
+        private void FillFieldsFromSettings() {
             Settings settings = Settings.Instance;
             txtSteamPath.Text = settings.SteamPath;
             txtDefaultProfile.Text = settings.ProfileToLoad;
-            switch (settings.StartupAction)
-            {
+            switch( settings.StartupAction ) {
                 case StartupAction.Load:
                     radLoad.Checked = true;
                     break;
@@ -105,8 +101,7 @@ namespace Depressurizer
                     radNone.Checked = true;
                     break;
             }
-            switch (settings.ListSource)
-            {
+            switch (settings.ListSource) {
                 case GameListSource.XmlPreferred:
                     cmbDatSrc.SelectedIndex = 0;
                     break;
@@ -124,39 +119,32 @@ namespace Depressurizer
             chkAutosaveDB.Checked = settings.AutosaveDB;
             numScrapePromptDays.Value = settings.ScrapePromptDays;
 
-            chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates;
-
+            chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates; 
+            
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
-            cmbLogLevel.SelectedIndex = (int) settings.LogLevel;
+            cmbLogLevel.SelectedIndex = (int)settings.LogLevel;
             numLogSize.Value = settings.LogSize;
             numLogBackup.Value = settings.LogBackups;
 
             //supported languages have an enum value of 1-5 (en, es, ru, uk, nl). 0 is windows language.
-            cmbUILanguage.SelectedIndex = (int) settings.UserLang;
-            cmbStoreLanguage.SelectedIndex = (int) settings.StoreLang;
+            cmbUILanguage.SelectedIndex = (int)settings.UserLang;
+            cmbStoreLanguage.SelectedIndex = (int)settings.StoreLang;
         }
 
-        private void SaveFieldsToSettings()
-        {
+        private void SaveFieldsToSettings() {
             Settings settings = Settings.Instance;
 
             settings.SteamPath = txtSteamPath.Text;
-            if (radLoad.Checked)
-            {
+            if( radLoad.Checked ) {
                 settings.StartupAction = StartupAction.Load;
-            }
-            else if (radCreate.Checked)
-            {
+            } else if( radCreate.Checked ) {
                 settings.StartupAction = StartupAction.Create;
-            }
-            else
-            {
+            } else {
                 settings.StartupAction = StartupAction.None;
             }
 
-            switch (cmbDatSrc.SelectedIndex)
-            {
+            switch( cmbDatSrc.SelectedIndex ) {
                 case 0:
                     settings.ListSource = GameListSource.XmlPreferred;
                     break;
@@ -180,57 +168,45 @@ namespace Depressurizer
 
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 
-            settings.LogLevel = (LoggerLevel) cmbLogLevel.SelectedIndex;
-            settings.LogSize = (int) numLogSize.Value;
-            settings.LogBackups = (int) numLogBackup.Value;
+            settings.LogLevel = (LoggerLevel)cmbLogLevel.SelectedIndex;
+            settings.LogSize = (int)numLogSize.Value;
+            settings.LogBackups = (int)numLogBackup.Value;
 
-            settings.UserLang = (UILanguage) cmbUILanguage.SelectedIndex;
-            settings.StoreLang = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
+            settings.UserLang = (UILanguage)cmbUILanguage.SelectedIndex;
+            settings.StoreLang = (StoreLanguage)cmbStoreLanguage.SelectedIndex;
 
-            try
-            {
+            try {
                 settings.Save();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + e.Message,
-                    GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } catch( Exception e ) {
+                MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         #region Event handlers
-
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
+        private void cmdCancel_Click( object sender, EventArgs e ) {
             Close();
         }
 
-        private void cmdAccept_Click(object sender, EventArgs e)
-        {
+        private void cmdAccept_Click( object sender, EventArgs e ) {
             SaveFieldsToSettings();
             Close();
         }
 
-        private void cmdSteamPathBrowse_Click(object sender, EventArgs e)
-        {
+        private void cmdSteamPathBrowse_Click( object sender, EventArgs e ) {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
             DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
+            if( res == DialogResult.OK ) {
                 txtSteamPath.Text = dlg.SelectedPath;
             }
         }
 
-        private void cmdDefaultProfileBrowse_Click(object sender, EventArgs e)
-        {
+        private void cmdDefaultProfileBrowse_Click( object sender, EventArgs e ) {
             OpenFileDialog dlg = new OpenFileDialog();
             DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
+            if( res == DialogResult.OK ) {
                 txtDefaultProfile.Text = dlg.FileName;
             }
         }
-
         #endregion
     }
 }

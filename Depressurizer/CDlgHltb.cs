@@ -19,10 +19,8 @@
 
 using Depressurizer.Lib;
 
-namespace Depressurizer
-{
-    class HltbPrcDlg : CancelableDlg
-    {
+namespace Depressurizer {
+    class HltbPrcDlg : CancelableDlg {
         public int Updated { get; private set; }
 
         public HltbPrcDlg()
@@ -32,16 +30,13 @@ namespace Depressurizer
             Updated = 0;
         }
 
-        protected override void RunProcess()
-        {
+        protected override void RunProcess() {
             Updated = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
             OnThreadCompletion();
         }
 
-        protected override void Finish()
-        {
-            if (!Canceled && Error == null)
-            {
+        protected override void Finish() {
+            if( !Canceled && Error == null ) {
                 OnJobCompletion();
             }
         }

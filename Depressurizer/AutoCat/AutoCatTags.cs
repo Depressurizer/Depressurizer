@@ -54,10 +54,7 @@ namespace Depressurizer.AutoCat
         private const string XmlNameListExcludeGenres = "List_ExcludeGenres";
         private const string XmlNameListScoreSort = "List_ScoreSort";
 
-        public AutoCatTags(string name, string filter = null, string prefix = null, HashSet<string> tags = null,
-            int maxTags = 0, bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0,
-            int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true,
-            bool selected = false) : base(name)
+        public AutoCatTags(string name, string filter = null, string prefix = null, HashSet<string> tags = null, int maxTags = 0, bool listOwnedOnly = true, float listWeightFactor = 1, int listMinScore = 0, int listTagsPerGame = 0, bool listScoreSort = true, bool listExcludeGenres = true, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -234,8 +231,7 @@ namespace Depressurizer.AutoCat
                 result.ListExcludeGenres = listExcludeGenres;
             }
 
-            List<string> tagList =
-                XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlNameTagList + "/" + XmlNameTag));
+            List<string> tagList = XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlNameTagList + "/" + XmlNameTag));
             result.IncludedTags = tagList == null ? new HashSet<string>() : new HashSet<string>(tagList);
 
             return result;

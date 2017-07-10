@@ -129,11 +129,17 @@ namespace Depressurizer.Lib
 
         #region Methods to override
 
-        protected virtual void RunProcess() { }
+        protected virtual void RunProcess()
+        {
+        }
 
-        protected virtual void UpdateText() { }
+        protected virtual void UpdateText()
+        {
+        }
 
-        protected virtual void Finish() { }
+        protected virtual void Finish()
+        {
+        }
 
         #endregion
 

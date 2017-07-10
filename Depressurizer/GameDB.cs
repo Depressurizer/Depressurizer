@@ -33,6 +33,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
 {
+
     public struct VrSupport
     {
         public List<string> Headsets;
@@ -42,8 +43,8 @@ namespace Depressurizer
 
     public class GameDBEntry
     {
-        #region Fields
 
+        #region Fields
         public int Id;
         public string Name;
         public AppTypes AppType = AppTypes.Unknown;
@@ -52,7 +53,6 @@ namespace Depressurizer
 
         // Basics:
         public List<string> Genres = new List<string>();
-
         public List<string> Flags = new List<string>();
         public List<string> Tags = new List<string>();
         public List<string> Developers;
@@ -69,7 +69,6 @@ namespace Depressurizer
 
         //howlongtobeat.com times
         public int HltbMain;
-
         public int HltbExtras = -0;
         public int HltbCompletionist;
 
@@ -78,101 +77,43 @@ namespace Depressurizer
 
         public int LastStoreScrape;
         public int LastAppInfoUpdate;
-
         #endregion
 
         #region Regex
-
         // If these regexes maches a store page, the app is a game, software or dlc respectively
-        private static Regex regGamecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?term=&snr=",
-            RegexOptions.Compiled);
+        private static Regex regGamecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
+        private static Regex regSoftwarecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
+        private static Regex regDLCcheck = new Regex(@"<img class=""category_icon"" src=""http://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
 
-        private static Regex regSoftwarecheck =
-            new Regex(@"<a href=""http://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
-
-        private static Regex regDLCcheck =
-            new Regex(
-                @"<img class=""category_icon"" src=""http://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">",
-                RegexOptions.Compiled);
-
-        private static Regex regGenre =
-            new Regex(
-                @"<div class=""details_block"">\s*<b>[^:]*:</b>[^<]*<br>\s*<b>[^:]*:</b>\s*(<a[^>]*>([^<]+)</a>,?\s*)+\s*<br>",
-                RegexOptions.Compiled);
-
-        private static Regex regFlags =
-            new Regex(@"<a class=""name"" href=""http://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>",
-                RegexOptions.Compiled);
-
+        private static Regex regGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>[^<]*<br>\s*<b>[^:]*:</b>\s*(<a[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+        private static Regex regFlags = new Regex(@"<a class=""name"" href=""http://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
         private static Regex regTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
 
-        private static Regex regDevelopers =
-            new Regex(
-                @"(<a href=""http://store\.steampowered\.com/search/\?developer=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>",
-                RegexOptions.Compiled);
+        private static Regex regDevelopers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?developer=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+        private static Regex regPublishers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
 
-        private static Regex regPublishers =
-            new Regex(
-                @"(<a href=""http://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>",
-                RegexOptions.Compiled);
+        private static Regex regRelDate = new Regex(regPublishers + @"\s*<b>[^:]*:</b>\s*(.*)\s*<br>", RegexOptions.Compiled);
+        private static Regex regMetalink = new Regex(@"<div id=""game_area_metalink"">\s*<a href=""http://www\.metacritic\.com/game/pc/([^""]*)\?ftag=", RegexOptions.Compiled);
 
-        private static Regex regRelDate =
-            new Regex(regPublishers + @"\s*<b>[^:]*:</b>\s*(.*)\s*<br>", RegexOptions.Compiled);
+        private static Regex regReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
 
-        private static Regex regMetalink =
-            new Regex(
-                @"<div id=""game_area_metalink"">\s*<a href=""http://www\.metacritic\.com/game/pc/([^""]*)\?ftag=",
-                RegexOptions.Compiled);
-
-        private static Regex regReviews =
-            new Regex(
-                @"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>",
-                RegexOptions.Compiled);
-
-        private static Regex regAchievements =
-            new Regex(
-                @"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">",
-                RegexOptions.Compiled);
+        private static Regex regAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
 
         //VR Support
         //regVrSupportHeadsetsSection, regVrSupportInputSection and regVrSupportPlayAreaSection match the whole Headsets, Input and Play Area sections respectively
         //regVrSupportFlagMatch matches the flags inside those sections
-        private static Regex regVrSupportHeadsetsSection =
-            new Regex(
-                @"<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">",
-                RegexOptions.Compiled);
+        private static Regex regVrSupportHeadsetsSection = new Regex(@"<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">", RegexOptions.Compiled);
+        private static Regex regVrSupportInputSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">", RegexOptions.Compiled);
+        private static Regex regVrSupportPlayAreaSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)", RegexOptions.Compiled);
+        private static Regex regVrSupportFlagMatch = new Regex(@"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""http:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>", RegexOptions.Compiled);
 
-        private static Regex regVrSupportInputSection =
-            new Regex(
-                @"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">",
-                RegexOptions.Compiled);
-
-        private static Regex regVrSupportPlayAreaSection =
-            new Regex(
-                @"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)",
-                RegexOptions.Compiled);
-
-        private static Regex regVrSupportFlagMatch =
-            new Regex(
-                @"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""http:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>",
-                RegexOptions.Compiled);
-
-        private static Regex regPlatformWindows =
-            new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
-
-        private static Regex regPlatformMac =
-            new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
-
-        private static Regex regPlatformLinux =
-            new Regex(@"<span class=""platform_img linux""></span>", RegexOptions.Compiled);
-
-        private static Regex regPlatformSteamplay =
-            new Regex(@"<span class=""platform_img steamplay""></span>", RegexOptions.Compiled);
-
+        private static Regex regPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
+        private static Regex regPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
+        private static Regex regPlatformLinux = new Regex(@"<span class=""platform_img linux""></span>", RegexOptions.Compiled);
+        private static Regex regPlatformSteamplay = new Regex(@"<span class=""platform_img steamplay""></span>", RegexOptions.Compiled);
         #endregion
 
         #region Scraping
-
         /// <summary>
         /// Scrapes the store page with this game entry's ID and updates this entry with the information found.
         /// </summary>
@@ -210,24 +151,21 @@ namespace Depressurizer
                     if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans) storeLanguage = "schinese";
                     else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant) storeLanguage = "tchinese";
                     else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR) storeLanguage = "brazilian";
-                    else
-                        storeLanguage = CultureInfo
-                            .GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName
-                            .ToLowerInvariant();
+                    else storeLanguage = CultureInfo
+                        .GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName
+                        .ToLowerInvariant();
                 }
-                HttpWebRequest req =
-                    GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
+                HttpWebRequest req = GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
-                while (resp.StatusCode == HttpStatusCode.Found && count < 5)
+                while (resp.StatusCode == HttpStatusCode.Found && count<5)
                 {
                     resp.Close();
                     if (resp.Headers[HttpResponseHeader.Location] == Resources.UrlSteamStore)
                     {
                         // If we are redirected to the store front page
-                        Program.Logger.Write(LoggerLevel.Verbose,
-                            GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
+                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
                         SetTypeFromStoreScrape(AppTypes.Unknown);
                         return AppTypes.Unknown;
                     }
@@ -251,8 +189,7 @@ namespace Depressurizer
                 else if (resp.ResponseUri.Segments.Length < 2)
                 {
                     // If we were redirected to the store front page
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage,
-                        id);
+                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
                     SetTypeFromStoreScrape(AppTypes.Unknown);
                     return AppTypes.Unknown;
                 }
@@ -265,7 +202,9 @@ namespace Depressurizer
                         // Age check + redirect
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id,
                             resp.ResponseUri.Segments[3].TrimEnd('/'));
-                        if (int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget)) { }
+                        if (int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
+                        {
+                        }
                         else
                         {
                             // If we got an age check without numeric id (shouldn't happen)
@@ -330,28 +269,24 @@ namespace Depressurizer
                 result = AppTypes.Unknown;
             }
             else if (regGamecheck.IsMatch(page) || regSoftwarecheck.IsMatch(page))
-            {
-                // Here we should have an app, but make sure.
+            { // Here we should have an app, but make sure.
 
                 GetAllDataFromPage(page);
 
                 // Check whether it's DLC and return appropriately
                 if (regDLCcheck.IsMatch(page))
                 {
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id,
-                        string.Join(",", Genres));
+                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, string.Join(",", Genres));
                     result = AppTypes.DLC;
                 }
                 else
                 {
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id,
-                        string.Join(",", Genres));
+                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id, string.Join(",", Genres));
                     result = regSoftwarecheck.IsMatch(page) ? AppTypes.Application : AppTypes.Game;
                 }
             }
             else
-            {
-                // The URI is right, but it didn't pass the regex check
+            { // The URI is right, but it didn't pass the regex check
                 Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingCouldNotParse, id);
                 result = AppTypes.Unknown;
             }
@@ -367,7 +302,7 @@ namespace Depressurizer
 
         private HttpWebRequest GetSteamRequest(string url)
         {
-            HttpWebRequest req = (HttpWebRequest) HttpWebRequest.Create(url);
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             // Cookie bypasses the age gate
             req.CookieContainer = new CookieContainer(3);
             req.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));
@@ -546,8 +481,8 @@ namespace Depressurizer
             if (m.Success) Platforms |= AppPlatforms.Linux;
             m = regPlatformSteamplay.Match(page);
             if (m.Success) Platforms |= AppPlatforms.Steamplay;
-        }
 
+        }
         #endregion
 
         /// <summary>
@@ -558,8 +493,7 @@ namespace Depressurizer
         /// <param name="other">GameDBEntry containing info to be merged into this entry.</param>
         public void MergeIn(GameDBEntry other)
         {
-            bool useAppInfoFields = other.LastAppInfoUpdate > LastAppInfoUpdate ||
-                                    (LastAppInfoUpdate == 0 && other.LastStoreScrape >= LastStoreScrape);
+            bool useAppInfoFields = other.LastAppInfoUpdate > LastAppInfoUpdate || (LastAppInfoUpdate == 0 && other.LastStoreScrape >= LastStoreScrape);
             bool useScrapeOnlyFields = other.LastStoreScrape >= LastStoreScrape;
 
             if (other.AppType != AppTypes.Unknown && (AppType == AppTypes.Unknown || useAppInfoFields))
@@ -567,8 +501,7 @@ namespace Depressurizer
                 AppType = other.AppType;
             }
 
-            if (other.LastStoreScrape >= LastStoreScrape ||
-                (LastStoreScrape == 0 && other.LastAppInfoUpdate > LastAppInfoUpdate) || Platforms == AppPlatforms.None)
+            if (other.LastStoreScrape >= LastStoreScrape || (LastStoreScrape == 0 && other.LastAppInfoUpdate > LastAppInfoUpdate) || Platforms==AppPlatforms.None)
             {
                 Platforms = other.Platforms;
             }
@@ -588,12 +521,9 @@ namespace Depressurizer
                 if (other.Publishers != null && other.Publishers.Count > 0) Publishers = other.Publishers;
                 if (!string.IsNullOrEmpty(other.SteamReleaseDate)) SteamReleaseDate = other.SteamReleaseDate;
                 if (other.Achievements != 0) Achievements = other.Achievements;
-                if (other.vrSupport.Headsets != null && other.vrSupport.Headsets.Count > 0)
-                    vrSupport.Headsets = other.vrSupport.Headsets;
-                if (other.vrSupport.Input != null && other.vrSupport.Input.Count > 0)
-                    vrSupport.Input = other.vrSupport.Input;
-                if (other.vrSupport.PlayArea != null && other.vrSupport.PlayArea.Count > 0)
-                    vrSupport.PlayArea = other.vrSupport.PlayArea;
+                if (other.vrSupport.Headsets != null && other.vrSupport.Headsets.Count > 0) vrSupport.Headsets = other.vrSupport.Headsets;
+                if (other.vrSupport.Input != null && other.vrSupport.Input.Count > 0) vrSupport.Input = other.vrSupport.Input;
+                if (other.vrSupport.PlayArea != null && other.vrSupport.PlayArea.Count > 0) vrSupport.PlayArea = other.vrSupport.PlayArea;
 
                 if (other.ReviewTotal != 0)
                 {
@@ -613,20 +543,16 @@ namespace Depressurizer
     {
         // Main Data
         public Dictionary<int, GameDBEntry> Games = new Dictionary<int, GameDBEntry>();
-
         // Extra data
         private SortedSet<string> allStoreGenres;
-
         private SortedSet<string> allStoreFlags;
         private SortedSet<string> allStoreDevelopers;
         private SortedSet<string> allStorePublishers;
         private VrSupport allVrSupportFlags;
         public int LastHltbUpdate;
-
         public StoreLanguage dbLanguage = StoreLanguage.en;
-
         // Utility
-        static char[] genreSep = {','};
+        static char[] genreSep = { ',' };
 
         private const int VERSION = 1;
 
@@ -741,8 +667,7 @@ namespace Depressurizer
             if (Games.ContainsKey(gameId))
             {
                 VrSupport res = Games[gameId].vrSupport;
-                if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) &&
-                    (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+                if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) && (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
                     res = GetVrSupport(Games[gameId].ParentId, depth - 1);
                 }
@@ -797,7 +722,6 @@ namespace Depressurizer
         #endregion
 
         #region Aggregate Accessors
-
         /// <summary>
         /// Gets a list of all Steam store genres found in the entire database.
         /// Only recalculates if necessary.
@@ -893,7 +817,6 @@ namespace Depressurizer
             }
             return allStorePublishers;
         }
-
         /// <summary>
         /// Gets a list of all Steam store publishers found in the entire database.
         /// Always recalculates.
@@ -1035,9 +958,7 @@ namespace Depressurizer
                 }
             }
 
-            var unsortedList = (from entry in devCounts
-                where entry.Value >= minCount
-                select new Tuple<string, int>(entry.Key, entry.Value));
+            var unsortedList = (from entry in devCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value));
             return unsortedList.ToList();
         }
 
@@ -1093,9 +1014,7 @@ namespace Depressurizer
                 }
             }
 
-            var unsortedList = (from entry in PubCounts
-                where entry.Value >= minCount
-                select new Tuple<string, int>(entry.Key, entry.Value));
+            var unsortedList = (from entry in PubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value));
             return unsortedList.ToList();
         }
 
@@ -1132,8 +1051,7 @@ namespace Depressurizer
         /// <param name="minScore">Minimum score of tags to include in the result list. Tags with lower scores will be discarded.</param>
         /// <param name="tagsPerGame">Maximum tags to find per game. If a game has more tags than this, they will be discarded. 0 indicates no limit.</param>
         /// <returns>List of tags, as strings</returns>
-        public IEnumerable<Tuple<string, float>> CalculateSortedTagList(GameList filter, float weightFactor,
-            int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
+        public IEnumerable<Tuple<string, float>> CalculateSortedTagList(GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
         {
             SortedSet<string> genreNames = GetAllGenres();
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
@@ -1163,12 +1081,10 @@ namespace Depressurizer
                 }
             }
 
-            var unsortedList = (from entry in tagCounts
-                where entry.Value >= minScore
-                select new Tuple<string, float>(entry.Key, entry.Value));
-            var sortedList = scoreSort
-                ? from entry in unsortedList orderby entry.Item2 descending select entry
-                : from entry in unsortedList orderby entry.Item1 select entry;
+            var unsortedList = (from entry in tagCounts where entry.Value >= minScore select new Tuple<string, float>(entry.Key, entry.Value));
+            var sortedList = scoreSort ?
+                from entry in unsortedList orderby entry.Item2 descending select entry :
+                from entry in unsortedList orderby entry.Item1 select entry;
             return sortedList.ToList();
         }
 
@@ -1181,8 +1097,7 @@ namespace Depressurizer
         /// The first tag on the game will have this score, and the last tag processed will always have score 1.
         /// The tags between will have linearly interpolated values between them.</param>
         /// <param name="tagsPerGame"></param>
-        private void CalculateSortedTagListHelper(Dictionary<string, float> counts, GameDBEntry dbEntry,
-            float weightFactor, int tagsPerGame)
+        private void CalculateSortedTagListHelper(Dictionary<string, float> counts, GameDBEntry dbEntry, float weightFactor, int tagsPerGame)
         {
             if (dbEntry.Tags != null)
             {
@@ -1199,7 +1114,7 @@ namespace Depressurizer
                         }
                         else
                         {
-                            float interp = i / (float) (tagsToLoad - 1);
+                            float interp = i / (float)(tagsToLoad - 1);
                             score = (1 - interp) * weightFactor + interp;
                         }
                     }
@@ -1225,10 +1140,10 @@ namespace Depressurizer
             allStorePublishers = null;
         }
 
+
         #endregion
 
         #region Operations
-
         public void UpdateAppListFromWeb()
         {
             XmlDocument doc = FetchAppListFromWeb();
@@ -1309,9 +1224,7 @@ namespace Depressurizer
                 entry.LastAppInfoUpdate = timestamp;
                 if (aInf.AppType != AppTypes.Unknown) entry.AppType = aInf.AppType;
                 if (!string.IsNullOrEmpty(aInf.Name)) entry.Name = aInf.Name;
-                if (entry.Platforms == AppPlatforms.None ||
-                    (entry.LastStoreScrape == 0 && aInf.Platforms > AppPlatforms.None))
-                    entry.Platforms = aInf.Platforms;
+                if (entry.Platforms == AppPlatforms.None || (entry.LastStoreScrape == 0 && aInf.Platforms > AppPlatforms.None)) entry.Platforms = aInf.Platforms;
                 if (aInf.Parent > 0) entry.ParentId = aInf.Parent;
                 updated++;
             }
@@ -1327,36 +1240,36 @@ namespace Depressurizer
         {
             int updated = 0;
 
-            using (WebClient wc = new WebClient())
-            {
-                wc.Encoding = Encoding.UTF8;
-                string json = wc.DownloadString(Resources.UrlHLTBAll);
-                JObject parsedJson = JObject.Parse(json);
-                dynamic games = parsedJson.SelectToken("Games");
-                foreach (dynamic g in games)
+                using (WebClient wc = new WebClient())
                 {
-                    dynamic steamAppData = g.SteamAppData;
-                    int id = steamAppData.SteamAppId;
-                    if (Games.ContainsKey(id))
+                    wc.Encoding = Encoding.UTF8;
+                    string json = wc.DownloadString(Resources.UrlHLTBAll);
+                    JObject parsedJson = JObject.Parse(json);
+                    dynamic games = parsedJson.SelectToken("Games");
+                    foreach (dynamic g in games)
                     {
-                        dynamic htlbInfo = steamAppData.HltbInfo;
+                        dynamic steamAppData = g.SteamAppData;
+                        int id = steamAppData.SteamAppId;
+                        if (Games.ContainsKey(id))
+                        {
+                            dynamic htlbInfo = steamAppData.HltbInfo;
 
-                        if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
-                            Games[id].HltbMain = 0;
-                        else Games[id].HltbMain = htlbInfo.MainTtb;
+                            if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
+                                Games[id].HltbMain = 0;
+                            else Games[id].HltbMain = htlbInfo.MainTtb;
 
-                        if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed == "True")
-                            Games[id].HltbExtras = 0;
-                        else Games[id].HltbExtras = htlbInfo.ExtrasTtb;
+                            if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed == "True")
+                                Games[id].HltbExtras = 0;
+                            else Games[id].HltbExtras = htlbInfo.ExtrasTtb;
 
-                        if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed == "True")
-                            Games[id].HltbCompletionist = 0;
-                        else Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
+                            if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed == "True")
+                                Games[id].HltbCompletionist = 0;
+                            else Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
 
-                        updated++;
+                            updated++;
+                        }
                     }
                 }
-            }
             LastHltbUpdate = Utility.GetCurrentUTime();
             return updated;
         }
@@ -1399,6 +1312,7 @@ namespace Depressurizer
 
                 foreach (GameDBEntry g in Games.Values)
                 {
+
                     writer.WriteStartElement(XmlName_Game);
 
                     writer.WriteElementString(XmlName_Game_Id, g.Id.ToString());
@@ -1408,10 +1322,8 @@ namespace Depressurizer
                         writer.WriteElementString(XmlName_Game_Name, g.Name);
                     }
 
-                    if (g.LastStoreScrape > 0)
-                        writer.WriteElementString(XmlName_Game_LastStoreUpdate, g.LastStoreScrape.ToString());
-                    if (g.LastAppInfoUpdate > 0)
-                        writer.WriteElementString(XmlName_Game_LastAppInfoUpdate, g.LastAppInfoUpdate.ToString());
+                    if (g.LastStoreScrape > 0) writer.WriteElementString(XmlName_Game_LastStoreUpdate, g.LastStoreScrape.ToString());
+                    if (g.LastAppInfoUpdate > 0) writer.WriteElementString(XmlName_Game_LastAppInfoUpdate, g.LastAppInfoUpdate.ToString());
 
                     writer.WriteElementString(XmlName_Game_Type, g.AppType.ToString());
 
@@ -1495,8 +1407,7 @@ namespace Depressurizer
                     if (g.ReviewTotal > 0)
                     {
                         writer.WriteElementString(XmlName_Game_ReviewTotal, g.ReviewTotal.ToString());
-                        writer.WriteElementString(XmlName_Game_ReviewPositivePercent,
-                            g.ReviewPositivePercentage.ToString());
+                        writer.WriteElementString(XmlName_Game_ReviewPositivePercent, g.ReviewPositivePercentage.ToString());
                     }
 
                     if (!string.IsNullOrEmpty(g.MC_Url))
@@ -1575,8 +1486,7 @@ namespace Depressurizer
 
                 LastHltbUpdate = XmlUtil.GetIntFromNode(gameListNode[XmlName_LastHltbUpdate], 0);
 
-                dbLanguage = (StoreLanguage) Enum.Parse(typeof(StoreLanguage),
-                    XmlUtil.GetStringFromNode(gameListNode[XmlName_dbLanguage], "en"), true);
+                dbLanguage = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), XmlUtil.GetStringFromNode(gameListNode[XmlName_dbLanguage], "en"), true);
 
                 foreach (XmlNode gameNode in gameListNode.SelectNodes(XmlName_Game))
                 {
@@ -1642,12 +1552,9 @@ namespace Depressurizer
 
                     foreach (XmlNode vrNode in gameNode.SelectNodes(XmlName_Game_vrSupport))
                     {
-                        g.vrSupport.Headsets =
-                            XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Headsets));
-                        g.vrSupport.Input =
-                            XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Input));
-                        g.vrSupport.PlayArea =
-                            XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_PlayArea));
+                        g.vrSupport.Headsets = XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Headsets));
+                        g.vrSupport.Input = XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Input));
+                        g.vrSupport.PlayArea= XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_PlayArea));
                     }
 
                     g.Developers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Developer));
@@ -1693,8 +1600,7 @@ namespace Depressurizer
                     g.Achievements = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Achievements], 0);
 
                     g.ReviewTotal = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewTotal], 0);
-                    g.ReviewPositivePercentage =
-                        XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewPositivePercent], 0);
+                    g.ReviewPositivePercentage = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewPositivePercent], 0);
 
                     g.MC_Url = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_MCUrl], null);
 
@@ -1702,7 +1608,7 @@ namespace Depressurizer
                     g.LastStoreScrape = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastStoreUpdate], 0);
 
                     g.HltbMain = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbMain], 0);
-                    g.HltbExtras = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbExtras], 0);
+                    g.HltbExtras= XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbExtras], 0);
                     g.HltbCompletionist = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbCompletionist], 0);
 
                     Games.Add(id, g);
