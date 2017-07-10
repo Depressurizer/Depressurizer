@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Rallion;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,7 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-
+using Rallion;
 
 namespace Depressurizer
 {

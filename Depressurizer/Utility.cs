@@ -16,20 +16,19 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System.IO;
-using System.Collections.Generic;
 using System;
-using System.Drawing;
-using System.Net;
-using System.Windows.Forms;
-using System.Net.Cache;
-using MaterialSkin;
-using MaterialSkin.Controls;
-using System.Reflection;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Cache;
+using System.Reflection;
 using System.Threading;
+using System.Windows.Forms;
+using MaterialSkin.Controls;
 
 namespace Depressurizer
 {

@@ -16,24 +16,23 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Rallion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization.Advanced;
 using BrightIdeasSoftware;
-using Newtonsoft.Json.Linq;
 using MaterialSkin;
 using MaterialSkin.Controls;
+using Newtonsoft.Json.Linq;
+using Rallion;
 
 namespace Depressurizer
 {

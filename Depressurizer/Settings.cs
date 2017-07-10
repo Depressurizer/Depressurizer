@@ -19,7 +19,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using Rallion;
 
