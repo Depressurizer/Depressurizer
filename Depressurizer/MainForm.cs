@@ -2057,6 +2057,8 @@ namespace Depressurizer
             }
 
             //if (sort)
+            if (lstCategories.ListViewItemSorter == null)
+                lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
             lstCategories.Sort();
             lstCategories.EndUpdate();
         }
