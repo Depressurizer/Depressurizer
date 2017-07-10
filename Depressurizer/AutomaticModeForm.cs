@@ -31,12 +31,12 @@ using Depressurizer.Lib;
 namespace Depressurizer {
 
     public partial class AutomaticModeForm : Form {
-        bool encounteredError;
-        bool dbModified;
+        bool encounteredError = false;
+        bool dbModified = false;
         AutomaticModeOptions options;
 
         public AutomaticModeForm( AutomaticModeOptions opts ) {
-            options = opts;
+            this.options = opts;
             InitializeComponent();
         }
 
@@ -48,7 +48,7 @@ namespace Depressurizer {
             Run();
 
             if( options.AutoClose == AutoCloseType.Always || ( options.AutoClose == AutoCloseType.UnlessError && !encounteredError ) )
-                Close();
+                this.Close();
             else
                 cmdClose.Enabled = true;
         }
@@ -193,16 +193,18 @@ namespace Depressurizer {
                     if( processes.Count() == 0 ) {
                         WriteLine( "Not found. Continuing." );
                         return true;
+                    } else {
+                        WriteLine( "Found running Steam process." );
+                        if( tryClose ) {
+                            return TryCloseSteam( processes );
+                        }
+                        WriteLine( "Skipping trying to close Steam." );
+                        return false;
                     }
-                    WriteLine( "Found running Steam process." );
-                    if( tryClose ) {
-                        return TryCloseSteam( processes );
-                    }
-                    WriteLine( "Skipping trying to close Steam." );
-                    return false;
+                } else {
+                    WriteLine( "Skipping running Steam check." );
+                    return true;
                 }
-                WriteLine( "Skipping running Steam check." );
-                return true;
             } catch( Exception e ) {
                 WriteLine( "Checking for running Steam process failed: " + e.Message );
                 Program.Logger.WriteException( "Automatic mode error:", e );
@@ -251,9 +253,10 @@ namespace Depressurizer {
                 if( string.IsNullOrWhiteSpace( Settings.Instance.ProfileToLoad ) ) {
                     WriteLine( "No profile specified in settings." );
                     return null;
+                } else {
+                    WriteLine( "Default profile found: " + Settings.Instance.ProfileToLoad );
+                    profileToLoad = Settings.Instance.ProfileToLoad;
                 }
-                WriteLine( "Default profile found: " + Settings.Instance.ProfileToLoad );
-                profileToLoad = Settings.Instance.ProfileToLoad;
             } else {
                 WriteLine( "Custom profile specified: " + customProfile );
                 profileToLoad = customProfile;
@@ -425,7 +428,7 @@ namespace Depressurizer {
                     DbScrapeDlg scrapeDlg = new DbScrapeDlg( jobs );
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
-                    if( scrapeRes == DialogResult.Cancel ) {
+                    if( scrapeRes == System.Windows.Forms.DialogResult.Cancel ) {
                         WriteLine( "Scraping cancelled." );
                     } else {
                         WriteLine( "Scraping complete." );
@@ -563,17 +566,17 @@ namespace Depressurizer {
                     break;
                 case SteamLaunchType.Normal:
                     WriteLine( "Launching Steam in normal mode." );
-                    Process.Start( "steam://open/main" );
+                    System.Diagnostics.Process.Start( "steam://open/main" );
                     break;
                 case SteamLaunchType.BigPicture:
                     WriteLine( "Launching Steam in big picture mode." );
-                    Process.Start( "steam://open/bigpicture" );
+                    System.Diagnostics.Process.Start( "steam://open/bigpicture" );
                     break;
             }
         }
 
         private void cmdClose_Click( object sender, EventArgs e ) {
-            Close();
+            this.Close();
         }
     }
 

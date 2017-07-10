@@ -79,7 +79,10 @@ namespace Depressurizer
             {
                 return result;
             }
-            return -result;
+            else
+            {
+                return -result;
+            }
         }
     }
 
@@ -122,7 +125,7 @@ namespace Depressurizer
             foreach (string s in specialCategories)
             {
                 if (item_x.Tag.ToString() == s) return -1;
-                if (item_y.Tag.ToString() == s) return 1;
+                else if (item_y.Tag.ToString() == s) return 1;
             }
 
             Category cat_x = item_x.Tag as Category;
@@ -149,7 +152,10 @@ namespace Depressurizer
             {
                 return result;
             }
-            return -result;
+            else
+            {
+                return -result;
+            }
         }
     }
 }

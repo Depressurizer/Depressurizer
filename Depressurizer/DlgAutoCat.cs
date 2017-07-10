@@ -33,7 +33,7 @@ namespace Depressurizer {
         private AutoCat.AutoCat initial;
         private string profilePath;
 
-        AutoCatConfigPanel currentConfigPanel;
+        AutoCatConfigPanel currentConfigPanel = null;
 
         public DlgAutoCat( List<AutoCat.AutoCat> autoCats, GameList ownedGames, AutoCat.AutoCat selected, string profile ) {
             InitializeComponent();
@@ -66,7 +66,7 @@ namespace Depressurizer {
 
         private void RecreateConfigPanel() {
             if( currentConfigPanel != null ) {
-                splitAutoCat.Panel2.Controls.Remove( currentConfigPanel );
+                this.splitAutoCat.Panel2.Controls.Remove( currentConfigPanel );
             }
 
             if( current != null ) {
@@ -75,7 +75,7 @@ namespace Depressurizer {
    
             if( currentConfigPanel != null ) {
                 currentConfigPanel.Dock = DockStyle.Fill;
-                splitAutoCat.Panel2.Controls.Add( currentConfigPanel );
+                this.splitAutoCat.Panel2.Controls.Add( currentConfigPanel );
             }
         }
 
@@ -123,7 +123,7 @@ namespace Depressurizer {
             do {
                 DlgAutoCatCreate dlg = new DlgAutoCatCreate();
                 res = dlg.ShowDialog();
-                if( res == DialogResult.OK ) {
+                if( res == System.Windows.Forms.DialogResult.OK ) {
                     good = true;
                     name = dlg.SelectedName;
                     t = dlg.SelectedType;
@@ -170,7 +170,7 @@ namespace Depressurizer {
                     good = false;
                 }
             } while( res == DialogResult.OK && !good );
-            if( res == DialogResult.OK ) {
+            if( res == System.Windows.Forms.DialogResult.OK ) {
                 ac.Name = name;
             }
             AutoCatList.Sort();
@@ -192,7 +192,7 @@ namespace Depressurizer {
             RecreateConfigPanel();
             FillFilterList();
 
-            if (initial != null)
+            if (this.initial != null)
             {
                 lstAutoCats.SelectedItem = initial;
             }
@@ -200,7 +200,7 @@ namespace Depressurizer {
         }
 
         private void lstAutoCats_SelectedIndexChanged( object sender, EventArgs e ) {
-            if( current != null ) {
+            if( this.current != null ) {
                 SaveToAutoCat();
             }
             current = lstAutoCats.SelectedItem as AutoCat.AutoCat;

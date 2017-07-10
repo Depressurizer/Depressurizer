@@ -49,17 +49,17 @@ namespace Depressurizer {
 
         public PackageInfo( int id = 0, string name = null) {
             AppIds = new List<int>();
-            Id = id;
-            Name = name;
+            this.Id = id;
+            this.Name = name;
         }
 
         public static PackageInfo FromVdfNode( VdfFileNode node ) {
-            VdfFileNode idNode = node.GetNodeAt( new[] { "packageId" }, false );
+            VdfFileNode idNode = node.GetNodeAt( new string[] { "packageId" }, false );
             if( (idNode != null ) && idNode.NodeType == ValueType.Int ) {
                 int id = idNode.NodeInt;
 
                 string name = null;
-                VdfFileNode nameNode =  node.GetNodeAt( new[] {"name"}, false );
+                VdfFileNode nameNode =  node.GetNodeAt( new string[] {"name"}, false );
                 if( nameNode != null && nameNode.NodeType == ValueType.String ) {
                     name = nameNode.NodeString;
                 }
@@ -93,7 +93,7 @@ namespace Depressurizer {
         }
 
         public static DateTime GetLocalDateTime( int timeStamp ) {
-            DateTime result = new DateTime( 1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc );
+            DateTime result = new DateTime( 1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc );
             return result.AddSeconds( timeStamp ).ToLocalTime();
         }
 
@@ -122,9 +122,9 @@ namespace Depressurizer {
             long fileLength = bReader.BaseStream.Length;
 
             // seek to packageid: start of a new entry
-            byte[] packageidBytes = { 0x00, 0x02, 0x70, 0x61, 0x63, 0x6B, 0x61, 0x67, 0x65, 0x69, 0x64, 0x00 };  // 0x00 0x02 p a c k a g e i d 0x00
-            byte[] billingtypeBytes = { 0x02, 0x62, 0x69, 0x6C, 0x6C, 0x69, 0x6E, 0x67, 0x74, 0x79, 0x70, 0x65, 0x00 };  // 0x02 b i l l i n g t y p e 0x00
-            byte[] appidsBytes = { 0x08, 0x00, 0x61, 0x70, 0x70, 0x69, 0x64, 0x73, 0x00 };  // 0x08 0x00 appids 0x00
+            byte[] packageidBytes = new byte[] { 0x00, 0x02, 0x70, 0x61, 0x63, 0x6B, 0x61, 0x67, 0x65, 0x69, 0x64, 0x00 };  // 0x00 0x02 p a c k a g e i d 0x00
+            byte[] billingtypeBytes = new byte[] { 0x02, 0x62, 0x69, 0x6C, 0x6C, 0x69, 0x6E, 0x67, 0x74, 0x79, 0x70, 0x65, 0x00 };  // 0x02 b i l l i n g t y p e 0x00
+            byte[] appidsBytes = new byte[] { 0x08, 0x00, 0x61, 0x70, 0x70, 0x69, 0x64, 0x73, 0x00 };  // 0x08 0x00 appids 0x00
 
             VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
             while (bReader.BaseStream.Position < fileLength)
