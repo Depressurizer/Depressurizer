@@ -180,9 +180,6 @@ namespace Depressurizer
         private static Regex regPlatformLinux =
             new Regex(@"<span class=""platform_img linux""></span>", RegexOptions.Compiled);
 
-        private static Regex regPlatformSteamplay =
-            new Regex(@"<span class=""platform_img steamplay""></span>", RegexOptions.Compiled);
-
         #endregion
 
         #region Scraping
@@ -579,8 +576,6 @@ namespace Depressurizer
             if (m.Success) Platforms |= AppPlatforms.Mac;
             m = regPlatformLinux.Match(page);
             if (m.Success) Platforms |= AppPlatforms.Linux;
-            m = regPlatformSteamplay.Match(page);
-            if (m.Success) Platforms |= AppPlatforms.Steamplay;
         }
 
         #endregion

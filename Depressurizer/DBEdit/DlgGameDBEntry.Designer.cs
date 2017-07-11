@@ -59,7 +59,6 @@ namespace Depressurizer {
             this.chkPlatWin = new System.Windows.Forms.CheckBox();
             this.chkPlatMac = new System.Windows.Forms.CheckBox();
             this.chkPlatLinux = new System.Windows.Forms.CheckBox();
-            this.chkPlatSteamplay = new System.Windows.Forms.CheckBox();
             this.lblDev = new System.Windows.Forms.Label();
             this.lblPub = new System.Windows.Forms.Label();
             this.txtDev = new System.Windows.Forms.TextBox();
@@ -194,12 +193,6 @@ namespace Depressurizer {
             this.chkPlatLinux.Name = "chkPlatLinux";
             this.chkPlatLinux.UseVisualStyleBackColor = true;
             // 
-            // chkPlatSteamplay
-            // 
-            resources.ApplyResources(this.chkPlatSteamplay, "chkPlatSteamplay");
-            this.chkPlatSteamplay.Name = "chkPlatSteamplay";
-            this.chkPlatSteamplay.UseVisualStyleBackColor = true;
-            // 
             // lblDev
             // 
             resources.ApplyResources(this.lblDev, "lblDev");
@@ -238,7 +231,6 @@ namespace Depressurizer {
             // grpPlat
             // 
             resources.ApplyResources(this.grpPlat, "grpPlat");
-            this.grpPlat.Controls.Add(this.chkPlatSteamplay);
             this.grpPlat.Controls.Add(this.chkPlatLinux);
             this.grpPlat.Controls.Add(this.chkPlatMac);
             this.grpPlat.Controls.Add(this.chkPlatWin);
@@ -471,7 +463,6 @@ namespace Depressurizer {
         private System.Windows.Forms.CheckBox chkPlatWin;
         private System.Windows.Forms.CheckBox chkPlatMac;
         private System.Windows.Forms.CheckBox chkPlatLinux;
-        private System.Windows.Forms.CheckBox chkPlatSteamplay;
         private System.Windows.Forms.Label lblDev;
         private System.Windows.Forms.Label lblPub;
         private System.Windows.Forms.TextBox txtDev;

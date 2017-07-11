@@ -309,7 +309,8 @@ namespace Depressurizer
             colPlatforms.AspectGetter = delegate(object g)
             {
                 if (g == null) return "";
-                return Program.GameDB.Games[((GameInfo) g).Id].Platforms.ToString();
+                AppPlatforms platforms = Program.GameDB.Games[((GameInfo)g).Id].Platforms;
+                return (platforms & AppPlatforms.Linux) != 0 && platforms != AppPlatforms.All ? platforms + ", SteamOS" : platforms.ToString() ;
             };
             colDevelopers.AspectGetter = delegate(object g)
             {
