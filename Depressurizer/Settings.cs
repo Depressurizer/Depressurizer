@@ -17,9 +17,11 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
 using Rallion;
 
 namespace Depressurizer
@@ -520,12 +522,12 @@ namespace Depressurizer
                 {
                     _storeLanguage = value;
                     outOfDate = true;
-                    changeStoreLanguage(_storeLanguage);
+                    ChangeStoreLanguage(_storeLanguage);
                 }
             }
         }
 
-        private void changeStoreLanguage(StoreLanguage storeLanguage)
+        public void ChangeStoreLanguage(StoreLanguage storeLanguage)
         {
             if (Program.GameDB == null) return;
             StoreLanguage dbLanguage = StoreLanguage.en;
@@ -549,17 +551,41 @@ namespace Depressurizer
             if (Program.GameDB.dbLanguage != dbLanguage)
             {
                 Program.GameDB.dbLanguage = dbLanguage;
+                //clean DB from data in wrong language
                 foreach (GameDBEntry g in Program.GameDB.Games.Values)
                 {
-                    g.Tags = null;
-                    g.Flags = null;
-                    g.Genres = null;
-                    g.SteamReleaseDate = null;
-                    g.LastStoreScrape = 0;
-                    g.vrSupport = new VrSupport();
-                    g.languageSupport = new LanguageSupport();
+                    if (g.Id > 0)
+                    {
+                        g.Tags = null;
+                        g.Flags = null;
+                        g.Genres = null;
+                        g.SteamReleaseDate = null;
+                        g.LastStoreScrape = 0;
+                        g.vrSupport = new VrSupport();
+                        g.languageSupport = new LanguageSupport();
+                    }
                 }
                 Program.GameDB.Save("GameDB.xml.gz");
+
+                //Update DB with data in correct language
+                Queue<int> gamesToUpdate = new Queue<int>();
+                if (FormMain.CurrentProfile != null)
+                {
+                    foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
+                    {
+                        if (game.Id > 0)
+                        {
+                            gamesToUpdate.Enqueue(game.Id);
+                        }
+                    }
+                    DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
+                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
+
+                    if (scrapeRes != DialogResult.Cancel && scrapeDlg.JobsCompleted > 0)
+                    {
+                        Program.GameDB.Save("GameDB.xml.gz");
+                    }
+                }
             }
         }
 
