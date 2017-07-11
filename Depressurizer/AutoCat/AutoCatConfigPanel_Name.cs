@@ -33,6 +33,8 @@ namespace Depressurizer
             txtPrefix.Text = (acName.Prefix == null) ? string.Empty : acName.Prefix;
             cbSkipThe.Checked = acName.SkipThe;
             cbGroupNumbers.Checked = acName.GroupNumbers;
+            chkgroupNonEnglishCharacters.Checked = acName.GroupNonEnglishCharacters;
+            txtGroupNonEnglishCharactersText.Text = acName.GroupNonEnglishCharactersText;
         }
 
         public override void SaveToAutoCat(AutoCat autocat)
@@ -42,6 +44,8 @@ namespace Depressurizer
             ac.Prefix = txtPrefix.Text;
             ac.GroupNumbers = cbGroupNumbers.Checked;
             ac.SkipThe = cbSkipThe.Checked;
+            ac.GroupNonEnglishCharacters = chkgroupNonEnglishCharacters.Checked;
+            ac.GroupNonEnglishCharactersText = txtGroupNonEnglishCharactersText.Text;
         }
     }
 }
