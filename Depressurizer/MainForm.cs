@@ -4004,6 +4004,18 @@ namespace Depressurizer
             return true;
         }
 
+        private void mbtnEditAutocats_Click(object sender, EventArgs e)
+        {
+            ClearStatus();
+            AutoCat selected = null;
+            if (lvAutoCatType.Items.Count > 0)
+            {
+                selected = ((AutoCat)lvAutoCatType.Items[0].Tag);
+            }
+            EditAutoCats(selected);
+            FlushStatus();
+        }
+
         /// <summary>
         /// Clustering strategy for columns with comma-seperated strings. (Tags, Categories, Flags, Genres etc)
         /// </summary>
