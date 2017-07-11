@@ -268,10 +268,10 @@
     <value>NoControl</value>
   </data>
   <data name="mbtnEditAutocats.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 464</value>
+    <value>108, 454</value>
   </data>
   <data name="mbtnEditAutocats.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 30</value>
+    <value>129, 38</value>
   </data>
   <data name="mbtnEditAutocats.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -552,7 +552,7 @@
     <value>10, 63</value>
   </data>
   <data name="lstCategories.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 320</value>
+    <value>227, 309</value>
   </data>
   <data name="lstCategories.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -612,7 +612,7 @@
     <value>NoControl</value>
   </data>
   <data name="mbtnAutoCategorize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 389</value>
+    <value>108, 379</value>
   </data>
   <data name="mbtnAutoCategorize.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 42</value>
@@ -648,7 +648,7 @@
     <value>NoControl</value>
   </data>
   <data name="mchkAutoCatSelected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 434</value>
+    <value>108, 424</value>
   </data>
   <data name="mchkAutoCatSelected.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -702,10 +702,10 @@
     <value>Arial, 9.75pt</value>
   </data>
   <data name="lvAutoCatType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 389</value>
+    <value>4, 379</value>
   </data>
   <data name="lvAutoCatType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 118</value>
+    <value>103, 128</value>
   </data>
   <data name="lvAutoCatType.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -792,7 +792,7 @@
     <value>3, 30</value>
   </data>
   <data name="materialDivider1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 353</value>
+    <value>241, 342</value>
   </data>
   <data name="materialDivider1.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
