@@ -71,6 +71,7 @@ namespace Depressurizer
             txtPrefix.Text = ac.Prefix;
 
             chkIncludeTypePrefix.Checked = ac.IncludeTypePrefix;
+            chkTypeFallback.Checked = ac.TypeFallback;
 
             foreach (ListViewItem item in lstInterface.Items)
             {
@@ -99,6 +100,7 @@ namespace Depressurizer
             ac.Prefix = txtPrefix.Text;
 
             ac.IncludeTypePrefix = chkIncludeTypePrefix.Checked;
+            ac.TypeFallback = chkTypeFallback.Checked;
 
             ac.IncludedLanguages.Interface.Clear();
             ac.IncludedLanguages.Subtitles.Clear();

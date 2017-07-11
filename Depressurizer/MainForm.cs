@@ -4035,9 +4035,17 @@ namespace Depressurizer
         {
             ClearStatus();
             AutoCat selected = null;
-            if (lvAutoCatType.Items.Count > 0)
+            if (lvAutoCatType.SelectedItems.Count > 0)
             {
-                selected = ((AutoCat)lvAutoCatType.Items[0].Tag);
+                selected = (AutoCat)lvAutoCatType.SelectedItems[0].Tag;
+            }
+            else if (lvAutoCatType.CheckedItems.Count > 0)
+            {
+                selected = (AutoCat)lvAutoCatType.CheckedItems[0].Tag;
+            }
+            else if (lvAutoCatType.Items.Count > 0)
+            {
+                selected = (AutoCat)lvAutoCatType.Items[0].Tag;
             }
             EditAutoCats(selected);
             FlushStatus();

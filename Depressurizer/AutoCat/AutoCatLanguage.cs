@@ -34,6 +34,8 @@ namespace Depressurizer
 
         public bool IncludeTypePrefix { get; set; }
 
+        public bool TypeFallback { get; set; }
+
         public LanguageSupport IncludedLanguages;
 
         // Serialization constants
@@ -43,17 +45,19 @@ namespace Depressurizer
         private const string XmlNameFilter = "Filter";
         private const string XmlNamePrefix = "Prefix";
         private const string XmlNameIncludeTypePrefix = "IncludeTypePrefix";
+        private const string XmlNameTypeFallback = "TypeFallback";
         private const string XmlNameInterfaceList = "Interface";
         private const string XmlNameSubtitlesList = "Subtitles";
         private const string XmlNameFullAudioList = "FullAudio";
         private const string XmlNameLanguage = "Langauge";
 
-        public AutoCatLanguage(string name, string filter = null, string prefix = null, bool includeTypePrefix = false, List<string> interfaceLanguage = null,
+        public AutoCatLanguage(string name, string filter = null, string prefix = null, bool includeTypePrefix = false, bool typeFallback = false, List<string> interfaceLanguage = null,
             List<string> subtitles = null, List<string> fullAudio = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
             IncludeTypePrefix = includeTypePrefix;
+            TypeFallback = typeFallback;
 
             IncludedLanguages.Interface = interfaceLanguage ?? new List<string>();
             IncludedLanguages.Subtitles = subtitles ?? new List<string>();
@@ -66,6 +70,7 @@ namespace Depressurizer
             Filter = other.Filter;
             Prefix = other.Prefix;
             IncludeTypePrefix = other.IncludeTypePrefix;
+            TypeFallback = other.TypeFallback;
             IncludedLanguages = other.IncludedLanguages;
             Selected = other.Selected;
         }
@@ -109,25 +114,22 @@ namespace Depressurizer
             Language.FullAudio = Language.FullAudio ?? new List<string>();
 
             IEnumerable<string> interfaceLanguage = Language.Interface.Intersect(IncludedLanguages.Interface);
-            IEnumerable<string> subtitles = Language.Subtitles.Intersect(IncludedLanguages.Subtitles);
-            IEnumerable<string> fullAudio = Language.FullAudio.Intersect(IncludedLanguages.FullAudio);
-
             foreach (string catString in interfaceLanguage)
             {
                 Category c = games.GetCategory(GetProcessedString(catString, "Interface"));
                 game.AddCategory(c);
             }
 
-            foreach (string catString in subtitles)
+            foreach (string catString in IncludedLanguages.Subtitles)
             {
-                Category c = games.GetCategory(GetProcessedString(catString, "Subtitles"));
-                game.AddCategory(c);
+                if (Language.Subtitles.Contains(catString) || Language.Subtitles.Count == 0 && Language.FullAudio.Contains(catString) || Language.FullAudio.Count == 0 && Language.Interface.Contains(catString))
+                    game.AddCategory(games.GetCategory(GetProcessedString(catString, "Subtitles")));
             }
 
-            foreach (string catString in fullAudio)
+            foreach (string catString in IncludedLanguages.FullAudio)
             {
-                Category c = games.GetCategory(GetProcessedString(catString, "Full Audio"));
-                game.AddCategory(c);
+                if (Language.FullAudio.Contains(catString) || Language.FullAudio.Count == 0 && Language.Subtitles.Contains(catString) || Language.Subtitles.Count == 0 && Language.Interface.Contains(catString))
+                    game.AddCategory(games.GetCategory(GetProcessedString(catString, "Full Audio")));
             }
 
             return AutoCatResult.Success;
@@ -165,6 +167,7 @@ namespace Depressurizer
             }
 
             writer.WriteElementString(XmlNameIncludeTypePrefix, IncludeTypePrefix.ToString());
+            writer.WriteElementString(XmlNameTypeFallback, TypeFallback.ToString());
 
             writer.WriteStartElement(XmlNameInterfaceList);
 
@@ -200,7 +203,8 @@ namespace Depressurizer
             string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
             string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
             string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
-            bool includeTypePrefix = XmlUtil.GetBoolFromNode(xElement[XmlNameIncludeTypePrefix], true);
+            bool includeTypePrefix = XmlUtil.GetBoolFromNode(xElement[XmlNameIncludeTypePrefix], false);
+            bool typeFallback = XmlUtil.GetBoolFromNode(xElement[XmlNameTypeFallback], false);
             List<string> interfaceList = new List<string>();
             List<string> subtitlesList = new List<string>();
             List<string> fullAudioList = new List<string>();
@@ -248,7 +252,7 @@ namespace Depressurizer
                 }
             }
 
-            return new AutoCatLanguage(name, filter, prefix, includeTypePrefix, interfaceList, subtitlesList, fullAudioList);
+            return new AutoCatLanguage(name, filter, prefix, includeTypePrefix, typeFallback, interfaceList, subtitlesList, fullAudioList);
         }
     }
 }
