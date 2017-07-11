@@ -259,6 +259,30 @@ namespace Depressurizer
                     return string.Join(", ", Program.GameDB.Games[id].vrSupport.PlayArea);
                 return string.Empty;
             };
+            colLanguageInterface.AspectGetter = delegate (object g)
+            {
+                if (g == null) return string.Empty;
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.Interface != null)
+                    return string.Join(", ", Program.GameDB.Games[id].languageSupport.Interface);
+                return string.Empty;
+            };
+            colLanguageSubtitles.AspectGetter = delegate (object g)
+            {
+                if (g == null) return string.Empty;
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.Subtitles != null)
+                    return string.Join(", ", Program.GameDB.Games[id].languageSupport.Subtitles);
+                return string.Empty;
+            };
+            colLanguageFullAudio.AspectGetter = delegate (object g)
+            {
+                if (g == null) return string.Empty;
+                int id = ((GameInfo)g).Id;
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.FullAudio != null)
+                    return string.Join(", ", Program.GameDB.Games[id].languageSupport.FullAudio);
+                return string.Empty;
+            };
             colYear.AspectGetter = delegate(object g)
             {
                 if (g == null) return GlobalStrings.MainForm_Unknown;
@@ -429,6 +453,9 @@ namespace Depressurizer
             colVRHeadsets.ClusteringStrategy = new CommaClusteringStrategy();
             colVRInput.ClusteringStrategy = new CommaClusteringStrategy();
             colVRPlayArea.ClusteringStrategy = new CommaClusteringStrategy();
+            colLanguageInterface.ClusteringStrategy = new CommaClusteringStrategy();
+            colLanguageSubtitles.ClusteringStrategy = new CommaClusteringStrategy();
+            colLanguageFullAudio.ClusteringStrategy = new CommaClusteringStrategy();
             colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
             lstGames.AdditionalFilter = new ModelFilter(delegate(object g)
             {

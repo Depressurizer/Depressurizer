@@ -39,6 +39,13 @@ namespace Depressurizer
         public List<string> PlayArea;
     }
 
+    public struct LanguageSupport
+    {
+        public List<string> Interface;
+        public List<string> FullAudio;
+        public List<string> Subtitles;
+    }
+
     public class GameDBEntry
     {
         #region Fields
@@ -59,7 +66,9 @@ namespace Depressurizer
         public string SteamReleaseDate;
         public int Achievements;
 
-        public VrSupport vrSupport;
+        public VrSupport vrSupport;     //TODO: Add field to DB edit dialog
+
+        public LanguageSupport languageSupport;     //TODO: Add field to DB edit dialog
 
         public string Banner = null;
 
@@ -155,6 +164,12 @@ namespace Depressurizer
             new Regex(
                 @"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""http:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>",
                 RegexOptions.Compiled);
+
+        //Language Support
+
+        private static Regex regLanguageSupport = new Regex(@"<td style=""width: 94px; text-align: left"" class=""ellipsis"">\s*([^<]*)\s*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>", RegexOptions.Compiled);
+
+        //Platform Support
 
         private static Regex regPlatformWindows =
             new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
@@ -469,6 +484,27 @@ namespace Depressurizer
                 }
             }
 
+            //Get Language Support
+            matches = regLanguageSupport.Matches(page);
+            if (matches.Count > 0)
+            {
+                languageSupport = new LanguageSupport();
+                languageSupport.Interface = new List<string>();
+                languageSupport.FullAudio = new List<string>();
+                languageSupport.Subtitles = new List<string>();
+
+                foreach (Match ma in matches)
+                {
+                    string language = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
+                    if (WebUtility.HtmlDecode(ma.Groups[2].Value.Trim()) != "") //Interface
+                        languageSupport.Interface.Add(language);
+                    if (WebUtility.HtmlDecode(ma.Groups[3].Value.Trim()) != "") //Full Audio
+                        languageSupport.FullAudio.Add(language);
+                    if (WebUtility.HtmlDecode(ma.Groups[4].Value.Trim()) != "") //Subtitles
+                        languageSupport.Subtitles.Add(language);
+                }
+            }
+
             //Get Achievement number
             m = regAchievements.Match(page);
             if (m.Success)
@@ -587,12 +623,21 @@ namespace Depressurizer
                 if (other.Publishers != null && other.Publishers.Count > 0) Publishers = other.Publishers;
                 if (!string.IsNullOrEmpty(other.SteamReleaseDate)) SteamReleaseDate = other.SteamReleaseDate;
                 if (other.Achievements != 0) Achievements = other.Achievements;
+                //VR Support
                 if (other.vrSupport.Headsets != null && other.vrSupport.Headsets.Count > 0)
                     vrSupport.Headsets = other.vrSupport.Headsets;
                 if (other.vrSupport.Input != null && other.vrSupport.Input.Count > 0)
                     vrSupport.Input = other.vrSupport.Input;
                 if (other.vrSupport.PlayArea != null && other.vrSupport.PlayArea.Count > 0)
                     vrSupport.PlayArea = other.vrSupport.PlayArea;
+
+                //Language Support
+                if (other.languageSupport.FullAudio != null && other.languageSupport.FullAudio.Count > 0)
+                    languageSupport.FullAudio = other.languageSupport.FullAudio;
+                if (other.languageSupport.Interface != null && other.languageSupport.Interface.Count > 0)
+                    languageSupport.Interface = other.languageSupport.Interface;
+                if (other.languageSupport.Subtitles != null && other.languageSupport.Subtitles.Count > 0)
+                    languageSupport.Subtitles = other.languageSupport.Subtitles;
 
                 if (other.ReviewTotal != 0)
                 {
@@ -658,7 +703,12 @@ namespace Depressurizer
             XmlName_Game_vrSupport = "vrSupport",
             XmlName_Game_vrSupport_Headsets = "Headset",
             XmlName_Game_vrSupport_Input = "Input",
-            XmlName_Game_vrSupport_PlayArea = "PlayArea";
+            XmlName_Game_vrSupport_PlayArea = "PlayArea",
+            XmlName_Game_languageSupport = "languageSupport",
+            XmlName_Game_languageSupport_Interface = "Headset",
+            XmlName_Game_languageSupport_FullAudio = "Input",
+            XmlName_Game_languageSupport_Subtitles = "PlayArea";
+            
 
         #region Accessors
 
@@ -1506,6 +1556,34 @@ namespace Depressurizer
 
                     writer.WriteEndElement();
 
+                    //language support
+                    writer.WriteStartElement(XmlName_Game_languageSupport);
+                    if (g.languageSupport.Interface != null)
+                    {
+                        foreach (string str in g.languageSupport.Interface)
+                        {
+                            writer.WriteElementString(XmlName_Game_languageSupport_Interface, str);
+                        }
+                    }
+
+                    if (g.languageSupport.FullAudio != null)
+                    {
+                        foreach (string str in g.languageSupport.FullAudio)
+                        {
+                            writer.WriteElementString(XmlName_Game_languageSupport_FullAudio, str);
+                        }
+                    }
+
+                    if (g.languageSupport.Subtitles != null)
+                    {
+                        foreach (string str in g.languageSupport.Subtitles)
+                        {
+                            writer.WriteElementString(XmlName_Game_languageSupport_Subtitles, str);
+                        }
+                    }
+
+                    writer.WriteEndElement();
+
                     if (g.Achievements > 0)
                     {
                         writer.WriteElementString(XmlName_Game_Achievements, g.Achievements.ToString());
@@ -1667,6 +1745,16 @@ namespace Depressurizer
                             XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Input));
                         g.vrSupport.PlayArea =
                             XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_PlayArea));
+                    }
+
+                    foreach (XmlNode langNode in gameNode.SelectNodes(XmlName_Game_languageSupport))
+                    {
+                        g.languageSupport.Interface =
+                            XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_Interface));
+                        g.languageSupport.FullAudio =
+                            XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_FullAudio));
+                        g.languageSupport.Subtitles =
+                            XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_Subtitles));
                     }
 
                     g.Developers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Developer));

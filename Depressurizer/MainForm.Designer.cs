@@ -188,6 +188,9 @@ namespace Depressurizer {
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.imglistEarlyAccess = new System.Windows.Forms.ImageList(this.components);
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.colLanguageInterface = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colLanguageSubtitles = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colLanguageFullAudio = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -721,6 +724,9 @@ namespace Depressurizer {
             this.lstGames.AllColumns.Add(this.colVRHeadsets);
             this.lstGames.AllColumns.Add(this.colVRInput);
             this.lstGames.AllColumns.Add(this.colVRPlayArea);
+            this.lstGames.AllColumns.Add(this.colLanguageInterface);
+            this.lstGames.AllColumns.Add(this.colLanguageSubtitles);
+            this.lstGames.AllColumns.Add(this.colLanguageFullAudio);
             this.lstGames.AllColumns.Add(this.colFiller);
             this.lstGames.AllowColumnReorder = true;
             resources.ApplyResources(this.lstGames, "lstGames");
@@ -1455,6 +1461,30 @@ namespace Depressurizer {
             this.imglistEarlyAccess.Images.SetKeyName(1, "early_access_banner_russian.png");
             this.imglistEarlyAccess.Images.SetKeyName(2, "early_access_banner_spanish.png");
             // 
+            // colLanguageInterface
+            // 
+            this.colLanguageInterface.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colLanguageInterface.IsVisible = false;
+            this.colLanguageInterface.Tag = "colLanguageInterface";
+            resources.ApplyResources(this.colLanguageInterface, "colLanguageInterface");
+            this.colLanguageInterface.WordWrap = true;
+            // 
+            // colLanguageSubtitles
+            // 
+            this.colLanguageSubtitles.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colLanguageSubtitles.IsVisible = false;
+            this.colLanguageSubtitles.Tag = "colLanguageSubtitles";
+            resources.ApplyResources(this.colLanguageSubtitles, "colLanguageSubtitles");
+            this.colLanguageSubtitles.WordWrap = true;
+            // 
+            // colLanguageFullAudio
+            // 
+            this.colLanguageFullAudio.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colLanguageFullAudio.IsVisible = false;
+            this.colLanguageFullAudio.Tag = "colLanguageFullAudio";
+            resources.ApplyResources(this.colLanguageFullAudio, "colLanguageFullAudio");
+            this.colLanguageFullAudio.WordWrap = true;
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -1646,6 +1676,9 @@ namespace Depressurizer {
         private BrightIdeasSoftware.OLVColumn colVRInput;
         private BrightIdeasSoftware.OLVColumn colVRPlayArea;
         private MaterialSkin.Controls.MaterialRaisedButton mbtnEditAutocats;
+        private BrightIdeasSoftware.OLVColumn colLanguageInterface;
+        private BrightIdeasSoftware.OLVColumn colLanguageSubtitles;
+        private BrightIdeasSoftware.OLVColumn colLanguageFullAudio;
     }
 }
 
