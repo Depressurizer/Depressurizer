@@ -1392,4 +1392,7 @@ This could take up to a few seconds per game.</value>
   <data name="MainForm_VR" xml:space="preserve">
     <value>&lt;VR&gt;</value>
   </data>
+  <data name="AutoCat_Name_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
 </root>
