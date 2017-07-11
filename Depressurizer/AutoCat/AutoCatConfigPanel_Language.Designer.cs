@@ -48,6 +48,7 @@ namespace Depressurizer
         private void InitializeComponent()
         {
             this.grpMain = new System.Windows.Forms.GroupBox();
+            this.chkIncludeTypePrefix = new System.Windows.Forms.CheckBox();
             this.helpPrefix = new System.Windows.Forms.Label();
             this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
             this.cmdUncheckAll = new System.Windows.Forms.Button();
@@ -62,7 +63,7 @@ namespace Depressurizer
             this.grpSubtitles = new System.Windows.Forms.GroupBox();
             this.lstSubtitles = new System.Windows.Forms.ListView();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.chkIncludeTypePrefix = new System.Windows.Forms.CheckBox();
+            this.chkTypeFallback = new System.Windows.Forms.CheckBox();
             this.grpMain.SuspendLayout();
             this.tblButtons.SuspendLayout();
             this.tblVrFlags.SuspendLayout();
@@ -73,6 +74,7 @@ namespace Depressurizer
             // 
             // grpMain
             // 
+            this.grpMain.Controls.Add(this.chkTypeFallback);
             this.grpMain.Controls.Add(this.chkIncludeTypePrefix);
             this.grpMain.Controls.Add(this.helpPrefix);
             this.grpMain.Controls.Add(this.tblButtons);
@@ -86,6 +88,16 @@ namespace Depressurizer
             this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
             this.grpMain.Text = "Edit Language Autocat";
+            // 
+            // chkIncludeTypePrefix
+            // 
+            this.chkIncludeTypePrefix.AutoSize = true;
+            this.chkIncludeTypePrefix.Location = new System.Drawing.Point(28, 45);
+            this.chkIncludeTypePrefix.Name = "chkIncludeTypePrefix";
+            this.chkIncludeTypePrefix.Size = new System.Drawing.Size(323, 17);
+            this.chkIncludeTypePrefix.TabIndex = 10;
+            this.chkIncludeTypePrefix.Text = "Include Interface/Subtitles/Full Audio prefix on category names";
+            this.chkIncludeTypePrefix.UseVisualStyleBackColor = true;
             // 
             // helpPrefix
             // 
@@ -165,12 +177,12 @@ namespace Depressurizer
             this.tblVrFlags.Controls.Add(this.grpFullAudio, 2, 0);
             this.tblVrFlags.Controls.Add(this.grpInterface, 0, 0);
             this.tblVrFlags.Controls.Add(this.grpSubtitles, 1, 0);
-            this.tblVrFlags.Location = new System.Drawing.Point(6, 69);
+            this.tblVrFlags.Location = new System.Drawing.Point(6, 94);
             this.tblVrFlags.Name = "tblVrFlags";
             this.tblVrFlags.RowCount = 1;
             this.tblVrFlags.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblVrFlags.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblVrFlags.Size = new System.Drawing.Size(564, 355);
+            this.tblVrFlags.Size = new System.Drawing.Size(564, 330);
             this.tblVrFlags.TabIndex = 8;
             // 
             // grpFullAudio
@@ -179,7 +191,7 @@ namespace Depressurizer
             this.grpFullAudio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpFullAudio.Location = new System.Drawing.Point(378, 3);
             this.grpFullAudio.Name = "grpFullAudio";
-            this.grpFullAudio.Size = new System.Drawing.Size(183, 349);
+            this.grpFullAudio.Size = new System.Drawing.Size(183, 324);
             this.grpFullAudio.TabIndex = 12;
             this.grpFullAudio.TabStop = false;
             this.grpFullAudio.Text = "Full Audio";
@@ -190,7 +202,7 @@ namespace Depressurizer
             this.lstFullAudio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstFullAudio.Location = new System.Drawing.Point(3, 16);
             this.lstFullAudio.Name = "lstFullAudio";
-            this.lstFullAudio.Size = new System.Drawing.Size(177, 330);
+            this.lstFullAudio.Size = new System.Drawing.Size(177, 305);
             this.lstFullAudio.TabIndex = 7;
             this.lstFullAudio.UseCompatibleStateImageBehavior = false;
             this.lstFullAudio.View = System.Windows.Forms.View.List;
@@ -201,7 +213,7 @@ namespace Depressurizer
             this.grpInterface.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpInterface.Location = new System.Drawing.Point(3, 3);
             this.grpInterface.Name = "grpInterface";
-            this.grpInterface.Size = new System.Drawing.Size(181, 349);
+            this.grpInterface.Size = new System.Drawing.Size(181, 324);
             this.grpInterface.TabIndex = 10;
             this.grpInterface.TabStop = false;
             this.grpInterface.Text = "Interface";
@@ -212,7 +224,7 @@ namespace Depressurizer
             this.lstInterface.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstInterface.Location = new System.Drawing.Point(3, 16);
             this.lstInterface.Name = "lstInterface";
-            this.lstInterface.Size = new System.Drawing.Size(175, 330);
+            this.lstInterface.Size = new System.Drawing.Size(175, 305);
             this.lstInterface.TabIndex = 4;
             this.lstInterface.UseCompatibleStateImageBehavior = false;
             this.lstInterface.View = System.Windows.Forms.View.List;
@@ -223,7 +235,7 @@ namespace Depressurizer
             this.grpSubtitles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpSubtitles.Location = new System.Drawing.Point(190, 3);
             this.grpSubtitles.Name = "grpSubtitles";
-            this.grpSubtitles.Size = new System.Drawing.Size(182, 349);
+            this.grpSubtitles.Size = new System.Drawing.Size(182, 324);
             this.grpSubtitles.TabIndex = 11;
             this.grpSubtitles.TabStop = false;
             this.grpSubtitles.Text = "Subtitles";
@@ -234,20 +246,20 @@ namespace Depressurizer
             this.lstSubtitles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstSubtitles.Location = new System.Drawing.Point(3, 16);
             this.lstSubtitles.Name = "lstSubtitles";
-            this.lstSubtitles.Size = new System.Drawing.Size(176, 330);
+            this.lstSubtitles.Size = new System.Drawing.Size(176, 305);
             this.lstSubtitles.TabIndex = 6;
             this.lstSubtitles.UseCompatibleStateImageBehavior = false;
             this.lstSubtitles.View = System.Windows.Forms.View.List;
             // 
-            // chkIncludeTypePrefix
+            // chkTypeFallback
             // 
-            this.chkIncludeTypePrefix.AutoSize = true;
-            this.chkIncludeTypePrefix.Location = new System.Drawing.Point(28, 45);
-            this.chkIncludeTypePrefix.Name = "chkIncludeTypePrefix";
-            this.chkIncludeTypePrefix.Size = new System.Drawing.Size(323, 17);
-            this.chkIncludeTypePrefix.TabIndex = 10;
-            this.chkIncludeTypePrefix.Text = "Include Interface/Subtitles/Full Audio prefix on category names";
-            this.chkIncludeTypePrefix.UseVisualStyleBackColor = true;
+            this.chkTypeFallback.AutoSize = true;
+            this.chkTypeFallback.Location = new System.Drawing.Point(28, 68);
+            this.chkTypeFallback.Name = "chkTypeFallback";
+            this.chkTypeFallback.Size = new System.Drawing.Size(356, 17);
+            this.chkTypeFallback.TabIndex = 11;
+            this.chkTypeFallback.Text = "If a game doesn\'t support Subtitles/Full Audio at all, use Interface data";
+            this.chkTypeFallback.UseVisualStyleBackColor = true;
             // 
             // AutoCatConfigPanel_Language
             // 
@@ -285,5 +297,6 @@ namespace Depressurizer
         private System.Windows.Forms.GroupBox grpFullAudio;
         private System.Windows.Forms.TableLayoutPanel tblVrFlags;
         private System.Windows.Forms.CheckBox chkIncludeTypePrefix;
+        private System.Windows.Forms.CheckBox chkTypeFallback;
     }
 }
