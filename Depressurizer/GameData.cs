@@ -1885,6 +1885,11 @@ namespace Depressurizer
 
             // Fill in the LaunchString
             game.LaunchString = launchIds[gameName];
+            VdfFileNode nodeExecutable = gameNode.GetNodeAt(new[] { "exe" }, false);
+            game.Executable = (nodeExecutable != null) ? nodeExecutable.NodeString : game.Executable;
+
+            VdfFileNode nodeLastPlayTime = gameNode.GetNodeAt(new[] { "LastPlayTime" }, false);
+            game.LastPlayed = (nodeLastPlayTime != null) ? nodeExecutable.NodeInt : game.LastPlayed;
 
             // Fill in categories
             VdfFileNode tagsNode = gameNode.GetNodeAt(new[] {"tags"}, false);
@@ -1896,9 +1901,9 @@ namespace Depressurizer
 
             // Fill in Hidden
             game.Hidden = false;
-            if (gameNode.ContainsKey("hidden"))
+            if (gameNode.ContainsKey("IsHidden"))
             {
-                VdfFileNode hiddenNode = gameNode["hidden"];
+                VdfFileNode hiddenNode = gameNode["IsHidden"];
                 game.Hidden = (hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1);
             }
 
