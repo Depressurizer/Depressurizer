@@ -119,6 +119,9 @@ namespace Depressurizer {
             this.colVRHeadsets = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colVRInput = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colVRPlayArea = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colLanguageInterface = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colLanguageSubtitles = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.colLanguageFullAudio = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.colFiller = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextGame = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextGame_LaunchGame = new System.Windows.Forms.ToolStripMenuItem();
@@ -188,9 +191,6 @@ namespace Depressurizer {
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.imglistEarlyAccess = new System.Windows.Forms.ImageList(this.components);
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.colLanguageInterface = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.colLanguageSubtitles = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.colLanguageFullAudio = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -951,6 +951,30 @@ namespace Depressurizer {
             this.colVRPlayArea.Tag = "colVRPlayArea";
             this.colVRPlayArea.WordWrap = true;
             // 
+            // colLanguageInterface
+            // 
+            resources.ApplyResources(this.colLanguageInterface, "colLanguageInterface");
+            this.colLanguageInterface.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colLanguageInterface.IsVisible = false;
+            this.colLanguageInterface.Tag = "colLanguageInterface";
+            this.colLanguageInterface.WordWrap = true;
+            // 
+            // colLanguageSubtitles
+            // 
+            resources.ApplyResources(this.colLanguageSubtitles, "colLanguageSubtitles");
+            this.colLanguageSubtitles.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colLanguageSubtitles.IsVisible = false;
+            this.colLanguageSubtitles.Tag = "colLanguageSubtitles";
+            this.colLanguageSubtitles.WordWrap = true;
+            // 
+            // colLanguageFullAudio
+            // 
+            resources.ApplyResources(this.colLanguageFullAudio, "colLanguageFullAudio");
+            this.colLanguageFullAudio.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colLanguageFullAudio.IsVisible = false;
+            this.colLanguageFullAudio.Tag = "colLanguageFullAudio";
+            this.colLanguageFullAudio.WordWrap = true;
+            // 
             // colFiller
             // 
             this.colFiller.FillsFreeSpace = true;
@@ -1460,30 +1484,6 @@ namespace Depressurizer {
             this.imglistEarlyAccess.Images.SetKeyName(0, "early_access_banner_english.png");
             this.imglistEarlyAccess.Images.SetKeyName(1, "early_access_banner_russian.png");
             this.imglistEarlyAccess.Images.SetKeyName(2, "early_access_banner_spanish.png");
-            // 
-            // colLanguageInterface
-            // 
-            this.colLanguageInterface.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colLanguageInterface.IsVisible = false;
-            this.colLanguageInterface.Tag = "colLanguageInterface";
-            resources.ApplyResources(this.colLanguageInterface, "colLanguageInterface");
-            this.colLanguageInterface.WordWrap = true;
-            // 
-            // colLanguageSubtitles
-            // 
-            this.colLanguageSubtitles.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colLanguageSubtitles.IsVisible = false;
-            this.colLanguageSubtitles.Tag = "colLanguageSubtitles";
-            resources.ApplyResources(this.colLanguageSubtitles, "colLanguageSubtitles");
-            this.colLanguageSubtitles.WordWrap = true;
-            // 
-            // colLanguageFullAudio
-            // 
-            this.colLanguageFullAudio.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colLanguageFullAudio.IsVisible = false;
-            this.colLanguageFullAudio.Tag = "colLanguageFullAudio";
-            resources.ApplyResources(this.colLanguageFullAudio, "colLanguageFullAudio");
-            this.colLanguageFullAudio.WordWrap = true;
             // 
             // FormMain
             // 
