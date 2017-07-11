@@ -481,7 +481,7 @@
     <value>True</value>
   </data>
   <data name="chkPlatWin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 24</value>
+    <value>6, 24</value>
   </data>
   <data name="chkPlatWin.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 17</value>
@@ -502,13 +502,13 @@
     <value>grpPlat</value>
   </data>
   <data name="&gt;&gt;chkPlatWin.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="chkPlatMac.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkPlatMac.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 48</value>
+    <value>6, 47</value>
   </data>
   <data name="chkPlatMac.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 17</value>
@@ -529,22 +529,25 @@
     <value>grpPlat</value>
   </data>
   <data name="&gt;&gt;chkPlatMac.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="chkPlatLinux.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="chkPlatLinux.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 7.6pt</value>
+  </data>
   <data name="chkPlatLinux.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 71</value>
+    <value>6, 71</value>
   </data>
   <data name="chkPlatLinux.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 17</value>
+    <value>101, 17</value>
   </data>
   <data name="chkPlatLinux.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="chkPlatLinux.Text" xml:space="preserve">
-    <value>Linux</value>
+    <value>Linux/SteamOS</value>
   </data>
   <data name="&gt;&gt;chkPlatLinux.Name" xml:space="preserve">
     <value>chkPlatLinux</value>
@@ -556,30 +559,6 @@
     <value>grpPlat</value>
   </data>
   <data name="&gt;&gt;chkPlatLinux.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="chkPlatSteamplay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 90</value>
-  </data>
-  <data name="chkPlatSteamplay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 24</value>
-  </data>
-  <data name="chkPlatSteamplay.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="chkPlatSteamplay.Text" xml:space="preserve">
-    <value>Steamplay</value>
-  </data>
-  <data name="&gt;&gt;chkPlatSteamplay.Name" xml:space="preserve">
-    <value>chkPlatSteamplay</value>
-  </data>
-  <data name="&gt;&gt;chkPlatSteamplay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkPlatSteamplay.Parent" xml:space="preserve">
-    <value>grpPlat</value>
-  </data>
-  <data name="&gt;&gt;chkPlatSteamplay.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="lblDev.AutoSize" type="System.Boolean, mscorlib">
@@ -766,10 +745,10 @@
     <value>Top, Right</value>
   </data>
   <data name="grpPlat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>460, 195</value>
+    <value>451, 195</value>
   </data>
   <data name="grpPlat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 120</value>
+    <value>101, 97</value>
   </data>
   <data name="grpPlat.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
