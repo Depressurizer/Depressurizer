@@ -109,6 +109,12 @@
     <Compile Include="AutoCat\AutoCatConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Language.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Language.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
+    </Compile>
     <Compile Include="AutoCat\AutoCatConfigPanel_VrSupport.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -175,6 +181,7 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Year.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoCat\AutoCatLanguage.cs" />
     <Compile Include="AutoCat\AutoCatVrSupport.cs" />
     <Compile Include="AutoCat\AutoCatFlags.cs" />
     <Compile Include="AutoCat\AutoCatGenre.cs" />
@@ -358,6 +365,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VdfFile\VdfFileNode.cs" />
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Language.resx">
+      <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_VrSupport.resx">
       <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
     </EmbeddedResource>

@@ -665,6 +665,7 @@ namespace Depressurizer
         private SortedSet<string> allStoreDevelopers;
         private SortedSet<string> allStorePublishers;
         private VrSupport allVrSupportFlags;
+        private LanguageSupport allLanguages;
         public int LastHltbUpdate;
 
         public StoreLanguage dbLanguage = StoreLanguage.en;
@@ -1030,10 +1031,10 @@ namespace Depressurizer
         }
 
         /// <summary>
-        /// Gets a list of all Steam store flags found in the entire database.
+        /// Gets a list of all Steam store VR Support flags found in the entire database.
         /// Only recalculates if necessary.
         /// </summary>
-        /// <returns>A set of genres, as strings</returns>
+        /// <returns>A VrSupport struct containing the flags</returns>
         public VrSupport GetAllVrSupportFlags()
         {
             if (allVrSupportFlags.Headsets == null || allVrSupportFlags.Input == null ||
@@ -1045,10 +1046,10 @@ namespace Depressurizer
         }
 
         /// <summary>
-        /// Gets a list of all Steam store flags found in the entire database.
+        /// Gets a list of all Steam store VR Support flags found in the entire database.
         /// Always recalculates.
         /// </summary>
-        /// <returns>A set of genres, as strings</returns>
+        /// <returns>A VrSupport struct containing the flags</returns>
         public VrSupport CalculateAllVrSupportFlags()
         {
             SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -1074,6 +1075,53 @@ namespace Depressurizer
             allVrSupportFlags.Input = input.ToList();
             allVrSupportFlags.PlayArea = playArea.ToList();
             return allVrSupportFlags;
+        }
+
+        /// <summary>
+        /// Gets a list of all Game Languages found in the entire database.
+        /// Only recalculates if necessary.
+        /// </summary>
+        /// <returns>A LanguageSupport struct containing the languages</returns>
+        public LanguageSupport GetAllLanguages()
+        {
+            if (allLanguages.FullAudio == null || allLanguages.Interface == null ||
+                allLanguages.Subtitles == null)
+            {
+                return CalculateAllLanguages();
+            }
+            return allLanguages;
+        }
+
+        /// <summary>
+        /// Gets a list of all Game Languages found in the entire database.
+        /// Always recalculates.
+        /// </summary>
+        /// <returns>A LanguageSupport struct containing the languages</returns>
+        public LanguageSupport CalculateAllLanguages()
+        {
+            SortedSet<string> Interface = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            SortedSet<string> Subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            SortedSet<string> FullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (GameDBEntry entry in Games.Values)
+            {
+                if (entry.languageSupport.Interface != null)
+                {
+                    Interface.UnionWith(entry.languageSupport.Interface);
+                }
+                if (entry.languageSupport.Subtitles != null)
+                {
+                    Subtitles.UnionWith(entry.languageSupport.Subtitles);
+                }
+                if (entry.languageSupport.FullAudio != null)
+                {
+                    FullAudio.UnionWith(entry.languageSupport.FullAudio);
+                }
+            }
+            allLanguages.Interface = Interface.ToList();
+            allLanguages.Subtitles = Subtitles.ToList();
+            allLanguages.FullAudio = FullAudio.ToList();
+            return allLanguages;
         }
 
         /// <summary>
