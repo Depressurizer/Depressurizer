@@ -1234,7 +1234,7 @@
     <value>lstGames</value>
   </data>
   <data name="&gt;&gt;lstGames.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.7.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtListView, Depressurizer, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;lstGames.Parent" xml:space="preserve">
     <value>$this</value>
