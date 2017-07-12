@@ -385,6 +385,7 @@ namespace Depressurizer {
             // 
             this.AcceptButton = this.cmdSave;
             resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ControlBox = false;

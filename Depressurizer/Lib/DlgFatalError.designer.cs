@@ -141,6 +141,7 @@ namespace Rallion {
             // 
             this.AcceptButton = this.cmdClose;
             resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdClose;
             this.ControlBox = false;
