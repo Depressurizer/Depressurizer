@@ -108,7 +108,7 @@ namespace Depressurizer
         {
             AppTypes included = AppTypes.InclusionNormal;
             if (BypassIgnoreOnImport) included = AppTypes.InclusionAll;
-            else if (IncludeUnknown) included &= AppTypes.Unknown;
+            else if (IncludeUnknown) included |= AppTypes.Unknown;
 
             return GameData.ImportSteamConfig(SteamID64, IgnoreList, included, IncludeShortcuts);
         }
