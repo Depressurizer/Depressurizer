@@ -645,7 +645,6 @@ namespace Depressurizer {
             this.mtxtSearch.Depth = 0;
             this.mtxtSearch.Hint = "";
             resources.ApplyResources(this.mtxtSearch, "mtxtSearch");
-            this.mtxtSearch.MaxLength = 32767;
             this.mtxtSearch.MouseState = MaterialSkin.MouseState.HOVER;
             this.mtxtSearch.Name = "mtxtSearch";
             this.mtxtSearch.PasswordChar = '\0';

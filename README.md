@@ -1,5 +1,5 @@
 ### Depressurizer
-for v0.7.3.0
+for v0.7.4.0
 
 ----
 
@@ -20,7 +20,7 @@ It also saves your configuration information independently of Steam, providing a
 
 ### Requirements
 
- - Depressurizer requires the .NET Framework 4.5.1.
+ - Depressurizer requires the .NET Framework 4.7.
 
  - It must be run on the same computer on which you use Steam, or one one of the computers on which you use Steam.
 
