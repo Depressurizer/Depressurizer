@@ -1,5 +1,5 @@
 Your issue may already be reported!
-Please search on the [issue tracker](/../../issues) before creating a new one.
+Please search on the [issue tracker](../issues) before creating a new one.
 
 ## Expected Behavior
 <!--- If you're describing a bug, tell us what should happen -->
