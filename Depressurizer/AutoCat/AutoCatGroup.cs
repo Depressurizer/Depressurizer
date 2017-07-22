@@ -132,7 +132,7 @@ namespace Depressurizer
                 writer.WriteElementString(XmlName_Filter, Filter);
             }
 
-            if (Autocats != null && Autocats.Count > 0)
+            if ((Autocats != null) && (Autocats.Count > 0))
             {
                 writer.WriteStartElement(XmlName_Autocats);
                 foreach (string name in Autocats)

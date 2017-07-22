@@ -42,7 +42,7 @@ namespace Depressurizer
 
         protected override void Finish()
         {
-            if (!Canceled && doc != null && Error == null)
+            if (!Canceled && (doc != null) && (Error == null))
             {
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
                 Added = Program.GameDB.IntegrateAppList(doc);

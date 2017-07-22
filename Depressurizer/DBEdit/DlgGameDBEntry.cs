@@ -123,7 +123,7 @@ namespace Depressurizer
         private bool ValidateEntries(out int id, out int parent)
         {
             parent = -1;
-            if (!int.TryParse(txtId.Text, out id) || id <= 0)
+            if (!int.TryParse(txtId.Text, out id) || (id <= 0))
             {
                 MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger);
                 return false;

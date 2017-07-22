@@ -140,7 +140,7 @@ namespace Depressurizer
 
             int score = db.Games[game.Id].ReviewPositivePercentage;
             int reviews = db.Games[game.Id].ReviewTotal;
-            if (UseWilsonScore && reviews > 0)
+            if (UseWilsonScore && (reviews > 0))
             {
                 // calculate the lower bound of the Wilson interval for 95 % confidence
                 // see http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
@@ -155,8 +155,8 @@ namespace Depressurizer
                     z = 1.96; // normal distribution of (1-(1-confidence)/2), i.e. normal distribution of 0.975 for 95% confidence
                 double p = score / 100.0;
                 double n = reviews;
-                p = Math.Round(100 * ((p + z * z / (2 * n) - z * Math.Sqrt((p * (1 - p) + z * z / (4 * n)) / n)) /
-                                      (1 + z * z / n)));
+                p = Math.Round(100 * (((p + ((z * z) / (2 * n))) - (z * Math.Sqrt(((p * (1 - p)) + ((z * z) / (4 * n))) / n))) /
+                                      (1 + ((z * z) / n))));
                 // debug: System.Windows.Forms.MessageBox.Show("score " + score + " of " + reviews + " is\tp = " + p + "\n");
                 score = Convert.ToInt32(p);
             }
@@ -180,8 +180,8 @@ namespace Depressurizer
 
         private bool CheckRule(UserScore_Rule rule, int score, int reviews)
         {
-            return (score >= rule.MinScore && score <= rule.MaxScore) && rule.MinReviews <= reviews &&
-                   (rule.MaxReviews == 0 || rule.MaxReviews >= reviews);
+            return ((score >= rule.MinScore) && (score <= rule.MaxScore)) && (rule.MinReviews <= reviews) &&
+                   ((rule.MaxReviews == 0) || (rule.MaxReviews >= reviews));
         }
 
         private string GetProcessedString(string s)

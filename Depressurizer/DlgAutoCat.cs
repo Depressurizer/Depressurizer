@@ -90,7 +90,7 @@ namespace Depressurizer
 
         private void FillConfigPanel()
         {
-            if (current != null && currentConfigPanel != null)
+            if ((current != null) && (currentConfigPanel != null))
             {
                 currentConfigPanel.LoadFromAutoCat(current);
                 if (current.Filter != null)
@@ -120,10 +120,10 @@ namespace Depressurizer
 
         private void SaveToAutoCat()
         {
-            if (current != null && currentConfigPanel != null)
+            if ((current != null) && (currentConfigPanel != null))
             {
                 currentConfigPanel.SaveToAutoCat(current);
-                if (chkFilter.Checked && cboFilter.Text != string.Empty)
+                if (chkFilter.Checked && (cboFilter.Text != string.Empty))
                 {
                     current.Filter = cboFilter.Text;
                 }
@@ -165,7 +165,7 @@ namespace Depressurizer
                         good = false;
                     }
                 }
-            } while (res == DialogResult.OK && !good);
+            } while ((res == DialogResult.OK) && !good);
             AutoCat newAutoCat = null;
             if (res == DialogResult.OK)
             {
@@ -210,7 +210,7 @@ namespace Depressurizer
                     MessageBox.Show(GlobalStrings.DlgAutoCat_NameInUse);
                     good = false;
                 }
-            } while (res == DialogResult.OK && !good);
+            } while ((res == DialogResult.OK) && !good);
             if (res == DialogResult.OK)
             {
                 ac.Name = name;

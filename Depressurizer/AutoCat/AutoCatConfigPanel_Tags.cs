@@ -68,7 +68,7 @@ namespace Depressurizer
             {
                 ListViewItem newItem = new ListViewItem(string.Format("{0} [{1:F0}]", tag.Item1, tag.Item2));
                 newItem.Tag = tag.Item1;
-                if (preChecked != null && preChecked.Contains(tag.Item1))
+                if ((preChecked != null) && preChecked.Contains(tag.Item1))
                 {
                     newItem.Checked = true;
                 }

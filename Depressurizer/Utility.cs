@@ -180,7 +180,7 @@ namespace Depressurizer
             {
                 return -1;
             }
-            for (int i = 0; i < a.Count && i < b.Count; i++)
+            for (int i = 0; (i < a.Count) && (i < b.Count); i++)
             {
                 int res = string.Compare(a[i], b[i]);
                 if (res != 0)
@@ -242,9 +242,9 @@ namespace Depressurizer
                 // image file might be redirected to a 404-page, which would
                 // yield the StatusCode "OK", even though the image was not
                 // found.
-                if ((response.StatusCode == HttpStatusCode.OK ||
-                     response.StatusCode == HttpStatusCode.Moved ||
-                     response.StatusCode == HttpStatusCode.Redirect) &&
+                if (((response.StatusCode == HttpStatusCode.OK) ||
+                     (response.StatusCode == HttpStatusCode.Moved) ||
+                     (response.StatusCode == HttpStatusCode.Redirect)) &&
                     response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
                 {
                     return response.GetResponseStream();
@@ -339,7 +339,7 @@ namespace Depressurizer
             DescriptionAttribute[] attributes =
                 (DescriptionAttribute[]) fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-            if (attributes != null && attributes.Length > 0)
+            if ((attributes != null) && (attributes.Length > 0))
             {
                 return attributes[0].Description;
             }
@@ -350,7 +350,7 @@ namespace Depressurizer
         public static void MoveItem(ListBox lb, int direction)
         {
             // Checking selected item
-            if (lb.SelectedItem == null || lb.SelectedIndex < 0 || lb.SelectedItems.Count > 1)
+            if ((lb.SelectedItem == null) || (lb.SelectedIndex < 0) || (lb.SelectedItems.Count > 1))
             {
                 return; // No selected item or more than one item selected - nothing to do
             }
@@ -359,7 +359,7 @@ namespace Depressurizer
             int newIndex = lb.SelectedIndex + direction;
 
             // Checking bounds of the range
-            if (newIndex < 0 || newIndex >= lb.Items.Count)
+            if ((newIndex < 0) || (newIndex >= lb.Items.Count))
             {
                 return; // Index out of range - nothing to do
             }
@@ -416,15 +416,15 @@ namespace Depressurizer
                 }
                 else
                 {
-                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
+                    if ((currentCulture.Name == "zh-Hans") || (currentCulture.Parent.Name == "zh-Hans"))
                     {
                         culture = CultureInfo.GetCultureInfo("zh-Hans");
                     }
-                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
+                    else if ((currentCulture.Name == "zh-Hant") || (currentCulture.Parent.Name == "zh-Hant"))
                     {
                         culture = CultureInfo.GetCultureInfo("zh-Hant");
                     }
-                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
+                    else if ((currentCulture.Name == "pt-BR") || (currentCulture.Parent.Name == "pt-BR"))
                     {
                         culture = CultureInfo.GetCultureInfo("pt-BR");
                     }

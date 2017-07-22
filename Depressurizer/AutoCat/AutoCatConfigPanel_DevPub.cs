@@ -139,7 +139,7 @@ namespace Depressurizer
                 {
                     ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", dev.Item1, dev.Item2));
                     newItem.Tag = dev.Item1;
-                    if (preChecked != null && preChecked.Contains(dev.Item1))
+                    if ((preChecked != null) && preChecked.Contains(dev.Item1))
                     {
                         newItem.Checked = true;
                     }
@@ -169,7 +169,7 @@ namespace Depressurizer
                 {
                     ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", pub.Item1, pub.Item2));
                     newItem.Tag = pub.Item1;
-                    if (preChecked != null && preChecked.Contains(pub.Item1))
+                    if ((preChecked != null) && preChecked.Contains(pub.Item1))
                     {
                         newItem.Checked = true;
                     }

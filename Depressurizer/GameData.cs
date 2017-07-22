@@ -163,40 +163,40 @@ namespace Depressurizer
                 isVR = Program.GameDB.SupportsVr(Id);
             }
 
-            if (f.Uncategorized == (int) AdvancedFilterState.Require && isCategorized)
+            if ((f.Uncategorized == (int) AdvancedFilterState.Require) && isCategorized)
             {
                 return false;
             }
-            if (f.Hidden == (int) AdvancedFilterState.Require && !isHidden)
+            if ((f.Hidden == (int) AdvancedFilterState.Require) && !isHidden)
             {
                 return false;
             }
-            if (f.VR == (int)AdvancedFilterState.Require && !isVR)
-            {
-                return false;
-            }
-
-            if (f.Uncategorized == (int) AdvancedFilterState.Exclude && !isCategorized)
-            {
-                return false;
-            }
-            if (f.Hidden == (int) AdvancedFilterState.Exclude && isHidden)
-            {
-                return false;
-            }
-            if (f.VR == (int)AdvancedFilterState.Exclude && isVR)
+            if ((f.VR == (int)AdvancedFilterState.Require) && !isVR)
             {
                 return false;
             }
 
-            if (f.Uncategorized == (int) AdvancedFilterState.Allow || f.Hidden == (int) AdvancedFilterState.Allow ||
-                f.VR == (int)AdvancedFilterState.Allow || f.Allow.Count > 0)
+            if ((f.Uncategorized == (int) AdvancedFilterState.Exclude) && !isCategorized)
             {
-                if (f.Uncategorized != (int) AdvancedFilterState.Allow || isCategorized)
+                return false;
+            }
+            if ((f.Hidden == (int) AdvancedFilterState.Exclude) && isHidden)
+            {
+                return false;
+            }
+            if ((f.VR == (int)AdvancedFilterState.Exclude) && isVR)
+            {
+                return false;
+            }
+
+            if ((f.Uncategorized == (int) AdvancedFilterState.Allow) || (f.Hidden == (int) AdvancedFilterState.Allow) ||
+                (f.VR == (int)AdvancedFilterState.Allow) || (f.Allow.Count > 0))
+            {
+                if ((f.Uncategorized != (int) AdvancedFilterState.Allow) || isCategorized)
                 {
-                    if (f.Hidden != (int) AdvancedFilterState.Allow || !isHidden)
+                    if ((f.Hidden != (int) AdvancedFilterState.Allow) || !isHidden)
                     {
-                        if (f.VR != (int) AdvancedFilterState.Allow || !isVR)
+                        if ((f.VR != (int) AdvancedFilterState.Allow) || !isVR)
                         {
                             if (!Categories.Overlaps(f.Allow))
                             {
@@ -228,7 +228,7 @@ namespace Depressurizer
         /// <param name="newCat">Category to add</param>
         public void AddCategory(Category newCat)
         {
-            if (newCat != null && Categories.Add(newCat) && !Hidden)
+            if ((newCat != null) && Categories.Add(newCat) && !Hidden)
             {
                 newCat.Count++;
             }
@@ -385,7 +385,7 @@ namespace Depressurizer
                 return false;
             }
 
-            return !(!includeFavorite && Categories.Count == 1 && Categories.Contains(FavoriteCategory));
+            return !(!includeFavorite && (Categories.Count == 1) && Categories.Contains(FavoriteCategory));
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace Depressurizer
             bool first = true;
             foreach (Category c in Categories)
             {
-                if (includeFavorite || c != FavoriteCategory)
+                if (includeFavorite || (c != FavoriteCategory))
                 {
                     if (!first)
                     {
@@ -538,7 +538,7 @@ namespace Depressurizer
         public bool CategoryExists(string name)
         {
             // Favorite category always exists
-            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE)
+            if ((name == FAVORITE_NEW_CONFIG_VALUE) || (name == FAVORITE_CONFIG_VALUE))
             {
                 return true;
             }
@@ -566,7 +566,7 @@ namespace Depressurizer
                 return null;
             }
             // Check for Favorite category
-            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE)
+            if ((name == FAVORITE_NEW_CONFIG_VALUE) || (name == FAVORITE_CONFIG_VALUE))
             {
                 return favoriteCategory;
             }
@@ -1141,7 +1141,7 @@ namespace Depressurizer
             if (vdfFile != null)
             {
                 VdfFileNode licensesNode = vdfFile.GetNodeAt(new[] {"UserLocalConfigStore", "Licenses"}, false);
-                if (licensesNode != null && licensesNode.NodeType == ValueType.Array)
+                if ((licensesNode != null) && (licensesNode.NodeType == ValueType.Array))
                 {
                     foreach (string key in licensesNode.NodeArray.Keys)
                     {
@@ -1152,15 +1152,15 @@ namespace Depressurizer
                             if (ownedPackageId != 0)
                             {
                                 GameListingSource src =
-                                (ownedPackage.BillingType == PackageBillingType.FreeOnDemand ||
-                                 ownedPackage.BillingType == PackageBillingType.AutoGrant)
+                                ((ownedPackage.BillingType == PackageBillingType.FreeOnDemand) ||
+                                 (ownedPackage.BillingType == PackageBillingType.AutoGrant))
                                     ? GameListingSource.PackageFree
                                     : GameListingSource.PackageNormal;
                                 foreach (int ownedAppId in ownedPackage.AppIds)
                                 {
                                     if (!ownedApps.ContainsKey(ownedAppId) ||
-                                        (src == GameListingSource.PackageNormal &&
-                                         ownedApps[ownedAppId] == GameListingSource.PackageFree))
+                                        ((src == GameListingSource.PackageNormal) &&
+                                         (ownedApps[ownedAppId] == GameListingSource.PackageFree)))
                                     {
                                         ownedApps[ownedAppId] = src;
                                     }
@@ -1219,7 +1219,7 @@ namespace Depressurizer
             {
                 int appId;
                 XmlNode appIdNode = gameNode["appID"];
-                if (appIdNode != null && int.TryParse(appIdNode.InnerText, out appId))
+                if ((appIdNode != null) && int.TryParse(appIdNode.InnerText, out appId))
                 {
                     XmlNode nameNode = gameNode["name"];
                     if (nameNode != null)
@@ -1271,7 +1271,7 @@ namespace Depressurizer
                 string appName = m.Groups[2].Value;
 
                 int appId;
-                if (appName != null && appIdString != null && int.TryParse(appIdString, out appId))
+                if ((appName != null) && (appIdString != null) && int.TryParse(appIdString, out appId))
                 {
                     appName = ProcessUnicode(appName);
                     bool isNew;
@@ -1322,13 +1322,13 @@ namespace Depressurizer
                     int gameId;
                     if (int.TryParse(gameNodePair.Key, out gameId))
                     {
-                        if ((ignore != null && ignore.Contains(gameId)) ||
+                        if (((ignore != null) && ignore.Contains(gameId)) ||
                             !Program.GameDB.IncludeItemInGameList(gameId, includedTypes))
                         {
                             Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_SkippedProcessingGame,
                                 gameId);
                         }
-                        else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
+                        else if ((gameNodePair.Value != null) && (gameNodePair.Value.NodeType == ValueType.Array))
                         {
                             GameInfo game = null;
 
@@ -1346,7 +1346,7 @@ namespace Depressurizer
                             }
 
                             if (gameNodePair.Value.ContainsKey("LastPlayed") &&
-                                gameNodePair.Value["LastPlayed"].NodeInt != 0)
+                                (gameNodePair.Value["LastPlayed"].NodeInt != 0))
                             {
                                 game.LastPlayed = gameNodePair.Value["LastPlayed"].NodeInt;
                                 Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId,
@@ -1381,13 +1381,13 @@ namespace Depressurizer
                     int gameId;
                     if (int.TryParse(gameNodePair.Key, out gameId))
                     {
-                        if ((ignore != null && ignore.Contains(gameId)) ||
+                        if (((ignore != null) && ignore.Contains(gameId)) ||
                             !Program.GameDB.IncludeItemInGameList(gameId, includedTypes))
                         {
                             Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_SkippedProcessingGame,
                                 gameId);
                         }
-                        else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
+                        else if ((gameNodePair.Value != null) && (gameNodePair.Value.NodeType == ValueType.Array))
                         {
                             GameInfo game = null;
 
@@ -1409,7 +1409,7 @@ namespace Depressurizer
                             game.ApplySource(GameListingSource.SteamConfig);
 
                             game.Hidden = (gameNodePair.Value.ContainsKey("hidden") &&
-                                           gameNodePair.Value["hidden"].NodeInt != 0);
+                                           (gameNodePair.Value["hidden"].NodeInt != 0));
 
                             VdfFileNode tagsNode = gameNodePair.Value["tags"];
                             if (tagsNode != null)
@@ -1462,7 +1462,7 @@ namespace Depressurizer
             AppTypes includedTypes, GameListingSource src, out bool isNew)
         {
             isNew = false;
-            if ((ignore != null && ignore.Contains(appId)) ||
+            if (((ignore != null) && ignore.Contains(appId)) ||
                 !Program.GameDB.IncludeItemInGameList(appId, includedTypes))
             {
                 Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_SkippedIntegratingGame, appId,
@@ -2021,7 +2021,7 @@ namespace Depressurizer
             // Second, look for games with matching names AND matching shortcut IDs.
             for (int i = 0; i < gamesToMatchAgainst.Count; i++)
             {
-                if (gamesToMatchAgainst[i].Id == -(shortcutId + 1) && gamesToMatchAgainst[i].Name == gameName)
+                if ((gamesToMatchAgainst[i].Id == -(shortcutId + 1)) && (gamesToMatchAgainst[i].Name == gameName))
                 {
                     return i;
                 }
@@ -2085,7 +2085,7 @@ namespace Depressurizer
             if (gameNode.ContainsKey("IsHidden"))
             {
                 VdfFileNode hiddenNode = gameNode["IsHidden"];
-                game.Hidden = (hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1);
+                game.Hidden = ((hiddenNode.NodeString == "1") || (hiddenNode.NodeInt == 1));
             }
 
             return true;

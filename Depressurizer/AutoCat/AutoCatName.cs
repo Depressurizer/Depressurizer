@@ -62,7 +62,7 @@ namespace Depressurizer
 
             string cat = game.Name.Substring(0, 1);
             cat = cat.ToUpper();
-            if (SkipThe && cat == "T" && game.Name.Substring(0, 4).ToUpper() == "THE ")
+            if (SkipThe && (cat == "T") && (game.Name.Substring(0, 4).ToUpper() == "THE "))
             {
                 cat = game.Name.Substring(4, 1).ToUpper();
             }

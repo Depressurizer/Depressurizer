@@ -48,8 +48,8 @@ namespace Depressurizer
         {
             Run();
 
-            if (options.AutoClose == AutoCloseType.Always ||
-                (options.AutoClose == AutoCloseType.UnlessError && !encounteredError))
+            if ((options.AutoClose == AutoCloseType.Always) ||
+                ((options.AutoClose == AutoCloseType.UnlessError) && !encounteredError))
             {
                 Close();
             }
@@ -61,7 +61,7 @@ namespace Depressurizer
 
         private void Write(string text)
         {
-            if (txtOutput.Text.Length == 0 || txtOutput.Text.EndsWith(Environment.NewLine))
+            if ((txtOutput.Text.Length == 0) || txtOutput.Text.EndsWith(Environment.NewLine))
             {
                 txtOutput.AppendText("> ");
             }
@@ -529,7 +529,7 @@ namespace Depressurizer
                 Queue<int> jobs = new Queue<int>();
                 foreach (int id in p.GameData.Games.Keys)
                 {
-                    if (id > 0 && !Program.GameDB.Contains(id) || Program.GameDB.Games[id].LastStoreScrape == 0)
+                    if (((id > 0) && !Program.GameDB.Contains(id)) || (Program.GameDB.Games[id].LastStoreScrape == 0))
                     {
                         jobs.Enqueue(id);
                     }
@@ -619,7 +619,7 @@ namespace Depressurizer
                     {
                         foreach (AutoCat a in p.AutoCats)
                         {
-                            if (a.Name == s && !acList.Contains(a))
+                            if ((a.Name == s) && !acList.Contains(a))
                             {
                                 acList.Add(a);
                             }

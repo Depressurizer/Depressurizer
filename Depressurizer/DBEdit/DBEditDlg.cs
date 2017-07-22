@@ -184,7 +184,7 @@ namespace Depressurizer
             }
             else
             {
-                if (res == DialogResult.Cancel || res == DialogResult.Abort)
+                if ((res == DialogResult.Cancel) || (res == DialogResult.Abort))
                 {
                     AddStatusMsg(GlobalStrings.DBEditDlg_CanceledListUpdate);
                 }
@@ -236,7 +236,7 @@ namespace Depressurizer
             }
             else
             {
-                if (res == DialogResult.Cancel || res == DialogResult.Abort)
+                if ((res == DialogResult.Cancel) || (res == DialogResult.Abort))
                 {
                     AddStatusMsg(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
                 }
@@ -257,7 +257,7 @@ namespace Depressurizer
         void AddNewGame()
         {
             GameDBEntryDialog dlg = new GameDBEntryDialog();
-            if (dlg.ShowDialog() == DialogResult.OK && dlg.Game != null)
+            if ((dlg.ShowDialog() == DialogResult.OK) && (dlg.Game != null))
             {
                 if (Program.GameDB.Games.ContainsKey(dlg.Game.Id))
                 {
@@ -495,12 +495,12 @@ namespace Depressurizer
             {
                 return false;
             }
-            if (chkIdRange.Checked && (g.Id < currentMinId || g.Id > currentMaxId))
+            if (chkIdRange.Checked && ((g.Id < currentMinId) || (g.Id > currentMaxId)))
             {
                 return false;
             }
 
-            if (ownedList != null && chkOwned.Checked && !ownedList.Games.ContainsKey(g.Id))
+            if ((ownedList != null) && chkOwned.Checked && !ownedList.Games.ContainsKey(g.Id))
             {
                 return false;
             }
@@ -542,15 +542,15 @@ namespace Depressurizer
 
             if (radWebAll.Checked == false)
             {
-                if (radWebNo.Checked && g.LastStoreScrape > 0)
+                if (radWebNo.Checked && (g.LastStoreScrape > 0))
                 {
                     return false;
                 }
-                if (radWebYes.Checked && g.LastStoreScrape <= 0)
+                if (radWebYes.Checked && (g.LastStoreScrape <= 0))
                 {
                     return false;
                 }
-                if (radWebSince.Checked && g.LastStoreScrape > Utility.GetUTime(dateWeb.Value))
+                if (radWebSince.Checked && (g.LastStoreScrape > Utility.GetUTime(dateWeb.Value)))
                 {
                     return false;
                 }
@@ -558,18 +558,18 @@ namespace Depressurizer
 
             if (radAppAll.Checked == false)
             {
-                if (radAppNo.Checked && g.LastAppInfoUpdate > 0)
+                if (radAppNo.Checked && (g.LastAppInfoUpdate > 0))
                 {
                     return false;
                 }
-                if (radAppYes.Checked && g.LastAppInfoUpdate <= 0)
+                if (radAppYes.Checked && (g.LastAppInfoUpdate <= 0))
                 {
                     return false;
                 }
             }
 
-            if (currentFilter.Length > 0 && g.Name.IndexOf(currentFilter, StringComparison.CurrentCultureIgnoreCase) ==
-                -1)
+            if ((currentFilter.Length > 0) && (g.Name.IndexOf(currentFilter, StringComparison.CurrentCultureIgnoreCase) ==
+                                               -1))
             {
                 return false;
             }
@@ -617,12 +617,12 @@ namespace Depressurizer
                 currentMaxId = ID_FILTER_MAX;
             }
 
-            if (currentMinId == oldMinId && currentMaxId == oldMaxId)
+            if ((currentMinId == oldMinId) && (currentMaxId == oldMaxId))
             {
                 return;
             }
 
-            if (currentMinId < oldMinId || currentMaxId > oldMaxId)
+            if ((currentMinId < oldMinId) || (currentMaxId > oldMaxId))
             {
                 RebuildDisplayList();
             }

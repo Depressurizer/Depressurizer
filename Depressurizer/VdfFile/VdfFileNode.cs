@@ -302,7 +302,7 @@ namespace Depressurizer
                 }
                 // Get key
                 string key = null;
-                if (endOfStream || nextByte == 8 || stream.BaseStream.Position == streamLength)
+                if (endOfStream || (nextByte == 8) || (stream.BaseStream.Position == streamLength))
                 {
                     break;
                 }
@@ -447,7 +447,7 @@ namespace Depressurizer
         {
             int indexAt = 0;
 
-            while (indexAt < str.Length && stream.BaseStream.Position < fileLength)
+            while ((indexAt < str.Length) && (stream.BaseStream.Position < fileLength))
             {
                 if (stream.ReadByte() == str[indexAt])
                 {
@@ -494,7 +494,7 @@ namespace Depressurizer
                 {
                     endOfStream = true;
                 }
-            } while (!stringDone && !(endOfStream) && reader.BaseStream.Position < streamLength);
+            } while (!stringDone && !(endOfStream) && (reader.BaseStream.Position < streamLength));
 
             if (!stringDone)
             {
@@ -575,7 +575,7 @@ namespace Depressurizer
                 // Get key
                 char nextChar = (char) stream.Read();
                 string key = null;
-                if (stream.EndOfStream || nextChar == '}')
+                if (stream.EndOfStream || (nextChar == '}'))
                 {
                     break;
                 }
@@ -721,7 +721,7 @@ namespace Depressurizer
         private static void ReadText_SkipWhitespace(StreamReader stream)
         {
             char nextChar = (char) stream.Peek();
-            while (nextChar == ' ' || nextChar == '\r' || nextChar == '\n' || nextChar == '\t')
+            while ((nextChar == ' ') || (nextChar == '\r') || (nextChar == '\n') || (nextChar == '\t'))
             {
                 stream.Read();
                 nextChar = (char) stream.Peek();
