@@ -24,15 +24,6 @@ using System.Text;
 
 namespace Depressurizer.Lib
 {
-    public enum LoggerLevel
-    {
-        None,
-        Error,
-        Warning,
-        Info,
-        Verbose
-    }
-
     /// <summary>
     /// Simple application event logging class.
     /// </summary>
