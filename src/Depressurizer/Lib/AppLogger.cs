@@ -24,6 +24,15 @@ using System.Text;
 
 namespace Rallion
 {
+    public enum LoggerLevel
+    {
+        None,
+        Error,
+        Warning,
+        Info,
+        Verbose
+    }
+
     /// <summary>
     /// Simple application event logging class.
     /// </summary>
