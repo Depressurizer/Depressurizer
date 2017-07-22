@@ -32,7 +32,6 @@ namespace DepressurizerTest
             string expected = "Action";
             Assert.AreEqual(expected, x.Name);
             Assert.AreEqual(expected, x.DisplayName);
-            Assert.AreEqual(x.Name, x.DisplayName);
 
             x.Filter = "All";
             Assert.AreEqual(expected, x.Name);
@@ -41,13 +40,11 @@ namespace DepressurizerTest
             expected = "Action*";
             Assert.AreNotEqual(expected, x.Name);
             Assert.AreEqual(expected, x.DisplayName);
-            Assert.AreNotEqual(x.Name, x.DisplayName);
 
             x.Filter = null;
             expected = "Action";
             Assert.AreEqual(expected, x.Name);
-            Assert.AreEqual(expected, x.DisplayName);
-            Assert.AreEqual(x.Name, x.DisplayName);
+            Assert.AreEqual(expected, x.DisplayName);            
         }
     }
 }
