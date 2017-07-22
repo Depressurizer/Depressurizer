@@ -128,9 +128,15 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id))
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
             int score = db.Games[game.Id].ReviewPositivePercentage;
             int reviews = db.Games[game.Id].ReviewTotal;
@@ -180,7 +186,11 @@ namespace Depressurizer
 
         private string GetProcessedString(string s)
         {
-            if (!string.IsNullOrEmpty(Prefix)) return Prefix + s;
+            if (!string.IsNullOrEmpty(Prefix))
+            {
+                return Prefix + s;
+            }
+
             return s;
         }
 
@@ -193,8 +203,14 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlName_Filter, Filter);
+            }
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlName_Prefix, Prefix);
+            }
             writer.WriteElementString(XmlName_UseWilsonScore, UseWilsonScore.ToString());
 
             foreach (UserScore_Rule rule in Rules)

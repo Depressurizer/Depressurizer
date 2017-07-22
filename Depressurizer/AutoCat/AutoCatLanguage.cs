@@ -123,13 +123,17 @@ namespace Depressurizer
             foreach (string catString in IncludedLanguages.Subtitles)
             {
                 if (Language.Subtitles.Contains(catString) || Language.Subtitles.Count == 0 && Language.FullAudio.Contains(catString) || Language.FullAudio.Count == 0 && Language.Interface.Contains(catString))
+                {
                     game.AddCategory(games.GetCategory(GetProcessedString(catString, "Subtitles")));
+                }
             }
 
             foreach (string catString in IncludedLanguages.FullAudio)
             {
                 if (Language.FullAudio.Contains(catString) || Language.FullAudio.Count == 0 && Language.Subtitles.Contains(catString) || Language.Subtitles.Count == 0 && Language.Interface.Contains(catString))
+                {
                     game.AddCategory(games.GetCategory(GetProcessedString(catString, "Full Audio")));
+                }
             }
 
             return AutoCatResult.Success;

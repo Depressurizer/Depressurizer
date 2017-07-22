@@ -42,14 +42,22 @@ namespace Depressurizer
         {
             AutoCatGroup ac = autocat as AutoCatGroup;
             current = autocat;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             FillAutocatList(ac.Autocats);
         }
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatGroup ac = autocat as AutoCatGroup;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Autocats = GetGroup();
         }
 
@@ -129,7 +137,9 @@ namespace Depressurizer
         private void FillAutocatList(List<string> group)
         {
             if (group != null)
+            {
                 lbAutocats.Items.Clear();
+            }
             {
                 foreach (string name in group)
                 {
@@ -146,7 +156,10 @@ namespace Depressurizer
         {
             foreach (string name in lbAutocats.Items)
             {
-                if (name == find) return true;
+                if (name == find)
+                {
+                    return true;
+                }
             }
             return false;
         }

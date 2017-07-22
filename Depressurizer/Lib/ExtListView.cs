@@ -66,12 +66,19 @@ namespace Depressurizer.Lib
         /// <param name="sortNow">If true, will sort immediately.</param>
         public void ResumeSorting(bool sortNow = false)
         {
-            if (suspendSortDepth == 0) return;
+            if (suspendSortDepth == 0)
+            {
+                return;
+            }
+
             if (suspendSortDepth == 1)
             {
                 ListViewItemSorter = suspendedComparer;
                 suspendedComparer = null;
-                if (sortNow) Sort();
+                if (sortNow)
+                {
+                    Sort();
+                }
             }
             suspendSortDepth--;
         }

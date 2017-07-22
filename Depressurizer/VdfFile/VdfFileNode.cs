@@ -101,7 +101,10 @@ namespace Depressurizer
             get
             {
                 if (NodeType == ValueType.Int)
+                {
                     return ((int) NodeData);
+                }
+
                 if (NodeType == ValueType.String)
                 {
                     int res = 0;
@@ -272,8 +275,15 @@ namespace Depressurizer
         /// <returns>FileNode representing the contents of the stream.</returns>
         public static VdfFileNode LoadFromBinary(BinaryReader stream, long streamLength = -1)
         {
-            if (streamLength == -1) streamLength = stream.BaseStream.Length;
-            if (stream.BaseStream.Position == streamLength) return null;
+            if (streamLength == -1)
+            {
+                streamLength = stream.BaseStream.Length;
+            }
+            if (stream.BaseStream.Position == streamLength)
+            {
+                return null;
+            }
+
             VdfFileNode thisLevel = new VdfFileNode();
 
             bool endOfStream = false;
@@ -406,7 +416,9 @@ namespace Depressurizer
             {
                 case ValueType.Array:
                     if (!string.IsNullOrEmpty(actualKey))
+                    {
                         WriteBin_WriteArrayKey(stream, actualKey);
+                    }
                     Dictionary<string, VdfFileNode> data = NodeArray;
                     foreach (KeyValuePair<string, VdfFileNode> entry in data)
                     {
@@ -416,7 +428,9 @@ namespace Depressurizer
                     break;
                 case ValueType.String:
                     if (!string.IsNullOrEmpty(actualKey))
+                    {
                         WriteBin_WriteStringValue(stream, actualKey, NodeString);
+                    }
                     break;
                 case ValueType.Int:
                     if (!string.IsNullOrEmpty(actualKey))
@@ -454,7 +468,10 @@ namespace Depressurizer
         /// <returns>The string encapsulated by the quotes.</returns>
         private static string ReadBin_GetStringToken(BinaryReader reader, long streamLength = -1)
         {
-            if (streamLength == -1) streamLength = reader.BaseStream.Length;
+            if (streamLength == -1)
+            {
+                streamLength = reader.BaseStream.Length;
+            }
 
             bool endOfStream = false;
             bool stringDone = false;
@@ -464,8 +481,14 @@ namespace Depressurizer
                 try
                 {
                     Byte b = reader.ReadByte();
-                    if (b == 0) stringDone = true;
-                    else bytes.Add(b);
+                    if (b == 0)
+                    {
+                        stringDone = true;
+                    }
+                    else
+                    {
+                        bytes.Add(b);
+                    }
                 }
                 catch (EndOfStreamException)
                 {

@@ -50,9 +50,13 @@ namespace Depressurizer
 
             if (options.AutoClose == AutoCloseType.Always ||
                 (options.AutoClose == AutoCloseType.UnlessError && !encounteredError))
+            {
                 Close();
+            }
             else
+            {
                 cmdClose.Enabled = true;
+            }
         }
 
         private void Write(string text)
@@ -213,7 +217,10 @@ namespace Depressurizer
                 WriteLine("Error loading database: " + e.Message);
                 Program.Logger.WriteException("Automatic mode: Error loading database.", e);
             }
-            if (success) WriteLine("Database loaded.");
+            if (success)
+            {
+                WriteLine("Database loaded.");
+            }
             return success;
         }
 
@@ -436,7 +443,10 @@ namespace Depressurizer
                 WriteLine("Import failed: " + e.Message);
                 Program.Logger.WriteException("Automatic mode: Error on steam import.", e);
             }
-            if (success) WriteLine("Import complete.");
+            if (success)
+            {
+                WriteLine("Import complete.");
+            }
             return success;
         }
 
@@ -452,7 +462,10 @@ namespace Depressurizer
             try
             {
                 string path = string.Format(Properties.Resources.AppInfoPath, Settings.Instance.SteamPath);
-                if (Program.GameDB.UpdateFromAppInfo(path) > 0) dbModified = true;
+                if (Program.GameDB.UpdateFromAppInfo(path) > 0)
+                {
+                    dbModified = true;
+                }
                 success = true;
             }
             catch (Exception e)
@@ -460,7 +473,10 @@ namespace Depressurizer
                 WriteLine("Error updating database from AppInfo: " + e.Message);
                 Program.Logger.WriteException("Automatic mode: Error updating from AppInfo.", e);
             }
-            if (success) WriteLine("AppInfo update complete.");
+            if (success)
+            {
+                WriteLine("AppInfo update complete.");
+            }
             return success;
         }
 
@@ -481,7 +497,10 @@ namespace Depressurizer
             bool success = false;
             try
             {
-                if (Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes) > 0) dbModified = true;
+                if (Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes) > 0)
+                {
+                    dbModified = true;
+                }
                 success = true;
             }
             catch (Exception e)
@@ -489,7 +508,10 @@ namespace Depressurizer
                 WriteLine("Error updating database from HLTB: " + e.Message);
                 Program.Logger.WriteException("Automatic mode: Error updating from HLTB.", e);
             }
-            if (success) WriteLine("HLTB update complete.");
+            if (success)
+            {
+                WriteLine("HLTB update complete.");
+            }
             return success;
         }
 
@@ -525,7 +547,10 @@ namespace Depressurizer
                     else
                     {
                         WriteLine("Scraping complete.");
-                        if (scrapeDlg.JobsCompleted > 0) dbModified = true;
+                        if (scrapeDlg.JobsCompleted > 0)
+                        {
+                            dbModified = true;
+                        }
                     }
                 }
                 else
@@ -567,7 +592,10 @@ namespace Depressurizer
                 Program.Logger.WriteException("Automatic mode: Error saving db.", e);
             }
 
-            if (success) WriteLine("Saved.");
+            if (success)
+            {
+                WriteLine("Saved.");
+            }
             return success;
         }
 
@@ -606,7 +634,10 @@ namespace Depressurizer
                 WriteLine("Error autocategorizing games: " + e.Message);
                 Program.Logger.WriteException("Automatic mode: Error autocategorizing games.", e);
             }
-            if (success) WriteLine("Autocategorization complete.");
+            if (success)
+            {
+                WriteLine("Autocategorization complete.");
+            }
             return success;
         }
 
@@ -656,7 +687,10 @@ namespace Depressurizer
                 WriteLine("Error saving profile: " + e.Message);
                 Program.Logger.WriteException("Automatic mode: Error saving profile.", e);
             }
-            if (success) WriteLine("Saved.");
+            if (success)
+            {
+                WriteLine("Saved.");
+            }
             return success;
         }
 
@@ -679,7 +713,10 @@ namespace Depressurizer
                 WriteLine("Error exporting Steam config: " + e.Message);
                 Program.Logger.WriteException("Automatic mode: Error exporting config.", e);
             }
-            if (success) WriteLine("Export complete.");
+            if (success)
+            {
+                WriteLine("Export complete.");
+            }
             return success;
         }
 

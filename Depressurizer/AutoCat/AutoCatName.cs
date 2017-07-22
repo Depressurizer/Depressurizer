@@ -55,18 +55,30 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
-
+            if (!db.Contains(game.Id))
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
             string cat = game.Name.Substring(0, 1);
             cat = cat.ToUpper();
             if (SkipThe && cat == "T" && game.Name.Substring(0, 4).ToUpper() == "THE ")
+            {
                 cat = game.Name.Substring(4, 1).ToUpper();
-            if (GroupNumbers && Char.IsDigit(cat[0])) cat = "#";
+            }
+            if (GroupNumbers && Char.IsDigit(cat[0]))
+            {
+                cat = "#";
+            }
             else if (GroupNonEnglishCharacters && !string.IsNullOrEmpty(GroupNonEnglishCharactersText) &&
                 Regex.IsMatch(cat, "[^a-z0-9]", RegexOptions.IgnoreCase))
+            {
                 cat = GroupNonEnglishCharactersText;
-            if (Prefix != null) cat = Prefix + cat;
+            }
+            if (Prefix != null)
+            {
+                cat = Prefix + cat;
+            }
 
             game.AddCategory(games.GetCategory(cat));
 

@@ -149,7 +149,10 @@ namespace Rallion
         /// </summary>
         private void ShowInfo()
         {
-            if (ShowingInfo) return;
+            if (ShowingInfo)
+            {
+                return;
+            }
 
             // Increase the form height and allow resizing
             MinimumSize = new Size(MIN_WIDTH, MIN_HEIGHT);
@@ -164,7 +167,10 @@ namespace Rallion
         /// </summary>
         private void HideInfo()
         {
-            if (!ShowingInfo) return;
+            if (!ShowingInfo)
+            {
+                return;
+            }
             // Save the current info height in case we toggle back
             currentInfoHeight = Height - ShortHeight;
             // Resize and disable user resizing
@@ -181,8 +187,14 @@ namespace Rallion
         /// </summary>
         private void ToggleInfo()
         {
-            if (ShowingInfo) HideInfo();
-            else ShowInfo();
+            if (ShowingInfo)
+            {
+                HideInfo();
+            }
+            else
+            {
+                ShowInfo();
+            }
         }
 
         #endregion

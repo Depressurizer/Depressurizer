@@ -69,13 +69,34 @@ namespace Depressurizer
                 cmbType.SelectedItem = Game.AppType;
 
                 txtName.Text = Game.Name;
-                if (Game.Genres != null) txtGenres.Text = string.Join(",", Game.Genres);
-                if (Game.Flags != null) txtFlags.Text = string.Join(",", Game.Flags);
-                if (Game.Tags != null) txtTags.Text = string.Join(",", Game.Tags);
-                if (Game.Developers != null) txtDev.Text = string.Join(",", Game.Developers);
-                if (Game.Publishers != null) txtPub.Text = string.Join(",", Game.Publishers);
-                if (Game.MC_Url != null) txtMCName.Text = Game.MC_Url;
-                if (Game.SteamReleaseDate != null) txtRelease.Text = Game.SteamReleaseDate;
+                if (Game.Genres != null)
+                {
+                    txtGenres.Text = string.Join(",", Game.Genres);
+                }
+                if (Game.Flags != null)
+                {
+                    txtFlags.Text = string.Join(",", Game.Flags);
+                }
+                if (Game.Tags != null)
+                {
+                    txtTags.Text = string.Join(",", Game.Tags);
+                }
+                if (Game.Developers != null)
+                {
+                    txtDev.Text = string.Join(",", Game.Developers);
+                }
+                if (Game.Publishers != null)
+                {
+                    txtPub.Text = string.Join(",", Game.Publishers);
+                }
+                if (Game.MC_Url != null)
+                {
+                    txtMCName.Text = Game.MC_Url;
+                }
+                if (Game.SteamReleaseDate != null)
+                {
+                    txtRelease.Text = Game.SteamReleaseDate;
+                }
                 numAchievements.Value = Utility.Clamp(Game.Achievements, (int) numAchievements.Minimum,
                     (int) numAchievements.Maximum);
                 numReviewScore.Value = Utility.Clamp(Game.ReviewPositivePercentage, (int) numReviewScore.Minimum,
@@ -152,9 +173,18 @@ namespace Depressurizer
             Game.SteamReleaseDate = txtRelease.Text;
 
             Game.Platforms = AppPlatforms.None;
-            if (chkPlatWin.Checked) Game.Platforms |= AppPlatforms.Windows;
-            if (chkPlatMac.Checked) Game.Platforms |= AppPlatforms.Mac;
-            if (chkPlatLinux.Checked) Game.Platforms |= AppPlatforms.Linux;
+            if (chkPlatWin.Checked)
+            {
+                Game.Platforms |= AppPlatforms.Windows;
+            }
+            if (chkPlatMac.Checked)
+            {
+                Game.Platforms |= AppPlatforms.Mac;
+            }
+            if (chkPlatLinux.Checked)
+            {
+                Game.Platforms |= AppPlatforms.Linux;
+            }
 
             Game.LastStoreScrape = chkWebUpdate.Checked ? Utility.GetUTime(dateWeb.Value) : 0;
             Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? Utility.GetUTime(dateAppInfo.Value) : 0;
@@ -166,15 +196,25 @@ namespace Depressurizer
 
         private List<string> SplitAndTrim(string s)
         {
-            if (string.IsNullOrWhiteSpace(s)) return null;
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return null;
+            }
 
             string[] split = s.Split(SPLIT_CHAR, StringSplitOptions.RemoveEmptyEntries);
             List<string> result = new List<string>();
             foreach (string sp in split)
             {
-                if (!string.IsNullOrWhiteSpace(sp)) result.Add(sp.Trim());
+                if (!string.IsNullOrWhiteSpace(sp))
+                {
+                    result.Add(sp.Trim());
+                }
             }
-            if (result.Count > 0) return result;
+            if (result.Count > 0)
+            {
+                return result;
+            }
+
             return null;
         }
 

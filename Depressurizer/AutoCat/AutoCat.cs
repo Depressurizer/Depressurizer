@@ -107,7 +107,10 @@ namespace Depressurizer
             get
             {
                 string displayName = Name;
-                if (Filter != null) displayName += "*";
+                if (Filter != null)
+                {
+                    displayName += "*";
+                }
                 return displayName;
             }
         }

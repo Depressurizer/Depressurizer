@@ -220,13 +220,24 @@ namespace Depressurizer
                 string storeLanguage = "en";
                 if (Program.GameDB != null)
                 {
-                    if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans) storeLanguage = "schinese";
-                    else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant) storeLanguage = "tchinese";
-                    else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR) storeLanguage = "brazilian";
+                    if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans)
+                    {
+                        storeLanguage = "schinese";
+                    }
+                    else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant)
+                    {
+                        storeLanguage = "tchinese";
+                    }
+                    else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR)
+                    {
+                        storeLanguage = "brazilian";
+                    }
                     else
+                    {
                         storeLanguage = CultureInfo
                             .GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName
                             .ToLowerInvariant();
+                    }
                 }
                 HttpWebRequest req =
                     GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
@@ -428,7 +439,10 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string flag = ma.Groups[1].Value;
-                    if (!string.IsNullOrWhiteSpace(flag)) Flags.Add(flag);
+                    if (!string.IsNullOrWhiteSpace(flag))
+                    {
+                        Flags.Add(flag);
+                    }
                 }
             }
 
@@ -440,7 +454,10 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string tag = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(tag)) Tags.Add(tag);
+                    if (!string.IsNullOrWhiteSpace(tag))
+                    {
+                        Tags.Add(tag);
+                    }
                 }
             }
 
@@ -453,7 +470,10 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string headset = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(headset)) vrSupport.Headsets.Add(headset);
+                    if (!string.IsNullOrWhiteSpace(headset))
+                    {
+                        vrSupport.Headsets.Add(headset);
+                    }
                 }
             }
 
@@ -466,7 +486,10 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string input = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(input)) vrSupport.Input.Add(input);
+                    if (!string.IsNullOrWhiteSpace(input))
+                    {
+                        vrSupport.Input.Add(input);
+                    }
                 }
             }
 
@@ -479,7 +502,10 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string playArea = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(playArea)) vrSupport.PlayArea.Add(playArea);
+                    if (!string.IsNullOrWhiteSpace(playArea))
+                    {
+                        vrSupport.PlayArea.Add(playArea);
+                    }
                 }
             }
 
@@ -495,13 +521,23 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string language = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (language.StartsWith("#lang") || language.StartsWith("(")) continue; //Some store pages on steam are bugged.
+                    if (language.StartsWith("#lang") || language.StartsWith("("))
+                    {
+                        continue; //Some store pages on steam are bugged.
+                    }
+
                     if (WebUtility.HtmlDecode(ma.Groups[2].Value.Trim()) != "") //Interface
+                    {
                         languageSupport.Interface.Add(language);
+                    }
                     if (WebUtility.HtmlDecode(ma.Groups[3].Value.Trim()) != "") //Full Audio
+                    {
                         languageSupport.FullAudio.Add(language);
+                    }
                     if (WebUtility.HtmlDecode(ma.Groups[4].Value.Trim()) != "") //Subtitles
+                    {
                         languageSupport.Subtitles.Add(language);
+                    }
                 }
             }
 
@@ -574,11 +610,20 @@ namespace Depressurizer
 
             // Get Platforms
             m = regPlatformWindows.Match(page);
-            if (m.Success) Platforms |= AppPlatforms.Windows;
+            if (m.Success)
+            {
+                Platforms |= AppPlatforms.Windows;
+            }
             m = regPlatformMac.Match(page);
-            if (m.Success) Platforms |= AppPlatforms.Mac;
+            if (m.Success)
+            {
+                Platforms |= AppPlatforms.Mac;
+            }
             m = regPlatformLinux.Match(page);
-            if (m.Success) Platforms |= AppPlatforms.Linux;
+            if (m.Success)
+            {
+                Platforms |= AppPlatforms.Linux;
+            }
         }
 
         #endregion
@@ -608,34 +653,73 @@ namespace Depressurizer
 
             if (useAppInfoFields)
             {
-                if (!string.IsNullOrEmpty(other.Name)) Name = other.Name;
-                if (other.ParentId > 0) ParentId = other.ParentId;
+                if (!string.IsNullOrEmpty(other.Name))
+                {
+                    Name = other.Name;
+                }
+                if (other.ParentId > 0)
+                {
+                    ParentId = other.ParentId;
+                }
             }
 
             if (useScrapeOnlyFields)
             {
-                if (other.Genres != null && other.Genres.Count > 0) Genres = other.Genres;
-                if (other.Flags != null && other.Flags.Count > 0) Flags = other.Flags;
-                if (other.Tags != null && other.Tags.Count > 0) Tags = other.Tags;
-                if (other.Developers != null && other.Developers.Count > 0) Developers = other.Developers;
-                if (other.Publishers != null && other.Publishers.Count > 0) Publishers = other.Publishers;
-                if (!string.IsNullOrEmpty(other.SteamReleaseDate)) SteamReleaseDate = other.SteamReleaseDate;
-                if (other.Achievements != 0) Achievements = other.Achievements;
+                if (other.Genres != null && other.Genres.Count > 0)
+                {
+                    Genres = other.Genres;
+                }
+                if (other.Flags != null && other.Flags.Count > 0)
+                {
+                    Flags = other.Flags;
+                }
+                if (other.Tags != null && other.Tags.Count > 0)
+                {
+                    Tags = other.Tags;
+                }
+                if (other.Developers != null && other.Developers.Count > 0)
+                {
+                    Developers = other.Developers;
+                }
+                if (other.Publishers != null && other.Publishers.Count > 0)
+                {
+                    Publishers = other.Publishers;
+                }
+                if (!string.IsNullOrEmpty(other.SteamReleaseDate))
+                {
+                    SteamReleaseDate = other.SteamReleaseDate;
+                }
+                if (other.Achievements != 0)
+                {
+                    Achievements = other.Achievements;
+                }
                 //VR Support
                 if (other.vrSupport.Headsets != null && other.vrSupport.Headsets.Count > 0)
+                {
                     vrSupport.Headsets = other.vrSupport.Headsets;
+                }
                 if (other.vrSupport.Input != null && other.vrSupport.Input.Count > 0)
+                {
                     vrSupport.Input = other.vrSupport.Input;
+                }
                 if (other.vrSupport.PlayArea != null && other.vrSupport.PlayArea.Count > 0)
+                {
                     vrSupport.PlayArea = other.vrSupport.PlayArea;
+                }
 
                 //Language Support
                 if (other.languageSupport.FullAudio != null && other.languageSupport.FullAudio.Count > 0)
+                {
                     languageSupport.FullAudio = other.languageSupport.FullAudio;
+                }
                 if (other.languageSupport.Interface != null && other.languageSupport.Interface.Count > 0)
+                {
                     languageSupport.Interface = other.languageSupport.Interface;
+                }
                 if (other.languageSupport.Subtitles != null && other.languageSupport.Subtitles.Count > 0)
+                {
                     languageSupport.Subtitles = other.languageSupport.Subtitles;
+                }
 
                 if (other.ReviewTotal != 0)
                 {
@@ -643,11 +727,20 @@ namespace Depressurizer
                     ReviewPositivePercentage = other.ReviewPositivePercentage;
                 }
 
-                if (!string.IsNullOrEmpty(other.MC_Url)) MC_Url = other.MC_Url;
+                if (!string.IsNullOrEmpty(other.MC_Url))
+                {
+                    MC_Url = other.MC_Url;
+                }
             }
 
-            if (other.LastStoreScrape > LastStoreScrape) LastStoreScrape = other.LastStoreScrape;
-            if (other.LastAppInfoUpdate > LastAppInfoUpdate) LastAppInfoUpdate = other.LastAppInfoUpdate;
+            if (other.LastStoreScrape > LastStoreScrape)
+            {
+                LastStoreScrape = other.LastStoreScrape;
+            }
+            if (other.LastAppInfoUpdate > LastAppInfoUpdate)
+            {
+                LastAppInfoUpdate = other.LastAppInfoUpdate;
+            }
         }
     }
 
@@ -798,7 +891,9 @@ namespace Depressurizer
                     return true;
                 }
                 if (depth > 0 && Games[gameId].ParentId > 0)
-                   return SupportsVr(Games[gameId].ParentId, depth - 1);
+                {
+                    return SupportsVr(Games[gameId].ParentId, depth - 1);
+                }
             }
             return false;
         }
@@ -1422,12 +1517,23 @@ namespace Depressurizer
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
-                if (aInf.AppType != AppTypes.Unknown) entry.AppType = aInf.AppType;
-                if (!string.IsNullOrEmpty(aInf.Name)) entry.Name = aInf.Name;
+                if (aInf.AppType != AppTypes.Unknown)
+                {
+                    entry.AppType = aInf.AppType;
+                }
+                if (!string.IsNullOrEmpty(aInf.Name))
+                {
+                    entry.Name = aInf.Name;
+                }
                 if (entry.Platforms == AppPlatforms.None ||
                     (entry.LastStoreScrape == 0 && aInf.Platforms > AppPlatforms.None))
+                {
                     entry.Platforms = aInf.Platforms;
-                if (aInf.Parent > 0) entry.ParentId = aInf.Parent;
+                }
+                if (aInf.Parent > 0)
+                {
+                    entry.ParentId = aInf.Parent;
+                }
                 updated++;
             }
             return updated;
@@ -1472,7 +1578,10 @@ namespace Depressurizer
         /// TODO Constructor in AppInfo.cs
         public AppInfo FromVdfNode(VdfFileNode commonNode)
         {
-            if (commonNode == null || commonNode.NodeType != ValueType.Array) return null;
+            if (commonNode == null || commonNode.NodeType != ValueType.Array)
+            {
+                return null;
+            }
 
             AppInfo result = null;
 
@@ -1498,13 +1607,19 @@ namespace Depressurizer
                 // Get name
                 string name = null;
                 VdfFileNode nameNode = commonNode.GetNodeAt(new[] { "name" }, false);
-                if (nameNode != null) name = nameNode.NodeData.ToString();
+                if (nameNode != null)
+                {
+                    name = nameNode.NodeData.ToString();
+                }
 
                 // Get type
                 string typeStr = null;
                 AppTypes type = AppTypes.Unknown;
                 VdfFileNode typeNode = commonNode.GetNodeAt(new[] { "type" }, false);
-                if (typeNode != null) typeStr = typeNode.NodeData.ToString();
+                if (typeNode != null)
+                {
+                    typeStr = typeNode.NodeData.ToString();
+                }
 
                 if (typeStr != null)
                 {
@@ -1571,16 +1686,31 @@ namespace Depressurizer
                         dynamic htlbInfo = steamAppData.HltbInfo;
 
                         if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
+                        {
                             Games[id].HltbMain = 0;
-                        else Games[id].HltbMain = htlbInfo.MainTtb;
+                        }
+                        else
+                        {
+                            Games[id].HltbMain = htlbInfo.MainTtb;
+                        }
 
                         if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed == "True")
+                        {
                             Games[id].HltbExtras = 0;
-                        else Games[id].HltbExtras = htlbInfo.ExtrasTtb;
+                        }
+                        else
+                        {
+                            Games[id].HltbExtras = htlbInfo.ExtrasTtb;
+                        }
 
                         if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed == "True")
+                        {
                             Games[id].HltbCompletionist = 0;
-                        else Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
+                        }
+                        else
+                        {
+                            Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
+                        }
 
                         updated++;
                     }
@@ -1638,15 +1768,22 @@ namespace Depressurizer
                     }
 
                     if (g.LastStoreScrape > 0)
+                    {
                         writer.WriteElementString(XmlName_Game_LastStoreUpdate, g.LastStoreScrape.ToString());
+                    }
                     if (g.LastAppInfoUpdate > 0)
+                    {
                         writer.WriteElementString(XmlName_Game_LastAppInfoUpdate, g.LastAppInfoUpdate.ToString());
+                    }
 
                     writer.WriteElementString(XmlName_Game_Type, g.AppType.ToString());
 
                     writer.WriteElementString(XmlName_Game_Platforms, g.Platforms.ToString());
 
-                    if (g.ParentId >= 0) writer.WriteElementString(XmlName_Game_Parent, g.ParentId.ToString());
+                    if (g.ParentId >= 0)
+                    {
+                        writer.WriteElementString(XmlName_Game_Parent, g.ParentId.ToString());
+                    }
 
                     if (g.Genres != null)
                     {

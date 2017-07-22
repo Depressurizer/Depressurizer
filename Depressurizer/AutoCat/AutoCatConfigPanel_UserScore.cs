@@ -68,7 +68,10 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat ac)
         {
             AutoCatUserScore acScore = ac as AutoCatUserScore;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
 
             acScore.Prefix = txtPrefix.Text;
             acScore.UseWilsonScore = chkUseWilsonScore.Checked;
@@ -78,7 +81,10 @@ namespace Depressurizer
         public override void LoadFromAutoCat(AutoCat ac)
         {
             AutoCatUserScore acScore = ac as AutoCatUserScore;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
 
             txtPrefix.Text = acScore.Prefix;
             chkUseWilsonScore.Checked = acScore.UseWilsonScore;
@@ -116,12 +122,18 @@ namespace Depressurizer
         {
             int alterIndex = mainIndex + offset;
             if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 ||
-                alterIndex >= lstRules.Items.Count) return;
+                alterIndex >= lstRules.Items.Count)
+            {
+                return;
+            }
 
             UserScore_Rule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
-            if (selectMoved) lstRules.SelectedIndex = alterIndex;
+            if (selectMoved)
+            {
+                lstRules.SelectedIndex = alterIndex;
+            }
         }
 
         /// <summary>
