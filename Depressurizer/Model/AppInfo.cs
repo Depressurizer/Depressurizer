@@ -41,10 +41,89 @@ namespace Depressurizer.Model
             Parent = 0;
         }
 
-        // TODO Remove FromVdfNode in GameDB.cs
-        public AppInfo(VdfFileNode commonNode)
+        public static AppInfo Create(VdfFileNode commonNode)
         {
-            throw new NotImplementedException();
+            if ((commonNode == null) || (commonNode.NodeType != ValueType.Array))
+            {
+                return null;
+            }
+
+            AppInfo appInfo = null;
+
+            VdfFileNode idNode = commonNode.GetNodeAt(new[] {"gameid"}, false);
+            int id = -1;
+            if (idNode != null)
+            {
+                if (idNode.NodeType == ValueType.Int)
+                {
+                    id = idNode.NodeInt;
+                }
+                else if (idNode.NodeType == ValueType.String)
+                {
+                    if (!int.TryParse(idNode.NodeString, out id))
+                    {
+                        id = -1;
+                    }
+                }
+            }
+
+            if (id >= 0)
+            {
+                // Get name
+                string name = null;
+                VdfFileNode nameNode = commonNode.GetNodeAt(new[] {"name"}, false);
+                if (nameNode != null)
+                {
+                    name = nameNode.NodeData.ToString();
+                }
+
+                // Get type
+                string typeStr = null;
+                AppTypes type = AppTypes.Unknown;
+                VdfFileNode typeNode = commonNode.GetNodeAt(new[] {"type"}, false);
+                if (typeNode != null)
+                {
+                    typeStr = typeNode.NodeData.ToString();
+                }
+
+                if (typeStr != null)
+                {
+                    if (!Enum.TryParse(typeStr, true, out type))
+                    {
+                        type = AppTypes.Other;
+                    }
+                }
+
+                // Get platforms
+                AppPlatforms platforms = AppPlatforms.None;
+                VdfFileNode oslistNode = commonNode.GetNodeAt(new[] {"oslist"}, false);
+                if (oslistNode != null)
+                {
+                    string oslist = oslistNode.NodeData.ToString();
+                    if (oslist.IndexOf("windows", StringComparison.OrdinalIgnoreCase) != -1)
+                    {
+                        platforms |= AppPlatforms.Windows;
+                    }
+                    if (oslist.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
+                    {
+                        platforms |= AppPlatforms.Mac;
+                    }
+                    if (oslist.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
+                    {
+                        platforms |= AppPlatforms.Linux;
+                    }
+                }
+
+                appInfo = new AppInfo(id, name, type, platforms);
+
+                // Get parent
+                VdfFileNode parentNode = commonNode.GetNodeAt(new[] {"parent"}, false);
+                if (parentNode != null)
+                {
+                    appInfo.Parent = parentNode.NodeInt;
+                }
+            }
+            return appInfo;
         }
     }
 }
