@@ -127,4 +127,13 @@ namespace Depressurizer
         NotInDatabase,
         Filtered
     }
+
+    public enum LoggerLevel
+    {
+        None,
+        Error,
+        Warning,
+        Info,
+        Verbose
+    }
 }
