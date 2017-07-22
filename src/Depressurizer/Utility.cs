@@ -28,6 +28,7 @@ using System.Net.Cache;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Lib;
 using MaterialSkin.Controls;
 
 namespace Depressurizer
@@ -223,7 +224,7 @@ namespace Depressurizer
             {
                 if (!ignoreWarning.Contains(id))
                 {
-                    Program.Logger.Write(Rallion.LoggerLevel.Warning,
+                    Program.Logger.Write(LoggerLevel.Warning,
                         string.Format(GlobalStrings.Utility_GetImage, url));
                 }
             }
@@ -254,7 +255,7 @@ namespace Depressurizer
             {
                 if (!ignoreWarning.Contains(id))
                 {
-                    Program.Logger.Write(Rallion.LoggerLevel.Warning,
+                    Program.Logger.Write(LoggerLevel.Warning,
                         string.Format(GlobalStrings.Utility_GetImage, url));
                 }
             }
@@ -310,7 +311,7 @@ namespace Depressurizer
             }
             catch
             {
-                Program.Logger.Write(Rallion.LoggerLevel.Warning,
+                Program.Logger.Write(LoggerLevel.Warning,
                     string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
                 return false;
             }
