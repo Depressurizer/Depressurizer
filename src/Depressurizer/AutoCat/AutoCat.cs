@@ -74,18 +74,7 @@ namespace Depressurizer
 
         public string Name { get; set; }
 
-        public virtual string DisplayName
-        {
-            get
-            {
-                string displayName = Name;
-                if (Filter != null)
-                {
-                    displayName += "*";
-                }
-                return displayName;
-            }
-        }
+        public virtual string DisplayName => Filter != null ? string.Intern(Name + "*") : Name;
 
         public string Filter { get; set; }
 
