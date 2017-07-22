@@ -1558,7 +1558,7 @@ namespace Depressurizer
             VdfFileNode node = VdfFileNode.LoadFromBinary(bReader, fileLength);
             while (node != null)
             {
-                AppInfo app = FromVdfNode(node);
+                AppInfo app = AppInfo.Create(node);
                 if (app != null)
                 {
                     result.Add(app.Id, app);
@@ -1567,98 +1567,6 @@ namespace Depressurizer
                 node = VdfFileNode.LoadFromBinary(bReader, fileLength);
             }
             bReader.Close();
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="commonNode"></param>
-        /// <returns></returns>
-        /// TODO Constructor in AppInfo.cs
-        public AppInfo FromVdfNode(VdfFileNode commonNode)
-        {
-            if ((commonNode == null) || (commonNode.NodeType != ValueType.Array))
-            {
-                return null;
-            }
-
-            AppInfo result = null;
-
-            VdfFileNode idNode = commonNode.GetNodeAt(new[] { "gameid" }, false);
-            int id = -1;
-            if (idNode != null)
-            {
-                if (idNode.NodeType == ValueType.Int)
-                {
-                    id = idNode.NodeInt;
-                }
-                else if (idNode.NodeType == ValueType.String)
-                {
-                    if (!int.TryParse(idNode.NodeString, out id))
-                    {
-                        id = -1;
-                    }
-                }
-            }
-
-            if (id >= 0)
-            {
-                // Get name
-                string name = null;
-                VdfFileNode nameNode = commonNode.GetNodeAt(new[] { "name" }, false);
-                if (nameNode != null)
-                {
-                    name = nameNode.NodeData.ToString();
-                }
-
-                // Get type
-                string typeStr = null;
-                AppTypes type = AppTypes.Unknown;
-                VdfFileNode typeNode = commonNode.GetNodeAt(new[] { "type" }, false);
-                if (typeNode != null)
-                {
-                    typeStr = typeNode.NodeData.ToString();
-                }
-
-                if (typeStr != null)
-                {
-                    if (!Enum.TryParse(typeStr, true, out type))
-                    {
-                        type = AppTypes.Other;
-                    }
-                }
-
-                // Get platforms
-                string oslist = null;
-                AppPlatforms platforms = AppPlatforms.None;
-                VdfFileNode oslistNode = commonNode.GetNodeAt(new[] { "oslist" }, false);
-                if (oslistNode != null)
-                {
-                    oslist = oslistNode.NodeData.ToString();
-                    if (oslist.IndexOf("windows", StringComparison.OrdinalIgnoreCase) != -1)
-                    {
-                        platforms |= AppPlatforms.Windows;
-                    }
-                    if (oslist.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
-                    {
-                        platforms |= AppPlatforms.Mac;
-                    }
-                    if (oslist.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
-                    {
-                        platforms |= AppPlatforms.Linux;
-                    }
-                }
-
-                result = new AppInfo(id, name, type, platforms);
-
-                // Get parent
-                VdfFileNode parentNode = commonNode.GetNodeAt(new[] { "parent" }, false);
-                if (parentNode != null)
-                {
-                    result.Parent = parentNode.NodeInt;
-                }
-            }
             return result;
         }
 
