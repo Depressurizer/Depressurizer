@@ -231,7 +231,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Genres != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].Genres != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].Genres);
                 }
@@ -246,7 +246,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Flags != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].Flags != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].Flags);
                 }
@@ -261,7 +261,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Tags != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].Tags != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].Tags);
                 }
@@ -276,7 +276,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.Headsets != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].vrSupport.Headsets != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].vrSupport.Headsets);
                 }
@@ -291,7 +291,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.Input != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].vrSupport.Input != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].vrSupport.Input);
                 }
@@ -306,7 +306,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.PlayArea != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].vrSupport.PlayArea != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].vrSupport.PlayArea);
                 }
@@ -321,7 +321,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo)g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.Interface != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].languageSupport.Interface != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].languageSupport.Interface);
                 }
@@ -336,7 +336,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo)g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.Subtitles != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].languageSupport.Subtitles != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].languageSupport.Subtitles);
                 }
@@ -351,7 +351,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo)g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.FullAudio != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].languageSupport.FullAudio != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].languageSupport.FullAudio);
                 }
@@ -407,7 +407,7 @@ namespace Depressurizer
                 }
 
                 AppPlatforms platforms = Program.GameDB.Games[((GameInfo)g).Id].Platforms;
-                return (platforms & AppPlatforms.Linux) != 0 && platforms != AppPlatforms.All ? platforms + ", SteamOS" : platforms.ToString() ;
+                return ((platforms & AppPlatforms.Linux) != 0) && (platforms != AppPlatforms.All) ? platforms + ", SteamOS" : platforms.ToString() ;
             };
             colDevelopers.AspectGetter = delegate(object g)
             {
@@ -417,7 +417,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Developers != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].Developers != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].Developers);
                 }
@@ -432,7 +432,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].Publishers != null)
+                if (Program.GameDB.Games.ContainsKey(id) && (Program.GameDB.Games[id].Publishers != null))
                 {
                     return string.Join(", ", Program.GameDB.Games[id].Publishers);
                 }
@@ -475,11 +475,11 @@ namespace Depressurizer
                     {
                         return -1;
                     }
-                    if (reviewPositivePercentage >= 95 && reviewTotal >= 500)
+                    if ((reviewPositivePercentage >= 95) && (reviewTotal >= 500))
                     {
                         return 9;
                     }
-                    if (reviewPositivePercentage >= 85 && reviewTotal >= 50)
+                    if ((reviewPositivePercentage >= 85) && (reviewTotal >= 50))
                     {
                         return 8;
                     }
@@ -648,7 +648,7 @@ namespace Depressurizer
             //Formating
             lstGames.RowFormatter = delegate(OLVListItem lvi)
             {
-                if (lvi.RowObject != null && ((GameInfo) lvi.RowObject).Id < 0)
+                if ((lvi.RowObject != null) && (((GameInfo) lvi.RowObject).Id < 0))
                 {
                     lvi.Font = new Font(lvi.Font, lvi.Font.Style | FontStyle.Italic);
                 }
@@ -704,8 +704,8 @@ namespace Depressurizer
                 UpdateGameDBFromAppInfo();
             }
             int threePointFiveDaysInSecs = 84 * 60 * 60;
-            if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() >
-                (Program.GameDB.LastHltbUpdate + threePointFiveDaysInSecs))
+            if (Settings.Instance.UpdateHltbOnStart && (Utility.GetCurrentUTime() >
+                                                        (Program.GameDB.LastHltbUpdate + threePointFiveDaysInSecs)))
             {
                 UpdateGameDBFromHltb();
             }
@@ -806,7 +806,7 @@ namespace Depressurizer
                 int num = Program.GameDB.UpdateFromAppInfo(
                     string.Format(Properties.Resources.AppInfoPath, Settings.Instance.SteamPath));
                 AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
-                if (num > 0 && Settings.Instance.AutosaveDB)
+                if ((num > 0) && Settings.Instance.AutosaveDB)
                 {
                     SaveGameDB();
                 }
@@ -838,14 +838,14 @@ namespace Depressurizer
             }
             else
             {
-                if (res == DialogResult.Cancel || res == DialogResult.Abort)
+                if ((res == DialogResult.Cancel) || (res == DialogResult.Abort))
                 {
                     AddStatus(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
                 }
                 else
                 {
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dlg.Updated));
-                    if (dlg.Updated > 0 && Settings.Instance.AutosaveDB)
+                    if ((dlg.Updated > 0) && Settings.Instance.AutosaveDB)
                     {
                         SaveGameDB();
                     }
@@ -1138,7 +1138,7 @@ namespace Depressurizer
                     }
                     else
                     {
-                        if (res == DialogResult.Abort || res == DialogResult.Cancel)
+                        if ((res == DialogResult.Abort) || (res == DialogResult.Cancel))
                         {
                             AddStatus(GlobalStrings.MainForm_DownloadAborted);
                         }
@@ -1309,7 +1309,7 @@ namespace Depressurizer
 
             GetStringDlg dlg = new GetStringDlg(cboFilter.Text, GlobalStrings.MainForm_SaveFilter,
                 GlobalStrings.MainForm_EnterNewFilterName, GlobalStrings.MainForm_Save);
-            if (dlg.ShowDialog() == DialogResult.OK && ValidateFilterName(dlg.Value))
+            if ((dlg.ShowDialog() == DialogResult.OK) && ValidateFilterName(dlg.Value))
             {
                 Filter f;
                 bool refresh = true;
@@ -1396,7 +1396,7 @@ namespace Depressurizer
 
             GetStringDlg dlg = new GetStringDlg(string.Empty, GlobalStrings.MainForm_CreateCategory,
                 GlobalStrings.MainForm_EnterNewCategoryName, GlobalStrings.MainForm_Create);
-            if (dlg.ShowDialog() == DialogResult.OK && ValidateCategoryName(dlg.Value))
+            if ((dlg.ShowDialog() == DialogResult.OK) && ValidateCategoryName(dlg.Value))
             {
                 Category newCat = CurrentProfile.GameData.AddCategory(dlg.Value);
                 if (newCat != null)
@@ -1421,7 +1421,7 @@ namespace Depressurizer
             foreach (ListViewItem item in lstCategories.SelectedItems)
             {
                 Category c = item.Tag as Category;
-                if (c != null && c != CurrentProfile.GameData.FavoriteCategory)
+                if ((c != null) && (c != CurrentProfile.GameData.FavoriteCategory))
                 {
                     toDelete.Add(c);
                 }
@@ -1466,7 +1466,7 @@ namespace Depressurizer
             if (lstCategories.SelectedItems.Count > 0)
             {
                 Category c = lstCategories.SelectedItems[0].Tag as Category;
-                if (c != null && c != CurrentProfile.GameData.FavoriteCategory)
+                if ((c != null) && (c != CurrentProfile.GameData.FavoriteCategory))
                 {
                     GetStringDlg dlg = new GetStringDlg(c.Name,
                         string.Format(GlobalStrings.MainForm_RenameCategory, c.Name),
@@ -1662,7 +1662,7 @@ namespace Depressurizer
                 }
                 FillAllCategoryLists();
                 if (lstCategories.SelectedItems[0].Tag is Category &&
-                    (Category) lstCategories.SelectedItems[0].Tag == cat)
+                    ((Category) lstCategories.SelectedItems[0].Tag == cat))
                 {
                     FilterGamelist(false);
                 }
@@ -1832,29 +1832,29 @@ namespace Depressurizer
             int notInDbCount = 0;
             foreach (GameInfo game in gamesToUpdate)
             {
-                if (game.Id > 0 && (!Program.GameDB.Contains(game.Id) ||
-                                    Program.GameDB.Games[game.Id].LastStoreScrape == 0))
+                if ((game.Id > 0) && (!Program.GameDB.Contains(game.Id) ||
+                                    (Program.GameDB.Games[game.Id].LastStoreScrape == 0)))
                 {
                     notInDbOrOldData.Enqueue(game.Id);
                     notInDbCount++;
                 }
-                else if (game.Id > 0 && Utility.GetCurrentUTime() >
-                         Program.GameDB.Games[game.Id].LastStoreScrape +
-                         Settings.Instance.ScrapePromptDays * 86400) //86400 seconds in a day
+                else if ((game.Id > 0) && (Utility.GetCurrentUTime() >
+                                           (Program.GameDB.Games[game.Id].LastStoreScrape +
+                                            (Settings.Instance.ScrapePromptDays * 86400)))) //86400 seconds in a day
                 {
                     notInDbOrOldData.Enqueue(game.Id);
                     oldDbDataCount++;
                 }
             }
 
-            if ((notInDbCount > 0 || oldDbDataCount > 0) && scrape)
+            if (((notInDbCount > 0) || (oldDbDataCount > 0)) && scrape)
             {
                 Cursor.Current = Cursors.Default;
                 string message = "";
                 message += notInDbCount > 0
                     ? string.Format(GlobalStrings.MainForm_GamesNotFoundInGameDB, notInDbCount)
                     : "";
-                if (notInDbCount > 0 && oldDbDataCount > 0)
+                if ((notInDbCount > 0) && (oldDbDataCount > 0))
                 {
                     message += " " + GlobalStrings.Text_And + " ";
                 }
@@ -1878,7 +1878,7 @@ namespace Depressurizer
                     {
                         AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries,
                             scrapeDlg.JobsCompleted));
-                        if (scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutosaveDB)
+                        if ((scrapeDlg.JobsCompleted > 0) && Settings.Instance.AutosaveDB)
                         {
                             SaveGameDB();
                         }
@@ -2168,8 +2168,8 @@ namespace Depressurizer
             List<GameInfo> gamelist = lstGames.Objects.Cast<GameInfo>().ToList();
             foreach (GameInfo g in gamelist)
             {
-                if (CurrentProfile != null && (!CurrentProfile.GameData.Games.ContainsKey(g.Id) ||
-                                               (g.Id < 0 && !CurrentProfile.IncludeShortcuts)))
+                if ((CurrentProfile != null) && (!CurrentProfile.GameData.Games.ContainsKey(g.Id) ||
+                                               ((g.Id < 0) && !CurrentProfile.IncludeShortcuts)))
                 {
                     gamelist.Remove(g);
                 }
@@ -2187,7 +2187,7 @@ namespace Depressurizer
             {
                 foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
                 {
-                    if (g.Id < 0 && !CurrentProfile.IncludeShortcuts)
+                    if ((g.Id < 0) && !CurrentProfile.IncludeShortcuts)
                     {
                         continue;
                     }
@@ -2617,7 +2617,7 @@ namespace Depressurizer
             foreach (ListViewItem item in lstCategories.SelectedItems)
             {
                 c = item.Tag as Category;
-                if (c != null && !(CurrentProfile != null && c == CurrentProfile.GameData.FavoriteCategory))
+                if ((c != null) && !((CurrentProfile != null) && (c == CurrentProfile.GameData.FavoriteCategory)))
                 {
                     break;
                 }
@@ -2625,8 +2625,8 @@ namespace Depressurizer
             }
             mbtnCatDelete.Enabled = c != null;
             c = (lstCategories.SelectedItems.Count > 0) ? lstCategories.SelectedItems[0].Tag as Category : null;
-            mbtnCatRename.Enabled = c != null &&
-                                    !(CurrentProfile != null && c == CurrentProfile.GameData.FavoriteCategory);
+            mbtnCatRename.Enabled = (c != null) &&
+                                    !((CurrentProfile != null) && (c == CurrentProfile.GameData.FavoriteCategory));
         }
 
         /// <summary>
@@ -2769,7 +2769,7 @@ namespace Depressurizer
 
                 SetDragDropEffect(e);
 
-                if (dropItem.Tag != null && dropItem.Tag is Category)
+                if ((dropItem.Tag != null) && dropItem.Tag is Category)
                 {
                     Category dropCat = (Category) dropItem.Tag;
                     if (e.Effect == DragDropEffects.Move)
@@ -3102,7 +3102,7 @@ namespace Depressurizer
 
         private void contextCat_Opening(object sender, CancelEventArgs e)
         {
-            bool selectedCat = lstCategories.SelectedItems.Count > 0 && lstCategories.SelectedItems[0].Tag != null;
+            bool selectedCat = (lstCategories.SelectedItems.Count > 0) && (lstCategories.SelectedItems[0].Tag != null);
             contextCat_Delete.Enabled = contextCat_Rename.Enabled = selectedCat;
         }
 
@@ -3119,7 +3119,7 @@ namespace Depressurizer
             contextGame_Edit.Enabled = selectedGames;
             contextGame_Remove.Enabled = selectedGames;
             contextGame_AddCat.Enabled = selectedGames;
-            contextGame_RemCat.Enabled = selectedGames && contextGameRemCat.Items.Count > 0;
+            contextGame_RemCat.Enabled = selectedGames && (contextGameRemCat.Items.Count > 0);
             contextGame_SetFav.Enabled = selectedGames;
             contextGame_VisitStore.Enabled = selectedGames;
             contextGame_LaunchGame.Enabled = selectedGames;
@@ -3764,7 +3764,7 @@ namespace Depressurizer
             {
                 GetStringDlg dlg = new GetStringDlg(f.Name, string.Format(GlobalStrings.MainForm_RenameFilter, f.Name),
                     GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
-                if (dlg.ShowDialog() == DialogResult.OK && f.Name != dlg.Value)
+                if ((dlg.ShowDialog() == DialogResult.OK) && (f.Name != dlg.Value))
                 {
                     if (CurrentProfile.GameData.FilterExists(dlg.Value))
                     {
@@ -3837,11 +3837,11 @@ namespace Depressurizer
         {
             int oldState = i.StateImageIndex;
 
-            if (i.StateImageIndex == -1 && reverse)
+            if ((i.StateImageIndex == -1) && reverse)
             {
                 i.StateImageIndex = MAX_FILTER_STATE;
             }
-            else if (i.StateImageIndex == MAX_FILTER_STATE && !reverse)
+            else if ((i.StateImageIndex == MAX_FILTER_STATE) && !reverse)
             {
                 i.StateImageIndex = -1;
             }
@@ -4062,7 +4062,7 @@ namespace Depressurizer
             }
 
             // Add Early Access banner
-            if (Program.GameDB.Games.ContainsKey(g.Id) && Program.GameDB.Games[g.Id].Tags != null)
+            if (Program.GameDB.Games.ContainsKey(g.Id) && (Program.GameDB.Games[g.Id].Tags != null))
             {
                 if (Program.GameDB.Games[g.Id].Tags.Contains(EARLY_ACCESS))
                 {
@@ -4117,7 +4117,7 @@ namespace Depressurizer
         private void lstMultiCat_KeyPress(object sender, KeyPressEventArgs e)
         {
             bool modKey = ModifierKeys == Keys.Shift;
-            if (e.KeyChar == (char) Keys.Return || e.KeyChar == (char) Keys.Space)
+            if ((e.KeyChar == (char) Keys.Return) || (e.KeyChar == (char) Keys.Space))
             {
                 if (lstMultiCat.SelectedItems.Count == 0)
                 {
@@ -4133,7 +4133,7 @@ namespace Depressurizer
         {
             if (item != null)
             {
-                if (item.StateImageIndex == 0 || (item.StateImageIndex == 2 && modKey))
+                if ((item.StateImageIndex == 0) || ((item.StateImageIndex == 2) && modKey))
                 {
                     item.StateImageIndex = 1;
                     Category cat = item.Tag as Category;
@@ -4142,7 +4142,7 @@ namespace Depressurizer
                         AddCategoryToSelectedGames(cat, false);
                     }
                 }
-                else if (item.StateImageIndex == 1 || (item.StateImageIndex == 2 && !modKey))
+                else if ((item.StateImageIndex == 1) || ((item.StateImageIndex == 2) && !modKey))
                 {
                     item.StateImageIndex = 0;
                     Category cat = item.Tag as Category;
@@ -4263,8 +4263,8 @@ namespace Depressurizer
             {
                 return false;
             }
-            if (mtxtSearch.Text != string.Empty &&
-                g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1)
+            if ((mtxtSearch.Text != string.Empty) &&
+                (g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1))
             {
                 return false;
             }
@@ -4272,7 +4272,7 @@ namespace Depressurizer
             {
                 return false;
             }
-            if (g.Id < 0 && !CurrentProfile.IncludeShortcuts)
+            if ((g.Id < 0) && !CurrentProfile.IncludeShortcuts)
             {
                 return false;
             }
@@ -4328,7 +4328,7 @@ namespace Depressurizer
             int value = 0;
             int version = (new WebBrowser()).Version.Major;
 
-            if (version >= 8 && version <= 11)
+            if ((version >= 8) && (version <= 11))
             {
                 value = version * 1000;
             }
@@ -4340,8 +4340,8 @@ namespace Depressurizer
             Microsoft.Win32.RegistryKey existingSubKey =
                 Microsoft.Win32.Registry.LocalMachine.OpenSubKey(installkey, false); // readonly key
 
-            if (existingSubKey.GetValue(entryLabel) == null ||
-                Convert.ToInt32(existingSubKey.GetValue(entryLabel)) != value)
+            if ((existingSubKey.GetValue(entryLabel) == null) ||
+                (Convert.ToInt32(existingSubKey.GetValue(entryLabel)) != value))
             {
                 new System.Security.Permissions.RegistryPermission(System.Security.Permissions.PermissionState
                     .Unrestricted).Assert();

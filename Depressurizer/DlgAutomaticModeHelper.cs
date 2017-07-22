@@ -190,7 +190,7 @@ namespace Depressurizer
 
             txtResult.Text = GenerateCommand();
 
-            if (profile != null && profile.AutoCats != null)
+            if ((profile != null) && (profile.AutoCats != null))
             {
                 foreach (AutoCat ac in profile.AutoCats)
                 {

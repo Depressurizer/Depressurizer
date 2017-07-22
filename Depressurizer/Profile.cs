@@ -327,7 +327,7 @@ namespace Depressurizer
                 GameListingSource source =
                     XmlUtil.GetEnumFromNode(node[XmlName_Game_Source], GameListingSource.Unknown);
 
-                if (source < GameListingSource.Manual && profile.IgnoreList.Contains(id))
+                if ((source < GameListingSource.Manual) && profile.IgnoreList.Contains(id))
                 {
                     return;
                 }
@@ -425,7 +425,7 @@ namespace Depressurizer
 
             foreach (GameInfo g in GameData.Games.Values)
             {
-                if (IncludeShortcuts || g.Id > 0)
+                if (IncludeShortcuts || (g.Id > 0))
                 {
                     // Don't save shortcuts if we aren't including them
                     writer.WriteStartElement(XmlName_Game);

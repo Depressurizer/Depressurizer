@@ -142,7 +142,7 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -152,17 +152,17 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            if (RemoveOtherGenres && genreCategories != null)
+            if (RemoveOtherGenres && (genreCategories != null))
             {
                 game.RemoveCategory(genreCategories);
             }
 
             List<string> genreList = db.GetGenreList(game.Id, depth: MAX_PARENT_DEPTH, tagFallback: TagFallback);
-            if (genreList != null && genreList.Count > 0)
+            if ((genreList != null) && (genreList.Count > 0))
             {
                 List<Category> categories = new List<Category>();
                 int max = MaxCategories;
-                for (int i = 0; i < genreList.Count && (MaxCategories == 0 || i < max); i++)
+                for (int i = 0; (i < genreList.Count) && ((MaxCategories == 0) || (i < max)); i++)
                 {
                     if (!IgnoredGenres.Contains(genreList[i]))
                     {

@@ -124,7 +124,7 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -139,7 +139,7 @@ namespace Depressurizer
             if (gameTags != null)
             {
                 int added = 0;
-                for (int index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
+                for (int index = 0; (index < gameTags.Count) && ((MaxTags == 0) || (added < MaxTags)); index++)
                 {
                     if (IncludedTags.Contains(gameTags[index]))
                     {
@@ -176,7 +176,7 @@ namespace Depressurizer
             }
             writer.WriteElementString(XmlName_MaxTags, MaxTags.ToString());
 
-            if (IncludedTags != null && IncludedTags.Count > 0)
+            if ((IncludedTags != null) && (IncludedTags.Count > 0))
             {
                 writer.WriteStartElement(XmlName_TagList);
                 foreach (string s in IncludedTags)

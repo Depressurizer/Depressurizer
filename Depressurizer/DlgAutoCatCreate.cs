@@ -61,7 +61,7 @@ namespace Depressurizer
             }
 
             int index = Array.IndexOf(types, t);
-            if (index >= 0 && index < typeNames.Length)
+            if ((index >= 0) && (index < typeNames.Length))
             {
                 return typeNames[index];
             }
@@ -77,7 +77,7 @@ namespace Depressurizer
             }
 
             int index = Array.IndexOf(typeNames, s);
-            if (index >= 0 && index < types.Length)
+            if ((index >= 0) && (index < types.Length))
             {
                 return types[index];
             }

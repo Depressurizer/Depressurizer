@@ -56,7 +56,7 @@ namespace Depressurizer
             if (node != null)
             {
                 XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null && int.TryParse(textNode.InnerText, out value))
+                if ((textNode != null) && int.TryParse(textNode.InnerText, out value))
                 {
                     return true;
                 }
@@ -76,7 +76,7 @@ namespace Depressurizer
             if (node != null)
             {
                 XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null && float.TryParse(textNode.InnerText, out value))
+                if ((textNode != null) && float.TryParse(textNode.InnerText, out value))
                 {
                     return true;
                 }
@@ -96,7 +96,7 @@ namespace Depressurizer
             if (node != null)
             {
                 XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null && Int64.TryParse(textNode.InnerText, out value))
+                if ((textNode != null) && Int64.TryParse(textNode.InnerText, out value))
                 {
                     return true;
                 }
@@ -116,7 +116,7 @@ namespace Depressurizer
             if (node != null)
             {
                 XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null && bool.TryParse(textNode.InnerText, out value))
+                if ((textNode != null) && bool.TryParse(textNode.InnerText, out value))
                 {
                     return true;
                 }
@@ -147,7 +147,7 @@ namespace Depressurizer
         public static bool TryGetBoolFromAttribute(XmlNode node, string attName, out bool value)
         {
             string attText = GetAttributeText(node, attName);
-            if (attText != null && bool.TryParse(attText, out value))
+            if ((attText != null) && bool.TryParse(attText, out value))
             {
                 return true;
             }

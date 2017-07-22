@@ -151,7 +151,7 @@ namespace Depressurizer
             float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
             float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
 
-            if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
+            if (IncludeUnknown && (hltbMain == 0.0f) && (hltbExtras == 0.0f) && (hltbCompletionist == 0.0f))
             {
                 result = UnknownText;
             }
@@ -195,7 +195,7 @@ namespace Depressurizer
                 return false;
             }
 
-            return (hours >= rule.MinHours && (hours <= rule.MaxHours || rule.MaxHours == 0.0f));
+            return ((hours >= rule.MinHours) && ((hours <= rule.MaxHours) || (rule.MaxHours == 0.0f)));
         }
 
         private string GetProcessedString(string s)

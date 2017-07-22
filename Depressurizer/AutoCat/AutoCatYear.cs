@@ -123,7 +123,7 @@ namespace Depressurizer
             }
 
             int year = db.GetReleaseYear(game.Id);
-            if (year > 0 || IncludeUnknown)
+            if ((year > 0) || IncludeUnknown)
             {
                 game.AddCategory(games.GetCategory(GetProcessedString(year)));
             }
@@ -163,8 +163,8 @@ namespace Depressurizer
 
         private string GetRangeString(int year, int rangeSize)
         {
-            int first = year - year % rangeSize;
-            return string.Format("{0}-{1}", first, first + rangeSize - 1);
+            int first = year - (year % rangeSize);
+            return string.Format("{0}-{1}", first, (first + rangeSize) - 1);
         }
 
         #endregion

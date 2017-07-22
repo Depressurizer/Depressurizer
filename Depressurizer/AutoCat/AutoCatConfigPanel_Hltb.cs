@@ -111,8 +111,8 @@ namespace Depressurizer
                 numRuleMaxTime.Enabled = numRuleMinTime.Enabled =
                     cmbTimeType.Enabled =
                         cmdRuleRemove.Enabled = ruleSelected;
-            cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
-            cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
+            cmdRuleUp.Enabled = ruleSelected && (lstRules.SelectedIndex != 0);
+            cmdRuleDown.Enabled = ruleSelected = ruleSelected && (lstRules.SelectedIndex != (lstRules.Items.Count - 1));
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace Depressurizer
         private void MoveItem(int mainIndex, int offset, bool selectMoved)
         {
             int alterIndex = mainIndex + offset;
-            if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 ||
-                alterIndex >= lstRules.Items.Count)
+            if ((mainIndex < 0) || (mainIndex >= lstRules.Items.Count) || (alterIndex < 0) ||
+                (alterIndex >= lstRules.Items.Count))
             {
                 return;
             }

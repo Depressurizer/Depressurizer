@@ -628,16 +628,16 @@ namespace Rallion
         /// <returns>True if message can be added, false otherwise</returns>
         private bool CanWriteToFile(string message)
         {
-            if (MaxFileRecords != 0 && CurrentFileRecords >= MaxFileRecords)
+            if ((MaxFileRecords != 0) && (CurrentFileRecords >= MaxFileRecords))
             {
                 return false;
             }
-            if (MaxFileSize != 0 && outputStream.Length + message.Length > MaxFileSize)
+            if ((MaxFileSize != 0) && ((outputStream.Length + message.Length) > MaxFileSize))
             {
                 return false;
             }
-            if (MaxFileDuration != null && MaxFileDuration.Ticks != 0 &&
-                DateTime.Now - CurrentFileStartTime > MaxFileDuration)
+            if ((MaxFileDuration != null) && (MaxFileDuration.Ticks != 0) &&
+                ((DateTime.Now - CurrentFileStartTime) > MaxFileDuration))
             {
                 return false;
             }

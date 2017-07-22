@@ -39,7 +39,7 @@ namespace Depressurizer
 
         protected override void Finish()
         {
-            if (!Canceled && Error == null)
+            if (!Canceled && (Error == null))
             {
                 OnJobCompletion();
             }

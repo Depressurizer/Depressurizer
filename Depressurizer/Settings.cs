@@ -490,15 +490,15 @@ namespace Depressurizer
                 }
                 else
                 {
-                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
+                    if ((currentCulture.Name == "zh-Hans") || (currentCulture.Parent.Name == "zh-Hans"))
                     {
                         dbLanguage = StoreLanguage.zh_Hans;
                     }
-                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
+                    else if ((currentCulture.Name == "zh-Hant") || (currentCulture.Parent.Name == "zh-Hant"))
                     {
                         dbLanguage = StoreLanguage.zh_Hant;
                     }
-                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
+                    else if ((currentCulture.Name == "pt-BR") || (currentCulture.Parent.Name == "pt-BR"))
                     {
                         dbLanguage = StoreLanguage.pt_BR;
                     }
@@ -541,7 +541,7 @@ namespace Depressurizer
                     DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
-                    if (scrapeRes != DialogResult.Cancel && scrapeDlg.JobsCompleted > 0)
+                    if ((scrapeRes != DialogResult.Cancel) && (scrapeDlg.JobsCompleted > 0))
                     {
                         Program.GameDB.Save("GameDB.xml.gz");
                     }
