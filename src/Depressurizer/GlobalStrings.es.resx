@@ -1,0 +1,828 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CDlgFetch_DownloadingGameList" xml:space="preserve">
+    <value>Descargando lista de juegos...</value>
+  </data>
+  <data name="CDlgFetch_FinishingDownload" xml:space="preserve">
+    <value>Finalizando descarga...</value>
+  </data>
+  <data name="CDlgFetch_UpdatingGameList" xml:space="preserve">
+    <value>Actualizando lista de juegos</value>
+  </data>
+  <data name="CDlgScrape_1minute" xml:space="preserve">
+    <value>&lt; 1 minuto</value>
+  </data>
+  <data name="CDlgScrape_ApplyingData" xml:space="preserve">
+    <value>Aplicando datos...</value>
+  </data>
+  <data name="CDlgScrape_ScrapingGameInfo" xml:space="preserve">
+    <value>Extrayendo información del juego</value>
+  </data>
+  <data name="CDlgScrape_Unknown" xml:space="preserve">
+    <value>Desconocido</value>
+  </data>
+  <data name="DBEditDlg_AbortedUpdate" xml:space="preserve">
+    <value>Cancelado. Actualizadas {0} / {1} entradas.</value>
+  </data>
+  <data name="DBEditDlg_AddedGame" xml:space="preserve">
+    <value>Añadido juego con ID {0}.</value>
+  </data>
+  <data name="DBEditDlg_AreYouSureDeleteGames" xml:space="preserve">
+    <value>¿Borrar {0} juegos de la base de datos?</value>
+  </data>
+  <data name="DBEditDlg_AreYouSureToClear" xml:space="preserve">
+    <value>¿Está seguro que quiere borrar todos los datos?</value>
+  </data>
+  <data name="DBEditDlg_CanceledListUpdate" xml:space="preserve">
+    <value>Cancelada actualización de la lista.</value>
+  </data>
+  <data name="DBEditDlg_ClearedAllData" xml:space="preserve">
+    <value>Eliminados todos los datos.</value>
+  </data>
+  <data name="DBEditDlg_Confirm" xml:space="preserve">
+    <value>Confirmación</value>
+  </data>
+  <data name="DBEditDlg_DatabaseSaved" xml:space="preserve">
+    <value>Base de datos guardada.</value>
+  </data>
+  <data name="DBEditDlg_DatabaseSaveFailed" xml:space="preserve">
+    <value>Error al guardar base de datos.</value>
+  </data>
+  <data name="DBEditDlg_DeletedGames" xml:space="preserve">
+    <value>Eliminados {0} juegos.</value>
+  </data>
+  <data name="DBEditDlg_DialogFilter" xml:space="preserve">
+    <value>Ficheros GZip (*.gz)|*.gz|Ficheros XML (*.xml)|*.xml|Todos los ficheros|*.*</value>
+  </data>
+  <data name="DBEditDlg_EditedGame" xml:space="preserve">
+    <value>Editado juego con ID {0}</value>
+  </data>
+  <data name="DBEditDlg_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DBEditDlg_ErrorSavingFile" xml:space="preserve">
+    <value>Error guardando fichero: 
+
+{0}</value>
+  </data>
+  <data name="DBEditDlg_ErrorUpdatingGameList" xml:space="preserve">
+    <value>Error actualizando lista de juegos.</value>
+  </data>
+  <data name="DBEditDlg_ErrorUpdatingGames" xml:space="preserve">
+    <value>Error actualizando juegos.</value>
+  </data>
+  <data name="DBEditDlg_ErrorWhileUpdatingGameList" xml:space="preserve">
+    <value>Ocurrió un error al actualizar la lista de juegos:
+
+{0}</value>
+  </data>
+  <data name="DBEditDlg_ErrorWhileUpdatingGames" xml:space="preserve">
+    <value>Ocurrió un error al actualizar los juegos:
+
+{0}</value>
+  </data>
+  <data name="DBEditDlg_FailedToAddGame" xml:space="preserve">
+    <value>Error al añadir el juego con ID {0}.</value>
+  </data>
+  <data name="DBEditDlg_FileLoaded" xml:space="preserve">
+    <value>Fichero cargado.</value>
+  </data>
+  <data name="DBEditDlg_FileSaved" xml:space="preserve">
+    <value>Fichero guardado.</value>
+  </data>
+  <data name="DBEditDlg_GameIdAlreadyExists" xml:space="preserve">
+    <value>Ya existe un juego con el ID especificado.</value>
+  </data>
+  <data name="DBEditDlg_NoGamesToScrape" xml:space="preserve">
+    <value>No hay juegos para extraer información.</value>
+  </data>
+  <data name="DBEditDlg_SaveFailed" xml:space="preserve">
+    <value>Error al guardar.</value>
+  </data>
+  <data name="DBEditDlg_SelectedDisplayedTotal" xml:space="preserve">
+    <value>{0} seleccionados / {1} mostrados / {2} total</value>
+  </data>
+  <data name="DBEditDlg_UnsavedChanges" xml:space="preserve">
+    <value>Cambios no guardados</value>
+  </data>
+  <data name="DBEditDlg_UnsavedChangesSave" xml:space="preserve">
+    <value>Hay cambios sin guardar. ¿Guarda la base de datos de juegos primero?</value>
+  </data>
+  <data name="DBEditDlg_UpdateCanceled" xml:space="preserve">
+    <value>Actualización cancelada.</value>
+  </data>
+  <data name="DBEditDlg_UpdatedEntries" xml:space="preserve">
+    <value>Actualizadas {0} entradas.</value>
+  </data>
+  <data name="DBEditDlg_UpdatedGameList" xml:space="preserve">
+    <value>Actualizada lista de juegos, añadidos {0} juegos.</value>
+  </data>
+  <data name="DlgGameDBEntry_Add" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="DlgGameDBEntry_IDMustBeInteger" xml:space="preserve">
+    <value>ID del juego debe ser un número entero.</value>
+  </data>
+  <data name="CDlgDataScrape_FinishingUp" xml:space="preserve">
+    <value>Finalizando...</value>
+  </data>
+  <data name="CDlgDataScrape_InitiatingSteamStoreDataScrape" xml:space="preserve">
+    <value>Iniciando extracción de datos de la tienda de Steam. {0} tareas para finalizar.</value>
+  </data>
+  <data name="CDlgDataScrape_ScrapeCompleted" xml:space="preserve">
+    <value>Extracción completada. {0} fallos. {1} resultados. Introduciendo resultados en la base de datos.</value>
+  </data>
+  <data name="CDlgDataScrape_TimeRemaining" xml:space="preserve">
+    <value>
+Tiempo Restante:</value>
+  </data>
+  <data name="CDlgDataScrape_UpdatingComplete" xml:space="preserve">
+    <value>Actualizando...{0}/{1} completados.</value>
+  </data>
+  <data name="CDlgGetSteamID_AttemptingDownloadXMLProfile" xml:space="preserve">
+    <value>Intentando descargar página de perfil en XML para URL personalizada {0}: {1}</value>
+  </data>
+  <data name="CDlgGetSteamID_ExceptionDownloadingXMLProfile" xml:space="preserve">
+    <value>Excepción al descargar perfil XML:
+{0}</value>
+  </data>
+  <data name="CDlgGetSteamID_FailedToDownloadProfile" xml:space="preserve">
+    <value>Fallo al descargar datos del perfil:</value>
+  </data>
+  <data name="CDlgGetSteamID_GettingIDFromURL" xml:space="preserve">
+    <value>Obteniendo Steam IDa partir de URL personalizada...</value>
+  </data>
+  <data name="CDlgGetSteamID_GettingSteamID" xml:space="preserve">
+    <value>Obteniendo Steam ID...</value>
+  </data>
+  <data name="CDlgGetSteamID_XMLProfileDownloaded" xml:space="preserve">
+    <value>Perfil XML descargado con éxito.</value>
+  </data>
+  <data name="CDlgUpdateProfile_UpdatingGameList" xml:space="preserve">
+    <value>Actualizando lista de juegos...</value>
+  </data>
+  <data name="DlgFatalError_ClipboardUpdated" xml:space="preserve">
+    <value>Portapapeles actualizado.</value>
+  </data>
+  <data name="DlgFatalError_CouldNotCopyClipboard" xml:space="preserve">
+    <value>No se pudo copiar al portapapeles.</value>
+  </data>
+  <data name="DlgFatalError_CouldNotSaveErrorInformation" xml:space="preserve">
+    <value>No se pudo guardar información de error.</value>
+  </data>
+  <data name="DlgFatalError_ErrorInformationSaved" xml:space="preserve">
+    <value>Información de error guardada.</value>
+  </data>
+  <data name="DlgFatalError_FatalError" xml:space="preserve">
+    <value>{0} - Error fatal</value>
+  </data>
+  <data name="DlgFatalError_FatalErrorOcurred" xml:space="preserve">
+    <value>Ha ocurrido un error fatal en {0}. El programa se cerrará.</value>
+  </data>
+  <data name="DlgGame_CreateGame" xml:space="preserve">
+    <value>Crear Juego</value>
+  </data>
+  <data name="DlgGame_EditGame" xml:space="preserve">
+    <value>Editar Juego</value>
+  </data>
+  <data name="DlgManualDownload_IfIDSelectedMustBeNumber" xml:space="preserve">
+    <value>Si se selecciona ID, debe introducirse un número.</value>
+  </data>
+  <data name="DlgOptions_ErrorSavingSettingsFile" xml:space="preserve">
+    <value>Error guardando fichero de configuración:</value>
+  </data>
+  <data name="DlgProfile_AccountIDMustBeNumber" xml:space="preserve">
+    <value>ID de cuenta debe ser un número.</value>
+  </data>
+  <data name="DlgProfile_Cancelling" xml:space="preserve">
+    <value>Cancelando...</value>
+  </data>
+  <data name="DlgProfile_ClickUpdateToDisplayNames" xml:space="preserve">
+    <value>Pulse Actualizar para obtener los nombres para los números de cuenta.</value>
+  </data>
+  <data name="DlgProfile_CouldNotFindSteamProfile" xml:space="preserve">
+    <value>No se puedo encontrar el perfil de Steam especificado.</value>
+  </data>
+  <data name="DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName" xml:space="preserve">
+    <value>Excepción al intentar extraer nombre de perfil para la cuenta {0}:</value>
+  </data>
+  <data name="DlgProfile_FailedToCreateParentDirectory" xml:space="preserve">
+    <value>Error al crear directorio para el fichero de perfil.</value>
+  </data>
+  <data name="DlgProfile_Filter" xml:space="preserve">
+    <value>Perfiles (*.profile)|*.profile</value>
+  </data>
+  <data name="DlgProfile_NoAccountConfiguration" xml:space="preserve">
+    <value>No se encontró información de configuración de ninguna cuenta en su carpeta de instalación de Steam. Debe introducir manualmente un identificador de cuenta de 64-bits o el nombre de la URL personalizada de su perfil.</value>
+  </data>
+  <data name="DlgProfile_UpdatingNames" xml:space="preserve">
+    <value>Actualizando nombres...</value>
+  </data>
+  <data name="DlgProfile_YouMustEnterValidProfilePath" xml:space="preserve">
+    <value>Debe introducir un fichero de perfil válido.</value>
+  </data>
+  <data name="DlgSteamPath_ThatPathDoesNotExist" xml:space="preserve">
+    <value>Ese directorio no existe. ¿Está seguro?</value>
+  </data>
+  <data name="GameData_AccessDeniedSteamConfigFile" xml:space="preserve">
+    <value>Acceso denegado al fichero de configuración de Steam:</value>
+  </data>
+  <data name="GameData_AddedNewGame" xml:space="preserve">
+    <value>Añadidos nuevos juegos encontrados la configuración de Steam: {0} - {1}</value>
+  </data>
+  <data name="GameData_AddingGameToConfigFile" xml:space="preserve">
+    <value>Añadido juego {0} al fichero de configuración.</value>
+  </data>
+  <data name="GameData_AttemptingDownloadHTMLGameList" xml:space="preserve">
+    <value>Intentando descargar lista de juegos HTML desde URL {0}</value>
+  </data>
+  <data name="GameData_AttemptingDownloadXMLGameList" xml:space="preserve">
+    <value>Intentando descarga lista de juegos XML desde URL {0}</value>
+  </data>
+  <data name="GameData_CleaningUpSteamConfigTree" xml:space="preserve">
+    <value>Limpiando el árbol de configuración de Steam antes de guardar en disco.</value>
+  </data>
+  <data name="GameData_ErrorOpeningConfigFileParam" xml:space="preserve">
+    <value>Error abriendo el fichero de configuración de Steam: {0}</value>
+  </data>
+  <data name="GameData_ErrorOpeningSteamConfigFile" xml:space="preserve">
+    <value>Error abriendo el fichero de configuración de Steam:</value>
+  </data>
+  <data name="GameData_ErrorParsingConfigFileParam" xml:space="preserve">
+    <value>Error interpretando el fichero de configuración de Steam: {0}</value>
+  </data>
+  <data name="GameData_ErrorParsingSteamConfigFile" xml:space="preserve">
+    <value>Error interpretando el fichero de configuración de Steam:</value>
+  </data>
+  <data name="GameData_ErrorSavingSteamConfigFile" xml:space="preserve">
+    <value>Error guardando el fichero de configuración de Steam: {0}</value>
+  </data>
+  <data name="GameData_ExceptionDownloadHTMLGameList" xml:space="preserve">
+    <value>Excepción al descargar listado de juegos HTML:
+{0}</value>
+  </data>
+  <data name="GameData_ExceptionDownloadXMLGameList" xml:space="preserve">
+    <value>Excepción al descargar listado de juegos XML:
+{0}</value>
+  </data>
+  <data name="GameData_FailedToSaveSteamConfigBadPath" xml:space="preserve">
+    <value>Fallo al guardar el fichero de configuración de Steam: Directorio especificado no válido.</value>
+  </data>
+  <data name="GameData_FailedToSaveSteamConfigFile" xml:space="preserve">
+    <value>Fallo al guardar el fichero de configuración de Steam:</value>
+  </data>
+  <data name="GameData_IntegratedGameIntoGameList" xml:space="preserve">
+    <value>Añadidos juegos en la lista de juegos: {0} - {1}. Nuevos: {2}</value>
+  </data>
+  <data name="GameData_IntegratedHTMLDataIntoGameList" xml:space="preserve">
+    <value>Añadidos datos HTML en la lista de juegos. {0} entradas totales, {1} nuevas.</value>
+  </data>
+  <data name="GameData_IntegratedXMLDataIntoGameList" xml:space="preserve">
+    <value>Añadidos datos XML en la lista de juegos. {0} entradas totales, {1} nuevas.</value>
+  </data>
+  <data name="GameData_LoadingErrorSteamConfig" xml:space="preserve">
+    <value>Fallo cargando la configuración de Steam existente: {0}</value>
+  </data>
+  <data name="GameData_OpeningSteamConfigFile" xml:space="preserve">
+    <value>Abriendo el fichero de configuración de Steam: {0}</value>
+  </data>
+  <data name="GameData_ProcessedGame" xml:space="preserve">
+    <value>Juegos procesados desde la configuración de Steam: {0}, Cat: {1}</value>
+  </data>
+  <data name="GameData_ProfileNotPublic" xml:space="preserve">
+    <value>El perfil no es público.</value>
+  </data>
+  <data name="GameData_RemovingGameCategoryFromSteamConfig" xml:space="preserve">
+    <value>Eliminando información de la categoría {0} del fichero de configuración de Steam.</value>
+  </data>
+  <data name="GameData_SavingSteamConfigFile" xml:space="preserve">
+    <value>Guardando fichero de configuración de Steam: {0}.</value>
+  </data>
+  <data name="GameData_SkippedIntegratingGame" xml:space="preserve">
+    <value>Omitida integración de juegos: {0} - {1}.</value>
+  </data>
+  <data name="GameData_SkippedProcessingGame" xml:space="preserve">
+    <value>Omitido procesado del juego {0} de la configuración de Steam.</value>
+  </data>
+  <data name="GameData_SpecifiedProfileNotPublic" xml:space="preserve">
+    <value>El perfil especificado no es público.</value>
+  </data>
+  <data name="GameData_SteamConfigFileLoaded" xml:space="preserve">
+    <value>Fichero de configuración de Steam cargado. {0} entradas encontradas.</value>
+  </data>
+  <data name="GameData_SuccessDownloadHTMLGameList" xml:space="preserve">
+    <value>Descarga correcta de lista de juegos HTML.</value>
+  </data>
+  <data name="GameData_SuccessDownloadXMLGameList" xml:space="preserve">
+    <value>Descarga correcta de lista de juegos XML.</value>
+  </data>
+  <data name="GameData_WritingToDisk" xml:space="preserve">
+    <value>Guardando a disco...</value>
+  </data>
+  <data name="GameDB_DownloadingSteamAppList" xml:space="preserve">
+    <value>Descargando lista de aplicaciones de Steam.</value>
+  </data>
+  <data name="GameDB_GameDBSaved" xml:space="preserve">
+    <value>GameDB guardada.</value>
+  </data>
+  <data name="GameDB_GameDBXMLParsed" xml:space="preserve">
+    <value>Documento GameDB XML interpretado.</value>
+  </data>
+  <data name="GameDB_GameDBXMLProcessed" xml:space="preserve">
+    <value>GameDB XML procesado, carga completa.</value>
+  </data>
+  <data name="GameDB_InitiatingStoreScrapeForGame" xml:space="preserve">
+    <value>Iniciando extracción de la tienda para el juego ID {0}</value>
+  </data>
+  <data name="GameDB_LoadedNewItemsFromAppList" xml:space="preserve">
+    <value>Cargadas {0} nuevas entradas de la lista de aplicaciones.</value>
+  </data>
+  <data name="GameDB_LoadingGameDBFrom" xml:space="preserve">
+    <value>Cargando GameDB desde {0}</value>
+  </data>
+  <data name="GameDB_SavingGameDBTo" xml:space="preserve">
+    <value>Guardando GameDB a {0}</value>
+  </data>
+  <data name="GameDB_ScrapingAgeCheckNoRedirect" xml:space="preserve">
+    <value>Extrayendo {0}: comprobación de edad si redirección</value>
+  </data>
+  <data name="GameDB_ScrapingCouldNotParse" xml:space="preserve">
+    <value>Extrayendo {0}: no se pudo interpretar información de la página</value>
+  </data>
+  <data name="GameDB_ScrapingHitAgeCheck" xml:space="preserve">
+    <value>Extrayendo {0}: alcanzada comprobación de edad para juego ID {1}</value>
+  </data>
+  <data name="GameDB_ScrapingPageRead" xml:space="preserve">
+    <value>Extrayendo {0}: página leída</value>
+  </data>
+  <data name="GameDB_ScrapingPageReadFailed" xml:space="preserve">
+    <value>Extrayendo {0}: fallo al leer página. {1}</value>
+  </data>
+  <data name="GameDB_ScrapingParsed" xml:space="preserve">
+    <value>Extrayendo {0}: Interpretada. Género: {1}</value>
+  </data>
+  <data name="GameDB_ScrapingParsedDLC" xml:space="preserve">
+    <value>Extrayendo {0}: Interpretada. DLC. Género: {1}</value>
+  </data>
+  <data name="GameDB_ScrapingReceivedSiteError" xml:space="preserve">
+    <value>Extrayendo {0}: Recibido error desde el sitio web.</value>
+  </data>
+  <data name="GameDB_ScrapingRedirectedTo" xml:space="preserve">
+    <value>Extrayendo {0}: Redireccionando a {1}</value>
+  </data>
+  <data name="GameDB_ScrapingRedirectedToMainStorePage" xml:space="preserve">
+    <value>Extrayendo {0}: Redireccionado a página principal de la tienda</value>
+  </data>
+  <data name="GameDB_ScrapingRedirectedToNonApp" xml:space="preserve">
+    <value>Extrayendo {0}: Redireccionado a URL que no es una aplicación</value>
+  </data>
+  <data name="GameDB_ScrapingRedirectedToOtherApp" xml:space="preserve">
+    <value>Extrayendo {0}: Redireccionado a otra aplicación ID ({1})</value>
+  </data>
+  <data name="GameDB_XMLAppListDownloaded" xml:space="preserve">
+    <value>Descargada lista de aplicaciones XML.</value>
+  </data>
+  <data name="MainForm_AddContentsOfSteamCommunity" xml:space="preserve">
+    <value>Esta acción añadirá los contenido de la lista de juegos de la comunidad de Steam a la lista actualmente cargada. Si no quiere hacer esto, cierre primero la lista abierta de juegos o el perfil.
+¿Continúa con la carga de juegos?</value>
+  </data>
+  <data name="MainForm_AddContentsOfSteamConfigFile" xml:space="preserve">
+    <value>Esta acción añadirá los contenidos del fichero de configuración de Steam a la lista de juegos actualmente cargada, y sobreescribirá la información de categorías para cualquier juego existente. Si no quiere hacer esto, cierre primero el perfil abierto o la lista de juegos.
+¿Continúa la carga del fichero?</value>
+  </data>
+  <data name="MainForm_DataExported" xml:space="preserve">
+    <value>Datos exportados.</value>
+  </data>
+  <data name="MainForm_ExportFailed" xml:space="preserve">
+    <value>Fallo en la exportación.</value>
+  </data>
+  <data name="MainForm_ImportedGames" xml:space="preserve">
+    <value>Importados {0} juegos.</value>
+  </data>
+  <data name="MainForm_ImportFailed" xml:space="preserve">
+    <value>Fallo en importación.</value>
+  </data>
+  <data name="MainForm_NoGameInfoFound" xml:space="preserve">
+    <value>Aviso: No se encontró información de juego en el fichero especificado.</value>
+  </data>
+  <data name="MainForm_NoGamesFound" xml:space="preserve">
+    <value>No se encontraron juegos.</value>
+  </data>
+  <data name="MainForm_AddedGame" xml:space="preserve">
+    <value>Juego añadido.</value>
+  </data>
+  <data name="MainForm_All" xml:space="preserve">
+    <value>&lt;Todos&gt;</value>
+  </data>
+  <data name="MainForm_AutonameCanceled" xml:space="preserve">
+    <value>Autonombrado cancelado.</value>
+  </data>
+  <data name="MainForm_AutonamedGames" xml:space="preserve">
+    <value>Autonombrados {0} juegos.</value>
+  </data>
+  <data name="MainForm_CanceledDatabaseUpdate" xml:space="preserve">
+    <value>Cancelada actualización base de datos.</value>
+  </data>
+  <data name="MainForm_CategoryAdded" xml:space="preserve">
+    <value>Categoría '{0}' añadida.</value>
+  </data>
+  <data name="MainForm_CategoryDeleted" xml:space="preserve">
+    <value>{0} categorías borrada.</value>
+  </data>
+  <data name="MainForm_CategoryNameReserved" xml:space="preserve">
+    <value>Nombre de categoría '{0}' está reservado.</value>
+  </data>
+  <data name="MainForm_CategoryNamesNotEmpty" xml:space="preserve">
+    <value>Los nombres de categoría no pueden estar vacíos.</value>
+  </data>
+  <data name="MainForm_CategoryRenamed" xml:space="preserve">
+    <value>Categoría renombrada.</value>
+  </data>
+  <data name="MainForm_ClearedData" xml:space="preserve">
+    <value>Datos borrados.</value>
+  </data>
+  <data name="MainForm_CouldNotAddCategory" xml:space="preserve">
+    <value>No se puedo añadir la categoría '{0}'</value>
+  </data>
+  <data name="MainForm_CouldNotDeleteCategory" xml:space="preserve">
+    <value>No se pudo borrar la categorías.</value>
+  </data>
+  <data name="MainForm_Create" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+  <data name="MainForm_CreateCategory" xml:space="preserve">
+    <value>Crear categoría</value>
+  </data>
+  <data name="MainForm_DeleteCategory" xml:space="preserve">
+    <value>¿Borrar categoría '{0}'?</value>
+  </data>
+  <data name="MainForm_DownloadAborted" xml:space="preserve">
+    <value>Descarga cancelanda.</value>
+  </data>
+  <data name="MainForm_DownloadedGames" xml:space="preserve">
+    <value>Descargados {0} juegos, {1} nuevos, vía {2}.</value>
+  </data>
+  <data name="MainForm_DownloadFailed" xml:space="preserve">
+    <value>Fallo en descarga.</value>
+  </data>
+  <data name="MainForm_EditedGame" xml:space="preserve">
+    <value>Juego editado.</value>
+  </data>
+  <data name="MainForm_EnterNewCategoryName" xml:space="preserve">
+    <value>Introduzca nombre de la nueva categoría:</value>
+  </data>
+  <data name="MainForm_EnterNewName" xml:space="preserve">
+    <value>Introduzca nuevo nombre:</value>
+  </data>
+  <data name="MainForm_ErrorDowloadingProfile" xml:space="preserve">
+    <value>Hubo un error descargando datos del perfil: 
+
+{0}</value>
+  </data>
+  <data name="MainForm_ErrorDownloadingGames" xml:space="preserve">
+    <value>Error descargando juegos.</value>
+  </data>
+  <data name="MainForm_ErrorDownloadingProfileData" xml:space="preserve">
+    <value>Error descargando datos del perfil vía {0}.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorExportingToSteam" xml:space="preserve">
+    <value>Error exportando a Steam.
+{0}</value>
+  </data>
+  <data name="MainForm_ErrorImportingSteamDataList" xml:space="preserve">
+    <value>Error importando lista de datos de Steam.
+{0}</value>
+  </data>
+  <data name="MainForm_ErrorLoadingGameDB" xml:space="preserve">
+    <value>Error cargando base de datos de juegos. Categorías locales y datos DLC no estarán disponibles.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorLoadingProfile" xml:space="preserve">
+    <value>Error cargando perfil.
+{0}</value>
+  </data>
+  <data name="MainForm_ErrorOcurredOnGames" xml:space="preserve">
+    <value>Se produjeron errores en {0} juegos.</value>
+  </data>
+  <data name="MainForm_ErrorSavingFile" xml:space="preserve">
+    <value>Error guardando fichero.</value>
+  </data>
+  <data name="MainForm_Msg_ErrorSavingProfile" xml:space="preserve">
+    <value>Error guardando perfil.
+{0}</value>
+  </data>
+  <data name="MainForm_ExportedCategories" xml:space="preserve">
+    <value>Categorías exportadas.</value>
+  </data>
+  <data name="MainForm_FailedLoadProfile" xml:space="preserve">
+    <value>Fallo al cargar perfil.</value>
+  </data>
+  <data name="MainForm_FailedSaveProfile" xml:space="preserve">
+    <value>Fallo al guardar perfil.</value>
+  </data>
+  <data name="MainForm_FailedToLoadStorePages" xml:space="preserve">
+    <value>Fallo al cargar página de la tienda para {0} juegos.</value>
+  </data>
+  <data name="MainForm_Favorite" xml:space="preserve">
+    <value>&lt;Favoritos&gt;</value>
+  </data>
+  <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
+    <value>Fichero GameDB file no existe.</value>
+  </data>
+  <data name="MainForm_IgnoredGame" xml:space="preserve">
+    <value>Ignorados {0} juegos {1}.</value>
+  </data>
+  <data name="MainForm_ImportedItems" xml:space="preserve">
+    <value>Importados {0} objetos.</value>
+  </data>
+  <data name="MainForm_NameIsInUse" xml:space="preserve">
+    <value>Nombre '{0}' ya está en uso.</value>
+  </data>
+  <data name="MainForm_NoGameDataFound" xml:space="preserve">
+    <value>No se encontraron datos de juegos. Por favor, verifique que el nombre de la URL personalizada del perfil es correcto.</value>
+  </data>
+  <data name="MainForm_NoGamesInDownload" xml:space="preserve">
+    <value>No se encontraron juegos en la descarga.</value>
+  </data>
+  <data name="MainForm_NoProfileLoaded" xml:space="preserve">
+    <value>No hay perfil cargado. ¿Crear uno ahora?</value>
+  </data>
+  <data name="MainForm_Overwrite" xml:space="preserve">
+    <value>¿Sobreescribir?</value>
+  </data>
+  <data name="MainForm_OverwriteExistingNames" xml:space="preserve">
+    <value>¿Quiere sobreescribir los nombres existentes? Pulsar \"No\" solo renombrá aquellos juegos que no tienen un nombre ya establecido.</value>
+  </data>
+  <data name="MainForm_ProfileCreated" xml:space="preserve">
+    <value>Perfil creado.</value>
+  </data>
+  <data name="MainForm_ProfileEdited" xml:space="preserve">
+    <value>Perfil editado.</value>
+  </data>
+  <data name="MainForm_ProfileLoaded" xml:space="preserve">
+    <value>Perfil cargado.</value>
+  </data>
+  <data name="MainForm_ProfileSaved" xml:space="preserve">
+    <value>Perfil guardado.</value>
+  </data>
+  <data name="MainForm_RemovedEmptyCategories" xml:space="preserve">
+    <value>Eliminadas {0} categorías vacías.</value>
+  </data>
+  <data name="MainForm_RemovedGame" xml:space="preserve">
+    <value>Eliminado {0} juego{1}.</value>
+  </data>
+  <data name="MainForm_RemoveGame" xml:space="preserve">
+    <value>¿Eliminar {0} juego{1}?</value>
+  </data>
+  <data name="MainForm_Rename" xml:space="preserve">
+    <value>Renombrar</value>
+  </data>
+  <data name="MainForm_RenameCategory" xml:space="preserve">
+    <value>Renombrar categoría: {0}</value>
+  </data>
+  <data name="MainForm_SavingProfileDataFailed" xml:space="preserve">
+    <value>Fallo al guardar datos del perfil:</value>
+  </data>
+  <data name="MainForm_SelectedDisplayed" xml:space="preserve">
+    <value>{0} seleccionados / {1} mostrados</value>
+  </data>
+  <data name="MainForm_SomeSelectedGameHaveCategories" xml:space="preserve">
+    <value>Alguno de los juegos seleccionados ya tienen categorías establecidas. ¿Quiere sobreescribir estas categorías?</value>
+  </data>
+  <data name="MainForm_Uncategorized" xml:space="preserve">
+    <value>&lt;Sin categoría&gt;</value>
+  </data>
+  <data name="MainForm_UnignoredGame" xml:space="preserve">
+    <value>Juego designorado {0}.</value>
+  </data>
+  <data name="MainForm_UnsavedChanges" xml:space="preserve">
+    <value>Cambios sin guardar</value>
+  </data>
+  <data name="MainForm_UnsavedChangesWillBeLost" xml:space="preserve">
+    <value>Los cambios sin guardar se perderán. ¿Guardar primero?</value>
+  </data>
+  <data name="MainForm_UpdatedCategories" xml:space="preserve">
+    <value>Actualizadas {0} categorías.</value>
+  </data>
+  <data name="MainForm_UpdatedViaWeb" xml:space="preserve">
+    <value>Actualizado {0} vía web.</value>
+  </data>
+  <data name="MainForm_UpdatedViaWebAndAborted" xml:space="preserve">
+    <value>Actualizado {0} / {1} vía web y cancelado.</value>
+  </data>
+  <data name="MainForm_XMLDownloadFailed" xml:space="preserve">
+    <value>Fallo en descarga XML.</value>
+  </data>
+  <data name="MainForm_Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="Profile_ErrorLoadingProfile" xml:space="preserve">
+    <value>Error cargando perfil.</value>
+  </data>
+  <data name="Profile_ErrorSavingProfileFile" xml:space="preserve">
+    <value>Error guardando fichero de perfil.</value>
+  </data>
+  <data name="Profile_FailedToLoadProfile" xml:space="preserve">
+    <value>Error al cargar perfil: {0}</value>
+  </data>
+  <data name="Profile_FailedToOpenProfileFile" xml:space="preserve">
+    <value>Error al abrir fichero de perfil para escritura: {0}</value>
+  </data>
+  <data name="Profile_LoadingProfile" xml:space="preserve">
+    <value>Cargando perfil desde el fichero: {0}</value>
+  </data>
+  <data name="Profile_ProfileSaveComplete" xml:space="preserve">
+    <value>Guardado de perfil completo.</value>
+  </data>
+  <data name="Profile_SavingProfile" xml:space="preserve">
+    <value>Guardando perfil: {0}</value>
+  </data>
+  <data name="Program_ProgramClosing" xml:space="preserve">
+    <value>Cerrando aplicación.</value>
+  </data>
+  <data name="Program_ProgramInitialized" xml:space="preserve">
+    <value>Aplicación iniciada. Nivel de registro configurado a {0}.</value>
+  </data>
+  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
+    <value>El nodo es un valor, no un array. No se puede obtener la clave {0}</value>
+  </data>
+  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
+    <value>El nodo es un valor, no un array. No se puede establecer la clave {0}</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
+    <value>Carácter inesperado '{0}' encontrado cuando se esperaba una clave.</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
+    <value>Carácter inesperado '{0}' encontrado cuando se esperaba un valor.</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
+    <value>Alcanzado final de fichero inesperadamente: cadena sin finalizar.</value>
+  </data>
+  <data name="DlgProfile_EditProfile" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="GameData_ErrorParsingScreenshots" xml:space="preserve">
+    <value>Error procesando identificador en el fichero Screenshots.vdf para el juego '{0}'</value>
+  </data>
+  <data name="GameData_IntegratedShortCuts" xml:space="preserve">
+    <value>Añadidos juegos externos en la lista de juegos. {0} entradas totales.</value>
+  </data>
+  <data name="GameData_ErrorRemovingGame" xml:space="preserve">
+    <value>No se pudo eliminar juego: {0} - {1}.</value>
+  </data>
+  <data name="GameData_ErrorRemovingSteamGame" xml:space="preserve">
+    <value>Solo se pueden eliminar juegos externos con identificador negativo: {0}</value>
+  </data>
+  <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
+    <value>Eliminado juego de la lista de juegos: {0} - {1}.</value>
+  </data>
+  <data name="GameData_SavingShortcutConfigFile" xml:space="preserve">
+    <value>Guardando fichero de juegos externos de Steam: {0}.</value>
+  </data>
+  <data name="MainForm_External" xml:space="preserve">
+    <value>Externo</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Genre" xml:space="preserve">
+    <value>por Género</value>
+  </data>
+  <data name="GameDB_TooManyRedirects" xml:space="preserve">
+    <value>Scraping {0}: Too Many Redirects</value>
+  </data>
+  <data name="MainForm_NoHltbTime" xml:space="preserve">
+    <value>--</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Tags" xml:space="preserve">
+    <value>por Etiquetas</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_UserScore" xml:space="preserve">
+    <value>por Puntuación</value>
+  </data>
+  <data name="Profile_DefaultAutoCatName_Year" xml:space="preserve">
+    <value>por Año</value>
+  </data>
+  <data name="MainForm_OverwriteFilterName" xml:space="preserve">
+    <value>Do you want to overwrite filter: {0}</value>
+  </data>
+  <data name="MainForm_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="AutoCat_Name_Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+</root>
