@@ -474,25 +474,40 @@ namespace Depressurizer
 
         public void ChangeStoreLanguage(StoreLanguage storeLanguage)
         {
-            if (Program.GameDB == null) return;
+            if (Program.GameDB == null)
+            {
+                return;
+            }
+
             StoreLanguage dbLanguage = StoreLanguage.en;
             if (storeLanguage == StoreLanguage.windows)
             {
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
+                {
                     dbLanguage =
                         (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
+                }
                 else
                 {
                     if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
+                    {
                         dbLanguage = StoreLanguage.zh_Hans;
+                    }
                     else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
+                    {
                         dbLanguage = StoreLanguage.zh_Hant;
+                    }
                     else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
+                    {
                         dbLanguage = StoreLanguage.pt_BR;
+                    }
                 }
             }
-            else dbLanguage = storeLanguage;
+            else
+            {
+                dbLanguage = storeLanguage;
+            }
             if (Program.GameDB.dbLanguage != dbLanguage)
             {
                 Program.GameDB.dbLanguage = dbLanguage;

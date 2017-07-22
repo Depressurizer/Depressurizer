@@ -185,7 +185,11 @@ namespace Depressurizer
                     result.Add(s);
                 }
             }
-            if (result.Count == 0) return null;
+            if (result.Count == 0)
+            {
+                return null;
+            }
+
             return result;
         }
     }

@@ -489,7 +489,10 @@ namespace Depressurizer
 
         private void StartThreadedNameUpdate()
         {
-            if (currentThreadCount > 0) return;
+            if (currentThreadCount > 0)
+            {
+                return;
+            }
 
             int maxThreads = 1;
 
@@ -542,7 +545,10 @@ namespace Depressurizer
 
                     lock (data.tLock)
                     {
-                        if (data.tLock.Aborted) abort = true;
+                        if (data.tLock.Aborted)
+                        {
+                            abort = true;
+                        }
                         else
                         {
                             UpdateDisplayNameInList(job.index, name);

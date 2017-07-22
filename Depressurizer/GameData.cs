@@ -66,8 +66,15 @@ namespace Depressurizer
         {
             get
             {
-                if (Id > 0) return Id.ToString();
-                if (!string.IsNullOrEmpty(_launchStr)) return _launchStr;
+                if (Id > 0)
+                {
+                    return Id.ToString();
+                }
+                if (!string.IsNullOrEmpty(_launchStr))
+                {
+                    return _launchStr;
+                }
+
                 return null;
             }
             set { _launchStr = value; }
@@ -77,7 +84,11 @@ namespace Depressurizer
         {
             get
             {
-                if (GameList == null) return null;
+                if (GameList == null)
+                {
+                    return null;
+                }
+
                 return GameList.FavoriteCategory;
             }
         }
@@ -88,7 +99,11 @@ namespace Depressurizer
         {
             get
             {
-                if (_executable == null) return String.Format(runSteam, Id);
+                if (_executable == null)
+                {
+                    return String.Format(runSteam, Id);
+                }
+
                 return _executable;
             }
             set
@@ -119,27 +134,60 @@ namespace Depressurizer
 
         public void ApplySource(GameListingSource src)
         {
-            if (Source < src) Source = src;
+            if (Source < src)
+            {
+                Source = src;
+            }
         }
 
         public bool IncludeGame(Filter f)
         {
-            if (f == null) return true;
+            if (f == null)
+            {
+                return true;
+            }
 
             bool isCategorized = false;
             bool isHidden = false;
             bool isVR = false;
-            if (f.Uncategorized != (int) AdvancedFilterState.None) isCategorized = HasCategories();
-            if (f.Hidden != (int) AdvancedFilterState.None) isHidden = Hidden;
-            if (f.VR != (int)AdvancedFilterState.None) isVR = Program.GameDB.SupportsVr(Id);
+            if (f.Uncategorized != (int) AdvancedFilterState.None)
+            {
+                isCategorized = HasCategories();
+            }
+            if (f.Hidden != (int) AdvancedFilterState.None)
+            {
+                isHidden = Hidden;
+            }
+            if (f.VR != (int)AdvancedFilterState.None)
+            {
+                isVR = Program.GameDB.SupportsVr(Id);
+            }
 
-            if (f.Uncategorized == (int) AdvancedFilterState.Require && isCategorized) return false;
-            if (f.Hidden == (int) AdvancedFilterState.Require && !isHidden) return false;
-            if (f.VR == (int)AdvancedFilterState.Require && !isVR) return false;
+            if (f.Uncategorized == (int) AdvancedFilterState.Require && isCategorized)
+            {
+                return false;
+            }
+            if (f.Hidden == (int) AdvancedFilterState.Require && !isHidden)
+            {
+                return false;
+            }
+            if (f.VR == (int)AdvancedFilterState.Require && !isVR)
+            {
+                return false;
+            }
 
-            if (f.Uncategorized == (int) AdvancedFilterState.Exclude && !isCategorized) return false;
-            if (f.Hidden == (int) AdvancedFilterState.Exclude && isHidden) return false;
-            if (f.VR == (int)AdvancedFilterState.Exclude && isVR) return false;
+            if (f.Uncategorized == (int) AdvancedFilterState.Exclude && !isCategorized)
+            {
+                return false;
+            }
+            if (f.Hidden == (int) AdvancedFilterState.Exclude && isHidden)
+            {
+                return false;
+            }
+            if (f.VR == (int)AdvancedFilterState.Exclude && isVR)
+            {
+                return false;
+            }
 
             if (f.Uncategorized == (int) AdvancedFilterState.Allow || f.Hidden == (int) AdvancedFilterState.Allow ||
                 f.VR == (int)AdvancedFilterState.Allow || f.Allow.Count > 0)
@@ -150,15 +198,24 @@ namespace Depressurizer
                     {
                         if (f.VR != (int) AdvancedFilterState.Allow || !isVR)
                         {
-                            if (!Categories.Overlaps(f.Allow)) return false;
+                            if (!Categories.Overlaps(f.Allow))
+                            {
+                                return false;
+                            }
                         }
                     }
                 }
             }
 
-            if (!Categories.IsSupersetOf(f.Require)) return false;
+            if (!Categories.IsSupersetOf(f.Require))
+            {
+                return false;
+            }
 
-            if (Categories.Overlaps(f.Exclude)) return false;
+            if (Categories.Overlaps(f.Exclude))
+            {
+                return false;
+            }
 
             return true;
         }
@@ -199,7 +256,9 @@ namespace Depressurizer
         public void RemoveCategory(Category remCat)
         {
             if (Categories.Remove(remCat) && !Hidden)
+            {
                 remCat.Count--;
+            }
         }
 
         /// <summary>
@@ -224,7 +283,13 @@ namespace Depressurizer
         public void ClearCategories(bool alsoClearFavorite = false)
         {
             foreach (Category cat in Categories)
-                if (!Hidden) cat.Count--;
+            {
+                if (!Hidden)
+                {
+                    cat.Count--;
+                }
+            }
+
             if (alsoClearFavorite)
             {
                 Categories.Clear();
@@ -236,7 +301,10 @@ namespace Depressurizer
                 if (restore)
                 {
                     Categories.Add(FavoriteCategory);
-                    if (!Hidden) FavoriteCategory.Count++;
+                    if (!Hidden)
+                    {
+                        FavoriteCategory.Count++;
+                    }
                 }
             }
         }
@@ -269,7 +337,11 @@ namespace Depressurizer
         /// <param name="hide">Whether the game should be hidden</param>
         public void SetHidden(bool hide)
         {
-            if (Hidden == hide) return;
+            if (Hidden == hide)
+            {
+                return;
+            }
+
             if (hide)
             {
                 foreach (Category cat in Categories)
@@ -308,7 +380,11 @@ namespace Depressurizer
         /// <returns>True if the category set is not empty</returns>
         public bool HasCategories(bool includeFavorite = false)
         {
-            if (Categories.Count == 0) return false;
+            if (Categories.Count == 0)
+            {
+                return false;
+            }
+
             return !(!includeFavorite && Categories.Count == 1 && Categories.Contains(FavoriteCategory));
         }
 
@@ -319,10 +395,17 @@ namespace Depressurizer
         /// <returns>True if the game has any categories that do not exist in the list</returns>
         public bool HasCategoriesExcept(ICollection<Category> except)
         {
-            if (Categories.Count == 0) return false;
+            if (Categories.Count == 0)
+            {
+                return false;
+            }
+
             foreach (Category c in Categories)
             {
-                if (!except.Contains(c)) return true;
+                if (!except.Contains(c))
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -381,16 +464,31 @@ namespace Depressurizer
 
         public int CompareTo(object o)
         {
-            if (o == null) return 1;
+            if (o == null)
+            {
+                return 1;
+            }
 
             Category otherCat = o as Category;
-            if (o == null) throw new ArgumentException(GlobalStrings.Category_Exception_ObjectNotCategory);
+            if (o == null)
+            {
+                throw new ArgumentException(GlobalStrings.Category_Exception_ObjectNotCategory);
+            }
 
             int comp = String.Compare(Name, otherCat.Name, StringComparison.OrdinalIgnoreCase);
 
-            if (comp == 0) return 0;
-            if (String.Equals(Name, "favorite", StringComparison.OrdinalIgnoreCase)) return -1;
-            if (String.Equals(otherCat.Name, "favorite", StringComparison.OrdinalIgnoreCase)) return 1;
+            if (comp == 0)
+            {
+                return 0;
+            }
+            if (String.Equals(Name, "favorite", StringComparison.OrdinalIgnoreCase))
+            {
+                return -1;
+            }
+            if (String.Equals(otherCat.Name, "favorite", StringComparison.OrdinalIgnoreCase))
+            {
+                return 1;
+            }
 
             return comp;
         }
@@ -440,7 +538,11 @@ namespace Depressurizer
         public bool CategoryExists(string name)
         {
             // Favorite category always exists
-            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE) return true;
+            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE)
+            {
+                return true;
+            }
+
             foreach (Category c in Categories)
             {
                 if (String.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase))
@@ -459,13 +561,22 @@ namespace Depressurizer
         public Category GetCategory(string name)
         {
             // Categories must have a name
-            if (string.IsNullOrEmpty(name)) return null;
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
             // Check for Favorite category
-            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE) return favoriteCategory;
+            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE)
+            {
+                return favoriteCategory;
+            }
             // Look for a matching category in the list and return if found
             foreach (Category c in Categories)
             {
-                if (String.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase)) return c;
+                if (String.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return c;
+                }
             }
             // Create a new category and return it
             return AddCategory(name);
@@ -498,7 +609,10 @@ namespace Depressurizer
         public bool RemoveCategory(Category c)
         {
             // Can't remove favorite category
-            if (c == favoriteCategory) return false;
+            if (c == favoriteCategory)
+            {
+                return false;
+            }
 
             if (Categories.Remove(c))
             {
@@ -519,7 +633,11 @@ namespace Depressurizer
         /// <returns>The new category, if the operation succeeds. Null otherwise.</returns>
         public Category RenameCategory(Category c, string newName)
         {
-            if (c == favoriteCategory) return null;
+            if (c == favoriteCategory)
+            {
+                return null;
+            }
+
             Category newCat = AddCategory(newName);
             if (newCat != null)
             {
@@ -556,7 +674,10 @@ namespace Depressurizer
             {
                 foreach (Category c in g.Categories)
                 {
-                    if (counts.ContainsKey(c)) counts[c]++;
+                    if (counts.ContainsKey(c))
+                    {
+                        counts[c]++;
+                    }
                 }
             }
             int removed = 0;
@@ -602,11 +723,17 @@ namespace Depressurizer
         public Filter GetFilter(string name)
         {
             // Filters must have a name
-            if (string.IsNullOrEmpty(name)) return null;
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
             // Look for a matching Filter in the list and return if found
             foreach (Filter f in Filters)
             {
-                if (String.Equals(f.Name, name, StringComparison.OrdinalIgnoreCase)) return f;
+                if (String.Equals(f.Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return f;
+                }
             }
             // Create a new Filter and return it
             Filter newFilter = new Filter(name);
@@ -670,16 +797,23 @@ namespace Depressurizer
                     removedGame.ClearCategories(true);
                     removed = Games.Remove(appId);
                     if (removed)
+                    {
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_RemovedGameFromGameList, appId,
                             removedGame.Name);
+                    }
                     else
+                    {
                         Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorRemovingGame, appId,
                             removedGame.Name);
+                    }
                     return removed;
                 }
             }
             else
+            {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorRemovingSteamGame, appId);
+            }
+
             return removed;
         }
 
@@ -1027,7 +1161,9 @@ namespace Depressurizer
                                     if (!ownedApps.ContainsKey(ownedAppId) ||
                                         (src == GameListingSource.PackageNormal &&
                                          ownedApps[ownedAppId] == GameListingSource.PackageFree))
+                                    {
                                         ownedApps[ownedAppId] = src;
+                                    }
                                 }
                             }
                         }
@@ -1045,8 +1181,14 @@ namespace Depressurizer
                 bool isNew;
                 string name = Program.GameDB.GetName(kv.Key);
                 GameInfo newGame = IntegrateGame(kv.Key, name, false, ignored, includedTypes, kv.Value, out isNew);
-                if (newGame != null) totalApps++;
-                if (isNew) newApps++;
+                if (newGame != null)
+                {
+                    totalApps++;
+                }
+                if (isNew)
+                {
+                    newApps++;
+                }
             }
             return totalApps;
         }
@@ -1066,7 +1208,11 @@ namespace Depressurizer
             out int newItems)
         {
             newItems = 0;
-            if (doc == null) return 0;
+            if (doc == null)
+            {
+                return 0;
+            }
+
             int loadedGames = 0;
             XmlNodeList gameNodes = doc.SelectNodes("/gamesList/games/game");
             foreach (XmlNode gameNode in gameNodes)
@@ -1116,7 +1262,11 @@ namespace Depressurizer
             MatchCollection matches = srch.Matches(page);
             foreach (Match m in matches)
             {
-                if (m.Groups.Count < 3) continue;
+                if (m.Groups.Count < 3)
+                {
+                    continue;
+                }
+
                 string appIdString = m.Groups[1].Value;
                 string appName = m.Groups[2].Value;
 
@@ -1274,7 +1424,10 @@ namespace Depressurizer
                                         if (tagName != null)
                                         {
                                             Category c = GetCategory(tagName);
-                                            if (c != null) cats.Add(c);
+                                            if (c != null)
+                                            {
+                                                cats.Add(c);
+                                            }
                                         }
                                     }
                                     if (cats.Count > 0)
@@ -1475,13 +1628,19 @@ namespace Depressurizer
                     tagsNode.MakeArray();
 
                     Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
-                    if (tags != null) tags.Clear();
+                    if (tags != null)
+                    {
+                        tags.Clear();
+                    }
 
                     int key = 0;
                     foreach (Category c in game.Categories)
                     {
                         string name = c.Name;
-                        if (name == FAVORITE_NEW_CONFIG_VALUE) name = FAVORITE_CONFIG_VALUE;
+                        if (name == FAVORITE_NEW_CONFIG_VALUE)
+                        {
+                            name = FAVORITE_CONFIG_VALUE;
+                        }
                         tagsNode[key.ToString()] = new VdfFileNode(name);
                         key++;
                     }
@@ -1581,15 +1740,22 @@ namespace Depressurizer
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
             }
             if (binReader != null)
+            {
                 binReader.Close();
+            }
             if (fStream != null)
+            {
                 fStream.Close();
+            }
             if (dataRoot != null)
             {
                 List<GameInfo> gamesToSave = new List<GameInfo>();
                 foreach (int id in Games.Keys)
                 {
-                    if (id < 0) gamesToSave.Add(Games[id]);
+                    if (id < 0)
+                    {
+                        gamesToSave.Add(Games[id]);
+                    }
                 }
 
                 StringDictionary launchIds = new StringDictionary();
@@ -1623,7 +1789,10 @@ namespace Depressurizer
                         foreach (Category c in game.Categories)
                         {
                             string name = c.Name;
-                            if (name == FAVORITE_NEW_CONFIG_VALUE) name = FAVORITE_CONFIG_VALUE;
+                            if (name == FAVORITE_NEW_CONFIG_VALUE)
+                            {
+                                name = FAVORITE_CONFIG_VALUE;
+                            }
                             tagsNode[index.ToString()] = new VdfFileNode(name);
                             index++;
                         }
@@ -1739,7 +1908,10 @@ namespace Depressurizer
         /// <returns>Total number of entries processed</returns>
         public int ImportSteamShortcuts(long SteamId)
         {
-            if (SteamId <= 0) return 0;
+            if (SteamId <= 0)
+            {
+                return 0;
+            }
 
             int loadedGames = 0;
 
@@ -1841,17 +2013,26 @@ namespace Depressurizer
             // First, look for games with matching launch IDs.
             for (int i = 0; i < gamesToMatchAgainst.Count; i++)
             {
-                if (gamesToMatchAgainst[i].LaunchString == launchId) return i;
+                if (gamesToMatchAgainst[i].LaunchString == launchId)
+                {
+                    return i;
+                }
             }
             // Second, look for games with matching names AND matching shortcut IDs.
             for (int i = 0; i < gamesToMatchAgainst.Count; i++)
             {
-                if (gamesToMatchAgainst[i].Id == -(shortcutId + 1) && gamesToMatchAgainst[i].Name == gameName) return i;
+                if (gamesToMatchAgainst[i].Id == -(shortcutId + 1) && gamesToMatchAgainst[i].Name == gameName)
+                {
+                    return i;
+                }
             }
             // Third, just look for name matches
             for (int i = 0; i < gamesToMatchAgainst.Count; i++)
             {
-                if (gamesToMatchAgainst[i].Name == gameName) return i;
+                if (gamesToMatchAgainst[i].Name == gameName)
+                {
+                    return i;
+                }
             }
 
             return -1;

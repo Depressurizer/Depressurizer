@@ -51,7 +51,10 @@ namespace Depressurizer
         public override void LoadFromAutoCat(AutoCat autocat)
         {
             AutoCatFlags ac = autocat as AutoCatFlags;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
 
             txtPrefix.Text = ac.Prefix;
 
@@ -64,7 +67,11 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatFlags ac = autocat as AutoCatFlags;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
 
             ac.IncludedFlags.Clear();

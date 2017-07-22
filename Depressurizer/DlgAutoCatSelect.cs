@@ -56,7 +56,10 @@ namespace Depressurizer
                     {
                         addAC = SafeGroup(((AutoCatGroup) ac).Autocats, new List<string>(new[] {originalGroup}));
                     }
-                    if (addAC) clbAutocats.Items.Add(ac);
+                    if (addAC)
+                    {
+                        clbAutocats.Items.Add(ac);
+                    }
                 }
             }
             clbAutocats.DisplayMember = "DisplayName";
@@ -107,11 +110,17 @@ namespace Depressurizer
         // find and return AutoCat using the name
         public AutoCat GetAutoCat(string name)
         {
-            if (string.IsNullOrEmpty(name)) return null;
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
 
             foreach (AutoCat ac in AutoCatList)
             {
-                if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase)) return ac;
+                if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return ac;
+                }
             }
 
             return null;

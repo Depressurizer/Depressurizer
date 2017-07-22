@@ -67,7 +67,10 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat ac)
         {
             AutoCatHltb acHltb = ac as AutoCatHltb;
-            if (acHltb == null) return;
+            if (acHltb == null)
+            {
+                return;
+            }
 
             acHltb.Prefix = txtPrefix.Text;
             acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
@@ -78,7 +81,10 @@ namespace Depressurizer
         public override void LoadFromAutoCat(AutoCat ac)
         {
             AutoCatHltb acHltb = ac as AutoCatHltb;
-            if (acHltb == null) return;
+            if (acHltb == null)
+            {
+                return;
+            }
 
             txtPrefix.Text = acHltb.Prefix;
             chkIncludeUnknown.Checked = acHltb.IncludeUnknown;
@@ -119,12 +125,18 @@ namespace Depressurizer
         {
             int alterIndex = mainIndex + offset;
             if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 ||
-                alterIndex >= lstRules.Items.Count) return;
+                alterIndex >= lstRules.Items.Count)
+            {
+                return;
+            }
 
             Hltb_Rule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
-            if (selectMoved) lstRules.SelectedIndex = alterIndex;
+            if (selectMoved)
+            {
+                lstRules.SelectedIndex = alterIndex;
+            }
         }
 
         /// <summary>

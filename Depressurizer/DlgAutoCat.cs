@@ -123,8 +123,14 @@ namespace Depressurizer
             if (current != null && currentConfigPanel != null)
             {
                 currentConfigPanel.SaveToAutoCat(current);
-                if (chkFilter.Checked && cboFilter.Text != string.Empty) current.Filter = cboFilter.Text;
-                else current.Filter = null;
+                if (chkFilter.Checked && cboFilter.Text != string.Empty)
+                {
+                    current.Filter = cboFilter.Text;
+                }
+                else
+                {
+                    current.Filter = null;
+                }
             }
         }
 
@@ -171,12 +177,18 @@ namespace Depressurizer
             }
             AutoCatList.Sort();
             FillAutocatList();
-            if (newAutoCat != null) lstAutoCats.SelectedItem = newAutoCat;
+            if (newAutoCat != null)
+            {
+                lstAutoCats.SelectedItem = newAutoCat;
+            }
         }
 
         private void RenameAutoCat(AutoCat ac)
         {
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
 
             bool good = true;
             DialogResult res;
@@ -209,7 +221,11 @@ namespace Depressurizer
 
         private void RemoveAutoCat(AutoCat ac)
         {
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             lstAutoCats.Items.Remove(ac);
             AutoCatList.Remove(ac);
         }
@@ -297,7 +313,10 @@ namespace Depressurizer
                 cboFilter.Enabled = true;
                 FillFilterList();
             }
-            else cboFilter.Enabled = false;
+            else
+            {
+                cboFilter.Enabled = false;
+            }
         }
 
         #endregion
@@ -318,7 +337,10 @@ namespace Depressurizer
         {
             foreach (AutoCat ac in AutoCatList)
             {
-                if (ac.Name == name) return true;
+                if (ac.Name == name)
+                {
+                    return true;
+                }
             }
             return false;
         }

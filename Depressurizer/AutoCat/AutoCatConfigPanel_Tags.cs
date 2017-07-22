@@ -68,7 +68,10 @@ namespace Depressurizer
             {
                 ListViewItem newItem = new ListViewItem(string.Format("{0} [{1:F0}]", tag.Item1, tag.Item2));
                 newItem.Tag = tag.Item1;
-                if (preChecked != null && preChecked.Contains(tag.Item1)) newItem.Checked = true;
+                if (preChecked != null && preChecked.Contains(tag.Item1))
+                {
+                    newItem.Checked = true;
+                }
                 newItem.SubItems.Add(tag.Item2.ToString());
                 lstIncluded.Items.Add(newItem);
             }
@@ -83,7 +86,11 @@ namespace Depressurizer
         public override void LoadFromAutoCat(AutoCat autocat)
         {
             AutoCatTags ac = autocat as AutoCatTags;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             txtPrefix.Text = (ac.Prefix == null) ? string.Empty : ac.Prefix;
             numMaxTags.Value = ac.MaxTags;
 
@@ -101,7 +108,11 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatTags ac = autocat as AutoCatTags;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
 
             ac.MaxTags = (int) numMaxTags.Value;
@@ -157,7 +168,10 @@ namespace Depressurizer
 
         private void lstIncluded_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked) clbTags.Items.Add(e.Item, true);
+            if (e.Item.Checked)
+            {
+                clbTags.Items.Add(e.Item, true);
+            }
             else if ((!e.Item.Checked) && loaded)
             {
                 workerThread = new Thread(TagItemWorker);

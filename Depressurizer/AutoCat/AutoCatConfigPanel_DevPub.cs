@@ -56,7 +56,11 @@ namespace Depressurizer
         public override void LoadFromAutoCat(AutoCat autocat)
         {
             AutoCatDevPub ac = autocat as AutoCatDevPub;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             chkAllDevelopers.Checked = ac.AllDevelopers;
             chkAllPublishers.Checked = ac.AllPublishers;
             txtPrefix.Text = ac.Prefix;
@@ -86,7 +90,11 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatDevPub ac = autocat as AutoCatDevPub;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
             ac.OwnedOnly = chkOwnedOnly.Checked;
             ac.MinCount = (int) list_numScore.Value;
@@ -131,7 +139,10 @@ namespace Depressurizer
                 {
                     ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", dev.Item1, dev.Item2));
                     newItem.Tag = dev.Item1;
-                    if (preChecked != null && preChecked.Contains(dev.Item1)) newItem.Checked = true;
+                    if (preChecked != null && preChecked.Contains(dev.Item1))
+                    {
+                        newItem.Checked = true;
+                    }
                     newItem.SubItems.Add(dev.Item2.ToString());
                     lstDevelopers.Items.Add(newItem);
                 }
@@ -158,7 +169,10 @@ namespace Depressurizer
                 {
                     ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", pub.Item1, pub.Item2));
                     newItem.Tag = pub.Item1;
-                    if (preChecked != null && preChecked.Contains(pub.Item1)) newItem.Checked = true;
+                    if (preChecked != null && preChecked.Contains(pub.Item1))
+                    {
+                        newItem.Checked = true;
+                    }
                     newItem.SubItems.Add(pub.Item2.ToString());
                     lstPublishers.Items.Add(newItem);
                 }
@@ -301,7 +315,10 @@ namespace Depressurizer
 
         private void lstDevelopers_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked) clbDevelopersSelected.Items.Add(e.Item, true);
+            if (e.Item.Checked)
+            {
+                clbDevelopersSelected.Items.Add(e.Item, true);
+            }
             else if ((!e.Item.Checked) && loaded && clbDevelopersSelected.Items.Contains(e.Item))
             {
                 workerThread = new Thread(DevelopersItemWorker);
@@ -395,7 +412,10 @@ namespace Depressurizer
 
         private void lstPublishers_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked) clbPublishersSelected.Items.Add(e.Item, true);
+            if (e.Item.Checked)
+            {
+                clbPublishersSelected.Items.Add(e.Item, true);
+            }
             else if ((!e.Item.Checked) && loaded && clbPublishersSelected.Items.Contains(e.Item))
             {
                 workerThread = new Thread(PublishersItemWorker);

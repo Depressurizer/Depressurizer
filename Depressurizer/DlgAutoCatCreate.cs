@@ -55,17 +55,33 @@ namespace Depressurizer
 
         private string TypeToString(AutoCatType t)
         {
-            if (t == AutoCatType.None) return null;
+            if (t == AutoCatType.None)
+            {
+                return null;
+            }
+
             int index = Array.IndexOf(types, t);
-            if (index >= 0 && index < typeNames.Length) return typeNames[index];
+            if (index >= 0 && index < typeNames.Length)
+            {
+                return typeNames[index];
+            }
+
             return null;
         }
 
         private AutoCatType StringToType(string s)
         {
-            if (s == null) return AutoCatType.None;
+            if (s == null)
+            {
+                return AutoCatType.None;
+            }
+
             int index = Array.IndexOf(typeNames, s);
-            if (index >= 0 && index < types.Length) return types[index];
+            if (index >= 0 && index < types.Length)
+            {
+                return types[index];
+            }
+
             return AutoCatType.None;
         }
 

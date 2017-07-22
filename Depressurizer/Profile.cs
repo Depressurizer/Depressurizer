@@ -107,8 +107,14 @@ namespace Depressurizer
         public int ImportSteamData()
         {
             AppTypes included = AppTypes.InclusionNormal;
-            if (BypassIgnoreOnImport) included = AppTypes.InclusionAll;
-            else if (IncludeUnknown) included |= AppTypes.Unknown;
+            if (BypassIgnoreOnImport)
+            {
+                included = AppTypes.InclusionAll;
+            }
+            else if (IncludeUnknown)
+            {
+                included |= AppTypes.Unknown;
+            }
 
             return GameData.ImportSteamConfig(SteamID64, IgnoreList, included, IncludeShortcuts);
         }
@@ -434,10 +440,15 @@ namespace Depressurizer
 
                     writer.WriteElementString(XmlName_Game_Hidden, g.Hidden.ToString());
 
-                    if (g.LastPlayed != 0) writer.WriteElementString(XmlName_Game_LastPlayed, g.LastPlayed.ToString());
+                    if (g.LastPlayed != 0)
+                    {
+                        writer.WriteElementString(XmlName_Game_LastPlayed, g.LastPlayed.ToString());
+                    }
 
                     if (!g.Executable.Contains("steam://"))
+                    {
                         writer.WriteElementString(XmlName_Game_Executable, g.Executable);
+                    }
 
                     writer.WriteStartElement(XmlName_Game_CategoryList);
                     foreach (Category c in g.Categories)
@@ -587,11 +598,17 @@ namespace Depressurizer
         // find and return AutoCat using the name
         public AutoCat GetAutoCat(string name)
         {
-            if (string.IsNullOrEmpty(name)) return null;
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
 
             foreach (AutoCat ac in AutoCats)
             {
-                if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase)) return ac;
+                if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase))
+                {
+                    return ac;
+                }
             }
 
             return null;
@@ -611,7 +628,10 @@ namespace Depressurizer
                     // add a cloned copy of the Autocat and replace the filter if one is provided.
                     // a cloned copy is used so that the selected property can be assigned without effecting lvAutoCatType on the Main form.
                     AutoCat clone = ac.Clone();
-                    if (filter != null) clone.Filter = filter.Name;
+                    if (filter != null)
+                    {
+                        clone.Filter = filter.Name;
+                    }
                     newList.Add(clone);
                 }
             }
