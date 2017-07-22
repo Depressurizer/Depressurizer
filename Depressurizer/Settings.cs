@@ -26,61 +26,6 @@ using Rallion;
 
 namespace Depressurizer
 {
-    enum StartupAction
-    {
-        None,
-        Load,
-        Create
-    }
-
-    enum GameListSource
-    {
-        XmlPreferred,
-        XmlOnly,
-        WebsiteOnly
-    }
-
-    enum UILanguage
-    {
-        windows,
-        en, // English
-        es, // Spanish
-        ru, // Russian
-        uk, // Ukranian
-        nl // Dutch
-    }
-
-    public enum StoreLanguage
-    {
-        windows,
-        bg, // Bulgarian
-        cs, // Czech
-        da, // Danish
-        nl, // Dutch
-        en, // English
-        fi, // Finnish
-        fr, // French
-        de, // German
-        el, // Greek
-        hu, // Hungarian
-        it, // Italian
-        ja, // Japanese
-        ko, // Korean
-        no, // Norwegian
-        pl, // Polish
-        pt, // Portuguese
-        pt_BR, // Portuguese (Brasil)
-        ro, // Romanian
-        ru, // Russian
-        zh_Hans, // Simplified Chinese
-        es, // Spanish
-        sv, // Swedish
-        th, // Thai
-        zh_Hant, // Traditional Chinese
-        tr, // Turkish
-        uk // Ukrainian
-    }
-
     class Settings : AppSettings
     {
         private static Settings instance;
