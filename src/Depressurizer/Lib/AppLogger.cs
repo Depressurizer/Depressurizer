@@ -22,7 +22,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace Depressurizer.Lib
+namespace Rallion
 {
     /// <summary>
     /// Simple application event logging class.
