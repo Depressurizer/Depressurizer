@@ -30,21 +30,21 @@ namespace DepressurizerTest
             AutoCatGenre x = new AutoCatGenre("Action");
 
             string expected = "Action";
-            Assert.AreEqual(expected, x.Name);
-            Assert.AreEqual(expected, x.DisplayName);
+            Assert.AreEqual(expected, x.Name);              // Action - Action
+            Assert.AreEqual(expected, x.DisplayName);       // Action - Action
 
             x.Filter = "All";
-            Assert.AreEqual(expected, x.Name);
-            Assert.AreNotEqual(expected, x.DisplayName);
+            Assert.AreEqual(expected, x.Name);              // Action - Action
+            Assert.AreNotEqual(expected, x.DisplayName);    // Action - Action*
 
             expected = "Action*";
-            Assert.AreNotEqual(expected, x.Name);
-            Assert.AreEqual(expected, x.DisplayName);
+            Assert.AreNotEqual(expected, x.Name);           // Action* - Action
+            Assert.AreEqual(expected, x.DisplayName);       // Action* - Action*
 
             x.Filter = null;
             expected = "Action";
-            Assert.AreEqual(expected, x.Name);
-            Assert.AreEqual(expected, x.DisplayName);            
+            Assert.AreEqual(expected, x.Name);              // Action - Action
+            Assert.AreEqual(expected, x.DisplayName);       // Action - Action
         }
     }
 }
