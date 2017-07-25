@@ -25,7 +25,7 @@ using Depressurizer.Properties;
 
 namespace Depressurizer.Helpers
 {
-    internal class Steam
+    public class Steam
     {
         /// <summary>
         /// </summary>
