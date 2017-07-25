@@ -50,7 +50,9 @@
     except:
       - gh-pages
 
-  configuration: Debug
+  configuration:
+    - Debug
+    - Release
 
   platform:
     - x86
