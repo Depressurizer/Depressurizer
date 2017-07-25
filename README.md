@@ -1,3 +1,7 @@
+**This is a modified version of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer)**.
+
+----
+
 ### Depressurizer
 for v0.7.4.0
 
