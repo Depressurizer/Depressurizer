@@ -18,18 +18,20 @@
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.Net.Cache;
+using System.Xml;
 using Depressurizer.Properties;
-using Rallion;
 
 namespace Depressurizer.Helpers
 {
     internal class Steam
     {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="appId"></param>
         /// TODO Add proper error handling
+        /// TODO Add unit test
         public static void LaunchStorePage(int appId)
         {
             Process steamProcess = new Process();
@@ -50,6 +52,50 @@ namespace Depressurizer.Helpers
                 Program.Logger.Write(LoggerLevel.Error, e.ToString());
 #endif
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="steamId64"></param>
+        /// <returns>
+        ///     Success: Returns user avatar
+        ///     Failure: Returns null
+        /// </returns>
+        /// TODO Add proper error handling
+        /// TODO Add unit test
+        public static Image GetAvatar(long steamId64)
+        {
+            Image steamAvatar = null;
+            bool parsingSucceeded = false;
+
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.Load(string.Format(Resources.UrlSteamProfile, steamId64));
+                parsingSucceeded = true;
+
+                if (xmlDocument.DocumentElement != null)
+                {
+                    XmlNode xmlNode = xmlDocument.DocumentElement.SelectSingleNode(Resources.XmlNodeAvatar);
+
+                    if (xmlNode != null)
+                    {
+                        string steamAvatarLink = xmlNode.InnerText;
+                        steamAvatar = Utility.GetImage(steamAvatarLink, RequestCacheLevel.BypassCache);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                if (!parsingSucceeded)
+                {
+                    // Error Parsing xmlDocument
+                }
+                Debug.WriteLine(e);
+                Console.WriteLine(e);
+            }
+
+            return steamAvatar;
         }
     }
 }

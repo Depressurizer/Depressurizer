@@ -18,8 +18,10 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Xml;
+using Depressurizer.Helpers;
 using Rallion;
 
 namespace Depressurizer
@@ -576,25 +578,9 @@ namespace Depressurizer
             return (id - 0x0110000100000000).ToString();
         }
 
-        public Image GetAvatar()
-        {
-            try
-            {
-                XmlDocument xml = new XmlDocument();
-                string profile = string.Format(Properties.Resources.UrlSteamProfile, SteamID64);
-                xml.Load(profile);
-
-                XmlNodeList xnList = xml.SelectNodes(Properties.Resources.XmlNodeAvatar);
-                foreach (XmlNode xn in xnList)
-                {
-                    string avatarURL = xn.InnerText;
-                    return Utility.GetImage(avatarURL, System.Net.Cache.RequestCacheLevel.BypassCache);
-                }
-            }
-            catch { }
-            return null;
-        }
-
+        // TODO Remove
+        public Image GetAvatar() => Steam.GetAvatar(SteamID64);
+        
         // find and return AutoCat using the name
         public AutoCat GetAutoCat(string name)
         {
