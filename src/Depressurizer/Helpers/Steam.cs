@@ -44,13 +44,8 @@ namespace Depressurizer.Helpers
             }
             catch (Exception e)
             {
-#if DEBUG
                 Debug.Write(e);
                 Console.WriteLine(e);
-                throw;
-#else
-                Program.Logger.Write(LoggerLevel.Error, e.ToString());
-#endif
             }
         }
 
