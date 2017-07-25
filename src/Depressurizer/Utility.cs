@@ -376,19 +376,6 @@ namespace Depressurizer
 
         #endregion
 
-        #region Steam-specific
-
-        /// <summary>
-        /// Opens the store page for the specified app in the default browser.
-        /// </summary>
-        /// <param name="appId"></param>
-        public static void LaunchStorePage(int appId)
-        {
-            System.Diagnostics.Process.Start(string.Format(Properties.Resources.UrlSteamStoreApp, appId));
-        }
-
-        #endregion
-
         #region Language
 
         public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage dbLanguage)

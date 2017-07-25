@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Depressurizer.Helpers;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Newtonsoft.Json.Linq;
@@ -3192,7 +3193,7 @@ namespace Depressurizer
         {
             if (lstGames.SelectedObjects.Count > 0)
             {
-                Utility.LaunchStorePage(tlstGames.SelectedObjects[0].Id);
+                Steam.LaunchStorePage(tlstGames.SelectedObjects[0].Id);
             }
         }
 
