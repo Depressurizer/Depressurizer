@@ -1395,4 +1395,10 @@ This could take up to a few seconds per game.</value>
   <data name="AutoCat_Name_Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="CDlgCurator_GettingRecommendations" xml:space="preserve">
+    <value>Retrieving Curator Recommendations</value>
+  </data>
+  <data name="CDlg_Progress" xml:space="preserve">
+    <value>{0}/{1} completed</value>
+  </data>
 </root>

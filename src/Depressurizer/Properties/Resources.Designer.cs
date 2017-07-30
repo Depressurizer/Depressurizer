@@ -214,6 +214,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50.
+        /// </summary>
+        internal static string UrlSteamCuratorRecommendations {
+            get {
+                return ResourceManager.GetString("UrlSteamCuratorRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}?xml=1.
         /// </summary>
         internal static string UrlSteamProfile {
