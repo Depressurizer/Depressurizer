@@ -199,6 +199,9 @@
     <Compile Include="AutoCat\AutoCatUserScore.cs" />
     <Compile Include="AutoCat\AutoCatGroup.cs" />
     <Compile Include="AutoCat\AutoCatYear.cs" />
+	<Compile Include="AutoCat\CDlgCurator.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AutomaticModeForm.cs">
       <SubType>Form</SubType>
     </Compile>

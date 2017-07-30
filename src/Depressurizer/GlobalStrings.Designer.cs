@@ -499,6 +499,24 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}/{1} completed.
+        /// </summary>
+        internal static string CDlg_Progress {
+            get {
+                return ResourceManager.GetString("CDlg_Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retrieving Curator Recommendations.
+        /// </summary>
+        internal static string CDlgCurator_GettingRecommendations {
+            get {
+                return ResourceManager.GetString("CDlgCurator_GettingRecommendations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finishing up....
         /// </summary>
         internal static string CDlgDataScrape_FinishingUp {

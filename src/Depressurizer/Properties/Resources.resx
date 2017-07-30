@@ -168,6 +168,9 @@
   <data name="UrlLatestRelease" xml:space="preserve">
     <value>https://api.github.com/repos/Theo47/depressurizer/releases/latest</value>
   </data>
+  <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
+    <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>
+  </data>
   <data name="UrlSteamProfile" xml:space="preserve">
     <value>http://steamcommunity.com/profiles/{0}?xml=1</value>
   </data>
