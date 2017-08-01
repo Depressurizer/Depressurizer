@@ -1401,4 +1401,13 @@ This could take up to a few seconds per game.</value>
   <data name="CDlg_Progress" xml:space="preserve">
     <value>{0}/{1} completed</value>
   </data>
+  <data name="AutocatCurator_CuratorIdParsing_Error" xml:space="preserve">
+    <value>Error occured while parsing curator url: {0}. Please ensure that is is correct.</value>
+  </data>
+  <data name="AutocatCurator_GetRecommendations_Error" xml:space="preserve">
+    <value>Error occured while retrieving recommendations:</value>
+  </data>
+  <data name="AutoCat_Name_Curator" xml:space="preserve">
+    <value>Curator</value>
+  </data>
 </root>

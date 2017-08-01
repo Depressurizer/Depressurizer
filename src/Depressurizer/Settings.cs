@@ -560,7 +560,7 @@ namespace Depressurizer
                         g.Flags = null;
                         g.Genres = null;
                         g.SteamReleaseDate = null;
-                        g.LastStoreScrape = 0;
+                        g.LastStoreScrape = 1; //pretend it is really old data
                         g.vrSupport = new VrSupport();
                         g.languageSupport = new LanguageSupport();
                     }

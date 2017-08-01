@@ -61,6 +61,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Curator.
+        /// </summary>
+        internal static string AutoCat_Name_Curator {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Curator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Developers &amp; Publishers.
         /// </summary>
         internal static string AutoCat_Name_DevPub {
@@ -174,6 +183,24 @@ namespace Depressurizer {
         internal static string AutoCat_NothingSelected {
             get {
                 return ResourceManager.GetString("AutoCat_NothingSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error occured while parsing curator url: {0}. Please ensure that is is correct..
+        /// </summary>
+        internal static string AutocatCurator_CuratorIdParsing_Error {
+            get {
+                return ResourceManager.GetString("AutocatCurator_CuratorIdParsing_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error occured while retrieving recommendations:.
+        /// </summary>
+        internal static string AutocatCurator_GetRecommendations_Error {
+            get {
+                return ResourceManager.GetString("AutocatCurator_GetRecommendations_Error", resourceCulture);
             }
         }
         
