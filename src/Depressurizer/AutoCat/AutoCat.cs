@@ -75,7 +75,8 @@ namespace Depressurizer
         [Description("AutoCatGroup")] Group,
         [Description("AutoCatName")] Name,
         [Description("AutoCatVrSupport")] VrSupport,
-        [Description("AutoCatLanguage")] Language
+        [Description("AutoCatLanguage")] Language,
+        [Description("AutoCatCurator")] Curator
     }
 
     public enum AutoCatResult
@@ -214,6 +215,8 @@ namespace Depressurizer
                     return AutoCatVrSupport.LoadFromXmlElement(xElement);
                 case AutoCatLanguage.TypeIdString:
                     return AutoCatLanguage.LoadFromXmlElement(xElement);
+                case AutoCatCurator.TypeIdString:
+                    return AutoCatCurator.LoadFromXmlElement(xElement);
                 default:
                     return null;
             }
@@ -247,6 +250,8 @@ namespace Depressurizer
                     return new AutoCatVrSupport(name);
                 case AutoCatType.Language:
                     return new AutoCatLanguage(name);
+                case AutoCatType.Curator:
+                    return new AutoCatCurator(name);
                 case AutoCatType.None:
                     return null;
                 default:

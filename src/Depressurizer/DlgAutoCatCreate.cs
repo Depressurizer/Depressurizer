@@ -37,16 +37,36 @@ namespace Depressurizer
             // This method allows adding new types in one place AND allows localization to work properly
             typeNames = new[]
             {
-                GlobalStrings.AutoCat_Name_Genre, GlobalStrings.AutoCat_Name_Flags, GlobalStrings.AutoCat_Name_Tags,
-                GlobalStrings.AutoCat_Name_Year, GlobalStrings.AutoCat_Name_UserScore, GlobalStrings.AutoCat_Name_Hltb,
-                GlobalStrings.AutoCat_Name_Manual, GlobalStrings.AutoCat_Name_DevPub, GlobalStrings.AutoCat_Name_Group,
-                GlobalStrings.AutoCat_Name_Name, GlobalStrings.AutoCat_Name_VrSupport, GlobalStrings.AutoCat_Name_Language
+                GlobalStrings.AutoCat_Name_Genre,
+                GlobalStrings.AutoCat_Name_Flags,
+                GlobalStrings.AutoCat_Name_Tags,
+                GlobalStrings.AutoCat_Name_Year,
+                GlobalStrings.AutoCat_Name_UserScore,
+                GlobalStrings.AutoCat_Name_Hltb,
+                GlobalStrings.AutoCat_Name_Manual,
+                GlobalStrings.AutoCat_Name_DevPub,
+                GlobalStrings.AutoCat_Name_Group,
+                GlobalStrings.AutoCat_Name_Name,
+                GlobalStrings.AutoCat_Name_VrSupport,
+                GlobalStrings.AutoCat_Name_Language,
+                GlobalStrings.AutoCat_Name_Curator
+
             };
             types = new[]
             {
-                AutoCatType.Genre, AutoCatType.Flags, AutoCatType.Tags, AutoCatType.Year, AutoCatType.UserScore,
-                AutoCatType.Hltb, AutoCatType.Manual, AutoCatType.DevPub, AutoCatType.Group, AutoCatType.Name,
-                AutoCatType.VrSupport, AutoCatType.Language
+                AutoCatType.Genre,
+                AutoCatType.Flags,
+                AutoCatType.Tags,
+                AutoCatType.Year,
+                AutoCatType.UserScore,
+                AutoCatType.Hltb,
+                AutoCatType.Manual,
+                AutoCatType.DevPub,
+                AutoCatType.Group,
+                AutoCatType.Name,
+                AutoCatType.VrSupport,
+                AutoCatType.Language,
+                AutoCatType.Curator
             };
 
             SelectedName = name;
