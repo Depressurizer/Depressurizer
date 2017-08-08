@@ -27,6 +27,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Serialization;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
 using Rallion;
@@ -42,8 +43,11 @@ namespace Depressurizer
 
     public struct LanguageSupport
     {
+        [XmlArrayItem("Language")]
         public List<string> Interface;
+        [XmlArrayItem("Language")]
         public List<string> FullAudio;
+        [XmlArrayItem("Language")]
         public List<string> Subtitles;
     }
 

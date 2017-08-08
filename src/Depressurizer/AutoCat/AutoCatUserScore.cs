@@ -20,11 +20,13 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Rallion;
+using System.Xml.Serialization;
 
 namespace Depressurizer
 {
     public class UserScore_Rule
     {
+        [XmlElement("Text")]
         public string Name { get; set; }
         public int MinScore { get; set; }
         public int MaxScore { get; set; }
@@ -39,6 +41,9 @@ namespace Depressurizer
             MinReviews = minReviews;
             MaxReviews = maxReviews;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private UserScore_Rule() { }
 
         public UserScore_Rule(UserScore_Rule other)
         {
@@ -55,7 +60,8 @@ namespace Depressurizer
         #region Properties
 
         public string Prefix { get; set; }
-        public bool UseWilsonScore { get; internal set; }
+        public bool UseWilsonScore { get; set; }
+        [XmlElement("Rule")]
         public List<UserScore_Rule> Rules;
 
         public override AutoCatType AutoCatType
@@ -80,7 +86,7 @@ namespace Depressurizer
 
         #region Construction
 
-        public AutoCatUserScore(string name = TypeIdString, string filter = null, string prefix = null,
+        public AutoCatUserScore(string name, string filter = null, string prefix = null,
             bool useWilsonScore = false, List<UserScore_Rule> rules = null, bool selected = false)
             : base(name)
         {
@@ -90,6 +96,9 @@ namespace Depressurizer
             Rules = (rules == null) ? new List<UserScore_Rule>() : rules;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatUserScore() { }
 
         public AutoCatUserScore(AutoCatUserScore other)
             : base(other)
@@ -195,7 +204,7 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Name, Name);
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_UseWilsonScore, UseWilsonScore.ToString());
+            writer.WriteElementString(XmlName_UseWilsonScore, UseWilsonScore.ToString().ToLowerInvariant());
 
             foreach (UserScore_Rule rule in Rules)
             {

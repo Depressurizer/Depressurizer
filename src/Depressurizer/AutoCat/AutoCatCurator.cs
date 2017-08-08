@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Serialization;
 using Depressurizer;
 using Rallion;
 
@@ -40,6 +41,7 @@ namespace Depressurizer
 
         public string CuratorUrl { get; set; }
 
+        [XmlArray("Recommendations"), XmlArrayItem("Recommendation")]
         public List<CuratorRecommendation> IncludedRecommendations { get; set; }
 
         private Dictionary<int, CuratorRecommendation> curatorRecommendations;
@@ -47,16 +49,7 @@ namespace Depressurizer
 
         // Serialization constants
         public const string TypeIdString = "AutoCatCurator";
-
-        private const string
-            XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_CategoryName = "CategoryName",
-            XmlName_CuratorUrl = "CuratorUrl",
-            XmlName_RecommendationList = "Recommendations",
-            XmlName_Recommendation = "Recommendation";
             
-
         public AutoCatCurator(string name, string filter = null, string categoryName = null, string curatorUrl = null, List<CuratorRecommendation> includedRecommendations = null,
             bool selected = false)
             : base(name)
@@ -69,6 +62,9 @@ namespace Depressurizer
                 : includedRecommendations;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatCurator() { }
 
         protected AutoCatCurator(AutoCatCurator other)
             : base(other)
@@ -165,59 +161,6 @@ namespace Depressurizer
                 return CategoryName.Replace("{type}",type);
             }
             return type;
-        }
-
-        public override void WriteToXml(XmlWriter writer)
-        {
-            writer.WriteStartElement(TypeIdString);
-
-            writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null)
-            {
-                writer.WriteElementString(XmlName_Filter, Filter);
-            }
-            if (CuratorUrl != null)
-            {
-                writer.WriteElementString(XmlName_CuratorUrl, CuratorUrl);
-            }
-            if (CategoryName != null)
-            {
-                writer.WriteElementString(XmlName_CategoryName, CategoryName);
-            }
-
-            writer.WriteStartElement(XmlName_RecommendationList);
-
-            foreach (CuratorRecommendation s in IncludedRecommendations)
-            {
-                writer.WriteElementString(XmlName_Recommendation, s.ToString());
-            }
-
-            writer.WriteEndElement(); // recommendation list
-            writer.WriteEndElement(); // type ID string
-        }
-
-        public static AutoCatCurator LoadFromXmlElement(XmlElement xElement)
-        {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string curatorUrl = XmlUtil.GetStringFromNode(xElement[XmlName_CuratorUrl], null);
-            string categoryName = XmlUtil.GetStringFromNode(xElement[XmlName_CategoryName], null);
-            List<CuratorRecommendation> recommendations = new List<CuratorRecommendation>();
-
-            XmlElement recommendationListElement = xElement[XmlName_RecommendationList];
-            if (recommendationListElement != null)
-            {
-                XmlNodeList recommendationElements = recommendationListElement.SelectNodes(XmlName_Recommendation);
-                foreach (XmlNode n in recommendationElements)
-                {
-                    CuratorRecommendation recommendation = XmlUtil.GetEnumFromNode(n, CuratorRecommendation.Error);
-                    if (recommendation != CuratorRecommendation.Error)
-                    {
-                        recommendations.Add(recommendation);
-                    }
-                }
-            }
-            return new AutoCatCurator(name, filter, categoryName, curatorUrl, recommendations);
         }
     }
 }

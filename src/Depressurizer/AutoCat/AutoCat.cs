@@ -19,7 +19,9 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Serialization;
 
 /* ADDING NEW AUTOCAT METHODS
  * 
@@ -36,9 +38,9 @@ using System.Xml;
  *       [Optional] public override void PreProcess( GameList games, GameDB db ): Do any pre-processing you want to do before a set of autocategorization operations.
  *       [Optional] public override void DeProcess(): Clean up after a set of autocategorization operations.
  *
- *       [Recommended] public string TypeIDString: Just a constant string that serves as a type identifier for serialization purposes.
- *       public override void WriteToXml( XmlWriter writer ): Write an XML object for saving. Write to one element, with a name that matches your type (TypeIDString).
- *       [Recommended] public AutoCat LoadFromXMLElement( XmlElement ): Read the object from an XmlElement.
+ *       [Recommended] public string TypeIDString: Just a constant string that serves as a type identifier for serialization purposes.      
+ *       Parameterless constructor (needed by Xml.Serialization.XmlSerializer()): An empty constructor (e.g "private AutoCatGenre) { }") will suffice.
+ *       [Optional] Apply attributes to control xml serialization (e.g XmlIgnore, XmlArray, XmlArrayItem, XmlElement).
  * 
  * 2b) Update the following static methods in the AutoCat class to include your new class:
  *       LoadACFromXMLElement: Must be able to handle reading an object of your selected type.
@@ -97,6 +99,7 @@ namespace Depressurizer
         private const string
             XmlName_Filter = "Filter";
 
+        #region Properties
         protected GameList games;
         protected GameDB db;
 
@@ -116,12 +119,11 @@ namespace Depressurizer
 
         public string Filter { get; set; }
 
+        [XmlIgnore]
         public bool Selected { get; set; }
+        #endregion
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        #region Constructors
 
         protected AutoCat(string name)
         {
@@ -133,6 +135,14 @@ namespace Depressurizer
         {
             Name = other.Name;
             Filter = other.Filter;
+        }
+
+        protected AutoCat() { }
+        #endregion
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         public abstract AutoCat Clone();
@@ -183,7 +193,33 @@ namespace Depressurizer
             db = null;
         }
 
-        public abstract void WriteToXml(XmlWriter writer);
+        #region Serialization
+        public virtual void WriteToXml(XmlWriter writer)
+        {
+            XmlSerializer x = new XmlSerializer(this.GetType());
+            var nameSpace = new XmlSerializerNamespaces();
+            nameSpace.Add("", "");
+            x.Serialize(writer, this, nameSpace);
+        }
+
+        public static AutoCat LoadFromXmlElement(XmlElement xElement, Type type)
+        {
+            XmlReader reader = new XmlNodeReader(xElement);
+            XmlSerializer x = new XmlSerializer(type);
+            var nameSpace = new XmlSerializerNamespaces();
+            nameSpace.Add("", "");
+            try
+            {
+                return (AutoCat)x.Deserialize(reader);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(string.Format(GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name),
+                    GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Program.Logger.WriteException($"Failed to load from xml an Autocat of type {type.FullName}: ", e);
+            }
+            return null;
+        }
 
         public static AutoCat LoadACFromXmlElement(XmlElement xElement)
         {
@@ -216,11 +252,12 @@ namespace Depressurizer
                 case AutoCatLanguage.TypeIdString:
                     return AutoCatLanguage.LoadFromXmlElement(xElement);
                 case AutoCatCurator.TypeIdString:
-                    return AutoCatCurator.LoadFromXmlElement(xElement);
+                    return AutoCatCurator.LoadFromXmlElement(xElement, typeof(AutoCatCurator));
                 default:
                     return null;
             }
         }
+        #endregion
 
         public static AutoCat Create(AutoCatType type, string name)
         {

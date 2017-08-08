@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Serialization;
 using Rallion;
 
 namespace Depressurizer
@@ -40,7 +41,9 @@ namespace Depressurizer
         public string Prefix { get; set; }
         public bool OwnedOnly { get; set; }
         public int MinCount { get; set; }
+        [XmlArrayItem("Developer")]
         public List<string> Developers { get; set; }
+        [XmlArrayItem("Publisher")]
         public List<string> Publishers { get; set; }
 
         private IEnumerable<Tuple<string, int>> devList;
@@ -82,6 +85,9 @@ namespace Depressurizer
             Publishers = (publishers == null) ? new List<string>() : publishers;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatDevPub() { }
 
         protected AutoCatDevPub(AutoCatDevPub other)
             : base(other)
@@ -206,10 +212,10 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Name, Name);
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_OwnedOnly, OwnedOnly.ToString());
+            writer.WriteElementString(XmlName_OwnedOnly, OwnedOnly.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_MinCount, MinCount.ToString());
-            writer.WriteElementString(XmlName_AllDevelopers, AllDevelopers.ToString());
-            writer.WriteElementString(XmlName_AllPublishers, AllPublishers.ToString());
+            writer.WriteElementString(XmlName_AllDevelopers, AllDevelopers.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_AllPublishers, AllPublishers.ToString().ToLowerInvariant());
 
             if (Developers.Count > 0)
             {

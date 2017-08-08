@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using System.Xml.Serialization;
 using Rallion;
 
 namespace Depressurizer
@@ -64,6 +65,9 @@ namespace Depressurizer
             IncludedLanguages.FullAudio = fullAudio ?? new List<string>();
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatLanguage() { }
 
         protected AutoCatLanguage(AutoCatLanguage other) : base(other)
         {
@@ -166,8 +170,8 @@ namespace Depressurizer
                 writer.WriteElementString(XmlNamePrefix, Prefix);
             }
 
-            writer.WriteElementString(XmlNameIncludeTypePrefix, IncludeTypePrefix.ToString());
-            writer.WriteElementString(XmlNameTypeFallback, TypeFallback.ToString());
+            writer.WriteElementString(XmlNameIncludeTypePrefix, IncludeTypePrefix.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlNameTypeFallback, TypeFallback.ToString().ToLowerInvariant());
 
             writer.WriteStartElement(XmlNameInterfaceList);
 
