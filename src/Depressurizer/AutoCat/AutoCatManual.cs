@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Rallion;
+using System.Xml.Serialization;
 
 namespace Depressurizer
 {
@@ -34,13 +35,14 @@ namespace Depressurizer
         }
 
         // Autocat configuration
+        [XmlElement("RemoveAll")]
         public bool RemoveAllCategories { get; set; }
 
         public string Prefix { get; set; }
-        public bool MaxCount { get; set; }
-        public int MinCount { get; set; }
 
+        [XmlArray("Remove"), XmlArrayItem("Category")]
         public List<string> RemoveCategories { get; set; }
+        [XmlArray("Add"), XmlArrayItem("Category")]
         public List<string> AddCategories { get; set; }
 
         // Serialization keys
@@ -72,6 +74,9 @@ namespace Depressurizer
             AddCategories = (add == null) ? new List<string>() : add;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatManual() { }
 
         protected AutoCatManual(AutoCatManual other)
             : base(other)
@@ -178,7 +183,7 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Name, Name);
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_RemoveAll, RemoveAllCategories.ToString());
+            writer.WriteElementString(XmlName_RemoveAll, RemoveAllCategories.ToString().ToLowerInvariant());
 
             writer.WriteStartElement(XmlName_RemoveList);
             foreach (string s in RemoveCategories)

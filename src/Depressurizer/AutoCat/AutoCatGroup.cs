@@ -19,15 +19,17 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Serialization;
 using Rallion;
 
 namespace Depressurizer
 {
-    class AutoCatGroup : AutoCat
+    public class AutoCatGroup : AutoCat
     {
         #region Properties
 
         // Autocat configuration properties
+        [XmlArrayItem("Autocat")]
         public List<string> Autocats { get; set; }
 
         // Meta properies
@@ -66,6 +68,9 @@ namespace Depressurizer
             Autocats = (autocats == null) ? new List<string>() : autocats;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatGroup() { }
 
         protected AutoCatGroup(AutoCatGroup other)
             : base(other)

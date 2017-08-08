@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Serialization;
 using Rallion;
 
 namespace Depressurizer
@@ -32,14 +33,8 @@ namespace Depressurizer
 
         public string Prefix { get; set; }
         public int MaxTags { get; set; }
+        [XmlArray("Tags"), XmlArrayItem("Tag")]
         public HashSet<string> IncludedTags { get; set; }
-
-        public bool ListOwnedOnly { get; set; }
-        public float ListWeightFactor { get; set; }
-        public int ListMinScore { get; set; }
-        public int ListTagsPerGame { get; set; }
-        public bool ListScoreSort { get; set; }
-        public bool ListExcludeGenres { get; set; }
 
         public const string TypeIdString = "AutoCatTags";
 
@@ -55,6 +50,12 @@ namespace Depressurizer
             XmlName_ListTagsPerGame = "List_TagsPerGame",
             XmlName_ListExcludeGenres = "List_ExcludeGenres",
             XmlName_ListScoreSort = "List_ScoreSort";
+        public bool List_OwnedOnly { get; set; }
+        public float List_WeightFactor { get; set; }
+        public int List_MinScore { get; set; }
+        public int List_TagsPerGame { get; set; }
+        public bool List_ScoreSort { get; set; }
+        public bool List_ExcludeGenres { get; set; }
 
         public AutoCatTags(string name, string filter = null, string prefix = null,
             HashSet<string> tags = null, int maxTags = 0,
@@ -69,14 +70,17 @@ namespace Depressurizer
             else IncludedTags = tags;
 
             MaxTags = maxTags;
-            ListOwnedOnly = listOwnedOnly;
-            ListWeightFactor = listWeightFactor;
-            ListMinScore = listMinScore;
-            ListTagsPerGame = listTagsPerGame;
-            ListScoreSort = listScoreSort;
-            ListExcludeGenres = listExcludeGenres;
+            List_OwnedOnly = listOwnedOnly;
+            List_WeightFactor = listWeightFactor;
+            List_MinScore = listMinScore;
+            List_TagsPerGame = listTagsPerGame;
+            List_ScoreSort = listScoreSort;
+            List_ExcludeGenres = listExcludeGenres;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatTags() { }
 
         protected AutoCatTags(AutoCatTags other)
             : base(other)
@@ -86,12 +90,12 @@ namespace Depressurizer
             IncludedTags = new HashSet<string>(other.IncludedTags);
             MaxTags = other.MaxTags;
 
-            ListOwnedOnly = other.ListOwnedOnly;
-            ListWeightFactor = other.ListWeightFactor;
-            ListMinScore = other.ListMinScore;
-            ListTagsPerGame = other.ListTagsPerGame;
-            ListScoreSort = other.ListScoreSort;
-            ListExcludeGenres = other.ListExcludeGenres;
+            List_OwnedOnly = other.List_OwnedOnly;
+            List_WeightFactor = other.List_WeightFactor;
+            List_MinScore = other.List_MinScore;
+            List_TagsPerGame = other.List_TagsPerGame;
+            List_ScoreSort = other.List_ScoreSort;
+            List_ExcludeGenres = other.List_ExcludeGenres;
             Selected = other.Selected;
         }
 
@@ -168,12 +172,12 @@ namespace Depressurizer
                 writer.WriteEndElement();
             }
 
-            writer.WriteElementString(XmlName_ListOwnedOnly, ListOwnedOnly.ToString());
-            writer.WriteElementString(XmlName_ListWeightFactor, ListWeightFactor.ToString());
-            writer.WriteElementString(XmlName_ListMinScore, ListMinScore.ToString());
-            writer.WriteElementString(XmlName_ListTagsPerGame, ListTagsPerGame.ToString());
-            writer.WriteElementString(XmlName_ListScoreSort, ListScoreSort.ToString());
-            writer.WriteElementString(XmlName_ListExcludeGenres, ListExcludeGenres.ToString());
+            writer.WriteElementString(XmlName_ListOwnedOnly, List_OwnedOnly.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_ListWeightFactor, List_WeightFactor.ToString());
+            writer.WriteElementString(XmlName_ListMinScore, List_MinScore.ToString());
+            writer.WriteElementString(XmlName_ListTagsPerGame, List_TagsPerGame.ToString());
+            writer.WriteElementString(XmlName_ListScoreSort, List_ScoreSort.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_ListExcludeGenres, List_ExcludeGenres.ToString().ToLowerInvariant());
 
             writer.WriteEndElement();
         }
@@ -194,27 +198,27 @@ namespace Depressurizer
 
             bool listOwnedOnly;
             if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListOwnedOnly], out listOwnedOnly))
-                result.ListOwnedOnly = listOwnedOnly;
+                result.List_OwnedOnly = listOwnedOnly;
 
             float listWeightFactor;
             if (XmlUtil.TryGetFloatFromNode(xElement[XmlName_ListWeightFactor], out listWeightFactor))
-                result.ListWeightFactor = listWeightFactor;
+                result.List_WeightFactor = listWeightFactor;
 
             int listMinScore;
             if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListMinScore], out listMinScore))
-                result.ListMinScore = listMinScore;
+                result.List_MinScore = listMinScore;
 
             int listTagsPerGame;
             if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListTagsPerGame], out listTagsPerGame))
-                result.ListTagsPerGame = listTagsPerGame;
+                result.List_TagsPerGame = listTagsPerGame;
 
             bool listScoreSort;
             if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListScoreSort], out listScoreSort))
-                result.ListScoreSort = listScoreSort;
+                result.List_ScoreSort = listScoreSort;
 
             bool listExcludeGenres;
             if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListExcludeGenres], out listExcludeGenres))
-                result.ListExcludeGenres = listExcludeGenres;
+                result.List_ExcludeGenres = listExcludeGenres;
 
             List<string> tagList =
                 XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_TagList + "/" + XmlName_Tag));

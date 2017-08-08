@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using System.Xml.Serialization;
 using Rallion;
 
 namespace Depressurizer
@@ -34,6 +35,7 @@ namespace Depressurizer
         // AutoCat configuration
         public string Prefix { get; set; }
 
+        [XmlArray("Flags"), XmlArrayItem("Flag")]
         public List<string> IncludedFlags { get; set; }
 
         // Serialization constants
@@ -55,6 +57,9 @@ namespace Depressurizer
             IncludedFlags = (flags == null) ? (new List<string>()) : flags;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatFlags() { }
 
         protected AutoCatFlags(AutoCatFlags other)
             : base(other)

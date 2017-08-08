@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Rallion;
+using System.Xml.Serialization;
 
 namespace Depressurizer
 {
@@ -32,6 +33,7 @@ namespace Depressurizer
 
     public class Hltb_Rule
     {
+        [XmlElement("Text")]
         public string Name { get; set; }
         public float MinHours { get; set; }
         public float MaxHours { get; set; }
@@ -44,6 +46,9 @@ namespace Depressurizer
             MaxHours = maxHours;
             TimeType = timeType;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private Hltb_Rule() { }
 
         public Hltb_Rule(Hltb_Rule other)
         {
@@ -61,6 +66,7 @@ namespace Depressurizer
         public string Prefix { get; set; }
         public bool IncludeUnknown { get; set; }
         public string UnknownText { get; set; }
+        [XmlElement("Rule")]
         public List<Hltb_Rule> Rules;
 
         public override AutoCatType AutoCatType
@@ -85,7 +91,7 @@ namespace Depressurizer
 
         #region Construction
 
-        public AutoCatHltb(string name = TypeIdString, string filter = null, string prefix = null,
+        public AutoCatHltb(string name, string filter = null, string prefix = null,
             bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false)
             : base(name)
         {
@@ -96,6 +102,9 @@ namespace Depressurizer
             Rules = (rules == null) ? new List<Hltb_Rule>() : rules;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatHltb() { }
 
         public AutoCatHltb(AutoCatHltb other)
             : base(other)
@@ -197,7 +206,7 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Name, Name);
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString());
+            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_UnknownText, UnknownText);
 
 

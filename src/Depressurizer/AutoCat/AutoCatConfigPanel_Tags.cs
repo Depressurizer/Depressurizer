@@ -87,11 +87,11 @@ namespace Depressurizer
             txtPrefix.Text = (ac.Prefix == null) ? string.Empty : ac.Prefix;
             numMaxTags.Value = ac.MaxTags;
 
-            list_numMinScore.Value = ac.ListMinScore;
-            list_numTagsPerGame.Value = ac.ListTagsPerGame;
-            list_chkOwnedOnly.Checked = ac.ListOwnedOnly;
-            list_numWeightFactor.Value = (Decimal) ac.ListWeightFactor;
-            list_chkExcludeGenres.Checked = ac.ListExcludeGenres;
+            list_numMinScore.Value = ac.List_MinScore;
+            list_numTagsPerGame.Value = ac.List_TagsPerGame;
+            list_chkOwnedOnly.Checked = ac.List_OwnedOnly;
+            list_numWeightFactor.Value = (Decimal) ac.List_WeightFactor;
+            list_chkExcludeGenres.Checked = ac.List_ExcludeGenres;
 
             FillTagsList(ac.IncludedTags);
 
@@ -112,11 +112,11 @@ namespace Depressurizer
                 ac.IncludedTags.Add(i.Tag as string);
             }
 
-            ac.ListMinScore = (int) list_numMinScore.Value;
-            ac.ListOwnedOnly = list_chkOwnedOnly.Checked;
-            ac.ListTagsPerGame = (int) list_numTagsPerGame.Value;
-            ac.ListWeightFactor = (float) list_numWeightFactor.Value;
-            ac.ListExcludeGenres = list_chkExcludeGenres.Checked;
+            ac.List_MinScore = (int) list_numMinScore.Value;
+            ac.List_OwnedOnly = list_chkOwnedOnly.Checked;
+            ac.List_TagsPerGame = (int) list_numTagsPerGame.Value;
+            ac.List_WeightFactor = (float) list_numWeightFactor.Value;
+            ac.List_ExcludeGenres = list_chkExcludeGenres.Checked;
         }
 
         private void SetAllListCheckStates(ListView list, bool to)

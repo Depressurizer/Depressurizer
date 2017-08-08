@@ -22,14 +22,14 @@ using Rallion;
 
 namespace Depressurizer
 {
-    enum AutoCatYear_Grouping
+    public enum AutoCatYear_Grouping
     {
         None,
         Decade,
         HalfDecade
     }
 
-    class AutoCatYear : AutoCat
+    public class AutoCatYear : AutoCat
     {
         #region Properties
 
@@ -73,6 +73,9 @@ namespace Depressurizer
             GroupingMode = groupMode;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatYear() { }
 
         protected AutoCatYear(AutoCatYear other)
             : base(other)
@@ -172,7 +175,7 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Name, Name);
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString());
+            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_UnknownText, UnknownText);
             writer.WriteElementString(XmlName_GroupingMode, GroupingMode.ToString());
 

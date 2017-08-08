@@ -5,7 +5,7 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class AutoCatName : AutoCat
+    public class AutoCatName : AutoCat
     {
         public string Prefix { get; set; }
         public bool SkipThe { get; set; }
@@ -36,6 +36,9 @@ namespace Depressurizer
             GroupNonEnglishCharacters = groupNonEnglishCharacters;
             GroupNonEnglishCharactersText = groupNonEnglishCharactersText;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatName() { }
 
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
@@ -84,9 +87,9 @@ namespace Depressurizer
 
             writer.WriteElementString(XmlName_Name, Name);
             writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_SkipThe, SkipThe.ToString());
-            writer.WriteElementString(XmlName_GroupNumbers, GroupNumbers.ToString());
-            writer.WriteElementString(XmlName_GroupNonEnglishCharacters, GroupNonEnglishCharacters.ToString());
+            writer.WriteElementString(XmlName_SkipThe, SkipThe.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_GroupNumbers, GroupNumbers.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_GroupNonEnglishCharacters, GroupNonEnglishCharacters.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_GroupNonEnglishCharactersText, GroupNonEnglishCharactersText);
 
             writer.WriteEndElement(); // type ID string

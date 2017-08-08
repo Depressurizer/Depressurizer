@@ -57,6 +57,9 @@ namespace Depressurizer
             Selected = selected;
         }
 
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatVrSupport() { }
+
         protected AutoCatVrSupport(AutoCatVrSupport other) : base(other)
         {
             Filter = other.Filter;

@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Serialization;
 using Rallion;
 
 namespace Depressurizer
@@ -36,10 +37,12 @@ namespace Depressurizer
         // Autocat configuration
         public int MaxCategories { get; set; }
 
+        [XmlElement("RemoveOthers")]
         public bool RemoveOtherGenres { get; set; }
         public bool TagFallback { get; set; }
         public string Prefix { get; set; }
 
+        [XmlArray("Ignored"), XmlArrayItem("Ignore")]
         public List<string> IgnoredGenres { get; set; }
 
         // Serialization keys
@@ -78,6 +81,9 @@ namespace Depressurizer
             IgnoredGenres = (ignore == null) ? new List<string>() : ignore;
             Selected = selected;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatGenre() { }
 
         protected AutoCatGenre(AutoCatGenre other)
             : base(other)
@@ -190,8 +196,8 @@ namespace Depressurizer
             if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
             if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString(XmlName_MaxCats, MaxCategories.ToString());
-            writer.WriteElementString(XmlName_RemOther, RemoveOtherGenres.ToString());
-            writer.WriteElementString(XmlName_TagFallback, TagFallback.ToString());
+            writer.WriteElementString(XmlName_RemOther, RemoveOtherGenres.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_TagFallback, TagFallback.ToString().ToLowerInvariant());
 
             writer.WriteStartElement(XmlName_IgnoreList);
 

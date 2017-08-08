@@ -403,17 +403,17 @@ namespace Depressurizer
 
             writer.WriteElementString(XmlName_SteamID, SteamID64.ToString());
 
-            writer.WriteElementString(XmlName_AutoUpdate, AutoUpdate.ToString());
-            writer.WriteElementString(XmlName_AutoImport, AutoImport.ToString());
-            writer.WriteElementString(XmlName_AutoExport, AutoExport.ToString());
-            writer.WriteElementString(XmlName_LocalUpdate, LocalUpdate.ToString());
-            writer.WriteElementString(XmlName_WebUpdate, WebUpdate.ToString());
-            writer.WriteElementString(XmlName_ExportDiscard, ExportDiscard.ToString());
-            writer.WriteElementString(XmlName_AutoIgnore, AutoIgnore.ToString());
-            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString());
-            writer.WriteElementString(XmlName_BypassIgnoreOnImport, BypassIgnoreOnImport.ToString());
-            writer.WriteElementString(XmlName_OverwriteNames, OverwriteOnDownload.ToString());
-            writer.WriteElementString(XmlName_IncludeShortcuts, IncludeShortcuts.ToString());
+            writer.WriteElementString(XmlName_AutoUpdate, AutoUpdate.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_AutoImport, AutoImport.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_AutoExport, AutoExport.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_LocalUpdate, LocalUpdate.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_WebUpdate, WebUpdate.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_ExportDiscard, ExportDiscard.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_AutoIgnore, AutoIgnore.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_BypassIgnoreOnImport, BypassIgnoreOnImport.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_OverwriteNames, OverwriteOnDownload.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_IncludeShortcuts, IncludeShortcuts.ToString().ToLowerInvariant());
 
             writer.WriteStartElement(XmlName_GameList);
 
@@ -432,7 +432,7 @@ namespace Depressurizer
                         writer.WriteElementString(XmlName_Game_Name, g.Name);
                     }
 
-                    writer.WriteElementString(XmlName_Game_Hidden, g.Hidden.ToString());
+                    writer.WriteElementString(XmlName_Game_Hidden, g.Hidden.ToString().ToLowerInvariant());
 
                     if (g.LastPlayed != 0) writer.WriteElementString(XmlName_Game_LastPlayed, g.LastPlayed.ToString());
 
@@ -526,22 +526,10 @@ namespace Depressurizer
             }
             list.Add(acf);
 
-            //By Developer
-            AutoCatDevPub acd = new AutoCatDevPub(GlobalStrings.Profile_DefaultAutoCatName_Developer, null,
-                "(" + GlobalStrings.Name_Developer + ") ");
-            acd.AllDevelopers = true;
-            list.Add(acd);
-
-            //By Publisher
-            AutoCatDevPub acp = new AutoCatDevPub(GlobalStrings.Profile_DefaultAutoCatName_Publisher, null,
-                "(" + GlobalStrings.Name_Publisher + ") ");
-            acp.AllPublishers = true;
-            list.Add(acp);
-
             //By HLTB
             AutoCatHltb ach = new AutoCatHltb(GlobalStrings.Profile_DefaultAutoCatName_Hltb, null, "(HLTB) ", false);
-            ach.Rules.Add(new Hltb_Rule("0-5", 0, 5, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule("5-10", 5, 10, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule(" 0-5", 0, 5, TimeType.Extras));
+            ach.Rules.Add(new Hltb_Rule(" 5-10", 5, 10, TimeType.Extras));
             ach.Rules.Add(new Hltb_Rule("10-20", 10, 20, TimeType.Extras));
             ach.Rules.Add(new Hltb_Rule("20-50", 20, 50, TimeType.Extras));
             ach.Rules.Add(new Hltb_Rule("50+", 20, 0, TimeType.Extras));
