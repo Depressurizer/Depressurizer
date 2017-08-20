@@ -45,30 +45,15 @@ namespace Depressurizer
             switch (cmbSteamCheck.SelectedIndex)
             {
                 case 0: // Check and close
-                    if (!defaultOpts.CheckSteam)
-                    {
-                        sb.Append(" -checksteam+");
-                    }
-                    if (!defaultOpts.CloseSteam)
-                    {
-                        sb.Append(" -closesteam+");
-                    }
+                    if (!defaultOpts.CheckSteam) sb.Append(" -checksteam+");
+                    if (!defaultOpts.CloseSteam) sb.Append(" -closesteam+");
                     break;
                 case 1: // Check and abort
-                    if (!defaultOpts.CheckSteam)
-                    {
-                        sb.Append(" -checksteam+");
-                    }
-                    if (defaultOpts.CloseSteam)
-                    {
-                        sb.Append(" -closesteam-");
-                    }
+                    if (!defaultOpts.CheckSteam) sb.Append(" -checksteam+");
+                    if (defaultOpts.CloseSteam) sb.Append(" -closesteam-");
                     break;
                 case 2: // skip
-                    if (defaultOpts.CheckSteam)
-                    {
-                        sb.Append(" -checksteam-");
-                    }
+                    if (defaultOpts.CheckSteam) sb.Append(" -checksteam-");
                     break;
             }
 
@@ -190,7 +175,7 @@ namespace Depressurizer
 
             txtResult.Text = GenerateCommand();
 
-            if ((profile != null) && (profile.AutoCats != null))
+            if (profile != null && profile.AutoCats != null)
             {
                 foreach (AutoCat ac in profile.AutoCats)
                 {

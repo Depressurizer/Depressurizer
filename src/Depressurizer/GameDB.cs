@@ -1,20 +1,20 @@
 ﻿/*
-    This file is part of Depressurizer.
-    Original work Copyright 2011, 2012, 2013 Steve Labbe.
-    Modified work Copyright 2017 Martijn Vegter.
+This file is part of Depressurizer.
+Original work Copyright 2011, 2012, 2013 Steve Labbe.
+Modified work Copyright 2017 Theodoros Dimos and Martijn Vegter.
 
-    Depressurizer is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Depressurizer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-    Depressurizer is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+Depressurizer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
@@ -27,7 +27,6 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Depressurizer.Model;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
 using Rallion;
@@ -220,31 +219,20 @@ namespace Depressurizer
                 string storeLanguage = "en";
                 if (Program.GameDB != null)
                 {
-                    if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans)
-                    {
-                        storeLanguage = "schinese";
-                    }
-                    else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant)
-                    {
-                        storeLanguage = "tchinese";
-                    }
-                    else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR)
-                    {
-                        storeLanguage = "brazilian";
-                    }
+                    if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans) storeLanguage = "schinese";
+                    else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant) storeLanguage = "tchinese";
+                    else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR) storeLanguage = "brazilian";
                     else
-                    {
                         storeLanguage = CultureInfo
                             .GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName
                             .ToLowerInvariant();
-                    }
                 }
                 HttpWebRequest req =
                     GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
-                while ((resp.StatusCode == HttpStatusCode.Found) && (count < 5))
+                while (resp.StatusCode == HttpStatusCode.Found && count < 5)
                 {
                     resp.Close();
                     if (resp.Headers[HttpResponseHeader.Location] == Resources.UrlSteamStore)
@@ -266,7 +254,7 @@ namespace Depressurizer
                     count++;
                 }
 
-                if ((count == 5) && (resp.StatusCode == HttpStatusCode.Found))
+                if (count == 5 && resp.StatusCode == HttpStatusCode.Found)
                 {
                     //If we got too many redirects
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_TooManyRedirects, id);
@@ -283,8 +271,8 @@ namespace Depressurizer
                 else if (resp.ResponseUri.Segments[1] == "agecheck/")
                 {
                     // If we encountered an age gate (cookies should bypass this, but sometimes they don't seem to)
-                    if ((resp.ResponseUri.Segments.Length >= 4) &&
-                        (resp.ResponseUri.Segments[3].TrimEnd('/') != id.ToString()))
+                    if (resp.ResponseUri.Segments.Length >= 4 &&
+                        resp.ResponseUri.Segments[3].TrimEnd('/') != id.ToString())
                     {
                         // Age check + redirect
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id,
@@ -408,7 +396,7 @@ namespace Depressurizer
         /// <param name="typeFromStore">Type found from the store scrape</param>
         private void SetTypeFromStoreScrape(AppTypes typeFromStore)
         {
-            if ((AppType == AppTypes.Unknown) || ((typeFromStore != AppTypes.Unknown) && (LastAppInfoUpdate == 0)))
+            if (AppType == AppTypes.Unknown || (typeFromStore != AppTypes.Unknown && LastAppInfoUpdate == 0))
             {
                 AppType = typeFromStore;
             }
@@ -439,10 +427,7 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string flag = ma.Groups[1].Value;
-                    if (!string.IsNullOrWhiteSpace(flag))
-                    {
-                        Flags.Add(flag);
-                    }
+                    if (!string.IsNullOrWhiteSpace(flag)) Flags.Add(flag);
                 }
             }
 
@@ -454,10 +439,7 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string tag = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(tag))
-                    {
-                        Tags.Add(tag);
-                    }
+                    if (!string.IsNullOrWhiteSpace(tag)) Tags.Add(tag);
                 }
             }
 
@@ -470,10 +452,7 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string headset = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(headset))
-                    {
-                        vrSupport.Headsets.Add(headset);
-                    }
+                    if (!string.IsNullOrWhiteSpace(headset)) vrSupport.Headsets.Add(headset);
                 }
             }
 
@@ -486,10 +465,7 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string input = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(input))
-                    {
-                        vrSupport.Input.Add(input);
-                    }
+                    if (!string.IsNullOrWhiteSpace(input)) vrSupport.Input.Add(input);
                 }
             }
 
@@ -502,10 +478,7 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string playArea = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(playArea))
-                    {
-                        vrSupport.PlayArea.Add(playArea);
-                    }
+                    if (!string.IsNullOrWhiteSpace(playArea)) vrSupport.PlayArea.Add(playArea);
                 }
             }
 
@@ -521,23 +494,13 @@ namespace Depressurizer
                 foreach (Match ma in matches)
                 {
                     string language = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (language.StartsWith("#lang") || language.StartsWith("("))
-                    {
-                        continue; //Some store pages on steam are bugged.
-                    }
-
+                    if (language.StartsWith("#lang") || language.StartsWith("(")) continue; //Some store pages on steam are bugged.
                     if (WebUtility.HtmlDecode(ma.Groups[2].Value.Trim()) != "") //Interface
-                    {
                         languageSupport.Interface.Add(language);
-                    }
                     if (WebUtility.HtmlDecode(ma.Groups[3].Value.Trim()) != "") //Full Audio
-                    {
                         languageSupport.FullAudio.Add(language);
-                    }
                     if (WebUtility.HtmlDecode(ma.Groups[4].Value.Trim()) != "") //Subtitles
-                    {
                         languageSupport.Subtitles.Add(language);
-                    }
                 }
             }
 
@@ -610,20 +573,11 @@ namespace Depressurizer
 
             // Get Platforms
             m = regPlatformWindows.Match(page);
-            if (m.Success)
-            {
-                Platforms |= AppPlatforms.Windows;
-            }
+            if (m.Success) Platforms |= AppPlatforms.Windows;
             m = regPlatformMac.Match(page);
-            if (m.Success)
-            {
-                Platforms |= AppPlatforms.Mac;
-            }
+            if (m.Success) Platforms |= AppPlatforms.Mac;
             m = regPlatformLinux.Match(page);
-            if (m.Success)
-            {
-                Platforms |= AppPlatforms.Linux;
-            }
+            if (m.Success) Platforms |= AppPlatforms.Linux;
         }
 
         #endregion
@@ -636,90 +590,51 @@ namespace Depressurizer
         /// <param name="other">GameDBEntry containing info to be merged into this entry.</param>
         public void MergeIn(GameDBEntry other)
         {
-            bool useAppInfoFields = (other.LastAppInfoUpdate > LastAppInfoUpdate) ||
-                                    ((LastAppInfoUpdate == 0) && (other.LastStoreScrape >= LastStoreScrape));
+            bool useAppInfoFields = other.LastAppInfoUpdate > LastAppInfoUpdate ||
+                                    (LastAppInfoUpdate == 0 && other.LastStoreScrape >= LastStoreScrape);
             bool useScrapeOnlyFields = other.LastStoreScrape >= LastStoreScrape;
 
-            if ((other.AppType != AppTypes.Unknown) && ((AppType == AppTypes.Unknown) || useAppInfoFields))
+            if (other.AppType != AppTypes.Unknown && (AppType == AppTypes.Unknown || useAppInfoFields))
             {
                 AppType = other.AppType;
             }
 
-            if ((other.LastStoreScrape >= LastStoreScrape) ||
-                ((LastStoreScrape == 0) && (other.LastAppInfoUpdate > LastAppInfoUpdate)) || (Platforms == AppPlatforms.None))
+            if (other.LastStoreScrape >= LastStoreScrape ||
+                (LastStoreScrape == 0 && other.LastAppInfoUpdate > LastAppInfoUpdate) || Platforms == AppPlatforms.None)
             {
                 Platforms = other.Platforms;
             }
 
             if (useAppInfoFields)
             {
-                if (!string.IsNullOrEmpty(other.Name))
-                {
-                    Name = other.Name;
-                }
-                if (other.ParentId > 0)
-                {
-                    ParentId = other.ParentId;
-                }
+                if (!string.IsNullOrEmpty(other.Name)) Name = other.Name;
+                if (other.ParentId > 0) ParentId = other.ParentId;
             }
 
             if (useScrapeOnlyFields)
             {
-                if ((other.Genres != null) && (other.Genres.Count > 0))
-                {
-                    Genres = other.Genres;
-                }
-                if ((other.Flags != null) && (other.Flags.Count > 0))
-                {
-                    Flags = other.Flags;
-                }
-                if ((other.Tags != null) && (other.Tags.Count > 0))
-                {
-                    Tags = other.Tags;
-                }
-                if ((other.Developers != null) && (other.Developers.Count > 0))
-                {
-                    Developers = other.Developers;
-                }
-                if ((other.Publishers != null) && (other.Publishers.Count > 0))
-                {
-                    Publishers = other.Publishers;
-                }
-                if (!string.IsNullOrEmpty(other.SteamReleaseDate))
-                {
-                    SteamReleaseDate = other.SteamReleaseDate;
-                }
-                if (other.Achievements != 0)
-                {
-                    Achievements = other.Achievements;
-                }
+                if (other.Genres != null && other.Genres.Count > 0) Genres = other.Genres;
+                if (other.Flags != null && other.Flags.Count > 0) Flags = other.Flags;
+                if (other.Tags != null && other.Tags.Count > 0) Tags = other.Tags;
+                if (other.Developers != null && other.Developers.Count > 0) Developers = other.Developers;
+                if (other.Publishers != null && other.Publishers.Count > 0) Publishers = other.Publishers;
+                if (!string.IsNullOrEmpty(other.SteamReleaseDate)) SteamReleaseDate = other.SteamReleaseDate;
+                if (other.Achievements != 0) Achievements = other.Achievements;
                 //VR Support
-                if ((other.vrSupport.Headsets != null) && (other.vrSupport.Headsets.Count > 0))
-                {
+                if (other.vrSupport.Headsets != null && other.vrSupport.Headsets.Count > 0)
                     vrSupport.Headsets = other.vrSupport.Headsets;
-                }
-                if ((other.vrSupport.Input != null) && (other.vrSupport.Input.Count > 0))
-                {
+                if (other.vrSupport.Input != null && other.vrSupport.Input.Count > 0)
                     vrSupport.Input = other.vrSupport.Input;
-                }
-                if ((other.vrSupport.PlayArea != null) && (other.vrSupport.PlayArea.Count > 0))
-                {
+                if (other.vrSupport.PlayArea != null && other.vrSupport.PlayArea.Count > 0)
                     vrSupport.PlayArea = other.vrSupport.PlayArea;
-                }
 
                 //Language Support
-                if ((other.languageSupport.FullAudio != null) && (other.languageSupport.FullAudio.Count > 0))
-                {
+                if (other.languageSupport.FullAudio != null && other.languageSupport.FullAudio.Count > 0)
                     languageSupport.FullAudio = other.languageSupport.FullAudio;
-                }
-                if ((other.languageSupport.Interface != null) && (other.languageSupport.Interface.Count > 0))
-                {
+                if (other.languageSupport.Interface != null && other.languageSupport.Interface.Count > 0)
                     languageSupport.Interface = other.languageSupport.Interface;
-                }
-                if ((other.languageSupport.Subtitles != null) && (other.languageSupport.Subtitles.Count > 0))
-                {
+                if (other.languageSupport.Subtitles != null && other.languageSupport.Subtitles.Count > 0)
                     languageSupport.Subtitles = other.languageSupport.Subtitles;
-                }
 
                 if (other.ReviewTotal != 0)
                 {
@@ -727,20 +642,11 @@ namespace Depressurizer
                     ReviewPositivePercentage = other.ReviewPositivePercentage;
                 }
 
-                if (!string.IsNullOrEmpty(other.MC_Url))
-                {
-                    MC_Url = other.MC_Url;
-                }
+                if (!string.IsNullOrEmpty(other.MC_Url)) MC_Url = other.MC_Url;
             }
 
-            if (other.LastStoreScrape > LastStoreScrape)
-            {
-                LastStoreScrape = other.LastStoreScrape;
-            }
-            if (other.LastAppInfoUpdate > LastAppInfoUpdate)
-            {
-                LastAppInfoUpdate = other.LastAppInfoUpdate;
-            }
+            if (other.LastStoreScrape > LastStoreScrape) LastStoreScrape = other.LastStoreScrape;
+            if (other.LastAppInfoUpdate > LastAppInfoUpdate) LastAppInfoUpdate = other.LastAppInfoUpdate;
         }
     }
 
@@ -832,15 +738,15 @@ namespace Depressurizer
             if (Games.ContainsKey(gameId))
             {
                 List<string> res = Games[gameId].Genres;
-                if (tagFallback && ((res == null) || (res.Count == 0)))
+                if (tagFallback && (res == null || res.Count == 0))
                 {
                     List<string> tags = GetTagList(gameId, 0);
-                    if ((tags != null) && (tags.Count > 0))
+                    if (tags != null && tags.Count > 0)
                     {
                         res = new List<string>(tags.Intersect(GetAllGenres()));
                     }
                 }
-                if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
                     res = GetGenreList(Games[gameId].ParentId, depth - 1, tagFallback);
                 }
@@ -854,7 +760,7 @@ namespace Depressurizer
             if (Games.ContainsKey(gameId))
             {
                 List<string> res = Games[gameId].Flags;
-                if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
                     res = GetFlagList(Games[gameId].ParentId, depth - 1);
                 }
@@ -868,7 +774,7 @@ namespace Depressurizer
             if (Games.ContainsKey(gameId))
             {
                 List<string> res = Games[gameId].Tags;
-                if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
                     res = GetTagList(Games[gameId].ParentId, depth - 1);
                 }
@@ -885,15 +791,13 @@ namespace Depressurizer
             if (Games.ContainsKey(gameId))
             {
                 VrSupport res = Games[gameId].vrSupport;
-                if (((res.Headsets != null) && (res.Headsets.Count > 0)) || ((res.Input != null) && (res.Input.Count > 0)) ||
-                    (((res.PlayArea != null) && (res.PlayArea.Count > 0)) && (depth > 0) && (Games[gameId].ParentId > 0)))
+                if ((res.Headsets != null && res.Headsets.Count > 0) || (res.Input != null && res.Input.Count > 0) ||
+                    (res.PlayArea != null && res.PlayArea.Count > 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
                     return true;
                 }
-                if ((depth > 0) && (Games[gameId].ParentId > 0))
-                {
-                    return SupportsVr(Games[gameId].ParentId, depth - 1);
-                }
+                if (depth > 0 && Games[gameId].ParentId > 0)
+                   return SupportsVr(Games[gameId].ParentId, depth - 1);
             }
             return false;
         }
@@ -903,8 +807,8 @@ namespace Depressurizer
             if (Games.ContainsKey(gameId))
             {
                 VrSupport res = Games[gameId].vrSupport;
-                if (((res.Headsets == null) || (res.Headsets.Count == 0)) && ((res.Input == null) || (res.Input.Count == 0)) &&
-                    ((res.PlayArea == null) || (res.PlayArea.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+                if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) &&
+                    (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
                     res = GetVrSupport(Games[gameId].ParentId, depth - 1);
                 }
@@ -919,7 +823,7 @@ namespace Depressurizer
             if (Games.ContainsKey(gameId))
             {
                 List<string> res = Games[gameId].Developers;
-                if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
                     res = GetDevelopers(Games[gameId].ParentId, depth - 1);
                 }
@@ -933,7 +837,7 @@ namespace Depressurizer
             if (Games.ContainsKey(gameId))
             {
                 List<string> res = Games[gameId].Publishers;
-                if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
                     res = GetPublishers(Games[gameId].ParentId, depth - 1);
                 }
@@ -1130,8 +1034,8 @@ namespace Depressurizer
         /// <returns>A VrSupport struct containing the flags</returns>
         public VrSupport GetAllVrSupportFlags()
         {
-            if ((allVrSupportFlags.Headsets == null) || (allVrSupportFlags.Input == null) ||
-                (allVrSupportFlags.PlayArea == null))
+            if (allVrSupportFlags.Headsets == null || allVrSupportFlags.Input == null ||
+                allVrSupportFlags.PlayArea == null)
             {
                 return CalculateAllVrSupportFlags();
             }
@@ -1177,8 +1081,8 @@ namespace Depressurizer
         /// <returns>A LanguageSupport struct containing the languages</returns>
         public LanguageSupport GetAllLanguages()
         {
-            if ((allLanguages.FullAudio == null) || (allLanguages.Interface == null) ||
-                (allLanguages.Subtitles == null))
+            if (allLanguages.FullAudio == null || allLanguages.Interface == null ||
+                allLanguages.Subtitles == null)
             {
                 return CalculateAllLanguages();
             }
@@ -1410,7 +1314,7 @@ namespace Depressurizer
                         else
                         {
                             float interp = i / (float) (tagsToLoad - 1);
-                            score = ((1 - interp) * weightFactor) + interp;
+                            score = (1 - interp) * weightFactor + interp;
                         }
                     }
 
@@ -1470,7 +1374,7 @@ namespace Depressurizer
                     if (Games.ContainsKey(appId))
                     {
                         GameDBEntry g = Games[appId];
-                        if (string.IsNullOrEmpty(g.Name) || (g.Name != gameName))
+                        if (string.IsNullOrEmpty(g.Name) || g.Name != gameName)
                         {
                             g.Name = gameName;
                             g.AppType = AppTypes.Unknown;
@@ -1499,7 +1403,7 @@ namespace Depressurizer
         {
             int updated = 0;
 
-            Dictionary<int, AppInfo> appInfos = LoadApps(path);
+            Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
             int timestamp = Utility.GetCurrentUTime();
 
             foreach (AppInfo aInf in appInfos.Values)
@@ -1517,57 +1421,15 @@ namespace Depressurizer
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
-                if (aInf.AppType != AppTypes.Unknown)
-                {
-                    entry.AppType = aInf.AppType;
-                }
-                if (!string.IsNullOrEmpty(aInf.Name))
-                {
-                    entry.Name = aInf.Name;
-                }
-                if ((entry.Platforms == AppPlatforms.None) ||
-                    ((entry.LastStoreScrape == 0) && (aInf.Platforms > AppPlatforms.None)))
-                {
+                if (aInf.AppType != AppTypes.Unknown) entry.AppType = aInf.AppType;
+                if (!string.IsNullOrEmpty(aInf.Name)) entry.Name = aInf.Name;
+                if (entry.Platforms == AppPlatforms.None ||
+                    (entry.LastStoreScrape == 0 && aInf.Platforms > AppPlatforms.None))
                     entry.Platforms = aInf.Platforms;
-                }
-                if (aInf.Parent > 0)
-                {
-                    entry.ParentId = aInf.Parent;
-                }
+                if (aInf.Parent > 0) entry.ParentId = aInf.Parent;
                 updated++;
             }
             return updated;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public Dictionary<int, AppInfo> LoadApps(string path)
-        {
-            Dictionary<int, AppInfo> result = new Dictionary<int, AppInfo>();
-            BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read));
-            long fileLength = bReader.BaseStream.Length;
-
-            // seek to common: start of a new entry
-            byte[] start = { 0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00 }; // 0x00 0x00 c o m m o n 0x00
-
-            VdfFileNode.ReadBin_SeekTo(bReader, start, fileLength);
-
-            VdfFileNode node = VdfFileNode.LoadFromBinary(bReader, fileLength);
-            while (node != null)
-            {
-                AppInfo app = AppInfo.Create(node);
-                if (app != null)
-                {
-                    result.Add(app.Id, app);
-                }
-                VdfFileNode.ReadBin_SeekTo(bReader, start, fileLength);
-                node = VdfFileNode.LoadFromBinary(bReader, fileLength);
-            }
-            bReader.Close();
-            return result;
         }
 
         /// <summary>
@@ -1593,32 +1455,17 @@ namespace Depressurizer
                     {
                         dynamic htlbInfo = steamAppData.HltbInfo;
 
-                        if (!includeImputedTimes && (htlbInfo.MainTtbImputed == "True"))
-                        {
+                        if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
                             Games[id].HltbMain = 0;
-                        }
-                        else
-                        {
-                            Games[id].HltbMain = htlbInfo.MainTtb;
-                        }
+                        else Games[id].HltbMain = htlbInfo.MainTtb;
 
-                        if (!includeImputedTimes && (htlbInfo.ExtrasTtbImputed == "True"))
-                        {
+                        if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed == "True")
                             Games[id].HltbExtras = 0;
-                        }
-                        else
-                        {
-                            Games[id].HltbExtras = htlbInfo.ExtrasTtb;
-                        }
+                        else Games[id].HltbExtras = htlbInfo.ExtrasTtb;
 
-                        if (!includeImputedTimes && (htlbInfo.CompletionistTtbImputed == "True"))
-                        {
+                        if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed == "True")
                             Games[id].HltbCompletionist = 0;
-                        }
-                        else
-                        {
-                            Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
-                        }
+                        else Games[id].HltbCompletionist = htlbInfo.CompletionistTtb;
 
                         updated++;
                     }
@@ -1676,22 +1523,15 @@ namespace Depressurizer
                     }
 
                     if (g.LastStoreScrape > 0)
-                    {
                         writer.WriteElementString(XmlName_Game_LastStoreUpdate, g.LastStoreScrape.ToString());
-                    }
                     if (g.LastAppInfoUpdate > 0)
-                    {
                         writer.WriteElementString(XmlName_Game_LastAppInfoUpdate, g.LastAppInfoUpdate.ToString());
-                    }
 
                     writer.WriteElementString(XmlName_Game_Type, g.AppType.ToString());
 
                     writer.WriteElementString(XmlName_Game_Platforms, g.Platforms.ToString());
 
-                    if (g.ParentId >= 0)
-                    {
-                        writer.WriteElementString(XmlName_Game_Parent, g.ParentId.ToString());
-                    }
+                    if (g.ParentId >= 0) writer.WriteElementString(XmlName_Game_Parent, g.ParentId.ToString());
 
                     if (g.Genres != null)
                     {

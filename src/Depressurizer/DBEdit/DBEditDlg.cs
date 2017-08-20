@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
-using Depressurizer.Helpers;
 using Rallion;
 
 namespace Depressurizer
@@ -185,7 +184,7 @@ namespace Depressurizer
             }
             else
             {
-                if ((res == DialogResult.Cancel) || (res == DialogResult.Abort))
+                if (res == DialogResult.Cancel || res == DialogResult.Abort)
                 {
                     AddStatusMsg(GlobalStrings.DBEditDlg_CanceledListUpdate);
                 }
@@ -206,10 +205,7 @@ namespace Depressurizer
             {
                 string path = string.Format(Properties.Resources.AppInfoPath, Settings.Instance.SteamPath);
                 int updated = Program.GameDB.UpdateFromAppInfo(path);
-                if (updated > 0)
-                {
-                    UnsavedChanges = true;
-                }
+                if (updated > 0) UnsavedChanges = true;
                 RebuildDisplayList();
                 AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedAppInfo, updated));
             }
@@ -237,7 +233,7 @@ namespace Depressurizer
             }
             else
             {
-                if ((res == DialogResult.Cancel) || (res == DialogResult.Abort))
+                if (res == DialogResult.Cancel || res == DialogResult.Abort)
                 {
                     AddStatusMsg(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
                 }
@@ -258,7 +254,7 @@ namespace Depressurizer
         void AddNewGame()
         {
             GameDBEntryDialog dlg = new GameDBEntryDialog();
-            if ((dlg.ShowDialog() == DialogResult.OK) && (dlg.Game != null))
+            if (dlg.ShowDialog() == DialogResult.OK && dlg.Game != null)
             {
                 if (Program.GameDB.Games.ContainsKey(dlg.Game.Id))
                 {
@@ -452,10 +448,7 @@ namespace Depressurizer
             displayedGames.Clear();
             foreach (GameDBEntry g in Program.GameDB.Games.Values)
             {
-                if (ShouldDisplayGame(g))
-                {
-                    displayedGames.Add(g);
-                }
+                if (ShouldDisplayGame(g)) displayedGames.Add(g);
             }
             displayedGames.Sort(dbEntrySorter);
             lstGames.VirtualListSize = displayedGames.Count;
@@ -487,93 +480,47 @@ namespace Depressurizer
         /// <returns>True if the entry should be displayed</returns>
         bool ShouldDisplayGame(GameDBEntry g)
         {
-            if (g == null)
-            {
-                return false;
-            }
+            if (g == null) return false;
 
-            if (!Program.GameDB.Contains(g.Id))
-            {
-                return false;
-            }
-            if (chkIdRange.Checked && ((g.Id < currentMinId) || (g.Id > currentMaxId)))
-            {
-                return false;
-            }
+            if (!Program.GameDB.Contains(g.Id)) return false;
+            if (chkIdRange.Checked && (g.Id < currentMinId || g.Id > currentMaxId)) return false;
 
-            if ((ownedList != null) && chkOwned.Checked && !ownedList.Games.ContainsKey(g.Id))
-            {
-                return false;
-            }
+            if (ownedList != null && chkOwned.Checked && !ownedList.Games.ContainsKey(g.Id)) return false;
 
             if (chkTypeAll.Checked == false)
             {
                 switch (g.AppType)
                 {
                     case AppTypes.Game:
-                        if (chkTypeGame.Checked == false)
-                        {
-                            return false;
-                        }
-
+                        if (chkTypeGame.Checked == false) return false;
                         break;
                     case AppTypes.DLC:
-                        if (chkTypeDLC.Checked == false)
-                        {
-                            return false;
-                        }
-
+                        if (chkTypeDLC.Checked == false) return false;
                         break;
                     case AppTypes.Unknown:
-                        if (chkTypeUnknown.Checked == false)
-                        {
-                            return false;
-                        }
-
+                        if (chkTypeUnknown.Checked == false) return false;
                         break;
                     default:
-                        if (chkTypeOther.Checked == false)
-                        {
-                            return false;
-                        }
-
+                        if (chkTypeOther.Checked == false) return false;
                         break;
                 }
             }
 
             if (radWebAll.Checked == false)
             {
-                if (radWebNo.Checked && (g.LastStoreScrape > 0))
-                {
-                    return false;
-                }
-                if (radWebYes.Checked && (g.LastStoreScrape <= 0))
-                {
-                    return false;
-                }
-                if (radWebSince.Checked && (g.LastStoreScrape > Utility.GetUTime(dateWeb.Value)))
-                {
-                    return false;
-                }
+                if (radWebNo.Checked && g.LastStoreScrape > 0) return false;
+                if (radWebYes.Checked && g.LastStoreScrape <= 0) return false;
+                if (radWebSince.Checked && g.LastStoreScrape > Utility.GetUTime(dateWeb.Value)) return false;
             }
 
             if (radAppAll.Checked == false)
             {
-                if (radAppNo.Checked && (g.LastAppInfoUpdate > 0))
-                {
-                    return false;
-                }
-                if (radAppYes.Checked && (g.LastAppInfoUpdate <= 0))
-                {
-                    return false;
-                }
+                if (radAppNo.Checked && g.LastAppInfoUpdate > 0) return false;
+                if (radAppYes.Checked && g.LastAppInfoUpdate <= 0) return false;
             }
 
-            if ((currentFilter.Length > 0) && (g.Name.IndexOf(currentFilter, StringComparison.CurrentCultureIgnoreCase) ==
-                                               -1))
-            {
-                return false;
-            }
+            if (currentFilter.Length > 0 && g.Name.IndexOf(currentFilter, StringComparison.CurrentCultureIgnoreCase) ==
+                -1) return false;
 
             return true;
         }
@@ -588,19 +535,9 @@ namespace Depressurizer
             string oldFilter = currentFilter;
             currentFilter = txtSearch.Text;
 
-            if (currentFilter.Equals(oldFilter, StringComparison.CurrentCultureIgnoreCase))
-            {
-                return;
-            }
-
-            if (currentFilter.IndexOf(oldFilter, StringComparison.CurrentCultureIgnoreCase) == -1)
-            {
-                RebuildDisplayList();
-            }
-            else
-            {
-                RefilterDisplayList();
-            }
+            if (currentFilter.Equals(oldFilter, StringComparison.CurrentCultureIgnoreCase)) return;
+            if (currentFilter.IndexOf(oldFilter, StringComparison.CurrentCultureIgnoreCase) == -1) RebuildDisplayList();
+            else RefilterDisplayList();
         }
 
         private void ApplyIdFilterChange()
@@ -618,19 +555,9 @@ namespace Depressurizer
                 currentMaxId = ID_FILTER_MAX;
             }
 
-            if ((currentMinId == oldMinId) && (currentMaxId == oldMaxId))
-            {
-                return;
-            }
-
-            if ((currentMinId < oldMinId) || (currentMaxId > oldMaxId))
-            {
-                RebuildDisplayList();
-            }
-            else
-            {
-                RefilterDisplayList();
-            }
+            if (currentMinId == oldMinId && currentMaxId == oldMaxId) return;
+            if (currentMinId < oldMinId || currentMaxId > oldMaxId) RebuildDisplayList();
+            else RefilterDisplayList();
         }
 
         #region Status Text
@@ -866,7 +793,7 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                Steam.LaunchStorePage(displayedGames[lstGames.SelectedIndices[0]].Id);
+                Utility.LaunchStorePage(displayedGames[lstGames.SelectedIndices[0]].Id);
             }
         }
 

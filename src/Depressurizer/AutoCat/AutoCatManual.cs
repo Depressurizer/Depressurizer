@@ -122,20 +122,11 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
-            {
-                return AutoCatResult.NotInDatabase;
-            }
+            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
 
-            if (!game.IncludeGame(filter))
-            {
-                return AutoCatResult.Filtered;
-            }
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            if (RemoveAllCategories)
-            {
-                game.ClearCategories();
-            }
+            if (RemoveAllCategories) game.ClearCategories();
             else if (RemoveCategories != null)
             {
                 List<Category> removed = new List<Category>();
@@ -185,14 +176,8 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null)
-            {
-                writer.WriteElementString(XmlName_Filter, Filter);
-            }
-            if (Prefix != null)
-            {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
-            }
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString(XmlName_RemoveAll, RemoveAllCategories.ToString());
 
             writer.WriteStartElement(XmlName_RemoveList);

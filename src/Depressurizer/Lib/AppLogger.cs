@@ -95,10 +95,7 @@ namespace Rallion
                 lock (threadLock)
                 {
                     _fileNameBase = value;
-                    if (IsActiveSession)
-                    {
-                        BeginSession();
-                    }
+                    if (IsActiveSession) BeginSession();
                 }
             }
         }
@@ -142,10 +139,7 @@ namespace Rallion
                 lock (threadLock)
                 {
                     _filePath = value;
-                    if (IsActiveSession)
-                    {
-                        BeginSession();
-                    }
+                    if (IsActiveSession) BeginSession();
                 }
             }
         }
@@ -548,10 +542,7 @@ namespace Rallion
         /// <returns>String containing the filename to use.</returns>
         private string GenerateFileName(string template = null)
         {
-            if (template == null)
-            {
-                template = FileNameTemplate;
-            }
+            if (template == null) template = FileNameTemplate;
             template = template.Replace(":d", DateTime.Now.ToString("yyyyMMdd"));
             template = template.Replace(":t", DateTime.Now.ToString("hhmmss"));
             template = template.Replace(":n", Assembly.GetCallingAssembly().GetName().Name);
@@ -577,11 +568,7 @@ namespace Rallion
         private void DisplaceFile(string baseFile, int stepsIn, int stepsTotal)
         {
             string thisFile = GetBackupFileName(baseFile, stepsIn);
-            if (!File.Exists(thisFile))
-            {
-                return;
-            }
-
+            if (!File.Exists(thisFile)) return;
             if (stepsIn >= stepsTotal)
             {
                 File.Delete(thisFile); // Delete if there's no more space for more backups
@@ -628,20 +615,10 @@ namespace Rallion
         /// <returns>True if message can be added, false otherwise</returns>
         private bool CanWriteToFile(string message)
         {
-            if ((MaxFileRecords != 0) && (CurrentFileRecords >= MaxFileRecords))
-            {
-                return false;
-            }
-            if ((MaxFileSize != 0) && ((outputStream.Length + message.Length) > MaxFileSize))
-            {
-                return false;
-            }
-            if ((MaxFileDuration != null) && (MaxFileDuration.Ticks != 0) &&
-                ((DateTime.Now - CurrentFileStartTime) > MaxFileDuration))
-            {
-                return false;
-            }
-
+            if (MaxFileRecords != 0 && CurrentFileRecords >= MaxFileRecords) return false;
+            if (MaxFileSize != 0 && outputStream.Length + message.Length > MaxFileSize) return false;
+            if (MaxFileDuration != null && MaxFileDuration.Ticks != 0 &&
+                DateTime.Now - CurrentFileStartTime > MaxFileDuration) return false;
             return true;
         }
 

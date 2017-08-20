@@ -18,10 +18,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Xml;
-using Depressurizer.Helpers;
 using Rallion;
 
 namespace Depressurizer
@@ -109,14 +107,8 @@ namespace Depressurizer
         public int ImportSteamData()
         {
             AppTypes included = AppTypes.InclusionNormal;
-            if (BypassIgnoreOnImport)
-            {
-                included = AppTypes.InclusionAll;
-            }
-            else if (IncludeUnknown)
-            {
-                included |= AppTypes.Unknown;
-            }
+            if (BypassIgnoreOnImport) included = AppTypes.InclusionAll;
+            else if (IncludeUnknown) included |= AppTypes.Unknown;
 
             return GameData.ImportSteamConfig(SteamID64, IgnoreList, included, IncludeShortcuts);
         }
@@ -329,7 +321,7 @@ namespace Depressurizer
                 GameListingSource source =
                     XmlUtil.GetEnumFromNode(node[XmlName_Game_Source], GameListingSource.Unknown);
 
-                if ((source < GameListingSource.Manual) && profile.IgnoreList.Contains(id))
+                if (source < GameListingSource.Manual && profile.IgnoreList.Contains(id))
                 {
                     return;
                 }
@@ -427,7 +419,7 @@ namespace Depressurizer
 
             foreach (GameInfo g in GameData.Games.Values)
             {
-                if (IncludeShortcuts || (g.Id > 0))
+                if (IncludeShortcuts || g.Id > 0)
                 {
                     // Don't save shortcuts if we aren't including them
                     writer.WriteStartElement(XmlName_Game);
@@ -442,15 +434,10 @@ namespace Depressurizer
 
                     writer.WriteElementString(XmlName_Game_Hidden, g.Hidden.ToString());
 
-                    if (g.LastPlayed != 0)
-                    {
-                        writer.WriteElementString(XmlName_Game_LastPlayed, g.LastPlayed.ToString());
-                    }
+                    if (g.LastPlayed != 0) writer.WriteElementString(XmlName_Game_LastPlayed, g.LastPlayed.ToString());
 
                     if (!g.Executable.Contains("steam://"))
-                    {
                         writer.WriteElementString(XmlName_Game_Executable, g.Executable);
-                    }
 
                     writer.WriteStartElement(XmlName_Game_CategoryList);
                     foreach (Category c in g.Categories)
@@ -578,23 +565,33 @@ namespace Depressurizer
             return (id - 0x0110000100000000).ToString();
         }
 
-        // TODO Remove
-        public Image GetAvatar() => Steam.GetAvatar(SteamID64);
-        
+        public Image GetAvatar()
+        {
+            try
+            {
+                XmlDocument xml = new XmlDocument();
+                string profile = string.Format(Properties.Resources.UrlSteamProfile, SteamID64);
+                xml.Load(profile);
+
+                XmlNodeList xnList = xml.SelectNodes(Properties.Resources.XmlNodeAvatar);
+                foreach (XmlNode xn in xnList)
+                {
+                    string avatarURL = xn.InnerText;
+                    return Utility.GetImage(avatarURL, System.Net.Cache.RequestCacheLevel.BypassCache);
+                }
+            }
+            catch { }
+            return null;
+        }
+
         // find and return AutoCat using the name
         public AutoCat GetAutoCat(string name)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                return null;
-            }
+            if (string.IsNullOrEmpty(name)) return null;
 
             foreach (AutoCat ac in AutoCats)
             {
-                if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase))
-                {
-                    return ac;
-                }
+                if (String.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase)) return ac;
             }
 
             return null;
@@ -614,10 +611,7 @@ namespace Depressurizer
                     // add a cloned copy of the Autocat and replace the filter if one is provided.
                     // a cloned copy is used so that the selected property can be assigned without effecting lvAutoCatType on the Main form.
                     AutoCat clone = ac.Clone();
-                    if (filter != null)
-                    {
-                        clone.Filter = filter.Name;
-                    }
+                    if (filter != null) clone.Filter = filter.Name;
                     newList.Add(clone);
                 }
             }

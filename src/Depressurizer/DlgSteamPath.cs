@@ -66,10 +66,7 @@ namespace Depressurizer
             try
             {
                 string s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
-                if (s == null)
-                {
-                    s = string.Empty;
-                }
+                if (s == null) s = string.Empty;
                 return s.Replace('/', '\\');
             }
             catch

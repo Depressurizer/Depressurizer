@@ -43,11 +43,7 @@ namespace Depressurizer
         /// <param name="maxBackups">The number of old versions to maintain</param>
         public static void BackupFile(string filePath, int maxBackups)
         {
-            if (maxBackups < 1)
-            {
-                return;
-            }
-
+            if (maxBackups < 1) return;
             string targetPath = BackupFile_ClearSlot(filePath, maxBackups, 1);
             File.Copy(filePath, targetPath);
         }
@@ -84,11 +80,7 @@ namespace Depressurizer
         /// <returns>The name</returns>
         private static string BackupFile_GetName(string baseName, int slotNum)
         {
-            if (slotNum == 0)
-            {
-                return baseName;
-            }
-
+            if (slotNum == 0) return baseName;
             return string.Format("{0}.bak_{1}", baseName, slotNum);
         }
 
@@ -138,15 +130,8 @@ namespace Depressurizer
         public static int GetUTime(DateTime dt)
         {
             double tSecs = (dt - epoch).TotalSeconds;
-            if (tSecs > int.MaxValue)
-            {
-                return int.MaxValue;
-            }
-            if (tSecs < 0)
-            {
-                return 0;
-            }
-
+            if (tSecs > int.MaxValue) return int.MaxValue;
+            if (tSecs < 0) return 0;
             return (int) tSecs;
         }
 
@@ -180,13 +165,10 @@ namespace Depressurizer
             {
                 return -1;
             }
-            for (int i = 0; (i < a.Count) && (i < b.Count); i++)
+            for (int i = 0; i < a.Count && i < b.Count; i++)
             {
                 int res = string.Compare(a[i], b[i]);
-                if (res != 0)
-                {
-                    return res;
-                }
+                if (res != 0) return res;
             }
             return b.Count - a.Count;
         }
@@ -201,15 +183,8 @@ namespace Depressurizer
         /// <returns>If val is between min and max, return val. If greater than max, return max. If less than min, return min.</returns>
         public static T Clamp<T>(T val, T min, T max) where T : IComparable<T>
         {
-            if (val.CompareTo(min) < 0)
-            {
-                return min;
-            }
-            if (val.CompareTo(max) > 0)
-            {
-                return max;
-            }
-
+            if (val.CompareTo(min) < 0) return min;
+            if (val.CompareTo(max) > 0) return max;
             return val;
         }
 
@@ -222,10 +197,8 @@ namespace Depressurizer
             catch
             {
                 if (!ignoreWarning.Contains(id))
-                {
                     Program.Logger.Write(Rallion.LoggerLevel.Warning,
                         string.Format(GlobalStrings.Utility_GetImage, url));
-                }
             }
             return null;
         }
@@ -242,9 +215,9 @@ namespace Depressurizer
                 // image file might be redirected to a 404-page, which would
                 // yield the StatusCode "OK", even though the image was not
                 // found.
-                if (((response.StatusCode == HttpStatusCode.OK) ||
-                     (response.StatusCode == HttpStatusCode.Moved) ||
-                     (response.StatusCode == HttpStatusCode.Redirect)) &&
+                if ((response.StatusCode == HttpStatusCode.OK ||
+                     response.StatusCode == HttpStatusCode.Moved ||
+                     response.StatusCode == HttpStatusCode.Redirect) &&
                     response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
                 {
                     return response.GetResponseStream();
@@ -253,10 +226,8 @@ namespace Depressurizer
             catch
             {
                 if (!ignoreWarning.Contains(id))
-                {
                     Program.Logger.Write(Rallion.LoggerLevel.Warning,
                         string.Format(GlobalStrings.Utility_GetImage, url));
-                }
             }
             return null;
         }
@@ -339,30 +310,23 @@ namespace Depressurizer
             DescriptionAttribute[] attributes =
                 (DescriptionAttribute[]) fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-            if ((attributes != null) && (attributes.Length > 0))
-            {
+            if (attributes != null && attributes.Length > 0)
                 return attributes[0].Description;
-            }
-
             return value.ToString();
         }
 
         public static void MoveItem(ListBox lb, int direction)
         {
             // Checking selected item
-            if ((lb.SelectedItem == null) || (lb.SelectedIndex < 0) || (lb.SelectedItems.Count > 1))
-            {
+            if (lb.SelectedItem == null || lb.SelectedIndex < 0 || lb.SelectedItems.Count > 1)
                 return; // No selected item or more than one item selected - nothing to do
-            }
 
             // Calculate new index using move direction
             int newIndex = lb.SelectedIndex + direction;
 
             // Checking bounds of the range
-            if ((newIndex < 0) || (newIndex >= lb.Items.Count))
-            {
+            if (newIndex < 0 || newIndex >= lb.Items.Count)
                 return; // Index out of range - nothing to do
-            }
 
             object selected = lb.SelectedItem;
 
@@ -376,45 +340,41 @@ namespace Depressurizer
 
         #endregion
 
+        #region Steam-specific
+
+        /// <summary>
+        /// Opens the store page for the specified app in the default browser.
+        /// </summary>
+        /// <param name="appId"></param>
+        public static void LaunchStorePage(int appId)
+        {
+            System.Diagnostics.Process.Start(string.Format(Properties.Resources.UrlSteamStoreApp, appId));
+        }
+
+        #endregion
+
         #region Language
 
         public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage dbLanguage)
         {
             string l = Enum.GetName(typeof(StoreLanguage), dbLanguage);
             CultureInfo culture = CultureInfo.GetCultureInfo("en");
-            if (l == "zh_Hans")
-            {
-                culture = CultureInfo.GetCultureInfo("zh-Hans");
-            }
-            else if (l == "zh_Hant")
-            {
-                culture = CultureInfo.GetCultureInfo("zh-Hant");
-            }
-            else if (l == "pt-BR")
-            {
-                culture = CultureInfo.GetCultureInfo("pt-BR");
-            }
+            if (l == "zh_Hans") culture = CultureInfo.GetCultureInfo("zh-Hans");
+            else if (l == "zh_Hant") culture = CultureInfo.GetCultureInfo("zh-Hant");
+            else if (l == "pt-BR") culture = CultureInfo.GetCultureInfo("pt-BR");
             else if (l == "windows")
             {
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
-                {
                     culture = currentCulture;
-                }
                 else
                 {
-                    if ((currentCulture.Name == "zh-Hans") || (currentCulture.Parent.Name == "zh-Hans"))
-                    {
+                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
                         culture = CultureInfo.GetCultureInfo("zh-Hans");
-                    }
-                    else if ((currentCulture.Name == "zh-Hant") || (currentCulture.Parent.Name == "zh-Hant"))
-                    {
+                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
                         culture = CultureInfo.GetCultureInfo("zh-Hant");
-                    }
-                    else if ((currentCulture.Name == "pt-BR") || (currentCulture.Parent.Name == "pt-BR"))
-                    {
+                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
                         culture = CultureInfo.GetCultureInfo("pt-BR");
-                    }
                 }
             }
             else

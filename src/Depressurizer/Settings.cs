@@ -26,6 +26,61 @@ using Rallion;
 
 namespace Depressurizer
 {
+    enum StartupAction
+    {
+        None,
+        Load,
+        Create
+    }
+
+    enum GameListSource
+    {
+        XmlPreferred,
+        XmlOnly,
+        WebsiteOnly
+    }
+
+    enum UILanguage
+    {
+        windows,
+        en, // English
+        es, // Spanish
+        ru, // Russian
+        uk, // Ukranian
+        nl // Dutch
+    }
+
+    public enum StoreLanguage
+    {
+        windows,
+        bg, // Bulgarian
+        cs, // Czech
+        da, // Danish
+        nl, // Dutch
+        en, // English
+        fi, // Finnish
+        fr, // French
+        de, // German
+        el, // Greek
+        hu, // Hungarian
+        it, // Italian
+        ja, // Japanese
+        ko, // Korean
+        no, // Norwegian
+        pl, // Polish
+        pt, // Portuguese
+        pt_BR, // Portuguese (Brasil)
+        ro, // Romanian
+        ru, // Russian
+        zh_Hans, // Simplified Chinese
+        es, // Spanish
+        sv, // Swedish
+        th, // Thai
+        zh_Hant, // Traditional Chinese
+        tr, // Turkish
+        uk // Ukrainian
+    }
+
     class Settings : AppSettings
     {
         private static Settings instance;
@@ -474,40 +529,25 @@ namespace Depressurizer
 
         public void ChangeStoreLanguage(StoreLanguage storeLanguage)
         {
-            if (Program.GameDB == null)
-            {
-                return;
-            }
-
+            if (Program.GameDB == null) return;
             StoreLanguage dbLanguage = StoreLanguage.en;
             if (storeLanguage == StoreLanguage.windows)
             {
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
-                {
                     dbLanguage =
                         (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
-                }
                 else
                 {
-                    if ((currentCulture.Name == "zh-Hans") || (currentCulture.Parent.Name == "zh-Hans"))
-                    {
+                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
                         dbLanguage = StoreLanguage.zh_Hans;
-                    }
-                    else if ((currentCulture.Name == "zh-Hant") || (currentCulture.Parent.Name == "zh-Hant"))
-                    {
+                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
                         dbLanguage = StoreLanguage.zh_Hant;
-                    }
-                    else if ((currentCulture.Name == "pt-BR") || (currentCulture.Parent.Name == "pt-BR"))
-                    {
+                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
                         dbLanguage = StoreLanguage.pt_BR;
-                    }
                 }
             }
-            else
-            {
-                dbLanguage = storeLanguage;
-            }
+            else dbLanguage = storeLanguage;
             if (Program.GameDB.dbLanguage != dbLanguage)
             {
                 Program.GameDB.dbLanguage = dbLanguage;
@@ -541,7 +581,7 @@ namespace Depressurizer
                     DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
                     DialogResult scrapeRes = scrapeDlg.ShowDialog();
 
-                    if ((scrapeRes != DialogResult.Cancel) && (scrapeDlg.JobsCompleted > 0))
+                    if (scrapeRes != DialogResult.Cancel && scrapeDlg.JobsCompleted > 0)
                     {
                         Program.GameDB.Save("GameDB.xml.gz");
                     }

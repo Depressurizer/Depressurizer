@@ -65,14 +65,8 @@ namespace Depressurizer
             Filter = filter;
             Prefix = prefix;
 
-            if (tags == null)
-            {
-                IncludedTags = new HashSet<string>();
-            }
-            else
-            {
-                IncludedTags = tags;
-            }
+            if (tags == null) IncludedTags = new HashSet<string>();
+            else IncludedTags = tags;
 
             MaxTags = maxTags;
             ListOwnedOnly = listOwnedOnly;
@@ -124,22 +118,16 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
-            {
-                return AutoCatResult.NotInDatabase;
-            }
+            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
 
-            if (!game.IncludeGame(filter))
-            {
-                return AutoCatResult.Filtered;
-            }
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             List<string> gameTags = db.GetTagList(game.Id);
 
             if (gameTags != null)
             {
                 int added = 0;
-                for (int index = 0; (index < gameTags.Count) && ((MaxTags == 0) || (added < MaxTags)); index++)
+                for (int index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
                 {
                     if (IncludedTags.Contains(gameTags[index]))
                     {
@@ -166,17 +154,11 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null)
-            {
-                writer.WriteElementString(XmlName_Filter, Filter);
-            }
-            if (Prefix != null)
-            {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
-            }
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString(XmlName_MaxTags, MaxTags.ToString());
 
-            if ((IncludedTags != null) && (IncludedTags.Count > 0))
+            if (IncludedTags != null && IncludedTags.Count > 0)
             {
                 writer.WriteStartElement(XmlName_TagList);
                 foreach (string s in IncludedTags)
@@ -205,52 +187,34 @@ namespace Depressurizer
             result.Filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
 
             string prefix;
-            if (XmlUtil.TryGetStringFromNode(xElement[XmlName_Prefix], out prefix))
-            {
-                result.Prefix = prefix;
-            }
+            if (XmlUtil.TryGetStringFromNode(xElement[XmlName_Prefix], out prefix)) result.Prefix = prefix;
 
             int maxTags;
-            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_MaxTags], out maxTags))
-            {
-                result.MaxTags = maxTags;
-            }
+            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_MaxTags], out maxTags)) result.MaxTags = maxTags;
 
             bool listOwnedOnly;
             if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListOwnedOnly], out listOwnedOnly))
-            {
                 result.ListOwnedOnly = listOwnedOnly;
-            }
 
             float listWeightFactor;
             if (XmlUtil.TryGetFloatFromNode(xElement[XmlName_ListWeightFactor], out listWeightFactor))
-            {
                 result.ListWeightFactor = listWeightFactor;
-            }
 
             int listMinScore;
             if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListMinScore], out listMinScore))
-            {
                 result.ListMinScore = listMinScore;
-            }
 
             int listTagsPerGame;
             if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListTagsPerGame], out listTagsPerGame))
-            {
                 result.ListTagsPerGame = listTagsPerGame;
-            }
 
             bool listScoreSort;
             if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListScoreSort], out listScoreSort))
-            {
                 result.ListScoreSort = listScoreSort;
-            }
 
             bool listExcludeGenres;
             if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListExcludeGenres], out listExcludeGenres))
-            {
                 result.ListExcludeGenres = listExcludeGenres;
-            }
 
             List<string> tagList =
                 XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_TagList + "/" + XmlName_Tag));

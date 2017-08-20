@@ -135,15 +135,9 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id))
-            {
-                return AutoCatResult.NotInDatabase;
-            }
+            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
 
-            if (!game.IncludeGame(filter))
-            {
-                return AutoCatResult.Filtered;
-            }
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             string result = null;
 
@@ -151,10 +145,8 @@ namespace Depressurizer
             float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
             float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
 
-            if (IncludeUnknown && (hltbMain == 0.0f) && (hltbExtras == 0.0f) && (hltbCompletionist == 0.0f))
-            {
+            if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
                 result = UnknownText;
-            }
             else
             {
                 foreach (Hltb_Rule rule in Rules)
@@ -179,32 +171,18 @@ namespace Depressurizer
         {
             float hours = 0.0f;
             if (rule.TimeType == TimeType.Main)
-            {
                 hours = hltbMain;
-            }
             else if (rule.TimeType == TimeType.Extras)
-            {
                 hours = hltbExtras;
-            }
             else if (rule.TimeType == TimeType.Completionist)
-            {
                 hours = hltbCompletionist;
-            }
-            if (hours == 0.0f)
-            {
-                return false;
-            }
-
-            return ((hours >= rule.MinHours) && ((hours <= rule.MaxHours) || (rule.MaxHours == 0.0f)));
+            if (hours == 0.0f) return false;
+            return (hours >= rule.MinHours && (hours <= rule.MaxHours || rule.MaxHours == 0.0f));
         }
 
         private string GetProcessedString(string s)
         {
-            if (!string.IsNullOrEmpty(Prefix))
-            {
-                return Prefix + s;
-            }
-
+            if (!string.IsNullOrEmpty(Prefix)) return Prefix + s;
             return s;
         }
 
@@ -217,14 +195,8 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null)
-            {
-                writer.WriteElementString(XmlName_Filter, Filter);
-            }
-            if (Prefix != null)
-            {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
-            }
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString());
             writer.WriteElementString(XmlName_UnknownText, UnknownText);
 

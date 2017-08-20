@@ -23,11 +23,7 @@ namespace Depressurizer
                     return;
                 }
 
-                if (g.Id < 0)
-                {
-                    continue; //external game
-                }
-
+                if (g.Id < 0) continue; //external game
                 string bannerFile = string.Format(Properties.Resources.GameBannerPath,
                     Path.GetDirectoryName(Application.ExecutablePath), g.Id);
                 if (!File.Exists(bannerFile))

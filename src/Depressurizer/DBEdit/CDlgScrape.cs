@@ -78,10 +78,7 @@ namespace Depressurizer
             {
                 return false;
             }
-            if (Stopped)
-            {
-                return false;
-            }
+            if (Stopped) return false;
 
             GameDBEntry newGame = new GameDBEntry();
             newGame.Id = id;
