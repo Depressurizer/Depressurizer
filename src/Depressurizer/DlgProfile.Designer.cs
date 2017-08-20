@@ -268,6 +268,8 @@ namespace Depressurizer {
             // chkAutoImport
             // 
             resources.ApplyResources(this.chkAutoImport, "chkAutoImport");
+            this.chkAutoImport.Checked = true;
+            this.chkAutoImport.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAutoImport.Name = "chkAutoImport";
             this.chkAutoImport.UseVisualStyleBackColor = true;
             // 
@@ -386,6 +388,8 @@ namespace Depressurizer {
             // chkOverwriteNames
             // 
             resources.ApplyResources(this.chkOverwriteNames, "chkOverwriteNames");
+            this.chkOverwriteNames.Checked = true;
+            this.chkOverwriteNames.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkOverwriteNames.Name = "chkOverwriteNames";
             this.chkOverwriteNames.UseVisualStyleBackColor = true;
             // 

@@ -88,7 +88,7 @@ namespace Depressurizer
 
         public bool AutoUpdate = true;
 
-        public bool AutoImport;
+        public bool AutoImport = true;
         public bool AutoExport = true;
 
         public bool LocalUpdate = true;
@@ -96,7 +96,7 @@ namespace Depressurizer
 
         public bool ExportDiscard = true;
 
-        public bool OverwriteOnDownload;
+        public bool OverwriteOnDownload = true;
 
         public bool AutoIgnore = true;
         public bool IncludeUnknown;
