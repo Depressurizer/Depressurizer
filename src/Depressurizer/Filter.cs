@@ -87,23 +87,14 @@ namespace Depressurizer
 
         public int CompareTo(object o)
         {
-            if (o == null)
-            {
-                return 1;
-            }
+            if (o == null) return 1;
 
             Filter otherFilter = o as Filter;
-            if (o == null)
-            {
-                throw new ArgumentException(GlobalStrings.Category_Exception_ObjectNotCategory);
-            }
+            if (o == null) throw new ArgumentException(GlobalStrings.Category_Exception_ObjectNotCategory);
 
             int comp = String.Compare(Name, otherFilter.Name, StringComparison.OrdinalIgnoreCase);
 
-            if (comp == 0)
-            {
-                return 0;
-            }
+            if (comp == 0) return 0;
 
             return comp;
         }

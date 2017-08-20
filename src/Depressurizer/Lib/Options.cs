@@ -295,20 +295,14 @@ namespace NDesk.Options
         private void AssertValid(int index)
         {
             if (c.Option == null)
-            {
                 throw new InvalidOperationException("OptionContext.Option is null.");
-            }
             if (index >= c.Option.MaxValueCount)
-            {
                 throw new ArgumentOutOfRangeException("index");
-            }
-            if ((c.Option.OptionValueType == OptionValueType.Required) &&
-                (index >= values.Count))
-            {
+            if (c.Option.OptionValueType == OptionValueType.Required &&
+                index >= values.Count)
                 throw new OptionException(string.Format(
                         c.OptionSet.MessageLocalizer("Missing required value for option '{0}'."), c.OptionName),
                     c.OptionName);
-            }
         }
 
         public string this[int index]
@@ -403,17 +397,11 @@ namespace NDesk.Options
         protected Option(string prototype, string description, int maxValueCount)
         {
             if (prototype == null)
-            {
                 throw new ArgumentNullException("prototype");
-            }
             if (prototype.Length == 0)
-            {
                 throw new ArgumentException("Cannot be the empty string.", "prototype");
-            }
             if (maxValueCount < 0)
-            {
                 throw new ArgumentOutOfRangeException("maxValueCount");
-            }
 
             this.prototype = prototype;
             names = prototype.Split('|');
@@ -421,27 +409,21 @@ namespace NDesk.Options
             count = maxValueCount;
             type = ParsePrototype();
 
-            if ((count == 0) && (type != OptionValueType.None))
-            {
+            if (count == 0 && type != OptionValueType.None)
                 throw new ArgumentException(
                     "Cannot provide maxValueCount of 0 for OptionValueType.Required or " +
                     "OptionValueType.Optional.",
                     "maxValueCount");
-            }
-            if ((type == OptionValueType.None) && (maxValueCount > 1))
-            {
+            if (type == OptionValueType.None && maxValueCount > 1)
                 throw new ArgumentException(
                     string.Format("Cannot provide maxValueCount of {0} for OptionValueType.None.", maxValueCount),
                     "maxValueCount");
-            }
-            if ((Array.IndexOf(names, "<>") >= 0) &&
-                (((names.Length == 1) && (type != OptionValueType.None)) ||
-                 ((names.Length > 1) && (MaxValueCount > 1))))
-            {
+            if (Array.IndexOf(names, "<>") >= 0 &&
+                ((names.Length == 1 && type != OptionValueType.None) ||
+                 (names.Length > 1 && MaxValueCount > 1)))
                 throw new ArgumentException(
                     "The default option handler '<>' cannot require values.",
                     "prototype");
-            }
         }
 
         public string Prototype
@@ -472,10 +454,7 @@ namespace NDesk.Options
         public string[] GetValueSeparators()
         {
             if (separators == null)
-            {
                 return new string [0];
-            }
-
             return (string[]) separators.Clone();
         }
 
@@ -486,9 +465,7 @@ namespace NDesk.Options
             try
             {
                 if (value != null)
-                {
                     t = (T) conv.ConvertFromString(value);
-                }
             }
             catch (Exception e)
             {
@@ -521,57 +498,36 @@ namespace NDesk.Options
             {
                 string name = names[i];
                 if (name.Length == 0)
-                {
                     throw new ArgumentException("Empty option names are not supported.", "prototype");
-                }
 
                 int end = name.IndexOfAny(NameTerminator);
                 if (end == -1)
-                {
                     continue;
-                }
-
                 names[i] = name.Substring(0, end);
-                if ((type == '\0') || (type == name[end]))
-                {
+                if (type == '\0' || type == name[end])
                     type = name[end];
-                }
                 else
-                {
                     throw new ArgumentException(
                         string.Format("Conflicting option types: '{0}' vs. '{1}'.", type, name[end]),
                         "prototype");
-                }
-
                 AddSeparators(name, end, seps);
             }
 
             if (type == '\0')
-            {
                 return OptionValueType.None;
-            }
 
-            if ((count <= 1) && (seps.Count != 0))
-            {
+            if (count <= 1 && seps.Count != 0)
                 throw new ArgumentException(
                     string.Format("Cannot provide key/value separators for Options taking {0} value(s).", count),
                     "prototype");
-            }
-
             if (count > 1)
             {
                 if (seps.Count == 0)
-                {
                     separators = new[] {":", "="};
-                }
-                else if ((seps.Count == 1) && (seps[0].Length == 0))
-                {
+                else if (seps.Count == 1 && seps[0].Length == 0)
                     separators = null;
-                }
                 else
-                {
                     separators = seps.ToArray();
-                }
             }
 
             return type == '=' ? OptionValueType.Required : OptionValueType.Optional;
@@ -586,39 +542,29 @@ namespace NDesk.Options
                 {
                     case '{':
                         if (start != -1)
-                        {
                             throw new ArgumentException(
                                 string.Format("Ill-formed name/value separator found in \"{0}\".", name),
                                 "prototype");
-                        }
-
                         start = i + 1;
                         break;
                     case '}':
                         if (start == -1)
-                        {
                             throw new ArgumentException(
                                 string.Format("Ill-formed name/value separator found in \"{0}\".", name),
                                 "prototype");
-                        }
-
                         seps.Add(name.Substring(start, i - start));
                         start = -1;
                         break;
                     default:
                         if (start == -1)
-                        {
                             seps.Add(name[i].ToString());
-                        }
                         break;
                 }
             }
             if (start != -1)
-            {
                 throw new ArgumentException(
                     string.Format("Ill-formed name/value separator found in \"{0}\".", name),
                     "prototype");
-            }
         }
 
         public void Invoke(OptionContext c)
@@ -697,14 +643,9 @@ namespace NDesk.Options
         protected override string GetKeyForItem(Option item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException("option");
-            }
-
-            if ((item.Names != null) && (item.Names.Length > 0))
-            {
+            if (item.Names != null && item.Names.Length > 0)
                 return item.Names[0];
-            }
             // This should never happen, as it's invalid for Option to be
             // constructed w/o any names.
             throw new InvalidOperationException("Option has no names!");
@@ -714,10 +655,7 @@ namespace NDesk.Options
         protected Option GetOptionForName(string option)
         {
             if (option == null)
-            {
                 throw new ArgumentNullException("option");
-            }
-
             try
             {
                 return base[option];
@@ -755,10 +693,7 @@ namespace NDesk.Options
         private void AddImpl(Option option)
         {
             if (option == null)
-            {
                 throw new ArgumentNullException("option");
-            }
-
             List<string> added = new List<string>(option.Names.Length);
             try
             {
@@ -772,10 +707,7 @@ namespace NDesk.Options
             catch (Exception)
             {
                 foreach (string name in added)
-                {
                     Dictionary.Remove(name);
-                }
-
                 throw;
             }
         }
@@ -794,10 +726,7 @@ namespace NDesk.Options
                 : base(prototype, description, count)
             {
                 if (action == null)
-                {
                     throw new ArgumentNullException("action");
-                }
-
                 this.action = action;
             }
 
@@ -815,10 +744,7 @@ namespace NDesk.Options
         public OptionSet Add(string prototype, string description, Action<string> action)
         {
             if (action == null)
-            {
                 throw new ArgumentNullException("action");
-            }
-
             Option p = new ActionOption(prototype, description, 1,
                 delegate(OptionValueCollection v) { action(v[0]); });
             base.Add(p);
@@ -833,10 +759,7 @@ namespace NDesk.Options
         public OptionSet Add(string prototype, string description, OptionAction<string, string> action)
         {
             if (action == null)
-            {
                 throw new ArgumentNullException("action");
-            }
-
             Option p = new ActionOption(prototype, description, 2,
                 delegate(OptionValueCollection v) { action(v[0], v[1]); });
             base.Add(p);
@@ -851,10 +774,7 @@ namespace NDesk.Options
                 : base(prototype, description, 1)
             {
                 if (action == null)
-                {
                     throw new ArgumentNullException("action");
-                }
-
                 this.action = action;
             }
 
@@ -872,10 +792,7 @@ namespace NDesk.Options
                 : base(prototype, description, 2)
             {
                 if (action == null)
-                {
                     throw new ArgumentNullException("action");
-                }
-
                 this.action = action;
             }
 
@@ -962,14 +879,10 @@ namespace NDesk.Options
                     continue;
                 }
                 if (!Parse(argument, c))
-                {
                     Unprocessed(unprocessed, def, c, argument);
-                }
             }
             if (c.Option != null)
-            {
                 c.Option.Invoke(c);
-            }
             return unprocessed;
         }
 #endif
@@ -994,9 +907,7 @@ namespace NDesk.Options
             out string value)
         {
             if (argument == null)
-            {
                 throw new ArgumentNullException("argument");
-            }
 
             flag = name = sep = value = null;
             Match m = ValueOption.Match(argument);
@@ -1024,9 +935,7 @@ namespace NDesk.Options
 
             string f, n, s, v;
             if (!GetOptionParts(argument, out f, out n, out s, out v))
-            {
                 return false;
-            }
 
             Option p;
             if (Contains(n))
@@ -1049,14 +958,10 @@ namespace NDesk.Options
             }
             // no match; is it a bool option?
             if (ParseBool(argument, n, c))
-            {
                 return true;
-            }
             // is it a bundled option?
             if (ParseBundledValue(f, string.Concat(n + s + v), c))
-            {
                 return true;
-            }
 
             return false;
         }
@@ -1064,20 +969,15 @@ namespace NDesk.Options
         private void ParseValue(string option, OptionContext c)
         {
             if (option != null)
-            {
                 foreach (string o in c.Option.ValueSeparators != null
                     ? option.Split(c.Option.ValueSeparators, StringSplitOptions.None)
                     : new[] {option})
                 {
                     c.OptionValues.Add(o);
                 }
-            }
-
-            if ((c.OptionValues.Count == c.Option.MaxValueCount) ||
-                (c.Option.OptionValueType == OptionValueType.Optional))
-            {
+            if (c.OptionValues.Count == c.Option.MaxValueCount ||
+                c.Option.OptionValueType == OptionValueType.Optional)
                 c.Option.Invoke(c);
-            }
             else if (c.OptionValues.Count > c.Option.MaxValueCount)
             {
                 throw new OptionException(localizer(string.Format(
@@ -1091,7 +991,7 @@ namespace NDesk.Options
         {
             Option p;
             string rn;
-            if ((n.Length >= 1) && ((n[n.Length - 1] == '+') || (n[n.Length - 1] == '-')) &&
+            if (n.Length >= 1 && (n[n.Length - 1] == '+' || n[n.Length - 1] == '-') &&
                 Contains((rn = n.Substring(0, n.Length - 1))))
             {
                 p = this[rn];
@@ -1108,10 +1008,7 @@ namespace NDesk.Options
         private bool ParseBundledValue(string f, string n, OptionContext c)
         {
             if (f != "-")
-            {
                 return false;
-            }
-
             for (int i = 0; i < n.Length; ++i)
             {
                 Option p;
@@ -1120,10 +1017,7 @@ namespace NDesk.Options
                 if (!Contains(rn))
                 {
                     if (i == 0)
-                    {
                         return false;
-                    }
-
                     throw new OptionException(string.Format(localizer(
                         "Cannot bundle unregistered option '{0}'."), opt), opt);
                 }
@@ -1165,14 +1059,10 @@ namespace NDesk.Options
             {
                 int written = 0;
                 if (!WriteOptionPrototype(o, p, ref written))
-                {
                     continue;
-                }
 
                 if (written < OptionWidth)
-                {
                     o.Write(new string(' ', OptionWidth - written));
-                }
                 else
                 {
                     o.WriteLine();
@@ -1196,9 +1086,7 @@ namespace NDesk.Options
 
             int i = GetNextOptionIndex(names, 0);
             if (i == names.Length)
-            {
                 return false;
-            }
 
             if (names[i].Length == 1)
             {
@@ -1220,15 +1108,15 @@ namespace NDesk.Options
                 Write(o, ref written, names[i]);
             }
 
-            if ((p.OptionValueType == OptionValueType.Optional) ||
-                (p.OptionValueType == OptionValueType.Required))
+            if (p.OptionValueType == OptionValueType.Optional ||
+                p.OptionValueType == OptionValueType.Required)
             {
                 if (p.OptionValueType == OptionValueType.Optional)
                 {
                     Write(o, ref written, localizer("["));
                 }
                 Write(o, ref written, localizer("=" + GetArgumentName(0, p.MaxValueCount, p.Description)));
-                string sep = (p.ValueSeparators != null) && (p.ValueSeparators.Length > 0)
+                string sep = p.ValueSeparators != null && p.ValueSeparators.Length > 0
                     ? p.ValueSeparators[0]
                     : " ";
                 for (int c = 1; c < p.MaxValueCount; ++c)
@@ -1245,7 +1133,7 @@ namespace NDesk.Options
 
         static int GetNextOptionIndex(string[] names, int i)
         {
-            while ((i < names.Length) && (names[i] == "<>"))
+            while (i < names.Length && names[i] == "<>")
             {
                 ++i;
             }
@@ -1261,10 +1149,7 @@ namespace NDesk.Options
         private static string GetArgumentName(int index, int maxIndex, string description)
         {
             if (description == null)
-            {
                 return maxIndex == 1 ? "VALUE" : "VALUE" + (index + 1);
-            }
-
             string[] nameStart;
             nameStart = maxIndex == 1 ? new[] {"{0:", "{"} : new[] {"{" + index + ":"};
             for (int i = 0; i < nameStart.Length; ++i)
@@ -1273,18 +1158,12 @@ namespace NDesk.Options
                 do
                 {
                     start = description.IndexOf(nameStart[i], j);
-                } while ((start >= 0) && (j != 0) ? description[j++ - 1] == '{' : false);
+                } while (start >= 0 && j != 0 ? description[j++ - 1] == '{' : false);
                 if (start == -1)
-                {
                     continue;
-                }
-
                 int end = description.IndexOf("}", start);
                 if (end == -1)
-                {
                     continue;
-                }
-
                 return description.Substring(start + nameStart[i].Length, end - start - nameStart[i].Length);
             }
             return maxIndex == 1 ? "VALUE" : "VALUE" + (index + 1);
@@ -1293,10 +1172,7 @@ namespace NDesk.Options
         private static string GetDescription(string description)
         {
             if (description == null)
-            {
                 return string.Empty;
-            }
-
             StringBuilder sb = new StringBuilder(description.Length);
             int start = -1;
             for (int i = 0; i < description.Length; ++i)
@@ -1310,18 +1186,13 @@ namespace NDesk.Options
                             start = -1;
                         }
                         else if (start < 0)
-                        {
                             start = i + 1;
-                        }
                         break;
                     case '}':
                         if (start < 0)
                         {
-                            if (((i + 1) == description.Length) || (description[i + 1] != '}'))
-                            {
+                            if ((i + 1) == description.Length || description[i + 1] != '}')
                                 throw new InvalidOperationException("Invalid option description: " + description);
-                            }
-
                             ++i;
                             sb.Append("}");
                         }
@@ -1333,16 +1204,12 @@ namespace NDesk.Options
                         break;
                     case ':':
                         if (start < 0)
-                        {
                             goto default;
-                        }
                         start = i + 1;
                         break;
                     default:
                         if (start < 0)
-                        {
                             sb.Append(description[i]);
-                        }
                         break;
                 }
             }
@@ -1366,10 +1233,8 @@ namespace NDesk.Options
                 if (end < description.Length)
                 {
                     char c = description[end];
-                    if ((c == '-') || (char.IsWhiteSpace(c) && (c != '\n')))
-                    {
+                    if (c == '-' || (char.IsWhiteSpace(c) && c != '\n'))
                         ++end;
-                    }
                     else if (c != '\n')
                     {
                         cont = true;
@@ -1382,10 +1247,8 @@ namespace NDesk.Options
                     lines[lines.Count - 1] += "-";
                 }
                 start = end;
-                if ((start < description.Length) && (description[start] == '\n'))
-                {
+                if (start < description.Length && description[start] == '\n')
                     ++start;
-                }
             } while (end < description.Length);
             return lines;
         }
@@ -1411,11 +1274,8 @@ namespace NDesk.Options
                         return i;
                 }
             }
-            if ((sep == -1) || (end == description.Length))
-            {
+            if (sep == -1 || end == description.Length)
                 return end;
-            }
-
             return sep;
         }
     }

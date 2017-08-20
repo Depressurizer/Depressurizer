@@ -55,11 +55,7 @@ namespace Depressurizer
         public override void LoadFromAutoCat(AutoCat autocat)
         {
             AutoCatManual ac = autocat as AutoCatManual;
-            if (ac == null)
-            {
-                return;
-            }
-
+            if (ac == null) return;
             chkRemoveAll.Checked = ac.RemoveAllCategories;
             txtPrefix.Text = ac.Prefix;
 
@@ -113,11 +109,7 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatManual ac = autocat as AutoCatManual;
-            if (ac == null)
-            {
-                return;
-            }
-
+            if (ac == null) return;
             ac.Prefix = txtPrefix.Text;
             ac.RemoveAllCategories = chkRemoveAll.Checked;
 
@@ -277,10 +269,7 @@ namespace Depressurizer
 
         private void lstRemove_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked)
-            {
-                clbRemoveSelected.Items.Add(e.Item, true);
-            }
+            if (e.Item.Checked) clbRemoveSelected.Items.Add(e.Item, true);
             else if ((!e.Item.Checked) && loaded)
             {
                 workerThread = new Thread(RemoveItemWorker);
@@ -358,10 +347,7 @@ namespace Depressurizer
 
         private void lstAdd_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked)
-            {
-                clbAddSelected.Items.Add(e.Item, true);
-            }
+            if (e.Item.Checked) clbAddSelected.Items.Add(e.Item, true);
             else if ((!e.Item.Checked) && loaded)
             {
                 workerThread = new Thread(AddItemWorker);

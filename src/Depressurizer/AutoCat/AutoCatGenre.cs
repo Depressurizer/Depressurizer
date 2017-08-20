@@ -142,27 +142,21 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
-            {
-                return AutoCatResult.NotInDatabase;
-            }
+            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
 
-            if (!game.IncludeGame(filter))
-            {
-                return AutoCatResult.Filtered;
-            }
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            if (RemoveOtherGenres && (genreCategories != null))
+            if (RemoveOtherGenres && genreCategories != null)
             {
                 game.RemoveCategory(genreCategories);
             }
 
             List<string> genreList = db.GetGenreList(game.Id, depth: MAX_PARENT_DEPTH, tagFallback: TagFallback);
-            if ((genreList != null) && (genreList.Count > 0))
+            if (genreList != null && genreList.Count > 0)
             {
                 List<Category> categories = new List<Category>();
                 int max = MaxCategories;
-                for (int i = 0; (i < genreList.Count) && ((MaxCategories == 0) || (i < max)); i++)
+                for (int i = 0; i < genreList.Count && (MaxCategories == 0 || i < max); i++)
                 {
                     if (!IgnoredGenres.Contains(genreList[i]))
                     {
@@ -193,14 +187,8 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null)
-            {
-                writer.WriteElementString(XmlName_Filter, Filter);
-            }
-            if (Prefix != null)
-            {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
-            }
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString(XmlName_MaxCats, MaxCategories.ToString());
             writer.WriteElementString(XmlName_RemOther, RemoveOtherGenres.ToString());
             writer.WriteElementString(XmlName_TagFallback, TagFallback.ToString());

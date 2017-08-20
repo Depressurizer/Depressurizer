@@ -92,14 +92,8 @@ namespace Depressurizer
             ListViewItem item_x = object_x as ListViewItem;
             ListViewItem item_y = object_y as ListViewItem;
 
-            if (item_x == null)
-            {
-                return 1;
-            }
-            if (item_y == null)
-            {
-                return -1;
-            }
+            if (item_x == null) return 1;
+            if (item_y == null) return -1;
 
             // Handle special categories
             List<string> specialCategories = new List<string>();
@@ -111,14 +105,8 @@ namespace Depressurizer
 
             foreach (string s in specialCategories)
             {
-                if (item_x.Tag.ToString() == s)
-                {
-                    return -1;
-                }
-                if (item_y.Tag.ToString() == s)
-                {
-                    return 1;
-                }
+                if (item_x.Tag.ToString() == s) return -1;
+                if (item_y.Tag.ToString() == s) return 1;
             }
 
             Category cat_x = item_x.Tag as Category;
@@ -131,10 +119,7 @@ namespace Depressurizer
             {
                 result = cat_x.Count.CompareTo(cat_y.Count);
             }
-            else
-            {
-                result = string.Compare(cat_x.Name, cat_y.Name, StringComparison.CurrentCultureIgnoreCase);
-            }
+            else result = string.Compare(cat_x.Name, cat_y.Name, StringComparison.CurrentCultureIgnoreCase);
 
             // Return the correct result depending on whether
             // we're sorting ascending or descending.

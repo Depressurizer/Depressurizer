@@ -195,7 +195,7 @@ namespace Depressurizer
         public static void SetSortIcon(this ListView listViewControl, int columnIndex, SortOrder order)
         {
             IntPtr columnHeader = SendMessage(listViewControl.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
-            for (int columnNumber = 0; columnNumber <= (listViewControl.Columns.Count - 1); columnNumber++)
+            for (int columnNumber = 0; columnNumber <= listViewControl.Columns.Count - 1; columnNumber++)
             {
                 var columnPtr = new IntPtr(columnNumber);
                 var item = new HDITEM
@@ -208,7 +208,7 @@ namespace Depressurizer
                     throw new Win32Exception();
                 }
 
-                if ((order != SortOrder.None) && (columnNumber == columnIndex))
+                if (order != SortOrder.None && columnNumber == columnIndex)
                 {
                     switch (order)
                     {

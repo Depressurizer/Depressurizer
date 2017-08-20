@@ -117,7 +117,7 @@ namespace Depressurizer
             for (int i = 0; i < lstUsers.Items.Count; i++)
             {
                 UserRecord r = lstUsers.Items[i] as UserRecord;
-                if ((r != null) && (r.DirName == profDirName))
+                if (r != null && r.DirName == profDirName)
                 {
                     lstUsers.SelectedIndex = i;
                     return true;
@@ -293,7 +293,7 @@ namespace Depressurizer
                     return false;
                 }
 
-                if ((dlg.Success == false) || (dlg.SteamID == 0))
+                if (dlg.Success == false || dlg.SteamID == 0)
                 {
                     MessageBox.Show(this, GlobalStrings.DlgProfile_CouldNotFindSteamProfile,
                         GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -489,10 +489,7 @@ namespace Depressurizer
 
         private void StartThreadedNameUpdate()
         {
-            if (currentThreadCount > 0)
-            {
-                return;
-            }
+            if (currentThreadCount > 0) return;
 
             int maxThreads = 1;
 
@@ -545,10 +542,7 @@ namespace Depressurizer
 
                     lock (data.tLock)
                     {
-                        if (data.tLock.Aborted)
-                        {
-                            abort = true;
-                        }
+                        if (data.tLock.Aborted) abort = true;
                         else
                         {
                             UpdateDisplayNameInList(job.index, name);

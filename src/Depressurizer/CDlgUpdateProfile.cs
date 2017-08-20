@@ -134,7 +134,7 @@ namespace Depressurizer
 
         protected override void Finish()
         {
-            if (!Canceled && (Error == null) && (UseHtml ? (htmlDoc != null) : (doc != null)))
+            if (!Canceled && Error == null && (UseHtml ? (htmlDoc != null) : (doc != null)))
             {
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
                 if (UseHtml)

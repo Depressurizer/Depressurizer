@@ -68,10 +68,7 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat ac)
         {
             AutoCatUserScore acScore = ac as AutoCatUserScore;
-            if (ac == null)
-            {
-                return;
-            }
+            if (ac == null) return;
 
             acScore.Prefix = txtPrefix.Text;
             acScore.UseWilsonScore = chkUseWilsonScore.Checked;
@@ -81,10 +78,7 @@ namespace Depressurizer
         public override void LoadFromAutoCat(AutoCat ac)
         {
             AutoCatUserScore acScore = ac as AutoCatUserScore;
-            if (ac == null)
-            {
-                return;
-            }
+            if (ac == null) return;
 
             txtPrefix.Text = acScore.Prefix;
             chkUseWilsonScore.Checked = acScore.UseWilsonScore;
@@ -108,8 +102,8 @@ namespace Depressurizer
                 numRuleMaxScore.Enabled = numRuleMinScore.Enabled =
                     numRuleMinReviews.Enabled = numRuleMaxReviews.Enabled =
                         cmdRuleRemove.Enabled = ruleSelected;
-            cmdRuleUp.Enabled = ruleSelected && (lstRules.SelectedIndex != 0);
-            cmdRuleDown.Enabled = ruleSelected = ruleSelected && (lstRules.SelectedIndex != (lstRules.Items.Count - 1));
+            cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
+            cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
         }
 
         /// <summary>
@@ -121,19 +115,13 @@ namespace Depressurizer
         private void MoveItem(int mainIndex, int offset, bool selectMoved)
         {
             int alterIndex = mainIndex + offset;
-            if ((mainIndex < 0) || (mainIndex >= lstRules.Items.Count) || (alterIndex < 0) ||
-                (alterIndex >= lstRules.Items.Count))
-            {
-                return;
-            }
+            if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 ||
+                alterIndex >= lstRules.Items.Count) return;
 
             UserScore_Rule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
-            if (selectMoved)
-            {
-                lstRules.SelectedIndex = alterIndex;
-            }
+            if (selectMoved) lstRules.SelectedIndex = alterIndex;
         }
 
         /// <summary>
@@ -142,11 +130,11 @@ namespace Depressurizer
         /// <param name="name">Name of the preset to apply.</param>
         private void ApplyPreset(string name)
         {
-            if ((name != null) && presetMap.ContainsKey(name))
+            if (name != null && presetMap.ContainsKey(name))
             {
-                if ((ruleList.Count == 0) || (MessageBox.Show(GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset,
-                                                  GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                                              == DialogResult.Yes))
+                if (ruleList.Count == 0 || MessageBox.Show(GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset,
+                        GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
                 {
                     UserScorePresetDelegate dlgt = presetMap[name];
                     ruleList.Clear();

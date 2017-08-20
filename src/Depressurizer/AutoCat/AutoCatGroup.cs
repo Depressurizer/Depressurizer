@@ -41,10 +41,7 @@ namespace Depressurizer
             get
             {
                 string displayName = Name + "[" + Autocats.Count + "]";
-                if (Filter != null)
-                {
-                    displayName += "*";
-                }
+                if (Filter != null) displayName += "*";
                 return displayName;
             }
         }
@@ -105,15 +102,9 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id))
-            {
-                return AutoCatResult.NotInDatabase;
-            }
+            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
 
-            if (!game.IncludeGame(filter))
-            {
-                return AutoCatResult.Filtered;
-            }
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             return AutoCatResult.Success;
         }
@@ -127,12 +118,9 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null)
-            {
-                writer.WriteElementString(XmlName_Filter, Filter);
-            }
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
 
-            if ((Autocats != null) && (Autocats.Count > 0))
+            if (Autocats != null && Autocats.Count > 0)
             {
                 writer.WriteStartElement(XmlName_Autocats);
                 foreach (string name in Autocats)

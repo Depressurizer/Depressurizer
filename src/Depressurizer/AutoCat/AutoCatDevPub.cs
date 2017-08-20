@@ -137,15 +137,9 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
-            {
-                return AutoCatResult.NotInDatabase;
-            }
+            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
 
-            if (!game.IncludeGame(filter))
-            {
-                return AutoCatResult.Filtered;
-            }
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
             List<string> devs = db.GetDevelopers(game.Id);
 
@@ -156,9 +150,7 @@ namespace Depressurizer
                     if (Developers.Contains(devs[index]) || AllDevelopers)
                     {
                         if (DevCount(devs[index]) >= MinCount)
-                        {
                             game.AddCategory(games.GetCategory(GetProcessedString(devs[index])));
-                        }
                     }
                 }
             }
@@ -172,9 +164,7 @@ namespace Depressurizer
                     if (Publishers.Contains(pubs[index]) || AllPublishers)
                     {
                         if (PubCount(pubs[index]) >= MinCount)
-                        {
                             game.AddCategory(games.GetCategory(GetProcessedString(pubs[index])));
-                        }
                     }
                 }
             }
@@ -186,10 +176,7 @@ namespace Depressurizer
         {
             foreach (Tuple<string, int> dev in devList)
             {
-                if (dev.Item1 == name)
-                {
-                    return dev.Item2;
-                }
+                if (dev.Item1 == name) return dev.Item2;
             }
             return 0;
         }
@@ -198,10 +185,7 @@ namespace Depressurizer
         {
             foreach (Tuple<string, int> pub in pubList)
             {
-                if (pub.Item1 == name)
-                {
-                    return pub.Item2;
-                }
+                if (pub.Item1 == name) return pub.Item2;
             }
             return 0;
         }
@@ -220,14 +204,8 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null)
-            {
-                writer.WriteElementString(XmlName_Filter, Filter);
-            }
-            if (Prefix != null)
-            {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
-            }
+            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString(XmlName_OwnedOnly, OwnedOnly.ToString());
             writer.WriteElementString(XmlName_MinCount, MinCount.ToString());
             writer.WriteElementString(XmlName_AllDevelopers, AllDevelopers.ToString());

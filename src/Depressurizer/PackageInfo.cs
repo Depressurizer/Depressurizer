@@ -53,13 +53,13 @@ namespace Depressurizer
         public static PackageInfo FromVdfNode(VdfFileNode node)
         {
             VdfFileNode idNode = node.GetNodeAt(new[] {"packageId"}, false);
-            if ((idNode != null) && (idNode.NodeType == ValueType.Int))
+            if ((idNode != null) && idNode.NodeType == ValueType.Int)
             {
                 int id = idNode.NodeInt;
 
                 string name = null;
                 VdfFileNode nameNode = node.GetNodeAt(new[] {"name"}, false);
-                if ((nameNode != null) && (nameNode.NodeType == ValueType.String))
+                if (nameNode != null && nameNode.NodeType == ValueType.String)
                 {
                     name = nameNode.NodeString;
                 }
@@ -67,8 +67,8 @@ namespace Depressurizer
                 PackageInfo package = new PackageInfo(id, name);
 
                 VdfFileNode billingtypeNode = node["billingtype"];
-                if (((billingtypeNode != null) && (billingtypeNode.NodeType == ValueType.String)) ||
-                    (billingtypeNode.NodeType == ValueType.Int))
+                if (billingtypeNode != null && billingtypeNode.NodeType == ValueType.String ||
+                    billingtypeNode.NodeType == ValueType.Int)
                 {
                     int bType = billingtypeNode.NodeInt;
                     /*if( Enum.IsDefined( typeof(PackageBillingType), bType ) ) {
@@ -80,7 +80,7 @@ namespace Depressurizer
                 }
 
                 VdfFileNode appsNode = node["appids"];
-                if ((appsNode != null) && (appsNode.NodeType == ValueType.Array))
+                if (appsNode != null && appsNode.NodeType == ValueType.Array)
                 {
                     foreach (VdfFileNode aNode in appsNode.NodeArray.Values)
                     {
