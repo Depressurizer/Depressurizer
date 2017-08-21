@@ -101,6 +101,7 @@ namespace Rallion
         /// <param name="e">The unhandled exception.</param>
         private static void HandleUnhandledException(Exception e)
         {
+            Program.Logger.WriteException("Fatal Error: ", e);
             FatalError errForm = new FatalError(e);
             errForm.ShowDialog();
             Application.Exit();
@@ -135,9 +136,17 @@ namespace Rallion
 
         private void FillFields()
         {
+            string innerExStackTraceSep = "---End of inner exception stack trace---" + Environment.NewLine;
             txtErrType.Text = ex.GetType().Name;
             txtErrMsg.Text = ex.Message;
             txtTrace.Text = ex.StackTrace;
+            Exception innerEx = ex.InnerException;
+            while (innerEx != null)
+            {
+                txtErrMsg.Text += Environment.NewLine + innerEx.GetType().Name + @": " + innerEx.Message;
+                txtTrace.Text = innerEx.StackTrace + innerExStackTraceSep + txtTrace.Text;
+                innerEx = innerEx.InnerException;
+            }
         }
 
         #endregion
@@ -225,9 +234,7 @@ namespace Rallion
                 if (res == DialogResult.OK)
                 {
                     StreamWriter fstr = new StreamWriter(dlg.FileName);
-                    string data = string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine,
-                        ex.StackTrace);
-                    fstr.Write(data);
+                    fstr.Write(ex.ToString());
                     fstr.Close();
                     MessageBox.Show(GlobalStrings.DlgFatalError_ErrorInformationSaved);
                 }
@@ -254,9 +261,7 @@ namespace Rallion
                 string dMsg = GlobalStrings.DlgFatalError_CouldNotCopyClipboard;
                 try
                 {
-                    string data = string.Format("{0}: {1}{2}{3}", ex.GetType().Name, ex.Message, Environment.NewLine,
-                        ex.StackTrace);
-                    Clipboard.SetText(data);
+                    Clipboard.SetText(ex.ToString());
                     dMsg = GlobalStrings.DlgFatalError_ClipboardUpdated;
                 }
                 finally
