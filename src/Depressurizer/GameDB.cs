@@ -129,8 +129,7 @@ namespace Depressurizer
                 @"(<a href=""http://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>",
                 RegexOptions.Compiled);
 
-        private static Regex regRelDate =
-            new Regex(regPublishers + @"\s*<b>[^:]*:</b>\s*(.*)\s*<br>", RegexOptions.Compiled);
+        private static Regex regRelDate = new Regex(@"<div class=""release_date"">[^<]*<span class=""date"">([^<]+)<\/span>", RegexOptions.Compiled);
 
         private static Regex regMetalink =
             new Regex(
@@ -550,7 +549,7 @@ namespace Depressurizer
             m = regRelDate.Match(page);
             if (m.Success)
             {
-                SteamReleaseDate = m.Groups[3].Captures[0].Value;
+                SteamReleaseDate = m.Groups[1].Captures[0].Value;
             }
 
             // Get user review data
