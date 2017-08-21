@@ -3910,6 +3910,11 @@ namespace Depressurizer
                 return g.IncludeGame(advFilter);
             }
 
+            if (g.Hidden)
+            {
+                return lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Hidden;
+            }
+
             if (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_All)
             {
                 return true;
@@ -3918,11 +3923,6 @@ namespace Depressurizer
             if (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
             {
                 return !g.HasCategories();
-            }
-
-            if (g.Hidden)
-            {
-                return lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Hidden;
             }
 
             if (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_VR)
