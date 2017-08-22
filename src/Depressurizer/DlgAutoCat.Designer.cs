@@ -34,9 +34,9 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.splitAutoCat = new System.Windows.Forms.SplitContainer();
+            this.panelFilter = new System.Windows.Forms.Panel();
             this.cboFilter = new System.Windows.Forms.ComboBox();
             this.chkFilter = new System.Windows.Forms.CheckBox();
-            this.panelFilter = new System.Windows.Forms.Panel();
             this.grpList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -194,9 +194,21 @@
             // splitAutoCat.Panel1
             // 
             this.splitAutoCat.Panel1.Controls.Add(this.panelFilter);
+            this.splitAutoCat.Panel1MinSize = 27;
             this.splitAutoCat.Size = new System.Drawing.Size(402, 341);
-            this.splitAutoCat.SplitterDistance = 26;
+            this.splitAutoCat.SplitterDistance = 30;
             this.splitAutoCat.TabIndex = 0;
+            // 
+            // panelFilter
+            // 
+            this.panelFilter.Controls.Add(this.cboFilter);
+            this.panelFilter.Controls.Add(this.chkFilter);
+            this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFilter.Location = new System.Drawing.Point(0, 0);
+            this.panelFilter.Name = "panelFilter";
+            this.panelFilter.Padding = new System.Windows.Forms.Padding(3);
+            this.panelFilter.Size = new System.Drawing.Size(402, 30);
+            this.panelFilter.TabIndex = 0;
             // 
             // cboFilter
             // 
@@ -214,22 +226,11 @@
             this.chkFilter.Dock = System.Windows.Forms.DockStyle.Left;
             this.chkFilter.Location = new System.Drawing.Point(3, 3);
             this.chkFilter.Name = "chkFilter";
-            this.chkFilter.Size = new System.Drawing.Size(48, 20);
+            this.chkFilter.Size = new System.Drawing.Size(48, 24);
             this.chkFilter.TabIndex = 1;
             this.chkFilter.Text = "Filter";
             this.chkFilter.UseVisualStyleBackColor = true;
             this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
-            // 
-            // panelFilter
-            // 
-            this.panelFilter.Controls.Add(this.cboFilter);
-            this.panelFilter.Controls.Add(this.chkFilter);
-            this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFilter.Location = new System.Drawing.Point(0, 0);
-            this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Padding = new System.Windows.Forms.Padding(3);
-            this.panelFilter.Size = new System.Drawing.Size(402, 26);
-            this.panelFilter.TabIndex = 0;
             // 
             // DlgAutoCat
             // 
