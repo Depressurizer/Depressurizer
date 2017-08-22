@@ -127,7 +127,7 @@
     <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
   </data>
   <data name="DepressurizerHomepage" xml:space="preserve">
-    <value>https://github.com/Theo47/depressurizer</value>
+    <value>https://github.com/Depressurizer/depressurizer</value>
   </data>
   <data name="GameBannerPath" xml:space="preserve">
     <value>{0}\Game Banners\{1}.jpg</value>
@@ -166,7 +166,7 @@
     <value>https://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
   </data>
   <data name="UrlLatestRelease" xml:space="preserve">
-    <value>https://api.github.com/repos/Theo47/depressurizer/releases/latest</value>
+    <value>https://api.github.com/repos/Depressurizer/depressurizer/releases/latest</value>
   </data>
   <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
     <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>

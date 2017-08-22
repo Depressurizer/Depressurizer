@@ -19,7 +19,7 @@ namespace Depressurizer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -88,7 +88,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/Theo47/depressurizer.
+        ///   Looks up a localized string similar to https://github.com/Depressurizer/depressurizer.
         /// </summary>
         internal static string DepressurizerHomepage {
             get {
@@ -205,7 +205,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://api.github.com/repos/Theo47/depressurizer/releases/latest.
+        ///   Looks up a localized string similar to https://api.github.com/repos/Depressurizer/depressurizer/releases/latest.
         /// </summary>
         internal static string UrlLatestRelease {
             get {
