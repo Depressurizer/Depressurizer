@@ -29,6 +29,10 @@ namespace Depressurizer
         {
             InitializeComponent();
 
+            // Set up help tooltips
+            ttHelp.Ext_SetToolTip(helpCategoryName, GlobalStrings.AutoCatCurator_Help_CategoryName);
+            ttHelp.Ext_SetToolTip(helpCuratorUrl, "e.g http://store.steampowered.com/curator/6090344-depressurizer/");
+
             FillRecommendationsList();
         }
 

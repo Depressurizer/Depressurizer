@@ -24,10 +24,10 @@
         /// </summary>
         private void InitializeComponent() {
             this.grpMain = new System.Windows.Forms.GroupBox();
-            this.lblCuratorUrlExample = new System.Windows.Forms.Label();
+            this.helpCuratorUrl = new System.Windows.Forms.Label();
+            this.helpCategoryName = new System.Windows.Forms.Label();
             this.txtCuratorUrl = new System.Windows.Forms.TextBox();
             this.lblCuratorUrl = new System.Windows.Forms.Label();
-            this.lblCategoryNameExample = new System.Windows.Forms.Label();
             this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
             this.cmdCheckAll = new System.Windows.Forms.Button();
             this.cmdUncheckAll = new System.Windows.Forms.Button();
@@ -42,10 +42,10 @@
             // 
             // grpMain
             // 
-            this.grpMain.Controls.Add(this.lblCuratorUrlExample);
+            this.grpMain.Controls.Add(this.helpCuratorUrl);
+            this.grpMain.Controls.Add(this.helpCategoryName);
             this.grpMain.Controls.Add(this.txtCuratorUrl);
             this.grpMain.Controls.Add(this.lblCuratorUrl);
-            this.grpMain.Controls.Add(this.lblCategoryNameExample);
             this.grpMain.Controls.Add(this.tblButtons);
             this.grpMain.Controls.Add(this.lblInclude);
             this.grpMain.Controls.Add(this.lstIncluded);
@@ -59,41 +59,44 @@
             this.grpMain.TabStop = false;
             this.grpMain.Text = "Edit Curator Autocat";
             // 
-            // lblCuratorUrlExample
+            // helpCuratorUrl
             // 
-            this.lblCuratorUrlExample.AutoSize = true;
-            this.lblCuratorUrlExample.Location = new System.Drawing.Point(25, 81);
-            this.lblCuratorUrlExample.Name = "lblCuratorUrlExample";
-            this.lblCuratorUrlExample.Size = new System.Drawing.Size(329, 13);
-            this.lblCuratorUrlExample.TabIndex = 9;
-            this.lblCuratorUrlExample.Text = "e.g http://store.steampowered.com/curator/6090344-depressurizer/";
+            this.helpCuratorUrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.helpCuratorUrl.AutoSize = true;
+            this.helpCuratorUrl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.helpCuratorUrl.Location = new System.Drawing.Point(555, 44);
+            this.helpCuratorUrl.Name = "helpCuratorUrl";
+            this.helpCuratorUrl.Size = new System.Drawing.Size(15, 15);
+            this.helpCuratorUrl.TabIndex = 11;
+            this.helpCuratorUrl.Text = "?";
+            // 
+            // helpCategoryName
+            // 
+            this.helpCategoryName.AutoSize = true;
+            this.helpCategoryName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.helpCategoryName.Location = new System.Drawing.Point(285, 18);
+            this.helpCategoryName.Name = "helpCategoryName";
+            this.helpCategoryName.Size = new System.Drawing.Size(15, 15);
+            this.helpCategoryName.TabIndex = 10;
+            this.helpCategoryName.Text = "?";
             // 
             // txtCuratorUrl
             // 
             this.txtCuratorUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCuratorUrl.Location = new System.Drawing.Point(114, 58);
+            this.txtCuratorUrl.Location = new System.Drawing.Point(114, 41);
             this.txtCuratorUrl.Name = "txtCuratorUrl";
-            this.txtCuratorUrl.Size = new System.Drawing.Size(456, 20);
+            this.txtCuratorUrl.Size = new System.Drawing.Size(435, 20);
             this.txtCuratorUrl.TabIndex = 8;
             // 
             // lblCuratorUrl
             // 
             this.lblCuratorUrl.AutoSize = true;
-            this.lblCuratorUrl.Location = new System.Drawing.Point(39, 61);
+            this.lblCuratorUrl.Location = new System.Drawing.Point(39, 46);
             this.lblCuratorUrl.Name = "lblCuratorUrl";
             this.lblCuratorUrl.Size = new System.Drawing.Size(69, 13);
             this.lblCuratorUrl.TabIndex = 7;
             this.lblCuratorUrl.Text = "Curator URL:";
-            // 
-            // lblCategoryNameExample
-            // 
-            this.lblCategoryNameExample.AutoSize = true;
-            this.lblCategoryNameExample.Location = new System.Drawing.Point(25, 38);
-            this.lblCategoryNameExample.Name = "lblCategoryNameExample";
-            this.lblCategoryNameExample.Size = new System.Drawing.Size(370, 13);
-            this.lblCategoryNameExample.TabIndex = 6;
-            this.lblCategoryNameExample.Text = "Use {type} keyword for type (recommended, not recommended, informational)";
             // 
             // tblButtons
             // 
@@ -138,7 +141,7 @@
             // lblInclude
             // 
             this.lblInclude.AutoSize = true;
-            this.lblInclude.Location = new System.Drawing.Point(3, 109);
+            this.lblInclude.Location = new System.Drawing.Point(6, 78);
             this.lblInclude.Name = "lblInclude";
             this.lblInclude.Size = new System.Drawing.Size(142, 13);
             this.lblInclude.TabIndex = 3;
@@ -150,9 +153,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstIncluded.CheckBoxes = true;
-            this.lstIncluded.Location = new System.Drawing.Point(6, 125);
+            this.lstIncluded.Location = new System.Drawing.Point(6, 94);
             this.lstIncluded.Name = "lstIncluded";
-            this.lstIncluded.Size = new System.Drawing.Size(564, 299);
+            this.lstIncluded.Size = new System.Drawing.Size(564, 330);
             this.lstIncluded.TabIndex = 4;
             this.lstIncluded.UseCompatibleStateImageBehavior = false;
             this.lstIncluded.View = System.Windows.Forms.View.List;
@@ -198,9 +201,9 @@
         private System.Windows.Forms.TextBox txtCategoryName;
         private System.Windows.Forms.Label lblCategoryName;
         private Lib.ExtToolTip ttHelp;
-        private System.Windows.Forms.Label lblCategoryNameExample;
-        private System.Windows.Forms.Label lblCuratorUrlExample;
         private System.Windows.Forms.TextBox txtCuratorUrl;
         private System.Windows.Forms.Label lblCuratorUrl;
+        private System.Windows.Forms.Label helpCategoryName;
+        private System.Windows.Forms.Label helpCuratorUrl;
     }
 }
