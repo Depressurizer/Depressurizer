@@ -34,6 +34,9 @@ namespace Depressurizer
         [STAThread]
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             FatalError.InitializeHandler();
 
             Logger = new AppLogger();
@@ -47,9 +50,6 @@ namespace Depressurizer
             Settings.Instance.Load();
 
             Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
 
             AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 
