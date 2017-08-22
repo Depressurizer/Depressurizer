@@ -1413,4 +1413,7 @@ This could take up to a few seconds per game.</value>
   <data name="Autocat_LoadFromXmlElement_Error" xml:space="preserve">
     <value>Failed to load an autocat of type {0}.</value>
   </data>
+  <data name="AutoCatCurator_Help_CategoryName" xml:space="preserve">
+    <value>Use {type} keyword for recommendation type (recommended, not recommended, informational)</value>
+  </data>
 </root>

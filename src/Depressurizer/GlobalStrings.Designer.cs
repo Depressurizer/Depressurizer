@@ -214,6 +214,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use {type} keyword for recommendation type (recommended, not recommended, informational).
+        /// </summary>
+        internal static string AutoCatCurator_Help_CategoryName {
+            get {
+                return ResourceManager.GetString("AutoCatCurator_Help_CategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AutoCatGenre has no game database..
         /// </summary>
         internal static string AutoCatGenre_Exception_NoGameDB {
