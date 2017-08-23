@@ -25,16 +25,14 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.grpMain = new System.Windows.Forms.GroupBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label2 = new System.Windows.Forms.Label();
             this.lblPrefix = new System.Windows.Forms.Label();
             this.txtPrefix = new System.Windows.Forms.TextBox();
             this.helpPrefix = new System.Windows.Forms.Label();
             this.splitMainBottom = new System.Windows.Forms.SplitContainer();
             this.groupRemove = new System.Windows.Forms.GroupBox();
-            this.splitRemoveMain = new System.Windows.Forms.SplitContainer();
             this.splitRemoveTop = new System.Windows.Forms.SplitContainer();
             this.clbRemoveSelected = new System.Windows.Forms.CheckedListBox();
-            this.splitRemoveRight = new System.Windows.Forms.SplitContainer();
             this.btnRemoveSelected = new System.Windows.Forms.Button();
             this.chkRemoveAll = new System.Windows.Forms.CheckBox();
             this.lstRemove = new System.Windows.Forms.ListView();
@@ -46,14 +44,12 @@
             this.namedescendingRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.countascendingRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.countdescendingRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.tblIgnore = new System.Windows.Forms.TableLayoutPanel();
+            this.tblRemoveCheckAll = new System.Windows.Forms.TableLayoutPanel();
             this.btnRemoveUncheckAll = new System.Windows.Forms.Button();
             this.btnRemoveCheckAll = new System.Windows.Forms.Button();
             this.groupAdd = new System.Windows.Forms.GroupBox();
-            this.splitAddMain = new System.Windows.Forms.SplitContainer();
             this.splitAddTop = new System.Windows.Forms.SplitContainer();
             this.clbAddSelected = new System.Windows.Forms.CheckedListBox();
-            this.splitAddRight = new System.Windows.Forms.SplitContainer();
             this.btnAddSelected = new System.Windows.Forms.Button();
             this.lstAdd = new System.Windows.Forms.ListView();
             this.columnAddCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -64,55 +60,41 @@
             this.namedescendingAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.countascendingAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.countdescendingAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tblAddCheckAll = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddCheckAll = new System.Windows.Forms.Button();
             this.btnAddUncheckAll = new System.Windows.Forms.Button();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
-            this.label2 = new System.Windows.Forms.Label();
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.panelRemoveTop = new System.Windows.Forms.Panel();
+            this.panelAddTop = new System.Windows.Forms.Panel();
             this.grpMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMainBottom)).BeginInit();
             this.splitMainBottom.Panel1.SuspendLayout();
             this.splitMainBottom.Panel2.SuspendLayout();
             this.splitMainBottom.SuspendLayout();
             this.groupRemove.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitRemoveMain)).BeginInit();
-            this.splitRemoveMain.Panel1.SuspendLayout();
-            this.splitRemoveMain.Panel2.SuspendLayout();
-            this.splitRemoveMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitRemoveTop)).BeginInit();
             this.splitRemoveTop.Panel1.SuspendLayout();
             this.splitRemoveTop.Panel2.SuspendLayout();
             this.splitRemoveTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitRemoveRight)).BeginInit();
-            this.splitRemoveRight.Panel1.SuspendLayout();
-            this.splitRemoveRight.Panel2.SuspendLayout();
-            this.splitRemoveRight.SuspendLayout();
             this.contextRemove.SuspendLayout();
-            this.tblIgnore.SuspendLayout();
+            this.tblRemoveCheckAll.SuspendLayout();
             this.groupAdd.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitAddMain)).BeginInit();
-            this.splitAddMain.Panel1.SuspendLayout();
-            this.splitAddMain.Panel2.SuspendLayout();
-            this.splitAddMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitAddTop)).BeginInit();
             this.splitAddTop.Panel1.SuspendLayout();
             this.splitAddTop.Panel2.SuspendLayout();
             this.splitAddTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitAddRight)).BeginInit();
-            this.splitAddRight.Panel1.SuspendLayout();
-            this.splitAddRight.Panel2.SuspendLayout();
-            this.splitAddRight.SuspendLayout();
             this.contextAdd.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tblAddCheckAll.SuspendLayout();
+            this.panelTop.SuspendLayout();
+            this.panelRemoveTop.SuspendLayout();
+            this.panelAddTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpMain
             // 
-            this.grpMain.Controls.Add(this.splitContainer1);
+            this.grpMain.Controls.Add(this.splitMainBottom);
+            this.grpMain.Controls.Add(this.panelTop);
             this.grpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpMain.Location = new System.Drawing.Point(0, 0);
             this.grpMain.Name = "grpMain";
@@ -121,28 +103,15 @@
             this.grpMain.TabStop = false;
             this.grpMain.Text = "Edit Manual AutoCat";
             // 
-            // splitContainer1
+            // label2
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 16);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.lblPrefix);
-            this.splitContainer1.Panel1.Controls.Add(this.txtPrefix);
-            this.splitContainer1.Panel1.Controls.Add(this.helpPrefix);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitMainBottom);
-            this.splitContainer1.Size = new System.Drawing.Size(604, 387);
-            this.splitContainer1.SplitterDistance = 29;
-            this.splitContainer1.TabIndex = 12;
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(459, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(139, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Right-click in lists for Sorting";
             // 
             // lblPrefix
             // 
@@ -173,7 +142,7 @@
             // splitMainBottom
             // 
             this.splitMainBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitMainBottom.Location = new System.Drawing.Point(0, 0);
+            this.splitMainBottom.Location = new System.Drawing.Point(3, 45);
             this.splitMainBottom.Name = "splitMainBottom";
             // 
             // splitMainBottom.Panel1
@@ -183,45 +152,26 @@
             // splitMainBottom.Panel2
             // 
             this.splitMainBottom.Panel2.Controls.Add(this.groupAdd);
-            this.splitMainBottom.Size = new System.Drawing.Size(604, 354);
+            this.splitMainBottom.Size = new System.Drawing.Size(604, 358);
             this.splitMainBottom.SplitterDistance = 291;
             this.splitMainBottom.TabIndex = 0;
             // 
             // groupRemove
             // 
-            this.groupRemove.Controls.Add(this.splitRemoveMain);
+            this.groupRemove.Controls.Add(this.splitRemoveTop);
+            this.groupRemove.Controls.Add(this.tblRemoveCheckAll);
             this.groupRemove.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupRemove.Location = new System.Drawing.Point(0, 0);
             this.groupRemove.Name = "groupRemove";
-            this.groupRemove.Size = new System.Drawing.Size(291, 354);
+            this.groupRemove.Size = new System.Drawing.Size(291, 358);
             this.groupRemove.TabIndex = 14;
             this.groupRemove.TabStop = false;
             this.groupRemove.Text = "Remove";
             // 
-            // splitRemoveMain
-            // 
-            this.splitRemoveMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitRemoveMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitRemoveMain.IsSplitterFixed = true;
-            this.splitRemoveMain.Location = new System.Drawing.Point(3, 16);
-            this.splitRemoveMain.Name = "splitRemoveMain";
-            this.splitRemoveMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitRemoveMain.Panel1
-            // 
-            this.splitRemoveMain.Panel1.Controls.Add(this.splitRemoveTop);
-            // 
-            // splitRemoveMain.Panel2
-            // 
-            this.splitRemoveMain.Panel2.Controls.Add(this.tblIgnore);
-            this.splitRemoveMain.Size = new System.Drawing.Size(285, 335);
-            this.splitRemoveMain.SplitterDistance = 301;
-            this.splitRemoveMain.TabIndex = 0;
-            // 
             // splitRemoveTop
             // 
             this.splitRemoveTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitRemoveTop.Location = new System.Drawing.Point(0, 0);
+            this.splitRemoveTop.Location = new System.Drawing.Point(3, 16);
             this.splitRemoveTop.Name = "splitRemoveTop";
             // 
             // splitRemoveTop.Panel1
@@ -231,8 +181,9 @@
             // 
             // splitRemoveTop.Panel2
             // 
-            this.splitRemoveTop.Panel2.Controls.Add(this.splitRemoveRight);
-            this.splitRemoveTop.Size = new System.Drawing.Size(285, 301);
+            this.splitRemoveTop.Panel2.Controls.Add(this.lstRemove);
+            this.splitRemoveTop.Panel2.Controls.Add(this.panelRemoveTop);
+            this.splitRemoveTop.Size = new System.Drawing.Size(285, 310);
             this.splitRemoveTop.SplitterDistance = 95;
             this.splitRemoveTop.TabIndex = 0;
             // 
@@ -246,27 +197,6 @@
             this.clbRemoveSelected.Size = new System.Drawing.Size(95, 100);
             this.clbRemoveSelected.TabIndex = 13;
             this.clbRemoveSelected.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbRemoveSelected_ItemCheck);
-            // 
-            // splitRemoveRight
-            // 
-            this.splitRemoveRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitRemoveRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitRemoveRight.IsSplitterFixed = true;
-            this.splitRemoveRight.Location = new System.Drawing.Point(0, 0);
-            this.splitRemoveRight.Name = "splitRemoveRight";
-            this.splitRemoveRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitRemoveRight.Panel1
-            // 
-            this.splitRemoveRight.Panel1.Controls.Add(this.btnRemoveSelected);
-            this.splitRemoveRight.Panel1.Controls.Add(this.chkRemoveAll);
-            // 
-            // splitRemoveRight.Panel2
-            // 
-            this.splitRemoveRight.Panel2.Controls.Add(this.lstRemove);
-            this.splitRemoveRight.Size = new System.Drawing.Size(285, 301);
-            this.splitRemoveRight.SplitterDistance = 25;
-            this.splitRemoveRight.TabIndex = 0;
             // 
             // btnRemoveSelected
             // 
@@ -298,9 +228,9 @@
             this.columnRemoveCount});
             this.lstRemove.ContextMenuStrip = this.contextRemove;
             this.lstRemove.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstRemove.Location = new System.Drawing.Point(0, 0);
+            this.lstRemove.Location = new System.Drawing.Point(0, 26);
             this.lstRemove.Name = "lstRemove";
-            this.lstRemove.Size = new System.Drawing.Size(285, 272);
+            this.lstRemove.Size = new System.Drawing.Size(285, 284);
             this.lstRemove.TabIndex = 10;
             this.lstRemove.UseCompatibleStateImageBehavior = false;
             this.lstRemove.View = System.Windows.Forms.View.List;
@@ -353,21 +283,21 @@
             this.countdescendingRemove.Text = "Count (descending)";
             this.countdescendingRemove.Click += new System.EventHandler(this.countdescendingRemove_Click);
             // 
-            // tblIgnore
+            // tblRemoveCheckAll
             // 
-            this.tblIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tblIgnore.ColumnCount = 2;
-            this.tblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblIgnore.Controls.Add(this.btnRemoveUncheckAll, 1, 0);
-            this.tblIgnore.Controls.Add(this.btnRemoveCheckAll, 0, 0);
-            this.tblIgnore.Location = new System.Drawing.Point(0, 0);
-            this.tblIgnore.Name = "tblIgnore";
-            this.tblIgnore.RowCount = 1;
-            this.tblIgnore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblIgnore.Size = new System.Drawing.Size(285, 30);
-            this.tblIgnore.TabIndex = 11;
+            this.tblRemoveCheckAll.AutoSize = true;
+            this.tblRemoveCheckAll.ColumnCount = 2;
+            this.tblRemoveCheckAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblRemoveCheckAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblRemoveCheckAll.Controls.Add(this.btnRemoveUncheckAll, 1, 0);
+            this.tblRemoveCheckAll.Controls.Add(this.btnRemoveCheckAll, 0, 0);
+            this.tblRemoveCheckAll.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tblRemoveCheckAll.Location = new System.Drawing.Point(3, 326);
+            this.tblRemoveCheckAll.Name = "tblRemoveCheckAll";
+            this.tblRemoveCheckAll.RowCount = 1;
+            this.tblRemoveCheckAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblRemoveCheckAll.Size = new System.Drawing.Size(285, 29);
+            this.tblRemoveCheckAll.TabIndex = 11;
             // 
             // btnRemoveUncheckAll
             // 
@@ -395,39 +325,20 @@
             // 
             // groupAdd
             // 
-            this.groupAdd.Controls.Add(this.splitAddMain);
+            this.groupAdd.Controls.Add(this.splitAddTop);
+            this.groupAdd.Controls.Add(this.tblAddCheckAll);
             this.groupAdd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupAdd.Location = new System.Drawing.Point(0, 0);
             this.groupAdd.Name = "groupAdd";
-            this.groupAdd.Size = new System.Drawing.Size(309, 354);
+            this.groupAdd.Size = new System.Drawing.Size(309, 358);
             this.groupAdd.TabIndex = 16;
             this.groupAdd.TabStop = false;
             this.groupAdd.Text = "Add";
             // 
-            // splitAddMain
-            // 
-            this.splitAddMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitAddMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitAddMain.IsSplitterFixed = true;
-            this.splitAddMain.Location = new System.Drawing.Point(3, 16);
-            this.splitAddMain.Name = "splitAddMain";
-            this.splitAddMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitAddMain.Panel1
-            // 
-            this.splitAddMain.Panel1.Controls.Add(this.splitAddTop);
-            // 
-            // splitAddMain.Panel2
-            // 
-            this.splitAddMain.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitAddMain.Size = new System.Drawing.Size(303, 335);
-            this.splitAddMain.SplitterDistance = 301;
-            this.splitAddMain.TabIndex = 0;
-            // 
             // splitAddTop
             // 
             this.splitAddTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitAddTop.Location = new System.Drawing.Point(0, 0);
+            this.splitAddTop.Location = new System.Drawing.Point(3, 16);
             this.splitAddTop.Name = "splitAddTop";
             // 
             // splitAddTop.Panel1
@@ -437,8 +348,9 @@
             // 
             // splitAddTop.Panel2
             // 
-            this.splitAddTop.Panel2.Controls.Add(this.splitAddRight);
-            this.splitAddTop.Size = new System.Drawing.Size(303, 301);
+            this.splitAddTop.Panel2.Controls.Add(this.lstAdd);
+            this.splitAddTop.Panel2.Controls.Add(this.panelAddTop);
+            this.splitAddTop.Size = new System.Drawing.Size(303, 310);
             this.splitAddTop.SplitterDistance = 101;
             this.splitAddTop.TabIndex = 0;
             // 
@@ -452,26 +364,6 @@
             this.clbAddSelected.Size = new System.Drawing.Size(101, 100);
             this.clbAddSelected.TabIndex = 15;
             this.clbAddSelected.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbAddSelected_ItemCheck);
-            // 
-            // splitAddRight
-            // 
-            this.splitAddRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitAddRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitAddRight.IsSplitterFixed = true;
-            this.splitAddRight.Location = new System.Drawing.Point(0, 0);
-            this.splitAddRight.Name = "splitAddRight";
-            this.splitAddRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitAddRight.Panel1
-            // 
-            this.splitAddRight.Panel1.Controls.Add(this.btnAddSelected);
-            // 
-            // splitAddRight.Panel2
-            // 
-            this.splitAddRight.Panel2.Controls.Add(this.lstAdd);
-            this.splitAddRight.Size = new System.Drawing.Size(303, 301);
-            this.splitAddRight.SplitterDistance = 25;
-            this.splitAddRight.TabIndex = 14;
             // 
             // btnAddSelected
             // 
@@ -491,9 +383,9 @@
             this.columnAddCount});
             this.lstAdd.ContextMenuStrip = this.contextAdd;
             this.lstAdd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstAdd.Location = new System.Drawing.Point(0, 0);
+            this.lstAdd.Location = new System.Drawing.Point(0, 26);
             this.lstAdd.Name = "lstAdd";
-            this.lstAdd.Size = new System.Drawing.Size(303, 272);
+            this.lstAdd.Size = new System.Drawing.Size(303, 284);
             this.lstAdd.TabIndex = 13;
             this.lstAdd.UseCompatibleStateImageBehavior = false;
             this.lstAdd.View = System.Windows.Forms.View.List;
@@ -546,21 +438,21 @@
             this.countdescendingAdd.Text = "Count (descending)";
             this.countdescendingAdd.Click += new System.EventHandler(this.countdescendingAdd_Click);
             // 
-            // tableLayoutPanel1
+            // tblAddCheckAll
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.btnAddCheckAll, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnAddUncheckAll, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(303, 30);
-            this.tableLayoutPanel1.TabIndex = 14;
+            this.tblAddCheckAll.AutoSize = true;
+            this.tblAddCheckAll.ColumnCount = 2;
+            this.tblAddCheckAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblAddCheckAll.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblAddCheckAll.Controls.Add(this.btnAddCheckAll, 0, 0);
+            this.tblAddCheckAll.Controls.Add(this.btnAddUncheckAll, 1, 0);
+            this.tblAddCheckAll.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tblAddCheckAll.Location = new System.Drawing.Point(3, 326);
+            this.tblAddCheckAll.Name = "tblAddCheckAll";
+            this.tblAddCheckAll.RowCount = 1;
+            this.tblAddCheckAll.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblAddCheckAll.Size = new System.Drawing.Size(303, 29);
+            this.tblAddCheckAll.TabIndex = 14;
             // 
             // btnAddCheckAll
             // 
@@ -586,15 +478,39 @@
             this.btnAddUncheckAll.UseVisualStyleBackColor = true;
             this.btnAddUncheckAll.Click += new System.EventHandler(this.btnAddUncheckAll_Click);
             // 
-            // label2
+            // panelTop
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(459, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(139, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Right-click in lists for Sorting";
+            this.panelTop.AutoSize = true;
+            this.panelTop.Controls.Add(this.label2);
+            this.panelTop.Controls.Add(this.lblPrefix);
+            this.panelTop.Controls.Add(this.txtPrefix);
+            this.panelTop.Controls.Add(this.helpPrefix);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(3, 16);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(604, 29);
+            this.panelTop.TabIndex = 4;
+            // 
+            // panelRemoveTop
+            // 
+            this.panelRemoveTop.AutoSize = true;
+            this.panelRemoveTop.Controls.Add(this.btnRemoveSelected);
+            this.panelRemoveTop.Controls.Add(this.chkRemoveAll);
+            this.panelRemoveTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelRemoveTop.Location = new System.Drawing.Point(0, 0);
+            this.panelRemoveTop.Name = "panelRemoveTop";
+            this.panelRemoveTop.Size = new System.Drawing.Size(285, 26);
+            this.panelRemoveTop.TabIndex = 9;
+            // 
+            // panelAddTop
+            // 
+            this.panelAddTop.AutoSize = true;
+            this.panelAddTop.Controls.Add(this.btnAddSelected);
+            this.panelAddTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelAddTop.Location = new System.Drawing.Point(0, 0);
+            this.panelAddTop.Name = "panelAddTop";
+            this.panelAddTop.Size = new System.Drawing.Size(303, 26);
+            this.panelAddTop.TabIndex = 9;
             // 
             // AutoCatConfigPanel_Manual
             // 
@@ -604,46 +520,34 @@
             this.Name = "AutoCatConfigPanel_Manual";
             this.Size = new System.Drawing.Size(610, 406);
             this.grpMain.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.grpMain.PerformLayout();
             this.splitMainBottom.Panel1.ResumeLayout(false);
             this.splitMainBottom.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitMainBottom)).EndInit();
             this.splitMainBottom.ResumeLayout(false);
             this.groupRemove.ResumeLayout(false);
-            this.splitRemoveMain.Panel1.ResumeLayout(false);
-            this.splitRemoveMain.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitRemoveMain)).EndInit();
-            this.splitRemoveMain.ResumeLayout(false);
+            this.groupRemove.PerformLayout();
             this.splitRemoveTop.Panel1.ResumeLayout(false);
             this.splitRemoveTop.Panel2.ResumeLayout(false);
+            this.splitRemoveTop.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitRemoveTop)).EndInit();
             this.splitRemoveTop.ResumeLayout(false);
-            this.splitRemoveRight.Panel1.ResumeLayout(false);
-            this.splitRemoveRight.Panel1.PerformLayout();
-            this.splitRemoveRight.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitRemoveRight)).EndInit();
-            this.splitRemoveRight.ResumeLayout(false);
             this.contextRemove.ResumeLayout(false);
-            this.tblIgnore.ResumeLayout(false);
+            this.tblRemoveCheckAll.ResumeLayout(false);
             this.groupAdd.ResumeLayout(false);
-            this.splitAddMain.Panel1.ResumeLayout(false);
-            this.splitAddMain.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitAddMain)).EndInit();
-            this.splitAddMain.ResumeLayout(false);
+            this.groupAdd.PerformLayout();
             this.splitAddTop.Panel1.ResumeLayout(false);
             this.splitAddTop.Panel2.ResumeLayout(false);
+            this.splitAddTop.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitAddTop)).EndInit();
             this.splitAddTop.ResumeLayout(false);
-            this.splitAddRight.Panel1.ResumeLayout(false);
-            this.splitAddRight.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitAddRight)).EndInit();
-            this.splitAddRight.ResumeLayout(false);
             this.contextAdd.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tblAddCheckAll.ResumeLayout(false);
+            this.panelTop.ResumeLayout(false);
+            this.panelTop.PerformLayout();
+            this.panelRemoveTop.ResumeLayout(false);
+            this.panelRemoveTop.PerformLayout();
+            this.panelAddTop.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -654,28 +558,23 @@
         private System.Windows.Forms.Label helpPrefix;
         private System.Windows.Forms.Label lblPrefix;
         private System.Windows.Forms.TextBox txtPrefix;
-        private System.Windows.Forms.TableLayoutPanel tblIgnore;
+        private System.Windows.Forms.TableLayoutPanel tblRemoveCheckAll;
         private System.Windows.Forms.Button btnRemoveUncheckAll;
         private System.Windows.Forms.Button btnRemoveCheckAll;
         private System.Windows.Forms.ListView lstRemove;
         private System.Windows.Forms.CheckBox chkRemoveAll;
         private Lib.ExtToolTip ttHelp;
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitMainBottom;
         private System.Windows.Forms.ListView lstAdd;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tblAddCheckAll;
         private System.Windows.Forms.Button btnAddUncheckAll;
         private System.Windows.Forms.Button btnAddCheckAll;
         private System.Windows.Forms.CheckedListBox clbRemoveSelected;
         private System.Windows.Forms.CheckedListBox clbAddSelected;
         private System.Windows.Forms.GroupBox groupRemove;
-        private System.Windows.Forms.SplitContainer splitRemoveMain;
         private System.Windows.Forms.SplitContainer splitRemoveTop;
-        private System.Windows.Forms.SplitContainer splitRemoveRight;
         private System.Windows.Forms.GroupBox groupAdd;
-        private System.Windows.Forms.SplitContainer splitAddMain;
         private System.Windows.Forms.SplitContainer splitAddTop;
-        private System.Windows.Forms.SplitContainer splitAddRight;
         private System.Windows.Forms.Button btnRemoveSelected;
         private System.Windows.Forms.Button btnAddSelected;
         private System.Windows.Forms.ColumnHeader columnRemoveCategory;
@@ -695,5 +594,8 @@
         private System.Windows.Forms.ToolStripMenuItem countascendingAdd;
         private System.Windows.Forms.ToolStripMenuItem countdescendingAdd;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panelTop;
+        private System.Windows.Forms.Panel panelRemoveTop;
+        private System.Windows.Forms.Panel panelAddTop;
     }
 }

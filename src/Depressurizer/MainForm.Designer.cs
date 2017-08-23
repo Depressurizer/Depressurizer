@@ -1546,6 +1546,7 @@ namespace Depressurizer {
             this.splitContainer.ResumeLayout(false);
             this.splitCategories.Panel1.ResumeLayout(false);
             this.splitCategories.Panel2.ResumeLayout(false);
+            this.splitCategories.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitCategories)).EndInit();
             this.splitCategories.ResumeLayout(false);
             this.tblLayoutPanelFilterToolbar.ResumeLayout(false);
