@@ -124,27 +124,25 @@
             // 
             // tblIgnore
             // 
-            this.tblIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tblIgnore.ColumnCount = 2;
             this.tblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblIgnore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblIgnore.Controls.Add(this.cmdUncheckAll, 1, 0);
             this.tblIgnore.Controls.Add(this.cmdCheckAll, 0, 0);
-            this.tblIgnore.Location = new System.Drawing.Point(6, 372);
+            this.tblIgnore.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tblIgnore.Location = new System.Drawing.Point(3, 373);
             this.tblIgnore.Name = "tblIgnore";
             this.tblIgnore.RowCount = 1;
             this.tblIgnore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblIgnore.Size = new System.Drawing.Size(602, 30);
+            this.tblIgnore.Size = new System.Drawing.Size(604, 30);
             this.tblIgnore.TabIndex = 11;
             // 
             // cmdUncheckAll
             // 
-            this.cmdUncheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdUncheckAll.Location = new System.Drawing.Point(304, 3);
+            this.cmdUncheckAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmdUncheckAll.Location = new System.Drawing.Point(305, 3);
             this.cmdUncheckAll.Name = "cmdUncheckAll";
-            this.cmdUncheckAll.Size = new System.Drawing.Size(295, 23);
+            this.cmdUncheckAll.Size = new System.Drawing.Size(296, 24);
             this.cmdUncheckAll.TabIndex = 1;
             this.cmdUncheckAll.Text = "Uncheck All";
             this.cmdUncheckAll.UseVisualStyleBackColor = true;
@@ -152,11 +150,10 @@
             // 
             // cmdCheckAll
             // 
-            this.cmdCheckAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCheckAll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdCheckAll.Location = new System.Drawing.Point(3, 3);
             this.cmdCheckAll.Name = "cmdCheckAll";
-            this.cmdCheckAll.Size = new System.Drawing.Size(295, 23);
+            this.cmdCheckAll.Size = new System.Drawing.Size(296, 24);
             this.cmdCheckAll.TabIndex = 0;
             this.cmdCheckAll.Text = "Check All";
             this.cmdCheckAll.UseVisualStyleBackColor = true;
