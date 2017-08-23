@@ -73,7 +73,7 @@ namespace Depressurizer
         {
             if (currentConfigPanel != null)
             {
-                splitAutoCat.Panel2.Controls.Remove(currentConfigPanel);
+                panelAutocat.Controls.Remove(currentConfigPanel);
             }
 
             if (current != null)
@@ -84,7 +84,7 @@ namespace Depressurizer
             if (currentConfigPanel != null)
             {
                 currentConfigPanel.Dock = DockStyle.Fill;
-                splitAutoCat.Panel2.Controls.Add(currentConfigPanel);
+               panelAutocat.Controls.Add(currentConfigPanel);
             }
         }
 

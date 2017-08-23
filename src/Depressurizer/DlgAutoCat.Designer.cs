@@ -33,18 +33,15 @@
             this.cmdSave = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.splitAutoCat = new System.Windows.Forms.SplitContainer();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.cboFilter = new System.Windows.Forms.ComboBox();
             this.chkFilter = new System.Windows.Forms.CheckBox();
+            this.panelAutocat = new System.Windows.Forms.Panel();
             this.grpList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitAutoCat)).BeginInit();
-            this.splitAutoCat.Panel1.SuspendLayout();
-            this.splitAutoCat.SuspendLayout();
             this.panelFilter.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -176,34 +173,18 @@
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.splitAutoCat);
+            this.splitContainer.Panel2.Controls.Add(this.panelAutocat);
+            this.splitContainer.Panel2.Controls.Add(this.panelFilter);
             this.splitContainer.Panel2MinSize = 400;
             this.splitContainer.Size = new System.Drawing.Size(590, 341);
             this.splitContainer.SplitterDistance = 184;
             this.splitContainer.TabIndex = 7;
             // 
-            // splitAutoCat
-            // 
-            this.splitAutoCat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitAutoCat.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitAutoCat.IsSplitterFixed = true;
-            this.splitAutoCat.Location = new System.Drawing.Point(0, 0);
-            this.splitAutoCat.Name = "splitAutoCat";
-            this.splitAutoCat.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitAutoCat.Panel1
-            // 
-            this.splitAutoCat.Panel1.Controls.Add(this.panelFilter);
-            this.splitAutoCat.Panel1MinSize = 27;
-            this.splitAutoCat.Size = new System.Drawing.Size(402, 341);
-            this.splitAutoCat.SplitterDistance = 30;
-            this.splitAutoCat.TabIndex = 0;
-            // 
             // panelFilter
             // 
             this.panelFilter.Controls.Add(this.cboFilter);
             this.panelFilter.Controls.Add(this.chkFilter);
-            this.panelFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
             this.panelFilter.Name = "panelFilter";
             this.panelFilter.Padding = new System.Windows.Forms.Padding(3);
@@ -232,6 +213,14 @@
             this.chkFilter.UseVisualStyleBackColor = true;
             this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
             // 
+            // panelAutocat
+            // 
+            this.panelAutocat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAutocat.Location = new System.Drawing.Point(0, 30);
+            this.panelAutocat.Name = "panelAutocat";
+            this.panelAutocat.Size = new System.Drawing.Size(402, 311);
+            this.panelAutocat.TabIndex = 1;
+            // 
             // DlgAutoCat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,9 +241,6 @@
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
-            this.splitAutoCat.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitAutoCat)).EndInit();
-            this.splitAutoCat.ResumeLayout(false);
             this.panelFilter.ResumeLayout(false);
             this.panelFilter.PerformLayout();
             this.ResumeLayout(false);
@@ -271,11 +257,11 @@
         private System.Windows.Forms.Button cmdSave;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.SplitContainer splitAutoCat;
         private System.Windows.Forms.CheckBox chkFilter;
         private System.Windows.Forms.ComboBox cboFilter;
         private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.Button btnDown;
         private System.Windows.Forms.Panel panelFilter;
+        private System.Windows.Forms.Panel panelAutocat;
     }
 }
