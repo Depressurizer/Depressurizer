@@ -547,6 +547,7 @@ namespace Depressurizer {
             // 
             // tblLayoutPanelCategoryButtons
             // 
+            this.tblLayoutPanelCategoryButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
             resources.ApplyResources(this.tblLayoutPanelCategoryButtons, "tblLayoutPanelCategoryButtons");
             this.tblLayoutPanelCategoryButtons.Controls.Add(this.mbtnCatAdd, 0, 0);
             this.tblLayoutPanelCategoryButtons.Controls.Add(this.mbtnCatDelete, 2, 0);
