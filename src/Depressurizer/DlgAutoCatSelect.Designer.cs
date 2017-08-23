@@ -41,7 +41,7 @@
             this.clbAutocats.FormattingEnabled = true;
             this.clbAutocats.Location = new System.Drawing.Point(0, 0);
             this.clbAutocats.Name = "clbAutocats";
-            this.clbAutocats.Size = new System.Drawing.Size(288, 328);
+            this.clbAutocats.Size = new System.Drawing.Size(288, 296);
             this.clbAutocats.TabIndex = 0;
             this.clbAutocats.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbAutocats_ItemCheck);
             // 
@@ -90,8 +90,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(288, 328);
             this.ControlBox = false;
-            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.clbAutocats);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.MinimumSize = new System.Drawing.Size(228, 240);
             this.Name = "DlgAutoCatSelect";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
