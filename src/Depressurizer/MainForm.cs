@@ -3346,8 +3346,6 @@ namespace Depressurizer
             SetAdvancedMode(mchkAdvancedCategories.Checked);
         }
 
-        private void txtAddCatAndAssign_TextChanged(object sender, EventArgs e) { }
-
         private void mchkAutoCatSelected_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAutoCatSelected_StatusMessage();

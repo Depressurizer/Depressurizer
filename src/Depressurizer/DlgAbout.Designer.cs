@@ -104,7 +104,6 @@
             this.lnkLicense.Name = "lnkLicense";
             this.lnkLicense.Size = new System.Drawing.Size(404, 17);
             this.lnkLicense.TabIndex = 3;
-            this.lnkLicense.TabStop = true;
             this.lnkLicense.Text = "Depressurizer is distributed under version 3 of the GNU General Public License.";
             this.lnkLicense.UseCompatibleTextRendering = true;
             this.lnkLicense.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLicense_LinkClicked);
@@ -117,7 +116,6 @@
             this.lnkNDesk.Name = "lnkNDesk";
             this.lnkNDesk.Size = new System.Drawing.Size(411, 30);
             this.lnkNDesk.TabIndex = 4;
-            this.lnkNDesk.TabStop = true;
             this.lnkNDesk.Text = "This program incorporates the NDesk Options module, copyright (C) 2008 Novell (ht" +
     "tp://www.novell.com)";
             this.lnkNDesk.UseCompatibleTextRendering = true;

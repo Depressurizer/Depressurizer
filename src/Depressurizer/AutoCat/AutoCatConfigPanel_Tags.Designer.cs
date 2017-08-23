@@ -27,10 +27,6 @@
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.splitTags = new System.Windows.Forms.SplitContainer();
             this.clbTags = new System.Windows.Forms.CheckedListBox();
-            this.splitRight = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnTagSelected = new System.Windows.Forms.Button();
-            this.lblIncluded = new System.Windows.Forms.Label();
             this.lstIncluded = new System.Windows.Forms.ListView();
             this.columnTag = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -40,6 +36,9 @@
             this.namedescendingTags = new System.Windows.Forms.ToolStripMenuItem();
             this.countascendingTags = new System.Windows.Forms.ToolStripMenuItem();
             this.countdescendingTags = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblIncluded = new System.Windows.Forms.Label();
+            this.btnTagSelected = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.helpPrefix = new System.Windows.Forms.Label();
             this.grpListOpts = new System.Windows.Forms.GroupBox();
             this.helpExcludeGenres = new System.Windows.Forms.Label();
@@ -64,21 +63,19 @@
             this.lblPrefix = new System.Windows.Forms.Label();
             this.txtPrefix = new System.Windows.Forms.TextBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitTags)).BeginInit();
             this.splitTags.Panel1.SuspendLayout();
             this.splitTags.Panel2.SuspendLayout();
             this.splitTags.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitRight)).BeginInit();
-            this.splitRight.Panel1.SuspendLayout();
-            this.splitRight.Panel2.SuspendLayout();
-            this.splitRight.SuspendLayout();
             this.contextTags.SuspendLayout();
             this.grpListOpts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.list_numWeightFactor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.list_numTagsPerGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.list_numMinScore)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxTags)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpMain
@@ -117,7 +114,8 @@
             // 
             // splitTags.Panel2
             // 
-            this.splitTags.Panel2.Controls.Add(this.splitRight);
+            this.splitTags.Panel2.Controls.Add(this.lstIncluded);
+            this.splitTags.Panel2.Controls.Add(this.tableLayoutPanel1);
             this.splitTags.Size = new System.Drawing.Size(387, 120);
             this.splitTags.SplitterDistance = 109;
             this.splitTags.TabIndex = 11;
@@ -133,57 +131,6 @@
             this.clbTags.TabIndex = 14;
             this.clbTags.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbTags_ItemCheck);
             // 
-            // splitRight
-            // 
-            this.splitRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitRight.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitRight.IsSplitterFixed = true;
-            this.splitRight.Location = new System.Drawing.Point(0, 0);
-            this.splitRight.Name = "splitRight";
-            this.splitRight.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitRight.Panel1
-            // 
-            this.splitRight.Panel1.Controls.Add(this.label1);
-            this.splitRight.Panel1.Controls.Add(this.btnTagSelected);
-            this.splitRight.Panel1.Controls.Add(this.lblIncluded);
-            // 
-            // splitRight.Panel2
-            // 
-            this.splitRight.Panel2.Controls.Add(this.lstIncluded);
-            this.splitRight.Size = new System.Drawing.Size(387, 120);
-            this.splitRight.SplitterDistance = 28;
-            this.splitRight.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(294, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = " (right-click to Sort)";
-            // 
-            // btnTagSelected
-            // 
-            this.btnTagSelected.Location = new System.Drawing.Point(3, 3);
-            this.btnTagSelected.Name = "btnTagSelected";
-            this.btnTagSelected.Size = new System.Drawing.Size(23, 23);
-            this.btnTagSelected.TabIndex = 9;
-            this.btnTagSelected.Text = ">";
-            this.btnTagSelected.UseVisualStyleBackColor = true;
-            this.btnTagSelected.Click += new System.EventHandler(this.btnTagSelected_Click);
-            // 
-            // lblIncluded
-            // 
-            this.lblIncluded.AutoSize = true;
-            this.lblIncluded.Location = new System.Drawing.Point(32, 13);
-            this.lblIncluded.Name = "lblIncluded";
-            this.lblIncluded.Size = new System.Drawing.Size(74, 13);
-            this.lblIncluded.TabIndex = 5;
-            this.lblIncluded.Text = "Included tags:";
-            // 
             // lstIncluded
             // 
             this.lstIncluded.CheckBoxes = true;
@@ -192,9 +139,9 @@
             this.columnCount});
             this.lstIncluded.ContextMenuStrip = this.contextTags;
             this.lstIncluded.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstIncluded.Location = new System.Drawing.Point(0, 0);
+            this.lstIncluded.Location = new System.Drawing.Point(0, 29);
             this.lstIncluded.Name = "lstIncluded";
-            this.lstIncluded.Size = new System.Drawing.Size(387, 88);
+            this.lstIncluded.Size = new System.Drawing.Size(387, 91);
             this.lstIncluded.TabIndex = 6;
             this.lstIncluded.UseCompatibleStateImageBehavior = false;
             this.lstIncluded.View = System.Windows.Forms.View.List;
@@ -250,6 +197,36 @@
             this.countdescendingTags.Size = new System.Drawing.Size(179, 22);
             this.countdescendingTags.Text = "Count (descending)";
             this.countdescendingTags.Click += new System.EventHandler(this.countdescendingTags_Click);
+            // 
+            // lblIncluded
+            // 
+            this.lblIncluded.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblIncluded.AutoSize = true;
+            this.lblIncluded.Location = new System.Drawing.Point(3, 8);
+            this.lblIncluded.Name = "lblIncluded";
+            this.lblIncluded.Size = new System.Drawing.Size(74, 13);
+            this.lblIncluded.TabIndex = 5;
+            this.lblIncluded.Text = "Included tags:";
+            // 
+            // btnTagSelected
+            // 
+            this.btnTagSelected.Location = new System.Drawing.Point(83, 3);
+            this.btnTagSelected.Name = "btnTagSelected";
+            this.btnTagSelected.Size = new System.Drawing.Size(23, 23);
+            this.btnTagSelected.TabIndex = 9;
+            this.btnTagSelected.Text = ">";
+            this.btnTagSelected.UseVisualStyleBackColor = true;
+            this.btnTagSelected.Click += new System.EventHandler(this.btnTagSelected_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(289, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = " (right-click to Sort)";
             // 
             // helpPrefix
             // 
@@ -516,6 +493,23 @@
             this.txtPrefix.Size = new System.Drawing.Size(165, 20);
             this.txtPrefix.TabIndex = 1;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnTagSelected, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblIncluded, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(387, 29);
+            this.tableLayoutPanel1.TabIndex = 11;
+            // 
             // AutoCatConfigPanel_Tags
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -530,11 +524,6 @@
             this.splitTags.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitTags)).EndInit();
             this.splitTags.ResumeLayout(false);
-            this.splitRight.Panel1.ResumeLayout(false);
-            this.splitRight.Panel1.PerformLayout();
-            this.splitRight.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitRight)).EndInit();
-            this.splitRight.ResumeLayout(false);
             this.contextTags.ResumeLayout(false);
             this.grpListOpts.ResumeLayout(false);
             this.grpListOpts.PerformLayout();
@@ -542,6 +531,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.list_numTagsPerGame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.list_numMinScore)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxTags)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -577,7 +568,6 @@
         private Lib.ExtToolTip ttHelp;
         private System.Windows.Forms.SplitContainer splitTags;
         private System.Windows.Forms.CheckedListBox clbTags;
-        private System.Windows.Forms.SplitContainer splitRight;
         private System.Windows.Forms.Button btnTagSelected;
         private System.Windows.Forms.ColumnHeader columnTag;
         private System.Windows.Forms.ColumnHeader columnCount;
@@ -588,5 +578,6 @@
         private System.Windows.Forms.ToolStripMenuItem countascendingTags;
         private System.Windows.Forms.ToolStripMenuItem countdescendingTags;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
