@@ -239,48 +239,48 @@ namespace Depressurizer
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.Headsets != null)
-                    return string.Join(", ", Program.GameDB.Games[id].vrSupport.Headsets);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VrSupport.Headsets != null)
+                    return string.Join(", ", Program.GameDB.Games[id].VrSupport.Headsets);
                 return string.Empty;
             };
             colVRInput.AspectGetter = delegate(object g)
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.Input != null)
-                    return string.Join(", ", Program.GameDB.Games[id].vrSupport.Input);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VrSupport.Input != null)
+                    return string.Join(", ", Program.GameDB.Games[id].VrSupport.Input);
                 return string.Empty;
             };
             colVRPlayArea.AspectGetter = delegate(object g)
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].vrSupport.PlayArea != null)
-                    return string.Join(", ", Program.GameDB.Games[id].vrSupport.PlayArea);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VrSupport.PlayArea != null)
+                    return string.Join(", ", Program.GameDB.Games[id].VrSupport.PlayArea);
                 return string.Empty;
             };
             colLanguageInterface.AspectGetter = delegate (object g)
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo)g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.Interface != null)
-                    return string.Join(", ", Program.GameDB.Games[id].languageSupport.Interface);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.Interface != null)
+                    return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.Interface);
                 return string.Empty;
             };
             colLanguageSubtitles.AspectGetter = delegate (object g)
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo)g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.Subtitles != null)
-                    return string.Join(", ", Program.GameDB.Games[id].languageSupport.Subtitles);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.Subtitles != null)
+                    return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.Subtitles);
                 return string.Empty;
             };
             colLanguageFullAudio.AspectGetter = delegate (object g)
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo)g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].languageSupport.FullAudio != null)
-                    return string.Join(", ", Program.GameDB.Games[id].languageSupport.FullAudio);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.FullAudio != null)
+                    return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.FullAudio);
                 return string.Empty;
             };
             colYear.AspectGetter = delegate(object g)
@@ -304,7 +304,7 @@ namespace Depressurizer
             {
                 if (g == null) return 0;
                 int id = ((GameInfo) g).Id;
-                return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].Achievements : 0;
+                return Program.GameDB.Games.ContainsKey(id) ? Program.GameDB.Games[id].TotalAchievements : 0;
             };
             colPlatforms.AspectGetter = delegate(object g)
             {

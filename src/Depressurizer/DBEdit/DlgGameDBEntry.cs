@@ -74,9 +74,9 @@ namespace Depressurizer
                 if (Game.Tags != null) txtTags.Text = string.Join(",", Game.Tags);
                 if (Game.Developers != null) txtDev.Text = string.Join(",", Game.Developers);
                 if (Game.Publishers != null) txtPub.Text = string.Join(",", Game.Publishers);
-                if (Game.MC_Url != null) txtMCName.Text = Game.MC_Url;
+                if (Game.MetacriticUrl != null) txtMCName.Text = Game.MetacriticUrl;
                 if (Game.SteamReleaseDate != null) txtRelease.Text = Game.SteamReleaseDate;
-                numAchievements.Value = Utility.Clamp(Game.Achievements, (int) numAchievements.Minimum,
+                numAchievements.Value = Utility.Clamp(Game.TotalAchievements, (int) numAchievements.Minimum,
                     (int) numAchievements.Maximum);
                 numReviewScore.Value = Utility.Clamp(Game.ReviewPositivePercentage, (int) numReviewScore.Minimum,
                     (int) numReviewScore.Maximum);
@@ -140,7 +140,7 @@ namespace Depressurizer
             Game.Developers = SplitAndTrim(txtDev.Text);
             Game.Publishers = SplitAndTrim(txtPub.Text);
 
-            Game.Achievements = (int) numAchievements.Value;
+            Game.TotalAchievements = (int) numAchievements.Value;
             Game.ReviewPositivePercentage = (int) numReviewScore.Value;
             Game.ReviewTotal = (int) numReviewCount.Value;
 
@@ -148,7 +148,7 @@ namespace Depressurizer
             Game.HltbExtras = (int) numHltbExtras.Value;
             Game.HltbCompletionist = (int) numHltbCompletionist.Value;
 
-            Game.MC_Url = txtMCName.Text;
+            Game.MetacriticUrl = txtMCName.Text;
             Game.SteamReleaseDate = txtRelease.Text;
 
             Game.Platforms = AppPlatforms.None;

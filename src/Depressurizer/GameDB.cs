@@ -19,6 +19,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -36,60 +38,82 @@ namespace Depressurizer
 {
     public struct VrSupport
     {
+        [DefaultValue(null), XmlElement("Headset")]
         public List<string> Headsets;
+        [DefaultValue(null), XmlElement("Input")]
         public List<string> Input;
+        [DefaultValue(null), XmlElement("PlayArea")]
         public List<string> PlayArea;
     }
 
     public struct LanguageSupport
     {
-        [XmlArrayItem("Language")]
+        [DefaultValue(null), XmlElement("Interface")]
         public List<string> Interface;
-        [XmlArrayItem("Language")]
+        [DefaultValue(null), XmlElement("FullAudio")]
         public List<string> FullAudio;
-        [XmlArrayItem("Language")]
+        [DefaultValue(null), XmlElement("Subtitles")]
         public List<string> Subtitles;
     }
 
+    [XmlRoot(ElementName = "game")]
     public class GameDBEntry
     {
         #region Fields
 
         public int Id;
         public string Name;
+        [DefaultValue(AppTypes.Unknown)]
         public AppTypes AppType = AppTypes.Unknown;
+        [DefaultValue(-1)]
         public int ParentId = -1;
         public AppPlatforms Platforms = AppPlatforms.None;
 
         // Basics:
-        public List<string> Genres = new List<string>();
-
-        public List<string> Flags = new List<string>();
-        public List<string> Tags = new List<string>();
+        [DefaultValue(null), XmlElement("Genre")]
+        public List<string> Genres;
+        [DefaultValue(null), XmlArrayItem("Flag")]
+        public List<string> Flags;
+        [DefaultValue(null), XmlArrayItem("Tag")]
+        public List<string> Tags;
+        [DefaultValue(null), XmlElement("Developer")]
         public List<string> Developers;
+        [DefaultValue(null), XmlElement("Publisher")]
         public List<string> Publishers;
+        [DefaultValue(null)]
         public string SteamReleaseDate;
-        public int Achievements;
+        [DefaultValue(0)]
+        public int TotalAchievements;
 
-        public VrSupport vrSupport;     //TODO: Add field to DB edit dialog
+        [DefaultValue(null)]
+        public VrSupport VrSupport;     //TODO: Add field to DB edit dialog
 
-        public LanguageSupport languageSupport;     //TODO: Add field to DB edit dialog
+        [DefaultValue(null)]
+        public LanguageSupport LanguageSupport;     //TODO: Add field to DB edit dialog
 
+        [XmlIgnore]
         public string Banner = null;
 
+        [DefaultValue(0)]
         public int ReviewTotal;
+        [DefaultValue(0)]
         public int ReviewPositivePercentage;
 
         //howlongtobeat.com times
+        [DefaultValue(0)]
         public int HltbMain;
-
-        public int HltbExtras = -0;
+        [DefaultValue(0)]
+        public int HltbExtras;
+        [DefaultValue(0)]
         public int HltbCompletionist;
 
         // Metacritic:
-        public string MC_Url;
+        [DefaultValue(null)]
+        public string MetacriticUrl;
 
+        [DefaultValue(0)]
         public int LastStoreScrape;
+        [DefaultValue(0)]
         public int LastAppInfoUpdate;
 
         #endregion
@@ -451,11 +475,11 @@ namespace Depressurizer
             if (m.Success)
             {
                 matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                vrSupport.Headsets = new List<string>();
+                VrSupport.Headsets = new List<string>();
                 foreach (Match ma in matches)
                 {
                     string headset = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(headset)) vrSupport.Headsets.Add(headset);
+                    if (!string.IsNullOrWhiteSpace(headset)) VrSupport.Headsets.Add(headset);
                 }
             }
 
@@ -464,11 +488,11 @@ namespace Depressurizer
             if (m.Success)
             {
                 matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                vrSupport.Input = new List<string>();
+                VrSupport.Input = new List<string>();
                 foreach (Match ma in matches)
                 {
                     string input = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(input)) vrSupport.Input.Add(input);
+                    if (!string.IsNullOrWhiteSpace(input)) VrSupport.Input.Add(input);
                 }
             }
 
@@ -477,11 +501,11 @@ namespace Depressurizer
             if (m.Success)
             {
                 matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                vrSupport.PlayArea = new List<string>();
+                VrSupport.PlayArea = new List<string>();
                 foreach (Match ma in matches)
                 {
                     string playArea = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(playArea)) vrSupport.PlayArea.Add(playArea);
+                    if (!string.IsNullOrWhiteSpace(playArea)) VrSupport.PlayArea.Add(playArea);
                 }
             }
 
@@ -489,21 +513,21 @@ namespace Depressurizer
             matches = regLanguageSupport.Matches(page);
             if (matches.Count > 0)
             {
-                languageSupport = new LanguageSupport();
-                languageSupport.Interface = new List<string>();
-                languageSupport.FullAudio = new List<string>();
-                languageSupport.Subtitles = new List<string>();
+                LanguageSupport = new LanguageSupport();
+                LanguageSupport.Interface = new List<string>();
+                LanguageSupport.FullAudio = new List<string>();
+                LanguageSupport.Subtitles = new List<string>();
 
                 foreach (Match ma in matches)
                 {
                     string language = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
                     if (language.StartsWith("#lang") || language.StartsWith("(")) continue; //Some store pages on steam are bugged.
                     if (WebUtility.HtmlDecode(ma.Groups[2].Value.Trim()) != "") //Interface
-                        languageSupport.Interface.Add(language);
+                        LanguageSupport.Interface.Add(language);
                     if (WebUtility.HtmlDecode(ma.Groups[3].Value.Trim()) != "") //Full Audio
-                        languageSupport.FullAudio.Add(language);
+                        LanguageSupport.FullAudio.Add(language);
                     if (WebUtility.HtmlDecode(ma.Groups[4].Value.Trim()) != "") //Subtitles
-                        languageSupport.Subtitles.Add(language);
+                        LanguageSupport.Subtitles.Add(language);
                 }
             }
 
@@ -519,7 +543,7 @@ namespace Depressurizer
                 int num = 0;
                 if (int.TryParse(m.Groups[1].Value, out num))
                 {
-                    Achievements = num;
+                    TotalAchievements = num;
                 }
             }
 
@@ -571,7 +595,7 @@ namespace Depressurizer
             m = regMetalink.Match(page);
             if (m.Success)
             {
-                MC_Url = m.Groups[1].Captures[0].Value;
+                MetacriticUrl = m.Groups[1].Captures[0].Value;
             }
 
             // Get Platforms
@@ -622,22 +646,22 @@ namespace Depressurizer
                 if (other.Developers != null && other.Developers.Count > 0) Developers = other.Developers;
                 if (other.Publishers != null && other.Publishers.Count > 0) Publishers = other.Publishers;
                 if (!string.IsNullOrEmpty(other.SteamReleaseDate)) SteamReleaseDate = other.SteamReleaseDate;
-                if (other.Achievements != 0) Achievements = other.Achievements;
+                if (other.TotalAchievements != 0) TotalAchievements = other.TotalAchievements;
                 //VR Support
-                if (other.vrSupport.Headsets != null && other.vrSupport.Headsets.Count > 0)
-                    vrSupport.Headsets = other.vrSupport.Headsets;
-                if (other.vrSupport.Input != null && other.vrSupport.Input.Count > 0)
-                    vrSupport.Input = other.vrSupport.Input;
-                if (other.vrSupport.PlayArea != null && other.vrSupport.PlayArea.Count > 0)
-                    vrSupport.PlayArea = other.vrSupport.PlayArea;
+                if (other.VrSupport.Headsets != null && other.VrSupport.Headsets.Count > 0)
+                    VrSupport.Headsets = other.VrSupport.Headsets;
+                if (other.VrSupport.Input != null && other.VrSupport.Input.Count > 0)
+                    VrSupport.Input = other.VrSupport.Input;
+                if (other.VrSupport.PlayArea != null && other.VrSupport.PlayArea.Count > 0)
+                    VrSupport.PlayArea = other.VrSupport.PlayArea;
 
                 //Language Support
-                if (other.languageSupport.FullAudio != null && other.languageSupport.FullAudio.Count > 0)
-                    languageSupport.FullAudio = other.languageSupport.FullAudio;
-                if (other.languageSupport.Interface != null && other.languageSupport.Interface.Count > 0)
-                    languageSupport.Interface = other.languageSupport.Interface;
-                if (other.languageSupport.Subtitles != null && other.languageSupport.Subtitles.Count > 0)
-                    languageSupport.Subtitles = other.languageSupport.Subtitles;
+                if (other.LanguageSupport.FullAudio != null && other.LanguageSupport.FullAudio.Count > 0)
+                    LanguageSupport.FullAudio = other.LanguageSupport.FullAudio;
+                if (other.LanguageSupport.Interface != null && other.LanguageSupport.Interface.Count > 0)
+                    LanguageSupport.Interface = other.LanguageSupport.Interface;
+                if (other.LanguageSupport.Subtitles != null && other.LanguageSupport.Subtitles.Count > 0)
+                    LanguageSupport.Subtitles = other.LanguageSupport.Subtitles;
 
                 if (other.ReviewTotal != 0)
                 {
@@ -645,7 +669,7 @@ namespace Depressurizer
                     ReviewPositivePercentage = other.ReviewPositivePercentage;
                 }
 
-                if (!string.IsNullOrEmpty(other.MC_Url)) MC_Url = other.MC_Url;
+                if (!string.IsNullOrEmpty(other.MetacriticUrl)) MetacriticUrl = other.MetacriticUrl;
             }
 
             if (other.LastStoreScrape > LastStoreScrape) LastStoreScrape = other.LastStoreScrape;
@@ -671,44 +695,14 @@ namespace Depressurizer
         public StoreLanguage dbLanguage = StoreLanguage.en;
 
         // Utility
-        static char[] genreSep = {','};
-
-        private const int VERSION = 1;
+        private const int VERSION = 2;
 
         private const string
+            XmlName_RootNode = "gamelist",
             XmlName_Version = "version",
             XmlName_LastHltbUpdate = "lastHltbUpdate",
             XmlName_dbLanguage = "dbLanguage",
-            XmlName_GameList = "gamelist",
-            XmlName_Game = "game",
-            XmlName_Game_Id = "id",
-            XmlName_Game_Name = "name",
-            XmlName_Game_LastStoreUpdate = "lastStoreUpdate",
-            XmlName_Game_LastAppInfoUpdate = "lastAppInfoUpdate",
-            XmlName_Game_Type = "type",
-            XmlName_Game_Platforms = "platforms",
-            XmlName_Game_Parent = "parent",
-            XmlName_Game_Genre = "genre",
-            XmlName_Game_Tag = "tag",
-            XmlName_Game_Achievements = "achievements",
-            XmlName_Game_Developer = "developer",
-            XmlName_Game_Publisher = "publisher",
-            XmlName_Game_Flag = "flag",
-            XmlName_Game_ReviewTotal = "reviewTotal",
-            XmlName_Game_ReviewPositivePercent = "reviewPositiveP",
-            XmlName_Game_MCUrl = "mcUrl",
-            XmlName_Game_Date = "steamDate",
-            XmlName_Game_HltbMain = "hltbMain",
-            XmlName_Game_HltbExtras = "hltbExtras",
-            XmlName_Game_HltbCompletionist = "hltbCompletionist",
-            XmlName_Game_vrSupport = "vrSupport",
-            XmlName_Game_vrSupport_Headsets = "Headset",
-            XmlName_Game_vrSupport_Input = "Input",
-            XmlName_Game_vrSupport_PlayArea = "PlayArea",
-            XmlName_Game_languageSupport = "languageSupport",
-            XmlName_Game_languageSupport_Interface = "Headset",
-            XmlName_Game_languageSupport_FullAudio = "Input",
-            XmlName_Game_languageSupport_Subtitles = "PlayArea";
+            XmlName_Games = "games";
             
 
         #region Accessors
@@ -793,7 +787,7 @@ namespace Depressurizer
         {
             if (Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].vrSupport;
+                VrSupport res = Games[gameId].VrSupport;
                 if ((res.Headsets != null && res.Headsets.Count > 0) || (res.Input != null && res.Input.Count > 0) ||
                     (res.PlayArea != null && res.PlayArea.Count > 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
@@ -809,7 +803,7 @@ namespace Depressurizer
         {
             if (Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].vrSupport;
+                VrSupport res = Games[gameId].VrSupport;
                 if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) &&
                     (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
@@ -1058,17 +1052,17 @@ namespace Depressurizer
 
             foreach (GameDBEntry entry in Games.Values)
             {
-                if (entry.vrSupport.Headsets != null)
+                if (entry.VrSupport.Headsets != null)
                 {
-                    headsets.UnionWith(entry.vrSupport.Headsets);
+                    headsets.UnionWith(entry.VrSupport.Headsets);
                 }
-                if (entry.vrSupport.Input != null)
+                if (entry.VrSupport.Input != null)
                 {
-                    input.UnionWith(entry.vrSupport.Input);
+                    input.UnionWith(entry.VrSupport.Input);
                 }
-                if (entry.vrSupport.PlayArea != null)
+                if (entry.VrSupport.PlayArea != null)
                 {
-                    playArea.UnionWith(entry.vrSupport.PlayArea);
+                    playArea.UnionWith(entry.VrSupport.PlayArea);
                 }
             }
             allVrSupportFlags.Headsets = headsets.ToList();
@@ -1105,17 +1099,17 @@ namespace Depressurizer
 
             foreach (GameDBEntry entry in Games.Values)
             {
-                if (entry.languageSupport.Interface != null)
+                if (entry.LanguageSupport.Interface != null)
                 {
-                    Interface.UnionWith(entry.languageSupport.Interface);
+                    Interface.UnionWith(entry.LanguageSupport.Interface);
                 }
-                if (entry.languageSupport.Subtitles != null)
+                if (entry.LanguageSupport.Subtitles != null)
                 {
-                    Subtitles.UnionWith(entry.languageSupport.Subtitles);
+                    Subtitles.UnionWith(entry.LanguageSupport.Subtitles);
                 }
-                if (entry.languageSupport.FullAudio != null)
+                if (entry.LanguageSupport.FullAudio != null)
                 {
-                    FullAudio.UnionWith(entry.languageSupport.FullAudio);
+                    FullAudio.UnionWith(entry.LanguageSupport.FullAudio);
                 }
             }
             allLanguages.Interface = Interface.ToList();
@@ -1506,7 +1500,7 @@ namespace Depressurizer
 
                 XmlWriter writer = XmlWriter.Create(stream, settings);
                 writer.WriteStartDocument();
-                writer.WriteStartElement(XmlName_GameList);
+                writer.WriteStartElement(XmlName_RootNode);
 
                 writer.WriteElementString(XmlName_Version, VERSION.ToString());
 
@@ -1514,164 +1508,17 @@ namespace Depressurizer
 
                 writer.WriteElementString(XmlName_dbLanguage, Enum.GetName(typeof(StoreLanguage), dbLanguage));
 
+                writer.WriteStartElement(XmlName_Games);
+                XmlSerializer x = new XmlSerializer(typeof(GameDBEntry));
+                var nameSpace = new XmlSerializerNamespaces();
+                nameSpace.Add("", "");
                 foreach (GameDBEntry g in Games.Values)
                 {
-                    writer.WriteStartElement(XmlName_Game);
-
-                    writer.WriteElementString(XmlName_Game_Id, g.Id.ToString());
-
-                    if (!string.IsNullOrEmpty(g.Name))
-                    {
-                        writer.WriteElementString(XmlName_Game_Name, g.Name);
-                    }
-
-                    if (g.LastStoreScrape > 0)
-                        writer.WriteElementString(XmlName_Game_LastStoreUpdate, g.LastStoreScrape.ToString());
-                    if (g.LastAppInfoUpdate > 0)
-                        writer.WriteElementString(XmlName_Game_LastAppInfoUpdate, g.LastAppInfoUpdate.ToString());
-
-                    writer.WriteElementString(XmlName_Game_Type, g.AppType.ToString());
-
-                    writer.WriteElementString(XmlName_Game_Platforms, g.Platforms.ToString());
-
-                    if (g.ParentId >= 0) writer.WriteElementString(XmlName_Game_Parent, g.ParentId.ToString());
-
-                    if (g.Genres != null)
-                    {
-                        foreach (string str in g.Genres)
-                        {
-                            writer.WriteElementString(XmlName_Game_Genre, str);
-                        }
-                    }
-
-                    if (g.Tags != null)
-                    {
-                        foreach (string str in g.Tags)
-                        {
-                            writer.WriteElementString(XmlName_Game_Tag, str);
-                        }
-                    }
-
-                    if (g.Developers != null)
-                    {
-                        foreach (string str in g.Developers)
-                        {
-                            writer.WriteElementString(XmlName_Game_Developer, str);
-                        }
-                    }
-
-                    if (g.Publishers != null)
-                    {
-                        foreach (string str in g.Publishers)
-                        {
-                            writer.WriteElementString(XmlName_Game_Publisher, str);
-                        }
-                    }
-
-                    if (g.Flags != null)
-                    {
-                        foreach (string s in g.Flags)
-                        {
-                            writer.WriteElementString(XmlName_Game_Flag, s);
-                        }
-                    }
-
-                    //vr support
-                    writer.WriteStartElement(XmlName_Game_vrSupport);
-                    if (g.vrSupport.Headsets != null)
-                    {
-                        foreach (string str in g.vrSupport.Headsets)
-                        {
-                            writer.WriteElementString(XmlName_Game_vrSupport_Headsets, str);
-                        }
-                    }
-
-                    if (g.vrSupport.Input != null)
-                    {
-                        foreach (string str in g.vrSupport.Input)
-                        {
-                            writer.WriteElementString(XmlName_Game_vrSupport_Input, str);
-                        }
-                    }
-
-                    if (g.vrSupport.PlayArea != null)
-                    {
-                        foreach (string str in g.vrSupport.PlayArea)
-                        {
-                            writer.WriteElementString(XmlName_Game_vrSupport_PlayArea, str);
-                        }
-                    }
-
-                    writer.WriteEndElement();
-
-                    //language support
-                    writer.WriteStartElement(XmlName_Game_languageSupport);
-                    if (g.languageSupport.Interface != null)
-                    {
-                        foreach (string str in g.languageSupport.Interface)
-                        {
-                            writer.WriteElementString(XmlName_Game_languageSupport_Interface, str);
-                        }
-                    }
-
-                    if (g.languageSupport.FullAudio != null)
-                    {
-                        foreach (string str in g.languageSupport.FullAudio)
-                        {
-                            writer.WriteElementString(XmlName_Game_languageSupport_FullAudio, str);
-                        }
-                    }
-
-                    if (g.languageSupport.Subtitles != null)
-                    {
-                        foreach (string str in g.languageSupport.Subtitles)
-                        {
-                            writer.WriteElementString(XmlName_Game_languageSupport_Subtitles, str);
-                        }
-                    }
-
-                    writer.WriteEndElement();
-
-                    if (g.Achievements > 0)
-                    {
-                        writer.WriteElementString(XmlName_Game_Achievements, g.Achievements.ToString());
-                    }
-
-                    if (g.ReviewTotal > 0)
-                    {
-                        writer.WriteElementString(XmlName_Game_ReviewTotal, g.ReviewTotal.ToString());
-                        writer.WriteElementString(XmlName_Game_ReviewPositivePercent,
-                            g.ReviewPositivePercentage.ToString());
-                    }
-
-                    if (!string.IsNullOrEmpty(g.MC_Url))
-                    {
-                        writer.WriteElementString(XmlName_Game_MCUrl, g.MC_Url);
-                    }
-
-                    if (!string.IsNullOrEmpty(g.SteamReleaseDate))
-                    {
-                        writer.WriteElementString(XmlName_Game_Date, g.SteamReleaseDate);
-                    }
-
-                    if (g.HltbMain > 0)
-                    {
-                        writer.WriteElementString(XmlName_Game_HltbMain, g.HltbMain.ToString());
-                    }
-
-                    if (g.HltbExtras > 0)
-                    {
-                        writer.WriteElementString(XmlName_Game_HltbExtras, g.HltbExtras.ToString());
-                    }
-
-                    if (g.HltbCompletionist > 0)
-                    {
-                        writer.WriteElementString(XmlName_Game_HltbCompletionist, g.HltbCompletionist.ToString());
-                    }
-
-                    writer.WriteEndElement();
+                    x.Serialize(writer, g, nameSpace);
                 }
-                writer.WriteEndElement();
+                writer.WriteEndElement();   //XmlName_Games
+
+                writer.WriteEndElement();   //XmlName_RootNode
                 writer.WriteEndDocument();
                 writer.Close();
             }
@@ -1714,7 +1561,7 @@ namespace Depressurizer
                 Games.Clear();
                 ClearAggregates();
 
-                XmlNode gameListNode = doc.SelectSingleNode("/" + XmlName_GameList);
+                XmlNode gameListNode = doc.SelectSingleNode("/" + XmlName_RootNode);
 
                 int fileVersion = XmlUtil.GetIntFromNode(gameListNode[XmlName_Version], 0);
 
@@ -1723,150 +1570,129 @@ namespace Depressurizer
                 dbLanguage = (StoreLanguage) Enum.Parse(typeof(StoreLanguage),
                     XmlUtil.GetStringFromNode(gameListNode[XmlName_dbLanguage], "en"), true);
 
-                foreach (XmlNode gameNode in gameListNode.SelectNodes(XmlName_Game))
+                if (fileVersion == 1) LoadGamelistVersion1(gameListNode);
+                else
                 {
-                    int id;
-                    if (!XmlUtil.TryGetIntFromNode(gameNode[XmlName_Game_Id], out id) || Games.ContainsKey(id))
+                    XmlSerializer x = new XmlSerializer(typeof(GameDBEntry));
+                    foreach (XmlNode gameNode in gameListNode.SelectSingleNode(XmlName_Games).ChildNodes)
                     {
-                        continue;
+                        XmlReader reader = new XmlNodeReader(gameNode);
+                        GameDBEntry entry = (GameDBEntry)x.Deserialize(reader);
+                        Games.Add(entry.Id, entry);
                     }
-                    GameDBEntry g = new GameDBEntry();
-                    g.Id = id;
-
-                    g.Name = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Name], null);
-
-                    if (fileVersion < 1)
-                    {
-                        g.AppType = AppTypes.Unknown;
-                        string typeString;
-                        if (XmlUtil.TryGetStringFromNode(gameNode[XmlName_Game_Type], out typeString))
-                        {
-                            if (typeString == "DLC")
-                            {
-                                g.AppType = AppTypes.DLC;
-                            }
-                            else if (typeString == "Game")
-                            {
-                                g.AppType = AppTypes.Game;
-                            }
-                            else if (typeString == "NonApp")
-                            {
-                                g.AppType = AppTypes.Other;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        g.AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppTypes.Unknown);
-                    }
-
-                    g.Platforms = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Platforms], AppPlatforms.All);
-
-                    g.ParentId = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Parent], -1);
-
-                    if (fileVersion < 1)
-                    {
-                        List<string> genreList = new List<string>();
-                        string genreString = XmlUtil.GetStringFromNode(gameNode["genre"], null);
-                        if (genreString != null)
-                        {
-                            string[] genStrList = genreString.Split(',');
-                            foreach (string s in genStrList)
-                            {
-                                genreList.Add(s.Trim());
-                            }
-                        }
-                        g.Genres = genreList;
-                    }
-                    else
-                    {
-                        g.Genres = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Genre));
-                    }
-
-                    g.Tags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Tag));
-
-                    foreach (XmlNode vrNode in gameNode.SelectNodes(XmlName_Game_vrSupport))
-                    {
-                        g.vrSupport.Headsets =
-                            XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Headsets));
-                        g.vrSupport.Input =
-                            XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Input));
-                        g.vrSupport.PlayArea =
-                            XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_PlayArea));
-                    }
-
-                    foreach (XmlNode langNode in gameNode.SelectNodes(XmlName_Game_languageSupport))
-                    {
-                        g.languageSupport.Interface =
-                            XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_Interface));
-                        g.languageSupport.FullAudio =
-                            XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_FullAudio));
-                        g.languageSupport.Subtitles =
-                            XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_Subtitles));
-                    }
-
-                    g.Developers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Developer));
-
-                    if (fileVersion < 1)
-                    {
-                        List<string> pubList = new List<string>();
-                        string pubString = XmlUtil.GetStringFromNode(gameNode["publisher"], null);
-                        if (pubString != null)
-                        {
-                            string[] pubStrList = pubString.Split(',');
-                            foreach (string s in pubStrList)
-                            {
-                                pubList.Add(s.Trim());
-                            }
-                        }
-                        g.Publishers = pubList;
-                    }
-                    else
-                    {
-                        g.Publishers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Publisher));
-                    }
-
-                    if (fileVersion < 1)
-                    {
-                        int steamDate = XmlUtil.GetIntFromNode(gameNode["steamDate"], 0);
-                        g.SteamReleaseDate = steamDate > 0 ? DateTime.FromOADate(steamDate).ToString("MMM d, yyyy") : null;
-                    }
-                    else
-                    {
-                        g.SteamReleaseDate = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Date], null);
-                    }
-
-                    g.Flags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Flag));
-
-                    g.Achievements = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Achievements], 0);
-
-                    g.ReviewTotal = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewTotal], 0);
-                    g.ReviewPositivePercentage =
-                        XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewPositivePercent], 0);
-
-                    g.MC_Url = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_MCUrl], null);
-
-                    g.LastAppInfoUpdate = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastAppInfoUpdate], 0);
-                    g.LastStoreScrape = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastStoreUpdate], 0);
-
-                    g.HltbMain = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbMain], 0);
-                    g.HltbExtras = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbExtras], 0);
-                    g.HltbCompletionist = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbCompletionist], 0);
-
-                    Games.Add(id, g);
                 }
                 Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLProcessed);
             }
-            catch (Exception e)
-            {
-                throw e;
-            }
             finally
             {
-                if (stream != null)
+                stream?.Close();
+            }
+        }
+
+        /// <summary>
+        /// Reads GameDbEntry objects from selected node and adds them to GameDb
+        /// Legacy method used to read data from version 1 of the database.
+        /// </summary>
+        /// <param name="gameListNode">Node containing GameDbEntry objects with game as element name</param>
+        private void LoadGamelistVersion1(XmlNode gameListNode)
+        {
+            const string
+                XmlName_Game = "game",
+                XmlName_Game_Id = "id",
+                XmlName_Game_Name = "name",
+                XmlName_Game_LastStoreUpdate = "lastStoreUpdate",
+                XmlName_Game_LastAppInfoUpdate = "lastAppInfoUpdate",
+                XmlName_Game_Type = "type",
+                XmlName_Game_Platforms = "platforms",
+                XmlName_Game_Parent = "parent",
+                XmlName_Game_Genre = "genre",
+                XmlName_Game_Tag = "tag",
+                XmlName_Game_Achievements = "achievements",
+                XmlName_Game_Developer = "developer",
+                XmlName_Game_Publisher = "publisher",
+                XmlName_Game_Flag = "flag",
+                XmlName_Game_ReviewTotal = "reviewTotal",
+                XmlName_Game_ReviewPositivePercent = "reviewPositiveP",
+                XmlName_Game_MCUrl = "mcUrl",
+                XmlName_Game_Date = "steamDate",
+                XmlName_Game_HltbMain = "hltbMain",
+                XmlName_Game_HltbExtras = "hltbExtras",
+                XmlName_Game_HltbCompletionist = "hltbCompletionist",
+                XmlName_Game_vrSupport = "vrSupport",
+                XmlName_Game_vrSupport_Headsets = "Headset",
+                XmlName_Game_vrSupport_Input = "Input",
+                XmlName_Game_vrSupport_PlayArea = "PlayArea",
+                XmlName_Game_languageSupport = "languageSupport",
+                XmlName_Game_languageSupport_Interface = "Headset",
+                XmlName_Game_languageSupport_FullAudio = "Input",
+                XmlName_Game_languageSupport_Subtitles = "PlayArea";
+
+            foreach (XmlNode gameNode in gameListNode.SelectNodes(XmlName_Game))
+            {
+                int id;
+                if (!XmlUtil.TryGetIntFromNode(gameNode[XmlName_Game_Id], out id) || Games.ContainsKey(id))
                 {
-                    stream.Close();
+                    continue;
                 }
+                GameDBEntry g = new GameDBEntry();
+                g.Id = id;
+
+                g.Name = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Name], null);
+
+                g.AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppTypes.Unknown);
+
+                g.Platforms = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Platforms], AppPlatforms.All);
+
+                g.ParentId = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Parent], -1);
+
+                g.Genres = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Genre));
+
+                g.Tags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Tag));
+
+                foreach (XmlNode vrNode in gameNode.SelectNodes(XmlName_Game_vrSupport))
+                {
+                    g.VrSupport.Headsets =
+                        XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Headsets));
+                    g.VrSupport.Input =
+                        XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Input));
+                    g.VrSupport.PlayArea =
+                        XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_PlayArea));
+                }
+
+                foreach (XmlNode langNode in gameNode.SelectNodes(XmlName_Game_languageSupport))
+                {
+                    g.LanguageSupport.Interface =
+                        XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_Interface));
+                    g.LanguageSupport.FullAudio =
+                        XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_FullAudio));
+                    g.LanguageSupport.Subtitles =
+                        XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_Subtitles));
+                }
+
+                g.Developers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Developer));
+
+                g.Publishers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Publisher));
+
+                g.SteamReleaseDate = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Date], null);
+
+                g.Flags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Flag));
+
+                g.TotalAchievements = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Achievements], 0);
+
+                g.ReviewTotal = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewTotal], 0);
+                g.ReviewPositivePercentage =
+                    XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewPositivePercent], 0);
+
+                g.MetacriticUrl = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_MCUrl], null);
+
+                g.LastAppInfoUpdate = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastAppInfoUpdate], 0);
+                g.LastStoreScrape = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastStoreUpdate], 0);
+
+                g.HltbMain = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbMain], 0);
+                g.HltbExtras = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbExtras], 0);
+                g.HltbCompletionist = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbCompletionist], 0);
+
+                Games.Add(id, g);
             }
         }
 
