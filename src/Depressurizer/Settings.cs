@@ -561,8 +561,8 @@ namespace Depressurizer
                         g.Genres = null;
                         g.SteamReleaseDate = null;
                         g.LastStoreScrape = 1; //pretend it is really old data
-                        g.vrSupport = new VrSupport();
-                        g.languageSupport = new LanguageSupport();
+                        g.VrSupport = new VrSupport();
+                        g.LanguageSupport = new LanguageSupport();
                     }
                 }
                 Program.GameDB.Save("GameDB.xml.gz");

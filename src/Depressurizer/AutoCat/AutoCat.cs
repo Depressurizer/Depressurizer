@@ -206,8 +206,6 @@ namespace Depressurizer
         {
             XmlReader reader = new XmlNodeReader(xElement);
             XmlSerializer x = new XmlSerializer(type);
-            var nameSpace = new XmlSerializerNamespaces();
-            nameSpace.Add("", "");
             try
             {
                 return (AutoCat)x.Deserialize(reader);

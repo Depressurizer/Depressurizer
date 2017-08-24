@@ -111,7 +111,7 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            LanguageSupport Language = db.Games[game.Id].languageSupport;
+            LanguageSupport Language = db.Games[game.Id].LanguageSupport;
 
             Language.Interface = Language.Interface ?? new List<string>();
             Language.Subtitles = Language.Subtitles ?? new List<string>();
