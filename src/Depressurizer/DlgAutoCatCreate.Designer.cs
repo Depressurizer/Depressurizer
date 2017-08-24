@@ -67,6 +67,7 @@
             this.cmbType.Location = new System.Drawing.Point(56, 38);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(216, 21);
+            this.cmbType.Sorted = true;
             this.cmbType.TabIndex = 3;
             // 
             // cmdCancel
