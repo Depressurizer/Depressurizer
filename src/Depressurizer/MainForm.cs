@@ -520,9 +520,9 @@ namespace Depressurizer
             {
                 UpdateGameDBFromAppInfo();
             }
-            int threePointFiveDaysInSecs = 84 * 60 * 60;
+            int aWeekInSecs = 7 * 24 * 60 * 60;
             if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() >
-                (Program.GameDB.LastHltbUpdate + threePointFiveDaysInSecs))
+                (Program.GameDB.LastHltbUpdate + aWeekInSecs))
             {
                 UpdateGameDBFromHltb();
             }
