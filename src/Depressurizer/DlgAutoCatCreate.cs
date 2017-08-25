@@ -49,7 +49,8 @@ namespace Depressurizer
                 GlobalStrings.AutoCat_Name_Name,
                 GlobalStrings.AutoCat_Name_VrSupport,
                 GlobalStrings.AutoCat_Name_Language,
-                GlobalStrings.AutoCat_Name_Curator
+                GlobalStrings.AutoCat_Name_Curator,
+                GlobalStrings.AutoCat_Name_Platform
 
             };
             types = new[]
@@ -66,7 +67,8 @@ namespace Depressurizer
                 AutoCatType.Name,
                 AutoCatType.VrSupport,
                 AutoCatType.Language,
-                AutoCatType.Curator
+                AutoCatType.Curator,
+                AutoCatType.Platform
             };
 
             SelectedName = name;
