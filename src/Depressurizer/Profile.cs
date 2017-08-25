@@ -96,7 +96,7 @@ namespace Depressurizer
 
         public bool ExportDiscard = true;
 
-        public bool OverwriteOnDownload = true;
+        public bool OverwriteOnDownload = false;
 
         public bool AutoIgnore = true;
         public bool IncludeUnknown;
