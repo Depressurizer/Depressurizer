@@ -388,8 +388,6 @@ namespace Depressurizer {
             // chkOverwriteNames
             // 
             resources.ApplyResources(this.chkOverwriteNames, "chkOverwriteNames");
-            this.chkOverwriteNames.Checked = true;
-            this.chkOverwriteNames.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkOverwriteNames.Name = "chkOverwriteNames";
             this.chkOverwriteNames.UseVisualStyleBackColor = true;
             // 
@@ -490,7 +488,6 @@ namespace Depressurizer {
             // 
             this.AcceptButton = this.cmdOk;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ControlBox = false;
