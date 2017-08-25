@@ -151,6 +151,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Platform.
+        /// </summary>
+        internal static string AutoCat_Name_Platform {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_Platform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Store Tags.
         /// </summary>
         internal static string AutoCat_Name_Tags {
@@ -3599,6 +3608,15 @@ namespace Depressurizer {
         internal static string Profile_DefaultAutoCatName_Hltb {
             get {
                 return ResourceManager.GetString("Profile_DefaultAutoCatName_Hltb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Platform.
+        /// </summary>
+        internal static string Profile_DefaultAutoCatName_Platform {
+            get {
+                return ResourceManager.GetString("Profile_DefaultAutoCatName_Platform", resourceCulture);
             }
         }
         

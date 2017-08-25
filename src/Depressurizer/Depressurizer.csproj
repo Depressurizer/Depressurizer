@@ -117,6 +117,13 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Curator.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Platform.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Platform.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatPlatform.cs" />
     <Compile Include="AutoCat\AutoCatCurator.cs" />
     <Compile Include="AutoCat\AutoCat.cs" />
     <Compile Include="AutoCat\AutoCatConfigPanel.cs">
@@ -386,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Language.resx">
       <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Platform.resx">
+      <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_VrSupport.resx">
       <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>

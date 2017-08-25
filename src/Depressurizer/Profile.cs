@@ -492,6 +492,10 @@ namespace Depressurizer
             return true;
         }
 
+        /// <summary>
+        /// Generates default autocats and adds them to a list
+        /// </summary>
+        /// <param name="list">The list where the autocats should be added</param>
         public static void GenerateDefaultAutoCatSet(List<AutoCat> list)
         {
             //By Genre
@@ -534,6 +538,11 @@ namespace Depressurizer
             ach.Rules.Add(new Hltb_Rule("20-50", 20, 50, TimeType.Extras));
             ach.Rules.Add(new Hltb_Rule("50+", 20, 0, TimeType.Extras));
             list.Add(ach);
+
+            //By Platform
+            AutoCatPlatform acPlatform = new AutoCatPlatform(GlobalStrings.Profile_DefaultAutoCatName_Platform, null, "(" + GlobalStrings.AutoCat_Name_Platform + ") ", true, true, true, true);
+            list.Add(acPlatform);
+
         }
 
         #endregion

@@ -85,10 +85,8 @@ namespace Depressurizer
         [DefaultValue(0)]
         public int TotalAchievements;
 
-        [DefaultValue(null)]
         public VrSupport VrSupport;     //TODO: Add field to DB edit dialog
 
-        [DefaultValue(null)]
         public LanguageSupport LanguageSupport;     //TODO: Add field to DB edit dialog
 
         [XmlIgnore]
