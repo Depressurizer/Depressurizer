@@ -35,31 +35,29 @@
             // 
             // cmdClose
             // 
-            this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdClose.AutoSize = true;
             this.cmdClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdClose.Location = new System.Drawing.Point(7, 150);
+            this.cmdClose.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cmdClose.Location = new System.Drawing.Point(0, 165);
             this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(444, 40);
+            this.cmdClose.Size = new System.Drawing.Size(458, 35);
             this.cmdClose.TabIndex = 0;
             this.cmdClose.Text = "Close";
             this.cmdClose.UseVisualStyleBackColor = true;
             // 
             // flowLayout
             // 
-            this.flowLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayout.AutoScroll = true;
             this.flowLayout.Controls.Add(this.lblName);
             this.flowLayout.Controls.Add(this.lblVersion);
             this.flowLayout.Controls.Add(this.lnkHomepage);
             this.flowLayout.Controls.Add(this.lnkLicense);
             this.flowLayout.Controls.Add(this.lnkNDesk);
+            this.flowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayout.Location = new System.Drawing.Point(7, 7);
+            this.flowLayout.Location = new System.Drawing.Point(0, 0);
             this.flowLayout.Name = "flowLayout";
-            this.flowLayout.Size = new System.Drawing.Size(444, 140);
+            this.flowLayout.Size = new System.Drawing.Size(458, 165);
             this.flowLayout.TabIndex = 5;
             // 
             // lblName
@@ -129,8 +127,8 @@
             this.CancelButton = this.cmdClose;
             this.ClientSize = new System.Drawing.Size(458, 200);
             this.ControlBox = false;
-            this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.flowLayout);
+            this.Controls.Add(this.cmdClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DlgAbout";
             this.ShowInTaskbar = false;
@@ -140,6 +138,7 @@
             this.flowLayout.ResumeLayout(false);
             this.flowLayout.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
