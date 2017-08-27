@@ -20,7 +20,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -29,13 +28,11 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
-using Rallion;
 
 namespace Depressurizer
 {

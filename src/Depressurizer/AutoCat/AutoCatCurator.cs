@@ -19,14 +19,10 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer;
 using Depressurizer.Helpers;
-using Rallion;
 
 namespace Depressurizer
 {
