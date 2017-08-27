@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Depressurizer.Helpers;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Newtonsoft.Json.Linq;
@@ -97,11 +98,6 @@ namespace Depressurizer
             originalSplitDistanceBrowser;
 
         private readonly MaterialSkinManager materialSkinManager;
-
-        // For getting game banners
-        GameBanners bannerGrabber;
-
-        Thread bannerThread;
 
         // used to prevent moving the filler column in the game list
         Thread columnReorderThread;
@@ -1147,7 +1143,7 @@ namespace Depressurizer
 
         void DeleteFilter(Filter f)
         {
-            if ((!ProfileLoaded) || (!AdvancedCategoryFilter)) return;
+            if ((!ProfileLoaded) || (!AdvancedCategoryFilter) || f == null) return;
 
             DialogResult res;
             res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteFilter, f.Name),
@@ -2095,14 +2091,7 @@ namespace Depressurizer
 
         private void StartBannerThread(List<GameInfo> games)
         {
-            if ((bannerThread != null) && (bannerThread.IsAlive))
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-            bannerGrabber = new GameBanners(games);
-            bannerThread = new Thread(bannerGrabber.Grab);
-            bannerThread.Start();
+            GameBanners.Grab(games);
         }
 
         private ListViewItem CreateCategoryListViewItem(Category c)
@@ -2399,12 +2388,6 @@ namespace Depressurizer
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((bannerThread != null) && (bannerThread.IsAlive))
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-
             Settings settings = Settings.Instance;
             settings.X = Left;
             settings.Y = Top;
