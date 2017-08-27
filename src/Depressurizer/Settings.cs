@@ -17,11 +17,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
-using System.Windows.Forms;
 using Rallion;
 using Depressurizer.Helpers;
 
