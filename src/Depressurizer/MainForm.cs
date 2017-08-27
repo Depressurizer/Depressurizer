@@ -1147,7 +1147,7 @@ namespace Depressurizer
 
         void DeleteFilter(Filter f)
         {
-            if ((!ProfileLoaded) || (!AdvancedCategoryFilter)) return;
+            if ((!ProfileLoaded) || (!AdvancedCategoryFilter) || f == null) return;
 
             DialogResult res;
             res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteFilter, f.Name),
