@@ -45,6 +45,8 @@
     <DocumentationFile>
     </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -274,6 +276,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -322,7 +325,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Lib\AppLogger.cs" />
     <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="DlgGame.cs">
       <SubType>Form</SubType>

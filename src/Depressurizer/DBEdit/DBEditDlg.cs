@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using Depressurizer.Helpers;
 using Rallion;
 
 namespace Depressurizer
@@ -213,7 +214,7 @@ namespace Depressurizer
             {
                 MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_AppInfoUpdateFailed, e.Message),
                     GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionAppInfo, e.ToString());
+                Logger.Instance.Error(GlobalStrings.DBEditDlg_Log_ExceptionAppInfo, e.ToString());
             }
         }
 
@@ -228,7 +229,7 @@ namespace Depressurizer
             {
                 MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dlg.Error.Message),
                     GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
+                Logger.Instance.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
                 AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
             }
             else
