@@ -1939,7 +1939,7 @@ namespace Depressurizer
 
             if (gamelist.Count > 0)
             {
-                StartBannerThread(new List<GameInfo>(gamelist));
+                GameBanners.Grab(new List<GameInfo>(gamelist));
             }
 
             lstGames.SetObjects(gamelist);
@@ -2087,11 +2087,6 @@ namespace Depressurizer
                 lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
             lstCategories.Sort();
             lstCategories.EndUpdate();
-        }
-
-        private void StartBannerThread(List<GameInfo> games)
-        {
-            GameBanners.Grab(games);
         }
 
         private ListViewItem CreateCategoryListViewItem(Category c)
