@@ -545,6 +545,8 @@ namespace Depressurizer
                     break;
             }
 
+            Program.GameDB.ChangeLanguage(settings.StoreLang);
+
             UpdateUIForSingleCat();
             UpdateEnabledStatesForGames();
             UpdateEnabledStatesForCategories();
@@ -2305,8 +2307,6 @@ namespace Depressurizer
             RefreshFilters();
             UpdateEnabledStatesForGames();
             FillAutoCatLists();
-
-            Settings.Instance.ChangeStoreLanguage(Settings.Instance.StoreLang);
 
             UpdateTitle();
         }

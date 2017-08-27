@@ -522,69 +522,7 @@ namespace Depressurizer
                 {
                     _storeLanguage = value;
                     outOfDate = true;
-                    ChangeStoreLanguage(_storeLanguage);
-                }
-            }
-        }
-
-        public void ChangeStoreLanguage(StoreLanguage storeLanguage)
-        {
-            if (Program.GameDB == null) return;
-            StoreLanguage dbLanguage = StoreLanguage.en;
-            if (storeLanguage == StoreLanguage.windows)
-            {
-                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
-                    dbLanguage =
-                        (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
-                else
-                {
-                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
-                        dbLanguage = StoreLanguage.zh_Hans;
-                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
-                        dbLanguage = StoreLanguage.zh_Hant;
-                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
-                        dbLanguage = StoreLanguage.pt_BR;
-                }
-            }
-            else dbLanguage = storeLanguage;
-            if (Program.GameDB.dbLanguage != dbLanguage)
-            {
-                Program.GameDB.dbLanguage = dbLanguage;
-                //clean DB from data in wrong language
-                foreach (GameDBEntry g in Program.GameDB.Games.Values)
-                {
-                    if (g.Id > 0)
-                    {
-                        g.Tags = null;
-                        g.Flags = null;
-                        g.Genres = null;
-                        g.SteamReleaseDate = null;
-                        g.LastStoreScrape = 1; //pretend it is really old data
-                        g.VrSupport = new VrSupport();
-                        g.LanguageSupport = new LanguageSupport();
-                    }
-                }
-                Program.GameDB.Save("GameDB.xml.gz");
-
-                //Update DB with data in correct language
-                Queue<int> gamesToUpdate = new Queue<int>();
-                if (FormMain.CurrentProfile != null)
-                {
-                    foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
-                    {
-                        if (game.Id > 0)
-                        {
-                            gamesToUpdate.Enqueue(game.Id);
-                        }
-                    }
-                    DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
-                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
-
-                    if (scrapeRes != DialogResult.Cancel && scrapeDlg.JobsCompleted > 0)
-                    {
-                        Program.GameDB.Save("GameDB.xml.gz");
-                    }
+                    if (Program.GameDB != null) Program.GameDB.ChangeLanguage(_storeLanguage);
                 }
             }
         }
