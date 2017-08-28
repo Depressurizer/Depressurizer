@@ -75,7 +75,7 @@ namespace Depressurizer {
             this.grpUILanguage = new System.Windows.Forms.GroupBox();
             this.cmbUILanguage = new System.Windows.Forms.ComboBox();
             this.tabLogging = new System.Windows.Forms.TabPage();
-            this.numLogBackup = new System.Windows.Forms.NumericUpDown();
+            this.numLogDaysToKeep = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbLogLevel = new System.Windows.Forms.ComboBox();
@@ -92,7 +92,7 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).BeginInit();
             this.grpUILanguage.SuspendLayout();
             this.tabLogging.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogDaysToKeep)).BeginInit();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -333,7 +333,7 @@ namespace Depressurizer {
             // 
             // tabLogging
             // 
-            this.tabLogging.Controls.Add(this.numLogBackup);
+            this.tabLogging.Controls.Add(this.numLogDaysToKeep);
             this.tabLogging.Controls.Add(this.label3);
             this.tabLogging.Controls.Add(this.label1);
             this.tabLogging.Controls.Add(this.cmbLogLevel);
@@ -343,8 +343,8 @@ namespace Depressurizer {
             // 
             // numLogBackup
             // 
-            resources.ApplyResources(this.numLogBackup, "numLogBackup");
-            this.numLogBackup.Name = "numLogBackup";
+            resources.ApplyResources(this.numLogDaysToKeep, "numLogBackup");
+            this.numLogDaysToKeep.Name = "numLogBackup";
             // 
             // label3
             // 
@@ -393,7 +393,7 @@ namespace Depressurizer {
             this.grpUILanguage.ResumeLayout(false);
             this.tabLogging.ResumeLayout(false);
             this.tabLogging.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogDaysToKeep)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -419,7 +419,7 @@ namespace Depressurizer {
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabGeneral;
         private System.Windows.Forms.TabPage tabLogging;
-        private System.Windows.Forms.NumericUpDown numLogBackup;
+        private System.Windows.Forms.NumericUpDown numLogDaysToKeep;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbLogLevel;

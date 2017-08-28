@@ -26,6 +26,7 @@ namespace Depressurizer
     static class Program
     {
         public static GameDB GameDB;
+        public static Logger Logger = Logger.Instance;
 
         /// <summary>
         /// The main entry point for the application.
@@ -40,25 +41,25 @@ namespace Depressurizer
 
             Settings.Instance.Load();
 
-            Logger.Instance.WriteInfo(GlobalStrings.Program_ProgramInitialized, Logger.Instance.Level);
+            Program.Logger.WriteInfo(GlobalStrings.Program_ProgramInitialized, Program.Logger.Level);
 
             AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 
             if (autoOpts != null)
             {
-                Logger.Instance.WriteInfo("Automatic mode set, loading automatic mode form.");
-                Logger.Instance.WriteObject(LogLevel.Verbose, autoOpts, "Automatic Mode Options:");
+                Program.Logger.WriteInfo("Automatic mode set, loading automatic mode form.");
+                Program.Logger.WriteObject(LogLevel.Verbose, autoOpts, "Automatic Mode Options:");
                 Application.Run(new AutomaticModeForm(autoOpts));
             }
             else
             {
-                Logger.Instance.WriteInfo("Automatic mode not set, loading main form.");
+                Program.Logger.WriteInfo("Automatic mode not set, loading main form.");
                 Application.Run(new FormMain());
             }
             Settings.Instance.Save();
 
-            Logger.Instance.WriteInfo(GlobalStrings.Program_ProgramClosing);
-            Logger.Instance.Dispose();
+            Program.Logger.WriteInfo(GlobalStrings.Program_ProgramClosing);
+            Program.Logger.Dispose();
         }
 
         static AutomaticModeOptions ParseAutoOptions(string[] args)
