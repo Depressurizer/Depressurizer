@@ -59,7 +59,7 @@ namespace Depressurizer
 
             foreach (CuratorRecommendation rec in ac.IncludedRecommendations)
             {
-                lstIncluded.Items[rec.GetHashCode()-1].Checked = true;
+                lstIncluded.Items[rec.GetHashCode() - 1].Checked = true;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Depressurizer
             {
                 if (i.Checked)
                 {
-                    ac.IncludedRecommendations.Add((CuratorRecommendation)Enum.Parse(typeof(CuratorRecommendation), i.Tag.ToString()));
+                    ac.IncludedRecommendations.Add((CuratorRecommendation) Enum.Parse(typeof(CuratorRecommendation), i.Tag.ToString()));
                 }
             }
         }

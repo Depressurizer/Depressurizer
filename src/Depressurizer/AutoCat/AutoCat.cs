@@ -22,7 +22,6 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 
 /* ADDING NEW AUTOCAT METHODS
  * 
@@ -102,6 +101,7 @@ namespace Depressurizer
             XmlName_Filter = "Filter";
 
         #region Properties
+
         protected GameList games;
         protected GameDB db;
 
@@ -123,6 +123,7 @@ namespace Depressurizer
 
         [XmlIgnore]
         public bool Selected { get; set; }
+
         #endregion
 
         #region Constructors
@@ -140,6 +141,7 @@ namespace Depressurizer
         }
 
         protected AutoCat() { }
+
         #endregion
 
         public override string ToString()
@@ -196,9 +198,10 @@ namespace Depressurizer
         }
 
         #region Serialization
+
         public virtual void WriteToXml(XmlWriter writer)
         {
-            XmlSerializer x = new XmlSerializer(this.GetType());
+            XmlSerializer x = new XmlSerializer(GetType());
             var nameSpace = new XmlSerializerNamespaces();
             nameSpace.Add("", "");
             x.Serialize(writer, this, nameSpace);
@@ -210,7 +213,7 @@ namespace Depressurizer
             XmlSerializer x = new XmlSerializer(type);
             try
             {
-                return (AutoCat)x.Deserialize(reader);
+                return (AutoCat) x.Deserialize(reader);
             }
             catch (Exception e)
             {
@@ -252,13 +255,14 @@ namespace Depressurizer
                 case AutoCatLanguage.TypeIdString:
                     return AutoCatLanguage.LoadFromXmlElement(xElement);
                 case AutoCatCurator.TypeIdString:
-                    return AutoCatCurator.LoadFromXmlElement(xElement, typeof(AutoCatCurator));
+                    return LoadFromXmlElement(xElement, typeof(AutoCatCurator));
                 case AutoCatPlatform.TypeIdString:
-                    return AutoCatPlatform.LoadFromXmlElement(xElement, typeof(AutoCatPlatform));
+                    return LoadFromXmlElement(xElement, typeof(AutoCatPlatform));
                 default:
                     return null;
             }
         }
+
         #endregion
 
         public static AutoCat Create(AutoCatType type, string name)

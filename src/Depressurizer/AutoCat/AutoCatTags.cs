@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -33,6 +32,7 @@ namespace Depressurizer
 
         public string Prefix { get; set; }
         public int MaxTags { get; set; }
+
         [XmlArray("Tags"), XmlArrayItem("Tag")]
         public HashSet<string> IncludedTags { get; set; }
 
@@ -50,6 +50,7 @@ namespace Depressurizer
             XmlName_ListTagsPerGame = "List_TagsPerGame",
             XmlName_ListExcludeGenres = "List_ExcludeGenres",
             XmlName_ListScoreSort = "List_ScoreSort";
+
         public bool List_OwnedOnly { get; set; }
         public float List_WeightFactor { get; set; }
         public int List_MinScore { get; set; }

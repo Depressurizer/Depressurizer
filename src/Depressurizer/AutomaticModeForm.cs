@@ -23,7 +23,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {

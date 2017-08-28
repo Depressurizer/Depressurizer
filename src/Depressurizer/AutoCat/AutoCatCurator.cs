@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -46,7 +45,7 @@ namespace Depressurizer
 
         // Serialization constants
         public const string TypeIdString = "AutoCatCurator";
-            
+
         public AutoCatCurator(string name, string filter = null, string categoryName = null, string curatorUrl = null, List<CuratorRecommendation> includedRecommendations = null,
             bool selected = false)
             : base(name)
@@ -86,7 +85,6 @@ namespace Depressurizer
             this.db = db;
 
             GetRecommendations();
-
         }
 
         private void GetRecommendations()
@@ -113,7 +111,6 @@ namespace Depressurizer
             }
             else if ((res != DialogResult.Cancel) && (res != DialogResult.Abort))
             {
-
                 curatorRecommendations = dlg.CuratorRecommendations;
             }
         }
@@ -155,7 +152,7 @@ namespace Depressurizer
         {
             if (!string.IsNullOrEmpty(CategoryName))
             {
-                return CategoryName.Replace("{type}",type);
+                return CategoryName.Replace("{type}", type);
             }
             return type;
         }

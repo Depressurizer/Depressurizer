@@ -41,25 +41,25 @@ namespace Depressurizer
 
             Settings.Instance.Load();
 
-            Program.Logger.WriteInfo(GlobalStrings.Program_ProgramInitialized, Program.Logger.Level);
+            Logger.WriteInfo(GlobalStrings.Program_ProgramInitialized, Logger.Level);
 
             AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 
             if (autoOpts != null)
             {
-                Program.Logger.WriteInfo("Automatic mode set, loading automatic mode form.");
-                Program.Logger.WriteObject(LogLevel.Verbose, autoOpts, "Automatic Mode Options:");
+                Logger.WriteInfo("Automatic mode set, loading automatic mode form.");
+                Logger.WriteObject(LogLevel.Verbose, autoOpts, "Automatic Mode Options:");
                 Application.Run(new AutomaticModeForm(autoOpts));
             }
             else
             {
-                Program.Logger.WriteInfo("Automatic mode not set, loading main form.");
+                Logger.WriteInfo("Automatic mode not set, loading main form.");
                 Application.Run(new FormMain());
             }
             Settings.Instance.Save();
 
-            Program.Logger.WriteInfo(GlobalStrings.Program_ProgramClosing);
-            Program.Logger.Dispose();
+            Logger.WriteInfo(GlobalStrings.Program_ProgramClosing);
+            Logger.Dispose();
         }
 
         static AutomaticModeOptions ParseAutoOptions(string[] args)

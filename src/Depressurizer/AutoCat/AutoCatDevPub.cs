@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -41,8 +40,10 @@ namespace Depressurizer
         public string Prefix { get; set; }
         public bool OwnedOnly { get; set; }
         public int MinCount { get; set; }
+
         [XmlArrayItem("Developer")]
         public List<string> Developers { get; set; }
+
         [XmlArrayItem("Publisher")]
         public List<string> Publishers { get; set; }
 

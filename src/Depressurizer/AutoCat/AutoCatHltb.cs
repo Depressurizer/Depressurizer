@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -35,6 +34,7 @@ namespace Depressurizer
     {
         [XmlElement("Text")]
         public string Name { get; set; }
+
         public float MinHours { get; set; }
         public float MaxHours { get; set; }
         public TimeType TimeType { get; set; }
@@ -66,8 +66,7 @@ namespace Depressurizer
         public string Prefix { get; set; }
         public bool IncludeUnknown { get; set; }
         public string UnknownText { get; set; }
-        [XmlElement("Rule")]
-        public List<Hltb_Rule> Rules;
+        [XmlElement("Rule")] public List<Hltb_Rule> Rules;
 
         public override AutoCatType AutoCatType
         {

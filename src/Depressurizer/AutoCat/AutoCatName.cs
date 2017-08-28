@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -67,7 +66,7 @@ namespace Depressurizer
                 cat = game.Name.Substring(4, 1).ToUpper();
             if (GroupNumbers && Char.IsDigit(cat[0])) cat = "#";
             else if (GroupNonEnglishCharacters && !string.IsNullOrEmpty(GroupNonEnglishCharactersText) &&
-                Regex.IsMatch(cat, "[^a-z0-9]", RegexOptions.IgnoreCase))
+                     Regex.IsMatch(cat, "[^a-z0-9]", RegexOptions.IgnoreCase))
                 cat = GroupNonEnglishCharactersText;
             if (Prefix != null) cat = Prefix + cat;
 

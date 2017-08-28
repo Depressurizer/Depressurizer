@@ -255,26 +255,26 @@ namespace Depressurizer
                     return string.Join(", ", Program.GameDB.Games[id].VrSupport.PlayArea);
                 return string.Empty;
             };
-            colLanguageInterface.AspectGetter = delegate (object g)
+            colLanguageInterface.AspectGetter = delegate(object g)
             {
                 if (g == null) return string.Empty;
-                int id = ((GameInfo)g).Id;
+                int id = ((GameInfo) g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.Interface != null)
                     return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.Interface);
                 return string.Empty;
             };
-            colLanguageSubtitles.AspectGetter = delegate (object g)
+            colLanguageSubtitles.AspectGetter = delegate(object g)
             {
                 if (g == null) return string.Empty;
-                int id = ((GameInfo)g).Id;
+                int id = ((GameInfo) g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.Subtitles != null)
                     return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.Subtitles);
                 return string.Empty;
             };
-            colLanguageFullAudio.AspectGetter = delegate (object g)
+            colLanguageFullAudio.AspectGetter = delegate(object g)
             {
                 if (g == null) return string.Empty;
-                int id = ((GameInfo)g).Id;
+                int id = ((GameInfo) g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.FullAudio != null)
                     return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.FullAudio);
                 return string.Empty;
@@ -305,8 +305,8 @@ namespace Depressurizer
             colPlatforms.AspectGetter = delegate(object g)
             {
                 if (g == null) return "";
-                AppPlatforms platforms = Program.GameDB.Games[((GameInfo)g).Id].Platforms;
-                return (platforms & AppPlatforms.Linux) != 0 && platforms != AppPlatforms.All ? platforms + ", SteamOS" : platforms.ToString() ;
+                AppPlatforms platforms = Program.GameDB.Games[((GameInfo) g).Id].Platforms;
+                return (platforms & AppPlatforms.Linux) != 0 && platforms != AppPlatforms.All ? platforms + ", SteamOS" : platforms.ToString();
             };
             colDevelopers.AspectGetter = delegate(object g)
             {
@@ -4016,15 +4016,15 @@ namespace Depressurizer
             AutoCat selected = null;
             if (lvAutoCatType.SelectedItems.Count > 0)
             {
-                selected = (AutoCat)lvAutoCatType.SelectedItems[0].Tag;
+                selected = (AutoCat) lvAutoCatType.SelectedItems[0].Tag;
             }
             else if (lvAutoCatType.CheckedItems.Count > 0)
             {
-                selected = (AutoCat)lvAutoCatType.CheckedItems[0].Tag;
+                selected = (AutoCat) lvAutoCatType.CheckedItems[0].Tag;
             }
             else if (lvAutoCatType.Items.Count > 0)
             {
-                selected = (AutoCat)lvAutoCatType.Items[0].Tag;
+                selected = (AutoCat) lvAutoCatType.Items[0].Tag;
             }
             EditAutoCats(selected);
             FlushStatus();

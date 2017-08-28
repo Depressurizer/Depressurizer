@@ -20,7 +20,6 @@ using System;
 using System.Globalization;
 using System.Threading;
 using Rallion;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {

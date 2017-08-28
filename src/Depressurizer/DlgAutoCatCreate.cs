@@ -51,7 +51,6 @@ namespace Depressurizer
                 GlobalStrings.AutoCat_Name_Language,
                 GlobalStrings.AutoCat_Name_Curator,
                 GlobalStrings.AutoCat_Name_Platform
-
             };
             types = new[]
             {

@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -28,6 +27,7 @@ namespace Depressurizer
     {
         [XmlElement("Text")]
         public string Name { get; set; }
+
         public int MinScore { get; set; }
         public int MaxScore { get; set; }
         public int MinReviews { get; set; }
@@ -61,8 +61,7 @@ namespace Depressurizer
 
         public string Prefix { get; set; }
         public bool UseWilsonScore { get; set; }
-        [XmlElement("Rule")]
-        public List<UserScore_Rule> Rules;
+        [XmlElement("Rule")] public List<UserScore_Rule> Rules;
 
         public override AutoCatType AutoCatType
         {
