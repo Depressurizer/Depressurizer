@@ -671,7 +671,7 @@ namespace Depressurizer
                     removedGame.ClearCategories(true);
                     removed = Games.Remove(appId);
                     if (removed)
-                        Program.Logger.WriteVerbose(GlobalStrings.GameData_RemovedGameFromGameList, appId,
+                        Program.Logger.WriteDebug(GlobalStrings.GameData_RemovedGameFromGameList, appId,
                             removedGame.Name);
                     else
                         Program.Logger.WriteError(GlobalStrings.GameData_ErrorRemovingGame, appId,
@@ -1176,7 +1176,7 @@ namespace Depressurizer
                         if ((ignore != null && ignore.Contains(gameId)) ||
                             !Program.GameDB.IncludeItemInGameList(gameId, includedTypes))
                         {
-                            Program.Logger.WriteVerbose(GlobalStrings.GameData_SkippedProcessingGame,
+                            Program.Logger.WriteDebug(GlobalStrings.GameData_SkippedProcessingGame,
                                 gameId);
                         }
                         else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
@@ -1188,7 +1188,7 @@ namespace Depressurizer
                             {
                                 game = new GameInfo(gameId, Program.GameDB.GetName(gameId), this);
                                 Games.Add(gameId, game);
-                                Program.Logger.WriteVerbose(GlobalStrings.GameData_AddedNewGame, gameId,
+                                Program.Logger.WriteDebug(GlobalStrings.GameData_AddedNewGame, gameId,
                                     game.Name);
                             }
                             else
@@ -1200,7 +1200,7 @@ namespace Depressurizer
                                 gameNodePair.Value["LastPlayed"].NodeInt != 0)
                             {
                                 game.LastPlayed = gameNodePair.Value["LastPlayed"].NodeInt;
-                                Program.Logger.WriteVerbose(GlobalStrings.GameData_ProcessedGame, gameId,
+                                Program.Logger.WriteDebug(GlobalStrings.GameData_ProcessedGame, gameId,
                                     Utility.GetDTFromUTime(game.LastPlayed).Date);
                             }
                         }
@@ -1235,7 +1235,7 @@ namespace Depressurizer
                         if ((ignore != null && ignore.Contains(gameId)) ||
                             !Program.GameDB.IncludeItemInGameList(gameId, includedTypes))
                         {
-                            Program.Logger.WriteVerbose(GlobalStrings.GameData_SkippedProcessingGame,
+                            Program.Logger.WriteDebug(GlobalStrings.GameData_SkippedProcessingGame,
                                 gameId);
                         }
                         else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
@@ -1247,7 +1247,7 @@ namespace Depressurizer
                             {
                                 game = new GameInfo(gameId, Program.GameDB.GetName(gameId), this);
                                 Games.Add(gameId, game);
-                                Program.Logger.WriteVerbose(GlobalStrings.GameData_AddedNewGame, gameId,
+                                Program.Logger.WriteDebug(GlobalStrings.GameData_AddedNewGame, gameId,
                                     game.Name);
                             }
                             else
@@ -1285,7 +1285,7 @@ namespace Depressurizer
                                 }
                             }
 
-                            Program.Logger.WriteVerbose(GlobalStrings.GameData_ProcessedGame, gameId,
+                            Program.Logger.WriteDebug(GlobalStrings.GameData_ProcessedGame, gameId,
                                 string.Join(",", game.Categories));
                         }
                     }
@@ -1313,7 +1313,7 @@ namespace Depressurizer
             if ((ignore != null && ignore.Contains(appId)) ||
                 !Program.GameDB.IncludeItemInGameList(appId, includedTypes))
             {
-                Program.Logger.WriteVerbose(GlobalStrings.GameData_SkippedIntegratingGame, appId,
+                Program.Logger.WriteDebug(GlobalStrings.GameData_SkippedIntegratingGame, appId,
                     appName);
                 return null;
             }
@@ -1335,7 +1335,7 @@ namespace Depressurizer
             }
             result.ApplySource(src);
 
-            Program.Logger.WriteVerbose(GlobalStrings.GameData_IntegratedGameIntoGameList, appId, appName,
+            Program.Logger.WriteDebug(GlobalStrings.GameData_IntegratedGameIntoGameList, appId, appName,
                 isNew);
             return result;
         }
@@ -1452,7 +1452,7 @@ namespace Depressurizer
                         int gameId;
                         if (!(int.TryParse(pair.Key, out gameId) && Games.ContainsKey(gameId)))
                         {
-                            Program.Logger.WriteVerbose(
+                            Program.Logger.WriteDebug(
                                 GlobalStrings.GameData_RemovingGameCategoryFromSteamConfig, gameId);
                             pair.Value.RemoveSubnode("tags");
                         }
@@ -1468,7 +1468,7 @@ namespace Depressurizer
                 if (game.Id > 0)
                 {
                     // External games have negative identifier
-                    Program.Logger.WriteVerbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
+                    Program.Logger.WriteDebug(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
                     VdfFileNode gameNode = appListNode[game.Id.ToString()];
                     gameNode.MakeArray();
 
@@ -1499,7 +1499,7 @@ namespace Depressurizer
             }
 
 
-            Program.Logger.WriteVerbose(GlobalStrings.GameData_CleaningUpSteamConfigTree);
+            Program.Logger.WriteDebug(GlobalStrings.GameData_CleaningUpSteamConfigTree);
             appListNode.CleanTree();
 
             Program.Logger.WriteInfo(GlobalStrings.GameData_WritingToDisk);
@@ -1610,7 +1610,7 @@ namespace Depressurizer
                         GameInfo game = gamesToSave[matchingIndex];
                         gamesToSave.RemoveAt(matchingIndex);
 
-                        Program.Logger.WriteVerbose(GlobalStrings.GameData_AddingGameToConfigFile,
+                        Program.Logger.WriteDebug(GlobalStrings.GameData_AddingGameToConfigFile,
                             game.Id);
 
                         VdfFileNode tagsNode = nodeGame.GetNodeAt(new[] {"tags"}, true);
