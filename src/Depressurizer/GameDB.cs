@@ -1635,7 +1635,7 @@ namespace Depressurizer
                         Games.Add(entry.Id, entry);
                     }
                 }
-                Logger.Instance.Info(GlobalStrings.GameDB_GameDBXMLProcessed);
+                Logger.Instance.Info("GameDB XML processed, load complete. Db Language: {0}", dbLanguage);
             }
             finally
             {

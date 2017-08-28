@@ -99,11 +99,6 @@ namespace Depressurizer
 
         private readonly MaterialSkinManager materialSkinManager;
 
-        // For getting game banners
-        GameBanners bannerGrabber;
-
-        Thread bannerThread;
-
         // used to prevent moving the filler column in the game list
         Thread columnReorderThread;
 
@@ -1148,7 +1143,7 @@ namespace Depressurizer
 
         void DeleteFilter(Filter f)
         {
-            if ((!ProfileLoaded) || (!AdvancedCategoryFilter)) return;
+            if ((!ProfileLoaded) || (!AdvancedCategoryFilter) || f == null) return;
 
             DialogResult res;
             res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteFilter, f.Name),
@@ -1944,7 +1939,7 @@ namespace Depressurizer
 
             if (gamelist.Count > 0)
             {
-                StartBannerThread(new List<GameInfo>(gamelist));
+                GameBanners.Grab(new List<GameInfo>(gamelist));
             }
 
             lstGames.SetObjects(gamelist);
@@ -2092,18 +2087,6 @@ namespace Depressurizer
                 lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
             lstCategories.Sort();
             lstCategories.EndUpdate();
-        }
-
-        private void StartBannerThread(List<GameInfo> games)
-        {
-            if ((bannerThread != null) && (bannerThread.IsAlive))
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-            bannerGrabber = new GameBanners(games);
-            bannerThread = new Thread(bannerGrabber.Grab);
-            bannerThread.Start();
         }
 
         private ListViewItem CreateCategoryListViewItem(Category c)
@@ -2400,12 +2383,6 @@ namespace Depressurizer
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((bannerThread != null) && (bannerThread.IsAlive))
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-
             Settings settings = Settings.Instance;
             settings.X = Left;
             settings.Y = Top;
