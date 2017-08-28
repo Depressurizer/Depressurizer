@@ -96,7 +96,7 @@ namespace Depressurizer
             Match m = curatorIdRegex.Match(CuratorUrl);
             if (!m.Success || !long.TryParse(m.Groups[1].Value, out long curatorId))
             {
-                Logger.Instance.WriteError($"Failed to parse curator id from url {CuratorUrl}.");
+                Program.Logger.WriteError($"Failed to parse curator id from url {CuratorUrl}.");
                 MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_CuratorIdParsing_Error, CuratorUrl),
                     GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -107,7 +107,7 @@ namespace Depressurizer
 
             if (dlg.Error != null)
             {
-                Logger.Instance.WriteError(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message);
+                Program.Logger.WriteError(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message);
                 MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message),
                     GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -122,12 +122,12 @@ namespace Depressurizer
         {
             if (games == null)
             {
-                Logger.Instance.WriteError(GlobalStrings.Log_AutoCat_GamelistNull);
+                Program.Logger.WriteError(GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
             if (game == null)
             {
-                Logger.Instance.WriteError(GlobalStrings.Log_AutoCat_GameNull);
+                Program.Logger.WriteError(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 

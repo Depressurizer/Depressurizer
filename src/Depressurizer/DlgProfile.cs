@@ -481,9 +481,9 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Instance.WriteWarn(
+                Program.Logger.WriteWarn(
                     GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
-                Logger.Instance.WriteWarn( e.Message);
+                Program.Logger.WriteWarn( e.Message);
             }
             return null;
         }

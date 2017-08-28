@@ -127,7 +127,7 @@ namespace Depressurizer
 
         public static Profile Load(string path)
         {
-            Logger.Instance.WriteInfo(GlobalStrings.Profile_LoadingProfile, path);
+            Program.Logger.WriteInfo(GlobalStrings.Profile_LoadingProfile, path);
             Profile profile = new Profile();
 
             profile.FilePath = path;
@@ -140,7 +140,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Instance.WriteWarn(GlobalStrings.Profile_FailedToLoadProfile, e.Message);
+                Program.Logger.WriteWarn(GlobalStrings.Profile_FailedToLoadProfile, e.Message);
                 throw new ApplicationException(GlobalStrings.Profile_ErrorLoadingProfile + e.Message, e);
             }
 
@@ -261,7 +261,7 @@ namespace Depressurizer
                 }
                 //profile.AutoCats.Sort();
             }
-            Logger.Instance.WriteInfo(GlobalStrings.MainForm_ProfileLoaded);
+            Program.Logger.WriteInfo(GlobalStrings.MainForm_ProfileLoaded);
             return profile;
         }
 
@@ -373,7 +373,7 @@ namespace Depressurizer
 
         public bool Save(string path)
         {
-            Logger.Instance.WriteInfo(GlobalStrings.Profile_SavingProfile, path);
+            Program.Logger.WriteInfo(GlobalStrings.Profile_SavingProfile, path);
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
@@ -384,7 +384,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Instance.WriteError(GlobalStrings.Log_Profile_ConfigBackupFailed, e.Message);
+                Program.Logger.WriteError(GlobalStrings.Log_Profile_ConfigBackupFailed, e.Message);
             }
 
             XmlWriter writer;
@@ -394,7 +394,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Instance.WriteWarn(GlobalStrings.Profile_FailedToOpenProfileFile, e.Message);
+                Program.Logger.WriteWarn(GlobalStrings.Profile_FailedToOpenProfileFile, e.Message);
                 throw new ApplicationException(GlobalStrings.Profile_ErrorSavingProfileFile + e.Message, e);
             }
             writer.WriteStartElement(XmlName_Profile);
@@ -488,7 +488,7 @@ namespace Depressurizer
 
             writer.Close();
             FilePath = path;
-            Logger.Instance.WriteInfo(GlobalStrings.Profile_ProfileSaveComplete);
+            Program.Logger.WriteInfo(GlobalStrings.Profile_ProfileSaveComplete);
             return true;
         }
 

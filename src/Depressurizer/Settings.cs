@@ -467,7 +467,7 @@ namespace Depressurizer
             get { return _logLevel; }
             set
             {
-                Logger.Instance.Level = value;
+                Program.Logger.Level = value;
                 if (_logLevel != value)
                 {
                     _logLevel = value;
@@ -483,7 +483,7 @@ namespace Depressurizer
             get { return _logDaysToKeep; }
             set
             {
-                Logger.Instance.MaxDays = value;
+                Program.Logger.MaxDays = value;
                 if (_logDaysToKeep != value)
                 {
                     _logDaysToKeep = value;
