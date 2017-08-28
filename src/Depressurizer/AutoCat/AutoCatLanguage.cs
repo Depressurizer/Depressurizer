@@ -21,7 +21,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -138,7 +137,7 @@ namespace Depressurizer
             return AutoCatResult.Success;
         }
 
-        private string GetProcessedString(string baseString, string type="")
+        private string GetProcessedString(string baseString, string type = "")
         {
             string result = baseString;
 

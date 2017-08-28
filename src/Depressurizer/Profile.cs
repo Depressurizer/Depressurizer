@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Xml;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -96,7 +95,7 @@ namespace Depressurizer
 
         public bool ExportDiscard = true;
 
-        public bool OverwriteOnDownload = false;
+        public bool OverwriteOnDownload;
 
         public bool AutoIgnore = true;
         public bool IncludeUnknown;
@@ -542,7 +541,6 @@ namespace Depressurizer
             //By Platform
             AutoCatPlatform acPlatform = new AutoCatPlatform(GlobalStrings.Profile_DefaultAutoCatName_Platform, null, "(" + GlobalStrings.AutoCat_Name_Platform + ") ", true, true, true, true);
             list.Add(acPlatform);
-
         }
 
         #endregion

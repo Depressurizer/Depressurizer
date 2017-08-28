@@ -30,7 +30,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
 
@@ -38,22 +37,16 @@ namespace Depressurizer
 {
     public struct VrSupport
     {
-        [DefaultValue(null), XmlElement("Headset")]
-        public List<string> Headsets;
-        [DefaultValue(null), XmlElement("Input")]
-        public List<string> Input;
-        [DefaultValue(null), XmlElement("PlayArea")]
-        public List<string> PlayArea;
+        [DefaultValue(null), XmlElement("Headset")] public List<string> Headsets;
+        [DefaultValue(null), XmlElement("Input")] public List<string> Input;
+        [DefaultValue(null), XmlElement("PlayArea")] public List<string> PlayArea;
     }
 
     public struct LanguageSupport
     {
-        [DefaultValue(null), XmlElement("Interface")]
-        public List<string> Interface;
-        [DefaultValue(null), XmlElement("FullAudio")]
-        public List<string> FullAudio;
-        [DefaultValue(null), XmlElement("Subtitles")]
-        public List<string> Subtitles;
+        [DefaultValue(null), XmlElement("Interface")] public List<string> Interface;
+        [DefaultValue(null), XmlElement("FullAudio")] public List<string> FullAudio;
+        [DefaultValue(null), XmlElement("Subtitles")] public List<string> Subtitles;
     }
 
     [XmlRoot(ElementName = "game")]
@@ -63,56 +56,40 @@ namespace Depressurizer
 
         public int Id;
         public string Name;
-        [DefaultValue(AppTypes.Unknown)]
-        public AppTypes AppType = AppTypes.Unknown;
-        [DefaultValue(-1)]
-        public int ParentId = -1;
+        [DefaultValue(AppTypes.Unknown)] public AppTypes AppType = AppTypes.Unknown;
+        [DefaultValue(-1)] public int ParentId = -1;
         public AppPlatforms Platforms = AppPlatforms.None;
 
         // Basics:
-        [DefaultValue(null), XmlElement("Genre")]
-        public List<string> Genres;
-        [DefaultValue(null), XmlArrayItem("Flag")]
-        public List<string> Flags;
-        [DefaultValue(null), XmlArrayItem("Tag")]
-        public List<string> Tags;
-        [DefaultValue(null), XmlElement("Developer")]
-        public List<string> Developers;
-        [DefaultValue(null), XmlElement("Publisher")]
-        public List<string> Publishers;
-        [DefaultValue(null)]
-        public string SteamReleaseDate;
-        [DefaultValue(0)]
-        public int TotalAchievements;
+        [DefaultValue(null), XmlElement("Genre")] public List<string> Genres;
 
-        public VrSupport VrSupport;     //TODO: Add field to DB edit dialog
+        [DefaultValue(null), XmlArrayItem("Flag")] public List<string> Flags;
+        [DefaultValue(null), XmlArrayItem("Tag")] public List<string> Tags;
+        [DefaultValue(null), XmlElement("Developer")] public List<string> Developers;
+        [DefaultValue(null), XmlElement("Publisher")] public List<string> Publishers;
+        [DefaultValue(null)] public string SteamReleaseDate;
+        [DefaultValue(0)] public int TotalAchievements;
 
-        public LanguageSupport LanguageSupport;     //TODO: Add field to DB edit dialog
+        public VrSupport VrSupport; //TODO: Add field to DB edit dialog
 
-        [XmlIgnore]
-        public string Banner = null;
+        public LanguageSupport LanguageSupport; //TODO: Add field to DB edit dialog
 
-        [DefaultValue(0)]
-        public int ReviewTotal;
-        [DefaultValue(0)]
-        public int ReviewPositivePercentage;
+        [XmlIgnore] public string Banner = null;
+
+        [DefaultValue(0)] public int ReviewTotal;
+        [DefaultValue(0)] public int ReviewPositivePercentage;
 
         //howlongtobeat.com times
-        [DefaultValue(0)]
-        public int HltbMain;
-        [DefaultValue(0)]
-        public int HltbExtras;
-        [DefaultValue(0)]
-        public int HltbCompletionist;
+        [DefaultValue(0)] public int HltbMain;
+
+        [DefaultValue(0)] public int HltbExtras;
+        [DefaultValue(0)] public int HltbCompletionist;
 
         // Metacritic:
-        [DefaultValue(null)]
-        public string MetacriticUrl;
+        [DefaultValue(null)] public string MetacriticUrl;
 
-        [DefaultValue(0)]
-        public int LastStoreScrape;
-        [DefaultValue(0)]
-        public int LastAppInfoUpdate;
+        [DefaultValue(0)] public int LastStoreScrape;
+        [DefaultValue(0)] public int LastAppInfoUpdate;
 
         #endregion
 
@@ -701,7 +678,7 @@ namespace Depressurizer
             XmlName_LastHltbUpdate = "lastHltbUpdate",
             XmlName_dbLanguage = "dbLanguage",
             XmlName_Games = "games";
-            
+
 
         #region Accessors
 
@@ -792,7 +769,7 @@ namespace Depressurizer
                     return true;
                 }
                 if (depth > 0 && Games[gameId].ParentId > 0)
-                   return SupportsVr(Games[gameId].ParentId, depth - 1);
+                    return SupportsVr(Games[gameId].ParentId, depth - 1);
             }
             return false;
         }
@@ -1479,7 +1456,7 @@ namespace Depressurizer
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
                     dbLang =
-                        (StoreLanguage)Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
+                        (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
                 else
                 {
                     if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
@@ -1521,7 +1498,6 @@ namespace Depressurizer
                 }
                 DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
                 scrapeDlg.ShowDialog();
-
             }
             Save("GameDB.xml.gz");
         }
@@ -1570,9 +1546,9 @@ namespace Depressurizer
                 {
                     x.Serialize(writer, g, nameSpace);
                 }
-                writer.WriteEndElement();   //XmlName_Games
+                writer.WriteEndElement(); //XmlName_Games
 
-                writer.WriteEndElement();   //XmlName_RootNode
+                writer.WriteEndElement(); //XmlName_RootNode
                 writer.WriteEndDocument();
                 writer.Close();
             }
@@ -1631,7 +1607,7 @@ namespace Depressurizer
                     foreach (XmlNode gameNode in gameListNode.SelectSingleNode(XmlName_Games).ChildNodes)
                     {
                         XmlReader reader = new XmlNodeReader(gameNode);
-                        GameDBEntry entry = (GameDBEntry)x.Deserialize(reader);
+                        GameDBEntry entry = (GameDBEntry) x.Deserialize(reader);
                         Games.Add(entry.Id, entry);
                     }
                 }

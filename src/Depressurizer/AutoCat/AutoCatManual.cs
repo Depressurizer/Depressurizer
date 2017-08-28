@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -42,6 +41,7 @@ namespace Depressurizer
 
         [XmlArray("Remove"), XmlArrayItem("Category")]
         public List<string> RemoveCategories { get; set; }
+
         [XmlArray("Add"), XmlArrayItem("Category")]
         public List<string> AddCategories { get; set; }
 

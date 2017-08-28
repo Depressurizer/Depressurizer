@@ -25,7 +25,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using Depressurizer.Helpers;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
 using Rallion;
@@ -86,18 +85,24 @@ namespace Depressurizer
                         .Union(GetCuratorRecommendationsFromPage(resultsHtml)).ToDictionary(k => k.Key, v => v.Value);
                 }
             }
-            else { Program.Logger.WriteError("Error: CDlgCurator: Couldn't determine total count of recommendations"); }
+            else
+            {
+                Program.Logger.WriteError("Error: CDlgCurator: Couldn't determine total count of recommendations");
+            }
             if (CuratorRecommendations.Count != TotalCount)
             {
                 Program.Logger.WriteError("Error: CDlgCurator: Count of recommendations retrieved is different than expected");
             }
-            else { Program.Logger.WriteError(String.Format("Retrieved {0} curator recommendations.", TotalCount)); }
+            else
+            {
+                Program.Logger.WriteError(String.Format("Retrieved {0} curator recommendations.", TotalCount));
+            }
             OnThreadCompletion();
         }
 
         protected override void Finish()
         {
-            if (!Canceled  && CuratorRecommendations.Count>0 && Error == null)
+            if (!Canceled && CuratorRecommendations.Count > 0 && Error == null)
             {
                 OnJobCompletion();
             }

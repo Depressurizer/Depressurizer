@@ -6,7 +6,6 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Depressurizer.Helpers;
 
 /*
 This file is part of Depressurizer.
@@ -132,18 +131,18 @@ namespace Depressurizer
             bool isVR = false;
             if (f.Uncategorized != (int) AdvancedFilterState.None) isCategorized = HasCategories();
             if (f.Hidden != (int) AdvancedFilterState.None) isHidden = Hidden;
-            if (f.VR != (int)AdvancedFilterState.None) isVR = Program.GameDB.SupportsVr(Id);
+            if (f.VR != (int) AdvancedFilterState.None) isVR = Program.GameDB.SupportsVr(Id);
 
             if (f.Uncategorized == (int) AdvancedFilterState.Require && isCategorized) return false;
             if (f.Hidden == (int) AdvancedFilterState.Require && !isHidden) return false;
-            if (f.VR == (int)AdvancedFilterState.Require && !isVR) return false;
+            if (f.VR == (int) AdvancedFilterState.Require && !isVR) return false;
 
             if (f.Uncategorized == (int) AdvancedFilterState.Exclude && !isCategorized) return false;
             if (f.Hidden == (int) AdvancedFilterState.Exclude && isHidden) return false;
-            if (f.VR == (int)AdvancedFilterState.Exclude && isVR) return false;
+            if (f.VR == (int) AdvancedFilterState.Exclude && isVR) return false;
 
             if (f.Uncategorized == (int) AdvancedFilterState.Allow || f.Hidden == (int) AdvancedFilterState.Allow ||
-                f.VR == (int)AdvancedFilterState.Allow || f.Allow.Count > 0)
+                f.VR == (int) AdvancedFilterState.Allow || f.Allow.Count > 0)
             {
                 if (f.Uncategorized != (int) AdvancedFilterState.Allow || isCategorized)
                 {
@@ -1886,10 +1885,10 @@ namespace Depressurizer
 
             // Fill in the LaunchString
             game.LaunchString = launchIds[gameName];
-            VdfFileNode nodeExecutable = gameNode.GetNodeAt(new[] { "exe" }, false);
+            VdfFileNode nodeExecutable = gameNode.GetNodeAt(new[] {"exe"}, false);
             game.Executable = (nodeExecutable != null) ? nodeExecutable.NodeString : game.Executable;
 
-            VdfFileNode nodeLastPlayTime = gameNode.GetNodeAt(new[] { "LastPlayTime" }, false);
+            VdfFileNode nodeLastPlayTime = gameNode.GetNodeAt(new[] {"LastPlayTime"}, false);
             game.LastPlayed = (nodeLastPlayTime != null) ? nodeExecutable.NodeInt : game.LastPlayed;
 
             // Fill in categories

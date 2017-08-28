@@ -78,6 +78,7 @@ namespace Depressurizer
     internal sealed class AppLogger : IDisposable
     {
         #region Fields
+
         /// <summary>
         /// </summary>
         private static readonly ConcurrentQueue<string> LogQueue = new ConcurrentQueue<string>();
@@ -204,9 +205,11 @@ namespace Depressurizer
                 CheckFileLimit();
             }
         }
+
         #endregion
 
         #region Utility Methods
+
         /// <inheritdoc />
         public void Dispose()
         {
@@ -273,9 +276,11 @@ namespace Depressurizer
                 _lastFlushed = DateTime.Now;
             }
         }
+
         #endregion
 
         #region Writers
+
         /// <summary>
         /// </summary>
         /// <param name="logMessage"></param>

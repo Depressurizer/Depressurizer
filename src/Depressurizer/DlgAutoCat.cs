@@ -84,7 +84,7 @@ namespace Depressurizer
             if (currentConfigPanel != null)
             {
                 currentConfigPanel.Dock = DockStyle.Fill;
-               panelAutocat.Controls.Add(currentConfigPanel);
+                panelAutocat.Controls.Add(currentConfigPanel);
             }
         }
 

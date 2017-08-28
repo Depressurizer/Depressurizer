@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -39,6 +38,7 @@ namespace Depressurizer
 
         [XmlElement("RemoveOthers")]
         public bool RemoveOtherGenres { get; set; }
+
         public bool TagFallback { get; set; }
         public string Prefix { get; set; }
 
