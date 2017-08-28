@@ -994,7 +994,7 @@
     <value>0</value>
   </data>
   <data name="numLogBackup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>130, 59</value>
+    <value>130, 36</value>
   </data>
   <data name="numLogBackup.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 20</value>
@@ -1014,30 +1014,6 @@
   <data name="&gt;&gt;numLogBackup.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="numLogSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>130, 33</value>
-  </data>
-  <data name="numLogSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 20</value>
-  </data>
-  <data name="numLogSize.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="numLogSize.ThousandsSeparator" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;numLogSize.Name" xml:space="preserve">
-    <value>numLogSize</value>
-  </data>
-  <data name="&gt;&gt;numLogSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numLogSize.Parent" xml:space="preserve">
-    <value>tabLogging</value>
-  </data>
-  <data name="&gt;&gt;numLogSize.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1045,7 +1021,7 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 61</value>
+    <value>6, 38</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 13</value>
@@ -1066,37 +1042,7 @@
     <value>tabLogging</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 35</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 13</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Max file size (bytes):</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>tabLogging</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1126,7 +1072,7 @@
     <value>tabLogging</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="cmbLogLevel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1150,7 +1096,7 @@
     <value>tabLogging</value>
   </data>
   <data name="&gt;&gt;cmbLogLevel.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="tabLogging.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1222,7 +1168,7 @@
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.4.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgOptions</value>

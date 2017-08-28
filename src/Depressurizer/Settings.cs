@@ -17,12 +17,10 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
-using System.Windows.Forms;
 using Rallion;
+using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -462,33 +460,17 @@ namespace Depressurizer
             }
         }
 
-        private LoggerLevel _logLevel = LoggerLevel.Info;
+        private LogLevel _logLevel = LogLevel.Info;
 
-        public LoggerLevel LogLevel
+        public LogLevel LogLevel
         {
             get { return _logLevel; }
             set
             {
-                Program.Logger.Level = value;
+                Logger.Instance.Level = value;
                 if (_logLevel != value)
                 {
                     _logLevel = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        private int _logSize = 2000000;
-
-        public int LogSize
-        {
-            get { return _logSize; }
-            set
-            {
-                Program.Logger.MaxFileSize = value;
-                if (_logSize != value)
-                {
-                    _logSize = value;
                     outOfDate = true;
                 }
             }
@@ -501,7 +483,7 @@ namespace Depressurizer
             get { return _logBackups; }
             set
             {
-                Program.Logger.MaxBackup = value;
+                Logger.Instance.MaxBackup = value;
                 if (_logBackups != value)
                 {
                     _logBackups = value;
@@ -612,7 +594,7 @@ namespace Depressurizer
         public override void Load()
         {
             base.Load();
-            //   Program.Logger.Level = LogLevel;
+            //   Logger.Level = LogLevel;
         }
     }
 }

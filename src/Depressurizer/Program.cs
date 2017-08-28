@@ -18,6 +18,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Windows.Forms;
+using Depressurizer.Helpers;
 using NDesk.Options;
 using Rallion;
 
@@ -25,7 +26,6 @@ namespace Depressurizer
 {
     static class Program
     {
-        public static AppLogger Logger;
         public static GameDB GameDB;
 
         /// <summary>
@@ -39,35 +39,30 @@ namespace Depressurizer
 
             FatalError.InitializeHandler();
 
-            Logger = new AppLogger();
-            Logger.Level = LoggerLevel.None;
-            Logger.DateFormat = "HH:mm:ss'.'ffffff";
-
-            Logger.MaxFileSize = 2000000;
-            Logger.MaxBackup = 1;
-            Logger.FileNameTemplate = "Depressurizer.log";
+            Logger.Instance.Level = LogLevel.Debug;
+            Logger.Instance.MaxBackup = 1;
 
             Settings.Instance.Load();
 
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
+            Logger.Instance.Info(GlobalStrings.Program_ProgramInitialized, Logger.Instance.Level);
 
             AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 
             if (autoOpts != null)
             {
-                Logger.Write(LoggerLevel.Info, "Automatic mode set, loading automatic mode form.");
-                Logger.WriteObject(LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:");
+                Logger.Instance.Info("Automatic mode set, loading automatic mode form.");
+                // TODO: Logger.WriteObject(LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:");
                 Application.Run(new AutomaticModeForm(autoOpts));
             }
             else
             {
-                Logger.Write(LoggerLevel.Info, "Automatic mode not set, loading main form.");
+                Logger.Instance.Info("Automatic mode not set, loading main form.");
                 Application.Run(new FormMain());
             }
             Settings.Instance.Save();
 
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
-            Logger.EndSession();
+            Logger.Instance.Info(GlobalStrings.Program_ProgramClosing);
+            Logger.Instance.Dispose();
         }
 
         static AutomaticModeOptions ParseAutoOptions(string[] args)
