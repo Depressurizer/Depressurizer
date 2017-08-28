@@ -26,7 +26,7 @@ namespace Depressurizer
     static class Program
     {
         public static GameDB GameDB;
-        public static Logger Logger = Logger.Instance;
+        public static AppLogger Logger = AppLogger.Instance;
 
         /// <summary>
         /// The main entry point for the application.
