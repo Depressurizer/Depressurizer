@@ -152,7 +152,7 @@ namespace Depressurizer
         {
             get
             {
-                string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Depressurizer", "Logs");
+                string path = Path.Combine(Environment.CurrentDirectory, "logs");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
