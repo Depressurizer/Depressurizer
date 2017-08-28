@@ -62,7 +62,7 @@ namespace Depressurizer
                 txtOutput.AppendText("> ");
             }
             txtOutput.AppendText(text);
-            Logger.Instance.Info("Automatic mode: " + text);
+            Logger.Instance.WriteInfo("Automatic mode: " + text);
         }
 
         private void WriteLine(string text = "")
@@ -73,7 +73,7 @@ namespace Depressurizer
 
         private void Run()
         {
-            Logger.Instance.Info("Starting automatic operation.");
+            Logger.Instance.WriteInfo("Starting automatic operation.");
 
             if (!LoadGameDB())
             {
@@ -211,7 +211,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Error loading database: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error loading database.", e);
+                Logger.Instance.WriteException("Automatic mode: Error loading database.", e);
             }
             if (success) WriteLine("Database loaded.");
             return success;
@@ -244,7 +244,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Checking for running Steam process failed: " + e.Message);
-                Logger.Instance.Exception("Automatic mode error:", e);
+                Logger.Instance.WriteException("Automatic mode error:", e);
                 return false;
             }
         }
@@ -284,7 +284,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Closing Steam failed: " + e.Message);
-                Logger.Instance.Exception("Automatic mode error:", e);
+                Logger.Instance.WriteException("Automatic mode error:", e);
                 return false;
             }
         }
@@ -322,7 +322,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Profile loading failed: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error loading profile.", e);
+                Logger.Instance.WriteException("Automatic mode: Error loading profile.", e);
             }
             return profile;
         }
@@ -349,7 +349,7 @@ namespace Depressurizer
                 catch (Exception e)
                 {
                     Write("Local update failed. ");
-                    Logger.Instance.Exception("Automatic mode: Error on local profile update.", e);
+                    Logger.Instance.WriteException("Automatic mode: Error on local profile update.", e);
                 }
             }
             if (!success && profile.WebUpdate)
@@ -395,7 +395,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Instance.Exception("Automatic mode: Error on XML web profile update.", e);
+                Logger.Instance.WriteException("Automatic mode: Error on XML web profile update.", e);
                 return false;
             }
         }
@@ -412,7 +412,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Instance.Exception("Automatic mode: Error on HTML web profile update.", e);
+                Logger.Instance.WriteException("Automatic mode: Error on HTML web profile update.", e);
                 return false;
             }
         }
@@ -434,7 +434,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Import failed: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error on steam import.", e);
+                Logger.Instance.WriteException("Automatic mode: Error on steam import.", e);
             }
             if (success) WriteLine("Import complete.");
             return success;
@@ -458,7 +458,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Error updating database from AppInfo: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error updating from AppInfo.", e);
+                Logger.Instance.WriteException("Automatic mode: Error updating from AppInfo.", e);
             }
             if (success) WriteLine("AppInfo update complete.");
             return success;
@@ -487,7 +487,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Error updating database from HLTB: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error updating from HLTB.", e);
+                Logger.Instance.WriteException("Automatic mode: Error updating from HLTB.", e);
             }
             if (success) WriteLine("HLTB update complete.");
             return success;
@@ -537,7 +537,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Error updating database from web: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error updating db from web.", e);
+                Logger.Instance.WriteException("Automatic mode: Error updating db from web.", e);
             }
             return success;
         }
@@ -564,7 +564,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Error saving database: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error saving db.", e);
+                Logger.Instance.WriteException("Automatic mode: Error saving db.", e);
             }
 
             if (success) WriteLine("Saved.");
@@ -604,7 +604,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Error autocategorizing games: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error autocategorizing games.", e);
+                Logger.Instance.WriteException("Automatic mode: Error autocategorizing games.", e);
             }
             if (success) WriteLine("Autocategorization complete.");
             return success;
@@ -654,7 +654,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Error saving profile: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error saving profile.", e);
+                Logger.Instance.WriteException("Automatic mode: Error saving profile.", e);
             }
             if (success) WriteLine("Saved.");
             return success;
@@ -677,7 +677,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 WriteLine("Error exporting Steam config: " + e.Message);
-                Logger.Instance.Exception("Automatic mode: Error exporting config.", e);
+                Logger.Instance.WriteException("Automatic mode: Error exporting config.", e);
             }
             if (success) WriteLine("Export complete.");
             return success;

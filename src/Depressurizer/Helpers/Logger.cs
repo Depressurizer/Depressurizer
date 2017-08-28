@@ -22,51 +22,54 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Depressurizer.Helpers
+namespace Depressurizer
 {
     /// <summary>
+    /// The message level to log at. Any messages below this level will not be logged.
     /// </summary>
     public enum LogLevel
     {
         /// <summary>
         /// </summary>
-        Invalid = 0,
-
-        /// <summary>
-        ///     Verbose messages (enter/exit subroutine, buffer contents, etc.)
-        /// </summary>
-        Verbose = 1,
-
-        /// <summary>
-        ///     Debug messages, to help in diagnosing a problem
-        /// </summary>
-        Debug = 2,
-
-        /// <summary>
-        ///     Informational messages, showing completion, progress, etc.
-        /// </summary>
-        Info = 3,
-
-        /// <summary>
-        ///     Warning error messages which do not cause a functional failure
-        /// </summary>
-        Warn = 4,
-
-        /// <summary>
-        ///     Major error messages, some lost functionality
-        /// </summary>
-        Error = 5,
+        None = 0,
 
         /// <summary>
         ///     Critical error messages, aborts the subsystem
         /// </summary>
-        Fatal = 6
+        Fatal = 1,
+
+        /// <summary>
+        ///     Major error messages, some lost functionality
+        /// </summary>
+        Error = 2,
+
+        /// <summary>
+        ///     Warning error messages which do not cause a functional failure
+        /// </summary>
+        Warn = 3,
+
+        /// <summary>
+        ///     Informational messages, showing completion, progress, etc.
+        /// </summary>
+        Info = 4,
+
+        /// <summary>
+        ///     Debug messages, to help in diagnosing a problem
+        /// </summary>
+        Debug = 5,
+
+        /// <summary>
+        ///     Verbose messages (enter/exit subroutine, buffer contents, etc.)
+        /// </summary>
+        Verbose = 6
     }
 
     /// <inheritdoc />
@@ -74,6 +77,7 @@ namespace Depressurizer.Helpers
     /// </summary>
     internal sealed class Logger : IDisposable
     {
+        #region Fields
         /// <summary>
         /// </summary>
         private static readonly ConcurrentQueue<string> LogQueue = new ConcurrentQueue<string>();
@@ -92,11 +96,11 @@ namespace Depressurizer.Helpers
 
         /// <summary>
         /// </summary>
-        private LogLevel _level = LogLevel.Debug;
+        private LogLevel _level = LogLevel.Info;
 
         /// <summary>
         /// </summary>
-        private int _maxBackup = 7;
+        private int _maxDays = 3;
 
         /// <summary>
         /// </summary>
@@ -106,7 +110,7 @@ namespace Depressurizer.Helpers
         /// </summary>
         private Logger()
         {
-            Info("Logger Instance Initialized");
+            WriteInfo("Logger Instance Initialized");
             _outputStream = new FileStream(ActiveLogFile, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
         }
 
@@ -142,6 +146,7 @@ namespace Depressurizer.Helpers
         public static string LogFile => string.Format(CultureInfo.InvariantCulture, "Depressurizer-({0}).log", DateTime.Now.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture));
 
         /// <summary>
+        /// Path in which to place created log files
         /// </summary>
         public static string LogPath
         {
@@ -158,6 +163,7 @@ namespace Depressurizer.Helpers
         }
 
         /// <summary>
+        /// The message level to log at. Any messages below this level will not be logged.
         /// </summary>
         public LogLevel Level
         {
@@ -178,26 +184,29 @@ namespace Depressurizer.Helpers
         }
 
         /// <summary>
+        /// Maximum number of days to keep a log for.
         /// </summary>
-        public int MaxBackup
+        public int MaxDays
         {
-            get => _maxBackup;
+            get => _maxDays;
             set
             {
-                if (value <= 0 || value == _maxBackup)
+                if (value <= 0 || value == _maxDays)
                 {
                     return;
                 }
 
                 lock (SyncRoot)
                 {
-                    Info("Changed MaxBackup limit to {0}, previous limit {1}", value, _maxBackup);
-                    _maxBackup = value;
+                    WriteInfo("Changed MaxDays limit to {0}, previous limit {1}", value, _maxDays);
+                    _maxDays = value;
                 }
                 CheckFileLimit();
             }
         }
+        #endregion
 
+        #region Utility Methods
         /// <inheritdoc />
         public void Dispose()
         {
@@ -217,14 +226,15 @@ namespace Depressurizer.Helpers
             }
         }
 
+
         public void CheckFileLimit()
         {
             lock (SyncRoot)
             {
                 Regex fileName = new Regex("(Depressurizer)(-)(\\()[0-9]+-[0-9]+-[0-9]*(\\))");
-                foreach (FileInfo file in new DirectoryInfo(LogPath).GetFiles().Where(file => fileName.IsMatch(file.Name) && file.FullName != ActiveLogFile).OrderByDescending(x => x.CreationTime).Skip(MaxBackup))
+                foreach (FileInfo file in new DirectoryInfo(LogPath).GetFiles().Where(file => fileName.IsMatch(file.Name) && file.FullName != ActiveLogFile).OrderByDescending(x => x.CreationTime).Skip(MaxDays))
                 {
-                    Info("Deleted logFile: {0}({1})", file.Name, file.FullName);
+                    WriteInfo("Deleted logFile: {0}({1})", file.Name, file.FullName);
                     file.Delete();
                 }
             }
@@ -232,61 +242,11 @@ namespace Depressurizer.Helpers
 
         /// <summary>
         /// </summary>
-        /// <param name="logMessage"></param>
-        public void Debug(string logMessage)
+        /// <returns></returns>
+        private static bool DoPeriodicFlush()
         {
-            Write(LogLevel.Debug, logMessage);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="logMessage"></param>
-        /// <param name="args"></param>
-        public void Debug(string logMessage, params object[] args)
-        {
-            Write(LogLevel.Debug, logMessage, args);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="logMessage"></param>
-        public void Error(string logMessage)
-        {
-            Write(LogLevel.Error, logMessage);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="logMessage"></param>
-        /// <param name="args"></param>
-        public void Error(string logMessage, params object[] args)
-        {
-            Write(LogLevel.Error, logMessage, args);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="logMessage"></param>
-        public void Exception(string logMessage)
-        {
-            Write(LogLevel.Error, logMessage);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="logMessage"></param>
-        /// <param name="exception"></param>
-        public void Exception(string logMessage, Exception exception)
-        {
-            Write(LogLevel.Error, logMessage + Environment.NewLine + exception);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="exception"></param>
-        public void Exception(Exception exception)
-        {
-            Write(LogLevel.Error, exception.ToString());
+            TimeSpan logAge = DateTime.Now - _lastFlushed;
+            return logAge.TotalSeconds >= 10;
         }
 
         /// <summary>
@@ -313,11 +273,72 @@ namespace Depressurizer.Helpers
                 _lastFlushed = DateTime.Now;
             }
         }
+        #endregion
+
+        #region Writers
+        /// <summary>
+        /// </summary>
+        /// <param name="logMessage"></param>
+        public void WriteDebug(string logMessage)
+        {
+            Write(LogLevel.Debug, logMessage);
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="logMessage"></param>
-        public void Info(string logMessage)
+        /// <param name="args"></param>
+        public void WriteDebug(string logMessage, params object[] args)
+        {
+            Write(LogLevel.Debug, logMessage, args);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="logMessage"></param>
+        public void WriteError(string logMessage)
+        {
+            Write(LogLevel.Error, logMessage);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="logMessage"></param>
+        /// <param name="args"></param>
+        public void WriteError(string logMessage, params object[] args)
+        {
+            Write(LogLevel.Error, logMessage, args);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="logMessage"></param>
+        public void WriteException(string logMessage)
+        {
+            Write(LogLevel.Error, logMessage);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="logMessage"></param>
+        /// <param name="exception"></param>
+        public void WriteException(string logMessage, Exception exception)
+        {
+            Write(LogLevel.Error, logMessage + Environment.NewLine + exception);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="exception"></param>
+        public void WriteException(Exception exception)
+        {
+            Write(LogLevel.Error, exception.ToString());
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="logMessage"></param>
+        public void WriteInfo(string logMessage)
         {
             Write(LogLevel.Info, logMessage);
         }
@@ -326,7 +347,7 @@ namespace Depressurizer.Helpers
         /// </summary>
         /// <param name="logMessage"></param>
         /// <param name="args"></param>
-        public void Info(string logMessage, params object[] args)
+        public void WriteInfo(string logMessage, params object[] args)
         {
             Write(LogLevel.Info, logMessage, args);
         }
@@ -334,7 +355,7 @@ namespace Depressurizer.Helpers
         /// <summary>
         /// </summary>
         /// <param name="logMessage"></param>
-        public void Verbose(string logMessage)
+        public void WriteVerbose(string logMessage)
         {
             Write(LogLevel.Verbose, logMessage);
         }
@@ -343,7 +364,7 @@ namespace Depressurizer.Helpers
         /// </summary>
         /// <param name="logMessage"></param>
         /// <param name="args"></param>
-        public void Verbose(string logMessage, params object[] args)
+        public void WriteVerbose(string logMessage, params object[] args)
         {
             Write(LogLevel.Verbose, logMessage, args);
         }
@@ -351,7 +372,7 @@ namespace Depressurizer.Helpers
         /// <summary>
         /// </summary>
         /// <param name="logMessage"></param>
-        public void Warn(string logMessage)
+        public void WriteWarn(string logMessage)
         {
             Write(LogLevel.Warn, logMessage);
         }
@@ -360,43 +381,30 @@ namespace Depressurizer.Helpers
         /// </summary>
         /// <param name="logMessage"></param>
         /// <param name="args"></param>
-        public void Warn(string logMessage, params object[] args)
+        public void WriteWarn(string logMessage, params object[] args)
         {
             Write(LogLevel.Warn, logMessage, args);
         }
 
         /// <summary>
+        /// Writes specified message to the given channel.
         /// </summary>
-        /// <returns></returns>
-        private static bool DoPeriodicFlush()
-        {
-            TimeSpan logAge = DateTime.Now - _lastFlushed;
-            return logAge.TotalSeconds >= 60;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="logLevel"></param>
-        /// <param name="logMessage"></param>
-        /// <param name="args"></param>
+        /// <param name="logLevel">Channel to output on</param>
+        /// <param name="logMessage">Template of the message to add</param>
+        /// <param name="args">Format parameters</param>
         private void Write(LogLevel logLevel, string logMessage, params object[] args)
         {
             Write(logLevel, string.Format(CultureInfo.InvariantCulture, logMessage, args));
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="logLevel"></param>
-        /// <param name="logMessage"></param>
-        /// <param name="bypassFilter"></param>
-        private void Write(LogLevel logLevel, string logMessage, bool bypassFilter = false)
+        private void Write(LogLevel logLevel, string logMessage)
         {
             lock (SyncRoot)
             {
-                string logEntry = string.Format(CultureInfo.InvariantCulture, "{0} {1,-7} | {2}", DateTime.Now, logLevel, logMessage);
+                string logEntry = string.Format(CultureInfo.InvariantCulture, "{0} - {1}: {2}", DateTime.Now.ToString("HH:mm:ss'.'ffffff"), logLevel.ToString().ToUpperInvariant(), logMessage);
                 System.Diagnostics.Debug.WriteLine(logEntry);
 
-                if (logLevel >= Level || bypassFilter)
+                if (logLevel <= Level)
                 {
                     LogQueue.Enqueue(logEntry);
                 }
@@ -407,5 +415,40 @@ namespace Depressurizer.Helpers
                 }
             }
         }
+
+        /// <summary>
+        /// Writes out public fields of specified object to the log. For IEnumerable values, individual items are written out; this only applies to top-level items.
+        /// </summary>
+        /// <param name="lev">Channel to output on</param>
+        /// <param name="o">Object to write fields of</param>
+        /// <param name="prefix">Text prefix, the first line of the output.</param>
+        public void WriteObject(LogLevel lev, object o, string prefix = "")
+        {
+            if (Level >= lev)
+            {
+                StringBuilder builder = new StringBuilder(prefix + Environment.NewLine);
+                FieldInfo[] fields = o.GetType().GetFields();
+                foreach (FieldInfo fi in fields)
+                {
+                    object val = fi.GetValue(o);
+                    if (val is IEnumerable<object>)
+                    {
+                        int index = 0;
+                        foreach (object subObj in (val as IEnumerable<object>))
+                        {
+                            builder.AppendLine(string.Format("{0}[{1}] : {2}", fi.Name, index, subObj));
+                            index++;
+                        }
+                    }
+                    else
+                    {
+                        builder.AppendLine(string.Format("{0} : {1}", fi.Name, val));
+                    }
+                }
+                Write(lev, builder.ToString());
+            }
+        }
+
+        #endregion
     }
 }

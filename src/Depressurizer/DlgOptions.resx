@@ -1024,13 +1024,13 @@
     <value>6, 38</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 13</value>
+    <value>96, 13</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>Backups to keep:</value>
+    <value>Max Days to keep:</value>
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
