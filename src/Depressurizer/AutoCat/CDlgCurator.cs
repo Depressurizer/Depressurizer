@@ -138,7 +138,7 @@ namespace Depressurizer
                     if (int.TryParse(ma.Groups[1].Value, out int id) && recommendation != CuratorRecommendation.Error)
                     {
                         curatorRecommendations.Add(id, recommendation);
-                        Program.Logger.WriteVerbose("Retrieved recommendation for game " + id + ": " + ma.Groups[2].Value);
+                        Program.Logger.WriteDebug("Retrieved recommendation for game " + id + ": " + ma.Groups[2].Value);
                     }
                     if (recommendation == CuratorRecommendation.Error)
                     {
