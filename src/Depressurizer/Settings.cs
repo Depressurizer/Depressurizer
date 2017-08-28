@@ -476,17 +476,17 @@ namespace Depressurizer
             }
         }
 
-        private int _logBackups = 1;
+        private int _logDaysToKeep = 3;
 
-        public int LogBackups
+        public int LogDaysToKeep
         {
-            get { return _logBackups; }
+            get { return _logDaysToKeep; }
             set
             {
-                Logger.Instance.MaxBackup = value;
-                if (_logBackups != value)
+                Logger.Instance.MaxDays = value;
+                if (_logDaysToKeep != value)
                 {
-                    _logBackups = value;
+                    _logDaysToKeep = value;
                     outOfDate = true;
                 }
             }

@@ -198,7 +198,7 @@ namespace Depressurizer
             catch
             {
                 if (!ignoreWarning.Contains(id))
-                    Logger.Instance.Warn(string.Format(GlobalStrings.Utility_GetImage, url));
+                    Logger.Instance.WriteWarn(string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
         }
@@ -226,7 +226,7 @@ namespace Depressurizer
             catch
             {
                 if (!ignoreWarning.Contains(id))
-                    Logger.Instance.Warn(
+                    Logger.Instance.WriteWarn(
                         string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
@@ -259,7 +259,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Instance.Exception(string.Format(GlobalStrings.Utility_SaveBanner, localPath), e);
+                Logger.Instance.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, localPath), e);
                 return false;
             }
         }
@@ -281,7 +281,7 @@ namespace Depressurizer
             }
             catch
             {
-                Logger.Instance.Warn(
+                Logger.Instance.WriteWarn(
                     string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
                 return false;
             }

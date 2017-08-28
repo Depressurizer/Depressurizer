@@ -102,7 +102,7 @@ namespace Rallion
         /// <param name="e">The unhandled exception.</param>
         private static void HandleUnhandledException(Exception e)
         {
-            Logger.Instance.Exception("Fatal Error: ", e);
+            Logger.Instance.WriteException("Fatal Error: ", e);
             FatalError errForm = new FatalError(e);
             errForm.ShowDialog();
             Application.Exit();
