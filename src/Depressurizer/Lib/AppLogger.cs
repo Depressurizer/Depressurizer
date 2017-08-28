@@ -75,7 +75,7 @@ namespace Depressurizer
     /// <inheritdoc />
     /// <summary>
     /// </summary>
-    internal sealed class Logger : IDisposable
+    internal sealed class AppLogger : IDisposable
     {
         #region Fields
         /// <summary>
@@ -84,7 +84,7 @@ namespace Depressurizer
 
         /// <summary>
         /// </summary>
-        private static volatile Logger _instance;
+        private static volatile AppLogger _instance;
 
         /// <summary>
         /// </summary>
@@ -108,7 +108,7 @@ namespace Depressurizer
 
         /// <summary>
         /// </summary>
-        private Logger()
+        private AppLogger()
         {
             WriteInfo("Logger Instance Initialized");
             _outputStream = new FileStream(ActiveLogFile, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
@@ -120,7 +120,7 @@ namespace Depressurizer
 
         /// <summary>
         /// </summary>
-        public static Logger Instance
+        public static AppLogger Instance
         {
             get
             {
@@ -133,7 +133,7 @@ namespace Depressurizer
                 {
                     if (_instance == null)
                     {
-                        _instance = new Logger();
+                        _instance = new AppLogger();
                     }
                 }
 
