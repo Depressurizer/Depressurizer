@@ -18,6 +18,14 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
+using Depressurizer;
+using Rallion;
 
 namespace Depressurizer
 {
@@ -38,7 +46,7 @@ namespace Depressurizer
 
         // Serialization constants
         public const string TypeIdString = "AutoCatPlatform";
-
+            
         public AutoCatPlatform(string name, string filter = null, string prefix = null, bool windows = false, bool mac = false, bool linux = false, bool steamOS = false,
             bool selected = false)
             : base(name)
@@ -71,17 +79,16 @@ namespace Depressurizer
         {
             return new AutoCatPlatform(this);
         }
-
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
             {
-                Program.Logger.WriteError(GlobalStrings.Log_AutoCat_GamelistNull);
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
             if (game == null)
             {
-                Program.Logger.WriteError(GlobalStrings.Log_AutoCat_GameNull);
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 

@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using Rallion;
 
 namespace Depressurizer
 {
@@ -61,7 +62,7 @@ namespace Depressurizer
                 txtOutput.AppendText("> ");
             }
             txtOutput.AppendText(text);
-            Program.Logger.WriteInfo("Automatic mode: " + text);
+            Program.Logger.Write(LoggerLevel.Info, "Automatic mode: " + text);
         }
 
         private void WriteLine(string text = "")
@@ -72,7 +73,7 @@ namespace Depressurizer
 
         private void Run()
         {
-            Program.Logger.WriteInfo("Starting automatic operation.");
+            Program.Logger.Write(LoggerLevel.Info, "Starting automatic operation.");
 
             if (!LoadGameDB())
             {
