@@ -25,8 +25,8 @@ namespace Depressurizer
 {
     static class Program
     {
+        public static AppLogger Logger;
         public static GameDB GameDB;
-        public static AppLogger Logger = AppLogger.Instance;
 
         /// <summary>
         /// The main entry point for the application.
@@ -39,27 +39,35 @@ namespace Depressurizer
 
             FatalError.InitializeHandler();
 
+            Logger = new AppLogger();
+            Logger.Level = LoggerLevel.None;
+            Logger.DateFormat = "HH:mm:ss'.'ffffff";
+
+            Logger.MaxFileSize = 2000000;
+            Logger.MaxBackup = 1;
+            Logger.FileNameTemplate = "Depressurizer.log";
+
             Settings.Instance.Load();
 
-            Logger.WriteInfo(GlobalStrings.Program_ProgramInitialized, Logger.Level);
+            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
 
             AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 
             if (autoOpts != null)
             {
-                Logger.WriteInfo("Automatic mode set, loading automatic mode form.");
-                Logger.WriteObject(LogLevel.Verbose, autoOpts, "Automatic Mode Options:");
+                Logger.Write(LoggerLevel.Info, "Automatic mode set, loading automatic mode form.");
+                Logger.WriteObject(LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:");
                 Application.Run(new AutomaticModeForm(autoOpts));
             }
             else
             {
-                Logger.WriteInfo("Automatic mode not set, loading main form.");
+                Logger.Write(LoggerLevel.Info, "Automatic mode not set, loading main form.");
                 Application.Run(new FormMain());
             }
             Settings.Instance.Save();
 
-            Logger.WriteInfo(GlobalStrings.Program_ProgramClosing);
-            Logger.Dispose();
+            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
+            Logger.EndSession();
         }
 
         static AutomaticModeOptions ParseAutoOptions(string[] args)

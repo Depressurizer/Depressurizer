@@ -75,8 +75,10 @@ namespace Depressurizer {
             this.grpUILanguage = new System.Windows.Forms.GroupBox();
             this.cmbUILanguage = new System.Windows.Forms.ComboBox();
             this.tabLogging = new System.Windows.Forms.TabPage();
-            this.numLogDaysToKeep = new System.Windows.Forms.NumericUpDown();
+            this.numLogBackup = new System.Windows.Forms.NumericUpDown();
+            this.numLogSize = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbLogLevel = new System.Windows.Forms.ComboBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
@@ -92,7 +94,8 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).BeginInit();
             this.grpUILanguage.SuspendLayout();
             this.tabLogging.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogDaysToKeep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -333,8 +336,10 @@ namespace Depressurizer {
             // 
             // tabLogging
             // 
-            this.tabLogging.Controls.Add(this.numLogDaysToKeep);
+            this.tabLogging.Controls.Add(this.numLogBackup);
+            this.tabLogging.Controls.Add(this.numLogSize);
             this.tabLogging.Controls.Add(this.label3);
+            this.tabLogging.Controls.Add(this.label2);
             this.tabLogging.Controls.Add(this.label1);
             this.tabLogging.Controls.Add(this.cmbLogLevel);
             resources.ApplyResources(this.tabLogging, "tabLogging");
@@ -343,13 +348,43 @@ namespace Depressurizer {
             // 
             // numLogBackup
             // 
-            resources.ApplyResources(this.numLogDaysToKeep, "numLogBackup");
-            this.numLogDaysToKeep.Name = "numLogBackup";
+            resources.ApplyResources(this.numLogBackup, "numLogBackup");
+            this.numLogBackup.Name = "numLogBackup";
+            // 
+            // numLogSize
+            // 
+            this.numLogSize.Increment = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.numLogSize, "numLogSize");
+            this.numLogSize.Maximum = new decimal(new int[] {
+            20000000,
+            0,
+            0,
+            0});
+            this.numLogSize.Minimum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numLogSize.Name = "numLogSize";
+            this.numLogSize.Value = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
             // 
             // label1
             // 
@@ -393,7 +428,8 @@ namespace Depressurizer {
             this.grpUILanguage.ResumeLayout(false);
             this.tabLogging.ResumeLayout(false);
             this.tabLogging.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogDaysToKeep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -419,8 +455,10 @@ namespace Depressurizer {
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabGeneral;
         private System.Windows.Forms.TabPage tabLogging;
-        private System.Windows.Forms.NumericUpDown numLogDaysToKeep;
+        private System.Windows.Forms.NumericUpDown numLogBackup;
+        private System.Windows.Forms.NumericUpDown numLogSize;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbLogLevel;
         private System.Windows.Forms.GroupBox grpUILanguage;

@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Xml;
+using Rallion;
 
 namespace Depressurizer
 {
@@ -95,7 +96,7 @@ namespace Depressurizer
 
         public bool ExportDiscard = true;
 
-        public bool OverwriteOnDownload;
+        public bool OverwriteOnDownload = false;
 
         public bool AutoIgnore = true;
         public bool IncludeUnknown;
@@ -126,7 +127,7 @@ namespace Depressurizer
 
         public static Profile Load(string path)
         {
-            Program.Logger.WriteInfo(GlobalStrings.Profile_LoadingProfile, path);
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_LoadingProfile, path);
             Profile profile = new Profile();
 
             profile.FilePath = path;
@@ -139,7 +140,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.WriteWarn(GlobalStrings.Profile_FailedToLoadProfile, e.Message);
+                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToLoadProfile, e.Message);
                 throw new ApplicationException(GlobalStrings.Profile_ErrorLoadingProfile + e.Message, e);
             }
 
@@ -260,7 +261,7 @@ namespace Depressurizer
                 }
                 //profile.AutoCats.Sort();
             }
-            Program.Logger.WriteInfo(GlobalStrings.MainForm_ProfileLoaded);
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.MainForm_ProfileLoaded);
             return profile;
         }
 
@@ -372,7 +373,7 @@ namespace Depressurizer
 
         public bool Save(string path)
         {
-            Program.Logger.WriteInfo(GlobalStrings.Profile_SavingProfile, path);
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_SavingProfile, path);
             XmlWriterSettings writeSettings = new XmlWriterSettings();
             writeSettings.CloseOutput = true;
             writeSettings.Indent = true;
@@ -383,7 +384,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.WriteError(GlobalStrings.Log_Profile_ConfigBackupFailed, e.Message);
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_Profile_ConfigBackupFailed, e.Message);
             }
 
             XmlWriter writer;
@@ -393,7 +394,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.WriteWarn(GlobalStrings.Profile_FailedToOpenProfileFile, e.Message);
+                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.Profile_FailedToOpenProfileFile, e.Message);
                 throw new ApplicationException(GlobalStrings.Profile_ErrorSavingProfileFile + e.Message, e);
             }
             writer.WriteStartElement(XmlName_Profile);
@@ -487,7 +488,7 @@ namespace Depressurizer
 
             writer.Close();
             FilePath = path;
-            Program.Logger.WriteInfo(GlobalStrings.Profile_ProfileSaveComplete);
+            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Profile_ProfileSaveComplete);
             return true;
         }
 
@@ -541,6 +542,7 @@ namespace Depressurizer
             //By Platform
             AutoCatPlatform acPlatform = new AutoCatPlatform(GlobalStrings.Profile_DefaultAutoCatName_Platform, null, "(" + GlobalStrings.AutoCat_Name_Platform + ") ", true, true, true, true);
             list.Add(acPlatform);
+
         }
 
         #endregion

@@ -29,7 +29,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-using Depressurizer.Helpers;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Newtonsoft.Json.Linq;
@@ -98,6 +97,11 @@ namespace Depressurizer
             originalSplitDistanceBrowser;
 
         private readonly MaterialSkinManager materialSkinManager;
+
+        // For getting game banners
+        GameBanners bannerGrabber;
+
+        Thread bannerThread;
 
         // used to prevent moving the filler column in the game list
         Thread columnReorderThread;
@@ -255,26 +259,26 @@ namespace Depressurizer
                     return string.Join(", ", Program.GameDB.Games[id].VrSupport.PlayArea);
                 return string.Empty;
             };
-            colLanguageInterface.AspectGetter = delegate(object g)
+            colLanguageInterface.AspectGetter = delegate (object g)
             {
                 if (g == null) return string.Empty;
-                int id = ((GameInfo) g).Id;
+                int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.Interface != null)
                     return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.Interface);
                 return string.Empty;
             };
-            colLanguageSubtitles.AspectGetter = delegate(object g)
+            colLanguageSubtitles.AspectGetter = delegate (object g)
             {
                 if (g == null) return string.Empty;
-                int id = ((GameInfo) g).Id;
+                int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.Subtitles != null)
                     return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.Subtitles);
                 return string.Empty;
             };
-            colLanguageFullAudio.AspectGetter = delegate(object g)
+            colLanguageFullAudio.AspectGetter = delegate (object g)
             {
                 if (g == null) return string.Empty;
-                int id = ((GameInfo) g).Id;
+                int id = ((GameInfo)g).Id;
                 if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].LanguageSupport.FullAudio != null)
                     return string.Join(", ", Program.GameDB.Games[id].LanguageSupport.FullAudio);
                 return string.Empty;
@@ -305,8 +309,8 @@ namespace Depressurizer
             colPlatforms.AspectGetter = delegate(object g)
             {
                 if (g == null) return "";
-                AppPlatforms platforms = Program.GameDB.Games[((GameInfo) g).Id].Platforms;
-                return (platforms & AppPlatforms.Linux) != 0 && platforms != AppPlatforms.All ? platforms + ", SteamOS" : platforms.ToString();
+                AppPlatforms platforms = Program.GameDB.Games[((GameInfo)g).Id].Platforms;
+                return (platforms & AppPlatforms.Linux) != 0 && platforms != AppPlatforms.All ? platforms + ", SteamOS" : platforms.ToString() ;
             };
             colDevelopers.AspectGetter = delegate(object g)
             {
@@ -582,7 +586,7 @@ namespace Depressurizer
                 {
                     MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB +
                                     GlobalStrings.MainForm_GameDBFileNotExist);
-                    Program.Logger.WriteWarn(GlobalStrings.MainForm_GameDBFileNotExist);
+                    Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.MainForm_GameDBFileNotExist);
                 }
             }
             catch (Exception ex)
@@ -646,7 +650,7 @@ namespace Depressurizer
 
             if (dlg.Error != null)
             {
-                Program.Logger.WriteError(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, dlg.Error.Message),
                     GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
@@ -1143,7 +1147,7 @@ namespace Depressurizer
 
         void DeleteFilter(Filter f)
         {
-            if ((!ProfileLoaded) || (!AdvancedCategoryFilter) || f == null) return;
+            if ((!ProfileLoaded) || (!AdvancedCategoryFilter)) return;
 
             DialogResult res;
             res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteFilter, f.Name),
@@ -1939,7 +1943,7 @@ namespace Depressurizer
 
             if (gamelist.Count > 0)
             {
-                GameBanners.Grab(new List<GameInfo>(gamelist));
+                StartBannerThread(new List<GameInfo>(gamelist));
             }
 
             lstGames.SetObjects(gamelist);
@@ -2087,6 +2091,18 @@ namespace Depressurizer
                 lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
             lstCategories.Sort();
             lstCategories.EndUpdate();
+        }
+
+        private void StartBannerThread(List<GameInfo> games)
+        {
+            if ((bannerThread != null) && (bannerThread.IsAlive))
+            {
+                bannerGrabber.Stop();
+                Thread.Sleep(100);
+            }
+            bannerGrabber = new GameBanners(games);
+            bannerThread = new Thread(bannerGrabber.Grab);
+            bannerThread.Start();
         }
 
         private ListViewItem CreateCategoryListViewItem(Category c)
@@ -2383,6 +2399,12 @@ namespace Depressurizer
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if ((bannerThread != null) && (bannerThread.IsAlive))
+            {
+                bannerGrabber.Stop();
+                Thread.Sleep(100);
+            }
+
             Settings settings = Settings.Instance;
             settings.X = Left;
             settings.Y = Top;
@@ -4016,15 +4038,15 @@ namespace Depressurizer
             AutoCat selected = null;
             if (lvAutoCatType.SelectedItems.Count > 0)
             {
-                selected = (AutoCat) lvAutoCatType.SelectedItems[0].Tag;
+                selected = (AutoCat)lvAutoCatType.SelectedItems[0].Tag;
             }
             else if (lvAutoCatType.CheckedItems.Count > 0)
             {
-                selected = (AutoCat) lvAutoCatType.CheckedItems[0].Tag;
+                selected = (AutoCat)lvAutoCatType.CheckedItems[0].Tag;
             }
             else if (lvAutoCatType.Items.Count > 0)
             {
-                selected = (AutoCat) lvAutoCatType.Items[0].Tag;
+                selected = (AutoCat)lvAutoCatType.Items[0].Tag;
             }
             EditAutoCats(selected);
             FlushStatus();
