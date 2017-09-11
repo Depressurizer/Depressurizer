@@ -73,15 +73,15 @@ namespace Depressurizer
 
         // Basics:
         [DefaultValue(null), XmlElement("Genre")]
-        public List<string> Genres;
+        public List<string> Genres = new List<string>();
         [DefaultValue(null), XmlArrayItem("Flag")]
-        public List<string> Flags;
+        public List<string> Flags = new List<string>();
         [DefaultValue(null), XmlArrayItem("Tag")]
-        public List<string> Tags;
+        public List<string> Tags = new List<string>();
         [DefaultValue(null), XmlElement("Developer")]
-        public List<string> Developers;
+        public List<string> Developers = new List<string>();
         [DefaultValue(null), XmlElement("Publisher")]
-        public List<string> Publishers;
+        public List<string> Publishers = new List<string>();
         [DefaultValue(null)]
         public string SteamReleaseDate;
         [DefaultValue(0)]
@@ -134,7 +134,7 @@ namespace Depressurizer
 
         private static Regex regGenre =
             new Regex(
-                @"<div class=""details_block"">\s*<b>[^:]*:</b>[^<]*<br>\s*<b>[^:]*:</b>\s*(<a[^>]*>([^<]+)</a>,?\s*)+\s*<br>",
+                @"<div class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""http://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>",
                 RegexOptions.Compiled);
 
         private static Regex regFlags =
