@@ -153,7 +153,7 @@ namespace Depressurizer
                 @"(<a href=""http://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>",
                 RegexOptions.Compiled);
 
-        private static Regex regRelDate = new Regex(@"<div class=""release_date"">[^<]*<span class=""date"">([^<]+)<\/span>", RegexOptions.Compiled);
+        private static Regex regRelDate = new Regex(@"<div class=""release_date"">\s*<div[^>]*>[^<]*<\/div>\s*<div class=""date"">([^<]+)<\/div>", RegexOptions.Compiled);
 
         private static Regex regMetalink =
             new Regex(
