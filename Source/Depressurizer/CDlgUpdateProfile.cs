@@ -32,7 +32,7 @@ namespace Depressurizer
         public bool UseHtml { get; private set; }
         public bool Failover { get; private set; }
 
-        private Int64 SteamId;
+        private long SteamId;
         private string customUrl;
         private bool custom;
         private GameList data;
@@ -44,7 +44,7 @@ namespace Depressurizer
         private SortedSet<int> ignore;
         private bool includeUnknown;
 
-        public CDlgUpdateProfile(GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore,
+        public CDlgUpdateProfile(GameList data, long accountId, bool overwrite, SortedSet<int> ignore,
             bool inclUnknown)
             : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {

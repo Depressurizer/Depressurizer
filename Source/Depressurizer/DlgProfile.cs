@@ -24,6 +24,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using Depressurizer.Models;
 
 namespace Depressurizer
 {
@@ -110,9 +111,9 @@ namespace Depressurizer
             }
         }
 
-        private bool SelectUserInList(Int64 accountId)
+        private bool SelectUserInList(long accountId)
         {
-            string profDirName = Profile.ID64toDirName(accountId);
+            string profDirName = Profile.ToSteam3ID(accountId).ToString();
 
             for (int i = 0; i < lstUsers.Items.Count; i++)
             {
@@ -129,8 +130,8 @@ namespace Depressurizer
 
         private bool SelectUserInList(string accountId)
         {
-            Int64 val;
-            if (Int64.TryParse(accountId, out val))
+            long val;
+            if (long.TryParse(accountId, out val))
             {
                 return SelectUserInList(val);
             }
@@ -258,7 +259,7 @@ namespace Depressurizer
             UserRecord u = lstUsers.SelectedItem as UserRecord;
             if (u != null)
             {
-                txtUserID.Text = Profile.DirNametoID64(u.DirName).ToString();
+                txtUserID.Text = Profile.ToSteamID64(u.DirName).ToString();
             }
         }
 
@@ -380,7 +381,7 @@ namespace Depressurizer
 
         void SaveModifiables(Profile p)
         {
-            p.SteamID64 = Int64.Parse(txtUserID.Text);
+            p.SteamID64 = long.Parse(txtUserID.Text);
 
             p.AutoUpdate = chkAutoUpdate.Checked;
             p.AutoImport = chkAutoImport.Checked;
@@ -460,7 +461,7 @@ namespace Depressurizer
 
         #region Display name update
 
-        public string GetDisplayName(Int64 accountId)
+        public string GetDisplayName(long accountId)
         {
             try
             {
@@ -538,7 +539,7 @@ namespace Depressurizer
                 }
                 if (job != null)
                 {
-                    string name = GetDisplayName(Profile.DirNametoID64(job.dir));
+                    string name = GetDisplayName(Profile.ToSteamID64(job.dir));
 
                     lock (data.tLock)
                     {
@@ -620,7 +621,7 @@ namespace Depressurizer
             for( int i = 0; i < lstUsers.Items.Count; i++ ) {
                 UserRecord u = lstUsers.Items[i] as UserRecord;
                 if( u != null ) {
-                    string name = GetDisplayName( Profile.DirNametoID64( u.DirName ) );
+                    string name = GetDisplayName( Profile.ToSteamID64( u.DirName ) );
                     if( name == null ) {
                         u.DisplayName = "?";
                     } else {

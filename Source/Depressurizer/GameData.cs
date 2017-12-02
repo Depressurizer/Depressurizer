@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Depressurizer.Models;
 using Rallion;
 /*
 This file is part of Depressurizer.
@@ -879,7 +880,7 @@ namespace Depressurizer
         /// </summary>
         /// <param name="accountId">The 64-bit account ID</param>
         /// <returns>Fetched XML page as an XmlDocument</returns>
-        public static XmlDocument FetchXmlGameList(Int64 steamId)
+        public static XmlDocument FetchXmlGameList(long steamId)
         {
             return FetchXmlFromUrl(string.Format(Properties.Resources.UrlGameListXml, steamId));
         }
@@ -937,7 +938,7 @@ namespace Depressurizer
         /// </summary>
         /// <param name="accountId">The 64-bit account ID</param>
         /// <returns>Full text of the HTTP response</returns>
-        public static string FetchHtmlGameList(Int64 accountId)
+        public static string FetchHtmlGameList(long accountId)
         {
             return FetchHtmlFromUrl(string.Format(Properties.Resources.UrlGameListHtml, accountId));
         }
@@ -989,7 +990,7 @@ namespace Depressurizer
         /// <param name="accountId">64-bit account ID to update for</param>
         /// <param name="ignored">Set of games to ignore</param>
         /// <param name="includeUnknown">If true, include games that do not exist in the database or are of unknown type in the database</param>
-        public int UpdateGameListFromOwnedPackageInfo(Int64 accountId, SortedSet<int> ignored, AppTypes includedTypes,
+        public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignored, AppTypes includedTypes,
             out int newApps)
         {
             newApps = 0;
@@ -1002,7 +1003,7 @@ namespace Depressurizer
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
             string localConfigPath = string.Format(Properties.Resources.LocalConfigPath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(accountId));
+                Profile.ToSteam3ID(accountId));
             VdfFileNode vdfFile = VdfFileNode.LoadFromText(new StreamReader(localConfigPath));
             if (vdfFile != null)
             {
@@ -1390,7 +1391,7 @@ namespace Depressurizer
         public int ImportSteamConfig(long SteamId, SortedSet<int> ignore, AppTypes includedTypes, bool includeShortcuts)
         {
             string filePath = string.Format(Properties.Resources.ConfigFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(SteamId));
+                Profile.ToSteam3ID(SteamId));
             int result = ImportSteamConfigFile(filePath, ignore, includedTypes);
             if (includeShortcuts)
             {
@@ -1408,7 +1409,7 @@ namespace Depressurizer
         public void ExportSteamConfig(long steamId, bool discardMissing, bool includeShortcuts)
         {
             string filePath = string.Format(Properties.Resources.ConfigFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(steamId));
+                Profile.ToSteam3ID(steamId));
             ExportSteamConfigFile(filePath, discardMissing);
             if (includeShortcuts)
             {
@@ -1559,7 +1560,7 @@ namespace Depressurizer
         public void ExportSteamShortcuts(long SteamId)
         {
             string filePath = string.Format(Properties.Resources.ShortCutsFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(SteamId));
+                Profile.ToSteam3ID(SteamId));
             Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath);
             FileStream fStream = null;
             BinaryReader binReader = null;
@@ -1690,7 +1691,7 @@ namespace Depressurizer
         {
             bool result = false;
             string filePath = string.Format(Properties.Resources.ScreenshotsFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(SteamId));
+                Profile.ToSteam3ID(SteamId));
 
             shortcutLaunchIds = new StringDictionary();
 
@@ -1740,11 +1741,11 @@ namespace Depressurizer
         public int ImportSteamShortcuts(long SteamId)
         {
             if (SteamId <= 0) return 0;
-
+            
             int loadedGames = 0;
 
             string filePath = string.Format(Properties.Resources.ShortCutsFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(SteamId));
+                Profile.ToSteam3ID(SteamId));
             FileStream fStream = null;
             BinaryReader binReader = null;
 
