@@ -20,6 +20,12 @@
   pull_requests:
     do_not_increment_build_number: false
 
+  before_build: nuget restore Source/Depressurizer.sln
+
+  build:
+    project: Source/Depressurizer.sln
+    verbosity: quiet
+
 -
   branches:
     only:
