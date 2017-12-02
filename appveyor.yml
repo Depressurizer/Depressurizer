@@ -1,0 +1,71 @@
+-
+  branches:
+    only:
+      - master
+
+  configuration: Release
+
+  platform:
+      - x86
+      - x64
+      - Any CPU
+
+  skip_commits:
+    files:
+        - .github/*
+
+  image: Visual Studio 2017
+
+  pull_requests:
+    do_not_increment_build_number: false
+
+  before_build: nuget restore Source/Depressurizer.sln
+
+  artifacts:
+    - path: Source\Depressurizer\bin\Release
+      name: Depressurizer
+      type: zip
+
+    - path: Source\Depressurizer\bin\$(platform)\Release
+      name: Depressurizer-$(platform)
+      type: zip
+
+  deploy:
+  - provider: GitHub
+    tag: v$(APPVEYOR_REPO_COMMIT_MESSAGE)
+    release: Depressurizer v$(APPVEYOR_REPO_COMMIT_MESSAGE)
+    auth_token:
+      secure: uQq3zgS1DmLxFLeWwLMO5ojr7zsx6B35llWr2HxId1Fy1rOxjiUvN4p3rNn2sDdL
+    draft: true
+    artifact: /.*\.zip/
+    force_update: true
+    on:
+      branch: master
+
+-
+  branches:
+    except:
+      - gh-pages
+      - master
+
+  configuration: Debug
+
+  platform:
+    - x86
+    - x64
+    - Any CPU
+
+  skip_commits:
+    files:
+      - .github/*
+
+  image: Visual Studio 2017
+
+  pull_requests:
+    do_not_increment_build_number: false
+
+  before_build: nuget restore Source/Depressurizer.sln
+
+  build:
+    project: Source/Depressurizer.sln
+    verbosity: quiet
