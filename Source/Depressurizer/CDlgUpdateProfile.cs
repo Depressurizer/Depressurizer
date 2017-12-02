@@ -141,14 +141,14 @@ namespace Depressurizer
                 {
                     int newItems;
                     Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore,
-                        includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
+                        includeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newItems);
                     Added = newItems;
                 }
                 else
                 {
                     int newItems;
                     Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore,
-                        includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
+                        includeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newItems);
                     Added = newItems;
                 }
                 OnJobCompletion();

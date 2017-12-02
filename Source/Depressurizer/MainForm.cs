@@ -898,8 +898,8 @@ namespace Depressurizer
                 {
                     int newApps = 0;
                     AppTypes appFilter = CurrentProfile.IncludeUnknown
-                        ? AppTypes.InclusionUnknown
-                        : AppTypes.InclusionNormal;
+                        ? AppTypes.IncludeUnknown
+                        : AppTypes.IncludeNormal;
                     int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64,
                         CurrentProfile.IgnoreList, appFilter, out newApps);
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps));
