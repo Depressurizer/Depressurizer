@@ -58,6 +58,17 @@
       name: Depressurizer-$(platform)
       type: zip
 
+  deploy:
+    - provider: GitHub
+      tag: v$(APPVEYOR_REPO_COMMIT_MESSAGE)
+      release: Depressurizer v$(APPVEYOR_REPO_COMMIT_MESSAGE)
+      auth_token:
+        secure: +3OKe+vh559W4u3I/oU/9e32+LG9Hdhcp25AbJi4vy5gB0QEMR9CBF0aSb52T8xn
+        draft: true
+        artifact: /.*\.zip/
+        force_update: true
+        on:
+          branch: master
 
 -
   branches:
