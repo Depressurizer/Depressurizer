@@ -315,7 +315,6 @@
     </Compile>
     <Compile Include="Enums.cs" />
     <Compile Include="GameBanners.cs" />
-    <Compile Include="Filter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -331,6 +330,7 @@
     <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="Models\AppInfo.cs" />
+    <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

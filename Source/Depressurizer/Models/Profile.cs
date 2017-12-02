@@ -175,7 +175,7 @@ namespace Depressurizer.Models
             try
             {
                 string jsonProfile = File.ReadAllText(localPath);
-                Profile profile = JsonConvert.DeserializeObject<Profile>(jsonProfile, new JsonSerializerSettings {Formatting = Formatting.Indented, ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+                Profile profile = JsonConvert.DeserializeObject<Profile>(jsonProfile, Program.SerializerSettings);
                 profile.FilePath = localPath;
 
                 return profile;
@@ -234,7 +234,7 @@ namespace Depressurizer.Models
         {
             try
             {
-                string jsonProfile = JsonConvert.SerializeObject(this, new JsonSerializerSettings {Formatting = Formatting.Indented, ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+                string jsonProfile = JsonConvert.SerializeObject(this, Program.SerializerSettings);
                 File.WriteAllText(localPath, jsonProfile);
             }
             catch (Exception e)

@@ -1,6 +1,6 @@
 ﻿#region License
 
-//     This file (ProfileTests.cs) is part of DepressurizerTests.
+//     This file (ProfileTests - Copy.cs) is part of DepressurizerTests.
 //     Copyright (C) 2017  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
