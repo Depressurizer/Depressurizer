@@ -19,6 +19,13 @@
   pull_requests:
     do_not_increment_build_number: false
 
+  assembly_info:
+    patch: true
+    file: Source\Depressurizer\Properties\AssemblyInfo.cs
+    assembly_version: $(APPVEYOR_REPO_COMMIT_MESSAGE)
+    assembly_file_version: $(APPVEYOR_REPO_COMMIT_MESSAGE).$(APPVEYOR_BUILD_NUMBER)
+    assembly_informational_version: $(APPVEYOR_REPO_COMMIT_MESSAGE)
+
   before_build: nuget restore Source/Depressurizer.sln
 
   artifacts:
