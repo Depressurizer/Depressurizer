@@ -4,6 +4,8 @@
       - master
 
   skip_commits:
+    files:
+      - .github/*
     message: /^(0|[1-9]+).(0|[1-9]+).(0|[1-9]+)$/
 
   configuration: Release
@@ -12,10 +14,6 @@
       - x86
       - x64
       - Any CPU
-
-  skip_commits:
-    files:
-        - .github/*
 
   image: Visual Studio 2017
 
@@ -36,10 +34,6 @@
       - x86
       - x64
       - Any CPU
-
-  skip_commits:
-    files:
-        - .github/*
 
   image: Visual Studio 2017
 
