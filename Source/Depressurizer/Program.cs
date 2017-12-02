@@ -19,20 +19,28 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Windows.Forms;
 using NDesk.Options;
+using Newtonsoft.Json;
 using Rallion;
 
 namespace Depressurizer
 {
-    static class Program
+    internal static class Program
     {
+        public static JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            TypeNameHandling = TypeNameHandling.Auto
+        };
+
         public static AppLogger Logger;
         public static GameDB GameDB;
 
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -70,32 +78,70 @@ namespace Depressurizer
             Logger.EndSession();
         }
 
-        static AutomaticModeOptions ParseAutoOptions(string[] args)
+        private static AutomaticModeOptions ParseAutoOptions(string[] args)
         {
             AutomaticModeOptions config = new AutomaticModeOptions();
             bool auto = false;
 
-            var opts = new OptionSet
+            OptionSet opts = new OptionSet
             {
-                {"auto", v => auto = true},
-                {"p|profile=", v => config.CustomProfile = v},
-                {"checksteam", v => config.CheckSteam = (v != null)},
-                {"closesteam", v => config.CloseSteam = (v != null)},
-                {"updatelib", v => config.UpdateGameList = (v != null)},
-                {"import", v => config.ImportSteamCategories = (v != null)},
-                {"updatedblocal", v => config.UpdateAppInfo = (v != null)},
-                {"updatedbhltb", v => config.UpdateHltb = (v != null)},
-                {"updatedbweb", v => config.ScrapeUnscrapedGames = (v != null)},
-                {"savedb", v => config.SaveDBChanges = (v != null)},
-                {"saveprofile", v => config.SaveProfile = (v != null)},
-                {"export", v => config.ExportToSteam = (v != null)},
-                {"launch", v => config.SteamLaunch = SteamLaunchType.Normal},
-                {"launchbp", v => config.SteamLaunch = SteamLaunchType.BigPicture},
-                {"tolerant", v => config.TolerateMinorErrors = (v != null)},
-                {"quiet", v => config.AutoClose = AutoCloseType.UnlessError},
-                {"silent", v => config.AutoClose = AutoCloseType.Always},
-                {"all", v => config.ApplyAllAutoCats = (v != null)},
-                {"<>", v => config.AutoCats.Add(v)}
+                {
+                    "auto", v => auto = true
+                },
+                {
+                    "p|profile=", v => config.CustomProfile = v
+                },
+                {
+                    "checksteam", v => config.CheckSteam = v != null
+                },
+                {
+                    "closesteam", v => config.CloseSteam = v != null
+                },
+                {
+                    "updatelib", v => config.UpdateGameList = v != null
+                },
+                {
+                    "import", v => config.ImportSteamCategories = v != null
+                },
+                {
+                    "updatedblocal", v => config.UpdateAppInfo = v != null
+                },
+                {
+                    "updatedbhltb", v => config.UpdateHltb = v != null
+                },
+                {
+                    "updatedbweb", v => config.ScrapeUnscrapedGames = v != null
+                },
+                {
+                    "savedb", v => config.SaveDBChanges = v != null
+                },
+                {
+                    "saveprofile", v => config.SaveProfile = v != null
+                },
+                {
+                    "export", v => config.ExportToSteam = v != null
+                },
+                {
+                    "launch", v => config.SteamLaunch = SteamLaunchType.Normal
+                },
+                {
+                    "launchbp", v => config.SteamLaunch = SteamLaunchType.BigPicture
+                },
+                {
+                    "tolerant", v => config.TolerateMinorErrors = v != null
+                },
+                {
+                    "quiet", v => config.AutoClose = AutoCloseType.UnlessError
+                },
+                {
+                    "silent", v => config.AutoClose = AutoCloseType.Always
+                },
+                {
+                    "all", v => config.ApplyAllAutoCats = v != null
+                },
+                {
+                    "<>", v => config.AutoCats.Add(v)
+                }
             };
 
             opts.Parse(args);

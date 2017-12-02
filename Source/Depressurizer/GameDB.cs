@@ -32,6 +32,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Models;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
 using Rallion;
@@ -322,7 +323,7 @@ namespace Depressurizer
                 {
                     // Redirected outside of the app path
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToNonApp, id);
-                    return AppTypes.Other;
+                    return AppTypes.Unknown;
                 }
                 else if (resp.ResponseUri.Segments.Length < 3)
                 {
@@ -1391,6 +1392,32 @@ namespace Depressurizer
             return added;
         }
 
+        public static Dictionary<int, AppInfo> LoadApps(string path)
+        {
+            Dictionary<int, AppInfo> result = new Dictionary<int, AppInfo>();
+            BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read));
+            long fileLength = bReader.BaseStream.Length;
+
+            // seek to common: start of a new entry
+            byte[] start = { 0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00 }; // 0x00 0x00 c o m m o n 0x00
+
+            VdfFileNode.ReadBin_SeekTo(bReader, start, fileLength);
+
+            VdfFileNode node = VdfFileNode.LoadFromBinary(bReader, fileLength);
+            while (node != null)
+            {
+                AppInfo app = AppInfo.FromNode(node);
+                if (app != null)
+                {
+                    result.Add(app.Id, app);
+                }
+                VdfFileNode.ReadBin_SeekTo(bReader, start, fileLength);
+                node = VdfFileNode.LoadFromBinary(bReader, fileLength);
+            }
+            bReader.Close();
+            return result;
+        }
+
         /// <summary>
         /// Updated the database with information from the AppInfo cache file.
         /// </summary>
@@ -1400,7 +1427,7 @@ namespace Depressurizer
         {
             int updated = 0;
 
-            Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
+            Dictionary<int, AppInfo> appInfos = LoadApps(path);
             int timestamp = Utility.GetCurrentUTime();
 
             foreach (AppInfo aInf in appInfos.Values)

@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using Depressurizer.Models;
 using Rallion;
 
 namespace Depressurizer
@@ -343,7 +344,7 @@ namespace Depressurizer
                 {
                     Write("Trying local update...");
                     profile.GameData.UpdateGameListFromOwnedPackageInfo(profile.SteamID64, profile.IgnoreList,
-                        profile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newApps);
+                        profile.IncludeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newApps);
                     success = true;
                 }
                 catch (Exception e)
@@ -390,7 +391,7 @@ namespace Depressurizer
                 XmlDocument doc = GameList.FetchXmlGameList(profile.SteamID64);
                 int newApps;
                 profile.GameData.IntegrateXmlGameList(doc, false, profile.IgnoreList,
-                    profile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newApps);
+                    profile.IncludeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newApps);
                 return true;
             }
             catch (Exception e)
@@ -407,7 +408,7 @@ namespace Depressurizer
                 string doc = GameList.FetchHtmlGameList(profile.SteamID64);
                 int newApps;
                 profile.GameData.IntegrateHtmlGameList(doc, false, profile.IgnoreList,
-                    profile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newApps);
+                    profile.IncludeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newApps);
                 return true;
             }
             catch (Exception e)

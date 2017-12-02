@@ -1,14 +1,7 @@
-**No longer maintained.**
-
+#### **This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer)**.
 ----
 
-**This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer)**.
-
-----
-
-### Depressurizer
-for v0.7.4.2
-
+# Depressurizer (v1.0.0)
 ----
 
 ![Main Window](http://i.imgur.com/2K70Jog.jpg)

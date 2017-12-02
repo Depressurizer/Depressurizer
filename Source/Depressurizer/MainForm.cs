@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Depressurizer.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Newtonsoft.Json.Linq;
@@ -898,8 +899,8 @@ namespace Depressurizer
                 {
                     int newApps = 0;
                     AppTypes appFilter = CurrentProfile.IncludeUnknown
-                        ? AppTypes.InclusionUnknown
-                        : AppTypes.InclusionNormal;
+                        ? AppTypes.IncludeUnknown
+                        : AppTypes.IncludeNormal;
                     int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64,
                         CurrentProfile.IgnoreList, appFilter, out newApps);
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps));
@@ -1795,7 +1796,7 @@ namespace Depressurizer
             //update Avatar picture for new profile
             if (CurrentProfile != null)
             {
-                picAvatar.Image = CurrentProfile.GetAvatar();
+                picAvatar.Image = CurrentProfile.Avatar;
             }
         }
 
@@ -3062,7 +3063,7 @@ namespace Depressurizer
         private void menu_Profile_Restore_Config_Click(object sender, EventArgs e)
         {
             string sharedconfigPath = Path.GetDirectoryName(string.Format(Properties.Resources.ConfigFilePath,
-                Settings.Instance.SteamPath, Profile.ID64toDirName(CurrentProfile.SteamID64)));
+                Settings.Instance.SteamPath, Profile.ToSteam3ID(CurrentProfile.SteamID64)));
             DlgRestore restore = new DlgRestore(sharedconfigPath);
 
             DialogResult res = restore.ShowDialog();
@@ -3261,8 +3262,7 @@ namespace Depressurizer
                     {
                         AutoCatGroup acg = (AutoCatGroup) ac;
                         RunAutoCats(
-                            CurrentProfile.CloneAutoCatList(acg.Autocats,
-                                CurrentProfile.GameData.GetFilter(acg.Filter)), first, true);
+                            CurrentProfile.CloneAutoCatList(acg.Autocats, CurrentProfile.GameData.GetFilter(acg.Filter)), first, true);
                     }
                     else
                     {
