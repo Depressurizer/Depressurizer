@@ -32,7 +32,7 @@
       - master
 
   only_commits:
-    message: /^(0|[1-9]+).(0|[1-9]+).(0|[1-9]+)$/
+    message: /^(0|[1-9]+).(0|[1-9]+).(0|[1-9]+)/
 
   configuration: Release
 
