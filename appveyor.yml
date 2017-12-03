@@ -6,6 +6,9 @@
   skip_commits:
     message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
 
+  install:
+    - echo This is a regular Release build
+
   configuration: Release
 
   platform:
@@ -31,6 +34,9 @@
 
   only_commits:
     message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
+
+  install:
+    - echo This is a deploy Release build
 
   configuration: Release
 
