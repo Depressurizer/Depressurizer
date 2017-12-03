@@ -1,23 +1,26 @@
-﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+﻿#region License
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+//     This file (Program.cs) is part of Depressurizer.
+//     Copyright (C) 2017  Martijn Vegter
+// 
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+// 
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+// 
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
+#endregion
 
 using System;
 using System.Windows.Forms;
+using Depressurizer.Helpers;
 using Newtonsoft.Json;
 using Rallion;
 
@@ -32,7 +35,6 @@ namespace Depressurizer
             TypeNameHandling = TypeNameHandling.Auto
         };
 
-        public static AppLogger Logger;
         public static GameDB GameDB;
 
         /// <summary>
@@ -41,30 +43,24 @@ namespace Depressurizer
         [STAThread]
         private static void Main(string[] args)
         {
+            Logger.Instance.Info("Started Depressurizer, current loglevel is " + Logger.Level);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            Application.ApplicationExit += OnApplicationExit;
             FatalError.InitializeHandler();
-
-            Logger = new AppLogger();
-            Logger.Level = LoggerLevel.None;
-            Logger.DateFormat = "HH:mm:ss'.'ffffff";
-
-            Logger.MaxFileSize = 2000000;
-            Logger.MaxBackup = 1;
-            Logger.FileNameTemplate = "Depressurizer.log";
-
             Settings.Instance.Load();
 
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
-
-            Logger.Write(LoggerLevel.Info, "Automatic mode not set, loading main form.");
+            Logger.Instance.Info("Loading main form.");
             Application.Run(new FormMain());
+        }
+
+        private static void OnApplicationExit(object sender, EventArgs eventArgs)
+        {
+            Logger.Instance.Info("Shutting down Depressurizer");
 
             Settings.Instance.Save();
-
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
-            Logger.EndSession();
+            Logger.Instance.Dispose();
         }
     }
 }

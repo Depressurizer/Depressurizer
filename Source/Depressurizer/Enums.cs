@@ -23,6 +23,47 @@ using System;
 namespace Depressurizer
 {
     /// <summary>
+    ///     Log Level
+    /// </summary>
+    public enum LogLevel
+    {
+        /// <summary>
+        ///     Default Value
+        /// </summary>
+        Invalid = 0,
+
+        /// <summary>
+        ///     Verbose messages (enter/exit subroutine, buffer contents, etc.)
+        /// </summary>
+        Verbose = 1,
+
+        /// <summary>
+        ///     Debug messages, to help in diagnosing a problem
+        /// </summary>
+        Debug = 2,
+
+        /// <summary>
+        ///     Informational messages, showing completion, progress, etc.
+        /// </summary>
+        Info = 3,
+
+        /// <summary>
+        ///     Warning error messages which do not cause a functional failure
+        /// </summary>
+        Warn = 4,
+
+        /// <summary>
+        ///     Major error messages, some lost functionality
+        /// </summary>
+        Error = 5,
+
+        /// <summary>
+        ///     Critical error messages, aborts the subsystem
+        /// </summary>
+        Fatal = 6
+    }
+
+    /// <summary>
     ///     Operating System(s)
     /// </summary>
     [Flags]

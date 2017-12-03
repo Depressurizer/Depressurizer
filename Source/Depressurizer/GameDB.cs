@@ -32,6 +32,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
@@ -231,7 +232,7 @@ namespace Depressurizer
         /// <returns>The type determined during the scrape</returns>
         private AppTypes ScrapeStoreHelper(int id)
         {
-            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_InitiatingStoreScrapeForGame, id);
+            Logger.Instance.Verbose(GlobalStrings.GameDB_InitiatingStoreScrapeForGame, id);
 
             string page = "";
 
@@ -266,7 +267,7 @@ namespace Depressurizer
                     if (resp.Headers[HttpResponseHeader.Location] == Resources.UrlSteamStore)
                     {
                         // If we are redirected to the store front page
-                        Program.Logger.Write(LoggerLevel.Verbose,
+                        Logger.Instance.Verbose(
                             GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
                         SetTypeFromStoreScrape(AppTypes.Unknown);
                         return AppTypes.Unknown;
@@ -274,7 +275,7 @@ namespace Depressurizer
                     if (resp.ResponseUri.ToString() == resp.Headers[HttpResponseHeader.Location])
                     {
                         //If page redirects to itself
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_RedirectsToItself, id);
+                        Logger.Instance.Verbose(GlobalStrings.GameDB_RedirectsToItself, id);
                         return AppTypes.Unknown;
                     }
                     req = GetSteamRequest(resp.Headers[HttpResponseHeader.Location]);
@@ -285,13 +286,13 @@ namespace Depressurizer
                 if (count == 5 && resp.StatusCode == HttpStatusCode.Found)
                 {
                     //If we got too many redirects
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_TooManyRedirects, id);
+                    Logger.Instance.Verbose(GlobalStrings.GameDB_TooManyRedirects, id);
                     return AppTypes.Unknown;
                 }
                 else if (resp.ResponseUri.Segments.Length < 2)
                 {
                     // If we were redirected to the store front page
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage,
+                    Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage,
                         id);
                     SetTypeFromStoreScrape(AppTypes.Unknown);
                     return AppTypes.Unknown;
@@ -303,7 +304,7 @@ namespace Depressurizer
                         resp.ResponseUri.Segments[3].TrimEnd('/') != id.ToString())
                     {
                         // Age check + redirect
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id,
+                        Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingHitAgeCheck, id,
                             resp.ResponseUri.Segments[3].TrimEnd('/'));
                         if (int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget)) { }
                         else
@@ -315,26 +316,26 @@ namespace Depressurizer
                     else
                     {
                         // If we got an age check with no redirect
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingAgeCheckNoRedirect, id);
+                        Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingAgeCheckNoRedirect, id);
                         return AppTypes.Unknown;
                     }
                 }
                 else if (resp.ResponseUri.Segments[1] != "app/")
                 {
                     // Redirected outside of the app path
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToNonApp, id);
+                    Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingRedirectedToNonApp, id);
                     return AppTypes.Unknown;
                 }
                 else if (resp.ResponseUri.Segments.Length < 3)
                 {
                     // The URI ends with "/app/" ?
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_Log_ScrapingNoAppId, id);
+                    Logger.Instance.Verbose(GlobalStrings.GameDB_Log_ScrapingNoAppId, id);
                     return AppTypes.Unknown;
                 }
                 else if (resp.ResponseUri.Segments[2].TrimEnd('/') != id.ToString())
                 {
                     // Redirected to a different app id
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToOtherApp, id,
+                    Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingRedirectedToOtherApp, id,
                         resp.ResponseUri.Segments[2].TrimEnd('/'));
                     if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
                     {
@@ -345,12 +346,12 @@ namespace Depressurizer
 
                 StreamReader sr = new StreamReader(resp.GetResponseStream());
                 page = sr.ReadToEnd();
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageRead, id);
+                Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingPageRead, id);
             }
             catch (Exception e)
             {
                 // Something went wrong with the download.
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageReadFailed, id, e.Message);
+                Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingPageReadFailed, id, e.Message);
                 LastStoreScrape = oldTime;
                 return AppTypes.Unknown;
             }
@@ -366,7 +367,7 @@ namespace Depressurizer
 
             if (page.Contains("<title>Site Error</title>"))
             {
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingReceivedSiteError, id);
+                Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingReceivedSiteError, id);
                 result = AppTypes.Unknown;
             }
             else if (regGamecheck.IsMatch(page) || regSoftwarecheck.IsMatch(page))
@@ -378,13 +379,13 @@ namespace Depressurizer
                 // Check whether it's DLC and return appropriately
                 if (regDLCcheck.IsMatch(page))
                 {
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id,
+                    Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingParsedDLC, id,
                         string.Join(",", Genres));
                     result = AppTypes.DLC;
                 }
                 else
                 {
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id,
+                    Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingParsed, id,
                         string.Join(",", Genres));
                     result = regSoftwarecheck.IsMatch(page) ? AppTypes.Application : AppTypes.Game;
                 }
@@ -392,7 +393,7 @@ namespace Depressurizer
             else
             {
                 // The URI is right, but it didn't pass the regex check
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingCouldNotParse, id);
+                Logger.Instance.Verbose(GlobalStrings.GameDB_ScrapingCouldNotParse, id);
                 result = AppTypes.Unknown;
             }
 
@@ -1350,13 +1351,13 @@ namespace Depressurizer
         public static XmlDocument FetchAppListFromWeb()
         {
             XmlDocument doc = new XmlDocument();
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList);
+            Logger.Instance.Info(GlobalStrings.GameDB_DownloadingSteamAppList);
             WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
             using (WebResponse resp = req.GetResponse())
             {
                 doc.Load(resp.GetResponseStream());
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_XMLAppListDownloaded);
+            Logger.Instance.Info(GlobalStrings.GameDB_XMLAppListDownloaded);
             return doc;
         }
 
@@ -1388,7 +1389,7 @@ namespace Depressurizer
                     }
                 }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
+            Logger.Instance.Info(GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
             return added;
         }
 
@@ -1566,7 +1567,7 @@ namespace Depressurizer
 
         public void Save(string path, bool compress)
         {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_SavingGameDBTo, path);
+            Logger.Instance.Info(GlobalStrings.GameDB_SavingGameDBTo, path);
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.CloseOutput = true;
@@ -1616,7 +1617,7 @@ namespace Depressurizer
                     stream.Close();
                 }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBSaved);
+            Logger.Instance.Info(GlobalStrings.GameDB_GameDBSaved);
         }
 
         public void Load(string path)
@@ -1626,7 +1627,7 @@ namespace Depressurizer
 
         public void Load(string path, bool compress)
         {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadingGameDBFrom, path);
+            Logger.Instance.Info(GlobalStrings.GameDB_LoadingGameDBFrom, path);
             XmlDocument doc = new XmlDocument();
 
             Stream stream = null;
@@ -1640,7 +1641,7 @@ namespace Depressurizer
 
                 doc.Load(stream);
 
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLParsed);
+                Logger.Instance.Info(GlobalStrings.GameDB_GameDBXMLParsed);
                 Games.Clear();
                 ClearAggregates();
 
@@ -1664,7 +1665,7 @@ namespace Depressurizer
                         Games.Add(entry.Id, entry);
                     }
                 }
-                Program.Logger.Write(LoggerLevel.Info, "GameDB XML processed, load complete. Db Language: " + dbLanguage);
+                Logger.Instance.Info("GameDB XML processed, load complete. Db Language: " + dbLanguage);
             }
             finally
             {
