@@ -3,37 +3,8 @@
     only:
       - master
 
-  skip_commits:
-    message: /(\d+\.)(\d+\.)(\*|\d+)/
-
-  install:
-    - echo This is a regular Release build
-
-  configuration: Release
-
-  platform:
-      - x86
-      - x64
-      - Any CPU
-
-  image: Visual Studio 2017
-
-  pull_requests:
-    do_not_increment_build_number: false
-
-  before_build: nuget restore Source/Depressurizer.sln
-
-  build:
-    project: Source/Depressurizer.sln
-    verbosity: quiet
-
--
-  branches:
-    only:
-      - master
-
   only_commits:
-    message: /(\d+\.)(\d+\.)(\*|\d+)/
+    message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
 
   install:
     - echo This is a deploy Release build
@@ -79,6 +50,35 @@
         force_update: true
         on:
           branch: master
+
+-
+  branches:
+    only:
+      - master
+
+  skip_commits:
+    message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
+
+  install:
+    - echo This is a regular Release build
+
+  configuration: Release
+
+  platform:
+      - x86
+      - x64
+      - Any CPU
+
+  image: Visual Studio 2017
+
+  pull_requests:
+    do_not_increment_build_number: false
+
+  before_build: nuget restore Source/Depressurizer.sln
+
+  build:
+    project: Source/Depressurizer.sln
+    verbosity: quiet
 
 -
   branches:
