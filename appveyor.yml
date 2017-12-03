@@ -4,7 +4,7 @@
       - master
 
   skip_commits:
-    message: /^(\d+\.)(\d+\.)(\*|\d+)$/
+    message: /(\d+\.)(\d+\.)(\*|\d+)/
 
   install:
     - echo This is a regular Release build
@@ -33,7 +33,7 @@
       - master
 
   only_commits:
-    message: /^(\d+\.)(\d+\.)(\*|\d+)$/
+    message: /(\d+\.)(\d+\.)(\*|\d+)/
 
   install:
     - echo This is a deploy Release build
