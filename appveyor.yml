@@ -1,10 +1,10 @@
 -
+  only_commits:
+    message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
+
   branches:
     only:
       - master
-
-  only_commits:
-    message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
 
   install:
     - echo This is a deploy Release build
