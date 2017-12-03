@@ -317,7 +317,6 @@
     <Compile Include="Lib\ExtToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="Models\AppInfo.cs" />
     <Compile Include="Models\Filter.cs" />
