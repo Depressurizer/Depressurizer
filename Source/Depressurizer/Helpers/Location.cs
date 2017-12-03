@@ -39,6 +39,8 @@ namespace Depressurizer.Helpers
                     return string.Format(CultureInfo.InvariantCulture, "Depressurizer-({0}).log", date);
                 }
             }
+
+            public static string Settings => Path.Combine(Folder.Depressurizer, "Settings.json");
         }
 
         internal static class Folder

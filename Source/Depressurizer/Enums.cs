@@ -22,6 +22,102 @@ using System;
 
 namespace Depressurizer
 {
+    public enum StoreLanguage
+    {
+        windows,
+        bg, // Bulgarian
+        cs, // Czech
+        da, // Danish
+        nl, // Dutch
+        en, // English
+        fi, // Finnish
+        fr, // French
+        de, // German
+        el, // Greek
+        hu, // Hungarian
+        it, // Italian
+        ja, // Japanese
+        ko, // Korean
+        no, // Norwegian
+        pl, // Polish
+        pt, // Portuguese
+        pt_BR, // Portuguese (Brasil)
+        ro, // Romanian
+        ru, // Russian
+        zh_Hans, // Simplified Chinese
+        es, // Spanish
+        sv, // Swedish
+        th, // Thai
+        zh_Hant, // Traditional Chinese
+        tr, // Turkish
+        uk // Ukrainian
+    }
+
+    /// <summary>
+    ///     Source of user's applist
+    /// </summary>
+    public enum GameListSource
+    {
+        XmlPreferred = 0,
+
+        XmlOnly = 1,
+
+        WebsiteOnly = 2
+    }
+
+    /// <summary>
+    ///     All translated languages
+    /// </summary>
+    /// <remarks>Format: https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx </remarks>
+    public enum InterfaceLanguage
+    {
+        /// <summary>
+        ///     English - United States
+        /// </summary>
+        English = 0,
+
+        /// <summary>
+        ///     Dutch - The Netherlands
+        /// </summary>
+        Dutch = 1,
+
+        /// <summary>
+        ///     Russian - Russia
+        /// </summary>
+        Russian = 2,
+
+        /// <summary>
+        ///     Spanish - Spain
+        /// </summary>
+        Spanish = 3,
+
+        /// <summary>
+        ///     Ukrainian - Ukraine
+        /// </summary>
+        Ukrainian = 4
+    }
+
+    /// <summary>
+    ///     Action to do on startup
+    /// </summary>
+    public enum StartupAction
+    {
+        /// <summary>
+        ///     Default Value
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        ///     Load Profile
+        /// </summary>
+        Load = 1,
+
+        /// <summary>
+        ///     Open Create Profile
+        /// </summary>
+        Create = 2
+    }
+
     /// <summary>
     ///     Log Level
     /// </summary>

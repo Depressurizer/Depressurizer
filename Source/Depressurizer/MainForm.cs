@@ -474,7 +474,7 @@ namespace Depressurizer
             };
 
             lstGames.PrimarySortColumn = colTitle;
-            lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.LstGamesState));
+            lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.LastGamesState));
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -523,13 +523,13 @@ namespace Depressurizer
                 UpdateGameDBFromAppInfo();
             }
             int aWeekInSecs = 7 * 24 * 60 * 60;
-            if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() >
+            if (Settings.Instance.UpdateHowLongToBeatOnStart && Utility.GetCurrentUTime() >
                 (Program.GameDB.LastHltbUpdate + aWeekInSecs))
             {
                 UpdateGameDBFromHltb();
             }
 
-            if (Settings.Instance.CheckForDepressurizerUpdates)
+            if (Settings.Instance.CheckForUpdates)
             {
                 CheckForDepressurizerUpdates();
             }
@@ -627,7 +627,7 @@ namespace Depressurizer
                 int num = Program.GameDB.UpdateFromAppInfo(
                     string.Format(Properties.Resources.AppInfoPath, Settings.Instance.SteamPath));
                 AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
-                if (num > 0 && Settings.Instance.AutosaveDB)
+                if (num > 0 && Settings.Instance.AutoSaveDatabase)
                 {
                     SaveGameDB();
                 }
@@ -666,7 +666,7 @@ namespace Depressurizer
                 else
                 {
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dlg.Updated));
-                    if (dlg.Updated > 0 && Settings.Instance.AutosaveDB)
+                    if (dlg.Updated > 0 && Settings.Instance.AutoSaveDatabase)
                     {
                         SaveGameDB();
                     }
@@ -856,7 +856,7 @@ namespace Depressurizer
             {
                 ExportConfig();
             }
-            Settings.Instance.LstGamesState = Convert.ToBase64String(lstGames.SaveState());
+            Settings.Instance.LastGamesState = Convert.ToBase64String(lstGames.SaveState());
 
             try
             {
@@ -1642,7 +1642,7 @@ namespace Depressurizer
                     {
                         AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries,
                             scrapeDlg.JobsCompleted));
-                        if (scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutosaveDB)
+                        if (scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutoSaveDatabase)
                         {
                             SaveGameDB();
                         }
