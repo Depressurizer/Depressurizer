@@ -4,7 +4,7 @@
       - master
 
   skip_commits:
-    message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
+    message: /(0|[1-9]+).(0|[1-9]+).(0|[1-9]+)/
 
   configuration: Release
 
@@ -30,7 +30,7 @@
       - master
 
   only_commits:
-    message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
+    message: /(0|[1-9]+).(0|[1-9]+).(0|[1-9]+)/
 
   configuration: Release
 
