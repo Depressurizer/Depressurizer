@@ -3,11 +3,6 @@
     only:
       - master
 
-  skip_commits:
-    files:
-      - .github/*
-    message: /^(0|[1-9]+).(0|[1-9]+).(0|[1-9]+)$/
-
   configuration: Release
 
   platform:
@@ -20,40 +15,17 @@
   pull_requests:
     do_not_increment_build_number: false
 
+  init:
+    - ps: "if (($env:APPVEYOR_REPO_COMMIT_MESSAGE -match '\\d+\\.\\d+\\.\\d+$') -And ($env:APPVEYOR_REPO_BRANCH -eq 'master'))\n{\n  Set-AppveyorBuildVariable VERSION $env:APPVEYOR_REPO_COMMIT_MESSAGE\n} \nelse \n{\n  Set-AppveyorBuildVariable VERSION 0.0.0\n}"
+   
   before_build: nuget restore Source/Depressurizer.sln
-
-  build:
-    project: Source/Depressurizer.sln
-    verbosity: quiet
-
--
-  branches:
-    only:
-      - master
-
-  only_commits:
-    message: /^(0|[1-9]+).(0|[1-9]+).(0|[1-9]+)$/
-
-  configuration: Release
-
-  platform:
-      - x86
-      - x64
-      - Any CPU
-
-  image: Visual Studio 2017
-
-  pull_requests:
-    do_not_increment_build_number: false
 
   assembly_info:
     patch: true
     file: Source\Depressurizer\Properties\AssemblyInfo.cs
-    assembly_version: $(APPVEYOR_REPO_COMMIT_MESSAGE)
-    assembly_file_version: $(APPVEYOR_REPO_COMMIT_MESSAGE).$(APPVEYOR_BUILD_NUMBER)
-    assembly_informational_version: $(APPVEYOR_REPO_COMMIT_MESSAGE)
-
-  before_build: nuget restore Source/Depressurizer.sln
+    assembly_version: $(VERSION)
+    assembly_file_version: $(VERSION).$(APPVEYOR_BUILD_NUMBER)
+    assembly_informational_version: $(VERSION)
 
   artifacts:
     - path: Source\Depressurizer\bin\Release
@@ -70,16 +42,16 @@
       release: Depressurizer v$(APPVEYOR_REPO_COMMIT_MESSAGE)
       auth_token:
         secure: +3OKe+vh559W4u3I/oU/9e32+LG9Hdhcp25AbJi4vy5gB0QEMR9CBF0aSb52T8xn
-        draft: true
-        artifact: /.*\.zip/
-        force_update: true
-        on:
-          branch: master
+      draft: true
+      artifact: /.*\.zip/
+      force_update: true
+      on:
+        APPVEYOR_REPO_COMMIT_MESSAGE: /\d+\.\d+\.\d+$/
+        APPVEYOR_REPO_BRANCH: 'master'
 
 -
   branches:
     except:
-      - gh-pages
       - master
 
   configuration: Debug
