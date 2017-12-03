@@ -82,7 +82,7 @@
 
 -
   install:
-    - echo This is a regular Release build
+    - echo This is a regular Release
 
   configuration: Release
 
