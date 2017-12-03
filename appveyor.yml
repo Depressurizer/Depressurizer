@@ -4,9 +4,7 @@
       - master
 
   skip_commits:
-    files:
-      - .github/*
-    message: /^(0|[1-9]+).(0|[1-9]+).(0|[1-9]+)$/
+    message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
 
   configuration: Release
 
