@@ -4209,11 +4209,6 @@ namespace Depressurizer
         }
 
         #endregion Skinning
-
-        private void autoModeHelperToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            (new DlgAutomaticModeHelper(CurrentProfile)).ShowDialog();
-        }
     }
 
     public class CategorySort
