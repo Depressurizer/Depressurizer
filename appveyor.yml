@@ -56,9 +56,6 @@
     only:
       - master
 
-  skip_commits:
-    message: /\[MAJOR\]|\[MINOR\]|\[PATCH\]/
-
   install:
     - echo This is a regular Release build
 
