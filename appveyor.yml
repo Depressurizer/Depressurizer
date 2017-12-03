@@ -53,32 +53,6 @@
 
 -
   branches:
-    only:
-      - master
-
-  install:
-    - echo This is a regular Release build
-
-  configuration: Release
-
-  platform:
-      - x86
-      - x64
-      - Any CPU
-
-  image: Visual Studio 2017
-
-  pull_requests:
-    do_not_increment_build_number: false
-
-  before_build: nuget restore Source/Depressurizer.sln
-
-  build:
-    project: Source/Depressurizer.sln
-    verbosity: quiet
-
--
-  branches:
     except:
       - gh-pages
       - master
@@ -93,6 +67,29 @@
   skip_commits:
     files:
       - .github/*
+
+  image: Visual Studio 2017
+
+  pull_requests:
+    do_not_increment_build_number: false
+
+  before_build: nuget restore Source/Depressurizer.sln
+
+  build:
+    project: Source/Depressurizer.sln
+    verbosity: quiet
+
+
+-
+  install:
+    - echo This is a regular Release build
+
+  configuration: Release
+
+  platform:
+      - x86
+      - x64
+      - Any CPU
 
   image: Visual Studio 2017
 
