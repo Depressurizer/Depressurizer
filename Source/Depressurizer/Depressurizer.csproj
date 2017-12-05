@@ -303,6 +303,8 @@
     </Compile>
     <Compile Include="Enums.cs" />
     <Compile Include="GameBanners.cs" />
+    <Compile Include="GameDBEntry.cs" />
+    <Compile Include="GameDBEntrySorter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -311,6 +313,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\Location.cs" />
     <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="LanguageSupport.cs" />
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -425,6 +428,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VdfFile\VdfFileNode.cs" />
+    <Compile Include="VrSupport.cs" />
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
     </EmbeddedResource>
