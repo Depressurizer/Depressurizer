@@ -27,7 +27,6 @@ using System.Net.Cache;
 using System.Xml;
 using Depressurizer.Properties;
 using Newtonsoft.Json;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Depressurizer.Models
 {
@@ -39,86 +38,6 @@ namespace Depressurizer.Models
         private const long BaseSteamID = 76561197960265728;
 
         private Image _avatar = null;
-
-        /// <summary>
-        /// AutoCats
-        /// </summary>
-        public List<AutoCat> AutoCats { get; set; } = new List<AutoCat>();
-
-        /// <summary>
-        ///     Location of profile
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
-        /// Game Data
-        /// </summary>
-        public GameList GameData { get; set; } = new GameList();
-
-        /// <summary>
-        ///     Apps to ignore
-        /// </summary>
-        public SortedSet<int> IgnoreList { get; set; } = new SortedSet<int>();
-
-        /// <summary>
-        ///     Automatically Update
-        /// </summary>
-        public bool AutoUpdate { get; set; } = true;
-
-        /// <summary>
-        ///     Automatically Import
-        /// </summary>
-        public bool AutoImport { get; set; } = true;
-
-        /// <summary>
-        ///     Automatically Export
-        /// </summary>
-        public bool AutoExport { get; set; } = true;
-
-        /// <summary>
-        ///     Update from local
-        /// </summary>
-        public bool LocalUpdate { get; set; } = true;
-
-        /// <summary>
-        ///     Update from web
-        /// </summary>
-        public bool WebUpdate { get; set; } = true;
-
-        /// <summary>
-        ///     Discard changes on export
-        /// </summary>
-        public bool ExportDiscard { get; set; } = true;
-
-        /// <summary>
-        ///     Overwrite on download
-        /// </summary>
-        public bool OverwriteOnDownload { get; set; } = false;
-
-        /// <summary>
-        ///     Automatically Ignore
-        /// </summary>
-        public bool AutoIgnore { get; set; } = true;
-
-        /// <summary>
-        ///     Include Unknown App Types
-        /// </summary>
-        public bool IncludeUnknown { get; set; } = false;
-
-        /// <summary>
-        /// Bypass ignore list on import
-        /// </summary>
-        public bool BypassIgnoreOnImport { get; set; } = false;
-
-        /// <summary>
-        ///     Include Shortcuts
-        /// </summary>
-        public bool IncludeShortcuts { get; set; } = true;
-
-        /// <summary>
-        ///     User's Steam ID64
-        /// </summary>
-        public long SteamID64 { get; set; } = 0;
 
         /// <summary>
         ///     User's Steam Avatar
@@ -161,108 +80,112 @@ namespace Depressurizer.Models
         }
 
         /// <summary>
-        ///     Load profile from specified path
+        ///     AutoCats
         /// </summary>
-        /// <param name="localPath">Path to load from</param>
-        /// <returns>Profile from path or null</returns>
-        public static Profile Load(string localPath)
-        {
-            if (string.IsNullOrEmpty(localPath) || !File.Exists(localPath))
-            {
-                return null;
-            }
-
-            try
-            {
-                string jsonProfile = File.ReadAllText(localPath);
-                Profile profile = JsonConvert.DeserializeObject<Profile>(jsonProfile, Program.SerializerSettings);
-                profile.FilePath = localPath;
-
-                return profile;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
+        public List<AutoCat> AutoCats { get; set; } = new List<AutoCat>();
 
         /// <summary>
-        ///     Convert SteamID64 to Steam3ID
+        ///     Automatically Export
         /// </summary>
-        /// <param name="steamID64">SteamID64 to convert</param>
-        /// <returns>Steam3ID</returns>
-        public static int ToSteam3ID(long steamID64)
-        {
-            return int.Parse((steamID64 - BaseSteamID).ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
-        }
+        public bool AutoExport { get; set; } = true;
 
         /// <summary>
-        ///     Convert Steam3ID to SteamID64
+        ///     Automatically Ignore
         /// </summary>
-        /// <param name="steam3ID">Steam3ID to convert</param>
-        /// <returns>SteamID64</returns>
-        public static long ToSteamID64(int steam3ID)
-        {
-            return (long) steam3ID + BaseSteamID;
-        }
+        public bool AutoIgnore { get; set; } = true;
 
         /// <summary>
-        ///     Convert Steam3ID to SteamID64
+        ///     Automatically Import
         /// </summary>
-        /// <param name="steam3ID">Steam3ID to convert</param>
-        /// <returns>SteamID64</returns>
-        public static long ToSteamID64(string steam3ID)
-        {
-            return ToSteamID64(int.Parse(steam3ID, CultureInfo.InvariantCulture));
-        }
+        public bool AutoImport { get; set; } = true;
 
         /// <summary>
-        ///     Save profile
+        ///     Automatically Update
         /// </summary>
-        public void Save()
-        {
-            Save(FilePath);
-        }
+        public bool AutoUpdate { get; set; } = true;
 
         /// <summary>
-        ///     Save profile to specified location
+        ///     Bypass ignore list on import
         /// </summary>
-        /// <param name="localPath">Path to save to</param>
-        /// <returns>Success or not</returns>
-        public bool Save(string localPath)
+        public bool BypassIgnoreOnImport { get; set; } = false;
+
+        /// <summary>
+        ///     Discard changes on export
+        /// </summary>
+        public bool ExportDiscard { get; set; } = true;
+
+        /// <summary>
+        ///     Location of profile
+        /// </summary>
+        public string FilePath { get; set; }
+
+        /// <summary>
+        ///     Game Data
+        /// </summary>
+        public GameList GameData { get; set; } = new GameList();
+
+        /// <summary>
+        ///     Apps to ignore
+        /// </summary>
+        public SortedSet<int> IgnoreList { get; set; } = new SortedSet<int>();
+
+        /// <summary>
+        ///     Include Shortcuts
+        /// </summary>
+        public bool IncludeShortcuts { get; set; } = true;
+
+        /// <summary>
+        ///     Include Unknown App Types
+        /// </summary>
+        public bool IncludeUnknown { get; set; } = false;
+
+        /// <summary>
+        ///     Update from local
+        /// </summary>
+        public bool LocalUpdate { get; set; } = true;
+
+        /// <summary>
+        ///     Overwrite on download
+        /// </summary>
+        public bool OverwriteOnDownload { get; set; } = false;
+
+        /// <summary>
+        ///     User's Steam ID64
+        /// </summary>
+        public long SteamID64 { get; set; } = 0;
+
+        /// <summary>
+        ///     Update from web
+        /// </summary>
+        public bool WebUpdate { get; set; } = true;
+
+        /// <summary>
+        ///     Clones AutoCat list and applies filter if supplied
+        /// </summary>
+        /// <param name="autoCatList">List to clone</param>
+        /// <param name="filter">Optional filter</param>
+        /// <returns>Cloned list</returns>
+        public List<AutoCat> CloneAutoCatList(List<string> autoCatList, Filter filter)
         {
-            try
+            List<AutoCat> autoCats = new List<AutoCat>();
+
+            foreach (string autoCatName in autoCatList)
             {
-                string jsonProfile = JsonConvert.SerializeObject(this, Program.SerializerSettings);
-                File.WriteAllText(localPath, jsonProfile);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
+                AutoCat autoCat = GetAutoCat(autoCatName);
+                if (autoCat == null)
+                {
+                    continue;
+                }
+
+                AutoCat autoCatClone = autoCat.Clone();
+                if (filter != null)
+                {
+                    autoCatClone.Filter = filter.Name;
+                }
+                autoCats.Add(autoCatClone);
             }
 
-            FilePath = localPath;
-            return true;
-        }
-
-        /// <summary>
-        ///     Import Data from Steam
-        /// </summary>
-        public int ImportSteamData()
-        {
-            AppTypes included = AppTypes.IncludeNormal;
-            if (BypassIgnoreOnImport)
-            {
-                included = AppTypes.IncludeAll;
-            }
-            else if (IncludeUnknown)
-            {
-                included |= AppTypes.Unknown;
-            }
-
-            return GameData.ImportSteamConfig(SteamID64, IgnoreList, included, IncludeShortcuts);
+            return autoCats;
         }
 
         /// <summary>
@@ -271,29 +194,6 @@ namespace Depressurizer.Models
         public void ExportSteamData()
         {
             GameData.ExportSteamConfig(SteamID64, ExportDiscard, IncludeShortcuts);
-        }
-
-        /// <summary>
-        /// Get AutoCat by name
-        /// </summary>
-        /// <param name="autoCatName">Name of AutoCat to find</param>
-        /// <returns>AutoCat</returns>
-        public AutoCat GetAutoCat(string autoCatName)
-        {
-            if (string.IsNullOrEmpty(autoCatName))
-            {
-                return null;
-            }
-
-            foreach (AutoCat autoCat in AutoCats)
-            {
-                if (string.Equals(autoCat.Name, autoCatName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return autoCat;
-                }
-            }
-
-            return null;
         }
 
         /// <summary>
@@ -344,32 +244,131 @@ namespace Depressurizer.Models
         }
 
         /// <summary>
-        ///     Clones AutoCat list and applies filter if supplied
+        ///     Get AutoCat by name
         /// </summary>
-        /// <param name="autoCatList">List to clone</param>
-        /// <param name="filter">Optional filter</param>
-        /// <returns>Cloned list</returns>
-        public List<AutoCat> CloneAutoCatList(List<string> autoCatList, Filter filter)
+        /// <param name="autoCatName">Name of AutoCat to find</param>
+        /// <returns>AutoCat</returns>
+        public AutoCat GetAutoCat(string autoCatName)
         {
-            List<AutoCat> autoCats = new List<AutoCat>();
-
-            foreach (string autoCatName in autoCatList)
+            if (string.IsNullOrEmpty(autoCatName))
             {
-                AutoCat autoCat = GetAutoCat(autoCatName);
-                if (autoCat == null)
-                {
-                    continue;
-                }
-
-                AutoCat autoCatClone = autoCat.Clone();
-                if (filter != null)
-                {
-                    autoCatClone.Filter = filter.Name;
-                }
-                autoCats.Add(autoCatClone);
+                return null;
             }
 
-            return autoCats;
+            foreach (AutoCat autoCat in AutoCats)
+            {
+                if (string.Equals(autoCat.Name, autoCatName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return autoCat;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Import Data from Steam
+        /// </summary>
+        public int ImportSteamData()
+        {
+            AppTypes included = AppTypes.IncludeNormal;
+            if (BypassIgnoreOnImport)
+            {
+                included = AppTypes.IncludeAll;
+            }
+            else if (IncludeUnknown)
+            {
+                included |= AppTypes.Unknown;
+            }
+
+            return GameData.ImportSteamConfig(SteamID64, IgnoreList, included, IncludeShortcuts);
+        }
+
+        /// <summary>
+        ///     Load profile from specified path
+        /// </summary>
+        /// <param name="localPath">Path to load from</param>
+        /// <returns>Profile from path or null</returns>
+        public static Profile Load(string localPath)
+        {
+            if (string.IsNullOrEmpty(localPath) || !File.Exists(localPath))
+            {
+                return null;
+            }
+
+            try
+            {
+                string jsonProfile = File.ReadAllText(localPath);
+                Profile profile = JsonConvert.DeserializeObject<Profile>(jsonProfile, Program.SerializerSettings);
+                profile.FilePath = localPath;
+
+                return profile;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        ///     Save profile
+        /// </summary>
+        public void Save()
+        {
+            Save(FilePath);
+        }
+
+        /// <summary>
+        ///     Save profile to specified location
+        /// </summary>
+        /// <param name="localPath">Path to save to</param>
+        /// <returns>Success or not</returns>
+        public bool Save(string localPath)
+        {
+            try
+            {
+                string jsonProfile = JsonConvert.SerializeObject(this, Program.SerializerSettings);
+                File.WriteAllText(localPath, jsonProfile);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            FilePath = localPath;
+            return true;
+        }
+
+        /// <summary>
+        ///     Convert SteamID64 to Steam3ID
+        /// </summary>
+        /// <param name="steamID64">SteamID64 to convert</param>
+        /// <returns>Steam3ID</returns>
+        public static int ToSteam3ID(long steamID64)
+        {
+            return int.Parse((steamID64 - BaseSteamID).ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        ///     Convert Steam3ID to SteamID64
+        /// </summary>
+        /// <param name="steam3ID">Steam3ID to convert</param>
+        /// <returns>SteamID64</returns>
+        public static long ToSteamID64(int steam3ID)
+        {
+            return steam3ID + BaseSteamID;
+        }
+
+        /// <summary>
+        ///     Convert Steam3ID to SteamID64
+        /// </summary>
+        /// <param name="steam3ID">Steam3ID to convert</param>
+        /// <returns>SteamID64</returns>
+        public static long ToSteamID64(string steam3ID)
+        {
+            return ToSteamID64(int.Parse(steam3ID, CultureInfo.InvariantCulture));
         }
     }
 }

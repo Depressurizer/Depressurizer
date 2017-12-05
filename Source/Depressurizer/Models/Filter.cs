@@ -34,37 +34,10 @@ namespace Depressurizer.Models
 
         private SortedSet<Category> _require;
 
-        /// <summary>
-        ///     Filter Name
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        ///     Is Hidden
-        /// </summary>
-        public int Hidden { get; set; } = -1;
-
-        /// <summary>
-        ///     Is Virtual Reality
-        /// </summary>
-        public int VR { get; set; } = -1;
-
-
-        /// <summary>
-        ///     Is Uncategorized
-        /// </summary>
-        public int Uncategorized { get; set; } = -1;
-
         public SortedSet<Category> Allow
         {
             get => _allow ?? (_allow = new SortedSet<Category>());
             set => _allow = new SortedSet<Category>(value);
-        }
-
-        public SortedSet<Category> Require
-        {
-            get => _require ?? (_require = new SortedSet<Category>());
-            set => _require = new SortedSet<Category>(value);
         }
 
         public SortedSet<Category> Exclude
@@ -72,6 +45,33 @@ namespace Depressurizer.Models
             get => _exclude ?? (_exclude = new SortedSet<Category>());
             set => _exclude = new SortedSet<Category>(value);
         }
+
+        /// <summary>
+        ///     Is Hidden
+        /// </summary>
+        public int Hidden { get; set; } = -1;
+
+        /// <summary>
+        ///     Filter Name
+        /// </summary>
+        public string Name { get; set; }
+
+        public SortedSet<Category> Require
+        {
+            get => _require ?? (_require = new SortedSet<Category>());
+            set => _require = new SortedSet<Category>(value);
+        }
+
+
+        /// <summary>
+        ///     Is Uncategorized
+        /// </summary>
+        public int Uncategorized { get; set; } = -1;
+
+        /// <summary>
+        ///     Is Virtual Reality
+        /// </summary>
+        public int VR { get; set; } = -1;
 
         /// <summary>
         ///     Create Filter object

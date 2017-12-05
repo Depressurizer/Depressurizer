@@ -22,6 +22,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Depressurizer;
+using Depressurizer.Helpers;
 
 namespace Rallion
 {
@@ -101,7 +102,7 @@ namespace Rallion
         /// <param name="e">The unhandled exception.</param>
         private static void HandleUnhandledException(Exception e)
         {
-            Program.Logger.WriteException("Fatal Error: ", e);
+            Logger.Instance.Exception("Fatal Error: ", e);
             FatalError errForm = new FatalError(e);
             errForm.ShowDialog();
             Application.Exit();

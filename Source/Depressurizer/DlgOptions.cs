@@ -36,12 +36,9 @@ namespace Depressurizer
 
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            string[] levels = Enum.GetNames(typeof(LoggerLevel));
-            cmbLogLevel.Items.AddRange(levels);
-
             //UI languages
             List<string> UILanguages = new List<string>();
-            foreach (string l in Enum.GetNames(typeof(UILanguage)))
+            foreach (string l in Enum.GetNames(typeof(InterfaceLanguage)))
             {
                 string name;
                 switch (l)
@@ -118,21 +115,17 @@ namespace Depressurizer
             }
 
             chkUpdateAppInfoOnStartup.Checked = settings.UpdateAppInfoOnStart;
-            chkUpdateHltbOnStartup.Checked = settings.UpdateHltbOnStart;
+            chkUpdateHltbOnStartup.Checked = settings.UpdateHowLongToBeatOnStart;
             chkIncludeImputedTimes.Checked = settings.IncludeImputedTimes;
-            chkAutosaveDB.Checked = settings.AutosaveDB;
+            chkAutosaveDB.Checked = settings.AutoSaveDatabase;
             numScrapePromptDays.Value = settings.ScrapePromptDays;
 
-            chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates;
+            chkCheckForDepressurizerUpdates.Checked = settings.CheckForUpdates;
 
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
-            cmbLogLevel.SelectedIndex = (int) settings.LogLevel;
-            numLogSize.Value = settings.LogSize;
-            numLogBackup.Value = settings.LogBackups;
-
             //supported languages have an enum value of 1-5 (en, es, ru, uk, nl). 0 is windows language.
-            cmbUILanguage.SelectedIndex = (int) settings.UserLang;
+            cmbUILanguage.SelectedIndex = (int) settings.InterfaceLanguage;
             cmbStoreLanguage.SelectedIndex = (int) settings.StoreLang;
         }
 
@@ -170,20 +163,16 @@ namespace Depressurizer
             settings.ProfileToLoad = txtDefaultProfile.Text;
 
             settings.UpdateAppInfoOnStart = chkUpdateAppInfoOnStartup.Checked;
-            settings.UpdateHltbOnStart = chkUpdateHltbOnStartup.Checked;
+            settings.UpdateHowLongToBeatOnStart = chkUpdateHltbOnStartup.Checked;
             settings.IncludeImputedTimes = chkIncludeImputedTimes.Checked;
-            settings.AutosaveDB = chkAutosaveDB.Checked;
+            settings.AutoSaveDatabase = chkAutosaveDB.Checked;
             settings.ScrapePromptDays = (int) numScrapePromptDays.Value;
 
-            settings.CheckForDepressurizerUpdates = chkCheckForDepressurizerUpdates.Checked;
+            settings.CheckForUpdates = chkCheckForDepressurizerUpdates.Checked;
 
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 
-            settings.LogLevel = (LoggerLevel) cmbLogLevel.SelectedIndex;
-            settings.LogSize = (int) numLogSize.Value;
-            settings.LogBackups = (int) numLogBackup.Value;
-
-            settings.UserLang = (UILanguage) cmbUILanguage.SelectedIndex;
+            settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
             settings.StoreLang = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
 
             try

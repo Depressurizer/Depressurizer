@@ -19,6 +19,7 @@
 
 using System;
 using System.Windows.Forms;
+using Depressurizer.Models;
 
 namespace Depressurizer
 {
@@ -41,7 +42,7 @@ namespace Depressurizer
 
             if (Program.GameDB != null)
             {
-                VrSupport vrSupport = Program.GameDB.GetAllVrSupportFlags();
+                VRSupport vrSupport = Program.GameDB.GetAllVrSupportFlags();
 
                 foreach (string s in vrSupport.Headsets)
                 {

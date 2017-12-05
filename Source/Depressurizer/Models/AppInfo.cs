@@ -28,6 +28,11 @@ namespace Depressurizer.Models
     public sealed class AppInfo
     {
         /// <summary>
+        ///     Steam App Type
+        /// </summary>
+        public AppTypes AppType { get; set; } = AppTypes.Unknown;
+
+        /// <summary>
         ///     Steam AppId
         /// </summary>
         public int Id { get; set; } = 0;
@@ -38,19 +43,14 @@ namespace Depressurizer.Models
         public string Name { get; set; } = null;
 
         /// <summary>
-        ///     Steam App Type
+        ///     Equal to Parent Id or 0
         /// </summary>
-        public AppTypes AppType { get; set; } = AppTypes.Unknown;
+        public int Parent { get; set; } = 0;
 
         /// <summary>
         ///     Supported Operating Systems
         /// </summary>
         public AppPlatforms Platforms { get; set; } = AppPlatforms.None;
-
-        /// <summary>
-        ///     Equal to Parent Id or 0
-        /// </summary>
-        public int Parent { get; set; } = 0;
 
         /// <summary>
         ///     Create an AppInfo object with the default values
@@ -86,7 +86,10 @@ namespace Depressurizer.Models
                 return null;
             }
 
-            VdfFileNode idNode = node.GetNodeAt(new[] {"gameid"}, false);
+            VdfFileNode idNode = node.GetNodeAt(new[]
+            {
+                "gameid"
+            }, false);
             if (idNode == null)
             {
                 return null;
@@ -112,14 +115,20 @@ namespace Depressurizer.Models
                 return null;
             }
 
-            VdfFileNode nameNode = node.GetNodeAt(new[] {"name"}, false);
+            VdfFileNode nameNode = node.GetNodeAt(new[]
+            {
+                "name"
+            }, false);
             if (nameNode != null)
             {
                 result.Name = nameNode.NodeData.ToString();
             }
 
             string typeStr = null;
-            VdfFileNode typeNode = node.GetNodeAt(new[] {"type"}, false);
+            VdfFileNode typeNode = node.GetNodeAt(new[]
+            {
+                "type"
+            }, false);
             if (typeNode != null)
             {
                 typeStr = typeNode.NodeData.ToString();
@@ -133,7 +142,10 @@ namespace Depressurizer.Models
                 }
             }
 
-            VdfFileNode oslistNode = node.GetNodeAt(new[] {"oslist"}, false);
+            VdfFileNode oslistNode = node.GetNodeAt(new[]
+            {
+                "oslist"
+            }, false);
             if (oslistNode != null)
             {
                 string oslist = oslistNode.NodeData.ToString();
@@ -151,7 +163,10 @@ namespace Depressurizer.Models
                 }
             }
 
-            VdfFileNode parentNode = node.GetNodeAt(new[] {"parent"}, false);
+            VdfFileNode parentNode = node.GetNodeAt(new[]
+            {
+                "parent"
+            }, false);
             if (parentNode != null)
             {
                 result.Parent = parentNode.NodeInt;

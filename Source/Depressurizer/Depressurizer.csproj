@@ -262,12 +262,6 @@
     <Compile Include="AutoCat\CDlgCurator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AutomaticModeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AutomaticModeForm.Designer.cs">
-      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,12 +289,6 @@
     <Compile Include="DlgAutoCatCreate.Designer.cs">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="DlgAutomaticModeHelper.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAutomaticModeHelper.Designer.cs">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </Compile>
     <Compile Include="DlgClose.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,21 +303,26 @@
     </Compile>
     <Compile Include="Enums.cs" />
     <Compile Include="GameBanners.cs" />
+    <Compile Include="GameDBEntry.cs" />
+    <Compile Include="GameDBEntrySorter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\Location.cs" />
+    <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Models\LanguageSupport.cs" />
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Lib\ExtToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="Models\AppInfo.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="PackageInfo.cs" />
@@ -373,8 +366,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Lib\AppLogger.cs" />
-    <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="DlgGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -437,6 +428,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VdfFile\VdfFileNode.cs" />
+    <Compile Include="Models\VRSupport.cs" />
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
     </EmbeddedResource>
@@ -479,9 +471,6 @@
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Year.resx">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutomaticModeForm.resx">
-      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DBEditDlg.ru.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -505,18 +494,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatCreate.resx">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.nl.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.ru.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.uk.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgClose.es.resx">
       <DependentUpon>DlgClose.cs</DependentUpon>
