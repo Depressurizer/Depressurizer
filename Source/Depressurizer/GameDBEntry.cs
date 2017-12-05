@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Depressurizer.Helpers;
+using Depressurizer.Models;
 using Depressurizer.Properties;
 
 namespace Depressurizer {
@@ -39,7 +40,7 @@ namespace Depressurizer {
         [DefaultValue(0)]
         public int TotalAchievements;
 
-        public VrSupport VrSupport;     //TODO: Add field to DB edit dialog
+        public VRSupport VrSupport;     //TODO: Add field to DB edit dialog
 
         public LanguageSupport LanguageSupport;     //TODO: Add field to DB edit dialog
 

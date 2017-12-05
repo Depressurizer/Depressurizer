@@ -49,7 +49,7 @@ namespace Depressurizer
         private SortedSet<string> allStoreFlags;
         private SortedSet<string> allStoreDevelopers;
         private SortedSet<string> allStorePublishers;
-        private VrSupport allVrSupportFlags;
+        private VRSupport allVrSupportFlags;
         private LanguageSupport allLanguages;
         public int LastHltbUpdate;
 
@@ -148,7 +148,7 @@ namespace Depressurizer
         {
             if (Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].VrSupport;
+                VRSupport res = Games[gameId].VrSupport;
                 if ((res.Headsets != null && res.Headsets.Count > 0) || (res.Input != null && res.Input.Count > 0) ||
                     (res.PlayArea != null && res.PlayArea.Count > 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
@@ -160,11 +160,11 @@ namespace Depressurizer
             return false;
         }
 
-        public VrSupport GetVrSupport(int gameId, int depth = 3)
+        public VRSupport GetVrSupport(int gameId, int depth = 3)
         {
             if (Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].VrSupport;
+                VRSupport res = Games[gameId].VrSupport;
                 if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) &&
                     (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
@@ -172,7 +172,7 @@ namespace Depressurizer
                 }
                 return res;
             }
-            return new VrSupport();
+            return new VRSupport();
         }
 
 
@@ -390,7 +390,7 @@ namespace Depressurizer
         /// Only recalculates if necessary.
         /// </summary>
         /// <returns>A VrSupport struct containing the flags</returns>
-        public VrSupport GetAllVrSupportFlags()
+        public VRSupport GetAllVrSupportFlags()
         {
             if (allVrSupportFlags.Headsets == null || allVrSupportFlags.Input == null ||
                 allVrSupportFlags.PlayArea == null)
@@ -405,7 +405,7 @@ namespace Depressurizer
         /// Always recalculates.
         /// </summary>
         /// <returns>A VrSupport struct containing the flags</returns>
-        public VrSupport CalculateAllVrSupportFlags()
+        public VRSupport CalculateAllVrSupportFlags()
         {
             SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -892,7 +892,7 @@ namespace Depressurizer
                     g.Genres = null;
                     g.SteamReleaseDate = null;
                     g.LastStoreScrape = 1; //pretend it is really old data
-                    g.VrSupport = new VrSupport();
+                    g.VrSupport = new VRSupport();
                     g.LanguageSupport = new LanguageSupport();
                 }
             }
