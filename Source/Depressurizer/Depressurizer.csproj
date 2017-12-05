@@ -319,6 +319,7 @@
     </Compile>
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="Models\AppInfo.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="PackageInfo.cs" />
