@@ -22,32 +22,6 @@ using System.IO;
 
 namespace Depressurizer
 {
-    [Flags]
-    public enum AppPlatforms
-    {
-        None = 0,
-        Windows = 1,
-        Mac = 1 << 1,
-        Linux = 1 << 2,
-        All = Windows | Mac | Linux
-    }
-
-    [Flags]
-    public enum AppTypes
-    {
-        Application = 1,
-        Demo = 1 << 1,
-        DLC = 1 << 2,
-        Game = 1 << 3,
-        Media = 1 << 4,
-        Tool = 1 << 5,
-        Other = 1 << 6,
-        Unknown = 1 << 7,
-        InclusionNormal = Application | Game,
-        InclusionUnknown = InclusionNormal | Unknown,
-        InclusionAll = (1 << 8) - 1
-    }
-
     class AppInfo
     {
         public int Id;
@@ -106,7 +80,7 @@ namespace Depressurizer
                 {
                     if (!Enum.TryParse(typeStr, true, out type))
                     {
-                        type = AppTypes.Other;
+                        type = AppTypes.Unknown;
                     }
                 }
 

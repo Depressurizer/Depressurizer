@@ -20,6 +20,7 @@
 
 using System;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace Depressurizer
 {
@@ -28,6 +29,13 @@ namespace Depressurizer
         #region Static Fields
 
         public static GameDB GameDB;
+
+        public static JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            TypeNameHandling = TypeNameHandling.Auto
+        };
 
         #endregion
 

@@ -316,7 +316,7 @@ namespace Depressurizer
                 {
                     // Redirected outside of the app path
                     
-                    return AppTypes.Other;
+                    return AppTypes.Unknown;
                 }
                 else if (resp.ResponseUri.Segments.Length < 3)
                 {

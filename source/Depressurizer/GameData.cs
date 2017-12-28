@@ -996,7 +996,7 @@ namespace Depressurizer
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
             string localConfigPath = string.Format(Properties.Resources.LocalConfigPath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(accountId));
+                Profile.ToSteam3ID(accountId));
             VdfFileNode vdfFile = VdfFileNode.LoadFromText(new StreamReader(localConfigPath));
             if (vdfFile != null)
             {
@@ -1369,7 +1369,7 @@ namespace Depressurizer
         public int ImportSteamConfig(long SteamId, SortedSet<int> ignore, AppTypes includedTypes, bool includeShortcuts)
         {
             string filePath = string.Format(Properties.Resources.ConfigFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(SteamId));
+                Profile.ToSteam3ID(SteamId));
             int result = ImportSteamConfigFile(filePath, ignore, includedTypes);
             if (includeShortcuts)
             {
@@ -1387,7 +1387,7 @@ namespace Depressurizer
         public void ExportSteamConfig(long steamId, bool discardMissing, bool includeShortcuts)
         {
             string filePath = string.Format(Properties.Resources.ConfigFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(steamId));
+                Profile.ToSteam3ID(steamId));
             ExportSteamConfigFile(filePath, discardMissing);
             if (includeShortcuts)
             {
@@ -1531,7 +1531,7 @@ namespace Depressurizer
         public void ExportSteamShortcuts(long SteamId)
         {
             string filePath = string.Format(Properties.Resources.ShortCutsFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(SteamId));
+                Profile.ToSteam3ID(SteamId));
             
             FileStream fStream = null;
             BinaryReader binReader = null;
@@ -1656,7 +1656,7 @@ namespace Depressurizer
         {
             bool result = false;
             string filePath = string.Format(Properties.Resources.ScreenshotsFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(SteamId));
+                Profile.ToSteam3ID(SteamId));
 
             shortcutLaunchIds = new StringDictionary();
 
@@ -1709,7 +1709,7 @@ namespace Depressurizer
             int loadedGames = 0;
 
             string filePath = string.Format(Properties.Resources.ShortCutsFilePath, Settings.Instance.SteamPath,
-                Profile.ID64toDirName(SteamId));
+                Profile.ToSteam3ID(SteamId));
             FileStream fStream = null;
             BinaryReader binReader = null;
 

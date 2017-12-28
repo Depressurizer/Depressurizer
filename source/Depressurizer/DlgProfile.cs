@@ -24,6 +24,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using Depressurizer.Models;
 
 namespace Depressurizer
 {
@@ -112,7 +113,7 @@ namespace Depressurizer
 
         private bool SelectUserInList(Int64 accountId)
         {
-            string profDirName = Profile.ID64toDirName(accountId);
+            string profDirName = Profile.ToSteam3ID(accountId).ToString();
 
             for (int i = 0; i < lstUsers.Items.Count; i++)
             {
@@ -258,7 +259,7 @@ namespace Depressurizer
             UserRecord u = lstUsers.SelectedItem as UserRecord;
             if (u != null)
             {
-                txtUserID.Text = Profile.DirNametoID64(u.DirName).ToString();
+                txtUserID.Text = Profile.ToSteamID64(u.DirName).ToString();
             }
         }
 
@@ -535,7 +536,7 @@ namespace Depressurizer
                 }
                 if (job != null)
                 {
-                    string name = GetDisplayName(Profile.DirNametoID64(job.dir));
+                    string name = GetDisplayName(Profile.ToSteamID64(job.dir));
 
                     lock (data.tLock)
                     {
