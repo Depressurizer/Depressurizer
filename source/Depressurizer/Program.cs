@@ -36,8 +36,6 @@ namespace Depressurizer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            FatalError.InitializeHandler();
-
             Logger = new AppLogger();
             Logger.Level = LoggerLevel.None;
             Logger.DateFormat = "HH:mm:ss'.'ffffff";
