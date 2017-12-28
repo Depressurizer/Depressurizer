@@ -1,34 +1,16 @@
-﻿/*
-Copyright 2011, 2012, 2013 Steve Labbe.
-
-This file is part of Depressurizer.
-
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-using System.Reflection;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Depressurizer")]
-[assembly: AssemblyDescription("Steam Category Tool")]
+[assembly: AssemblyDescription("Depressurizer is a program that helps you categorize your steam games.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Martijn Vegter")]
 [assembly: AssemblyProduct("Depressurizer")]
-[assembly: AssemblyCopyright("Copyright © 2011–2017")]
+[assembly: AssemblyCopyright("Copyright (C) 2017  Martijn Vegter")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -38,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fba05c1b-8310-4c4a-853b-f691685cba25")]
+[assembly: Guid("e486b717-7549-49b5-94b7-a62a0c31662d")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -47,8 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.7.4.2")]
-[assembly: AssemblyFileVersion("0.7.4.2")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
