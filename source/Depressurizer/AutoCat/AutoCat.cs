@@ -215,7 +215,7 @@ namespace Depressurizer
             {
                 MessageBox.Show(string.Format(GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name),
                     GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Program.Logger.WriteException($"Failed to load from xml an Autocat of type {type.FullName}: ", e);
+                
             }
             return null;
         }

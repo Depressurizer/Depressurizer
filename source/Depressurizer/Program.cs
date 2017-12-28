@@ -24,7 +24,6 @@ namespace Depressurizer
 {
     static class Program
     {
-        public static AppLogger Logger;
         public static GameDB GameDB;
 
         /// <summary>
@@ -36,25 +35,10 @@ namespace Depressurizer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Logger = new AppLogger();
-            Logger.Level = LoggerLevel.None;
-            Logger.DateFormat = "HH:mm:ss'.'ffffff";
-
-            Logger.MaxFileSize = 2000000;
-            Logger.MaxBackup = 1;
-            Logger.FileNameTemplate = "Depressurizer.log";
-
             Settings.Instance.Load();
-
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
-   
-                Logger.Write(LoggerLevel.Info, "Automatic mode not set, loading main form.");
-                Application.Run(new FormMain());
+            Application.Run(new FormMain());
             
             Settings.Instance.Save();
-
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
-            Logger.EndSession();
         }
     }
 }

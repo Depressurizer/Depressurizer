@@ -196,9 +196,6 @@ namespace Depressurizer
             }
             catch
             {
-                if (!ignoreWarning.Contains(id))
-                    Program.Logger.Write(Rallion.LoggerLevel.Warning,
-                        string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
         }
@@ -225,9 +222,6 @@ namespace Depressurizer
             }
             catch
             {
-                if (!ignoreWarning.Contains(id))
-                    Program.Logger.Write(Rallion.LoggerLevel.Warning,
-                        string.Format(GlobalStrings.Utility_GetImage, url));
             }
             return null;
         }
@@ -259,7 +253,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, localPath), e);
+                
                 return false;
             }
         }
@@ -281,8 +275,6 @@ namespace Depressurizer
             }
             catch
             {
-                Program.Logger.Write(Rallion.LoggerLevel.Warning,
-                    string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
                 return false;
             }
         }

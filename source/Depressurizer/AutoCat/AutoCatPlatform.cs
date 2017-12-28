@@ -83,12 +83,12 @@ namespace Depressurizer
         {
             if (games == null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
+                
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
             if (game == null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
+                
                 return AutoCatResult.Failure;
             }
 
