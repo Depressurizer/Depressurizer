@@ -1,4 +1,4 @@
-**This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer)**.
+**This is a continuation of [Theo47](https://github.com/Theo47)'s [Depressurizer](https://github.com/Depressurizer/Depressurizer), which was a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer)**.
 
 ----
 
