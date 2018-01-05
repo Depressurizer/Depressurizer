@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Enums.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\VRSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

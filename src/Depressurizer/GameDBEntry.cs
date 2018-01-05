@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Depressurizer.Properties;
+using DepressurizerCore.Models;
 using Rallion;
 
 namespace Depressurizer
@@ -40,7 +41,12 @@ namespace Depressurizer
         [DefaultValue(0)]
         public int TotalAchievements;
 
-        public VrSupport VrSupport;     //TODO: Add field to DB edit dialog
+        // TODO: Add field to DB edit dialog
+        public VRSupport VRSupport
+        {
+            get => _vrSupport ?? (_vrSupport = new VRSupport());
+            set => _vrSupport = value;
+        } 
 
         public LanguageSupport LanguageSupport;     //TODO: Add field to DB edit dialog
 
@@ -68,6 +74,8 @@ namespace Depressurizer
         public int LastStoreScrape;
         [DefaultValue(0)]
         public int LastAppInfoUpdate;
+
+        private VRSupport _vrSupport;
 
         #endregion
 
@@ -428,11 +436,11 @@ namespace Depressurizer
             if (m.Success)
             {
                 matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                VrSupport.Headsets = new List<string>();
+                VRSupport.Headsets = new List<string>();
                 foreach (Match ma in matches)
                 {
                     string headset = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(headset)) VrSupport.Headsets.Add(headset);
+                    if (!string.IsNullOrWhiteSpace(headset)) VRSupport.Headsets.Add(headset);
                 }
             }
 
@@ -441,11 +449,11 @@ namespace Depressurizer
             if (m.Success)
             {
                 matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                VrSupport.Input = new List<string>();
+                VRSupport.Input = new List<string>();
                 foreach (Match ma in matches)
                 {
                     string input = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(input)) VrSupport.Input.Add(input);
+                    if (!string.IsNullOrWhiteSpace(input)) VRSupport.Input.Add(input);
                 }
             }
 
@@ -454,11 +462,11 @@ namespace Depressurizer
             if (m.Success)
             {
                 matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                VrSupport.PlayArea = new List<string>();
+                VRSupport.PlayArea = new List<string>();
                 foreach (Match ma in matches)
                 {
                     string playArea = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-                    if (!string.IsNullOrWhiteSpace(playArea)) VrSupport.PlayArea.Add(playArea);
+                    if (!string.IsNullOrWhiteSpace(playArea)) VRSupport.PlayArea.Add(playArea);
                 }
             }
 
@@ -601,12 +609,12 @@ namespace Depressurizer
                 if (!string.IsNullOrEmpty(other.SteamReleaseDate)) SteamReleaseDate = other.SteamReleaseDate;
                 if (other.TotalAchievements != 0) TotalAchievements = other.TotalAchievements;
                 //VR Support
-                if (other.VrSupport.Headsets != null && other.VrSupport.Headsets.Count > 0)
-                    VrSupport.Headsets = other.VrSupport.Headsets;
-                if (other.VrSupport.Input != null && other.VrSupport.Input.Count > 0)
-                    VrSupport.Input = other.VrSupport.Input;
-                if (other.VrSupport.PlayArea != null && other.VrSupport.PlayArea.Count > 0)
-                    VrSupport.PlayArea = other.VrSupport.PlayArea;
+                if (other.VRSupport.Headsets != null && other.VRSupport.Headsets.Count > 0)
+                    VRSupport.Headsets = other.VRSupport.Headsets;
+                if (other.VRSupport.Input != null && other.VRSupport.Input.Count > 0)
+                    VRSupport.Input = other.VRSupport.Input;
+                if (other.VRSupport.PlayArea != null && other.VRSupport.PlayArea.Count > 0)
+                    VRSupport.PlayArea = other.VRSupport.PlayArea;
 
                 //Language Support
                 if (other.LanguageSupport.FullAudio != null && other.LanguageSupport.FullAudio.Count > 0)

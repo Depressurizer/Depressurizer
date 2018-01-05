@@ -31,6 +31,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Properties;
+using DepressurizerCore.Models;
 using Newtonsoft.Json.Linq;
 using Rallion;
 
@@ -47,7 +48,7 @@ namespace Depressurizer
         private SortedSet<string> allStoreFlags;
         private SortedSet<string> allStoreDevelopers;
         private SortedSet<string> allStorePublishers;
-        private VrSupport allVrSupportFlags;
+        private VRSupport allVrSupportFlags;
         private LanguageSupport allLanguages;
         public int LastHltbUpdate;
 
@@ -140,29 +141,37 @@ namespace Depressurizer
         }
 
         /// <summary>
-        /// Returns whether the game supports VR
+        ///     Returns whether the game supports VR
         /// </summary>
-        public bool SupportsVr(int gameId, int depth = 3)
+        /// <param name="appId"></param>
+        /// <param name="depth"></param>
+        /// <returns></returns>
+        public bool SupportsVR(int appId, int depth = 3)
         {
-            if (Games.ContainsKey(gameId))
+            if (!Games.ContainsKey(appId))
             {
-                VrSupport res = Games[gameId].VrSupport;
-                if ((res.Headsets != null && res.Headsets.Count > 0) || (res.Input != null && res.Input.Count > 0) ||
-                    (res.PlayArea != null && res.PlayArea.Count > 0) && depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    return true;
-                }
-                if (depth > 0 && Games[gameId].ParentId > 0)
-                   return SupportsVr(Games[gameId].ParentId, depth - 1);
+                return false;
             }
+
+            VRSupport vrSupport = Games[appId].VRSupport;
+            if (vrSupport.Headsets.Count > 0 || vrSupport.Input.Count > 0 || vrSupport.PlayArea.Count > 0 && depth > 0 && Games[appId].ParentId > 0)
+            {
+                return true;
+            }
+
+            if (depth > 0 && Games[appId].ParentId > 0)
+            {
+                return SupportsVR(Games[appId].ParentId, depth - 1);
+            }
+
             return false;
         }
 
-        public VrSupport GetVrSupport(int gameId, int depth = 3)
+        public VRSupport GetVrSupport(int gameId, int depth = 3)
         {
             if (Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].VrSupport;
+                VRSupport res = Games[gameId].VRSupport;
                 if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) &&
                     (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
@@ -170,7 +179,7 @@ namespace Depressurizer
                 }
                 return res;
             }
-            return new VrSupport();
+            return new VRSupport();
         }
 
 
@@ -387,8 +396,8 @@ namespace Depressurizer
         /// Gets a list of all Steam store VR Support flags found in the entire database.
         /// Only recalculates if necessary.
         /// </summary>
-        /// <returns>A VrSupport struct containing the flags</returns>
-        public VrSupport GetAllVrSupportFlags()
+        /// <returns>A VRSupport struct containing the flags</returns>
+        public VRSupport GetAllVrSupportFlags()
         {
             if (allVrSupportFlags.Headsets == null || allVrSupportFlags.Input == null ||
                 allVrSupportFlags.PlayArea == null)
@@ -402,8 +411,8 @@ namespace Depressurizer
         /// Gets a list of all Steam store VR Support flags found in the entire database.
         /// Always recalculates.
         /// </summary>
-        /// <returns>A VrSupport struct containing the flags</returns>
-        public VrSupport CalculateAllVrSupportFlags()
+        /// <returns>A VRSupport struct containing the flags</returns>
+        public VRSupport CalculateAllVrSupportFlags()
         {
             SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -411,17 +420,17 @@ namespace Depressurizer
 
             foreach (GameDBEntry entry in Games.Values)
             {
-                if (entry.VrSupport.Headsets != null)
+                if (entry.VRSupport.Headsets != null)
                 {
-                    headsets.UnionWith(entry.VrSupport.Headsets);
+                    headsets.UnionWith(entry.VRSupport.Headsets);
                 }
-                if (entry.VrSupport.Input != null)
+                if (entry.VRSupport.Input != null)
                 {
-                    input.UnionWith(entry.VrSupport.Input);
+                    input.UnionWith(entry.VRSupport.Input);
                 }
-                if (entry.VrSupport.PlayArea != null)
+                if (entry.VRSupport.PlayArea != null)
                 {
-                    playArea.UnionWith(entry.VrSupport.PlayArea);
+                    playArea.UnionWith(entry.VRSupport.PlayArea);
                 }
             }
             allVrSupportFlags.Headsets = headsets.ToList();
@@ -864,7 +873,7 @@ namespace Depressurizer
                     g.Genres = null;
                     g.SteamReleaseDate = null;
                     g.LastStoreScrape = 1; //pretend it is really old data
-                    g.VrSupport = new VrSupport();
+                    g.VRSupport = new VRSupport();
                     g.LanguageSupport = new LanguageSupport();
                 }
             }
@@ -1066,11 +1075,11 @@ namespace Depressurizer
 
                 foreach (XmlNode vrNode in gameNode.SelectNodes(XmlName_Game_vrSupport))
                 {
-                    g.VrSupport.Headsets =
+                    g.VRSupport.Headsets =
                         XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Headsets));
-                    g.VrSupport.Input =
+                    g.VRSupport.Input =
                         XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Input));
-                    g.VrSupport.PlayArea =
+                    g.VRSupport.PlayArea =
                         XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_PlayArea));
                 }
 
