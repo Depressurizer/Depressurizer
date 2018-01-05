@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Enums.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\LanguageSupport.cs" />
     <Compile Include="Models\VRSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
