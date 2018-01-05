@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DepressurizerCore.Models;
 
 /*
 This file is part of Depressurizer.

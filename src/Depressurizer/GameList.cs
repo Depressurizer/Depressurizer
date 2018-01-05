@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
+using DepressurizerCore.Models;
 using Rallion;
 
 namespace Depressurizer

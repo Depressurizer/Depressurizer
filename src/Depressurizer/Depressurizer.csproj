@@ -264,7 +264,6 @@
     <Compile Include="AutomaticModeForm.Designer.cs">
       <DependentUpon>AutomaticModeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Category.cs" />
     <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
     </Compile>
