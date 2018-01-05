@@ -46,9 +46,14 @@ namespace Depressurizer
         {
             get => _vrSupport ?? (_vrSupport = new VRSupport());
             set => _vrSupport = value;
-        } 
+        }
 
-        public LanguageSupport LanguageSupport;     //TODO: Add field to DB edit dialog
+        // TODO: Add field to DB edit dialog
+        public LanguageSupport LanguageSupport
+        {
+            get => _languageSupport ?? (_languageSupport = new LanguageSupport());
+            set => _languageSupport = value;
+        } 
 
         [XmlIgnore]
         public string Banner = null;
@@ -76,6 +81,8 @@ namespace Depressurizer
         public int LastAppInfoUpdate;
 
         private VRSupport _vrSupport;
+
+        private LanguageSupport _languageSupport;
 
         #endregion
 
@@ -616,13 +623,21 @@ namespace Depressurizer
                 if (other.VRSupport.PlayArea != null && other.VRSupport.PlayArea.Count > 0)
                     VRSupport.PlayArea = other.VRSupport.PlayArea;
 
-                //Language Support
-                if (other.LanguageSupport.FullAudio != null && other.LanguageSupport.FullAudio.Count > 0)
+                // Language Support
+                if (other.LanguageSupport.FullAudio.Count > 0)
+                {
                     LanguageSupport.FullAudio = other.LanguageSupport.FullAudio;
-                if (other.LanguageSupport.Interface != null && other.LanguageSupport.Interface.Count > 0)
+                }
+
+                if (other.LanguageSupport.Interface.Count > 0)
+                {
                     LanguageSupport.Interface = other.LanguageSupport.Interface;
-                if (other.LanguageSupport.Subtitles != null && other.LanguageSupport.Subtitles.Count > 0)
+                }
+
+                if (other.LanguageSupport.Subtitles.Count > 0)
+                {
                     LanguageSupport.Subtitles = other.LanguageSupport.Subtitles;
+                }
 
                 if (other.ReviewTotal != 0)
                 {
