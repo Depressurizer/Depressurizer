@@ -756,6 +756,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="depressurizer_icon.ico" />
+    <None Include="readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
