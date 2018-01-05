@@ -264,6 +264,7 @@
     <Compile Include="AutomaticModeForm.Designer.cs">
       <DependentUpon>AutomaticModeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Category.cs" />
     <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -313,6 +314,8 @@
     <Compile Include="Filter.cs" />
     <Compile Include="GameDBEntry.cs" />
     <Compile Include="GameDBEntrySorter.cs" />
+    <Compile Include="GameList.cs" />
+    <Compile Include="GameListingSource.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -327,6 +330,7 @@
     <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="PackageInfo.cs" />
+    <Compile Include="ProfileAccessException.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
@@ -401,7 +405,7 @@
     <Compile Include="Lib\DlgGetString.Designer.cs">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameData.cs" />
+    <Compile Include="GameInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
