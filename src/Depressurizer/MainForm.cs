@@ -240,24 +240,24 @@ namespace Depressurizer
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VrSupport.Headsets != null)
-                    return string.Join(", ", Program.GameDB.Games[id].VrSupport.Headsets);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VRSupport.Headsets != null)
+                    return string.Join(", ", Program.GameDB.Games[id].VRSupport.Headsets);
                 return string.Empty;
             };
             colVRInput.AspectGetter = delegate(object g)
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VrSupport.Input != null)
-                    return string.Join(", ", Program.GameDB.Games[id].VrSupport.Input);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VRSupport.Input != null)
+                    return string.Join(", ", Program.GameDB.Games[id].VRSupport.Input);
                 return string.Empty;
             };
             colVRPlayArea.AspectGetter = delegate(object g)
             {
                 if (g == null) return string.Empty;
                 int id = ((GameInfo) g).Id;
-                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VrSupport.PlayArea != null)
-                    return string.Join(", ", Program.GameDB.Games[id].VrSupport.PlayArea);
+                if (Program.GameDB.Games.ContainsKey(id) && Program.GameDB.Games[id].VRSupport.PlayArea != null)
+                    return string.Join(", ", Program.GameDB.Games[id].VRSupport.PlayArea);
                 return string.Empty;
             };
             colLanguageInterface.AspectGetter = delegate (object g)
@@ -2029,7 +2029,7 @@ namespace Depressurizer
                     hidden++;
                 else if (!g.HasCategories())
                     uncategorized++;
-                if (Program.GameDB.SupportsVr(g.Id) && !g.Hidden)
+                if (Program.GameDB.SupportsVR(g.Id) && !g.Hidden)
                     VR++;
             }
             if (!AdvancedCategoryFilter)
@@ -3926,7 +3926,7 @@ namespace Depressurizer
 
             if (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_VR)
             {
-                return Program.GameDB.SupportsVr(g.Id);
+                return Program.GameDB.SupportsVR(g.Id);
             }
 
             if (lstCategories.SelectedItems[0].Tag is Category)

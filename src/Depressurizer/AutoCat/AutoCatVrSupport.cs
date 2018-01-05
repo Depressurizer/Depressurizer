@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using DepressurizerCore.Models;
 using Rallion;
 
 namespace Depressurizer
@@ -32,7 +33,7 @@ namespace Depressurizer
         // AutoCat configuration
         public string Prefix { get; set; }
 
-        public VrSupport IncludedVrSupportFlags;
+        public VRSupport IncludedVrSupportFlags;
 
         // Serialization constants
         public const string TypeIdString = "AutoCatVrSupport";
@@ -100,7 +101,7 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            VrSupport vrSupport = db.GetVrSupport(game.Id);
+            VRSupport vrSupport = db.GetVrSupport(game.Id);
 
             vrSupport.Headsets = vrSupport.Headsets ?? new List<string>();
             vrSupport.Input = vrSupport.Input ?? new List<string>();

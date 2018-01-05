@@ -131,7 +131,7 @@ namespace Depressurizer
             bool isVR = false;
             if (f.Uncategorized != (int) AdvancedFilterState.None) isCategorized = HasCategories();
             if (f.Hidden != (int) AdvancedFilterState.None) isHidden = Hidden;
-            if (f.VR != (int)AdvancedFilterState.None) isVR = Program.GameDB.SupportsVr(Id);
+            if (f.VR != (int)AdvancedFilterState.None) isVR = Program.GameDB.SupportsVR(Id);
 
             if (f.Uncategorized == (int) AdvancedFilterState.Require && isCategorized) return false;
             if (f.Hidden == (int) AdvancedFilterState.Require && !isHidden) return false;
