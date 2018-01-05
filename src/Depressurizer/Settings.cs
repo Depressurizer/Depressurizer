@@ -22,17 +22,11 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using DepressurizerCore;
 using Rallion;
 
 namespace Depressurizer
 {
-    enum StartupAction
-    {
-        None,
-        Load,
-        Create
-    }
-
     enum GameListSource
     {
         XmlPreferred,

@@ -775,6 +775,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DepressurizerCore\DepressurizerCore.csproj">
+      <Project>{64acd35d-f79f-457a-be3d-6036857e2a20}</Project>
+      <Name>DepressurizerCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Resource.Embedder.1.2.4\build\Resource.Embedder.targets" Condition="Exists('..\packages\Resource.Embedder.1.2.4\build\Resource.Embedder.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
