@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using DepressurizerCore.Helpers;
 using Rallion;
 
 namespace Depressurizer
@@ -793,7 +794,7 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                Utility.LaunchStorePage(displayedGames[lstGames.SelectedIndices[0]].Id);
+                Steam.LaunchStorePage(displayedGames[lstGames.SelectedIndices[0]].Id);
             }
         }
 
