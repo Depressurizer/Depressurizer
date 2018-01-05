@@ -283,17 +283,9 @@ namespace Depressurizer
                     GameInfo removedGame = Games[appId];
                     removedGame.ClearCategories(true);
                     removed = Games.Remove(appId);
-                    if (removed)
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_RemovedGameFromGameList, appId,
-                            removedGame.Name);
-                    else
-                        Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorRemovingGame, appId,
-                            removedGame.Name);
-                    return removed;
                 }
             }
-            else
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorRemovingSteamGame, appId);
+                
             return removed;
         }
 
@@ -508,7 +500,7 @@ namespace Depressurizer
             XmlDocument doc = new XmlDocument();
             try
             {
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_AttemptingDownloadXMLGameList, url);
+                
                 WebRequest req = HttpWebRequest.Create(url);
                 WebResponse response = req.GetResponse();
                 if (response.ResponseUri.Segments.Length < 4)
@@ -521,17 +513,17 @@ namespace Depressurizer
                 {
                     throw new ProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
                 }
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_SuccessDownloadXMLGameList, url);
+                
                 return doc;
             }
             catch (ProfileAccessException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ProfileNotPublic);
+                
                 throw e;
             }
             catch (Exception e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ExceptionDownloadXMLGameList, e.Message);
+                
                 throw new ApplicationException(e.Message, e);
             }
         }
@@ -568,7 +560,7 @@ namespace Depressurizer
             {
                 string result = "";
 
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_AttemptingDownloadHTMLGameList, url);
+                
                 WebRequest req = HttpWebRequest.Create(url);
                 using (WebResponse response = req.GetResponse())
                 {
@@ -579,18 +571,17 @@ namespace Depressurizer
                     StreamReader sr = new StreamReader(response.GetResponseStream());
                     result = sr.ReadToEnd();
                 }
-                Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_SuccessDownloadHTMLGameList, url);
+                
                 return result;
             }
             catch (ProfileAccessException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ProfileNotPublic);
+                
                 throw e;
             }
             catch (Exception e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ExceptionDownloadHTMLGameList,
-                    e.Message);
+                
                 throw new ApplicationException(e.Message, e);
             }
         }
@@ -706,8 +697,6 @@ namespace Depressurizer
                     }
                 }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_IntegratedXMLDataIntoGameList, loadedGames,
-                newItems);
             return loadedGames;
         }
 
@@ -751,8 +740,7 @@ namespace Depressurizer
                     }
                 }
             }
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_IntegratedHTMLDataIntoGameList, totalItems,
-                newItems);
+            
             return totalItems;
         }
 
@@ -789,8 +777,7 @@ namespace Depressurizer
                         if ((ignore != null && ignore.Contains(gameId)) ||
                             !Program.GameDB.IncludeItemInGameList(gameId, includedTypes))
                         {
-                            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_SkippedProcessingGame,
-                                gameId);
+                            
                         }
                         else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
                         {
@@ -801,8 +788,7 @@ namespace Depressurizer
                             {
                                 game = new GameInfo(gameId, Program.GameDB.GetName(gameId), this);
                                 Games.Add(gameId, game);
-                                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId,
-                                    game.Name);
+                                
                             }
                             else
                             {
@@ -813,8 +799,7 @@ namespace Depressurizer
                                 gameNodePair.Value["LastPlayed"].NodeInt != 0)
                             {
                                 game.LastPlayed = gameNodePair.Value["LastPlayed"].NodeInt;
-                                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId,
-                                    Utility.GetDTFromUTime(game.LastPlayed).Date);
+                                
                             }
                         }
                     }
@@ -848,8 +833,7 @@ namespace Depressurizer
                         if ((ignore != null && ignore.Contains(gameId)) ||
                             !Program.GameDB.IncludeItemInGameList(gameId, includedTypes))
                         {
-                            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_SkippedProcessingGame,
-                                gameId);
+                            
                         }
                         else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
                         {
@@ -860,8 +844,7 @@ namespace Depressurizer
                             {
                                 game = new GameInfo(gameId, Program.GameDB.GetName(gameId), this);
                                 Games.Add(gameId, game);
-                                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_AddedNewGame, gameId,
-                                    game.Name);
+                                
                             }
                             else
                             {
@@ -898,8 +881,7 @@ namespace Depressurizer
                                 }
                             }
 
-                            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_ProcessedGame, gameId,
-                                string.Join(",", game.Categories));
+                            
                         }
                     }
                 }
@@ -926,8 +908,7 @@ namespace Depressurizer
             if ((ignore != null && ignore.Contains(appId)) ||
                 !Program.GameDB.IncludeItemInGameList(appId, includedTypes))
             {
-                Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_SkippedIntegratingGame, appId,
-                    appName);
+                
                 return null;
             }
 
@@ -948,8 +929,7 @@ namespace Depressurizer
             }
             result.ApplySource(src);
 
-            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_IntegratedGameIntoGameList, appId, appName,
-                isNew);
+            
             return result;
         }
 
@@ -966,7 +946,7 @@ namespace Depressurizer
         /// <returns>The number of game entries found</returns>
         public int ImportSteamConfigFile(string filePath, SortedSet<int> ignore, AppTypes includedTypes)
         {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_OpeningSteamConfigFile, filePath);
+            
             VdfFileNode dataRoot;
 
             try
@@ -978,18 +958,18 @@ namespace Depressurizer
             }
             catch (ParseException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorParsingConfigFileParam, e.Message);
+                
                 throw new ApplicationException(GlobalStrings.GameData_ErrorParsingSteamConfigFile + e.Message, e);
             }
             catch (IOException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.Message);
+                
                 throw new ApplicationException(GlobalStrings.GameData_ErrorOpeningSteamConfigFile + e.Message, e);
             }
 
             VdfFileNode appsNode = dataRoot.GetNodeAt(new[] {"Software", "Valve", "Steam", "apps"}, true);
             int count = IntegrateGamesFromVdf(appsNode, ignore, includedTypes);
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_SteamConfigFileLoaded, count);
+            
             return count;
         }
 
@@ -1037,7 +1017,7 @@ namespace Depressurizer
         /// <param name="discardMissing">If true, any pre-existing game entries in the file that do not have corresponding entries in the GameList are removed</param>
         public void ExportSteamConfigFile(string filePath, bool discardMissing)
         {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath);
+            
 
             VdfFileNode fileData = new VdfFileNode();
             try
@@ -1049,7 +1029,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.GameData_LoadingErrorSteamConfig, e.Message);
+                
             }
 
             VdfFileNode appListNode = fileData.GetNodeAt(new[] {"Software", "Valve", "Steam", "apps"}, true);
@@ -1065,8 +1045,6 @@ namespace Depressurizer
                         int gameId;
                         if (!(int.TryParse(pair.Key, out gameId) && Games.ContainsKey(gameId)))
                         {
-                            Program.Logger.Write(LoggerLevel.Verbose,
-                                GlobalStrings.GameData_RemovingGameCategoryFromSteamConfig, gameId);
                             pair.Value.RemoveSubnode("tags");
                         }
                     }
@@ -1081,7 +1059,7 @@ namespace Depressurizer
                 if (game.Id > 0)
                 {
                     // External games have negative identifier
-                    Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
+                    
                     VdfFileNode gameNode = appListNode[game.Id.ToString()];
                     gameNode.MakeArray();
 
@@ -1112,10 +1090,10 @@ namespace Depressurizer
             }
 
 
-            Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_CleaningUpSteamConfigTree);
+            
             appListNode.CleanTree();
 
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_WritingToDisk);
+            
             VdfFileNode fullFile = new VdfFileNode();
             fullFile["UserLocalConfigStore"] = fileData;
             try
@@ -1124,7 +1102,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_GameData_ConfigBackupFailed, e.Message);
+                
             }
             try
             {
@@ -1142,20 +1120,14 @@ namespace Depressurizer
             }
             catch (ArgumentException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile,
-                    e.ToString());
                 throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
             }
             catch (IOException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile,
-                    e.ToString());
                 throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e);
             }
             catch (UnauthorizedAccessException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile,
-                    e.ToString());
                 throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e);
             }
         }
@@ -1174,7 +1146,7 @@ namespace Depressurizer
         {
             string filePath = string.Format(Properties.Resources.ShortCutsFilePath, Settings.Instance.SteamPath,
                 Profile.ID64toDirName(SteamId));
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_SavingSteamConfigFile, filePath);
+            
             FileStream fStream = null;
             BinaryReader binReader = null;
             VdfFileNode dataRoot = null;
@@ -1187,12 +1159,11 @@ namespace Depressurizer
             }
             catch (FileNotFoundException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorOpeningConfigFileParam,
-                    e.ToString());
+                
             }
             catch (IOException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+                
             }
             if (binReader != null)
                 binReader.Close();
@@ -1223,8 +1194,7 @@ namespace Depressurizer
                         GameInfo game = gamesToSave[matchingIndex];
                         gamesToSave.RemoveAt(matchingIndex);
 
-                        Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameData_AddingGameToConfigFile,
-                            game.Id);
+                        
 
                         VdfFileNode tagsNode = nodeGame.GetNodeAt(new[] {"tags"}, true);
                         Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
@@ -1247,15 +1217,14 @@ namespace Depressurizer
                 }
                 if (dataRoot.NodeType == ValueType.Array)
                 {
-                    Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_SavingShortcutConfigFile, filePath);
+                    
                     try
                     {
                         Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
                     }
                     catch (Exception e)
                     {
-                        Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_GameData_ShortcutBackupFailed,
-                            e.Message);
+                        
                     }
                     try
                     {
@@ -1272,21 +1241,18 @@ namespace Depressurizer
                     }
                     catch (ArgumentException e)
                     {
-                        Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile,
-                            e.ToString());
+                        
                         throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
                     }
                     catch (IOException e)
                     {
-                        Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile,
-                            e.ToString());
+                        
                         throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message,
                             e);
                     }
                     catch (UnauthorizedAccessException e)
                     {
-                        Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorSavingSteamConfigFile,
-                            e.ToString());
+                        
                         throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message,
                             e);
                     }
@@ -1329,12 +1295,11 @@ namespace Depressurizer
             }
             catch (FileNotFoundException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorOpeningConfigFileParam,
-                    e.ToString());
+                
             }
             catch (IOException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+                
             }
 
             if (reader != null)
@@ -1409,16 +1374,15 @@ namespace Depressurizer
             }
             catch (FileNotFoundException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_ErrorOpeningConfigFileParam,
-                    e.ToString());
+                
             }
             catch (IOException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+                
             }
             catch (ParseException e)
             {
-                Program.Logger.Write(LoggerLevel.Error, e.ToString());
+                
             }
             finally
             {
@@ -1432,7 +1396,7 @@ namespace Depressurizer
                 }
             }
 
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameData_IntegratedShortCuts, loadedGames);
+            
 
             return loadedGames;
         }
