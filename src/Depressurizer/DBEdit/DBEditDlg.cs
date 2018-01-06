@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using DepressurizerCore;
 using DepressurizerCore.Helpers;
 using Rallion;
 
