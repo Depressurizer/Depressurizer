@@ -20,6 +20,72 @@
 
 namespace DepressurizerCore
 {
+    public enum GameListSource
+    {
+        XmlPreferred,
+
+        XmlOnly,
+
+        WebsiteOnly
+    }
+
+    public enum StoreLanguage
+    {
+        windows,
+
+        bg, // Bulgarian
+
+        cs, // Czech
+
+        da, // Danish
+
+        nl, // Dutch
+
+        en, // English
+
+        fi, // Finnish
+
+        fr, // French
+
+        de, // German
+
+        el, // Greek
+
+        hu, // Hungarian
+
+        it, // Italian
+
+        ja, // Japanese
+
+        ko, // Korean
+
+        no, // Norwegian
+
+        pl, // Polish
+
+        pt, // Portuguese
+
+        pt_BR, // Portuguese (Brasil)
+
+        ro, // Romanian
+
+        ru, // Russian
+
+        zh_Hans, // Simplified Chinese
+
+        es, // Spanish
+
+        sv, // Swedish
+
+        th, // Thai
+
+        zh_Hant, // Traditional Chinese
+
+        tr, // Turkish
+
+        uk // Ukrainian
+    }
+
     /// <summary>
     ///     Action on startup
     /// </summary>
@@ -39,5 +105,41 @@ namespace DepressurizerCore
         ///     Create a profile
         /// </summary>
         Create
+    }
+
+    /// <summary>
+    ///     Depressurizer Interface Languages
+    /// </summary>
+    /// <remarks>
+    ///     Format: https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx
+    /// </remarks>
+    public enum InterfaceLanguage
+    {
+        Default,
+
+        /// <summary>
+        ///     English - United States
+        /// </summary>
+        English,
+
+        /// <summary>
+        ///     Spanish - Spain
+        /// </summary>
+        Spanish,
+
+        /// <summary>
+        ///     Russian - Russia
+        /// </summary>
+        Russian,
+
+        /// <summary>
+        ///     Ukrainian - Ukraine
+        /// </summary>
+        Ukranian,
+
+        /// <summary>
+        ///     Dutch - The Netherlands
+        /// </summary>
+        Dutch
     }
 }

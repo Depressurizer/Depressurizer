@@ -31,6 +31,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Properties;
+using DepressurizerCore;
 using DepressurizerCore.Models;
 using Newtonsoft.Json.Linq;
 using Rallion;

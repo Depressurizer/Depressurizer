@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Depressurizer.Properties;
+using DepressurizerCore;
 using DepressurizerCore.Models;
 using Rallion;
 

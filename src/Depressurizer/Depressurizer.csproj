@@ -369,7 +369,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="DlgGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -390,7 +389,6 @@
     <Compile Include="DlgProfile.Designer.cs">
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="Lib\DlgFatalError.cs">
       <SubType>Form</SubType>
     </Compile>
