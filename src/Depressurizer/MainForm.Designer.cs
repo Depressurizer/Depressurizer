@@ -184,8 +184,6 @@ namespace Depressurizer {
             this.menu_Tools_Autocat_List = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menu_Tools_AutonameAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_RemoveEmpty = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_Tools_Sep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.autoModeHelperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep2 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Tools_DBEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Sep3 = new System.Windows.Forms.ToolStripSeparator();
@@ -1430,8 +1428,6 @@ namespace Depressurizer {
             this.menu_Tools_AutocatAll,
             this.menu_Tools_AutonameAll,
             this.menu_Tools_RemoveEmpty,
-            this.menu_Tools_Sep1,
-            this.autoModeHelperToolStripMenuItem,
             this.menu_Tools_Sep2,
             this.menu_Tools_DBEdit,
             this.menu_Tools_Sep3,
@@ -1464,17 +1460,6 @@ namespace Depressurizer {
             this.menu_Tools_RemoveEmpty.Name = "menu_Tools_RemoveEmpty";
             resources.ApplyResources(this.menu_Tools_RemoveEmpty, "menu_Tools_RemoveEmpty");
             this.menu_Tools_RemoveEmpty.Click += new System.EventHandler(this.menu_Tools_RemoveEmpty_Click);
-            // 
-            // menu_Tools_Sep1
-            // 
-            this.menu_Tools_Sep1.Name = "menu_Tools_Sep1";
-            resources.ApplyResources(this.menu_Tools_Sep1, "menu_Tools_Sep1");
-            // 
-            // autoModeHelperToolStripMenuItem
-            // 
-            this.autoModeHelperToolStripMenuItem.Name = "autoModeHelperToolStripMenuItem";
-            resources.ApplyResources(this.autoModeHelperToolStripMenuItem, "autoModeHelperToolStripMenuItem");
-            this.autoModeHelperToolStripMenuItem.Click += new System.EventHandler(this.autoModeHelperToolStripMenuItem_Click);
             // 
             // menu_Tools_Sep2
             // 
@@ -1649,8 +1634,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ImageList imglistFilter;
         private Lib.ExtToolTip ttHelp;
         private System.Windows.Forms.ToolStripMenuItem menu_About;
-        private System.Windows.Forms.ToolStripSeparator menu_Tools_Sep1;
-        private System.Windows.Forms.ToolStripMenuItem autoModeHelperToolStripMenuItem;
         private BrightIdeasSoftware.FastObjectListView lstGames;
         private BrightIdeasSoftware.OLVColumn colGameID;
         private BrightIdeasSoftware.OLVColumn colTitle;
