@@ -189,7 +189,6 @@ namespace Depressurizer {
             this.menu_Tools_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_Tools_SingleCat = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_Tools_Settings = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_About = new System.Windows.Forms.ToolStripMenuItem();
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.imglistEarlyAccess = new System.Windows.Forms.ImageList(this.components);
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
@@ -1243,8 +1242,7 @@ namespace Depressurizer {
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_File,
             this.menu_Profile,
-            this.menu_Tools,
-            this.menu_About});
+            this.menu_Tools});
             this.menuStrip.Name = "menuStrip";
             // 
             // menu_File
@@ -1489,14 +1487,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Tools_Settings, "menu_Tools_Settings");
             this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
             // 
-            // menu_About
-            // 
-            this.menu_About.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.menu_About.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(173)))), ((int)(((byte)(175)))));
-            this.menu_About.Name = "menu_About";
-            resources.ApplyResources(this.menu_About, "menu_About");
-            this.menu_About.Click += new System.EventHandler(this.menu_About_Click);
-            // 
             // picAvatar
             // 
             resources.ApplyResources(this.picAvatar, "picAvatar");
@@ -1633,7 +1623,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ColumnHeader columnCategory;
         private System.Windows.Forms.ImageList imglistFilter;
         private Lib.ExtToolTip ttHelp;
-        private System.Windows.Forms.ToolStripMenuItem menu_About;
         private BrightIdeasSoftware.FastObjectListView lstGames;
         private BrightIdeasSoftware.OLVColumn colGameID;
         private BrightIdeasSoftware.OLVColumn colTitle;
