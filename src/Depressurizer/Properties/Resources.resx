@@ -166,7 +166,7 @@
     <value>https://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
   </data>
   <data name="UrlLatestRelease" xml:space="preserve">
-    <value>https://api.github.com/repos/Depressurizer/depressurizer/releases/latest</value>
+    <value>https://api.github.com/repos/mvegter/Depressurizer/releases/latest</value>
   </data>
   <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
     <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>
