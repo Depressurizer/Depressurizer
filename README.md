@@ -2,8 +2,7 @@
 
 ----
 
-### Depressurizer
-for v0.7.4.2
+### Depressurizer (v1.0.0)
 
 ----
 
@@ -22,7 +21,7 @@ It also saves your configuration information independently of Steam, providing a
 
 ### Requirements
 
- - Depressurizer requires the .NET Framework 4.7.
+ - Depressurizer requires the .NET Framework 4.6.2.
 
  - It must be run on the same computer on which you use Steam, or one one of the computers on which you use Steam.
 
@@ -57,7 +56,7 @@ There are several ways to manually modify your games within Depressurizer.
 - **Drag and Drop**
 
   If you select games in the list, and drag them to a category in the list on the left, you can add them to the selected category. You can drag them to "favorites" to set them as favorites, or to Uncategorized to clear their categories.
- 
+
   If you hold `Ctrl` when you drag items, you can remove them from the selected category instead of adding them.
 
 - **Context menu**
@@ -83,7 +82,7 @@ There are a few ways to filter your game list.
   - **Allowed** is indicated by a green check-mark (✓). If any categories are Allowed, then only games that are in *at least one* of these categories will be displayed. It's not necessary to allow categories all the time: if no categories are set to allowed, then the filtering ignores this criteria.
   - **Required** is indicated by a blue circle (○). Only games that are in *all* Required categories are displayed.
   - **Excluded** is indicated by a red cross (╳). Only games that are in *no* Excluded categories are displayed.
- 
+
   This advanced filter can be useful to find games that are not categorized the way that you want. You can use it to find games that are in two categories that should be mutually exclusive by setting them both to Required. If you have a set of categories where all your games should be in at least one, you can set all of them to Excluded to find games that are in none of them.
 
   *New with v.0.7.0*: you can now save Advanced Filters and apply them as needed. Advanced Filters can now also be applied to AutoCats to greater control the auto-categorization process.
@@ -113,7 +112,7 @@ There are currently nine types of AutoCat:
    - *Remove Existing Genre Categories:* This will remove other categories ONLY if they could potentially be added by this scheme. If a game already belongs to a category that has the name of a genre, with the Prefix, it will be removed before new categories are added to it.
 
    - *Use Tags if no genres are set:* Some games in the Steam store do not have any actual genres set, but they do generally still have tags. This will use those tags if no genres exist. It will only assign categories that match the names of Steam store genres.
-  
+
    - *Ignored Genres:* If you don't want a particular genre to be added as a category, select it here.
 
  - **Flags:** This refers to the items on the right-hand side of the Steam Store pages that indicate certain features. For example, all games with the "Local Co-op" feature listed will be placed into a "Local Co-op" category.
@@ -141,24 +140,24 @@ There are currently nine types of AutoCat:
    - *Exclude genres:* Remove Steam genre names (Action, Indie, Strategy, etc.) from the tag list.
 
    - *Owned Only:* Only scan the games that you own. Recommended. With this turned off, you will see all tags for every game in the database.
-   
+
  - **Release Year:** This lets you assign categories to games based on their release date. You can assign categories for individual years, decades, or half-decades.
-		
+
  - **User Score:** This lets you categorize games based on user recommendations on the Steam store. To use this method, you must create a set of categories to assign, and define the criteria for a game to be placed in that category. Each game will only be assigned to the category for the first rule that matches it. If a game does not match any rules, it will not be assigned to a category.
- 
+
  - **HLTB:** This lets you categorize games based on the times from http://howlongtobeat.com/ which indicate how long it takes to beat a game. To use this method, you must create a set of categories to assign, and define the criteria for a game to be placed in that category. Each game will only be assigned to the category for the first rule that matches it. If a game does not match any rules, it will not be assigned to a category.
- 
+
  - **DevPub:** Categorize games based on their Developers and/or Publishers.
- 
+
  - **Manual:** Manual manipulation of categories.  For example, use a Filter to gather the subset of games in categories Pool, Football, Baseball & Golf. Add all of those categories to the Remove list, and then add Sports to the Add list.  Running the AutoCat will remove the individual sports categories and place them all in a generic Sports category.
- 
+
  - **Group:**  Place and order multiple AutoCats into a single AutoCat.  Any Filter applied to a group will take precedence over a Filter applied to an AutoCat.
 
-#### Automatic Mode 
+#### Automatic Mode
 
-Automatic mode lets you run a predetermined set of autocat operations on your game library through the command line or by running a shortcut, without having to use the full Depressurizer interface. You still have to use the full interface to manage the autocat rules themselves. 
+Automatic mode lets you run a predetermined set of autocat operations on your game library through the command line or by running a shortcut, without having to use the full Depressurizer interface. You still have to use the full interface to manage the autocat rules themselves.
 For more information check Tools->Auto Mode Helper.
- 
+
 #### Definitions of Terms and Procedures
 
 When you **update** your game list, the program is updating your library of owned games. It will do this either by accessing local Steam config files or by going to your Steam Community profile site, depending on your settings. This does not alter any categories, it only adds games to your list.
@@ -203,7 +202,7 @@ The program database might be out of date. Also, the program relies on the Steam
 
 ##### How do I update the database myself?
 
-Click on Tools > Database Editor. Click "Update App Info" to pull the latest information from the local Steam cache file (by default this is done on program start anyway). Click "Fetch List" to get a list of all Steam apps. Then, click "Scrape Unscraped". This might take some time. If you click Stop (NOT CANCEL) it will save what you've gotten so far and you can come back later. Click File > Save to save your changes. 
+Click on Tools > Database Editor. Click "Update App Info" to pull the latest information from the local Steam cache file (by default this is done on program start anyway). Click "Fetch List" to get a list of all Steam apps. Then, click "Scrape Unscraped". This might take some time. If you click Stop (NOT CANCEL) it will save what you've gotten so far and you can come back later. Click File > Save to save your changes.
 
 ##### What exactly does the weighting factor on the tags autocat dialog do?
 
