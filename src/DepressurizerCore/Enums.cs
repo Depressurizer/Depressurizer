@@ -20,6 +20,15 @@
 
 namespace DepressurizerCore
 {
+    public enum ValueType
+    {
+        Array,
+
+        String,
+
+        Int
+    }
+
     public enum GameListSource
     {
         XmlPreferred,
