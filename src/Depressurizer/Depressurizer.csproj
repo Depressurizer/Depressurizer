@@ -308,7 +308,7 @@
     <Compile Include="Lib\ExtToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListViewComparer.cs" />
+    <Compile Include="Models\ListViewComparer.cs" />
     <Compile Include="lstCategoriesComparer.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="ProfileAccessException.cs" />
