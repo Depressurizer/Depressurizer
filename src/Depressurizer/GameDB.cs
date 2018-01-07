@@ -53,7 +53,7 @@ namespace Depressurizer
         // Main Data
         public Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
 
-        public int LastHltbUpdate;
+        public long LastHltbUpdate;
 
         private LanguageSupport allLanguages;
 
@@ -896,7 +896,7 @@ namespace Depressurizer
             int updated = 0;
 
             Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
-            int timestamp = Utility.GetCurrentUTime();
+            long timestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
 
             foreach (AppInfo aInf in appInfos.Values)
             {
@@ -994,7 +994,7 @@ namespace Depressurizer
                 }
             }
 
-            LastHltbUpdate = Utility.GetCurrentUTime();
+            LastHltbUpdate = DateTimeOffset.Now.ToUnixTimeSeconds();
 
             return updated;
         }

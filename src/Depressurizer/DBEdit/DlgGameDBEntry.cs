@@ -151,7 +151,7 @@ namespace Depressurizer
                 chkAppInfoUpdate.Checked = Game.LastAppInfoUpdate > 0;
 
                 dateWeb.Value = DateTimeOffset.FromUnixTimeSeconds(Game.LastStoreScrape).DateTime;
-                dateAppInfo.Value = Utility.GetDTFromUTime(Game.LastAppInfoUpdate);
+                dateAppInfo.Value = DateTimeOffset.FromUnixTimeSeconds(Game.LastAppInfoUpdate).DateTime;
             }
         }
 
@@ -207,8 +207,8 @@ namespace Depressurizer
                 Game.Platforms |= AppPlatforms.Linux;
             }
 
-            Game.LastStoreScrape = chkWebUpdate.Checked ? Utility.GetUTime(dateWeb.Value) : 0;
-            Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? Utility.GetUTime(dateAppInfo.Value) : 0;
+            Game.LastStoreScrape = chkWebUpdate.Checked ? ((DateTimeOffset) dateWeb.Value).ToUnixTimeSeconds() : 0;
+            Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? ((DateTimeOffset) dateAppInfo.Value).ToUnixTimeSeconds() : 0;
 
             return true;
         }
