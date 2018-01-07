@@ -50,7 +50,6 @@ namespace Depressurizer
 
         private Database()
         {
-            Load();
         }
 
         #endregion
@@ -803,7 +802,7 @@ namespace Depressurizer
             {
                 try
                 {
-                    string json = JsonConvert.SerializeObject(this, new JsonSerializerSettings
+                    string json = JsonConvert.SerializeObject(_instance, new JsonSerializerSettings
                     {
                         Formatting = Formatting.Indented,
                         ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
