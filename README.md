@@ -1,35 +1,33 @@
-**This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer)**.
+# Depressurizer (v1.0.0)
+<sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
 
-----
+# Summary
 
-### Depressurizer (v1.0.0)
+<img src="http://i.imgur.com/2K70Jog.jpg" width="50%" height="auto"  align="right" >
 
-----
-
-![Main Window](http://i.imgur.com/2K70Jog.jpg)
-
-
-### Summary
-
+<p align="justify">
 Depressurizer is a program aimed at making it a bit easier to manage large Steam game libraries. It can auto-categorize your games for you. Currently, it does so based on data from that games' Steam store pages. It can use genres, Steam flags (like "Single-Player" and "Steam Cloud"), Steam tags, Developer & Publisher info, How Long to Beat times, year, and/or Steam review user scores.  Auto-categorizing can be done manually or automatically via shortcut.
+</p>
 
+<p align="justify">
 In addition to providing a way to quickly and easily modify games' assigned categories, it also lets you mark them as Favorites or as Hidden.
+</p>
 
+<p align="justify">
 It also saves your configuration information independently of Steam, providing an automatic backup in the event that Steam loses your configuration.
+</p>
 
-----
+## Requirements
 
-### Requirements
-
- - Depressurizer requires the .NET Framework 4.6.2.
+ - Depressurizer requires the [.NET Framework 4.6.2](https://www.microsoft.com/en-us/download/details.aspx?id=53344).
 
  - It must be run on the same computer on which you use Steam, or one one of the computers on which you use Steam.
 
 ----
 
-### Usage guide
+# Usage guide
 
-#### Getting started
+## Getting started
 
 Download the latest version of Depressurizer from the project's [release page](../../releases) .
 
@@ -45,7 +43,7 @@ Once Steam is closed, all you need to do is click on File > Save in Depressurize
 
 By default, Depressurizer will automatically load and update your profile the next time you launch the program.
 
-#### Manual categorization
+## Manual categorization
 
 There are several ways to manually modify your games within Depressurizer.
 
@@ -63,7 +61,7 @@ There are several ways to manually modify your games within Depressurizer.
 
   If you right click on the game list, there are options to add categories, remove categories, or alter the Favorite setting for the selected games.
 
-#### Game Filtering
+## Game Filtering
 
 There are a few ways to filter your game list.
 
@@ -91,7 +89,7 @@ There are a few ways to filter your game list.
 
   Finally, you can always type into the Search box to find games with particular names. It will filter your current view to only games which have names that contain your search term.
 
-#### Auto-categorization
+## Auto-categorization
 
 Auto-categorization in Depressurizer is based around different schemes that determine what categories to add to (or remove from) each game. These schemes are configurable, and are referred to as "AutoCats".
 
@@ -153,7 +151,7 @@ There are currently nine types of AutoCat:
 
  - **Group:**  Place and order multiple AutoCats into a single AutoCat.  Any Filter applied to a group will take precedence over a Filter applied to an AutoCat.
 
-#### Definitions of Terms and Procedures
+## Definitions of Terms and Procedures
 
 When you **update** your game list, the program is updating your library of owned games. It will do this either by accessing local Steam config files or by going to your Steam Community profile site, depending on your settings. This does not alter any categories, it only adds games to your list.
 
@@ -162,3 +160,9 @@ When you **import** from Steam, the program is loading category and other inform
 When you **save**, you are saving your Depressurizer profile data. By default, this also exports to Steam, but this can be disabled in your profile settings.
 
 When you **export**, you are manually pushing your data to Steam. You should close Steam before doing this.
+
+---
+
+# Wiki
+- [Home](../wiki)
+- [FAQ & Troubleshoot](../wiki/FAQ-&-Troubleshooting)
