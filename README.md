@@ -153,11 +153,6 @@ There are currently nine types of AutoCat:
 
  - **Group:**  Place and order multiple AutoCats into a single AutoCat.  Any Filter applied to a group will take precedence over a Filter applied to an AutoCat.
 
-#### Automatic Mode
-
-Automatic mode lets you run a predetermined set of autocat operations on your game library through the command line or by running a shortcut, without having to use the full Depressurizer interface. You still have to use the full interface to manage the autocat rules themselves.
-For more information check Tools->Auto Mode Helper.
-
 #### Definitions of Terms and Procedures
 
 When you **update** your game list, the program is updating your library of owned games. It will do this either by accessing local Steam config files or by going to your Steam Community profile site, depending on your settings. This does not alter any categories, it only adds games to your list.
@@ -167,45 +162,3 @@ When you **import** from Steam, the program is loading category and other inform
 When you **save**, you are saving your Depressurizer profile data. By default, this also exports to Steam, but this can be disabled in your profile settings.
 
 When you **export**, you are manually pushing your data to Steam. You should close Steam before doing this.
-
-----
-
-### FAQ / Troubleshooting
-
-##### Will this mess up my Steam / get me VAC banned?
-
-No. The only things that Depressurizer does is to write to your configuration files, and it doesn't do anything that you couldn't do using the client itself.
-
-##### Why does my profile need to be public?
-
-If you are using the local update option in the profile settings, it does not. If you are only using the web update, the program needs your profile to be public in order to access your game list.
-
-##### Why are some of my games missing, even after I updated my game list?
-
-It is difficult to precisely determine the exact set of games that show up in the Steam client. The program does the best job I've been able to get it to do so far. If a game is (for some reason) in your game list without your account having a relevant license assigned to it, the local update will not pick it up. If the game does not show up on your community profile page, the web update will not pick it up. If a game is marked as DLC (or anything non-game-like) in the database, it will not get picked up by either of these methods.
-
-To get unlisted games to show up in the program, you can add them manually by clicking the "Add Game" button.
-
-You can also add them to any category within Steam, then close Steam, then do an Import in Depressurizer. Depending on the problem, this may only work if the "Bypass auto-ignore..." option in the profile options screen is enabled.
-
-##### Why do I have extra things like DLC in my game list?
-
-The program relies on its database to filter out non-game entries. If that database is wrong, extra items might show up. You might also have "Don't ignore unknown apps" in the profile settings "Ignored Games" tab checked, which can let in a lot of extra stuff.
-
-The program trusts that any game that it finds in your Steam config file should be there, so if something gets in there (this can easily happen with games that are only in your library temporarily for any reason) it will show up in Depressurizer after an import.
-
-To remove a specific item, just select it and click "Delete Game". This will remove it from your list and (by default) ignore it going forward.
-
-##### Why do some of my games not auto-categorize at all?
-
-The program database might be out of date. Also, the program relies on the Steam Store data for autocategorization info. Sometimes, a game that is on your account might not HAVE a Store page any more, so the database won't have any data on it.
-
-##### How do I update the database myself?
-
-Click on Tools > Database Editor. Click "Update App Info" to pull the latest information from the local Steam cache file (by default this is done on program start anyway). Click "Fetch List" to get a list of all Steam apps. Then, click "Scrape Unscraped". This might take some time. If you click Stop (NOT CANCEL) it will save what you've gotten so far and you can come back later. Click File > Save to save your changes.
-
-##### What exactly does the weighting factor on the tags autocat dialog do?
-
-Okay. The tag scanner runs through all of your games, and for each game it runs through all of your tags. As it goes, it makes a list of the tags it finds, and for each one, it keeps track of its "popularity score." Each time it sees a tag, it adds a value to its popularity score. If the weighting factor is set to 1.0, this value is always 1, so the score is just the number of times the scan encountered that tag.
-
-However, the first tags assigned to a game are the more popular ones, so you might want to give them more weight by increasing the weighting factor. The first tag for each game will always add the weighting factor to that tag's popularity score, and the last tag will always add 1. The tags in the middle add scores that linearly decrease before those values. For example, if a game has five tags (A, B, C, D, E), and the weight factor is set to 3, the scores added to each of those five tags will be: 3.0, 2.5, 2.0, 1.5, 1.0.
