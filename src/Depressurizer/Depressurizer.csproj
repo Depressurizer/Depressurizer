@@ -177,11 +177,11 @@
     <Compile Include="AutoCat\AutoCatConfigPanel_Language.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_VrSupport.cs">
+    <Compile Include="AutoCat\AutoCatConfigPanel_VRSupport.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_VrSupport.Designer.cs">
-      <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
+    <Compile Include="AutoCat\AutoCatConfigPanel_VRSupport.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_VRSupport.cs</DependentUpon>
     </Compile>
     <Compile Include="AutoCat\AutoCatConfigPanel_Flags.cs">
       <SubType>UserControl</SubType>
@@ -421,8 +421,8 @@
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Platform.resx">
       <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_VrSupport.resx">
-      <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_VRSupport.resx">
+      <DependentUpon>AutoCatConfigPanel_VRSupport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Flags.resx">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
