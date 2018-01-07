@@ -340,7 +340,7 @@
     <Compile Include="DlgManualDownload.Designer.cs">
       <DependentUpon>DlgManualDownload.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameDB.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="CDlgGetSteamID.cs">
       <SubType>Form</SubType>
     </Compile>

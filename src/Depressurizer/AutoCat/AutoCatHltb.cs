@@ -204,9 +204,9 @@ namespace Depressurizer
 
             string result = null;
 
-            float hltbMain = db.Games[game.Id].HltbMain / 60.0f;
-            float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
-            float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
+            float hltbMain = db.Apps[game.Id].HltbMain / 60.0f;
+            float hltbExtras = db.Apps[game.Id].HltbExtras / 60.0f;
+            float hltbCompletionist = db.Apps[game.Id].HltbCompletionist / 60.0f;
 
             if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
             {

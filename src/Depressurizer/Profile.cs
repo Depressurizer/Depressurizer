@@ -108,7 +108,7 @@ namespace Depressurizer
 
             //By Tags
             AutoCatTags act = new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Tags, null, "(" + GlobalStrings.Name_Tags + ") ");
-            foreach (Tuple<string, float> tag in Program.GameDB.CalculateSortedTagList(null, 1, 20, 0, false, false))
+            foreach (Tuple<string, float> tag in Database.Instance.CalculateSortedTagList(null, 1, 20, 0, false, false))
             {
                 act.IncludedTags.Add(tag.Item1);
             }
@@ -117,7 +117,7 @@ namespace Depressurizer
 
             //By Flags
             AutoCatFlags acf = new AutoCatFlags(GlobalStrings.Profile_DefaultAutoCatName_Flags, null, "(" + GlobalStrings.Name_Flags + ") ");
-            foreach (string flag in Program.GameDB.GetAllStoreFlags())
+            foreach (string flag in Database.Instance.GetAllStoreFlags())
             {
                 acf.IncludedFlags.Add(flag);
             }

@@ -187,7 +187,7 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            if (!db.Contains(game.Id) || db.Apps[game.Id].LastStoreScrape == 0)
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -197,7 +197,7 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            LanguageSupport Language = db.Games[game.Id].LanguageSupport;
+            LanguageSupport Language = db.Apps[game.Id].LanguageSupport;
 
             Language.Interface = Language.Interface ?? new List<string>();
             Language.Subtitles = Language.Subtitles ?? new List<string>();

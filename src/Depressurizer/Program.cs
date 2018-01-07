@@ -27,12 +27,6 @@ namespace Depressurizer
 {
     internal static class Program
     {
-        #region Static Fields
-
-        public static GameDB GameDB;
-
-        #endregion
-
         #region Methods
 
         /// <summary>
