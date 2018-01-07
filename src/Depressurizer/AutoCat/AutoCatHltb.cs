@@ -19,7 +19,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using Rallion;
 using System.Xml.Serialization;
 
 namespace Depressurizer
@@ -27,17 +26,15 @@ namespace Depressurizer
     public enum TimeType
     {
         Main,
+
         Extras,
+
         Completionist
     }
 
     public class Hltb_Rule
     {
-        [XmlElement("Text")]
-        public string Name { get; set; }
-        public float MinHours { get; set; }
-        public float MaxHours { get; set; }
-        public TimeType TimeType { get; set; }
+        #region Constructors and Destructors
 
         public Hltb_Rule(string name, float minHours, float maxHours, TimeType timeType)
         {
@@ -47,9 +44,6 @@ namespace Depressurizer
             TimeType = timeType;
         }
 
-        //XmlSerializer requires a parameterless constructor
-        private Hltb_Rule() { }
-
         public Hltb_Rule(Hltb_Rule other)
         {
             Name = other.Name;
@@ -57,57 +51,57 @@ namespace Depressurizer
             MaxHours = other.MaxHours;
             TimeType = other.TimeType;
         }
+
+        //XmlSerializer requires a parameterless constructor
+        private Hltb_Rule()
+        {
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        public float MaxHours { get; set; }
+
+        public float MinHours { get; set; }
+
+        [XmlElement("Text")]
+        public string Name { get; set; }
+
+        public TimeType TimeType { get; set; }
+
+        #endregion
     }
 
     public class AutoCatHltb : AutoCat
     {
-        #region Properties
-
-        public string Prefix { get; set; }
-        public bool IncludeUnknown { get; set; }
-        public string UnknownText { get; set; }
-        [XmlElement("Rule")]
-        public List<Hltb_Rule> Rules;
-
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.Hltb; }
-        }
+        #region Constants
 
         public const string TypeIdString = "AutoCatHltb";
 
-        public const string XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Prefix = "Prefix",
-            XmlName_IncludeUnknown = "IncludeUnknown",
-            XmlName_UnknownText = "UnknownText",
-            XmlName_Rule = "Rule",
-            XmlName_Rule_Text = "Text",
-            XmlName_Rule_MinHours = "MinHours",
-            XmlName_Rule_MaxHours = "MaxHours",
-            XmlName_Rule_TimeType = "TimeType";
+        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_IncludeUnknown = "IncludeUnknown", XmlName_UnknownText = "UnknownText", XmlName_Rule = "Rule", XmlName_Rule_Text = "Text", XmlName_Rule_MinHours = "MinHours", XmlName_Rule_MaxHours = "MaxHours", XmlName_Rule_TimeType = "TimeType";
 
         #endregion
 
-        #region Construction
+        #region Fields
 
-        public AutoCatHltb(string name, string filter = null, string prefix = null,
-            bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false)
-            : base(name)
+        [XmlElement("Rule")] public List<Hltb_Rule> Rules;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public AutoCatHltb(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
             IncludeUnknown = includeUnknown;
             UnknownText = unknownText;
-            Rules = (rules == null) ? new List<Hltb_Rule>() : rules;
+            Rules = rules == null ? new List<Hltb_Rule>() : rules;
             Selected = selected;
         }
 
-        //XmlSerializer requires a parameterless constructor
-        private AutoCatHltb() { }
-
-        public AutoCatHltb(AutoCatHltb other)
-            : base(other)
+        public AutoCatHltb(AutoCatHltb other) : base(other)
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
@@ -117,111 +111,26 @@ namespace Depressurizer
             Selected = other.Selected;
         }
 
-        public override AutoCat Clone()
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatHltb()
         {
-            return new AutoCatHltb(this);
         }
 
         #endregion
 
-        #region Autocategorization
+        #region Public Properties
 
-        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
-        {
-            if (games == null)
-            {
-                
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
-            }
-            if (db == null)
-            {
-                
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-            if (game == null)
-            {
-                
-                return AutoCatResult.Failure;
-            }
+        public override AutoCatType AutoCatType => AutoCatType.Hltb;
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+        public bool IncludeUnknown { get; set; }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+        public string Prefix { get; set; }
 
-            string result = null;
-
-            float hltbMain = db.Games[game.Id].HltbMain / 60.0f;
-            float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
-            float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
-
-            if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
-                result = UnknownText;
-            else
-            {
-                foreach (Hltb_Rule rule in Rules)
-                {
-                    if (CheckRule(rule, hltbMain, hltbExtras, hltbCompletionist))
-                    {
-                        result = rule.Name;
-                        break;
-                    }
-                }
-            }
-
-            if (result != null)
-            {
-                result = GetProcessedString(result);
-                game.AddCategory(games.GetCategory(result));
-            }
-            return AutoCatResult.Success;
-        }
-
-        private bool CheckRule(Hltb_Rule rule, float hltbMain, float hltbExtras, float hltbCompletionist)
-        {
-            float hours = 0.0f;
-            if (rule.TimeType == TimeType.Main)
-                hours = hltbMain;
-            else if (rule.TimeType == TimeType.Extras)
-                hours = hltbExtras;
-            else if (rule.TimeType == TimeType.Completionist)
-                hours = hltbCompletionist;
-            if (hours == 0.0f) return false;
-            return (hours >= rule.MinHours && (hours <= rule.MaxHours || rule.MaxHours == 0.0f));
-        }
-
-        private string GetProcessedString(string s)
-        {
-            if (!string.IsNullOrEmpty(Prefix)) return Prefix + s;
-            return s;
-        }
+        public string UnknownText { get; set; }
 
         #endregion
 
-        #region Serialization
-
-        public override void WriteToXml(XmlWriter writer)
-        {
-            writer.WriteStartElement(TypeIdString);
-
-            writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlName_UnknownText, UnknownText);
-
-
-            foreach (Hltb_Rule rule in Rules)
-            {
-                writer.WriteStartElement(XmlName_Rule);
-                writer.WriteElementString(XmlName_Rule_Text, rule.Name);
-                writer.WriteElementString(XmlName_Rule_MinHours, rule.MinHours.ToString());
-                writer.WriteElementString(XmlName_Rule_MaxHours, rule.MaxHours.ToString());
-                writer.WriteElementString(XmlName_Rule_TimeType, rule.TimeType.ToString());
-
-                writer.WriteEndElement();
-            }
-            writer.WriteEndElement();
-        }
+        #region Public Methods and Operators
 
         public static AutoCatHltb LoadFromXmlElement(XmlElement xElement)
         {
@@ -243,18 +152,161 @@ namespace Depressurizer
                 {
                     case "Extras":
                         ruleTimeType = TimeType.Extras;
+
                         break;
                     case "Completionist":
                         ruleTimeType = TimeType.Completionist;
+
                         break;
                     default:
                         ruleTimeType = TimeType.Main;
+
                         break;
                 }
+
                 rules.Add(new Hltb_Rule(ruleName, ruleMin, ruleMax, ruleTimeType));
             }
-            AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText) {Rules = rules};
+
+            AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText)
+            {
+                Rules = rules
+            };
+
             return result;
+        }
+
+        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
+        {
+            if (games == null)
+            {
+                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
+            }
+
+            if (db == null)
+            {
+                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
+            }
+
+            if (game == null)
+            {
+                return AutoCatResult.Failure;
+            }
+
+            if (!db.Contains(game.Id))
+            {
+                return AutoCatResult.NotInDatabase;
+            }
+
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
+
+            string result = null;
+
+            float hltbMain = db.Games[game.Id].HltbMain / 60.0f;
+            float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
+            float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
+
+            if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
+            {
+                result = UnknownText;
+            }
+            else
+            {
+                foreach (Hltb_Rule rule in Rules)
+                {
+                    if (CheckRule(rule, hltbMain, hltbExtras, hltbCompletionist))
+                    {
+                        result = rule.Name;
+
+                        break;
+                    }
+                }
+            }
+
+            if (result != null)
+            {
+                result = GetProcessedString(result);
+                game.AddCategory(games.GetCategory(result));
+            }
+
+            return AutoCatResult.Success;
+        }
+
+        public override AutoCat Clone()
+        {
+            return new AutoCatHltb(this);
+        }
+
+        public override void WriteToXml(XmlWriter writer)
+        {
+            writer.WriteStartElement(TypeIdString);
+
+            writer.WriteElementString(XmlName_Name, Name);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlName_Filter, Filter);
+            }
+
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlName_Prefix, Prefix);
+            }
+
+            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_UnknownText, UnknownText);
+
+            foreach (Hltb_Rule rule in Rules)
+            {
+                writer.WriteStartElement(XmlName_Rule);
+                writer.WriteElementString(XmlName_Rule_Text, rule.Name);
+                writer.WriteElementString(XmlName_Rule_MinHours, rule.MinHours.ToString());
+                writer.WriteElementString(XmlName_Rule_MaxHours, rule.MaxHours.ToString());
+                writer.WriteElementString(XmlName_Rule_TimeType, rule.TimeType.ToString());
+
+                writer.WriteEndElement();
+            }
+
+            writer.WriteEndElement();
+        }
+
+        #endregion
+
+        #region Methods
+
+        private bool CheckRule(Hltb_Rule rule, float hltbMain, float hltbExtras, float hltbCompletionist)
+        {
+            float hours = 0.0f;
+            if (rule.TimeType == TimeType.Main)
+            {
+                hours = hltbMain;
+            }
+            else if (rule.TimeType == TimeType.Extras)
+            {
+                hours = hltbExtras;
+            }
+            else if (rule.TimeType == TimeType.Completionist)
+            {
+                hours = hltbCompletionist;
+            }
+
+            if (hours == 0.0f)
+            {
+                return false;
+            }
+
+            return hours >= rule.MinHours && (hours <= rule.MaxHours || rule.MaxHours == 0.0f);
+        }
+
+        private string GetProcessedString(string s)
+        {
+            if (!string.IsNullOrEmpty(Prefix))
+            {
+                return Prefix + s;
+            }
+
+            return s;
         }
 
         #endregion

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DepressurizerCore.Models;
 
 /*
@@ -23,68 +22,42 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 namespace Depressurizer
 {
     /// <summary>
-    /// Represents a single game and its categories.
+    ///     Represents a single game and its categories.
     /// </summary>
     public class GameInfo
     {
-        #region Fields
+        #region Constants
 
-        const string runSteam = "steam://rungameid/{0}";
-        public string Name;
-        public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
-        public GameList GameList;
-        public bool Hidden;
-        public SortedSet<Category> Categories;
-        public GameListingSource Source;
-        public int LastPlayed;
-
-        private string _launchStr;
-
-        /// <summary>
-        /// ID String to use to launch this game. Uses the ID for steam games, but non-steam game IDs need to be set.
-        /// </summary>
-        public string LaunchString
-        {
-            get
-            {
-                if (Id > 0) return Id.ToString();
-                if (!string.IsNullOrEmpty(_launchStr)) return _launchStr;
-                return null;
-            }
-            set { _launchStr = value; }
-        }
-
-        public Category FavoriteCategory
-        {
-            get
-            {
-                if (GameList == null) return null;
-                return GameList.FavoriteCategory;
-            }
-        }
-
-        private string _executable;
-
-        public string Executable
-        {
-            get
-            {
-                if (_executable == null) return String.Format(runSteam, Id);
-                return _executable;
-            }
-            set
-            {
-                if (value != String.Format(runSteam, Id))
-                {
-                    _executable = value;
-                }
-            }
-        }
+        private const string runSteam = "steam://rungameid/{0}";
 
         #endregion
 
+        #region Fields
+
+        public SortedSet<Category> Categories;
+
+        public GameList GameList;
+
+        public bool Hidden;
+
+        public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
+
+        public int LastPlayed;
+
+        public string Name;
+
+        public GameListingSource Source;
+
+        private string _executable;
+
+        private string _launchStr;
+
+        #endregion
+
+        #region Constructors and Destructors
+
         /// <summary>
-        /// Construct a new GameInfo with no categories set.
+        ///     Construct a new GameInfo with no categories set.
         /// </summary>
         /// <param name="id">ID of the new game. Positive means it's the game's Steam ID, negative means it's a non-steam game.</param>
         /// <param name="name">Game title</param>
@@ -98,56 +71,71 @@ namespace Depressurizer
             Executable = executable;
         }
 
-        public void ApplySource(GameListingSource src)
+        #endregion
+
+        #region Public Properties
+
+        public string Executable
         {
-            if (Source < src) Source = src;
-        }
-
-        public bool IncludeGame(Filter f)
-        {
-            if (f == null) return true;
-
-            bool isCategorized = false;
-            bool isHidden = false;
-            bool isVR = false;
-            if (f.Uncategorized != (int) AdvancedFilterState.None) isCategorized = HasCategories();
-            if (f.Hidden != (int) AdvancedFilterState.None) isHidden = Hidden;
-            if (f.VR != (int)AdvancedFilterState.None) isVR = Program.GameDB.SupportsVR(Id);
-
-            if (f.Uncategorized == (int) AdvancedFilterState.Require && isCategorized) return false;
-            if (f.Hidden == (int) AdvancedFilterState.Require && !isHidden) return false;
-            if (f.VR == (int)AdvancedFilterState.Require && !isVR) return false;
-
-            if (f.Uncategorized == (int) AdvancedFilterState.Exclude && !isCategorized) return false;
-            if (f.Hidden == (int) AdvancedFilterState.Exclude && isHidden) return false;
-            if (f.VR == (int)AdvancedFilterState.Exclude && isVR) return false;
-
-            if (f.Uncategorized == (int) AdvancedFilterState.Allow || f.Hidden == (int) AdvancedFilterState.Allow ||
-                f.VR == (int)AdvancedFilterState.Allow || f.Allow.Count > 0)
+            get
             {
-                if (f.Uncategorized != (int) AdvancedFilterState.Allow || isCategorized)
+                if (_executable == null)
                 {
-                    if (f.Hidden != (int) AdvancedFilterState.Allow || !isHidden)
-                    {
-                        if (f.VR != (int) AdvancedFilterState.Allow || !isVR)
-                        {
-                            if (!Categories.Overlaps(f.Allow)) return false;
-                        }
-                    }
+                    return string.Format(runSteam, Id);
+                }
+
+                return _executable;
+            }
+            set
+            {
+                if (value != string.Format(runSteam, Id))
+                {
+                    _executable = value;
                 }
             }
-
-            if (!Categories.IsSupersetOf(f.Require)) return false;
-
-            if (Categories.Overlaps(f.Exclude)) return false;
-
-            return true;
         }
 
-        #region Category Modifiers
+        public Category FavoriteCategory
+        {
+            get
+            {
+                if (GameList == null)
+                {
+                    return null;
+                }
+
+                return GameList.FavoriteCategory;
+            }
+        }
 
         /// <summary>
-        /// Adds a single category to this game. Does nothing if the category is already attached.
+        ///     ID String to use to launch this game. Uses the ID for steam games, but non-steam game IDs need to be set.
+        /// </summary>
+        public string LaunchString
+        {
+            get
+            {
+                if (Id > 0)
+                {
+                    return Id.ToString();
+                }
+
+                if (!string.IsNullOrEmpty(_launchStr))
+                {
+                    return _launchStr;
+                }
+
+                return null;
+            }
+            set => _launchStr = value;
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Adds a single category to this game. Does nothing if the category is already attached.
         /// </summary>
         /// <param name="newCat">Category to add</param>
         public void AddCategory(Category newCat)
@@ -159,7 +147,7 @@ namespace Depressurizer
         }
 
         /// <summary>
-        /// Adds a list of categories to this game. Skips categories that are already attached.
+        ///     Adds a list of categories to this game. Skips categories that are already attached.
         /// </summary>
         /// <param name="newCats">A list of categories to add</param>
         public void AddCategory(ICollection<Category> newCats)
@@ -173,39 +161,28 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        /// Removes a single category from this game. Does nothing if the category is not attached to this game.
-        /// </summary>
-        /// <param name="remCat">Category to remove</param>
-        public void RemoveCategory(Category remCat)
+        public void ApplySource(GameListingSource src)
         {
-            if (Categories.Remove(remCat) && !Hidden)
-                remCat.Count--;
-        }
-
-        /// <summary>
-        /// Removes a list of categories from this game. Skips categories that are not attached to this game.
-        /// </summary>
-        /// <param name="remCats">Categories to remove</param>
-        public void RemoveCategory(ICollection<Category> remCats)
-        {
-            foreach (Category cat in remCats)
+            if (Source < src)
             {
-                if (!Categories.Contains(cat))
-                {
-                    RemoveCategory(cat);
-                }
+                Source = src;
             }
         }
 
         /// <summary>
-        /// Removes all categories from this game.
-        /// <param name="alsoClearFavorite">If true, removes the favorite category as well.</param>
+        ///     Removes all categories from this game.
+        ///     <param name="alsoClearFavorite">If true, removes the favorite category as well.</param>
         /// </summary>
         public void ClearCategories(bool alsoClearFavorite = false)
         {
             foreach (Category cat in Categories)
-                if (!Hidden) cat.Count--;
+            {
+                if (!Hidden)
+                {
+                    cat.Count--;
+                }
+            }
+
             if (alsoClearFavorite)
             {
                 Categories.Clear();
@@ -217,63 +194,16 @@ namespace Depressurizer
                 if (restore)
                 {
                     Categories.Add(FavoriteCategory);
-                    if (!Hidden) FavoriteCategory.Count++;
+                    if (!Hidden)
+                    {
+                        FavoriteCategory.Count++;
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// Sets the categories for this game to exactly match the given list. Missing categories will be added and extra ones will be removed.
-        /// </summary>
-        /// <param name="cats">Set of categories to apply to this game</param>
-        public void SetCategories(ICollection<Category> cats, bool preserveFavorite)
-        {
-            ClearCategories(alsoClearFavorite: !preserveFavorite);
-            AddCategory(cats);
-        }
-
-        public void SetFavorite(bool fav)
-        {
-            if (fav)
-            {
-                AddCategory(FavoriteCategory);
-            }
-            else
-            {
-                RemoveCategory(FavoriteCategory);
-            }
-        }
-
-        /// <summary>
-        /// Add or remove the hidden attribute for this game.
-        /// </summary>
-        /// <param name="hide">Whether the game should be hidden</param>
-        public void SetHidden(bool hide)
-        {
-            if (Hidden == hide) return;
-            if (hide)
-            {
-                foreach (Category cat in Categories)
-                {
-                    cat.Count--;
-                }
-            }
-            else
-            {
-                foreach (Category cat in Categories)
-                {
-                    cat.Count++;
-                }
-            }
-            Hidden = hide;
-        }
-
-        #endregion
-
-        #region Accessors
-
-        /// <summary>
-        /// Check whether the game includes the given category
+        ///     Check whether the game includes the given category
         /// </summary>
         /// <param name="c">Category to look for</param>
         /// <returns>True if category is found</returns>
@@ -283,33 +213,7 @@ namespace Depressurizer
         }
 
         /// <summary>
-        /// Check to see if the game has any categories at all (except the Favorite category)
-        /// </summary>
-        /// <param name="includeFavorite">If true, will only return true if the game is not in the favorite category. If false, the favorite category is ignored.</param>
-        /// <returns>True if the category set is not empty</returns>
-        public bool HasCategories(bool includeFavorite = false)
-        {
-            if (Categories.Count == 0) return false;
-            return !(!includeFavorite && Categories.Count == 1 && Categories.Contains(FavoriteCategory));
-        }
-
-        /// <summary>
-        /// Check to see if the game has any categories set that do not exist in the given list
-        /// </summary>
-        /// <param name="except">List of games to exclude from the  check</param>
-        /// <returns>True if the game has any categories that do not exist in the list</returns>
-        public bool HasCategoriesExcept(ICollection<Category> except)
-        {
-            if (Categories.Count == 0) return false;
-            foreach (Category c in Categories)
-            {
-                if (!except.Contains(c)) return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Gets a string listing the game's assigned categories.
+        ///     Gets a string listing the game's assigned categories.
         /// </summary>
         /// <param name="ifEmpty">Value to return if there are no categories</param>
         /// <param name="includeFavorite">If true, include the favorite category.</param>
@@ -326,16 +230,223 @@ namespace Depressurizer
                     {
                         result += ", ";
                     }
+
                     result += c.Name;
                     first = false;
                 }
             }
+
             return first ? ifEmpty : result;
+        }
+
+        /// <summary>
+        ///     Check to see if the game has any categories at all (except the Favorite category)
+        /// </summary>
+        /// <param name="includeFavorite">
+        ///     If true, will only return true if the game is not in the favorite category. If false, the
+        ///     favorite category is ignored.
+        /// </param>
+        /// <returns>True if the category set is not empty</returns>
+        public bool HasCategories(bool includeFavorite = false)
+        {
+            if (Categories.Count == 0)
+            {
+                return false;
+            }
+
+            return !(!includeFavorite && Categories.Count == 1 && Categories.Contains(FavoriteCategory));
+        }
+
+        /// <summary>
+        ///     Check to see if the game has any categories set that do not exist in the given list
+        /// </summary>
+        /// <param name="except">List of games to exclude from the  check</param>
+        /// <returns>True if the game has any categories that do not exist in the list</returns>
+        public bool HasCategoriesExcept(ICollection<Category> except)
+        {
+            if (Categories.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (Category c in Categories)
+            {
+                if (!except.Contains(c))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IncludeGame(Filter f)
+        {
+            if (f == null)
+            {
+                return true;
+            }
+
+            bool isCategorized = false;
+            bool isHidden = false;
+            bool isVR = false;
+            if (f.Uncategorized != (int) AdvancedFilterState.None)
+            {
+                isCategorized = HasCategories();
+            }
+
+            if (f.Hidden != (int) AdvancedFilterState.None)
+            {
+                isHidden = Hidden;
+            }
+
+            if (f.VR != (int) AdvancedFilterState.None)
+            {
+                isVR = Program.GameDB.SupportsVR(Id);
+            }
+
+            if (f.Uncategorized == (int) AdvancedFilterState.Require && isCategorized)
+            {
+                return false;
+            }
+
+            if (f.Hidden == (int) AdvancedFilterState.Require && !isHidden)
+            {
+                return false;
+            }
+
+            if (f.VR == (int) AdvancedFilterState.Require && !isVR)
+            {
+                return false;
+            }
+
+            if (f.Uncategorized == (int) AdvancedFilterState.Exclude && !isCategorized)
+            {
+                return false;
+            }
+
+            if (f.Hidden == (int) AdvancedFilterState.Exclude && isHidden)
+            {
+                return false;
+            }
+
+            if (f.VR == (int) AdvancedFilterState.Exclude && isVR)
+            {
+                return false;
+            }
+
+            if (f.Uncategorized == (int) AdvancedFilterState.Allow || f.Hidden == (int) AdvancedFilterState.Allow || f.VR == (int) AdvancedFilterState.Allow || f.Allow.Count > 0)
+            {
+                if (f.Uncategorized != (int) AdvancedFilterState.Allow || isCategorized)
+                {
+                    if (f.Hidden != (int) AdvancedFilterState.Allow || !isHidden)
+                    {
+                        if (f.VR != (int) AdvancedFilterState.Allow || !isVR)
+                        {
+                            if (!Categories.Overlaps(f.Allow))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!Categories.IsSupersetOf(f.Require))
+            {
+                return false;
+            }
+
+            if (Categories.Overlaps(f.Exclude))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public bool IsFavorite()
         {
             return ContainsCategory(FavoriteCategory);
+        }
+
+        /// <summary>
+        ///     Removes a single category from this game. Does nothing if the category is not attached to this game.
+        /// </summary>
+        /// <param name="remCat">Category to remove</param>
+        public void RemoveCategory(Category remCat)
+        {
+            if (Categories.Remove(remCat) && !Hidden)
+            {
+                remCat.Count--;
+            }
+        }
+
+        /// <summary>
+        ///     Removes a list of categories from this game. Skips categories that are not attached to this game.
+        /// </summary>
+        /// <param name="remCats">Categories to remove</param>
+        public void RemoveCategory(ICollection<Category> remCats)
+        {
+            foreach (Category cat in remCats)
+            {
+                if (!Categories.Contains(cat))
+                {
+                    RemoveCategory(cat);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Sets the categories for this game to exactly match the given list. Missing categories will be added and extra ones
+        ///     will be removed.
+        /// </summary>
+        /// <param name="cats">Set of categories to apply to this game</param>
+        public void SetCategories(ICollection<Category> cats, bool preserveFavorite)
+        {
+            ClearCategories(!preserveFavorite);
+            AddCategory(cats);
+        }
+
+        public void SetFavorite(bool fav)
+        {
+            if (fav)
+            {
+                AddCategory(FavoriteCategory);
+            }
+            else
+            {
+                RemoveCategory(FavoriteCategory);
+            }
+        }
+
+        /// <summary>
+        ///     Add or remove the hidden attribute for this game.
+        /// </summary>
+        /// <param name="hide">Whether the game should be hidden</param>
+        public void SetHidden(bool hide)
+        {
+            if (Hidden == hide)
+            {
+                return;
+            }
+
+            if (hide)
+            {
+                foreach (Category cat in Categories)
+                {
+                    cat.Count--;
+                }
+            }
+            else
+            {
+                foreach (Category cat in Categories)
+                {
+                    cat.Count++;
+                }
+            }
+
+            Hidden = hide;
         }
 
         #endregion

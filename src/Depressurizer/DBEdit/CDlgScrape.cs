@@ -24,15 +24,21 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class DbScrapeDlg : CancelableDlg
+    internal class DbScrapeDlg : CancelableDlg
     {
-        Queue<int> jobs;
-        List<DatabaseEntry> results;
+        #region Fields
 
-        DateTime start;
+        private readonly Queue<int> jobs;
 
-        public DbScrapeDlg(Queue<int> jobs)
-            : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
+        private readonly List<DatabaseEntry> results;
+
+        private DateTime start;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public DbScrapeDlg(Queue<int> jobs) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
             this.jobs = jobs;
             totalJobs = jobs.Count;
@@ -40,64 +46,9 @@ namespace Depressurizer
             results = new List<DatabaseEntry>();
         }
 
-        protected override void UpdateForm_Load(object sender, EventArgs e)
-        {
-            start = DateTime.Now;
-            base.UpdateForm_Load(sender, e);
-        }
+        #endregion
 
-        private int GetNextGameId()
-        {
-            lock (jobs)
-            {
-                if (jobs.Count > 0)
-                {
-                    return jobs.Dequeue();
-                }
-                return 0;
-            }
-        }
-
-        protected override void RunProcess()
-        {
-            bool stillRunning = true;
-            while (!Stopped && stillRunning)
-            {
-                stillRunning = RunNextJob();
-            }
-            OnThreadCompletion();
-        }
-
-        /// <summary>
-        /// Runs the next job in the queue, in a thread-safe manner. Aborts ASAP if the form is closed.
-        /// </summary>
-        /// <returns>True if a job was run, false if it was aborted first</returns>
-        private bool RunNextJob()
-        {
-            int id = GetNextGameId();
-            if (id == 0)
-            {
-                return false;
-            }
-            if (Stopped) return false;
-
-            DatabaseEntry newGame = new DatabaseEntry();
-            newGame.Id = id;
-            newGame.ScrapeStore();
-
-            // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
-            // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
-            lock (abortLock)
-            {
-                if (!Stopped)
-                {
-                    results.Add(newGame);
-                    OnJobCompletion();
-                    return true;
-                }
-                return false;
-            }
-        }
+        #region Methods
 
         protected override void Finish()
         {
@@ -120,6 +71,23 @@ namespace Depressurizer
                     }
                 }
             }
+        }
+
+        protected override void RunProcess()
+        {
+            bool stillRunning = true;
+            while (!Stopped && stillRunning)
+            {
+                stillRunning = RunNextJob();
+            }
+
+            OnThreadCompletion();
+        }
+
+        protected override void UpdateForm_Load(object sender, EventArgs e)
+        {
+            start = DateTime.Now;
+            base.UpdateForm_Load(sender, e);
         }
 
         protected override void UpdateText()
@@ -152,9 +120,63 @@ namespace Depressurizer
                 {
                     sb.Append(string.Format("{0:F0}h", hours));
                 }
+
                 sb.Append(string.Format("{0:D2}m", timeRemaining.Minutes));
             }
+
             SetText(sb.ToString());
         }
+
+        private int GetNextGameId()
+        {
+            lock (jobs)
+            {
+                if (jobs.Count > 0)
+                {
+                    return jobs.Dequeue();
+                }
+
+                return 0;
+            }
+        }
+
+        /// <summary>
+        ///     Runs the next job in the queue, in a thread-safe manner. Aborts ASAP if the form is closed.
+        /// </summary>
+        /// <returns>True if a job was run, false if it was aborted first</returns>
+        private bool RunNextJob()
+        {
+            int id = GetNextGameId();
+            if (id == 0)
+            {
+                return false;
+            }
+
+            if (Stopped)
+            {
+                return false;
+            }
+
+            DatabaseEntry newGame = new DatabaseEntry();
+            newGame.Id = id;
+            newGame.ScrapeStore();
+
+            // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
+            // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
+            lock (abortLock)
+            {
+                if (!Stopped)
+                {
+                    results.Add(newGame);
+                    OnJobCompletion();
+
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

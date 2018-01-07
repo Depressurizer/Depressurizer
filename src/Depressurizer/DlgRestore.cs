@@ -17,6 +17,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -25,18 +26,48 @@ namespace Depressurizer
 {
     public partial class DlgRestore : Form
     {
+        #region Fields
+
         public bool Restored;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public DlgRestore(string path)
         {
             InitializeComponent();
 
-            var files = Directory.EnumerateFiles(path, "*.*", SearchOption.TopDirectoryOnly)
-                .Where(s => s.EndsWith(".bak_1") || s.EndsWith(".bak_2") || s.EndsWith(".bak_3"));
+            IEnumerable<string> files = Directory.EnumerateFiles(path, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".bak_1") || s.EndsWith(".bak_2") || s.EndsWith(".bak_3"));
 
             foreach (string f in files)
             {
                 cboRestore.Items.Add(new ComboItem(Path.GetFileName(f), f));
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnRestore_Click(object sender, EventArgs e)
+        {
+            string name = ((ComboItem) cboRestore.SelectedItem).Name;
+            string message = name.Contains("vdf") ? string.Format(GlobalStrings.DlgRestore_ConfigConfirm, name) : string.Format(GlobalStrings.DlgRestore_ProfileConfirm, name);
+            DialogResult result = MessageBox.Show(message, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                if (((ComboItem) cboRestore.SelectedItem).Restore())
+                {
+                    Restored = true;
+                    Close();
+                }
             }
         }
 
@@ -60,35 +91,12 @@ namespace Depressurizer
             }
         }
 
-        private void btnRestore_Click(object sender, EventArgs e)
-        {
-            string name = ((ComboItem) cboRestore.SelectedItem).Name;
-            string message = name.Contains("vdf")
-                ? String.Format(GlobalStrings.DlgRestore_ConfigConfirm, name)
-                : String.Format(GlobalStrings.DlgRestore_ProfileConfirm, name);
-            DialogResult result = MessageBox.Show(message, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                if (((ComboItem) cboRestore.SelectedItem).Restore())
-                {
-                    Restored = true;
-                    Close();
-                }
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        #endregion
     }
 
-    class ComboItem
+    internal class ComboItem
     {
-        public string Name { get; set; }
-        public string Path { get; set; }
+        #region Constructors and Destructors
 
         public ComboItem(string name, string path)
         {
@@ -96,10 +104,17 @@ namespace Depressurizer
             Path = path;
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        #endregion
+
+        #region Public Properties
+
+        public string Name { get; set; }
+
+        public string Path { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public bool Restore()
         {
@@ -109,6 +124,7 @@ namespace Depressurizer
             try
             {
                 File.Copy(Path, file, true);
+
                 return true;
             }
             catch
@@ -116,5 +132,12 @@ namespace Depressurizer
                 return false;
             }
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        #endregion
     }
 }

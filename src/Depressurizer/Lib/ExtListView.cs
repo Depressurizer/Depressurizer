@@ -22,18 +22,34 @@ using System.Windows.Forms;
 
 namespace Depressurizer.Lib
 {
-    class ExtListView : ListView
+    internal class ExtListView : ListView
     {
-        public event EventHandler SelectionChanged;
+        #region Fields
 
         private bool isSelecting;
+
         private IComparer suspendedComparer;
+
         private int suspendSortDepth;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public ExtListView()
         {
             SelectedIndexChanged += ExtListView_SelectedIndexChanged;
         }
+
+        #endregion
+
+        #region Public Events
+
+        public event EventHandler SelectionChanged;
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void ExtBeginUpdate()
         {
@@ -48,7 +64,31 @@ namespace Depressurizer.Lib
         }
 
         /// <summary>
-        /// Suspends sorting until ResumeSorting is called. Does so by clearing the ListViewItemSorter property.
+        ///     Resumes sorting after SuspendSorting has been called.
+        /// </summary>
+        /// <param name="sortNow">If true, will sort immediately.</param>
+        public void ResumeSorting(bool sortNow = false)
+        {
+            if (suspendSortDepth == 0)
+            {
+                return;
+            }
+
+            if (suspendSortDepth == 1)
+            {
+                ListViewItemSorter = suspendedComparer;
+                suspendedComparer = null;
+                if (sortNow)
+                {
+                    Sort();
+                }
+            }
+
+            suspendSortDepth--;
+        }
+
+        /// <summary>
+        ///     Suspends sorting until ResumeSorting is called. Does so by clearing the ListViewItemSorter property.
         /// </summary>
         public void SuspendSorting()
         {
@@ -57,35 +97,15 @@ namespace Depressurizer.Lib
                 suspendedComparer = ListViewItemSorter;
                 ListViewItemSorter = null;
             }
+
             suspendSortDepth++;
         }
 
-        /// <summary>
-        /// Resumes sorting after SuspendSorting has been called.
-        /// </summary>
-        /// <param name="sortNow">If true, will sort immediately.</param>
-        public void ResumeSorting(bool sortNow = false)
-        {
-            if (suspendSortDepth == 0) return;
-            if (suspendSortDepth == 1)
-            {
-                ListViewItemSorter = suspendedComparer;
-                suspendedComparer = null;
-                if (sortNow) Sort();
-            }
-            suspendSortDepth--;
-        }
+        #endregion
 
-        void ExtListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!isSelecting)
-            {
-                isSelecting = true;
-                Application.Idle += Application_Idle;
-            }
-        }
+        #region Methods
 
-        void Application_Idle(object sender, EventArgs e)
+        private void Application_Idle(object sender, EventArgs e)
         {
             isSelecting = false;
             Application.Idle -= Application_Idle;
@@ -94,5 +114,16 @@ namespace Depressurizer.Lib
                 SelectionChanged(this, new EventArgs());
             }
         }
+
+        private void ExtListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!isSelecting)
+            {
+                isSelecting = true;
+                Application.Idle += Application_Idle;
+            }
+        }
+
+        #endregion
     }
 }

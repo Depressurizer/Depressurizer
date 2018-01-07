@@ -25,10 +25,7 @@ namespace Depressurizer
 {
     public partial class DlgSteamPath : Form
     {
-        public string Path
-        {
-            get { return txtPath.Text.Trim().TrimEnd('\\'); }
-        }
+        #region Constructors and Destructors
 
         public DlgSteamPath()
         {
@@ -36,20 +33,15 @@ namespace Depressurizer
             txtPath.Text = GetSteamPath();
         }
 
-        private void cmdOk_Click(object sender, EventArgs e)
-        {
-            if (!Directory.Exists(Path))
-            {
-                DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist,
-                    GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button2);
-                if (res == DialogResult.No)
-                {
-                    return;
-                }
-            }
-            Close();
-        }
+        #endregion
+
+        #region Public Properties
+
+        public string Path => txtPath.Text.Trim().TrimEnd('\\');
+
+        #endregion
+
+        #region Methods
 
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
@@ -61,12 +53,30 @@ namespace Depressurizer
             }
         }
 
+        private void cmdOk_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(Path))
+            {
+                DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (res == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
+            Close();
+        }
+
         private string GetSteamPath()
         {
             try
             {
                 string s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
-                if (s == null) s = string.Empty;
+                if (s == null)
+                {
+                    s = string.Empty;
+                }
+
                 return s.Replace('/', '\\');
             }
             catch
@@ -74,5 +84,7 @@ namespace Depressurizer
                 return string.Empty;
             }
         }
+
+        #endregion
     }
 }

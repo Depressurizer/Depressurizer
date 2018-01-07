@@ -25,6 +25,8 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Language : AutoCatConfigPanel
     {
+        #region Constructors and Destructors
+
         public AutoCatConfigPanel_Language()
         {
             InitializeComponent();
@@ -33,6 +35,10 @@ namespace Depressurizer
 
             FillLanguageLists();
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void FillLanguageLists()
         {
@@ -132,13 +138,9 @@ namespace Depressurizer
             }
         }
 
-        private void SetAllListCheckStates(ListView list, bool to)
-        {
-            foreach (ListViewItem item in list.Items)
-            {
-                item.Checked = to;
-            }
-        }
+        #endregion
+
+        #region Methods
 
         private void cmdCheckAll_Click(object sender, EventArgs e)
         {
@@ -153,5 +155,15 @@ namespace Depressurizer
             SetAllListCheckStates(lstSubtitles, false);
             SetAllListCheckStates(lstFullAudio, false);
         }
+
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
+        }
+
+        #endregion
     }
 }

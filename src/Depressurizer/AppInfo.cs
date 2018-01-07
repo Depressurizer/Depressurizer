@@ -25,16 +25,25 @@ using ValueType = DepressurizerCore.ValueType;
 
 namespace Depressurizer
 {
-    class AppInfo
+    internal class AppInfo
     {
-        public int Id;
-        public string Name;
+        #region Fields
+
         public AppTypes AppType;
-        public AppPlatforms Platforms;
+
+        public int Id;
+
+        public string Name;
+
         public int Parent; // 0 if none
 
-        public AppInfo(int id, string name = null, AppTypes type = AppTypes.Unknown,
-            AppPlatforms platforms = AppPlatforms.All)
+        public AppPlatforms Platforms;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public AppInfo(int id, string name = null, AppTypes type = AppTypes.Unknown, AppPlatforms platforms = AppPlatforms.All)
         {
             Id = id;
             Name = name;
@@ -43,13 +52,23 @@ namespace Depressurizer
             Platforms = platforms;
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         public static AppInfo FromVdfNode(VDFNode commonNode)
         {
-            if (commonNode == null || commonNode.NodeType != ValueType.Array) return null;
+            if (commonNode == null || commonNode.NodeType != ValueType.Array)
+            {
+                return null;
+            }
 
             AppInfo result = null;
 
-            VDFNode idNode = commonNode.GetNodeAt(new[] {"gameid"}, false);
+            VDFNode idNode = commonNode.GetNodeAt(new[]
+            {
+                "gameid"
+            }, false);
             int id = -1;
             if (idNode != null)
             {
@@ -70,14 +89,26 @@ namespace Depressurizer
             {
                 // Get name
                 string name = null;
-                VDFNode nameNode = commonNode.GetNodeAt(new[] {"name"}, false);
-                if (nameNode != null) name = nameNode.NodeData.ToString();
+                VDFNode nameNode = commonNode.GetNodeAt(new[]
+                {
+                    "name"
+                }, false);
+                if (nameNode != null)
+                {
+                    name = nameNode.NodeData.ToString();
+                }
 
                 // Get type
                 string typeStr = null;
                 AppTypes type = AppTypes.Unknown;
-                VDFNode typeNode = commonNode.GetNodeAt(new[] {"type"}, false);
-                if (typeNode != null) typeStr = typeNode.NodeData.ToString();
+                VDFNode typeNode = commonNode.GetNodeAt(new[]
+                {
+                    "type"
+                }, false);
+                if (typeNode != null)
+                {
+                    typeStr = typeNode.NodeData.ToString();
+                }
 
                 if (typeStr != null)
                 {
@@ -90,7 +121,10 @@ namespace Depressurizer
                 // Get platforms
                 string oslist = null;
                 AppPlatforms platforms = AppPlatforms.None;
-                VDFNode oslistNode = commonNode.GetNodeAt(new[] {"oslist"}, false);
+                VDFNode oslistNode = commonNode.GetNodeAt(new[]
+                {
+                    "oslist"
+                }, false);
                 if (oslistNode != null)
                 {
                     oslist = oslistNode.NodeData.ToString();
@@ -98,10 +132,12 @@ namespace Depressurizer
                     {
                         platforms |= AppPlatforms.Windows;
                     }
+
                     if (oslist.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
                     {
                         platforms |= AppPlatforms.Mac;
                     }
+
                     if (oslist.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
                     {
                         platforms |= AppPlatforms.Linux;
@@ -111,12 +147,16 @@ namespace Depressurizer
                 result = new AppInfo(id, name, type, platforms);
 
                 // Get parent
-                VDFNode parentNode = commonNode.GetNodeAt(new[] {"parent"}, false);
+                VDFNode parentNode = commonNode.GetNodeAt(new[]
+                {
+                    "parent"
+                }, false);
                 if (parentNode != null)
                 {
                     result.Parent = parentNode.NodeInt;
                 }
             }
+
             return result;
         }
 
@@ -127,7 +167,18 @@ namespace Depressurizer
             long fileLength = bReader.BaseStream.Length;
 
             // seek to common: start of a new entry
-            byte[] start = {0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00}; // 0x00 0x00 c o m m o n 0x00
+            byte[] start =
+            {
+                0x00,
+                0x00,
+                0x63,
+                0x6F,
+                0x6D,
+                0x6D,
+                0x6F,
+                0x6E,
+                0x00
+            }; // 0x00 0x00 c o m m o n 0x00
 
             VDFNode.ReadBin_SeekTo(bReader, start, fileLength);
 
@@ -139,11 +190,16 @@ namespace Depressurizer
                 {
                     result.Add(app.Id, app);
                 }
+
                 VDFNode.ReadBin_SeekTo(bReader, start, fileLength);
                 node = VDFNode.LoadFromBinary(bReader);
             }
+
             bReader.Close();
+
             return result;
         }
+
+        #endregion
     }
 }

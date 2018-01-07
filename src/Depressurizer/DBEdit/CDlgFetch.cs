@@ -21,24 +21,31 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class FetchPrcDlg : CancelableDlg
+    internal class FetchPrcDlg : CancelableDlg
     {
-        public int Added { get; private set; }
-        XmlDocument doc;
+        #region Fields
 
-        public FetchPrcDlg()
-            : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
+        private XmlDocument doc;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public FetchPrcDlg() : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
         {
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
             Added = 0;
         }
 
-        protected override void RunProcess()
-        {
-            Added = 0;
-            doc = GameDB.FetchAppListFromWeb();
-            OnThreadCompletion();
-        }
+        #endregion
+
+        #region Public Properties
+
+        public int Added { get; private set; }
+
+        #endregion
+
+        #region Methods
 
         protected override void Finish()
         {
@@ -49,5 +56,14 @@ namespace Depressurizer
                 OnJobCompletion();
             }
         }
+
+        protected override void RunProcess()
+        {
+            Added = 0;
+            doc = GameDB.FetchAppListFromWeb();
+            OnThreadCompletion();
+        }
+
+        #endregion
     }
 }

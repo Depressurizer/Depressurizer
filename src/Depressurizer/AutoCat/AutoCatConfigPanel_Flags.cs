@@ -24,6 +24,8 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Flags : AutoCatConfigPanel
     {
+        #region Constructors and Destructors
+
         public AutoCatConfigPanel_Flags()
         {
             InitializeComponent();
@@ -32,6 +34,10 @@ namespace Depressurizer
 
             FillFlagsList();
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void FillFlagsList()
         {
@@ -51,7 +57,10 @@ namespace Depressurizer
         public override void LoadFromAutoCat(AutoCat autocat)
         {
             AutoCatFlags ac = autocat as AutoCatFlags;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
 
             txtPrefix.Text = ac.Prefix;
 
@@ -64,7 +73,11 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatFlags ac = autocat as AutoCatFlags;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
 
             ac.IncludedFlags.Clear();
@@ -77,13 +90,9 @@ namespace Depressurizer
             }
         }
 
-        private void SetAllListCheckStates(ListView list, bool to)
-        {
-            foreach (ListViewItem item in list.Items)
-            {
-                item.Checked = to;
-            }
-        }
+        #endregion
+
+        #region Methods
 
         private void cmdCheckAll_Click(object sender, EventArgs e)
         {
@@ -94,5 +103,15 @@ namespace Depressurizer
         {
             SetAllListCheckStates(lstIncluded, false);
         }
+
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
+        }
+
+        #endregion
     }
 }

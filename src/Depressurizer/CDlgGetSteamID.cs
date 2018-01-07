@@ -19,18 +19,22 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Net;
 using System.Xml;
+using Depressurizer.Properties;
 using Rallion;
 
 namespace Depressurizer
 {
-    class CDlgGetSteamID : CancelableDlg
+    internal class CDlgGetSteamID : CancelableDlg
     {
-        public Int64 SteamID { get; private set; }
-        private string customUrlName;
-        public bool Success { get; private set; }
+        #region Fields
 
-        public CDlgGetSteamID(string customUrl)
-            : base(GlobalStrings.CDlgGetSteamID_GettingSteamID, false)
+        private readonly string customUrlName;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public CDlgGetSteamID(string customUrl) : base(GlobalStrings.CDlgGetSteamID_GettingSteamID, false)
         {
             SteamID = 0;
             Success = false;
@@ -39,31 +43,49 @@ namespace Depressurizer
             SetText(GlobalStrings.CDlgGetSteamID_GettingIDFromURL);
         }
 
+        #endregion
+
+        #region Public Properties
+
+        public long SteamID { get; private set; }
+
+        public bool Success { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        protected override void Finish()
+        {
+            if (!Canceled)
+            {
+                OnJobCompletion();
+            }
+        }
+
         protected override void RunProcess()
         {
             XmlDocument doc = new XmlDocument();
 
             try
             {
-                string url = string.Format(Properties.Resources.UrlCustomProfileXml, customUrlName);
-                
-                WebRequest req = HttpWebRequest.Create(url);
+                string url = string.Format(Resources.UrlCustomProfileXml, customUrlName);
+
+                WebRequest req = WebRequest.Create(url);
                 WebResponse response = req.GetResponse();
                 doc.Load(response.GetResponseStream());
                 response.Close();
-                
             }
             catch (Exception e)
             {
-
                 throw new ApplicationException(GlobalStrings.CDlgGetSteamID_FailedToDownloadProfile + e.Message, e);
             }
 
             XmlNode idNode = doc.SelectSingleNode("/profile/steamID64");
             if (idNode != null)
             {
-                Int64 tmp;
-                Success = Int64.TryParse(idNode.InnerText, out tmp);
+                long tmp;
+                Success = long.TryParse(idNode.InnerText, out tmp);
                 if (Success)
                 {
                     SteamID = tmp;
@@ -73,12 +95,6 @@ namespace Depressurizer
             OnThreadCompletion();
         }
 
-        protected override void Finish()
-        {
-            if (!Canceled)
-            {
-                OnJobCompletion();
-            }
-        }
+        #endregion
     }
 }

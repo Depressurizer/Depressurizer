@@ -23,20 +23,32 @@ namespace Depressurizer
 {
     public partial class DlgManualDownload : Form
     {
-        public Int64 IdVal;
-        public string UrlVal;
+        #region Fields
+
         public bool Custom;
+
+        public long IdVal;
+
+        public string UrlVal;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public DlgManualDownload()
         {
             InitializeComponent();
         }
 
+        #endregion
+
+        #region Methods
+
         private void cmdOk_Click(object sender, EventArgs e)
         {
             if (radId.Checked)
             {
-                if (Int64.TryParse(txtEntry.Text, out IdVal))
+                if (long.TryParse(txtEntry.Text, out IdVal))
                 {
                     Custom = false;
                     DialogResult = DialogResult.OK;
@@ -55,5 +67,7 @@ namespace Depressurizer
                 Close();
             }
         }
+
+        #endregion
     }
 }
