@@ -43,14 +43,11 @@ namespace Depressurizer
         {
             lstIncluded.Items.Clear();
 
-            if (Program.GameDB != null)
-            {
-                SortedSet<string> flagsList = Program.GameDB.GetAllStoreFlags();
+            SortedSet<string> flagsList = Database.Instance.GetAllStoreFlags();
 
-                foreach (string s in flagsList)
-                {
-                    lstIncluded.Items.Add(s);
-                }
+            foreach (string s in flagsList)
+            {
+                lstIncluded.Items.Add(s);
             }
         }
 

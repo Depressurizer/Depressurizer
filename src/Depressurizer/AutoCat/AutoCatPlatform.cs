@@ -98,12 +98,12 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            if (!db.Contains(game.Id) || db.Apps[game.Id].LastStoreScrape == 0)
             {
                 return AutoCatResult.NotInDatabase;
             }
 
-            AppPlatforms platforms = db.Games[game.Id].Platforms;
+            AppPlatforms platforms = db.Apps[game.Id].Platforms;
             if (Windows && (platforms & AppPlatforms.Windows) != 0)
             {
                 game.AddCategory(games.GetCategory(GetProcessedString("Windows")));

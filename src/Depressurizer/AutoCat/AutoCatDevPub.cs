@@ -175,7 +175,7 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            if (!db.Contains(game.Id) || db.Apps[game.Id].LastStoreScrape == 0)
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -235,12 +235,12 @@ namespace Depressurizer
         ///     Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is
         ///     false.
         /// </summary>
-        public override void PreProcess(GameList games, GameDB db)
+        public override void PreProcess(GameList games, Database db)
         {
             base.PreProcess(games, db);
             gamelist = games;
-            devList = Program.GameDB.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
-            pubList = Program.GameDB.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
+            devList = Database.Instance.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
+            pubList = Database.Instance.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
         }
 
         public override void WriteToXml(XmlWriter writer)

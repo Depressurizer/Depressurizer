@@ -45,17 +45,14 @@ namespace Depressurizer
         {
             lstIgnore.Items.Clear();
 
-            if (Program.GameDB != null)
-            {
-                SortedSet<string> genreList = Program.GameDB.GetAllGenres();
+            SortedSet<string> genreList = Database.Instance.GetAllGenres();
 
-                foreach (string s in genreList)
-                {
-                    ListViewItem l = new ListViewItem();
-                    l.Text = s;
-                    l.Checked = true;
-                    lstIgnore.Items.Add(l);
-                }
+            foreach (string s in genreList)
+            {
+                ListViewItem l = new ListViewItem();
+                l.Text = s;
+                l.Checked = true;
+                lstIgnore.Items.Add(l);
             }
         }
 

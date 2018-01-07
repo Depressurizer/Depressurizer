@@ -52,7 +52,7 @@ namespace Depressurizer
             if (!Canceled && doc != null && Error == null)
             {
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
-                Added = Program.GameDB.IntegrateAppList(doc);
+                Added = Database.Instance.IntegrateAppList(doc);
                 OnJobCompletion();
             }
         }
@@ -60,7 +60,7 @@ namespace Depressurizer
         protected override void RunProcess()
         {
             Added = 0;
-            doc = GameDB.FetchAppListFromWeb();
+            doc = Database.FetchAppListFromWeb();
             OnThreadCompletion();
         }
 

@@ -122,7 +122,7 @@ namespace Depressurizer
 
         #region Fields
 
-        protected GameDB db;
+        protected Database db;
 
         protected GameList games;
 
@@ -353,7 +353,7 @@ namespace Depressurizer
         ///     or other preparation.
         ///     After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
-        public virtual void PreProcess(GameList games, GameDB db)
+        public virtual void PreProcess(GameList games, Database db)
         {
             this.games = games;
             this.db = db;

@@ -174,8 +174,8 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            int score = db.Games[game.Id].ReviewPositivePercentage;
-            int reviews = db.Games[game.Id].ReviewTotal;
+            int score = db.Apps[game.Id].ReviewPositivePercentage;
+            int reviews = db.Apps[game.Id].ReviewTotal;
             if (UseWilsonScore && reviews > 0)
             {
                 // calculate the lower bound of the Wilson interval for 95 % confidence

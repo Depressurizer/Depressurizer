@@ -74,7 +74,7 @@ namespace Depressurizer
             loaded = false;
 
             lstIncluded.Columns[0].Width = -1;
-            IEnumerable<Tuple<string, float>> tagList = Program.GameDB.CalculateSortedTagList(list_chkOwnedOnly.Checked ? ownedGames : null, (float) list_numWeightFactor.Value, (int) list_numMinScore.Value, (int) list_numTagsPerGame.Value, list_chkExcludeGenres.Checked, false);
+            IEnumerable<Tuple<string, float>> tagList = Database.Instance.CalculateSortedTagList(list_chkOwnedOnly.Checked ? ownedGames : null, (float) list_numWeightFactor.Value, (int) list_numMinScore.Value, (int) list_numTagsPerGame.Value, list_chkExcludeGenres.Checked, false);
             lstIncluded.BeginUpdate();
             lstIncluded.Items.Clear();
             foreach (Tuple<string, float> tag in tagList)
