@@ -19,12 +19,19 @@
 #endregion
 
 using System;
+using System.Globalization;
 using System.IO;
 
 namespace DepressurizerCore.Helpers
 {
+    /// <summary>
+    ///     Depressurizer File and Folder Helper
+    /// </summary>
     public static class Location
     {
+        /// <summary>
+        ///     Depressurizer File Helper
+        /// </summary>
         public static class File
         {
             #region Public Properties
@@ -37,12 +44,15 @@ namespace DepressurizerCore.Helpers
 
             public static string Banner(int appId)
             {
-                return Path.Combine(Folder.Banners, $"{appId}.jpg");
+                return Path.Combine(Folder.Banners, string.Format(CultureInfo.InvariantCulture, "{0}.jpg", appId));
             }
 
             #endregion
         }
 
+        /// <summary>
+        ///     Depressurizer Folder Helper
+        /// </summary>
         public static class Folder
         {
             #region Public Properties

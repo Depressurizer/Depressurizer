@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -102,9 +103,10 @@ namespace DepressurizerCore.Models
 
                 if (NodeType == ValueType.String)
                 {
-                    int.TryParse(NodeString, out int res);
-
-                    return res;
+                    if (int.TryParse(NodeString, out int res))
+                    {
+                        return res;
+                    }
                 }
 
                 return 0;
@@ -244,7 +246,7 @@ namespace DepressurizerCore.Models
                 }
                 else
                 {
-                    throw new DataException($"Unexpected character '{nextByte}' found when expecting key.");
+                    throw new DataException(string.Format(CultureInfo.InvariantCulture, "Unexpected character '{0}' found when expecting key.", nextByte));
                 }
             }
 
@@ -255,6 +257,7 @@ namespace DepressurizerCore.Models
         ///     Loads a FileNode from stream.
         /// </summary>
         /// <param name="stream">Stream to load from</param>
+        /// <param name="useFirstAsRoot"></param>
         /// <returns>FileNode representing the contents of the stream.</returns>
         public static VDFNode LoadFromText(StreamReader stream, bool useFirstAsRoot = false)
         {
@@ -279,7 +282,7 @@ namespace DepressurizerCore.Models
                 }
                 else
                 {
-                    throw new DataException($"Unexpected character '{nextChar}' found when expecting key.");
+                    throw new DataException(string.Format(CultureInfo.InvariantCulture, "Unexpected character '{0}' found when expecting key.", nextChar));
                 }
 
                 ReadText_SkipWhitespace(stream);
@@ -297,7 +300,7 @@ namespace DepressurizerCore.Models
                 }
                 else
                 {
-                    throw new DataException($"Unexpected character '{nextChar}' found when expecting value.");
+                    throw new DataException(string.Format(CultureInfo.InvariantCulture, "Unexpected character '{0}' found when expecting value.", nextChar));
                 }
 
                 if (useFirstAsRoot)
@@ -568,29 +571,6 @@ namespace DepressurizerCore.Models
 
         #region Methods
 
-        /// <summary>
-        ///     Checks whether or not this node has any children
-        /// </summary>
-        /// <returns>True if an array with no children, false otherwise</returns>
-        protected bool IsEmpty()
-        {
-            if (NodeArray != null)
-            {
-                return NodeArray.Count == 0;
-            }
-
-            return NodeData as string == null;
-        }
-
-        /// <summary>
-        ///     Reads from the specified stream until it reaches a string terminator (double quote with no escaping slash).
-        ///     The opening double quote should already be read, and the last one will be discarded.
-        /// </summary>
-        /// <param name="stream">
-        ///     The stream to read from. After the operation, the stream position will be just past the closing
-        ///     quote.
-        /// </param>
-        /// <returns>The string encapsulated by the quotes.</returns>
         private static string ReadBin_GetStringToken(BinaryReader reader, long streamLength = -1)
         {
             if (streamLength == -1)
@@ -634,15 +614,6 @@ namespace DepressurizerCore.Models
             return token;
         }
 
-        /// <summary>
-        ///     Reads a from the specified stream until it reaches a string terminator (double quote with no escaping slash).
-        ///     The opening double quote should already be read, and the last one will be discarded.
-        /// </summary>
-        /// <param name="stream">
-        ///     The stream to read from. After the operation, the stream position will be just past the closing
-        ///     quote.
-        /// </param>
-        /// <returns>The string encapsulated by the quotes.</returns>
         private static string ReadText_GetStringToken(StreamReader stream)
         {
             bool escaped = false;
@@ -703,10 +674,6 @@ namespace DepressurizerCore.Models
             return sb.ToString();
         }
 
-        /// <summary>
-        ///     Advances a stream until the next character is not whitespace
-        /// </summary>
-        /// <param name="stream">The stream to advance</param>
         private static void ReadText_SkipWhitespace(StreamReader stream)
         {
             char nextChar = (char) stream.Peek();
@@ -717,28 +684,19 @@ namespace DepressurizerCore.Models
             }
         }
 
-        /// <summary>
-        ///     Writes a array key to a stream, adding start/end bytes.
-        /// </summary>
-        /// <param name="writer">Stream to write to</param>
-        /// <param name="arrayKey">String to write</param>
-        private void WriteBin_WriteArrayKey(BinaryWriter writer, string arrayKey)
+        private static void WriteBin_WriteArrayKey(BinaryWriter writer, string arrayKey)
         {
             writer.Write((byte) 0);
             writer.Write(arrayKey.ToCharArray());
             writer.Write((byte) 0);
         }
 
-        /// <summary>
-        ///     Write an end byte to stream
-        /// </summary>
-        /// <param name="writer"></param>
-        private void WriteBin_WriteEndByte(BinaryWriter writer)
+        private static void WriteBin_WriteEndByte(BinaryWriter writer)
         {
             writer.Write((byte) 8);
         }
 
-        private void WriteBin_WriteIntegerValue(BinaryWriter writer, string key, int val)
+        private static void WriteBin_WriteIntegerValue(BinaryWriter writer, string key, int val)
         {
             writer.Write((byte) 2);
             writer.Write(key.ToCharArray());
@@ -746,12 +704,7 @@ namespace DepressurizerCore.Models
             writer.Write(val);
         }
 
-        /// <summary>
-        ///     Writes a pair o key and value to a stream, adding star/end and separator bytes
-        /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="pair"></param>
-        private void WriteBin_WriteStringValue(BinaryWriter writer, string key, string val)
+        private static void WriteBin_WriteStringValue(BinaryWriter writer, string key, string val)
         {
             writer.Write((byte) 1);
             writer.Write(key.ToCharArray());
@@ -760,29 +713,29 @@ namespace DepressurizerCore.Models
             writer.Write((byte) 0);
         }
 
-        /// <summary>
-        ///     Writes a string to a stream, adding start/end quotes and escaping any quotes within the string.
-        /// </summary>
-        /// <param name="stream">Stream to write to</param>
-        /// <param name="s">String to write</param>
-        private void WriteText_WriteFormattedString(StreamWriter stream, string s)
+        private static void WriteText_WriteFormattedString(StreamWriter stream, string s)
         {
             stream.Write("\"");
             stream.Write(s.Replace("\"", "\\\""));
             stream.Write("\"");
         }
 
-        /// <summary>
-        ///     Writes the given number of tab characters to a stream
-        /// </summary>
-        /// <param name="stream">Stream to write to</param>
-        /// <param name="indent">Number of tabs</param>
-        private void WriteText_WriteWhitespace(StreamWriter stream, int indent)
+        private static void WriteText_WriteWhitespace(StreamWriter stream, int indent)
         {
             for (int i = 0; i < indent; i++)
             {
                 stream.Write('\t');
             }
+        }
+
+        private bool IsEmpty()
+        {
+            if (NodeArray != null)
+            {
+                return NodeArray.Count == 0;
+            }
+
+            return NodeData as string == null;
         }
 
         #endregion
