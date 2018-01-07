@@ -81,7 +81,7 @@ namespace DepressurizerCore.Helpers
                 return;
             }
 
-            string bannerLink = $"https://steamcdn-a.akamaihd.net/steam/apps/{appId}/capsule_sm_120.jpg";
+            string bannerLink = string.Format(CultureInfo.InvariantCulture, "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg", appId);
             try
             {
                 using (WebClient webClient = new WebClient())
