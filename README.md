@@ -1,11 +1,9 @@
 # Depressurizer (v1.0.0)
 <sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
 
----
+# Summary
 
-![Main Window](http://i.imgur.com/2K70Jog.jpg)
-
-### Summary
+<img src="http://i.imgur.com/2K70Jog.jpg" width="50%" height="auto"  align="right" >
 
 Depressurizer is a program aimed at making it a bit easier to manage large Steam game libraries. It can auto-categorize your games for you. Currently, it does so based on data from that games' Steam store pages. It can use genres, Steam flags (like "Single-Player" and "Steam Cloud"), Steam tags, Developer & Publisher info, How Long to Beat times, year, and/or Steam review user scores.  Auto-categorizing can be done manually or automatically via shortcut.
 
