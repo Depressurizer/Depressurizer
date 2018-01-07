@@ -291,7 +291,6 @@
     <Compile Include="DlgRestore.Designer.cs">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameBanners.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="GameDBEntry.cs" />
     <Compile Include="GameDBEntrySorter.cs" />

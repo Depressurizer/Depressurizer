@@ -23,18 +23,27 @@ using System.IO;
 
 namespace DepressurizerCore.Helpers
 {
-    internal static class Location
+    public static class Location
     {
-        internal static class File
+        public static class File
         {
             #region Public Properties
 
             public static string Settings => Path.Combine(Folder.Depressurizer, "Settings.json");
 
             #endregion
+
+            #region Public Methods and Operators
+
+            public static string Banner(int appId)
+            {
+                return Path.Combine(Folder.Banners, $"{appId}.jpg");
+            }
+
+            #endregion
         }
 
-        internal static class Folder
+        public static class Folder
         {
             #region Public Properties
 
@@ -43,6 +52,20 @@ namespace DepressurizerCore.Helpers
                 get
                 {
                     string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    return path;
+                }
+            }
+
+            public static string Banners
+            {
+                get
+                {
+                    string path = Path.Combine(Depressurizer, "Banners");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
