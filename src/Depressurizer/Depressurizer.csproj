@@ -372,12 +372,6 @@
     <Compile Include="DlgProfile.Designer.cs">
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lib\DlgFatalError.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Lib\DlgFatalError.designer.cs">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </Compile>
     <Compile Include="Lib\DlgGetString.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -618,18 +612,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\CancelableDlg.uk.resx">
       <DependentUpon>CancelableDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.es.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.ru.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.uk.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.es.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>

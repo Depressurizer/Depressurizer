@@ -49,8 +49,6 @@ namespace Depressurizer
             Application.ApplicationExit += OnApplicationExit;
             Application.ThreadException += OnThreadException;
 
-            FatalError.InitializeHandler();
-
             Settings.Instance.Load();
             Database.Instance.Load();
             Application.Run(new FormMain());
