@@ -35,35 +35,6 @@ namespace Depressurizer
 {
     public static class Utility
     {
-        #region Static Fields
-
-        /// <summary>
-        ///     Unix epoch
-        /// </summary>
-        private static DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-
-        /// <summary>
-        ///     Steam Games without banners, ignore 404 warning
-        /// </summary>
-        private static List<int> ignoreWarning = new List<int>
-        {
-            2430,
-            17340,
-            39530,
-            44630,
-            208610,
-            215060,
-            219540,
-            228020,
-            228040,
-            228060,
-            228080,
-            228100,
-            404730
-        };
-
-        #endregion
-
         #region Public Methods and Operators
 
         /// <summary>
@@ -182,25 +153,6 @@ namespace Depressurizer
             return culture;
         }
 
-        /// <summary>
-        ///     Gets the current time as Unix timestamp
-        /// </summary>
-        /// <returns>Int containing Unix time</returns>
-        public static int GetCurrentUTime()
-        {
-            return GetUTime(DateTime.UtcNow);
-        }
-
-        /// <summary>
-        ///     Converts unix time to a DateTime object
-        /// </summary>
-        /// <param name="uTime">Unix time to convert</param>
-        /// <returns>DateTime representation</returns>
-        public static DateTime GetDTFromUTime(int uTime)
-        {
-            return epoch.AddSeconds(uTime);
-        }
-
         public static string GetEnumDescription(Enum value)
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());
@@ -250,27 +202,6 @@ namespace Depressurizer
             }
 
             return null;
-        }
-
-        /// <summary>
-        ///     Converts a given DateTime to unix time
-        /// </summary>
-        /// <param name="dt">DateTime to convert</param>
-        /// <returns>int containing unix time</returns>
-        public static int GetUTime(DateTime dt)
-        {
-            double tSecs = (dt - epoch).TotalSeconds;
-            if (tSecs > int.MaxValue)
-            {
-                return int.MaxValue;
-            }
-
-            if (tSecs < 0)
-            {
-                return 0;
-            }
-
-            return (int) tSecs;
         }
 
         public static bool IsOnScreen(MaterialForm form)

@@ -162,7 +162,7 @@ namespace DepressurizerCore.Models
             set => _languageSupport = value;
         }
 
-        public int LastAppInfoUpdate { get; set; } = 0;
+        public long LastAppInfoUpdate { get; set; } = 0;
 
         public long LastStoreScrape { get; set; } = 0;
 

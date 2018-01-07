@@ -512,7 +512,7 @@ namespace Depressurizer
                     notInDbOrOldData.Enqueue(game.Id);
                     notInDbCount++;
                 }
-                else if (game.Id > 0 && Utility.GetCurrentUTime() > Program.GameDB.Games[game.Id].LastStoreScrape + Settings.Instance.ScrapePromptDays * 86400) //86400 seconds in a day
+                else if (game.Id > 0 && DateTimeOffset.Now.ToUnixTimeSeconds() > Program.GameDB.Games[game.Id].LastStoreScrape + Settings.Instance.ScrapePromptDays * 86400) //86400 seconds in a day
                 {
                     notInDbOrOldData.Enqueue(game.Id);
                     oldDbDataCount++;
@@ -1704,7 +1704,7 @@ namespace Depressurizer
             }
 
             int aWeekInSecs = 7 * 24 * 60 * 60;
-            if (Settings.Instance.UpdateHLTBOnStart && Utility.GetCurrentUTime() > Program.GameDB.LastHltbUpdate + aWeekInSecs)
+            if (Settings.Instance.UpdateHLTBOnStart && DateTimeOffset.Now.ToUnixTimeSeconds() > Program.GameDB.LastHltbUpdate + aWeekInSecs)
             {
                 UpdateGameDBFromHltb();
             }
@@ -2105,7 +2105,7 @@ namespace Depressurizer
                     return DateTime.MinValue;
                 }
 
-                return Utility.GetDTFromUTime(((GameInfo) g).LastPlayed).Date;
+                return DateTimeOffset.FromUnixTimeSeconds(((GameInfo) g).LastPlayed).Date;
             };
             colAchievements.AspectGetter = delegate(object g)
             {
@@ -2441,18 +2441,7 @@ namespace Depressurizer
         {
             if (g != null)
             {
-                //string gameIdentifier;
-                //if( g.Id < 0 ) {   // External game
-                //    if( g.LaunchString == null ) {
-                //        MessageBox.Show( GlobalStrings.MainForm_LaunchFailed );
-                //        return;
-                //    }
-                //    gameIdentifier = g.LaunchString;
-                //} else {
-                //    // Steam game
-                //    gameIdentifier = g.Id.ToString();
-                //}
-                g.LastPlayed = Utility.GetCurrentUTime();
+                g.LastPlayed = DateTimeOffset.Now.ToUnixTimeSeconds();
                 Process.Start(g.Executable);
             }
         }
