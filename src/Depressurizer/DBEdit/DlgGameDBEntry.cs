@@ -19,19 +19,21 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using DepressurizerCore;
+using DepressurizerCore.Models;
 
 namespace Depressurizer
 {
     public partial class GameDBEntryDialog : Form
     {
-        public GameDBEntry Game;
+        public DatabaseEntry Game;
 
         private bool editMode;
 
         public GameDBEntryDialog()
             : this(null) { }
 
-        public GameDBEntryDialog(GameDBEntry game)
+        public GameDBEntryDialog(DatabaseEntry game)
         {
             InitializeComponent();
             Game = game;
@@ -52,7 +54,7 @@ namespace Depressurizer
             InitializeFields(Game);
         }
 
-        private void InitializeFields(GameDBEntry entry = null)
+        private void InitializeFields(DatabaseEntry entry = null)
         {
             if (entry == null)
             {
@@ -66,7 +68,7 @@ namespace Depressurizer
 
                 txtParent.Text = (Game.ParentId < 0) ? "" : Game.ParentId.ToString();
 
-                cmbType.SelectedItem = Game.AppType;
+                cmbType.SelectedItem = Game.AppTypes;
 
                 txtName.Text = Game.Name;
                 if (Game.Genres != null) txtGenres.Text = string.Join(",", Game.Genres);
@@ -94,7 +96,7 @@ namespace Depressurizer
                 chkWebUpdate.Checked = Game.LastStoreScrape > 0;
                 chkAppInfoUpdate.Checked = Game.LastAppInfoUpdate > 0;
 
-                dateWeb.Value = Utility.GetDTFromUTime(Game.LastStoreScrape);
+                dateWeb.Value =  DateTimeOffset.FromUnixTimeSeconds(Game.LastStoreScrape).DateTime;
                 dateAppInfo.Value = Utility.GetDTFromUTime(Game.LastAppInfoUpdate);
             }
         }
@@ -124,13 +126,13 @@ namespace Depressurizer
 
             if (Game == null)
             {
-                Game = new GameDBEntry();
+                Game = new DatabaseEntry();
                 Game.Id = id;
             }
 
             Game.ParentId = parent;
 
-            Game.AppType = (AppTypes) cmbType.SelectedItem;
+            Game.AppTypes = (AppTypes) cmbType.SelectedItem;
             Game.Name = txtName.Text;
 
 

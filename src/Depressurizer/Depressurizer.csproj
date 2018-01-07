@@ -292,7 +292,6 @@
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
     <Compile Include="Filter.cs" />
-    <Compile Include="GameDBEntry.cs" />
     <Compile Include="GameDBEntrySorter.cs" />
     <Compile Include="GameList.cs" />
     <Compile Include="GameListingSource.cs" />
