@@ -22,48 +22,31 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using DepressurizerCore.Models;
-using Rallion;
 
 namespace Depressurizer
 {
     public class AutoCatFlags : AutoCat
     {
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.Flags; }
-        }
-
-        // AutoCat configuration
-        public string Prefix { get; set; }
-
-        [XmlArray("Flags"), XmlArrayItem("Flag")]
-        public List<string> IncludedFlags { get; set; }
+        #region Constants
 
         // Serialization constants
         public const string TypeIdString = "AutoCatFlags";
 
-        private const string
-            XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Prefix = "Prefix",
-            XmlName_FlagList = "Flags",
-            XmlName_Flag = "Flag";
+        private const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_FlagList = "Flags", XmlName_Flag = "Flag";
 
-        public AutoCatFlags(string name, string filter = null, string prefix = null, List<string> flags = null,
-            bool selected = false)
-            : base(name)
+        #endregion
+
+        #region Constructors and Destructors
+
+        public AutoCatFlags(string name, string filter = null, string prefix = null, List<string> flags = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
-            IncludedFlags = (flags == null) ? (new List<string>()) : flags;
+            IncludedFlags = flags == null ? new List<string>() : flags;
             Selected = selected;
         }
 
-        //XmlSerializer requires a parameterless constructor
-        private AutoCatFlags() { }
-
-        protected AutoCatFlags(AutoCatFlags other)
-            : base(other)
+        protected AutoCatFlags(AutoCatFlags other) : base(other)
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
@@ -71,72 +54,27 @@ namespace Depressurizer
             Selected = other.Selected;
         }
 
-        public override AutoCat Clone()
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatFlags()
         {
-            return new AutoCatFlags(this);
         }
 
-        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
-        {
-            if (games == null)
-            {
-                
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
-            }
-            if (db == null)
-            {
-                
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-            if (game == null)
-            {
-                
-                return AutoCatResult.Failure;
-            }
+        #endregion
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
+        #region Public Properties
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+        public override AutoCatType AutoCatType => AutoCatType.Flags;
 
-            List<string> gameFlags = db.GetFlagList(game.Id);
-            if (gameFlags == null) gameFlags = new List<string>();
-            IEnumerable<string> categories = gameFlags.Intersect(IncludedFlags);
+        [XmlArray("Flags")]
+        [XmlArrayItem("Flag")]
+        public List<string> IncludedFlags { get; set; }
 
-            foreach (string catString in categories)
-            {
-                Category c = games.GetCategory(GetProcessedString(catString));
-                game.AddCategory(c);
-            }
-            return AutoCatResult.Success;
-        }
+        // AutoCat configuration
+        public string Prefix { get; set; }
 
-        private string GetProcessedString(string baseString)
-        {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-            return Prefix + baseString;
-        }
+        #endregion
 
-        public override void WriteToXml(XmlWriter writer)
-        {
-            writer.WriteStartElement(TypeIdString);
-
-            writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-
-            writer.WriteStartElement(XmlName_FlagList);
-
-            foreach (string s in IncludedFlags)
-            {
-                writer.WriteElementString(XmlName_Flag, s);
-            }
-
-            writer.WriteEndElement(); // flag list
-            writer.WriteEndElement(); // type ID string
-        }
+        #region Public Methods and Operators
 
         public static AutoCatFlags LoadFromXmlElement(XmlElement xElement)
         {
@@ -158,7 +96,99 @@ namespace Depressurizer
                     }
                 }
             }
+
             return new AutoCatFlags(name, filter, prefix, flags);
         }
+
+        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
+        {
+            if (games == null)
+            {
+                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
+            }
+
+            if (db == null)
+            {
+                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
+            }
+
+            if (game == null)
+            {
+                return AutoCatResult.Failure;
+            }
+
+            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            {
+                return AutoCatResult.NotInDatabase;
+            }
+
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
+
+            List<string> gameFlags = db.GetFlagList(game.Id);
+            if (gameFlags == null)
+            {
+                gameFlags = new List<string>();
+            }
+
+            IEnumerable<string> categories = gameFlags.Intersect(IncludedFlags);
+
+            foreach (string catString in categories)
+            {
+                Category c = games.GetCategory(GetProcessedString(catString));
+                game.AddCategory(c);
+            }
+
+            return AutoCatResult.Success;
+        }
+
+        public override AutoCat Clone()
+        {
+            return new AutoCatFlags(this);
+        }
+
+        public override void WriteToXml(XmlWriter writer)
+        {
+            writer.WriteStartElement(TypeIdString);
+
+            writer.WriteElementString(XmlName_Name, Name);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlName_Filter, Filter);
+            }
+
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlName_Prefix, Prefix);
+            }
+
+            writer.WriteStartElement(XmlName_FlagList);
+
+            foreach (string s in IncludedFlags)
+            {
+                writer.WriteElementString(XmlName_Flag, s);
+            }
+
+            writer.WriteEndElement(); // flag list
+            writer.WriteEndElement(); // type ID string
+        }
+
+        #endregion
+
+        #region Methods
+
+        private string GetProcessedString(string baseString)
+        {
+            if (string.IsNullOrEmpty(Prefix))
+            {
+                return baseString;
+            }
+
+            return Prefix + baseString;
+        }
+
+        #endregion
     }
 }

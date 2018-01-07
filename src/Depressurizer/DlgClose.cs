@@ -24,7 +24,13 @@ namespace Depressurizer
 {
     public partial class DlgClose : Form
     {
+        #region Fields
+
         public bool Export;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public DlgClose(string message, string title, Image picture, bool cancel, bool exportSteam)
         {
@@ -37,9 +43,15 @@ namespace Depressurizer
             chkSaveSteam.Checked = exportSteam;
         }
 
+        #endregion
+
+        #region Methods
+
         private void chkSaveSteam_CheckedChanged(object sender, EventArgs e)
         {
             Export = chkSaveSteam.Checked;
         }
+
+        #endregion
     }
 }

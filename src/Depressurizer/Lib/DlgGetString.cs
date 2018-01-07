@@ -22,24 +22,9 @@ namespace Rallion
 {
     public partial class GetStringDlg : Form
     {
-        public string Value
-        {
-            get { return txtValue.Text; }
-            set { txtValue.Text = (value == null) ? string.Empty : value; }
-        }
+        #region Constructors and Destructors
 
-        public string LabelText
-        {
-            set { lblValue.Text = (value == null) ? string.Empty : value; }
-        }
-
-        public string AcceptButtonText
-        {
-            set { cmdOk.Text = (value == null) ? string.Empty : value; }
-        }
-
-        public GetStringDlg(string initialValue = "", string title = "Enter value", string label = "Enter value:",
-            string accept = "OK")
+        public GetStringDlg(string initialValue = "", string title = "Enter value", string label = "Enter value:", string accept = "OK")
         {
             InitializeComponent();
             Value = initialValue;
@@ -47,5 +32,26 @@ namespace Rallion
             LabelText = label;
             AcceptButtonText = accept;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public string AcceptButtonText
+        {
+            set => cmdOk.Text = value == null ? string.Empty : value;
+        }
+
+        public string LabelText
+        {
+            set => lblValue.Text = value == null ? string.Empty : value;
+        }
+        public string Value
+        {
+            get => txtValue.Text;
+            set => txtValue.Text = value == null ? string.Empty : value;
+        }
+
+        #endregion
     }
 }

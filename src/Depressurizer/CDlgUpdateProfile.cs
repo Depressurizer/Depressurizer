@@ -24,30 +24,33 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class CDlgUpdateProfile : CancelableDlg
+    internal class CDlgUpdateProfile : CancelableDlg
     {
-        public int Fetched { get; private set; }
-        public int Added { get; private set; }
-        public int Removed { get; private set; }
+        #region Fields
 
-        public bool UseHtml { get; private set; }
-        public bool Failover { get; private set; }
+        private readonly bool custom;
 
-        private Int64 SteamId;
-        private string customUrl;
-        private bool custom;
-        private GameList data;
+        private readonly string customUrl;
 
-        XmlDocument doc;
-        string htmlDoc;
+        private readonly GameList data;
 
-        private bool overwrite;
-        private SortedSet<int> ignore;
-        private bool includeUnknown;
+        private readonly SortedSet<int> ignore;
 
-        public CDlgUpdateProfile(GameList data, Int64 accountId, bool overwrite, SortedSet<int> ignore,
-            bool inclUnknown)
-            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        private readonly bool includeUnknown;
+
+        private readonly bool overwrite;
+
+        private readonly long SteamId;
+
+        private XmlDocument doc;
+
+        private string htmlDoc;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        public CDlgUpdateProfile(GameList data, long accountId, bool overwrite, SortedSet<int> ignore, bool inclUnknown) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = false;
             SteamId = accountId;
@@ -67,9 +70,7 @@ namespace Depressurizer
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        public CDlgUpdateProfile(GameList data, string customUrl, bool overwrite, SortedSet<int> ignore,
-            bool inclUnknown)
-            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        public CDlgUpdateProfile(GameList data, string customUrl, bool overwrite, SortedSet<int> ignore, bool inclUnknown) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = true;
             this.customUrl = customUrl;
@@ -89,24 +90,28 @@ namespace Depressurizer
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        protected override void RunProcess()
-        {
-            Added = 0;
-            Fetched = 0;
-            switch (Settings.Instance.ListSource)
-            {
-                case GameListSource.XmlPreferred:
-                    FetchXmlPref();
-                    break;
-                case GameListSource.XmlOnly:
-                    FetchXml();
-                    break;
-                case GameListSource.WebsiteOnly:
-                    FetchHtml();
-                    break;
-            }
+        #endregion
 
-            OnThreadCompletion();
+        #region Public Properties
+
+        public int Added { get; private set; }
+
+        public bool Failover { get; private set; }
+
+        public int Fetched { get; private set; }
+
+        public int Removed { get; private set; }
+
+        public bool UseHtml { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        protected void FetchHtml()
+        {
+            UseHtml = true;
+            htmlDoc = custom ? GameList.FetchHtmlGameList(customUrl) : GameList.FetchHtmlGameList(SteamId);
         }
 
         protected void FetchXml()
@@ -115,45 +120,67 @@ namespace Depressurizer
             doc = custom ? GameList.FetchXmlGameList(customUrl) : GameList.FetchXmlGameList(SteamId);
         }
 
-        protected void FetchHtml()
-        {
-            UseHtml = true;
-            htmlDoc = custom ? GameList.FetchHtmlGameList(customUrl) : GameList.FetchHtmlGameList(SteamId);
-        }
-
         protected void FetchXmlPref()
         {
             try
             {
                 FetchXml();
+
                 return;
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
+
             Failover = true;
             FetchHtml();
         }
 
         protected override void Finish()
         {
-            if (!Canceled && Error == null && (UseHtml ? (htmlDoc != null) : (doc != null)))
+            if (!Canceled && Error == null && (UseHtml ? htmlDoc != null : doc != null))
             {
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
                 if (UseHtml)
                 {
                     int newItems;
-                    Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore,
-                        includeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newItems);
+                    Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore, includeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newItems);
                     Added = newItems;
                 }
                 else
                 {
                     int newItems;
-                    Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore,
-                        includeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newItems);
+                    Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore, includeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal, out newItems);
                     Added = newItems;
                 }
+
                 OnJobCompletion();
             }
         }
+
+        protected override void RunProcess()
+        {
+            Added = 0;
+            Fetched = 0;
+            switch (Settings.Instance.ListSource)
+            {
+                case GameListSource.XmlPreferred:
+                    FetchXmlPref();
+
+                    break;
+                case GameListSource.XmlOnly:
+                    FetchXml();
+
+                    break;
+                case GameListSource.WebsiteOnly:
+                    FetchHtml();
+
+                    break;
+            }
+
+            OnThreadCompletion();
+        }
+
+        #endregion
     }
 }

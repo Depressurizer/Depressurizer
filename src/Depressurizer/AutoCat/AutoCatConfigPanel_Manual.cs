@@ -27,11 +27,18 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Manual : AutoCatConfigPanel
     {
+        #region Fields
+
+        private readonly GameList ownedGames;
+
+        private bool loaded;
+
         // used to remove unchecked items from the Add and Remove checkedlistbox.
         private Thread workerThread;
 
-        private bool loaded;
-        private GameList ownedGames;
+        #endregion
+
+        #region Constructors and Destructors
 
         public AutoCatConfigPanel_Manual(GameList gamelist)
         {
@@ -52,12 +59,68 @@ namespace Depressurizer
             lstAdd.Columns[1].Width = 0;
         }
 
-        #region Data modifiers
+        #endregion
+
+        #region Delegates
+
+        private delegate void AddItemCallback(ListViewItem obj);
+
+        private delegate void RemoveItemCallback(ListViewItem obj);
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public void FillAddList()
+        {
+            clbAddSelected.Items.Clear();
+            lstAdd.BeginUpdate();
+            lstAdd.Items.Clear();
+
+            if (ownedGames.Categories != null)
+            {
+                foreach (Category c in ownedGames.Categories)
+                {
+                    ListViewItem l = CreateCategoryListViewItem(c);
+                    l.SubItems.Add(c.Count.ToString());
+                    lstAdd.Items.Add(l);
+                }
+            }
+
+            lstAdd.Columns[0].Width = -1;
+            SortAdd(1, SortOrder.Descending);
+            lstAdd.EndUpdate();
+        }
+
+        public void FillRemoveList()
+        {
+            clbRemoveSelected.Items.Clear();
+            lstRemove.BeginUpdate();
+            lstRemove.Items.Clear();
+
+            if (ownedGames.Categories != null)
+            {
+                foreach (Category c in ownedGames.Categories)
+                {
+                    ListViewItem l = CreateCategoryListViewItem(c);
+                    l.SubItems.Add(c.Count.ToString());
+                    lstRemove.Items.Add(l);
+                }
+            }
+
+            lstRemove.Columns[0].Width = -1;
+            SortRemove(1, SortOrder.Descending);
+            lstRemove.EndUpdate();
+        }
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
             AutoCatManual ac = autocat as AutoCatManual;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             chkRemoveAll.Checked = ac.RemoveAllCategories;
             txtPrefix.Text = ac.Prefix;
 
@@ -69,6 +132,7 @@ namespace Depressurizer
                 item.Checked = ac.RemoveCategories.Contains(item.Name);
                 found.Add(item.Name);
             }
+
             lstRemove.EndUpdate();
 
             foreach (string s in ac.RemoveCategories)
@@ -89,6 +153,7 @@ namespace Depressurizer
                 item.Checked = ac.AddCategories.Contains(item.Name);
                 found.Add(item.Name);
             }
+
             lstAdd.EndUpdate();
 
             foreach (string s in ac.AddCategories)
@@ -111,7 +176,11 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatManual ac = autocat as AutoCatManual;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
             ac.RemoveAllCategories = chkRemoveAll.Checked;
 
@@ -133,115 +202,70 @@ namespace Depressurizer
 
         #endregion
 
-        #region UI Updaters
+        #region Methods
 
-        public void FillRemoveList()
+        private void AddItem(ListViewItem obj)
         {
-            clbRemoveSelected.Items.Clear();
-            lstRemove.BeginUpdate();
-            lstRemove.Items.Clear();
-
-            if (ownedGames.Categories != null)
+            if (clbAddSelected.InvokeRequired)
             {
-                foreach (Category c in ownedGames.Categories)
-                {
-                    ListViewItem l = CreateCategoryListViewItem(c);
-                    l.SubItems.Add(c.Count.ToString());
-                    lstRemove.Items.Add(l);
-                }
+                AddItemCallback callback = AddItem;
+                Invoke(callback, obj);
             }
-            lstRemove.Columns[0].Width = -1;
-            SortRemove(1, SortOrder.Descending);
-            lstRemove.EndUpdate();
-        }
-
-        public void FillAddList()
-        {
-            clbAddSelected.Items.Clear();
-            lstAdd.BeginUpdate();
-            lstAdd.Items.Clear();
-
-            if (ownedGames.Categories != null)
+            else
             {
-                foreach (Category c in ownedGames.Categories)
-                {
-                    ListViewItem l = CreateCategoryListViewItem(c);
-                    l.SubItems.Add(c.Count.ToString());
-                    lstAdd.Items.Add(l);
-                }
-            }
-            lstAdd.Columns[0].Width = -1;
-            SortAdd(1, SortOrder.Descending);
-            lstAdd.EndUpdate();
-        }
-
-        private void UpdateRemoveCount()
-        {
-            groupRemove.Text = "Remove (" + clbRemoveSelected.Items.Count + "):";
-        }
-
-        private void UpdateAddCount()
-        {
-            groupAdd.Text = "Add (" + clbAddSelected.Items.Count + "):";
-        }
-
-        private void SetAllListCheckStates(ListView list, bool to)
-        {
-            foreach (ListViewItem item in list.Items)
-            {
-                item.Checked = to;
+                clbAddSelected.Items.Remove(obj);
+                UpdateAddCount();
             }
         }
 
-        private void nameascendingRemove_Click(object sender, EventArgs e)
+        private void AddItemWorker(object obj)
         {
-            SortRemove(0, SortOrder.Ascending);
+            AddItem((ListViewItem) obj);
         }
 
-        private void namedescendingRemove_Click(object sender, EventArgs e)
+        private void btnAddCheckAll_Click(object sender, EventArgs e)
         {
-            SortRemove(0, SortOrder.Descending);
+            SetAllListCheckStates(lstAdd, true);
         }
 
-        private void countascendingRemove_Click(object sender, EventArgs e)
+        private void btnAddSelected_Click(object sender, EventArgs e)
         {
-            SortRemove(1, SortOrder.Ascending);
+            if (splitAddTop.Panel1Collapsed)
+            {
+                splitAddTop.Panel1Collapsed = false;
+                btnAddSelected.Text = "<";
+            }
+            else
+            {
+                splitAddTop.Panel1Collapsed = true;
+                btnAddSelected.Text = ">";
+            }
         }
 
-        private void countdescendingRemove_Click(object sender, EventArgs e)
+        private void btnAddUncheckAll_Click(object sender, EventArgs e)
         {
-            SortRemove(1, SortOrder.Descending);
+            loaded = false;
+            FillAddList();
+            loaded = true;
         }
-
-        private void nameascendingAdd_Click(object sender, EventArgs e)
-        {
-            SortAdd(0, SortOrder.Ascending);
-        }
-
-        private void namedescendingAdd_Click(object sender, EventArgs e)
-        {
-            SortAdd(0, SortOrder.Descending);
-        }
-
-        private void countascendingAdd_Click(object sender, EventArgs e)
-        {
-            SortAdd(1, SortOrder.Ascending);
-        }
-
-        private void countdescendingAdd_Click(object sender, EventArgs e)
-        {
-            SortAdd(1, SortOrder.Descending);
-        }
-
-        #endregion
-
-        #region Remove Categories
-
-        #region Event Handlers
 
         private void btnRemoveCheckAll_Click(object sender, EventArgs e)
         {
             SetAllListCheckStates(lstRemove, true);
+        }
+
+        private void btnRemoveSelected_Click(object sender, EventArgs e)
+        {
+            if (splitRemoveTop.Panel1Collapsed)
+            {
+                splitRemoveTop.Panel1Collapsed = false;
+                btnRemoveSelected.Text = "<";
+            }
+            else
+            {
+                splitRemoveTop.Panel1Collapsed = true;
+                btnRemoveSelected.Text = ">";
+            }
         }
 
         private void btnRemoveUncheckAll_Click(object sender, EventArgs e)
@@ -269,15 +293,12 @@ namespace Depressurizer
             }
         }
 
-        private void lstRemove_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private void clbAddSelected_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.Item.Checked) clbRemoveSelected.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            if (e.NewValue == CheckState.Unchecked)
             {
-                workerThread = new Thread(RemoveItemWorker);
-                workerThread.Start(e.Item);
+                ((ListViewItem) clbAddSelected.Items[e.Index]).Checked = false;
             }
-            UpdateRemoveCount();
         }
 
         private void clbRemoveSelected_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -288,25 +309,84 @@ namespace Depressurizer
             }
         }
 
-        private void btnRemoveSelected_Click(object sender, EventArgs e)
+        private void countascendingAdd_Click(object sender, EventArgs e)
         {
-            if (splitRemoveTop.Panel1Collapsed)
-            {
-                splitRemoveTop.Panel1Collapsed = false;
-                btnRemoveSelected.Text = "<";
-            }
-            else
-            {
-                splitRemoveTop.Panel1Collapsed = true;
-                btnRemoveSelected.Text = ">";
-            }
+            SortAdd(1, SortOrder.Ascending);
         }
 
-        #endregion
+        private void countascendingRemove_Click(object sender, EventArgs e)
+        {
+            SortRemove(1, SortOrder.Ascending);
+        }
 
-        #region Helper Thread 
+        private void countdescendingAdd_Click(object sender, EventArgs e)
+        {
+            SortAdd(1, SortOrder.Descending);
+        }
 
-        delegate void RemoveItemCallback(ListViewItem obj);
+        private void countdescendingRemove_Click(object sender, EventArgs e)
+        {
+            SortRemove(1, SortOrder.Descending);
+        }
+
+        private ListViewItem CreateCategoryListViewItem(Category c)
+        {
+            ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")");
+            i.Tag = c;
+            i.Name = c.Name;
+
+            return i;
+        }
+
+        private void lstAdd_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (e.Item.Checked)
+            {
+                clbAddSelected.Items.Add(e.Item, true);
+            }
+            else if (!e.Item.Checked && loaded)
+            {
+                workerThread = new Thread(AddItemWorker);
+                workerThread.Start(e.Item);
+            }
+
+            UpdateAddCount();
+        }
+
+        private void lstRemove_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (e.Item.Checked)
+            {
+                clbRemoveSelected.Items.Add(e.Item, true);
+            }
+            else if (!e.Item.Checked && loaded)
+            {
+                workerThread = new Thread(RemoveItemWorker);
+                workerThread.Start(e.Item);
+            }
+
+            UpdateRemoveCount();
+        }
+
+        private void nameascendingAdd_Click(object sender, EventArgs e)
+        {
+            SortAdd(0, SortOrder.Ascending);
+        }
+
+        private void nameascendingRemove_Click(object sender, EventArgs e)
+        {
+            SortRemove(0, SortOrder.Ascending);
+        }
+
+        private void namedescendingAdd_Click(object sender, EventArgs e)
+        {
+            SortAdd(0, SortOrder.Descending);
+        }
+
+        private void namedescendingRemove_Click(object sender, EventArgs e)
+        {
+            SortRemove(0, SortOrder.Descending);
+        }
 
         private void RemoveItem(ListViewItem obj)
         {
@@ -327,116 +407,40 @@ namespace Depressurizer
             RemoveItem((ListViewItem) obj);
         }
 
-        #endregion
-
-        #endregion
-
-        #region Add Categories
-
-        #region Event Handlers
-
-        private void btnAddCheckAll_Click(object sender, EventArgs e)
+        private void SetAllListCheckStates(ListView list, bool to)
         {
-            SetAllListCheckStates(lstAdd, true);
-        }
-
-        private void btnAddUncheckAll_Click(object sender, EventArgs e)
-        {
-            loaded = false;
-            FillAddList();
-            loaded = true;
-        }
-
-        private void lstAdd_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-            if (e.Item.Checked) clbAddSelected.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            foreach (ListViewItem item in list.Items)
             {
-                workerThread = new Thread(AddItemWorker);
-                workerThread.Start(e.Item);
+                item.Checked = to;
             }
-            UpdateAddCount();
-        }
-
-        private void clbAddSelected_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (e.NewValue == CheckState.Unchecked)
-            {
-                ((ListViewItem) clbAddSelected.Items[e.Index]).Checked = false;
-            }
-        }
-
-        private void btnAddSelected_Click(object sender, EventArgs e)
-        {
-            if (splitAddTop.Panel1Collapsed)
-            {
-                splitAddTop.Panel1Collapsed = false;
-                btnAddSelected.Text = "<";
-            }
-            else
-            {
-                splitAddTop.Panel1Collapsed = true;
-                btnAddSelected.Text = ">";
-            }
-        }
-
-        #endregion
-
-        #region Helper Thread
-
-        delegate void AddItemCallback(ListViewItem obj);
-
-        private void AddItem(ListViewItem obj)
-        {
-            if (clbAddSelected.InvokeRequired)
-            {
-                AddItemCallback callback = AddItem;
-                Invoke(callback, obj);
-            }
-            else
-            {
-                clbAddSelected.Items.Remove(obj);
-                UpdateAddCount();
-            }
-        }
-
-        private void AddItemWorker(object obj)
-        {
-            AddItem((ListViewItem) obj);
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Utility
-
-        private void SortRemove(int c, SortOrder so)
-        {
-            // Create a comparer.
-            lstRemove.ListViewItemSorter =
-                new ListViewComparer(c, so);
-
-            // Sort.
-            lstRemove.Sort();
         }
 
         private void SortAdd(int c, SortOrder so)
         {
             // Create a comparer.
-            lstAdd.ListViewItemSorter =
-                new ListViewComparer(c, so);
+            lstAdd.ListViewItemSorter = new ListViewComparer(c, so);
 
             // Sort.
             lstAdd.Sort();
         }
 
-        private ListViewItem CreateCategoryListViewItem(Category c)
+        private void SortRemove(int c, SortOrder so)
         {
-            ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")");
-            i.Tag = c;
-            i.Name = c.Name;
-            return i;
+            // Create a comparer.
+            lstRemove.ListViewItemSorter = new ListViewComparer(c, so);
+
+            // Sort.
+            lstRemove.Sort();
+        }
+
+        private void UpdateAddCount()
+        {
+            groupAdd.Text = "Add (" + clbAddSelected.Items.Count + "):";
+        }
+
+        private void UpdateRemoveCount()
+        {
+            groupRemove.Text = "Remove (" + clbRemoveSelected.Items.Count + "):";
         }
 
         #endregion

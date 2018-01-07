@@ -20,17 +20,27 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Name : AutoCatConfigPanel
     {
+        #region Constructors and Destructors
+
         public AutoCatConfigPanel_Name()
         {
             InitializeComponent();
             ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         public override void LoadFromAutoCat(AutoCat ac)
         {
             AutoCatName acName = ac as AutoCatName;
-            if (acName == null) return;
-            txtPrefix.Text = (acName.Prefix == null) ? string.Empty : acName.Prefix;
+            if (acName == null)
+            {
+                return;
+            }
+
+            txtPrefix.Text = acName.Prefix == null ? string.Empty : acName.Prefix;
             cbSkipThe.Checked = acName.SkipThe;
             cbGroupNumbers.Checked = acName.GroupNumbers;
             chkgroupNonEnglishCharacters.Checked = acName.GroupNonEnglishCharacters;
@@ -40,12 +50,18 @@ namespace Depressurizer
         public override void SaveToAutoCat(AutoCat autocat)
         {
             AutoCatName ac = autocat as AutoCatName;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
             ac.GroupNumbers = cbGroupNumbers.Checked;
             ac.SkipThe = cbSkipThe.Checked;
             ac.GroupNonEnglishCharacters = chkgroupNonEnglishCharacters.Checked;
             ac.GroupNonEnglishCharactersText = txtGroupNonEnglishCharactersText.Text;
         }
+
+        #endregion
     }
 }

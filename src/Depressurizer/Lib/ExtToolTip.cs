@@ -23,14 +23,22 @@ using System.Windows.Forms;
 namespace Depressurizer.Lib
 {
     /// <summary>
-    /// ToolTip extension that allows you to bypass timers and have the tooltip always show when the mouse is over a particular control.
+    ///     ToolTip extension that allows you to bypass timers and have the tooltip always show when the mouse is over a
+    ///     particular control.
     /// </summary>
     public class ExtToolTip : ToolTip
     {
-        private Dictionary<Control, string> bindings = new Dictionary<Control, string>();
+        #region Fields
+
+        private readonly Dictionary<Control, string> bindings = new Dictionary<Control, string>();
+
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
-        /// Sets the tooltip text associated with a given control. The ToolTip will always show when the mouse is over this control.
+        ///     Sets the tooltip text associated with a given control. The ToolTip will always show when the mouse is over this
+        ///     control.
         /// </summary>
         /// <param name="c">Control to apply the tooltip to</param>
         /// <param name="s">String to show in the tooltip</param>
@@ -41,14 +49,9 @@ namespace Depressurizer.Lib
             c.MouseLeave += Ext_Control_MouseLeave;
         }
 
-        private void Ext_Control_MouseLeave(object sender, EventArgs e)
-        {
-            Control c = sender as Control;
-            if (c != null)
-            {
-                Hide(c);
-            }
-        }
+        #endregion
+
+        #region Methods
 
         private void Ext_Control_MouseEnter(object sender, EventArgs e)
         {
@@ -65,5 +68,16 @@ namespace Depressurizer.Lib
                 }
             }
         }
+
+        private void Ext_Control_MouseLeave(object sender, EventArgs e)
+        {
+            Control c = sender as Control;
+            if (c != null)
+            {
+                Hide(c);
+            }
+        }
+
+        #endregion
     }
 }

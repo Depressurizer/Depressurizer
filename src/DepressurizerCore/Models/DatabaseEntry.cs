@@ -153,7 +153,7 @@ namespace DepressurizerCore.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// Steam Store Language Support
+        ///     Steam Store Language Support
         /// </summary>
         /// TODO: Add field to DB edit dialog
         public LanguageSupport LanguageSupport
@@ -167,7 +167,7 @@ namespace DepressurizerCore.Models
         public long LastStoreScrape { get; set; } = 0;
 
         /// <summary>
-        /// Metacritic URL
+        ///     Metacritic URL
         /// </summary>
         public string MetacriticUrl { get; set; }
 
@@ -208,7 +208,7 @@ namespace DepressurizerCore.Models
         public string SteamReleaseDate { get; set; }
 
         /// <summary>
-        /// Steam Store Tags
+        ///     Steam Store Tags
         /// </summary>
         public List<string> Tags
         {
@@ -375,6 +375,20 @@ namespace DepressurizerCore.Models
 
         #region Methods
 
+        private static HttpWebRequest GetSteamRequest(string url)
+        {
+            HttpWebRequest req = (HttpWebRequest) WebRequest.Create(url);
+            // Cookie bypasses the age gate
+            req.CookieContainer = new CookieContainer(3);
+            req.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));
+            req.CookieContainer.Add(new Cookie("mature_content", "1", "/", "store.steampowered.com"));
+            req.CookieContainer.Add(new Cookie("lastagecheckage", "1-January-1955", "/", "store.steampowered.com"));
+            // Cookies get discarded on automatic redirects so we have to follow them manually
+            req.AllowAutoRedirect = false;
+
+            return req;
+        }
+
         /// <summary>
         ///     Applies all data from a steam store page to this entry
         /// </summary>
@@ -488,7 +502,7 @@ namespace DepressurizerCore.Models
                     }
 
                     // Interface
-                    if (!string.IsNullOrEmpty(WebUtility.HtmlDecode(ma.Groups[2].Value.Trim()))) 
+                    if (!string.IsNullOrEmpty(WebUtility.HtmlDecode(ma.Groups[2].Value.Trim())))
                     {
                         LanguageSupport.Interface.Add(language);
                     }
@@ -592,20 +606,6 @@ namespace DepressurizerCore.Models
             {
                 Platforms |= AppPlatforms.Linux;
             }
-        }
-
-        private static HttpWebRequest GetSteamRequest(string url)
-        {
-            HttpWebRequest req = (HttpWebRequest) WebRequest.Create(url);
-            // Cookie bypasses the age gate
-            req.CookieContainer = new CookieContainer(3);
-            req.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));
-            req.CookieContainer.Add(new Cookie("mature_content", "1", "/", "store.steampowered.com"));
-            req.CookieContainer.Add(new Cookie("lastagecheckage", "1-January-1955", "/", "store.steampowered.com"));
-            // Cookies get discarded on automatic redirects so we have to follow them manually
-            req.AllowAutoRedirect = false;
-
-            return req;
         }
 
         private AppTypes ScrapeStoreHelper(int id)

@@ -2,8 +2,14 @@
 
 namespace Depressurizer
 {
-    class ProfileAccessException : ApplicationException
+    internal class ProfileAccessException : ApplicationException
     {
-        public ProfileAccessException(string m) : base(m) { }
+        #region Constructors and Destructors
+
+        public ProfileAccessException(string m) : base(m)
+        {
+        }
+
+        #endregion
     }
 }

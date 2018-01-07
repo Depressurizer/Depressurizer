@@ -29,8 +29,6 @@ namespace Depressurizer
 {
     public class AutoCatLanguage : AutoCat
     {
-        private LanguageSupport _includedLanguages;
-
         #region Constants
 
         // Serialization constants
@@ -58,11 +56,7 @@ namespace Depressurizer
 
         #region Fields
 
-        public LanguageSupport IncludedLanguages
-        {
-            get { return _includedLanguages ?? (_includedLanguages = new LanguageSupport()); }
-            set { _includedLanguages = value; }
-        }
+        private LanguageSupport _includedLanguages;
 
         #endregion
 
@@ -101,6 +95,12 @@ namespace Depressurizer
         #region Public Properties
 
         public override AutoCatType AutoCatType => AutoCatType.Language;
+
+        public LanguageSupport IncludedLanguages
+        {
+            get => _includedLanguages ?? (_includedLanguages = new LanguageSupport());
+            set => _includedLanguages = value;
+        }
 
         public bool IncludeTypePrefix { get; set; }
 
