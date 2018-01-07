@@ -42,6 +42,7 @@ namespace Depressurizer
             FatalError.InitializeHandler();
 
             Settings.Instance.Load();
+            Database.Instance.Load();
             Application.Run(new FormMain());
         }
 
