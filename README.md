@@ -1,9 +1,5 @@
-<h3>
-    Depressurizer (v1.0.0)
-    <h5>
-        This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).
-    </h5>
-</h3>
+# Depressurizer (v1.0.0)
+> This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).
 
 ![Main Window](http://i.imgur.com/2K70Jog.jpg)
 
