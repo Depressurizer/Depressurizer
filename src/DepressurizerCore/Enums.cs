@@ -18,6 +18,8 @@
 
 #endregion
 
+using System;
+
 namespace DepressurizerCore
 {
     public enum ValueType
@@ -93,6 +95,105 @@ namespace DepressurizerCore
         tr, // Turkish
 
         uk // Ukrainian
+    }
+
+    /// <summary>
+    ///     Operating System(s)
+    /// </summary>
+    [Flags]
+    public enum AppPlatforms
+    {
+        /// <summary>
+        ///     Default value
+        /// </summary>
+        None = 0,
+
+        /// <summary>
+        ///     Microsoft Windows
+        /// </summary>
+        Windows = 1 << 0,
+
+        /// <summary>
+        ///     macOS
+        /// </summary>
+        Mac = 1 << 1,
+
+        /// <summary>
+        ///     Linux
+        /// </summary>
+        Linux = 1 << 2,
+
+        /// <summary>
+        ///     Windows, Mac and Linux
+        /// </summary>
+        All = (1 << 3) - 1
+    }
+
+    /// <summary>
+    ///     Steam App Type
+    /// </summary>
+    [Flags]
+    public enum AppTypes
+    {
+        /// <summary>
+        ///     Default value
+        /// </summary>
+        Unknown = 0,
+
+        /// <summary>
+        ///     Steam Game
+        /// </summary>
+        Game = 1 << 0,
+
+        /// <summary>
+        ///     Steam Software
+        /// </summary>
+        Application = 1 << 1,
+
+        /// <summary>
+        ///     Steam Demo
+        /// </summary>
+        Demo = 1 << 2,
+
+        /// <summary>
+        ///     Downloadable Content
+        /// </summary>
+        DLC = 1 << 3,
+
+        /// <summary>
+        ///     SDK's, servers etc..
+        /// </summary>
+        Tool = 1 << 4,
+
+        /// <summary>
+        ///     Steam Config Files
+        /// </summary>
+        Config = 1 << 5,
+
+        /// <summary>
+        ///     Steam Streaming Videos
+        /// </summary>
+        Video = 1 << 6,
+
+        /// <summary>
+        ///     Steam Series
+        /// </summary>
+        Series = 1 << 7,
+
+        /// <summary>
+        ///     All Steam Games and Software
+        /// </summary>
+        IncludeNormal = Application | Game,
+
+        /// <summary>
+        ///     All Steam Games, Software and Unknown
+        /// </summary>
+        IncludeUnknown = IncludeNormal | Unknown,
+
+        /// <summary>
+        ///     All Steam Apps
+        /// </summary>
+        IncludeAll = (1 << 8) - 1
     }
 
     /// <summary>

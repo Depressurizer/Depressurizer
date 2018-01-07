@@ -41,7 +41,7 @@ namespace Depressurizer
     public class GameDB
     {
         // Main Data
-        public Dictionary<int, GameDBEntry> Games = new Dictionary<int, GameDBEntry>();
+        public Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
 
         // Extra data
         private SortedSet<string> allStoreGenres;
@@ -77,7 +77,7 @@ namespace Depressurizer
         {
             if (Games.ContainsKey(id))
             {
-                return scheme.HasFlag(Games[id].AppType);
+                return scheme.HasFlag(Games[id].AppTypes);
             }
             return scheme.HasFlag(AppTypes.Unknown);
         }
@@ -216,7 +216,7 @@ namespace Depressurizer
         {
             if (Games.ContainsKey(gameId))
             {
-                GameDBEntry dbEntry = Games[gameId];
+                DatabaseEntry dbEntry = Games[gameId];
                 DateTime releaseDate;
                 if (DateTime.TryParse(dbEntry.SteamReleaseDate, out releaseDate))
                 {
@@ -260,7 +260,7 @@ namespace Depressurizer
                 allStoreGenres.Clear();
             }
 
-            foreach (GameDBEntry entry in Games.Values)
+            foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.Genres != null)
                 {
@@ -301,7 +301,7 @@ namespace Depressurizer
                 allStoreDevelopers.Clear();
             }
 
-            foreach (GameDBEntry entry in Games.Values)
+            foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.Developers != null)
                 {
@@ -342,7 +342,7 @@ namespace Depressurizer
                 allStorePublishers.Clear();
             }
 
-            foreach (GameDBEntry entry in Games.Values)
+            foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.Publishers != null)
                 {
@@ -383,7 +383,7 @@ namespace Depressurizer
                 allStoreFlags.Clear();
             }
 
-            foreach (GameDBEntry entry in Games.Values)
+            foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.Flags != null)
                 {
@@ -419,7 +419,7 @@ namespace Depressurizer
             SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             SortedSet<string> playArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-            foreach (GameDBEntry entry in Games.Values)
+            foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.VRSupport.Headsets != null)
                 {
@@ -447,11 +447,11 @@ namespace Depressurizer
         /// <returns>A LanguageSupport struct containing the languages</returns>
         public LanguageSupport GetAllLanguages()
         {
-            if (allLanguages.FullAudio == null || allLanguages.Interface == null ||
-                allLanguages.Subtitles == null)
+            if (allLanguages == null || allLanguages.FullAudio == null || allLanguages.Interface == null || allLanguages.Subtitles == null)
             {
                 return CalculateAllLanguages();
             }
+
             return allLanguages;
         }
 
@@ -462,11 +462,13 @@ namespace Depressurizer
         /// <returns>A LanguageSupport struct containing the languages</returns>
         public LanguageSupport CalculateAllLanguages()
         {
+            allLanguages = new LanguageSupport();
+
             SortedSet<string> Interface = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             SortedSet<string> Subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             SortedSet<string> FullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-            foreach (GameDBEntry entry in Games.Values)
+            foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.LanguageSupport.Interface != null)
                 {
@@ -499,7 +501,7 @@ namespace Depressurizer
             Dictionary<string, int> devCounts = new Dictionary<string, int>();
             if (filter == null)
             {
-                foreach (GameDBEntry dbEntry in Games.Values)
+                foreach (DatabaseEntry dbEntry in Games.Values)
                 {
                     CalculateSortedDevListHelper(devCounts, dbEntry);
                 }
@@ -526,7 +528,7 @@ namespace Depressurizer
         /// </summary>
         /// <param name="counts">Existing dictionary of developers and game count. Key is the developer as a string, value is the count</param>
         /// <param name="dbEntry">Entry to add developers from</param>
-        private void CalculateSortedDevListHelper(Dictionary<string, int> counts, GameDBEntry dbEntry)
+        private void CalculateSortedDevListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
         {
             if (dbEntry.Developers != null)
             {
@@ -557,7 +559,7 @@ namespace Depressurizer
             Dictionary<string, int> PubCounts = new Dictionary<string, int>();
             if (filter == null)
             {
-                foreach (GameDBEntry dbEntry in Games.Values)
+                foreach (DatabaseEntry dbEntry in Games.Values)
                 {
                     CalculateSortedPubListHelper(PubCounts, dbEntry);
                 }
@@ -584,7 +586,7 @@ namespace Depressurizer
         /// </summary>
         /// <param name="counts">Existing dictionary of publishers and game count. Key is the publisher as a string, value is the count</param>
         /// <param name="dbEntry">Entry to add publishers from</param>
-        private void CalculateSortedPubListHelper(Dictionary<string, int> counts, GameDBEntry dbEntry)
+        private void CalculateSortedPubListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
         {
             if (dbEntry.Publishers != null)
             {
@@ -619,7 +621,7 @@ namespace Depressurizer
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if (filter == null)
             {
-                foreach (GameDBEntry dbEntry in Games.Values)
+                foreach (DatabaseEntry dbEntry in Games.Values)
                 {
                     CalculateSortedTagListHelper(tagCounts, dbEntry, weightFactor, tagsPerGame);
                 }
@@ -661,7 +663,7 @@ namespace Depressurizer
         /// The first tag on the game will have this score, and the last tag processed will always have score 1.
         /// The tags between will have linearly interpolated values between them.</param>
         /// <param name="tagsPerGame"></param>
-        private void CalculateSortedTagListHelper(Dictionary<string, float> counts, GameDBEntry dbEntry,
+        private void CalculateSortedTagListHelper(Dictionary<string, float> counts, DatabaseEntry dbEntry,
             float weightFactor, int tagsPerGame)
         {
             if (dbEntry.Tags != null)
@@ -739,16 +741,16 @@ namespace Depressurizer
                     string gameName = XmlUtil.GetStringFromNode(node["name"], null);
                     if (Games.ContainsKey(appId))
                     {
-                        GameDBEntry g = Games[appId];
+                        DatabaseEntry g = Games[appId];
                         if (string.IsNullOrEmpty(g.Name) || g.Name != gameName)
                         {
                             g.Name = gameName;
-                            g.AppType = AppTypes.Unknown;
+                            g.AppTypes = AppTypes.Unknown;
                         }
                     }
                     else
                     {
-                        GameDBEntry g = new GameDBEntry();
+                        DatabaseEntry g = new DatabaseEntry();
                         g.Id = appId;
                         g.Name = gameName;
                         Games.Add(appId, g);
@@ -774,10 +776,10 @@ namespace Depressurizer
 
             foreach (AppInfo aInf in appInfos.Values)
             {
-                GameDBEntry entry;
+                DatabaseEntry entry;
                 if (!Games.ContainsKey(aInf.Id))
                 {
-                    entry = new GameDBEntry();
+                    entry = new DatabaseEntry();
                     entry.Id = aInf.Id;
                     Games.Add(entry.Id, entry);
                 }
@@ -787,7 +789,7 @@ namespace Depressurizer
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
-                if (aInf.AppType != AppTypes.Unknown) entry.AppType = aInf.AppType;
+                if (aInf.AppType != AppTypes.Unknown) entry.AppTypes = aInf.AppType;
                 if (!string.IsNullOrEmpty(aInf.Name)) entry.Name = aInf.Name;
                 if (entry.Platforms == AppPlatforms.None ||
                     (entry.LastStoreScrape == 0 && aInf.Platforms > AppPlatforms.None))
@@ -865,7 +867,7 @@ namespace Depressurizer
             if (dbLanguage == dbLang) return;
             dbLanguage = dbLang;
             //clean DB from data in wrong language
-            foreach (GameDBEntry g in Games.Values)
+            foreach (DatabaseEntry g in Games.Values)
             {
                 if (g.Id > 0)
                 {
@@ -934,10 +936,10 @@ namespace Depressurizer
                 writer.WriteElementString(XmlName_dbLanguage, Enum.GetName(typeof(StoreLanguage), dbLanguage));
 
                 writer.WriteStartElement(XmlName_Games);
-                XmlSerializer x = new XmlSerializer(typeof(GameDBEntry));
+                XmlSerializer x = new XmlSerializer(typeof(DatabaseEntry));
                 var nameSpace = new XmlSerializerNamespaces();
                 nameSpace.Add("", "");
-                foreach (GameDBEntry g in Games.Values)
+                foreach (DatabaseEntry g in Games.Values)
                 {
                     x.Serialize(writer, g, nameSpace);
                 }
@@ -998,11 +1000,11 @@ namespace Depressurizer
                 if (fileVersion == 1) LoadGamelistVersion1(gameListNode);
                 else
                 {
-                    XmlSerializer x = new XmlSerializer(typeof(GameDBEntry));
+                    XmlSerializer x = new XmlSerializer(typeof(DatabaseEntry));
                     foreach (XmlNode gameNode in gameListNode.SelectSingleNode(XmlName_Games).ChildNodes)
                     {
                         XmlReader reader = new XmlNodeReader(gameNode);
-                        GameDBEntry entry = (GameDBEntry)x.Deserialize(reader);
+                        DatabaseEntry entry = (DatabaseEntry)x.Deserialize(reader);
                         Games.Add(entry.Id, entry);
                     }
                 }
@@ -1059,12 +1061,12 @@ namespace Depressurizer
                 {
                     continue;
                 }
-                GameDBEntry g = new GameDBEntry();
+                DatabaseEntry g = new DatabaseEntry();
                 g.Id = id;
 
                 g.Name = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Name], null);
 
-                g.AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppTypes.Unknown);
+                g.AppTypes = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppTypes.Unknown);
 
                 g.Platforms = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Platforms], AppPlatforms.All);
 

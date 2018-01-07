@@ -22,6 +22,7 @@ using System.Text;
 using System.Windows.Forms;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
+using DepressurizerCore.Models;
 using Rallion;
 
 namespace Depressurizer
@@ -42,7 +43,7 @@ namespace Depressurizer
 
         #region VirtualMode List Backing & Sorting Fields
 
-        List<GameDBEntry> displayedGames = new List<GameDBEntry>();
+        List<DatabaseEntry> displayedGames = new List<DatabaseEntry>();
         GameDBEntrySorter dbEntrySorter = new GameDBEntrySorter();
 
         readonly Dictionary<int, GameDBEntrySorter.SortModes> columnSortMap =
@@ -290,7 +291,7 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                GameDBEntry game = displayedGames[lstGames.SelectedIndices[0]];
+                DatabaseEntry game = displayedGames[lstGames.SelectedIndices[0]];
                 if (game != null)
                 {
                     GameDBEntryDialog dlg = new GameDBEntryDialog(game);
@@ -322,7 +323,7 @@ namespace Depressurizer
                     int deleted = 0;
                     foreach (int index in lstGames.SelectedIndices)
                     {
-                        GameDBEntry game = displayedGames[index];
+                        DatabaseEntry game = displayedGames[index];
                         if (game != null)
                         {
                             Program.GameDB.Games.Remove(game.Id);
@@ -349,7 +350,7 @@ namespace Depressurizer
 
             Queue<int> gamesToScrape = new Queue<int>();
 
-            foreach (GameDBEntry g in Program.GameDB.Games.Values)
+            foreach (DatabaseEntry g in Program.GameDB.Games.Values)
             {
                 //Only scrape displayed games
                 if ((g.LastStoreScrape == 0) && ShouldDisplayGame(g))
@@ -430,14 +431,14 @@ namespace Depressurizer
 
         #region UI Updaters
 
-        ListViewItem CreateListViewItem(GameDBEntry g)
+        ListViewItem CreateListViewItem(DatabaseEntry g)
         {
             return new ListViewItem(new[]
             {
                 g.Id.ToString(),
                 g.Name,
                 (g.Genres != null) ? string.Join(",", g.Genres) : "",
-                g.AppType.ToString(),
+                g.AppTypes.ToString(),
                 (g.LastStoreScrape == 0) ? "" : "X",
                 (g.LastAppInfoUpdate == 0) ? "" : "X",
                 (g.ParentId <= 0) ? "" : g.ParentId.ToString()
@@ -448,7 +449,7 @@ namespace Depressurizer
         {
             lstGames.SelectedIndices.Clear();
             displayedGames.Clear();
-            foreach (GameDBEntry g in Program.GameDB.Games.Values)
+            foreach (DatabaseEntry g in Program.GameDB.Games.Values)
             {
                 if (ShouldDisplayGame(g)) displayedGames.Add(g);
             }
@@ -480,7 +481,7 @@ namespace Depressurizer
         /// </summary>
         /// <param name="g">entry to evaluate</param>
         /// <returns>True if the entry should be displayed</returns>
-        bool ShouldDisplayGame(GameDBEntry g)
+        bool ShouldDisplayGame(DatabaseEntry g)
         {
             if (g == null) return false;
 
@@ -491,7 +492,7 @@ namespace Depressurizer
 
             if (chkTypeAll.Checked == false)
             {
-                switch (g.AppType)
+                switch (g.AppTypes)
                 {
                     case AppTypes.Game:
                         if (chkTypeGame.Checked == false) return false;
@@ -527,7 +528,7 @@ namespace Depressurizer
             return true;
         }
 
-        bool ShouldHideGame(GameDBEntry g)
+        bool ShouldHideGame(DatabaseEntry g)
         {
             return !ShouldDisplayGame(g);
         }
