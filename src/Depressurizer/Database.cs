@@ -900,7 +900,7 @@ namespace Depressurizer
             using (WebClient wc = new WebClient())
             {
                 wc.Encoding = Encoding.UTF8;
-                string json = wc.DownloadString(Resources.UrlHLTBAll);
+                string json = wc.DownloadString(Constants.UrlHLTBAll);
                 JObject parsedJson = JObject.Parse(json);
                 dynamic games = parsedJson.SelectToken("Games");
                 foreach (dynamic g in games)

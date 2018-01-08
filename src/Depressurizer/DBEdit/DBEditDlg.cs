@@ -967,7 +967,7 @@ namespace Depressurizer
         {
             try
             {
-                string path = string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath);
+                string path = string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath);
                 int updated = Database.Instance.UpdateFromAppInfo(path);
                 if (updated > 0)
                 {
