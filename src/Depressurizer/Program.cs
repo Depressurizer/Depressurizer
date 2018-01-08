@@ -67,7 +67,7 @@ namespace Depressurizer
                 using (WebClient webClient = new WebClient())
                 {
                     webClient.Headers.Set("User-Agent", "Depressurizer");
-                    string json = webClient.DownloadString(Resources.UrlLatestRelease);
+                    string json = webClient.DownloadString(Constants.UrlLatestRelease);
 
                     JObject parsedJson = JObject.Parse(json);
                     githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));

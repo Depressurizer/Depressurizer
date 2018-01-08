@@ -69,7 +69,7 @@ namespace Depressurizer
 
             try
             {
-                string url = string.Format(Resources.UrlCustomProfileXml, customUrlName);
+                string url = string.Format(Constants.UrlCustomProfileXml, customUrlName);
 
                 WebRequest req = WebRequest.Create(url);
                 WebResponse response = req.GetResponse();
