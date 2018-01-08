@@ -19,37 +19,114 @@
 #endregion
 
 using System;
+using System.Diagnostics;
+using System.Net;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
+using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
 {
     internal static class Program
     {
-        #region Methods
+        #region Public Methods and Operators
 
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ApplicationExit += OnApplicationExit;
             Application.ThreadException += OnThreadException;
 
-            Settings.Instance.Load();
-            Database.Instance.Load();
+            OnApplicationStart();
 
             Application.Run(new FormMain());
+        }
+
+        #endregion
+
+        #region Methods
+
+        private static void CheckForUpdates()
+        {
+            Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+            try
+            {
+                Version githubVersion;
+                string url;
+
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers.Set("User-Agent", "Depressurizer");
+                    string json = webClient.DownloadString(Resources.UrlLatestRelease);
+
+                    JObject parsedJson = JObject.Parse(json);
+                    githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
+                    url = (string) parsedJson.SelectToken("html_url");
+                }
+
+                if (githubVersion <= currentVersion)
+                {
+                    return;
+                }
+
+                if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Process.Start(url);
+                }
+            }
+            catch (Exception e)
+            {
+                SentryLogger.LogException(e);
+                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private static void OnApplicationExit(object sender, EventArgs e)
         {
             Settings.Instance.Save();
+            Database.Instance.Save();
+        }
+
+        private static void OnApplicationStart()
+        {
+            /* Settings */
+            Settings.Instance.Load();
+
+            /* Check for Depressurizer updates */
+            if (Settings.Instance.CheckForUpdates)
+            {
+                CheckForUpdates();
+            }
+
+            /* Make sure we have a SteamPath */
+            if (Settings.Instance.SteamPath == null)
+            {
+                using (DlgSteamPath dialog = new DlgSteamPath())
+                {
+                    dialog.ShowDialog();
+                    Settings.Instance.SteamPath = dialog.Path;
+                }
+            }
+
+            Settings.Instance.Save();
+
+            /* Database */
+            Database.Instance.Load();
+
+            if (Settings.Instance.AutoSaveDatabase)
+            {
+                Database.Instance.Load();
+            }
         }
 
         private static void OnThreadException(object sender, ThreadExceptionEventArgs e)

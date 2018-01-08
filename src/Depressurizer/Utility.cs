@@ -26,7 +26,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Cache;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using DepressurizerCore;
 using MaterialSkin.Controls;
@@ -106,51 +105,12 @@ namespace Depressurizer
             return b.Count - a.Count;
         }
 
-        public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage dbLanguage)
+        public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage storeLanguage)
         {
-            string l = Enum.GetName(typeof(StoreLanguage), dbLanguage);
-            CultureInfo culture = CultureInfo.GetCultureInfo("en");
-            if (l == "zh_Hans")
-            {
-                culture = CultureInfo.GetCultureInfo("zh-Hans");
-            }
-            else if (l == "zh_Hant")
-            {
-                culture = CultureInfo.GetCultureInfo("zh-Hant");
-            }
-            else if (l == "pt-BR")
-            {
-                culture = CultureInfo.GetCultureInfo("pt-BR");
-            }
-            else if (l == "windows")
-            {
-                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
-                {
-                    culture = currentCulture;
-                }
-                else
-                {
-                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
-                    {
-                        culture = CultureInfo.GetCultureInfo("zh-Hans");
-                    }
-                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
-                    {
-                        culture = CultureInfo.GetCultureInfo("zh-Hant");
-                    }
-                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
-                    {
-                        culture = CultureInfo.GetCultureInfo("pt-BR");
-                    }
-                }
-            }
-            else
-            {
-                culture = CultureInfo.GetCultureInfo(l);
-            }
+            CultureInfo[] cultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            CultureInfo cultureInfo = cultureInfos.FirstOrDefault(c => c.EnglishName == storeLanguage.ToString()) ?? CultureInfo.GetCultureInfo("en-US");
 
-            return culture;
+            return cultureInfo;
         }
 
         public static string GetEnumDescription(Enum value)

@@ -34,9 +34,9 @@ namespace DepressurizerCore.Helpers
 
         #region Public Methods and Operators
 
-        public static void LogException(Exception eException)
+        public static void LogException(Exception e)
         {
-            RavenClient.Capture(new SentryEvent(e.Exception));
+            RavenClient.Capture(new SentryEvent(e));
         }
 
         #endregion
