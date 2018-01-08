@@ -125,7 +125,7 @@ namespace Depressurizer
 
             if (Settings.Instance.AutoSaveDatabase)
             {
-                Database.Instance.Load();
+                Database.Instance.Save();
             }
         }
 
