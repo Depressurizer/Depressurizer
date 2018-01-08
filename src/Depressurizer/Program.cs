@@ -22,20 +22,12 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using DepressurizerCore;
-using Rallion;
-using SharpRaven;
-using SharpRaven.Data;
+using DepressurizerCore.Helpers;
 
 namespace Depressurizer
 {
     internal static class Program
     {
-        #region Static Fields
-
-        private static readonly RavenClient RavenClient = new RavenClient("https://a9d2b7ef3ae04cb6bdcb47868d04941b:82545065dd864f878defde6bd2ae51d9@sentry.io/267726");
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -51,6 +43,7 @@ namespace Depressurizer
 
             Settings.Instance.Load();
             Database.Instance.Load();
+
             Application.Run(new FormMain());
         }
 
@@ -61,7 +54,7 @@ namespace Depressurizer
 
         private static void OnThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            RavenClient.Capture(new SentryEvent(e.Exception));
+            SentryLogger.LogException(e.Exception);
         }
 
         #endregion
