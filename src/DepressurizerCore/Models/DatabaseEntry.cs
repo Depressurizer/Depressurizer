@@ -617,7 +617,7 @@ namespace DepressurizerCore.Models
             HttpWebResponse resp = null;
             try
             {
-                string storeLanguage = Settings.Instance.StoreLanguage.ToString();
+                string storeLanguage = Settings.Instance.StoreLanguage.ToString().ToLower();
                 HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, "http://store.steampowered.com/app/{0}/?l={1}", id, storeLanguage));
                 resp = (HttpWebResponse) req.GetResponse();
 

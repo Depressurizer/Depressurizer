@@ -17,8 +17,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Windows.Forms;
 using DepressurizerCore;
 
@@ -130,39 +128,10 @@ namespace Depressurizer
                 cmbUILanguage.Items.Add(language);
             }
 
-            //Store Languages
-            List<string> storeLanguages = new List<string>();
-            foreach (string l in Enum.GetNames(typeof(StoreLanguage)))
+            foreach (string language in Enum.GetNames(typeof(StoreLanguage)))
             {
-                string name;
-                switch (l)
-                {
-                    case "windows":
-                        name = "Default";
-
-                        break;
-                    case "zh_Hans":
-                        name = CultureInfo.GetCultureInfo("zh-Hans").NativeName;
-
-                        break;
-                    case "zh_Hant":
-                        name = CultureInfo.GetCultureInfo("zh-Hant").NativeName;
-
-                        break;
-                    case "pt_BR":
-                        name = CultureInfo.GetCultureInfo("pt-BR").NativeName;
-
-                        break;
-                    default:
-                        name = CultureInfo.GetCultureInfo(l).NativeName;
-
-                        break;
-                }
-
-                storeLanguages.Add(name);
+                cmbStoreLanguage.Items.Add(language);
             }
-
-            cmbStoreLanguage.Items.AddRange(storeLanguages.ToArray());
 
             FillFieldsFromSettings();
         }
@@ -214,7 +183,7 @@ namespace Depressurizer
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 
             settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
-            settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
+            Database.Instance.ChangeLanguage((StoreLanguage) cmbStoreLanguage.SelectedIndex);
 
             try
             {
