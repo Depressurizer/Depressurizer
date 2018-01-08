@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
@@ -40,7 +39,6 @@ using DepressurizerCore.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
 using Rallion;
 
 namespace Depressurizer
@@ -746,40 +744,6 @@ namespace Depressurizer
                 }
 
                 resources.ApplyResources(item, item.Name, newCulture);
-            }
-        }
-
-        /// <summary>
-        ///     Checks github for newer versions of depressurizer.
-        /// </summary>
-        /// <returns>True if there is a newer release, false otherwise</returns>
-        private void CheckForDepressurizerUpdates()
-        {
-            Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            try
-            {
-                Version githubVersion;
-                string url;
-                using (WebClient wc = new WebClient())
-                {
-                    wc.Headers.Set("User-Agent", "Depressurizer");
-                    string json = wc.DownloadString(Resources.UrlLatestRelease);
-                    JObject parsedJson = JObject.Parse(json);
-                    githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
-                    url = (string) parsedJson.SelectToken("html_url");
-                }
-
-                if (githubVersion > currentVersion)
-                {
-                    if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        Process.Start(url);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1660,21 +1624,19 @@ namespace Depressurizer
             // allow mousewheel scrolling for Add Category submenu.  Send 10 UP/DOWN per wheel click.
             contextGame.MouseWheel += HandleMouseWheel;
 
-            // Load saved forms settings
-            Settings settings = Settings.Instance;
-            Location = new Point(settings.X, settings.Y);
+            Location = new Point(Settings.Instance.X, Settings.Instance.Y);
             if (!Utility.IsOnScreen(this))
             {
                 //TopLeft corner is off screen, so reset location
                 Location = new Point(0, 0);
             }
 
-            Size = new Size(settings.Width, settings.Height);
-            splitContainer.SplitterDistance = settings.SplitContainer;
-            settings.SplitGameContainerHeight = splitGame.Height;
-            splitGame.SplitterDistance = settings.SplitGame;
-            settings.SplitBrowserContainerWidth = splitBrowser.Width;
-            splitBrowser.SplitterDistance = settings.SplitBrowser;
+            Size = new Size(Settings.Instance.Width, Settings.Instance.Height);
+            splitContainer.SplitterDistance = Settings.Instance.SplitContainer;
+            Settings.Instance.SplitGameContainerHeight = splitGame.Height;
+            splitGame.SplitterDistance = Settings.Instance.SplitGame;
+            Settings.Instance.SplitBrowserContainerWidth = splitBrowser.Width;
+            splitBrowser.SplitterDistance = Settings.Instance.SplitBrowser;
 
             ttHelp.Ext_SetToolTip(mchkAdvancedCategories, GlobalStrings.MainForm_Help_AdvancedCategories);
 
@@ -1688,13 +1650,6 @@ namespace Depressurizer
             originalSplitDistanceBrowser = splitBrowser.SplitterDistance;
 
             ClearStatus();
-            if (Settings.Instance.SteamPath == null)
-            {
-                DlgSteamPath dlg = new DlgSteamPath();
-                dlg.ShowDialog();
-                Settings.Instance.SteamPath = dlg.Path;
-                Settings.Instance.Save();
-            }
 
             if (Settings.Instance.UpdateAppInfoOnStart)
             {
@@ -1705,11 +1660,6 @@ namespace Depressurizer
             if (Settings.Instance.UpdateHLTBOnStart && DateTimeOffset.Now.ToUnixTimeSeconds() > Database.Instance.LastHltbUpdate + aWeekInSecs)
             {
                 UpdateGameDBFromHltb();
-            }
-
-            if (Settings.Instance.CheckForUpdates)
-            {
-                CheckForDepressurizerUpdates();
             }
 
             switch (Settings.Instance.StartupAction)
@@ -1728,7 +1678,7 @@ namespace Depressurizer
                     break;
             }
 
-            Database.Instance.ChangeLanguage(settings.StoreLanguage);
+            Database.Instance.ChangeLanguage(Settings.Instance.StoreLanguage);
 
             UpdateUIForSingleCat();
             UpdateEnabledStatesForGames();
@@ -1739,9 +1689,9 @@ namespace Depressurizer
             if (CurrentProfile != null)
             {
                 // restore previous session
-                SelectCategory(settings);
-                SelectFilter(settings);
-                SelectAutoCats(settings);
+                SelectCategory(Settings.Instance);
+                SelectFilter(Settings.Instance);
+                SelectAutoCats(Settings.Instance);
             }
         }
 
@@ -2842,27 +2792,15 @@ namespace Depressurizer
 
         private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string storeLanguage = "en";
             contextGameFav_Yes.Checked = false;
             contextGameFav_No.Checked = false;
             contextGameHidden_Yes.Checked = false;
             contextGameHidden_No.Checked = false;
 
-            if (Database.Instance.Language == StoreLanguage.zh_Hans)
+            string storeLanguage = Database.Instance.Language.ToString();
+            if (Database.Instance.Language == StoreLanguage.Default)
             {
-                storeLanguage = "schinese";
-            }
-            else if (Database.Instance.Language == StoreLanguage.zh_Hant)
-            {
-                storeLanguage = "tchinese";
-            }
-            else if (Database.Instance.Language == StoreLanguage.pt_BR)
-            {
-                storeLanguage = "brazilian";
-            }
-            else
-            {
-                storeLanguage = CultureInfo.GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Database.Instance.Language)).EnglishName.ToLowerInvariant();
+                storeLanguage = Settings.Instance.InterfaceLanguage.ToString();
             }
 
             if (lstGames.SelectedObjects.Count > 0)

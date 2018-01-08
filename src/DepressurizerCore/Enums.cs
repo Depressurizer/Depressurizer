@@ -40,61 +40,139 @@ namespace DepressurizerCore
         WebsiteOnly
     }
 
+    /// <summary>
+    ///     Languages supported on Steam.
+    /// </summary>
+    /// <remarks>
+    ///     https://partner.steamgames.com/doc/store/localization
+    ///     https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx
+    /// </remarks>
     public enum StoreLanguage
     {
-        windows,
+        /// <summary>
+        ///     Equal to the Depressurizer Interface language or English
+        /// </summary>
+        Default,
 
-        bg, // Bulgarian
+        Arabic,
 
-        cs, // Czech
+        /// <summary>
+        ///     Bulgarian - Bulgaria
+        /// </summary>
+        Bulgarian,
 
-        da, // Danish
+        // TODO: Chinese (Simplified)
 
-        nl, // Dutch
+        // TODO: Chinese (Traditional)
 
-        en, // English
+        /// <summary>
+        ///     Czech - Czech Republic
+        /// </summary>
+        Czech,
 
-        fi, // Finnish
+        /// <summary>
+        ///     Danish - Denmark
+        /// </summary>
+        Danish,
 
-        fr, // French
+        /// <summary>
+        ///     Dutch - The Netherlands
+        /// </summary>
+        Dutch,
 
-        de, // German
+        /// <summary>
+        ///     English - United States
+        /// </summary>
+        English,
 
-        el, // Greek
+        /// <summary>
+        ///     Finnish - Finland
+        /// </summary>
+        Finnish,
 
-        hu, // Hungarian
+        /// <summary>
+        ///     French - France
+        /// </summary>
+        French,
 
-        it, // Italian
+        /// <summary>
+        ///     German - Germany
+        /// </summary>
+        German,
 
-        ja, // Japanese
+        /// <summary>
+        ///     Greek - Greece
+        /// </summary>
+        Greek,
 
-        ko, // Korean
+        /// <summary>
+        ///     Hungarian - Hungary
+        /// </summary>
+        Hungarian,
 
-        no, // Norwegian
+        /// <summary>
+        ///     Italian - Italy
+        /// </summary>
+        Italian,
 
-        pl, // Polish
+        /// <summary>
+        ///     Japanese - Japan
+        /// </summary>
+        Japanese,
 
-        pt, // Portuguese
+        /// <summary>
+        ///     Korean - Korea
+        /// </summary>
+        Korean,
 
-        pt_BR, // Portuguese (Brasil)
+        Norwegian,
 
-        ro, // Romanian
+        /// <summary>
+        ///     Polish - Poland
+        /// </summary>
+        Polish,
 
-        ru, // Russian
+        /// <summary>
+        ///     Portuguese - Portugal
+        /// </summary>
+        Portuguese,
 
-        zh_Hans, // Simplified Chinese
+        // TODO: Portuguese-Brazil
 
-        es, // Spanish
+        /// <summary>
+        ///     Romanian - Romania
+        /// </summary>
+        Romanian,
 
-        sv, // Swedish
+        /// <summary>
+        ///     Russian - Russia
+        /// </summary>
+        Russian,
 
-        th, // Thai
+        /// <summary>
+        ///     Spanish - Spain
+        /// </summary>
+        Spanish,
 
-        zh_Hant, // Traditional Chinese
+        /// <summary>
+        ///     Swedish - Sweden
+        /// </summary>
+        Swedish,
 
-        tr, // Turkish
+        /// <summary>
+        ///     Thai - Thailand
+        /// </summary>
+        Thai,
 
-        uk // Ukrainian
+        /// <summary>
+        ///     Turkish - Turkey
+        /// </summary>
+        Turkish,
+
+        /// <summary>
+        ///     Ukrainian - Ukraine
+        /// </summary>
+        Ukrainian
     }
 
     /// <summary>
@@ -225,8 +303,6 @@ namespace DepressurizerCore
     /// </remarks>
     public enum InterfaceLanguage
     {
-        Default,
-
         /// <summary>
         ///     English - United States
         /// </summary>

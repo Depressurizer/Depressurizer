@@ -20,12 +20,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Xml;
 using Depressurizer.Properties;
 using DepressurizerCore;
@@ -78,7 +76,7 @@ namespace Depressurizer
         // Main Data
         public Dictionary<int, DatabaseEntry> Apps { get; } = new Dictionary<int, DatabaseEntry>();
 
-        public StoreLanguage Language { get; set; } = StoreLanguage.en;
+        public StoreLanguage Language { get; set; } = StoreLanguage.Default;
 
         public long LastHltbUpdate { get; set; }
 
@@ -430,75 +428,59 @@ namespace Depressurizer
             return sortedList.ToList();
         }
 
-        public void ChangeLanguage(StoreLanguage lang)
+        public void ChangeLanguage(StoreLanguage newLanguage)
         {
-            StoreLanguage dbLang = StoreLanguage.en;
-            if (lang == StoreLanguage.windows)
+            lock (SyncRoot)
             {
-                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
+                if (newLanguage == StoreLanguage.Default)
                 {
-                    dbLang = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
+                    Enum.TryParse(Settings.Instance.InterfaceLanguage.ToString(), out newLanguage);
                 }
-                else
+
+                if (Language == newLanguage || newLanguage == StoreLanguage.Default)
                 {
-                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
-                    {
-                        dbLang = StoreLanguage.zh_Hans;
-                    }
-                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
-                    {
-                        dbLang = StoreLanguage.zh_Hant;
-                    }
-                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
-                    {
-                        dbLang = StoreLanguage.pt_BR;
-                    }
+                    return;
                 }
-            }
-            else
-            {
-                dbLang = lang;
-            }
 
-            if (Language == dbLang)
-            {
-                return;
-            }
+                Language = Settings.Instance.StoreLanguage = newLanguage;
 
-            Language = dbLang;
-            //clean DB from data in wrong language
-            foreach (DatabaseEntry g in Apps.Values)
-            {
-                if (g.Id > 0)
+                /* Clean database */
+                foreach (DatabaseEntry g in Apps.Values)
                 {
+                    if (g.Id <= 0)
+                    {
+                        continue;
+                    }
+
                     g.Tags = null;
                     g.Flags = null;
                     g.Genres = null;
                     g.SteamReleaseDate = null;
-                    g.LastStoreScrape = 1; //pretend it is really old data
-                    g.VRSupport = new VRSupport();
-                    g.LanguageSupport = new LanguageSupport();
+                    g.LastStoreScrape = -1;
+                    g.VRSupport = null;
+                    g.LanguageSupport = null;
                 }
-            }
 
-            //Update DB with data in correct language
-            Queue<int> gamesToUpdate = new Queue<int>();
-            if (FormMain.CurrentProfile != null)
-            {
-                foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
+                /* Update database */
+                Queue<int> gamesToUpdate = new Queue<int>();
+                if (FormMain.CurrentProfile != null)
                 {
-                    if (game.Id > 0)
+                    foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
                     {
-                        gamesToUpdate.Enqueue(game.Id);
+                        if (game.Id > 0)
+                        {
+                            gamesToUpdate.Enqueue(game.Id);
+                        }
+                    }
+
+                    using (DbScrapeDlg dialog = new DbScrapeDlg(gamesToUpdate))
+                    {
+                        dialog.ShowDialog();
                     }
                 }
 
-                DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
-                scrapeDlg.ShowDialog();
+                Save();
             }
-
-            Save();
         }
 
         public bool Contains(int id)

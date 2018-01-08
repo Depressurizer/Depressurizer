@@ -50,7 +50,7 @@ namespace DepressurizerCore
 
         private int _splitGame;
 
-        private InterfaceLanguage _userLanguage = InterfaceLanguage.Default;
+        private InterfaceLanguage _userLanguage = InterfaceLanguage.English;
 
         private int _width;
 
@@ -229,7 +229,7 @@ namespace DepressurizerCore
         /// <summary>
         ///     Prefered Steam Store Language, used for scraping
         /// </summary>
-        public StoreLanguage StoreLanguage { get; set; } = StoreLanguage.windows;
+        public StoreLanguage StoreLanguage { get; set; } = StoreLanguage.Default;
 
         /// <summary>
         ///     Update from AppInfo on start
@@ -340,11 +340,6 @@ namespace DepressurizerCore
 
             switch (interfaceLanguage)
             {
-                case InterfaceLanguage.Default:
-                    // TODO: What defines default?
-                    newCulture = Thread.CurrentThread.CurrentCulture;
-
-                    break;
                 case InterfaceLanguage.English:
                     newCulture = new CultureInfo("en-US");
 
