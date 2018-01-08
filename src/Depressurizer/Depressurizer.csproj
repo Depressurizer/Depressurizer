@@ -650,8 +650,6 @@
     <EmbeddedResource Include="DlgSteamPath.resx">
       <DependentUpon>DlgSteamPath.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.ru.resx" />
-    <EmbeddedResource Include="Properties\Resources.uk.resx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
