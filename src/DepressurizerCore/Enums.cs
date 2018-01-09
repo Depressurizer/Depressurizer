@@ -214,49 +214,44 @@ namespace DepressurizerCore
     public enum AppTypes
     {
         /// <summary>
-        ///     Default value
-        /// </summary>
-        Unknown = 0,
-
-        /// <summary>
-        ///     Steam Game
-        /// </summary>
-        Game = 1 << 0,
-
-        /// <summary>
         ///     Steam Software
         /// </summary>
-        Application = 1 << 1,
+        Application = 1,
 
         /// <summary>
         ///     Steam Demo
         /// </summary>
-        Demo = 1 << 2,
+        Demo = 1 << 1,
 
         /// <summary>
-        ///     Downloadable Content
+        ///     DLC
         /// </summary>
-        DLC = 1 << 3,
+        DLC = 1 << 2,
+
+        /// <summary>
+        ///     Game
+        /// </summary>
+        Game = 1 << 3,
+
+        /// <summary>
+        ///     Steam Media
+        /// </summary>
+        Media = 1 << 4,
 
         /// <summary>
         ///     SDK's, servers etc..
         /// </summary>
-        Tool = 1 << 4,
+        Tool = 1 << 5,
 
         /// <summary>
-        ///     Steam Config Files
+        ///     Other
         /// </summary>
-        Config = 1 << 5,
+        Other = 1 << 6,
 
         /// <summary>
-        ///     Steam Streaming Videos
+        ///     Unknown
         /// </summary>
-        Video = 1 << 6,
-
-        /// <summary>
-        ///     Steam Series
-        /// </summary>
-        Series = 1 << 7,
+        Unknown = 1 << 7,
 
         /// <summary>
         ///     All Steam Games and Software
@@ -269,7 +264,7 @@ namespace DepressurizerCore
         IncludeUnknown = IncludeNormal | Unknown,
 
         /// <summary>
-        ///     All Steam Apps
+        ///     All
         /// </summary>
         IncludeAll = (1 << 8) - 1
     }
