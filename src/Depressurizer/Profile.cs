@@ -117,7 +117,7 @@ namespace Depressurizer
 
             //By Flags
             AutoCatFlags acf = new AutoCatFlags(GlobalStrings.Profile_DefaultAutoCatName_Flags, null, "(" + GlobalStrings.Name_Flags + ") ");
-            foreach (string flag in Database.Instance.GetAllStoreFlags())
+            foreach (string flag in Database.Instance.AllFlags)
             {
                 acf.IncludedFlags.Add(flag);
             }

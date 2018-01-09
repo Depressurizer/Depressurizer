@@ -214,7 +214,7 @@ namespace Depressurizer
             base.PreProcess(games, db);
             if (RemoveOtherGenres)
             {
-                SortedSet<string> genreStrings = db.GetAllGenres();
+                SortedSet<string> genreStrings = db.AllGenres;
                 genreCategories = new SortedSet<Category>();
 
                 foreach (string cStr in genreStrings)
