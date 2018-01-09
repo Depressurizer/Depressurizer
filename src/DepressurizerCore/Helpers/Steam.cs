@@ -103,9 +103,7 @@ namespace DepressurizerCore.Helpers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-
-                throw;
+                SentryLogger.LogException(e);
             }
         }
 

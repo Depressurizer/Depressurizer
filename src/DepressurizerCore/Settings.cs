@@ -296,9 +296,7 @@ namespace DepressurizerCore
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-
-                    throw;
+                    SentryLogger.LogException(e);
                 }
             }
         }
@@ -323,9 +321,7 @@ namespace DepressurizerCore
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-
-                    throw;
+                    SentryLogger.LogException(e);
                 }
             }
         }
@@ -336,33 +332,40 @@ namespace DepressurizerCore
 
         private static void ChangeLanguage(InterfaceLanguage interfaceLanguage)
         {
-            CultureInfo newCulture;
+            CultureInfo newCulture = Thread.CurrentThread.CurrentUICulture;
 
-            switch (interfaceLanguage)
+            try
             {
-                case InterfaceLanguage.English:
-                    newCulture = new CultureInfo("en-US");
+                switch (interfaceLanguage)
+                {
+                    case InterfaceLanguage.English:
+                        newCulture = new CultureInfo("en-US");
 
-                    break;
-                case InterfaceLanguage.Spanish:
-                    newCulture = new CultureInfo("es-ES");
+                        break;
+                    case InterfaceLanguage.Spanish:
+                        newCulture = new CultureInfo("es-ES");
 
-                    break;
-                case InterfaceLanguage.Russian:
-                    newCulture = new CultureInfo("ru-RU");
+                        break;
+                    case InterfaceLanguage.Russian:
+                        newCulture = new CultureInfo("ru-RU");
 
-                    break;
-                case InterfaceLanguage.Ukranian:
-                    newCulture = new CultureInfo("uk-UA");
+                        break;
+                    case InterfaceLanguage.Ukranian:
+                        newCulture = new CultureInfo("uk-UA");
 
-                    break;
-                case InterfaceLanguage.Dutch:
-                    newCulture = new CultureInfo("nl-NL");
+                        break;
+                    case InterfaceLanguage.Dutch:
+                        newCulture = new CultureInfo("nl-NL");
 
-                    break;
-                default:
+                        break;
+                    default:
 
-                    throw new ArgumentOutOfRangeException(nameof(interfaceLanguage), interfaceLanguage, null);
+                        throw new ArgumentOutOfRangeException(nameof(interfaceLanguage), interfaceLanguage, null);
+                }
+            }
+            catch (Exception e)
+            {
+                SentryLogger.LogException(e);
             }
 
             Thread.CurrentThread.CurrentUICulture = newCulture;
