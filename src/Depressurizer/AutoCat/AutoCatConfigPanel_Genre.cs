@@ -17,7 +17,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Depressurizer
@@ -45,13 +44,14 @@ namespace Depressurizer
         {
             lstIgnore.Items.Clear();
 
-            SortedSet<string> genreList = Database.Instance.GetAllGenres();
-
-            foreach (string s in genreList)
+            foreach (string genre in Database.Instance.AllGenres)
             {
-                ListViewItem l = new ListViewItem();
-                l.Text = s;
-                l.Checked = true;
+                ListViewItem l = new ListViewItem
+                {
+                    Text = genre,
+                    Checked = true
+                };
+
                 lstIgnore.Items.Add(l);
             }
         }

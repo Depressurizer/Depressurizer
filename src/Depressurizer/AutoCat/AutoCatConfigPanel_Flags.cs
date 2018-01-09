@@ -17,7 +17,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Depressurizer
@@ -43,11 +42,9 @@ namespace Depressurizer
         {
             lstIncluded.Items.Clear();
 
-            SortedSet<string> flagsList = Database.Instance.GetAllStoreFlags();
-
-            foreach (string s in flagsList)
+            foreach (string flag in Database.Instance.AllFlags)
             {
-                lstIncluded.Items.Add(s);
+                lstIncluded.Items.Add(flag);
             }
         }
 

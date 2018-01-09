@@ -44,6 +44,18 @@ namespace Depressurizer
 
         #endregion
 
+        #region Fields
+
+        private SortedSet<string> _allDevelopers;
+
+        private SortedSet<string> _allFlags;
+
+        private SortedSet<string> _allGenres;
+
+        private SortedSet<string> _allPublishers;
+
+        #endregion
+
         #region Constructors and Destructors
 
         private Database()
@@ -58,18 +70,109 @@ namespace Depressurizer
         {
             get
             {
-                if (_instance == null)
+                if (_instance != null)
                 {
-                    lock (SyncRoot)
+                    return _instance;
+                }
+
+                lock (SyncRoot)
+                {
+                    if (_instance == null)
                     {
-                        if (_instance == null)
-                        {
-                            _instance = new Database();
-                        }
+                        _instance = new Database();
                     }
                 }
 
                 return _instance;
+            }
+        }
+        public SortedSet<string> AllDevelopers
+        {
+            get
+            {
+                lock (SyncRoot)
+                {
+                    if (_allDevelopers == null)
+                    {
+                        _allDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                    }
+
+                    _allDevelopers.Clear();
+
+                    foreach (DatabaseEntry entry in Apps.Values)
+                    {
+                        _allDevelopers.UnionWith(entry.Developers);
+                    }
+
+                    return _allDevelopers;
+                }
+            }
+        }
+        public SortedSet<string> AllFlags
+        {
+            get
+            {
+                lock (SyncRoot)
+                {
+                    if (_allFlags == null)
+                    {
+                        _allFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                    }
+
+                    _allFlags.Clear();
+
+                    foreach (DatabaseEntry entry in Apps.Values)
+                    {
+                        _allFlags.UnionWith(entry.Flags);
+                    }
+
+                    return _allFlags;
+                }
+            }
+        }
+
+        public SortedSet<string> AllGenres
+        {
+            get
+            {
+                lock (SyncRoot)
+                {
+                    if (_allGenres == null)
+                    {
+                        _allGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                    }
+
+                    _allGenres.Clear();
+
+                    foreach (DatabaseEntry entry in Apps.Values)
+                    {
+                        _allGenres.UnionWith(entry.Genres);
+                    }
+
+                    return _allGenres;
+                }
+            }
+        }
+        public SortedSet<string> AllPublishers
+        {
+            get
+            {
+                lock (SyncRoot)
+                {
+                    if (_allPublishers == null)
+                    {
+                        _allPublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                    }
+
+                    _allPublishers.Clear();
+
+                    foreach (DatabaseEntry entry in Apps.Values)
+                    {
+                        _allPublishers.UnionWith(entry.Publishers);
+                    }
+
+                    return _allPublishers;
+                }
             }
         }
 
@@ -85,15 +188,6 @@ namespace Depressurizer
         #region Properties
 
         private LanguageSupport AllLanguages { get; set; }
-
-        private SortedSet<string> AllStoreDevelopers { get; set; }
-
-        private SortedSet<string> AllStoreFlags { get; set; }
-
-        // Extra data
-        private SortedSet<string> AllStoreGenres { get; set; }
-
-        private SortedSet<string> AllStorePublishers { get; set; }
 
         private VRSupport AllVrSupportFlags { get; set; }
 
@@ -112,60 +206,6 @@ namespace Depressurizer
             }
 
             return doc;
-        }
-
-        /// <summary>
-        ///     Gets a list of all Steam store developers found in the entire database.
-        ///     Always recalculates.
-        /// </summary>
-        /// <returns>A set of developers, as strings</returns>
-        public SortedSet<string> CalculateAllDevelopers()
-        {
-            if (AllStoreDevelopers == null)
-            {
-                AllStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-            }
-            else
-            {
-                AllStoreDevelopers.Clear();
-            }
-
-            foreach (DatabaseEntry entry in Apps.Values)
-            {
-                if (entry.Developers != null)
-                {
-                    AllStoreDevelopers.UnionWith(entry.Developers);
-                }
-            }
-
-            return AllStoreDevelopers;
-        }
-
-        /// <summary>
-        ///     Gets a list of all Steam store genres found in the entire database.
-        ///     Always recalculates.
-        /// </summary>
-        /// <returns>A set of genres, as strings</returns>
-        public SortedSet<string> CalculateAllGenres()
-        {
-            if (AllStoreGenres == null)
-            {
-                AllStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-            }
-            else
-            {
-                AllStoreGenres.Clear();
-            }
-
-            foreach (DatabaseEntry entry in Apps.Values)
-            {
-                if (entry.Genres != null)
-                {
-                    AllStoreGenres.UnionWith(entry.Genres);
-                }
-            }
-
-            return AllStoreGenres;
         }
 
         /// <summary>
@@ -204,60 +244,6 @@ namespace Depressurizer
             AllLanguages.FullAudio = fullAudio.ToList();
 
             return AllLanguages;
-        }
-
-        /// <summary>
-        ///     Gets a list of all Steam store publishers found in the entire database.
-        ///     Always recalculates.
-        /// </summary>
-        /// <returns>A set of publishers, as strings</returns>
-        public SortedSet<string> CalculateAllPublishers()
-        {
-            if (AllStorePublishers == null)
-            {
-                AllStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-            }
-            else
-            {
-                AllStorePublishers.Clear();
-            }
-
-            foreach (DatabaseEntry entry in Apps.Values)
-            {
-                if (entry.Publishers != null)
-                {
-                    AllStorePublishers.UnionWith(entry.Publishers);
-                }
-            }
-
-            return AllStorePublishers;
-        }
-
-        /// <summary>
-        ///     Gets a list of all Steam store flags found in the entire database.
-        ///     Always recalculates.
-        /// </summary>
-        /// <returns>A set of genres, as strings</returns>
-        public SortedSet<string> CalculateAllStoreFlags()
-        {
-            if (AllStoreFlags == null)
-            {
-                AllStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-            }
-            else
-            {
-                AllStoreFlags.Clear();
-            }
-
-            foreach (DatabaseEntry entry in Apps.Values)
-            {
-                if (entry.Flags != null)
-                {
-                    AllStoreFlags.UnionWith(entry.Flags);
-                }
-            }
-
-            return AllStoreFlags;
         }
 
         /// <summary>
@@ -310,7 +296,6 @@ namespace Depressurizer
         /// <returns>List of developers, as strings with game counts</returns>
         public IEnumerable<Tuple<string, int>> CalculateSortedDevList(GameList filter, int minCount)
         {
-            SortedSet<string> developers = GetAllDevelopers();
             Dictionary<string, int> devCounts = new Dictionary<string, int>();
             if (filter == null)
             {
@@ -349,7 +334,6 @@ namespace Depressurizer
         /// <returns>List of publishers, as strings with game counts</returns>
         public IEnumerable<Tuple<string, int>> CalculateSortedPubList(GameList filter, int minCount)
         {
-            SortedSet<string> publishers = GetAllPublishers();
             Dictionary<string, int> pubCounts = new Dictionary<string, int>();
             if (filter == null)
             {
@@ -394,7 +378,7 @@ namespace Depressurizer
         /// <returns>List of tags, as strings</returns>
         public IEnumerable<Tuple<string, float>> CalculateSortedTagList(GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
         {
-            SortedSet<string> genreNames = GetAllGenres();
+            SortedSet<string> genreNames = AllGenres;
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if (filter == null)
             {
@@ -489,36 +473,6 @@ namespace Depressurizer
         }
 
         /// <summary>
-        ///     Gets a list of all Steam store developers found in the entire database.
-        ///     Only recalculates if necessary.
-        /// </summary>
-        /// <returns>A set of developers, as strings</returns>
-        public SortedSet<string> GetAllDevelopers()
-        {
-            if (AllStoreDevelopers == null)
-            {
-                return CalculateAllDevelopers();
-            }
-
-            return AllStoreDevelopers;
-        }
-
-        /// <summary>
-        ///     Gets a list of all Steam store genres found in the entire database.
-        ///     Only recalculates if necessary.
-        /// </summary>
-        /// <returns>A set of genres, as strings</returns>
-        public SortedSet<string> GetAllGenres()
-        {
-            if (AllStoreGenres == null)
-            {
-                return CalculateAllGenres();
-            }
-
-            return AllStoreGenres;
-        }
-
-        /// <summary>
         ///     Gets a list of all Game Languages found in the entire database.
         ///     Only recalculates if necessary.
         /// </summary>
@@ -531,36 +485,6 @@ namespace Depressurizer
             }
 
             return AllLanguages;
-        }
-
-        /// <summary>
-        ///     Gets a list of all Steam store publishers found in the entire database.
-        ///     Only recalculates if necessary.
-        /// </summary>
-        /// <returns>A set of publishers, as strings</returns>
-        public SortedSet<string> GetAllPublishers()
-        {
-            if (AllStorePublishers == null)
-            {
-                return CalculateAllPublishers();
-            }
-
-            return AllStorePublishers;
-        }
-
-        /// <summary>
-        ///     Gets a list of all Steam store flags found in the entire database.
-        ///     Only recalculates if necessary.
-        /// </summary>
-        /// <returns>A set of genres, as strings</returns>
-        public SortedSet<string> GetAllStoreFlags()
-        {
-            if (AllStoreFlags == null)
-            {
-                return CalculateAllStoreFlags();
-            }
-
-            return AllStoreFlags;
         }
 
         /// <summary>
@@ -620,7 +544,7 @@ namespace Depressurizer
                     List<string> tags = GetTagList(gameId, 0);
                     if (tags != null && tags.Count > 0)
                     {
-                        res = new List<string>(tags.Intersect(GetAllGenres()));
+                        res = new List<string>(tags.Intersect(AllGenres));
                     }
                 }
 
