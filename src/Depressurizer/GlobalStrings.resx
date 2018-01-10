@@ -531,9 +531,6 @@ Continue loading file?</value>
   <data name="MainForm_AddedGame" xml:space="preserve">
     <value>Added game.</value>
   </data>
-  <data name="MainForm_All" xml:space="preserve">
-    <value>&lt;All&gt;</value>
-  </data>
   <data name="MainForm_AutonameCanceled" xml:space="preserve">
     <value>Autoname canceled.</value>
   </data>
@@ -711,9 +708,6 @@ Continue loading file?</value>
   </data>
   <data name="MainForm_SomeSelectedGameHaveCategories" xml:space="preserve">
     <value>Some of the selected games already have categories set. Would you like to overwrite these categories?</value>
-  </data>
-  <data name="MainForm_Uncategorized" xml:space="preserve">
-    <value>&lt;Uncategorized&gt;</value>
   </data>
   <data name="MainForm_UnignoredGame" xml:space="preserve">
     <value>Unignored game {0}.</value>

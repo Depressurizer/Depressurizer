@@ -2329,15 +2329,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;All&gt;.
-        /// </summary>
-        internal static string MainForm_All {
-            get {
-                return ResourceManager.GetString("MainForm_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Autoname canceled..
         /// </summary>
         internal static string MainForm_AutonameCanceled {
@@ -3401,15 +3392,6 @@ namespace Depressurizer {
         internal static string MainForm_Status_SavedDB {
             get {
                 return ResourceManager.GetString("MainForm_Status_SavedDB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;Uncategorized&gt;.
-        /// </summary>
-        internal static string MainForm_Uncategorized {
-            get {
-                return ResourceManager.GetString("MainForm_Uncategorized", resourceCulture);
             }
         }
         
