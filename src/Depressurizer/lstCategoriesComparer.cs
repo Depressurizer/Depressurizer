@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 using DepressurizerCore.Models;
 
 namespace Depressurizer
@@ -58,12 +59,16 @@ namespace Depressurizer
             }
 
             // Handle special categories
-            List<string> specialCategories = new List<string>();
-            specialCategories.Add(GlobalStrings.MainForm_All);
-            specialCategories.Add(GlobalStrings.MainForm_Uncategorized);
-            specialCategories.Add(GlobalStrings.MainForm_Hidden);
-            specialCategories.Add(GlobalStrings.MainForm_Favorite);
-            specialCategories.Add(GlobalStrings.MainForm_VR);
+            List<string> specialCategories = new List<string>
+            {
+                $"<{Resources.Category_All}>",
+                $"<{Resources.Category_Games}>",
+                $"<{Resources.Category_Software}>",
+                $"<{Resources.Category_Uncategorized}>",
+                $"<{Resources.Category_Hidden}>",
+                $"<{Resources.Category_VR}>",
+                $"<{Resources.Category_Favorite}>"
+            };
 
             foreach (string s in specialCategories)
             {
