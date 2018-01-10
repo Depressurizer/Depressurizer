@@ -4217,9 +4217,6 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        ///     Updates the game list for the loaded profile.
-        /// </summary>
         private void UpdateLibrary()
         {
             if (CurrentProfile == null)
@@ -4230,23 +4227,23 @@ namespace Depressurizer
             Cursor = Cursors.WaitCursor;
 
             bool success = false;
-
-            // First, try to update via local config files, if they're enabled
             if (CurrentProfile.LocalUpdate)
             {
                 try
                 {
-                    int newApps = 0;
                     AppTypes appFilter = CurrentProfile.IncludeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal;
-                    int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, appFilter, out newApps);
+                    int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, appFilter, out int newApps);
+
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps));
                     success = true;
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_LocalUpdateError, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    SentryLogger.LogException(e);
 
                     AddStatus(GlobalStrings.MainForm_Status_LocalUpdateFailed);
+                    MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_LocalUpdateError, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                     success = false;
                 }
             }
@@ -4297,8 +4294,10 @@ namespace Depressurizer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorDowloadingProfile, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    SentryLogger.LogException(e);
+
                     AddStatus(GlobalStrings.MainForm_DownloadFailed);
+                    MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorDowloadingProfile, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
