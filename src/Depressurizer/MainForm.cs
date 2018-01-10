@@ -100,8 +100,6 @@ namespace Depressurizer
 
         private Filter advFilter = new Filter(ADVANCED_FILTER);
 
-        private Color borderColor = Color.FromArgb(255, 25, 28, 38);
-
         // used to prevent moving the filler column in the game list
         private Thread columnReorderThread;
 
@@ -110,27 +108,10 @@ namespace Depressurizer
 
         private int dragOldCat;
 
-        private Color headerCellColor = Color.FromArgb(255, 58, 58, 58);
-
-        private Color highlightCellColor = Color.FromArgb(255, 25, 55, 84);
-
         // Allow visual feedback when dragging over the cat list
         private bool isDragging;
 
         private object lastSelectedCat; // Stores last selected category to minimize game list refreshes
-
-        private Color menuColorDark = Color.FromArgb(255, 38, 50, 56);
-
-        private Color menuColorLight = Color.FromArgb(255, 55, 71, 79);
-
-        private Color menuHighlightText = Color.FromArgb(255, 255, 255, 234);
-
-        private Color menuPrimaryText = Color.FromArgb(255, 168, 173, 175);
-
-        // Used to reload resources of main form while switching language
-        private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary, originalSplitDistanceBrowser;
-
-        private Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
 
         private TypedObjectListView<GameInfo> tlstGames;
 
@@ -4089,33 +4070,6 @@ namespace Depressurizer
             return false;
         }
 
-        //void AddGameToCheckboxStates( GameInfo game, bool first ) {
-        //    ignoreCheckChanges = true;
-        //    if( first ) {
-        //        chkFavorite.CheckState = game.IsFavorite() ? CheckState.Checked : CheckState.Unchecked;
-        //        chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
-        //    } else {
-        //        if( chkFavorite.CheckState != CheckState.Indeterminate ) {
-        //            if( game.IsFavorite() ) {
-        //                if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
-        //            } else {
-        //                if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
-        //            }
-        //        }
-        //        if( game.Hidden ) {
-        //            if( chkHidden.CheckState == CheckState.Unchecked ) chkHidden.CheckState = CheckState.Indeterminate;
-        //        } else {
-        //            if( chkHidden.CheckState == CheckState.Checked ) chkHidden.CheckState = CheckState.Indeterminate;
-        //        }
-        //    }
-        //    ignoreCheckChanges = false;
-        //}
-
-        private bool ShouldHideGame(GameInfo g)
-        {
-            return !ShouldDisplayGame(g);
-        }
-
         /// <summary>
         ///     Unloads the current profile or game list, making sure the user gets the option to save any changes.
         /// </summary>
@@ -4281,22 +4235,6 @@ namespace Depressurizer
 
             FullListRefresh();
             Cursor = Cursors.Default;
-        }
-
-        /// <summary>
-        ///     Updates list item for every game on the list, removing games that no longer need to be there, but not adding new
-        ///     ones.
-        /// </summary>
-        private void UpdateGameList()
-        {
-            List<GameInfo> gamelist = lstGames.Objects.Cast<GameInfo>().ToList();
-            foreach (GameInfo g in gamelist)
-            {
-                if (CurrentProfile != null && (!CurrentProfile.GameData.Games.ContainsKey(g.Id) || g.Id < 0 && !CurrentProfile.IncludeShortcuts))
-                {
-                    gamelist.Remove(g);
-                }
-            }
         }
 
         /// <summary>
