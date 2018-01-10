@@ -640,9 +640,6 @@ Continue loading file?</value>
   <data name="MainForm_FailedToLoadStorePages" xml:space="preserve">
     <value>Failed to load store pages for {0} games.</value>
   </data>
-  <data name="MainForm_Favorite" xml:space="preserve">
-    <value>&lt;Favorite&gt;</value>
-  </data>
   <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
     <value>GameDB file does not exist.</value>
   </data>

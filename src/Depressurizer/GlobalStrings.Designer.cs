@@ -2693,15 +2693,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;Favorite&gt;.
-        /// </summary>
-        internal static string MainForm_Favorite {
-            get {
-                return ResourceManager.GetString("MainForm_Favorite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Filter &apos;{0}&apos; added..
         /// </summary>
         internal static string MainForm_FilterAdded {

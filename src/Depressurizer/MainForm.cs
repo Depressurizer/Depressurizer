@@ -4066,24 +4066,25 @@ namespace Depressurizer
                 return g.Categories.Count == 0;
             }
 
-            /* */
-
+            // <VR>
             if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_VR}>")
             {
                 return Database.Instance.SupportsVR(g.Id);
             }
 
-            if (lstCategories.SelectedItems[0].Tag is Category)
+            if (!(lstCategories.SelectedItems[0].Tag is Category category))
             {
-                if (((Category) lstCategories.SelectedItems[0].Tag).Name == GlobalStrings.MainForm_Favorite)
-                {
-                    return g.IsFavorite();
-                }
-
-                return g.ContainsCategory(lstCategories.SelectedItems[0].Tag as Category);
+                return false;
             }
 
-            return false;
+            // <Favorite>
+            if (category.Name == $"<{Resources.Category_Favorite}>")
+            {
+                return g.IsFavorite();
+            }
+
+            return g.ContainsCategory(category);
+
         }
 
         /// <summary>

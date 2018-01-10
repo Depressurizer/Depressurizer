@@ -59,15 +59,16 @@ namespace Depressurizer
             }
 
             // Handle special categories
-            List<string> specialCategories = new List<string>();
-            specialCategories.Add($"<{Resources.Category_All}>");
-            specialCategories.Add($"<{Resources.Category_Games}>");
-            specialCategories.Add($"<{Resources.Category_Software}>");
-            specialCategories.Add($"<{Resources.Category_Uncategorized}>");
-            specialCategories.Add($"<{Resources.Category_Hidden}>");
-            specialCategories.Add($"<{Resources.Category_VR}>");
-
-            specialCategories.Add(GlobalStrings.MainForm_Favorite);
+            List<string> specialCategories = new List<string>
+            {
+                $"<{Resources.Category_All}>",
+                $"<{Resources.Category_Games}>",
+                $"<{Resources.Category_Software}>",
+                $"<{Resources.Category_Uncategorized}>",
+                $"<{Resources.Category_Hidden}>",
+                $"<{Resources.Category_VR}>",
+                $"<{Resources.Category_Favorite}>"
+            };
 
             foreach (string s in specialCategories)
             {

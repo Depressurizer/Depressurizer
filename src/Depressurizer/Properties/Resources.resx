@@ -120,6 +120,9 @@
   <data name="Category_All" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="Category_Favorite" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
   <data name="Category_Games" xml:space="preserve">
     <value>Games</value>
   </data>
