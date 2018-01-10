@@ -378,7 +378,7 @@ namespace Depressurizer
                         i.StateImageIndex = f.Hidden;
                         advFilter.Hidden = f.Hidden;
                     }
-                    else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
+                    else if (i.Tag.ToString() == $"<{Resources.Category_VR}>")
                     {
                         i.StateImageIndex = f.VR;
                         advFilter.VR = f.VR;
@@ -1484,14 +1484,15 @@ namespace Depressurizer
             };
             lstCategories.Items.Add(listViewItem);
 
-            /* */
-
-            listViewItem = new ListViewItem(GlobalStrings.MainForm_VR + " (" + vr + ")")
+            // <VR>
+            listViewItem = new ListViewItem($"<{Resources.Category_VR}> ({vr})")
             {
-                Tag = GlobalStrings.MainForm_VR,
-                Name = GlobalStrings.MainForm_VR
+                Tag = $"<{Resources.Category_VR}>",
+                Name = $"<{Resources.Category_VR}>"
             };
             lstCategories.Items.Add(listViewItem);
+
+            /* */
 
             foreach (Category c in CurrentProfile.GameData.Categories)
             {
@@ -1792,7 +1793,7 @@ namespace Depressurizer
             {
                 advFilter.Hidden = i.StateImageIndex;
             }
-            else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
+            else if (i.Tag.ToString() == $"<{Resources.Category_VR}>")
             {
                 advFilter.VR = i.StateImageIndex;
             }
@@ -3963,7 +3964,7 @@ namespace Depressurizer
             {
                 advFilter.Hidden = state;
             }
-            else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
+            else if (i.Tag.ToString() == $"<{Resources.Category_VR}>")
             {
                 advFilter.VR = state;
             }
@@ -4067,7 +4068,7 @@ namespace Depressurizer
 
             /* */
 
-            if (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_VR)
+            if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_VR}>")
             {
                 return Database.Instance.SupportsVR(g.Id);
             }

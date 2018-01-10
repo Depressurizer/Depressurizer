@@ -132,4 +132,7 @@
   <data name="Category_Uncategorized" xml:space="preserve">
     <value>Uncategorized</value>
   </data>
+  <data name="Category_VR" xml:space="preserve">
+    <value>VR</value>
+  </data>
 </root>

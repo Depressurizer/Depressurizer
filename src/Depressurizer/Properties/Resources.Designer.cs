@@ -104,5 +104,14 @@ namespace Depressurizer.Properties {
                 return ResourceManager.GetString("Category_Uncategorized", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VR.
+        /// </summary>
+        internal static string Category_VR {
+            get {
+                return ResourceManager.GetString("Category_VR", resourceCulture);
+            }
+        }
     }
 }

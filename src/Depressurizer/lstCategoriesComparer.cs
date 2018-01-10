@@ -65,9 +65,9 @@ namespace Depressurizer
             specialCategories.Add($"<{Resources.Category_Software}>");
             specialCategories.Add($"<{Resources.Category_Uncategorized}>");
             specialCategories.Add($"<{Resources.Category_Hidden}>");
+            specialCategories.Add($"<{Resources.Category_VR}>");
 
             specialCategories.Add(GlobalStrings.MainForm_Favorite);
-            specialCategories.Add(GlobalStrings.MainForm_VR);
 
             foreach (string s in specialCategories)
             {
