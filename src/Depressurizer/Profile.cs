@@ -58,12 +58,6 @@ namespace Depressurizer
 
         public string FilePath;
 
-        public SortedSet<int> IgnoreList
-        {
-            get { return _ignoreList ?? (_ignoreList = new SortedSet<int>()); }
-            set { _ignoreList = value; }
-        }
-
         public bool IncludeShortcuts = true;
 
         public bool IncludeUnknown;
@@ -88,6 +82,12 @@ namespace Depressurizer
         {
             get => _gameData ?? (_gameData = new GameList());
             set => _gameData = value;
+        }
+
+        public SortedSet<int> IgnoreList
+        {
+            get => _ignoreList ?? (_ignoreList = new SortedSet<int>());
+            set => _ignoreList = value;
         }
 
         #endregion
