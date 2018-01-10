@@ -4217,7 +4217,6 @@ namespace Depressurizer
             }
         }
 
-        /* */
         private void UpdateLibrary()
         {
             if (CurrentProfile == null)
@@ -4240,7 +4239,6 @@ namespace Depressurizer
                 }
                 catch (Exception e)
                 {
-                    e.Data.Add("Location", "MainForm | 4235 - 4239");
                     SentryLogger.LogException(e);
 
                     AddStatus(GlobalStrings.MainForm_Status_LocalUpdateFailed);
@@ -4296,8 +4294,10 @@ namespace Depressurizer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorDowloadingProfile, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    SentryLogger.LogException(e);
+
                     AddStatus(GlobalStrings.MainForm_DownloadFailed);
+                    MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorDowloadingProfile, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 

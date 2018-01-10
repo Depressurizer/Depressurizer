@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Depressurizer.Properties;
 using DepressurizerCore;
+using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using ValueType = DepressurizerCore.ValueType;
 
@@ -1173,74 +1174,81 @@ namespace Depressurizer
             newApps = 0;
             int totalApps = 0;
 
-            Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(Constants.PackageInfoPath, Settings.Instance.SteamPath));
-            Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
-
-            string localConfigPath = string.Format(Constants.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
-
-            VDFNode vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
-
-            VDFNode licensesNode = vdfFile.GetNodeAt(new[]
+            try
             {
-                "UserLocalConfigStore",
-                "Licenses"
-            }, false);
+                Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(Constants.PackageInfoPath, Settings.Instance.SteamPath));
+                Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-            if (licensesNode.NodeType == ValueType.Array)
-            {
-                foreach (string key in licensesNode.NodeArray.Keys)
+                string localConfigPath = string.Format(Constants.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
+
+                VDFNode vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
+
+                VDFNode licensesNode = vdfFile.GetNodeAt(new[]
                 {
-                    if (!int.TryParse(key, out int ownedPackageId))
-                    {
-                        continue;
-                    }
+                    "UserLocalConfigStore",
+                    "Licenses"
+                }, false);
 
-                    if (!allPackages.ContainsKey(ownedPackageId))
+                if (licensesNode.NodeType == ValueType.Array)
+                {
+                    foreach (string key in licensesNode.NodeArray.Keys)
                     {
-                        continue;
-                    }
-
-                    PackageInfo ownedPackage = allPackages[ownedPackageId];
-                    if (ownedPackageId == 0)
-                    {
-                        continue;
-                    }
-
-                    GameListingSource src = ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ? GameListingSource.PackageFree : GameListingSource.PackageNormal;
-                    foreach (int ownedAppId in ownedPackage.AppIds)
-                    {
-                        if (!ownedApps.ContainsKey(ownedAppId) || src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree)
+                        if (!int.TryParse(key, out int ownedPackageId))
                         {
-                            ownedApps[ownedAppId] = src;
+                            continue;
+                        }
+
+                        if (!allPackages.ContainsKey(ownedPackageId))
+                        {
+                            continue;
+                        }
+
+                        PackageInfo ownedPackage = allPackages[ownedPackageId];
+                        if (ownedPackageId == 0)
+                        {
+                            continue;
+                        }
+
+                        GameListingSource src = ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ? GameListingSource.PackageFree : GameListingSource.PackageNormal;
+                        foreach (int ownedAppId in ownedPackage.AppIds)
+                        {
+                            if (!ownedApps.ContainsKey(ownedAppId) || src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree)
+                            {
+                                ownedApps[ownedAppId] = src;
+                            }
                         }
                     }
                 }
+
+                // update LastPlayed
+                VDFNode appsNode = vdfFile.GetNodeAt(new[]
+                {
+                    "UserLocalConfigStore",
+                    "Software",
+                    "Valve",
+                    "Steam",
+                    "apps"
+                }, false);
+                GetLastPlayedFromVdf(appsNode, ignoreList, typesToInclude);
+
+                foreach (KeyValuePair<int, GameListingSource> kv in ownedApps)
+                {
+                    string name = Database.Instance.GetName(kv.Key);
+                    GameInfo newGame = IntegrateGame(kv.Key, name, false, ignoreList, typesToInclude, kv.Value, out bool isNew);
+                    if (newGame != null)
+                    {
+                        totalApps++;
+                    }
+
+                    if (isNew)
+                    {
+                        newApps++;
+                    }
+                }
             }
-
-            // update LastPlayed
-            VDFNode appsNode = vdfFile.GetNodeAt(new[]
+            catch (Exception e)
             {
-                "UserLocalConfigStore",
-                "Software",
-                "Valve",
-                "Steam",
-                "apps"
-            }, false);
-            GetLastPlayedFromVdf(appsNode, ignoreList, typesToInclude);
-
-            foreach (KeyValuePair<int, GameListingSource> kv in ownedApps)
-            {
-                string name = Database.Instance.GetName(kv.Key);
-                GameInfo newGame = IntegrateGame(kv.Key, name, false, ignoreList, typesToInclude, kv.Value, out bool isNew);
-                if (newGame != null)
-                {
-                    totalApps++;
-                }
-
-                if (isNew)
-                {
-                    newApps++;
-                }
+                SentryLogger.LogException(e);
             }
 
             return totalApps;
