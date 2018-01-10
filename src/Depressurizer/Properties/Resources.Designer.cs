@@ -59,5 +59,68 @@ namespace Depressurizer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string Category_All {
+            get {
+                return ResourceManager.GetString("Category_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favorite.
+        /// </summary>
+        internal static string Category_Favorite {
+            get {
+                return ResourceManager.GetString("Category_Favorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games.
+        /// </summary>
+        internal static string Category_Games {
+            get {
+                return ResourceManager.GetString("Category_Games", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden.
+        /// </summary>
+        internal static string Category_Hidden {
+            get {
+                return ResourceManager.GetString("Category_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Software.
+        /// </summary>
+        internal static string Category_Software {
+            get {
+                return ResourceManager.GetString("Category_Software", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uncategorized.
+        /// </summary>
+        internal static string Category_Uncategorized {
+            get {
+                return ResourceManager.GetString("Category_Uncategorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VR.
+        /// </summary>
+        internal static string Category_VR {
+            get {
+                return ResourceManager.GetString("Category_VR", resourceCulture);
+            }
+        }
     }
 }
