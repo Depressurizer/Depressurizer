@@ -18,9 +18,13 @@ namespace Depressurizer
 
         #region Fields
 
+        public int Game;
+
         public int Hidden;
 
         public string Name;
+
+        public int Software;
 
         public int Uncategorized;
 
