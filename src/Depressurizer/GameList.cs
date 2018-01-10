@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Depressurizer.Properties;
 using DepressurizerCore;
+using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using ValueType = DepressurizerCore.ValueType;
 
@@ -1168,56 +1169,108 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        ///     Updates the game list based on data from the localconfig file and the package cache, including LastPlayed.
-        /// </summary>
-        /// <param name="accountId">64-bit account ID to update for</param>
-        /// <param name="ignored">Set of games to ignore</param>
-        /// <param name="includeUnknown">
-        ///     If true, include games that do not exist in the database or are of unknown type in the
-        ///     database
-        /// </param>
-        public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignored, AppTypes includedTypes, out int newApps)
+        /* */
+        public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignoreList, AppTypes typesToInclude, out int newApps)
         {
             newApps = 0;
             int totalApps = 0;
 
-            Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(Constants.PackageInfoPath, Settings.Instance.SteamPath));
+            Dictionary<int, PackageInfo> allPackages;
+            try
+            {
+                allPackages = PackageInfo.LoadPackages(string.Format(Constants.PackageInfoPath, Settings.Instance.SteamPath));
+            }
+            catch (Exception e)
+            {
+                e.Data.Add("Location", "GameList | 1181");
+                SentryLogger.LogException(e);
+
+                throw;
+            }
 
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-            string localConfigPath = string.Format(Constants.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
-            VDFNode vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
-            if (vdfFile != null)
+            string localConfigPath;
+            try
             {
-                VDFNode licensesNode = vdfFile.GetNodeAt(new[]
+                localConfigPath = string.Format(Constants.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
+            }
+            catch (Exception e)
+            {
+                e.Data.Add("Location", "GameList | 1196");
+                SentryLogger.LogException(e);
+
+                throw;
+            }
+
+            VDFNode vdfFile;
+            try
+            {
+                vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
+            }
+            catch (Exception e)
+            {
+                e.Data.Add("Location", "GameList | 1209");
+                SentryLogger.LogException(e);
+
+                throw;
+            }
+
+            VDFNode licensesNode;
+            try
+            {
+                licensesNode = vdfFile.GetNodeAt(new[]
                 {
                     "UserLocalConfigStore",
                     "Licenses"
                 }, false);
-                if (licensesNode != null && licensesNode.NodeType == ValueType.Array)
+            }
+            catch (Exception e)
+            {
+                e.Data.Add("Location", "GameList | 1222 - 1226");
+                SentryLogger.LogException(e);
+
+                throw;
+            }
+
+            try
+            {
+                if (licensesNode.NodeType == ValueType.Array)
                 {
                     foreach (string key in licensesNode.NodeArray.Keys)
                     {
-                        int ownedPackageId;
-                        if (int.TryParse(key, out ownedPackageId))
+                        if (!int.TryParse(key, out int ownedPackageId))
                         {
-                            PackageInfo ownedPackage = allPackages[ownedPackageId];
-                            if (ownedPackageId != 0)
+                            continue;
+                        }
+
+                        PackageInfo ownedPackage = allPackages[ownedPackageId];
+                        if (ownedPackageId == 0)
+                        {
+                            continue;
+                        }
+
+                        GameListingSource src = ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ? GameListingSource.PackageFree : GameListingSource.PackageNormal;
+                        foreach (int ownedAppId in ownedPackage.AppIds)
+                        {
+                            if (!ownedApps.ContainsKey(ownedAppId) || src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree)
                             {
-                                GameListingSource src = ownedPackage.BillingType == PackageBillingType.FreeOnDemand || ownedPackage.BillingType == PackageBillingType.AutoGrant ? GameListingSource.PackageFree : GameListingSource.PackageNormal;
-                                foreach (int ownedAppId in ownedPackage.AppIds)
-                                {
-                                    if (!ownedApps.ContainsKey(ownedAppId) || src == GameListingSource.PackageNormal && ownedApps[ownedAppId] == GameListingSource.PackageFree)
-                                    {
-                                        ownedApps[ownedAppId] = src;
-                                    }
-                                }
+                                ownedApps[ownedAppId] = src;
                             }
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                e.Data.Add("Location", "GameList | 1238 - 1262");
+                SentryLogger.LogException(e);
 
+                throw;
+            }
+
+            try
+            {
                 // update LastPlayed
                 VDFNode appsNode = vdfFile.GetNodeAt(new[]
                 {
@@ -1227,23 +1280,39 @@ namespace Depressurizer
                     "Steam",
                     "apps"
                 }, false);
-                GetLastPlayedFromVdf(appsNode, ignored, includedTypes);
+                GetLastPlayedFromVdf(appsNode, ignoreList, typesToInclude);
+            }
+            catch (Exception e)
+            {
+                e.Data.Add("Location", "GameList | 1276 - 1283");
+                SentryLogger.LogException(e);
+
+                throw;
             }
 
-            foreach (KeyValuePair<int, GameListingSource> kv in ownedApps)
+            try
             {
-                bool isNew;
-                string name = Database.Instance.GetName(kv.Key);
-                GameInfo newGame = IntegrateGame(kv.Key, name, false, ignored, includedTypes, kv.Value, out isNew);
-                if (newGame != null)
+                foreach (KeyValuePair<int, GameListingSource> kv in ownedApps)
                 {
-                    totalApps++;
-                }
+                    string name = Database.Instance.GetName(kv.Key);
+                    GameInfo newGame = IntegrateGame(kv.Key, name, false, ignoreList, typesToInclude, kv.Value, out bool isNew);
+                    if (newGame != null)
+                    {
+                        totalApps++;
+                    }
 
-                if (isNew)
-                {
-                    newApps++;
+                    if (isNew)
+                    {
+                        newApps++;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                e.Data.Add("Location", "GameList | 1295 - 1308");
+                SentryLogger.LogException(e);
+
+                throw;
             }
 
             return totalApps;

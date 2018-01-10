@@ -58,9 +58,11 @@ namespace Depressurizer
 
         public string FilePath;
 
-        public GameList GameData = new GameList();
-
-        public SortedSet<int> IgnoreList = new SortedSet<int>();
+        public SortedSet<int> IgnoreList
+        {
+            get { return _ignoreList ?? (_ignoreList = new SortedSet<int>()); }
+            set { _ignoreList = value; }
+        }
 
         public bool IncludeShortcuts = true;
 
@@ -73,6 +75,20 @@ namespace Depressurizer
         public long SteamID64;
 
         public bool WebUpdate = true;
+
+        private GameList _gameData;
+
+        private SortedSet<int> _ignoreList;
+
+        #endregion
+
+        #region Public Properties
+
+        public GameList GameData
+        {
+            get => _gameData ?? (_gameData = new GameList());
+            set => _gameData = value;
+        }
 
         #endregion
 
