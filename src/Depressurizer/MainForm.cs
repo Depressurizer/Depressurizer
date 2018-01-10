@@ -116,6 +116,16 @@ namespace Depressurizer
 
         private object lastSelectedCat; // Stores last selected category to minimize game list refreshes
 
+        private int originalHeight;
+
+        private int originalSplitDistanceBrowser;
+
+        private int originalSplitDistanceMain;
+
+        private int originalSplitDistanceSecondary;
+
+        private int originalWidth;
+
         private TypedObjectListView<GameInfo> tlstGames;
 
         private bool unsavedChanges;
