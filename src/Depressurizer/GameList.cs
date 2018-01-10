@@ -1244,6 +1244,11 @@ namespace Depressurizer
                             continue;
                         }
 
+                        if (!allPackages.ContainsKey(ownedPackageId))
+                        {
+                            continue;
+                        }
+
                         PackageInfo ownedPackage = allPackages[ownedPackageId];
                         if (ownedPackageId == 0)
                         {
@@ -1263,7 +1268,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                e.Data.Add("Location", "GameList | 1238 - 1262");
+                e.Data.Add("Location", "GameList | 1238 - 1267");
                 SentryLogger.LogException(e);
 
                 throw;
@@ -1284,7 +1289,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                e.Data.Add("Location", "GameList | 1276 - 1283");
+                e.Data.Add("Location", "GameList | 1276 - 1288");
                 SentryLogger.LogException(e);
 
                 throw;
@@ -1309,7 +1314,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                e.Data.Add("Location", "GameList | 1295 - 1308");
+                e.Data.Add("Location", "GameList | 1295 - 1313");
                 SentryLogger.LogException(e);
 
                 throw;
