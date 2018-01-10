@@ -358,22 +358,7 @@ namespace Depressurizer
                 // load new Advanced settings
                 foreach (ListViewItem i in lstCategories.Items)
                 {
-                    if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
-                    {
-                        i.StateImageIndex = f.Uncategorized;
-                        advFilter.Uncategorized = f.Uncategorized;
-                    }
-                    else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
-                    {
-                        i.StateImageIndex = f.Hidden;
-                        advFilter.Hidden = f.Hidden;
-                    }
-                    else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
-                    {
-                        i.StateImageIndex = f.VR;
-                        advFilter.VR = f.VR;
-                    }
-                    else if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
+                    if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
                     {
                         i.StateImageIndex = f.Game;
                         advFilter.Game = f.Game;
@@ -383,6 +368,22 @@ namespace Depressurizer
                         i.StateImageIndex = f.Software;
                         advFilter.Software = f.Software;
                     }
+                    else if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
+                    {
+                        i.StateImageIndex = f.Uncategorized;
+                        advFilter.Uncategorized = f.Uncategorized;
+                    }
+                    else if (i.Tag.ToString() == $"<{Resources.Category_Hidden}>")
+                    {
+                        i.StateImageIndex = f.Hidden;
+                        advFilter.Hidden = f.Hidden;
+                    }
+                    else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
+                    {
+                        i.StateImageIndex = f.VR;
+                        advFilter.VR = f.VR;
+                    }
+
                     else
                     {
                         if (f.Allow.Contains((Category) i.Tag))
@@ -1475,14 +1476,15 @@ namespace Depressurizer
             };
             lstCategories.Items.Add(listViewItem);
 
-            /* */
-
-            listViewItem = new ListViewItem(GlobalStrings.MainForm_Hidden + " (" + hidden + ")")
+            // <Hidden>
+            listViewItem = new ListViewItem($"<{Resources.Category_Hidden}> ({hidden})")
             {
-                Tag = GlobalStrings.MainForm_Hidden,
-                Name = GlobalStrings.MainForm_Hidden
+                Tag = $"<{Resources.Category_Hidden}>",
+                Name = $"<{Resources.Category_Hidden}>"
             };
             lstCategories.Items.Add(listViewItem);
+
+            /* */
 
             listViewItem = new ListViewItem(GlobalStrings.MainForm_VR + " (" + vr + ")")
             {
@@ -1774,25 +1776,25 @@ namespace Depressurizer
 
             Category c = i.Tag as Category;
 
-            if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
-            {
-                advFilter.Uncategorized = i.StateImageIndex;
-            }
-            else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
-            {
-                advFilter.Hidden = i.StateImageIndex;
-            }
-            else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
-            {
-                advFilter.VR = i.StateImageIndex;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
+            if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
             {
                 advFilter.Game = i.StateImageIndex;
             }
             else if (i.Tag.ToString() == $"<{Resources.Category_Software}>")
             {
                 advFilter.Software = i.StateImageIndex;
+            }
+            else if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
+            {
+                advFilter.Uncategorized = i.StateImageIndex;
+            }
+            else if (i.Tag.ToString() == $"<{Resources.Category_Hidden}>")
+            {
+                advFilter.Hidden = i.StateImageIndex;
+            }
+            else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
+            {
+                advFilter.VR = i.StateImageIndex;
             }
             else
             {
@@ -2564,7 +2566,7 @@ namespace Depressurizer
                     FilterGamelist(false);
                     MakeChange(true);
                 }
-                else if ((string) dropItem.Tag == GlobalStrings.MainForm_Hidden)
+                else if ((string) dropItem.Tag == $"<{Resources.Category_Hidden}>")
                 {
                     CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
                     FillCategoryList();
@@ -3945,25 +3947,25 @@ namespace Depressurizer
 
             Category c = i.Tag as Category;
 
-            if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
-            {
-                advFilter.Uncategorized = state;
-            }
-            else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
-            {
-                advFilter.Hidden = state;
-            }
-            else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
-            {
-                advFilter.VR = state;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
+            if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
             {
                 advFilter.Game = state;
             }
             else if (i.Tag.ToString() == $"<{Resources.Category_Software}>")
             {
                 advFilter.Software = state;
+            }
+            else if(i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
+            {
+                advFilter.Uncategorized = state;
+            }
+            else if (i.Tag.ToString() == $"<{Resources.Category_Hidden}>")
+            {
+                advFilter.Hidden = state;
+            }
+            else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
+            {
+                advFilter.VR = state;
             }
             else
             {
@@ -4036,7 +4038,7 @@ namespace Depressurizer
 
             if (g.Hidden)
             {
-                return lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_Hidden;
+                return lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Hidden}>";
             }
 
             // <All>

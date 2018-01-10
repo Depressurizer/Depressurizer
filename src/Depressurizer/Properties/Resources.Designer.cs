@@ -79,6 +79,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hidden.
+        /// </summary>
+        internal static string Category_Hidden {
+            get {
+                return ResourceManager.GetString("Category_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Software.
         /// </summary>
         internal static string Category_Software {

@@ -123,6 +123,9 @@
   <data name="Category_Games" xml:space="preserve">
     <value>Games</value>
   </data>
+  <data name="Category_Hidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
   <data name="Category_Software" xml:space="preserve">
     <value>Software</value>
   </data>
