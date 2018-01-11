@@ -24,6 +24,9 @@ using SharpRaven.Data;
 
 namespace DepressurizerCore.Helpers
 {
+    /// <summary>
+    ///     DepressurizerCore SentryLogger
+    /// </summary>
     public static class SentryLogger
     {
         #region Static Fields
@@ -36,6 +39,7 @@ namespace DepressurizerCore.Helpers
 
         public static void LogException(Exception e)
         {
+            Logger.Instance.Exception(e);
             RavenClient.Capture(new SentryEvent(e));
         }
 

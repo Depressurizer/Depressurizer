@@ -310,6 +310,11 @@
     <Compile Include="lstCategoriesComparer.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="ProfileAccessException.cs" />
+    <Compile Include="Properties\Constant.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Constant.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -646,6 +651,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.uk.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Constant.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Constant.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Constants.resx">
       <Generator>ResXFileCodeGenerator</Generator>

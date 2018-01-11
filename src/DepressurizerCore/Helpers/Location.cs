@@ -36,6 +36,8 @@ namespace DepressurizerCore.Helpers
         {
             #region Public Properties
 
+            public static string Log => Path.Combine(Folder.Logs, $"Depressurizer-({DateTime.Now.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)}).log");
+
             public static string Settings => Path.Combine(Folder.Depressurizer, "Settings.json");
 
             #endregion
@@ -90,6 +92,20 @@ namespace DepressurizerCore.Helpers
                 get
                 {
                     string path = Path.Combine(AppData, "Depressurizer");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    return path;
+                }
+            }
+
+            public static string Logs
+            {
+                get
+                {
+                    string path = Path.Combine(Depressurizer, "Logs");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
