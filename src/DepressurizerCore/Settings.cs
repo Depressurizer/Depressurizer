@@ -273,20 +273,31 @@ namespace DepressurizerCore
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Save current settings to a file
+        ///     Load settings from default location
         /// </summary>
         public void Load()
         {
+            Load(Location.File.Settings);
+        }
+
+        /// <summary>
+        ///     Load settings from specified location
+        /// </summary>
+        /// <param name="localPath">Location to load from</param>
+        public void Load(string localPath)
+        {
             lock (SyncRoot)
             {
-                if (!File.Exists(Location.File.Settings))
+                if (!File.Exists(localPath))
                 {
                     return;
                 }
 
+                Logger.Instance.Info("Trying to load settings from {0}", localPath);
+
                 try
                 {
-                    string jsonSettings = File.ReadAllText(Location.File.Settings);
+                    string jsonSettings = File.ReadAllText(localPath);
                     _instance = JsonConvert.DeserializeObject<Settings>(jsonSettings, new JsonSerializerSettings
                     {
                         Formatting = Formatting.Indented,
@@ -296,20 +307,34 @@ namespace DepressurizerCore
                 }
                 catch (Exception e)
                 {
+                    Logger.Instance.Error("Error loading settings from {0}", localPath);
                     SentryLogger.LogException(e);
                 }
+
+                Logger.Instance.Info("Loading settings from {0}", localPath);
             }
         }
 
         /// <summary>
-        ///     Load settings from a file
+        ///     Save settings to default location
         /// </summary>
         public void Save()
+        {
+            Save(Location.File.Settings);
+        }
+
+        /// <summary>
+        ///     Save settings to specified location
+        /// </summary>
+        /// <param name="localPath">Location to save to</param>
+        public void Save(string localPath)
         {
             lock (SyncRoot)
             {
                 try
                 {
+                    Logger.Instance.Info("Trying to save settings to {0}", localPath);
+
                     string jsonSettings = JsonConvert.SerializeObject(_instance, new JsonSerializerSettings
                     {
                         Formatting = Formatting.Indented,
@@ -317,12 +342,15 @@ namespace DepressurizerCore
                         TypeNameHandling = TypeNameHandling.Auto
                     });
 
-                    File.WriteAllText(Location.File.Settings, jsonSettings);
+                    File.WriteAllText(localPath, jsonSettings);
                 }
                 catch (Exception e)
                 {
+                    Logger.Instance.Error("Error saving settings to {0}", localPath);
                     SentryLogger.LogException(e);
                 }
+
+                Logger.Instance.Info("Saved settings to {0}", localPath);
             }
         }
 

@@ -96,10 +96,13 @@ namespace DepressurizerCore.Helpers
                     Thread.Sleep(100);
                     FetchBanner(appId);
                 }
-                else if (!(we.Response is HttpWebResponse errorResponse) || errorResponse.StatusCode != HttpStatusCode.NotFound)
+
+                if (we.Response is HttpWebResponse errorResponse && errorResponse.StatusCode != HttpStatusCode.NotFound)
                 {
                     throw;
                 }
+
+                Logger.Instance.Warn("Couldn't fetch banner for appId: {0}", appId);
             }
             catch (Exception e)
             {
