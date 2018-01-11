@@ -4063,7 +4063,7 @@ namespace Depressurizer
             // <Uncategorized>
             if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
             {
-                return g.Categories.Count == 0;
+                return g.Categories.Count == 0 || g.IsFavorite() && g.Categories.Count == 1;
             }
 
             // <VR>
