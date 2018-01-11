@@ -41,6 +41,8 @@ namespace Depressurizer
         [STAThread]
         public static void Main(string[] args)
         {
+            Logger.Instance.Info("Depressurizer has started");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ApplicationExit += OnApplicationExit;
@@ -58,6 +60,7 @@ namespace Depressurizer
         private static void CheckForUpdates()
         {
             Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            Logger.Instance.Info("Current version is {0}.{1}.{2}", currentVersion.Major, currentVersion.Minor, currentVersion.Revision);
 
             try
             {
@@ -67,13 +70,14 @@ namespace Depressurizer
                 using (WebClient webClient = new WebClient())
                 {
                     webClient.Headers.Set("User-Agent", "Depressurizer");
-                    string json = webClient.DownloadString(Constants.UrlLatestRelease);
+                    string json = webClient.DownloadString(Constant.LatestReleaseURL);
 
                     JObject parsedJson = JObject.Parse(json);
                     githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
                     url = (string) parsedJson.SelectToken("html_url");
                 }
 
+                Logger.Instance.Info("Latest version is {0}", githubVersion.ToString());
                 if (githubVersion <= currentVersion)
                 {
                     return;
@@ -95,6 +99,7 @@ namespace Depressurizer
         {
             Settings.Instance.Save();
             Database.Instance.Save();
+            Logger.Instance.Dispose();
         }
 
         private static void OnApplicationStart()
@@ -111,6 +116,8 @@ namespace Depressurizer
             /* Make sure we have a SteamPath */
             if (Settings.Instance.SteamPath == null)
             {
+                Logger.Instance.Warn("Could not find SteamPath");
+
                 using (DlgSteamPath dialog = new DlgSteamPath())
                 {
                     dialog.ShowDialog();

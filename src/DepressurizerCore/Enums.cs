@@ -291,6 +291,42 @@ namespace DepressurizerCore
     }
 
     /// <summary>
+    ///     Level to log at
+    /// </summary>
+    public enum LogLevel
+    {
+        /// <summary>
+        ///     Verbose messages (enter/exit subroutine, buffer contents, etc.)
+        /// </summary>
+        Verbose = 0,
+
+        /// <summary>
+        ///     Debug messages, to help in diagnosing a problem
+        /// </summary>
+        Debug = 1,
+
+        /// <summary>
+        ///     Informational messages, showing completion, progress, etc.
+        /// </summary>
+        Info = 2,
+
+        /// <summary>
+        ///     Warning error messages which do not cause a functional failure
+        /// </summary>
+        Warn = 3,
+
+        /// <summary>
+        ///     Major error messages, some lost functionality
+        /// </summary>
+        Error = 4,
+
+        /// <summary>
+        ///     Critical error messages, aborts the subsystem
+        /// </summary>
+        Fatal = 5
+    }
+
+    /// <summary>
     ///     Depressurizer Interface Languages
     /// </summary>
     /// <remarks>
