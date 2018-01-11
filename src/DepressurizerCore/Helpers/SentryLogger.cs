@@ -25,7 +25,7 @@ using SharpRaven.Data;
 namespace DepressurizerCore.Helpers
 {
     /// <summary>
-    /// DepressurizerCore SentryLogger
+    ///     DepressurizerCore SentryLogger
     /// </summary>
     public static class SentryLogger
     {

@@ -3956,7 +3956,7 @@ namespace Depressurizer
             {
                 advFilter.Software = state;
             }
-            else if(i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
+            else if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
             {
                 advFilter.Uncategorized = state;
             }
@@ -4084,7 +4084,6 @@ namespace Depressurizer
             }
 
             return g.ContainsCategory(category);
-
         }
 
         /// <summary>
@@ -4254,7 +4253,7 @@ namespace Depressurizer
             Cursor = Cursors.Default;
         }
 
-        /// <summary> 
+        /// <summary>
         ///     Updates list item for every game on the list, removing games that no longer need to be there, but not adding new
         ///     ones.
         /// </summary>
@@ -4269,7 +4268,7 @@ namespace Depressurizer
                 }
             }
         }
-        
+
         private void UpdateLibrary()
         {
             if (CurrentProfile == null)
