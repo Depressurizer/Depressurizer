@@ -53,9 +53,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private Hltb_Rule()
-        {
-        }
+        private Hltb_Rule() { }
 
         #endregion
 
@@ -112,9 +110,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatHltb()
-        {
-        }
+        private AutoCatHltb() { }
 
         #endregion
 

@@ -54,7 +54,7 @@ namespace Depressurizer
 
                     break;
                 case SortModes.Type:
-                    res = a.AppTypes - b.AppTypes;
+                    res = a.AppType - b.AppType;
 
                     break;
                 case SortModes.IsScraped:

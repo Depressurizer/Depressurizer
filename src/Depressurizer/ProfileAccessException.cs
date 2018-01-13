@@ -6,9 +6,7 @@ namespace Depressurizer
     {
         #region Constructors and Destructors
 
-        public ProfileAccessException(string m) : base(m)
-        {
-        }
+        public ProfileAccessException(string m) : base(m) { }
 
         #endregion
     }

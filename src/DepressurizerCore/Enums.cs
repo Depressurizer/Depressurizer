@@ -210,63 +210,57 @@ namespace DepressurizerCore
     /// <summary>
     ///     Steam App Type
     /// </summary>
-    [Flags]
-    public enum AppTypes
+    public enum AppType
     {
         /// <summary>
-        ///     Steam Software
+        ///     Unknown
         /// </summary>
-        Application = 1,
-
-        /// <summary>
-        ///     Steam Demo
-        /// </summary>
-        Demo = 1 << 1,
-
-        /// <summary>
-        ///     DLC
-        /// </summary>
-        DLC = 1 << 2,
+        Unknown,
 
         /// <summary>
         ///     Game
         /// </summary>
-        Game = 1 << 3,
+        Game,
 
         /// <summary>
-        ///     Steam Media
+        ///     DLC
         /// </summary>
-        Media = 1 << 4,
+        DLC,
+
+        /// <summary>
+        ///     Steam Demo
+        /// </summary>
+        Demo,
+
+        /// <summary>
+        ///     Steam Software
+        /// </summary>
+        Application,
 
         /// <summary>
         ///     SDK's, servers etc..
         /// </summary>
-        Tool = 1 << 5,
+        Tool,
 
         /// <summary>
-        ///     Other
+        ///     Steam Media
         /// </summary>
-        Other = 1 << 6,
+        Media,
 
         /// <summary>
-        ///     Unknown
+        ///     Steam Config File
         /// </summary>
-        Unknown = 1 << 7,
+        Config,
 
         /// <summary>
-        ///     All Steam Games and Software
+        ///     Steam Media Content
         /// </summary>
-        IncludeNormal = Application | Game,
+        Series,
 
         /// <summary>
-        ///     All Steam Games, Software and Unknown
+        ///     Steam Media Content
         /// </summary>
-        IncludeUnknown = IncludeNormal | Unknown,
-
-        /// <summary>
-        ///     All
-        /// </summary>
-        IncludeAll = (1 << 8) - 1
+        Video
     }
 
     /// <summary>

@@ -1224,126 +1224,6 @@
   <data name="grpIgnoreSettings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
   </data>
-  <data name="chkIncludeUnknown.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkIncludeUnknown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 57</value>
-  </data>
-  <data name="chkIncludeUnknown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 17</value>
-  </data>
-  <data name="chkIncludeUnknown.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="chkIncludeUnknown.Text" xml:space="preserve">
-    <value>Don't ignore unknown apps</value>
-  </data>
-  <data name="&gt;&gt;chkIncludeUnknown.Name" xml:space="preserve">
-    <value>chkIncludeUnknown</value>
-  </data>
-  <data name="&gt;&gt;chkIncludeUnknown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkIncludeUnknown.Parent" xml:space="preserve">
-    <value>grpIgnoreSettings</value>
-  </data>
-  <data name="&gt;&gt;chkIncludeUnknown.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 82</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="lblHelp_BypassIgnoreOnImport.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;lblHelp_BypassIgnoreOnImport.Name" xml:space="preserve">
-    <value>lblHelp_BypassIgnoreOnImport</value>
-  </data>
-  <data name="&gt;&gt;lblHelp_BypassIgnoreOnImport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblHelp_BypassIgnoreOnImport.Parent" xml:space="preserve">
-    <value>grpIgnoreSettings</value>
-  </data>
-  <data name="&gt;&gt;lblHelp_BypassIgnoreOnImport.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>233, 59</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 15</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="lblHelp_IncludeUnknown.Text" xml:space="preserve">
-    <value>?</value>
-  </data>
-  <data name="&gt;&gt;lblHelp_IncludeUnknown.Name" xml:space="preserve">
-    <value>lblHelp_IncludeUnknown</value>
-  </data>
-  <data name="&gt;&gt;lblHelp_IncludeUnknown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblHelp_IncludeUnknown.Parent" xml:space="preserve">
-    <value>grpIgnoreSettings</value>
-  </data>
-  <data name="&gt;&gt;lblHelp_IncludeUnknown.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 81</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 34</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.Text" xml:space="preserve">
-    <value>Bypass auto-ignore when discovering games from the Steam config file.</value>
-  </data>
-  <data name="chkBypassIgnoreOnImport.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="&gt;&gt;chkBypassIgnoreOnImport.Name" xml:space="preserve">
-    <value>chkBypassIgnoreOnImport</value>
-  </data>
-  <data name="&gt;&gt;chkBypassIgnoreOnImport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkBypassIgnoreOnImport.Parent" xml:space="preserve">
-    <value>grpIgnoreSettings</value>
-  </data>
-  <data name="&gt;&gt;chkBypassIgnoreOnImport.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="chkAutoIgnore.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -1375,7 +1255,7 @@
     <value>grpIgnoreSettings</value>
   </data>
   <data name="&gt;&gt;chkAutoIgnore.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>0</value>
   </data>
   <data name="grpIgnoreSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>305, 3</value>
@@ -1468,7 +1348,7 @@
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=1.3.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgProfile</value>

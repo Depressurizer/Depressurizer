@@ -183,10 +183,8 @@ namespace DepressurizerCore.Models
         /// </summary>
         /// <param name="binaryReader">Stream to load from</param>
         /// <returns>FileNode representing the contents of the stream.</returns>
-        public static VDFNode LoadFromBinary(BinaryReader binaryReader)
+        public static VDFNode LoadFromBinary(BinaryReader binaryReader, long streamLength)
         {
-            long streamLength = binaryReader.BaseStream.Length;
-
             if (binaryReader.BaseStream.Position == streamLength)
             {
                 return null;
@@ -220,7 +218,7 @@ namespace DepressurizerCore.Models
                 {
                     key = ReadBin_GetStringToken(binaryReader);
                     VDFNode newNode;
-                    newNode = LoadFromBinary(binaryReader);
+                    newNode = LoadFromBinary(binaryReader, streamLength);
                     thisLevel[key] = newNode;
                 }
                 else if (nextByte == 1)
@@ -314,11 +312,11 @@ namespace DepressurizerCore.Models
             return thisLevel;
         }
 
-        public static void ReadBin_SeekTo(BinaryReader stream, byte[] str, long fileLength)
+        public static void ReadBin_SeekTo(BinaryReader stream, byte[] str, long length)
         {
             int indexAt = 0;
 
-            while (indexAt < str.Length && stream.BaseStream.Position < fileLength)
+            while (indexAt < str.Length && stream.BaseStream.Position < length)
             {
                 if (stream.ReadByte() == str[indexAt])
                 {

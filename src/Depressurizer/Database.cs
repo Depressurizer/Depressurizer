@@ -58,9 +58,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        private Database()
-        {
-        }
+        private Database() { }
 
         #endregion
 
@@ -461,6 +459,14 @@ namespace Depressurizer
                     {
                         dialog.ShowDialog();
                     }
+
+                    foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
+                    {
+                        if (Contains(game.Id))
+                        {
+                            game.Name = Apps[game.Id].Name;
+                        }
+                    }
                 }
 
                 Save();
@@ -559,14 +565,9 @@ namespace Depressurizer
             return null;
         }
 
-        public string GetName(int id)
+        public string GetName(int appId)
         {
-            if (Apps.ContainsKey(id))
-            {
-                return Apps[id].Name;
-            }
-
-            return null;
+            return Contains(appId) ? Apps[appId].Name : null;
         }
 
         public List<string> GetPublishers(int gameId, int depth = 3)
@@ -632,16 +633,6 @@ namespace Depressurizer
             return new VRSupport();
         }
 
-        public bool IncludeItemInGameList(int id, AppTypes scheme)
-        {
-            if (Apps.ContainsKey(id))
-            {
-                return scheme.HasFlag(Apps[id].AppTypes);
-            }
-
-            return scheme.HasFlag(AppTypes.Unknown);
-        }
-
         public int IntegrateAppList(XmlDocument doc)
         {
             int added = 0;
@@ -657,7 +648,7 @@ namespace Depressurizer
                         if (string.IsNullOrEmpty(g.Name) || g.Name != gameName)
                         {
                             g.Name = gameName;
-                            g.AppTypes = AppTypes.Unknown;
+                            g.AppType = AppType.Unknown;
                         }
                     }
                     else
@@ -771,39 +762,43 @@ namespace Depressurizer
             Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
             long timestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
 
-            foreach (AppInfo aInf in appInfos.Values)
+            foreach (AppInfo appInfo in appInfos.Values)
             {
-                DatabaseEntry entry;
-                if (!Apps.ContainsKey(aInf.Id))
+                if (appInfo.AppType != AppType.Game && appInfo.AppType != AppType.Application && appInfo.AppType != AppType.Unknown)
                 {
-                    entry = new DatabaseEntry();
-                    entry.Id = aInf.Id;
+                    continue;
+                }
+
+                DatabaseEntry entry;
+                if (!Apps.ContainsKey(appInfo.Id))
+                {
+                    entry = new DatabaseEntry(appInfo.Id);
                     Apps.Add(entry.Id, entry);
                 }
                 else
                 {
-                    entry = Apps[aInf.Id];
+                    entry = Apps[appInfo.Id];
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
-                if (aInf.AppType != AppTypes.Unknown)
+                if (appInfo.AppType != AppType.Unknown)
                 {
-                    entry.AppTypes = aInf.AppType;
+                    entry.AppType = appInfo.AppType;
                 }
 
-                if (!string.IsNullOrEmpty(aInf.Name))
+                if (!string.IsNullOrEmpty(appInfo.Name))
                 {
-                    entry.Name = aInf.Name;
+                    entry.Name = appInfo.Name;
                 }
 
-                if (entry.Platforms == AppPlatforms.None || entry.LastStoreScrape == 0 && aInf.Platforms > AppPlatforms.None)
+                if (entry.Platforms == AppPlatforms.None || entry.LastStoreScrape == 0 && appInfo.Platforms > AppPlatforms.None)
                 {
-                    entry.Platforms = aInf.Platforms;
+                    entry.Platforms = appInfo.Platforms;
                 }
 
-                if (aInf.Parent > 0)
+                if (appInfo.Parent > 0)
                 {
-                    entry.ParentId = aInf.Parent;
+                    entry.ParentId = appInfo.Parent;
                 }
 
                 updated++;

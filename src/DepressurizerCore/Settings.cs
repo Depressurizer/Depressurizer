@@ -58,9 +58,7 @@ namespace DepressurizerCore
 
         #region Constructors and Destructors
 
-        private Settings()
-        {
-        }
+        private Settings() { }
 
         #endregion
 

@@ -62,9 +62,7 @@ namespace Depressurizer
                 dlg.InitialDirectory = f.DirectoryName;
                 dlg.FileName = f.Name;
             }
-            catch (ArgumentException)
-            {
-            }
+            catch (ArgumentException) { }
 
             DialogResult res = dlg.ShowDialog();
             if (res == DialogResult.OK)
