@@ -48,7 +48,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>depressurizer_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Depressurizer.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -292,6 +292,24 @@
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
     <Compile Include="Filter.cs" />
+    <Compile Include="Forms\DepressurizerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DepressurizerDialog.Designer.cs">
+      <DependentUpon>DepressurizerDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DepressurizerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DepressurizerForm.Designer.cs">
+      <DependentUpon>DepressurizerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SteamPathDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SteamPathDialog.Designer.cs">
+      <DependentUpon>SteamPathDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameDBEntrySorter.cs" />
     <Compile Include="GameList.cs" />
     <Compile Include="GameListingSource.cs" />
@@ -405,12 +423,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Constants.resx</DependentUpon>
-    </Compile>
-    <Compile Include="DlgSteamPath.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgSteamPath.Designer.cs">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
     </Compile>
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
@@ -544,14 +556,14 @@
     <EmbeddedResource Include="DlgRestore.uk.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.nl.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DepressurizerDialog.resx">
+      <DependentUpon>DepressurizerDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.ru.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DepressurizerForm.resx">
+      <DependentUpon>DepressurizerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.uk.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SteamPathDialog.resx">
+      <DependentUpon>SteamPathDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.nl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -594,9 +606,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgProfile.es.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.es.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -661,9 +670,6 @@
       <LastGenOutput>Constants.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -714,7 +720,7 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="depressurizer_icon.ico" />
+    <Content Include="Depressurizer.ico" />
     <None Include="packages.config" />
     <None Include="readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
