@@ -24,6 +24,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Forms;
 using Depressurizer.Properties;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
@@ -118,7 +119,7 @@ namespace Depressurizer
             {
                 Logger.Instance.Warn("Could not find SteamPath");
 
-                using (DlgSteamPath dialog = new DlgSteamPath())
+                using (SteamPathDialog dialog = new SteamPathDialog())
                 {
                     dialog.ShowDialog();
                     Settings.Instance.SteamPath = dialog.Path;
