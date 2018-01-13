@@ -142,9 +142,7 @@ namespace Depressurizer
             Filter = other.Filter;
         }
 
-        protected AutoCat()
-        {
-        }
+        protected AutoCat() { }
 
         #endregion
 

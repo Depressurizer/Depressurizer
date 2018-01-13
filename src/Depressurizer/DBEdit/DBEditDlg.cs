@@ -351,7 +351,7 @@ namespace Depressurizer
                 g.Id.ToString(),
                 g.Name,
                 g.Genres != null ? string.Join(",", g.Genres) : "",
-                g.AppTypes.ToString(),
+                g.AppType.ToString(),
                 g.LastStoreScrape == 0 ? "" : "X",
                 g.LastAppInfoUpdate == 0 ? "" : "X",
                 g.ParentId <= 0 ? "" : g.ParentId.ToString()
@@ -881,23 +881,23 @@ namespace Depressurizer
 
             if (chkTypeAll.Checked == false)
             {
-                switch (g.AppTypes)
+                switch (g.AppType)
                 {
-                    case AppTypes.Game:
+                    case AppType.Game:
                         if (chkTypeGame.Checked == false)
                         {
                             return false;
                         }
 
                         break;
-                    case AppTypes.DLC:
+                    case AppType.DLC:
                         if (chkTypeDLC.Checked == false)
                         {
                             return false;
                         }
 
                         break;
-                    case AppTypes.Unknown:
+                    case AppType.Unknown:
                         if (chkTypeUnknown.Checked == false)
                         {
                             return false;

@@ -105,9 +105,7 @@ namespace Depressurizer
                 }
             }
 
-            if (CuratorRecommendations.Count != TotalCount)
-            {
-            }
+            if (CuratorRecommendations.Count != TotalCount) { }
 
             OnThreadCompletion();
         }
@@ -155,9 +153,7 @@ namespace Depressurizer
                         curatorRecommendations.Add(id, recommendation);
                     }
 
-                    if (recommendation == CuratorRecommendation.Error)
-                    {
-                    }
+                    if (recommendation == CuratorRecommendation.Error) { }
                 }
             }
 

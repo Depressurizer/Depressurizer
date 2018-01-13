@@ -80,9 +80,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatDevPub()
-        {
-        }
+        private AutoCatDevPub() { }
 
         #endregion
 

@@ -86,10 +86,6 @@ namespace Depressurizer {
             this.cmdUnignore = new System.Windows.Forms.Button();
             this.lstIgnored = new System.Windows.Forms.ListView();
             this.grpIgnoreSettings = new System.Windows.Forms.GroupBox();
-            this.chkIncludeUnknown = new System.Windows.Forms.CheckBox();
-            this.lblHelp_BypassIgnoreOnImport = new System.Windows.Forms.Label();
-            this.lblHelp_IncludeUnknown = new System.Windows.Forms.Label();
-            this.chkBypassIgnoreOnImport = new System.Windows.Forms.CheckBox();
             this.chkAutoIgnore = new System.Windows.Forms.CheckBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpUserInfo.SuspendLayout();
@@ -440,37 +436,9 @@ namespace Depressurizer {
             // grpIgnoreSettings
             // 
             resources.ApplyResources(this.grpIgnoreSettings, "grpIgnoreSettings");
-            this.grpIgnoreSettings.Controls.Add(this.chkIncludeUnknown);
-            this.grpIgnoreSettings.Controls.Add(this.lblHelp_BypassIgnoreOnImport);
-            this.grpIgnoreSettings.Controls.Add(this.lblHelp_IncludeUnknown);
-            this.grpIgnoreSettings.Controls.Add(this.chkBypassIgnoreOnImport);
             this.grpIgnoreSettings.Controls.Add(this.chkAutoIgnore);
             this.grpIgnoreSettings.Name = "grpIgnoreSettings";
             this.grpIgnoreSettings.TabStop = false;
-            // 
-            // chkIncludeUnknown
-            // 
-            resources.ApplyResources(this.chkIncludeUnknown, "chkIncludeUnknown");
-            this.chkIncludeUnknown.Name = "chkIncludeUnknown";
-            this.chkIncludeUnknown.UseVisualStyleBackColor = true;
-            // 
-            // lblHelp_BypassIgnoreOnImport
-            // 
-            resources.ApplyResources(this.lblHelp_BypassIgnoreOnImport, "lblHelp_BypassIgnoreOnImport");
-            this.lblHelp_BypassIgnoreOnImport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblHelp_BypassIgnoreOnImport.Name = "lblHelp_BypassIgnoreOnImport";
-            // 
-            // lblHelp_IncludeUnknown
-            // 
-            resources.ApplyResources(this.lblHelp_IncludeUnknown, "lblHelp_IncludeUnknown");
-            this.lblHelp_IncludeUnknown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblHelp_IncludeUnknown.Name = "lblHelp_IncludeUnknown";
-            // 
-            // chkBypassIgnoreOnImport
-            // 
-            resources.ApplyResources(this.chkBypassIgnoreOnImport, "chkBypassIgnoreOnImport");
-            this.chkBypassIgnoreOnImport.Name = "chkBypassIgnoreOnImport";
-            this.chkBypassIgnoreOnImport.UseVisualStyleBackColor = true;
             // 
             // chkAutoIgnore
             // 
@@ -520,7 +488,6 @@ namespace Depressurizer {
             this.grpIgnored.ResumeLayout(false);
             this.grpIgnored.PerformLayout();
             this.grpIgnoreSettings.ResumeLayout(false);
-            this.grpIgnoreSettings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -573,9 +540,5 @@ namespace Depressurizer {
         private Lib.ExtToolTip ttHelp;
         private System.Windows.Forms.Label lblHelp_ExportDiscard;
         private System.Windows.Forms.Label lblHelp_LocalUpdate;
-        private System.Windows.Forms.Label lblHelp_BypassIgnoreOnImport;
-        private System.Windows.Forms.Label lblHelp_IncludeUnknown;
-        private System.Windows.Forms.CheckBox chkBypassIgnoreOnImport;
-        private System.Windows.Forms.CheckBox chkIncludeUnknown;
     }
 }

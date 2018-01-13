@@ -46,9 +46,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private UserScore_Rule()
-        {
-        }
+        private UserScore_Rule() { }
 
         #endregion
 
@@ -105,9 +103,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatUserScore()
-        {
-        }
+        private AutoCatUserScore() { }
 
         #endregion
 

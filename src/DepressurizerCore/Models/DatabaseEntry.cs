@@ -102,12 +102,23 @@ namespace DepressurizerCore.Models
 
         #endregion
 
+        #region Constructors and Destructors
+
+        public DatabaseEntry() { }
+
+        public DatabaseEntry(int appId)
+        {
+            Id = appId;
+        }
+
+        #endregion
+
         #region Public Properties
 
         /// <summary>
         ///     App Type(s)
         /// </summary>
-        public AppTypes AppTypes { get; set; } = AppTypes.Unknown;
+        public AppType AppType { get; set; } = AppType.Unknown;
 
         /// <summary>
         ///     Steam Store Banner
@@ -247,14 +258,22 @@ namespace DepressurizerCore.Models
             bool useAppInfoFields = other.LastAppInfoUpdate > LastAppInfoUpdate || LastAppInfoUpdate == 0 && other.LastStoreScrape >= LastStoreScrape;
             bool useScrapeOnlyFields = other.LastStoreScrape >= LastStoreScrape;
 
-            if (other.AppTypes != AppTypes.Unknown && (AppTypes == AppTypes.Unknown || useAppInfoFields))
+            if (other.AppType != AppType.Unknown && (AppType == AppType.Unknown || useAppInfoFields))
             {
-                AppTypes = other.AppTypes;
+                AppType = other.AppType;
             }
 
             if (other.LastStoreScrape >= LastStoreScrape || LastStoreScrape == 0 && other.LastAppInfoUpdate > LastAppInfoUpdate || Platforms == AppPlatforms.None)
             {
                 Platforms = other.Platforms;
+            }
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                if (!string.IsNullOrEmpty(other.Name))
+                {
+                    Name = other.Name;
+                }
             }
 
             if (useAppInfoFields)
@@ -366,9 +385,9 @@ namespace DepressurizerCore.Models
         ///     Scrapes the store page with this game entry's ID and updates this entry with the information found.
         /// </summary>
         /// <returns>The type determined during the scrape</returns>
-        public AppTypes ScrapeStore()
+        public AppType ScrapeStore()
         {
-            return AppTypes = ScrapeStoreHelper(Id);
+            return AppType = ScrapeStoreHelper(Id);
         }
 
         #endregion
@@ -395,8 +414,16 @@ namespace DepressurizerCore.Models
         /// <param name="page">The full result of the HTTP request.</param>
         private void GetAllDataFromPage(string page)
         {
+            Regex regName = new Regex(@"<span itemprop=""name"">([^<]+)<\/span>", RegexOptions.Compiled);
+
+            Match m = regName.Match(page);
+            if (m.Success)
+            {
+                Name = m.Groups[1].Captures[0].Value;
+            }
+
             // Genres
-            Match m = RegGenre.Match(page);
+            m = RegGenre.Match(page);
             if (m.Success)
             {
                 Genres = new List<string>();
@@ -608,7 +635,7 @@ namespace DepressurizerCore.Models
             }
         }
 
-        private AppTypes ScrapeStoreHelper(int id)
+        private AppType ScrapeStoreHelper(int id)
         {
             string page;
 
@@ -628,14 +655,14 @@ namespace DepressurizerCore.Models
                     if (resp.Headers[HttpResponseHeader.Location] == "http://store.steampowered.com/")
                     {
                         // If we are redirected to the store front page
-                        return AppTypes.Unknown;
+                        return AppType.Unknown;
                     }
 
                     if (resp.ResponseUri.ToString() == resp.Headers[HttpResponseHeader.Location])
                     {
                         //If page redirects to itself
 
-                        return AppTypes.Unknown;
+                        return AppType.Unknown;
                     }
 
                     req = GetSteamRequest(resp.Headers[HttpResponseHeader.Location]);
@@ -647,11 +674,11 @@ namespace DepressurizerCore.Models
                 {
                     //If we got too many redirects
 
-                    return AppTypes.Unknown;
+                    return AppType.Unknown;
                 }
                 else if (resp.ResponseUri.Segments.Length < 2)
                 {
-                    return AppTypes.Unknown;
+                    return AppType.Unknown;
                 }
                 else if (resp.ResponseUri.Segments[1] == "agecheck/")
                 {
@@ -659,33 +686,31 @@ namespace DepressurizerCore.Models
                     if (resp.ResponseUri.Segments.Length >= 4 && resp.ResponseUri.Segments[3].TrimEnd('/') != id.ToString(CultureInfo.InvariantCulture))
                     {
                         // Age check + redirect
-                        if (int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
-                        {
-                        }
+                        if (int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget)) { }
                         else
                         {
                             // If we got an age check without numeric id (shouldn't happen)
-                            return AppTypes.Unknown;
+                            return AppType.Unknown;
                         }
                     }
                     else
                     {
                         // If we got an age check with no redirect
 
-                        return AppTypes.Unknown;
+                        return AppType.Unknown;
                     }
                 }
                 else if (resp.ResponseUri.Segments[1] != "app/")
                 {
                     // Redirected outside of the app path
 
-                    return AppTypes.Unknown;
+                    return AppType.Unknown;
                 }
                 else if (resp.ResponseUri.Segments.Length < 3)
                 {
                     // The URI ends with "/app/" ?
 
-                    return AppTypes.Unknown;
+                    return AppType.Unknown;
                 }
                 else if (resp.ResponseUri.Segments[2].TrimEnd('/') != id.ToString(CultureInfo.InvariantCulture))
                 {
@@ -694,7 +719,7 @@ namespace DepressurizerCore.Models
                     if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
                     {
                         // if new app id is an actual number
-                        return AppTypes.Unknown;
+                        return AppType.Unknown;
                     }
                 }
 
@@ -704,7 +729,7 @@ namespace DepressurizerCore.Models
             catch (Exception e)
             {
                 // Something went wrong with the download.
-                return AppTypes.Unknown;
+                return AppType.Unknown;
             }
             finally
             {
@@ -714,11 +739,11 @@ namespace DepressurizerCore.Models
                 }
             }
 
-            AppTypes result;
+            AppType result;
 
             if (page.Contains("<title>Site Error</title>"))
             {
-                result = AppTypes.Unknown;
+                result = AppType.Unknown;
             }
             else if (RegGamecheck.IsMatch(page) || RegSoftwarecheck.IsMatch(page))
             {
@@ -729,24 +754,24 @@ namespace DepressurizerCore.Models
                 // Check whether it's DLC and return appropriately
                 if (RegDlCcheck.IsMatch(page))
                 {
-                    result = AppTypes.DLC;
+                    result = AppType.DLC;
                 }
                 else
                 {
-                    result = RegSoftwarecheck.IsMatch(page) ? AppTypes.Application : AppTypes.Game;
+                    result = RegSoftwarecheck.IsMatch(page) ? AppType.Application : AppType.Game;
                 }
             }
             else
             {
                 // The URI is right, but it didn't pass the regex check
 
-                result = AppTypes.Unknown;
+                result = AppType.Unknown;
             }
 
             if (redirectTarget != -1)
             {
                 ParentId = redirectTarget;
-                result = AppTypes.Unknown;
+                result = AppType.Unknown;
             }
 
             LastStoreScrape = DateTimeOffset.Now.ToUnixTimeSeconds();
