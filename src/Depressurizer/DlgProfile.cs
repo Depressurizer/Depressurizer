@@ -94,9 +94,7 @@ namespace Depressurizer
                     return nameNode.InnerText;
                 }
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e) { }
 
             return null;
         }
@@ -152,9 +150,7 @@ namespace Depressurizer
                 dlg.InitialDirectory = f.DirectoryName;
                 dlg.FileName = f.Name;
             }
-            catch (ArgumentException)
-            {
-            }
+            catch (ArgumentException) { }
 
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
@@ -325,8 +321,6 @@ namespace Depressurizer
             Text = GlobalStrings.DlgProfile_EditProfile;
 
             chkAutoIgnore.Checked = Profile.AutoIgnore;
-            chkIncludeUnknown.Checked = Profile.IncludeUnknown;
-            chkBypassIgnoreOnImport.Checked = Profile.BypassIgnoreOnImport;
 
             foreach (int i in Profile.IgnoreList)
             {
@@ -444,8 +438,6 @@ namespace Depressurizer
             ttHelp.Ext_SetToolTip(lblHelp_ExportDiscard, GlobalStrings.DlgProfile_Help_ExportDiscard);
             ttHelp.Ext_SetToolTip(lblHelp_LocalUpdate, GlobalStrings.DlgProfile_Help_LocalUpdate);
             ttHelp.Ext_SetToolTip(lblHelp_WebUpdate, GlobalStrings.DlgProfile_Help_WebUpdate);
-            ttHelp.Ext_SetToolTip(lblHelp_IncludeUnknown, GlobalStrings.DlgProfile_Help_IncludeUnknown);
-            ttHelp.Ext_SetToolTip(lblHelp_BypassIgnoreOnImport, GlobalStrings.DlgProfile_Help_BypassIgnoreOnImport);
 
             LoadShortIds();
             if (editMode)
@@ -498,8 +490,6 @@ namespace Depressurizer
             p.OverwriteOnDownload = chkOverwriteNames.Checked;
 
             p.AutoIgnore = chkAutoIgnore.Checked;
-            p.IncludeUnknown = chkIncludeUnknown.Checked;
-            p.BypassIgnoreOnImport = chkBypassIgnoreOnImport.Checked;
 
             SortedSet<int> ignoreSet = new SortedSet<int>();
             foreach (ListViewItem item in lstIgnored.Items)

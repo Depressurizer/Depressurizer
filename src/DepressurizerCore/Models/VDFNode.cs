@@ -314,11 +314,11 @@ namespace DepressurizerCore.Models
             return thisLevel;
         }
 
-        public static void ReadBin_SeekTo(BinaryReader stream, byte[] str, long fileLength)
+        public static void ReadBin_SeekTo(BinaryReader stream, byte[] str)
         {
             int indexAt = 0;
 
-            while (indexAt < str.Length && stream.BaseStream.Position < fileLength)
+            while (indexAt < str.Length && stream.BaseStream.Position < stream.BaseStream.Length)
             {
                 if (stream.ReadByte() == str[indexAt])
                 {

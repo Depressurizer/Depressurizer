@@ -1,25 +1,29 @@
-﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+﻿#region LICENSE
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+//     This file (PackageInfo.cs) is part of Depressurizer.
+//     Original Copyright (C) 2011  Steve Labbe
+//     Modified Copyright (C) 2018  Martijn Vegter
+// 
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+// 
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+// 
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
+#endregion
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using ValueType = DepressurizerCore.ValueType;
 
@@ -46,18 +50,6 @@ namespace Depressurizer
 
     internal class PackageInfo
     {
-        #region Fields
-
-        public List<int> AppIds;
-
-        public PackageBillingType BillingType;
-
-        public int Id;
-
-        public string Name;
-
-        #endregion
-
         #region Constructors and Destructors
 
         public PackageInfo(int id = 0, string name = null)
@@ -66,6 +58,18 @@ namespace Depressurizer
             Id = id;
             Name = name;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        public List<int> AppIds { get; set; }
+
+        public PackageBillingType BillingType { get; set; }
+
+        public int Id { get; set; }
+
+        public string Name { get; set; }
 
         #endregion
 
@@ -136,8 +140,6 @@ namespace Depressurizer
         /// <param name="path">Path of packageinfo.vdf</param>
         public static Dictionary<int, PackageInfo> LoadPackages(string path)
         {
-            Dictionary<int, PackageInfo> result = new Dictionary<int, PackageInfo>();
-
             /* packageinfo.vdf entry example format, sometimes has extra values. Line breaks are only for readability and not part of format.
             * we only care about *packageid*, *billingtype*, *appids*
             * *undeciphered*(24 bytes i haven't deciphered) *changenumber*(4 bytes, little endian) 
@@ -151,78 +153,87 @@ namespace Depressurizer
             * 08 00 appitems 00 08 08 08 
             */
 
-            BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open), Encoding.ASCII);
-            long fileLength = bReader.BaseStream.Length;
+            Dictionary<int, PackageInfo> packageInfos = new Dictionary<int, PackageInfo>();
 
-            // seek to packageid: start of a new entry
-            byte[] packageidBytes =
+            try
             {
-                0x00,
-                0x02,
-                0x70,
-                0x61,
-                0x63,
-                0x6B,
-                0x61,
-                0x67,
-                0x65,
-                0x69,
-                0x64,
-                0x00
-            }; // 0x00 0x02 p a c k a g e i d 0x00
-            byte[] billingtypeBytes =
-            {
-                0x02,
-                0x62,
-                0x69,
-                0x6C,
-                0x6C,
-                0x69,
-                0x6E,
-                0x67,
-                0x74,
-                0x79,
-                0x70,
-                0x65,
-                0x00
-            }; // 0x02 b i l l i n g t y p e 0x00
-            byte[] appidsBytes =
-            {
-                0x08,
-                0x00,
-                0x61,
-                0x70,
-                0x70,
-                0x69,
-                0x64,
-                0x73,
-                0x00
-            }; // 0x08 0x00 appids 0x00
-
-            VDFNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
-            while (bReader.BaseStream.Position < fileLength)
-            {
-                int id = bReader.ReadInt32();
-                PackageInfo package = new PackageInfo(id);
-
-                VDFNode.ReadBin_SeekTo(bReader, billingtypeBytes, fileLength);
-                package.BillingType = (PackageBillingType) bReader.ReadInt32();
-
-                VDFNode.ReadBin_SeekTo(bReader, appidsBytes, fileLength);
-                while (bReader.ReadByte() == 0x02)
+                using (BinaryReader binaryReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.ASCII))
                 {
-                    while (bReader.ReadByte() != 0x00)
+                    // seek to packageid: start of a new entry
+                    byte[] packageidBytes =
                     {
+                        0x00, // 0x00
+                        0x02, // 0x02
+                        0x70, // p
+                        0x61, // a
+                        0x63, // c
+                        0x6B, // k
+                        0x61, // a
+                        0x67, // g
+                        0x65, // e
+                        0x69, // i
+                        0x64, // d
+                        0x00 // 0x00
+                    };
+
+                    byte[] billingtypeBytes =
+                    {
+                        0x02, // 0x02
+                        0x62, // b
+                        0x69, // i
+                        0x6C, // l
+                        0x6C, // l
+                        0x69, // i
+                        0x6E, // n
+                        0x67, // g
+                        0x74, // t
+                        0x79, // y
+                        0x70, // p
+                        0x65, // e
+                        0x00 // 0x00
+                    };
+
+                    byte[] appidsBytes =
+                    {
+                        0x08, // 0x08
+                        0x00, // 0x00
+                        0x61, // a
+                        0x70, // p
+                        0x70, // p
+                        0x69, // i
+                        0x64, // d
+                        0x73, // s
+                        0x00 // 0x00
+                    };
+
+                    VDFNode.ReadBin_SeekTo(binaryReader, packageidBytes);
+                    while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+                    {
+                        int id = binaryReader.ReadInt32();
+                        PackageInfo package = new PackageInfo(id);
+
+                        VDFNode.ReadBin_SeekTo(binaryReader, billingtypeBytes);
+                        package.BillingType = (PackageBillingType) binaryReader.ReadInt32();
+
+                        VDFNode.ReadBin_SeekTo(binaryReader, appidsBytes);
+                        while (binaryReader.ReadByte() == 0x02)
+                        {
+                            while (binaryReader.ReadByte() != 0x00) { }
+
+                            package.AppIds.Add(binaryReader.ReadInt32());
+                        }
+
+                        packageInfos.Add(package.Id, package);
+                        VDFNode.ReadBin_SeekTo(binaryReader, packageidBytes);
                     }
-
-                    package.AppIds.Add(bReader.ReadInt32());
                 }
-
-                result.Add(package.Id, package);
-                VDFNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
+            }
+            catch (Exception e)
+            {
+                SentryLogger.LogException(e);
             }
 
-            return result;
+            return packageInfos;
         }
 
         #endregion

@@ -1429,12 +1429,12 @@ namespace Depressurizer
                     vr++;
                 }
 
-                if (entry.AppTypes.HasFlag(AppTypes.Game))
+                if (entry.AppType.HasFlag(AppType.Game))
                 {
                     games++;
                 }
 
-                if (entry.AppTypes.HasFlag(AppTypes.Application))
+                if (entry.AppType.HasFlag(AppType.Application))
                 {
                     software++;
                 }
@@ -1538,17 +1538,17 @@ namespace Depressurizer
             {
                 foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
                 {
-                    if (g.Id < 0 && !CurrentProfile.IncludeShortcuts)
+                    if (g.Id < 0 && !CurrentProfile.IncludeShortcuts || !Database.Instance.Contains(g.Id))
                     {
                         continue;
                     }
 
-                    gamelist.Add(g);
-                    if (g.Name == null)
+                    if (string.IsNullOrEmpty(g.Name))
                     {
-                        g.Name = string.Empty;
-                        gamelist.Add(g);
+                        g.Name = Database.Instance.GetName(g.Id) ?? "";
                     }
+
+                    gamelist.Add(g);
                 }
             }
 
@@ -2902,9 +2902,7 @@ namespace Depressurizer
                         webBrowser1.Navigate(Constants.UrlSteamStore + "?l=" + storeLanguage);
                     }
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
 
@@ -4051,13 +4049,13 @@ namespace Depressurizer
             // <Games>
             if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Games}>")
             {
-                return Database.Instance.Apps.ContainsKey(g.Id) && Database.Instance.Apps.First(a => a.Key == g.Id).Value.AppTypes.HasFlag(AppTypes.Game);
+                return Database.Instance.Apps.ContainsKey(g.Id) && Database.Instance.Apps.First(a => a.Key == g.Id).Value.AppType.HasFlag(AppType.Game);
             }
 
             // <Software>
             if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Software}>")
             {
-                return Database.Instance.Apps.ContainsKey(g.Id) && Database.Instance.Apps.First(a => a.Key == g.Id).Value.AppTypes.HasFlag(AppTypes.Application);
+                return Database.Instance.Apps.ContainsKey(g.Id) && Database.Instance.Apps.First(a => a.Key == g.Id).Value.AppType.HasFlag(AppType.Application);
             }
 
             // <Uncategorized>
@@ -4283,8 +4281,7 @@ namespace Depressurizer
             {
                 try
                 {
-                    AppTypes appFilter = CurrentProfile.IncludeUnknown ? AppTypes.IncludeUnknown : AppTypes.IncludeNormal;
-                    int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, appFilter, out int newApps);
+                    int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, out int newApps);
 
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps));
                     success = true;
@@ -4309,7 +4306,7 @@ namespace Depressurizer
             {
                 try
                 {
-                    CDlgUpdateProfile updateDlg = new CDlgUpdateProfile(CurrentProfile.GameData, CurrentProfile.SteamID64, CurrentProfile.OverwriteOnDownload, CurrentProfile.IgnoreList, CurrentProfile.IncludeUnknown);
+                    CDlgUpdateProfile updateDlg = new CDlgUpdateProfile(CurrentProfile.GameData, CurrentProfile.SteamID64, CurrentProfile.OverwriteOnDownload, CurrentProfile.IgnoreList);
                     DialogResult res = updateDlg.ShowDialog();
 
                     if (updateDlg.Error != null)

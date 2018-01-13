@@ -1,49 +1,41 @@
-﻿/*
-This file is part of Depressurizer.
-Copyright 2011, 2012, 2013 Steve Labbe.
+﻿#region LICENSE
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+//     This file (AppInfo.cs) is part of Depressurizer.
+//     Original Copyright (C) 2011  Steve Labbe
+//     Modified Copyright (C) 2018  Martijn Vegter
+// 
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+// 
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+// 
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
+#endregion
 
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
 using DepressurizerCore;
+using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using ValueType = DepressurizerCore.ValueType;
 
 namespace Depressurizer
 {
-    internal class AppInfo
+    public sealed class AppInfo
     {
-        #region Fields
-
-        public AppTypes AppType;
-
-        public int Id;
-
-        public string Name;
-
-        public int Parent; // 0 if none
-
-        public AppPlatforms Platforms;
-
-        #endregion
-
         #region Constructors and Destructors
 
-        public AppInfo(int id, string name = null, AppTypes type = AppTypes.Unknown, AppPlatforms platforms = AppPlatforms.All)
+        public AppInfo(int id, string name = null, AppType type = AppType.Unknown, AppPlatforms platforms = AppPlatforms.All)
         {
             Id = id;
             Name = name;
@@ -54,107 +46,121 @@ namespace Depressurizer
 
         #endregion
 
+        #region Public Properties
+
+        public AppType AppType { get; set; }
+
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public int Parent { get; set; } = 0; // 0 if none
+
+        public AppPlatforms Platforms { get; set; }
+
+        #endregion
+
         #region Public Methods and Operators
 
-        public static AppInfo FromVdfNode(VDFNode commonNode)
+        public static AppInfo FromVDFNode(VDFNode commonNode)
         {
             if (commonNode == null || commonNode.NodeType != ValueType.Array)
             {
                 return null;
             }
 
-            AppInfo result = null;
-
             VDFNode idNode = commonNode.GetNodeAt(new[]
             {
                 "gameid"
             }, false);
-            int id = -1;
-            if (idNode != null)
+            if (idNode == null)
             {
-                if (idNode.NodeType == ValueType.Int)
+                return null;
+            }
+
+            int id = -1;
+            if (idNode.NodeType == ValueType.Int)
+            {
+                id = idNode.NodeInt;
+            }
+            else if (idNode.NodeType == ValueType.String)
+            {
+                if (!int.TryParse(idNode.NodeString, out id))
                 {
-                    id = idNode.NodeInt;
-                }
-                else if (idNode.NodeType == ValueType.String)
-                {
-                    if (!int.TryParse(idNode.NodeString, out id))
-                    {
-                        id = -1;
-                    }
+                    id = -1;
                 }
             }
 
-            if (id >= 0)
+            if (id < 0)
             {
-                // Get name
-                string name = null;
-                VDFNode nameNode = commonNode.GetNodeAt(new[]
+                return null;
+            }
+
+            // Get name
+            string name = null;
+            VDFNode nameNode = commonNode.GetNodeAt(new[]
+            {
+                "name"
+            }, false);
+            if (nameNode != null)
+            {
+                name = nameNode.NodeData.ToString();
+            }
+
+            // Get type
+            AppType type = AppType.Unknown;
+            VDFNode typeNode = commonNode.GetNodeAt(new[]
+            {
+                "type"
+            }, false);
+
+            if (typeNode != null)
+            {
+                string typeStr = typeNode.NodeData.ToString();
+
+                if (!Enum.TryParse(typeStr, true, out type))
                 {
-                    "name"
-                }, false);
-                if (nameNode != null)
+                    SentryLogger.LogException(new DataException($"Unknown AppType '{typeStr}'"));
+                    type = AppType.Unknown;
+                }
+            }
+
+            // Get platforms
+            AppPlatforms platforms = AppPlatforms.None;
+            VDFNode oslistNode = commonNode.GetNodeAt(new[]
+            {
+                "oslist"
+            }, false);
+
+            if (oslistNode != null)
+            {
+                string oslist = oslistNode.NodeData.ToString();
+                if (oslist.IndexOf("windows", StringComparison.OrdinalIgnoreCase) != -1)
                 {
-                    name = nameNode.NodeData.ToString();
+                    platforms |= AppPlatforms.Windows;
                 }
 
-                // Get type
-                string typeStr = null;
-                AppTypes type = AppTypes.Unknown;
-                VDFNode typeNode = commonNode.GetNodeAt(new[]
+                if (oslist.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
                 {
-                    "type"
-                }, false);
-                if (typeNode != null)
-                {
-                    typeStr = typeNode.NodeData.ToString();
+                    platforms |= AppPlatforms.Mac;
                 }
 
-                if (typeStr != null)
+                if (oslist.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
                 {
-                    if (!Enum.TryParse(typeStr, true, out type))
-                    {
-                        type = AppTypes.Unknown;
-                    }
+                    platforms |= AppPlatforms.Linux;
                 }
+            }
 
-                // Get platforms
-                string oslist = null;
-                AppPlatforms platforms = AppPlatforms.None;
-                VDFNode oslistNode = commonNode.GetNodeAt(new[]
-                {
-                    "oslist"
-                }, false);
-                if (oslistNode != null)
-                {
-                    oslist = oslistNode.NodeData.ToString();
-                    if (oslist.IndexOf("windows", StringComparison.OrdinalIgnoreCase) != -1)
-                    {
-                        platforms |= AppPlatforms.Windows;
-                    }
+            AppInfo result = new AppInfo(id, name, type, platforms);
 
-                    if (oslist.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
-                    {
-                        platforms |= AppPlatforms.Mac;
-                    }
-
-                    if (oslist.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
-                    {
-                        platforms |= AppPlatforms.Linux;
-                    }
-                }
-
-                result = new AppInfo(id, name, type, platforms);
-
-                // Get parent
-                VDFNode parentNode = commonNode.GetNodeAt(new[]
-                {
-                    "parent"
-                }, false);
-                if (parentNode != null)
-                {
-                    result.Parent = parentNode.NodeInt;
-                }
+            // Get parent
+            VDFNode parentNode = commonNode.GetNodeAt(new[]
+            {
+                "parent"
+            }, false);
+            if (parentNode != null)
+            {
+                result.Parent = parentNode.NodeInt;
             }
 
             return result;
@@ -162,40 +168,55 @@ namespace Depressurizer
 
         public static Dictionary<int, AppInfo> LoadApps(string path)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
             Dictionary<int, AppInfo> result = new Dictionary<int, AppInfo>();
-            BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read));
-            long fileLength = bReader.BaseStream.Length;
 
-            // seek to common: start of a new entry
-            byte[] start =
+            try
             {
-                0x00,
-                0x00,
-                0x63,
-                0x6F,
-                0x6D,
-                0x6D,
-                0x6F,
-                0x6E,
-                0x00
-            }; // 0x00 0x00 c o m m o n 0x00
-
-            VDFNode.ReadBin_SeekTo(bReader, start, fileLength);
-
-            VDFNode node = VDFNode.LoadFromBinary(bReader);
-            while (node != null)
-            {
-                AppInfo app = FromVdfNode(node);
-                if (app != null)
+                using (BinaryReader binaryReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
                 {
-                    result.Add(app.Id, app);
-                }
+                    // Go to the start of a new entry
+                    byte[] start =
+                    {
+                        0x00, // 0x00
+                        0x00, // 0x00
+                        0x63, // c
+                        0x6F, // o
+                        0x6D, // m
+                        0x6D, // m
+                        0x6F, // o
+                        0x6E, // n
+                        0x00 // 0x00
+                    };
 
-                VDFNode.ReadBin_SeekTo(bReader, start, fileLength);
-                node = VDFNode.LoadFromBinary(bReader);
+                    VDFNode.ReadBin_SeekTo(binaryReader, start);
+
+                    VDFNode node = VDFNode.LoadFromBinary(binaryReader);
+                    while (node != null)
+                    {
+                        AppInfo appInfo = FromVDFNode(node);
+                        if (appInfo != null)
+                        {
+                            if (appInfo.AppType == AppType.Game || appInfo.AppType == AppType.Application || appInfo.AppType == AppType.Unknown)
+                            {
+                                result.Add(appInfo.Id, appInfo);
+                            }
+                        }
+
+                        VDFNode.ReadBin_SeekTo(binaryReader, start);
+                        node = VDFNode.LoadFromBinary(binaryReader);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                SentryLogger.LogException(e);
             }
 
-            bReader.Close();
+            sw.Stop();
+            Debug.WriteLine("LoadApps() " +  sw.Elapsed.TotalSeconds + "s");
 
             return result;
         }

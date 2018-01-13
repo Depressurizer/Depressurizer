@@ -133,9 +133,7 @@ namespace Depressurizer
             {
                 return Image.FromStream(GetRemoteImageStream(url, id));
             }
-            catch
-            {
-            }
+            catch { }
 
             return null;
         }
@@ -157,9 +155,7 @@ namespace Depressurizer
                     return response.GetResponseStream();
                 }
             }
-            catch
-            {
-            }
+            catch { }
 
             return null;
         }

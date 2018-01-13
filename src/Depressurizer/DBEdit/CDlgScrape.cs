@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DepressurizerCore;
 using DepressurizerCore.Models;
 using Rallion;
 
@@ -157,8 +158,7 @@ namespace Depressurizer
                 return false;
             }
 
-            DatabaseEntry newGame = new DatabaseEntry();
-            newGame.Id = id;
+            DatabaseEntry newGame = new DatabaseEntry(id);
             newGame.ScrapeStore();
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
@@ -167,7 +167,11 @@ namespace Depressurizer
             {
                 if (!Stopped)
                 {
-                    results.Add(newGame);
+                    if (newGame.AppType == AppType.Game || newGame.AppType == AppType.Application)
+                    {
+                        results.Add(newGame);
+                    }
+
                     OnJobCompletion();
 
                     return true;

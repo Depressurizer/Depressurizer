@@ -81,13 +81,9 @@ namespace Depressurizer
             }
         }
 
-        public virtual void LoadFromAutoCat(AutoCat ac)
-        {
-        }
+        public virtual void LoadFromAutoCat(AutoCat ac) { }
 
-        public virtual void SaveToAutoCat(AutoCat ac)
-        {
-        }
+        public virtual void SaveToAutoCat(AutoCat ac) { }
 
         #endregion
     }
@@ -96,9 +92,7 @@ namespace Depressurizer
     {
         #region Constructors and Destructors
 
-        public InstantiableClassProvider() : base(TypeDescriptor.GetProvider(typeof(TAbstract)))
-        {
-        }
+        public InstantiableClassProvider() : base(TypeDescriptor.GetProvider(typeof(TAbstract))) { }
 
         #endregion
 

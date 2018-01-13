@@ -352,9 +352,7 @@ namespace Depressurizer
                     fileData = VDFNode.LoadFromText(reader, true);
                 }
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e) { }
 
             VDFNode appListNode = fileData.GetNodeAt(new[]
             {
@@ -434,9 +432,7 @@ namespace Depressurizer
             {
                 Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e) { }
 
             try
             {
@@ -488,12 +484,8 @@ namespace Depressurizer
 
                 dataRoot = VDFNode.LoadFromBinary(binReader);
             }
-            catch (FileNotFoundException e)
-            {
-            }
-            catch (IOException e)
-            {
-            }
+            catch (FileNotFoundException e) { }
+            catch (IOException e) { }
 
             if (binReader != null)
             {
@@ -569,9 +561,7 @@ namespace Depressurizer
                     {
                         Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
                     }
-                    catch (Exception e)
-                    {
-                    }
+                    catch (Exception e) { }
 
                     try
                     {
@@ -715,10 +705,10 @@ namespace Depressurizer
         /// <param name="forceInclude">If true, include games that do not match the included types</param>
         /// <param name="includeShortcuts">If true, also import shortcut data</param>
         /// <returns>The number of game entries found</returns>
-        public int ImportSteamConfig(long SteamId, SortedSet<int> ignore, AppTypes includedTypes, bool includeShortcuts)
+        public int ImportSteamConfig(long SteamId, SortedSet<int> ignore, bool includeShortcuts)
         {
             string filePath = string.Format(Constants.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
-            int result = ImportSteamConfigFile(filePath, ignore, includedTypes);
+            int result = ImportSteamConfigFile(filePath, ignore);
             if (includeShortcuts)
             {
                 result += ImportSteamShortcuts(SteamId);
@@ -734,7 +724,7 @@ namespace Depressurizer
         /// <param name="ignore">Set of game IDs to ignore</param>
         /// <param name="forceInclude">If true, include games even if they are not of an included type</param>
         /// <returns>The number of game entries found</returns>
-        public int ImportSteamConfigFile(string filePath, SortedSet<int> ignore, AppTypes includedTypes)
+        public int ImportSteamConfigFile(string filePath, SortedSet<int> ignore)
         {
             VDFNode dataRoot;
 
@@ -761,7 +751,7 @@ namespace Depressurizer
                 "Steam",
                 "apps"
             }, true);
-            int count = IntegrateGamesFromVdf(appsNode, ignore, includedTypes);
+            int count = IntegrateGamesFromVdf(appsNode, ignore);
 
             return count;
         }
@@ -838,15 +828,9 @@ namespace Depressurizer
                     }
                 }
             }
-            catch (FileNotFoundException e)
-            {
-            }
-            catch (IOException e)
-            {
-            }
-            catch (DataException e)
-            {
-            }
+            catch (FileNotFoundException e) { }
+            catch (IOException e) { }
+            catch (DataException e) { }
             finally
             {
                 if (binReader != null)
@@ -872,7 +856,7 @@ namespace Depressurizer
         /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
         /// <param name="newItems">The number of new items actually added</param>
         /// <returns>Returns the number of games successfully processed and not ignored.</returns>
-        public int IntegrateHtmlGameList(string page, bool overWrite, SortedSet<int> ignore, AppTypes includedTypes, out int newItems)
+        public int IntegrateHtmlGameList(string page, bool overWrite, SortedSet<int> ignore, out int newItems)
         {
             newItems = 0;
             int totalItems = 0;
@@ -894,7 +878,7 @@ namespace Depressurizer
                 {
                     appName = ProcessUnicode(appName);
                     bool isNew;
-                    GameInfo integratedGame = IntegrateGame(appId, appName, overWrite, ignore, includedTypes, GameListingSource.WebProfile, out isNew);
+                    GameInfo integratedGame = IntegrateGame(appId, appName, overWrite, ignore, GameListingSource.WebProfile, out isNew);
                     if (integratedGame != null)
                     {
                         totalItems++;
@@ -918,7 +902,7 @@ namespace Depressurizer
         /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
         /// <param name="newItems">The number of new items actually added</param>
         /// <returns>Returns the number of games successfully processed and not ignored.</returns>
-        public int IntegrateXmlGameList(XmlDocument doc, bool overWrite, SortedSet<int> ignore, AppTypes includedTypes, out int newItems)
+        public int IntegrateXmlGameList(XmlDocument doc, bool overWrite, SortedSet<int> ignore, out int newItems)
         {
             newItems = 0;
             if (doc == null)
@@ -938,7 +922,7 @@ namespace Depressurizer
                     if (nameNode != null)
                     {
                         bool isNew;
-                        GameInfo integratedGame = IntegrateGame(appId, nameNode.InnerText, overWrite, ignore, includedTypes, GameListingSource.WebProfile, out isNew);
+                        GameInfo integratedGame = IntegrateGame(appId, nameNode.InnerText, overWrite, ignore, GameListingSource.WebProfile, out isNew);
                         if (integratedGame != null)
                         {
                             loadedGames++;
@@ -1169,7 +1153,7 @@ namespace Depressurizer
             }
         }
 
-        public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignoreList, AppTypes typesToInclude, out int newApps)
+        public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignoreList, out int newApps)
         {
             newApps = 0;
             int totalApps = 0;
@@ -1229,12 +1213,12 @@ namespace Depressurizer
                     "Steam",
                     "apps"
                 }, false);
-                GetLastPlayedFromVdf(appsNode, ignoreList, typesToInclude);
+                GetLastPlayedFromVdf(appsNode, ignoreList);
 
                 foreach (KeyValuePair<int, GameListingSource> kv in ownedApps)
                 {
                     string name = Database.Instance.GetName(kv.Key);
-                    GameInfo newGame = IntegrateGame(kv.Key, name, false, ignoreList, typesToInclude, kv.Value, out bool isNew);
+                    GameInfo newGame = IntegrateGame(kv.Key, name, false, ignoreList, kv.Value, out bool isNew);
                     if (newGame != null)
                     {
                         totalApps++;
@@ -1312,7 +1296,7 @@ namespace Depressurizer
         /// <param name="appsNode">Node containing the game nodes</param>
         /// <param name="ignore">Set of games to ignore</param>
         /// <param name="forceInclude">Include games even if their type is not an included type</param>
-        private void GetLastPlayedFromVdf(VDFNode appsNode, SortedSet<int> ignore, AppTypes includedTypes)
+        private void GetLastPlayedFromVdf(VDFNode appsNode, SortedSet<int> ignore)
         {
             Dictionary<string, VDFNode> gameNodeArray = appsNode.NodeArray;
             if (gameNodeArray != null)
@@ -1322,9 +1306,7 @@ namespace Depressurizer
                     int gameId;
                     if (int.TryParse(gameNodePair.Key, out gameId))
                     {
-                        if (ignore != null && ignore.Contains(gameId) || !Database.Instance.IncludeItemInGameList(gameId, includedTypes))
-                        {
-                        }
+                        if (ignore != null && ignore.Contains(gameId)) { }
                         else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
                         {
                             GameInfo game = null;
@@ -1361,10 +1343,10 @@ namespace Depressurizer
         /// <param name="src">The listing source that this request came from.</param>
         /// <param name="isNew">If true, a new game was added. If false, an existing game was updated, or the operation failed.</param>
         /// <returns>True if the game was integrated, false otherwise.</returns>
-        private GameInfo IntegrateGame(int appId, string appName, bool overwriteName, SortedSet<int> ignore, AppTypes includedTypes, GameListingSource src, out bool isNew)
+        private GameInfo IntegrateGame(int appId, string appName, bool overwriteName, SortedSet<int> ignore, GameListingSource src, out bool isNew)
         {
             isNew = false;
-            if (ignore != null && ignore.Contains(appId) || !Database.Instance.IncludeItemInGameList(appId, includedTypes))
+            if (ignore != null && ignore.Contains(appId) || !Database.Instance.Contains(appId))
             {
                 return null;
             }
@@ -1401,7 +1383,7 @@ namespace Depressurizer
         /// <param name="ignore">Set of games to ignore</param>
         /// <param name="forceInclude">Include games even if their type is not an included type</param>
         /// <returns>Number of games loaded</returns>
-        private int IntegrateGamesFromVdf(VDFNode appsNode, SortedSet<int> ignore, AppTypes includedTypes)
+        private int IntegrateGamesFromVdf(VDFNode appsNode, SortedSet<int> ignore)
         {
             int loadedGames = 0;
 
@@ -1413,9 +1395,7 @@ namespace Depressurizer
                     int gameId;
                     if (int.TryParse(gameNodePair.Key, out gameId))
                     {
-                        if (ignore != null && ignore.Contains(gameId) || !Database.Instance.IncludeItemInGameList(gameId, includedTypes))
-                        {
-                        }
+                        if (ignore != null && ignore.Contains(gameId) || !Database.Instance.Contains(gameId)) { }
                         else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
                         {
                             GameInfo game = null;
@@ -1575,12 +1555,8 @@ namespace Depressurizer
 
                 result = true;
             }
-            catch (FileNotFoundException e)
-            {
-            }
-            catch (IOException e)
-            {
-            }
+            catch (FileNotFoundException e) { }
+            catch (IOException e) { }
 
             if (reader != null)
             {

@@ -52,15 +52,11 @@ namespace Depressurizer
 
         public bool AutoUpdate = true;
 
-        public bool BypassIgnoreOnImport;
-
         public bool ExportDiscard = true;
 
         public string FilePath;
 
         public bool IncludeShortcuts = true;
-
-        public bool IncludeUnknown;
 
         public bool LocalUpdate = true;
 
@@ -213,9 +209,6 @@ namespace Depressurizer
                 profile.LocalUpdate = XmlUtil.GetBoolFromNode(profileNode[XmlName_LocalUpdate], profile.LocalUpdate);
                 profile.WebUpdate = XmlUtil.GetBoolFromNode(profileNode[XmlName_WebUpdate], profile.WebUpdate);
 
-                profile.IncludeUnknown = XmlUtil.GetBoolFromNode(profileNode[XmlName_IncludeUnknown], profile.IncludeUnknown);
-                profile.BypassIgnoreOnImport = XmlUtil.GetBoolFromNode(profileNode[XmlName_BypassIgnoreOnImport], profile.BypassIgnoreOnImport);
-
                 profile.ExportDiscard = XmlUtil.GetBoolFromNode(profileNode[XmlName_ExportDiscard], profile.ExportDiscard);
                 profile.AutoIgnore = XmlUtil.GetBoolFromNode(profileNode[XmlName_AutoIgnore], profile.AutoIgnore);
                 profile.OverwriteOnDownload = XmlUtil.GetBoolFromNode(profileNode[XmlName_OverwriteNames], profile.OverwriteOnDownload);
@@ -361,9 +354,7 @@ namespace Depressurizer
                     return Utility.GetImage(avatarURL, RequestCacheLevel.BypassCache);
                 }
             }
-            catch
-            {
-            }
+            catch { }
 
             return null;
         }
@@ -375,17 +366,7 @@ namespace Depressurizer
 
         public int ImportSteamData()
         {
-            AppTypes included = AppTypes.IncludeNormal;
-            if (BypassIgnoreOnImport)
-            {
-                included = AppTypes.IncludeAll;
-            }
-            else if (IncludeUnknown)
-            {
-                included |= AppTypes.Unknown;
-            }
-
-            return GameData.ImportSteamConfig(SteamID64, IgnoreList, included, IncludeShortcuts);
+            return GameData.ImportSteamConfig(SteamID64, IgnoreList, IncludeShortcuts);
         }
 
         public void Save()
@@ -403,9 +384,7 @@ namespace Depressurizer
             {
                 Utility.BackupFile(path, Settings.Instance.ConfigBackupCount);
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e) { }
 
             XmlWriter writer;
             try
@@ -430,8 +409,6 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_WebUpdate, WebUpdate.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_ExportDiscard, ExportDiscard.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_AutoIgnore, AutoIgnore.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlName_BypassIgnoreOnImport, BypassIgnoreOnImport.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_OverwriteNames, OverwriteOnDownload.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_IncludeShortcuts, IncludeShortcuts.ToString().ToLowerInvariant());
 
