@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
@@ -168,15 +167,13 @@ namespace Depressurizer
 
         public static Dictionary<int, AppInfo> LoadApps(string path)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-
             Dictionary<int, AppInfo> result = new Dictionary<int, AppInfo>();
 
             try
             {
                 using (BinaryReader binaryReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
                 {
+                    long streamLength = binaryReader.BaseStream.Length;
                     // Go to the start of a new entry
                     byte[] start =
                     {
@@ -191,9 +188,9 @@ namespace Depressurizer
                         0x00 // 0x00
                     };
 
-                    VDFNode.ReadBin_SeekTo(binaryReader, start);
+                    VDFNode.ReadBin_SeekTo(binaryReader, start, streamLength);
 
-                    VDFNode node = VDFNode.LoadFromBinary(binaryReader);
+                    VDFNode node = VDFNode.LoadFromBinary(binaryReader, streamLength);
                     while (node != null)
                     {
                         AppInfo appInfo = FromVDFNode(node);
@@ -205,8 +202,8 @@ namespace Depressurizer
                             }
                         }
 
-                        VDFNode.ReadBin_SeekTo(binaryReader, start);
-                        node = VDFNode.LoadFromBinary(binaryReader);
+                        VDFNode.ReadBin_SeekTo(binaryReader, start, streamLength);
+                        node = VDFNode.LoadFromBinary(binaryReader, streamLength);
                     }
                 }
             }
@@ -214,9 +211,6 @@ namespace Depressurizer
             {
                 SentryLogger.LogException(e);
             }
-
-            sw.Stop();
-            Debug.WriteLine("LoadApps() " +  sw.Elapsed.TotalSeconds + "s");
 
             return result;
         }

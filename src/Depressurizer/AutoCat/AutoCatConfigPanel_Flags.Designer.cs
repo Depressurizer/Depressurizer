@@ -9,14 +9,14 @@ namespace Depressurizer
     {
         #region Fields
 
-        private Button cmdCheckAll;
-
-        private Button cmdUncheckAll;
-
         /// <summary>
         ///     Required designer variable.
         /// </summary>
         private readonly IContainer components = null;
+
+        private Button cmdCheckAll;
+
+        private Button cmdUncheckAll;
 
         private GroupBox grpMain;
 

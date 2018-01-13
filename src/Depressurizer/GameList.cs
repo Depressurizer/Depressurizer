@@ -482,7 +482,7 @@ namespace Depressurizer
                 fStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 binReader = new BinaryReader(fStream);
 
-                dataRoot = VDFNode.LoadFromBinary(binReader);
+                dataRoot = VDFNode.LoadFromBinary(binReader, binReader.BaseStream.Length);
             }
             catch (FileNotFoundException e) { }
             catch (IOException e) { }
@@ -784,7 +784,7 @@ namespace Depressurizer
                 fStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 binReader = new BinaryReader(fStream);
 
-                VDFNode dataRoot = VDFNode.LoadFromBinary(binReader);
+                VDFNode dataRoot = VDFNode.LoadFromBinary(binReader, binReader.BaseStream.Length);
 
                 VDFNode shortcutsNode = dataRoot.GetNodeAt(new[]
                 {
