@@ -80,12 +80,9 @@ namespace Depressurizer.Forms
 
         protected override void OnStart()
         {
-            Task.Run(() =>
-            {
-                _startTime = DateTime.UtcNow;
-                Parallel.ForEach(_jobs, RunJob);
-                CloseDialog();
-            });
+            _startTime = DateTime.UtcNow;
+            Parallel.ForEach(_jobs, RunJob);
+            CloseDialog();
         }
 
         protected override void UpdateText()

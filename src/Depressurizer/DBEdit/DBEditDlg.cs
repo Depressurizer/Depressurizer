@@ -990,29 +990,23 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            HltbPrcDlg dlg = new HltbPrcDlg();
-            DialogResult res = dlg.ShowDialog();
-
-            if (dlg.Error != null)
+            using (HLTBDialog dialog = new HLTBDialog())
             {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult dialogResult = dialog.ShowDialog();
 
-                AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
-            }
-            else
-            {
-                if (res == DialogResult.Cancel || res == DialogResult.Abort)
+                if (dialogResult == DialogResult.Cancel || dialogResult == DialogResult.Abort)
                 {
                     AddStatusMsg(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
                 }
                 else
                 {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedHltb, dlg.Updated));
+                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedHltb, dialog.Updated));
                     UnsavedChanges = true;
                 }
             }
 
             RebuildDisplayList();
+
             Cursor = Cursors.Default;
         }
 

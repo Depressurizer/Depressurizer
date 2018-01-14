@@ -3678,6 +3678,26 @@ namespace Depressurizer
             }
         }
 
+        private void SaveDatabase()
+        {
+            Logger.Instance.Info("MainForm: Saving database");
+
+            try
+            {
+                Database.Instance.Save();
+                AddStatus(GlobalStrings.MainForm_Status_SavedDB);
+
+                Logger.Instance.Info("MainForm: Saved database");
+            }
+            catch (Exception e)
+            {
+                Logger.Instance.Info("MainForm: Error while saving database");
+                SentryLogger.LogException(e);
+
+                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void SaveFilter()
         {
             if (!ProfileLoaded || !AdvancedCategoryFilter)
@@ -3728,26 +3748,6 @@ namespace Depressurizer
                 {
                     MessageBox.Show(string.Format(GlobalStrings.MainForm_CouldNotAddFilter, dlg.Value), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-            }
-        }
-
-        private void SaveDatabase()
-        {
-            Logger.Instance.Info("MainForm: Saving database");
-
-            try
-            {
-                Database.Instance.Save();
-                AddStatus(GlobalStrings.MainForm_Status_SavedDB);
-
-                Logger.Instance.Info("MainForm: Saved database");
-            }
-            catch (Exception e)
-            {
-                Logger.Instance.Info("MainForm: Error while saving database");
-                SentryLogger.LogException(e);
-
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -4119,6 +4119,58 @@ namespace Depressurizer
             }
         }
 
+        private void UpdateDatabaseFromAppInfo()
+        {
+            Logger.Instance.Info("MainForm: Trying to update Database from AppInfo");
+
+            try
+            {
+                int num = Database.Instance.UpdateFromAppInfo(string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath));
+                AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
+
+                if (num > 0 && Settings.Instance.AutoSaveDatabase)
+                {
+                    SaveDatabase();
+                }
+
+                Logger.Instance.Info("MainForm: Updated Database from AppInfo");
+            }
+            catch (Exception e)
+            {
+                Logger.Instance.Warn("MainForm: Error while updating Database from AppInfo");
+                SentryLogger.LogException(e);
+
+                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void UpdateDatabaseFromHLTB()
+        {
+            Cursor = Cursors.WaitCursor;
+
+            using (HLTBDialog dialog = new HLTBDialog())
+            {
+                DialogResult dialogResult = dialog.ShowDialog();
+
+                if (dialogResult == DialogResult.Cancel || dialogResult == DialogResult.Abort)
+                {
+                    AddStatus(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+                }
+                else
+                {
+                    AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dialog.Updated));
+                    if (dialog.Updated > 0 && Settings.Instance.AutoSaveDatabase)
+                    {
+                        SaveDatabase();
+                    }
+                }
+            }
+
+            FullListRefresh();
+
+            Cursor = Cursors.Default;
+        }
+
         private void UpdateEnabledStatesForCategories()
         {
             Category c = null;
@@ -4189,63 +4241,6 @@ namespace Depressurizer
             }
 
             lstMultiCat.EndUpdate();
-        }
-
-        private void UpdateDatabaseFromAppInfo()
-        {
-            Logger.Instance.Info("MainForm: Trying to update Database from AppInfo");
-
-            try
-            {
-                int num = Database.Instance.UpdateFromAppInfo(string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath));
-                AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
-
-                if (num > 0 && Settings.Instance.AutoSaveDatabase)
-                {
-                    SaveDatabase();
-                }
-
-                Logger.Instance.Info("MainForm: Updated Database from AppInfo");
-            }
-            catch (Exception e)
-            {
-                Logger.Instance.Warn("MainForm: Error while updating Database from AppInfo");
-                SentryLogger.LogException(e);
-
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void UpdateDatabaseFromHLTB()
-        {
-            Cursor = Cursors.WaitCursor;
-
-            HltbPrcDlg dlg = new HltbPrcDlg();
-            DialogResult res = dlg.ShowDialog();
-
-            if (dlg.Error != null)
-            {
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, dlg.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
-            }
-            else
-            {
-                if (res == DialogResult.Cancel || res == DialogResult.Abort)
-                {
-                    AddStatus(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
-                }
-                else
-                {
-                    AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dlg.Updated));
-                    if (dlg.Updated > 0 && Settings.Instance.AutoSaveDatabase)
-                    {
-                        SaveDatabase();
-                    }
-                }
-            }
-
-            FullListRefresh();
-            Cursor = Cursors.Default;
         }
 
         private void UpdateLibrary()

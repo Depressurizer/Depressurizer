@@ -19,6 +19,7 @@
 #endregion
 
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using DepressurizerCore.Helpers;
 
@@ -203,7 +204,7 @@ namespace Depressurizer.Forms
         {
             try
             {
-                OnStart();
+                Task.Run(() => OnStart());
             }
             catch (Exception exception)
             {

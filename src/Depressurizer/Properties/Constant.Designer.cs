@@ -61,6 +61,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://www.howlongtobeatsteam.com/api/games/library/cached/all.
+        /// </summary>
+        internal static string HowLongToBeatURL {
+            get {
+                return ResourceManager.GetString("HowLongToBeatURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://api.github.com/repos/mvegter/Depressurizer/releases/latest.
         /// </summary>
         internal static string LatestReleaseURL {
