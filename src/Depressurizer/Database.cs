@@ -88,6 +88,7 @@ namespace Depressurizer
                 return _instance;
             }
         }
+
         public SortedSet<string> AllDevelopers
         {
             get
@@ -208,6 +209,37 @@ namespace Depressurizer
             }
 
             return doc;
+        }
+
+        public void Add(DatabaseEntry entry)
+        {
+            if (entry.AppType != AppType.Application && entry.AppType != AppType.Game && entry.AppType != AppType.Unknown)
+            {
+                return;
+            }
+
+            try
+            {
+                Apps.TryAdd(entry.Id, entry);
+                Logger.Instance.Info("Database: Added {0} ({1}) to Apps", entry.Name, entry.Id);
+            }
+            catch (Exception e)
+            {
+                Logger.Instance.Warn("Database: Error while adding {0} ({1}) to Apps", entry.Name, entry.Id);
+                SentryLogger.LogException(e);
+            }
+        }
+
+        public void AddOrUpdate(DatabaseEntry entry)
+        {
+            if (Contains(entry.Id))
+            {
+                Apps[entry.Id].MergeIn(entry);
+            }
+            else
+            {
+                Add(entry);
+            }
         }
 
         /// <summary>
@@ -463,14 +495,6 @@ namespace Depressurizer
                     {
                         dialog.ShowDialog();
                     }
-
-                    foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
-                    {
-                        if (Contains(game.Id))
-                        {
-                            game.Name = Apps[game.Id].Name;
-                        }
-                    }
                 }
 
                 Save();
@@ -642,27 +666,28 @@ namespace Depressurizer
             int added = 0;
             foreach (XmlNode node in doc.SelectNodes("/applist/apps/app"))
             {
-                int appId;
-                if (XmlUtil.TryGetIntFromNode(node["appid"], out appId))
+                if (!XmlUtil.TryGetIntFromNode(node["appid"], out int appId))
                 {
-                    string gameName = XmlUtil.GetStringFromNode(node["name"], null);
-                    if (Apps.ContainsKey(appId))
+                    continue;
+                }
+
+                string appName = XmlUtil.GetStringFromNode(node["name"], null);
+
+                if (Contains(appId))
+                {
+                    DatabaseEntry entry = Apps[appId];
+                    if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name == appName)
                     {
-                        DatabaseEntry g = Apps[appId];
-                        if (string.IsNullOrEmpty(g.Name) || g.Name != gameName)
-                        {
-                            g.Name = gameName;
-                            g.AppType = AppType.Unknown;
-                        }
+                        continue;
                     }
-                    else
-                    {
-                        DatabaseEntry g = new DatabaseEntry();
-                        g.Id = appId;
-                        g.Name = gameName;
-                        Apps.TryAdd(appId, g);
-                        added++;
-                    }
+
+                    entry.Name = appName;
+                    entry.AppType = AppType.Unknown;
+                }
+                else
+                {
+                    Add(new DatabaseEntry(appId, appName));
+                    added++;
                 }
             }
 
@@ -775,7 +800,7 @@ namespace Depressurizer
                     else
                     {
                         entry = new DatabaseEntry(appInfo.Id);
-                        Apps.TryAdd(entry.Id, entry);
+                        Add(entry);
                     }
 
                     entry.LastAppInfoUpdate = currentUnixTime;

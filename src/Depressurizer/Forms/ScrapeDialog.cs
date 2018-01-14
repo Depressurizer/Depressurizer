@@ -65,17 +65,7 @@ namespace Depressurizer.Forms
                 return;
             }
 
-            foreach (DatabaseEntry entry in _result)
-            {
-                if (Database.Instance.Contains(entry.Id))
-                {
-                    Database.Instance.Apps[entry.Id].MergeIn(entry);
-                }
-                else
-                {
-                    Database.Instance.Apps.TryAdd(entry.Id, entry);
-                }
-            }
+            Parallel.ForEach(_result, Database.Instance.AddOrUpdate);
         }
 
         protected override void OnStart()

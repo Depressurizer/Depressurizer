@@ -1404,29 +1404,40 @@ namespace Depressurizer
             lstCategories.BeginUpdate();
             lstCategories.Items.Clear();
 
+            int total = 0;
             int hidden = 0;
             int uncategorized = 0;
             int vr = 0;
             int games = 0;
             int software = 0;
-            foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
+            foreach (GameInfo gameInfo in CurrentProfile.GameData.Games.Values)
             {
-                if (!Database.Instance.Apps.ContainsKey(g.Id))
+                if (gameInfo.Id < 0 && !CurrentProfile.IncludeShortcuts || !Database.Instance.Contains(gameInfo.Id))
                 {
                     continue;
                 }
 
-                DatabaseEntry entry = Database.Instance.Apps[g.Id];
-                if (g.Hidden)
+                if (string.IsNullOrWhiteSpace(gameInfo.Name))
+                {
+                    gameInfo.Name = Database.Instance.GetName(gameInfo.Id) ?? "";
+                }
+
+                if (string.IsNullOrWhiteSpace(gameInfo.Name))
+                {
+                    continue;
+                }
+
+                DatabaseEntry entry = Database.Instance.Apps[gameInfo.Id];
+                if (gameInfo.Hidden)
                 {
                     hidden++;
                 }
-                else if (!g.HasCategories())
+                else if (!gameInfo.HasCategories())
                 {
                     uncategorized++;
                 }
 
-                if (Database.Instance.SupportsVR(g.Id) && !g.Hidden)
+                if (Database.Instance.SupportsVR(gameInfo.Id) && !gameInfo.Hidden)
                 {
                     vr++;
                 }
@@ -1440,13 +1451,15 @@ namespace Depressurizer
                 {
                     software++;
                 }
+
+                total++;
             }
 
             ListViewItem listViewItem;
             if (!AdvancedCategoryFilter)
             {
                 // <All>
-                listViewItem = new ListViewItem($"<{Resources.Category_All}> ({CurrentProfile.GameData.Games.Count - hidden})")
+                listViewItem = new ListViewItem($"<{Resources.Category_All}> ({total})")
                 {
                     Tag = $"<{Resources.Category_All}>",
                     Name = $"<{Resources.Category_All}>"
@@ -1534,40 +1547,38 @@ namespace Depressurizer
         /// </summary>
         private void FillGameList()
         {
-            List<GameInfo> gamelist = new List<GameInfo>();
             Cursor = Cursors.WaitCursor;
+
+            List<GameInfo> gamelist = new List<GameInfo>();
+            List<int> appIds = new List<int>();
+
             if (CurrentProfile != null)
             {
-                foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
+                foreach (GameInfo gameInfo in CurrentProfile.GameData.Games.Values)
                 {
-                    if (g.Id < 0 && !CurrentProfile.IncludeShortcuts || !Database.Instance.Contains(g.Id))
+                    if (gameInfo.Id < 0 && !CurrentProfile.IncludeShortcuts || !Database.Instance.Contains(gameInfo.Id))
                     {
                         continue;
                     }
 
-                    if (string.IsNullOrEmpty(g.Name))
+                    if (string.IsNullOrWhiteSpace(gameInfo.Name))
                     {
-                        g.Name = Database.Instance.GetName(g.Id) ?? "";
+                        gameInfo.Name = Database.Instance.GetName(gameInfo.Id) ?? "";
                     }
 
-                    gamelist.Add(g);
+                    if (string.IsNullOrWhiteSpace(gameInfo.Name))
+                    {
+                        continue;
+                    }
+
+                    gamelist.Add(gameInfo);
+                    appIds.Add(gameInfo.Id);
                 }
             }
 
-            // TODO: Tidy this
-
-            List<int> apps = new List<int>();
-            foreach (GameInfo gameInfo in gamelist)
-            {
-                apps.Add(gameInfo.Id);
-            }
-
-            Steam.GrabBanners(apps);
-
-            // END
+            Steam.GrabBanners(appIds);
 
             lstGames.SetObjects(gamelist);
-
             lstGames.BuildList();
 
             mbtnAutoCategorize.Text = string.Format(Constants.AutoCat_ButtonLabel, AutoCatGameCount());
@@ -1733,6 +1744,8 @@ namespace Depressurizer
                 SelectFilter(Settings.Instance);
                 SelectAutoCats(Settings.Instance);
             }
+
+            FullListRefresh();
         }
 
         /// <summary>

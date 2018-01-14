@@ -112,7 +112,7 @@ namespace Depressurizer
                 }
                 else
                 {
-                    Database.Instance.Apps.TryAdd(dlg.Game.Id, dlg.Game);
+                    Database.Instance.Add(dlg.Game);
 
                     if (ShouldDisplayGame(dlg.Game))
                     {
