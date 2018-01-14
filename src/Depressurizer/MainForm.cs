@@ -1636,8 +1636,6 @@ namespace Depressurizer
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             Settings settings = Settings.Instance;
-            settings.X = Left;
-            settings.Y = Top;
             settings.Height = Height;
             settings.Width = Width;
             settings.SplitContainer = splitContainer.SplitterDistance;
@@ -1672,13 +1670,6 @@ namespace Depressurizer
         {
             // allow mousewheel scrolling for Add Category submenu.  Send 10 UP/DOWN per wheel click.
             contextGame.MouseWheel += HandleMouseWheel;
-
-            Location = new Point(Settings.Instance.X, Settings.Instance.Y);
-            if (!Utility.IsOnScreen(this))
-            {
-                //TopLeft corner is off screen, so reset location
-                Location = new Point(0, 0);
-            }
 
             Size = new Size(Settings.Instance.Width, Settings.Instance.Height);
             splitContainer.SplitterDistance = Settings.Instance.SplitContainer;

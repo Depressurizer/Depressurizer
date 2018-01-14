@@ -160,22 +160,6 @@ namespace Depressurizer
             return null;
         }
 
-        public static bool IsOnScreen(MaterialForm form)
-        {
-            Screen[] screens = Screen.AllScreens;
-            foreach (Screen screen in screens)
-            {
-                Point formTopLeft = new Point(form.Left, form.Top);
-
-                if (screen.WorkingArea.Contains(formTopLeft))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public static void MoveItem(ListBox lb, int direction)
         {
             // Checking selected item

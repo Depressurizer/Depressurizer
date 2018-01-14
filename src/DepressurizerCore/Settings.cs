@@ -256,16 +256,6 @@ namespace DepressurizerCore
             set => _width = value;
         }
 
-        /// <summary>
-        ///     X-Position of MainForm
-        /// </summary>
-        public int X { get; set; }
-
-        /// <summary>
-        ///     Y-Position of MainForm
-        /// </summary>
-        public int Y { get; set; }
-
         #endregion
 
         #region Public Methods and Operators
