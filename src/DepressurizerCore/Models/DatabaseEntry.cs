@@ -111,6 +111,12 @@ namespace DepressurizerCore.Models
             Id = appId;
         }
 
+        public DatabaseEntry(int appId, string appName)
+        {
+            Id = appId;
+            Name = appName;
+        }
+
         #endregion
 
         #region Public Properties

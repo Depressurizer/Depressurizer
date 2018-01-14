@@ -23,6 +23,7 @@ using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DepressurizerCore.Helpers
 {
@@ -246,7 +247,8 @@ namespace DepressurizerCore.Helpers
             lock (SyncRoot)
             {
                 string logEntry = string.Format(CultureInfo.InvariantCulture, "{0} {1,-7} | {2}", DateTime.Now, logLevel, logMessage);
-                System.Diagnostics.Debug.WriteLine(logEntry);
+
+                Task.Run(() => System.Diagnostics.Debug.WriteLine(logEntry));
 
                 if (logLevel >= Level || bypassFilter)
                 {

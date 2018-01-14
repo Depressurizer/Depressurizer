@@ -35,6 +35,29 @@ namespace DepressurizerCore.Helpers
     /// </summary>
     public static class Steam
     {
+        #region Static Fields
+
+        private static readonly List<int> BannerIgnoreList = new List<int>
+        {
+            212680,
+            228300,
+            239140,
+            245620,
+            252950,
+            295690,
+            297130,
+            343180,
+            344040,
+            407750,
+            476480,
+            478010,
+            524440,
+            562020,
+            700580
+        };
+
+        #endregion
+
         #region Public Methods and Operators
 
         /// <summary>
@@ -76,7 +99,7 @@ namespace DepressurizerCore.Helpers
 
         private static void FetchBanner(int appId)
         {
-            if (appId <= 0 || File.Exists(Location.File.Banner(appId)))
+            if (appId <= 0 || File.Exists(Location.File.Banner(appId)) || BannerIgnoreList.Contains(appId))
             {
                 return;
             }
