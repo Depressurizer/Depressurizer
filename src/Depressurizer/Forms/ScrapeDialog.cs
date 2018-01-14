@@ -73,7 +73,7 @@ namespace Depressurizer.Forms
                 }
                 else
                 {
-                    Database.Instance.Apps.Add(entry.Id, entry);
+                    Database.Instance.Apps.TryAdd(entry.Id, entry);
                 }
             }
         }

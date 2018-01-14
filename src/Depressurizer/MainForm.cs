@@ -549,7 +549,7 @@ namespace Depressurizer
                             AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.CompletedJobs));
                             if (dialog.CompletedJobs > 0 && Settings.Instance.AutoSaveDatabase)
                             {
-                                SaveGameDB();
+                                SaveDatabase();
                             }
                         }
                     }
@@ -1693,13 +1693,13 @@ namespace Depressurizer
 
             if (Settings.Instance.UpdateAppInfoOnStart)
             {
-                UpdateGameDBFromAppInfo();
+                UpdateDatabaseFromAppInfo();
             }
 
-            int aWeekInSecs = 7 * 24 * 60 * 60;
-            if (Settings.Instance.UpdateHLTBOnStart && DateTimeOffset.Now.ToUnixTimeSeconds() > Database.Instance.LastHltbUpdate + aWeekInSecs)
+            const int aWeekInSecs = 7 * 24 * 60 * 60;
+            if (Settings.Instance.UpdateHLTBOnStart && DateTimeOffset.UtcNow.ToUnixTimeSeconds() > Database.Instance.LastHLTBUpdate + aWeekInSecs)
             {
-                UpdateGameDBFromHltb();
+                UpdateDatabaseFromHLTB();
             }
 
             switch (Settings.Instance.StartupAction)
@@ -3731,18 +3731,22 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        ///     Saves the current database to disk. Displays a message box on failure.
-        /// </summary>
-        private void SaveGameDB()
+        private void SaveDatabase()
         {
+            Logger.Instance.Info("MainForm: Saving database");
+
             try
             {
                 Database.Instance.Save();
                 AddStatus(GlobalStrings.MainForm_Status_SavedDB);
+
+                Logger.Instance.Info("MainForm: Saved database");
             }
             catch (Exception e)
             {
+                Logger.Instance.Info("MainForm: Error while saving database");
+                SentryLogger.LogException(e);
+
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -4187,32 +4191,32 @@ namespace Depressurizer
             lstMultiCat.EndUpdate();
         }
 
-        /// <summary>
-        ///     Updates the database using AppInfo cache. Displays an error message on failure. Saves the DB afterwards if
-        ///     AutosaveDB is set.
-        /// </summary>
-        private void UpdateGameDBFromAppInfo()
+        private void UpdateDatabaseFromAppInfo()
         {
+            Logger.Instance.Info("MainForm: Trying to update Database from AppInfo");
+
             try
             {
                 int num = Database.Instance.UpdateFromAppInfo(string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath));
                 AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
+
                 if (num > 0 && Settings.Instance.AutoSaveDatabase)
                 {
-                    SaveGameDB();
+                    SaveDatabase();
                 }
+
+                Logger.Instance.Info("MainForm: Updated Database from AppInfo");
             }
             catch (Exception e)
             {
+                Logger.Instance.Warn("MainForm: Error while updating Database from AppInfo");
+                SentryLogger.LogException(e);
+
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        /// <summary>
-        ///     Updates the database using data from howlongtobeatsteam.com. Displays an error message on failure. Saves the DB
-        ///     afterwards if AutosaveDB is set.
-        /// </summary>
-        private void UpdateGameDBFromHltb()
+        private void UpdateDatabaseFromHLTB()
         {
             Cursor = Cursors.WaitCursor;
 
@@ -4235,29 +4239,13 @@ namespace Depressurizer
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dlg.Updated));
                     if (dlg.Updated > 0 && Settings.Instance.AutoSaveDatabase)
                     {
-                        SaveGameDB();
+                        SaveDatabase();
                     }
                 }
             }
 
             FullListRefresh();
             Cursor = Cursors.Default;
-        }
-
-        /// <summary>
-        ///     Updates list item for every game on the list, removing games that no longer need to be there, but not adding new
-        ///     ones.
-        /// </summary>
-        private void UpdateGameList()
-        {
-            List<GameInfo> gamelist = lstGames.Objects.Cast<GameInfo>().ToList();
-            foreach (GameInfo g in gamelist)
-            {
-                if (CurrentProfile != null && (!CurrentProfile.GameData.Games.ContainsKey(g.Id) || g.Id < 0 && !CurrentProfile.IncludeShortcuts))
-                {
-                    gamelist.Remove(g);
-                }
-            }
         }
 
         private void UpdateLibrary()
