@@ -28,7 +28,6 @@ using System.Net.Cache;
 using System.Reflection;
 using System.Windows.Forms;
 using DepressurizerCore;
-using MaterialSkin.Controls;
 
 namespace Depressurizer
 {

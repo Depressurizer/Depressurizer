@@ -21,7 +21,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -810,62 +809,74 @@ namespace Depressurizer
             return updated;
         }
 
-        /// <summary>
-        ///     Update the database with information from howlongtobeatsteam.com.
-        /// </summary>
-        /// <param name="includeImputedTimes">Whether to include imputed hltb times</param>
-        /// <returns>The number of entries integrated into the database.</returns>
-        public int UpdateFromHltb(bool includeImputedTimes)
+        public int UpdateFromHLTB(bool includeImputedTimes)
         {
             int updated = 0;
 
-            using (WebClient wc = new WebClient())
+            lock (SyncRoot)
             {
-                wc.Encoding = Encoding.UTF8;
-                string json = wc.DownloadString(Constants.UrlHLTBAll);
-                JObject parsedJson = JObject.Parse(json);
-                dynamic games = parsedJson.SelectToken("Games");
-                foreach (dynamic g in games)
+                try
                 {
-                    dynamic steamAppData = g.SteamAppData;
-                    int id = steamAppData.SteamAppId;
-                    if (Apps.ContainsKey(id))
+                    using (WebClient webClient = new WebClient())
                     {
-                        dynamic htlbInfo = steamAppData.HltbInfo;
+                        webClient.Headers.Set("User-Agent", "Depressurizer");
+                        webClient.Encoding = Encoding.UTF8;
 
-                        if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
-                        {
-                            Apps[id].HltbMain = 0;
-                        }
-                        else
-                        {
-                            Apps[id].HltbMain = htlbInfo.MainTtb;
-                        }
+                        string json = webClient.DownloadString(Constant.HowLongToBeatURL);
+                        JObject parsedJson = JObject.Parse(json);
+                        dynamic games = parsedJson.SelectToken("Games");
 
-                        if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed == "True")
+                        foreach (dynamic g in games)
                         {
-                            Apps[id].HltbExtras = 0;
-                        }
-                        else
-                        {
-                            Apps[id].HltbExtras = htlbInfo.ExtrasTtb;
-                        }
+                            dynamic steamAppData = g.SteamAppData;
+                            int id = steamAppData.SteamAppId;
+                            if (!Contains(id))
+                            {
+                                continue;
+                            }
 
-                        if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed == "True")
-                        {
-                            Apps[id].HltbCompletionist = 0;
-                        }
-                        else
-                        {
-                            Apps[id].HltbCompletionist = htlbInfo.CompletionistTtb;
-                        }
+                            dynamic htlbInfo = steamAppData.HltbInfo;
 
-                        updated++;
+                            if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
+                            {
+                                Apps[id].HltbMain = 0;
+                            }
+                            else
+                            {
+                                Apps[id].HltbMain = htlbInfo.MainTtb;
+                            }
+
+                            if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed == "True")
+                            {
+                                Apps[id].HltbExtras = 0;
+                            }
+                            else
+                            {
+                                Apps[id].HltbExtras = htlbInfo.ExtrasTtb;
+                            }
+
+                            if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed == "True")
+                            {
+                                Apps[id].HltbCompletionist = 0;
+                            }
+                            else
+                            {
+                                Apps[id].HltbCompletionist = htlbInfo.CompletionistTtb;
+                            }
+
+                            updated++;
+                        }
                     }
+
+                    LastHLTBUpdate = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                }
+                catch (Exception e)
+                {
+                    SentryLogger.LogException(e);
+
+                    throw;
                 }
             }
-
-            LastHLTBUpdate = DateTimeOffset.Now.ToUnixTimeSeconds();
 
             return updated;
         }
