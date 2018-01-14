@@ -292,6 +292,12 @@
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
     <Compile Include="Filter.cs" />
+    <Compile Include="Forms\CancelableDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CancelableDialog.Designer.cs">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DepressurizerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -303,6 +309,9 @@
     </Compile>
     <Compile Include="Forms\DepressurizerForm.Designer.cs">
       <DependentUpon>DepressurizerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ScrapeDialog.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\SteamPathDialog.cs">
       <SubType>Form</SubType>
@@ -358,9 +367,6 @@
     </Compile>
     <Compile Include="DBEdit\DlgGameDBEntry.Designer.cs">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DBEdit\CDlgScrape.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="DlgManualDownload.cs">
       <SubType>Form</SubType>
@@ -555,6 +561,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgRestore.uk.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CancelableDialog.resx">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DepressurizerDialog.resx">
       <DependentUpon>DepressurizerDialog.cs</DependentUpon>

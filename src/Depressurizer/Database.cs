@@ -25,6 +25,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml;
+using Depressurizer.Forms;
 using Depressurizer.Properties;
 using DepressurizerCore;
 using DepressurizerCore.Models;
@@ -438,24 +439,24 @@ namespace Depressurizer
                     g.Flags = null;
                     g.Genres = null;
                     g.SteamReleaseDate = null;
-                    g.LastStoreScrape = -1;
+                    g.LastStoreScrape = 0;
                     g.VRSupport = null;
                     g.LanguageSupport = null;
                 }
 
                 /* Update database */
-                Queue<int> gamesToUpdate = new Queue<int>();
+                List<int> gamesToUpdate = new List<int>();
                 if (FormMain.CurrentProfile != null)
                 {
                     foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
                     {
                         if (game.Id > 0)
                         {
-                            gamesToUpdate.Enqueue(game.Id);
+                            gamesToUpdate.Add(game.Id);
                         }
                     }
 
-                    using (DbScrapeDlg dialog = new DbScrapeDlg(gamesToUpdate))
+                    using (ScrapeDialog dialog = new ScrapeDialog(gamesToUpdate))
                     {
                         dialog.ShowDialog();
                     }
