@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using Depressurizer.Forms;
 using Depressurizer.Properties;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
@@ -770,42 +771,43 @@ namespace Depressurizer
         /// <summary>
         ///     Performs a web scrape on the given games.
         /// </summary>
-        /// <param name="gamesToScrape">Queue of games to scrape</param>
-        private void ScrapeGames(Queue<int> gamesToScrape)
+        /// <param name="appsToScrape">List of appIds to scrape</param>
+        private void ScrapeGames(List<int> appsToScrape)
         {
-            if (gamesToScrape.Count > 0)
-            {
-                DbScrapeDlg dlg = new DbScrapeDlg(gamesToScrape);
-                DialogResult res = dlg.ShowDialog();
-
-                if (dlg.Error != null)
-                {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGames);
-                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                if (res == DialogResult.Cancel)
-                {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
-                }
-                else if (res == DialogResult.Abort)
-                {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dlg.JobsCompleted, dlg.JobsTotal));
-                }
-                else
-                {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dlg.JobsCompleted));
-                }
-
-                if (dlg.JobsCompleted > 0)
-                {
-                    UnsavedChanges = true;
-                    RebuildDisplayList();
-                }
-            }
-            else
+            if (appsToScrape.Count <= 0)
             {
                 AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
+
+                return;
+            }
+
+            using (ScrapeDialog dialog = new ScrapeDialog(appsToScrape))
+            {
+                DialogResult scrapeResult = dialog.ShowDialog();
+
+                switch (scrapeResult)
+                {
+                    case DialogResult.Cancel:
+                        AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
+
+                        break;
+                    case DialogResult.Abort:
+                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dialog.CompletedJobs, dialog.TotalJobs));
+
+                        break;
+                    default:
+                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dialog.CompletedJobs));
+
+                        break;
+                }
+
+                if (dialog.CompletedJobs <= 0)
+                {
+                    return;
+                }
+
+                UnsavedChanges = true;
+                RebuildDisplayList();
             }
         }
 
@@ -816,18 +818,17 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            Queue<int> gamesToScrape = new Queue<int>();
-
-            foreach (DatabaseEntry g in Database.Instance.Apps.Values)
+            List<int> appsToScrape = new List<int>();
+            foreach (DatabaseEntry entry in Database.Instance.Apps.Values)
             {
-                //Only scrape displayed games
-                if (g.LastStoreScrape == 0 && ShouldDisplayGame(g))
+                if (entry.LastStoreScrape == 0 && ShouldDisplayGame(entry))
                 {
-                    gamesToScrape.Enqueue(g.Id);
+                    appsToScrape.Add(entry.Id);
                 }
             }
 
-            ScrapeGames(gamesToScrape);
+            ScrapeGames(appsToScrape);
+
             Cursor = Cursors.Default;
         }
 
@@ -836,20 +837,22 @@ namespace Depressurizer
         /// </summary>
         private void ScrapeSelected()
         {
-            if (lstGames.SelectedIndices.Count > 0)
+            if (lstGames.SelectedIndices.Count <= 0)
             {
-                Cursor = Cursors.WaitCursor;
-
-                Queue<int> gamesToScrape = new Queue<int>();
-
-                foreach (int index in lstGames.SelectedIndices)
-                {
-                    gamesToScrape.Enqueue(displayedGames[index].Id);
-                }
-
-                ScrapeGames(gamesToScrape);
-                Cursor = Cursors.Default;
+                return;
             }
+
+            Cursor = Cursors.WaitCursor;
+
+            List<int> appsToScrape = new List<int>();
+            foreach (int appIndex in lstGames.SelectedIndices)
+            {
+                appsToScrape.Add(displayedGames[appIndex].Id);
+            }
+
+            ScrapeGames(appsToScrape);
+
+            Cursor = Cursors.Default;
         }
 
         /// <summary>
