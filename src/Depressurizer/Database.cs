@@ -19,15 +19,19 @@
 #endregion
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using Depressurizer.Forms;
 using Depressurizer.Properties;
 using DepressurizerCore;
+using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -176,11 +180,11 @@ namespace Depressurizer
         }
 
         // Main Data
-        public Dictionary<int, DatabaseEntry> Apps { get; } = new Dictionary<int, DatabaseEntry>();
+        public ConcurrentDictionary<int, DatabaseEntry> Apps { get; } = new ConcurrentDictionary<int, DatabaseEntry>();
 
         public StoreLanguage Language { get; set; } = StoreLanguage.Default;
 
-        public long LastHltbUpdate { get; set; }
+        public long LastHLTBUpdate { get; set; }
 
         #endregion
 
@@ -657,7 +661,7 @@ namespace Depressurizer
                         DatabaseEntry g = new DatabaseEntry();
                         g.Id = appId;
                         g.Name = gameName;
-                        Apps.Add(appId, g);
+                        Apps.TryAdd(appId, g);
                         added++;
                     }
                 }
@@ -751,59 +755,57 @@ namespace Depressurizer
             IntegrateAppList(doc);
         }
 
-        /// <summary>
-        ///     Updated the database with information from the AppInfo cache file.
-        /// </summary>
-        /// <param name="path">Path to the cache file</param>
-        /// <returns>The number of entries integrated into the database.</returns>
         public int UpdateFromAppInfo(string path)
         {
+            Logger.Instance.Info("Database: Updating from AppInfo");
             int updated = 0;
 
-            Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
-            long timestamp = DateTimeOffset.Now.ToUnixTimeSeconds();
-
-            foreach (AppInfo appInfo in appInfos.Values)
+            lock (SyncRoot)
             {
-                if (appInfo.AppType != AppType.Game && appInfo.AppType != AppType.Application && appInfo.AppType != AppType.Unknown)
-                {
-                    continue;
-                }
+                Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
+                long currentUnixTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
-                DatabaseEntry entry;
-                if (!Apps.ContainsKey(appInfo.Id))
+                Parallel.ForEach(appInfos.Values, appInfo =>
                 {
-                    entry = new DatabaseEntry(appInfo.Id);
-                    Apps.Add(entry.Id, entry);
-                }
-                else
-                {
-                    entry = Apps[appInfo.Id];
-                }
+                    DatabaseEntry entry;
 
-                entry.LastAppInfoUpdate = timestamp;
-                if (appInfo.AppType != AppType.Unknown)
-                {
-                    entry.AppType = appInfo.AppType;
-                }
+                    if (Contains(appInfo.Id))
+                    {
+                        entry = Apps[appInfo.Id];
+                    }
+                    else
+                    {
+                        entry = new DatabaseEntry(appInfo.Id);
+                        Apps.TryAdd(entry.Id, entry);
+                    }
 
-                if (!string.IsNullOrEmpty(appInfo.Name))
-                {
-                    entry.Name = appInfo.Name;
-                }
+                    entry.LastAppInfoUpdate = currentUnixTime;
 
-                if (entry.Platforms == AppPlatforms.None || entry.LastStoreScrape == 0 && appInfo.Platforms > AppPlatforms.None)
-                {
-                    entry.Platforms = appInfo.Platforms;
-                }
+                    if (appInfo.AppType != AppType.Unknown)
+                    {
+                        entry.AppType = appInfo.AppType;
+                    }
 
-                if (appInfo.Parent > 0)
-                {
-                    entry.ParentId = appInfo.Parent;
-                }
+                    if (!string.IsNullOrEmpty(appInfo.Name))
+                    {
+                        entry.Name = appInfo.Name;
+                    }
 
-                updated++;
+                    if (entry.Platforms == AppPlatforms.None || entry.LastStoreScrape == 0 && appInfo.Platforms > AppPlatforms.None)
+                    {
+                        entry.Platforms = appInfo.Platforms;
+                    }
+
+                    if (appInfo.Parent > 0)
+                    {
+                        entry.ParentId = appInfo.Parent;
+                    }
+
+                    updated++;
+                });
             }
+
+            Logger.Instance.Info("Database: Updated from AppInfo");
 
             return updated;
         }
@@ -863,7 +865,7 @@ namespace Depressurizer
                 }
             }
 
-            LastHltbUpdate = DateTimeOffset.Now.ToUnixTimeSeconds();
+            LastHLTBUpdate = DateTimeOffset.Now.ToUnixTimeSeconds();
 
             return updated;
         }

@@ -112,7 +112,7 @@ namespace Depressurizer
                 }
                 else
                 {
-                    Database.Instance.Apps.Add(dlg.Game.Id, dlg.Game);
+                    Database.Instance.Apps.TryAdd(dlg.Game.Id, dlg.Game);
 
                     if (ShouldDisplayGame(dlg.Game))
                     {
@@ -391,7 +391,7 @@ namespace Depressurizer
                         DatabaseEntry game = displayedGames[index];
                         if (game != null)
                         {
-                            Database.Instance.Apps.Remove(game.Id);
+                            Database.Instance.Apps.TryRemove(game.Id, out DatabaseEntry removedEntry);
                             deleted++;
                         }
                     }
