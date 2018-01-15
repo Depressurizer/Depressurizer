@@ -39,6 +39,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(640, 360);
             this.Name = "DepressurizerDialog";
             this.Text = "DepressurizerDialog";
             this.ResumeLayout(false);
