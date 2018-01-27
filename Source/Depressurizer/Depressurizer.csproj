@@ -263,12 +263,6 @@
     <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DlgAbout.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAbout.Designer.cs">
-      <DependentUpon>DlgAbout.cs</DependentUpon>
-    </Compile>
     <Compile Include="DlgAutoCatSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -472,9 +466,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.uk.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAbout.resx">
-      <DependentUpon>DlgAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatSelect.resx">
       <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>

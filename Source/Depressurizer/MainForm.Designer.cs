@@ -1489,14 +1489,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.menu_Tools_Settings, "menu_Tools_Settings");
             this.menu_Tools_Settings.Click += new System.EventHandler(this.menu_Tools_Settings_Click);
             // 
-            // menu_About
-            // 
-            this.menu_About.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.menu_About.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(173)))), ((int)(((byte)(175)))));
-            this.menu_About.Name = "menu_About";
-            resources.ApplyResources(this.menu_About, "menu_About");
-            this.menu_About.Click += new System.EventHandler(this.menu_About_Click);
-            // 
             // picAvatar
             // 
             resources.ApplyResources(this.picAvatar, "picAvatar");
