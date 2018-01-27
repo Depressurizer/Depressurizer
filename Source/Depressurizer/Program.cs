@@ -21,7 +21,6 @@
 using System;
 using System.Windows.Forms;
 using DepressurizerCore.Helpers;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -30,8 +29,6 @@ namespace Depressurizer
         #region Static Fields
 
         public static GameDB GameDB;
-
-        public static AppLogger Logger;
 
         #endregion
 
@@ -50,27 +47,15 @@ namespace Depressurizer
             AppDomain.CurrentDomain.UnhandledException += SentryLogger.OnUnhandledException;
             Application.ThreadException += SentryLogger.OnThreadException;
 
-            Logger = new AppLogger
-            {
-                Level = LoggerLevel.None,
-                DateFormat = "HH:mm:ss'.'ffffff",
-                MaxFileSize = 2000000,
-                MaxBackup = 1,
-                FileNameTemplate = "Depressurizer.log"
-            };
-
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
             Settings.Instance.Load();
 
-            
             Application.Run(new FormMain());
         }
 
         private static void OnApplicationExit(object sender, EventArgs e)
         {
             Settings.Instance.Save();
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
-            Logger.EndSession();
+            Logger.Instance.Dispose();
         }
 
         #endregion

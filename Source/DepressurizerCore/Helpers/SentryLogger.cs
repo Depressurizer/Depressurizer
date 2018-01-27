@@ -43,7 +43,7 @@ namespace DepressurizerCore.Helpers
         /// </summary>
         public static void Log(Exception e)
         {
-            Console.WriteLine(e);
+            Logger.Instance.Exception("Unhandled exception:", e);
             RavenClient.Capture(new SentryEvent(e));
         }
 

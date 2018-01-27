@@ -24,6 +24,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using DepressurizerCore.Helpers;
 
 namespace Depressurizer
 {
@@ -480,9 +481,8 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.Write(Rallion.LoggerLevel.Warning,
-                    GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
-                Program.Logger.Write(Rallion.LoggerLevel.Warning, e.Message);
+                Logger.Instance.Warn(GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
+                Logger.Instance.Warn(e.Message);
             }
             return null;
         }

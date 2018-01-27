@@ -53,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\Location.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\SentryLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
