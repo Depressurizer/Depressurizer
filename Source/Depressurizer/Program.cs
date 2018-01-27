@@ -18,7 +18,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Windows.Forms;
-using NDesk.Options;
 using Rallion;
 
 namespace Depressurizer
@@ -50,57 +49,13 @@ namespace Depressurizer
             Settings.Instance.Load();
 
             Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
-
-            AutomaticModeOptions autoOpts = ParseAutoOptions(args);
-
-            if (autoOpts != null)
-            {
-                Logger.Write(LoggerLevel.Info, "Automatic mode set, loading automatic mode form.");
-                Logger.WriteObject(LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:");
-                Application.Run(new AutomaticModeForm(autoOpts));
-            }
-            else
-            {
-                Logger.Write(LoggerLevel.Info, "Automatic mode not set, loading main form.");
-                Application.Run(new FormMain());
-            }
+            Logger.Write(LoggerLevel.Info, "Automatic mode not set, loading main form.");
+            Application.Run(new FormMain());
+            
             Settings.Instance.Save();
 
             Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
             Logger.EndSession();
-        }
-
-        static AutomaticModeOptions ParseAutoOptions(string[] args)
-        {
-            AutomaticModeOptions config = new AutomaticModeOptions();
-            bool auto = false;
-
-            var opts = new OptionSet
-            {
-                {"auto", v => auto = true},
-                {"p|profile=", v => config.CustomProfile = v},
-                {"checksteam", v => config.CheckSteam = (v != null)},
-                {"closesteam", v => config.CloseSteam = (v != null)},
-                {"updatelib", v => config.UpdateGameList = (v != null)},
-                {"import", v => config.ImportSteamCategories = (v != null)},
-                {"updatedblocal", v => config.UpdateAppInfo = (v != null)},
-                {"updatedbhltb", v => config.UpdateHltb = (v != null)},
-                {"updatedbweb", v => config.ScrapeUnscrapedGames = (v != null)},
-                {"savedb", v => config.SaveDBChanges = (v != null)},
-                {"saveprofile", v => config.SaveProfile = (v != null)},
-                {"export", v => config.ExportToSteam = (v != null)},
-                {"launch", v => config.SteamLaunch = SteamLaunchType.Normal},
-                {"launchbp", v => config.SteamLaunch = SteamLaunchType.BigPicture},
-                {"tolerant", v => config.TolerateMinorErrors = (v != null)},
-                {"quiet", v => config.AutoClose = AutoCloseType.UnlessError},
-                {"silent", v => config.AutoClose = AutoCloseType.Always},
-                {"all", v => config.ApplyAllAutoCats = (v != null)},
-                {"<>", v => config.AutoCats.Add(v)}
-            };
-
-            opts.Parse(args);
-
-            return auto ? config : null;
         }
     }
 }
