@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using DepressurizerCore.Helpers;
+using DepressurizerCore.Models;
 using Rallion;
 
 namespace Depressurizer

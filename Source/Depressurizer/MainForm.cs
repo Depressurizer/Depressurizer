@@ -30,6 +30,7 @@ using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using DepressurizerCore.Helpers;
+using DepressurizerCore.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Newtonsoft.Json.Linq;
