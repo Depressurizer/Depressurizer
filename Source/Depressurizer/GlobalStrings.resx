@@ -760,12 +760,6 @@ Continue loading file?</value>
   <data name="Profile_SavingProfile" xml:space="preserve">
     <value>Saving profile: {0}</value>
   </data>
-  <data name="Program_ProgramClosing" xml:space="preserve">
-    <value>Program closing.</value>
-  </data>
-  <data name="Program_ProgramInitialized" xml:space="preserve">
-    <value>Program initialized. Logging level set to {0}.</value>
-  </data>
   <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
     <value>Node is a value, not an array. Cannot get key {0}</value>
   </data>

@@ -3747,24 +3747,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Program closing..
-        /// </summary>
-        internal static string Program_ProgramClosing {
-            get {
-                return ResourceManager.GetString("Program_ProgramClosing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Program initialized. Logging level set to {0}..
-        /// </summary>
-        internal static string Program_ProgramInitialized {
-            get {
-                return ResourceManager.GetString("Program_ProgramInitialized", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to and.
         /// </summary>
         internal static string Text_And {
