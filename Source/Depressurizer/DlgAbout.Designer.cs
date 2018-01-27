@@ -29,7 +29,6 @@
             this.lblVersion = new System.Windows.Forms.Label();
             this.lnkHomepage = new System.Windows.Forms.LinkLabel();
             this.lnkLicense = new System.Windows.Forms.LinkLabel();
-            this.lnkNDesk = new System.Windows.Forms.LinkLabel();
             this.flowLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +51,6 @@
             this.flowLayout.Controls.Add(this.lblVersion);
             this.flowLayout.Controls.Add(this.lnkHomepage);
             this.flowLayout.Controls.Add(this.lnkLicense);
-            this.flowLayout.Controls.Add(this.lnkNDesk);
             this.flowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayout.Location = new System.Drawing.Point(0, 0);
@@ -107,20 +105,6 @@
             this.lnkLicense.UseCompatibleTextRendering = true;
             this.lnkLicense.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLicense_LinkClicked);
             // 
-            // lnkNDesk
-            // 
-            this.lnkNDesk.AutoSize = true;
-            this.lnkNDesk.LinkArea = new System.Windows.Forms.LinkArea(79, 21);
-            this.lnkNDesk.Location = new System.Drawing.Point(3, 96);
-            this.lnkNDesk.Name = "lnkNDesk";
-            this.lnkNDesk.Size = new System.Drawing.Size(411, 30);
-            this.lnkNDesk.TabIndex = 4;
-            this.lnkNDesk.TabStop = true;
-            this.lnkNDesk.Text = "This program incorporates the NDesk Options module, copyright (C) 2008 Novell (ht" +
-    "tp://www.novell.com)";
-            this.lnkNDesk.UseCompatibleTextRendering = true;
-            this.lnkNDesk.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkNDesk_LinkClicked);
-            // 
             // DlgAbout
             // 
             this.AcceptButton = this.cmdClose;
@@ -152,6 +136,5 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.LinkLabel lnkHomepage;
         private System.Windows.Forms.LinkLabel lnkLicense;
-        private System.Windows.Forms.LinkLabel lnkNDesk;
     }
 }
