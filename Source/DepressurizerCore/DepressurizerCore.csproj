@@ -56,6 +56,7 @@
     <Compile Include="Helpers\Location.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\SentryLogger.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
