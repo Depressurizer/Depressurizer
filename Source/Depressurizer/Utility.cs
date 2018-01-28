@@ -264,29 +264,6 @@ namespace Depressurizer
             }
         }
 
-        public static bool GrabBanner(int id)
-        {
-            string bannerURL = string.Format(Properties.Resources.UrlGameBanner, id);
-            string bannerPath = string.Format(Properties.Resources.GameBannerPath,
-                Path.GetDirectoryName(Application.ExecutablePath), id);
-
-            try
-            {
-                if (!Directory.Exists(Path.GetDirectoryName(bannerPath)))
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(bannerPath));
-                }
-
-                return SaveRemoteImageToFile(bannerURL, bannerPath, id);
-            }
-            catch
-            {
-                Logger.Instance.Warn(
-                    string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
-                return false;
-            }
-        }
-
         public static bool IsOnScreen(MaterialForm form)
         {
             Screen[] screens = Screen.AllScreens;

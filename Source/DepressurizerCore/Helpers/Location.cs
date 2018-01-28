@@ -19,6 +19,7 @@
 #endregion
 
 using System;
+using System.Globalization;
 using System.IO;
 
 namespace DepressurizerCore.Helpers
@@ -38,7 +39,19 @@ namespace DepressurizerCore.Helpers
             /// <summary>
             ///     Active log file
             /// </summary>
-            public static string Log => Path.Combine(Folder.Logs, $"Depressurizer-({DateTime.Now:dd-MM-yyyy}).log");
+            public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "Depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));
+
+            #endregion
+
+            #region Public Methods and Operators
+
+            /// <summary>
+            ///     App-Specific Banner File
+            /// </summary>
+            public static string Banner(int appId)
+            {
+                return Path.Combine(Folder.Banners, string.Format(CultureInfo.InvariantCulture, "{0}.jpg", appId));
+            }
 
             #endregion
         }
@@ -58,6 +71,22 @@ namespace DepressurizerCore.Helpers
                 get
                 {
                     string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    return path;
+                }
+            }
+            /// <summary>
+            ///     Depressurizer/Banners Folder
+            /// </summary>
+            public static string Banners
+            {
+                get
+                {
+                    string path = Path.Combine(Depressurizer, "Banners");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);

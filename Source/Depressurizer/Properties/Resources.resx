@@ -129,9 +129,6 @@
   <data name="DepressurizerHomepage" xml:space="preserve">
     <value>https://github.com/Depressurizer/depressurizer</value>
   </data>
-  <data name="GameBannerPath" xml:space="preserve">
-    <value>{0}\Game Banners\{1}.jpg</value>
-  </data>
   <data name="LocalConfigPath" xml:space="preserve">
     <value>{0}\userdata\{1}\config\localconfig.vdf</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="UrlCustomProfileXml" xml:space="preserve">
     <value>http://steamcommunity.com/id/{0}?xml=1</value>
-  </data>
-  <data name="UrlGameBanner" xml:space="preserve">
-    <value>https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg</value>
   </data>
   <data name="UrlGameListHtml" xml:space="preserve">
     <value>http://steamcommunity.com/profiles/{0}/games?tab=all</value>

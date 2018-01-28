@@ -293,7 +293,6 @@
     <Compile Include="DlgRestore.Designer.cs">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameBanners.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
