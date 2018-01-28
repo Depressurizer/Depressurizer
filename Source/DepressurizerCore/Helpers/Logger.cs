@@ -248,6 +248,11 @@ namespace DepressurizerCore.Helpers
         {
             lock (SyncRoot)
             {
+                if (logLevel == LogLevel.Verbose)
+                {
+                    return;
+                }
+
                 string logEntry = string.Format(CultureInfo.InvariantCulture, "{0} {1,-7} | {2}", DateTime.Now, logLevel, logMessage);
                 LogQueue.Enqueue(logEntry);
 
