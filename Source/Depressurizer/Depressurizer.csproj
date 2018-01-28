@@ -263,6 +263,18 @@
     <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\DepressurizerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DepressurizerDialog.Designer.cs">
+      <DependentUpon>DepressurizerDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SteamPathDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SteamPathDialog.Designer.cs">
+      <DependentUpon>SteamPathDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="DlgAutoCatSelect.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -298,6 +310,16 @@
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GlobalStrings.ru.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalStrings.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalStrings.uk.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalStrings.uk.resx</DependentUpon>
     </Compile>
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
@@ -395,12 +417,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DlgSteamPath.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgSteamPath.Designer.cs">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </Compile>
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -458,6 +474,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.uk.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DepressurizerDialog.resx">
+      <DependentUpon>DepressurizerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SteamPathDialog.resx">
+      <DependentUpon>SteamPathDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatSelect.resx">
       <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
@@ -534,15 +556,6 @@
     <EmbeddedResource Include="DlgRestore.uk.resx">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.nl.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.ru.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.uk.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.nl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalStrings.nl.Designer.cs</LastGenOutput>
@@ -585,16 +598,19 @@
     <EmbeddedResource Include="DlgProfile.es.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.es.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalStrings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalStrings.ru.resx" />
-    <EmbeddedResource Include="GlobalStrings.uk.resx" />
+    <EmbeddedResource Include="GlobalStrings.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lib\CancelableDlg.es.resx">
       <DependentUpon>CancelableDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -646,9 +662,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgSteamPath.resx">
-      <DependentUpon>DlgSteamPath.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru.resx" />
     <EmbeddedResource Include="Properties\Resources.uk.resx" />
