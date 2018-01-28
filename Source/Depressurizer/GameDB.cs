@@ -34,31 +34,12 @@ using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Properties;
 using DepressurizerCore.Helpers;
+using DepressurizerCore.Models;
 using Newtonsoft.Json.Linq;
 using Rallion;
 
 namespace Depressurizer
 {
-    public struct VrSupport
-    {
-        [DefaultValue(null), XmlElement("Headset")]
-        public List<string> Headsets;
-        [DefaultValue(null), XmlElement("Input")]
-        public List<string> Input;
-        [DefaultValue(null), XmlElement("PlayArea")]
-        public List<string> PlayArea;
-    }
-
-    public struct LanguageSupport
-    {
-        [DefaultValue(null), XmlElement("Interface")]
-        public List<string> Interface;
-        [DefaultValue(null), XmlElement("FullAudio")]
-        public List<string> FullAudio;
-        [DefaultValue(null), XmlElement("Subtitles")]
-        public List<string> Subtitles;
-    }
-
     [XmlRoot(ElementName = "game")]
     public class GameDBEntry
     {
@@ -88,9 +69,9 @@ namespace Depressurizer
         [DefaultValue(0)]
         public int TotalAchievements;
 
-        public VrSupport VrSupport;     //TODO: Add field to DB edit dialog
+        public VRSupport VrSupport = new VRSupport();     //TODO: Add field to DB edit dialog
 
-        public LanguageSupport LanguageSupport;     //TODO: Add field to DB edit dialog
+        public LanguageSupport LanguageSupport = new LanguageSupport();     //TODO: Add field to DB edit dialog
 
         [XmlIgnore]
         public string Banner = null;
@@ -688,8 +669,8 @@ namespace Depressurizer
         private SortedSet<string> allStoreFlags;
         private SortedSet<string> allStoreDevelopers;
         private SortedSet<string> allStorePublishers;
-        private VrSupport allVrSupportFlags;
-        private LanguageSupport allLanguages;
+        private VRSupport allVrSupportFlags = new VRSupport();
+        private LanguageSupport allLanguages = new LanguageSupport();
         public int LastHltbUpdate;
 
         public StoreLanguage dbLanguage = StoreLanguage.en;
@@ -787,7 +768,7 @@ namespace Depressurizer
         {
             if (Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].VrSupport;
+                VRSupport res = Games[gameId].VrSupport;
                 if ((res.Headsets != null && res.Headsets.Count > 0) || (res.Input != null && res.Input.Count > 0) ||
                     (res.PlayArea != null && res.PlayArea.Count > 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
@@ -799,11 +780,11 @@ namespace Depressurizer
             return false;
         }
 
-        public VrSupport GetVrSupport(int gameId, int depth = 3)
+        public VRSupport GetVrSupport(int gameId, int depth = 3)
         {
             if (Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].VrSupport;
+                VRSupport res = Games[gameId].VrSupport;
                 if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) &&
                     (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
                 {
@@ -811,7 +792,7 @@ namespace Depressurizer
                 }
                 return res;
             }
-            return new VrSupport();
+            return new VRSupport();
         }
 
 
@@ -1029,7 +1010,7 @@ namespace Depressurizer
         /// Only recalculates if necessary.
         /// </summary>
         /// <returns>A VrSupport struct containing the flags</returns>
-        public VrSupport GetAllVrSupportFlags()
+        public VRSupport GetAllVrSupportFlags()
         {
             if (allVrSupportFlags.Headsets == null || allVrSupportFlags.Input == null ||
                 allVrSupportFlags.PlayArea == null)
@@ -1044,7 +1025,7 @@ namespace Depressurizer
         /// Always recalculates.
         /// </summary>
         /// <returns>A VrSupport struct containing the flags</returns>
-        public VrSupport CalculateAllVrSupportFlags()
+        public VRSupport CalculateAllVrSupportFlags()
         {
             SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -1505,7 +1486,7 @@ namespace Depressurizer
                     g.Genres = null;
                     g.SteamReleaseDate = null;
                     g.LastStoreScrape = 1; //pretend it is really old data
-                    g.VrSupport = new VrSupport();
+                    g.VrSupport = new VRSupport();
                     g.LanguageSupport = new LanguageSupport();
                 }
             }
