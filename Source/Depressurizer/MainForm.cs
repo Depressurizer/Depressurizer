@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Depressurizer.Properties;
 using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using MaterialSkin;
@@ -99,11 +100,6 @@ namespace Depressurizer
             originalSplitDistanceBrowser;
 
         private readonly MaterialSkinManager materialSkinManager;
-
-        // For getting game banners
-        GameBanners bannerGrabber;
-
-        Thread bannerThread;
 
         // used to prevent moving the filler column in the game list
         Thread columnReorderThread;
@@ -1927,32 +1923,36 @@ namespace Depressurizer
         /// </summary>
         private void FillGameList()
         {
-            List<GameInfo> gamelist = new List<GameInfo>();
             Cursor = Cursors.WaitCursor;
+
+            List<GameInfo> gamelist = new List<GameInfo>();
+            List<int> appIds = new List<int>();
+
             if (CurrentProfile != null)
             {
                 foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
                 {
-                    if (g.Id < 0 && !CurrentProfile.IncludeShortcuts) continue;
-                    gamelist.Add(g);
-                    if (g.Name == null)
+                    if (g.Id < 0 && !CurrentProfile.IncludeShortcuts)
+                    {
+                        continue;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(g.Name))
                     {
                         g.Name = string.Empty;
-                        gamelist.Add(g);
                     }
+
+                    gamelist.Add(g);
+                    appIds.Add(g.Id);
                 }
             }
 
-            if (gamelist.Count > 0)
-            {
-                StartBannerThread(new List<GameInfo>(gamelist));
-            }
+            Steam.GrabBanners(appIds);
 
             lstGames.SetObjects(gamelist);
-
             lstGames.BuildList();
 
-            mbtnAutoCategorize.Text = string.Format(Properties.Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+            mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
 
             Cursor = Cursors.Default;
         }
@@ -2093,18 +2093,6 @@ namespace Depressurizer
                 lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
             lstCategories.Sort();
             lstCategories.EndUpdate();
-        }
-
-        private void StartBannerThread(List<GameInfo> games)
-        {
-            if ((bannerThread != null) && (bannerThread.IsAlive))
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-            bannerGrabber = new GameBanners(games);
-            bannerThread = new Thread(bannerGrabber.Grab);
-            bannerThread.Start();
         }
 
         private ListViewItem CreateCategoryListViewItem(Category c)
@@ -2401,12 +2389,6 @@ namespace Depressurizer
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((bannerThread != null) && (bannerThread.IsAlive))
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-
             Settings settings = Settings.Instance;
             settings.X = Left;
             settings.Y = Top;
@@ -3691,8 +3673,9 @@ namespace Depressurizer
 
             // Add game banner to ID column
             GameInfo g = (GameInfo) e.Model;
-            string bannerFile = string.Format(Properties.Resources.GameBannerPath,
-                Path.GetDirectoryName(Application.ExecutablePath), g.Id);
+
+
+            string bannerFile = DepressurizerCore.Helpers.Location.File.Banner(g.Id);
             if (!File.Exists(bannerFile)) return;
 
             try
