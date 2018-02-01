@@ -650,6 +650,7 @@ namespace DepressurizerCore.Models
             HttpWebResponse resp = null;
             try
             {
+                LastStoreScrape = DateTimeOffset.Now.ToUnixTimeSeconds();
                 string storeLanguage = Settings.Instance.StoreLanguage.ToString().ToLower();
                 HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, "http://store.steampowered.com/app/{0}/?l={1}", id, storeLanguage));
                 resp = (HttpWebResponse) req.GetResponse();
@@ -780,8 +781,11 @@ namespace DepressurizerCore.Models
                 result = AppType.Unknown;
             }
 
-            LastStoreScrape = DateTimeOffset.Now.ToUnixTimeSeconds();
-
+            //Save last AppInfoUpdate
+            if (result.Equals(AppType.Game) || result.Equals(AppType.Application))
+            {
+                LastAppInfoUpdate = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            }
             return result;
         }
 
