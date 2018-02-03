@@ -260,9 +260,6 @@
     <Compile Include="AutoCat\CDlgCurator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CDlgHltb.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,6 +277,9 @@
     </Compile>
     <Compile Include="Dialogs\DepressurizerDialog.Designer.cs">
       <DependentUpon>DepressurizerDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\HLTBDialog.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\ScrapeDialog.cs">
       <SubType>Form</SubType>
