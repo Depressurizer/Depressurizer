@@ -33,6 +33,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Properties;
+using DepressurizerCore;
 using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using Newtonsoft.Json.Linq;
@@ -225,17 +226,7 @@ namespace Depressurizer
             HttpWebResponse resp = null;
             try
             {
-                string storeLanguage = "en";
-                if (Program.GameDB != null)
-                {
-                    if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans) storeLanguage = "schinese";
-                    else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant) storeLanguage = "tchinese";
-                    else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR) storeLanguage = "brazilian";
-                    else
-                        storeLanguage = CultureInfo
-                            .GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName
-                            .ToLowerInvariant();
-                }
+	            string storeLanguage = Settings.Instance.StoreLanguage.ToString();
                 HttpWebRequest req =
                     GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();
@@ -672,11 +663,52 @@ namespace Depressurizer
         private VRSupport allVrSupportFlags = new VRSupport();
         private LanguageSupport allLanguages = new LanguageSupport();
         public int LastHltbUpdate;
+	    private StoreLanguage _dbLanguage;
 
-        public StoreLanguage dbLanguage = StoreLanguage.en;
+	    public StoreLanguage dbLanguage
+		{
+			get => _dbLanguage;
+			set
+			{
+				_dbLanguage = value;
 
-        // Utility
-        private const int VERSION = 2;
+				//clean DB from data in wrong language
+				foreach (GameDBEntry g in Games.Values)
+				{
+					if (g.Id > 0)
+					{
+						g.Tags = null;
+						g.Flags = null;
+						g.Genres = null;
+						g.SteamReleaseDate = null;
+						g.LastStoreScrape = 1; //pretend it is really old data
+						g.VrSupport = new VRSupport();
+						g.LanguageSupport = new LanguageSupport();
+					}
+				}
+
+				//Update DB with data in correct language
+				Queue<int> gamesToUpdate = new Queue<int>();
+				if (FormMain.CurrentProfile != null)
+				{
+					foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
+					{
+						if (game.Id > 0)
+						{
+							gamesToUpdate.Enqueue(game.Id);
+						}
+					}
+
+					DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
+					scrapeDlg.ShowDialog();
+				}
+
+				Save("GameDB.xml.gz");
+			}
+		}
+
+		// Utility
+		private const int VERSION = 2;
 
         private const string
             XmlName_RootNode = "gamelist",
@@ -1451,62 +1483,6 @@ namespace Depressurizer
             }
             LastHltbUpdate = Utility.GetCurrentUTime();
             return updated;
-        }
-
-        public void ChangeLanguage(StoreLanguage lang)
-        {
-            if (Program.GameDB == null) return;
-            StoreLanguage dbLang = StoreLanguage.en;
-            if (lang == StoreLanguage.windows)
-            {
-                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
-                    dbLang =
-                        (StoreLanguage)Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
-                else
-                {
-                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
-                        dbLang = StoreLanguage.zh_Hans;
-                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
-                        dbLang = StoreLanguage.zh_Hant;
-                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
-                        dbLang = StoreLanguage.pt_BR;
-                }
-            }
-            else dbLang = lang;
-            if (dbLanguage == dbLang) return;
-            dbLanguage = dbLang;
-            //clean DB from data in wrong language
-            foreach (GameDBEntry g in Games.Values)
-            {
-                if (g.Id > 0)
-                {
-                    g.Tags = null;
-                    g.Flags = null;
-                    g.Genres = null;
-                    g.SteamReleaseDate = null;
-                    g.LastStoreScrape = 1; //pretend it is really old data
-                    g.VrSupport = new VRSupport();
-                    g.LanguageSupport = new LanguageSupport();
-                }
-            }
-
-            //Update DB with data in correct language
-            Queue<int> gamesToUpdate = new Queue<int>();
-            if (FormMain.CurrentProfile != null)
-            {
-                foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
-                {
-                    if (game.Id > 0)
-                    {
-                        gamesToUpdate.Enqueue(game.Id);
-                    }
-                }
-                DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
-                scrapeDlg.ShowDialog();
-
-            }
-            Save("GameDB.xml.gz");
         }
 
         #endregion

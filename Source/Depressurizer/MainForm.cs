@@ -39,6 +39,7 @@ using BrightIdeasSoftware;
 using Depressurizer.Dialogs;
 using Depressurizer.Models;
 using Depressurizer.Properties;
+using DepressurizerCore;
 using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using MaterialSkin;
@@ -547,7 +548,7 @@ namespace Depressurizer
                     else
                     {
                         AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, scrapeDlg.JobsCompleted));
-                        if (scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutosaveDB)
+                        if (scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutoSaveDatabase)
                         {
                             SaveGameDB();
                         }
@@ -1689,9 +1690,9 @@ namespace Depressurizer
 
             ClearStatus();
 
-            if (Settings.Instance.SteamPath == null)
-            {
-                using (SteamPathDialog dialog = new SteamPathDialog())
+	        if (string.IsNullOrWhiteSpace(Settings.Instance.SteamPath))
+	        {
+		        using (SteamPathDialog dialog = new SteamPathDialog())
                 {
                     dialog.ShowDialog();
 
@@ -1700,18 +1701,18 @@ namespace Depressurizer
                 }
             }
 
-            if (Settings.Instance.UpdateAppInfoOnStart)
+            if (Settings.Instance.OnStartUpdateFromAppInfo)
             {
                 UpdateGameDBFromAppInfo();
             }
 
             int aWeekInSecs = 7 * 24 * 60 * 60;
-            if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() > Program.GameDB.LastHltbUpdate + aWeekInSecs)
+            if (Settings.Instance.OnStartUpdateFromHLTB && Utility.GetCurrentUTime() > Program.GameDB.LastHltbUpdate + aWeekInSecs)
             {
                 UpdateGameDBFromHltb();
             }
 
-            if (Settings.Instance.CheckForDepressurizerUpdates)
+            if (Settings.Instance.CheckForUpdates)
             {
                 CheckForDepressurizerUpdates();
             }
@@ -1732,7 +1733,7 @@ namespace Depressurizer
                     break;
             }
 
-            Program.GameDB.ChangeLanguage(settings.StoreLang);
+	        Program.GameDB.dbLanguage = Settings.Instance.StoreLanguage;
 
             UpdateUIForSingleCat();
             UpdateEnabledStatesForGames();
@@ -2415,7 +2416,11 @@ namespace Depressurizer
             };
 
             lstGames.PrimarySortColumn = colTitle;
-            lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.LstGamesState));
+
+	        if (!string.IsNullOrWhiteSpace(Settings.Instance.ListGamesState))
+	        {
+		        lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.ListGamesState));
+			}
         }
 
         private void InitializeObjectListView()
@@ -2887,30 +2892,11 @@ namespace Depressurizer
 
         private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string storeLanguage = "en";
+            string storeLanguage = Settings.Instance.StoreLanguage.ToString();
             contextGameFav_Yes.Checked = false;
             contextGameFav_No.Checked = false;
             contextGameHidden_Yes.Checked = false;
             contextGameHidden_No.Checked = false;
-            if (Program.GameDB != null)
-            {
-                if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hans)
-                {
-                    storeLanguage = "schinese";
-                }
-                else if (Program.GameDB.dbLanguage == StoreLanguage.zh_Hant)
-                {
-                    storeLanguage = "tchinese";
-                }
-                else if (Program.GameDB.dbLanguage == StoreLanguage.pt_BR)
-                {
-                    storeLanguage = "brazilian";
-                }
-                else
-                {
-                    storeLanguage = CultureInfo.GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.GameDB.dbLanguage)).EnglishName.ToLowerInvariant();
-                }
-            }
 
             if (lstGames.SelectedObjects.Count > 0)
             {
@@ -3828,7 +3814,7 @@ namespace Depressurizer
                 ExportConfig();
             }
 
-            Settings.Instance.LstGamesState = Convert.ToBase64String(lstGames.SaveState());
+            Settings.Instance.ListGamesState = Convert.ToBase64String(lstGames.SaveState());
 
             try
             {
@@ -4255,7 +4241,7 @@ namespace Depressurizer
 
         /// <summary>
         ///     Updates the database using AppInfo cache. Displays an error message on failure. Saves the DB afterwards if
-        ///     AutosaveDB is set.
+        ///     AutoSaveDatabase is set.
         /// </summary>
         private void UpdateGameDBFromAppInfo()
         {
@@ -4263,7 +4249,7 @@ namespace Depressurizer
             {
                 int num = Program.GameDB.UpdateFromAppInfo(string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath));
                 AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
-                if (num > 0 && Settings.Instance.AutosaveDB)
+                if (num > 0 && Settings.Instance.AutoSaveDatabase)
                 {
                     SaveGameDB();
                 }
@@ -4277,7 +4263,7 @@ namespace Depressurizer
 
         /// <summary>
         ///     Updates the database using data from howlongtobeatsteam.com. Displays an error message on failure. Saves the DB
-        ///     afterwards if AutosaveDB is set.
+        ///     afterwards if AutoSaveDatabase is set.
         /// </summary>
         private void UpdateGameDBFromHltb()
         {
@@ -4301,7 +4287,7 @@ namespace Depressurizer
                 else
                 {
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dlg.Updated));
-                    if (dlg.Updated > 0 && Settings.Instance.AutosaveDB)
+                    if (dlg.Updated > 0 && Settings.Instance.AutoSaveDatabase)
                     {
                         SaveGameDB();
                     }

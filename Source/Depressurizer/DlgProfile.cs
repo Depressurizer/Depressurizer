@@ -24,6 +24,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using DepressurizerCore;
 using DepressurizerCore.Helpers;
 
 namespace Depressurizer

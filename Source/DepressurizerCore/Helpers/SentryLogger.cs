@@ -25,38 +25,38 @@ using SharpRaven.Data;
 
 namespace DepressurizerCore.Helpers
 {
-    /// <summary>
-    ///     Eror tracking that helps monitor and fix crashes in real time
-    /// </summary>
-    public static class SentryLogger
-    {
-        #region Properties
+	/// <summary>
+	///     Eror tracking that helps monitor and fix crashes in real time
+	/// </summary>
+	public static class SentryLogger
+	{
+		#region Properties
 
-        private static RavenClient RavenClient => new RavenClient("https://a9d2b7ef3ae04cb6bdcb47868d04941b:82545065dd864f878defde6bd2ae51d9@sentry.io/267726");
+		private static RavenClient RavenClient => new RavenClient("https://a9d2b7ef3ae04cb6bdcb47868d04941b:82545065dd864f878defde6bd2ae51d9@sentry.io/267726");
 
-        #endregion
+		#endregion
 
-        #region Public Methods and Operators
+		#region Public Methods and Operators
 
-        /// <summary>
-        ///     Sends Exception to Sentry
-        /// </summary>
-        public static void Log(Exception e)
-        {
-            Logger.Instance.Exception("Unhandled exception:", e);
-            RavenClient.Capture(new SentryEvent(e));
-        }
+		/// <summary>
+		///     Sends Exception to Sentry
+		/// </summary>
+		public static void Log(Exception e)
+		{
+			Logger.Instance.Exception("Unhandled exception:", e);
+			RavenClient.Capture(new SentryEvent(e));
+		}
 
-        public static void OnThreadException(object sender, ThreadExceptionEventArgs threadExceptionEventArgs)
-        {
-            Log(threadExceptionEventArgs.Exception);
-        }
+		public static void OnThreadException(object sender, ThreadExceptionEventArgs threadExceptionEventArgs)
+		{
+			Log(threadExceptionEventArgs.Exception);
+		}
 
-        public static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            Log(e.ExceptionObject as Exception);
-        }
+		public static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+		{
+			Log(e.ExceptionObject as Exception);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

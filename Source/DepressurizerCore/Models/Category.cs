@@ -22,71 +22,71 @@ using System;
 
 namespace DepressurizerCore.Models
 {
-    /// <summary>
-    ///     Single App Category
-    /// </summary>
-    public sealed class Category : IComparable
-    {
-        #region Constructors and Destructors
+	/// <summary>
+	///     Single App Category
+	/// </summary>
+	public sealed class Category : IComparable
+	{
+		#region Constructors and Destructors
 
-        /// <summary>
-        ///     Create a new Category
-        /// </summary>
-        public Category(string name)
-        {
-            Name = name;
-        }
+		/// <summary>
+		///     Create a new Category
+		/// </summary>
+		public Category(string name)
+		{
+			Name = name;
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        /// <summary>
-        ///     Number of Apps in this Category
-        /// </summary>
-        public int Count { get; set; } = 0;
+		/// <summary>
+		///     Number of Apps in this Category
+		/// </summary>
+		public int Count { get; set; } = 0;
 
-        /// <summary>
-        ///     Name of the Category
-        /// </summary>
-        public string Name { get; set; } = null;
+		/// <summary>
+		///     Name of the Category
+		/// </summary>
+		public string Name { get; set; }
 
-        #endregion
+		#endregion
 
-        #region Public Methods and Operators
+		#region Public Methods and Operators
 
-        /// <inheritdoc />
-        public int CompareTo(object obj)
-        {
-            if (obj == null)
-            {
-                return 1;
-            }
+		/// <inheritdoc />
+		public int CompareTo(object obj)
+		{
+			if (obj == null)
+			{
+				return 1;
+			}
 
-            if (!(obj is Category otherCategory))
-            {
-                throw new ArgumentException("Object is not a Category");
-            }
+			if (!(obj is Category otherCategory))
+			{
+				throw new ArgumentException("Object is not a Category");
+			}
 
-            if (string.Equals("favorite", Name, StringComparison.OrdinalIgnoreCase))
-            {
-                return -1;
-            }
+			if (string.Equals("favorite", Name, StringComparison.OrdinalIgnoreCase))
+			{
+				return -1;
+			}
 
-            if (string.Equals("favorite", otherCategory.Name, StringComparison.OrdinalIgnoreCase))
-            {
-                return 1;
-            }
+			if (string.Equals("favorite", otherCategory.Name, StringComparison.OrdinalIgnoreCase))
+			{
+				return 1;
+			}
 
-            return string.Compare(Name, otherCategory.Name, StringComparison.OrdinalIgnoreCase);
-        }
+			return string.Compare(Name, otherCategory.Name, StringComparison.OrdinalIgnoreCase);
+		}
 
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
-        }
+		/// <inheritdoc />
+		public override string ToString()
+		{
+			return Name;
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
