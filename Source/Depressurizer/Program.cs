@@ -20,6 +20,7 @@
 
 using System;
 using System.Windows.Forms;
+using DepressurizerCore;
 using DepressurizerCore.Helpers;
 
 namespace Depressurizer

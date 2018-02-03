@@ -22,16 +22,16 @@ using System.Collections.Generic;
 
 namespace DepressurizerCore.Models
 {
-    public sealed class VRSupport
-    {
-        #region Public Properties
+	public sealed class VRSupport
+	{
+		#region Public Properties
 
-        public List<string> Headsets { get; set; }
+		public List<string> Headsets { get; set; }
 
-        public List<string> Input { get; set; }
+		public List<string> Input { get; set; }
 
-        public List<string> PlayArea { get; set; }
+		public List<string> PlayArea { get; set; }
 
-        #endregion
-    }
+		#endregion
+	}
 }

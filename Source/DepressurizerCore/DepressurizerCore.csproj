@@ -61,6 +61,7 @@
     <Compile Include="Models\LanguageSupport.cs" />
     <Compile Include="Models\VRSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

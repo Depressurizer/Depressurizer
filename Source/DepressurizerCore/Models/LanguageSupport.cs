@@ -22,16 +22,16 @@ using System.Collections.Generic;
 
 namespace DepressurizerCore.Models
 {
-    public sealed class LanguageSupport
-    {
-        #region Public Properties
+	public sealed class LanguageSupport
+	{
+		#region Public Properties
 
-        public List<string> FullAudio { get; set; }
+		public List<string> FullAudio { get; set; }
 
-        public List<string> Interface { get; set; }
+		public List<string> Interface { get; set; }
 
-        public List<string> Subtitles { get; set; }
+		public List<string> Subtitles { get; set; }
 
-        #endregion
-    }
+		#endregion
+	}
 }

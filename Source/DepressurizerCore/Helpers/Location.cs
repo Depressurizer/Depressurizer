@@ -24,113 +24,116 @@ using System.IO;
 
 namespace DepressurizerCore.Helpers
 {
-    /// <summary>
-    ///     Location Controller
-    /// </summary>
-    public static class Location
-    {
-        /// <summary>
-        ///     File Controller
-        /// </summary>
-        public static class File
-        {
-            #region Public Properties
+	/// <summary>
+	///     Location Controller
+	/// </summary>
+	public static class Location
+	{
+		/// <summary>
+		///     File Controller
+		/// </summary>
+		public static class File
+		{
+			#region Public Properties
 
-            /// <summary>
-            ///     Active log file
-            /// </summary>
-            public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "Depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));
+			/// <summary>
+			///     Active log file
+			/// </summary>
+			public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "Depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));
 
-            #endregion
+			public static string Settings => Path.Combine(Folder.Depressurizer, "Settings.json");
 
-            #region Public Methods and Operators
+			#endregion
 
-            /// <summary>
-            ///     App-Specific Banner File
-            /// </summary>
-            public static string Banner(int appId)
-            {
-                return Path.Combine(Folder.Banners, string.Format(CultureInfo.InvariantCulture, "{0}.jpg", appId));
-            }
+			#region Public Methods and Operators
 
-            #endregion
-        }
+			/// <summary>
+			///     App-Specific Banner File
+			/// </summary>
+			public static string Banner(int appId)
+			{
+				return Path.Combine(Folder.Banners, string.Format(CultureInfo.InvariantCulture, "{0}.jpg", appId));
+			}
 
-        /// <summary>
-        ///     Folder Controller
-        /// </summary>
-        public static class Folder
-        {
-            #region Public Properties
+			#endregion
+		}
 
-            /// <summary>
-            ///     Common application-specific folder
-            /// </summary>
-            public static string AppData
-            {
-                get
-                {
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
+		/// <summary>
+		///     Folder Controller
+		/// </summary>
+		public static class Folder
+		{
+			#region Public Properties
 
-                    return path;
-                }
-            }
-            /// <summary>
-            ///     Depressurizer/Banners Folder
-            /// </summary>
-            public static string Banners
-            {
-                get
-                {
-                    string path = Path.Combine(Depressurizer, "Banners");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
+			/// <summary>
+			///     Common application-specific folder
+			/// </summary>
+			public static string AppData
+			{
+				get
+				{
+					string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+					if (!Directory.Exists(path))
+					{
+						Directory.CreateDirectory(path);
+					}
 
-                    return path;
-                }
-            }
+					return path;
+				}
+			}
 
-            /// <summary>
-            ///     Depressurizer Folder
-            /// </summary>
-            public static string Depressurizer
-            {
-                get
-                {
-                    string path = Path.Combine(AppData, "Depressurizer");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
+			/// <summary>
+			///     Depressurizer/Banners Folder
+			/// </summary>
+			public static string Banners
+			{
+				get
+				{
+					string path = Path.Combine(Depressurizer, "Banners");
+					if (!Directory.Exists(path))
+					{
+						Directory.CreateDirectory(path);
+					}
 
-                    return path;
-                }
-            }
+					return path;
+				}
+			}
 
-            /// <summary>
-            ///     Depressurizer/Logs Folder
-            /// </summary>
-            public static string Logs
-            {
-                get
-                {
-                    string path = Path.Combine(Depressurizer, "Logs");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
+			/// <summary>
+			///     Depressurizer Folder
+			/// </summary>
+			public static string Depressurizer
+			{
+				get
+				{
+					string path = Path.Combine(AppData, "Depressurizer");
+					if (!Directory.Exists(path))
+					{
+						Directory.CreateDirectory(path);
+					}
 
-                    return path;
-                }
-            }
+					return path;
+				}
+			}
 
-            #endregion
-        }
-    }
+			/// <summary>
+			///     Depressurizer/Logs Folder
+			/// </summary>
+			public static string Logs
+			{
+				get
+				{
+					string path = Path.Combine(Depressurizer, "Logs");
+					if (!Directory.Exists(path))
+					{
+						Directory.CreateDirectory(path);
+					}
+
+					return path;
+				}
+			}
+
+			#endregion
+		}
+	}
 }
