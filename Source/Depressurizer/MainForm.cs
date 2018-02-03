@@ -4279,27 +4279,29 @@ namespace Depressurizer
 		{
 			Cursor = Cursors.WaitCursor;
 
-			HltbPrcDlg dlg = new HltbPrcDlg();
-			DialogResult res = dlg.ShowDialog();
+			using (HLTBDialog dialog = new HLTBDialog())
+			{
+				DialogResult result = dialog.ShowDialog();
 
-			if (dlg.Error != null)
-			{
-				Logger.Instance.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
-				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, dlg.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
-			}
-			else
-			{
-				if ((res == DialogResult.Cancel) || (res == DialogResult.Abort))
+				if (dialog.Error != null)
 				{
-					AddStatus(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+					Logger.Instance.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dialog.Error.Message);
+					MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, dialog.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
 				}
 				else
 				{
-					AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dlg.Updated));
-					if ((dlg.Updated > 0) && Settings.Instance.AutoSaveDatabase)
+					if ((result == DialogResult.Cancel) || (result == DialogResult.Abort))
 					{
-						SaveGameDB();
+						AddStatus(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+					}
+					else
+					{
+						AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dialog.Updated));
+						if ((dialog.Updated > 0) && Settings.Instance.AutoSaveDatabase)
+						{
+							SaveGameDB();
+						}
 					}
 				}
 			}

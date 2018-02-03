@@ -958,26 +958,29 @@ namespace Depressurizer
 		{
 			Cursor = Cursors.WaitCursor;
 
-			HltbPrcDlg dlg = new HltbPrcDlg();
-			DialogResult res = dlg.ShowDialog();
+			using (HLTBDialog dialog = new HLTBDialog())
+			{
+				DialogResult result = dialog.ShowDialog();
 
-			if (dlg.Error != null)
-			{
-				MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Logger.Instance.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
-				AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
-			}
-			else
-			{
-				if ((res == DialogResult.Cancel) || (res == DialogResult.Abort))
+				if (dialog.Error != null)
 				{
-					AddStatusMsg(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+					MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Logger.Instance.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dialog.Error.Message);
+					AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
 				}
 				else
 				{
-					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedHltb, dlg.Updated));
-					UnsavedChanges = true;
+					if ((result == DialogResult.Cancel) || (result == DialogResult.Abort))
+					{
+						AddStatusMsg(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+					}
+					else
+					{
+						AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedHltb, dialog.Updated));
+						UnsavedChanges = true;
+					}
 				}
+
 			}
 
 			RebuildDisplayList();

@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace Depressurizer.Dialogs
 {
-	internal class ScrapeDialog : CancelableDialog
+	internal sealed class ScrapeDialog : CancelableDialog
 	{
 		#region Fields
 
