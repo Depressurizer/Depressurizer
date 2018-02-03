@@ -32,6 +32,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Dialogs;
 using Depressurizer.Properties;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
@@ -688,19 +689,21 @@ namespace Depressurizer
 				}
 
 				//Update DB with data in correct language
-				Queue<int> gamesToUpdate = new Queue<int>();
+				List<int> gamesToUpdate = new List<int>();
 				if (FormMain.CurrentProfile != null)
 				{
 					foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
 					{
 						if (game.Id > 0)
 						{
-							gamesToUpdate.Enqueue(game.Id);
+							gamesToUpdate.Add(game.Id);
 						}
 					}
 
-					DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
-					scrapeDlg.ShowDialog();
+					using (ScrapeDialog dialog = new ScrapeDialog(gamesToUpdate))
+					{
+						dialog.ShowDialog();
+					}
 				}
 
 				Save("GameDB.xml.gz");
