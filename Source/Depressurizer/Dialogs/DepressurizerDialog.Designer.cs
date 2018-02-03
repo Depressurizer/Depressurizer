@@ -71,7 +71,6 @@
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Depressurizer";
-			this.TopMost = true;
 			this.TitlePanel.ResumeLayout(false);
 			this.TitlePanel.PerformLayout();
 			this.ResumeLayout(false);
