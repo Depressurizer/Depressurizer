@@ -507,19 +507,19 @@ namespace Depressurizer
 			int updated = 0;
 
 			// List of games not found in database or that have old data, so we can try to scrape data for them
-			Queue<int> notInDbOrOldData = new Queue<int>();
+			List<int> notInDbOrOldData = new List<int>();
 			int oldDbDataCount = 0;
 			int notInDbCount = 0;
 			foreach (GameInfo game in gamesToUpdate)
 			{
 				if ((game.Id > 0) && (!Program.GameDB.Contains(game.Id) || (Program.GameDB.Games[game.Id].LastStoreScrape == 0)))
 				{
-					notInDbOrOldData.Enqueue(game.Id);
+					notInDbOrOldData.Add(game.Id);
 					notInDbCount++;
 				}
 				else if ((game.Id > 0) && (Utility.GetCurrentUTime() > (Program.GameDB.Games[game.Id].LastStoreScrape + (Settings.Instance.ScrapePromptDays * 86400)))) //86400 seconds in a day
 				{
-					notInDbOrOldData.Enqueue(game.Id);
+					notInDbOrOldData.Add(game.Id);
 					oldDbDataCount++;
 				}
 			}
@@ -536,21 +536,24 @@ namespace Depressurizer
 
 				message += oldDbDataCount > 0 ? string.Format(GlobalStrings.MainForm_GamesHaveOldDataInGameDB, oldDbDataCount, Settings.Instance.ScrapePromptDays) : "";
 				message += ". " + GlobalStrings.MainForm_ScrapeNow;
+
 				if (MessageBox.Show(message, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 				{
-					DbScrapeDlg scrapeDlg = new DbScrapeDlg(notInDbOrOldData);
-					DialogResult scrapeRes = scrapeDlg.ShowDialog();
+					using (ScrapeDialog dialog = new ScrapeDialog(notInDbOrOldData))
+					{
+						DialogResult result = dialog.ShowDialog();
 
-					if (scrapeRes == DialogResult.Cancel)
-					{
-						AddStatus(string.Format(GlobalStrings.MainForm_CanceledDatabaseUpdate));
-					}
-					else
-					{
-						AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, scrapeDlg.JobsCompleted));
-						if ((scrapeDlg.JobsCompleted > 0) && Settings.Instance.AutoSaveDatabase)
+						if (result == DialogResult.Cancel)
 						{
-							SaveGameDB();
+							AddStatus(string.Format(GlobalStrings.MainForm_CanceledDatabaseUpdate));
+						}
+						else
+						{
+							AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.JobsCompleted));
+							if ((dialog.JobsCompleted > 0) && Settings.Instance.AutoSaveDatabase)
+							{
+								SaveGameDB();
+							}
 						}
 					}
 				}
