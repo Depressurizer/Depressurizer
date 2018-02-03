@@ -37,6 +37,7 @@ using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Depressurizer.Dialogs;
+using Depressurizer.Models;
 using Depressurizer.Properties;
 using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
@@ -1040,13 +1041,13 @@ namespace Depressurizer
 
         private void countascendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Count, SortOrder.Ascending);
+            lstCategories.ListViewItemSorter = new ListCategoriesComparer(CategorySortMode.Count, SortOrder.Ascending);
             lstCategories.Sort();
         }
 
         private void countdescendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Count, SortOrder.Descending);
+            lstCategories.ListViewItemSorter = new ListCategoriesComparer(CategorySortMode.Count, SortOrder.Descending);
             lstCategories.Sort();
         }
 
@@ -1513,7 +1514,7 @@ namespace Depressurizer
             //if (sort)
             if (lstCategories.ListViewItemSorter == null)
             {
-                lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
+                lstCategories.ListViewItemSorter = new ListCategoriesComparer(CategorySortMode.Name, SortOrder.Ascending);
             }
 
             lstCategories.Sort();
@@ -3456,14 +3457,14 @@ namespace Depressurizer
 
         private void nameascendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Ascending);
+            lstCategories.ListViewItemSorter = new ListCategoriesComparer(CategorySortMode.Name, SortOrder.Ascending);
 
             lstCategories.Sort();
         }
 
         private void namedescendingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lstCategories.ListViewItemSorter = new lstCategoriesComparer(lstCategoriesComparer.categorySortMode.Name, SortOrder.Descending);
+            lstCategories.ListViewItemSorter = new ListCategoriesComparer(CategorySortMode.Name, SortOrder.Descending);
             lstCategories.Sort();
         }
 
