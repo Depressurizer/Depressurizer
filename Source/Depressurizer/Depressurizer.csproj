@@ -263,6 +263,12 @@
     <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\CloseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CloseDialog.Designer.cs">
+      <DependentUpon>CloseDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DepressurizerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -292,12 +298,6 @@
     </Compile>
     <Compile Include="DlgAutoCatCreate.Designer.cs">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DlgClose.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgClose.Designer.cs">
-      <DependentUpon>DlgClose.cs</DependentUpon>
     </Compile>
     <Compile Include="DlgRestore.cs">
       <SubType>Form</SubType>
@@ -474,6 +474,9 @@
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.uk.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CloseDialog.resx">
+      <DependentUpon>CloseDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DepressurizerDialog.resx">
       <DependentUpon>DepressurizerDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -488,21 +491,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatCreate.resx">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.es.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.nl.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.ru.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgClose.uk.resx">
-      <DependentUpon>DlgClose.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgGame.nl.resx">
       <DependentUpon>DlgGame.cs</DependentUpon>

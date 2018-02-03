@@ -26,89 +26,89 @@ using Microsoft.Win32;
 
 namespace Depressurizer.Dialogs
 {
-    public partial class SteamPathDialog : DepressurizerDialog
-    {
-        #region Constructors and Destructors
+	public partial class SteamPathDialog : DepressurizerDialog
+	{
+		#region Constructors and Destructors
 
-        public SteamPathDialog() : base("Steam Path")
-        {
-            InitializeComponent();
+		public SteamPathDialog() : base("Steam Path")
+		{
+			InitializeComponent();
 
-            SelectedPath.Text = GetSteamFolder();
-        }
+			SelectedPath.Text = GetSteamFolder();
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public string Path => SelectedPath.Text;
+		public string Path => SelectedPath.Text;
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        private static string GetSteamFolder()
-        {
-            try
-            {
-                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Valve\Steam"))
-                {
-                    if (key != null)
-                    {
-                        object obj = key.GetValue("InstallPath");
-                        if (obj != null)
-                        {
-                            if (obj is string installPath)
-                            {
-                                return installPath;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                SentryLogger.Log(e);
-            }
+		private static string GetSteamFolder()
+		{
+			try
+			{
+				using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Valve\Steam"))
+				{
+					if (key != null)
+					{
+						object obj = key.GetValue("InstallPath");
+						if (obj != null)
+						{
+							if (obj is string installPath)
+							{
+								return installPath;
+							}
+						}
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				SentryLogger.Log(e);
+			}
 
-            return string.Empty;
-        }
+			return string.Empty;
+		}
 
-        private void ButtonBrowse_Click(object sender, EventArgs e)
-        {
-            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
-            {
-                DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    SelectedPath.Text = dialog.SelectedPath;
-                }
-            }
-        }
+		private void ButtonBrowse_Click(object sender, EventArgs e)
+		{
+			using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+			{
+				DialogResult result = dialog.ShowDialog();
+				if (result == DialogResult.OK)
+				{
+					SelectedPath.Text = dialog.SelectedPath;
+				}
+			}
+		}
 
-        private void ButtonOk_Click(object sender, EventArgs e)
-        {
-            if (!Directory.Exists(Path))
-            {
-                DialogResult result = MessageBox.Show("Selected path doesn't exist! Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.No)
-                {
-                    return;
-                }
-            }
+		private void ButtonOk_Click(object sender, EventArgs e)
+		{
+			if (!Directory.Exists(Path))
+			{
+				DialogResult result = MessageBox.Show("Selected path doesn't exist! Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+				if (result == DialogResult.No)
+				{
+					return;
+				}
+			}
 
-            if (!File.Exists(System.IO.Path.Combine(Path, "Steam.exe")))
-            {
-                DialogResult result = MessageBox.Show("Selected path doesn't contain the steam executable! Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.No)
-                {
-                    return;
-                }
-            }
+			if (!File.Exists(System.IO.Path.Combine(Path, "Steam.exe")))
+			{
+				DialogResult result = MessageBox.Show("Selected path doesn't contain the steam executable! Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+				if (result == DialogResult.No)
+				{
+					return;
+				}
+			}
 
-            Close();
-        }
+			Close();
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
