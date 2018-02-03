@@ -1,6 +1,6 @@
 ﻿#region LICENSE
 
-//     This file (DepressurizerDialog.cs) is part of Depressurizer.
+//     This file (CloseDialog.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -18,25 +18,38 @@
 
 #endregion
 
-using System.Globalization;
-using System.Windows.Forms;
+using System;
+using System.Drawing;
 
 namespace Depressurizer.Dialogs
 {
-	public partial class DepressurizerDialog : Form
+	public partial class CloseDialog : DepressurizerDialog
 	{
 		#region Constructors and Destructors
 
-		public DepressurizerDialog()
+		public CloseDialog(string message, string title, Image picture, bool cancel, bool exportSteam) : base(title)
 		{
 			InitializeComponent();
+
+			MessageLabel.Text = message;
+			Icon.Image = picture;
+			btnCancel.Visible = cancel;
+			chkSaveSteam.Checked = exportSteam;
 		}
 
-		public DepressurizerDialog(string dialogTitle)
-		{
-			InitializeComponent();
+		#endregion
 
-			TitleLabel.Text = string.Format(CultureInfo.InvariantCulture, "Depressurzier - {0}", dialogTitle);
+		#region Public Properties
+
+		public bool Export { get; private set; }
+
+		#endregion
+
+		#region Methods
+
+		private void chkSaveSteam_CheckedChanged(object sender, EventArgs e)
+		{
+			Export = chkSaveSteam.Checked;
 		}
 
 		#endregion
