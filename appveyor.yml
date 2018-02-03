@@ -5,10 +5,7 @@
 
   configuration: Release
 
-  platform:
-      - x86
-      - x64
-      - Any CPU
+  platform: Any CPU
 
   image: Visual Studio 2017
 
@@ -32,10 +29,6 @@
       name: Depressurizer
       type: zip
 
-    - path: Source\Depressurizer\bin\$(platform)\Release
-      name: Depressurizer-$(platform)
-      type: zip
-
   deploy:
     - provider: GitHub
       tag: v$(APPVEYOR_REPO_COMMIT_MESSAGE)
@@ -56,10 +49,7 @@
 
   configuration: Debug
 
-  platform:
-    - x86
-    - x64
-    - Any CPU
+  platform: Any CPU
 
   skip_commits:
     files:
