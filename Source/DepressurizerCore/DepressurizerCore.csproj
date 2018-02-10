@@ -59,6 +59,7 @@
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\LanguageSupport.cs" />
+    <Compile Include="Models\VDFNode.cs" />
     <Compile Include="Models\VRSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />

@@ -20,6 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using DepressurizerCore.Models;
+using ValueType = DepressurizerCore.Models.ValueType;
 
 namespace Depressurizer
 {
@@ -50,15 +52,15 @@ namespace Depressurizer
             Name = name;
         }
 
-        public static PackageInfo FromVdfNode(VdfFileNode node)
+        public static PackageInfo FromVdfNode(VDFNode node)
         {
-            VdfFileNode idNode = node.GetNodeAt(new[] {"packageId"}, false);
+            VDFNode idNode = node.GetNodeAt(new[] {"packageId"}, false);
             if ((idNode != null) && idNode.NodeType == ValueType.Int)
             {
                 int id = idNode.NodeInt;
 
                 string name = null;
-                VdfFileNode nameNode = node.GetNodeAt(new[] {"name"}, false);
+                VDFNode nameNode = node.GetNodeAt(new[] {"name"}, false);
                 if (nameNode != null && nameNode.NodeType == ValueType.String)
                 {
                     name = nameNode.NodeString;
@@ -66,7 +68,7 @@ namespace Depressurizer
 
                 PackageInfo package = new PackageInfo(id, name);
 
-                VdfFileNode billingtypeNode = node["billingtype"];
+                VDFNode billingtypeNode = node["billingtype"];
                 if (billingtypeNode != null && billingtypeNode.NodeType == ValueType.String ||
                     billingtypeNode.NodeType == ValueType.Int)
                 {
@@ -79,10 +81,10 @@ namespace Depressurizer
                     package.BillingType = (PackageBillingType) bType;
                 }
 
-                VdfFileNode appsNode = node["appids"];
+                VDFNode appsNode = node["appids"];
                 if (appsNode != null && appsNode.NodeType == ValueType.Array)
                 {
-                    foreach (VdfFileNode aNode in appsNode.NodeArray.Values)
+                    foreach (VDFNode aNode in appsNode.NodeArray.Values)
                     {
                         if (aNode.NodeType == ValueType.Int)
                         {
@@ -137,16 +139,16 @@ namespace Depressurizer
             }; // 0x02 b i l l i n g t y p e 0x00
             byte[] appidsBytes = {0x08, 0x00, 0x61, 0x70, 0x70, 0x69, 0x64, 0x73, 0x00}; // 0x08 0x00 appids 0x00
 
-            VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
+            VDFNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
             while (bReader.BaseStream.Position < fileLength)
             {
                 int id = bReader.ReadInt32();
                 PackageInfo package = new PackageInfo(id);
 
-                VdfFileNode.ReadBin_SeekTo(bReader, billingtypeBytes, fileLength);
+                VDFNode.ReadBin_SeekTo(bReader, billingtypeBytes, fileLength);
                 package.BillingType = (PackageBillingType) bReader.ReadInt32();
 
-                VdfFileNode.ReadBin_SeekTo(bReader, appidsBytes, fileLength);
+                VDFNode.ReadBin_SeekTo(bReader, appidsBytes, fileLength);
                 while (bReader.ReadByte() == 0x02)
                 {
                     while (bReader.ReadByte() != 0x00) { }
@@ -154,7 +156,7 @@ namespace Depressurizer
                 }
 
                 result.Add(package.Id, package);
-                VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
+                VDFNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
             }
 
             return result;
