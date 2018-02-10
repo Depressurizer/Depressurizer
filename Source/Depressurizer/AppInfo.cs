@@ -19,6 +19,8 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using DepressurizerCore.Models;
+using ValueType = DepressurizerCore.Models.ValueType;
 
 namespace Depressurizer
 {
@@ -66,13 +68,13 @@ namespace Depressurizer
             Platforms = platforms;
         }
 
-        public static AppInfo FromVdfNode(VdfFileNode commonNode)
+        public static AppInfo FromVdfNode(VDFNode commonNode)
         {
             if (commonNode == null || commonNode.NodeType != ValueType.Array) return null;
 
             AppInfo result = null;
 
-            VdfFileNode idNode = commonNode.GetNodeAt(new[] {"gameid"}, false);
+            VDFNode idNode = commonNode.GetNodeAt(new[] {"gameid"}, false);
             int id = -1;
             if (idNode != null)
             {
@@ -93,13 +95,13 @@ namespace Depressurizer
             {
                 // Get name
                 string name = null;
-                VdfFileNode nameNode = commonNode.GetNodeAt(new[] {"name"}, false);
+                VDFNode nameNode = commonNode.GetNodeAt(new[] {"name"}, false);
                 if (nameNode != null) name = nameNode.NodeData.ToString();
 
                 // Get type
                 string typeStr = null;
                 AppTypes type = AppTypes.Unknown;
-                VdfFileNode typeNode = commonNode.GetNodeAt(new[] {"type"}, false);
+                VDFNode typeNode = commonNode.GetNodeAt(new[] {"type"}, false);
                 if (typeNode != null) typeStr = typeNode.NodeData.ToString();
 
                 if (typeStr != null)
@@ -113,7 +115,7 @@ namespace Depressurizer
                 // Get platforms
                 string oslist = null;
                 AppPlatforms platforms = AppPlatforms.None;
-                VdfFileNode oslistNode = commonNode.GetNodeAt(new[] {"oslist"}, false);
+                VDFNode oslistNode = commonNode.GetNodeAt(new[] {"oslist"}, false);
                 if (oslistNode != null)
                 {
                     oslist = oslistNode.NodeData.ToString();
@@ -134,7 +136,7 @@ namespace Depressurizer
                 result = new AppInfo(id, name, type, platforms);
 
                 // Get parent
-                VdfFileNode parentNode = commonNode.GetNodeAt(new[] {"parent"}, false);
+                VDFNode parentNode = commonNode.GetNodeAt(new[] {"parent"}, false);
                 if (parentNode != null)
                 {
                     result.Parent = parentNode.NodeInt;
@@ -152,9 +154,9 @@ namespace Depressurizer
             // seek to common: start of a new entry
             byte[] start = {0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00}; // 0x00 0x00 c o m m o n 0x00
 
-            VdfFileNode.ReadBin_SeekTo(bReader, start, fileLength);
+            VDFNode.ReadBin_SeekTo(bReader, start, fileLength);
 
-            VdfFileNode node = VdfFileNode.LoadFromBinary(bReader, fileLength);
+            VDFNode node = VDFNode.LoadFromBinary(bReader, fileLength);
             while (node != null)
             {
                 AppInfo app = FromVdfNode(node);
@@ -162,8 +164,8 @@ namespace Depressurizer
                 {
                     result.Add(app.Id, app);
                 }
-                VdfFileNode.ReadBin_SeekTo(bReader, start, fileLength);
-                node = VdfFileNode.LoadFromBinary(bReader, fileLength);
+                VDFNode.ReadBin_SeekTo(bReader, start, fileLength);
+                node = VDFNode.LoadFromBinary(bReader, fileLength);
             }
             bReader.Close();
             return result;
