@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="Helpers\Location.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\SentryLogger.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Helpers\XmlUtil.cs" />
     <Compile Include="Models\AppInfo.cs" />
+    <Compile Include="Models\AppInfoNode.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="Models\Filter.cs" />
