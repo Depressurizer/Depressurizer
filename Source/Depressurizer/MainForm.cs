@@ -4346,8 +4346,7 @@ namespace Depressurizer
 				try
 				{
 					int newApps = 0;
-					AppTypes appFilter = CurrentProfile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal;
-					int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, appFilter, out newApps);
+					int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, out newApps);
 					AddStatus(string.Format(GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps));
 					success = true;
 				}
@@ -4369,7 +4368,7 @@ namespace Depressurizer
 			{
 				try
 				{
-					CDlgUpdateProfile updateDlg = new CDlgUpdateProfile(CurrentProfile.GameData, CurrentProfile.SteamID64, CurrentProfile.OverwriteOnDownload, CurrentProfile.IgnoreList, CurrentProfile.IncludeUnknown);
+					CDlgUpdateProfile updateDlg = new CDlgUpdateProfile(CurrentProfile.GameData, CurrentProfile.SteamID64, CurrentProfile.OverwriteOnDownload, CurrentProfile.IgnoreList);
 					DialogResult res = updateDlg.ShowDialog();
 
 					if (updateDlg.Error != null)

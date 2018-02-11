@@ -854,21 +854,21 @@ namespace Depressurizer
 			{
 				switch (g.AppType)
 				{
-					case AppTypes.Game:
+					case AppType.Game:
 						if (chkTypeGame.Checked == false)
 						{
 							return false;
 						}
 
 						break;
-					case AppTypes.DLC:
+					case AppType.DLC:
 						if (chkTypeDLC.Checked == false)
 						{
 							return false;
 						}
 
 						break;
-					case AppTypes.Unknown:
+					case AppType.Unknown:
 						if (chkTypeUnknown.Checked == false)
 						{
 							return false;

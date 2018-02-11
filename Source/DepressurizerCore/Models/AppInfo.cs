@@ -59,20 +59,60 @@ namespace DepressurizerCore.Models
 		All = (1 << 3) - 1
 	}
 
-	[Flags]
-	public enum AppTypes
+	/// <summary>
+	///     Steam App Type
+	/// </summary>
+	public enum AppType
 	{
-		Application = 1,
-		Demo = 1 << 1,
-		DLC = 1 << 2,
-		Game = 1 << 3,
-		Media = 1 << 4,
-		Tool = 1 << 5,
-		Other = 1 << 6,
-		Unknown = 1 << 7,
-		InclusionNormal = Application | Game,
-		InclusionUnknown = InclusionNormal | Unknown,
-		InclusionAll = (1 << 8) - 1
+		/// <summary>
+		///     Unknown
+		/// </summary>
+		Unknown,
+
+		/// <summary>
+		///     Game
+		/// </summary>
+		Game,
+
+		/// <summary>
+		///     DLC
+		/// </summary>
+		DLC,
+
+		/// <summary>
+		///     Steam Demo
+		/// </summary>
+		Demo,
+
+		/// <summary>
+		///     Steam Software
+		/// </summary>
+		Application,
+
+		/// <summary>
+		///     SDK's, servers etc..
+		/// </summary>
+		Tool,
+
+		/// <summary>
+		///     Steam Media
+		/// </summary>
+		Media,
+
+		/// <summary>
+		///     Steam Config File
+		/// </summary>
+		Config,
+
+		/// <summary>
+		///     Steam Media Content
+		/// </summary>
+		Series,
+
+		/// <summary>
+		///     Steam Media Content
+		/// </summary>
+		Video
 	}
 
 	public sealed class AppInfo
@@ -102,7 +142,7 @@ namespace DepressurizerCore.Models
 		/// <summary>
 		///     App Type
 		/// </summary>
-		public AppTypes AppType { get; set; } = AppTypes.Unknown;
+		public AppType AppType { get; set; } = AppType.Unknown;
 
 		/// <summary>
 		///     App Name
@@ -169,7 +209,7 @@ namespace DepressurizerCore.Models
 
 			if (typeStr != null)
 			{
-				if (Enum.TryParse(typeStr, true, out AppTypes type))
+				if (Enum.TryParse(typeStr, true, out AppType type))
 				{
 					result.AppType = type;
 				}
