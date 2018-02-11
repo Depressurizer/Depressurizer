@@ -1219,16 +1219,6 @@ namespace Depressurizer
 			return count;
 		}
 
-		/// <summary>
-		///     Updates set of non-Steam games. Will remove any games that are currently in the list but not found in the Steam
-		///     config.
-		/// </summary>
-		/// <param name="SteamId">The ID64 of the account to load shortcuts for</param>
-		/// <param name="overwriteCategories">
-		///     If true, overwrite categories for found games. If false, only load categories for
-		///     games without a category already set.
-		/// </param>
-		/// <returns>Total number of entries processed</returns>
 		public int ImportSteamShortcuts(long SteamId)
 		{
 			if (SteamId <= 0)
@@ -1236,9 +1226,15 @@ namespace Depressurizer
 				return 0;
 			}
 
+			string filePath = string.Format(Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+
+			if (!File.Exists(filePath))
+			{
+				return 0;
+			}
+
 			int loadedGames = 0;
 
-			string filePath = string.Format(Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
 			FileStream fStream = null;
 			BinaryReader binReader = null;
 
