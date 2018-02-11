@@ -50,17 +50,6 @@ using Rallion;
 
 namespace Depressurizer
 {
-	public enum AdvancedFilterState
-	{
-		None = -1,
-
-		Allow = 0,
-
-		Require = 1,
-
-		Exclude = 2
-	}
-
 	public partial class FormMain : MaterialForm
 	{
 		#region Constants
