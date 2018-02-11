@@ -57,6 +57,7 @@
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\SentryLogger.cs" />
     <Compile Include="Helpers\Steam.cs" />
+    <Compile Include="Models\AppInfo.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\LanguageSupport.cs" />
     <Compile Include="Models\VDFNode.cs" />

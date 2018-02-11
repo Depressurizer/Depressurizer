@@ -27,6 +27,7 @@ using Depressurizer.Dialogs;
 using Depressurizer.Properties;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
+using DepressurizerCore.Models;
 
 namespace Depressurizer
 {
