@@ -59,6 +59,7 @@
     <Compile Include="Helpers\SentryLogger.cs" />
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Helpers\XmlUtil.cs" />
     <Compile Include="Models\AppInfo.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Filter.cs" />
