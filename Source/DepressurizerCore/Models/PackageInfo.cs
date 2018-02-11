@@ -43,17 +43,57 @@ namespace DepressurizerCore.Models
 		/// <summary>
 		///     0x08 0x00 a p p i d s 0x00
 		/// </summary>
-		private static readonly byte[] AppidsBytes = {0x08, 0x00, 0x61, 0x70, 0x70, 0x69, 0x64, 0x73, 0x00};
+		private static readonly byte[] AppidsBytes =
+		{
+			0x08,
+			0x00,
+			0x61,
+			0x70,
+			0x70,
+			0x69,
+			0x64,
+			0x73,
+			0x00
+		};
 
 		/// <summary>
 		///     0x02 b i l l i n g t y p e 0x00
 		/// </summary>
-		private static readonly byte[] BillingtypeBytes = {0x02, 0x62, 0x69, 0x6C, 0x6C, 0x69, 0x6E, 0x67, 0x74, 0x79, 0x70, 0x65, 0x00};
+		private static readonly byte[] BillingtypeBytes =
+		{
+			0x02,
+			0x62,
+			0x69,
+			0x6C,
+			0x6C,
+			0x69,
+			0x6E,
+			0x67,
+			0x74,
+			0x79,
+			0x70,
+			0x65,
+			0x00
+		};
 
 		/// <summary>
 		///     0x00 0x02 p a c k a g e i d 0x00
 		/// </summary>
-		private static readonly byte[] PackageidBytes = {0x00, 0x02, 0x70, 0x61, 0x63, 0x6B, 0x61, 0x67, 0x65, 0x69, 0x64, 0x00};
+		private static readonly byte[] PackageidBytes =
+		{
+			0x00,
+			0x02,
+			0x70,
+			0x61,
+			0x63,
+			0x6B,
+			0x61,
+			0x67,
+			0x65,
+			0x69,
+			0x64,
+			0x00
+		};
 
 		#endregion
 
@@ -83,13 +123,19 @@ namespace DepressurizerCore.Models
 
 		public static PackageInfo FromNode(VDFNode node)
 		{
-			VDFNode idNode = node.GetNodeAt(new[] {"packageId"}, false);
+			VDFNode idNode = node.GetNodeAt(new[]
+			{
+				"packageId"
+			}, false);
 			if ((idNode != null) && (idNode.NodeType == ValueType.Int))
 			{
 				int id = idNode.NodeInt;
 
 				string name = null;
-				VDFNode nameNode = node.GetNodeAt(new[] {"name"}, false);
+				VDFNode nameNode = node.GetNodeAt(new[]
+				{
+					"name"
+				}, false);
 				if ((nameNode != null) && (nameNode.NodeType == ValueType.String))
 				{
 					name = nameNode.NodeString;

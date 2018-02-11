@@ -60,6 +60,40 @@ namespace DepressurizerCore.Helpers
 			return a.Count.CompareTo(b.Count);
 		}
 
+		public static long CurrentUnixTime()
+		{
+			return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+		}
+
+		public static DateTime DateTimeFromUnix(long unixTimeStamp)
+		{
+			return DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).DateTime;
+		}
+
+		public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage storeLanguage)
+		{
+			CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+
+			try
+			{
+				string language = storeLanguage == StoreLanguage.Default ? Settings.Instance.InterfaceLanguage.ToString() : storeLanguage.ToString();
+
+				foreach (CultureInfo culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
+				{
+					if (culture.EnglishName == language)
+					{
+						cultureInfo = culture;
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				SentryLogger.Log(e);
+			}
+
+			return cultureInfo;
+		}
+
 		public static Image GetImage(string url)
 		{
 			if (string.IsNullOrWhiteSpace(url))
@@ -87,40 +121,6 @@ namespace DepressurizerCore.Helpers
 			}
 
 			return image;
-		}
-
-		public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage storeLanguage)
-		{
-			CultureInfo cultureInfo = CultureInfo.CurrentCulture;
-
-			try
-			{
-				string language = storeLanguage == StoreLanguage.Default ? Settings.Instance.InterfaceLanguage.ToString() : storeLanguage.ToString();
-
-				foreach (CultureInfo culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
-				{
-					if (culture.EnglishName == language)
-					{
-						cultureInfo = culture;
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				SentryLogger.Log(e);
-			}
-
-			return cultureInfo;
-		}
-
-		public static long CurrentUnixTime()
-		{
-			return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-		}
-
-		public static DateTime DateTimeFromUnix(long unixTimeStamp)
-		{
-			return DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).DateTime;
 		}
 
 		public static long UnixFromDateTime(DateTime dateTime)

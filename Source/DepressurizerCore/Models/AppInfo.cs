@@ -119,7 +119,18 @@ namespace DepressurizerCore.Models
 	{
 		#region Static Fields
 
-		private static readonly byte[] StartBytes = {0x00, 0x00, 0x63, 0x6F, 0x6D, 0x6D, 0x6F, 0x6E, 0x00};
+		private static readonly byte[] StartBytes =
+		{
+			0x00,
+			0x00,
+			0x63,
+			0x6F,
+			0x6D,
+			0x6D,
+			0x6F,
+			0x6E,
+			0x00
+		};
 
 		#endregion
 
@@ -170,7 +181,10 @@ namespace DepressurizerCore.Models
 				return null;
 			}
 
-			VDFNode idNode = commonNode.GetNodeAt(new[] {"gameid"}, false);
+			VDFNode idNode = commonNode.GetNodeAt(new[]
+			{
+				"gameid"
+			}, false);
 			int id = -1;
 			if (idNode != null)
 			{
@@ -194,14 +208,20 @@ namespace DepressurizerCore.Models
 
 			AppInfo result = new AppInfo(id);
 
-			VDFNode nameNode = commonNode.GetNodeAt(new[] {"name"}, false);
+			VDFNode nameNode = commonNode.GetNodeAt(new[]
+			{
+				"name"
+			}, false);
 			if (nameNode != null)
 			{
 				result.Name = nameNode.NodeData.ToString();
 			}
 
 			string typeStr = null;
-			VDFNode typeNode = commonNode.GetNodeAt(new[] {"type"}, false);
+			VDFNode typeNode = commonNode.GetNodeAt(new[]
+			{
+				"type"
+			}, false);
 			if (typeNode != null)
 			{
 				typeStr = typeNode.NodeData.ToString();
@@ -219,7 +239,10 @@ namespace DepressurizerCore.Models
 				}
 			}
 
-			VDFNode oslistNode = commonNode.GetNodeAt(new[] {"oslist"}, false);
+			VDFNode oslistNode = commonNode.GetNodeAt(new[]
+			{
+				"oslist"
+			}, false);
 			if (oslistNode != null)
 			{
 				string oslist = oslistNode.NodeData.ToString();
@@ -240,7 +263,10 @@ namespace DepressurizerCore.Models
 			}
 
 			// Get parent
-			VDFNode parentNode = commonNode.GetNodeAt(new[] {"parent"}, false);
+			VDFNode parentNode = commonNode.GetNodeAt(new[]
+			{
+				"parent"
+			}, false);
 			if (parentNode != null)
 			{
 				result.ParentId = parentNode.NodeInt;
