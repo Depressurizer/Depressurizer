@@ -23,6 +23,17 @@ using System.Collections.Generic;
 
 namespace DepressurizerCore.Models
 {
+	public enum AdvancedFilterState
+	{
+		None = -1,
+
+		Allow = 0,
+
+		Require = 1,
+
+		Exclude = 2
+	}
+
 	public sealed class Filter : IComparable
 	{
 		#region Constructors and Destructors
