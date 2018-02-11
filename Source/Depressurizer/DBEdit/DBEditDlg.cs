@@ -300,7 +300,7 @@ namespace Depressurizer
 		{
 			if (lstGames.SelectedIndices.Count > 0)
 			{
-				Utility.LaunchStorePage(displayedGames[lstGames.SelectedIndices[0]].Id);
+				Steam.LaunchStorePage(displayedGames[lstGames.SelectedIndices[0]].Id);
 			}
 		}
 
@@ -897,7 +897,7 @@ namespace Depressurizer
 					return false;
 				}
 
-				if (radWebSince.Checked && (g.LastStoreScrape > Utility.GetUTime(dateWeb.Value)))
+				if (radWebSince.Checked && (g.LastStoreScrape > Utility.UnixFromDateTime(dateWeb.Value)))
 				{
 					return false;
 				}

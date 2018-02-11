@@ -31,6 +31,7 @@ using Depressurizer.Properties;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
+using Utility = Depressurizer.Helpers.Utility;
 using ValueType = DepressurizerCore.Models.ValueType;
 
 namespace Depressurizer
@@ -67,7 +68,7 @@ namespace Depressurizer
 		public GameList GameList;
 		public bool Hidden;
 		public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
-		public int LastPlayed;
+		public long LastPlayed;
 		public string Name;
 		public GameListingSource Source;
 
@@ -1740,7 +1741,7 @@ namespace Depressurizer
 							if (gameNodePair.Value.ContainsKey("LastPlayed") && (gameNodePair.Value["LastPlayed"].NodeInt != 0))
 							{
 								game.LastPlayed = gameNodePair.Value["LastPlayed"].NodeInt;
-								Logger.Instance.Verbose(GlobalStrings.GameData_ProcessedGame, gameId, Utility.GetDTFromUTime(game.LastPlayed).Date);
+								Logger.Instance.Verbose(GlobalStrings.GameData_ProcessedGame, gameId, DepressurizerCore.Helpers.Utility.DateTimeFromUnix(game.LastPlayed).Date);
 							}
 						}
 					}

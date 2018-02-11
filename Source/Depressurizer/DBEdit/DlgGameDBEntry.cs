@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Depressurizer.Helpers;
 using DepressurizerCore.Models;
 
 namespace Depressurizer
@@ -95,8 +96,8 @@ namespace Depressurizer
                 chkWebUpdate.Checked = Game.LastStoreScrape > 0;
                 chkAppInfoUpdate.Checked = Game.LastAppInfoUpdate > 0;
 
-                dateWeb.Value = Utility.GetDTFromUTime(Game.LastStoreScrape);
-                dateAppInfo.Value = Utility.GetDTFromUTime(Game.LastAppInfoUpdate);
+	            dateWeb.Value = DepressurizerCore.Helpers.Utility.DateTimeFromUnix(Game.LastStoreScrape);
+                dateAppInfo.Value = DepressurizerCore.Helpers.Utility.DateTimeFromUnix(Game.LastAppInfoUpdate);
             }
         }
 
@@ -157,8 +158,8 @@ namespace Depressurizer
             if (chkPlatMac.Checked) Game.Platforms |= AppPlatforms.Mac;
             if (chkPlatLinux.Checked) Game.Platforms |= AppPlatforms.Linux;
 
-            Game.LastStoreScrape = chkWebUpdate.Checked ? Utility.GetUTime(dateWeb.Value) : 0;
-            Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? Utility.GetUTime(dateAppInfo.Value) : 0;
+            Game.LastStoreScrape = chkWebUpdate.Checked ? DepressurizerCore.Helpers.Utility.UnixFromDateTime(dateWeb.Value) : 0;
+            Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? DepressurizerCore.Helpers.Utility.UnixFromDateTime(dateAppInfo.Value) : 0;
 
             return true;
         }

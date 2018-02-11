@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -36,13 +37,7 @@ namespace DepressurizerCore.Helpers
 	{
 		#region Properties
 
-		private static List<int> IgnoreList =>
-			new List<int>
-			{
-				524440,
-				562020,
-				700580
-			};
+		private static List<int> IgnoreList => new List<int> {524440, 562020, 700580};
 
 		#endregion
 
@@ -56,6 +51,20 @@ namespace DepressurizerCore.Helpers
 		{
 			apps = apps.Distinct().ToList();
 			await Task.Run(() => { Parallel.ForEach(apps, FetchBanner); });
+		}
+
+		/// <summary>
+		///     Opens up the store for an app, if no app is specified then the default one is opened.
+		/// </summary>
+		/// <param name="appId"></param>
+		public static void LaunchStorePage(int appId)
+		{
+			if (appId <= 0)
+			{
+				return;
+			}
+
+			Process.Start(string.Format(CultureInfo.InvariantCulture, "steam://store/{0}", appId));
 		}
 
 		#endregion

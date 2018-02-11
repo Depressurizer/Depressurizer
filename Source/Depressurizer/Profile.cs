@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Net.Cache;
 using System.Xml;
 using Depressurizer.Properties;
 using DepressurizerCore;
@@ -339,7 +338,7 @@ namespace Depressurizer
 				foreach (XmlNode xn in xnList)
 				{
 					string avatarURL = xn.InnerText;
-					return Utility.GetImage(avatarURL, RequestCacheLevel.BypassCache);
+					return Utility.GetImage(avatarURL);
 				}
 			}
 			catch
@@ -373,7 +372,7 @@ namespace Depressurizer
 
 			try
 			{
-				Utility.BackupFile(path, Settings.Instance.ConfigBackupCount);
+				Helpers.Utility.BackupFile(path, Settings.Instance.ConfigBackupCount);
 			}
 			catch (Exception e)
 			{

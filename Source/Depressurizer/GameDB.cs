@@ -123,9 +123,9 @@ namespace Depressurizer
 
 		public LanguageSupport LanguageSupport = new LanguageSupport(); //TODO: Add field to DB edit dialog
 
-		[DefaultValue(0)] public int LastAppInfoUpdate;
+		[DefaultValue(0)] public long LastAppInfoUpdate;
 
-		[DefaultValue(0)] public int LastStoreScrape;
+		[DefaultValue(0)] public long LastStoreScrape;
 
 		// Metacritic:
 		[DefaultValue(null)] public string MetacriticUrl;
@@ -545,9 +545,9 @@ namespace Depressurizer
 
 			int redirectTarget = -1;
 
-			int oldTime = LastStoreScrape;
+			long oldTime = LastStoreScrape;
 
-			LastStoreScrape = Utility.GetCurrentUTime();
+			LastStoreScrape = Utility.CurrentUnixTime();
 
 			HttpWebResponse resp = null;
 			try
@@ -730,7 +730,7 @@ namespace Depressurizer
 
 		// Main Data
 		public Dictionary<int, GameDBEntry> Games = new Dictionary<int, GameDBEntry>();
-		public int LastHltbUpdate;
+		public long LastHltbUpdate;
 		private StoreLanguage _dbLanguage;
 		private readonly LanguageSupport allLanguages = new LanguageSupport();
 		private SortedSet<string> allStoreDevelopers;
@@ -1540,7 +1540,7 @@ namespace Depressurizer
 			int updated = 0;
 
 			Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
-			int timestamp = Utility.GetCurrentUTime();
+			long timestamp = Utility.CurrentUnixTime();
 
 			foreach (AppInfo aInf in appInfos.Values)
 			{
@@ -1638,7 +1638,7 @@ namespace Depressurizer
 				}
 			}
 
-			LastHltbUpdate = Utility.GetCurrentUTime();
+			LastHltbUpdate = Utility.CurrentUnixTime();
 			return updated;
 		}
 
