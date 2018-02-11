@@ -25,13 +25,34 @@ using Newtonsoft.Json;
 
 namespace DepressurizerCore
 {
+	/// <summary>
+	///     Action on startup
+	/// </summary>
 	public enum StartupAction
 	{
+		/// <summary>
+		///     Do nothing
+		/// </summary>
 		None,
+
+		/// <summary>
+		///     Load a profile
+		/// </summary>
 		Load,
+
+		/// <summary>
+		///     Create a profile
+		/// </summary>
 		Create
 	}
 
+	/// <summary>
+	///     Languages supported on Steam.
+	/// </summary>
+	/// <remarks>
+	///     https://partner.steamgames.com/doc/store/localization
+	///     https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx
+	/// </remarks>
 	public enum StoreLanguage
 	{
 		/// <summary>
@@ -39,7 +60,7 @@ namespace DepressurizerCore
 		/// </summary>
 		Default,
 
-		Arabic,
+		// TODO: Arabic
 
 		/// <summary>
 		///     Bulgarian - Bulgaria
@@ -110,7 +131,7 @@ namespace DepressurizerCore
 		/// </summary>
 		Korean,
 
-		Norwegian,
+		// TODO: Norwegian
 
 		/// <summary>
 		///     Polish - Poland
