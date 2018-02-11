@@ -26,11 +26,11 @@ namespace DepressurizerCore.Models
 	{
 		#region Public Properties
 
-		public List<string> FullAudio { get; set; }
+		public List<string> FullAudio { get; set; } = new List<string>();
 
-		public List<string> Interface { get; set; }
+		public List<string> Interface { get; set; } = new List<string>();
 
-		public List<string> Subtitles { get; set; }
+		public List<string> Subtitles { get; set; } = new List<string>();
 
 		#endregion
 	}

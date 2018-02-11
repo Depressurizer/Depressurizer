@@ -37,15 +37,14 @@ namespace Depressurizer
         {
             lstIncluded.Items.Clear();
 
-            if (Program.GameDB != null)
-            {
-                SortedSet<string> flagsList = Program.GameDB.GetAllStoreFlags();
+         
+                SortedSet<string> flagsList = Database.Instance.AllStoreFlags();
 
                 foreach (string s in flagsList)
                 {
                     lstIncluded.Items.Add(s);
                 }
-            }
+            
         }
 
         public override void LoadFromAutoCat(AutoCat autocat)

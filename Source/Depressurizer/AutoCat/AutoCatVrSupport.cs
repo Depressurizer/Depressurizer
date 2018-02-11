@@ -102,7 +102,7 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            VRSupport vrSupport = db.GetVrSupport(game.Id);
+            VRSupport vrSupport = db.GetVRSupport(game.Id);
 
             vrSupport.Headsets = vrSupport.Headsets ?? new List<string>();
             vrSupport.Input = vrSupport.Input ?? new List<string>();

@@ -39,9 +39,8 @@ namespace Depressurizer
         {
             lstIgnore.Items.Clear();
 
-            if (Program.GameDB != null)
-            {
-                SortedSet<string> genreList = Program.GameDB.GetAllGenres();
+       
+                SortedSet<string> genreList = Database.Instance.AllGenres();
 
                 foreach (string s in genreList)
                 {
@@ -50,7 +49,7 @@ namespace Depressurizer
                     l.Checked = true;
                     lstIgnore.Items.Add(l);
                 }
-            }
+            
         }
 
         public override void LoadFromAutoCat(AutoCat autocat)

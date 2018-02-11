@@ -40,9 +40,8 @@ namespace Depressurizer
             lstSubtitles.Items.Clear();
             lstFullAudio.Items.Clear();
 
-            if (Program.GameDB != null)
-            {
-                LanguageSupport language = Program.GameDB.GetAllLanguages();
+        
+                LanguageSupport language = Database.Instance.AllLanguageSupport();
 
                 foreach (string s in language.Interface)
                 {
@@ -58,7 +57,7 @@ namespace Depressurizer
                 {
                     lstFullAudio.Items.Add(s);
                 }
-            }
+            
         }
 
         public override void LoadFromAutoCat(AutoCat autocat)

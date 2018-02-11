@@ -26,11 +26,11 @@ namespace DepressurizerCore.Models
 	{
 		#region Public Properties
 
-		public List<string> Headsets { get; set; }
+		public List<string> Headsets { get; set; } = new List<string>();
 
-		public List<string> Input { get; set; }
+		public List<string> Input { get; set; } = new List<string>();
 
-		public List<string> PlayArea { get; set; }
+		public List<string> PlayArea { get; set; } = new List<string>();
 
 		#endregion
 	}

@@ -61,13 +61,13 @@ namespace Depressurizer.Dialogs
 			}
 
 			SetText("Finished downloading ...");
-			Added = Program.GameDB.IntegrateAppList(_document);
+			Added = Database.Instance.IntegrateAppList(_document);
 		}
 
 		protected override void OnStart()
 		{
 			Added = 0;
-			_document = GameDB.FetchAppListFromWeb();
+			_document = Database.FetchAppListFromWeb();
 			Close();
 		}
 

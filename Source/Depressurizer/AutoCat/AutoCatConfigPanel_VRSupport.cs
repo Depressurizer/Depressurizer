@@ -40,9 +40,8 @@ namespace Depressurizer
             lstVrInput.Items.Clear();
             lstVrPlayArea.Items.Clear();
 
-            if (Program.GameDB != null)
-            {
-                VRSupport vrSupport = Program.GameDB.GetAllVrSupportFlags();
+          
+                VRSupport vrSupport = Database.Instance.AllVRSupport();
 
                 foreach (string s in vrSupport.Headsets)
                 {
@@ -58,7 +57,7 @@ namespace Depressurizer
                 {
                     lstVrPlayArea.Items.Add(s);
                 }
-            }
+            
         }
 
         public override void LoadFromAutoCat(AutoCat autocat)

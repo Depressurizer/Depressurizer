@@ -22,6 +22,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using DepressurizerCore.Helpers;
+using DepressurizerCore.Models;
 
 namespace Depressurizer.Dialogs
 {
@@ -31,7 +33,7 @@ namespace Depressurizer.Dialogs
 
 		private readonly List<int> _jobs;
 
-		private readonly List<GameDBEntry> _results = new List<GameDBEntry>();
+		private readonly List<DatabaseEntry> _results = new List<DatabaseEntry>();
 
 		private DateTime _start;
 
@@ -68,16 +70,9 @@ namespace Depressurizer.Dialogs
 
 			lock (SyncRoot)
 			{
-				foreach (GameDBEntry g in _results)
+				foreach (DatabaseEntry entry in _results)
 				{
-					if (Program.GameDB.Contains(g.Id))
-					{
-						Program.GameDB.Games[g.Id].MergeIn(g);
-					}
-					else
-					{
-						Program.GameDB.Games.Add(g.Id, g);
-					}
+					Database.Instance.AddOrUpdate(entry);
 				}
 			}
 		}
@@ -126,8 +121,17 @@ namespace Depressurizer.Dialogs
 				return;
 			}
 
-			GameDBEntry newGame = new GameDBEntry {Id = appId};
-			newGame.ScrapeStore();
+			DatabaseEntry newGame = new DatabaseEntry(appId);
+
+			try
+			{
+				newGame.ScrapeStore();
+			}
+			catch (Exception)
+			{
+				Logger.Instance.Warn("Error while scraping appid: {0}", appId);
+				return;
+			}
 
 			lock (SyncRoot)
 			{
