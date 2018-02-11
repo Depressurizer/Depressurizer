@@ -26,6 +26,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer;
 using DepressurizerCore.Helpers;
+using DepressurizerCore.Models;
 using Rallion;
 
 namespace Depressurizer

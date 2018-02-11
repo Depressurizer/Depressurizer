@@ -1422,15 +1422,15 @@ namespace Depressurizer
             foreach (AppInfo aInf in appInfos.Values)
             {
                 GameDBEntry entry;
-                if (!Games.ContainsKey(aInf.Id))
+                if (!Games.ContainsKey(aInf.AppId))
                 {
                     entry = new GameDBEntry();
-                    entry.Id = aInf.Id;
+                    entry.Id = aInf.AppId;
                     Games.Add(entry.Id, entry);
                 }
                 else
                 {
-                    entry = Games[aInf.Id];
+                    entry = Games[aInf.AppId];
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
@@ -1439,7 +1439,7 @@ namespace Depressurizer
                 if (entry.Platforms == AppPlatforms.None ||
                     (entry.LastStoreScrape == 0 && aInf.Platforms > AppPlatforms.None))
                     entry.Platforms = aInf.Platforms;
-                if (aInf.Parent > 0) entry.ParentId = aInf.Parent;
+                if (aInf.ParentId > 0) entry.ParentId = aInf.ParentId;
                 updated++;
             }
             return updated;
