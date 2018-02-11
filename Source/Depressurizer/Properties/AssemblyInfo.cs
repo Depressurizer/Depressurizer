@@ -1,4 +1,5 @@
-﻿/*
+﻿using System.Resources;
+/*
 Copyright 2011, 2012, 2013 Steve Labbe.
 
 This file is part of Depressurizer.
@@ -24,11 +25,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Depressurizer")]
-[assembly: AssemblyDescription("Steam Category Tool")]
+[assembly: AssemblyDescription("A Steam Library Categorizing Tool.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Martijn Vegter")]
 [assembly: AssemblyProduct("Depressurizer")]
-[assembly: AssemblyCopyright("Copyright © 2011–2017")]
+[assembly: AssemblyCopyright("Original Copyright (C) 2011  Steve Labbe, Modified Copyright (C) 2018  Martijn Vegter")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -50,5 +51,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.7.4.2")]
-[assembly: AssemblyFileVersion("0.7.4.2")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: NeutralResourcesLanguage("en")]
+
