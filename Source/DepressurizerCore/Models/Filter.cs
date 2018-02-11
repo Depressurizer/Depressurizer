@@ -64,6 +64,10 @@ namespace DepressurizerCore.Models
 
 		public int VR { get; set; } = -1;
 
+		public int Game { get; set; } = -1;
+
+		public int Software { get; set; } = -1;
+
 		#endregion
 
 		#region Public Methods and Operators
