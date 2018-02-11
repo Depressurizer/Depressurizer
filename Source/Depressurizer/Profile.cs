@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Xml;
 using Depressurizer.Properties;
 using DepressurizerCore;
@@ -331,10 +332,10 @@ namespace Depressurizer
 			try
 			{
 				XmlDocument xml = new XmlDocument();
-				string profile = string.Format(Resources.UrlSteamProfile, SteamID64);
+				string profile = string.Format(CultureInfo.InvariantCulture, "http://steamcommunity.com/profiles/{0}?xml=1", SteamID64);
 				xml.Load(profile);
 
-				XmlNodeList xnList = xml.SelectNodes(Resources.XmlNodeAvatar);
+				XmlNodeList xnList = xml.SelectNodes(@"/profile/avatarIcon");
 				foreach (XmlNode xn in xnList)
 				{
 					string avatarURL = xn.InnerText;

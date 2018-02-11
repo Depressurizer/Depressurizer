@@ -748,7 +748,7 @@ namespace Depressurizer
 				using (WebClient wc = new WebClient())
 				{
 					wc.Headers.Set("User-Agent", "Depressurizer");
-					string json = wc.DownloadString(Resources.UrlLatestRelease);
+					string json = wc.DownloadString(Constants.LatestReleaseURL);
 					JObject parsedJson = JObject.Parse(json);
 					githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
 					url = (string) parsedJson.SelectToken("html_url");
@@ -1533,7 +1533,7 @@ namespace Depressurizer
 			lstGames.SetObjects(gamelist);
 			lstGames.BuildList();
 
-			mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+			mbtnAutoCategorize.Text = string.Format("Auto-Categorize ({0} Games)", AutoCatGameCount());
 
 			Cursor = Cursors.Default;
 		}
@@ -2901,7 +2901,7 @@ namespace Depressurizer
 				if (webBrowser1.Visible)
 				{
 					webBrowser1.ScriptErrorsSuppressed = true;
-					webBrowser1.Navigate(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, g.Id));
+					webBrowser1.Navigate(string.Format(Constants.SteamStoreAppURL + "?l=" + storeLanguage, g.Id));
 				}
 			}
 			else if (webBrowser1.Visible)
@@ -2912,12 +2912,12 @@ namespace Depressurizer
 					{
 						GameInfo g = tlstGames.Objects[0];
 						webBrowser1.ScriptErrorsSuppressed = true;
-						webBrowser1.Navigate(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, g.Id));
+						webBrowser1.Navigate(string.Format(Constants.SteamStoreAppURL + "?l=" + storeLanguage, g.Id));
 					}
 					else
 					{
 						webBrowser1.ScriptErrorsSuppressed = true;
-						webBrowser1.Navigate(Resources.UrlSteamStore + "?l=" + storeLanguage);
+						webBrowser1.Navigate(Constants.SteamStoreURL + "?l=" + storeLanguage);
 					}
 				}
 				catch
@@ -2933,7 +2933,7 @@ namespace Depressurizer
 			UpdateEnabledStatesForGames();
 			UpdateGameCheckStates();
 			UpdateAutoCatSelected_StatusMessage();
-			mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+			mbtnAutoCategorize.Text = string.Format("Auto-Categorize ({0} Games)", AutoCatGameCount());
 			Cursor.Current = Cursors.Default;
 		}
 
@@ -3194,7 +3194,7 @@ namespace Depressurizer
 		private void mchkAutoCatSelected_CheckedChanged(object sender, EventArgs e)
 		{
 			UpdateAutoCatSelected_StatusMessage();
-			mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+			mbtnAutoCategorize.Text = string.Format("Auto-Categorize ({0} Games)", AutoCatGameCount());
 		}
 
 		private void mchkBrowser_CheckedChanged(object sender, EventArgs e)
