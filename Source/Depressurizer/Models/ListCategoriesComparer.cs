@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 using DepressurizerCore.Models;
 
 namespace Depressurizer.Models
@@ -83,11 +84,13 @@ namespace Depressurizer.Models
 			// Handle special categories
 			List<string> specialCategories = new List<string>
 			{
-				GlobalStrings.MainForm_All,
-				GlobalStrings.MainForm_Uncategorized,
-				GlobalStrings.MainForm_Hidden,
-				GlobalStrings.MainForm_Favorite,
-				GlobalStrings.MainForm_VR
+				$"<{Resources.Category_All}>",
+				$"<{Resources.Category_Games}>",
+				$"<{Resources.Category_Software}>",
+				$"<{Resources.Category_Uncategorized}>",
+				$"<{Resources.Category_Hidden}>",
+				$"<{Resources.Category_VR}>",
+				$"<{Resources.Category_Favorite}>"
 			};
 
 			foreach (string category in specialCategories)
