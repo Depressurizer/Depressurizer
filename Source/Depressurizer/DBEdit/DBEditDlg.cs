@@ -417,25 +417,28 @@ namespace Depressurizer
 		{
 			Cursor = Cursors.WaitCursor;
 
-			FetchPrcDlg dlg = new FetchPrcDlg();
-			DialogResult res = dlg.ShowDialog();
+			using (FetchDialog dialog = new FetchDialog())
+			{
+				DialogResult result = dialog.ShowDialog();
 
-			if (dlg.Error != null)
-			{
-				MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-				AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGameList);
-			}
-			else
-			{
-				if ((res == DialogResult.Cancel) || (res == DialogResult.Abort))
+				if (dialog.Error != null)
 				{
-					AddStatusMsg(GlobalStrings.DBEditDlg_CanceledListUpdate);
+					MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGameList);
 				}
 				else
 				{
-					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedGameList, dlg.Added));
-					UnsavedChanges = true;
+					if ((result == DialogResult.Cancel) || (result == DialogResult.Abort))
+					{
+						AddStatusMsg(GlobalStrings.DBEditDlg_CanceledListUpdate);
+					}
+					else
+					{
+						AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedGameList, dialog.Added));
+						UnsavedChanges = true;
+					}
 				}
+
 			}
 
 			RebuildDisplayList();

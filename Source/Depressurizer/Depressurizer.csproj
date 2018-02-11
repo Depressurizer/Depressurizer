@@ -231,6 +231,9 @@
     <Compile Include="Dialogs\DepressurizerDialog.Designer.cs">
       <DependentUpon>DepressurizerDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\FetchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\HLTBDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,9 +304,6 @@
     </Compile>
     <Compile Include="DBEdit\DBEditDlg.Designer.cs">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DBEdit\CDlgFetch.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="DBEdit\DlgGameDBEntry.cs">
       <SubType>Form</SubType>
