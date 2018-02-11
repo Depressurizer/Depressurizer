@@ -52,7 +52,7 @@ namespace Depressurizer.Dialogs
 
 		protected override void OnStart()
 		{
-			Updated = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
+			Updated = Database.Instance.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
 			Close();
 		}
 

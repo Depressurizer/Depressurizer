@@ -213,6 +213,7 @@
     <Compile Include="AutoCat\CDlgCurator.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Database.cs" />
     <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,6 +271,7 @@
     <Compile Include="DlgRestore.Designer.cs">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseEntrySorter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -317,7 +319,6 @@
     <Compile Include="DlgManualDownload.Designer.cs">
       <DependentUpon>DlgManualDownload.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameDB.cs" />
     <Compile Include="CDlgGetSteamID.cs">
       <SubType>Form</SubType>
     </Compile>

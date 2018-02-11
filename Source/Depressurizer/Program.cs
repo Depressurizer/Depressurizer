@@ -27,12 +27,6 @@ namespace Depressurizer
 {
     internal static class Program
     {
-        #region Static Fields
-
-        public static GameDB GameDB;
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -55,6 +49,7 @@ namespace Depressurizer
 
         private static void OnApplicationExit(object sender, EventArgs e)
         {
+			Database.Instance.Save();
             Settings.Instance.Save();
             Logger.Instance.Dispose();
         }

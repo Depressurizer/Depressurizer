@@ -107,12 +107,12 @@ namespace Depressurizer
         /// <summary>
         /// Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is false.
         /// </summary>
-        public override void PreProcess(GameList games, GameDB db)
+        public override void PreProcess(GameList games, Database db)
         {
             base.PreProcess(games, db);
             if (RemoveOtherGenres)
             {
-                SortedSet<string> genreStrings = db.GetAllGenres();
+                SortedSet<string> genreStrings = db.AllGenres();
                 genreCategories = new SortedSet<Category>();
 
                 foreach (string cStr in genreStrings)

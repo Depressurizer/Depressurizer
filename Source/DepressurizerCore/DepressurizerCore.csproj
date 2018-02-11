@@ -62,6 +62,7 @@
     <Compile Include="Helpers\XmlUtil.cs" />
     <Compile Include="Models\AppInfo.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\LanguageSupport.cs" />
     <Compile Include="Models\PackageInfo.cs" />

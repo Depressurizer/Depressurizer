@@ -119,11 +119,10 @@ namespace Depressurizer
 
         public void FillDevList(ICollection<string> preChecked = null)
         {
-            if (Program.GameDB != null)
-            {
+            
                 Cursor = Cursors.WaitCursor;
                 IEnumerable<Tuple<string, int>> devList =
-                    Program.GameDB.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null,
+                    Database.Instance.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null,
                         (int) list_numScore.Value);
                 clbDevelopersSelected.Items.Clear();
                 lstDevelopers.BeginUpdate();
@@ -141,16 +140,15 @@ namespace Depressurizer
                 lstDevelopers.EndUpdate();
                 chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count + ")";
                 Cursor = Cursors.Default;
-            }
+            
         }
 
         public void FillPubList(ICollection<string> preChecked = null)
         {
-            if (Program.GameDB != null)
-            {
+           
                 Cursor = Cursors.WaitCursor;
                 IEnumerable<Tuple<string, int>> pubList =
-                    Program.GameDB.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null,
+                    Database.Instance.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null,
                         (int) list_numScore.Value);
                 clbPublishersSelected.Items.Clear();
                 lstPublishers.BeginUpdate();
@@ -168,7 +166,7 @@ namespace Depressurizer
                 lstPublishers.EndUpdate();
                 chkAllPublishers.Text = "All (" + lstPublishers.Items.Count + ")";
                 Cursor = Cursors.Default;
-            }
+            
         }
 
         private void SetAllListCheckStates(ListView list, bool to)
