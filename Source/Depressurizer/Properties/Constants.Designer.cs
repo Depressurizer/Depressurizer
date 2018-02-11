@@ -61,11 +61,65 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}\appcache\appinfo.vdf.
+        /// </summary>
+        internal static string AppInfoPath {
+            get {
+                return ResourceManager.GetString("AppInfoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\7\remote\sharedconfig.vdf.
+        /// </summary>
+        internal static string ConfigFilePath {
+            get {
+                return ResourceManager.GetString("ConfigFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://api.github.com/repos/mvegter/depressurizer/releases/latest.
         /// </summary>
         internal static string LatestReleaseURL {
             get {
                 return ResourceManager.GetString("LatestReleaseURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\config\localconfig.vdf.
+        /// </summary>
+        internal static string LocalConfigPath {
+            get {
+                return ResourceManager.GetString("LocalConfigPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\appcache\packageinfo.vdf.
+        /// </summary>
+        internal static string PackageInfoPath {
+            get {
+                return ResourceManager.GetString("PackageInfoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\760\screenshots.vdf.
+        /// </summary>
+        internal static string ScreenshotsFilePath {
+            get {
+                return ResourceManager.GetString("ScreenshotsFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\config\shortcuts.vdf.
+        /// </summary>
+        internal static string ShortCutsFilePath {
+            get {
+                return ResourceManager.GetString("ShortCutsFilePath", resourceCulture);
             }
         }
         
@@ -84,6 +138,60 @@ namespace Depressurizer.Properties {
         internal static string SteamStoreURL {
             get {
                 return ResourceManager.GetString("SteamStoreURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all.
+        /// </summary>
+        internal static string UrlCustomGameListHtml {
+            get {
+                return ResourceManager.GetString("UrlCustomGameListHtml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1.
+        /// </summary>
+        internal static string UrlCustomGameListXml {
+            get {
+                return ResourceManager.GetString("UrlCustomGameListXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}?xml=1.
+        /// </summary>
+        internal static string UrlCustomProfileXml {
+            get {
+                return ResourceManager.GetString("UrlCustomProfileXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all.
+        /// </summary>
+        internal static string UrlGameListHtml {
+            get {
+                return ResourceManager.GetString("UrlGameListHtml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1.
+        /// </summary>
+        internal static string UrlGameListXml {
+            get {
+                return ResourceManager.GetString("UrlGameListXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50.
+        /// </summary>
+        internal static string UrlSteamCuratorRecommendations {
+            get {
+                return ResourceManager.GetString("UrlSteamCuratorRecommendations", resourceCulture);
             }
         }
     }
