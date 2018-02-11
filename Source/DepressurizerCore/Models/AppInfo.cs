@@ -22,7 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using System.IO;
 using DepressurizerCore.Helpers;
 
 namespace DepressurizerCore.Models
@@ -115,6 +114,9 @@ namespace DepressurizerCore.Models
 		Video
 	}
 
+	/// <summary>
+	///     Steam AppInfo object
+	/// </summary>
 	public sealed class AppInfo
 	{
 		#region Static Fields
@@ -174,128 +176,100 @@ namespace DepressurizerCore.Models
 
 		#region Public Methods and Operators
 
-		public static AppInfo FromNode(VDFNode commonNode)
+		public static AppInfo FromNode(AppInfoNode node)
 		{
-			if ((commonNode == null) || (commonNode.NodeType != ValueType.Array))
+			if (node == null)
 			{
 				return null;
 			}
 
-			VDFNode idNode = commonNode.GetNodeAt(new[]
-			{
-				"gameid"
-			}, false);
-			int id = -1;
-			if (idNode != null)
-			{
-				if (idNode.NodeType == ValueType.Int)
-				{
-					id = idNode.NodeInt;
-				}
-				else if (idNode.NodeType == ValueType.String)
-				{
-					if (!int.TryParse(idNode.NodeString, out id))
-					{
-						id = -1;
-					}
-				}
-			}
-
-			if (id < 0)
+			if (!node.Items.ContainsKey("appinfo") || !node["appinfo"].Items.ContainsKey("common") || !node["appinfo"]["common"].Items.ContainsKey("gameid"))
 			{
 				return null;
 			}
 
-			AppInfo result = new AppInfo(id);
+			AppInfoNode dataNode = node["appinfo"]["common"];
 
-			VDFNode nameNode = commonNode.GetNodeAt(new[]
+			string gameIdNode = dataNode["gameid"].Value;
+			if (!int.TryParse(gameIdNode, out int appId))
 			{
-				"name"
-			}, false);
-			if (nameNode != null)
-			{
-				result.Name = nameNode.NodeData.ToString();
+				return null;
 			}
 
-			string typeStr = null;
-			VDFNode typeNode = commonNode.GetNodeAt(new[]
+			AppInfo appInfo = new AppInfo(appId);
+
+			if (dataNode.Items.ContainsKey("name"))
 			{
-				"type"
-			}, false);
-			if (typeNode != null)
-			{
-				typeStr = typeNode.NodeData.ToString();
+				appInfo.Name = dataNode["name"].Value;
 			}
 
-			if (typeStr != null)
+			if (dataNode.Items.ContainsKey("type"))
 			{
-				if (Enum.TryParse(typeStr, true, out AppType type))
+				string typeData = dataNode["type"].Value;
+				if (Enum.TryParse(typeData, true, out AppType type))
 				{
-					result.AppType = type;
+					appInfo.AppType = type;
 				}
 				else
 				{
-					SentryLogger.Log(new DataException(string.Format(CultureInfo.InvariantCulture, "New AppType '{0}'", typeStr)));
+					SentryLogger.Log(new DataException(string.Format(CultureInfo.InvariantCulture, "New AppType '{0}'", typeData)));
 				}
 			}
 
-			VDFNode oslistNode = commonNode.GetNodeAt(new[]
+			if (dataNode.Items.ContainsKey("oslist"))
 			{
-				"oslist"
-			}, false);
-			if (oslistNode != null)
-			{
-				string oslist = oslistNode.NodeData.ToString();
-				if (oslist.IndexOf("windows", StringComparison.OrdinalIgnoreCase) != -1)
+				string osList = dataNode["oslist"].Value;
+				if (osList.IndexOf("windows", StringComparison.OrdinalIgnoreCase) != -1)
 				{
-					result.Platforms |= AppPlatforms.Windows;
+					appInfo.Platforms |= AppPlatforms.Windows;
 				}
 
-				if (oslist.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
+				if (osList.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
 				{
-					result.Platforms |= AppPlatforms.Mac;
+					appInfo.Platforms |= AppPlatforms.Mac;
 				}
 
-				if (oslist.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
+				if (osList.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
 				{
-					result.Platforms |= AppPlatforms.Linux;
+					appInfo.Platforms |= AppPlatforms.Linux;
 				}
 			}
 
-			// Get parent
-			VDFNode parentNode = commonNode.GetNodeAt(new[]
+			if (!dataNode.Items.ContainsKey("parent"))
 			{
-				"parent"
-			}, false);
-			if (parentNode != null)
-			{
-				result.ParentId = parentNode.NodeInt;
+				return appInfo;
 			}
 
-			return result;
+			string parentNode = dataNode["parent"].Value;
+			if (int.TryParse(parentNode, out int parentId))
+			{
+				appInfo.ParentId = parentId;
+			}
+
+			return appInfo;
 		}
 
 		public static Dictionary<int, AppInfo> LoadApps(string path)
 		{
 			Dictionary<int, AppInfo> appInfos = new Dictionary<int, AppInfo>();
+			Dictionary<uint, AppInfoNode> appInfoNodes = new Dictionary<uint, AppInfoNode>();
 
-			using (BinaryReader binaryReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)))
+			try
 			{
-				long fileLength = binaryReader.BaseStream.Length;
+				appInfoNodes = new AppInfoReader(path).Items;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 
-				VDFNode.ReadBin_SeekTo(binaryReader, StartBytes, fileLength);
-
-				VDFNode node = VDFNode.LoadFromBinary(binaryReader, fileLength);
-				while (node != null)
+			foreach (AppInfoNode appInfoNode in appInfoNodes.Values)
+			{
+				AppInfo appInfo = FromNode(appInfoNode);
+				if (appInfo != null)
 				{
-					AppInfo app = FromNode(node);
-					if (app != null)
-					{
-						appInfos.Add(app.AppId, app);
-					}
-
-					VDFNode.ReadBin_SeekTo(binaryReader, StartBytes, fileLength);
-					node = VDFNode.LoadFromBinary(binaryReader, fileLength);
+					appInfos.Add(appInfo.AppId, appInfo);
 				}
 			}
 
