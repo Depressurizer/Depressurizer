@@ -572,7 +572,7 @@ namespace Depressurizer
 		/// <returns>Full text of the HTTP response</returns>
 		public static string FetchHtmlGameList(string customUrl)
 		{
-			return FetchHtmlFromUrl(string.Format(Resources.UrlCustomGameListHtml, customUrl));
+			return FetchHtmlFromUrl(string.Format(Constants.UrlCustomGameListHtml, customUrl));
 		}
 
 		/// <summary>
@@ -582,7 +582,7 @@ namespace Depressurizer
 		/// <returns>Full text of the HTTP response</returns>
 		public static string FetchHtmlGameList(long accountId)
 		{
-			return FetchHtmlFromUrl(string.Format(Resources.UrlGameListHtml, accountId));
+			return FetchHtmlFromUrl(string.Format(Constants.UrlGameListHtml, accountId));
 		}
 
 		/// <summary>
@@ -632,7 +632,7 @@ namespace Depressurizer
 		/// <returns>Fetched XML page as an XmlDocument</returns>
 		public static XmlDocument FetchXmlGameList(string customUrl)
 		{
-			return FetchXmlFromUrl(string.Format(Resources.UrlCustomGameListXml, customUrl));
+			return FetchXmlFromUrl(string.Format(Constants.UrlCustomGameListXml, customUrl));
 		}
 
 		/// <summary>
@@ -642,7 +642,7 @@ namespace Depressurizer
 		/// <returns>Fetched XML page as an XmlDocument</returns>
 		public static XmlDocument FetchXmlGameList(long steamId)
 		{
-			return FetchXmlFromUrl(string.Format(Resources.UrlGameListXml, steamId));
+			return FetchXmlFromUrl(string.Format(Constants.UrlGameListXml, steamId));
 		}
 
 		/// <summary>
@@ -791,7 +791,7 @@ namespace Depressurizer
 		/// <param name="includeShortcuts">If true, also saves the Steam shortcut category data</param>
 		public void ExportSteamConfig(long steamId, bool discardMissing, bool includeShortcuts)
 		{
-			string filePath = string.Format(Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+			string filePath = string.Format(Constants.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
 			ExportSteamConfigFile(filePath, discardMissing);
 			if (includeShortcuts)
 			{
@@ -946,7 +946,7 @@ namespace Depressurizer
 		/// <param name="discardMissing">If true, category information in shortcuts.vdf file is removed if game is not in Game list</param>
 		public void ExportSteamShortcuts(long SteamId)
 		{
-			string filePath = string.Format(Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+			string filePath = string.Format(Constants.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
 			Logger.Instance.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
 			FileStream fStream = null;
 			BinaryReader binReader = null;
@@ -1181,7 +1181,7 @@ namespace Depressurizer
 
 		public int ImportSteamConfig(long SteamId, SortedSet<int> ignore, bool includeShortcuts)
 		{
-			string filePath = string.Format(Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+			string filePath = string.Format(Constants.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
 			int result = ImportSteamConfigFile(filePath, ignore);
 			if (includeShortcuts)
 			{
@@ -1227,7 +1227,7 @@ namespace Depressurizer
 				return 0;
 			}
 
-			string filePath = string.Format(Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+			string filePath = string.Format(Constants.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
 
 			if (!File.Exists(filePath))
 			{
@@ -1603,11 +1603,11 @@ namespace Depressurizer
 			newApps = 0;
 			int totalApps = 0;
 
-			Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(Resources.PackageInfoPath, Settings.Instance.SteamPath));
+			Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(Constants.PackageInfoPath, Settings.Instance.SteamPath));
 
 			Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-			string localConfigPath = string.Format(Resources.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
+			string localConfigPath = string.Format(Constants.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
 			VDFNode vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
 			if (vdfFile != null)
 			{
@@ -1920,7 +1920,7 @@ namespace Depressurizer
 		private bool LoadShortcutLaunchIds(long SteamId, out StringDictionary shortcutLaunchIds)
 		{
 			bool result = false;
-			string filePath = string.Format(Resources.ScreenshotsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+			string filePath = string.Format(Constants.ScreenshotsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
 
 			shortcutLaunchIds = new StringDictionary();
 

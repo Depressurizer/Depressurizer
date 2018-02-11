@@ -117,13 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppInfoPath" xml:space="preserve">
+    <value>{0}\appcache\appinfo.vdf</value>
+  </data>
+  <data name="ConfigFilePath" xml:space="preserve">
+    <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
+  </data>
   <data name="LatestReleaseURL" xml:space="preserve">
     <value>https://api.github.com/repos/mvegter/depressurizer/releases/latest</value>
+  </data>
+  <data name="LocalConfigPath" xml:space="preserve">
+    <value>{0}\userdata\{1}\config\localconfig.vdf</value>
+  </data>
+  <data name="PackageInfoPath" xml:space="preserve">
+    <value>{0}\appcache\packageinfo.vdf</value>
+  </data>
+  <data name="ScreenshotsFilePath" xml:space="preserve">
+    <value>{0}\userdata\{1}\760\screenshots.vdf</value>
+  </data>
+  <data name="ShortCutsFilePath" xml:space="preserve">
+    <value>{0}\userdata\{1}\config\shortcuts.vdf</value>
   </data>
   <data name="SteamStoreAppURL" xml:space="preserve">
     <value>http://store.steampowered.com/app/{0}/</value>
   </data>
   <data name="SteamStoreURL" xml:space="preserve">
     <value>http://store.steampowered.com/</value>
+  </data>
+  <data name="UrlCustomGameListHtml" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}/games?tab=all</value>
+  </data>
+  <data name="UrlCustomGameListXml" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1</value>
+  </data>
+  <data name="UrlCustomProfileXml" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}?xml=1</value>
+  </data>
+  <data name="UrlGameListHtml" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}/games?tab=all</value>
+  </data>
+  <data name="UrlGameListXml" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
+  </data>
+  <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
+    <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>
   </data>
 </root>
