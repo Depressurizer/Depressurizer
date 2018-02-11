@@ -61,6 +61,7 @@
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Models\AppInfo.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\LanguageSupport.cs" />
     <Compile Include="Models\PackageInfo.cs" />
     <Compile Include="Models\VDFNode.cs" />
