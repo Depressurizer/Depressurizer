@@ -37,7 +37,13 @@ namespace DepressurizerCore.Helpers
 	{
 		#region Properties
 
-		private static List<int> IgnoreList => new List<int> {524440, 562020, 700580};
+		private static List<int> IgnoreList =>
+			new List<int>
+			{
+				524440,
+				562020,
+				700580
+			};
 
 		#endregion
 
