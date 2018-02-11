@@ -283,6 +283,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalStrings.uk.resx</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -291,7 +292,6 @@
     </Compile>
     <Compile Include="Models\ListCategoriesComparer.cs" />
     <Compile Include="Models\ListViewComparer.cs" />
-    <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
       <AutoGen>True</AutoGen>

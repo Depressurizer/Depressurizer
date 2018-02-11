@@ -299,11 +299,6 @@ namespace DepressurizerCore
 
 		public string Filter { get; set; } = null;
 
-		/// <summary>
-		///     Height of MainForm
-		/// </summary>
-		public int Height { get; set; } = 1280;
-
 		public bool IncludeImputedTimes { get; set; } = true;
 
 		/// <summary>
@@ -408,21 +403,6 @@ namespace DepressurizerCore
 			}
 			set => _storeLang = value;
 		}
-
-		/// <summary>
-		///     Width of MainForm
-		/// </summary>
-		public int Width { get; set; } = 720;
-
-		/// <summary>
-		///     X-Position of MainForm
-		/// </summary>
-		public int X { get; set; } = 0;
-
-		/// <summary>
-		///     Y-Position of MainForm
-		/// </summary>
-		public int Y { get; set; } = 0;
 
 		#endregion
 

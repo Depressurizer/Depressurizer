@@ -517,7 +517,7 @@ namespace Depressurizer
 					notInDbOrOldData.Add(game.Id);
 					notInDbCount++;
 				}
-				else if ((game.Id > 0) && (Utility.GetCurrentUTime() > (Program.GameDB.Games[game.Id].LastStoreScrape + (Settings.Instance.ScrapePromptDays * 86400)))) //86400 seconds in a day
+				else if ((game.Id > 0) && (Utility.CurrentUnixTime() > (Program.GameDB.Games[game.Id].LastStoreScrape + (Settings.Instance.ScrapePromptDays * 86400)))) //86400 seconds in a day
 				{
 					notInDbOrOldData.Add(game.Id);
 					oldDbDataCount++;
@@ -985,7 +985,7 @@ namespace Depressurizer
 		{
 			if (lstGames.SelectedObjects.Count > 0)
 			{
-				Utility.LaunchStorePage(tlstGames.SelectedObjects[0].Id);
+				Steam.LaunchStorePage(tlstGames.SelectedObjects[0].Id);
 			}
 		}
 
@@ -1622,10 +1622,6 @@ namespace Depressurizer
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			Settings settings = Settings.Instance;
-			settings.X = Left;
-			settings.Y = Top;
-			settings.Height = Height;
-			settings.Width = Width;
 			settings.SplitContainer = splitContainer.SplitterDistance;
 			settings.SplitGame = splitGame.SplitterDistance;
 			settings.SplitBrowser = splitBrowser.SplitterDistance;
@@ -1661,14 +1657,7 @@ namespace Depressurizer
 
 			// Load saved forms settings
 			Settings settings = Settings.Instance;
-			Location = new Point(settings.X, settings.Y);
-			if (!Utility.IsOnScreen(this))
-			{
-				//TopLeft corner is off screen, so reset location
-				Location = new Point(0, 0);
-			}
 
-			Size = new Size(settings.Width, settings.Height);
 			splitContainer.SplitterDistance = settings.SplitContainer;
 			settings.SplitGameContainerHeight = splitGame.Height;
 			splitGame.SplitterDistance = settings.SplitGame;
@@ -1707,7 +1696,7 @@ namespace Depressurizer
 			}
 
 			int aWeekInSecs = 7 * 24 * 60 * 60;
-			if (Settings.Instance.OnStartUpdateFromHLTB && (Utility.GetCurrentUTime() > (Program.GameDB.LastHltbUpdate + aWeekInSecs)))
+			if (Settings.Instance.OnStartUpdateFromHLTB && (Utility.CurrentUnixTime() > (Program.GameDB.LastHltbUpdate + aWeekInSecs)))
 			{
 				UpdateGameDBFromHltb();
 			}
@@ -2110,7 +2099,7 @@ namespace Depressurizer
 					return DateTime.MinValue;
 				}
 
-				return Utility.GetDTFromUTime(((GameInfo) g).LastPlayed).Date;
+				return Utility.DateTimeFromUnix(((GameInfo) g).LastPlayed).Date;
 			};
 			colAchievements.AspectGetter = delegate(object g)
 			{
@@ -2450,18 +2439,7 @@ namespace Depressurizer
 		{
 			if (g != null)
 			{
-				//string gameIdentifier;
-				//if( g.Id < 0 ) {   // External game
-				//    if( g.LaunchString == null ) {
-				//        MessageBox.Show( GlobalStrings.MainForm_LaunchFailed );
-				//        return;
-				//    }
-				//    gameIdentifier = g.LaunchString;
-				//} else {
-				//    // Steam game
-				//    gameIdentifier = g.Id.ToString();
-				//}
-				g.LastPlayed = Utility.GetCurrentUTime();
+				g.LastPlayed = Utility.CurrentUnixTime();
 				Process.Start(g.Executable);
 			}
 		}
