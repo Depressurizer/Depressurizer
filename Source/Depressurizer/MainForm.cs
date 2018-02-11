@@ -96,8 +96,6 @@ namespace Depressurizer
 
 		private Filter advFilter = new Filter(ADVANCED_FILTER);
 
-		private Color borderColor = Color.FromArgb(255, 25, 28, 38);
-
 		// used to prevent moving the filler column in the game list
 		private Thread columnReorderThread;
 
@@ -106,27 +104,17 @@ namespace Depressurizer
 
 		private int dragOldCat;
 
-		private Color headerCellColor = Color.FromArgb(255, 58, 58, 58);
-
-		private Color highlightCellColor = Color.FromArgb(255, 25, 55, 84);
-
 		// Allow visual feedback when dragging over the cat list
 		private bool isDragging;
 
 		private object lastSelectedCat; // Stores last selected category to minimize game list refreshes
 
-		private Color menuColorDark = Color.FromArgb(255, 38, 50, 56);
-
-		private Color menuColorLight = Color.FromArgb(255, 55, 71, 79);
-
-		private Color menuHighlightText = Color.FromArgb(255, 255, 255, 234);
-
-		private Color menuPrimaryText = Color.FromArgb(255, 168, 173, 175);
-
 		// Used to reload resources of main form while switching language
-		private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary, originalSplitDistanceBrowser;
-
-		private Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
+		private int originalWidth;
+		private int originalHeight;
+		private int originalSplitDistanceMain;
+		private int originalSplitDistanceSecondary;
+		private int originalSplitDistanceBrowser;
 
 		private TypedObjectListView<GameInfo> tlstGames;
 
