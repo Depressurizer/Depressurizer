@@ -54,15 +54,15 @@ namespace Depressurizer
 	{
 		#region Constants
 
-		private const string ADVANCED_FILTER = "ADVANCED_FILTER";
+		private const string AdvancedFilter = "ADVANCED_FILTER";
 
-		private const string BIG_DOWN = "{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN}";
+		private const string BigDown = "{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN}";
 
-		private const string BIG_UP = "{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP}";
+		private const string BigUp = "{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP}";
 
-		private const string EARLY_ACCESS = "Early Access";
+		private const string EarlyAccess = "Early Access";
 
-		private const int MAX_FILTER_STATE = 2;
+		private const int MaxFilterState = 2;
 
 		#endregion
 
@@ -74,51 +74,26 @@ namespace Depressurizer
 
 		#region Fields
 
-		private readonly Color accent = Color.FromArgb(255, 0, 145, 234);
+		private readonly StringBuilder _statusBuilder = new StringBuilder();
 
-		private readonly Color formColor = Color.FromArgb(255, 42, 42, 44);
-
-		private readonly Color headerFontColor = Color.FromArgb(255, 169, 167, 167);
-
-		private readonly Color listBackground = Color.FromArgb(255, 22, 22, 22);
-
-		private readonly MaterialSkinManager materialSkinManager;
-
-		private readonly Color primary = Color.FromArgb(255, 55, 71, 79);
-
-		private readonly Color primaryDark = Color.FromArgb(255, 38, 50, 56);
-
-		private readonly Color primaryLight = Color.FromArgb(255, 96, 125, 139);
-
-		private readonly StringBuilder statusBuilder = new StringBuilder();
-
-		private readonly Color textColor = Color.FromArgb(255, 255, 255, 255);
-
-		private Filter advFilter = new Filter(ADVANCED_FILTER);
+		private Filter _advFilter = new Filter(AdvancedFilter);
 
 		// used to prevent moving the filler column in the game list
-		private Thread columnReorderThread;
+		private Thread _columnReorderThread;
 
 		// Used to prevent double clicking in Autocat listview from changing checkstate
-		private bool doubleClick;
+		private bool _doubleClick;
 
-		private int dragOldCat;
+		private int _dragOldCat;
 
 		// Allow visual feedback when dragging over the cat list
-		private bool isDragging;
+		private bool _isDragging;
 
-		private object lastSelectedCat; // Stores last selected category to minimize game list refreshes
+		private object _lastSelectedCat; // Stores last selected category to minimize game list refreshes
 
-		// Used to reload resources of main form while switching language
-		private int originalWidth;
-		private int originalHeight;
-		private int originalSplitDistanceMain;
-		private int originalSplitDistanceSecondary;
-		private int originalSplitDistanceBrowser;
+		private TypedObjectListView<GameInfo> _tlstGames;
 
-		private TypedObjectListView<GameInfo> tlstGames;
-
-		private bool unsavedChanges;
+		private bool _unsavedChanges;
 
 		#endregion
 
@@ -128,24 +103,11 @@ namespace Depressurizer
 		{
 			InitializeComponent();
 
-			menuStrip.Renderer = new MyRenderer();
-			menu_Tools_Autocat_List.Renderer = new MyRenderer();
-			contextCat.Renderer = new MyRenderer();
-			contextGame.Renderer = new MyRenderer();
-			contextGameFav.Renderer = new MyRenderer();
-			contextGameHidden.Renderer = new MyRenderer();
-			contextGameAddCat.Renderer = new MyRenderer();
-			contextGameRemCat.Renderer = new MyRenderer();
-			contextAutoCat.Renderer = new MyRenderer();
+			InitializeRenderers();
+			InitializeMaterialSkin();
 
-			// Initialize MaterialSkinManager
-			materialSkinManager = MaterialSkinManager.Instance;
-			materialSkinManager.AddFormToManage(this);
-			materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-			materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue700, TextShade.WHITE);
-
-			lstCategories.BackColor = formColor;
-			lstCategories.ForeColor = textColor;
+			lstCategories.BackColor = FormColor;
+			lstCategories.ForeColor = TextColor;
 
 			InitializeLstGames();
 		}
@@ -169,6 +131,22 @@ namespace Depressurizer
 
 		#region Properties
 
+		private static Color Accent => Color.FromArgb(255, 0, 145, 234);
+
+		private static Color FormColor => Color.FromArgb(255, 42, 42, 44);
+
+		private static Color HeaderFontColor => Color.FromArgb(255, 169, 167, 167);
+
+		private static Color ListBackground => Color.FromArgb(255, 22, 22, 22);
+
+		private static Color Primary => Color.FromArgb(255, 55, 71, 79);
+
+		private static Color PrimaryDark => Color.FromArgb(255, 38, 50, 56);
+
+		private static Color PrimaryLight => Color.FromArgb(255, 96, 125, 139);
+
+		private static Color TextColor => Color.FromArgb(255, 255, 255, 255);
+
 		private bool AdvancedCategoryFilter => mchkAdvancedCategories.Checked;
 
 		#endregion
@@ -181,8 +159,37 @@ namespace Depressurizer
 		/// <param name="s"></param>
 		public void AddStatus(string s)
 		{
-			statusBuilder.Append(s);
-			statusBuilder.Append(' ');
+			_statusBuilder.Append(s);
+			_statusBuilder.Append(' ');
+		}
+
+		public void ChangeDatabaseLanguage(StoreLanguage storeLanguage)
+		{
+			if (Database.Instance.Language == storeLanguage)
+			{
+				return;
+			}
+
+			Database.Instance.Language = storeLanguage;
+
+			List<int> appsToUpdate = new List<int>();
+			if (CurrentProfile != null)
+			{
+				foreach (GameInfo game in CurrentProfile.GameData.Games.Values)
+				{
+					if (game.Id > 0)
+					{
+						appsToUpdate.Add(game.Id);
+					}
+				}
+
+				using (ScrapeDialog dialog = new ScrapeDialog(appsToUpdate))
+				{
+					dialog.ShowDialog();
+				}
+			}
+
+			SaveDatabase();
 		}
 
 		/// <summary>
@@ -190,7 +197,7 @@ namespace Depressurizer
 		/// </summary>
 		public void ClearStatus()
 		{
-			statusBuilder.Clear();
+			_statusBuilder.Clear();
 		}
 
 		/// <summary>
@@ -199,20 +206,78 @@ namespace Depressurizer
 		public void FlushStatus()
 		{
 			mlblStatusMsg.Font = new Font("Arial", 9);
-			mlblStatusMsg.Text = statusBuilder.ToString();
-			statusBuilder.Clear();
+			mlblStatusMsg.Text = _statusBuilder.ToString();
+			_statusBuilder.Clear();
 		}
 
 		#endregion
 
 		#region Methods
 
+		private static void CheckForDepressurizerUpdates()
+		{
+			Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+			try
+			{
+				Version githubVersion;
+				string url;
+
+				using (WebClient webClient = new WebClient())
+				{
+					webClient.Headers.Set("User-Agent", "Depressurizer");
+
+					string json = webClient.DownloadString(Constants.LatestReleaseURL);
+					JObject parsedJson = JObject.Parse(json);
+
+					githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
+					url = (string) parsedJson.SelectToken("html_url");
+				}
+
+				if (githubVersion <= currentVersion)
+				{
+					return;
+				}
+
+				if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
+				{
+					Process.Start(url);
+				}
+			}
+			catch (Exception e)
+			{
+				Logger.Instance.Exception("Exception while checking for new updates to depressurizer.", e);
+				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		private static void LoadDatabase()
+		{
+			try
+			{
+				if (File.Exists("database.json"))
+				{
+					Database.Instance.Load("database.json");
+				}
+				else
+				{
+					MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + GlobalStrings.MainForm_GameDBFileNotExist);
+					Logger.Instance.Warn("Database file does not exist.");
+				}
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + e.Message);
+				Logger.Instance.Exception("Exception while trying to load the initial Database.", e);
+			}
+		}
+
 		private void AddCategoryToSelectedGames(Category cat, bool forceClearOthers)
 		{
 			if (lstGames.SelectedObjects.Count > 0)
 			{
 				Cursor.Current = Cursors.WaitCursor;
-				foreach (GameInfo g in tlstGames.SelectedObjects)
+				foreach (GameInfo g in _tlstGames.SelectedObjects)
 				{
 					if (g != null)
 					{
@@ -340,7 +405,7 @@ namespace Depressurizer
 			}
 
 			// reset Advanced settings
-			advFilter = new Filter(ADVANCED_FILTER);
+			_advFilter = new Filter(AdvancedFilter);
 
 			// load new Advanced settings
 			foreach (ListViewItem i in lstCategories.Items)
@@ -348,44 +413,44 @@ namespace Depressurizer
 				if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
 				{
 					i.StateImageIndex = f.Game;
-					advFilter.Game = f.Game;
+					_advFilter.Game = f.Game;
 				}
 				else if (i.Tag.ToString() == $"<{Resources.Category_Software}>")
 				{
 					i.StateImageIndex = f.Software;
-					advFilter.Software = f.Software;
+					_advFilter.Software = f.Software;
 				}
 				else if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
 				{
 					i.StateImageIndex = f.Uncategorized;
-					advFilter.Uncategorized = f.Uncategorized;
+					_advFilter.Uncategorized = f.Uncategorized;
 				}
 				else if (i.Tag.ToString() == $"<{Resources.Category_Hidden}>")
 				{
 					i.StateImageIndex = f.Hidden;
-					advFilter.Hidden = f.Hidden;
+					_advFilter.Hidden = f.Hidden;
 				}
 				else if (i.Tag.ToString() == $"<{Resources.Category_VR}>")
 				{
 					i.StateImageIndex = f.VR;
-					advFilter.VR = f.VR;
+					_advFilter.VR = f.VR;
 				}
 				else
 				{
 					if (f.Allow.Contains((Category) i.Tag))
 					{
 						i.StateImageIndex = (int) AdvancedFilterState.Allow;
-						advFilter.Allow.Add((Category) i.Tag);
+						_advFilter.Allow.Add((Category) i.Tag);
 					}
 					else if (f.Require.Contains((Category) i.Tag))
 					{
 						i.StateImageIndex = (int) AdvancedFilterState.Require;
-						advFilter.Require.Add((Category) i.Tag);
+						_advFilter.Require.Add((Category) i.Tag);
 					}
 					else if (f.Exclude.Contains((Category) i.Tag))
 					{
 						i.StateImageIndex = (int) AdvancedFilterState.Exclude;
-						advFilter.Exclude.Add((Category) i.Tag);
+						_advFilter.Exclude.Add((Category) i.Tag);
 					}
 					else
 					{
@@ -406,7 +471,7 @@ namespace Depressurizer
 			if (lstGames.SelectedObjects.Count > 0)
 			{
 				Cursor.Current = Cursors.WaitCursor;
-				foreach (GameInfo g in tlstGames.SelectedObjects)
+				foreach (GameInfo g in _tlstGames.SelectedObjects)
 				{
 					g.SetFavorite(fav);
 				}
@@ -427,7 +492,7 @@ namespace Depressurizer
 			if (lstGames.SelectedObjects.Count > 0)
 			{
 				Cursor.Current = Cursors.WaitCursor;
-				foreach (GameInfo g in tlstGames.SelectedObjects)
+				foreach (GameInfo g in _tlstGames.SelectedObjects)
 				{
 					g.SetHidden(hidden);
 				}
@@ -458,7 +523,7 @@ namespace Depressurizer
 
 			if (selectedOnly && (autoCat.Filter == null))
 			{
-				foreach (GameInfo g in tlstGames.SelectedObjects)
+				foreach (GameInfo g in _tlstGames.SelectedObjects)
 				{
 					if (g.Id > 0)
 					{
@@ -466,9 +531,9 @@ namespace Depressurizer
 					}
 				}
 			}
-			else if ((tlstGames.Objects.Count > 0) && (autoCat.Filter == null))
+			else if ((_tlstGames.Objects.Count > 0) && (autoCat.Filter == null))
 			{
-				foreach (GameInfo g in tlstGames.Objects)
+				foreach (GameInfo g in _tlstGames.Objects)
 				{
 					if (g.Id > 0)
 					{
@@ -583,7 +648,7 @@ namespace Depressurizer
 
 			if (mchkAutoCatSelected.Checked)
 			{
-				foreach (GameInfo g in tlstGames.SelectedObjects)
+				foreach (GameInfo g in _tlstGames.SelectedObjects)
 				{
 					if (g.Id > 0)
 					{
@@ -591,9 +656,9 @@ namespace Depressurizer
 					}
 				}
 			}
-			else if (tlstGames.Objects.Count > 0)
+			else if (_tlstGames.Objects.Count > 0)
 			{
-				foreach (GameInfo g in tlstGames.Objects)
+				foreach (GameInfo g in _tlstGames.Objects)
 				{
 					if (g.Id > 0)
 					{
@@ -678,7 +743,7 @@ namespace Depressurizer
 		/// Resource manager
 		/// <param name="newCulture"></param>
 		/// Culture of language to load
-		private void changeLanguageControls(Control c, ComponentResourceManager resources, CultureInfo newCulture)
+		private void ChangeLanguageControls(Control c, ComponentResourceManager resources, CultureInfo newCulture)
 		{
 			if (c != null)
 			{
@@ -687,7 +752,7 @@ namespace Depressurizer
 				{
 					foreach (ToolStripDropDownItem mItem in (c as MenuStrip).Items)
 					{
-						changeLanguageToolStripItems(mItem, resources, newCulture);
+						ChangeLanguageToolStripItems(mItem, resources, newCulture);
 					}
 				}
 				else if (c is ListView)
@@ -706,7 +771,7 @@ namespace Depressurizer
 				{
 					foreach (Control childControl in c.Controls)
 					{
-						changeLanguageControls(childControl, resources, newCulture);
+						ChangeLanguageControls(childControl, resources, newCulture);
 					}
 				}
 
@@ -724,7 +789,7 @@ namespace Depressurizer
 		/// Resource manager
 		/// <param name="newCulture"></param>
 		/// Culture of language to load
-		private void changeLanguageToolStripItems(ToolStripItem item, ComponentResourceManager resources, CultureInfo newCulture)
+		private void ChangeLanguageToolStripItems(ToolStripItem item, ComponentResourceManager resources, CultureInfo newCulture)
 		{
 			if (item != null)
 			{
@@ -732,7 +797,7 @@ namespace Depressurizer
 				{
 					foreach (ToolStripItem childItem in (item as ToolStripDropDownItem).DropDownItems)
 					{
-						changeLanguageToolStripItems(childItem, resources, newCulture);
+						ChangeLanguageToolStripItems(childItem, resources, newCulture);
 					}
 				}
 
@@ -740,44 +805,9 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Checks github for newer versions of depressurizer.
-		/// </summary>
-		/// <returns>True if there is a newer release, false otherwise</returns>
-		private void CheckForDepressurizerUpdates()
-		{
-			Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
-			try
-			{
-				Version githubVersion;
-				string url;
-				using (WebClient wc = new WebClient())
-				{
-					wc.Headers.Set("User-Agent", "Depressurizer");
-					string json = wc.DownloadString(Constants.LatestReleaseURL);
-					JObject parsedJson = JObject.Parse(json);
-					githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
-					url = (string) parsedJson.SelectToken("html_url");
-				}
-
-				if (githubVersion > currentVersion)
-				{
-					if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
-					{
-						Process.Start(url);
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Logger.Instance.Exception(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
-				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-		}
-
 		private bool CheckForUnsaved()
 		{
-			if (!ProfileLoaded || !unsavedChanges)
+			if (!ProfileLoaded || !_unsavedChanges)
 			{
 				return true;
 			}
@@ -831,7 +861,7 @@ namespace Depressurizer
 			ClearStatus();
 			if (lstGames.SelectedObjects.Count > 0)
 			{
-				LaunchGame(tlstGames.SelectedObjects[0]);
+				LaunchGame(_tlstGames.SelectedObjects[0]);
 			}
 
 			FlushStatus();
@@ -846,7 +876,7 @@ namespace Depressurizer
 
 		private void ColumnReorderWorker()
 		{
-			reorderFillerColumn();
+			ReorderFillerColumn();
 		}
 
 		private void contectCat_RemoveEmpty_Click(object sender, EventArgs e)
@@ -968,7 +998,7 @@ namespace Depressurizer
 		{
 			if (lstGames.SelectedObjects.Count > 0)
 			{
-				Steam.LaunchStorePage(tlstGames.SelectedObjects[0].Id);
+				Steam.LaunchStorePage(_tlstGames.SelectedObjects[0].Id);
 			}
 		}
 
@@ -1208,7 +1238,7 @@ namespace Depressurizer
 		{
 			if (lstGames.SelectedObjects.Count > 0)
 			{
-				GameInfo g = tlstGames.SelectedObjects[0];
+				GameInfo g = _tlstGames.SelectedObjects[0];
 				DlgGame dlg = new DlgGame(CurrentProfile.GameData, g);
 				if (dlg.ShowDialog() == DialogResult.OK)
 				{
@@ -1458,56 +1488,56 @@ namespace Depressurizer
 			}
 
 			ListViewItem listViewItem;
-            if (!AdvancedCategoryFilter)
-            {
-                // <All>
-                listViewItem = new ListViewItem($"<{Resources.Category_All}> ({CurrentProfile.GameData.Games.Count - hidden})")
-                {
-                    Tag = $"<{Resources.Category_All}>",
-                    Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_All)
-                };
-                lstCategories.Items.Add(listViewItem);
-            }
+			if (!AdvancedCategoryFilter)
+			{
+				// <All>
+				listViewItem = new ListViewItem($"<{Resources.Category_All}> ({CurrentProfile.GameData.Games.Count - hidden})")
+				{
+					Tag = $"<{Resources.Category_All}>",
+					Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_All)
+				};
+				lstCategories.Items.Add(listViewItem);
+			}
 
-            // <Games>
-            listViewItem = new ListViewItem($"<{Resources.Category_Games}> ({games})")
-            {
-                Tag = $"<{Resources.Category_Games}>",
-                Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Games)
-            };
-            lstCategories.Items.Add(listViewItem);
+			// <Games>
+			listViewItem = new ListViewItem($"<{Resources.Category_Games}> ({games})")
+			{
+				Tag = $"<{Resources.Category_Games}>",
+				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Games)
+			};
+			lstCategories.Items.Add(listViewItem);
 
-            // <Software>
-            listViewItem = new ListViewItem($"<{Resources.Category_Software}> ({software})")
-            {
-                Tag = $"<{Resources.Category_Software}>",
-                Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Software)
-            };
-            lstCategories.Items.Add(listViewItem);
+			// <Software>
+			listViewItem = new ListViewItem($"<{Resources.Category_Software}> ({software})")
+			{
+				Tag = $"<{Resources.Category_Software}>",
+				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Software)
+			};
+			lstCategories.Items.Add(listViewItem);
 
-            // <Uncategorized>
-            listViewItem = new ListViewItem($"<{Resources.Category_Uncategorized}> ({uncategorized})")
-            {
-                Tag = $"<{Resources.Category_Uncategorized}>",
-                Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Uncategorized)
-            };
-            lstCategories.Items.Add(listViewItem);
+			// <Uncategorized>
+			listViewItem = new ListViewItem($"<{Resources.Category_Uncategorized}> ({uncategorized})")
+			{
+				Tag = $"<{Resources.Category_Uncategorized}>",
+				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Uncategorized)
+			};
+			lstCategories.Items.Add(listViewItem);
 
-            // <Hidden>
-            listViewItem = new ListViewItem($"<{Resources.Category_Hidden}> ({hidden})")
-            {
-                Tag = $"<{Resources.Category_Hidden}>",
-                Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Hidden)
-            };
-            lstCategories.Items.Add(listViewItem);
+			// <Hidden>
+			listViewItem = new ListViewItem($"<{Resources.Category_Hidden}> ({hidden})")
+			{
+				Tag = $"<{Resources.Category_Hidden}>",
+				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Hidden)
+			};
+			lstCategories.Items.Add(listViewItem);
 
-            // <VR>
-            listViewItem = new ListViewItem($"<{Resources.Category_VR}> ({vr})")
-            {
-                Tag = $"<{Resources.Category_VR}>",
-                Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_VR)
-            };
-            lstCategories.Items.Add(listViewItem);
+			// <VR>
+			listViewItem = new ListViewItem($"<{Resources.Category_VR}> ({vr})")
+			{
+				Tag = $"<{Resources.Category_VR}>",
+				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_VR)
+			};
+			lstCategories.Items.Add(listViewItem);
 
 			foreach (Category c in CurrentProfile.GameData.Categories)
 			{
@@ -1690,13 +1720,6 @@ namespace Depressurizer
 
 			LoadDatabase();
 
-			// Save original width and height
-			originalHeight = Height;
-			originalWidth = Width;
-			originalSplitDistanceMain = splitContainer.SplitterDistance;
-			originalSplitDistanceSecondary = splitGame.SplitterDistance;
-			originalSplitDistanceBrowser = splitBrowser.SplitterDistance;
-
 			ClearStatus();
 
 			if (string.IsNullOrWhiteSpace(Settings.Instance.SteamPath))
@@ -1712,13 +1735,13 @@ namespace Depressurizer
 
 			if (Settings.Instance.OnStartUpdateFromAppInfo)
 			{
-				UpdateGameDBFromAppInfo();
+				UpdateGameDbFromAppInfo();
 			}
 
 			int aWeekInSecs = 7 * 24 * 60 * 60;
 			if (Settings.Instance.OnStartUpdateFromHLTB && (Utility.CurrentUnixTime() > (Database.Instance.LastHltbUpdate + aWeekInSecs)))
 			{
-				UpdateGameDBFromHltb();
+				UpdateGameDbFromHltb();
 			}
 
 			if (Settings.Instance.CheckForUpdates)
@@ -1744,7 +1767,7 @@ namespace Depressurizer
 
 			ChangeDatabaseLanguage(Settings.Instance.StoreLanguage);
 
-			UpdateUIForSingleCat();
+			UpdateUiForSingleCat();
 			UpdateEnabledStatesForGames();
 			UpdateEnabledStatesForCategories();
 
@@ -1757,35 +1780,6 @@ namespace Depressurizer
 				SelectFilter(settings);
 				SelectAutoCats(settings);
 			}
-		}
-
-		public void ChangeDatabaseLanguage(StoreLanguage storeLanguage)
-		{
-			if (Database.Instance.Language == storeLanguage)
-			{
-				return;
-			}
-
-			Database.Instance.Language = storeLanguage;
-
-			List<int> appsToUpdate = new List<int>();
-			if (CurrentProfile != null)
-			{
-				foreach (GameInfo game in CurrentProfile.GameData.Games.Values)
-				{
-					if (game.Id > 0)
-					{
-						appsToUpdate.Add(game.Id);
-					}
-				}
-
-				using (ScrapeDialog dialog = new ScrapeDialog(appsToUpdate))
-				{
-					dialog.ShowDialog();
-				}
-			}
-
-			SaveDatabase();
 		}
 
 		/// <summary>
@@ -1803,92 +1797,92 @@ namespace Depressurizer
 
 			return lstCategories.GetItemAt(clientPoint.X, clientPoint.Y);
 		}
-		
+
 		private void HandleAdvancedCategoryItemActivation(ListViewItem i, bool reverse, bool updateView = true)
-        {
-            int oldState = i.StateImageIndex;
+		{
+			int oldState = i.StateImageIndex;
 
-            if (i.StateImageIndex == -1 && reverse)
-            {
-                i.StateImageIndex = MAX_FILTER_STATE;
-            }
-            else if (i.StateImageIndex == MAX_FILTER_STATE && !reverse)
-            {
-                i.StateImageIndex = -1;
-            }
-            else
-            {
-                i.StateImageIndex += reverse ? -1 : 1;
-            }
+			if ((i.StateImageIndex == -1) && reverse)
+			{
+				i.StateImageIndex = MaxFilterState;
+			}
+			else if ((i.StateImageIndex == MaxFilterState) && !reverse)
+			{
+				i.StateImageIndex = -1;
+			}
+			else
+			{
+				i.StateImageIndex += reverse ? -1 : 1;
+			}
 
-            Category c = i.Tag as Category;
+			Category c = i.Tag as Category;
 
-            if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
-            {
-                advFilter.Game = i.StateImageIndex;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_Software}>")
-            {
-                advFilter.Software = i.StateImageIndex;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
-            {
-                advFilter.Uncategorized = i.StateImageIndex;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_Hidden}>")
-            {
-                advFilter.Hidden = i.StateImageIndex;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_VR}>")
-            {
-                advFilter.VR = i.StateImageIndex;
-            }
-            else
-            {
-                switch (oldState)
-                {
-                    case (int) AdvancedFilterState.Allow:
-                        advFilter.Allow.Remove(c);
+			if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
+			{
+				_advFilter.Game = i.StateImageIndex;
+			}
+			else if (i.Tag.ToString() == $"<{Resources.Category_Software}>")
+			{
+				_advFilter.Software = i.StateImageIndex;
+			}
+			else if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
+			{
+				_advFilter.Uncategorized = i.StateImageIndex;
+			}
+			else if (i.Tag.ToString() == $"<{Resources.Category_Hidden}>")
+			{
+				_advFilter.Hidden = i.StateImageIndex;
+			}
+			else if (i.Tag.ToString() == $"<{Resources.Category_VR}>")
+			{
+				_advFilter.VR = i.StateImageIndex;
+			}
+			else
+			{
+				switch (oldState)
+				{
+					case (int) AdvancedFilterState.Allow:
+						_advFilter.Allow.Remove(c);
 
-                        break;
-                    case (int) AdvancedFilterState.Require:
-                        advFilter.Require.Remove(c);
+						break;
+					case (int) AdvancedFilterState.Require:
+						_advFilter.Require.Remove(c);
 
-                        break;
-                    case (int) AdvancedFilterState.Exclude:
-                        advFilter.Exclude.Remove(c);
+						break;
+					case (int) AdvancedFilterState.Exclude:
+						_advFilter.Exclude.Remove(c);
 
-                        break;
-                }
+						break;
+				}
 
-                switch (i.StateImageIndex)
-                {
-                    case (int) AdvancedFilterState.Allow:
-                        advFilter.Allow.Add(c);
+				switch (i.StateImageIndex)
+				{
+					case (int) AdvancedFilterState.Allow:
+						_advFilter.Allow.Add(c);
 
-                        break;
-                    case (int) AdvancedFilterState.Require:
-                        advFilter.Require.Add(c);
+						break;
+					case (int) AdvancedFilterState.Require:
+						_advFilter.Require.Add(c);
 
-                        break;
-                    case (int) AdvancedFilterState.Exclude:
-                        advFilter.Exclude.Add(c);
+						break;
+					case (int) AdvancedFilterState.Exclude:
+						_advFilter.Exclude.Add(c);
 
-                        break;
-                }
-            }
+						break;
+				}
+			}
 
-            if (updateView)
-            {
-                OnViewChange();
-            }
-        }
+			if (updateView)
+			{
+				OnViewChange();
+			}
+		}
 
 		private void HandleMouseWheel(object sender, MouseEventArgs e)
 		{
 			if (contextGame.IsDropDown)
 			{
-				SendKeys.SendWait(e.Delta > 0 ? BIG_UP : BIG_DOWN);
+				SendKeys.SendWait(e.Delta > 0 ? BigUp : BigDown);
 			}
 		}
 
@@ -1948,540 +1942,561 @@ namespace Depressurizer
 			Cursor = Cursors.Default;
 		}
 
-
- private void InitializeLstGames()
-        {
-            tlstGames = new TypedObjectListView<GameInfo>(lstGames);
-            //Aspect Getters
-            tlstGames.GenerateAspectGetters();
-            colGameID.AspectToStringConverter = delegate { return string.Empty; };
-            //colGameID.AspectToStringConverter = delegate(object obj)
-            //{
-            //    int id = (int)obj;
-            //    return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
-            //};
-            //colTitle.AspectGetter = delegate (Object g) { return String.Empty; };
-            colCategories.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                return ((GameInfo) g).GetCatString($"<{Resources.Category_Uncategorized}>");
-            };
-            colFavorite.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                return ((GameInfo) g).IsFavorite() ? "X" : string.Empty;
-            };
-            colHidden.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                return ((GameInfo) g).Hidden ? "X" : string.Empty;
-            };
-            colGenres.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return GlobalStrings.MainForm_NoGenres;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].Genres != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].Genres);
-                }
-
-                return GlobalStrings.MainForm_NoGenres;
-            };
-            colFlags.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return GlobalStrings.MainForm_NoFlags;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].Flags != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].Flags);
-                }
-
-                return GlobalStrings.MainForm_NoFlags;
-            };
-            colTags.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return GlobalStrings.MainForm_NoTags;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].Tags != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].Tags);
-                }
-
-                return GlobalStrings.MainForm_NoTags;
-            };
-            colVRHeadsets.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].VrSupport.Headsets != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].VrSupport.Headsets);
-                }
-
-                return string.Empty;
-            };
-            colVRInput.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].VrSupport.Input != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].VrSupport.Input);
-                }
-
-                return string.Empty;
-            };
-            colVRPlayArea.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].VrSupport.PlayArea != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].VrSupport.PlayArea);
-                }
-
-                return string.Empty;
-            };
-            colLanguageInterface.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].LanguageSupport.Interface != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].LanguageSupport.Interface);
-                }
-
-                return string.Empty;
-            };
-            colLanguageSubtitles.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].LanguageSupport.Subtitles != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].LanguageSupport.Subtitles);
-                }
-
-                return string.Empty;
-            };
-            colLanguageFullAudio.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return string.Empty;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].LanguageSupport.FullAudio != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].LanguageSupport.FullAudio);
-                }
-
-                return string.Empty;
-            };
-            colYear.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return GlobalStrings.MainForm_Unknown;
-                }
-
-                int id = ((GameInfo) g).Id;
-                DateTime releaseDate;
-                CultureInfo culture = Utility.GetCultureInfoFromStoreLanguage(Database.Instance.Language);
-                if (Database.Instance.Games.ContainsKey(id) && DateTime.TryParse(Database.Instance.Games[id].SteamReleaseDate, culture, DateTimeStyles.None, out releaseDate))
-                {
-                    return releaseDate.Year.ToString();
-                }
-
-                return GlobalStrings.MainForm_Unknown;
-            };
-            colLastPlayed.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return DateTime.MinValue;
-                }
-
-                if (((GameInfo) g).LastPlayed <= 0)
-                {
-                    return DateTime.MinValue;
-                }
-
-                return DateTimeOffset.FromUnixTimeSeconds(((GameInfo) g).LastPlayed).Date;
-            };
-            colAchievements.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return 0;
-                }
-
-                int id = ((GameInfo) g).Id;
-
-                return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].TotalAchievements : 0;
-            };
-            colPlatforms.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return "";
-                }
-
-                AppPlatforms platforms = Database.Instance.Games[((GameInfo) g).Id].Platforms;
-
-                return (platforms & AppPlatforms.Linux) != 0 && platforms != AppPlatforms.All ? platforms + ", SteamOS" : platforms.ToString();
-            };
-            colDevelopers.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return GlobalStrings.MainForm_Unknown;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].Developers != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].Developers);
-                }
-
-                return GlobalStrings.MainForm_Unknown;
-            };
-            colPublishers.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return GlobalStrings.MainForm_Unknown;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id) && Database.Instance.Games[id].Publishers != null)
-                {
-                    return string.Join(", ", Database.Instance.Games[id].Publishers);
-                }
-
-                return GlobalStrings.MainForm_Unknown;
-            };
-            colNumberOfReviews.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return 0;
-                }
-
-                int id = ((GameInfo) g).Id;
-
-                return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].ReviewTotal : 0;
-            };
-            colReviewScore.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return 0;
-                }
-
-                int id = ((GameInfo) g).Id;
-
-                return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].ReviewPositivePercentage : 0;
-            };
-            colReviewLabel.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return 0;
-                }
-
-                int id = ((GameInfo) g).Id;
-                if (Database.Instance.Games.ContainsKey(id))
-                {
-                    int reviewTotal = Database.Instance.Games[id].ReviewTotal;
-                    int reviewPositivePercentage = Database.Instance.Games[id].ReviewPositivePercentage;
-                    if (reviewTotal <= 0)
-                    {
-                        return -1;
-                    }
-
-                    if (reviewPositivePercentage >= 95 && reviewTotal >= 500)
-                    {
-                        return 9;
-                    }
-
-                    if (reviewPositivePercentage >= 85 && reviewTotal >= 50)
-                    {
-                        return 8;
-                    }
-
-                    if (reviewPositivePercentage >= 80)
-                    {
-                        return 7;
-                    }
-
-                    if (reviewPositivePercentage >= 70)
-                    {
-                        return 6;
-                    }
-
-                    if (reviewPositivePercentage >= 40)
-                    {
-                        return 5;
-                    }
-
-                    if (reviewPositivePercentage >= 20)
-                    {
-                        return 4;
-                    }
-
-                    if (reviewTotal >= 500)
-                    {
-                        return 3;
-                    }
-
-                    if (reviewTotal >= 50)
-                    {
-                        return 2;
-                    }
-
-                    return 1;
-                }
-
-                return 0;
-            };
-            colHltbMain.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return 0;
-                }
-
-                int id = ((GameInfo) g).Id;
-
-                return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].HltbMain : 0;
-            };
-            colHltbExtras.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return 0;
-                }
-
-                int id = ((GameInfo) g).Id;
-
-                return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].HltbExtras : 0;
-            };
-            colHltbCompletionist.AspectGetter = delegate(object g)
-            {
-                if (g == null)
-                {
-                    return 0;
-                }
-
-                int id = ((GameInfo) g).Id;
-
-                return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].HltbCompletionist : 0;
-            };
-
-            //Aspect to String Converters
-            colNumberOfReviews.AspectToStringConverter = delegate(object obj)
-            {
-                int reviewTotal = (int) obj;
-
-                return reviewTotal <= 0 ? "0" : reviewTotal.ToString();
-            };
-            colReviewScore.AspectToStringConverter = delegate(object obj)
-            {
-                int reviewScore = (int) obj;
-
-                return reviewScore <= 0 ? GlobalStrings.MainForm_Unknown : reviewScore.ToString() + '%';
-            };
-            colReviewLabel.AspectToStringConverter = delegate(object obj)
-            {
-                int index = (int) obj;
-                Dictionary<int, string> reviewLabels = new Dictionary<int, string>
-                {
-                    {
-                        9, "Overwhelmingly Positive"
-                    },
-                    {
-                        8, "Very Positive"
-                    },
-                    {
-                        7, "Positive"
-                    },
-                    {
-                        6, "Mostly Positive"
-                    },
-                    {
-                        5, "Mixed"
-                    },
-                    {
-                        4, "Mostly Negative"
-                    },
-                    {
-                        3, "Negative"
-                    },
-                    {
-                        2, "Very Negative"
-                    },
-                    {
-                        1, "Overwhelmingly Negative"
-                    }
-                };
-
-                return reviewLabels.ContainsKey(index) ? reviewLabels[index] : GlobalStrings.MainForm_Unknown;
-            };
-            AspectToStringConverterDelegate hltb = delegate(object obj)
-            {
-                int time = (int) obj;
-                if (time <= 0)
-                {
-                    return GlobalStrings.MainForm_NoHltbTime;
-                }
-
-                if (time < 60)
-                {
-                    return time + "m";
-                }
-
-                int hours = time / 60;
-                int mins = time % 60;
-                if (mins == 0)
-                {
-                    return hours + "h";
-                }
-
-                return hours + "h " + mins + "m";
-            };
-            colHltbMain.AspectToStringConverter = delegate(object obj)
-            {
-                int time = (int) obj;
-                if (time <= 0)
-                {
-                    return GlobalStrings.MainForm_NoHltbTime;
-                }
-
-                if (time < 60)
-                {
-                    return time + "m";
-                }
-
-                int hours = time / 60;
-                int mins = time % 60;
-                if (mins == 0)
-                {
-                    return hours + "h";
-                }
-
-                return hours + "h " + mins + "m";
-            };
-            colHltbExtras.AspectToStringConverter = hltb;
-            colHltbCompletionist.AspectToStringConverter = hltb;
-            colLastPlayed.AspectToStringConverter = delegate(object obj)
-            {
-                DateTime LastPlayed = (DateTime) obj;
-                Thread threadForCulture = new Thread(delegate() { });
-                string format = threadForCulture.CurrentCulture.DateTimeFormat.ShortDatePattern;
-
-                return LastPlayed == DateTime.MinValue ? null : LastPlayed.ToString(format);
-            };
-
-            //Filtering
-            colCategories.ClusteringStrategy = new CommaClusteringStrategy();
-            colGenres.ClusteringStrategy = new CommaClusteringStrategy();
-            colFlags.ClusteringStrategy = new CommaClusteringStrategy();
-            colTags.ClusteringStrategy = new CommaClusteringStrategy();
-            colVRHeadsets.ClusteringStrategy = new CommaClusteringStrategy();
-            colVRInput.ClusteringStrategy = new CommaClusteringStrategy();
-            colVRPlayArea.ClusteringStrategy = new CommaClusteringStrategy();
-            colLanguageInterface.ClusteringStrategy = new CommaClusteringStrategy();
-            colLanguageSubtitles.ClusteringStrategy = new CommaClusteringStrategy();
-            colLanguageFullAudio.ClusteringStrategy = new CommaClusteringStrategy();
-            colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
-            lstGames.AdditionalFilter = new ModelFilter(delegate(object g)
-            {
-                if (g == null)
-                {
-                    return false;
-                }
-
-                return ShouldDisplayGame((GameInfo) g);
-            });
-
-            //Formating
-            lstGames.RowFormatter = delegate(OLVListItem lvi)
-            {
-                if (lvi.RowObject != null && ((GameInfo) lvi.RowObject).Id < 0)
-                {
-                    lvi.Font = new Font(lvi.Font, lvi.Font.Style | FontStyle.Italic);
-                }
-            };
-
-            lstGames.PrimarySortColumn = colTitle;
-
-	        if (!string.IsNullOrWhiteSpace(Settings.Instance.ListGamesState))
-	        {
-		        lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.ListGamesState));
-	        }
-        }
+		private void InitializeLstGames()
+		{
+			_tlstGames = new TypedObjectListView<GameInfo>(lstGames);
+
+			//Aspect Getters
+			_tlstGames.GenerateAspectGetters();
+			colGameID.AspectToStringConverter = delegate { return string.Empty; };
+
+			//colGameID.AspectToStringConverter = delegate(object obj)
+			//{
+			//    int id = (int)obj;
+			//    return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
+			//};
+			//colTitle.AspectGetter = delegate (Object g) { return String.Empty; };
+			colCategories.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				return ((GameInfo) g).GetCatString($"<{Resources.Category_Uncategorized}>");
+			};
+			colFavorite.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				return ((GameInfo) g).IsFavorite() ? "X" : string.Empty;
+			};
+			colHidden.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				return ((GameInfo) g).Hidden ? "X" : string.Empty;
+			};
+			colGenres.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return GlobalStrings.MainForm_NoGenres;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].Genres != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].Genres);
+				}
+
+				return GlobalStrings.MainForm_NoGenres;
+			};
+			colFlags.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return GlobalStrings.MainForm_NoFlags;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].Flags != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].Flags);
+				}
+
+				return GlobalStrings.MainForm_NoFlags;
+			};
+			colTags.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return GlobalStrings.MainForm_NoTags;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].Tags != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].Tags);
+				}
+
+				return GlobalStrings.MainForm_NoTags;
+			};
+			colVRHeadsets.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].VrSupport.Headsets != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].VrSupport.Headsets);
+				}
+
+				return string.Empty;
+			};
+			colVRInput.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].VrSupport.Input != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].VrSupport.Input);
+				}
+
+				return string.Empty;
+			};
+			colVRPlayArea.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].VrSupport.PlayArea != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].VrSupport.PlayArea);
+				}
+
+				return string.Empty;
+			};
+			colLanguageInterface.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].LanguageSupport.Interface != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].LanguageSupport.Interface);
+				}
+
+				return string.Empty;
+			};
+			colLanguageSubtitles.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].LanguageSupport.Subtitles != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].LanguageSupport.Subtitles);
+				}
+
+				return string.Empty;
+			};
+			colLanguageFullAudio.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return string.Empty;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].LanguageSupport.FullAudio != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].LanguageSupport.FullAudio);
+				}
+
+				return string.Empty;
+			};
+			colYear.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return GlobalStrings.MainForm_Unknown;
+				}
+
+				int id = ((GameInfo) g).Id;
+				DateTime releaseDate;
+				CultureInfo culture = Utility.GetCultureInfoFromStoreLanguage(Database.Instance.Language);
+				if (Database.Instance.Games.ContainsKey(id) && DateTime.TryParse(Database.Instance.Games[id].SteamReleaseDate, culture, DateTimeStyles.None, out releaseDate))
+				{
+					return releaseDate.Year.ToString();
+				}
+
+				return GlobalStrings.MainForm_Unknown;
+			};
+			colLastPlayed.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return DateTime.MinValue;
+				}
+
+				if (((GameInfo) g).LastPlayed <= 0)
+				{
+					return DateTime.MinValue;
+				}
+
+				return DateTimeOffset.FromUnixTimeSeconds(((GameInfo) g).LastPlayed).Date;
+			};
+			colAchievements.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return 0;
+				}
+
+				int id = ((GameInfo) g).Id;
+
+				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].TotalAchievements : 0;
+			};
+			colPlatforms.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return "";
+				}
+
+				AppPlatforms platforms = Database.Instance.Games[((GameInfo) g).Id].Platforms;
+
+				return ((platforms & AppPlatforms.Linux) != 0) && (platforms != AppPlatforms.All) ? platforms + ", SteamOS" : platforms.ToString();
+			};
+			colDevelopers.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return GlobalStrings.MainForm_Unknown;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].Developers != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].Developers);
+				}
+
+				return GlobalStrings.MainForm_Unknown;
+			};
+			colPublishers.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return GlobalStrings.MainForm_Unknown;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id) && (Database.Instance.Games[id].Publishers != null))
+				{
+					return string.Join(", ", Database.Instance.Games[id].Publishers);
+				}
+
+				return GlobalStrings.MainForm_Unknown;
+			};
+			colNumberOfReviews.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return 0;
+				}
+
+				int id = ((GameInfo) g).Id;
+
+				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].ReviewTotal : 0;
+			};
+			colReviewScore.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return 0;
+				}
+
+				int id = ((GameInfo) g).Id;
+
+				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].ReviewPositivePercentage : 0;
+			};
+			colReviewLabel.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return 0;
+				}
+
+				int id = ((GameInfo) g).Id;
+				if (Database.Instance.Games.ContainsKey(id))
+				{
+					int reviewTotal = Database.Instance.Games[id].ReviewTotal;
+					int reviewPositivePercentage = Database.Instance.Games[id].ReviewPositivePercentage;
+					if (reviewTotal <= 0)
+					{
+						return -1;
+					}
+
+					if ((reviewPositivePercentage >= 95) && (reviewTotal >= 500))
+					{
+						return 9;
+					}
+
+					if ((reviewPositivePercentage >= 85) && (reviewTotal >= 50))
+					{
+						return 8;
+					}
+
+					if (reviewPositivePercentage >= 80)
+					{
+						return 7;
+					}
+
+					if (reviewPositivePercentage >= 70)
+					{
+						return 6;
+					}
+
+					if (reviewPositivePercentage >= 40)
+					{
+						return 5;
+					}
+
+					if (reviewPositivePercentage >= 20)
+					{
+						return 4;
+					}
+
+					if (reviewTotal >= 500)
+					{
+						return 3;
+					}
+
+					if (reviewTotal >= 50)
+					{
+						return 2;
+					}
+
+					return 1;
+				}
+
+				return 0;
+			};
+			colHltbMain.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return 0;
+				}
+
+				int id = ((GameInfo) g).Id;
+
+				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].HltbMain : 0;
+			};
+			colHltbExtras.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return 0;
+				}
+
+				int id = ((GameInfo) g).Id;
+
+				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].HltbExtras : 0;
+			};
+			colHltbCompletionist.AspectGetter = delegate(object g)
+			{
+				if (g == null)
+				{
+					return 0;
+				}
+
+				int id = ((GameInfo) g).Id;
+
+				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].HltbCompletionist : 0;
+			};
+
+			//Aspect to String Converters
+			colNumberOfReviews.AspectToStringConverter = delegate(object obj)
+			{
+				int reviewTotal = (int) obj;
+
+				return reviewTotal <= 0 ? "0" : reviewTotal.ToString();
+			};
+			colReviewScore.AspectToStringConverter = delegate(object obj)
+			{
+				int reviewScore = (int) obj;
+
+				return reviewScore <= 0 ? GlobalStrings.MainForm_Unknown : reviewScore.ToString() + '%';
+			};
+			colReviewLabel.AspectToStringConverter = delegate(object obj)
+			{
+				int index = (int) obj;
+				Dictionary<int, string> reviewLabels = new Dictionary<int, string>
+				{
+					{
+						9, "Overwhelmingly Positive"
+					},
+					{
+						8, "Very Positive"
+					},
+					{
+						7, "Positive"
+					},
+					{
+						6, "Mostly Positive"
+					},
+					{
+						5, "Mixed"
+					},
+					{
+						4, "Mostly Negative"
+					},
+					{
+						3, "Negative"
+					},
+					{
+						2, "Very Negative"
+					},
+					{
+						1, "Overwhelmingly Negative"
+					}
+				};
+
+				return reviewLabels.ContainsKey(index) ? reviewLabels[index] : GlobalStrings.MainForm_Unknown;
+			};
+			AspectToStringConverterDelegate hltb = delegate(object obj)
+			{
+				int time = (int) obj;
+				if (time <= 0)
+				{
+					return GlobalStrings.MainForm_NoHltbTime;
+				}
+
+				if (time < 60)
+				{
+					return time + "m";
+				}
+
+				int hours = time / 60;
+				int mins = time % 60;
+				if (mins == 0)
+				{
+					return hours + "h";
+				}
+
+				return hours + "h " + mins + "m";
+			};
+			colHltbMain.AspectToStringConverter = delegate(object obj)
+			{
+				int time = (int) obj;
+				if (time <= 0)
+				{
+					return GlobalStrings.MainForm_NoHltbTime;
+				}
+
+				if (time < 60)
+				{
+					return time + "m";
+				}
+
+				int hours = time / 60;
+				int mins = time % 60;
+				if (mins == 0)
+				{
+					return hours + "h";
+				}
+
+				return hours + "h " + mins + "m";
+			};
+			colHltbExtras.AspectToStringConverter = hltb;
+			colHltbCompletionist.AspectToStringConverter = hltb;
+			colLastPlayed.AspectToStringConverter = delegate(object obj)
+			{
+				DateTime lastPlayed = (DateTime) obj;
+				Thread threadForCulture = new Thread(delegate() { });
+				string format = threadForCulture.CurrentCulture.DateTimeFormat.ShortDatePattern;
+
+				return lastPlayed == DateTime.MinValue ? null : lastPlayed.ToString(format);
+			};
+
+			//Filtering
+			colCategories.ClusteringStrategy = new CommaClusteringStrategy();
+			colGenres.ClusteringStrategy = new CommaClusteringStrategy();
+			colFlags.ClusteringStrategy = new CommaClusteringStrategy();
+			colTags.ClusteringStrategy = new CommaClusteringStrategy();
+			colVRHeadsets.ClusteringStrategy = new CommaClusteringStrategy();
+			colVRInput.ClusteringStrategy = new CommaClusteringStrategy();
+			colVRPlayArea.ClusteringStrategy = new CommaClusteringStrategy();
+			colLanguageInterface.ClusteringStrategy = new CommaClusteringStrategy();
+			colLanguageSubtitles.ClusteringStrategy = new CommaClusteringStrategy();
+			colLanguageFullAudio.ClusteringStrategy = new CommaClusteringStrategy();
+			colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
+			lstGames.AdditionalFilter = new ModelFilter(delegate(object g)
+			{
+				if (g == null)
+				{
+					return false;
+				}
+
+				return ShouldDisplayGame((GameInfo) g);
+			});
+
+			//Formating
+			lstGames.RowFormatter = delegate(OLVListItem lvi)
+			{
+				if ((lvi.RowObject != null) && (((GameInfo) lvi.RowObject).Id < 0))
+				{
+					lvi.Font = new Font(lvi.Font, lvi.Font.Style | FontStyle.Italic);
+				}
+			};
+
+			lstGames.PrimarySortColumn = colTitle;
+
+			if (!string.IsNullOrWhiteSpace(Settings.Instance.ListGamesState))
+			{
+				lstGames.RestoreState(Convert.FromBase64String(Settings.Instance.ListGamesState));
+			}
+		}
+
+		private void InitializeMaterialSkin()
+		{
+			MaterialSkinManager.Instance.AddFormToManage(this);
+			MaterialSkinManager.Instance.Theme = MaterialSkinManager.Themes.DARK;
+			MaterialSkinManager.Instance.ColorScheme = new ColorScheme(MaterialSkin.Primary.BlueGrey800, MaterialSkin.Primary.BlueGrey900, MaterialSkin.Primary.BlueGrey500, MaterialSkin.Accent.LightBlue700, TextShade.WHITE);
+		}
 
 		private void InitializeObjectListView()
 		{
 			// Skin the Game List
 			lstGames.HeaderFormatStyle = new HeaderFormatStyle();
-			lstGames.HeaderFormatStyle.SetBackColor(primaryDark);
-			lstGames.HeaderFormatStyle.SetForeColor(headerFontColor);
+			lstGames.HeaderFormatStyle.SetBackColor(PrimaryDark);
+			lstGames.HeaderFormatStyle.SetForeColor(HeaderFontColor);
 			lstGames.HeaderFormatStyle.SetFont(new Font("Arial", 10, FontStyle.Bold));
-			lstGames.HeaderFormatStyle.Hot.BackColor = primaryLight;
-			lstGames.ForeColor = textColor;
-			lstGames.BackColor = formColor;
-			lstGames.SelectedForeColor = textColor;
-			lstGames.SelectedBackColor = accent;
-			lstGames.UnfocusedSelectedForeColor = textColor;
-			lstGames.UnfocusedSelectedBackColor = primary;
+			lstGames.HeaderFormatStyle.Hot.BackColor = PrimaryLight;
+			lstGames.ForeColor = TextColor;
+			lstGames.BackColor = FormColor;
+			lstGames.SelectedForeColor = TextColor;
+			lstGames.SelectedBackColor = Accent;
+			lstGames.UnfocusedSelectedForeColor = TextColor;
+			lstGames.UnfocusedSelectedBackColor = Primary;
 			lstGames.Font = new Font("Arial", 10);
+		}
+
+		private void InitializeRenderers()
+		{
+			menuStrip.Renderer = new MyRenderer();
+			menu_Tools_Autocat_List.Renderer = new MyRenderer();
+			contextCat.Renderer = new MyRenderer();
+			contextGame.Renderer = new MyRenderer();
+			contextGameFav.Renderer = new MyRenderer();
+			contextGameHidden.Renderer = new MyRenderer();
+			contextGameAddCat.Renderer = new MyRenderer();
+			contextGameRemCat.Renderer = new MyRenderer();
+			contextAutoCat.Renderer = new MyRenderer();
 		}
 
 		/// <summary>
@@ -2494,27 +2509,6 @@ namespace Depressurizer
 			{
 				g.LastPlayed = Utility.CurrentUnixTime();
 				Process.Start(g.Executable);
-			}
-		}
-
-		private static void LoadDatabase()
-		{
-			try
-			{
-				if (File.Exists("database.json"))
-				{
-					Database.Instance.Load("database.json");
-				}
-				else
-				{
-					MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + GlobalStrings.MainForm_GameDBFileNotExist);
-					Logger.Instance.Warn("Database file does not exist.");
-				}
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + e.Message);
-				Logger.Instance.Exception("Exception while trying to load the initial Database.", e);
 			}
 		}
 
@@ -2586,89 +2580,89 @@ namespace Depressurizer
 			OnProfileChange();
 		}
 
-		 private void lstCategories_DragDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(typeof(int[])))
-            {
-                lstCategories.SelectedIndices.Clear();
-                if (dragOldCat >= 0)
-                {
-                    lstCategories.SelectedIndices.Add(dragOldCat);
-                }
+		private void lstCategories_DragDrop(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(typeof(int[])))
+			{
+				lstCategories.SelectedIndices.Clear();
+				if (_dragOldCat >= 0)
+				{
+					lstCategories.SelectedIndices.Add(_dragOldCat);
+				}
 
-                isDragging = false;
-                ClearStatus();
-                ListViewItem dropItem = GetCategoryItemAtPoint(e.X, e.Y);
+				_isDragging = false;
+				ClearStatus();
+				ListViewItem dropItem = GetCategoryItemAtPoint(e.X, e.Y);
 
-                SetDragDropEffect(e);
+				SetDragDropEffect(e);
 
-                if (dropItem.Tag != null && dropItem.Tag is Category)
-                {
-                    Category dropCat = (Category) dropItem.Tag;
-                    if (e.Effect == DragDropEffects.Move)
-                    {
-                        if (dropCat == CurrentProfile.GameData.FavoriteCategory)
-                        {
-                            CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
-                        }
-                        else
-                        {
-                            CurrentProfile.GameData.SetGameCategories((int[]) e.Data.GetData(typeof(int[])), dropCat, true);
-                        }
-                    }
-                    else if (e.Effect == DragDropEffects.Link)
-                    {
-                        CurrentProfile.GameData.RemoveGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
-                    }
-                    else if (e.Effect == DragDropEffects.Copy)
-                    {
-                        CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
-                    }
+				if ((dropItem.Tag != null) && dropItem.Tag is Category)
+				{
+					Category dropCat = (Category) dropItem.Tag;
+					if (e.Effect == DragDropEffects.Move)
+					{
+						if (dropCat == CurrentProfile.GameData.FavoriteCategory)
+						{
+							CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+						}
+						else
+						{
+							CurrentProfile.GameData.SetGameCategories((int[]) e.Data.GetData(typeof(int[])), dropCat, true);
+						}
+					}
+					else if (e.Effect == DragDropEffects.Link)
+					{
+						CurrentProfile.GameData.RemoveGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+					}
+					else if (e.Effect == DragDropEffects.Copy)
+					{
+						CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
+					}
 
-                    FillAllCategoryLists();
-                    FilterGamelist(false);
-                    MakeChange(true);
-                }
-                else if ((string) dropItem.Tag == $"<{Resources.Category_Uncategorized}>")
-                {
-                    CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
-                    FillCategoryList();
-                    FilterGamelist(false);
-                    MakeChange(true);
-                }
-                else if ((string) dropItem.Tag == $"<{Resources.Category_Hidden}>")
-                {
-                    CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
-                    FillCategoryList();
-                    FilterGamelist(false);
-                    MakeChange(true);
-                }
+					FillAllCategoryLists();
+					FilterGamelist(false);
+					MakeChange(true);
+				}
+				else if ((string) dropItem.Tag == $"<{Resources.Category_Uncategorized}>")
+				{
+					CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
+					FillCategoryList();
+					FilterGamelist(false);
+					MakeChange(true);
+				}
+				else if ((string) dropItem.Tag == $"<{Resources.Category_Hidden}>")
+				{
+					CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
+					FillCategoryList();
+					FilterGamelist(false);
+					MakeChange(true);
+				}
 
-                FlushStatus();
-            }
-        }
+				FlushStatus();
+			}
+		}
 
 		private void lstCategories_DragEnter(object sender, DragEventArgs e)
 		{
-			isDragging = true;
-			dragOldCat = lstCategories.SelectedIndices.Count > 0 ? lstCategories.SelectedIndices[0] : -1;
+			_isDragging = true;
+			_dragOldCat = lstCategories.SelectedIndices.Count > 0 ? lstCategories.SelectedIndices[0] : -1;
 
 			SetDragDropEffect(e);
 		}
 
 		private void lstCategories_DragLeave(object sender, EventArgs e)
 		{
-			isDragging = false;
+			_isDragging = false;
 			lstCategories.SelectedIndices.Clear();
-			if (dragOldCat >= 0)
+			if (_dragOldCat >= 0)
 			{
-				lstCategories.SelectedIndices.Add(dragOldCat);
+				lstCategories.SelectedIndices.Add(_dragOldCat);
 			}
 		}
 
 		private void lstCategories_DragOver(object sender, DragEventArgs e)
 		{
-			if (isDragging)
+			if (_isDragging)
 			{
 				// This shouldn't get called if this is false, but the OnSelectChange method is tied to this variable so do the check
 				lstCategories.SelectedIndices.Clear();
@@ -2755,7 +2749,7 @@ namespace Depressurizer
 
 		private void lstCategories_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!isDragging)
+			if (!_isDragging)
 			{
 				object nowSelected = null;
 				if (lstCategories.SelectedItems.Count > 0)
@@ -2764,10 +2758,10 @@ namespace Depressurizer
 					nowSelected = selItem.Tag == null ? selItem.Text : selItem.Tag;
 				}
 
-				if (nowSelected != lastSelectedCat)
+				if (nowSelected != _lastSelectedCat)
 				{
 					OnViewChange();
-					lastSelectedCat = nowSelected;
+					_lastSelectedCat = nowSelected;
 				}
 
 				UpdateEnabledStatesForCategories();
@@ -2776,8 +2770,8 @@ namespace Depressurizer
 
 		private void lstGames_ColumnReordered(object sender, ColumnReorderedEventArgs e)
 		{
-			columnReorderThread = new Thread(ColumnReorderWorker);
-			columnReorderThread.Start();
+			_columnReorderThread = new Thread(ColumnReorderWorker);
+			_columnReorderThread.Start();
 		}
 
 		private void lstGames_DoubleClick(object sender, EventArgs e)
@@ -2828,7 +2822,7 @@ namespace Depressurizer
 			// Add Early Access banner
 			if (Database.Instance.Games.ContainsKey(g.Id) && (Database.Instance.Games[g.Id].Tags != null))
 			{
-				if (Database.Instance.Games[g.Id].Tags.Contains(EARLY_ACCESS))
+				if (Database.Instance.Games[g.Id].Tags.Contains(EarlyAccess))
 				{
 					ImageDecoration earlyAccessDecoration = new ImageDecoration(imglistEarlyAccess.Images[0])
 					{
@@ -2844,8 +2838,8 @@ namespace Depressurizer
 			{
 				Font = new Font(lstGames.Font.Name, 8),
 				Wrap = false,
-				TextColor = textColor,
-				BackColor = listBackground,
+				TextColor = TextColor,
+				BackColor = ListBackground,
 				CornerRounding = 4,
 				Transparency = 200
 			};
@@ -2863,12 +2857,12 @@ namespace Depressurizer
 			GameInfo g = (GameInfo) e.Model;
 			if (g.IsFavorite())
 			{
-				e.Item.BackColor = listBackground;
+				e.Item.BackColor = ListBackground;
 			}
 
 			if (g.Hidden)
 			{
-				e.Item.BackColor = primaryLight;
+				e.Item.BackColor = PrimaryLight;
 			}
 		}
 
@@ -2877,7 +2871,7 @@ namespace Depressurizer
 			int[] selectedGames = new int[lstGames.SelectedObjects.Count];
 			for (int i = 0; i < lstGames.SelectedObjects.Count; i++)
 			{
-				selectedGames[i] = tlstGames.SelectedObjects[i].Id;
+				selectedGames[i] = _tlstGames.SelectedObjects[i].Id;
 			}
 
 			lstGames.DoDragDrop(selectedGames, DragDropEffects.Move | DragDropEffects.Copy | DragDropEffects.Link);
@@ -2925,22 +2919,22 @@ namespace Depressurizer
 
 			if (lstGames.SelectedObjects.Count > 0)
 			{
-				GameInfo g = tlstGames.SelectedObjects[0];
+				GameInfo g = _tlstGames.SelectedObjects[0];
 
-				if ((tlstGames.SelectedObjects.Count == 1) && g.IsFavorite())
+				if ((_tlstGames.SelectedObjects.Count == 1) && g.IsFavorite())
 				{
 					contextGameFav_Yes.Checked = true;
 				}
-				else if (tlstGames.SelectedObjects.Count == 1)
+				else if (_tlstGames.SelectedObjects.Count == 1)
 				{
 					contextGameFav_No.Checked = true;
 				}
 
-				if ((tlstGames.SelectedObjects.Count == 1) && g.Hidden)
+				if ((_tlstGames.SelectedObjects.Count == 1) && g.Hidden)
 				{
 					contextGameHidden_Yes.Checked = true;
 				}
-				else if (tlstGames.SelectedObjects.Count == 1)
+				else if (_tlstGames.SelectedObjects.Count == 1)
 				{
 					contextGameHidden_No.Checked = true;
 				}
@@ -2955,9 +2949,9 @@ namespace Depressurizer
 			{
 				try
 				{
-					if (tlstGames.Objects.Count > 0)
+					if (_tlstGames.Objects.Count > 0)
 					{
-						GameInfo g = tlstGames.Objects[0];
+						GameInfo g = _tlstGames.Objects[0];
 						webBrowser1.ScriptErrorsSuppressed = true;
 						webBrowser1.Navigate(string.Format(Constants.SteamStoreAppURL + "?l=" + storeLanguage, g.Id));
 					}
@@ -3031,10 +3025,10 @@ namespace Depressurizer
 
 		private void lvAutoCatType_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
-			if (doubleClick)
+			if (_doubleClick)
 			{
 				// prevent double click from changing checked value.  Double click opens edit dialog.
-				doubleClick = false;
+				_doubleClick = false;
 				e.NewValue = e.CurrentValue;
 			}
 		}
@@ -3055,7 +3049,7 @@ namespace Depressurizer
 			{
 				if (e.Clicks > 1)
 				{
-					doubleClick = true;
+					_doubleClick = true;
 				}
 			}
 		}
@@ -3066,7 +3060,7 @@ namespace Depressurizer
 		/// <param name="changes"></param>
 		private void MakeChange(bool changes)
 		{
-			unsavedChanges = changes;
+			_unsavedChanges = changes;
 			UpdateTitle();
 		}
 
@@ -3113,7 +3107,7 @@ namespace Depressurizer
 			}
 			else
 			{
-				if ((tlstGames.SelectedObjects.Count == 0) && mchkAutoCatSelected.Checked)
+				if ((_tlstGames.SelectedObjects.Count == 0) && mchkAutoCatSelected.Checked)
 				{
 					ClearStatus();
 					AddStatus(GlobalStrings.AutoCatSelected_NothingSelected);
@@ -3432,7 +3426,7 @@ namespace Depressurizer
 				int actualSplitDistanceCategories = splitCategories.SplitterDistance;
 				int actualSplitDistanceBrowser = splitBrowser.SplitterDistance;
 
-				changeLanguageControls(this, resources, Thread.CurrentThread.CurrentUICulture);
+				ChangeLanguageControls(this, resources, Thread.CurrentThread.CurrentUICulture);
 
 				// jpodadera. Recover previous size
 				splitContainer.SplitterDistance = actualSplitDistanceMain;
@@ -3449,7 +3443,7 @@ namespace Depressurizer
 		private void menu_Tools_SingleCat_Click(object sender, EventArgs e)
 		{
 			Settings.Instance.SingleCatMode = !Settings.Instance.SingleCatMode;
-			UpdateUIForSingleCat();
+			UpdateUiForSingleCat();
 		}
 
 		private void menuToolsAutocat_Item_Click(object sender, EventArgs e)
@@ -3551,7 +3545,7 @@ namespace Depressurizer
 			if (lstGames.SelectedObjects.Count > 0)
 			{
 				Cursor.Current = Cursors.WaitCursor;
-				foreach (GameInfo g in tlstGames.SelectedObjects)
+				foreach (GameInfo g in _tlstGames.SelectedObjects)
 				{
 					g.RemoveCategory(cat);
 				}
@@ -3594,7 +3588,7 @@ namespace Depressurizer
 					Cursor.Current = Cursors.WaitCursor;
 					int ignored = 0;
 					int removed = 0;
-					foreach (GameInfo g in tlstGames.SelectedObjects)
+					foreach (GameInfo g in _tlstGames.SelectedObjects)
 					{
 						g.ClearCategories(true);
 						if (CurrentProfile.GameData.Games.Remove(g.Id))
@@ -3706,11 +3700,11 @@ namespace Depressurizer
 			}
 		}
 
-		private void reorderFillerColumn()
+		private void ReorderFillerColumn()
 		{
 			if (lstGames.InvokeRequired)
 			{
-				RemoveItemCallback callback = reorderFillerColumn;
+				RemoveItemCallback callback = ReorderFillerColumn;
 				Invoke(callback);
 			}
 			else
@@ -3757,6 +3751,20 @@ namespace Depressurizer
 			}
 		}
 
+		private void SaveDatabase()
+		{
+			try
+			{
+				Database.Instance.Save();
+				AddStatus(GlobalStrings.MainForm_Status_SavedDB);
+			}
+			catch (Exception e)
+			{
+				Logger.Instance.Exception(GlobalStrings.MainForm_Log_ExceptionAutosavingDB, e);
+				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
 		private void SaveFilter()
 		{
 			if (!ProfileLoaded || !AdvancedCategoryFilter)
@@ -3790,12 +3798,12 @@ namespace Depressurizer
 
 				if (f != null)
 				{
-					f.Uncategorized = advFilter.Uncategorized;
-					f.Hidden = advFilter.Hidden;
-					f.VR = advFilter.VR;
-					f.Allow = advFilter.Allow;
-					f.Require = advFilter.Require;
-					f.Exclude = advFilter.Exclude;
+					f.Uncategorized = _advFilter.Uncategorized;
+					f.Hidden = _advFilter.Hidden;
+					f.VR = _advFilter.VR;
+					f.Allow = _advFilter.Allow;
+					f.Require = _advFilter.Require;
+					f.Exclude = _advFilter.Exclude;
 					if (refresh)
 					{
 						AddStatus(string.Format(GlobalStrings.MainForm_FilterAdded, f.Name));
@@ -3807,20 +3815,6 @@ namespace Depressurizer
 				{
 					MessageBox.Show(string.Format(GlobalStrings.MainForm_CouldNotAddFilter, dlg.Value), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				}
-			}
-		}
-
-		private void SaveDatabase()
-		{
-			try
-			{
-				Database.Instance.Save();
-				AddStatus(GlobalStrings.MainForm_Status_SavedDB);
-			}
-			catch (Exception e)
-			{
-				Logger.Instance.Exception(GlobalStrings.MainForm_Log_ExceptionAutosavingDB, e);
-				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -3972,7 +3966,7 @@ namespace Depressurizer
 			{
 				splitCategories.Panel1Collapsed = false;
 				lstCategories.StateImageList = imglistFilter;
-				advFilter = new Filter(ADVANCED_FILTER);
+				_advFilter = new Filter(AdvancedFilter);
 				cboFilter.Text = string.Empty;
 				mbtnClearFilters.Visible = true;
 				contextCat_SetAdvanced.Visible = true;
@@ -4010,145 +4004,144 @@ namespace Depressurizer
 			}
 		}
 
-		 private void SetItemState(ListViewItem i, int state)
-        {
-            i.StateImageIndex = state;
+		private void SetItemState(ListViewItem i, int state)
+		{
+			i.StateImageIndex = state;
 
-            Category c = i.Tag as Category;
+			Category c = i.Tag as Category;
 
-            if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
-            {
-                advFilter.Game = state;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_Software}>")
-            {
-                advFilter.Software = state;
-            }
-            else if(i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
-            {
-                advFilter.Uncategorized = state;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_Hidden}>")
-            {
-                advFilter.Hidden = state;
-            }
-            else if (i.Tag.ToString() == $"<{Resources.Category_VR}>")
-            {
-                advFilter.VR = state;
-            }
-            else
-            {
-                switch ((AdvancedFilterState) state)
-                {
-                    case AdvancedFilterState.Allow:
-                        advFilter.Allow.Add(c);
-                        advFilter.Require.Remove(c);
-                        advFilter.Exclude.Remove(c);
+			if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
+			{
+				_advFilter.Game = state;
+			}
+			else if (i.Tag.ToString() == $"<{Resources.Category_Software}>")
+			{
+				_advFilter.Software = state;
+			}
+			else if (i.Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
+			{
+				_advFilter.Uncategorized = state;
+			}
+			else if (i.Tag.ToString() == $"<{Resources.Category_Hidden}>")
+			{
+				_advFilter.Hidden = state;
+			}
+			else if (i.Tag.ToString() == $"<{Resources.Category_VR}>")
+			{
+				_advFilter.VR = state;
+			}
+			else
+			{
+				switch ((AdvancedFilterState) state)
+				{
+					case AdvancedFilterState.Allow:
+						_advFilter.Allow.Add(c);
+						_advFilter.Require.Remove(c);
+						_advFilter.Exclude.Remove(c);
 
-                        break;
-                    case AdvancedFilterState.Require:
-                        advFilter.Allow.Remove(c);
-                        advFilter.Require.Add(c);
-                        advFilter.Exclude.Remove(c);
+						break;
+					case AdvancedFilterState.Require:
+						_advFilter.Allow.Remove(c);
+						_advFilter.Require.Add(c);
+						_advFilter.Exclude.Remove(c);
 
-                        break;
-                    case AdvancedFilterState.Exclude:
-                        advFilter.Allow.Remove(c);
-                        advFilter.Require.Remove(c);
-                        advFilter.Exclude.Add(c);
+						break;
+					case AdvancedFilterState.Exclude:
+						_advFilter.Allow.Remove(c);
+						_advFilter.Require.Remove(c);
+						_advFilter.Exclude.Add(c);
 
-                        break;
-                    case AdvancedFilterState.None:
-                        advFilter.Allow.Remove(c);
-                        advFilter.Require.Remove(c);
-                        advFilter.Exclude.Remove(c);
+						break;
+					case AdvancedFilterState.None:
+						_advFilter.Allow.Remove(c);
+						_advFilter.Require.Remove(c);
+						_advFilter.Exclude.Remove(c);
 
-                        break;
-                }
-            }
-        }
+						break;
+				}
+			}
+		}
 
 		private bool ShouldDisplayGame(GameInfo g)
-        {
-            if (CurrentProfile == null)
-            {
-                return false;
-            }
+		{
+			if (CurrentProfile == null)
+			{
+				return false;
+			}
 
-            if (mtxtSearch.Text != string.Empty && g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1)
-            {
-                return false;
-            }
+			if ((mtxtSearch.Text != string.Empty) && (g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1))
+			{
+				return false;
+			}
 
-            if (!CurrentProfile.GameData.Games.ContainsKey(g.Id))
-            {
-                return false;
-            }
+			if (!CurrentProfile.GameData.Games.ContainsKey(g.Id))
+			{
+				return false;
+			}
 
-            if (g.Id < 0 && !CurrentProfile.IncludeShortcuts)
-            {
-                return false;
-            }
+			if ((g.Id < 0) && !CurrentProfile.IncludeShortcuts)
+			{
+				return false;
+			}
 
-            if (lstCategories.SelectedItems.Count == 0)
-            {
-                return false;
-            }
+			if (lstCategories.SelectedItems.Count == 0)
+			{
+				return false;
+			}
 
-            if (AdvancedCategoryFilter)
-            {
-                return g.IncludeGame(advFilter);
-            }
+			if (AdvancedCategoryFilter)
+			{
+				return g.IncludeGame(_advFilter);
+			}
 
-            if (g.Hidden)
-            {
-                return lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Hidden}>";
-            }
+			if (g.Hidden)
+			{
+				return lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Hidden}>";
+			}
 
-            // <All>
-            if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_All}>")
-            {
-                return true;
-            }
+			// <All>
+			if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_All}>")
+			{
+				return true;
+			}
 
-            // <Games>
-            if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Games}>")
-            {
-                return Database.Instance.Games.ContainsKey(g.Id) && Database.Instance.Games.First(a => a.Key == g.Id).Value.AppType == AppType.Game;
-            }
+			// <Games>
+			if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Games}>")
+			{
+				return Database.Instance.Games.ContainsKey(g.Id) && (Database.Instance.Games.First(a => a.Key == g.Id).Value.AppType == AppType.Game);
+			}
 
-            // <Software>
-            if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Software}>")
-            {
-                return Database.Instance.Games.ContainsKey(g.Id) && Database.Instance.Games.First(a => a.Key == g.Id).Value.AppType == AppType.Application;
-            }
+			// <Software>
+			if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Software}>")
+			{
+				return Database.Instance.Games.ContainsKey(g.Id) && (Database.Instance.Games.First(a => a.Key == g.Id).Value.AppType == AppType.Application);
+			}
 
-            // <Uncategorized>
-            if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
-            {
-                return g.Categories.Count == 0;
-            }
+			// <Uncategorized>
+			if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_Uncategorized}>")
+			{
+				return g.Categories.Count == 0;
+			}
 
-            // <VR>
-            if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_VR}>")
-            {
-                return Database.Instance.SupportsVR(g.Id);
-            }
+			// <VR>
+			if (lstCategories.SelectedItems[0].Tag.ToString() == $"<{Resources.Category_VR}>")
+			{
+				return Database.Instance.SupportsVR(g.Id);
+			}
 
-            if (!(lstCategories.SelectedItems[0].Tag is Category category))
-            {
-                return false;
-            }
+			if (!(lstCategories.SelectedItems[0].Tag is Category category))
+			{
+				return false;
+			}
 
-            // <Favorite>
-            if (category.Name == $"<{Resources.Category_Favorite}>")
-            {
-                return g.IsFavorite();
-            }
+			// <Favorite>
+			if (category.Name == $"<{Resources.Category_Favorite}>")
+			{
+				return g.IsFavorite();
+			}
 
-            return g.ContainsCategory(category);
-
-        }
+			return g.ContainsCategory(category);
+		}
 
 		//void AddGameToCheckboxStates( GameInfo game, bool first ) {
 		//    ignoreCheckChanges = true;
@@ -4199,7 +4192,7 @@ namespace Depressurizer
 
 		private void UpdateAutoCatSelected_StatusMessage()
 		{
-			if ((tlstGames.SelectedObjects.Count == 0) && mchkAutoCatSelected.Checked)
+			if ((_tlstGames.SelectedObjects.Count == 0) && mchkAutoCatSelected.Checked)
 			{
 				ClearStatus();
 				AddStatus(GlobalStrings.AutoCatSelected_NothingSelected);
@@ -4270,7 +4263,7 @@ namespace Depressurizer
 			{
 				splitGame.Panel2Collapsed = false;
 				contextGameRemCat.Items.Clear();
-				foreach (GameInfo game in tlstGames.SelectedObjects)
+				foreach (GameInfo game in _tlstGames.SelectedObjects)
 				{
 					if (game != null)
 					{
@@ -4292,7 +4285,7 @@ namespace Depressurizer
 		///     Updates the database using AppInfo cache. Displays an error message on failure. Saves the DB afterwards if
 		///     AutoSaveDatabase is set.
 		/// </summary>
-		private void UpdateGameDBFromAppInfo()
+		private void UpdateGameDbFromAppInfo()
 		{
 			try
 			{
@@ -4314,7 +4307,7 @@ namespace Depressurizer
 		///     Updates the database using data from howlongtobeatsteam.com. Displays an error message on failure. Saves the DB
 		///     afterwards if AutoSaveDatabase is set.
 		/// </summary>
-		private void UpdateGameDBFromHltb()
+		private void UpdateGameDbFromHltb()
 		{
 			Cursor = Cursors.WaitCursor;
 
@@ -4482,7 +4475,7 @@ namespace Depressurizer
 				sb.Append("]");
 			}
 
-			if (unsavedChanges)
+			if (_unsavedChanges)
 			{
 				sb.Append(" *");
 			}
@@ -4499,7 +4492,7 @@ namespace Depressurizer
 		/// <summary>
 		///     Update UI to match current state of the SingleCatMode setting
 		/// </summary>
-		private void UpdateUIForSingleCat()
+		private void UpdateUiForSingleCat()
 		{
 			bool sCat = Settings.Instance.SingleCatMode;
 			menu_Tools_SingleCat.Checked = sCat;
@@ -4630,14 +4623,23 @@ namespace Depressurizer
 					{
 						e.Graphics.DrawLines(p, new[]
 						{
-							e.AffectedBounds.Location, new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1), new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1), new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top), new Point(e.AffectedBounds.Left, e.AffectedBounds.Top)
+							e.AffectedBounds.Location,
+							new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1),
+							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1),
+							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top),
+							new Point(e.AffectedBounds.Left, e.AffectedBounds.Top)
 						});
 					}
 					else
 					{
 						e.Graphics.DrawLines(p, new[]
 						{
-							new Point(e.AffectedBounds.Left + e.ConnectedArea.Left, e.AffectedBounds.Top), e.AffectedBounds.Location, new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1), new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1), new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top), new Point(e.AffectedBounds.Left + e.ConnectedArea.Right, e.AffectedBounds.Top)
+							new Point(e.AffectedBounds.Left + e.ConnectedArea.Left, e.AffectedBounds.Top),
+							e.AffectedBounds.Location,
+							new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1),
+							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1),
+							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top),
+							new Point(e.AffectedBounds.Left + e.ConnectedArea.Right, e.AffectedBounds.Top)
 						});
 					}
 
