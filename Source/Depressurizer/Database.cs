@@ -177,7 +177,13 @@ namespace Depressurizer
 
 			lock (SyncRoot)
 			{
-				Parallel.ForEach(Games.Values, entry => { developers.UnionWith(entry.Developers); });
+				Parallel.ForEach(Games.Values, entry =>
+				{
+					if (entry.Developers != null)
+					{
+						developers.UnionWith(entry.Developers);
+					}
+				});
 			}
 
 			return developers;
@@ -189,7 +195,13 @@ namespace Depressurizer
 
 			lock (SyncRoot)
 			{
-				Parallel.ForEach(Games.Values, entry => { genres.UnionWith(entry.Genres); });
+				Parallel.ForEach(Games.Values, entry =>
+				{
+					if (entry.Genres != null)
+					{
+						genres.UnionWith(entry.Genres);
+					}
+				});
 			}
 
 			return genres;
@@ -240,7 +252,13 @@ namespace Depressurizer
 
 			lock (SyncRoot)
 			{
-				Parallel.ForEach(Games.Values, entry => { publishers.UnionWith(entry.Publishers); });
+				Parallel.ForEach(Games.Values, entry =>
+				{
+					if (entry.Publishers != null)
+					{
+						publishers.UnionWith(entry.Publishers);
+					}
+				});
 			}
 
 			return publishers;
@@ -252,7 +270,13 @@ namespace Depressurizer
 
 			lock (SyncRoot)
 			{
-				Parallel.ForEach(Games.Values, entry => { storeFlags.UnionWith(entry.Flags); });
+				Parallel.ForEach(Games.Values, entry =>
+				{
+					if (entry.Flags != null)
+					{
+						storeFlags.UnionWith(entry.Flags);
+					}
+				});
 			}
 
 			return storeFlags;
