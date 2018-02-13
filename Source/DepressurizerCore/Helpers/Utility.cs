@@ -19,7 +19,7 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -32,24 +32,24 @@ namespace DepressurizerCore.Helpers
 	{
 		#region Public Methods and Operators
 
-		public static string CalculateMD5(string filename)
+		public static string CalculateMD5(string filePath)
 		{
-			if (!File.Exists(filename))
+			if (!File.Exists(filePath))
 			{
 				return null;
 			}
 
 			using (MD5 md5 = MD5.Create())
 			{
-				using (FileStream stream = File.OpenRead(filename))
+				using (FileStream stream = File.OpenRead(filePath))
 				{
 					byte[] hash = md5.ComputeHash(stream);
-					return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+					return BitConverter.ToString(hash).Replace("-", "").ToUpperInvariant();
 				}
 			}
 		}
 
-		public static int CompareLists(List<string> a, List<string> b)
+		public static int CompareLists(Collection<string> a, Collection<string> b)
 		{
 			if ((a == null) && (b == null))
 			{
@@ -83,9 +83,9 @@ namespace DepressurizerCore.Helpers
 			return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 		}
 
-		public static DateTime DateTimeFromUnix(long unixTimeStamp)
+		public static DateTime DateTimeFromUnix(long unixTimestamp)
 		{
-			return DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).DateTime;
+			return DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).DateTime;
 		}
 
 		public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage storeLanguage)
@@ -125,11 +125,12 @@ namespace DepressurizerCore.Helpers
 			{
 				using (WebClient webClient = new WebClient())
 				{
-					byte[] imageBytes = webClient.DownloadData(url);
+					webClient.Headers.Set("User-Agent", "Depressurizer");
 
-					using (MemoryStream ms = new MemoryStream(imageBytes))
+					byte[] imageBytes = webClient.DownloadData(url);
+					using (MemoryStream memoryStream = new MemoryStream(imageBytes))
 					{
-						image = Image.FromStream(ms);
+						image = Image.FromStream(memoryStream);
 					}
 				}
 			}
