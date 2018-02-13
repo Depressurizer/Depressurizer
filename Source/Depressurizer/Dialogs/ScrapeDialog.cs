@@ -20,8 +20,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
+using Depressurizer.Properties;
 using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 
@@ -43,7 +45,7 @@ namespace Depressurizer.Dialogs
 
 		#region Constructors and Destructors
 
-		public ScrapeDialog(List<int> jobs) : base("Scraping App info ...", true)
+		public ScrapeDialog(List<int> jobs) : base(string.Format(CultureInfo.CurrentUICulture, "{0}...", Resources.Scraping), true)
 		{
 			_jobs = jobs;
 			TotalJobs = jobs.Count;
@@ -66,7 +68,7 @@ namespace Depressurizer.Dialogs
 				return;
 			}
 
-			SetText("Applying Data ...");
+			SetText(string.Format(CultureInfo.CurrentUICulture, "{0}...", Resources.Applying_Data));
 
 			lock (SyncRoot)
 			{
@@ -86,9 +88,9 @@ namespace Depressurizer.Dialogs
 		protected override void UpdateText()
 		{
 			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.AppendLine($"Scraping Apps: {jobsCompleted} / {TotalJobs} Completed");
+			stringBuilder.AppendLine(string.Format(CultureInfo.CurrentUICulture, Resources.Scraping_Status, jobsCompleted, TotalJobs));
 
-			const string timeLeft = "Time left: {0}";
+			string timeLeft = string.Format(CultureInfo.CurrentUICulture, "{0}: ", Resources.Time_Left) + "{0}";
 			if (jobsCompleted > 0)
 			{
 				if ((jobsCompleted > (TotalJobs / 4)) || ((jobsCompleted % 5) == 0))
@@ -96,21 +98,20 @@ namespace Depressurizer.Dialogs
 					TimeSpan timeRemaining = TimeSpan.FromTicks((DateTime.UtcNow.Subtract(_start).Ticks * (TotalJobs - (jobsCompleted + 1))) / (jobsCompleted + 1));
 					if (timeRemaining.TotalSeconds >= 60)
 					{
-						_timeLeft = string.Format(timeLeft, timeRemaining.Minutes + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString()));
+						_timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Minutes + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString()));
 					}
 					else
 					{
-						_timeLeft = string.Format(timeLeft, timeRemaining.Seconds + "s");
+						_timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Seconds + "s");
 					}
 				}
 			}
 			else
 			{
-				_timeLeft = string.Format(timeLeft, "Unknown");
+				_timeLeft = string.Format(CultureInfo.CurrentUICulture, timeLeft, Resources.Unknown);
 			}
 
 			stringBuilder.AppendLine(_timeLeft);
-
 			SetText(stringBuilder.ToString());
 		}
 
