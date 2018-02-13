@@ -47,11 +47,17 @@ namespace DepressurizerCore.Helpers
 			RavenClient.Capture(new SentryEvent(e));
 		}
 
+		/// <summary>
+		///     Handles untrapped exceptions.
+		/// </summary>
 		public static void OnThreadException(object sender, ThreadExceptionEventArgs threadExceptionEventArgs)
 		{
 			Log(threadExceptionEventArgs.Exception);
 		}
 
+		/// <summary>
+		///     Handles uncaught exceptions.
+		/// </summary>
 		public static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			Log(e.ExceptionObject as Exception);
