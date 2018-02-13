@@ -122,16 +122,29 @@ namespace Depressurizer.Dialogs
 				return;
 			}
 
-			DatabaseEntry newGame = new DatabaseEntry(appId);
+			DatabaseEntry entry = Database.Instance.Contains(appId) ? Database.Instance.Games[appId] : new DatabaseEntry(appId);
 
 			try
 			{
-				newGame.ScrapeStore();
+				entry.ScrapeStore();
 			}
 			catch (Exception)
 			{
 				Logger.Instance.Warn("Error while scraping appid: {0}", appId);
 				return;
+			}
+
+			if (entry.LastStoreScrape == 0)
+			{
+				try
+				{
+					entry.ScrapeTSA();
+				}
+				catch (Exception)
+				{
+					Logger.Instance.Warn("Error while scraping TSA appid: {0}", appId);
+					return;
+				}
 			}
 
 			lock (SyncRoot)
@@ -141,7 +154,7 @@ namespace Depressurizer.Dialogs
 					return;
 				}
 
-				_results.Add(newGame);
+				_results.Add(entry);
 				OnJobCompletion();
 			}
 		}

@@ -38,6 +38,8 @@ namespace DepressurizerCore.Models
 
 		private static readonly Regex RegDevelopers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?developer=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
 
+		private static readonly Regex RegDevelopersTSA = new Regex(@"<a href=""\/gameslist\.aspx\?developer=[^""""]*"" rel=""nofollow"">([^<]*)<\/a>", RegexOptions.Compiled);
+
 		private static readonly Regex RegDlCcheck = new Regex(@"<img class=""category_icon"" src=""http://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
 
 		private static readonly Regex RegFlags = new Regex(@"<a class=""name"" href=""http://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
@@ -45,6 +47,8 @@ namespace DepressurizerCore.Models
 		private static readonly Regex RegGamecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
 
 		private static readonly Regex RegGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""http://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+
+		private static readonly Regex RegGenreTSA = new Regex(@"<a href=""\/genre\/"">([^<]*)<\/a>", RegexOptions.Compiled);
 
 		private static readonly Regex RegLanguageSupport = new Regex(@"<td style=""width: 94px; text-align: left"" class=""ellipsis"">\s*([^<]*)\s*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>", RegexOptions.Compiled);
 
@@ -54,9 +58,13 @@ namespace DepressurizerCore.Models
 
 		private static readonly Regex RegPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
 
+		private static readonly Regex RegPlatformTSA = new Regex(@"<a href=""\/gameslist\.aspx\?platform=[^""""]*"" rel=""nofollow"">([^<]*)<\/a>", RegexOptions.Compiled);
+
 		private static readonly Regex RegPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
 
 		private static readonly Regex RegPublishers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+
+		private static readonly Regex RegPublisherTSA = new Regex(@"<a href=""\/gameslist\.aspx\?publisher=[^""""]*"" rel=""nofollow"">([^<]*)<\/a>", RegexOptions.Compiled);
 
 		private static readonly Regex RegRelDate = new Regex(@"<div class=""release_date"">\s*<div[^>]*>[^<]*<\/div>\s*<div class=""date"">([^<]+)<\/div>", RegexOptions.Compiled);
 
@@ -444,6 +452,103 @@ namespace DepressurizerCore.Models
 			{
 				AppType = AppType.Game;
 			}
+		}
+
+		public void ScrapeTSA()
+		{
+			if (string.IsNullOrWhiteSpace(Name))
+			{
+				return;
+			}
+
+			string page;
+			string name = Name.Replace(" ", "-").Replace(":", "").Replace("'", "");
+			string hubPage = string.Format(CultureInfo.InvariantCulture, "https://truesteamachievements.com/game/{0}", name);
+
+			using (WebClient webClient = new WebClient())
+			{
+				page = webClient.DownloadString(hubPage);
+			}
+
+			MatchCollection matches = RegPlatformTSA.Matches(page);
+			if (matches.Count > 0)
+			{
+				Platforms = AppPlatforms.None;
+
+				foreach (Match m in matches)
+				{
+					string platform = m.Groups[1].Value;
+
+					if (platform.Contains("Windows"))
+					{
+						Platforms |= AppPlatforms.Windows;
+					}
+
+					if (platform.Contains("Mac"))
+					{
+						Platforms |= AppPlatforms.Mac;
+					}
+
+					if (platform.Contains("Linux"))
+					{
+						Platforms |= AppPlatforms.Linux;
+					}
+				}
+			}
+
+			Match match = RegDevelopersTSA.Match(page);
+			if (match.Success)
+			{
+				string developer = match.Groups[1].Value;
+				if (!string.IsNullOrWhiteSpace(developer))
+				{
+					Developers = new List<string>();
+
+					string[] developers = developer.Split(',');
+					foreach (string dev in developers)
+					{
+						if (!string.IsNullOrWhiteSpace(dev))
+						{
+							Developers.Add(dev);
+						}
+					}
+				}
+			}
+
+			match = RegPublisherTSA.Match(page);
+			if (match.Success)
+			{
+				string publisher = match.Groups[1].Value;
+				if (!string.IsNullOrWhiteSpace(publisher))
+				{
+					Publishers = new List<string>();
+
+					string[] publishers = publisher.Split(',');
+					foreach (string pub in publishers)
+					{
+						if (!string.IsNullOrWhiteSpace(pub))
+						{
+							Publishers.Add(pub);
+						}
+					}
+				}
+			}
+
+			matches = RegGenreTSA.Matches(page);
+			if (matches.Count > 0)
+			{
+				Genres = new List<string>();
+				foreach (Match m in matches)
+				{
+					string genre = WebUtility.HtmlDecode(m.Groups[1].Value.Trim());
+					if (!string.IsNullOrWhiteSpace(genre))
+					{
+						Genres.Add(genre);
+					}
+				}
+			}
+
+			LastStoreScrape = Utility.CurrentUnixTime();
 		}
 
 		#endregion
