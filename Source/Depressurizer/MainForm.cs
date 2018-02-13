@@ -1671,28 +1671,18 @@ namespace Depressurizer
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Settings settings = Settings.Instance;
-			settings.SplitContainer = splitContainer.SplitterDistance;
-			settings.SplitGame = splitGame.SplitterDistance;
-			settings.SplitBrowser = splitBrowser.SplitterDistance;
+			Settings.Instance.SplitContainer = splitContainer.SplitterDistance;
+			Settings.Instance.SplitGame = splitGame.SplitterDistance;
+			Settings.Instance.SplitBrowser = splitBrowser.SplitterDistance;
 
-			settings.Filter = AdvancedCategoryFilter ? cboFilter.Text : string.Empty;
+			Settings.Instance.SelectedFilter = AdvancedCategoryFilter ? cboFilter.Text : string.Empty;
 
 			if (lstCategories.SelectedItems.Count > 0)
 			{
-				settings.Category = lstCategories.SelectedItems[0].Name;
+				Settings.Instance.SelectedCategory = lstCategories.SelectedItems[0].Name;
 			}
 
 			SaveSelectedAutoCats();
-
-			//try
-			//{
-			//    settings.Save(true);
-			//}
-			//catch (Exception ex)
-			//{
-			//    MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + ex.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//}
 
 			if (e.CloseReason == CloseReason.UserClosing)
 			{
@@ -1702,17 +1692,19 @@ namespace Depressurizer
 
 		private void FormMain_Load(object sender, EventArgs e)
 		{
+			if (Settings.Instance.CheckForUpdates)
+			{
+				CheckForDepressurizerUpdates();
+			}
+
 			// allow mousewheel scrolling for Add Category submenu.  Send 10 UP/DOWN per wheel click.
 			contextGame.MouseWheel += HandleMouseWheel;
 
-			// Load saved forms settings
-			Settings settings = Settings.Instance;
-
-			splitContainer.SplitterDistance = settings.SplitContainer;
-			settings.SplitGameContainerHeight = splitGame.Height;
-			splitGame.SplitterDistance = settings.SplitGame;
-			settings.SplitBrowserContainerWidth = splitBrowser.Width;
-			splitBrowser.SplitterDistance = settings.SplitBrowser;
+			splitContainer.SplitterDistance = Settings.Instance.SplitContainer;
+			Settings.Instance.SplitGameContainerHeight = splitGame.Height;
+			splitGame.SplitterDistance = Settings.Instance.SplitGame;
+			Settings.Instance.SplitBrowserContainerWidth = splitBrowser.Width;
+			splitBrowser.SplitterDistance = Settings.Instance.SplitBrowser;
 
 			ttHelp.Ext_SetToolTip(mchkAdvancedCategories, GlobalStrings.MainForm_Help_AdvancedCategories);
 
@@ -1738,15 +1730,10 @@ namespace Depressurizer
 				UpdateGameDbFromAppInfo();
 			}
 
-			int aWeekInSecs = 7 * 24 * 60 * 60;
-			if (Settings.Instance.OnStartUpdateFromHLTB && (Utility.CurrentUnixTime() > (Database.Instance.LastHltbUpdate + aWeekInSecs)))
+			const int aWeekInSecs = 7 * 24 * 60 * 60;
+			if (Settings.Instance.OnStartUpdateFromHLTB && (Utility.CurrentUnixTime() > (Database.Instance.LastHLTBUpdate + aWeekInSecs)))
 			{
-				UpdateGameDbFromHltb();
-			}
-
-			if (Settings.Instance.CheckForUpdates)
-			{
-				CheckForDepressurizerUpdates();
+				UpdateDatabaseFromHLTB();
 			}
 
 			switch (Settings.Instance.StartupAction)
@@ -1771,15 +1758,14 @@ namespace Depressurizer
 			UpdateEnabledStatesForGames();
 			UpdateEnabledStatesForCategories();
 
-			FlushStatus();
-
 			if (CurrentProfile != null)
 			{
-				// restore previous session
-				SelectCategory(settings);
-				SelectFilter(settings);
-				SelectAutoCats(settings);
+				SelectCategory();
+				SelectFilter();
+				SelectAutoCats();
 			}
+
+			FlushStatus();
 		}
 
 		/// <summary>
@@ -3889,73 +3875,80 @@ namespace Depressurizer
 
 		private void SaveSelectedAutoCats()
 		{
-			Settings settings = Settings.Instance;
-			string autocats = string.Empty;
+			string autoCats = string.Empty;
+
 			for (int i = 0; i < lvAutoCatType.CheckedItems.Count; i++)
 			{
-				if (autocats == string.Empty)
-				{
-					autocats += lvAutoCatType.CheckedItems[i].Name;
-				}
-				else
-				{
-					autocats += "," + lvAutoCatType.CheckedItems[i].Name;
-				}
+				ListViewItem listViewItem = lvAutoCatType.CheckedItems[i];
+				autoCats += autoCats == string.Empty ? listViewItem.Name : $",{listViewItem.Name}";
 			}
 
-			settings.AutoCats = autocats;
+			Settings.Instance.SelectedAutoCats = autoCats;
 		}
 
-		private void SelectAutoCats(Settings settings)
+		private void SelectAutoCats()
 		{
-			if (settings.AutoCats != null)
+			if (string.IsNullOrWhiteSpace(Settings.Instance.SelectedAutoCats))
 			{
-				List<string> autocats = settings.AutoCats.Split(',').ToList();
-				foreach (string ac in autocats)
+				return;
+			}
+
+			List<string> autoCats = Settings.Instance.SelectedAutoCats.Split(',').ToList();
+			foreach (string autoCat in autoCats)
+			{
+				for (int i = 0; i < lvAutoCatType.Items.Count; i++)
 				{
-					for (int i = 0; i < lvAutoCatType.Items.Count; i++)
+					ListViewItem listViewItem = lvAutoCatType.Items[i];
+					if (listViewItem.Name == autoCat)
 					{
-						if (lvAutoCatType.Items[i].Name == ac)
-						{
-							lvAutoCatType.Items[i].Checked = true;
-						}
+						listViewItem.Checked = true;
 					}
 				}
 			}
 		}
 
-		private void SelectCategory(Settings settings)
+		private void SelectCategory()
 		{
-			if (settings.Category != string.Empty)
+			if (string.IsNullOrWhiteSpace(Settings.Instance.SelectedCategory))
 			{
-				lstCategories.SelectedIndices.Clear();
-				for (int i = 0; i < lstCategories.Items.Count; i++)
-				{
-					if (lstCategories.Items[i].Name == settings.Category)
-					{
-						lstCategories.SelectedIndices.Add(i);
+				return;
+			}
 
-						break;
-					}
+			lstCategories.SelectedIndices.Clear();
+
+			for (int i = 0; i < lstCategories.Items.Count; i++)
+			{
+				ListViewItem listViewItem = lstCategories.Items[i];
+				if (listViewItem.Name != Settings.Instance.SelectedCategory)
+				{
+					continue;
 				}
+
+				lstCategories.SelectedIndices.Add(i);
+				break;
 			}
 		}
 
-		private void SelectFilter(Settings settings)
+		private void SelectFilter()
 		{
-			if (settings.Filter != string.Empty)
+			if (string.IsNullOrWhiteSpace(Settings.Instance.SelectedFilter))
 			{
-				for (int i = 0; i < cboFilter.Items.Count; i++)
+				return;
+			}
+
+			for (int i = 0; i < cboFilter.Items.Count; i++)
+			{
+				string name = cboFilter.GetItemText(cboFilter.Items[i]);
+				if (name != Settings.Instance.SelectedFilter)
 				{
-					string name = cboFilter.GetItemText(cboFilter.Items[i]);
-					if (name == settings.Filter)
-					{
-						mchkAdvancedCategories.Checked = true;
-						cboFilter.SelectedIndex = i;
-						cboFilter.Text = name;
-						ApplyFilter((Filter) cboFilter.SelectedItem);
-					}
+					continue;
 				}
+
+				mchkAdvancedCategories.Checked = true;
+
+				cboFilter.Text = name;
+				cboFilter.SelectedIndex = i;
+				ApplyFilter((Filter) cboFilter.SelectedItem);
 			}
 		}
 
@@ -4208,6 +4201,41 @@ namespace Depressurizer
 			}
 		}
 
+		private void UpdateDatabaseFromHLTB()
+		{
+			Cursor = Cursors.WaitCursor;
+
+			using (HLTBDialog dialog = new HLTBDialog())
+			{
+				DialogResult result = dialog.ShowDialog();
+
+				if (dialog.Error != null)
+				{
+					Logger.Instance.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dialog.Error.Message);
+					MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, dialog.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
+				}
+				else
+				{
+					if ((result == DialogResult.Cancel) || (result == DialogResult.Abort))
+					{
+						AddStatus(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+					}
+					else
+					{
+						AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dialog.Updated));
+						if ((dialog.Updated > 0) && Settings.Instance.AutoSaveDatabase)
+						{
+							SaveDatabase();
+						}
+					}
+				}
+			}
+
+			FullListRefresh();
+			Cursor = Cursors.Default;
+		}
+
 		private void UpdateEnabledStatesForCategories()
 		{
 			Category c = null;
@@ -4300,61 +4328,6 @@ namespace Depressurizer
 			{
 				Logger.Instance.Exception(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
 				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-		}
-
-		/// <summary>
-		///     Updates the database using data from howlongtobeatsteam.com. Displays an error message on failure. Saves the DB
-		///     afterwards if AutoSaveDatabase is set.
-		/// </summary>
-		private void UpdateGameDbFromHltb()
-		{
-			Cursor = Cursors.WaitCursor;
-
-			using (HLTBDialog dialog = new HLTBDialog())
-			{
-				DialogResult result = dialog.ShowDialog();
-
-				if (dialog.Error != null)
-				{
-					Logger.Instance.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dialog.Error.Message);
-					MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, dialog.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-					AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
-				}
-				else
-				{
-					if ((result == DialogResult.Cancel) || (result == DialogResult.Abort))
-					{
-						AddStatus(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
-					}
-					else
-					{
-						AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dialog.Updated));
-						if ((dialog.Updated > 0) && Settings.Instance.AutoSaveDatabase)
-						{
-							SaveDatabase();
-						}
-					}
-				}
-			}
-
-			FullListRefresh();
-			Cursor = Cursors.Default;
-		}
-
-		/// <summary>
-		///     Updates list item for every game on the list, removing games that no longer need to be there, but not adding new
-		///     ones.
-		/// </summary>
-		private void UpdateGameList()
-		{
-			List<GameInfo> gamelist = lstGames.Objects.Cast<GameInfo>().ToList();
-			foreach (GameInfo g in gamelist)
-			{
-				if ((CurrentProfile != null) && (!CurrentProfile.GameData.Games.ContainsKey(g.Id) || ((g.Id < 0) && !CurrentProfile.IncludeShortcuts)))
-				{
-					gamelist.Remove(g);
-				}
 			}
 		}
 

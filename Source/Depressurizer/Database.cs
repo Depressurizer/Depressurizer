@@ -118,7 +118,7 @@ namespace Depressurizer
 			}
 		}
 
-		public long LastHltbUpdate { get; set; } = 0;
+		public long LastHLTBUpdate { get; set; } = 0;
 
 		#endregion
 
@@ -863,9 +863,8 @@ namespace Depressurizer
 					}
 				}
 
-				LastHltbUpdate = Utility.CurrentUnixTime();
+				LastHLTBUpdate = Utility.CurrentUnixTime();
 			}
-
 
 			return updated;
 		}

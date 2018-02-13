@@ -278,14 +278,10 @@ namespace DepressurizerCore
 			}
 		}
 
-		public string AutoCats { get; set; }
-
 		/// <summary>
 		///     Automatically Save Database
 		/// </summary>
 		public bool AutoSaveDatabase { get; set; } = true;
-
-		public string Category { get; set; } = null;
 
 		/// <summary>
 		///     Check for Depressurizer updates on startup
@@ -296,8 +292,6 @@ namespace DepressurizerCore
 		///     Num of backups to keep of the Steam config files
 		/// </summary>
 		public int ConfigBackupCount { get; set; } = 3;
-
-		public string Filter { get; set; } = null;
 
 		public bool IncludeImputedTimes { get; set; } = true;
 
@@ -328,6 +322,21 @@ namespace DepressurizerCore
 		public bool RemoveExtraEntries { get; set; }
 
 		public int ScrapePromptDays { get; set; } = 30;
+
+		/// <summary>
+		///     Selected AutoCats
+		/// </summary>
+		public string SelectedAutoCats { get; set; } = null;
+
+		/// <summary>
+		///     Selected Category
+		/// </summary>
+		public string SelectedCategory { get; set; } = null;
+
+		/// <summary>
+		///     Selected Filter
+		/// </summary>
+		public string SelectedFilter { get; set; } = null;
 
 		public bool SingleCatMode { get; set; } = false;
 
