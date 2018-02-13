@@ -272,7 +272,7 @@ namespace DepressurizerCore.Models
 
 		public void ScrapeStore()
 		{
-			Logger.Instance.Info("Scraping {0}: Initializing store scraping for Id: {0}", Id);
+			Logger.Instance.Verbose("Scraping {0}: Initializing store scraping for Id: {0}", Id);
 
 			string page;
 			int redirectTarget = -1;
