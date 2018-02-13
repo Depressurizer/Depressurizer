@@ -19,7 +19,7 @@
 #endregion
 
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -49,7 +49,7 @@ namespace DepressurizerCore.Helpers
 			}
 		}
 
-		public static int CompareLists(Collection<string> a, Collection<string> b)
+		public static int CompareLists(List<string> a, List<string> b)
 		{
 			if ((a == null) && (b == null))
 			{
