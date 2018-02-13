@@ -36,17 +36,16 @@ namespace DepressurizerCore.Helpers
 		{
 			#region Public Properties
 
+			public static string AppInfoCache => Path.Combine(Folder.Depressurizer, "appinfo.vdf.json");
+
+			public static string AppInfoHash => Path.Combine(Folder.Depressurizer, "appinfo.vdf.hash");
+
 			/// <summary>
 			///     Active log file
 			/// </summary>
 			public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "Depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));
 
-
 			public static string Settings => Path.Combine(Folder.Depressurizer, "Settings.json");
-
-			public static string AppInfoCache => Path.Combine(Folder.Depressurizer, "appinfo.vdf.json");
-
-			public static string AppInfoHash => Path.Combine(Folder.Depressurizer, "appinfo.vdf.hash");
 
 			#endregion
 

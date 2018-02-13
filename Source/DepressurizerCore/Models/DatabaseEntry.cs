@@ -86,9 +86,7 @@ namespace DepressurizerCore.Models
 
 		#region Constructors and Destructors
 
-		public DatabaseEntry()
-		{
-		}
+		public DatabaseEntry() { }
 
 		public DatabaseEntry(int appId)
 		{
