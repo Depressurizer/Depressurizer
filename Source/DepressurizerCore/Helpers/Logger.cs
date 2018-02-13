@@ -28,39 +28,40 @@ using System.Threading.Tasks;
 namespace DepressurizerCore.Helpers
 {
 	/// <summary>
-	///     Level of the log message
+	///     Defines the set of levels recognized by the system.
 	/// </summary>
 	public enum LogLevel
 	{
 		/// <summary>
-		///     Verbose messages (enter/exit subroutine, buffer contents, etc.)
+		///     The Verbose level designates fine-grained informational events that are most useful to debug an application.
 		/// </summary>
-		Verbose = 0,
+		Verbose,
 
 		/// <summary>
-		///     Debug messages, to help in diagnosing a problem
+		///     The Debug level designates fine-grained informational events that are most useful to debug an application.
 		/// </summary>
-		Debug = 1,
+		Debug,
 
 		/// <summary>
-		///     Informational messages, showing completion, progress, etc.
+		///     The Info level designates informational messages that highlight the progress of the application at coarse-grained
+		///     level.
 		/// </summary>
-		Info = 2,
+		Info,
 
 		/// <summary>
-		///     Warning error messages which do not cause a functional failure
+		///     The Warn level designates potentially harmful situations.
 		/// </summary>
-		Warn = 3,
+		Warn,
 
 		/// <summary>
-		///     Major error messages, some lost functionality
+		///     The Error level designates error events that might still allow the application to continue running.
 		/// </summary>
-		Error = 4,
+		Error,
 
 		/// <summary>
-		///     Critical error messages, aborts the subsystem
+		///     The Fatal level designates very severe error events that will presumably lead the application to abort.
 		/// </summary>
-		Fatal = 5
+		Fatal
 	}
 
 	/// <summary>
@@ -124,11 +125,20 @@ namespace DepressurizerCore.Helpers
 
 		#region Public Methods and Operators
 
+		/// <summary>
+		///     Generates a logging event at the Debug level using the message.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
 		public void Debug(string logMessage)
 		{
 			Write(LogLevel.Debug, logMessage);
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Debug level using the message, using the provided objects to format.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
+		/// <param name="args">An object array that contains zero or more objects to format.</param>
 		public void Debug(string logMessage, params object[] args)
 		{
 			Write(LogLevel.Debug, logMessage, args);
@@ -160,56 +170,96 @@ namespace DepressurizerCore.Helpers
 			}
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Error level using the message.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
 		public void Error(string logMessage)
 		{
 			Write(LogLevel.Error, logMessage);
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Error level using the message, using the provided objects to format.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
+		/// <param name="args">An object array that contains zero or more objects to format.</param>
 		public void Error(string logMessage, params object[] args)
 		{
 			Write(LogLevel.Error, logMessage, args);
 		}
 
-		public void Exception(string logMessage)
-		{
-			Write(LogLevel.Error, logMessage);
-		}
-
+		/// <summary>
+		///     Generates a logging event at the Error level using the message and exception.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
+		/// <param name="e">The exception to log, including its stack trace.</param>
 		public void Exception(string logMessage, Exception e)
 		{
 			Write(LogLevel.Error, logMessage + Environment.NewLine + e);
 		}
 
+		/// <summary>
+		///     Generates a logging event for the specified level using the exception.
+		/// </summary>
+		/// <param name="e">The exception to log, including its stack trace.</param>
 		public void Exception(Exception e)
 		{
 			Write(LogLevel.Error, e.ToString());
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Info level using the message.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
 		public void Info(string logMessage)
 		{
 			Write(LogLevel.Info, logMessage);
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Info level using the message, using the provided objects to format.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
+		/// <param name="args">An object array that contains zero or more objects to format.</param>
 		public void Info(string logMessage, params object[] args)
 		{
 			Write(LogLevel.Info, logMessage, args);
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Verbose level using the message.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
 		public void Verbose(string logMessage)
 		{
 			Write(LogLevel.Verbose, logMessage);
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Verbose level using the message, using the provided objects to format.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
+		/// <param name="args">An object array that contains zero or more objects to format.</param>
 		public void Verbose(string logMessage, params object[] args)
 		{
 			Write(LogLevel.Verbose, logMessage, args);
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Warn level using the message.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
 		public void Warn(string logMessage)
 		{
 			Write(LogLevel.Warn, logMessage);
 		}
 
+		/// <summary>
+		///     Generates a logging event at the Warn level using the message, using the provided objects to format.
+		/// </summary>
+		/// <param name="logMessage">The message to log.</param>
+		/// <param name="args">An object array that contains zero or more objects to format.</param>
 		public void Warn(string logMessage, params object[] args)
 		{
 			Write(LogLevel.Warn, logMessage, args);
