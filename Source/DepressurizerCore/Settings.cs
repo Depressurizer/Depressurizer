@@ -33,11 +33,6 @@ namespace DepressurizerCore
 	public enum StartupAction
 	{
 		/// <summary>
-		///     Do nothing
-		/// </summary>
-		None,
-
-		/// <summary>
 		///     Load a profile
 		/// </summary>
 		Load,
