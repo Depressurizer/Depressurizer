@@ -2436,17 +2436,17 @@ namespace Depressurizer
 			};
 
 			//Filtering
-			colCategories.ClusteringStrategy = new CommaClusteringStrategy();
-			colGenres.ClusteringStrategy = new CommaClusteringStrategy();
-			colFlags.ClusteringStrategy = new CommaClusteringStrategy();
-			colTags.ClusteringStrategy = new CommaClusteringStrategy();
-			colVRHeadsets.ClusteringStrategy = new CommaClusteringStrategy();
-			colVRInput.ClusteringStrategy = new CommaClusteringStrategy();
-			colVRPlayArea.ClusteringStrategy = new CommaClusteringStrategy();
-			colLanguageInterface.ClusteringStrategy = new CommaClusteringStrategy();
-			colLanguageSubtitles.ClusteringStrategy = new CommaClusteringStrategy();
-			colLanguageFullAudio.ClusteringStrategy = new CommaClusteringStrategy();
-			colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
+			colCategories.ClusteringStrategy = new CommaClusterStrategy();
+			colGenres.ClusteringStrategy = new CommaClusterStrategy();
+			colFlags.ClusteringStrategy = new CommaClusterStrategy();
+			colTags.ClusteringStrategy = new CommaClusterStrategy();
+			colVRHeadsets.ClusteringStrategy = new CommaClusterStrategy();
+			colVRInput.ClusteringStrategy = new CommaClusterStrategy();
+			colVRPlayArea.ClusteringStrategy = new CommaClusterStrategy();
+			colLanguageInterface.ClusteringStrategy = new CommaClusterStrategy();
+			colLanguageSubtitles.ClusteringStrategy = new CommaClusterStrategy();
+			colLanguageFullAudio.ClusteringStrategy = new CommaClusterStrategy();
+			colPlatforms.ClusteringStrategy = new CommaClusterStrategy();
 			lstGames.AdditionalFilter = new ModelFilter(delegate(object g)
 			{
 				if (g == null)
@@ -4505,163 +4505,6 @@ namespace Depressurizer
 
 			return true;
 		}
-
-		#endregion
-
-		/// <summary>
-		///     Clustering strategy for columns with comma-seperated strings. (Tags, Categories, Flags, Genres etc)
-		/// </summary>
-		public class CommaClusteringStrategy : ClusteringStrategy
-		{
-			#region Public Methods and Operators
-
-			public override object GetClusterKey(object model)
-			{
-				return ((string) Column.GetValue(model)).Replace(", ", ",").Split(',');
-			}
-
-			#endregion
-		}
-
-		public class MyRenderer : ToolStripRenderer
-		{
-			#region Methods
-
-			protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
-			{
-				Rectangle rc = new Rectangle(Point.Empty, e.Item.Size);
-				Color colorText = e.Item.Selected ? Color.FromArgb(255, 255, 255) : Color.FromArgb(169, 167, 167);
-				if (e.ToolStrip is ToolStripDropDown)
-				{
-					Color colorItem = Color.FromArgb(55, 71, 79);
-					using (SolidBrush brush = new SolidBrush(colorItem))
-					{
-						e.Graphics.FillRectangle(brush, rc);
-					}
-				}
-				else
-				{
-					Color colorItem = Color.FromArgb(38, 50, 56);
-					using (SolidBrush brush = new SolidBrush(colorItem))
-					{
-						e.Graphics.FillRectangle(brush, rc);
-					}
-				}
-
-				e.Item.ForeColor = colorText;
-
-				base.OnRenderMenuItemBackground(e);
-			}
-
-			protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
-			{
-				Brush bLight = new SolidBrush(Color.FromArgb(157, 168, 157));
-
-				if (!e.Vertical)
-				{
-					Rectangle r3;
-					if (e.Item.IsOnDropDown)
-					{
-						r3 = new Rectangle(0, 3, e.Item.Width, 1);
-						e.Graphics.FillRectangle(bLight, r3);
-					}
-				}
-
-				base.OnRenderSeparator(e);
-			}
-
-			protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
-			{
-				// Don't clear and fill the background if we already painted an image there
-				//if (e.ToolStrip.BackgroundImage != null)
-				//{
-				//    if (e.ToolStrip is StatusStrip)
-				//        e.Graphics.DrawLine(Pens.White, e.AffectedBounds.Left, e.AffectedBounds.Top, e.AffectedBounds.Right, e.AffectedBounds.Top);
-
-				//    return;
-				//}
-
-				if (e.ToolStrip is ToolStripDropDown)
-				{
-					e.Graphics.Clear(Color.FromArgb(55, 71, 79));
-
-					return;
-				}
-
-				base.OnRenderToolStripBackground(e);
-			}
-
-			protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
-			{
-				if (e.ToolStrip is ToolStripDropDown)
-				{
-					Pen p = new Pen(Color.FromArgb(41, 42, 46));
-					if (e.ToolStrip is ToolStripOverflow)
-					{
-						e.Graphics.DrawLines(p, new[]
-						{
-							e.AffectedBounds.Location,
-							new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1),
-							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1),
-							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top),
-							new Point(e.AffectedBounds.Left, e.AffectedBounds.Top)
-						});
-					}
-					else
-					{
-						e.Graphics.DrawLines(p, new[]
-						{
-							new Point(e.AffectedBounds.Left + e.ConnectedArea.Left, e.AffectedBounds.Top),
-							e.AffectedBounds.Location,
-							new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1),
-							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1),
-							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top),
-							new Point(e.AffectedBounds.Left + e.ConnectedArea.Right, e.AffectedBounds.Top)
-						});
-					}
-
-					return;
-				}
-
-				if (e.ToolStrip is MenuStrip || e.ToolStrip is StatusStrip)
-				{
-					return;
-				}
-
-				using (Pen p = new Pen(Color.FromArgb(41, 42, 46)))
-				{
-					e.Graphics.DrawLine(p, new Point(e.ToolStrip.Left, e.ToolStrip.Bottom - 1), new Point(e.ToolStrip.Width, e.ToolStrip.Bottom - 1));
-				}
-
-				base.OnRenderToolStripBorder(e);
-			}
-
-			#endregion
-		}
-
-		public class ToolStripItemComparer : IComparer
-		{
-			#region Public Methods and Operators
-
-			public int Compare(object x, object y)
-			{
-				ToolStripItem oItem1 = (ToolStripItem) x;
-				ToolStripItem oItem2 = (ToolStripItem) y;
-
-				return string.Compare(oItem1.Text, oItem2.Text, true);
-			}
-
-			#endregion
-		}
-	}
-
-	public class CategorySort
-	{
-		#region Fields
-
-		public int Column;
-
-		public SortOrder Order;
 
 		#endregion
 	}

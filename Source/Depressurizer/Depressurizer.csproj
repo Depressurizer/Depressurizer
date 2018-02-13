@@ -213,6 +213,8 @@
     <Compile Include="AutoCat\CDlgCurator.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Models\CategorySort.cs" />
+    <Compile Include="Models\CommaClusterStrategy.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
@@ -353,6 +355,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\MyRenderer.cs" />
     <Compile Include="OptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -375,6 +378,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ToolStripItemComparer.cs" />
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
     </EmbeddedResource>
