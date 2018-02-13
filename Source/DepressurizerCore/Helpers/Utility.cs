@@ -24,12 +24,30 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace DepressurizerCore.Helpers
 {
 	public static class Utility
 	{
 		#region Public Methods and Operators
+
+		public static string CalculateMD5(string filename)
+		{
+			if (!File.Exists(filename))
+			{
+				return null;
+			}
+
+			using (MD5 md5 = MD5.Create())
+			{
+				using (FileStream stream = File.OpenRead(filename))
+				{
+					byte[] hash = md5.ComputeHash(stream);
+					return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+				}
+			}
+		}
 
 		public static int CompareLists(List<string> a, List<string> b)
 		{

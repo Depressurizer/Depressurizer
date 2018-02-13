@@ -22,7 +22,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using DepressurizerCore.Helpers;
+using Newtonsoft.Json;
 
 namespace DepressurizerCore.Models
 {
@@ -119,23 +121,6 @@ namespace DepressurizerCore.Models
 	/// </summary>
 	public sealed class AppInfo
 	{
-		#region Static Fields
-
-		private static readonly byte[] StartBytes =
-		{
-			0x00,
-			0x00,
-			0x63,
-			0x6F,
-			0x6D,
-			0x6D,
-			0x6F,
-			0x6E,
-			0x00
-		};
-
-		#endregion
-
 		#region Constructors and Destructors
 
 		public AppInfo(int appId)
@@ -252,25 +237,44 @@ namespace DepressurizerCore.Models
 		public static Dictionary<int, AppInfo> LoadApps(string path)
 		{
 			Dictionary<int, AppInfo> appInfos = new Dictionary<int, AppInfo>();
-			Dictionary<uint, AppInfoNode> appInfoNodes = new Dictionary<uint, AppInfoNode>();
+			Dictionary<uint, AppInfoNode> appInfoNodes;
 
 			try
 			{
-				appInfoNodes = new AppInfoReader(path).Items;
+				string currentHash = Utility.CalculateMD5(path);
+
+				if (!File.Exists(Location.File.AppInfoCache) || !File.Exists(Location.File.AppInfoHash) || (File.ReadAllText(Location.File.AppInfoHash) != currentHash))
+				{
+					appInfoNodes = new AppInfoReader(path).Items;
+					File.WriteAllText(Location.File.AppInfoCache, JsonConvert.SerializeObject(appInfoNodes));
+					File.WriteAllText(Location.File.AppInfoHash, currentHash);
+				}
+				else
+				{
+					appInfoNodes = JsonConvert.DeserializeObject<Dictionary<uint, AppInfoNode>>(File.ReadAllText(Location.File.AppInfoCache));
+				}
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e);
+				SentryLogger.Log(e);
 				throw;
 			}
 
-			foreach (AppInfoNode appInfoNode in appInfoNodes.Values)
+			try
 			{
-				AppInfo appInfo = FromNode(appInfoNode);
-				if (appInfo != null)
+				foreach (AppInfoNode appInfoNode in appInfoNodes.Values)
 				{
-					appInfos.Add(appInfo.AppId, appInfo);
+					AppInfo appInfo = FromNode(appInfoNode);
+					if (appInfo != null)
+					{
+						appInfos.Add(appInfo.AppId, appInfo);
+					}
 				}
+			}
+			catch (Exception e)
+			{
+				SentryLogger.Log(e);
+				throw;
 			}
 
 			return appInfos;
