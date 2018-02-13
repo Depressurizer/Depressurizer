@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using DepressurizerCore.Models;
@@ -31,35 +32,67 @@ namespace DepressurizerCore.Helpers
 	/// </summary>
 	public class AppInfoReader
 	{
+		#region Static Fields
+
+		private static BinaryReader _binaryReader = null;
+
+		private static FileStream _fileStream = null;
+
+		#endregion
+
 		#region Constructors and Destructors
 
+		/// <summary>
+		///     Steam AppInfo.vdf Reader
+		/// </summary>
+		/// <param name="path">appinfo.vdf path</param>
 		public AppInfoReader(string path)
 		{
-			using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
+			try
 			{
+				_fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+				_binaryReader = new BinaryReader(_fileStream);
+
 				// Read some header fields
-				reader.ReadByte();
-				if ((reader.ReadByte() != 0x44) || (reader.ReadByte() != 0x56))
+				_binaryReader.ReadByte();
+				if ((_binaryReader.ReadByte() != 0x44) || (_binaryReader.ReadByte() != 0x56))
 				{
-					throw new Exception("Invalid vdf format");
+					throw new InvalidDataException("Invalid VDF format");
 				}
 
 				// Skip more header fields
-				reader.ReadBytes(5);
+				_binaryReader.ReadBytes(5);
 
 				while (true)
 				{
-					uint id = reader.ReadUInt32();
+					uint id = _binaryReader.ReadUInt32();
 					if (id == 0)
 					{
 						break;
 					}
 
 					// Skip unused fields
-					reader.ReadBytes(44);
+					_binaryReader.ReadBytes(44);
 
 					// Load details
-					Items[id] = ReadEntries(reader);
+					Items[id] = ReadEntries();
+				}
+			}
+			catch (Exception e)
+			{
+				SentryLogger.Log(e);
+				throw;
+			}
+			finally
+			{
+				if (_fileStream != null)
+				{
+					_fileStream.Dispose();
+				}
+
+				if (_binaryReader != null)
+				{
+					_binaryReader.Dispose();
 				}
 			}
 		}
@@ -68,46 +101,46 @@ namespace DepressurizerCore.Helpers
 
 		#region Public Properties
 
-		public Dictionary<uint, AppInfoNode> Items { get; set; } = new Dictionary<uint, AppInfoNode>();
+		public Dictionary<uint, AppInfoNode> Items { get; } = new Dictionary<uint, AppInfoNode>();
 
 		#endregion
 
 		#region Methods
 
-		private static AppInfoNode ReadEntries(BinaryReader reader)
+		private static AppInfoNode ReadEntries()
 		{
 			AppInfoNode result = new AppInfoNode();
 
 			while (true)
 			{
-				byte type = reader.ReadByte();
+				byte type = _binaryReader.ReadByte();
 				if (type == 0x08)
 				{
 					break;
 				}
 
-				string key = ReadString(reader);
+				string key = ReadString();
 
 				switch (type)
 				{
 					case 0x00:
-						result[key] = ReadEntries(reader);
+						result[key] = ReadEntries();
 						break;
 					case 0x01:
-						result[key] = new AppInfoNode(ReadString(reader));
+						result[key] = new AppInfoNode(ReadString());
 						break;
 					case 0x02:
-						result[key] = new AppInfoNode(reader.ReadUInt32().ToString());
+						result[key] = new AppInfoNode(_binaryReader.ReadUInt32().ToString(CultureInfo.InvariantCulture));
 						break;
 					default:
-						throw new Exception("Uknown entry type " + type + ".");
+						throw new ArgumentOutOfRangeException(string.Format(CultureInfo.InvariantCulture, "Unknown entry type '{0}'", type));
 				}
 			}
 
 			return result;
 		}
 
-		private static string ReadString(BinaryReader reader)
+		private static string ReadString()
 		{
 			List<byte> bytes = new List<byte>();
 
@@ -116,7 +149,7 @@ namespace DepressurizerCore.Helpers
 				bool stringDone = false;
 				do
 				{
-					byte b = reader.ReadByte();
+					byte b = _binaryReader.ReadByte();
 					if (b == 0)
 					{
 						stringDone = true;
