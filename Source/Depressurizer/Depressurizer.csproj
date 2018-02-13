@@ -313,12 +313,6 @@
     <Compile Include="DBEdit\DlgGameDBEntry.Designer.cs">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="DlgManualDownload.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgManualDownload.Designer.cs">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </Compile>
     <Compile Include="CDlgGetSteamID.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -465,15 +459,6 @@
     <EmbeddedResource Include="DlgGame.uk.resx">
       <DependentUpon>DlgGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.nl.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.ru.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.uk.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DlgProfile.nl.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </EmbeddedResource>
@@ -523,12 +508,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgGame.es.resx">
       <DependentUpon>DlgGame.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.es.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgManualDownload.resx">
-      <DependentUpon>DlgManualDownload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgGame.resx">
       <DependentUpon>DlgGame.cs</DependentUpon>
