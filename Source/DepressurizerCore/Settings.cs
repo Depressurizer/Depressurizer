@@ -235,10 +235,6 @@ namespace DepressurizerCore
 		#region Fields
 
 		private InterfaceLanguage _interfaceLanguage = InterfaceLanguage.English;
-
-		private int _splitBrowser;
-		private int _splitContainer;
-		private int _splitGame;
 		private StoreLanguage _storeLang = StoreLanguage.Default;
 
 		#endregion
@@ -340,52 +336,6 @@ namespace DepressurizerCore
 		public string SelectedFilter { get; set; } = null;
 
 		public bool SingleCatMode { get; set; } = false;
-
-		public int SplitBrowser
-		{
-			get
-			{
-				if (_splitBrowser <= 100)
-				{
-					SplitBrowser = SplitBrowserContainerWidth - 300;
-				}
-
-				return _splitBrowser;
-			}
-			set => _splitBrowser = value;
-		}
-
-		public int SplitBrowserContainerWidth { get; set; } = 722;
-
-		public int SplitContainer
-		{
-			get
-			{
-				if (_splitContainer <= 100)
-				{
-					SplitContainer = 250;
-				}
-
-				return _splitContainer;
-			}
-			set => _splitContainer = value;
-		}
-
-		public int SplitGame
-		{
-			get
-			{
-				if (_splitGame <= 100)
-				{
-					SplitGame = SplitGameContainerHeight - 150;
-				}
-
-				return _splitGame;
-			}
-			set => _splitGame = value;
-		}
-
-		public int SplitGameContainerHeight { get; set; } = 510;
 
 		/// <summary>
 		///     Action On Startup

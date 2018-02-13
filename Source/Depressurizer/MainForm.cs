@@ -189,7 +189,7 @@ namespace Depressurizer
 				}
 			}
 
-			SaveDatabase();
+			SaveDatabase(true);
 		}
 
 		/// <summary>
@@ -249,6 +249,15 @@ namespace Depressurizer
 				Logger.Instance.Exception("Exception while checking for new updates to depressurizer.", e);
 				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
+		}
+
+		private static ListViewItem CreateCategoryListViewItem(Category category)
+		{
+			return new ListViewItem(string.Format(CultureInfo.InvariantCulture, "{0} ({1})", category.Name, category.Count))
+			{
+				Tag = category,
+				Name = category.Name
+			};
 		}
 
 		private static void LoadDatabase()
@@ -598,7 +607,7 @@ namespace Depressurizer
 						else
 						{
 							AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.JobsCompleted));
-							if ((dialog.JobsCompleted > 0) && Settings.Instance.AutoSaveDatabase)
+							if (dialog.JobsCompleted > 0)
 							{
 								SaveDatabase();
 							}
@@ -1094,15 +1103,6 @@ namespace Depressurizer
 			return null;
 		}
 
-		private ListViewItem CreateCategoryListViewItem(Category c)
-		{
-			ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")");
-			i.Tag = c;
-			i.Name = c.Name;
-
-			return i;
-		}
-
 		/// <summary>
 		///     Prompts user to create a new profile.
 		/// </summary>
@@ -1496,6 +1496,7 @@ namespace Depressurizer
 					Tag = $"<{Resources.Category_All}>",
 					Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_All)
 				};
+
 				lstCategories.Items.Add(listViewItem);
 			}
 
@@ -1505,6 +1506,7 @@ namespace Depressurizer
 				Tag = $"<{Resources.Category_Games}>",
 				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Games)
 			};
+
 			lstCategories.Items.Add(listViewItem);
 
 			// <Software>
@@ -1513,6 +1515,7 @@ namespace Depressurizer
 				Tag = $"<{Resources.Category_Software}>",
 				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Software)
 			};
+
 			lstCategories.Items.Add(listViewItem);
 
 			// <Uncategorized>
@@ -1521,6 +1524,7 @@ namespace Depressurizer
 				Tag = $"<{Resources.Category_Uncategorized}>",
 				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Uncategorized)
 			};
+
 			lstCategories.Items.Add(listViewItem);
 
 			// <Hidden>
@@ -1529,6 +1533,7 @@ namespace Depressurizer
 				Tag = $"<{Resources.Category_Hidden}>",
 				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Hidden)
 			};
+
 			lstCategories.Items.Add(listViewItem);
 
 			// <VR>
@@ -1537,6 +1542,7 @@ namespace Depressurizer
 				Tag = $"<{Resources.Category_VR}>",
 				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_VR)
 			};
+
 			lstCategories.Items.Add(listViewItem);
 
 			foreach (Category c in CurrentProfile.GameData.Categories)
@@ -1671,10 +1677,6 @@ namespace Depressurizer
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Settings.Instance.SplitContainer = splitContainer.SplitterDistance;
-			Settings.Instance.SplitGame = splitGame.SplitterDistance;
-			Settings.Instance.SplitBrowser = splitBrowser.SplitterDistance;
-
 			Settings.Instance.SelectedFilter = AdvancedCategoryFilter ? cboFilter.Text : string.Empty;
 
 			if (lstCategories.SelectedItems.Count > 0)
@@ -1692,19 +1694,8 @@ namespace Depressurizer
 
 		private void FormMain_Load(object sender, EventArgs e)
 		{
-			if (Settings.Instance.CheckForUpdates)
-			{
-				CheckForDepressurizerUpdates();
-			}
-
 			// allow mousewheel scrolling for Add Category submenu.  Send 10 UP/DOWN per wheel click.
 			contextGame.MouseWheel += HandleMouseWheel;
-
-			splitContainer.SplitterDistance = Settings.Instance.SplitContainer;
-			Settings.Instance.SplitGameContainerHeight = splitGame.Height;
-			splitGame.SplitterDistance = Settings.Instance.SplitGame;
-			Settings.Instance.SplitBrowserContainerWidth = splitBrowser.Width;
-			splitBrowser.SplitterDistance = Settings.Instance.SplitBrowser;
 
 			ttHelp.Ext_SetToolTip(mchkAdvancedCategories, GlobalStrings.MainForm_Help_AdvancedCategories);
 
@@ -1713,6 +1704,13 @@ namespace Depressurizer
 			LoadDatabase();
 
 			ClearStatus();
+
+			/* */
+
+			if (Settings.Instance.CheckForUpdates)
+			{
+				CheckForDepressurizerUpdates();
+			}
 
 			if (string.IsNullOrWhiteSpace(Settings.Instance.SteamPath))
 			{
@@ -1727,7 +1725,7 @@ namespace Depressurizer
 
 			if (Settings.Instance.OnStartUpdateFromAppInfo)
 			{
-				UpdateGameDbFromAppInfo();
+				UpdateDatabaseFromAppInfo();
 			}
 
 			const int aWeekInSecs = 7 * 24 * 60 * 60;
@@ -1951,6 +1949,7 @@ namespace Depressurizer
 
 				return ((GameInfo) g).GetCatString($"<{Resources.Category_Uncategorized}>");
 			};
+
 			colFavorite.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -1960,6 +1959,7 @@ namespace Depressurizer
 
 				return ((GameInfo) g).IsFavorite() ? "X" : string.Empty;
 			};
+
 			colHidden.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -1969,6 +1969,7 @@ namespace Depressurizer
 
 				return ((GameInfo) g).Hidden ? "X" : string.Empty;
 			};
+
 			colGenres.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -1984,6 +1985,7 @@ namespace Depressurizer
 
 				return GlobalStrings.MainForm_NoGenres;
 			};
+
 			colFlags.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -1999,6 +2001,7 @@ namespace Depressurizer
 
 				return GlobalStrings.MainForm_NoFlags;
 			};
+
 			colTags.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2014,6 +2017,7 @@ namespace Depressurizer
 
 				return GlobalStrings.MainForm_NoTags;
 			};
+
 			colVRHeadsets.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2029,6 +2033,7 @@ namespace Depressurizer
 
 				return string.Empty;
 			};
+
 			colVRInput.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2044,6 +2049,7 @@ namespace Depressurizer
 
 				return string.Empty;
 			};
+
 			colVRPlayArea.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2059,6 +2065,7 @@ namespace Depressurizer
 
 				return string.Empty;
 			};
+
 			colLanguageInterface.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2074,6 +2081,7 @@ namespace Depressurizer
 
 				return string.Empty;
 			};
+
 			colLanguageSubtitles.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2089,6 +2097,7 @@ namespace Depressurizer
 
 				return string.Empty;
 			};
+
 			colLanguageFullAudio.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2104,6 +2113,7 @@ namespace Depressurizer
 
 				return string.Empty;
 			};
+
 			colYear.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2121,6 +2131,7 @@ namespace Depressurizer
 
 				return GlobalStrings.MainForm_Unknown;
 			};
+
 			colLastPlayed.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2135,6 +2146,7 @@ namespace Depressurizer
 
 				return DateTimeOffset.FromUnixTimeSeconds(((GameInfo) g).LastPlayed).Date;
 			};
+
 			colAchievements.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2146,6 +2158,7 @@ namespace Depressurizer
 
 				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].TotalAchievements : 0;
 			};
+
 			colPlatforms.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2157,6 +2170,7 @@ namespace Depressurizer
 
 				return ((platforms & AppPlatforms.Linux) != 0) && (platforms != AppPlatforms.All) ? platforms + ", SteamOS" : platforms.ToString();
 			};
+
 			colDevelopers.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2172,6 +2186,7 @@ namespace Depressurizer
 
 				return GlobalStrings.MainForm_Unknown;
 			};
+
 			colPublishers.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2187,6 +2202,7 @@ namespace Depressurizer
 
 				return GlobalStrings.MainForm_Unknown;
 			};
+
 			colNumberOfReviews.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2198,6 +2214,7 @@ namespace Depressurizer
 
 				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].ReviewTotal : 0;
 			};
+
 			colReviewScore.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2209,6 +2226,7 @@ namespace Depressurizer
 
 				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].ReviewPositivePercentage : 0;
 			};
+
 			colReviewLabel.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2271,6 +2289,7 @@ namespace Depressurizer
 
 				return 0;
 			};
+
 			colHltbMain.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2282,6 +2301,7 @@ namespace Depressurizer
 
 				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].HltbMain : 0;
 			};
+
 			colHltbExtras.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2293,6 +2313,7 @@ namespace Depressurizer
 
 				return Database.Instance.Games.ContainsKey(id) ? Database.Instance.Games[id].HltbExtras : 0;
 			};
+
 			colHltbCompletionist.AspectGetter = delegate(object g)
 			{
 				if (g == null)
@@ -2312,12 +2333,14 @@ namespace Depressurizer
 
 				return reviewTotal <= 0 ? "0" : reviewTotal.ToString();
 			};
+
 			colReviewScore.AspectToStringConverter = delegate(object obj)
 			{
 				int reviewScore = (int) obj;
 
 				return reviewScore <= 0 ? GlobalStrings.MainForm_Unknown : reviewScore.ToString() + '%';
 			};
+
 			colReviewLabel.AspectToStringConverter = delegate(object obj)
 			{
 				int index = (int) obj;
@@ -2354,6 +2377,7 @@ namespace Depressurizer
 
 				return reviewLabels.ContainsKey(index) ? reviewLabels[index] : GlobalStrings.MainForm_Unknown;
 			};
+
 			AspectToStringConverterDelegate hltb = delegate(object obj)
 			{
 				int time = (int) obj;
@@ -2376,6 +2400,7 @@ namespace Depressurizer
 
 				return hours + "h " + mins + "m";
 			};
+
 			colHltbMain.AspectToStringConverter = delegate(object obj)
 			{
 				int time = (int) obj;
@@ -2398,6 +2423,7 @@ namespace Depressurizer
 
 				return hours + "h " + mins + "m";
 			};
+
 			colHltbExtras.AspectToStringConverter = hltb;
 			colHltbCompletionist.AspectToStringConverter = hltb;
 			colLastPlayed.AspectToStringConverter = delegate(object obj)
@@ -2816,6 +2842,7 @@ namespace Depressurizer
 						ReferenceCorner = ContentAlignment.TopLeft,
 						Transparency = 200
 					};
+
 					e.SubItem.Decorations.Add(earlyAccessDecoration);
 				}
 			}
@@ -2947,9 +2974,7 @@ namespace Depressurizer
 						webBrowser1.Navigate(Constants.SteamStoreURL + "?l=" + storeLanguage);
 					}
 				}
-				catch
-				{
-				}
+				catch { }
 			}
 		}
 
@@ -3401,7 +3426,7 @@ namespace Depressurizer
 				DialogResult result = dialog.ShowDialog();
 
 				if (result == DialogResult.OK)
-				{		
+				{
 					if (previousCulture.Name != Thread.CurrentThread.CurrentUICulture.Name)
 					{
 						ComponentResourceManager resources = new ComponentResourceManager(typeof(FormMain));
@@ -3740,8 +3765,13 @@ namespace Depressurizer
 			}
 		}
 
-		private void SaveDatabase()
+		private void SaveDatabase(bool force = false)
 		{
+			if (!Settings.Instance.AutoSaveDatabase && !force)
+			{
+				return;
+			}
+
 			try
 			{
 				Database.Instance.Save();
@@ -4139,33 +4169,6 @@ namespace Depressurizer
 			return g.ContainsCategory(category);
 		}
 
-		//void AddGameToCheckboxStates( GameInfo game, bool first ) {
-		//    ignoreCheckChanges = true;
-		//    if( first ) {
-		//        chkFavorite.CheckState = game.IsFavorite() ? CheckState.Checked : CheckState.Unchecked;
-		//        chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
-		//    } else {
-		//        if( chkFavorite.CheckState != CheckState.Indeterminate ) {
-		//            if( game.IsFavorite() ) {
-		//                if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
-		//            } else {
-		//                if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
-		//            }
-		//        }
-		//        if( game.Hidden ) {
-		//            if( chkHidden.CheckState == CheckState.Unchecked ) chkHidden.CheckState = CheckState.Indeterminate;
-		//        } else {
-		//            if( chkHidden.CheckState == CheckState.Checked ) chkHidden.CheckState = CheckState.Indeterminate;
-		//        }
-		//    }
-		//    ignoreCheckChanges = false;
-		//}
-
-		private bool ShouldHideGame(GameInfo g)
-		{
-			return !ShouldDisplayGame(g);
-		}
-
 		/// <summary>
 		///     Unloads the current profile or game list, making sure the user gets the option to save any changes.
 		/// </summary>
@@ -4204,6 +4207,26 @@ namespace Depressurizer
 			}
 		}
 
+		private void UpdateDatabaseFromAppInfo()
+		{
+			Logger.Instance.Info("MainForm: Updating database from appinfo.");
+
+			try
+			{
+				int num = Database.Instance.UpdateFromAppInfo(string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath));
+				AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
+				if (num > 0)
+				{
+					SaveDatabase();
+				}
+			}
+			catch (Exception e)
+			{
+				Logger.Instance.Exception(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
+				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
 		private void UpdateDatabaseFromHLTB()
 		{
 			Cursor = Cursors.WaitCursor;
@@ -4227,7 +4250,7 @@ namespace Depressurizer
 					else
 					{
 						AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dialog.Updated));
-						if ((dialog.Updated > 0) && Settings.Instance.AutoSaveDatabase)
+						if (dialog.Updated > 0)
 						{
 							SaveDatabase();
 						}
@@ -4310,28 +4333,6 @@ namespace Depressurizer
 			}
 
 			lstMultiCat.EndUpdate();
-		}
-
-		/// <summary>
-		///     Updates the database using AppInfo cache. Displays an error message on failure. Saves the DB afterwards if
-		///     AutoSaveDatabase is set.
-		/// </summary>
-		private void UpdateGameDbFromAppInfo()
-		{
-			try
-			{
-				int num = Database.Instance.UpdateFromAppInfo(string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath));
-				AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
-				if ((num > 0) && Settings.Instance.AutoSaveDatabase)
-				{
-					SaveDatabase();
-				}
-			}
-			catch (Exception e)
-			{
-				Logger.Instance.Exception(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
-				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
 		}
 
 		/// <summary>
