@@ -3393,34 +3393,37 @@ namespace Depressurizer
 		private void menu_Tools_Settings_Click(object sender, EventArgs e)
 		{
 			ClearStatus();
-			DlgOptions dlg = new DlgOptions();
 
-			// jpodadera. Save culture of actual language
-			CultureInfo actualCulture = Thread.CurrentThread.CurrentUICulture;
+			CultureInfo previousCulture = Thread.CurrentThread.CurrentUICulture;
 
-			dlg.ShowDialog();
-
-			// jpodadera. If language has been changed, reload resources of main window
-			if (actualCulture.Name != Thread.CurrentThread.CurrentUICulture.Name)
+			using (OptionsDialog dialog = new OptionsDialog())
 			{
-				ComponentResourceManager resources = new ComponentResourceManager(typeof(FormMain));
-				resources.ApplyResources(this, Name, Thread.CurrentThread.CurrentUICulture);
+				DialogResult result = dialog.ShowDialog();
 
-				// jpodadera. Save actual size and recover original size before reload resources of controls
-				int actualSplitDistanceMain = splitContainer.SplitterDistance;
-				int actualSplitDistanceSecondary = splitGame.SplitterDistance;
-				int actualSplitDistanceCategories = splitCategories.SplitterDistance;
-				int actualSplitDistanceBrowser = splitBrowser.SplitterDistance;
+				if (result == DialogResult.OK)
+				{		
+					if (previousCulture.Name != Thread.CurrentThread.CurrentUICulture.Name)
+					{
+						ComponentResourceManager resources = new ComponentResourceManager(typeof(FormMain));
+						resources.ApplyResources(this, Name, Thread.CurrentThread.CurrentUICulture);
 
-				ChangeLanguageControls(this, resources, Thread.CurrentThread.CurrentUICulture);
+						// jpodadera. Save actual size and recover original size before reload resources of controls
+						int actualSplitDistanceMain = splitContainer.SplitterDistance;
+						int actualSplitDistanceSecondary = splitGame.SplitterDistance;
+						int actualSplitDistanceCategories = splitCategories.SplitterDistance;
+						int actualSplitDistanceBrowser = splitBrowser.SplitterDistance;
 
-				// jpodadera. Recover previous size
-				splitContainer.SplitterDistance = actualSplitDistanceMain;
-				splitGame.SplitterDistance = actualSplitDistanceSecondary;
-				splitCategories.SplitterDistance = actualSplitDistanceCategories;
-				splitBrowser.SplitterDistance = actualSplitDistanceBrowser;
+						ChangeLanguageControls(this, resources, Thread.CurrentThread.CurrentUICulture);
 
-				FullListRefresh();
+						// jpodadera. Recover previous size
+						splitContainer.SplitterDistance = actualSplitDistanceMain;
+						splitGame.SplitterDistance = actualSplitDistanceSecondary;
+						splitCategories.SplitterDistance = actualSplitDistanceCategories;
+						splitBrowser.SplitterDistance = actualSplitDistanceBrowser;
+
+						FullListRefresh();
+					}
+				}
 			}
 
 			FlushStatus();

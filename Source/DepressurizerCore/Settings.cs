@@ -19,7 +19,9 @@
 #endregion
 
 using System;
+using System.Globalization;
 using System.IO;
+using System.Threading;
 using DepressurizerCore.Helpers;
 using Newtonsoft.Json;
 
@@ -237,6 +239,8 @@ namespace DepressurizerCore
 
 		#region Fields
 
+		private InterfaceLanguage _interfaceLanguage = InterfaceLanguage.English;
+
 		private int _splitBrowser;
 		private int _splitContainer;
 		private int _splitGame;
@@ -298,7 +302,11 @@ namespace DepressurizerCore
 		/// <summary>
 		///     Interface Language
 		/// </summary>
-		public InterfaceLanguage InterfaceLanguage { get; set; } = InterfaceLanguage.English;
+		public InterfaceLanguage InterfaceLanguage
+		{
+			get => _interfaceLanguage;
+			set => _interfaceLanguage = ChangeLanguage(value);
+		}
 
 		public string ListGamesState { get; set; } = null;
 
@@ -478,6 +486,53 @@ namespace DepressurizerCore
 					throw;
 				}
 			}
+		}
+
+		#endregion
+
+		#region Methods
+
+		private static InterfaceLanguage ChangeLanguage(InterfaceLanguage interfaceLanguage)
+		{
+			CultureInfo newCulture = Thread.CurrentThread.CurrentUICulture;
+
+			try
+			{
+				switch (interfaceLanguage)
+				{
+					case InterfaceLanguage.English:
+						newCulture = new CultureInfo("en");
+
+						break;
+					case InterfaceLanguage.Spanish:
+						newCulture = new CultureInfo("esS");
+
+						break;
+					case InterfaceLanguage.Russian:
+						newCulture = new CultureInfo("ru");
+
+						break;
+					case InterfaceLanguage.Ukranian:
+						newCulture = new CultureInfo("uk");
+
+						break;
+					case InterfaceLanguage.Dutch:
+						newCulture = new CultureInfo("nl");
+
+						break;
+					default:
+
+						throw new ArgumentOutOfRangeException(nameof(interfaceLanguage), interfaceLanguage, null);
+				}
+			}
+			catch (Exception e)
+			{
+				SentryLogger.Log(e);
+			}
+
+			Thread.CurrentThread.CurrentUICulture = newCulture;
+
+			return interfaceLanguage;
 		}
 
 		#endregion

@@ -141,6 +141,9 @@
   <data name="Category_VR" xml:space="preserve">
     <value>VR</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
   <data name="Scraping" xml:space="preserve">
     <value>Scraping</value>
   </data>
