@@ -127,6 +127,7 @@ namespace DepressurizerCore.Models
 			{
 				"packageId"
 			}, false);
+
 			if ((idNode != null) && (idNode.NodeType == ValueType.Int))
 			{
 				int id = idNode.NodeInt;
@@ -136,6 +137,7 @@ namespace DepressurizerCore.Models
 				{
 					"name"
 				}, false);
+
 				if ((nameNode != null) && (nameNode.NodeType == ValueType.String))
 				{
 					name = nameNode.NodeString;
@@ -202,9 +204,7 @@ namespace DepressurizerCore.Models
 					VDFNode.ReadBin_SeekTo(binaryReader, AppidsBytes, fileLength);
 					while (binaryReader.ReadByte() == 0x02)
 					{
-						while (binaryReader.ReadByte() != 0x00)
-						{
-						}
+						while (binaryReader.ReadByte() != 0x00) { }
 
 						package.AppIds.Add(binaryReader.ReadInt32());
 					}

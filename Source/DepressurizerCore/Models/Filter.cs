@@ -51,6 +51,8 @@ namespace DepressurizerCore.Models
 
 		public SortedSet<Category> Exclude { get; set; } = new SortedSet<Category>();
 
+		public int Game { get; set; } = -1;
+
 		public int Hidden { get; set; } = -1;
 
 		/// <summary>
@@ -60,13 +62,11 @@ namespace DepressurizerCore.Models
 
 		public SortedSet<Category> Require { get; set; } = new SortedSet<Category>();
 
+		public int Software { get; set; } = -1;
+
 		public int Uncategorized { get; set; } = -1;
 
 		public int VR { get; set; } = -1;
-
-		public int Game { get; set; } = -1;
-
-		public int Software { get; set; } = -1;
 
 		#endregion
 

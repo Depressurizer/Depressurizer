@@ -31,7 +31,7 @@ namespace DepressurizerCore.Helpers
 
 		public static string GetAttributeText(XmlNode node, string attName)
 		{
-			if (node == null || node.Attributes == null)
+			if ((node == null) || (node.Attributes == null))
 			{
 				return null;
 			}
