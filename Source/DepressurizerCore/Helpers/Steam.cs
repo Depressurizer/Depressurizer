@@ -40,9 +40,26 @@ namespace DepressurizerCore.Helpers
 		private static List<int> IgnoreList =>
 			new List<int>
 			{
+				480,
+				12230,
+				17770,
+				36610,
+				99920,
+				205790,
+				219540,
+				223530,
+				236330,
+				236830,
+				415310,
+				421730,
+				425690,
 				524440,
+				527680,
 				562020,
-				700580
+				596350,
+				615000,
+				700580,
+				734980
 			};
 
 		#endregion
