@@ -113,7 +113,17 @@ namespace DepressurizerCore.Models
 		/// <summary>
 		///     Steam Media Content
 		/// </summary>
-		Video
+		Video,
+
+		/// <summary>
+		///     Steam Hardware
+		/// </summary>
+		Hardware,
+
+		/// <summary>
+		///     Player-created manuals & references
+		/// </summary>
+		Guide
 	}
 
 	/// <summary>
