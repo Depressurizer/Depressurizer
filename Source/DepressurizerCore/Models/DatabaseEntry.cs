@@ -26,7 +26,6 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using DepressurizerCore.Helpers;
-using Newtonsoft.Json;
 
 namespace DepressurizerCore.Models
 {
@@ -104,9 +103,6 @@ namespace DepressurizerCore.Models
 		#region Public Properties
 
 		public AppType AppType { get; set; } = AppType.Unknown;
-
-		[JsonIgnore]
-		public string Banner { get; set; } = null;
 
 		public List<string> Developers { get; set; } = new List<string>();
 

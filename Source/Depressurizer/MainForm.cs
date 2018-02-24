@@ -260,27 +260,6 @@ namespace Depressurizer
 			};
 		}
 
-		private static void LoadDatabase()
-		{
-			try
-			{
-				if (File.Exists("database.json"))
-				{
-					Database.Instance.Load("database.json");
-				}
-				else
-				{
-					MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + GlobalStrings.MainForm_GameDBFileNotExist);
-					Logger.Instance.Warn("Database file does not exist.");
-				}
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + e.Message);
-				Logger.Instance.Exception("Exception while trying to load the initial Database.", e);
-			}
-		}
-
 		private void AddCategoryToSelectedGames(Category cat, bool forceClearOthers)
 		{
 			if (lstGames.SelectedObjects.Count > 0)
@@ -1701,11 +1680,11 @@ namespace Depressurizer
 
 			InitializeObjectListView();
 
-			LoadDatabase();
-
 			ClearStatus();
 
 			/* */
+
+			Database.Instance.Load();
 
 			if (Settings.Instance.CheckForUpdates)
 			{
@@ -3403,9 +3382,10 @@ namespace Depressurizer
 
 		private void menu_Tools_DBEdit_Click(object sender, EventArgs e)
 		{
-			DBEditDlg dlg = new DBEditDlg(CurrentProfile != null ? CurrentProfile.GameData : null);
-			dlg.ShowDialog();
-			LoadDatabase();
+			using (DBEditDlg dialog = new DBEditDlg(CurrentProfile != null ? CurrentProfile.GameData : null))
+			{
+				dialog.ShowDialog();
+			}
 		}
 
 		private void menu_Tools_RemoveEmpty_Click(object sender, EventArgs e)

@@ -43,13 +43,27 @@ namespace Depressurizer
 
 		private readonly Dictionary<int, SortModes> columnSortMap = new Dictionary<int, SortModes>
 		{
-			{0, SortModes.Id},
-			{1, SortModes.Name},
-			{2, SortModes.Genre},
-			{3, SortModes.Type},
-			{4, SortModes.IsScraped},
-			{5, SortModes.HasAppInfo},
-			{6, SortModes.Parent}
+			{
+				0, SortModes.Id
+			},
+			{
+				1, SortModes.Name
+			},
+			{
+				2, SortModes.Genre
+			},
+			{
+				3, SortModes.Type
+			},
+			{
+				4, SortModes.IsScraped
+			},
+			{
+				5, SortModes.HasAppInfo
+			},
+			{
+				6, SortModes.Parent
+			}
 		};
 
 		private readonly DatabaseEntrySorter dbEntrySorter = new DatabaseEntrySorter();
@@ -174,34 +188,6 @@ namespace Depressurizer
 			{
 				RefilterDisplayList();
 			}
-		}
-
-		/// <summary>
-		///     If there are any unsaved changes, asks the user if they want to save. Also gives the user the option to cancel the
-		///     calling action.
-		/// </summary>
-		/// <returns>True if the action should proceed, false otherwise.</returns>
-		private bool CheckForUnsaved()
-		{
-			if (!UnsavedChanges)
-			{
-				return true;
-			}
-
-			DialogResult res = MessageBox.Show(GlobalStrings.DBEditDlg_UnsavedChangesSave, GlobalStrings.DBEditDlg_UnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-			if (res == DialogResult.No)
-			{
-				// Don't save, just continue
-				return true;
-			}
-
-			if (res == DialogResult.Cancel)
-			{
-				// Don't save, don't continue
-				return false;
-			}
-
-			return SaveDatabase();
 		}
 
 		private void chkAll_CheckedChanged(object sender, EventArgs e)
@@ -336,7 +322,13 @@ namespace Depressurizer
 		{
 			return new ListViewItem(new[]
 			{
-				g.Id.ToString(), g.Name, g.Genres != null ? string.Join(",", g.Genres) : "", g.AppType.ToString(), g.LastStoreScrape == 0 ? "" : "X", g.LastAppInfoUpdate == 0 ? "" : "X", g.ParentId <= 0 ? "" : g.ParentId.ToString()
+				g.Id.ToString(),
+				g.Name,
+				g.Genres != null ? string.Join(",", g.Genres) : "",
+				g.AppType.ToString(),
+				g.LastStoreScrape == 0 ? "" : "X",
+				g.LastAppInfoUpdate == 0 ? "" : "X",
+				g.ParentId <= 0 ? "" : g.ParentId.ToString()
 			});
 		}
 
@@ -350,7 +342,7 @@ namespace Depressurizer
 
 		private void DBEditDlg_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (!CheckForUnsaved())
+			if (!ShouldContinue())
 			{
 				e.Cancel = true;
 			}
@@ -438,7 +430,6 @@ namespace Depressurizer
 						UnsavedChanges = true;
 					}
 				}
-
 			}
 
 			RebuildDisplayList();
@@ -467,26 +458,30 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Loads a db from a user-specified file.
-		/// </summary>
-		private void LoadDB()
+		private void LoadDatabaseFrom()
 		{
-			if (CheckForUnsaved())
+			if (!ShouldContinue())
 			{
-				OpenFileDialog dlg = new OpenFileDialog();
-				dlg.DefaultExt = "gz";
-				dlg.AddExtension = true;
-				dlg.CheckFileExists = true;
-				dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
-				DialogResult res = dlg.ShowDialog();
-				if (res == DialogResult.OK)
+				return;
+			}
+
+			using (OpenFileDialog dialog = new OpenFileDialog())
+			{
+				dialog.DefaultExt = "gz";
+				dialog.AddExtension = true;
+				dialog.CheckFileExists = true;
+				dialog.Filter = GlobalStrings.DBEditDlg_DialogFilter;
+
+				DialogResult result = dialog.ShowDialog();
+				if (result == DialogResult.OK)
 				{
 					Cursor = Cursors.WaitCursor;
-					Database.Instance.Load(dlg.FileName);
+
+					Database.Instance.Load(dialog.FileName);
 					RebuildDisplayList();
 					AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
 					UnsavedChanges = true;
+
 					Cursor = Cursors.Default;
 				}
 			}
@@ -622,14 +617,16 @@ namespace Depressurizer
 		private void menu_File_Load_Click(object sender, EventArgs e)
 		{
 			ClearStatusMsg();
-			LoadDB();
+			LoadDatabaseFrom();
 			FlushStatusMsg();
 		}
 
 		private void menu_File_Save_Click(object sender, EventArgs e)
 		{
 			ClearStatusMsg();
+
 			SaveDatabase();
+
 			FlushStatusMsg();
 		}
 
@@ -728,15 +725,12 @@ namespace Depressurizer
 
 		private bool SaveDatabase()
 		{
-			if (Save("database.json"))
+			if (!Database.Instance.Save())
 			{
-				AddStatusMsg(GlobalStrings.DBEditDlg_DatabaseSaved);
-				UnsavedChanges = false;
-				return true;
+				return false;
 			}
 
-			AddStatusMsg(GlobalStrings.DBEditDlg_DatabaseSaveFailed);
-			return false;
+			return !(UnsavedChanges = false);
 		}
 
 		private void ScrapeGames(List<int> gamesToScrape)
@@ -820,6 +814,29 @@ namespace Depressurizer
 				ScrapeGames(gamesToScrape);
 				Cursor = Cursors.Default;
 			}
+		}
+
+		private bool ShouldContinue()
+		{
+			if (!UnsavedChanges)
+			{
+				return true;
+			}
+
+			DialogResult res = MessageBox.Show(GlobalStrings.DBEditDlg_UnsavedChangesSave, GlobalStrings.DBEditDlg_UnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+			if (res == DialogResult.No)
+			{
+				// Don't save, just continue
+				return true;
+			}
+
+			if (res == DialogResult.Cancel)
+			{
+				// Don't save, don't continue
+				return false;
+			}
+
+			return SaveDatabase();
 		}
 
 		/// <summary>
@@ -980,7 +997,6 @@ namespace Depressurizer
 						UnsavedChanges = true;
 					}
 				}
-
 			}
 
 			RebuildDisplayList();
