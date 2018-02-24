@@ -649,6 +649,11 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
+				if (!File.Exists(path))
+				{
+					return;
+				}
+
 				Logger.Instance.Info("Database: Loading a database instance from '{0}'", path);
 
 				try
@@ -673,12 +678,12 @@ namespace Depressurizer
 			return removedEntry;
 		}
 
-		public void Save()
+		public bool Save()
 		{
-			Save("database.json");
+			return Save("database.json");
 		}
 
-		public void Save(string path)
+		public bool Save(string path)
 		{
 			lock (SyncRoot)
 			{
@@ -693,11 +698,14 @@ namespace Depressurizer
 				{
 					Logger.Instance.Error("Database: Error while trying to save current instance to '{0}'", path);
 					SentryLogger.Log(e);
-					throw;
+
+					return false;
 				}
 
 				Logger.Instance.Info("Database: Saved current instance to '{0}'", path);
 			}
+
+			return true;
 		}
 
 		public bool SupportsVR(int appId)
