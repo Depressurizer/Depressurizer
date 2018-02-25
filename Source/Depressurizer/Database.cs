@@ -53,9 +53,7 @@ namespace Depressurizer
 
 		#region Constructors and Destructors
 
-		private Database()
-		{
-		}
+		private Database() { }
 
 		#endregion
 
@@ -645,33 +643,6 @@ namespace Depressurizer
 			Load("database.json");
 		}
 
-		public void Load(string path)
-		{
-			lock (SyncRoot)
-			{
-				if (!File.Exists(path))
-				{
-					return;
-				}
-
-				Logger.Instance.Info("Database: Loading a database instance from '{0}'", path);
-
-				try
-				{
-					string database = File.ReadAllText(path);
-					_instance = JsonConvert.DeserializeObject<Database>(database);
-				}
-				catch (Exception e)
-				{
-					Logger.Instance.Error("Database: Error while loading instance from '{0}'", path);
-					SentryLogger.Log(e);
-					throw;
-				}
-
-				Logger.Instance.Info("Database: Loaded current instance from '{0}'", path);
-			}
-		}
-
 		public DatabaseEntry Remove(int appId)
 		{
 			Games.TryRemove(appId, out DatabaseEntry removedEntry);
@@ -681,31 +652,6 @@ namespace Depressurizer
 		public bool Save()
 		{
 			return Save("database.json");
-		}
-
-		public bool Save(string path)
-		{
-			lock (SyncRoot)
-			{
-				Logger.Instance.Info("Database: Saving current instance to '{0}'", path);
-
-				try
-				{
-					string database = JsonConvert.SerializeObject(_instance);
-					File.WriteAllText(path, database);
-				}
-				catch (Exception e)
-				{
-					Logger.Instance.Error("Database: Error while trying to save current instance to '{0}'", path);
-					SentryLogger.Log(e);
-
-					return false;
-				}
-
-				Logger.Instance.Info("Database: Saved current instance to '{0}'", path);
-			}
-
-			return true;
 		}
 
 		public bool SupportsVR(int appId)
@@ -956,6 +902,58 @@ namespace Depressurizer
 					counts[tag] = score;
 				}
 			}
+		}
+
+		private void Load(string path)
+		{
+			lock (SyncRoot)
+			{
+				if (!File.Exists(path))
+				{
+					return;
+				}
+
+				Logger.Instance.Info("Database: Loading a database instance from '{0}'", path);
+
+				try
+				{
+					string database = File.ReadAllText(path);
+					_instance = JsonConvert.DeserializeObject<Database>(database);
+				}
+				catch (Exception e)
+				{
+					Logger.Instance.Error("Database: Error while loading instance from '{0}'", path);
+					SentryLogger.Log(e);
+					throw;
+				}
+
+				Logger.Instance.Info("Database: Loaded current instance from '{0}'", path);
+			}
+		}
+
+		private bool Save(string path)
+		{
+			lock (SyncRoot)
+			{
+				Logger.Instance.Info("Database: Saving current instance to '{0}'", path);
+
+				try
+				{
+					string database = JsonConvert.SerializeObject(_instance);
+					File.WriteAllText(path, database);
+				}
+				catch (Exception e)
+				{
+					Logger.Instance.Error("Database: Error while trying to save current instance to '{0}'", path);
+					SentryLogger.Log(e);
+
+					return false;
+				}
+
+				Logger.Instance.Info("Database: Saved current instance to '{0}'", path);
+			}
+
+			return true;
 		}
 
 		#endregion

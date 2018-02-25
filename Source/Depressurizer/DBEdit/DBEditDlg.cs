@@ -458,35 +458,6 @@ namespace Depressurizer
 			}
 		}
 
-		private void LoadDatabaseFrom()
-		{
-			if (!ShouldContinue())
-			{
-				return;
-			}
-
-			using (OpenFileDialog dialog = new OpenFileDialog())
-			{
-				dialog.DefaultExt = "gz";
-				dialog.AddExtension = true;
-				dialog.CheckFileExists = true;
-				dialog.Filter = GlobalStrings.DBEditDlg_DialogFilter;
-
-				DialogResult result = dialog.ShowDialog();
-				if (result == DialogResult.OK)
-				{
-					Cursor = Cursors.WaitCursor;
-
-					Database.Instance.Load(dialog.FileName);
-					RebuildDisplayList();
-					AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
-					UnsavedChanges = true;
-
-					Cursor = Cursors.Default;
-				}
-			}
-		}
-
 		private void lstGames_ColumnClick(object sender, ColumnClickEventArgs e)
 		{
 			if (columnSortMap.ContainsKey(e.Column))
@@ -614,26 +585,12 @@ namespace Depressurizer
 			Close();
 		}
 
-		private void menu_File_Load_Click(object sender, EventArgs e)
-		{
-			ClearStatusMsg();
-			LoadDatabaseFrom();
-			FlushStatusMsg();
-		}
-
 		private void menu_File_Save_Click(object sender, EventArgs e)
 		{
 			ClearStatusMsg();
 
 			SaveDatabase();
 
-			FlushStatusMsg();
-		}
-
-		private void menu_File_SaveAs_Click(object sender, EventArgs e)
-		{
-			ClearStatusMsg();
-			SaveAs();
 			FlushStatusMsg();
 		}
 
@@ -680,47 +637,6 @@ namespace Depressurizer
 			lstGames.VirtualListSize = displayedGames.Count;
 			InvalidateAllListViewItems();
 			UpdateStatusCount();
-		}
-
-		/// <summary>
-		///     Saves the DB to the given file.
-		/// </summary>
-		/// <param name="filename">Path to save to</param>
-		/// <returns>True if successful</returns>
-		private bool Save(string filename)
-		{
-			Cursor c = Cursor;
-			Cursor = Cursors.WaitCursor;
-			try
-			{
-				Database.Instance.Save(filename);
-			}
-			catch (Exception e)
-			{
-				MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorSavingFile, e.Message));
-				Cursor = Cursors.Default;
-				return false;
-			}
-
-			Cursor = c;
-			return true;
-		}
-
-		/// <summary>
-		///     Saves the database to a user-specified file.
-		/// </summary>
-		private void SaveAs()
-		{
-			SaveFileDialog dlg = new SaveFileDialog();
-			dlg.DefaultExt = "gz";
-			dlg.AddExtension = true;
-			dlg.CheckFileExists = false;
-			dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
-			DialogResult res = dlg.ShowDialog();
-			if (res == DialogResult.OK)
-			{
-				AddStatusMsg(Save(dlg.FileName) ? GlobalStrings.DBEditDlg_FileSaved : GlobalStrings.DBEditDlg_SaveFailed);
-			}
 		}
 
 		private bool SaveDatabase()
