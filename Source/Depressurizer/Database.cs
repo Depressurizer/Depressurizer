@@ -22,21 +22,34 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
 {
 	public sealed class Database
 	{
+		#region Constants
+
+		private const string XmlName_dbLanguage = "dbLanguage";
+
+		private const string XmlName_Games = "games";
+
+		private const string XmlName_LastHltbUpdate = "lastHltbUpdate";
+
+		private const string XmlName_RootNode = "gamelist";
+
+		#endregion
+
 		#region Static Fields
 
 		private static readonly object SyncRoot = new object();
@@ -640,7 +653,7 @@ namespace Depressurizer
 
 		public void Load()
 		{
-			Load("database.json");
+			Load("database.xml");
 		}
 
 		public DatabaseEntry Remove(int appId)
@@ -651,7 +664,7 @@ namespace Depressurizer
 
 		public bool Save()
 		{
-			return Save("database.json");
+			return Save("database.xml");
 		}
 
 		public bool SupportsVR(int appId)
@@ -915,14 +928,61 @@ namespace Depressurizer
 
 				Logger.Instance.Info("Database: Loading a database instance from '{0}'", path);
 
+				XmlDocument document = new XmlDocument();
+
+				Stream stream = null;
 				try
 				{
-					string database = File.ReadAllText(path);
-					_instance = JsonConvert.DeserializeObject<Database>(database);
+					stream = new FileStream(path, FileMode.Open);
+					stream = new GZipStream(stream, CompressionMode.Decompress);
+					document.Load(stream);
 				}
 				catch (Exception e)
 				{
-					Logger.Instance.Error("Database: Error while loading instance from '{0}'", path);
+					Logger.Instance.Error("Database: Error while reading database file from '{0}'", path);
+					SentryLogger.Log(e);
+					throw;
+				}
+				finally
+				{
+					if (stream != null)
+					{
+						stream.Dispose();
+					}
+				}
+
+				try
+				{
+					Games.Clear();
+
+					XmlNode gameListNode = document.SelectSingleNode("/" + XmlName_RootNode);
+					if (gameListNode == null)
+					{
+						throw new InvalidDataException();
+					}
+
+					Language = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), XmlUtil.GetStringFromNode(gameListNode[XmlName_dbLanguage], "english"), true);
+					LastHLTBUpdate = XmlUtil.GetIntFromNode(gameListNode[XmlName_LastHltbUpdate], 0);
+
+					XmlNode dictonaryNode = gameListNode.SelectSingleNode(XmlName_Games);
+					if (dictonaryNode == null)
+					{
+						throw new InvalidDataException();
+					}
+
+					XmlSerializer xmlSerializer = new XmlSerializer(typeof(DatabaseEntry));
+					foreach (XmlNode appNode in dictonaryNode.ChildNodes)
+					{
+						using (XmlReader reader = new XmlNodeReader(appNode))
+						{
+							DatabaseEntry entry = (DatabaseEntry) xmlSerializer.Deserialize(reader);
+							AddOrUpdate(entry);
+						}
+					}
+				}
+				catch (Exception e)
+				{
+					Logger.Instance.Error("Database: Error while parsing database file from '{0}'", path);
 					SentryLogger.Log(e);
 					throw;
 				}
@@ -937,17 +997,58 @@ namespace Depressurizer
 			{
 				Logger.Instance.Info("Database: Saving current instance to '{0}'", path);
 
+				XmlWriter writer = null;
+				Stream stream = null;
 				try
 				{
-					string database = JsonConvert.SerializeObject(_instance);
-					File.WriteAllText(path, database);
+					stream = new FileStream(path, FileMode.Create);
+					stream = new GZipStream(stream, CompressionMode.Compress);
+
+					XmlWriterSettings settings = new XmlWriterSettings
+					{
+						Indent = true,
+						CloseOutput = true
+					};
+
+					writer = XmlWriter.Create(stream, settings);
+
+					writer.WriteStartDocument();
+					writer.WriteStartElement(XmlName_RootNode);
+
+					writer.WriteElementString(XmlName_LastHltbUpdate, LastHLTBUpdate.ToString());
+					writer.WriteElementString(XmlName_dbLanguage, Enum.GetName(typeof(StoreLanguage), Language));
+
+					writer.WriteStartElement(XmlName_Games);
+					XmlSerializer xmlSerializer = new XmlSerializer(typeof(DatabaseEntry));
+					XmlSerializerNamespaces nameSpace = new XmlSerializerNamespaces();
+					nameSpace.Add("", "");
+					foreach (DatabaseEntry entry in Games.Values)
+					{
+						xmlSerializer.Serialize(writer, entry, nameSpace);
+					}
+
+					writer.WriteEndElement();
+
+					writer.WriteEndElement();
+					writer.WriteEndDocument();
 				}
 				catch (Exception e)
 				{
 					Logger.Instance.Error("Database: Error while trying to save current instance to '{0}'", path);
 					SentryLogger.Log(e);
+					throw;
+				}
+				finally
+				{
+					if (writer != null)
+					{
+						writer.Dispose();
+					}
 
-					return false;
+					if (stream != null)
+					{
+						stream.Dispose();
+					}
 				}
 
 				Logger.Instance.Info("Database: Saved current instance to '{0}'", path);

@@ -385,7 +385,7 @@ namespace DepressurizerCore.Models
 				using (StreamReader streamReader = new StreamReader(responseStream))
 				{
 					page = streamReader.ReadToEnd();
-					Logger.Instance.Info("Scraping {0}: Page read", Id);
+					Logger.Instance.Verbose("Scraping {0}: Page read", Id);
 				}
 			}
 			catch (Exception e)
