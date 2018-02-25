@@ -43,9 +43,9 @@ namespace DepressurizerCore.Helpers
 			/// <summary>
 			///     Active log file
 			/// </summary>
-			public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "Depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));
+			public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));
 
-			public static string Settings => Path.Combine(Folder.Depressurizer, "Settings.json");
+			public static string Settings => Path.Combine(Folder.Depressurizer, "settings.json");
 
 			#endregion
 
