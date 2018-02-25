@@ -42,15 +42,18 @@ namespace Depressurizer
             AppDomain.CurrentDomain.UnhandledException += SentryLogger.OnUnhandledException;
             Application.ThreadException += SentryLogger.OnThreadException;
 
-            Settings.Instance.Load();
-
             Application.Run(new FormMain());
         }
 
         private static void OnApplicationExit(object sender, EventArgs e)
         {
-			Database.Instance.Save();
+	        if (Settings.Instance.AutoSaveDatabase)
+	        {
+		        Database.Instance.Save();
+	        }
+
             Settings.Instance.Save();
+
             Logger.Instance.Dispose();
         }
 
