@@ -26,6 +26,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using DepressurizerCore.Helpers;
+using Newtonsoft.Json;
 
 namespace DepressurizerCore.Models
 {
@@ -85,6 +86,7 @@ namespace DepressurizerCore.Models
 
 		#region Constructors and Destructors
 
+		[JsonConstructor]
 		public DatabaseEntry() { }
 
 		public DatabaseEntry(int appId)
