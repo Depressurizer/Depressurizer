@@ -452,6 +452,12 @@ namespace DepressurizerCore.Models
 
 		public void ScrapeTSA()
 		{
+			// We can only scrape TrueSteamAchievements in English
+			if (Settings.Instance.StoreLanguage != StoreLanguage.English)
+			{
+				return;
+			}
+
 			if (string.IsNullOrWhiteSpace(Name))
 			{
 				return;
