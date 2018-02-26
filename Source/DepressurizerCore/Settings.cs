@@ -286,6 +286,9 @@ namespace DepressurizerCore
 		/// </summary>
 		public int ConfigBackupCount { get; set; } = 3;
 
+		/// <summary>
+		///     Include HowLongToBeat imputed times
+		/// </summary>
 		public bool IncludeImputedTimes { get; set; } = true;
 
 		/// <summary>
@@ -297,6 +300,9 @@ namespace DepressurizerCore
 			set => _interfaceLanguage = ChangeLanguage(value);
 		}
 
+		/// <summary>
+		///     Last state of ListGames
+		/// </summary>
 		public string ListGamesState { get; set; } = null;
 
 		public GameListSource ListSource { get; set; } = GameListSource.XmlPreferred;
@@ -318,6 +324,9 @@ namespace DepressurizerCore
 
 		public bool RemoveExtraEntries { get; set; }
 
+		/// <summary>
+		///     Re-scrape after X days
+		/// </summary>
 		public int ScrapePromptDays { get; set; } = 30;
 
 		/// <summary>
@@ -335,6 +344,9 @@ namespace DepressurizerCore
 		/// </summary>
 		public string SelectedFilter { get; set; } = null;
 
+		/// <summary>
+		///     Single category mode
+		/// </summary>
 		public bool SingleCatMode { get; set; } = false;
 
 		/// <summary>
@@ -448,7 +460,7 @@ namespace DepressurizerCore
 
 						break;
 					case InterfaceLanguage.Spanish:
-						newCulture = new CultureInfo("esS");
+						newCulture = new CultureInfo("es");
 
 						break;
 					case InterfaceLanguage.Russian:
