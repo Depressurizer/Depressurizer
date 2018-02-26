@@ -22,9 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using System.IO;
 using DepressurizerCore.Helpers;
-using Newtonsoft.Json;
 
 namespace DepressurizerCore.Models
 {
@@ -121,7 +119,7 @@ namespace DepressurizerCore.Models
 		Hardware,
 
 		/// <summary>
-		///     Player-created manuals & references
+		///     Player-created manuals and references
 		/// </summary>
 		Guide
 	}
@@ -251,11 +249,14 @@ namespace DepressurizerCore.Models
 
 			try
 			{
+				/*
 				string currentHash = Utility.CalculateMD5(path);
 
 				if (!File.Exists(Location.File.AppInfoCache) || !File.Exists(Location.File.AppInfoHash) || (File.ReadAllText(Location.File.AppInfoHash) != currentHash))
 				{
-					appInfoNodes = new AppInfoReader(path).Items;
+				*/
+				appInfoNodes = new AppInfoReader(path).Items;
+				/*
 					File.WriteAllText(Location.File.AppInfoCache, JsonConvert.SerializeObject(appInfoNodes));
 					File.WriteAllText(Location.File.AppInfoHash, currentHash);
 				}
@@ -263,6 +264,7 @@ namespace DepressurizerCore.Models
 				{
 					appInfoNodes = JsonConvert.DeserializeObject<Dictionary<uint, AppInfoNode>>(File.ReadAllText(Location.File.AppInfoCache));
 				}
+				*/
 			}
 			catch (Exception e)
 			{
