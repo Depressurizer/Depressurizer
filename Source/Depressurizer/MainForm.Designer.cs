@@ -1132,7 +1132,19 @@ namespace Depressurizer {
             this.cmdAddCatAndAssign.Name = "cmdAddCatAndAssign";
             this.cmdAddCatAndAssign.UseVisualStyleBackColor = true;
             this.cmdAddCatAndAssign.Click += new System.EventHandler(this.cmdAddCatAndAssign_Click);
-            // 
+	        // 
+	        // mchkBrowser
+	        // 
+	        resources.ApplyResources(this.mchkBrowser, "mchkBrowser");
+	        this.mchkBrowser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+	        this.mchkBrowser.Depth = 0;
+	        this.mchkBrowser.MouseLocation = new System.Drawing.Point(-1, -1);
+	        this.mchkBrowser.MouseState = MaterialSkin.MouseState.HOVER;
+	        this.mchkBrowser.Name = "mchkBrowser";
+	        this.mchkBrowser.Ripple = true;
+	        this.mchkBrowser.UseVisualStyleBackColor = false;
+	        this.mchkBrowser.CheckedChanged += new System.EventHandler(this.mchkBrowser_CheckedChanged);
+	        // 
             // txtAddCatAndAssign
             // 
             resources.ApplyResources(this.txtAddCatAndAssign, "txtAddCatAndAssign");
