@@ -268,48 +268,55 @@ namespace Depressurizer
 			};
 		}
 
-		private void AddCategoryToSelectedGames(Category cat, bool forceClearOthers)
+		private void AddCategoryToSelectedGames(Category category, bool forceClearOthers)
 		{
-			if (lstGames.SelectedObjects.Count > 0)
+			if (lstGames.SelectedObjects.Count <= 0)
 			{
-				Cursor.Current = Cursors.WaitCursor;
-				foreach (GameInfo g in _tlstGames.SelectedObjects)
+				return;
+			}
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
+			{
+				if (gameInfo == null)
 				{
-					if (g != null)
+					continue;
+				}
+
+				if (forceClearOthers || Settings.SingleCatMode)
+				{
+					gameInfo.ClearCategories();
+					if (category != null)
 					{
-						if (forceClearOthers || Settings.SingleCatMode)
-						{
-							g.ClearCategories(false);
-							if (cat != null)
-							{
-								g.AddCategory(cat);
-							}
-						}
-						else
-						{
-							g.AddCategory(cat);
-						}
+						gameInfo.AddCategory(category);
 					}
-				}
-
-				FillAllCategoryLists();
-				if (forceClearOthers)
-				{
-					FilterGamelist(false);
-				}
-
-				if (lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized))
-				{
-					FilterGamelist(false);
 				}
 				else
 				{
-					RebuildGamelist();
+					gameInfo.AddCategory(category);
 				}
-
-				MakeChange(true);
-				Cursor.Current = Cursors.Default;
 			}
+
+			FillAllCategoryLists();
+
+			if (forceClearOthers)
+			{
+				FilterGamelist(false);
+			}
+
+			if (lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized))
+			{
+				FilterGamelist(false);
+			}
+			else
+			{
+				RebuildGamelist();
+			}
+
+			MakeChange(true);
+
+			Cursor.Current = Cursors.Default;
 		}
 
 		/// <summary>
@@ -1805,6 +1812,8 @@ namespace Depressurizer
 				{
 					switch (oldState)
 					{
+						case (int) AdvancedFilterState.None:
+							break;
 						case (int) AdvancedFilterState.Allow:
 							_advFilter.Allow.Remove(category);
 
@@ -1823,6 +1832,8 @@ namespace Depressurizer
 
 					switch (i.StateImageIndex)
 					{
+						case (int) AdvancedFilterState.None:
+							break;
 						case (int) AdvancedFilterState.Allow:
 							_advFilter.Allow.Add(category);
 
@@ -3551,33 +3562,34 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Removes the given category from all selected games.
-		/// </summary>
-		/// <param name="cat">Category to remove.</param>
-		private void RemoveCategoryFromSelectedGames(Category cat)
+		private void RemoveCategoryFromSelectedGames(Category category)
 		{
-			if (lstGames.SelectedObjects.Count > 0)
+			if (lstGames.SelectedObjects.Count <= 0)
 			{
-				Cursor.Current = Cursors.WaitCursor;
-				foreach (GameInfo g in _tlstGames.SelectedObjects)
-				{
-					g.RemoveCategory(cat);
-				}
-
-				FillAllCategoryLists();
-				if (lstCategories.SelectedItems[0].Tag is Category && ((Category) lstCategories.SelectedItems[0].Tag == cat))
-				{
-					FilterGamelist(false);
-				}
-				else
-				{
-					FilterGamelist(true);
-				}
-
-				MakeChange(true);
-				Cursor.Current = Cursors.Default;
+				return;
 			}
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
+			{
+				gameInfo.RemoveCategory(category);
+			}
+
+			FillAllCategoryLists();
+
+			if (lstCategories.SelectedItems[0].Tag is Category selectedCategory && (selectedCategory == category))
+			{
+				FilterGamelist(false);
+			}
+			else
+			{
+				FilterGamelist(true);
+			}
+
+			MakeChange(true);
+
+			Cursor.Current = Cursors.Default;
 		}
 
 		/// <summary>
