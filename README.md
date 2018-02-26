@@ -164,5 +164,5 @@ When you **export**, you are manually pushing your data to Steam. You should clo
 ---
 
 # Wiki
-- [Home](../wiki)
-- [FAQ & Troubleshoot](../wiki/FAQ-&-Troubleshooting)
+- [Home](../../wiki)
+- [FAQ & Troubleshoot](../../wiki/FAQ-&-Troubleshooting)
