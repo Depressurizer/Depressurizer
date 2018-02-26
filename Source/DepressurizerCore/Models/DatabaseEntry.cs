@@ -104,6 +104,9 @@ namespace DepressurizerCore.Models
 
 		#region Public Properties
 
+		/// <summary>
+		///     App Type
+		/// </summary>
 		public AppType AppType { get; set; } = AppType.Unknown;
 
 		public List<string> Developers { get; set; } = new List<string>();
@@ -118,16 +121,31 @@ namespace DepressurizerCore.Models
 
 		public int HltbMain { get; set; } = 0;
 
+		/// <summary>
+		///     App Id
+		/// </summary>
 		public int Id { get; set; } = 0;
 
 		public LanguageSupport LanguageSupport { get; set; } = new LanguageSupport(); //TODO: Add field to DB edit dialog
 
+		/// <summary>
+		///     Last appinfo update
+		/// </summary>
 		public long LastAppInfoUpdate { get; set; } = 0;
 
+		/// <summary>
+		///     Last store scrape
+		/// </summary>
 		public long LastStoreScrape { get; set; } = 0;
 
+		/// <summary>
+		///     MetaCritic URL
+		/// </summary>
 		public string MetacriticUrl { get; set; } = null;
 
+		/// <summary>
+		///     App Name
+		/// </summary>
 		public string Name { get; set; } = null;
 
 		public int ParentId { get; set; } = -1;
@@ -136,17 +154,29 @@ namespace DepressurizerCore.Models
 
 		public List<string> Publishers { get; set; } = new List<string>();
 
+		/// <summary>
+		///     Positive Steam review percentage
+		/// </summary>
 		public int ReviewPositivePercentage { get; set; } = 0;
 
+		/// <summary>
+		///     Total Steam reviews
+		/// </summary>
 		public int ReviewTotal { get; set; } = 0;
 
+		/// <summary>
+		///     Steam releasedate
+		/// </summary>
 		public string SteamReleaseDate { get; set; } = null;
 
 		public List<string> Tags { get; set; } = new List<string>();
 
+		/// <summary>
+		///     Total Steam achievements
+		/// </summary>
 		public int TotalAchievements { get; set; } = 0;
 
-		public VRSupport VrSupport { get; set; } = new VRSupport(); //TODO: Add field to DB edit dialog
+		public VRSupport VRSupport { get; set; } = new VRSupport(); //TODO: Add field to DB edit dialog
 
 		#endregion
 
@@ -154,6 +184,11 @@ namespace DepressurizerCore.Models
 
 		public DatabaseEntry MergeIn(DatabaseEntry otherEntry)
 		{
+			if (otherEntry == null)
+			{
+				return this;
+			}
+
 			bool useAppInfoFields = (otherEntry.LastAppInfoUpdate > LastAppInfoUpdate) || ((LastAppInfoUpdate == 0) && (otherEntry.LastStoreScrape >= LastStoreScrape));
 			bool useScrapeOnlyFields = otherEntry.LastStoreScrape >= LastStoreScrape;
 
@@ -218,19 +253,19 @@ namespace DepressurizerCore.Models
 				}
 
 				//VR Support
-				if ((otherEntry.VrSupport.Headsets != null) && (otherEntry.VrSupport.Headsets.Count > 0))
+				if ((otherEntry.VRSupport.Headsets != null) && (otherEntry.VRSupport.Headsets.Count > 0))
 				{
-					VrSupport.Headsets = otherEntry.VrSupport.Headsets;
+					VRSupport.Headsets = otherEntry.VRSupport.Headsets;
 				}
 
-				if ((otherEntry.VrSupport.Input != null) && (otherEntry.VrSupport.Input.Count > 0))
+				if ((otherEntry.VRSupport.Input != null) && (otherEntry.VRSupport.Input.Count > 0))
 				{
-					VrSupport.Input = otherEntry.VrSupport.Input;
+					VRSupport.Input = otherEntry.VRSupport.Input;
 				}
 
-				if ((otherEntry.VrSupport.PlayArea != null) && (otherEntry.VrSupport.PlayArea.Count > 0))
+				if ((otherEntry.VRSupport.PlayArea != null) && (otherEntry.VRSupport.PlayArea.Count > 0))
 				{
-					VrSupport.PlayArea = otherEntry.VrSupport.PlayArea;
+					VRSupport.PlayArea = otherEntry.VRSupport.PlayArea;
 				}
 
 				//Language Support
@@ -347,7 +382,7 @@ namespace DepressurizerCore.Models
 				if (resp.ResponseUri.Segments[1] == "agecheck/")
 				{
 					// Encountered an age check with no redirect
-					if ((resp.ResponseUri.Segments.Length < 4) || (resp.ResponseUri.Segments[3].TrimEnd('/') == Id.ToString()))
+					if ((resp.ResponseUri.Segments.Length < 4) || (resp.ResponseUri.Segments[3].TrimEnd('/') == Id.ToString(CultureInfo.InvariantCulture)))
 					{
 						Logger.Instance.Verbose("Scraping {0}: Encounterd an age check without redirect, aborting scraping", Id);
 						return;
@@ -364,7 +399,7 @@ namespace DepressurizerCore.Models
 				}
 
 				// Check if we were redirected to a different Id
-				else if (resp.ResponseUri.Segments[2].TrimEnd('/') != Id.ToString())
+				else if (resp.ResponseUri.Segments[2].TrimEnd('/') != Id.ToString(CultureInfo.InvariantCulture))
 				{
 					// if new app id is an actual number
 					if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
@@ -460,7 +495,7 @@ namespace DepressurizerCore.Models
 			}
 		}
 
-		public void ScrapeTSA()
+		public void ScrapeTrueSteamAchievements()
 		{
 			// We can only scrape TrueSteamAchievements in English
 			if (Settings.Instance.StoreLanguage != StoreLanguage.English)
@@ -636,13 +671,13 @@ namespace DepressurizerCore.Models
 			if (m.Success)
 			{
 				matches = RegVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-				VrSupport.Headsets = new List<string>();
+				VRSupport.Headsets = new List<string>();
 				foreach (Match ma in matches)
 				{
 					string headset = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
 					if (!string.IsNullOrWhiteSpace(headset))
 					{
-						VrSupport.Headsets.Add(headset);
+						VRSupport.Headsets.Add(headset);
 					}
 				}
 			}
@@ -652,13 +687,13 @@ namespace DepressurizerCore.Models
 			if (m.Success)
 			{
 				matches = RegVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-				VrSupport.Input = new List<string>();
+				VRSupport.Input = new List<string>();
 				foreach (Match ma in matches)
 				{
 					string input = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
 					if (!string.IsNullOrWhiteSpace(input))
 					{
-						VrSupport.Input.Add(input);
+						VRSupport.Input.Add(input);
 					}
 				}
 			}
@@ -668,13 +703,13 @@ namespace DepressurizerCore.Models
 			if (m.Success)
 			{
 				matches = RegVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-				VrSupport.PlayArea = new List<string>();
+				VRSupport.PlayArea = new List<string>();
 				foreach (Match ma in matches)
 				{
 					string playArea = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
 					if (!string.IsNullOrWhiteSpace(playArea))
 					{
-						VrSupport.PlayArea.Add(playArea);
+						VRSupport.PlayArea.Add(playArea);
 					}
 				}
 			}
@@ -688,22 +723,25 @@ namespace DepressurizerCore.Models
 				foreach (Match ma in matches)
 				{
 					string language = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
-					if (language.StartsWith("#lang") || language.StartsWith("("))
+					if (language.StartsWith("#lang", true, CultureInfo.InvariantCulture) || language.StartsWith("(", true, CultureInfo.InvariantCulture))
 					{
 						continue; //Some store pages on steam are bugged.
 					}
 
-					if (WebUtility.HtmlDecode(ma.Groups[2].Value.Trim()) != "") //Interface
+					// Interface
+					if (!string.IsNullOrWhiteSpace(WebUtility.HtmlDecode(ma.Groups[2].Value.Trim()))) 
 					{
 						LanguageSupport.Interface.Add(language);
 					}
 
-					if (WebUtility.HtmlDecode(ma.Groups[3].Value.Trim()) != "") //Full Audio
+					// Full Audio
+					if (!string.IsNullOrWhiteSpace(WebUtility.HtmlDecode(ma.Groups[3].Value.Trim()))) 
 					{
 						LanguageSupport.FullAudio.Add(language);
 					}
 
-					if (WebUtility.HtmlDecode(ma.Groups[4].Value.Trim()) != "") //Subtitles
+					// Subtitles
+					if (!string.IsNullOrWhiteSpace(WebUtility.HtmlDecode(ma.Groups[4].Value.Trim())))
 					{
 						LanguageSupport.Subtitles.Add(language);
 					}

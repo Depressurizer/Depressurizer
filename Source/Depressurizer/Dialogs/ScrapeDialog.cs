@@ -138,7 +138,7 @@ namespace Depressurizer.Dialogs
 			{
 				try
 				{
-					entry.ScrapeTSA();
+					entry.ScrapeTrueSteamAchievements();
 				}
 				catch (Exception)
 				{
