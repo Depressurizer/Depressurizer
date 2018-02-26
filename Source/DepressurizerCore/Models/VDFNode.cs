@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,28 +34,46 @@ namespace DepressurizerCore.Models
 		Int
 	}
 
+	/// <summary>
+	///     ValveDataFormat Node
+	/// </summary>
 	public sealed class VDFNode
 	{
 		#region Constructors and Destructors
 
+		/// <summary>
+		///     Creates an Array-type VDFNode
+		/// </summary>
 		public VDFNode()
 		{
 			NodeType = ValueType.Array;
 			NodeData = new Dictionary<string, VDFNode>(StringComparer.OrdinalIgnoreCase);
 		}
 
+		/// <summary>
+		///     Creates an String-type VDFNode
+		/// </summary>
+		/// <param name="value"></param>
 		public VDFNode(string value)
 		{
 			NodeType = ValueType.String;
 			NodeData = value;
 		}
 
+		/// <summary>
+		///     Creates an Integer-type VDFNode
+		/// </summary>
+		/// <param name="value"></param>
 		public VDFNode(int value)
 		{
 			NodeType = ValueType.Int;
 			NodeData = value;
 		}
 
+		/// <summary>
+		///     Creates an Integer-type VDFNode
+		/// </summary>
+		/// <param name="value"></param>
 		public VDFNode(ulong value)
 		{
 			NodeType = ValueType.Int;
@@ -65,18 +84,16 @@ namespace DepressurizerCore.Models
 
 		#region Public Properties
 
+		/// <summary>
+		///     NodeData casted to a Dictionary.
+		/// </summary>
 		public Dictionary<string, VDFNode> NodeArray
 		{
 			get
 			{
-				if (NodeType != ValueType.Array)
+				if ((NodeType != ValueType.Array) || !(NodeData is Dictionary<string, VDFNode> arrayData))
 				{
 					return null;
-				}
-
-				if (!(NodeData is Dictionary<string, VDFNode> arrayData))
-				{
-					throw new InvalidCastException("NodeData is not a Dictionary<string, VdfFileNode>");
 				}
 
 				return arrayData;
@@ -84,12 +101,12 @@ namespace DepressurizerCore.Models
 		}
 
 		/// <summary>
-		///     Can be an int, string or Dictionary
+		///     Can be an Int, String or Dictionary.
 		/// </summary>
 		public object NodeData { get; set; }
 
 		/// <summary>
-		///     Quick shortcut for casting data to int. If the node is a string, tries to parse to int. Returns 0 if failure.
+		///     NodeData casted to an Integer.
 		/// </summary>
 		public int NodeInt
 		{
@@ -102,51 +119,53 @@ namespace DepressurizerCore.Models
 
 				if (NodeType == ValueType.String)
 				{
-					int res = 0;
-					int.TryParse(NodeString, out res);
-					return res;
+					if (int.TryParse(NodeString, out int res))
+					{
+						return res;
+					}
 				}
 
 				return 0;
 			}
 		}
 
+		/// <summary>
+		///     NodeData casted to an String.
+		/// </summary>
 		public string NodeString
 		{
 			get
 			{
-				if (NodeType != ValueType.String)
+				if ((NodeType != ValueType.String) || !(NodeData is string stringData))
 				{
 					return null;
-				}
-
-				if (!(NodeData is string stringData))
-				{
-					throw new InvalidCastException("NodeData is not a String");
 				}
 
 				return stringData;
 			}
 		}
 
+		/// <summary>
+		///     NodeData Type
+		/// </summary>
 		public ValueType NodeType { get; set; }
 
 		#endregion
 
 		#region Public Indexers
 
+		/// <summary>
+		///     Get or Sets the SubNode at the given index. If there is no SubNode found then it creates an Array-type SubNode.
+		/// </summary>
+		/// <param name="index">Index to Get or Set.</param>
+		/// <returns>SubNode at the given index.</returns>
 		public VDFNode this[string index]
 		{
 			get
 			{
-				if (NodeType != ValueType.Array)
+				if ((NodeType != ValueType.Array) || !(NodeData is Dictionary<string, VDFNode> arrayData))
 				{
-					throw new InvalidCastException("NodeType must be an Array");
-				}
-
-				if (!(NodeData is Dictionary<string, VDFNode> arrayData))
-				{
-					throw new InvalidCastException("NodeData is not a Dictionary<string, VdfFileNode>");
+					return null;
 				}
 
 				if (!arrayData.ContainsKey(index))
@@ -158,14 +177,9 @@ namespace DepressurizerCore.Models
 			}
 			set
 			{
-				if (NodeType == ValueType.String)
+				if ((NodeType != ValueType.Array) || !(NodeData is Dictionary<string, VDFNode> arrayData))
 				{
-					throw new InvalidCastException("NodeType cannot be a String");
-				}
-
-				if (!(NodeData is Dictionary<string, VDFNode> arrayData))
-				{
-					throw new InvalidCastException("NodeData is not a Dictionary<string, VdfFileNode>");
+					return;
 				}
 
 				if (!arrayData.ContainsKey(index))
@@ -183,14 +197,25 @@ namespace DepressurizerCore.Models
 
 		#region Public Methods and Operators
 
-		public static VDFNode LoadFromBinary(BinaryReader binaryReader, long streamLength = -1)
+		/// <summary>
+		///     Loads a VDFNode from a stream.
+		/// </summary>
+		/// <param name="stream">Stream to read from.</param>
+		/// <returns>VDFNode representing the content of the given stream.</returns>
+		public static VDFNode LoadFromBinary(BinaryReader stream)
 		{
-			if (streamLength == -1)
-			{
-				streamLength = binaryReader.BaseStream.Length;
-			}
+			return LoadFromBinary(stream, stream.BaseStream.Length);
+		}
 
-			if (binaryReader.BaseStream.Position == streamLength)
+		/// <summary>
+		///     Loads a VDFNode from a stream.
+		/// </summary>
+		/// <param name="stream">Stream to read from.</param>
+		/// <param name="streamLength">Length of stream in bytes.</param>
+		/// <returns>VDFNode representing the content of the given stream.</returns>
+		public static VDFNode LoadFromBinary(BinaryReader stream, long streamLength)
+		{
+			if (stream.BaseStream.Position == streamLength)
 			{
 				return null;
 			}
@@ -204,7 +229,7 @@ namespace DepressurizerCore.Models
 				byte nextByte;
 				try
 				{
-					nextByte = binaryReader.ReadByte();
+					nextByte = stream.ReadByte();
 				}
 				catch (EndOfStreamException)
 				{
@@ -212,7 +237,7 @@ namespace DepressurizerCore.Models
 					nextByte = 8;
 				}
 
-				if (endOfStream || (nextByte == 8) || (binaryReader.BaseStream.Position == streamLength))
+				if (endOfStream || (nextByte == 8) || (stream.BaseStream.Position == streamLength))
 				{
 					break;
 				}
@@ -223,29 +248,29 @@ namespace DepressurizerCore.Models
 				{
 					case 0:
 					{
-						key = ReadBin_GetStringToken(binaryReader);
-						VDFNode newNode = LoadFromBinary(binaryReader, streamLength);
+						key = ReadBin_GetStringToken(stream);
+						VDFNode newNode = LoadFromBinary(stream, streamLength);
 						thisLevel[key] = newNode;
 						break;
 					}
 
 					case 1:
-						key = ReadBin_GetStringToken(binaryReader);
-						thisLevel[key] = new VDFNode(ReadBin_GetStringToken(binaryReader));
+						key = ReadBin_GetStringToken(stream);
+						thisLevel[key] = new VDFNode(ReadBin_GetStringToken(stream));
 						break;
 
 					case 2:
 					{
-						key = ReadBin_GetStringToken(binaryReader);
-						int val = binaryReader.ReadInt32();
+						key = ReadBin_GetStringToken(stream);
+						int val = stream.ReadInt32();
 						thisLevel[key] = new VDFNode(val);
 						break;
 					}
 
 					case 7:
 					{
-						key = ReadBin_GetStringToken(binaryReader);
-						ulong val = binaryReader.ReadUInt64();
+						key = ReadBin_GetStringToken(stream);
+						ulong val = stream.ReadUInt64();
 						thisLevel[key] = new VDFNode(val);
 						break;
 					}
@@ -254,14 +279,24 @@ namespace DepressurizerCore.Models
 						return null;
 
 					default:
-						throw new InvalidDataException($"Unexpected Character Key '{nextByte}'");
+						throw new InvalidDataException(string.Format(CultureInfo.InvariantCulture, "Unexpected Character Key '{0}'", nextByte));
 				}
 			}
 
 			return thisLevel;
 		}
 
-		public static VDFNode LoadFromText(StreamReader stream, bool useFirstAsRoot = false)
+		/// <summary>
+		///     Loads a VDFNode from a stream.
+		/// </summary>
+		/// <param name="stream">Stream to read from.</param>
+		/// <returns>VDFNode representing the content of the given stream.</returns>
+		public static VDFNode LoadFromText(StreamReader stream)
+		{
+			return LoadFromText(stream, false);
+		}
+
+		public static VDFNode LoadFromText(StreamReader stream, bool useFirstAsRoot)
 		{
 			VDFNode thisLevel = useFirstAsRoot ? null : new VDFNode();
 
@@ -273,20 +308,17 @@ namespace DepressurizerCore.Models
 
 				// Get key
 				char nextChar = (char) stream.Read();
-				string key = null;
 				if (stream.EndOfStream || (nextChar == '}'))
 				{
 					break;
 				}
 
-				if (nextChar == '"')
+				if (nextChar != '"')
 				{
-					key = ReadText_GetStringToken(stream);
+					throw new InvalidDataException(string.Format(CultureInfo.InvariantCulture, "Unexpected Character Key '{0}'", nextChar));
 				}
-				else
-				{
-					throw new InvalidDataException($"Unexpected Character Key '{nextChar}'");
-				}
+
+				string key = ReadText_GetStringToken(stream);
 
 				ReadText_SkipWhitespace(stream);
 
@@ -303,7 +335,7 @@ namespace DepressurizerCore.Models
 				}
 				else
 				{
-					throw new InvalidDataException($"Unexpected Character Value '{nextChar}'");
+					throw new InvalidDataException(string.Format(CultureInfo.InvariantCulture, "Unexpected Character Value '{0}'", nextChar));
 				}
 
 				if (useFirstAsRoot)
@@ -317,13 +349,13 @@ namespace DepressurizerCore.Models
 			return thisLevel;
 		}
 
-		public static void ReadBin_SeekTo(BinaryReader stream, byte[] str, long fileLength)
+		public static void ReadBin_SeekTo(BinaryReader binaryReader, byte[] bytes, long streamLength)
 		{
 			int indexAt = 0;
 
-			while ((indexAt < str.Length) && (stream.BaseStream.Position < fileLength))
+			while ((indexAt < bytes.Length) && (binaryReader.BaseStream.Position < streamLength))
 			{
-				if (stream.ReadByte() == str[indexAt])
+				if (binaryReader.ReadByte() == bytes[indexAt])
 				{
 					indexAt++;
 				}
@@ -337,36 +369,49 @@ namespace DepressurizerCore.Models
 		public void CleanTree()
 		{
 			Dictionary<string, VDFNode> nodes = NodeArray;
-			if (nodes != null)
+			if (nodes == null)
 			{
-				string[] keys = nodes.Keys.ToArray();
-				foreach (string key in keys)
+				return;
+			}
+
+			string[] keys = nodes.Keys.ToArray();
+			foreach (string key in keys)
+			{
+				nodes[key].CleanTree();
+				if (nodes[key].IsEmpty())
 				{
-					nodes[key].CleanTree();
-					if (nodes[key].IsEmpty())
-					{
-						NodeArray.Remove(key);
-					}
+					NodeArray.Remove(key);
 				}
 			}
 		}
 
+		/// <summary>
+		///     Checks if the given index exists in the current Node (must be an Array-type).
+		/// </summary>
+		/// <param name="index">Index to look for.</param>
+		/// <returns>True if the given index was found, false if not found.</returns>
+		/// <exception cref="InvalidDataException"></exception>
 		public bool ContainsKey(string index)
 		{
-			if (NodeType != ValueType.Array)
+			if ((NodeType != ValueType.Array) || !(NodeData is Dictionary<string, VDFNode> arrayData))
 			{
-				return false;
-			}
-
-			if (!(NodeData is Dictionary<string, VDFNode> arrayData))
-			{
-				throw new InvalidCastException("NodeData is not a Dictionary<string, VdfFileNode>");
+				throw new InvalidCastException("NodeData is not a Dictionary<string, VDFNode>");
 			}
 
 			return arrayData.ContainsKey(index);
 		}
 
-		public VDFNode GetNodeAt(string[] args, bool create = true, int index = 0)
+		public VDFNode GetNodeAt(string[] args)
+		{
+			return GetNodeAt(args, true, 0);
+		}
+
+		public VDFNode GetNodeAt(string[] args, bool create)
+		{
+			return GetNodeAt(args, create, 0);
+		}
+
+		public VDFNode GetNodeAt(string[] args, bool create, int index)
 		{
 			if (index >= args.Length)
 			{
@@ -380,7 +425,7 @@ namespace DepressurizerCore.Models
 
 			if (!(NodeData is Dictionary<string, VDFNode> arrayData))
 			{
-				throw new InvalidCastException("NodeData is not a Dictionary<string, VdfFileNode>");
+				throw new InvalidCastException("NodeData is not a Dictionary<string, VDFNode>");
 			}
 
 			if (ContainsKey(args[index]))
@@ -410,83 +455,99 @@ namespace DepressurizerCore.Models
 			NodeData = new Dictionary<string, VDFNode>(StringComparer.OrdinalIgnoreCase);
 		}
 
-		public bool RemoveSubnode(string key)
+		public bool RemoveSubNode(string key)
 		{
-			if (NodeType != ValueType.Array)
-			{
-				return false;
-			}
-
-			return NodeArray.Remove(key);
+			return (NodeType == ValueType.Array) && NodeArray.Remove(key);
 		}
 
-		public void SaveAsBinary(BinaryWriter stream, string actualKey = null)
+		public void SaveAsBinary(BinaryWriter binaryWriter)
+		{
+			SaveAsBinary(binaryWriter, null);
+		}
+
+		public void SaveAsBinary(BinaryWriter binaryWriter, string actualKey)
 		{
 			switch (NodeType)
 			{
 				case ValueType.Array:
 					if (!string.IsNullOrEmpty(actualKey))
 					{
-						WriteBin_WriteArrayKey(stream, actualKey);
+						WriteBin_WriteArrayKey(binaryWriter, actualKey);
 					}
 
 					Dictionary<string, VDFNode> data = NodeArray;
 					foreach (KeyValuePair<string, VDFNode> entry in data)
 					{
-						entry.Value.SaveAsBinary(stream, entry.Key);
+						entry.Value.SaveAsBinary(binaryWriter, entry.Key);
 					}
 
-					WriteBin_WriteEndByte(stream);
+					WriteBin_WriteEndByte(binaryWriter);
 					break;
 				case ValueType.String:
 					if (!string.IsNullOrEmpty(actualKey))
 					{
-						WriteBin_WriteStringValue(stream, actualKey, NodeString);
+						WriteBin_WriteStringValue(binaryWriter, actualKey, NodeString);
 					}
 
 					break;
 				case ValueType.Int:
 					if (!string.IsNullOrEmpty(actualKey))
 					{
-						WriteBin_WriteIntegerValue(stream, actualKey, NodeInt);
+						WriteBin_WriteIntegerValue(binaryWriter, actualKey, NodeInt);
 					}
 
 					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+					throw new ArgumentOutOfRangeException(nameof(NodeType), NodeType, null);
 			}
 		}
 
-		public void SaveAsText(StreamWriter stream, int indent = 0)
+		/// <summary>
+		///     Writes the current VDFNode to a stream
+		/// </summary>
+		/// <param name="stream">Stream to write to</param>
+		public void SaveAsText(StreamWriter stream)
 		{
-			if (NodeType == ValueType.Array)
+			SaveAsText(stream, 0);
+		}
+
+		/// <summary>
+		///     Writes the current VDFNode to a stream
+		/// </summary>
+		/// <param name="stream">Stream to write to</param>
+		/// <param name="indent">Indentation level of each line.</param>
+		public void SaveAsText(StreamWriter stream, int indent)
+		{
+			if (NodeType != ValueType.Array)
 			{
-				Dictionary<string, VDFNode> data = NodeArray;
-				foreach (KeyValuePair<string, VDFNode> entry in data)
+				return;
+			}
+
+			Dictionary<string, VDFNode> data = NodeArray;
+			foreach (KeyValuePair<string, VDFNode> entry in data)
+			{
+				if (entry.Value.NodeType == ValueType.Array)
 				{
-					if (entry.Value.NodeType == ValueType.Array)
-					{
-						WriteText_WriteWhitespace(stream, indent);
-						WriteText_WriteFormattedString(stream, entry.Key);
-						stream.WriteLine();
+					WriteText_WriteWhitespace(stream, indent);
+					WriteText_WriteFormattedString(stream, entry.Key);
+					stream.WriteLine();
 
-						WriteText_WriteWhitespace(stream, indent);
-						stream.WriteLine('{');
+					WriteText_WriteWhitespace(stream, indent);
+					stream.WriteLine('{');
 
-						entry.Value.SaveAsText(stream, indent + 1);
+					entry.Value.SaveAsText(stream, indent + 1);
 
-						WriteText_WriteWhitespace(stream, indent);
-						stream.WriteLine('}');
-					}
-					else
-					{
-						WriteText_WriteWhitespace(stream, indent);
-						WriteText_WriteFormattedString(stream, entry.Key);
-						stream.Write("\t\t");
+					WriteText_WriteWhitespace(stream, indent);
+					stream.WriteLine('}');
+				}
+				else
+				{
+					WriteText_WriteWhitespace(stream, indent);
+					WriteText_WriteFormattedString(stream, entry.Key);
+					stream.Write("\t\t");
 
-						WriteText_WriteFormattedString(stream, entry.Value.NodeData.ToString());
-						stream.WriteLine();
-					}
+					WriteText_WriteFormattedString(stream, entry.Value.NodeData.ToString());
+					stream.WriteLine();
 				}
 			}
 		}
@@ -494,16 +555,6 @@ namespace DepressurizerCore.Models
 		#endregion
 
 		#region Methods
-
-		protected bool IsEmpty()
-		{
-			if (NodeArray != null)
-			{
-				return NodeArray.Count == 0;
-			}
-
-			return NodeData as string == null;
-		}
 
 		private static string ReadBin_GetStringToken(BinaryReader reader, long streamLength = -1)
 		{
@@ -654,6 +705,16 @@ namespace DepressurizerCore.Models
 			{
 				stream.Write('\t');
 			}
+		}
+
+		private bool IsEmpty()
+		{
+			if (NodeArray != null)
+			{
+				return NodeArray.Count == 0;
+			}
+
+			return !(NodeData is string);
 		}
 
 		#endregion
