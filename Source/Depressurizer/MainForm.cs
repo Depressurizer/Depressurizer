@@ -1485,7 +1485,7 @@ namespace Depressurizer
 			if (!AdvancedCategoryFilter)
 			{
 				// <All>
-				listViewItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "<{0}> ({1})", Resources.Category_All, CurrentProfile.GameData.Games.Count - hidden))
+				listViewItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "<{0}> ({1})", Resources.Category_All, games + software))
 				{
 					Tag = string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_All),
 					Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_All)
