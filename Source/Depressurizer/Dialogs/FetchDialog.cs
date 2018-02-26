@@ -68,6 +68,7 @@ namespace Depressurizer.Dialogs
 		{
 			Added = 0;
 			_document = Database.Instance.FetchAppListFromWeb();
+			OnJobCompletion();
 			Close();
 		}
 
