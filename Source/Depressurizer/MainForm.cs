@@ -2017,9 +2017,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].VrSupport.Headsets != null))
+				if (Database.Games.ContainsKey(id) && (Database.Games[id].VRSupport.Headsets != null))
 				{
-					return string.Join(", ", Database.Games[id].VrSupport.Headsets);
+					return string.Join(", ", Database.Games[id].VRSupport.Headsets);
 				}
 
 				return string.Empty;
@@ -2033,9 +2033,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].VrSupport.Input != null))
+				if (Database.Games.ContainsKey(id) && (Database.Games[id].VRSupport.Input != null))
 				{
-					return string.Join(", ", Database.Games[id].VrSupport.Input);
+					return string.Join(", ", Database.Games[id].VRSupport.Input);
 				}
 
 				return string.Empty;
@@ -2049,9 +2049,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].VrSupport.PlayArea != null))
+				if (Database.Games.ContainsKey(id) && (Database.Games[id].VRSupport.PlayArea != null))
 				{
-					return string.Join(", ", Database.Games[id].VrSupport.PlayArea);
+					return string.Join(", ", Database.Games[id].VRSupport.PlayArea);
 				}
 
 				return string.Empty;

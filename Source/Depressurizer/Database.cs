@@ -122,7 +122,7 @@ namespace Depressurizer
 						entry.Genres = null;
 						entry.SteamReleaseDate = null;
 						entry.LastStoreScrape = 0;
-						entry.VrSupport = new VRSupport();
+						entry.VRSupport = new VRSupport();
 						entry.LanguageSupport = new LanguageSupport();
 					});
 				}
@@ -305,19 +305,19 @@ namespace Depressurizer
 
 				Parallel.ForEach(Games.Values, entry =>
 				{
-					if (entry.VrSupport.Headsets != null)
+					if (entry.VRSupport.Headsets != null)
 					{
-						sortedHeadsets.UnionWith(entry.VrSupport.Headsets);
+						sortedHeadsets.UnionWith(entry.VRSupport.Headsets);
 					}
 
-					if (entry.VrSupport.Input != null)
+					if (entry.VRSupport.Input != null)
 					{
-						sortedInput.UnionWith(entry.VrSupport.Input);
+						sortedInput.UnionWith(entry.VRSupport.Input);
 					}
 
-					if (entry.VrSupport.PlayArea != null)
+					if (entry.VRSupport.PlayArea != null)
 					{
-						sortedPlayArea.UnionWith(entry.VrSupport.PlayArea);
+						sortedPlayArea.UnionWith(entry.VRSupport.PlayArea);
 					}
 				});
 
@@ -585,7 +585,7 @@ namespace Depressurizer
 				return new VRSupport();
 			}
 
-			VRSupport vrSupport = Games[appId].VrSupport;
+			VRSupport vrSupport = Games[appId].VRSupport;
 			if (((vrSupport.Headsets == null) || (vrSupport.Headsets.Count == 0)) && ((vrSupport.Input == null) || (vrSupport.Input.Count == 0)) && ((vrSupport.PlayArea == null) || (vrSupport.PlayArea.Count == 0)) && (depth > 0) && (Games[appId].ParentId > 0))
 			{
 				vrSupport = GetVRSupport(Games[appId].ParentId, depth - 1);
@@ -679,7 +679,7 @@ namespace Depressurizer
 				return false;
 			}
 
-			VRSupport vrSupport = Games[appId].VrSupport;
+			VRSupport vrSupport = Games[appId].VRSupport;
 			if (vrSupport == null)
 			{
 				return false;
