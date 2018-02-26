@@ -1,5 +1,4 @@
-Depressurizer
-for v0.7.4.2
+Depressurizer (v2.0.0)
 
 SUMMARY
 
@@ -19,7 +18,7 @@ SUMMARY
 
 REQUIREMENTS
 
-	Depressurizer requires the .NET Framework 4.7.
+	Depressurizer requires the .NET Framework 4.6.2 or higher.
 
 	It must be run on the same computer on which you use Steam, or one one of
 	the computers on which you use Steam.
@@ -29,7 +28,7 @@ USAGE GUIDE
 	GETTING STARTED
 
 		Download the latest version of Depressurizer from the project's release
-		page: https://github.com/Theo47/depressurizer/releases
+		page: https://github.com/mvegter/Depressurizer/releases
 
 		The first time you run Depressurizer, it will ask you for your Steam
 		directory. If it is not automatically and correctly detected, fill this
