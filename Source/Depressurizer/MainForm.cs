@@ -89,7 +89,7 @@ namespace Depressurizer
 		// Allow visual feedback when dragging over the cat list
 		private bool _isDragging;
 
-		private object _lastSelectedCat; // Stores last selected category to minimize game list refreshes
+		private object _lastSelectedCategory;
 
 		private TypedObjectListView<GameInfo> _tlstGames;
 
@@ -1593,13 +1593,10 @@ namespace Depressurizer
 			Cursor = Cursors.Default;
 		}
 
-		/// <summary>
-		///     Filters game list based on based on the current category selection and advanced filters
-		/// </summary>
-		/// <param name="preserveSelection">If true, will try to preserve game selection</param>
 		private void FilterGamelist(bool preserveSelection)
 		{
 			Cursor = Cursors.WaitCursor;
+
 			lstGames.BeginUpdate();
 			if (!preserveSelection)
 			{
@@ -1775,8 +1772,6 @@ namespace Depressurizer
 				i.StateImageIndex += reverse ? -1 : 1;
 			}
 
-			Category c = i.Tag as Category;
-
 			if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
 			{
 				_advFilter.Game = i.StateImageIndex;
@@ -1799,36 +1794,43 @@ namespace Depressurizer
 			}
 			else
 			{
-				switch (oldState)
+				if (i.Tag is Category category)
 				{
-					case (int) AdvancedFilterState.Allow:
-						_advFilter.Allow.Remove(c);
+					switch (oldState)
+					{
+						case (int) AdvancedFilterState.Allow:
+							_advFilter.Allow.Remove(category);
 
-						break;
-					case (int) AdvancedFilterState.Require:
-						_advFilter.Require.Remove(c);
+							break;
+						case (int) AdvancedFilterState.Require:
+							_advFilter.Require.Remove(category);
 
-						break;
-					case (int) AdvancedFilterState.Exclude:
-						_advFilter.Exclude.Remove(c);
+							break;
+						case (int) AdvancedFilterState.Exclude:
+							_advFilter.Exclude.Remove(category);
 
-						break;
-				}
+							break;
+						default:
+							throw new ArgumentOutOfRangeException(nameof(oldState), oldState, null);
+					}
 
-				switch (i.StateImageIndex)
-				{
-					case (int) AdvancedFilterState.Allow:
-						_advFilter.Allow.Add(c);
+					switch (i.StateImageIndex)
+					{
+						case (int) AdvancedFilterState.Allow:
+							_advFilter.Allow.Add(category);
 
-						break;
-					case (int) AdvancedFilterState.Require:
-						_advFilter.Require.Add(c);
+							break;
+						case (int) AdvancedFilterState.Require:
+							_advFilter.Require.Add(category);
 
-						break;
-					case (int) AdvancedFilterState.Exclude:
-						_advFilter.Exclude.Add(c);
+							break;
+						case (int) AdvancedFilterState.Exclude:
+							_advFilter.Exclude.Add(category);
 
-						break;
+							break;
+						default:
+							throw new ArgumentOutOfRangeException(nameof(i.StateImageIndex), i.StateImageIndex, null);
+					}
 				}
 			}
 
@@ -2750,23 +2752,25 @@ namespace Depressurizer
 
 		private void lstCategories_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!_isDragging)
+			if (_isDragging)
 			{
-				object nowSelected = null;
-				if (lstCategories.SelectedItems.Count > 0)
-				{
-					ListViewItem selItem = lstCategories.SelectedItems[0];
-					nowSelected = selItem.Tag == null ? selItem.Text : selItem.Tag;
-				}
-
-				if (nowSelected != _lastSelectedCat)
-				{
-					OnViewChange();
-					_lastSelectedCat = nowSelected;
-				}
-
-				UpdateEnabledStatesForCategories();
+				return;
 			}
+
+			object selectedCategory = null;
+			if (lstCategories.SelectedItems.Count > 0)
+			{
+				ListViewItem listViewItem = lstCategories.SelectedItems[0];
+				selectedCategory = listViewItem.Tag ?? listViewItem.Text;
+			}
+
+			if (selectedCategory != _lastSelectedCategory)
+			{
+				OnViewChange();
+				_lastSelectedCategory = selectedCategory;
+			}
+
+			UpdateEnabledStatesForCategories();
 		}
 
 		private void lstGames_ColumnReordered(object sender, ColumnReorderedEventArgs e)
@@ -2963,7 +2967,10 @@ namespace Depressurizer
 						webBrowser1.Navigate(Constants.SteamStoreURL + "?l=" + storeLanguage);
 					}
 				}
-				catch { }
+				catch (Exception exception)
+				{
+					SentryLogger.Log(exception);
+				}
 			}
 		}
 
@@ -3512,9 +3519,6 @@ namespace Depressurizer
 			UpdateTitle();
 		}
 
-		/// <summary>
-		///     Does all list updating that's required if the filter changes (category selection changes).
-		/// </summary>
 		private void OnViewChange()
 		{
 			FilterGamelist(false);
@@ -4024,8 +4028,6 @@ namespace Depressurizer
 		{
 			i.StateImageIndex = state;
 
-			Category c = i.Tag as Category;
-
 			if (i.Tag.ToString() == $"<{Resources.Category_Games}>")
 			{
 				_advFilter.Game = state;
@@ -4048,32 +4050,39 @@ namespace Depressurizer
 			}
 			else
 			{
+				if (!(i.Tag is Category category))
+				{
+					return;
+				}
+
 				switch ((AdvancedFilterState) state)
 				{
 					case AdvancedFilterState.Allow:
-						_advFilter.Allow.Add(c);
-						_advFilter.Require.Remove(c);
-						_advFilter.Exclude.Remove(c);
+						_advFilter.Allow.Add(category);
+						_advFilter.Require.Remove(category);
+						_advFilter.Exclude.Remove(category);
 
 						break;
 					case AdvancedFilterState.Require:
-						_advFilter.Allow.Remove(c);
-						_advFilter.Require.Add(c);
-						_advFilter.Exclude.Remove(c);
+						_advFilter.Allow.Remove(category);
+						_advFilter.Require.Add(category);
+						_advFilter.Exclude.Remove(category);
 
 						break;
 					case AdvancedFilterState.Exclude:
-						_advFilter.Allow.Remove(c);
-						_advFilter.Require.Remove(c);
-						_advFilter.Exclude.Add(c);
+						_advFilter.Allow.Remove(category);
+						_advFilter.Require.Remove(category);
+						_advFilter.Exclude.Add(category);
 
 						break;
 					case AdvancedFilterState.None:
-						_advFilter.Allow.Remove(c);
-						_advFilter.Require.Remove(c);
-						_advFilter.Exclude.Remove(c);
+						_advFilter.Allow.Remove(category);
+						_advFilter.Require.Remove(category);
+						_advFilter.Exclude.Remove(category);
 
 						break;
+					default:
+						throw new ArgumentOutOfRangeException(nameof(state), state, null);
 				}
 			}
 		}
@@ -4254,21 +4263,22 @@ namespace Depressurizer
 
 		private void UpdateEnabledStatesForCategories()
 		{
-			Category c = null;
-			foreach (ListViewItem item in lstCategories.SelectedItems)
+			Category category = null;
+
+			foreach (ListViewItem listViewItem in lstCategories.SelectedItems)
 			{
-				c = item.Tag as Category;
-				if ((c != null) && !((CurrentProfile != null) && (c == CurrentProfile.GameData.FavoriteCategory)))
+				category = listViewItem.Tag as Category;
+				if ((category != null) && !((CurrentProfile != null) && (category == CurrentProfile.GameData.FavoriteCategory)))
 				{
 					break;
 				}
 
-				c = null;
+				category = null;
 			}
 
-			mbtnCatDelete.Enabled = c != null;
-			c = lstCategories.SelectedItems.Count > 0 ? lstCategories.SelectedItems[0].Tag as Category : null;
-			mbtnCatRename.Enabled = (c != null) && !((CurrentProfile != null) && (c == CurrentProfile.GameData.FavoriteCategory));
+			mbtnCatDelete.Enabled = category != null;
+			category = lstCategories.SelectedItems.Count > 0 ? lstCategories.SelectedItems[0].Tag as Category : null;
+			mbtnCatRename.Enabled = (category != null) && !((CurrentProfile != null) && (category == CurrentProfile.GameData.FavoriteCategory));
 		}
 
 		/// <summary>
