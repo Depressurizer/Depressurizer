@@ -33,14 +33,14 @@ namespace DepressurizerCore
 	public enum StartupAction
 	{
 		/// <summary>
-		///     Load a profile
+		///     Load a Depressurizer profile
 		/// </summary>
-		Load,
+		LoadProfile,
 
 		/// <summary>
-		///     Create a profile
+		///     Create a Depressurizer profile
 		/// </summary>
-		Create
+		CreateProfile
 	}
 
 	/// <summary>
@@ -235,7 +235,7 @@ namespace DepressurizerCore
 		#region Fields
 
 		private InterfaceLanguage _interfaceLanguage = InterfaceLanguage.English;
-		private StoreLanguage _storeLang = StoreLanguage.Default;
+		private StoreLanguage _storeLanguage = StoreLanguage.Default;
 
 		#endregion
 
@@ -352,7 +352,7 @@ namespace DepressurizerCore
 		/// <summary>
 		///     Action On Startup
 		/// </summary>
-		public StartupAction StartupAction { get; set; } = StartupAction.Create;
+		public StartupAction StartupAction { get; set; } = StartupAction.CreateProfile;
 
 		/// <summary>
 		///     Steam installation path
@@ -366,14 +366,14 @@ namespace DepressurizerCore
 		{
 			get
 			{
-				if (_storeLang == StoreLanguage.Default)
+				if (_storeLanguage == StoreLanguage.Default)
 				{
-					_storeLang = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), InterfaceLanguage.ToString(), true);
+					_storeLanguage = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), InterfaceLanguage.ToString(), true);
 				}
 
-				return _storeLang;
+				return _storeLanguage;
 			}
-			set => _storeLang = value;
+			set => _storeLanguage = value;
 		}
 
 		#endregion
