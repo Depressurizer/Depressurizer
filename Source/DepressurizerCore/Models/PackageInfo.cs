@@ -190,18 +190,18 @@ namespace DepressurizerCore.Models
 
 			using (BinaryReader binaryReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.ASCII))
 			{
-				long fileLength = binaryReader.BaseStream.Length;
+				long streamLength = binaryReader.BaseStream.Length;
 
-				VDFNode.ReadBin_SeekTo(binaryReader, PackageidBytes, fileLength);
-				while (binaryReader.BaseStream.Position < fileLength)
+				VDFNode.ReadBin_SeekTo(binaryReader, PackageidBytes, streamLength);
+				while (binaryReader.BaseStream.Position < streamLength)
 				{
 					int id = binaryReader.ReadInt32();
 					PackageInfo package = new PackageInfo(id);
 
-					VDFNode.ReadBin_SeekTo(binaryReader, BillingtypeBytes, fileLength);
+					VDFNode.ReadBin_SeekTo(binaryReader, BillingtypeBytes, streamLength);
 					package.BillingType = (PackageBillingType) binaryReader.ReadInt32();
 
-					VDFNode.ReadBin_SeekTo(binaryReader, AppidsBytes, fileLength);
+					VDFNode.ReadBin_SeekTo(binaryReader, AppidsBytes, streamLength);
 					while (binaryReader.ReadByte() == 0x02)
 					{
 						while (binaryReader.ReadByte() != 0x00) { }
@@ -210,7 +210,7 @@ namespace DepressurizerCore.Models
 					}
 
 					packageInfos.Add(package.Id, package);
-					VDFNode.ReadBin_SeekTo(binaryReader, PackageidBytes, fileLength);
+					VDFNode.ReadBin_SeekTo(binaryReader, PackageidBytes, streamLength);
 				}
 			}
 
