@@ -729,13 +729,13 @@ namespace DepressurizerCore.Models
 					}
 
 					// Interface
-					if (!string.IsNullOrWhiteSpace(WebUtility.HtmlDecode(ma.Groups[2].Value.Trim()))) 
+					if (!string.IsNullOrWhiteSpace(WebUtility.HtmlDecode(ma.Groups[2].Value.Trim())))
 					{
 						LanguageSupport.Interface.Add(language);
 					}
 
 					// Full Audio
-					if (!string.IsNullOrWhiteSpace(WebUtility.HtmlDecode(ma.Groups[3].Value.Trim()))) 
+					if (!string.IsNullOrWhiteSpace(WebUtility.HtmlDecode(ma.Groups[3].Value.Trim())))
 					{
 						LanguageSupport.FullAudio.Add(language);
 					}

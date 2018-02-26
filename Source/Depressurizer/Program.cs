@@ -25,38 +25,38 @@ using DepressurizerCore.Helpers;
 
 namespace Depressurizer
 {
-    internal static class Program
-    {
-        #region Methods
+	internal static class Program
+	{
+		#region Methods
 
-        /// <summary>
-        ///     The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        private static void Main(string[] args)
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.ApplicationExit += OnApplicationExit;
+		/// <summary>
+		///     The main entry point for the application.
+		/// </summary>
+		[STAThread]
+		private static void Main(string[] args)
+		{
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+			Application.ApplicationExit += OnApplicationExit;
 
-            AppDomain.CurrentDomain.UnhandledException += SentryLogger.OnUnhandledException;
-            Application.ThreadException += SentryLogger.OnThreadException;
+			AppDomain.CurrentDomain.UnhandledException += SentryLogger.OnUnhandledException;
+			Application.ThreadException += SentryLogger.OnThreadException;
 
-            Application.Run(new FormMain());
-        }
+			Application.Run(new FormMain());
+		}
 
-        private static void OnApplicationExit(object sender, EventArgs e)
-        {
-	        if (Settings.Instance.AutoSaveDatabase)
-	        {
-		        Database.Instance.Save();
-	        }
+		private static void OnApplicationExit(object sender, EventArgs e)
+		{
+			if (Settings.Instance.AutoSaveDatabase)
+			{
+				Database.Instance.Save();
+			}
 
-            Settings.Instance.Save();
+			Settings.Instance.Save();
 
-            Logger.Instance.Dispose();
-        }
+			Logger.Instance.Dispose();
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
