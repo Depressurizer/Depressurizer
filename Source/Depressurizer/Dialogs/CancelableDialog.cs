@@ -34,7 +34,7 @@ namespace Depressurizer.Dialogs
 
 		#region Fields
 
-		protected int jobsCompleted;
+		protected int CompletedJobs = 0;
 
 		protected int TotalJobs = 1;
 
@@ -66,7 +66,7 @@ namespace Depressurizer.Dialogs
 
 		public Exception Error { get; protected set; }
 
-		public int JobsCompleted => jobsCompleted;
+		public int JobsCompleted => CompletedJobs;
 
 		public int JobsTotal => TotalJobs;
 
@@ -136,7 +136,7 @@ namespace Depressurizer.Dialogs
 		{
 			lock (SyncRoot)
 			{
-				jobsCompleted++;
+				CompletedJobs++;
 			}
 
 			UpdateText();
@@ -185,7 +185,7 @@ namespace Depressurizer.Dialogs
 			DisableButtons();
 			OnFinish();
 
-			if (jobsCompleted >= TotalJobs)
+			if (CompletedJobs >= TotalJobs)
 			{
 				DialogResult = DialogResult.OK;
 			}
