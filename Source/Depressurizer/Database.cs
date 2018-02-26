@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -93,20 +94,20 @@ namespace Depressurizer
 			}
 		}
 
-		public ConcurrentDictionary<int, DatabaseEntry> Games { get; set; } = new ConcurrentDictionary<int, DatabaseEntry>();
+		public ConcurrentDictionary<int, DatabaseEntry> Games { get; } = new ConcurrentDictionary<int, DatabaseEntry>();
 
 		public StoreLanguage Language
 		{
 			get
 			{
-				lock (SyncRoot)
+				lock (Games)
 				{
 					return _language;
 				}
 			}
 			set
 			{
-				lock (SyncRoot)
+				lock (Games)
 				{
 					_language = value;
 
@@ -135,48 +136,6 @@ namespace Depressurizer
 
 		#region Public Methods and Operators
 
-		public static XmlDocument FetchAppListFromWeb()
-		{
-			XmlDocument document = new XmlDocument();
-
-			lock (SyncRoot)
-			{
-				Logger.Instance.Info("Downloading Steam app list");
-
-				Stream responseStream = null;
-				try
-				{
-					WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
-					using (WebResponse resp = req.GetResponse())
-					{
-						responseStream = resp.GetResponseStream();
-						if (responseStream == null)
-						{
-							return document;
-						}
-
-						document.Load(responseStream);
-					}
-				}
-				catch (Exception e)
-				{
-					SentryLogger.Log(e);
-					throw;
-				}
-				finally
-				{
-					if (responseStream != null)
-					{
-						responseStream.Dispose();
-					}
-				}
-
-				Logger.Instance.Info("XML App list downloaded");
-			}
-
-			return document;
-		}
-
 		public void AddOrUpdate(DatabaseEntry entry)
 		{
 			Games.AddOrUpdate(entry.Id, entry, (key, oldEntry) => oldEntry.MergeIn(entry));
@@ -186,7 +145,7 @@ namespace Depressurizer
 		{
 			SortedSet<string> developers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				Parallel.ForEach(Games.Values, entry =>
 				{
@@ -204,7 +163,7 @@ namespace Depressurizer
 		{
 			SortedSet<string> genres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				Parallel.ForEach(Games.Values, entry =>
 				{
@@ -222,7 +181,7 @@ namespace Depressurizer
 		{
 			LanguageSupport languageSupport;
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				SortedSet<string> sortedFullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 				SortedSet<string> sortedInterfaces = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -261,7 +220,7 @@ namespace Depressurizer
 		{
 			SortedSet<string> publishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				Parallel.ForEach(Games.Values, entry =>
 				{
@@ -279,7 +238,7 @@ namespace Depressurizer
 		{
 			SortedSet<string> storeFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				Parallel.ForEach(Games.Values, entry =>
 				{
@@ -297,7 +256,7 @@ namespace Depressurizer
 		{
 			VRSupport vrSupport;
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				SortedSet<string> sortedHeadsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 				SortedSet<string> sortedInput = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -336,7 +295,7 @@ namespace Depressurizer
 		{
 			IEnumerable<Tuple<string, int>> unsortedList;
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				Dictionary<string, int> devCounts = new Dictionary<string, int>();
 
@@ -365,7 +324,7 @@ namespace Depressurizer
 		{
 			IEnumerable<Tuple<string, int>> unsortedList;
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				Dictionary<string, int> pubCounts = new Dictionary<string, int>();
 
@@ -446,6 +405,48 @@ namespace Depressurizer
 		public bool Contains(int appId)
 		{
 			return Games.ContainsKey(appId);
+		}
+
+		public XmlDocument FetchAppListFromWeb()
+		{
+			XmlDocument document = new XmlDocument();
+
+			lock (Games)
+			{
+				Logger.Instance.Info("Downloading Steam app list");
+
+				Stream responseStream = null;
+				try
+				{
+					WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
+					using (WebResponse resp = req.GetResponse())
+					{
+						responseStream = resp.GetResponseStream();
+						if (responseStream == null)
+						{
+							return document;
+						}
+
+						document.Load(responseStream);
+					}
+				}
+				catch (Exception e)
+				{
+					SentryLogger.Log(e);
+					throw;
+				}
+				finally
+				{
+					if (responseStream != null)
+					{
+						responseStream.Dispose();
+					}
+				}
+
+				Logger.Instance.Info("XML App list downloaded");
+			}
+
+			return document;
 		}
 
 		public List<string> GetDevelopers(int appId)
@@ -609,7 +610,7 @@ namespace Depressurizer
 		{
 			int added = 0;
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				XmlNodeList appNodes = document.SelectNodes("/applist/apps/app");
 				if (appNodes == null)
@@ -719,7 +720,7 @@ namespace Depressurizer
 		{
 			int updated = 0;
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
 				long currentUnixTime = Utility.CurrentUnixTime();
@@ -773,11 +774,11 @@ namespace Depressurizer
 			return updated;
 		}
 
-		public int UpdateFromHltb(bool includeImputedTimes)
+		public int UpdateFromHLTB(bool includeImputedTimes)
 		{
 			int updated = 0;
 
-			lock (SyncRoot)
+			lock (Games)
 			{
 				using (WebClient webClient = new WebClient())
 				{
@@ -919,7 +920,7 @@ namespace Depressurizer
 
 		private void Load(string path)
 		{
-			lock (SyncRoot)
+			lock (Games)
 			{
 				if (!File.Exists(path))
 				{
@@ -993,7 +994,7 @@ namespace Depressurizer
 
 		private bool Save(string path)
 		{
-			lock (SyncRoot)
+			lock (Games)
 			{
 				Logger.Instance.Info("Database: Saving current instance to '{0}'", path);
 
@@ -1015,7 +1016,7 @@ namespace Depressurizer
 					writer.WriteStartDocument();
 					writer.WriteStartElement(XmlName_RootNode);
 
-					writer.WriteElementString(XmlName_LastHltbUpdate, LastHLTBUpdate.ToString());
+					writer.WriteElementString(XmlName_LastHltbUpdate, LastHLTBUpdate.ToString(CultureInfo.InvariantCulture));
 					writer.WriteElementString(XmlName_dbLanguage, Enum.GetName(typeof(StoreLanguage), Language));
 
 					writer.WriteStartElement(XmlName_Games);
