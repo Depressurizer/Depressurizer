@@ -133,6 +133,33 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error encountered while checking for Depressurizer updates:.
+        /// </summary>
+        internal static string Error_DepressurizerUpdate {
+            get {
+                return ResourceManager.GetString("Error_DepressurizerUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a new update available for Depressurizer. Do you want to visit the download page?.
+        /// </summary>
+        internal static string Message_DepressurizerUpdate {
+            get {
+                return ResourceManager.GetString("Message_DepressurizerUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Found..
+        /// </summary>
+        internal static string Message_DepressurizerUpdate_Title {
+            get {
+                return ResourceManager.GetString("Message_DepressurizerUpdate_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         internal static string Options {
@@ -174,6 +201,15 @@ namespace Depressurizer.Properties {
         internal static string Unknown {
             get {
                 return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

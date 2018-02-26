@@ -141,6 +141,15 @@
   <data name="Category_VR" xml:space="preserve">
     <value>VR</value>
   </data>
+  <data name="Error_DepressurizerUpdate" xml:space="preserve">
+    <value>Error encountered while checking for Depressurizer updates:</value>
+  </data>
+  <data name="Message_DepressurizerUpdate" xml:space="preserve">
+    <value>There is a new update available for Depressurizer. Do you want to visit the download page?</value>
+  </data>
+  <data name="Message_DepressurizerUpdate_Title" xml:space="preserve">
+    <value>Update Found.</value>
+  </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
@@ -155,5 +164,8 @@
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>
