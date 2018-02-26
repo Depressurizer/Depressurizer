@@ -283,6 +283,7 @@ namespace DepressurizerCore.Models
 
 			HttpWebResponse resp = null;
 			Stream responseStream = null;
+
 			try
 			{
 				string storePage = string.Format(CultureInfo.InvariantCulture, "http://store.steampowered.com/app/{0}/?l={1}", Id, Settings.Instance.StoreLanguage);
@@ -387,6 +388,15 @@ namespace DepressurizerCore.Models
 					page = streamReader.ReadToEnd();
 					Logger.Instance.Verbose("Scraping {0}: Page read", Id);
 				}
+			}
+			catch (WebException e)
+			{
+				if (e.Status == WebExceptionStatus.Timeout)
+				{
+					return;
+				}
+
+				throw;
 			}
 			catch (Exception e)
 			{
