@@ -1,0 +1,18 @@
+configuration: Debug
+
+platform: Any CPU
+
+skip_commits:
+  files:
+    - .github\*
+
+image: Visual Studio 2017
+
+pull_requests:
+  do_not_increment_build_number: false
+
+before_build: nuget restore Source\Depressurizer.sln
+
+build:
+  project: Source\Depressurizer.sln
+  verbosity: quiet

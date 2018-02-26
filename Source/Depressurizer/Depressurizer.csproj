@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9E36EFA4-82E9-44B8-ABCE-BD73B8A6CD21}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Depressurizer</RootNamespace>
+    <AssemblyName>Depressurizer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.6.1.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>depressurizer_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <StartupObject>Depressurizer.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DebugSymbols>true</DebugSymbols>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MaterialSkin, Version=0.0.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Curator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Curator.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Platform.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Platform.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatPlatform.cs" />
+    <Compile Include="AutoCat\AutoCatCurator.cs" />
+    <Compile Include="AutoCat\AutoCat.cs" />
+    <Compile Include="AutoCat\AutoCatConfigPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Language.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Language.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_VrSupport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_VrSupport.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Flags.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Flags.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_DevPub.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_DevPub.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Group.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Group.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Manual.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Manual.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Genre.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Genre.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Name.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Name.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Tags.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Tags.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Hltb.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Hltb.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_UserScore.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_UserScore.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Year.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_Year.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatLanguage.cs" />
+    <Compile Include="AutoCat\AutoCatVrSupport.cs" />
+    <Compile Include="AutoCat\AutoCatFlags.cs" />
+    <Compile Include="AutoCat\AutoCatGenre.cs" />
+    <Compile Include="AutoCat\AutoCatDevPub.cs" />
+    <Compile Include="AutoCat\AutoCatManual.cs" />
+    <Compile Include="AutoCat\AutoCatName.cs" />
+    <Compile Include="AutoCat\AutoCatTags.cs" />
+    <Compile Include="AutoCat\AutoCatHltb.cs" />
+    <Compile Include="AutoCat\AutoCatUserScore.cs" />
+    <Compile Include="AutoCat\AutoCatGroup.cs" />
+    <Compile Include="AutoCat\AutoCatYear.cs" />
+    <Compile Include="AutoCat\CDlgCurator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\CategorySort.cs" />
+    <Compile Include="Models\CommaClusterStrategy.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="Dialogs\CancelableDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CancelableDialog.Designer.cs">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CloseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CloseDialog.Designer.cs">
+      <DependentUpon>CloseDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DepressurizerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DepressurizerDialog.Designer.cs">
+      <DependentUpon>DepressurizerDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FetchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\HLTBDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ScrapeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SteamPathDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SteamPathDialog.Designer.cs">
+      <DependentUpon>SteamPathDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgAutoCatSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAutoCatSelect.Designer.cs">
+      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgAutoCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAutoCat.Designer.cs">
+      <DependentUpon>DlgAutoCat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgAutoCatCreate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgAutoCatCreate.Designer.cs">
+      <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgRestore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgRestore.Designer.cs">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseEntrySorter.cs" />
+    <Compile Include="GlobalStrings.nl.Designer.cs">
+      <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="GlobalStrings.ru.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalStrings.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalStrings.uk.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalStrings.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Lib\ExtListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Lib\ExtToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Models\ListCategoriesComparer.cs" />
+    <Compile Include="Models\ListViewComparer.cs" />
+    <Compile Include="GlobalStrings.es.Designer.cs">
+      <DependentUpon>GlobalStrings.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DBEdit\DBEditDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DBEdit\DBEditDlg.Designer.cs">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBEdit\DlgGameDBEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DBEdit\DlgGameDBEntry.Designer.cs">
+      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CDlgGetSteamID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DlgGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgGame.Designer.cs">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lib\CancelableDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lib\CancelableDlg.Designer.cs">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lib\MultiColumnListViewComparer.cs" />
+    <Compile Include="DlgProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgProfile.Designer.cs">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Lib\DlgGetString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lib\DlgGetString.Designer.cs">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameData.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyRenderer.cs" />
+    <Compile Include="OptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsDialog.Designer.cs">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profile.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Constants.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Constants.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CDlgUpdateProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ToolStripItemComparer.cs" />
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
+      <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Language.resx">
+      <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Platform.resx">
+      <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_VrSupport.resx">
+      <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Flags.resx">
+      <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_DevPub.resx">
+      <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Group.resx">
+      <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Manual.resx">
+      <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Genre.resx">
+      <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Name.resx">
+      <DependentUpon>AutoCatConfigPanel_Name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Tags.resx">
+      <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Hltb.resx">
+      <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_UserScore.resx">
+      <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Year.resx">
+      <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.ru.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.uk.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.ru.resx">
+      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.uk.resx">
+      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CancelableDialog.resx">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CloseDialog.resx">
+      <DependentUpon>CloseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DepressurizerDialog.resx">
+      <DependentUpon>DepressurizerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SteamPathDialog.resx">
+      <DependentUpon>SteamPathDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCatSelect.resx">
+      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCat.resx">
+      <DependentUpon>DlgAutoCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgAutoCatCreate.resx">
+      <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.nl.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.ru.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.uk.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.nl.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.ru.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.uk.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.es.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.nl.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.ru.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgRestore.uk.resx">
+      <DependentUpon>DlgRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.nl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.nl.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.es.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.es.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.es.resx">
+      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DlgGameDBEntry.resx">
+      <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.es.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgGame.resx">
+      <DependentUpon>DlgGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.es.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalStrings.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalStrings.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\CancelableDlg.es.resx">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\CancelableDlg.resx">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgProfile.resx">
+      <DependentUpon>DlgProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\CancelableDlg.ru.resx">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\CancelableDlg.uk.resx">
+      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.es.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.ru.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.uk.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.es.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.nl.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.ru.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.uk.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsDialog.resx">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Constants.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Constants.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Depressurizer.exe.config">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="Depressurizer.exe.manifest">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
+      <FileType>ManifestEntryPoint</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="depressurizer_icon.ico" />
+    <None Include="readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DepressurizerCore\DepressurizerCore.csproj">
+      <Project>{fa59e6e6-7bea-406d-b0f8-741e8f6c512f}</Project>
+      <Name>DepressurizerCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Resource.Embedder.1.2.3\build\Resource.Embedder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.1.2.3\build\Resource.Embedder.targets'))" />
+  </Target>
+  <Import Project="..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" />
+  <Import Project="..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
+  <Import Project="..\packages\Resource.Embedder.1.2.3\build\Resource.Embedder.targets" Condition="Exists('..\packages\Resource.Embedder.1.2.3\build\Resource.Embedder.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

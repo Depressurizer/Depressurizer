@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressurizer", "Depressurizer\Depressurizer.csproj", "{9E36EFA4-82E9-44B8-ABCE-BD73B8A6CD21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DepressurizerCore", "DepressurizerCore\DepressurizerCore.csproj", "{FA59E6E6-7BEA-406D-B0F8-741E8F6C512F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E36EFA4-82E9-44B8-ABCE-BD73B8A6CD21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E36EFA4-82E9-44B8-ABCE-BD73B8A6CD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E36EFA4-82E9-44B8-ABCE-BD73B8A6CD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E36EFA4-82E9-44B8-ABCE-BD73B8A6CD21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA59E6E6-7BEA-406D-B0F8-741E8F6C512F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA59E6E6-7BEA-406D-B0F8-741E8F6C512F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA59E6E6-7BEA-406D-B0F8-741E8F6C512F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA59E6E6-7BEA-406D-B0F8-741E8F6C512F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C3C8351-4A8E-46DD-8F72-5C66EAA4FA20}
+	EndGlobalSection
+EndGlobal
