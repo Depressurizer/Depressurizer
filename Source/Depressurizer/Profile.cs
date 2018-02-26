@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Xml;
-using Depressurizer.Properties;
 using DepressurizerCore;
 using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
@@ -38,9 +37,47 @@ namespace Depressurizer
 		public const int VERSION = 3;
 
 		// Old Xml names
-		private const string XmlName_Old_SteamIDShort = "account_id", XmlName_Old_IgnoreExternal = "ignore_external", XmlName_Old_AutoDownload = "auto_download", XmlName_Old_Game_Favorite = "favorite";
+		private const string XmlName_Old_SteamIDShort = "account_id",
+			XmlName_Old_IgnoreExternal = "ignore_external",
+			XmlName_Old_AutoDownload = "auto_download",
+			XmlName_Old_Game_Favorite = "favorite";
 
-		private const string XmlName_Profile = "profile", XmlName_Version = "version", XmlName_SteamID = "steam_id_64", XmlName_AutoUpdate = "auto_update", XmlName_AutoImport = "auto_import", XmlName_AutoExport = "auto_export", XmlName_LocalUpdate = "local_update", XmlName_WebUpdate = "web_update", XmlName_ExportDiscard = "export_discard", XmlName_AutoIgnore = "auto_ignore", XmlName_IncludeUnknown = "include_unknown", XmlName_BypassIgnoreOnImport = "bypass_ignore_on_import", XmlName_OverwriteNames = "overwrite_names", XmlName_IncludeShortcuts = "include_shortcuts", XmlName_ExclusionList = "exclusions", XmlName_Exclusion = "exclusion", XmlName_GameList = "games", XmlName_Game = "game", XmlName_AutoCatList = "autocats", XmlName_FilterList = "Filters", XmlName_Filter = "Filter", XmlName_FilterName = "Name", XmlName_FilterUncategorized = "Uncategorized", XmlName_FilterVR = "VR", XmlName_FilterHidden = "Hidden", XmlName_FilterAllow = "Allow", XmlName_FilterRequire = "Require", XmlName_FilterExclude = "Exclude", XmlName_Game_Id = "id", XmlName_Game_Source = "source", XmlName_Game_Name = "name", XmlName_Game_Hidden = "hidden", XmlName_Game_CategoryList = "categories", XmlName_Game_Category = "category", XmlName_Game_Executable = "executable", XmlName_Game_LastPlayed = "lastplayed";
+		private const string XmlName_Profile = "profile",
+			XmlName_Version = "version",
+			XmlName_SteamID = "steam_id_64",
+			XmlName_AutoUpdate = "auto_update",
+			XmlName_AutoImport = "auto_import",
+			XmlName_AutoExport = "auto_export",
+			XmlName_LocalUpdate = "local_update",
+			XmlName_WebUpdate = "web_update",
+			XmlName_ExportDiscard = "export_discard",
+			XmlName_AutoIgnore = "auto_ignore",
+			XmlName_IncludeUnknown = "include_unknown",
+			XmlName_BypassIgnoreOnImport = "bypass_ignore_on_import",
+			XmlName_OverwriteNames = "overwrite_names",
+			XmlName_IncludeShortcuts = "include_shortcuts",
+			XmlName_ExclusionList = "exclusions",
+			XmlName_Exclusion = "exclusion",
+			XmlName_GameList = "games",
+			XmlName_Game = "game",
+			XmlName_AutoCatList = "autocats",
+			XmlName_FilterList = "Filters",
+			XmlName_Filter = "Filter",
+			XmlName_FilterName = "Name",
+			XmlName_FilterUncategorized = "Uncategorized",
+			XmlName_FilterVR = "VR",
+			XmlName_FilterHidden = "Hidden",
+			XmlName_FilterAllow = "Allow",
+			XmlName_FilterRequire = "Require",
+			XmlName_FilterExclude = "Exclude",
+			XmlName_Game_Id = "id",
+			XmlName_Game_Source = "source",
+			XmlName_Game_Name = "name",
+			XmlName_Game_Hidden = "hidden",
+			XmlName_Game_CategoryList = "categories",
+			XmlName_Game_Category = "category",
+			XmlName_Game_Executable = "executable",
+			XmlName_Game_LastPlayed = "lastplayed";
 
 		#endregion
 
@@ -342,9 +379,7 @@ namespace Depressurizer
 					return Utility.GetImage(avatarURL);
 				}
 			}
-			catch
-			{
-			}
+			catch { }
 
 			return null;
 		}
@@ -493,7 +528,7 @@ namespace Depressurizer
 
 		#endregion
 
-		#region Methods		
+		#region Methods
 
 		private static void AddGameFromXmlNode(XmlNode node, Profile profile, int profileVersion)
 		{

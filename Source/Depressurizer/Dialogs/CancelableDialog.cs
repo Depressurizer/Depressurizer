@@ -130,9 +130,7 @@ namespace Depressurizer.Dialogs
 			}
 		}
 
-		protected virtual void OnFinish()
-		{
-		}
+		protected virtual void OnFinish() { }
 
 		protected void OnJobCompletion()
 		{
@@ -144,9 +142,7 @@ namespace Depressurizer.Dialogs
 			UpdateText();
 		}
 
-		protected virtual void OnStart()
-		{
-		}
+		protected virtual void OnStart() { }
 
 		protected void SetText(string text)
 		{
@@ -160,9 +156,7 @@ namespace Depressurizer.Dialogs
 			}
 		}
 
-		protected virtual void UpdateText()
-		{
-		}
+		protected virtual void UpdateText() { }
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
