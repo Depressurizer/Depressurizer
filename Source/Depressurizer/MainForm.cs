@@ -1103,7 +1103,7 @@ namespace Depressurizer
 
 				if (dlg.SetStartup)
 				{
-					Settings.StartupAction = StartupAction.Load;
+					Settings.StartupAction = StartupAction.LoadProfile;
 					Settings.ProfileToLoad = CurrentProfile.FilePath;
 					Settings.Save();
 				}
@@ -1256,7 +1256,7 @@ namespace Depressurizer
 
 					if (dlg.SetStartup)
 					{
-						Settings.StartupAction = StartupAction.Load;
+						Settings.StartupAction = StartupAction.LoadProfile;
 						Settings.ProfileToLoad = CurrentProfile.FilePath;
 						Settings.Save();
 					}
@@ -1709,18 +1709,14 @@ namespace Depressurizer
 
 			switch (Settings.StartupAction)
 			{
-				case StartupAction.Load:
+				case StartupAction.LoadProfile:
 					LoadProfile(Settings.ProfileToLoad, false);
-
 					break;
-				case StartupAction.Create:
+				case StartupAction.CreateProfile:
 					CreateProfile();
-
 					break;
 				default:
-					OnProfileChange();
-
-					break;
+					throw new ArgumentOutOfRangeException();
 			}
 
 			ChangeDatabaseLanguage(Settings.StoreLanguage);

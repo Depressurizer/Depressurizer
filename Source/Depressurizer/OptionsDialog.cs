@@ -96,11 +96,11 @@ namespace Depressurizer
 			// On Startup
 			if (RadioLoadProfile.Checked)
 			{
-				settings.StartupAction = StartupAction.Load;
+				settings.StartupAction = StartupAction.LoadProfile;
 			}
 			else if (RadioCreateProfile.Checked)
 			{
-				settings.StartupAction = StartupAction.Create;
+				settings.StartupAction = StartupAction.CreateProfile;
 			}
 
 			// Database Options
@@ -132,10 +132,10 @@ namespace Depressurizer
 			// On Startup
 			switch (settings.StartupAction)
 			{
-				case StartupAction.Load:
+				case StartupAction.LoadProfile:
 					RadioLoadProfile.Checked = true;
 					break;
-				case StartupAction.Create:
+				case StartupAction.CreateProfile:
 					RadioLoadProfile.Checked = true;
 					break;
 				default:
