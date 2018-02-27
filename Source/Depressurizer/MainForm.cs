@@ -30,8 +30,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Security;
-using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -44,7 +42,6 @@ using DepressurizerCore.Helpers;
 using DepressurizerCore.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
-using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using Rallion;
 
@@ -1626,44 +1623,6 @@ namespace Depressurizer
 			lstGames.EndUpdate();
 
 			Cursor = Cursors.Default;
-		}
-
-		private void FixWebBrowserRegistry()
-		{
-			string installkey = @"SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION";
-			string entryLabel = GetType().Assembly.GetName().Name + ".exe";
-
-			int value = 0;
-			int version = new WebBrowser().Version.Major;
-
-			if ((version >= 8) && (version <= 11))
-			{
-				value = version * 1000;
-			}
-			else
-			{
-				return;
-			}
-
-			RegistryKey existingSubKey = Registry.LocalMachine.OpenSubKey(installkey, false); // readonly key
-
-			if ((existingSubKey.GetValue(entryLabel) == null) || (Convert.ToInt32(existingSubKey.GetValue(entryLabel)) != value))
-			{
-				new RegistryPermission(PermissionState.Unrestricted).Assert();
-				try
-				{
-					existingSubKey = Registry.LocalMachine.OpenSubKey(installkey, RegistryKeyPermissionCheck.ReadWriteSubTree); // writable key
-					existingSubKey.SetValue(entryLabel, value, RegistryValueKind.DWord);
-				}
-				catch
-				{
-					MessageBox.Show(GlobalStrings.MainForm_AdminRights, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				}
-				finally
-				{
-					CodeAccessPermission.RevertAssert();
-				}
-			}
 		}
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -3261,22 +3220,6 @@ namespace Depressurizer
 		{
 			UpdateAutoCatSelected_StatusMessage();
 			mbtnAutoCategorize.Text = string.Format(CultureInfo.CurrentCulture, "Auto-Categorize ({0} Games)", AutoCatGameCount());
-		}
-
-		private void mchkBrowser_CheckedChanged(object sender, EventArgs e)
-		{
-			if (mchkBrowser.CheckState == CheckState.Checked)
-			{
-				FixWebBrowserRegistry();
-				splitBrowser.Panel2Collapsed = false;
-				webBrowser1.Visible = true;
-				lstGames_SelectedIndexChanged(null, null);
-			}
-			else if (mchkBrowser.CheckState == CheckState.Unchecked)
-			{
-				splitBrowser.Panel2Collapsed = true;
-				webBrowser1.Visible = false;
-			}
 		}
 
 		private void menu_File_Close_Click(object sender, EventArgs e)
