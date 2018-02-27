@@ -36,7 +36,7 @@ namespace Depressurizer.Dialogs
 		{
 			InitializeComponent();
 
-			TitleLabel.Text = string.Format(CultureInfo.InvariantCulture, "Depressurzier - {0}", dialogTitle);
+			TitleLabel.Text = string.Format(CultureInfo.InvariantCulture, "Depressurizer - {0}", dialogTitle);
 		}
 
 		#endregion
