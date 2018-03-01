@@ -27,7 +27,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using DepressurizerCore;
@@ -111,7 +110,7 @@ namespace Depressurizer
 				{
 					_language = value;
 
-					Parallel.ForEach(Games.Values, entry =>
+					foreach (DatabaseEntry entry in Games.Values)
 					{
 						if (entry.Id <= 0)
 						{
@@ -125,7 +124,7 @@ namespace Depressurizer
 						entry.LastStoreScrape = 0;
 						entry.VRSupport = new VRSupport();
 						entry.LanguageSupport = new LanguageSupport();
-					});
+					}
 				}
 			}
 		}
@@ -147,13 +146,13 @@ namespace Depressurizer
 
 			lock (Games)
 			{
-				Parallel.ForEach(Games.Values, entry =>
+				foreach (DatabaseEntry entry in Games.Values)
 				{
 					if (entry.Developers != null)
 					{
 						developers.UnionWith(entry.Developers);
 					}
-				});
+				}
 			}
 
 			return developers;
@@ -165,13 +164,13 @@ namespace Depressurizer
 
 			lock (Games)
 			{
-				Parallel.ForEach(Games.Values, entry =>
+				foreach (DatabaseEntry entry in Games.Values)
 				{
 					if (entry.Genres != null)
 					{
 						genres.UnionWith(entry.Genres);
 					}
-				});
+				}
 			}
 
 			return genres;
@@ -187,7 +186,7 @@ namespace Depressurizer
 				SortedSet<string> sortedInterfaces = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 				SortedSet<string> sortedSubtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-				Parallel.ForEach(Games.Values, entry =>
+				foreach (DatabaseEntry entry in Games.Values)
 				{
 					if (entry.LanguageSupport.FullAudio != null)
 					{
@@ -203,7 +202,7 @@ namespace Depressurizer
 					{
 						sortedSubtitles.UnionWith(entry.LanguageSupport.Subtitles);
 					}
-				});
+				}
 
 				languageSupport = new LanguageSupport
 				{
@@ -222,13 +221,13 @@ namespace Depressurizer
 
 			lock (Games)
 			{
-				Parallel.ForEach(Games.Values, entry =>
+				foreach (DatabaseEntry entry in Games.Values)
 				{
 					if (entry.Publishers != null)
 					{
 						publishers.UnionWith(entry.Publishers);
 					}
-				});
+				}
 			}
 
 			return publishers;
@@ -240,13 +239,13 @@ namespace Depressurizer
 
 			lock (Games)
 			{
-				Parallel.ForEach(Games.Values, entry =>
+				foreach (DatabaseEntry entry in Games.Values)
 				{
 					if (entry.Flags != null)
 					{
 						storeFlags.UnionWith(entry.Flags);
 					}
-				});
+				}
 			}
 
 			return storeFlags;
@@ -262,7 +261,7 @@ namespace Depressurizer
 				SortedSet<string> sortedInput = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 				SortedSet<string> sortedPlayArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-				Parallel.ForEach(Games.Values, entry =>
+				foreach (DatabaseEntry entry in Games.Values)
 				{
 					if (entry.VRSupport.Headsets != null)
 					{
@@ -278,7 +277,7 @@ namespace Depressurizer
 					{
 						sortedPlayArea.UnionWith(entry.VRSupport.PlayArea);
 					}
-				});
+				}
 
 				vrSupport = new VRSupport
 				{
@@ -301,17 +300,20 @@ namespace Depressurizer
 
 				if (gameList == null)
 				{
-					Parallel.ForEach(Games.Values, entry => { CalculateSortedDevListHelper(devCounts, entry); });
+					foreach (DatabaseEntry entry in Games.Values)
+					{
+						CalculateSortedDevListHelper(devCounts, entry);
+					}
 				}
 				else
 				{
-					Parallel.ForEach(gameList.Games.Keys, appId =>
+					foreach (int appId in gameList.Games.Keys)
 					{
-						if (Contains(appId) && !gameList.Games[appId].Hidden)
+						if (Contains(appId) && gameList.Games.ContainsKey(appId) && !gameList.Games[appId].Hidden)
 						{
 							CalculateSortedDevListHelper(devCounts, Games[appId]);
 						}
-					});
+					}
 				}
 
 				unsortedList = from entry in devCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
@@ -330,17 +332,20 @@ namespace Depressurizer
 
 				if (gameList == null)
 				{
-					Parallel.ForEach(Games.Values, entry => { CalculateSortedPubListHelper(pubCounts, entry); });
+					foreach (DatabaseEntry entry in Games.Values)
+					{
+						CalculateSortedPubListHelper(pubCounts, entry);
+					}
 				}
 				else
 				{
-					Parallel.ForEach(gameList.Games.Keys, appId =>
+					foreach (int appId in gameList.Games.Keys)
 					{
-						if (Contains(appId) && !gameList.Games[appId].Hidden)
+						if (Contains(appId) && gameList.Games.ContainsKey(appId) && !gameList.Games[appId].Hidden)
 						{
 							CalculateSortedPubListHelper(pubCounts, Games[appId]);
 						}
-					});
+					}
 				}
 
 				unsortedList = from entry in pubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
@@ -725,7 +730,7 @@ namespace Depressurizer
 				Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
 				long currentUnixTime = Utility.CurrentUnixTime();
 
-				Parallel.ForEach(appInfos.Values, appInfo =>
+				foreach (AppInfo appInfo in appInfos.Values)
 				{
 					try
 					{
@@ -768,7 +773,7 @@ namespace Depressurizer
 					}
 
 					updated++;
-				});
+				}
 			}
 
 			return updated;
@@ -848,7 +853,7 @@ namespace Depressurizer
 				return;
 			}
 
-			Parallel.ForEach(entry.Developers, dev =>
+			foreach (string dev in entry.Developers)
 			{
 				if (counts.ContainsKey(dev))
 				{
@@ -858,7 +863,7 @@ namespace Depressurizer
 				{
 					counts[dev] = 1;
 				}
-			});
+			}
 		}
 
 		private static void CalculateSortedPubListHelper(IDictionary<string, int> counts, DatabaseEntry entry)
@@ -868,7 +873,7 @@ namespace Depressurizer
 				return;
 			}
 
-			Parallel.ForEach(entry.Publishers, publisher =>
+			foreach (string publisher in entry.Publishers)
 			{
 				if (counts.ContainsKey(publisher))
 				{
@@ -878,7 +883,7 @@ namespace Depressurizer
 				{
 					counts[publisher] = 1;
 				}
-			});
+			}
 		}
 
 		private static void CalculateSortedTagListHelper(IDictionary<string, float> counts, DatabaseEntry entry, float weightFactor, int tagsPerGame)
