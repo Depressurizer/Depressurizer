@@ -1,4 +1,4 @@
-Depressurizer (v2.1.0)
+Depressurizer (v2.2.0)
 
 SUMMARY
 
