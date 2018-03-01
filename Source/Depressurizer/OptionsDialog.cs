@@ -19,10 +19,13 @@
 #endregion
 
 using System;
+using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using Depressurizer.Dialogs;
 using Depressurizer.Properties;
 using DepressurizerCore;
+using DepressurizerCore.Helpers;
 
 namespace Depressurizer
 {
@@ -152,15 +155,17 @@ namespace Depressurizer
 			// Interface Langauge
 			foreach (string language in Enum.GetNames(typeof(InterfaceLanguage)))
 			{
-				ListInterfaceLangauge.Items.Add(language);
+				string nativeName = CultureInfo.GetCultures(CultureTypes.AllCultures).FirstOrDefault(c => c.EnglishName == language)?.NativeName;
+				ListInterfaceLangauge.Items.Add(nativeName ?? language);
 			}
 
 			ListInterfaceLangauge.SelectedIndex = (int) settings.InterfaceLanguage;
 
-			// Store Langauge
-			foreach (string language in Enum.GetNames(typeof(StoreLanguage)))
+			// Store Language
+			foreach (StoreLanguage storeLanguage in Enum.GetValues(typeof(StoreLanguage)))
 			{
-				ListStoreLangauge.Items.Add(language);
+				CultureInfo cultureInfo = Utility.GetCultureInfoFromStoreLanguage(storeLanguage);
+				ListStoreLangauge.Items.Add(cultureInfo.NativeName);
 			}
 
 			ListStoreLangauge.SelectedIndex = (int) settings.StoreLanguage;
