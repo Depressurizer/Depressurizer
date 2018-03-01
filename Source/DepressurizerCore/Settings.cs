@@ -57,123 +57,138 @@ namespace DepressurizerCore
 		/// </summary>
 		Default,
 
-		// TODO: Arabic
+		/// <summary>
+		///     Arabic	العربية	arabic	ar
+		/// </summary>
+		Arabic,
 
 		/// <summary>
-		///     Bulgarian - Bulgaria
+		///     Bulgarian	български език	bulgarian	bg
 		/// </summary>
 		Bulgarian,
 
-		// TODO: Chinese (Simplified)
-
-		// TODO: Chinese (Traditional)
+		/// <summary>
+		///     Chinese (Simplified)	简体中文	schinese	zh-CN
+		/// </summary>
+		Schinese,
 
 		/// <summary>
-		///     Czech - Czech Republic
+		///     Chinese (Traditional)	繁體中文	tchinese	zh-TW
+		/// </summary>
+		Tchinese,
+
+		/// <summary>
+		///     Czech	čeština	czech	cs
 		/// </summary>
 		Czech,
 
 		/// <summary>
-		///     Danish - Denmark
+		///     Danish	Dansk	danish	da
 		/// </summary>
 		Danish,
 
 		/// <summary>
-		///     Dutch - The Netherlands
+		///     Dutch	Nederlands	dutch	nl
 		/// </summary>
 		Dutch,
 
 		/// <summary>
-		///     English - United States
+		///     English	English	english	en
 		/// </summary>
 		English,
 
 		/// <summary>
-		///     Finnish - Finland
+		///     Finnish	Suomi	finnish	fi
 		/// </summary>
 		Finnish,
 
 		/// <summary>
-		///     French - France
+		///     French	Français	french	fr
 		/// </summary>
 		French,
 
 		/// <summary>
-		///     German - Germany
+		///     German	Deutsch	german	de
 		/// </summary>
 		German,
 
 		/// <summary>
-		///     Greek - Greece
+		///     Greek	Ελληνικά	greek	el
 		/// </summary>
 		Greek,
 
 		/// <summary>
-		///     Hungarian - Hungary
+		///     Hungarian	Magyar	hungarian	hu
 		/// </summary>
 		Hungarian,
 
 		/// <summary>
-		///     Italian - Italy
+		///     Italian	Italiano	italian	it
 		/// </summary>
 		Italian,
 
 		/// <summary>
-		///     Japanese - Japan
+		///     Japanese	日本語	japanese	ja
 		/// </summary>
 		Japanese,
 
 		/// <summary>
-		///     Korean - Korea
+		///     Korean	한국어	koreana	ko
 		/// </summary>
-		Korean,
-
-		// TODO: Norwegian
+		Koreana,
 
 		/// <summary>
-		///     Polish - Poland
+		///     Norwegian	Norsk	norwegian	no
+		/// </summary>
+		Norwegian,
+
+		/// <summary>
+		///     Polish	Polski	polish	pl
 		/// </summary>
 		Polish,
 
 		/// <summary>
-		///     Portuguese - Portugal
+		///     Portuguese	Português	portuguese	pt
 		/// </summary>
 		Portuguese,
 
-		// TODO: Portuguese-Brazil
+		/// <summary>
+		///     Portuguese-Brazil	Português-Brasil	brazilian	pt-BR
+		/// </summary>
+		Brazilian,
 
 		/// <summary>
-		///     Romanian - Romania
+		///     Romanian	Română	romanian	ro
 		/// </summary>
 		Romanian,
 
 		/// <summary>
-		///     Russian - Russia
+		///     Russian	Русский	russian	ru
 		/// </summary>
 		Russian,
 
 		/// <summary>
-		///     Spanish - Spain
+		///     Spanish	Español	spanish	es
 		/// </summary>
 		Spanish,
 
 		/// <summary>
-		///     Swedish - Sweden
+		///     Swedish	Svenska	swedish	sv
 		/// </summary>
 		Swedish,
 
 		/// <summary>
-		///     Thai - Thailand
+		///     Thai	ไทย	thai	th
 		/// </summary>
 		Thai,
 
 		/// <summary>
-		///     Turkish - Turkey
+		///     Turkish	Türkçe	turkish	tr
 		/// </summary>
 		Turkish,
 
 		/// <summary>
-		///     Ukrainian - Ukraine
+		///     Ukrainian	Українська	ukrainian	uk
 		/// </summary>
 		Ukrainian
 	}

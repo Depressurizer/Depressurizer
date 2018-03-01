@@ -321,7 +321,7 @@ namespace DepressurizerCore.Models
 
 			try
 			{
-				string storePage = string.Format(CultureInfo.InvariantCulture, "http://store.steampowered.com/app/{0}/?l={1}", Id, Settings.Instance.StoreLanguage);
+				string storePage = string.Format(CultureInfo.InvariantCulture, "http://store.steampowered.com/app/{0}/?l={1}", Id, Settings.Instance.StoreLanguage).ToLowerInvariant();
 
 				HttpWebRequest req = GetSteamRequest(storePage);
 				resp = (HttpWebResponse) req.GetResponse();

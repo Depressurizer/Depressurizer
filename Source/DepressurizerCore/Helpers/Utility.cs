@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 
@@ -90,23 +91,96 @@ namespace DepressurizerCore.Helpers
 
 		public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage storeLanguage)
 		{
-			CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+			CultureInfo cultureInfo;
 
-			try
+			switch (storeLanguage)
 			{
-				string language = storeLanguage == StoreLanguage.Default ? Settings.Instance.InterfaceLanguage.ToString() : storeLanguage.ToString();
-
-				foreach (CultureInfo culture in CultureInfo.GetCultures(CultureTypes.AllCultures))
-				{
-					if (culture.EnglishName == language)
-					{
-						cultureInfo = culture;
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				SentryLogger.Log(e);
+				case StoreLanguage.Default:
+					cultureInfo = CultureInfo.GetCultures(CultureTypes.AllCultures).FirstOrDefault(c => c.EnglishName == Settings.Instance.InterfaceLanguage.ToString());
+					break;
+				case StoreLanguage.Arabic:
+					cultureInfo = CultureInfo.GetCultureInfo("ar");
+					break;
+				case StoreLanguage.Bulgarian:
+					cultureInfo = CultureInfo.GetCultureInfo("bg");
+					break;
+				case StoreLanguage.Schinese:
+					cultureInfo = CultureInfo.GetCultureInfo("zh-CN");
+					break;
+				case StoreLanguage.Tchinese:
+					cultureInfo = CultureInfo.GetCultureInfo("zh-TW");
+					break;
+				case StoreLanguage.Czech:
+					cultureInfo = CultureInfo.GetCultureInfo("cs");
+					break;
+				case StoreLanguage.Danish:
+					cultureInfo = CultureInfo.GetCultureInfo("da");
+					break;
+				case StoreLanguage.Dutch:
+					cultureInfo = CultureInfo.GetCultureInfo("nl");
+					break;
+				case StoreLanguage.English:
+					cultureInfo = CultureInfo.GetCultureInfo("en");
+					break;
+				case StoreLanguage.Finnish:
+					cultureInfo = CultureInfo.GetCultureInfo("fi");
+					break;
+				case StoreLanguage.French:
+					cultureInfo = CultureInfo.GetCultureInfo("fr");
+					break;
+				case StoreLanguage.German:
+					cultureInfo = CultureInfo.GetCultureInfo("de");
+					break;
+				case StoreLanguage.Greek:
+					cultureInfo = CultureInfo.GetCultureInfo("el");
+					break;
+				case StoreLanguage.Hungarian:
+					cultureInfo = CultureInfo.GetCultureInfo("hu");
+					break;
+				case StoreLanguage.Italian:
+					cultureInfo = CultureInfo.GetCultureInfo("it");
+					break;
+				case StoreLanguage.Japanese:
+					cultureInfo = CultureInfo.GetCultureInfo("ja");
+					break;
+				case StoreLanguage.Koreana:
+					cultureInfo = CultureInfo.GetCultureInfo("ko");
+					break;
+				case StoreLanguage.Norwegian:
+					cultureInfo = CultureInfo.GetCultureInfo("no");
+					break;
+				case StoreLanguage.Polish:
+					cultureInfo = CultureInfo.GetCultureInfo("pl");
+					break;
+				case StoreLanguage.Portuguese:
+					cultureInfo = CultureInfo.GetCultureInfo("pt");
+					break;
+				case StoreLanguage.Brazilian:
+					cultureInfo = CultureInfo.GetCultureInfo("pt-BR");
+					break;
+				case StoreLanguage.Romanian:
+					cultureInfo = CultureInfo.GetCultureInfo("ro");
+					break;
+				case StoreLanguage.Russian:
+					cultureInfo = CultureInfo.GetCultureInfo("ru");
+					break;
+				case StoreLanguage.Spanish:
+					cultureInfo = CultureInfo.GetCultureInfo("es");
+					break;
+				case StoreLanguage.Swedish:
+					cultureInfo = CultureInfo.GetCultureInfo("sv");
+					break;
+				case StoreLanguage.Thai:
+					cultureInfo = CultureInfo.GetCultureInfo("th");
+					break;
+				case StoreLanguage.Turkish:
+					cultureInfo = CultureInfo.GetCultureInfo("tr");
+					break;
+				case StoreLanguage.Ukrainian:
+					cultureInfo = CultureInfo.GetCultureInfo("uk");
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(storeLanguage), storeLanguage, null);
 			}
 
 			return cultureInfo;
