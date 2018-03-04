@@ -321,6 +321,83 @@ namespace Depressurizer
 			Cursor.Current = Cursors.Default;
 		}
 
+		private void QuickAddCategoryToSelectedGames(Category category)
+		{
+			if (lstGames.SelectedObjects.Count <= 0)
+			{
+				return;
+			}
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
+			{
+				if (gameInfo == null)
+				{
+					continue;
+				}
+
+
+				gameInfo.AddCategory(category);
+			}
+			lstGames.RefreshSelectedObjects();
+
+			UpdateCategoryCountInCategoryList(category);
+
+			AddRemoveCategoryContextMenu(category);
+			ResortToolStripItemCollection(contextGameRemCat.Items);
+
+			lstMultiCat.Items[category.Name].Checked = true;
+
+			MakeChange(true);
+
+			Cursor.Current = Cursors.Default;
+		}
+
+		private void QuickRemoveCategoryFromSelectedGames(Category category)
+		{
+			if (lstGames.SelectedObjects.Count <= 0)
+			{
+				return;
+			}
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
+			{
+				if (gameInfo == null)
+				{
+					continue;
+				}
+
+
+				gameInfo.RemoveCategory(category);
+			}
+			lstGames.RefreshSelectedObjects();
+
+			UpdateCategoryCountInCategoryList(category);
+
+			contextGameRemCat.Items.RemoveByKey(category.Name);
+			lstMultiCat.Items[category.Name].Checked = false;
+
+
+			MakeChange(true);
+
+			Cursor.Current = Cursors.Default;
+		}
+
+		private void UpdateCategoryCountInCategoryList(Category category)
+		{
+			foreach (ListViewItem item in lstCategories.Items)
+			{
+				if (Object.ReferenceEquals(item.Tag, category))
+				{
+					item.Text = CategoryListViewItemText(category);
+				}
+			}
+		}
+
+
 		/// <summary>
 		///     Adds a new game. Displays the game dialog to the user.
 		/// </summary>
@@ -384,21 +461,18 @@ namespace Depressurizer
 		{
 			foreach (Category c in game.Categories)
 			{
-				bool found = false;
-				foreach (ToolStripItem i in contextGameRemCat.Items)
-				{
-					if (i.Text == c.Name)
-					{
-						found = true;
-					}
-				}
+				AddRemoveCategoryContextMenu(c);
+			}
+		}
 
-				if (!found)
-				{
-					ToolStripItem item = contextGameRemCat.Items.Add(c.Name);
-					item.Tag = c;
-					item.Click += contextGameRemCat_Category_Click;
-				}
+		private void AddRemoveCategoryContextMenu(Category c)
+		{
+			if (!contextGameRemCat.Items.ContainsKey(c.Name))
+			{
+				ToolStripItem item = contextGameRemCat.Items.Add(c.Name);
+				item.Tag = c;
+				item.Name = c.Name;
+				item.Click += contextGameRemCat_Category_Click;
 			}
 		}
 
@@ -1014,7 +1088,7 @@ namespace Depressurizer
 			{
 				ClearStatus();
 				Category c = menuItem.Tag as Category;
-				AddCategoryToSelectedGames(c, false);
+				QuickAddCategoryToSelectedGames(c);
 				FlushStatus();
 			}
 		}
@@ -1025,7 +1099,7 @@ namespace Depressurizer
 			if (c != null)
 			{
 				ClearStatus();
-				AddCategoryToSelectedGames(c, false);
+				QuickAddCategoryToSelectedGames(c);
 				FlushStatus();
 			}
 		}
@@ -1051,7 +1125,7 @@ namespace Depressurizer
 			{
 				ClearStatus();
 				Category c = menuItem.Tag as Category;
-				RemoveCategoryFromSelectedGames(c);
+				QuickRemoveCategoryFromSelectedGames(c);
 				FlushStatus();
 			}
 		}
@@ -1355,6 +1429,7 @@ namespace Depressurizer
 
 					ListViewItem listItem = new ListViewItem(c.Name);
 					listItem.Tag = c;
+					listItem.Name = c.Name;
 					listItem.StateImageIndex = 0;
 					lstMultiCat.Items.Add(listItem);
 				}
@@ -1840,7 +1915,7 @@ namespace Depressurizer
 					Category cat = item.Tag as Category;
 					if (cat != null)
 					{
-						AddCategoryToSelectedGames(cat, false);
+						QuickAddCategoryToSelectedGames(cat);
 					}
 				}
 				else if ((item.StateImageIndex == 1) || ((item.StateImageIndex == 2) && !modKey))
@@ -1849,7 +1924,7 @@ namespace Depressurizer
 					Category cat = item.Tag as Category;
 					if (cat != null)
 					{
-						RemoveCategoryFromSelectedGames(cat);
+						QuickRemoveCategoryFromSelectedGames(cat);
 					}
 				}
 			}
