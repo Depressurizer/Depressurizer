@@ -258,12 +258,17 @@ namespace Depressurizer
 
 		private static ListViewItem CreateCategoryListViewItem(Category category)
 		{
-			return new ListViewItem(string.Format(CultureInfo.InvariantCulture, "{0} ({1})", category.Name, category.Count))
+			return new ListViewItem(CategoryListViewItemText(category))
 			{
 				Tag = category,
 				Name = category.Name
 			};
 		}
+
+		private static string CategoryListViewItemText(Category category)
+		{
+			return string.Format(CultureInfo.InvariantCulture, "{0} ({1})", category.Name, category.Count);
+        }
 
 		private void AddCategoryToSelectedGames(Category category, bool forceClearOthers)
 		{
