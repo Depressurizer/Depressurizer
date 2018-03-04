@@ -1,0 +1,5 @@
+[*.cs]
+indent_style = tab
+
+[.editorconfig]
+insert_final_newline = true
