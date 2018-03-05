@@ -195,6 +195,11 @@ namespace Depressurizer
 
 		#region Methods
 
+		private static string CategoryListViewItemText(Category category)
+		{
+			return string.Format(CultureInfo.InvariantCulture, "{0} ({1})", category.Name, category.Count);
+		}
+
 		private static void CheckForDepressurizerUpdates()
 		{
 			string rawJson;
@@ -252,11 +257,6 @@ namespace Depressurizer
 			};
 		}
 
-		private static string CategoryListViewItemText(Category category)
-		{
-			return string.Format(CultureInfo.InvariantCulture, "{0} ({1})", category.Name, category.Count);
-        }
-
 		private void AddCategoryToSelectedGames(Category category, bool forceClearOthers)
 		{
 			if (lstGames.SelectedObjects.Count <= 0)
@@ -306,82 +306,6 @@ namespace Depressurizer
 			MakeChange(true);
 
 			Cursor.Current = Cursors.Default;
-		}
-
-		private void QuickAddCategoryToSelectedGames(Category category)
-		{
-			if (lstGames.SelectedObjects.Count <= 0)
-			{
-				return;
-			}
-
-			Cursor.Current = Cursors.WaitCursor;
-
-			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
-			{
-				if (gameInfo == null)
-				{
-					continue;
-				}
-
-
-				gameInfo.AddCategory(category);
-			}
-			lstGames.RefreshSelectedObjects();
-
-			UpdateCategoryCountInCategoryList(category);
-
-			AddRemoveCategoryContextMenu(category);
-			ResortToolStripItemCollection(contextGameRemCat.Items);
-
-			lstMultiCat.Items[category.Name].Checked = true;
-
-			MakeChange(true);
-
-			Cursor.Current = Cursors.Default;
-		}
-
-		private void QuickRemoveCategoryFromSelectedGames(Category category)
-		{
-			if (lstGames.SelectedObjects.Count <= 0)
-			{
-				return;
-			}
-
-			Cursor.Current = Cursors.WaitCursor;
-
-			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
-			{
-				if (gameInfo == null)
-				{
-					continue;
-				}
-
-
-				gameInfo.RemoveCategory(category);
-			}
-			lstGames.RefreshSelectedObjects();
-
-			UpdateCategoryCountInCategoryList(category);
-
-			contextGameRemCat.Items.RemoveByKey(category.Name);
-			lstMultiCat.Items[category.Name].Checked = false;
-
-
-			MakeChange(true);
-
-			Cursor.Current = Cursors.Default;
-		}
-
-		private void UpdateCategoryCountInCategoryList(Category category)
-		{
-			foreach (ListViewItem item in lstCategories.Items)
-			{
-				if (Object.ReferenceEquals(item.Tag, category))
-				{
-					item.Text = CategoryListViewItemText(category);
-				}
-			}
 		}
 
 		private void AddGame()
@@ -3455,6 +3379,70 @@ namespace Depressurizer
 			FilterGamelist(false);
 		}
 
+		private void QuickAddCategoryToSelectedGames(Category category)
+		{
+			if (lstGames.SelectedObjects.Count <= 0)
+			{
+				return;
+			}
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
+			{
+				if (gameInfo == null)
+				{
+					continue;
+				}
+
+				gameInfo.AddCategory(category);
+			}
+
+			lstGames.RefreshSelectedObjects();
+
+			UpdateCategoryCountInCategoryList(category);
+
+			AddRemoveCategoryContextMenu(category);
+			ResortToolStripItemCollection(contextGameRemCat.Items);
+
+			lstMultiCat.Items[category.Name].Checked = true;
+
+			MakeChange(true);
+
+			Cursor.Current = Cursors.Default;
+		}
+
+		private void QuickRemoveCategoryFromSelectedGames(Category category)
+		{
+			if (lstGames.SelectedObjects.Count <= 0)
+			{
+				return;
+			}
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
+			{
+				if (gameInfo == null)
+				{
+					continue;
+				}
+
+				gameInfo.RemoveCategory(category);
+			}
+
+			lstGames.RefreshSelectedObjects();
+
+			UpdateCategoryCountInCategoryList(category);
+
+			contextGameRemCat.Items.RemoveByKey(category.Name);
+			lstMultiCat.Items[category.Name].Checked = false;
+
+			MakeChange(true);
+
+			Cursor.Current = Cursors.Default;
+		}
+
 		private void RebuildGamelist()
 		{
 			lstGames.BuildList();
@@ -4107,6 +4095,17 @@ namespace Depressurizer
 				{
 					ClearStatus();
 					FlushStatus();
+				}
+			}
+		}
+
+		private void UpdateCategoryCountInCategoryList(Category category)
+		{
+			foreach (ListViewItem item in lstCategories.Items)
+			{
+				if (ReferenceEquals(item.Tag, category))
+				{
+					item.Text = CategoryListViewItemText(category);
 				}
 			}
 		}
