@@ -112,9 +112,6 @@ namespace Depressurizer
 
 		#region Public Properties
 
-		/// <summary>
-		///     Just checks to see if there is currently a profile loaded
-		/// </summary>
 		public bool ProfileLoaded => CurrentProfile != null;
 
 		#endregion
@@ -147,10 +144,6 @@ namespace Depressurizer
 
 		#region Public Methods and Operators
 
-		/// <summary>
-		///     Adds a string to the status builder
-		/// </summary>
-		/// <param name="s"></param>
 		public void AddStatus(string s)
 		{
 			_statusBuilder.Append(s);
@@ -186,17 +179,11 @@ namespace Depressurizer
 			SaveDatabase(true);
 		}
 
-		/// <summary>
-		///     Empties the status builder
-		/// </summary>
 		public void ClearStatus()
 		{
 			_statusBuilder.Clear();
 		}
 
-		/// <summary>
-		///     Sets the status text to the builder text, and clear the builder text.
-		/// </summary>
 		public void FlushStatus()
 		{
 			mlblStatusMsg.Font = new Font("Arial", 9);
@@ -397,10 +384,6 @@ namespace Depressurizer
 			}
 		}
 
-
-		/// <summary>
-		///     Adds a new game. Displays the game dialog to the user.
-		/// </summary>
 		private void AddGame()
 		{
 			DlgGame dlg = new DlgGame(CurrentProfile.GameData, null);
@@ -541,10 +524,6 @@ namespace Depressurizer
 			OnViewChange();
 		}
 
-		/// <summary>
-		///     Assigns the given favorite state to all selected items in the game list.
-		/// </summary>
-		/// <param name="fav">True to turn fav on, false to turn it off.</param>
 		private void AssignFavoriteToSelectedGames(bool fav)
 		{
 			if (lstGames.SelectedObjects.Count > 0)
@@ -562,10 +541,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Add or remove the hidden attribute to the selected games
-		/// </summary>
-		/// <param name="hidden">Whether the games should be hidden</param>
 		private void AssignHiddenToSelectedGames(bool hidden)
 		{
 			if (lstGames.SelectedObjects.Count > 0)
@@ -583,11 +558,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Autocategorizes a set of games.
-		/// </summary>
-		/// <param name="selectedOnly">If true, runs on the selected games, otherwise, runs on all games.</param>
-		/// <param name="autoCat">The autocat object to use.</param>
 		private void Autocategorize(bool selectedOnly, AutoCat autoCat, bool scrape = true, bool refresh = true)
 		{
 			if (autoCat == null)
@@ -762,9 +732,6 @@ namespace Depressurizer
 			return count;
 		}
 
-		/// <summary>
-		///     Renames all games with names from the database.
-		/// </summary>
 		private void AutonameAll()
 		{
 			DialogResult res = MessageBox.Show(GlobalStrings.MainForm_OverwriteExistingNames, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
@@ -813,15 +780,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     jpodadera. Recursive function to reload resources of new language for a control and its childs
-		/// </summary>
-		/// <param name="c"></param>
-		/// Control to reload resources
-		/// <param name="resources"></param>
-		/// Resource manager
-		/// <param name="newCulture"></param>
-		/// Culture of language to load
 		private void ChangeLanguageControls(Control c, ComponentResourceManager resources, CultureInfo newCulture)
 		{
 			if (c != null)
@@ -859,15 +817,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     jpodadera. Recursive function to reload resources of new language for a menu item and its childs
-		/// </summary>
-		/// <param name="item"></param>
-		/// Item menu to reload resources
-		/// <param name="resources"></param>
-		/// Resource manager
-		/// <param name="newCulture"></param>
-		/// Culture of language to load
 		private void ChangeLanguageToolStripItems(ToolStripItem item, ComponentResourceManager resources, CultureInfo newCulture)
 		{
 			if (item != null)
@@ -1142,11 +1091,6 @@ namespace Depressurizer
 			lstCategories.Sort();
 		}
 
-		/// <summary>
-		///     Creates a new category, first prompting the user for the name to use. If the name is not valid or in use, displays
-		///     a notification.
-		/// </summary>
-		/// <returns>The category that was added, or null if the operation was canceled or failed.</returns>
 		private Category CreateCategory()
 		{
 			if (!ProfileLoaded)
@@ -1173,9 +1117,6 @@ namespace Depressurizer
 			return null;
 		}
 
-		/// <summary>
-		///     Prompts user to create a new profile.
-		/// </summary>
 		private void CreateProfile()
 		{
 			DlgProfile dlg = new DlgProfile();
@@ -1210,9 +1151,6 @@ namespace Depressurizer
 			OnProfileChange();
 		}
 
-		/// <summary>
-		///     Deletes the selected categories and updates the UI. Prompts user for confirmation.
-		/// </summary>
 		private void DeleteCategory()
 		{
 			List<Category> toDelete = new List<Category>();
@@ -1279,9 +1217,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Creates an Edit AutoCats dialog for the user
-		/// </summary>
 		private void EditAutoCats(AutoCat selected)
 		{
 			if (!ProfileLoaded)
@@ -1301,9 +1236,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Edits the first selected game. Displays game dialog.
-		/// </summary>
 		private void EditGame()
 		{
 			if (lstGames.SelectedObjects.Count > 0)
@@ -1321,10 +1253,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Prompts the user to modify the currently loaded profile. If there isn't one, asks if the user would like to create
-		///     one.
-		/// </summary>
 		private void EditProfile()
 		{
 			if (ProfileLoaded)
@@ -1371,9 +1299,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Attempts to export steam categories
-		/// </summary>
 		private void ExportConfig()
 		{
 			if (CurrentProfile != null)
@@ -1392,9 +1317,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Completely repopulates the category list and combobox. Maintains selection on both.
-		/// </summary>
 		private void FillAllCategoryLists()
 		{
 			Cursor = Cursors.WaitCursor;
@@ -1649,9 +1571,6 @@ namespace Depressurizer
 			lstCategories.EndUpdate();
 		}
 
-		/// <summary>
-		///     Completely re-populates the game list.
-		/// </summary>
 		private void FillGameList()
 		{
 			Cursor = Cursors.WaitCursor;
@@ -1792,9 +1711,6 @@ namespace Depressurizer
 			FlushStatus();
 		}
 
-		/// <summary>
-		///     Completely regenerates both the category and game lists
-		/// </summary>
 		private void FullListRefresh()
 		{
 			FillAllCategoryLists();
@@ -1930,9 +1846,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Attempts to import steam categories
-		/// </summary>
 		private void ImportConfig()
 		{
 			if (!ProfileLoaded)
@@ -2559,10 +2472,6 @@ namespace Depressurizer
 			contextAutoCat.Renderer = new MyRenderer();
 		}
 
-		/// <summary>
-		///     Launchs selected game
-		///     <param name="g">Game to launch</param>
-		/// </summary>
 		private void LaunchGame(GameInfo g)
 		{
 			if (g != null)
@@ -2572,9 +2481,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Prompts user for a profile file to load, then loads it.
-		/// </summary>
 		private void LoadProfile()
 		{
 			if (!CheckForUnsaved())
@@ -2595,11 +2501,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Loads the given profile file.
-		/// </summary>
-		/// <param name="path"></param>
-		/// <param name="checkForChanges"></param>
 		private void LoadProfile(string path, bool checkForChanges = true)
 		{
 			Cursor = Cursors.WaitCursor;
@@ -3118,20 +3019,12 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Sets the unsaved changes flag to the given value and takes the requisite UI updating action
-		/// </summary>
-		/// <param name="changes"></param>
 		private void MakeChange(bool changes)
 		{
 			_unsavedChanges = changes;
 			UpdateTitle();
 		}
 
-		/// <summary>
-		///     Saves a Steam configuration file. Asks the user to select the file to save as.
-		/// </summary>
-		/// <returns>True if save was completed, false otherwise</returns>
 		private void ManualExportConfig()
 		{
 			if (CurrentProfile == null)
@@ -3531,9 +3424,6 @@ namespace Depressurizer
 			lstCategories.Sort();
 		}
 
-		/// <summary>
-		///     Updates UI after a profile is created, loaded, modified or closed.
-		/// </summary>
 		private void OnProfileChange()
 		{
 			bool enable = ProfileLoaded;
@@ -3565,9 +3455,6 @@ namespace Depressurizer
 			FilterGamelist(false);
 		}
 
-		/// <summary>
-		///     Rebuild all the list view items in the gamelist, preserving as much state as is possible
-		/// </summary>
 		private void RebuildGamelist()
 		{
 			lstGames.BuildList();
@@ -3615,9 +3502,6 @@ namespace Depressurizer
 			Cursor.Current = Cursors.Default;
 		}
 
-		/// <summary>
-		///     Removes any categories with no games assigned.
-		/// </summary>
 		private void RemoveEmptyCats()
 		{
 			int count = CurrentProfile.GameData.RemoveEmptyCategories();
@@ -3625,9 +3509,6 @@ namespace Depressurizer
 			FillAllCategoryLists();
 		}
 
-		/// <summary>
-		///     Removes all selected games. Prompts for confirmation.
-		/// </summary>
 		private void RemoveGames()
 		{
 			int selectCount = lstGames.SelectedObjects.Count;
@@ -3673,11 +3554,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Renames the given category. Prompts user for a new name. Updates UI. Will display an error if the rename fails.
-		/// </summary>
-		/// <param name="c">Category to rename</param>
-		/// <returns>True if category was renamed, false otherwise.</returns>
 		private bool RenameCategory()
 		{
 			if (lstCategories.SelectedItems.Count > 0)
@@ -3873,12 +3749,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Saves profile data to a file and performs any related tasks. This is the main saving function, all saves go through
-		///     this function.
-		/// </summary>
-		/// <param name="path">Path to save to. If null, just saves profile to its current path.</param>
-		/// <returns>True if successful, false if there is a failure</returns>
 		private bool SaveProfile(string path = null)
 		{
 			if (!ProfileLoaded)
@@ -3919,9 +3789,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Prompts user for a file location and saves profile
-		/// </summary>
 		private void SaveProfileAs()
 		{
 			if (!ProfileLoaded)
@@ -4210,10 +4077,6 @@ namespace Depressurizer
 			return g.ContainsCategory(category);
 		}
 
-		/// <summary>
-		///     Unloads the current profile or game list, making sure the user gets the option to save any changes.
-		/// </summary>
-		/// <returns>True if there is now no loaded profile, false otherwise.</returns>
 		private void Unload()
 		{
 			if (!CheckForUnsaved())
@@ -4323,9 +4186,6 @@ namespace Depressurizer
 			mbtnCatRename.Enabled = (category != null) && !((CurrentProfile != null) && (category == CurrentProfile.GameData.FavoriteCategory));
 		}
 
-		/// <summary>
-		///     Updates enabled states for all game and category buttons
-		/// </summary>
 		private void UpdateEnabledStatesForGames()
 		{
 			bool gamesSelected = lstGames.SelectedObjects.Count > 0;
@@ -4377,9 +4237,6 @@ namespace Depressurizer
 			lstMultiCat.EndUpdate();
 		}
 
-		/// <summary>
-		///     Updates the game list for the loaded profile.
-		/// </summary>
 		private void UpdateLibrary()
 		{
 			if (CurrentProfile == null)
@@ -4466,18 +4323,12 @@ namespace Depressurizer
 			Cursor = Cursors.Default;
 		}
 
-		/// <summary>
-		///     Updates the text displaying the number of items in the game list
-		/// </summary>
 		private void UpdateSelectedStatusText()
 		{
 			mlblStatusSelection.Font = new Font("Arial", 9);
 			mlblStatusSelection.Text = string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_SelectedDisplayed, lstGames.SelectedObjects.Count, lstGames.GetItemCount());
 		}
 
-		/// <summary>
-		///     Updates the window title.
-		/// </summary>
 		private void UpdateTitle()
 		{
 			StringBuilder sb = new StringBuilder("Depressurizer");
@@ -4508,9 +4359,6 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Update UI to match current state of the SingleCatMode setting
-		/// </summary>
 		private void UpdateUiForSingleCat()
 		{
 			bool sCat = Settings.SingleCatMode;
@@ -4518,12 +4366,6 @@ namespace Depressurizer
 			UpdateTitle();
 		}
 
-		/// <summary>
-		///     Checks to see if a category name is valid. Does not make sure it isn't already in use. If the name is not valid,
-		///     displays a warning.
-		/// </summary>
-		/// <param name="name">Name to check</param>
-		/// <returns>True if valid, false otherwise</returns>
 		private bool ValidateCategoryName(string name)
 		{
 			if (string.IsNullOrEmpty(name))
