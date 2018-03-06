@@ -117,4 +117,202 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>370, 180</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ButtonNo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 0, 10, 5</value>
+  </data>
+  <data name="&gt;&gt;ButtonNo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="ButtonNo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 151</value>
+  </data>
+  <data name="&gt;&gt;ButtonNo.Name" xml:space="preserve">
+    <value>ButtonNo</value>
+  </data>
+  <data name="ButtonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;CheckSaveToSteam.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ButtonCancel.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="CheckSaveToSteam.Text" xml:space="preserve">
+    <value>Save changes to Steam? (Close Steam first!)</value>
+  </data>
+  <data name="MessageLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 73, 5, 5</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CheckSaveToSteam.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;MessageLabel.Name" xml:space="preserve">
+    <value>MessageLabel</value>
+  </data>
+  <data name="&gt;&gt;ButtonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="&gt;&gt;CheckSaveToSteam.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckBox, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MessageLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ButtonYes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 151</value>
+  </data>
+  <data name="&gt;&gt;ButtonYes.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="ButtonYes.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="MessageIcon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 74</value>
+  </data>
+  <data name="&gt;&gt;ButtonYes.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="ButtonYes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 0, 10, 5</value>
+  </data>
+  <data name="MessageLabel.Text" xml:space="preserve">
+    <value>Message ...</value>
+  </data>
+  <data name="&gt;&gt;ButtonNo.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="MessageLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 11pt</value>
+  </data>
+  <data name="MessageLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>56, 82</value>
+  </data>
+  <data name="ButtonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>250, 151</value>
+  </data>
+  <data name="&gt;&gt;MessageIcon.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ButtonYes.Text" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="CheckSaveToSteam.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="CheckSaveToSteam.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 116</value>
+  </data>
+  <data name="MessageLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>Depressurizer.Dialogs.DepressurizerForm, Depressurizer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MessageIcon.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="ButtonNo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;ButtonCancel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;MessageLabel.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="ButtonYes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="ButtonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 0, 10, 5</value>
+  </data>
+  <data name="ButtonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>370, 180</value>
+  </data>
+  <data name="ButtonNo.Text" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MessageIcon.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="MessageLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 19</value>
+  </data>
+  <data name="&gt;&gt;CheckSaveToSteam.Name" xml:space="preserve">
+    <value>CheckSaveToSteam</value>
+  </data>
+  <data name="CheckSaveToSteam.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;MessageIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ButtonCancel.Name" xml:space="preserve">
+    <value>ButtonCancel</value>
+  </data>
+  <data name="&gt;&gt;ButtonNo.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>CloseDialog</value>
+  </data>
+  <data name="ButtonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>CloseDialog</value>
+  </data>
+  <data name="MessageLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="CheckSaveToSteam.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;CheckSaveToSteam.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ButtonYes.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;MessageIcon.Name" xml:space="preserve">
+    <value>MessageIcon</value>
+  </data>
+  <data name="&gt;&gt;MessageLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>370, 180</value>
+  </data>
+  <data name="ButtonNo.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="MessageIcon.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 65, 5, 5</value>
+  </data>
+  <data name="MessageIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 32</value>
+  </data>
+  <data name="CheckSaveToSteam.Size" type="System.Drawing.Size, System.Drawing">
+    <value>304, 30</value>
+  </data>
+  <data name="&gt;&gt;ButtonYes.Name" xml:space="preserve">
+    <value>ButtonYes</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

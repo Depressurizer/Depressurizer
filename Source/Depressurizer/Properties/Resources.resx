@@ -144,6 +144,12 @@
   <data name="Error_DepressurizerUpdate" xml:space="preserve">
     <value>Error encountered while checking for Depressurizer updates:</value>
   </data>
+  <data name="HLTBDialog_Status" xml:space="preserve">
+    <value>Updating HowLongToBeat.com times...</value>
+  </data>
+  <data name="HLTBDialog_Title" xml:space="preserve">
+    <value>Updating HLTB times...</value>
+  </data>
   <data name="Message_DepressurizerUpdate" xml:space="preserve">
     <value>There is a new update available for Depressurizer. Do you want to visit the download page?</value>
   </data>
@@ -158,6 +164,12 @@
   </data>
   <data name="Scraping_Status" xml:space="preserve">
     <value>Scraping Apps: {0} / {1} Completed</value>
+  </data>
+  <data name="SteamPathDialog_Error_PathDoesntContain" xml:space="preserve">
+    <value>Selected path doesn't contain the Steam executable! Are you sure?</value>
+  </data>
+  <data name="SteamPathDialog_Error_PathDoesntExist" xml:space="preserve">
+    <value>Selected path doesn't exist! Are you sure?</value>
   </data>
   <data name="Time_Left" xml:space="preserve">
     <value>Time left</value>

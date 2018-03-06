@@ -118,118 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="&gt;&gt;ButtonCancel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;LabelText.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;ButtonCancel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="ButtonStop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>176, 136</value>
-  </data>
-  <data name="&gt;&gt;ButtonStop.Name" xml:space="preserve">
-    <value>ButtonStop</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Depressurizer.Dialogs.DepressurizerForm, Depressurizer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ButtonStop.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>CancelableDialog</value>
-  </data>
-  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>350, 175</value>
-  </data>
-  <data name="LabelText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 38</value>
-  </data>
-  <data name="ButtonCancel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ButtonStop.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ButtonStop.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ButtonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LabelText.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 70, 5, 5</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>350, 175</value>
-  </data>
-  <data name="&gt;&gt;ButtonStop.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="LabelText.Text" xml:space="preserve">
-    <value>Starting ..
-Time left: ...</value>
-  </data>
-  <data name="ButtonStop.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="LabelText.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="LabelText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 81</value>
-  </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>350, 175</value>
-  </data>
-  <data name="ButtonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="ButtonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>261, 136</value>
+    <value>146, 136</value>
   </data>
   <data name="ButtonStop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+    <value>90, 25</value>
   </data>
-  <data name="&gt;&gt;LabelText.Name" xml:space="preserve">
-    <value>LabelText</value>
+  <data name="ButtonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>246, 136</value>
+  </data>
+  <data name="ButtonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 25</value>
   </data>
   <data name="ButtonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="ButtonStop.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="&gt;&gt;LabelText.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ButtonCancel.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialRaisedButton, MaterialSkin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Annuleren</value>
   </data>
   <data name="LabelText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 11pt</value>
+    <value>Roboto, 11pt</value>
   </data>
-  <data name="&gt;&gt;ButtonCancel.Name" xml:space="preserve">
-    <value>ButtonCancel</value>
-  </data>
-  <data name="LabelText.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;LabelText.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>CancelableDialog</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

@@ -21,27 +21,27 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-using DepressurizerCore.Helpers;
+using Depressurizer.Properties;
 using Microsoft.Win32;
 
 namespace Depressurizer.Dialogs
 {
-	public partial class SteamPathDialog : DepressurizerDialog
+	public partial class SteamPathDialog : DepressurizerForm
 	{
 		#region Constructors and Destructors
 
-		public SteamPathDialog() : base("Steam Path")
+		public SteamPathDialog()
 		{
 			InitializeComponent();
 
-			SelectedPath.Text = GetSteamFolder();
+			SelectedSteamPath.Text = GetSteamFolder();
 		}
 
 		#endregion
 
 		#region Public Properties
 
-		public string Path => SelectedPath.Text;
+		public string Path => SelectedSteamPath.Text;
 
 		#endregion
 
@@ -66,9 +66,9 @@ namespace Depressurizer.Dialogs
 					}
 				}
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
-				SentryLogger.Log(e);
+				// ignored
 			}
 
 			return string.Empty;
@@ -78,10 +78,13 @@ namespace Depressurizer.Dialogs
 		{
 			using (FolderBrowserDialog dialog = new FolderBrowserDialog())
 			{
+				dialog.ShowNewFolderButton = false;
+				dialog.SelectedPath = Path;
+
 				DialogResult result = dialog.ShowDialog();
 				if (result == DialogResult.OK)
 				{
-					SelectedPath.Text = dialog.SelectedPath;
+					SelectedSteamPath.Text = dialog.SelectedPath;
 				}
 			}
 		}
@@ -90,7 +93,7 @@ namespace Depressurizer.Dialogs
 		{
 			if (!Directory.Exists(Path))
 			{
-				DialogResult result = MessageBox.Show("Selected path doesn't exist! Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+				DialogResult result = MessageBox.Show(Resources.SteamPathDialog_Error_PathDoesntExist, Resources.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 				if (result == DialogResult.No)
 				{
 					return;
@@ -99,7 +102,7 @@ namespace Depressurizer.Dialogs
 
 			if (!File.Exists(System.IO.Path.Combine(Path, "Steam.exe")))
 			{
-				DialogResult result = MessageBox.Show("Selected path doesn't contain the steam executable! Are you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+				DialogResult result = MessageBox.Show(Resources.SteamPathDialog_Error_PathDoesntContain, Resources.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 				if (result == DialogResult.No)
 				{
 					return;

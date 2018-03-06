@@ -597,8 +597,8 @@ namespace Depressurizer
 						}
 						else
 						{
-							AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.JobsCompleted));
-							if (dialog.JobsCompleted > 0)
+							AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.TotalJobs));
+							if (dialog.TotalJobs > 0)
 							{
 								SaveDatabase();
 							}

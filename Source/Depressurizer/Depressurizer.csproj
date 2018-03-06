@@ -213,11 +213,6 @@
     <Compile Include="AutoCat\CDlgCurator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameList.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Models\CategorySort.cs" />
-    <Compile Include="Models\CommaClusterStrategy.cs" />
-    <Compile Include="Database.cs" />
     <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,19 +225,13 @@
     <Compile Include="Dialogs\CloseDialog.Designer.cs">
       <DependentUpon>CloseDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DepressurizerDialog.cs">
+    <Compile Include="Dialogs\DepressurizerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DepressurizerDialog.Designer.cs">
-      <DependentUpon>DepressurizerDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\FetchDialog.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Dialogs\DepressurizerForm.Designer.cs">
+      <DependentUpon>DepressurizerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\HLTBDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ScrapeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\SteamPathDialog.cs">
@@ -250,6 +239,17 @@
     </Compile>
     <Compile Include="Dialogs\SteamPathDialog.Designer.cs">
       <DependentUpon>SteamPathDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameList.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\CategorySort.cs" />
+    <Compile Include="Models\CommaClusterStrategy.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="Dialogs\FetchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ScrapeDialog.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="DlgAutoCatSelect.cs">
       <SubType>Form</SubType>
@@ -435,14 +435,23 @@
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.uk.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CancelableDialog.nl.resx">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CancelableDialog.resx">
       <DependentUpon>CancelableDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CloseDialog.nl.resx">
+      <DependentUpon>CloseDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\CloseDialog.resx">
       <DependentUpon>CloseDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DepressurizerDialog.resx">
-      <DependentUpon>DepressurizerDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\DepressurizerForm.resx">
+      <DependentUpon>DepressurizerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SteamPathDialog.nl.resx">
+      <DependentUpon>SteamPathDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SteamPathDialog.resx">
       <DependentUpon>SteamPathDialog.cs</DependentUpon>

@@ -19,44 +19,37 @@
 #endregion
 
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Depressurizer.Dialogs
 {
-	public partial class CancelableDialog : DepressurizerDialog
+	public partial class CancelableDialog : DepressurizerForm
 	{
-		#region Static Fields
-
-		protected static object SyncRoot = new object();
-
-		#endregion
-
 		#region Fields
 
-		protected int CompletedJobs = 0;
-
-		protected int TotalJobs = 1;
-
+		private bool _canceled;
 		private bool _stopped;
 
 		#endregion
 
 		#region Constructors and Destructors
 
-		public CancelableDialog(string title, bool stopButton) : base(title)
+		public CancelableDialog(string formTitle, bool showStopButton)
 		{
 			InitializeComponent();
 
-			Canceled = false;
-			ButtonStop.Enabled = ButtonStop.Visible = stopButton;
+			Text = string.Format(CultureInfo.InvariantCulture, "Depressurizer - {0}", formTitle);
+
+			ButtonStop.Enabled = ButtonStop.Visible = showStopButton;
 		}
 
 		#endregion
 
 		#region Delegates
 
-		private delegate void SetTextDelegate(string s);
+		private delegate void SetTextDelegate(string text);
 
 		private delegate void SimpleDelegate();
 
@@ -64,17 +57,42 @@ namespace Depressurizer.Dialogs
 
 		#region Public Properties
 
+		public int CompletedJobs { get; protected set; }
+
 		public Exception Error { get; protected set; }
 
-		public int JobsCompleted => CompletedJobs;
+		public sealed override string Text
+		{
+			get => base.Text;
+			set => base.Text = value;
+		}
 
-		public int JobsTotal => TotalJobs;
+		public int TotalJobs { get; protected set; }
 
 		#endregion
 
 		#region Properties
 
-		protected bool Canceled { get; private set; }
+		protected static object SyncRoot => new object();
+
+		protected bool Canceled
+		{
+			get
+			{
+				lock (SyncRoot)
+				{
+					return _canceled;
+				}
+			}
+
+			set
+			{
+				lock (SyncRoot)
+				{
+					_canceled = value;
+				}
+			}
+		}
 
 		protected bool Stopped
 		{
@@ -85,6 +103,7 @@ namespace Depressurizer.Dialogs
 					return _stopped;
 				}
 			}
+
 			set
 			{
 				lock (SyncRoot)
@@ -100,10 +119,14 @@ namespace Depressurizer.Dialogs
 
 		protected virtual void CancelableDialog_Load(object sender, EventArgs e)
 		{
-			// TODO: Error
-			Task.Run(() => OnStart());
-
-			UpdateText();
+			try
+			{
+				Task.Run(() => OnStart());
+			}
+			catch (Exception exception)
+			{
+				Error = exception;
+			}
 		}
 
 		protected new void Close()
@@ -152,7 +175,7 @@ namespace Depressurizer.Dialogs
 			}
 			else
 			{
-				lblText.Text = text;
+				LabelText.Text = text;
 			}
 		}
 
@@ -160,18 +183,22 @@ namespace Depressurizer.Dialogs
 
 		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
-			Stopped = true;
-			Canceled = true;
+			lock (SyncRoot)
+			{
+				_stopped = true;
+				_canceled = true;
+			}
 
-			DisableButtons();
 			Close();
 		}
 
 		private void ButtonStop_Click(object sender, EventArgs e)
 		{
-			Stopped = true;
+			lock (SyncRoot)
+			{
+				_stopped = true;
+			}
 
-			DisableButtons();
 			Close();
 		}
 
@@ -179,7 +206,7 @@ namespace Depressurizer.Dialogs
 		{
 			lock (SyncRoot)
 			{
-				Stopped = true;
+				_stopped = true;
 			}
 
 			DisableButtons();

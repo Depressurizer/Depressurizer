@@ -669,14 +669,14 @@ namespace Depressurizer
 					}
 					else if (result == DialogResult.Abort)
 					{
-						AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dialog.JobsCompleted, dialog.JobsTotal));
+						AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dialog.CompletedJobs, dialog.TotalJobs));
 					}
 					else
 					{
-						AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dialog.JobsCompleted));
+						AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dialog.CompletedJobs));
 					}
 
-					if (dialog.JobsCompleted > 0)
+					if (dialog.CompletedJobs > 0)
 					{
 						UnsavedChanges = true;
 						RebuildDisplayList();
