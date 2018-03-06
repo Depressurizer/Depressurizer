@@ -195,6 +195,11 @@ namespace Depressurizer
 
 		#region Methods
 
+		/// <summary>
+		/// Provides the display text for a category entry in the left hand pane.
+		/// </summary>
+		/// <param name="category">Category to get the display text of</param>
+		/// <returns></returns>
 		private static string CategoryListViewItemText(Category category)
 		{
 			return string.Format(CultureInfo.InvariantCulture, "{0} ({1})", category.Name, category.Count);
@@ -364,6 +369,11 @@ namespace Depressurizer
 			}
 		}
 
+		/// <summary>
+		/// Ensures the context menu contains an entry to remove any category the given game is assigned to.
+		/// <para/>
+		/// Inserted entries will be placed at the end.
+		/// </summary>
 		private void AddRemoveCategoryContextMenu(GameInfo game)
 		{
 			foreach (Category c in game.Categories)
@@ -372,6 +382,12 @@ namespace Depressurizer
 			}
 		}
 
+        /// <summary>
+        /// Append an entry to the end of the context menu to remove the given category from the selected games.
+        /// <para/>
+        /// No-op if there is already a button for the category.
+        /// </summary>
+        /// <param name="c">Category to add item for</param>
 		private void AddRemoveCategoryContextMenu(Category c)
 		{
 			if (!contextGameRemCat.Items.ContainsKey(c.Name))
@@ -3379,6 +3395,19 @@ namespace Depressurizer
 			FilterGamelist(false);
 		}
 
+		/// <summary>
+		/// Removes the category from the selected games and updates the UI in place.
+		/// <para/>
+		/// In particular,
+		/// it repaints the changed games,
+		/// it updates the category count in the left-hand pane,
+		/// sets checks the category in the category checkbox list at the bottom,
+		/// and it inserts the "remove category" context menu and sorts said menu.
+		/// <para/>
+		/// The games will remain in the currently displayed list. Selection is preserved.
+		///
+		/// </summary>
+		/// <param name="category">Category to add to the selected games.</param>
 		private void QuickAddCategoryToSelectedGames(Category category)
 		{
 			if (lstGames.SelectedObjects.Count <= 0)
@@ -3412,6 +3441,19 @@ namespace Depressurizer
 			Cursor.Current = Cursors.Default;
 		}
 
+		/// <summary>
+		/// Removes the category from the selected games and updates the UI in place.
+		/// <para/>
+		/// In particular,
+		/// it repaints the changed games,
+		/// it updates the category count in the left-hand pane,
+		/// sets checks the category in the category checkbox list at the bottom,
+		/// and it inserts the "remove category" context menu and sorts said menu.
+		/// <para/>
+		/// The games will remain in the currently displayed list. Selection is preserved.
+		///
+		/// </summary>
+		/// <param name="category">Category to remove from the selected games.</param>
 		private void QuickRemoveCategoryFromSelectedGames(Category category)
 		{
 			if (lstGames.SelectedObjects.Count <= 0)
@@ -4099,6 +4141,10 @@ namespace Depressurizer
 			}
 		}
 
+		/// <summary>
+		/// Updates the category's count in-place in the left-hand pane.
+		/// </summary>
+		/// <param name="category">Category to update in left-hand pane</param>
 		private void UpdateCategoryCountInCategoryList(Category category)
 		{
 			foreach (ListViewItem item in lstCategories.Items)
