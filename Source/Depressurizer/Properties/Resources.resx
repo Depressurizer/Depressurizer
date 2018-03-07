@@ -121,25 +121,25 @@
     <value>Applying Data</value>
   </data>
   <data name="Category_All" xml:space="preserve">
-    <value>All</value>
+    <value>&lt;All&gt;</value>
   </data>
   <data name="Category_Favorite" xml:space="preserve">
-    <value>Favorite</value>
+    <value>&lt;Favorite&gt;</value>
   </data>
   <data name="Category_Games" xml:space="preserve">
-    <value>Games</value>
+    <value>&lt;Games&gt;</value>
   </data>
   <data name="Category_Hidden" xml:space="preserve">
-    <value>Hidden</value>
+    <value>&lt;Hidden&gt;</value>
   </data>
   <data name="Category_Software" xml:space="preserve">
-    <value>Software</value>
+    <value>&lt;Software&gt;</value>
   </data>
   <data name="Category_Uncategorized" xml:space="preserve">
-    <value>Uncategorized</value>
+    <value>&lt;Uncategorized&gt;</value>
   </data>
   <data name="Category_VR" xml:space="preserve">
-    <value>VR</value>
+    <value>&lt;VR&gt;</value>
   </data>
   <data name="Error_DepressurizerUpdate" xml:space="preserve">
     <value>Error encountered while checking for Depressurizer updates:</value>

@@ -70,7 +70,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All.
+        ///   Looks up a localized string similar to &lt;All&gt;.
         /// </summary>
         internal static string Category_All {
             get {
@@ -79,7 +79,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Favorite.
+        ///   Looks up a localized string similar to &lt;Favorite&gt;.
         /// </summary>
         internal static string Category_Favorite {
             get {
@@ -88,7 +88,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Games.
+        ///   Looks up a localized string similar to &lt;Games&gt;.
         /// </summary>
         internal static string Category_Games {
             get {
@@ -97,7 +97,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hidden.
+        ///   Looks up a localized string similar to &lt;Hidden&gt;.
         /// </summary>
         internal static string Category_Hidden {
             get {
@@ -106,7 +106,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Software.
+        ///   Looks up a localized string similar to &lt;Software&gt;.
         /// </summary>
         internal static string Category_Software {
             get {
@@ -115,7 +115,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uncategorized.
+        ///   Looks up a localized string similar to &lt;Uncategorized&gt;.
         /// </summary>
         internal static string Category_Uncategorized {
             get {
@@ -124,7 +124,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VR.
+        ///   Looks up a localized string similar to &lt;VR&gt;.
         /// </summary>
         internal static string Category_VR {
             get {

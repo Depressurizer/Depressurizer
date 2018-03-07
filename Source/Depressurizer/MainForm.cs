@@ -196,13 +196,24 @@ namespace Depressurizer
 		#region Methods
 
 		/// <summary>
-		/// Provides the display text for a category entry in the left hand pane.
+		///     Creates the  text for a Category entry.
 		/// </summary>
 		/// <param name="category">Category to get the display text of</param>
-		/// <returns></returns>
+		/// <returns>Display text for the provided Category information</returns>
 		private static string CategoryListViewItemText(Category category)
 		{
-			return string.Format(CultureInfo.InvariantCulture, "{0} ({1})", category.Name, category.Count);
+			return CategoryListViewItemText(category.Name, category.Count);
+		}
+
+		/// <summary>
+		///     Creates the  text for a Category entry.
+		/// </summary>
+		/// <param name="categoryName">Name of the Category</param>
+		/// <param name="categoryCount">Count of the Category</param>
+		/// <returns>Display text for the provided Category information</returns>
+		private static string CategoryListViewItemText(string categoryName, int categoryCount)
+		{
+			return string.Format(CultureInfo.InvariantCulture, "{0} ({1})", categoryName, categoryCount);
 		}
 
 		private static void CheckForDepressurizerUpdates()
@@ -299,7 +310,7 @@ namespace Depressurizer
 				FilterGamelist(false);
 			}
 
-			if (lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized))
+			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_Uncategorized)
 			{
 				FilterGamelist(false);
 			}
@@ -370,33 +381,45 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		/// Ensures the context menu contains an entry to remove any category the given game is assigned to.
-		/// <para/>
-		/// Inserted entries will be placed at the end.
+		///     Ensures the context menu contains an entry to remove any category the given game is assigned to.
+		///     <para />
+		///     Inserted entries will be placed at the end.
 		/// </summary>
 		private void AddRemoveCategoryContextMenu(GameInfo game)
 		{
-			foreach (Category c in game.Categories)
+			if ((game == null) || (game.Categories == null))
 			{
-				AddRemoveCategoryContextMenu(c);
+				return;
+			}
+
+			foreach (Category category in game.Categories)
+			{
+				AddRemoveCategoryContextMenu(category);
 			}
 		}
 
-        /// <summary>
-        /// Append an entry to the end of the context menu to remove the given category from the selected games.
-        /// <para/>
-        /// No-op if there is already a button for the category.
-        /// </summary>
-        /// <param name="c">Category to add item for</param>
-		private void AddRemoveCategoryContextMenu(Category c)
+		/// <summary>
+		///     Append an entry to the end of the context menu to remove the given category from the selected games.
+		///     <para />
+		///     No-op if there is already a button for the category.
+		/// </summary>
+		/// <param name="category">Category to add item for</param>
+		private void AddRemoveCategoryContextMenu(Category category)
 		{
-			if (!contextGameRemCat.Items.ContainsKey(c.Name))
+			if (category == null)
 			{
-				ToolStripItem item = contextGameRemCat.Items.Add(c.Name);
-				item.Tag = c;
-				item.Name = c.Name;
-				item.Click += contextGameRemCat_Category_Click;
+				return;
 			}
+
+			if (contextGameRemCat.Items.ContainsKey(category.Name))
+			{
+				return;
+			}
+
+			ToolStripItem item = contextGameRemCat.Items.Add(category.Name);
+			item.Tag = category;
+			item.Name = category.Name;
+			item.Click += contextGameRemCat_Category_Click;
 		}
 
 		private void ApplyFilter(Filter f)
@@ -412,27 +435,27 @@ namespace Depressurizer
 			// load new Advanced settings
 			foreach (ListViewItem i in lstCategories.Items)
 			{
-				if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Games))
+				if (i.Tag.ToString() == Resources.Category_Games)
 				{
 					i.StateImageIndex = f.Game;
 					_advFilter.Game = f.Game;
 				}
-				else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Software))
+				else if (i.Tag.ToString() == Resources.Category_Software)
 				{
 					i.StateImageIndex = f.Software;
 					_advFilter.Software = f.Software;
 				}
-				else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized))
+				else if (i.Tag.ToString() == Resources.Category_Uncategorized)
 				{
 					i.StateImageIndex = f.Uncategorized;
 					_advFilter.Uncategorized = f.Uncategorized;
 				}
-				else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Hidden))
+				else if (i.Tag.ToString() == Resources.Category_Hidden)
 				{
 					i.StateImageIndex = f.Hidden;
 					_advFilter.Hidden = f.Hidden;
 				}
-				else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_VR))
+				else if (i.Tag.ToString() == Resources.Category_VR)
 				{
 					i.StateImageIndex = f.VR;
 					_advFilter.VR = f.VR;
@@ -1424,56 +1447,56 @@ namespace Depressurizer
 			if (!AdvancedCategoryFilter)
 			{
 				// <All>
-				listViewItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "<{0}> ({1})", Resources.Category_All, games + software))
+				listViewItem = new ListViewItem(CategoryListViewItemText(Resources.Category_All, games + software))
 				{
-					Tag = string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_All),
-					Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_All)
+					Tag = Resources.Category_All,
+					Name = Resources.Category_All
 				};
 
 				lstCategories.Items.Add(listViewItem);
 			}
 
 			// <Games>
-			listViewItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "<{0}> ({1})", Resources.Category_Games, games))
+			listViewItem = new ListViewItem(CategoryListViewItemText(Resources.Category_Games, games))
 			{
-				Tag = string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Games),
-				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Games)
+				Tag = Resources.Category_Games,
+				Name = Resources.Category_Games
 			};
 
 			lstCategories.Items.Add(listViewItem);
 
 			// <Software>
-			listViewItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "<{0}> ({1})", Resources.Category_Software, software))
+			listViewItem = new ListViewItem(CategoryListViewItemText(Resources.Category_Software, software))
 			{
-				Tag = string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Software),
-				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Software)
+				Tag = Resources.Category_Software,
+				Name = Resources.Category_Software
 			};
 
 			lstCategories.Items.Add(listViewItem);
 
 			// <Uncategorized>
-			listViewItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "<{0}> ({1})", Resources.Category_Uncategorized, uncategorized))
+			listViewItem = new ListViewItem(CategoryListViewItemText(Resources.Category_Uncategorized, uncategorized))
 			{
-				Tag = string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized),
-				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Uncategorized)
+				Tag = Resources.Category_Uncategorized,
+				Name = Resources.Category_Uncategorized
 			};
 
 			lstCategories.Items.Add(listViewItem);
 
 			// <Hidden>
-			listViewItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "<{0}> ({1})", Resources.Category_Hidden, hidden))
+			listViewItem = new ListViewItem(CategoryListViewItemText(Resources.Category_Hidden, hidden))
 			{
-				Tag = string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Hidden),
-				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_Hidden)
+				Tag = Resources.Category_Hidden,
+				Name = Resources.Category_Hidden
 			};
 
 			lstCategories.Items.Add(listViewItem);
 
 			// <VR>
-			listViewItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "<{0}> ({1})", Resources.Category_VR, vr))
+			listViewItem = new ListViewItem(CategoryListViewItemText(Resources.Category_VR, vr))
 			{
-				Tag = string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_VR),
-				Name = string.Format(CultureInfo.CurrentUICulture, "<{0}>", Resources.Category_VR)
+				Tag = Resources.Category_VR,
+				Name = Resources.Category_VR
 			};
 
 			lstCategories.Items.Add(listViewItem);
@@ -1681,23 +1704,23 @@ namespace Depressurizer
 				i.StateImageIndex += reverse ? -1 : 1;
 			}
 
-			if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Games))
+			if (i.Tag.ToString() == Resources.Category_Games)
 			{
 				_advFilter.Game = i.StateImageIndex;
 			}
-			else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Software))
+			else if (i.Tag.ToString() == Resources.Category_Software)
 			{
 				_advFilter.Software = i.StateImageIndex;
 			}
-			else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized))
+			else if (i.Tag.ToString() == Resources.Category_Uncategorized)
 			{
 				_advFilter.Uncategorized = i.StateImageIndex;
 			}
-			else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Hidden))
+			else if (i.Tag.ToString() == Resources.Category_Hidden)
 			{
 				_advFilter.Hidden = i.StateImageIndex;
 			}
-			else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_VR))
+			else if (i.Tag.ToString() == Resources.Category_VR)
 			{
 				_advFilter.VR = i.StateImageIndex;
 			}
@@ -1848,7 +1871,7 @@ namespace Depressurizer
 					return string.Empty;
 				}
 
-				return ((GameInfo) g).GetCatString(string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized));
+				return ((GameInfo) g).GetCatString(Resources.Category_Uncategorized);
 			};
 
 			colFavorite.AspectGetter = delegate(object g)
@@ -2524,14 +2547,14 @@ namespace Depressurizer
 					FilterGamelist(false);
 					MakeChange(true);
 				}
-				else if ((string) dropItem.Tag == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized))
+				else if ((string) dropItem.Tag == Resources.Category_Uncategorized)
 				{
 					CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
 					FillCategoryList();
 					FilterGamelist(false);
 					MakeChange(true);
 				}
-				else if ((string) dropItem.Tag == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Hidden))
+				else if ((string) dropItem.Tag == Resources.Category_Hidden)
 				{
 					CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
 					FillCategoryList();
@@ -3396,16 +3419,15 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		/// Removes the category from the selected games and updates the UI in place.
-		/// <para/>
-		/// In particular,
-		/// it repaints the changed games,
-		/// it updates the category count in the left-hand pane,
-		/// sets checks the category in the category checkbox list at the bottom,
-		/// and it inserts the "remove category" context menu and sorts said menu.
-		/// <para/>
-		/// The games will remain in the currently displayed list. Selection is preserved.
-		///
+		///     Removes the category from the selected games and updates the UI in place.
+		///     <para />
+		///     In particular,
+		///     it repaints the changed games,
+		///     it updates the category count in the left-hand pane,
+		///     sets checks the category in the category checkbox list at the bottom,
+		///     and it inserts the "remove category" context menu and sorts said menu.
+		///     <para />
+		///     The games will remain in the currently displayed list. Selection is preserved.
 		/// </summary>
 		/// <param name="category">Category to add to the selected games.</param>
 		private void QuickAddCategoryToSelectedGames(Category category)
@@ -3442,16 +3464,15 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		/// Removes the category from the selected games and updates the UI in place.
-		/// <para/>
-		/// In particular,
-		/// it repaints the changed games,
-		/// it updates the category count in the left-hand pane,
-		/// sets checks the category in the category checkbox list at the bottom,
-		/// and it inserts the "remove category" context menu and sorts said menu.
-		/// <para/>
-		/// The games will remain in the currently displayed list. Selection is preserved.
-		///
+		///     Removes the category from the selected games and updates the UI in place.
+		///     <para />
+		///     In particular,
+		///     it repaints the changed games,
+		///     it updates the category count in the left-hand pane,
+		///     sets checks the category in the category checkbox list at the bottom,
+		///     and it inserts the "remove category" context menu and sorts said menu.
+		///     <para />
+		///     The games will remain in the currently displayed list. Selection is preserved.
 		/// </summary>
 		/// <param name="category">Category to remove from the selected games.</param>
 		private void QuickRemoveCategoryFromSelectedGames(Category category)
@@ -3500,36 +3521,6 @@ namespace Depressurizer
 				cboFilter.DisplayMember = "Name";
 				cboFilter.Text = "";
 			}
-		}
-
-		private void RemoveCategoryFromSelectedGames(Category category)
-		{
-			if (lstGames.SelectedObjects.Count <= 0)
-			{
-				return;
-			}
-
-			Cursor.Current = Cursors.WaitCursor;
-
-			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
-			{
-				gameInfo.RemoveCategory(category);
-			}
-
-			FillAllCategoryLists();
-
-			if (lstCategories.SelectedItems[0].Tag is Category selectedCategory && (selectedCategory == category))
-			{
-				FilterGamelist(false);
-			}
-			else
-			{
-				FilterGamelist(true);
-			}
-
-			MakeChange(true);
-
-			Cursor.Current = Cursors.Default;
 		}
 
 		private void RemoveEmptyCats()
@@ -3967,23 +3958,23 @@ namespace Depressurizer
 		{
 			i.StateImageIndex = state;
 
-			if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Games))
+			if (i.Tag.ToString() == Resources.Category_Games)
 			{
 				_advFilter.Game = state;
 			}
-			else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Software))
+			else if (i.Tag.ToString() == Resources.Category_Software)
 			{
 				_advFilter.Software = state;
 			}
-			else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized))
+			else if (i.Tag.ToString() == Resources.Category_Uncategorized)
 			{
 				_advFilter.Uncategorized = state;
 			}
-			else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Hidden))
+			else if (i.Tag.ToString() == Resources.Category_Hidden)
 			{
 				_advFilter.Hidden = state;
 			}
-			else if (i.Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_VR))
+			else if (i.Tag.ToString() == Resources.Category_VR)
 			{
 				_advFilter.VR = state;
 			}
@@ -4060,35 +4051,35 @@ namespace Depressurizer
 
 			if (g.Hidden)
 			{
-				return lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Hidden);
+				return lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_Hidden;
 			}
 
 			// <All>
-			if (lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_All))
+			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_All)
 			{
 				return true;
 			}
 
 			// <Games>
-			if (lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Games))
+			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_Games)
 			{
 				return Database.Games.ContainsKey(g.Id) && (Database.Games.First(a => a.Key == g.Id).Value.AppType == AppType.Game);
 			}
 
 			// <Software>
-			if (lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Software))
+			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_Software)
 			{
 				return Database.Games.ContainsKey(g.Id) && (Database.Games.First(a => a.Key == g.Id).Value.AppType == AppType.Application);
 			}
 
 			// <Uncategorized>
-			if (lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Uncategorized))
+			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_Uncategorized)
 			{
 				return g.Categories.Count == 0;
 			}
 
 			// <VR>
-			if (lstCategories.SelectedItems[0].Tag.ToString() == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_VR))
+			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_VR)
 			{
 				return Database.SupportsVR(g.Id);
 			}
@@ -4099,7 +4090,7 @@ namespace Depressurizer
 			}
 
 			// <Favorite>
-			if (category.Name == string.Format(CultureInfo.CurrentCulture, "<{0}>", Resources.Category_Favorite))
+			if (category.Name == Resources.Category_Favorite)
 			{
 				return g.IsFavorite();
 			}
@@ -4142,16 +4133,21 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		/// Updates the category's count in-place in the left-hand pane.
+		///     Updates the category's count in-place in the left-hand pane.
 		/// </summary>
 		/// <param name="category">Category to update in left-hand pane</param>
 		private void UpdateCategoryCountInCategoryList(Category category)
 		{
-			foreach (ListViewItem item in lstCategories.Items)
+			if (category == null)
 			{
-				if (ReferenceEquals(item.Tag, category))
+				return;
+			}
+
+			foreach (ListViewItem listViewItem in lstCategories.Items)
+			{
+				if (ReferenceEquals(listViewItem.Tag, category))
 				{
-					item.Text = CategoryListViewItemText(category);
+					listViewItem.Text = CategoryListViewItemText(category);
 				}
 			}
 		}
