@@ -19,6 +19,7 @@
 #endregion
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Depressurizer.Properties;
@@ -34,6 +35,7 @@ namespace Depressurizer.Dialogs
 		{
 			InitializeComponent();
 
+			Text = string.Format(CultureInfo.InvariantCulture, "Depressurizer - Steam Path");
 			SelectedSteamPath.Text = GetSteamFolder();
 		}
 
@@ -42,6 +44,12 @@ namespace Depressurizer.Dialogs
 		#region Public Properties
 
 		public string Path => SelectedSteamPath.Text;
+
+		public sealed override string Text
+		{
+			get => base.Text;
+			set => base.Text = value;
+		}
 
 		#endregion
 
