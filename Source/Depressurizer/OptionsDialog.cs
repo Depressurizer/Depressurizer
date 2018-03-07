@@ -29,13 +29,25 @@ using DepressurizerCore.Helpers;
 
 namespace Depressurizer
 {
-	public partial class OptionsDialog : DepressurizerDialog
+	public partial class OptionsDialog : DepressurizerForm
 	{
 		#region Constructors and Destructors
 
-		public OptionsDialog() : base(Resources.Options)
+		public OptionsDialog()
 		{
 			InitializeComponent();
+
+			Text = string.Format("Depressurizer - {0}", Resources.Options);
+		}
+
+		#endregion
+
+		#region Public Properties
+
+		public sealed override string Text
+		{
+			get => base.Text;
+			set => base.Text = value;
 		}
 
 		#endregion

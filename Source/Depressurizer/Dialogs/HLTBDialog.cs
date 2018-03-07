@@ -18,17 +18,18 @@
 
 #endregion
 
+using Depressurizer.Properties;
 using DepressurizerCore;
 
 namespace Depressurizer.Dialogs
 {
-	internal sealed class HLTBDialog : CancelableDialog
+	public sealed class HLTBDialog : CancelableDialog
 	{
 		#region Constructors and Destructors
 
-		public HLTBDialog() : base("Updating HLTB times ...", false)
+		public HLTBDialog() : base(Resources.HLTBDialog_Title, false)
 		{
-			SetText("Updating HowLongToBeat.com times ...");
+			SetText(Resources.HLTBDialog_Status);
 			Updated = 0;
 		}
 
@@ -44,10 +45,17 @@ namespace Depressurizer.Dialogs
 
 		protected override void OnFinish()
 		{
-			if (!Canceled && (Error == null))
+			if (Canceled)
 			{
-				OnJobCompletion();
+				return;
 			}
+
+			if (Error != null)
+			{
+				return;
+			}
+
+			OnJobCompletion();
 		}
 
 		protected override void OnStart()

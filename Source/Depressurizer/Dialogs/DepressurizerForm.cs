@@ -1,6 +1,6 @@
 ﻿#region LICENSE
 
-//     This file (DepressurizerDialog.cs) is part of Depressurizer.
+//     This file (DepressurizerForm.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -18,25 +18,36 @@
 
 #endregion
 
-using System.Globalization;
-using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace Depressurizer.Dialogs
 {
-	public partial class DepressurizerDialog : Form
+	public partial class DepressurizerForm : MaterialForm
 	{
 		#region Constructors and Destructors
 
-		public DepressurizerDialog()
+		public DepressurizerForm()
 		{
 			InitializeComponent();
+			InitializeMaterialSkin();
 		}
 
-		public DepressurizerDialog(string dialogTitle)
-		{
-			InitializeComponent();
+		#endregion
 
-			TitleLabel.Text = string.Format(CultureInfo.InvariantCulture, "Depressurizer - {0}", dialogTitle);
+		#region Properties
+
+		private static MaterialSkinManager MaterialSkinManager => MaterialSkinManager.Instance;
+
+		#endregion
+
+		#region Methods
+
+		private void InitializeMaterialSkin()
+		{
+			MaterialSkinManager.AddFormToManage(this);
+			MaterialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+			MaterialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
 		}
 
 		#endregion

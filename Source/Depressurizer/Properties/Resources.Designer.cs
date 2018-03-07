@@ -142,6 +142,24 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updating HowLongToBeat.com times....
+        /// </summary>
+        internal static string HLTBDialog_Status {
+            get {
+                return ResourceManager.GetString("HLTBDialog_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating HLTB times....
+        /// </summary>
+        internal static string HLTBDialog_Title {
+            get {
+                return ResourceManager.GetString("HLTBDialog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is a new update available for Depressurizer. Do you want to visit the download page?.
         /// </summary>
         internal static string Message_DepressurizerUpdate {
@@ -183,6 +201,24 @@ namespace Depressurizer.Properties {
         internal static string Scraping_Status {
             get {
                 return ResourceManager.GetString("Scraping_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected path doesn&apos;t contain the Steam executable! Are you sure?.
+        /// </summary>
+        internal static string SteamPathDialog_Error_PathDoesntContain {
+            get {
+                return ResourceManager.GetString("SteamPathDialog_Error_PathDoesntContain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected path doesn&apos;t exist! Are you sure?.
+        /// </summary>
+        internal static string SteamPathDialog_Error_PathDoesntExist {
+            get {
+                return ResourceManager.GetString("SteamPathDialog_Error_PathDoesntExist", resourceCulture);
             }
         }
         

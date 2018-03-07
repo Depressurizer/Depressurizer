@@ -28,72 +28,61 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.ButtonCancel = new System.Windows.Forms.Button();
-			this.ButtonStop = new System.Windows.Forms.Button();
-			this.lblText = new System.Windows.Forms.Label();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CancelableDialog));
+			this.ButtonStop = new MaterialSkin.Controls.MaterialRaisedButton();
+			this.ButtonCancel = new MaterialSkin.Controls.MaterialRaisedButton();
+			this.LabelText = new MaterialSkin.Controls.MaterialLabel();
 			this.SuspendLayout();
-			// 
-			// ButtonCancel
-			// 
-			this.ButtonCancel.BackColor = System.Drawing.Color.DimGray;
-			this.ButtonCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.ButtonCancel.Location = new System.Drawing.Point(256, 108);
-			this.ButtonCancel.Margin = new System.Windows.Forms.Padding(10);
-			this.ButtonCancel.Name = "ButtonCancel";
-			this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-			this.ButtonCancel.TabIndex = 5;
-			this.ButtonCancel.Text = "Cancel";
-			this.ButtonCancel.UseVisualStyleBackColor = false;
-			this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
 			// 
 			// ButtonStop
 			// 
-			this.ButtonStop.BackColor = System.Drawing.Color.DimGray;
-			this.ButtonStop.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.ButtonStop.Location = new System.Drawing.Point(161, 108);
-			this.ButtonStop.Margin = new System.Windows.Forms.Padding(10);
+			resources.ApplyResources(this.ButtonStop, "ButtonStop");
+			this.ButtonStop.Depth = 0;
+			this.ButtonStop.MouseState = MaterialSkin.MouseState.HOVER;
 			this.ButtonStop.Name = "ButtonStop";
-			this.ButtonStop.Size = new System.Drawing.Size(75, 23);
-			this.ButtonStop.TabIndex = 4;
-			this.ButtonStop.Text = "Stop";
-			this.ButtonStop.UseVisualStyleBackColor = false;
+			this.ButtonStop.Primary = true;
+			this.ButtonStop.UseVisualStyleBackColor = true;
 			this.ButtonStop.Click += new System.EventHandler(this.ButtonStop_Click);
 			// 
-			// lblText
+			// ButtonCancel
 			// 
-			this.lblText.AutoSize = true;
-			this.lblText.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-			this.lblText.Location = new System.Drawing.Point(15, 62);
-			this.lblText.Margin = new System.Windows.Forms.Padding(10);
-			this.lblText.Name = "lblText";
-			this.lblText.Size = new System.Drawing.Size(58, 15);
-			this.lblText.TabIndex = 3;
-			this.lblText.Text = "Starting...";
+			resources.ApplyResources(this.ButtonCancel, "ButtonCancel");
+			this.ButtonCancel.Depth = 0;
+			this.ButtonCancel.MouseState = MaterialSkin.MouseState.HOVER;
+			this.ButtonCancel.Name = "ButtonCancel";
+			this.ButtonCancel.Primary = true;
+			this.ButtonCancel.UseVisualStyleBackColor = true;
+			this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
+			// 
+			// LabelText
+			// 
+			resources.ApplyResources(this.LabelText, "LabelText");
+			this.LabelText.Depth = 0;
+			this.LabelText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+			this.LabelText.MouseState = MaterialSkin.MouseState.HOVER;
+			this.LabelText.Name = "LabelText";
 			// 
 			// CancelableDialog
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(350, 150);
+			this.CancelButton = this.ButtonCancel;
+			this.ControlBox = false;
+			this.Controls.Add(this.LabelText);
 			this.Controls.Add(this.ButtonCancel);
 			this.Controls.Add(this.ButtonStop);
-			this.Controls.Add(this.lblText);
 			this.Name = "CancelableDialog";
-			this.Text = "CancelableDialog";
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CancelableDialog_FormClosing);
 			this.Load += new System.EventHandler(this.CancelableDialog_Load);
-			this.Controls.SetChildIndex(this.lblText, 0);
-			this.Controls.SetChildIndex(this.ButtonStop, 0);
-			this.Controls.SetChildIndex(this.ButtonCancel, 0);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Button ButtonCancel;
-		private System.Windows.Forms.Button ButtonStop;
-		private System.Windows.Forms.Label lblText;
+		private MaterialSkin.Controls.MaterialRaisedButton ButtonStop;
+		private MaterialSkin.Controls.MaterialRaisedButton ButtonCancel;
+		private MaterialSkin.Controls.MaterialLabel LabelText;
 	}
 }
