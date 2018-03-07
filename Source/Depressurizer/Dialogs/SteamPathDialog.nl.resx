@@ -117,67 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Applying_Data" xml:space="preserve">
-    <value>Applying Data</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="materialLabel1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Roboto, 11pt</value>
   </data>
-  <data name="Category_All" xml:space="preserve">
-    <value>&lt;All&gt;</value>
+  <data name="materialLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 19</value>
   </data>
-  <data name="Category_Favorite" xml:space="preserve">
-    <value>&lt;Favorite&gt;</value>
+  <data name="materialLabel1.Text" xml:space="preserve">
+    <value>Selecteer de Steam installatiemap:</value>
   </data>
-  <data name="Category_Games" xml:space="preserve">
-    <value>&lt;Games&gt;</value>
+  <data name="SelectedSteamPath.Size" type="System.Drawing.Size, System.Drawing">
+    <value>290, 20</value>
   </data>
-  <data name="Category_Hidden" xml:space="preserve">
-    <value>&lt;Hidden&gt;</value>
+  <data name="ButtonBrowse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>318, 105</value>
   </data>
-  <data name="Category_Software" xml:space="preserve">
-    <value>&lt;Software&gt;</value>
+  <data name="ButtonBrowse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 25</value>
   </data>
-  <data name="Category_Uncategorized" xml:space="preserve">
-    <value>&lt;Uncategorized&gt;</value>
-  </data>
-  <data name="Category_VR" xml:space="preserve">
-    <value>&lt;VR&gt;</value>
-  </data>
-  <data name="Error_DepressurizerUpdate" xml:space="preserve">
-    <value>Error encountered while checking for Depressurizer updates:</value>
-  </data>
-  <data name="HLTBDialog_Status" xml:space="preserve">
-    <value>Updating HowLongToBeat.com times...</value>
-  </data>
-  <data name="HLTBDialog_Title" xml:space="preserve">
-    <value>Updating HLTB times...</value>
-  </data>
-  <data name="Message_DepressurizerUpdate" xml:space="preserve">
-    <value>There is a new update available for Depressurizer. Do you want to visit the download page?</value>
-  </data>
-  <data name="Message_DepressurizerUpdate_Title" xml:space="preserve">
-    <value>Update Found.</value>
-  </data>
-  <data name="Options" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="Scraping" xml:space="preserve">
-    <value>Scraping</value>
-  </data>
-  <data name="Scraping_Status" xml:space="preserve">
-    <value>Scraping Apps: {0} / {1} Completed</value>
-  </data>
-  <data name="SteamPathDialog_Error_PathDoesntContain" xml:space="preserve">
-    <value>Selected path doesn't contain the Steam executable! Are you sure?</value>
-  </data>
-  <data name="SteamPathDialog_Error_PathDoesntExist" xml:space="preserve">
-    <value>Selected path doesn't exist! Are you sure?</value>
-  </data>
-  <data name="Time_Left" xml:space="preserve">
-    <value>Time left</value>
-  </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+  <data name="ButtonBrowse.Text" xml:space="preserve">
+    <value>Bladeren...</value>
   </data>
 </root>

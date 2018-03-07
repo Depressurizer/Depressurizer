@@ -66,7 +66,6 @@ namespace Depressurizer.Dialogs
 
 		protected override void OnStart()
 		{
-			Added = 0;
 			_document = Database.Instance.FetchAppListFromWeb();
 			OnJobCompletion();
 			Close();

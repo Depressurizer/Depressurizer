@@ -20,21 +20,24 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 
 namespace Depressurizer.Dialogs
 {
-	public partial class CloseDialog : DepressurizerDialog
+	public partial class CloseDialog : DepressurizerForm
 	{
 		#region Constructors and Destructors
 
-		public CloseDialog(string message, string title, Image picture, bool cancel, bool exportSteam) : base(title)
+		public CloseDialog(string message, string dialogTitle, Image image, bool showCancelButton, bool exportToSteam)
 		{
 			InitializeComponent();
 
+			Text = string.Format(CultureInfo.InvariantCulture, "Depressurizer - {0}", dialogTitle);
+
 			MessageLabel.Text = message;
-			Icon.Image = picture;
-			btnCancel.Visible = cancel;
-			chkSaveSteam.Checked = exportSteam;
+			MessageIcon.Image = image;
+			ButtonCancel.Enabled = ButtonCancel.Visible = showCancelButton;
+			Export = CheckSaveToSteam.Checked = exportToSteam;
 		}
 
 		#endregion
@@ -43,13 +46,19 @@ namespace Depressurizer.Dialogs
 
 		public bool Export { get; private set; }
 
+		public sealed override string Text
+		{
+			get => base.Text;
+			set => base.Text = value;
+		}
+
 		#endregion
 
 		#region Methods
 
-		private void chkSaveSteam_CheckedChanged(object sender, EventArgs e)
+		private void CheckSaveToSteam_CheckedChanged(object sender, EventArgs e)
 		{
-			Export = chkSaveSteam.Checked;
+			Export = CheckSaveToSteam.Checked;
 		}
 
 		#endregion
