@@ -84,13 +84,13 @@ namespace Depressurizer.Models
 			// Handle special categories
 			List<string> specialCategories = new List<string>
 			{
-				$"<{Resources.Category_All}>",
-				$"<{Resources.Category_Games}>",
-				$"<{Resources.Category_Software}>",
-				$"<{Resources.Category_Uncategorized}>",
-				$"<{Resources.Category_Hidden}>",
-				$"<{Resources.Category_VR}>",
-				$"<{Resources.Category_Favorite}>"
+				Resources.Category_All,
+				Resources.Category_Games,
+				Resources.Category_Software,
+				Resources.Category_Uncategorized,
+				Resources.Category_Hidden,
+				Resources.Category_VR,
+				Resources.Category_Favorite
 			};
 
 			foreach (string category in specialCategories)
