@@ -63,12 +63,6 @@ namespace Depressurizer
 
 		#endregion
 
-		#region Static Fields
-
-		public static Profile CurrentProfile;
-
-		#endregion
-
 		#region Fields
 
 		private readonly StringBuilder _statusBuilder = new StringBuilder();
@@ -112,7 +106,9 @@ namespace Depressurizer
 
 		#region Public Properties
 
-		public bool ProfileLoaded => CurrentProfile != null;
+		public static Profile CurrentProfile { get; private set; }
+
+		public static bool ProfileLoaded => CurrentProfile != null;
 
 		#endregion
 
@@ -144,9 +140,9 @@ namespace Depressurizer
 
 		#region Public Methods and Operators
 
-		public void AddStatus(string s)
+		public void AddStatus(string status)
 		{
-			_statusBuilder.Append(s);
+			_statusBuilder.Append(status);
 			_statusBuilder.Append(' ');
 		}
 
@@ -216,6 +212,61 @@ namespace Depressurizer
 			return string.Format(CultureInfo.InvariantCulture, "{0} ({1})", categoryName, categoryCount);
 		}
 
+		private static void ChangeLanguageControls(Control control, ComponentResourceManager resourceManager, CultureInfo cultureInfo)
+		{
+			if (control == null)
+			{
+				return;
+			}
+
+			Rectangle currentBounds = control.Bounds;
+			if (control.GetType() == typeof(MenuStrip))
+			{
+				foreach (ToolStripDropDownItem toolStripItem in ((MenuStrip) control).Items)
+				{
+					ChangeLanguageToolStripItems(toolStripItem, resourceManager, cultureInfo);
+				}
+			}
+			else if (control is ListView)
+			{
+				foreach (ColumnHeader columnHeader in ((ListView) control).Columns)
+				{
+					if (columnHeader.Tag != null)
+					{
+						resourceManager.ApplyResources(columnHeader, columnHeader.Tag.ToString(), cultureInfo);
+					}
+				}
+			}
+			else
+			{
+				foreach (Control childControl in control.Controls)
+				{
+					ChangeLanguageControls(childControl, resourceManager, cultureInfo);
+				}
+			}
+
+			resourceManager.ApplyResources(control, control.Name, cultureInfo);
+			control.Bounds = currentBounds;
+		}
+
+		private static void ChangeLanguageToolStripItems(ToolStripItem item, ComponentResourceManager resources, CultureInfo newCulture)
+		{
+			if (item == null)
+			{
+				return;
+			}
+
+			if (item is ToolStripDropDownItem toolStripItem)
+			{
+				foreach (ToolStripItem childItem in toolStripItem.DropDownItems)
+				{
+					ChangeLanguageToolStripItems(childItem, resources, newCulture);
+				}
+			}
+
+			resources.ApplyResources(item, item.Name, newCulture);
+		}
+
 		private static void CheckForDepressurizerUpdates()
 		{
 			string rawJson;
@@ -273,6 +324,71 @@ namespace Depressurizer
 			};
 		}
 
+		private static void LaunchGame(GameInfo gameInfo)
+		{
+			if (gameInfo == null)
+			{
+				return;
+			}
+
+			gameInfo.LastPlayed = Utility.CurrentUnixTime();
+			Process.Start(gameInfo.Executable);
+		}
+
+		private static void ResortToolStripItemCollection(ToolStripItemCollection coll)
+		{
+			ArrayList oAList = new ArrayList(coll);
+			oAList.Sort(new ToolStripItemComparer());
+			coll.Clear();
+
+			foreach (ToolStripItem oItem in oAList)
+			{
+				coll.Add(oItem);
+			}
+		}
+
+		private static void SetDragDropEffect(DragEventArgs e)
+		{
+			if (Settings.SingleCatMode /*|| (e.KeyState & 4) == 4*/)
+			{
+				// Commented segment: SHIFT
+				e.Effect = DragDropEffects.Move;
+			}
+			else if ((e.KeyState & 8) == 8)
+			{
+				// CTRL
+				e.Effect = DragDropEffects.Link;
+			}
+			else
+			{
+				e.Effect = DragDropEffects.Copy;
+			}
+		}
+
+		private static bool ValidateCategoryName(string name)
+		{
+			if (!string.IsNullOrWhiteSpace(name))
+			{
+				return true;
+			}
+
+			MessageBox.Show(GlobalStrings.MainForm_CategoryNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+			return false;
+		}
+
+		private static bool ValidateFilterName(string name)
+		{
+			if (!string.IsNullOrWhiteSpace(name))
+			{
+				return true;
+			}
+
+			MessageBox.Show(GlobalStrings.MainForm_FilterNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+			return false;
+		}
+
 		private void AddCategoryToSelectedGames(Category category, bool forceClearOthers)
 		{
 			if (lstGames.SelectedObjects.Count <= 0)
@@ -326,21 +442,27 @@ namespace Depressurizer
 
 		private void AddGame()
 		{
-			DlgGame dlg = new DlgGame(CurrentProfile.GameData, null);
-			if (dlg.ShowDialog() == DialogResult.OK)
+			using (DlgGame dialog = new DlgGame(CurrentProfile.GameData))
 			{
+				if (dialog.ShowDialog() != DialogResult.OK)
+				{
+					return;
+				}
+
 				Cursor.Current = Cursors.WaitCursor;
+
 				if (ProfileLoaded)
 				{
-					if (CurrentProfile.IgnoreList.Remove(dlg.Game.Id))
+					if (CurrentProfile.IgnoreList.Remove(dialog.Game.Id))
 					{
-						AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_UnignoredGame, dlg.Game.Id));
+						AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_UnignoredGame, dialog.Game.Id));
 					}
 				}
 
 				FullListRefresh();
 				MakeChange(true);
 				AddStatus(GlobalStrings.MainForm_AddedGame);
+
 				Cursor.Current = Cursors.Default;
 			}
 		}
@@ -535,33 +657,15 @@ namespace Depressurizer
 
 			if (selectedOnly && (autoCat.Filter == null))
 			{
-				foreach (GameInfo g in _tlstGames.SelectedObjects)
-				{
-					if (g.Id > 0)
-					{
-						gamesToUpdate.Add(g);
-					}
-				}
+				gamesToUpdate.AddRange(_tlstGames.SelectedObjects.Where(g => (g != null) && (g.Id > 0)));
 			}
 			else if ((_tlstGames.Objects.Count > 0) && (autoCat.Filter == null))
 			{
-				foreach (GameInfo g in _tlstGames.Objects)
-				{
-					if (g.Id > 0)
-					{
-						gamesToUpdate.Add(g);
-					}
-				}
+				gamesToUpdate.AddRange(_tlstGames.Objects.Where(g => (g != null) && (g.Id > 0)));
 			}
 			else
 			{
-				foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
-				{
-					if ((g != null) && (g.Id > 0))
-					{
-						gamesToUpdate.Add(g);
-					}
-				}
+				gamesToUpdate.AddRange(CurrentProfile.GameData.Games.Values.Where(g => (g != null) && (g.Id > 0)));
 			}
 
 			int updated = 0;
@@ -660,36 +764,20 @@ namespace Depressurizer
 
 			if (mchkAutoCatSelected.Checked)
 			{
-				foreach (GameInfo g in _tlstGames.SelectedObjects)
-				{
-					if (g.Id > 0)
-					{
-						count += 1;
-					}
-				}
+				count += _tlstGames.SelectedObjects.Count(g => (g != null) && (g.Id > 0));
 			}
 			else if (_tlstGames.Objects.Count > 0)
 			{
-				foreach (GameInfo g in _tlstGames.Objects)
-				{
-					if (g.Id > 0)
-					{
-						count += 1;
-					}
-				}
+				count += _tlstGames.Objects.Count(g => (g != null) && (g.Id > 0));
 			}
 			else
 			{
-				if (CurrentProfile != null)
+				if (CurrentProfile == null)
 				{
-					foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
-					{
-						if ((g != null) && (g.Id > 0))
-						{
-							count += 1;
-						}
-					}
+					return count;
 				}
+
+				count += CurrentProfile.GameData.Games.Values.Count(g => (g != null) && (g.Id > 0));
 			}
 
 			return count;
@@ -743,59 +831,6 @@ namespace Depressurizer
 			}
 		}
 
-		private void ChangeLanguageControls(Control c, ComponentResourceManager resources, CultureInfo newCulture)
-		{
-			if (c != null)
-			{
-				Rectangle currentBounds = c.Bounds;
-				if (c.GetType() == typeof(MenuStrip))
-				{
-					foreach (ToolStripDropDownItem mItem in (c as MenuStrip).Items)
-					{
-						ChangeLanguageToolStripItems(mItem, resources, newCulture);
-					}
-				}
-				else if (c is ListView)
-				{
-					// jpodadera. Because a framework bug, names of ColumnHeader objects are empty. 
-					// Resolved by saving names to Tag property.
-					foreach (ColumnHeader cHeader in (c as ListView).Columns)
-					{
-						if (cHeader.Tag != null)
-						{
-							resources.ApplyResources(cHeader, cHeader.Tag.ToString(), newCulture);
-						}
-					}
-				}
-				else
-				{
-					foreach (Control childControl in c.Controls)
-					{
-						ChangeLanguageControls(childControl, resources, newCulture);
-					}
-				}
-
-				resources.ApplyResources(c, c.Name, newCulture);
-				c.Bounds = currentBounds;
-			}
-		}
-
-		private void ChangeLanguageToolStripItems(ToolStripItem item, ComponentResourceManager resources, CultureInfo newCulture)
-		{
-			if (item != null)
-			{
-				if (item is ToolStripDropDownItem)
-				{
-					foreach (ToolStripItem childItem in (item as ToolStripDropDownItem).DropDownItems)
-					{
-						ChangeLanguageToolStripItems(childItem, resources, newCulture);
-					}
-				}
-
-				resources.ApplyResources(item, item.Name, newCulture);
-			}
-		}
-
 		private bool CheckForUnsaved()
 		{
 			if (!ProfileLoaded || !_unsavedChanges)
@@ -825,12 +860,14 @@ namespace Depressurizer
 
 		private void cmdAddCatAndAssign_Click(object sender, EventArgs e)
 		{
-			if (ValidateCategoryName(txtAddCatAndAssign.Text))
+			if (!ValidateCategoryName(txtAddCatAndAssign.Text))
 			{
-				Category cat = CurrentProfile.GameData.GetCategory(txtAddCatAndAssign.Text);
-				AddCategoryToSelectedGames(cat, false);
-				txtAddCatAndAssign.Clear();
+				return;
 			}
+
+			Category category = CurrentProfile.GameData.GetCategory(txtAddCatAndAssign.Text);
+			AddCategoryToSelectedGames(category, false);
+			txtAddCatAndAssign.Clear();
 		}
 
 		private void cmdGameAdd_Click(object sender, EventArgs e)
@@ -1061,20 +1098,24 @@ namespace Depressurizer
 				return null;
 			}
 
-			GetStringDlg dlg = new GetStringDlg(string.Empty, GlobalStrings.MainForm_CreateCategory, GlobalStrings.MainForm_EnterNewCategoryName, GlobalStrings.MainForm_Create);
-			if ((dlg.ShowDialog() == DialogResult.OK) && ValidateCategoryName(dlg.Value))
+			using (GetStringDlg dialog = new GetStringDlg(string.Empty, GlobalStrings.MainForm_CreateCategory, GlobalStrings.MainForm_EnterNewCategoryName, GlobalStrings.MainForm_Create))
 			{
-				Category newCat = CurrentProfile.GameData.AddCategory(dlg.Value);
-				if (newCat != null)
+				if ((dialog.ShowDialog() != DialogResult.OK) || !ValidateCategoryName(dialog.Value))
+				{
+					return null;
+				}
+
+				Category newCategory = CurrentProfile.GameData.AddCategory(dialog.Value);
+				if (newCategory != null)
 				{
 					FillAllCategoryLists();
 					MakeChange(true);
-					AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CategoryAdded, newCat.Name));
+					AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CategoryAdded, newCategory.Name));
 
-					return newCat;
+					return newCategory;
 				}
 
-				MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotAddCategory, dlg.Value), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotAddCategory, dialog.Value), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 
 			return null;
@@ -1082,33 +1123,37 @@ namespace Depressurizer
 
 		private void CreateProfile()
 		{
-			DlgProfile dlg = new DlgProfile();
-			DialogResult res = dlg.ShowDialog();
-			if (res == DialogResult.OK)
+			using (DlgProfile dialog = new DlgProfile())
 			{
-				Cursor = Cursors.WaitCursor;
-				CurrentProfile = dlg.Profile;
-				AddStatus(GlobalStrings.MainForm_ProfileCreated);
-				if (dlg.DownloadNow)
+				DialogResult result = dialog.ShowDialog();
+				if (result == DialogResult.OK)
 				{
-					UpdateLibrary();
+					Cursor = Cursors.WaitCursor;
+
+					CurrentProfile = dialog.Profile;
+					AddStatus(GlobalStrings.MainForm_ProfileCreated);
+
+					if (dialog.DownloadNow)
+					{
+						UpdateLibrary();
+					}
+
+					if (dialog.ImportNow)
+					{
+						ImportConfig();
+					}
+
+					if (dialog.SetStartup)
+					{
+						Settings.StartupAction = StartupAction.LoadProfile;
+						Settings.ProfileToLoad = CurrentProfile.FilePath;
+						Settings.Save();
+					}
+
+					FullListRefresh();
+
+					Cursor = Cursors.Default;
 				}
-
-				if (dlg.ImportNow)
-				{
-					ImportConfig();
-				}
-
-				if (dlg.SetStartup)
-				{
-					Settings.StartupAction = StartupAction.LoadProfile;
-					Settings.ProfileToLoad = CurrentProfile.FilePath;
-					Settings.Save();
-				}
-
-				FullListRefresh();
-
-				Cursor = Cursors.Default;
 			}
 
 			OnProfileChange();
@@ -1119,39 +1164,43 @@ namespace Depressurizer
 			List<Category> toDelete = new List<Category>();
 			foreach (ListViewItem item in lstCategories.SelectedItems)
 			{
-				Category c = item.Tag as Category;
-				if ((c != null) && (c != CurrentProfile.GameData.FavoriteCategory))
+				if (item.Tag is Category c && (c != CurrentProfile.GameData.FavoriteCategory))
 				{
 					toDelete.Add(c);
 				}
 			}
 
-			if (toDelete.Count > 0)
+			if (toDelete.Count <= 0)
 			{
-				DialogResult res;
-				res = MessageBox.Show(toDelete.Count == 1 ? string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_DeleteCategory, toDelete[0].Name) : string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_DeleteCategoryMulti, toDelete.Count), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-				if (res == DialogResult.Yes)
-				{
-					int deleted = 0;
-					foreach (Category c in toDelete)
-					{
-						if (CurrentProfile.GameData.RemoveCategory(c))
-						{
-							deleted++;
-						}
-					}
+				return;
+			}
 
-					if (deleted > 0)
+			{
+				DialogResult res = MessageBox.Show(toDelete.Count == 1 ? string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_DeleteCategory, toDelete[0].Name) : string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_DeleteCategoryMulti, toDelete.Count), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+				if (res != DialogResult.Yes)
+				{
+					return;
+				}
+
+				int deleted = 0;
+				foreach (Category c in toDelete)
+				{
+					if (CurrentProfile.GameData.RemoveCategory(c))
 					{
-						FillAllCategoryLists();
-						RebuildGamelist();
-						MakeChange(true);
-						AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CategoryDeleted, deleted));
+						deleted++;
 					}
-					else
-					{
-						MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotDeleteCategory), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-					}
+				}
+
+				if (deleted > 0)
+				{
+					FillAllCategoryLists();
+					RebuildGamelist();
+					MakeChange(true);
+					AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CategoryDeleted, deleted));
+				}
+				else
+				{
+					MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotDeleteCategory), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				}
 			}
 		}
@@ -1163,20 +1212,21 @@ namespace Depressurizer
 				return;
 			}
 
-			DialogResult res;
-			res = MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_DeleteFilter, f.Name), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-			if (res == DialogResult.Yes)
+			DialogResult res = MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_DeleteFilter, f.Name), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+			if (res != DialogResult.Yes)
 			{
-				try
-				{
-					CurrentProfile.GameData.Filters.Remove(f);
-					AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_FilterDeleted, f.Name));
-					RefreshFilters();
-				}
-				catch
-				{
-					MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotDeleteFilter), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				}
+				return;
+			}
+
+			try
+			{
+				CurrentProfile.GameData.Filters.Remove(f);
+				AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_FilterDeleted, f.Name));
+				RefreshFilters();
+			}
+			catch
+			{
+				MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotDeleteFilter), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 		}
 
@@ -1187,13 +1237,16 @@ namespace Depressurizer
 				return;
 			}
 
-			DlgAutoCat dlg = new DlgAutoCat(CurrentProfile.AutoCats, CurrentProfile.GameData, selected, CurrentProfile.FilePath);
-
-			DialogResult res = dlg.ShowDialog();
-
-			if (res == DialogResult.OK)
+			using (DlgAutoCat dialog = new DlgAutoCat(CurrentProfile.AutoCats, CurrentProfile.GameData, selected, CurrentProfile.FilePath))
 			{
-				CurrentProfile.AutoCats = dlg.AutoCatList;
+				DialogResult result = dialog.ShowDialog();
+
+				if (result != DialogResult.OK)
+				{
+					return;
+				}
+
+				CurrentProfile.AutoCats = dialog.AutoCatList;
 				MakeChange(true);
 				FillAutoCatLists();
 			}
@@ -1201,63 +1254,78 @@ namespace Depressurizer
 
 		private void EditGame()
 		{
-			if (lstGames.SelectedObjects.Count > 0)
+			if (lstGames.SelectedObjects.Count <= 0)
 			{
-				GameInfo g = _tlstGames.SelectedObjects[0];
-				DlgGame dlg = new DlgGame(CurrentProfile.GameData, g);
-				if (dlg.ShowDialog() == DialogResult.OK)
+				return;
+			}
+
+			GameInfo gameInfo = _tlstGames.SelectedObjects[0];
+			using (DlgGame dialog = new DlgGame(CurrentProfile.GameData, gameInfo))
+			{
+				if (dialog.ShowDialog() != DialogResult.OK)
 				{
-					Cursor.Current = Cursors.WaitCursor;
-					FilterGamelist(false);
-					MakeChange(true);
-					AddStatus(GlobalStrings.MainForm_EditedGame);
-					Cursor.Current = Cursors.Default;
+					return;
 				}
+
+				Cursor.Current = Cursors.WaitCursor;
+
+				FilterGamelist(false);
+				MakeChange(true);
+				AddStatus(GlobalStrings.MainForm_EditedGame);
+
+				Cursor.Current = Cursors.Default;
 			}
 		}
 
 		private void EditProfile()
 		{
-			if (ProfileLoaded)
-			{
-				DlgProfile dlg = new DlgProfile(CurrentProfile);
-				if (dlg.ShowDialog() == DialogResult.OK)
-				{
-					AddStatus(GlobalStrings.MainForm_ProfileEdited);
-					MakeChange(true);
-					Cursor = Cursors.WaitCursor;
-					bool refresh = false;
-					if (dlg.DownloadNow)
-					{
-						UpdateLibrary();
-						refresh = true;
-					}
-
-					if (dlg.ImportNow)
-					{
-						ImportConfig();
-						refresh = true;
-					}
-
-					if (dlg.SetStartup)
-					{
-						Settings.StartupAction = StartupAction.LoadProfile;
-						Settings.ProfileToLoad = CurrentProfile.FilePath;
-						Settings.Save();
-					}
-
-					Cursor = Cursors.Default;
-					if (refresh)
-					{
-						FullListRefresh();
-					}
-				}
-			}
-			else
+			if (!ProfileLoaded)
 			{
 				if (MessageBox.Show(GlobalStrings.MainForm_NoProfileLoaded, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
 				{
 					CreateProfile();
+				}
+
+				return;
+			}
+
+			using (DlgProfile dialog = new DlgProfile(CurrentProfile))
+			{
+				if (dialog.ShowDialog() != DialogResult.OK)
+				{
+					return;
+				}
+
+				Cursor = Cursors.WaitCursor;
+
+				AddStatus(GlobalStrings.MainForm_ProfileEdited);
+				MakeChange(true);
+
+				bool refresh = false;
+				if (dialog.DownloadNow)
+				{
+					UpdateLibrary();
+					refresh = true;
+				}
+
+				if (dialog.ImportNow)
+				{
+					ImportConfig();
+					refresh = true;
+				}
+
+				if (dialog.SetStartup)
+				{
+					Settings.StartupAction = StartupAction.LoadProfile;
+					Settings.ProfileToLoad = CurrentProfile.FilePath;
+					Settings.Save();
+				}
+
+				Cursor = Cursors.Default;
+
+				if (refresh)
+				{
+					FullListRefresh();
 				}
 			}
 		}
@@ -1329,60 +1397,39 @@ namespace Depressurizer
 
 		private void FillAutoCatLists()
 		{
-			// Prepare main screen AutoCat dropdown
-			object selected = cmbAutoCatType.SelectedItem;
-
-			//cmbAutoCatType.Items.Clear();
-
 			lvAutoCatType.Items.Clear();
 
 			// Prepare main menu list
 			menu_Tools_Autocat_List.Items.Clear();
 
-			//if( currentProfile != null ) {
-			//    foreach( AutoCat ac in currentProfile.AutoCats ) {
-			//        if( ac != null ) {
-			//            // Fill main screen dropdown
-			//            cmbAutoCatType.Items.Add( ac );
-
-			//            //// Fill main menu list
-			//            //ToolStripItem item = menu_Tools_Autocat_List.Items.Add( ac.Name );
-			//            //item.Tag = ac;
-			//            //item.Click += menuToolsAutocat_Item_Click;
-			//        }
-			//    }
-			//}
-
 			if (CurrentProfile != null)
 			{
-				foreach (AutoCat ac in CurrentProfile.AutoCats)
+				foreach (AutoCat autoCat in CurrentProfile.AutoCats)
 				{
-					if (ac != null)
+					if (autoCat == null)
 					{
-						// Fill main screen dropdown
-						ListViewItem listItem = new ListViewItem(ac.DisplayName);
-						listItem.Tag = ac;
-						listItem.Name = ac.Name;
-						listItem.Checked = ac.Selected;
-						lvAutoCatType.Items.Add(listItem);
-
-						//SelectAutoCats();
-
-						// Fill main menu list
-						ToolStripItem item = menu_Tools_Autocat_List.Items.Add(ac.DisplayName);
-						item.Tag = ac;
-						item.Name = ac.Name;
-						item.Click += menuToolsAutocat_Item_Click;
+						continue;
 					}
+
+					// Fill main screen dropdown
+					ListViewItem listViewItem = new ListViewItem(autoCat.DisplayName)
+					{
+						Tag = autoCat,
+						Name = autoCat.Name,
+						Checked = autoCat.Selected
+					};
+
+					lvAutoCatType.Items.Add(listViewItem);
+
+					//SelectAutoCats();
+
+					// Fill main menu list
+					ToolStripItem item = menu_Tools_Autocat_List.Items.Add(autoCat.DisplayName);
+					item.Tag = autoCat;
+					item.Name = autoCat.Name;
+					item.Click += menuToolsAutocat_Item_Click;
 				}
 			}
-
-			//// Finish main screen dropdown
-			//if ( selected != null && cmbAutoCatType.Items.Contains( selected ) ) {
-			//    cmbAutoCatType.SelectedItem = selected;
-			//} else if( cmbAutoCatType.Items.Count > 0 ) {
-			//    cmbAutoCatType.SelectedIndex = 0;
-			//}
 
 			// Finish main menu list
 			menu_Tools_AutocatAll.Enabled = menu_Tools_Autocat_List.Items.Count > 0;
@@ -2046,9 +2093,8 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				DateTime releaseDate;
 				CultureInfo culture = Utility.GetCultureInfoFromStoreLanguage(Database.Language);
-				if (Database.Games.ContainsKey(id) && DateTime.TryParse(Database.Games[id].SteamReleaseDate, culture, DateTimeStyles.None, out releaseDate))
+				if (Database.Games.ContainsKey(id) && DateTime.TryParse(Database.Games[id].SteamReleaseDate, culture, DateTimeStyles.None, out DateTime releaseDate))
 				{
 					return releaseDate.Year.ToString();
 				}
@@ -2063,12 +2109,18 @@ namespace Depressurizer
 					return DateTime.MinValue;
 				}
 
-				if (((GameInfo) g).LastPlayed <= 0)
+				GameInfo gameInfo = g as GameInfo;
+				if (gameInfo == null)
 				{
 					return DateTime.MinValue;
 				}
 
-				return DateTimeOffset.FromUnixTimeSeconds(((GameInfo) g).LastPlayed).Date;
+				if (gameInfo.LastPlayed <= 0)
+				{
+					return DateTime.MinValue;
+				}
+
+				return DateTimeOffset.FromUnixTimeSeconds(gameInfo.LastPlayed).Date;
 			};
 
 			colAchievements.AspectGetter = delegate(object g)
@@ -2255,14 +2307,14 @@ namespace Depressurizer
 			{
 				int reviewTotal = (int) obj;
 
-				return reviewTotal <= 0 ? "0" : reviewTotal.ToString();
+				return reviewTotal <= 0 ? "0" : reviewTotal.ToString(CultureInfo.InvariantCulture);
 			};
 
 			colReviewScore.AspectToStringConverter = delegate(object obj)
 			{
 				int reviewScore = (int) obj;
 
-				return reviewScore <= 0 ? GlobalStrings.MainForm_Unknown : reviewScore.ToString() + '%';
+				return reviewScore <= 0 ? GlobalStrings.MainForm_Unknown : reviewScore.ToString(CultureInfo.InvariantCulture) + '%';
 			};
 
 			colReviewLabel.AspectToStringConverter = delegate(object obj)
@@ -2435,15 +2487,6 @@ namespace Depressurizer
 			contextAutoCat.Renderer = new MyRenderer();
 		}
 
-		private void LaunchGame(GameInfo g)
-		{
-			if (g != null)
-			{
-				g.LastPlayed = Utility.CurrentUnixTime();
-				Process.Start(g.Executable);
-			}
-		}
-
 		private void LoadProfile()
 		{
 			if (!CheckForUnsaved())
@@ -2451,16 +2494,20 @@ namespace Depressurizer
 				return;
 			}
 
-			OpenFileDialog dlg = new OpenFileDialog();
-			dlg.DefaultExt = "profile";
-			dlg.AddExtension = true;
-			dlg.CheckFileExists = true;
-			dlg.Filter = GlobalStrings.DlgProfile_Filter;
-			dlg.InitialDirectory = Path.GetDirectoryName(CurrentProfile == null ? Assembly.GetExecutingAssembly().CodeBase : CurrentProfile.FilePath);
-			DialogResult res = dlg.ShowDialog();
-			if (res == DialogResult.OK)
+			using (OpenFileDialog dialog = new OpenFileDialog())
 			{
-				LoadProfile(dlg.FileName, false);
+				dialog.DefaultExt = "profile";
+				dialog.AddExtension = true;
+				dialog.CheckFileExists = true;
+				dialog.Filter = GlobalStrings.DlgProfile_Filter;
+				dialog.InitialDirectory = Path.GetDirectoryName(CurrentProfile == null ? Assembly.GetExecutingAssembly().CodeBase : CurrentProfile.FilePath);
+
+				if (dialog.ShowDialog() != DialogResult.OK)
+				{
+					return;
+				}
+
+				LoadProfile(dialog.FileName, false);
 			}
 		}
 
@@ -2761,7 +2808,7 @@ namespace Depressurizer
 				}
 			}
 
-			TextDecoration td = new TextDecoration(g.Id.ToString(), ContentAlignment.BottomLeft)
+			TextDecoration td = new TextDecoration(g.Id.ToString(CultureInfo.InvariantCulture), ContentAlignment.BottomLeft)
 			{
 				Font = new Font(lstGames.Font.Name, 8),
 				Wrap = false,
@@ -2869,7 +2916,7 @@ namespace Depressurizer
 				if (webBrowser1.Visible)
 				{
 					webBrowser1.ScriptErrorsSuppressed = true;
-					webBrowser1.Navigate(string.Format(Constants.SteamStoreAppURL + "?l=" + storeLanguage, g.Id));
+					webBrowser1.Navigate(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreAppURL + "?l=" + storeLanguage, g.Id));
 				}
 			}
 			else if (webBrowser1.Visible)
@@ -2880,7 +2927,7 @@ namespace Depressurizer
 					{
 						GameInfo g = _tlstGames.Objects[0];
 						webBrowser1.ScriptErrorsSuppressed = true;
-						webBrowser1.Navigate(string.Format(Constants.SteamStoreAppURL + "?l=" + storeLanguage, g.Id));
+						webBrowser1.Navigate(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreAppURL + "?l=" + storeLanguage, g.Id));
 					}
 					else
 					{
@@ -2908,17 +2955,18 @@ namespace Depressurizer
 
 		private void lstMultiCat_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			bool modKey = ModifierKeys == Keys.Shift;
-			if ((e.KeyChar == (char) Keys.Return) || (e.KeyChar == (char) Keys.Space))
+			if ((e.KeyChar != (char) Keys.Return) && (e.KeyChar != (char) Keys.Space))
 			{
-				if (lstMultiCat.SelectedItems.Count == 0)
-				{
-					return;
-				}
-
-				ListViewItem item = lstMultiCat.SelectedItems[0];
-				HandleMultiCatItemActivation(item, ModifierKeys == Keys.Shift);
+				return;
 			}
+
+			if (lstMultiCat.SelectedItems.Count == 0)
+			{
+				return;
+			}
+
+			ListViewItem listViewItem = lstMultiCat.SelectedItems[0];
+			HandleMultiCatItemActivation(listViewItem, ModifierKeys == Keys.Shift);
 		}
 
 		private void lstMultiCat_MouseDown(object sender, MouseEventArgs e)
@@ -2995,14 +3043,19 @@ namespace Depressurizer
 				return;
 			}
 
-			SaveFileDialog dlg = new SaveFileDialog();
-			DialogResult res = dlg.ShowDialog();
-			if (res == DialogResult.OK)
+			using (SaveFileDialog dialog = new SaveFileDialog())
 			{
-				Cursor = Cursors.WaitCursor;
+				DialogResult result = dialog.ShowDialog();
+				if (result != DialogResult.OK)
+				{
+					return;
+				}
+
+				UseWaitCursor = true;
+
 				try
 				{
-					CurrentProfile.GameData.ExportSteamConfigFile(dlg.FileName, Settings.RemoveExtraEntries);
+					CurrentProfile.GameData.ExportSteamConfigFile(dialog.FileName, Settings.RemoveExtraEntries);
 					AddStatus(GlobalStrings.MainForm_DataExported);
 				}
 				catch (Exception e)
@@ -3012,7 +3065,7 @@ namespace Depressurizer
 					AddStatus(GlobalStrings.MainForm_ExportFailed);
 				}
 
-				Cursor = Cursors.Default;
+				UseWaitCursor = false;
 			}
 		}
 
@@ -3252,13 +3305,16 @@ namespace Depressurizer
 
 		private void menu_Profile_Restore_Config_Click(object sender, EventArgs e)
 		{
-			string sharedconfigPath = Path.GetDirectoryName(string.Format(Constants.ConfigFilePath, Settings.SteamPath, Profile.ID64toDirName(CurrentProfile.SteamID64)));
-			DlgRestore restore = new DlgRestore(sharedconfigPath);
+			string sharedconfigPath = Path.GetDirectoryName(string.Format(CultureInfo.InvariantCulture, Constants.ConfigFilePath, Settings.SteamPath, Profile.ID64toDirName(CurrentProfile.SteamID64)));
 
-			DialogResult res = restore.ShowDialog();
-
-			if (restore.Restored)
+			using (DlgRestore dialog = new DlgRestore(sharedconfigPath))
 			{
+				dialog.ShowDialog();
+				if (!dialog.Restored)
+				{
+					return;
+				}
+
 				ClearStatus();
 				ImportConfig();
 				FlushStatus();
@@ -3268,12 +3324,15 @@ namespace Depressurizer
 		private void menu_Profile_Restore_Profile_Click(object sender, EventArgs e)
 		{
 			string profilePath = Path.GetDirectoryName(CurrentProfile.FilePath);
-			DlgRestore restore = new DlgRestore(profilePath);
 
-			DialogResult res = restore.ShowDialog();
-
-			if (restore.Restored)
+			using (DlgRestore dialog = new DlgRestore(profilePath))
 			{
+				dialog.ShowDialog();
+				if (!dialog.Restored)
+				{
+					return;
+				}
+
 				ClearStatus();
 				LoadProfile(CurrentProfile.FilePath, false);
 				FlushStatus();
@@ -3575,75 +3634,97 @@ namespace Depressurizer
 			}
 		}
 
-		private bool RenameCategory()
+		private void RenameCategory()
 		{
-			if (lstCategories.SelectedItems.Count > 0)
+			if (lstCategories.SelectedItems.Count <= 0)
 			{
-				Category c = lstCategories.SelectedItems[0].Tag as Category;
-				if ((c != null) && (c != CurrentProfile.GameData.FavoriteCategory))
-				{
-					GetStringDlg dlg = new GetStringDlg(c.Name, string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_RenameCategory, c.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
-					if (dlg.ShowDialog() == DialogResult.OK)
-					{
-						string newName = dlg.Value;
-						if (newName == c.Name)
-						{
-							return true;
-						}
-
-						if (ValidateCategoryName(newName))
-						{
-							Category newCat = CurrentProfile.GameData.RenameCategory(c, newName);
-							if (newCat != null)
-							{
-								FillAllCategoryLists();
-								RebuildGamelist();
-								MakeChange(true);
-								for (int index = 2; index < lstCategories.Items.Count; index++)
-								{
-									if (lstCategories.Items[index].Tag == newCat)
-									{
-										lstCategories.SelectedIndices.Add(index);
-
-										break;
-									}
-								}
-
-								AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CategoryRenamed, c.Name));
-
-								return true;
-							}
-						}
-
-						MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_NameIsInUse, newName), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-						return false;
-					}
-				}
+				return;
 			}
 
-			return false;
+			if (!(lstCategories.SelectedItems[0].Tag is Category category))
+			{
+				return;
+			}
+
+			if (category == CurrentProfile.GameData.FavoriteCategory)
+			{
+				return;
+			}
+
+			using (GetStringDlg dlg = new GetStringDlg(category.Name, string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_RenameCategory, category.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename))
+			{
+				if (dlg.ShowDialog() != DialogResult.OK)
+				{
+					return;
+				}
+
+				string newName = dlg.Value;
+				if (newName == category.Name)
+				{
+					return;
+				}
+
+				if (ValidateCategoryName(newName))
+				{
+					Category newCategory = CurrentProfile.GameData.RenameCategory(category, newName);
+					if (newCategory != null)
+					{
+						FillAllCategoryLists();
+						RebuildGamelist();
+						MakeChange(true);
+
+						for (int index = 2; index < lstCategories.Items.Count; index++)
+						{
+							if (lstCategories.Items[index].Tag != newCategory)
+							{
+								continue;
+							}
+
+							lstCategories.SelectedIndices.Add(index);
+
+							break;
+						}
+
+						AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CategoryRenamed, category.Name));
+
+						return;
+					}
+				}
+
+				MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_NameIsInUse, newName), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
 		}
 
 		private void RenameFilter(Filter f)
 		{
-			if (AdvancedCategoryFilter)
+			if (!AdvancedCategoryFilter)
 			{
-				GetStringDlg dlg = new GetStringDlg(f.Name, string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_RenameFilter, f.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
-				if ((dlg.ShowDialog() == DialogResult.OK) && (f.Name != dlg.Value))
+				return;
+			}
+
+			using (GetStringDlg dlg = new GetStringDlg(f.Name, string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_RenameFilter, f.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename))
+			{
+				if (dlg.ShowDialog() != DialogResult.OK)
 				{
-					if (CurrentProfile.GameData.FilterExists(dlg.Value))
-					{
-						MessageBox.Show(GlobalStrings.MainForm_FilterExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-						return;
-					}
-
-					f.Name = dlg.Value;
-					RefreshFilters();
-					cboFilter.SelectedItem = f;
-					cboFilter.Text = f.Name;
+					return;
 				}
+
+				if (f.Name == dlg.Value)
+				{
+					return;
+				}
+
+				if (CurrentProfile.GameData.FilterExists(dlg.Value))
+				{
+					MessageBox.Show(GlobalStrings.MainForm_FilterExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+					return;
+				}
+
+				f.Name = dlg.Value;
+				RefreshFilters();
+				cboFilter.SelectedItem = f;
+				cboFilter.Text = f.Name;
 			}
 		}
 
@@ -3661,39 +3742,31 @@ namespace Depressurizer
 			}
 		}
 
-		private void ResortToolStripItemCollection(ToolStripItemCollection coll)
+		private void RunAutoCats(List<AutoCat> autoCats, bool first, bool group = false)
 		{
-			ArrayList oAList = new ArrayList(coll);
-			oAList.Sort(new ToolStripItemComparer());
-			coll.Clear();
-
-			foreach (ToolStripItem oItem in oAList)
+			foreach (AutoCat autoCat in autoCats)
 			{
-				coll.Add(oItem);
-			}
-		}
-
-		private void RunAutoCats(List<AutoCat> autocats, bool first, bool group = false)
-		{
-			foreach (AutoCat ac in autocats)
-			{
-				if (ac != null)
+				if (autoCat == null)
 				{
-					if (ac.AutoCatType == AutoCatType.Group)
+					continue;
+				}
+
+				if (autoCat.AutoCatType == AutoCatType.Group)
+				{
+					AutoCatGroup acg = (AutoCatGroup) autoCat;
+					RunAutoCats(CurrentProfile.CloneAutoCatList(acg.Autocats, CurrentProfile.GameData.GetFilter(acg.Filter)), first, true);
+				}
+				else
+				{
+					if (!autoCat.Selected && !@group)
 					{
-						AutoCatGroup acg = (AutoCatGroup) ac;
-						RunAutoCats(CurrentProfile.CloneAutoCatList(acg.Autocats, CurrentProfile.GameData.GetFilter(acg.Filter)), first, true);
+						continue;
 					}
-					else
-					{
-						if (ac.Selected || group)
-						{
-							ClearStatus();
-							Autocategorize(mchkAutoCatSelected.Checked, ac, first, false);
-							first = false;
-							FlushStatus();
-						}
-					}
+
+					ClearStatus();
+					Autocategorize(mchkAutoCatSelected.Checked, autoCat, first, false);
+					first = false;
+					FlushStatus();
 				}
 			}
 		}
@@ -3837,7 +3910,7 @@ namespace Depressurizer
 			for (int i = 0; i < lvAutoCatType.CheckedItems.Count; i++)
 			{
 				ListViewItem listViewItem = lvAutoCatType.CheckedItems[i];
-				autoCats += autoCats == string.Empty ? listViewItem.Name : string.Format(CultureInfo.CurrentCulture, ",{0}", listViewItem.Name);
+				autoCats += string.IsNullOrWhiteSpace(autoCats) ? listViewItem.Name : string.Format(CultureInfo.CurrentCulture, ",{0}", listViewItem.Name);
 			}
 
 			Settings.SelectedAutoCats = autoCats;
@@ -3936,24 +4009,6 @@ namespace Depressurizer
 			Cursor.Current = Cursors.Default;
 		}
 
-		private void SetDragDropEffect(DragEventArgs e)
-		{
-			if (Settings.SingleCatMode /*|| (e.KeyState & 4) == 4*/)
-			{
-				// Commented segment: SHIFT
-				e.Effect = DragDropEffects.Move;
-			}
-			else if ((e.KeyState & 8) == 8)
-			{
-				// CTRL
-				e.Effect = DragDropEffects.Link;
-			}
-			else
-			{
-				e.Effect = DragDropEffects.Copy;
-			}
-		}
-
 		private void SetItemState(ListViewItem i, int state)
 		{
 			i.StateImageIndex = state;
@@ -4024,7 +4079,7 @@ namespace Depressurizer
 				return false;
 			}
 
-			if ((mtxtSearch.Text != string.Empty) && (g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1))
+			if (!string.IsNullOrWhiteSpace(mtxtSearch.Text) && (g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1))
 			{
 				return false;
 			}
@@ -4158,7 +4213,7 @@ namespace Depressurizer
 
 			try
 			{
-				int num = Database.UpdateFromAppInfo(string.Format(Constants.AppInfoPath, Settings.SteamPath));
+				int num = Database.UpdateFromAppInfo(string.Format(CultureInfo.InvariantCulture, Constants.AppInfoPath, Settings.SteamPath));
 				AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
 				if (num > 0)
 				{
@@ -4294,8 +4349,7 @@ namespace Depressurizer
 			{
 				try
 				{
-					int newApps = 0;
-					int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, out newApps);
+					int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, out int newApps);
 					AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps));
 					success = true;
 				}
@@ -4405,30 +4459,6 @@ namespace Depressurizer
 			bool sCat = Settings.SingleCatMode;
 			menu_Tools_SingleCat.Checked = sCat;
 			UpdateTitle();
-		}
-
-		private bool ValidateCategoryName(string name)
-		{
-			if (string.IsNullOrEmpty(name))
-			{
-				MessageBox.Show(GlobalStrings.MainForm_CategoryNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-				return false;
-			}
-
-			return true;
-		}
-
-		private bool ValidateFilterName(string name)
-		{
-			if (string.IsNullOrEmpty(name))
-			{
-				MessageBox.Show(GlobalStrings.MainForm_FilterNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-				return false;
-			}
-
-			return true;
 		}
 
 		#endregion
