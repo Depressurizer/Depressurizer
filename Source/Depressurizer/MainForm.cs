@@ -467,35 +467,38 @@ namespace Depressurizer
 			}
 		}
 
-		private void AddGameToMultiCatCheckStates(GameInfo game, bool first)
+		private void AddGameToMultiCatCheckStates(GameInfo gameInfo, bool first)
 		{
-			foreach (ListViewItem catItem in lstMultiCat.Items)
+			foreach (ListViewItem listViewItem in lstMultiCat.Items)
 			{
-				if (catItem.StateImageIndex != 2)
+				if (listViewItem.StateImageIndex == 2)
 				{
-					Category cat = catItem.Tag as Category;
-					if (cat != null)
+					continue;
+				}
+
+				if (!(listViewItem.Tag is Category category))
+				{
+					continue;
+				}
+
+				if (first)
+				{
+					listViewItem.StateImageIndex = gameInfo.ContainsCategory(category) ? 1 : 0;
+				}
+				else
+				{
+					if (gameInfo.ContainsCategory(category))
 					{
-						if (first)
+						if (listViewItem.StateImageIndex == 0)
 						{
-							catItem.StateImageIndex = game.ContainsCategory(cat) ? 1 : 0;
+							listViewItem.StateImageIndex = 2;
 						}
-						else
+					}
+					else
+					{
+						if (listViewItem.StateImageIndex == 1)
 						{
-							if (game.ContainsCategory(cat))
-							{
-								if (catItem.StateImageIndex == 0)
-								{
-									catItem.StateImageIndex = 2;
-								}
-							}
-							else
-							{
-								if (catItem.StateImageIndex == 1)
-								{
-									catItem.StateImageIndex = 2;
-								}
-							}
+							listViewItem.StateImageIndex = 2;
 						}
 					}
 				}
@@ -609,38 +612,46 @@ namespace Depressurizer
 			OnViewChange();
 		}
 
-		private void AssignFavoriteToSelectedGames(bool fav)
+		private void AssignFavoriteToSelectedGames(bool isFavorite)
 		{
-			if (lstGames.SelectedObjects.Count > 0)
+			if (lstGames.SelectedObjects.Count <= 0)
 			{
-				Cursor.Current = Cursors.WaitCursor;
-				foreach (GameInfo g in _tlstGames.SelectedObjects)
-				{
-					g.SetFavorite(fav);
-				}
-
-				FillCategoryList();
-				RebuildGamelist();
-				MakeChange(true);
-				Cursor.Current = Cursors.Default;
+				return;
 			}
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
+			{
+				gameInfo.SetFavorite(isFavorite);
+			}
+
+			FillCategoryList();
+			RebuildGamelist();
+			MakeChange(true);
+
+			Cursor.Current = Cursors.Default;
 		}
 
 		private void AssignHiddenToSelectedGames(bool hidden)
 		{
-			if (lstGames.SelectedObjects.Count > 0)
+			if (lstGames.SelectedObjects.Count <= 0)
 			{
-				Cursor.Current = Cursors.WaitCursor;
-				foreach (GameInfo g in _tlstGames.SelectedObjects)
-				{
-					g.SetHidden(hidden);
-				}
-
-				FillCategoryList();
-				FilterGamelist(false);
-				MakeChange(true);
-				Cursor.Current = Cursors.Default;
+				return;
 			}
+
+			Cursor.Current = Cursors.WaitCursor;
+
+			foreach (GameInfo gameInfo in _tlstGames.SelectedObjects)
+			{
+				gameInfo.SetHidden(hidden);
+			}
+
+			FillCategoryList();
+			FilterGamelist(false);
+			MakeChange(true);
+
+			Cursor.Current = Cursors.Default;
 		}
 
 		private void Autocategorize(bool selectedOnly, AutoCat autoCat, bool scrape = true, bool refresh = true)
@@ -946,41 +957,47 @@ namespace Depressurizer
 
 		private void contextCat_SetAdvanced_Allow_Click(object sender, EventArgs e)
 		{
-			if (lstCategories.SelectedItems.Count > 0)
+			if (lstCategories.SelectedItems.Count <= 0)
 			{
-				foreach (ListViewItem i in lstCategories.SelectedItems)
-				{
-					SetItemState(i, (int) AdvancedFilterState.Allow);
-				}
-
-				OnViewChange();
+				return;
 			}
+
+			foreach (ListViewItem i in lstCategories.SelectedItems)
+			{
+				SetItemState(i, (int) AdvancedFilterState.Allow);
+			}
+
+			OnViewChange();
 		}
 
 		private void contextCat_SetAdvanced_Exclude_Click(object sender, EventArgs e)
 		{
-			if (lstCategories.SelectedItems.Count > 0)
+			if (lstCategories.SelectedItems.Count <= 0)
 			{
-				foreach (ListViewItem i in lstCategories.SelectedItems)
-				{
-					SetItemState(i, (int) AdvancedFilterState.Exclude);
-				}
-
-				OnViewChange();
+				return;
 			}
+
+			foreach (ListViewItem i in lstCategories.SelectedItems)
+			{
+				SetItemState(i, (int) AdvancedFilterState.Exclude);
+			}
+
+			OnViewChange();
 		}
 
 		private void contextCat_SetAdvanced_None_Click(object sender, EventArgs e)
 		{
-			if (lstCategories.SelectedItems.Count > 0)
+			if (lstCategories.SelectedItems.Count <= 0)
 			{
-				foreach (ListViewItem i in lstCategories.SelectedItems)
-				{
-					SetItemState(i, (int) AdvancedFilterState.None);
-				}
-
-				OnViewChange();
+				return;
 			}
+
+			foreach (ListViewItem i in lstCategories.SelectedItems)
+			{
+				SetItemState(i, (int) AdvancedFilterState.None);
+			}
+
+			OnViewChange();
 		}
 
 		private void contextCat_SetAdvanced_Require_Click(object sender, EventArgs e)
@@ -1332,19 +1349,21 @@ namespace Depressurizer
 
 		private void ExportConfig()
 		{
-			if (CurrentProfile != null)
+			if (CurrentProfile == null)
 			{
-				try
-				{
-					CurrentProfile.ExportSteamData();
-					AddStatus(GlobalStrings.MainForm_ExportedCategories);
-				}
-				catch (Exception e)
-				{
-					MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorExportingToSteam, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-					Logger.Instance.Exception(GlobalStrings.MainForm_Log_ExceptionExport, e);
-					AddStatus(GlobalStrings.MainForm_ExportFailed);
-				}
+				return;
+			}
+
+			try
+			{
+				CurrentProfile.ExportSteamData();
+				AddStatus(GlobalStrings.MainForm_ExportedCategories);
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorExportingToSteam, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Logger.Instance.Exception(GlobalStrings.MainForm_Log_ExceptionExport, e);
+				AddStatus(GlobalStrings.MainForm_ExportFailed);
 			}
 		}
 
@@ -2553,64 +2572,66 @@ namespace Depressurizer
 
 		private void lstCategories_DragDrop(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(typeof(int[])))
+			if (!e.Data.GetDataPresent(typeof(int[])))
 			{
-				lstCategories.SelectedIndices.Clear();
-				if (_dragOldCat >= 0)
+				return;
+			}
+
+			lstCategories.SelectedIndices.Clear();
+			if (_dragOldCat >= 0)
+			{
+				lstCategories.SelectedIndices.Add(_dragOldCat);
+			}
+
+			_isDragging = false;
+			ClearStatus();
+			ListViewItem dropItem = GetCategoryItemAtPoint(e.X, e.Y);
+
+			SetDragDropEffect(e);
+
+			if ((dropItem.Tag != null) && dropItem.Tag is Category)
+			{
+				Category dropCat = (Category) dropItem.Tag;
+				if (e.Effect == DragDropEffects.Move)
 				{
-					lstCategories.SelectedIndices.Add(_dragOldCat);
-				}
-
-				_isDragging = false;
-				ClearStatus();
-				ListViewItem dropItem = GetCategoryItemAtPoint(e.X, e.Y);
-
-				SetDragDropEffect(e);
-
-				if ((dropItem.Tag != null) && dropItem.Tag is Category)
-				{
-					Category dropCat = (Category) dropItem.Tag;
-					if (e.Effect == DragDropEffects.Move)
-					{
-						if (dropCat == CurrentProfile.GameData.FavoriteCategory)
-						{
-							CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
-						}
-						else
-						{
-							CurrentProfile.GameData.SetGameCategories((int[]) e.Data.GetData(typeof(int[])), dropCat, true);
-						}
-					}
-					else if (e.Effect == DragDropEffects.Link)
-					{
-						CurrentProfile.GameData.RemoveGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
-					}
-					else if (e.Effect == DragDropEffects.Copy)
+					if (dropCat == CurrentProfile.GameData.FavoriteCategory)
 					{
 						CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
 					}
-
-					FillAllCategoryLists();
-					FilterGamelist(false);
-					MakeChange(true);
+					else
+					{
+						CurrentProfile.GameData.SetGameCategories((int[]) e.Data.GetData(typeof(int[])), dropCat, true);
+					}
 				}
-				else if ((string) dropItem.Tag == Resources.Category_Uncategorized)
+				else if (e.Effect == DragDropEffects.Link)
 				{
-					CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
-					FillCategoryList();
-					FilterGamelist(false);
-					MakeChange(true);
+					CurrentProfile.GameData.RemoveGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
 				}
-				else if ((string) dropItem.Tag == Resources.Category_Hidden)
+				else if (e.Effect == DragDropEffects.Copy)
 				{
-					CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
-					FillCategoryList();
-					FilterGamelist(false);
-					MakeChange(true);
+					CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
 				}
 
-				FlushStatus();
+				FillAllCategoryLists();
+				FilterGamelist(false);
+				MakeChange(true);
 			}
+			else if ((string) dropItem.Tag == Resources.Category_Uncategorized)
+			{
+				CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
+				FillCategoryList();
+				FilterGamelist(false);
+				MakeChange(true);
+			}
+			else if ((string) dropItem.Tag == Resources.Category_Hidden)
+			{
+				CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
+				FillCategoryList();
+				FilterGamelist(false);
+				MakeChange(true);
+			}
+
+			FlushStatus();
 		}
 
 		private void lstCategories_DragEnter(object sender, DragEventArgs e)
