@@ -1,4 +1,4 @@
-﻿# Depressurizer (v2.2.0)
+﻿# Depressurizer (v2.3.0)
 <sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
 
 # Summary
