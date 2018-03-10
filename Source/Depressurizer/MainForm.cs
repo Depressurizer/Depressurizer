@@ -44,6 +44,7 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using Newtonsoft.Json.Linq;
 using Rallion;
+using DropdownMenuScrollWheelHandler = Depressurizer.Helpers.DropdownMenuScrollWheelHandler;
 
 namespace Depressurizer
 {
@@ -52,10 +53,6 @@ namespace Depressurizer
 		#region Constants
 
 		private const string AdvancedFilter = "ADVANCED_FILTER";
-
-		private const string BigDown = "{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN}";
-
-		private const string BigUp = "{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP}";
 
 		private const string EarlyAccess = "Early Access";
 
@@ -1672,8 +1669,8 @@ namespace Depressurizer
 
 		private void FormMain_Load(object sender, EventArgs e)
 		{
-			// allow mousewheel scrolling for Add Category submenu.  Send 10 UP/DOWN per wheel click.
-			contextGame.MouseWheel += HandleMouseWheel;
+			// allow mousewheel scrolling context menus, e.g. for Add Category submenu.
+			DropdownMenuScrollWheelHandler.Enable();
 
 			ttHelp.Ext_SetToolTip(mchkAdvancedCategories, GlobalStrings.MainForm_Help_AdvancedCategories);
 
@@ -1839,14 +1836,6 @@ namespace Depressurizer
 			if (updateView)
 			{
 				OnViewChange();
-			}
-		}
-
-		private void HandleMouseWheel(object sender, MouseEventArgs e)
-		{
-			if (contextGame.IsDropDown)
-			{
-				SendKeys.SendWait(e.Delta > 0 ? BigUp : BigDown);
 			}
 		}
 

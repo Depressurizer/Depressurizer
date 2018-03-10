@@ -242,6 +242,7 @@
     </Compile>
     <Compile Include="GameList.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\DropDownMenuScrollWheelHandler.cs" />
     <Compile Include="Models\CategorySort.cs" />
     <Compile Include="Models\CommaClusterStrategy.cs" />
     <Compile Include="Database.cs" />
