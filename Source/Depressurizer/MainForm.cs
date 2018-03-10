@@ -35,6 +35,7 @@ using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Depressurizer.Dialogs;
+using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
 using DepressurizerCore;
@@ -44,7 +45,7 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using Newtonsoft.Json.Linq;
 using Rallion;
-using DropdownMenuScrollWheelHandler = Depressurizer.Helpers.DropdownMenuScrollWheelHandler;
+using Utility = DepressurizerCore.Helpers.Utility;
 
 namespace Depressurizer
 {
@@ -3768,7 +3769,7 @@ namespace Depressurizer
 				}
 				else
 				{
-					if (!autoCat.Selected && !@group)
+					if (!autoCat.Selected && !group)
 					{
 						continue;
 					}
