@@ -1,6 +1,12 @@
-﻿# Depressurizer (v2.3.0)
-<sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
+# Depressurizer (v2.3.0)
+[![AppVeyor](https://img.shields.io/appveyor/ci/mvegter/Depressurizer.svg?style=flat-square)](https://ci.appveyor.com/project/mvegter/depressurizer)
+[![Github All Releases](https://img.shields.io/github/downloads/mvegter/Depressurizer/total.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/releases/latest)
+[![GitHub stars](https://img.shields.io/github/stars/mvegter/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/stargazers)
+[![GitHub contributors](https://img.shields.io/github/contributors/mvegter/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/mvegter/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/issues)
+[![GitHub license](https://img.shields.io/github/license/mvegter/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/blob/dev/LICENSE)
 
+<sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
 # Summary
 
 <img src="http://i.imgur.com/2K70Jog.jpg" width="50%" height="auto"  align="right" >
