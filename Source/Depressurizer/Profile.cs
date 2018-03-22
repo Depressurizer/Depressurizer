@@ -281,7 +281,7 @@ namespace Depressurizer
 					XmlNodeList filterNodes = filterListNode.SelectNodes(XmlName_Filter);
 					foreach (XmlNode node in filterNodes)
 					{
-						// TODO: AddFilterFromXmlNode(node, profile);
+						AddFilterFromXmlNode(node, profile);
 					}
 				}
 
@@ -313,6 +313,58 @@ namespace Depressurizer
 			Logger.Instance.Info(GlobalStrings.MainForm_ProfileLoaded);
 			return profile;
 		}
+
+		private static void AddFilterFromXmlNode(XmlNode node, Profile profile)
+		{
+			if (!XmlUtil.TryGetStringFromNode(node[XmlName_FilterName], out string name))
+			{
+				return;
+			}
+
+			Filter f = profile.GameData.AddFilter(name);
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_FilterUncategorized], out int uncategorized))
+			{
+				f.Uncategorized = uncategorized;
+			}
+
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_FilterHidden], out int hidden))
+			{
+				f.Hidden = hidden;
+			}
+
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_FilterVR], out int VR))
+			{
+				f.VR = VR;
+			}
+
+			XmlNodeList filterNodes = node.SelectNodes(XmlName_FilterAllow);
+			foreach (XmlNode fNode in filterNodes)
+			{
+				if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
+				{
+					f.Allow.Add(profile.GameData.GetCategory(catName));
+				}
+			}
+
+			filterNodes = node.SelectNodes(XmlName_FilterRequire);
+			foreach (XmlNode fNode in filterNodes)
+			{
+				if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
+				{
+					f.Require.Add(profile.GameData.GetCategory(catName));
+				}
+			}
+
+			filterNodes = node.SelectNodes(XmlName_FilterExclude);
+			foreach (XmlNode fNode in filterNodes)
+			{
+				if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
+			{
+					f.Exclude.Add(profile.GameData.GetCategory(catName));
+				}
+			}
+		}
+	
 
 		// using a list of AutoCat names (strings), return a cloned list of AutoCats replacing the filter with a new one if a new filter is provided.
 		// This is used to help process AutoCatGroup.
@@ -495,7 +547,7 @@ namespace Depressurizer
 
 			foreach (Filter f in GameData.Filters)
 			{
-				//TODO: f.WriteToXml(writer);
+				f.WriteToXml(writer);
 			}
 
 			writer.WriteEndElement(); //game filters

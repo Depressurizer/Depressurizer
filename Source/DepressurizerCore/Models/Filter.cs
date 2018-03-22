@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace DepressurizerCore.Models
 {
@@ -92,6 +93,42 @@ namespace DepressurizerCore.Models
 		public override string ToString()
 		{
 			return Name;
+		}
+
+		private const string TypeIdString = "Filter",
+			XmlName_Name = "Name",
+			XmlName_Uncategorized = "Uncategorized",
+			XmlName_Hidden = "Hidden",
+			XmlName_VR = "VR",
+			XmlName_Allow = "Allow",
+			XmlName_Require = "Require",
+			XmlName_Exclude = "Exclude";
+
+		public void WriteToXml(XmlWriter writer)
+		{
+			writer.WriteStartElement(TypeIdString);
+
+			writer.WriteElementString(XmlName_Name, Name);
+			writer.WriteElementString(XmlName_Uncategorized, Uncategorized.ToString());
+			writer.WriteElementString(XmlName_Hidden, Hidden.ToString());
+			writer.WriteElementString(XmlName_VR, VR.ToString());
+
+			foreach (Category c in Allow)
+			{
+				writer.WriteElementString(XmlName_Allow, c.Name);
+			}
+
+			foreach (Category c in Require)
+			{
+				writer.WriteElementString(XmlName_Require, c.Name);
+			}
+
+			foreach (Category c in Exclude)
+			{
+				writer.WriteElementString(XmlName_Exclude, c.Name);
+			}
+
+			writer.WriteEndElement(); // Filter
 		}
 
 		#endregion
