@@ -3972,6 +3972,8 @@ namespace Depressurizer
 
 		private void SelectFilter()
 		{
+			RefreshFilters();
+
 			if (string.IsNullOrWhiteSpace(Settings.SelectedFilter))
 			{
 				return;
