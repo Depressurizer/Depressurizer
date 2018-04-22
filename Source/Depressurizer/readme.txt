@@ -1,11 +1,11 @@
-Depressurizer (v2.3.0)
+Depressurizer (v2.4.0)
 
 SUMMARY
 
 	Depressurizer is a program aimed at making it a bit easier to manage large
 	Steam game libraries. It can auto-categorize your games for you. Currently,
 	it does so based on data from that games' Steam store pages. It can use genres,
-	Steam flags (like "Single-Player" and "Steam Cloud"), Steam tags, Developer & 
+	Steam flags (like "Single-Player" and "Steam Cloud"), Steam tags, Developer &
 	Publisher info, How Long to Beat times, year, and/or Steam review user scores.
 	Auto-categorizing can be done manually or automatically via shortcut.
 
@@ -70,7 +70,7 @@ USAGE GUIDE
 		If you select games in the list, and drag them to a category in the list
 		on the left, you can add them to the selected category. You can drag
 		them to "favorites" to set them as favorites, or to Uncategorized to
-		clear their categories. 
+		clear their categories.
 
 		If you hold Ctrl when you drag items, you can remove them from the
 		selected category instead of adding them.
@@ -88,26 +88,26 @@ USAGE GUIDE
 		You can use simple category filtering, which lets you select a category
 		and view all games in that category. You can also view all games, all
 		"favorited" games, or all games not assigned to any category.
-		
-		You can right click on any of the columns titles on the gamelist to 
+
+		You can right click on any of the columns titles on the gamelist to
 		filter games based on the data displayed on the selected column.
 
 		You can also use advanced filtering, which lets you view games based on
 		combinations of categories. In order for a game to be displayed, it must
 		match the criteria that you specify.
-		
+
 			ALLOWED is indicated by a green checkmark. If any categories are
 			Allowed, then only games that are in at least one of these
 			categories will be displayed. It's not necessary to allow categories
 			all the time: if no categories are set to allowed, then the
 			filtering ignores this criteria.
-			
-			REQUIRED is indicated by a blue circle. Only games that are in all 
+
+			REQUIRED is indicated by a blue circle. Only games that are in all
 			Required categories are displayed.
- 
+
 			EXCLUDED is indicated by a red X. Only games that are in no	Excluded
 			categories are displayed.
- 
+
 		This advanced filtering can be useful to find games that are not
 		categorized the way that you want. You can use it to find games that are
 		in two categories that should be mutually exclusive by setting them both
@@ -122,7 +122,7 @@ USAGE GUIDE
 		Finally, you can always type into the Search box to find games with
 		particular names. It will filter your current view to only games which
 		have names that contain your search term.
-		
+
 	AUTOCATEGORIZATION
 
 		Autocategorization in Depressurizer is based around different schemes
@@ -138,7 +138,7 @@ USAGE GUIDE
 		Tools menu.
 
 		To modify, delete or create new AutoCats, click the "Edit AutoCats..."
-		item in the Profile menu.  You can also double-click on any AutoCat, 
+		item in the Profile menu.  You can also double-click on any AutoCat,
 		or use the context menu.
 
 		There are currently nine types of AutoCat:
@@ -157,7 +157,7 @@ USAGE GUIDE
 			ONLY if they could potentially be added by this scheme. If a game
 			already belongs to a category that has the name of a genre, with the
 			Prefix, it will be removed before new categories are added to it.
-			
+
 			Use Tags if no genres are set: Some games in the Steam store do not
 			have any actual genres set, but they do generally still have tags.
 			This will use those tags if no genres exist. It will only assign
@@ -222,28 +222,28 @@ USAGE GUIDE
 				Owned Only: Only scan the games that you own. Recommended. With
 				this turned off, you will see all tags for every game in the
 				database.
-				
+
 		Release Year
 
 			This lets you assign categories to games based on their release
 			date. You can assign categories for individual years, decades, or
 			half-decades.
-		
+
 		User Score
-			
+
 			This lets you categorize games based on user recommendations on the
 			Steam store.
-			
+
 			To use this method, you must create a set of categories to assign,
 			and define the criteria for a game to be placed in that category.
 			Each game will only be assigned to the category for the first rule
 			that matches it. If a game does not match any rules, it will not be
 			assigned to a category.
-			
+
 		HLTB
 
-			This lets you categorize games based on the times from 
-			http://howlongtobeat.com/ which indicate how long it takes to beat a 
+			This lets you categorize games based on the times from
+			http://howlongtobeat.com/ which indicate how long it takes to beat a
 			game.
 
 			To use this method, you must create a set of categories to assign,
@@ -251,7 +251,7 @@ USAGE GUIDE
 			Each game will only be assigned to the category for the first rule
 			that matches it. If a game does not match any rules, it will not be
 			assigned to a category.
-			
+
 		DevPub
 
 			Categorize games based on their Developers and/or Publishers.
@@ -268,15 +268,15 @@ USAGE GUIDE
 
 			Place and order multiple AutoCats into a single AutoCat.  Any Filter
 			applied to a group will take precedence over a Filter applied to an
-			AutoCat.	
+			AutoCat.
 
 
 	AUTOMATIC MODE
 
-			Automatic mode lets you run a predetermined set of autocat operations 
-			on your game library through the command line or by running a shortcut, 
-			without having to use the full Depressurizer interface. You still have 
-			to use the full interface to manage the autocat rules themselves. 
+			Automatic mode lets you run a predetermined set of autocat operations
+			on your game library through the command line or by running a shortcut,
+			without having to use the full Depressurizer interface. You still have
+			to use the full interface to manage the autocat rules themselves.
 			For more information check Tools->Auto Mode Helper.
 
 
@@ -325,7 +325,7 @@ FAQ / TROUBLESHOOTING
 		update will not pick it up. If the game does not show up on your
 		community profile page, the web update will not pick it up. If a game is
 		marked as DLC (or anything non-game-like) in the database, it will not
-		get picked up by either of these methods. 
+		get picked up by either of these methods.
 
 		To get unlisted games to show up in the program, you can add them
 		manually by clicking the "Add Game" button.
