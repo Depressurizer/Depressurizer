@@ -1,4 +1,4 @@
-# Depressurizer (v2.4.0)
+# Depressurizer (v2.5.0)
 [![AppVeyor](https://img.shields.io/appveyor/ci/mvegter/Depressurizer.svg?style=flat-square)](https://ci.appveyor.com/project/mvegter/depressurizer)
 [![Github All Releases](https://img.shields.io/github/downloads/mvegter/Depressurizer/total.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/releases/latest)
 [![GitHub stars](https://img.shields.io/github/stars/mvegter/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/stargazers)
