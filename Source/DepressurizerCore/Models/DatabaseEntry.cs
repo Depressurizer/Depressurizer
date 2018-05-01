@@ -334,14 +334,14 @@ namespace DepressurizerCore.Models
 					// Check if we were redirected to the Steam Store front page
 					if (resp.Headers[HttpResponseHeader.Location] == @"https://store.steampowered.com/")
 					{
-						Logger.Instance.Verbose("Scraping {0}: Redirected to main store page, aborting scraping", Id);
+						Logger.Instance.Warn("Scraping {0}: Redirected to main store page, aborting scraping", Id);
 						return;
 					}
 
 					// Check if we were redirected to the same page
 					if (resp.ResponseUri.ToString() == resp.Headers[HttpResponseHeader.Location])
 					{
-						Logger.Instance.Verbose("Scraping {0}: Store page redirected to itself, aborting scraping", Id);
+						Logger.Instance.Warn("Scraping {0}: Store page redirected to itself, aborting scraping", Id);
 						return;
 					}
 
@@ -353,28 +353,28 @@ namespace DepressurizerCore.Models
 				// Check if we were redirected too many times
 				if ((count == 5) && (resp.StatusCode == HttpStatusCode.Found))
 				{
-					Logger.Instance.Verbose("Scraping {0}: Too many redirects, aborting scraping", Id);
+					Logger.Instance.Warn("Scraping {0}: Too many redirects, aborting scraping", Id);
 					return;
 				}
 
 				// Check if we were redirected to the Steam Store front page
 				if (resp.ResponseUri.Segments.Length < 2)
 				{
-					Logger.Instance.Verbose("Scraping {0}: Redirected to main store page, aborting scraping", Id);
+					Logger.Instance.Warn("Scraping {0}: Redirected to main store page, aborting scraping", Id);
 					return;
 				}
 
 				// Check if we were redirected outside of the app route
 				if (resp.ResponseUri.Segments[1] != "app/")
 				{
-					Logger.Instance.Verbose("Scraping {0}: Redirected outside the app (app/) route, aborting scraping", Id);
+					Logger.Instance.Warn("Scraping {0}: Redirected outside the app (app/) route, aborting scraping", Id);
 					return;
 				}
 
 				// The URI ends with "/app/" ?
 				if (resp.ResponseUri.Segments.Length < 3)
 				{
-					Logger.Instance.Verbose("Scraping {0}: Response URI ends with 'app' thus missing ID found, aborting scraping", Id);
+					Logger.Instance.Warn("Scraping {0}: Response URI ends with 'app' thus missing ID found, aborting scraping", Id);
 					return;
 				}
 
@@ -384,7 +384,7 @@ namespace DepressurizerCore.Models
 					// Encountered an age check with no redirect
 					if ((resp.ResponseUri.Segments.Length < 4) || (resp.ResponseUri.Segments[3].TrimEnd('/') == Id.ToString(CultureInfo.InvariantCulture)))
 					{
-						Logger.Instance.Verbose("Scraping {0}: Encounterd an age check without redirect, aborting scraping", Id);
+						Logger.Instance.Warn("Scraping {0}: Encounterd an age check without redirect, aborting scraping", Id);
 						return;
 					}
 
@@ -404,7 +404,7 @@ namespace DepressurizerCore.Models
 					// if new app id is an actual number
 					if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
 					{
-						Logger.Instance.Verbose("Scraping {0}: Redirected to an unknown Id ({1}), aborting scraping", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
+						Logger.Instance.Warn("Scraping {0}: Redirected to an unknown Id ({1}), aborting scraping", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
 						return;
 					}
 
@@ -414,7 +414,7 @@ namespace DepressurizerCore.Models
 				responseStream = resp.GetResponseStream();
 				if (responseStream == null)
 				{
-					Logger.Instance.Verbose("Scraping {0}: The response stream was null, aborting scraping", Id);
+					Logger.Instance.Warn("Scraping {0}: The response stream was null, aborting scraping", Id);
 					return;
 				}
 
@@ -454,14 +454,14 @@ namespace DepressurizerCore.Models
 			// Check for server-sided errors
 			if (page.Contains("<title>Site Error</title>"))
 			{
-				Logger.Instance.Verbose("Scraping {0}: Received Site Error, aborting scraping", Id);
+				Logger.Instance.Warn("Scraping {0}: Received Site Error, aborting scraping", Id);
 				return;
 			}
 
 			// Double checking if this is an app (Game or Application)
 			if (!RegGamecheck.IsMatch(page) && !RegSoftwarecheck.IsMatch(page))
 			{
-				Logger.Instance.Verbose("Scraping {0}: Could not parse info from page, aborting scraping", Id);
+				Logger.Instance.Warn("Scraping {0}: Could not parse info from page, aborting scraping", Id);
 				return;
 			}
 
