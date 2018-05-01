@@ -36,17 +36,17 @@ namespace DepressurizerCore.Models
 
 		private static readonly Regex RegAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
 
-		private static readonly Regex RegDevelopers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?developer=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+		private static readonly Regex RegDevelopers = new Regex(@"(<a href=""https://store\.steampowered\.com/search/\?developer=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
 
 		private static readonly Regex RegDevelopersTSA = new Regex(@"<a href=""\/gameslist\.aspx\?developer=[^""""]*"" rel=""nofollow"">([^<]*)<\/a>", RegexOptions.Compiled);
 
-		private static readonly Regex RegDlCcheck = new Regex(@"<img class=""category_icon"" src=""http://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
+		private static readonly Regex RegDlCcheck = new Regex(@"<img class=""category_icon"" src=""https://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
 
-		private static readonly Regex RegFlags = new Regex(@"<a class=""name"" href=""http://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
+		private static readonly Regex RegFlags = new Regex(@"<a class=""name"" href=""https://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
 
-		private static readonly Regex RegGamecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
+		private static readonly Regex RegGamecheck = new Regex(@"<a href=""https://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
 
-		private static readonly Regex RegGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""http://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+		private static readonly Regex RegGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""https://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
 
 		private static readonly Regex RegGenreTSA = new Regex(@"<a href=""\/genre\/"">([^<]*)<\/a>", RegexOptions.Compiled);
 
@@ -62,7 +62,7 @@ namespace DepressurizerCore.Models
 
 		private static readonly Regex RegPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
 
-		private static readonly Regex RegPublishers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+		private static readonly Regex RegPublishers = new Regex(@"(<a href=""https://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
 
 		private static readonly Regex RegPublisherTSA = new Regex(@"<a href=""\/gameslist\.aspx\?publisher=[^""""]*"" rel=""nofollow"">([^<]*)<\/a>", RegexOptions.Compiled);
 
@@ -70,7 +70,7 @@ namespace DepressurizerCore.Models
 
 		private static readonly Regex RegReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
 
-		private static readonly Regex RegSoftwarecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
+		private static readonly Regex RegSoftwarecheck = new Regex(@"<a href=""https://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
 
 		private static readonly Regex RegTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
 
@@ -321,7 +321,7 @@ namespace DepressurizerCore.Models
 
 			try
 			{
-				string storePage = string.Format(CultureInfo.InvariantCulture, "http://store.steampowered.com/app/{0}/?l={1}", Id, Settings.Instance.StoreLanguage).ToLowerInvariant();
+				string storePage = string.Format(CultureInfo.InvariantCulture, "https://store.steampowered.com/app/{0}/?l={1}", Id, Settings.Instance.StoreLanguage).ToLowerInvariant();
 
 				HttpWebRequest req = GetSteamRequest(storePage);
 				resp = (HttpWebResponse) req.GetResponse();
@@ -332,7 +332,7 @@ namespace DepressurizerCore.Models
 					resp.Close();
 
 					// Check if we were redirected to the Steam Store front page
-					if (resp.Headers[HttpResponseHeader.Location] == @"http://store.steampowered.com/")
+					if (resp.Headers[HttpResponseHeader.Location] == @"https://store.steampowered.com/")
 					{
 						Logger.Instance.Verbose("Scraping {0}: Redirected to main store page, aborting scraping", Id);
 						return;
