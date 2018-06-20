@@ -36,6 +36,8 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Depressurizer.Enums;
+using Depressurizer.Models;
 using Depressurizer.Properties;
 using MaterialSkin;
 using MaterialSkin.Controls;

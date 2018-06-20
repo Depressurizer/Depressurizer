@@ -25,6 +25,8 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer;
+using Depressurizer.Enums;
+using Depressurizer.Models;
 using Rallion;
 
 namespace Depressurizer
