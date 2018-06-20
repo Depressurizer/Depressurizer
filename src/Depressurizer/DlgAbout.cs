@@ -1,57 +1,64 @@
-﻿/*
-This file is part of Depressurizer.
-Copyright 2011 - 2014 Steve Labbe.
+﻿#region License
 
-Depressurizer is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+//     This file (DlgAbout.cs) is part of Depressurizer.
+//     Copyright (C) 2011  Martijn Vegter
+//     Copyright (C) 2018  Steve Labbe
+// 
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+// 
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+// 
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-Depressurizer is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
-*/
+#endregion
 
 using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
-    public partial class DlgAbout : Form
-    {
-        public DlgAbout()
-        {
-            InitializeComponent();
-        }
+	public partial class DlgAbout : Form
+	{
+		#region Constructors and Destructors
 
-        private void DlgAbout_Load(object sender, EventArgs e)
-        {
-            lblVersion.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
+		public DlgAbout()
+		{
+			InitializeComponent();
+		}
 
-            int oldLen = lnkHomepage.Text.Length;
-            lnkHomepage.Text += Properties.Resources.DepressurizerHomepage;
-            lnkHomepage.LinkArea = new LinkArea(oldLen, lnkHomepage.Text.Length - oldLen);
-        }
+		#endregion
 
-        private void lnkHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(Properties.Resources.DepressurizerHomepage);
-        }
+		#region Methods
 
-        private void lnkLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("http://www.gnu.org/licenses/");
-        }
+		private void DlgAbout_Load(object sender, EventArgs e)
+		{
+			lblVersion.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        private void lnkNDesk_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("http://www.novell.com");
-        }
-    }
+			int oldLen = lnkHomepage.Text.Length;
+			lnkHomepage.Text += Resources.DepressurizerHomepage;
+			lnkHomepage.LinkArea = new LinkArea(oldLen, lnkHomepage.Text.Length - oldLen);
+		}
+
+		private void lnkHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			Process.Start(Resources.DepressurizerHomepage);
+		}
+
+		private void lnkLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			Process.Start("http://www.gnu.org/licenses/");
+		}
+
+		#endregion
+	}
 }
