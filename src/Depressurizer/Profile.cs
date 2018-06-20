@@ -20,6 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Xml;
+using Depressurizer.Enums;
+using Depressurizer.Models;
 using Rallion;
 
 namespace Depressurizer

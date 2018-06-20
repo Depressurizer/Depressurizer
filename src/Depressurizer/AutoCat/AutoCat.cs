@@ -22,6 +22,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Models;
 
 /* ADDING NEW AUTOCAT METHODS
  * 

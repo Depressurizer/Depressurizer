@@ -32,6 +32,8 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Enums;
+using Depressurizer.Models;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
 using Rallion;
