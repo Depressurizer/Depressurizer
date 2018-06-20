@@ -76,20 +76,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Costura, Version=3.0.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.3.0.0\lib\net46\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialSkin, Version=0.0.3.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
+    <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialSkin.Updated.0.2.2\lib\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -680,31 +677,31 @@
   <ItemGroup>
     <PublishFile Include="Depressurizer.exe.config">
       <Visible>False</Visible>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Depressurizer.exe.manifest">
       <Visible>False</Visible>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="depressurizer_icon.ico" />
+    <Content Include="FodyWeavers.xml" />
     <Content Include="readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -724,17 +721,17 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Resource.Embedder.1.2.5\build\Resource.Embedder.targets" Condition="Exists('..\packages\Resource.Embedder.1.2.5\build\Resource.Embedder.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\Resource.Embedder.1.2.3\build\Resource.Embedder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.1.2.3\build\Resource.Embedder.targets'))" />
+    <Error Condition="!Exists('..\packages\Resource.Embedder.1.2.5\build\Resource.Embedder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.1.2.5\build\Resource.Embedder.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.3.0.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.3.0.4\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.3.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.0.0\build\Costura.Fody.targets'))" />
   </Target>
-  <Import Project="..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" />
-  <Import Project="..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
-  <Import Project="..\packages\Resource.Embedder.1.2.3\build\Resource.Embedder.targets" Condition="Exists('..\packages\Resource.Embedder.1.2.3\build\Resource.Embedder.targets')" />
+  <Import Project="..\packages\Fody.3.0.4\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.4\build\Fody.targets')" />
+  <Import Project="..\packages\Costura.Fody.3.0.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.3.0.0\build\Costura.Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
