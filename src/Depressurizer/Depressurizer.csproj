@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Depressurizer</RootNamespace>
     <AssemblyName>Depressurizer</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -209,12 +209,6 @@
     <Compile Include="AutoCat\CDlgCurator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AutomaticModeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AutomaticModeForm.Designer.cs">
-      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,12 +236,6 @@
     <Compile Include="DlgAutoCatCreate.Designer.cs">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="DlgAutomaticModeHelper.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAutomaticModeHelper.Designer.cs">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </Compile>
     <Compile Include="DlgClose.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,7 +261,6 @@
     <Compile Include="Lib\ExtToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Utility.cs" />
@@ -423,9 +410,6 @@
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Year.resx">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutomaticModeForm.resx">
-      <DependentUpon>AutomaticModeForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DBEditDlg.ru.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -449,18 +433,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatCreate.resx">
       <DependentUpon>DlgAutoCatCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.nl.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.ru.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutomaticModeHelper.uk.resx">
-      <DependentUpon>DlgAutomaticModeHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgClose.es.resx">
       <DependentUpon>DlgClose.cs</DependentUpon>
@@ -684,22 +656,22 @@
   <ItemGroup>
     <PublishFile Include="Depressurizer.exe.config">
       <Visible>False</Visible>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Depressurizer.exe.manifest">
       <Visible>False</Visible>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
   </ItemGroup>
