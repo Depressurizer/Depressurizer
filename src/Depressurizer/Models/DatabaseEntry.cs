@@ -246,53 +246,45 @@ namespace Depressurizer.Models
 
 		#region Regex
 
-		// If these regexes maches a store page, the app is a game, software or dlc respectively
-		private static readonly Regex regGamecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
+		private static readonly Regex RegexIsGame = new Regex(@"<a href=""https?://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
 
-		private static readonly Regex regSoftwarecheck = new Regex(@"<a href=""http://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
+		private static readonly Regex RegexIsSoftware = new Regex(@"<a href=""https?://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
 
-		private static readonly Regex regDLCcheck = new Regex(@"<img class=""category_icon"" src=""http://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
+		private static readonly Regex RegexIsDLC = new Regex(@"<img class=""category_icon"" src=""https?://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
 
-		private static readonly Regex regGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""http://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+		private static readonly Regex RegexGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""https?://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
 
-		private static readonly Regex regFlags = new Regex(@"<a class=""name"" href=""http://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
+		private static readonly Regex RegexFlags = new Regex(@"<a class=""name"" href=""https?://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
 
-		private static readonly Regex regTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
+		private static readonly Regex RegexTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
 
-		private static readonly Regex regDevelopers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?developer=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+		private static readonly Regex RegexDevelopers = new Regex(@"(<a href=""(https?:\/\/store\.steampowered\.com\/search\/\?developer=[^""]*|https?:\/\/store\.steampowered\.com\/developer\/[^""]*)"">([^<]+)<\/a>,?\s*)+", RegexOptions.Compiled);
 
-		private static readonly Regex regPublishers = new Regex(@"(<a href=""http://store\.steampowered\.com/search/\?publisher=[^""]*"">([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+		private static readonly Regex RegexPublishers = new Regex(@"(<a href=""(https?:\/\/store\.steampowered\.com\/search\/\?publisher=[^""]*|https?:\/\/store\.steampowered\.com\/curator\/[^""]*|https?:\/\/store\.steampowered\.com\/publisher\/[^""]*)"">([^<]+)<\/a>,?\s*)+", RegexOptions.Compiled);
 
-		private static readonly Regex regRelDate = new Regex(@"<div class=""release_date"">\s*<div[^>]*>[^<]*<\/div>\s*<div class=""date"">([^<]+)<\/div>", RegexOptions.Compiled);
+		private static readonly Regex RegexReleaseDate = new Regex(@"<div class=""release_date"">\s*<div[^>]*>[^<]*<\/div>\s*<div class=""date"">([^<]+)<\/div>", RegexOptions.Compiled);
 
-		private static readonly Regex regMetalink = new Regex(@"<div id=""game_area_metalink"">\s*<a href=""http://www\.metacritic\.com/game/pc/([^""]*)\?ftag=", RegexOptions.Compiled);
+		private static readonly Regex RegexMetacriticLink = new Regex(@"<div id=""game_area_metalink"">\s*<a href=""https?://www\.metacritic\.com/game/pc/([^""]*)\?ftag=", RegexOptions.Compiled);
 
-		private static readonly Regex regReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
+		private static readonly Regex RegexReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
 
-		private static readonly Regex regAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
+		private static readonly Regex RegexAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
 
-		//VR Support
-		//regVrSupportHeadsetsSection, regVrSupportInputSection and regVrSupportPlayAreaSection match the whole Headsets, Input and Play Area sections respectively
-		//regVrSupportFlagMatch matches the flags inside those sections
-		private static readonly Regex regVrSupportHeadsetsSection = new Regex(@"<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">", RegexOptions.Compiled);
+		private static readonly Regex RegexVrSupportHeadsetsSection = new Regex(@"<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">", RegexOptions.Compiled);
 
-		private static readonly Regex regVrSupportInputSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">", RegexOptions.Compiled);
+		private static readonly Regex RegexVrSupportInputSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">", RegexOptions.Compiled);
 
-		private static readonly Regex regVrSupportPlayAreaSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)", RegexOptions.Compiled);
+		private static readonly Regex RegexVrSupportPlayAreaSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)", RegexOptions.Compiled);
 
-		private static readonly Regex regVrSupportFlagMatch = new Regex(@"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""http:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>", RegexOptions.Compiled);
+		private static readonly Regex RegexVrSupportFlagMatch = new Regex(@"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""https?:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>", RegexOptions.Compiled);
 
-		//Language Support
+		private static readonly Regex RegexLanguageSupport = new Regex(@"<td style=""width: 94px; text-align: left"" class=""ellipsis"">\s*([^<]*)\s*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>", RegexOptions.Compiled);
 
-		private static readonly Regex regLanguageSupport = new Regex(@"<td style=""width: 94px; text-align: left"" class=""ellipsis"">\s*([^<]*)\s*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>", RegexOptions.Compiled);
+		private static readonly Regex RegexPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
 
-		//Platform Support
+		private static readonly Regex RegexPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
 
-		private static readonly Regex regPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
-
-		private static readonly Regex regPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
-
-		private static readonly Regex regPlatformLinux = new Regex(@"<span class=""platform_img linux""></span>", RegexOptions.Compiled);
+		private static readonly Regex RegexPlatformLinux = new Regex(@"<span class=""platform_img linux""></span>", RegexOptions.Compiled);
 
 		#endregion
 
@@ -465,21 +457,21 @@ namespace Depressurizer.Models
 				}
 			}
 
-			AppTypes result = AppTypes.Unknown;
+			AppTypes result;
 
 			if (page.Contains("<title>Site Error</title>"))
 			{
 				Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingReceivedSiteError, id);
 				result = AppTypes.Unknown;
 			}
-			else if (regGamecheck.IsMatch(page) || regSoftwarecheck.IsMatch(page))
+			else if (RegexIsGame.IsMatch(page) || RegexIsSoftware.IsMatch(page))
 			{
 				// Here we should have an app, but make sure.
 
 				GetAllDataFromPage(page);
 
 				// Check whether it's DLC and return appropriately
-				if (regDLCcheck.IsMatch(page))
+				if (RegexIsDLC.IsMatch(page))
 				{
 					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, string.Join(",", Genres));
 					result = AppTypes.DLC;
@@ -487,7 +479,7 @@ namespace Depressurizer.Models
 				else
 				{
 					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id, string.Join(",", Genres));
-					result = regSoftwarecheck.IsMatch(page) ? AppTypes.Application : AppTypes.Game;
+					result = RegexIsSoftware.IsMatch(page) ? AppTypes.Application : AppTypes.Game;
 				}
 			}
 			else
@@ -497,16 +489,18 @@ namespace Depressurizer.Models
 				result = AppTypes.Unknown;
 			}
 
-			if (redirectTarget != -1)
+			if (redirectTarget == -1)
 			{
-				ParentId = redirectTarget;
-				result = AppTypes.Unknown;
+				return result;
 			}
+
+			ParentId = redirectTarget;
+			result = AppTypes.Unknown;
 
 			return result;
 		}
 
-		private HttpWebRequest GetSteamRequest(string url)
+		private static HttpWebRequest GetSteamRequest(string url)
 		{
 			HttpWebRequest req = (HttpWebRequest) WebRequest.Create(url);
 			// Cookie bypasses the age gate
@@ -540,7 +534,7 @@ namespace Depressurizer.Models
 		private void GetAllDataFromPage(string page)
 		{
 			// Genres
-			Match m = regGenre.Match(page);
+			Match m = RegexGenre.Match(page);
 			if (m.Success)
 			{
 				Genres = new List<string>();
@@ -551,7 +545,7 @@ namespace Depressurizer.Models
 			}
 
 			// Flags
-			MatchCollection matches = regFlags.Matches(page);
+			MatchCollection matches = RegexFlags.Matches(page);
 			if (matches.Count > 0)
 			{
 				Flags = new List<string>();
@@ -566,7 +560,7 @@ namespace Depressurizer.Models
 			}
 
 			//Tags
-			matches = regTags.Matches(page);
+			matches = RegexTags.Matches(page);
 			if (matches.Count > 0)
 			{
 				Tags = new List<string>();
@@ -581,10 +575,10 @@ namespace Depressurizer.Models
 			}
 
 			//Get VR Support headsets
-			m = regVrSupportHeadsetsSection.Match(page);
+			m = RegexVrSupportHeadsetsSection.Match(page);
 			if (m.Success)
 			{
-				matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
+				matches = RegexVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
 				VrSupport.Headsets = new List<string>();
 				foreach (Match ma in matches)
 				{
@@ -597,10 +591,10 @@ namespace Depressurizer.Models
 			}
 
 			//Get VR Support Input
-			m = regVrSupportInputSection.Match(page);
+			m = RegexVrSupportInputSection.Match(page);
 			if (m.Success)
 			{
-				matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
+				matches = RegexVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
 				VrSupport.Input = new List<string>();
 				foreach (Match ma in matches)
 				{
@@ -613,10 +607,10 @@ namespace Depressurizer.Models
 			}
 
 			//Get VR Support Play Area
-			m = regVrSupportPlayAreaSection.Match(page);
+			m = RegexVrSupportPlayAreaSection.Match(page);
 			if (m.Success)
 			{
-				matches = regVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
+				matches = RegexVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
 				VrSupport.PlayArea = new List<string>();
 				foreach (Match ma in matches)
 				{
@@ -629,7 +623,7 @@ namespace Depressurizer.Models
 			}
 
 			//Get Language Support
-			matches = regLanguageSupport.Matches(page);
+			matches = RegexLanguageSupport.Matches(page);
 			if (matches.Count > 0)
 			{
 				LanguageSupport = new LanguageSupport();
@@ -663,7 +657,7 @@ namespace Depressurizer.Models
 			}
 
 			//Get Achievement number
-			m = regAchievements.Match(page);
+			m = RegexAchievements.Match(page);
 			if (m.Success)
 			{
 				//sometimes games have achievements but don't have the "Steam Achievements" flag in the store
@@ -680,36 +674,36 @@ namespace Depressurizer.Models
 			}
 
 			// Get Developer
-			m = regDevelopers.Match(page);
+			m = RegexDevelopers.Match(page);
 			if (m.Success)
 			{
 				Developers = new List<string>();
-				foreach (Capture cap in m.Groups[2].Captures)
+				foreach (Capture cap in m.Groups[3].Captures)
 				{
 					Developers.Add(WebUtility.HtmlDecode(cap.Value));
 				}
 			}
 
 			// Get Publishers
-			m = regPublishers.Match(page);
+			m = RegexPublishers.Match(page);
 			if (m.Success)
 			{
 				Publishers = new List<string>();
-				foreach (Capture cap in m.Groups[2].Captures)
+				foreach (Capture cap in m.Groups[3].Captures)
 				{
 					Publishers.Add(WebUtility.HtmlDecode(cap.Value));
 				}
 			}
 
 			// Get release date
-			m = regRelDate.Match(page);
+			m = RegexReleaseDate.Match(page);
 			if (m.Success)
 			{
 				SteamReleaseDate = m.Groups[1].Captures[0].Value;
 			}
 
 			// Get user review data
-			m = regReviews.Match(page);
+			m = RegexReviews.Match(page);
 			if (m.Success)
 			{
 				int num = 0;
@@ -725,26 +719,26 @@ namespace Depressurizer.Models
 			}
 
 			// Get metacritic url
-			m = regMetalink.Match(page);
+			m = RegexMetacriticLink.Match(page);
 			if (m.Success)
 			{
 				MetacriticUrl = m.Groups[1].Captures[0].Value;
 			}
 
 			// Get Platforms
-			m = regPlatformWindows.Match(page);
+			m = RegexPlatformWindows.Match(page);
 			if (m.Success)
 			{
 				Platforms |= AppPlatforms.Windows;
 			}
 
-			m = regPlatformMac.Match(page);
+			m = RegexPlatformMac.Match(page);
 			if (m.Success)
 			{
 				Platforms |= AppPlatforms.Mac;
 			}
 
-			m = regPlatformLinux.Match(page);
+			m = RegexPlatformLinux.Match(page);
 			if (m.Success)
 			{
 				Platforms |= AppPlatforms.Linux;
