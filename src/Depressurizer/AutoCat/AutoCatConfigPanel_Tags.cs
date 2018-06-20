@@ -57,7 +57,7 @@ namespace Depressurizer
 
             lstIncluded.Columns[0].Width = -1;
             IEnumerable<Tuple<string, float>> tagList =
-                Program.GameDB.CalculateSortedTagList(
+                Program.Database.CalculateSortedTagList(
                     list_chkOwnedOnly.Checked ? ownedGames : null,
                     (float) list_numWeightFactor.Value,
                     (int) list_numMinScore.Value, (int) list_numTagsPerGame.Value, list_chkExcludeGenres.Checked,

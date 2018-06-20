@@ -84,7 +84,7 @@ namespace Depressurizer
             return new AutoCatCurator(this);
         }
 
-        public override void PreProcess(GameList games, GameDB db)
+        public override void PreProcess(GameList games, Database db)
         {
             this.games = games;
             this.db = db;

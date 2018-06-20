@@ -29,7 +29,7 @@ namespace Depressurizer
 	{
 		#region Static Fields
 
-		public static GameDB GameDB;
+		public static Database Database;
 
 		public static AppLogger Logger;
 

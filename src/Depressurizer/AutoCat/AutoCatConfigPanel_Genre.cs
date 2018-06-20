@@ -39,9 +39,9 @@ namespace Depressurizer
         {
             lstIgnore.Items.Clear();
 
-            if (Program.GameDB != null)
+            if (Program.Database != null)
             {
-                SortedSet<string> genreList = Program.GameDB.GetAllGenres();
+                SortedSet<string> genreList = Program.Database.GetAllGenres();
 
                 foreach (string s in genreList)
                 {

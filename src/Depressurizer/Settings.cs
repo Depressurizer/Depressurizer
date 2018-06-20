@@ -522,7 +522,7 @@ namespace Depressurizer
                 {
                     _storeLanguage = value;
                     outOfDate = true;
-                    if (Program.GameDB != null) Program.GameDB.ChangeLanguage(_storeLanguage);
+                    if (Program.Database != null) Program.Database.ChangeLanguage(_storeLanguage);
                 }
             }
         }
