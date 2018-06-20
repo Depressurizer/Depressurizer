@@ -103,7 +103,7 @@ namespace Depressurizer
 
         #region Properties
         protected GameList games;
-        protected GameDB db;
+        protected Database db;
 
         public abstract AutoCatType AutoCatType { get; }
 
@@ -162,7 +162,7 @@ namespace Depressurizer
         /// Must be called before any categorizations are done. Should be overridden to perform any necessary database analysis or other preparation.
         /// After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
-        public virtual void PreProcess(GameList games, GameDB db)
+        public virtual void PreProcess(GameList games, Database db)
         {
             this.games = games;
             this.db = db;

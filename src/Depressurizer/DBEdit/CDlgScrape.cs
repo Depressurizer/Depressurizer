@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Depressurizer.Models;
 using Rallion;
 
 namespace Depressurizer
@@ -26,7 +27,7 @@ namespace Depressurizer
     class DbScrapeDlg : CancelableDlg
     {
         Queue<int> jobs;
-        List<GameDBEntry> results;
+        List<DatabaseEntry> results;
 
         DateTime start;
 
@@ -36,7 +37,7 @@ namespace Depressurizer
             this.jobs = jobs;
             totalJobs = jobs.Count;
 
-            results = new List<GameDBEntry>();
+            results = new List<DatabaseEntry>();
         }
 
         protected override void UpdateForm_Load(object sender, EventArgs e)
@@ -80,7 +81,7 @@ namespace Depressurizer
             }
             if (Stopped) return false;
 
-            GameDBEntry newGame = new GameDBEntry();
+            DatabaseEntry newGame = new DatabaseEntry();
             newGame.Id = id;
             newGame.ScrapeStore();
 
@@ -106,15 +107,15 @@ namespace Depressurizer
 
                 if (results != null)
                 {
-                    foreach (GameDBEntry g in results)
+                    foreach (DatabaseEntry g in results)
                     {
-                        if (Program.GameDB.Contains(g.Id))
+                        if (Program.Database.Contains(g.Id))
                         {
-                            Program.GameDB.Games[g.Id].MergeIn(g);
+                            Program.Database.Games[g.Id].MergeIn(g);
                         }
                         else
                         {
-                            Program.GameDB.Games.Add(g.Id, g);
+                            Program.Database.Games.Add(g.Id, g);
                         }
                     }
                 }

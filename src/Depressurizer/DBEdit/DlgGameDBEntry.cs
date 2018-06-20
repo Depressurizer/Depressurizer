@@ -26,14 +26,14 @@ namespace Depressurizer
 {
     public partial class GameDBEntryDialog : Form
     {
-        public GameDBEntry Game;
+        public DatabaseEntry Game;
 
         private bool editMode;
 
         public GameDBEntryDialog()
             : this(null) { }
 
-        public GameDBEntryDialog(GameDBEntry game)
+        public GameDBEntryDialog(DatabaseEntry game)
         {
             InitializeComponent();
             Game = game;
@@ -54,7 +54,7 @@ namespace Depressurizer
             InitializeFields(Game);
         }
 
-        private void InitializeFields(GameDBEntry entry = null)
+        private void InitializeFields(DatabaseEntry entry = null)
         {
             if (entry == null)
             {
@@ -126,7 +126,7 @@ namespace Depressurizer
 
             if (Game == null)
             {
-                Game = new GameDBEntry();
+                Game = new DatabaseEntry();
                 Game.Id = id;
             }
 
