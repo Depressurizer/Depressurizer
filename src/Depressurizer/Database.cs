@@ -31,6 +31,7 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Dialogs;
 using Depressurizer.Enums;
 using Depressurizer.Models;
 using Depressurizer.Properties;
@@ -988,18 +989,18 @@ namespace Depressurizer
 			}
 
 			//Update DB with data in correct language
-			Queue<int> gamesToUpdate = new Queue<int>();
+			List<int> gamesToUpdate = new List<int>();
 			if (FormMain.CurrentProfile != null)
 			{
 				foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
 				{
 					if (game.Id > 0)
 					{
-						gamesToUpdate.Enqueue(game.Id);
+						gamesToUpdate.Add(game.Id);
 					}
 				}
 
-				DbScrapeDlg scrapeDlg = new DbScrapeDlg(gamesToUpdate);
+				ScrapeDialog scrapeDlg = new ScrapeDialog(gamesToUpdate);
 				scrapeDlg.ShowDialog();
 			}
 

@@ -34,8 +34,60 @@ using Rallion;
 namespace Depressurizer.Models
 {
 	[XmlRoot(ElementName = "game")]
-	public class DatabaseEntry
+	public sealed class DatabaseEntry
 	{
+		#region Static Fields
+
+		private static readonly Regex RegexAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
+
+		private static readonly Regex RegexDevelopers = new Regex(@"(<a href=""(https?:\/\/store\.steampowered\.com\/search\/\?developer=[^""]*|https?:\/\/store\.steampowered\.com\/developer\/[^""]*)"">([^<]+)<\/a>,?\s*)+", RegexOptions.Compiled);
+
+		private static readonly Regex RegexDevelopersTSA = new Regex(@"<a href=""\/gameslist\.aspx\?developer=[^""""]*"" rel=""nofollow"">([^<]*)<\/a>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexFlags = new Regex(@"<a class=""name"" href=""https?://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""https?://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexGenreTSA = new Regex(@"<a href=""\/genre\/"">([^<]*)<\/a>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexIsDLC = new Regex(@"<img class=""category_icon"" src=""https?://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
+
+		private static readonly Regex RegexIsGame = new Regex(@"<a href=""https?://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
+
+		private static readonly Regex RegexIsSoftware = new Regex(@"<a href=""https?://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
+
+		private static readonly Regex RegexLanguageSupport = new Regex(@"<td style=""width: 94px; text-align: left"" class=""ellipsis"">\s*([^<]*)\s*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexMetacriticLink = new Regex(@"<div id=""game_area_metalink"">\s*<a href=""https?://www\.metacritic\.com/game/pc/([^""]*)\?ftag=", RegexOptions.Compiled);
+
+		private static readonly Regex RegexPlatformLinux = new Regex(@"<span class=""platform_img linux""></span>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexPlatformTSA = new Regex(@"<a href=""\/gameslist\.aspx\?platform=[^""""]*"" rel=""nofollow"">([^<]*)<\/a>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexPublishers = new Regex(@"(<a href=""(https?:\/\/store\.steampowered\.com\/search\/\?publisher=[^""]*|https?:\/\/store\.steampowered\.com\/curator\/[^""]*|https?:\/\/store\.steampowered\.com\/publisher\/[^""]*)"">([^<]+)<\/a>,?\s*)+", RegexOptions.Compiled);
+
+		private static readonly Regex RegexPublisherTSA = new Regex(@"<a href=""\/gameslist\.aspx\?publisher=[^""""]*"" rel=""nofollow"">([^<]*)<\/a>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexReleaseDate = new Regex(@"<div class=""release_date"">\s*<div[^>]*>[^<]*<\/div>\s*<div class=""date"">([^<]+)<\/div>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexVrSupportFlagMatch = new Regex(@"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""https?:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>", RegexOptions.Compiled);
+
+		private static readonly Regex RegexVrSupportHeadsetsSection = new Regex(@"<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">", RegexOptions.Compiled);
+
+		private static readonly Regex RegexVrSupportInputSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">", RegexOptions.Compiled);
+
+		private static readonly Regex RegexVrSupportPlayAreaSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)", RegexOptions.Compiled);
+
+		#endregion
+
 		#region Fields
 
 		[DefaultValue(AppTypes.Unknown)]
@@ -110,6 +162,19 @@ namespace Depressurizer.Models
 		public int TotalAchievements;
 
 		public VrSupport VrSupport; //TODO: Add field to DB edit dialog
+
+		#endregion
+
+		#region Constructors and Destructors
+
+		public DatabaseEntry()
+		{
+		}
+
+		public DatabaseEntry(int appId)
+		{
+			Id = appId;
+		}
 
 		#endregion
 
@@ -242,85 +307,16 @@ namespace Depressurizer.Models
 			}
 		}
 
-		#endregion
-
-		#region Regex
-
-		private static readonly Regex RegexIsGame = new Regex(@"<a href=""https?://store\.steampowered\.com/search/\?term=&snr=", RegexOptions.Compiled);
-
-		private static readonly Regex RegexIsSoftware = new Regex(@"<a href=""https?://store\.steampowered\.com/search/\?category1=994&snr=", RegexOptions.Compiled);
-
-		private static readonly Regex RegexIsDLC = new Regex(@"<img class=""category_icon"" src=""https?://store\.akamai\.steamstatic\.com/public/images/v6/ico/ico_dlc\.png"">", RegexOptions.Compiled);
-
-		private static readonly Regex RegexGenre = new Regex(@"<div class=""details_block"">\s*<b>[^:]*:</b>.*?<br>\s*<b>[^:]*:</b>\s*(<a href=""https?://store\.steampowered\.com/genre/[^>]*>([^<]+)</a>,?\s*)+\s*<br>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexFlags = new Regex(@"<a class=""name"" href=""https?://store\.steampowered\.com/search/\?category2=.*?"">([^<]*)</a>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexDevelopers = new Regex(@"(<a href=""(https?:\/\/store\.steampowered\.com\/search\/\?developer=[^""]*|https?:\/\/store\.steampowered\.com\/developer\/[^""]*)"">([^<]+)<\/a>,?\s*)+", RegexOptions.Compiled);
-
-		private static readonly Regex RegexPublishers = new Regex(@"(<a href=""(https?:\/\/store\.steampowered\.com\/search\/\?publisher=[^""]*|https?:\/\/store\.steampowered\.com\/curator\/[^""]*|https?:\/\/store\.steampowered\.com\/publisher\/[^""]*)"">([^<]+)<\/a>,?\s*)+", RegexOptions.Compiled);
-
-		private static readonly Regex RegexReleaseDate = new Regex(@"<div class=""release_date"">\s*<div[^>]*>[^<]*<\/div>\s*<div class=""date"">([^<]+)<\/div>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexMetacriticLink = new Regex(@"<div id=""game_area_metalink"">\s*<a href=""https?://www\.metacritic\.com/game/pc/([^""]*)\?ftag=", RegexOptions.Compiled);
-
-		private static readonly Regex RegexReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
-
-		private static readonly Regex RegexVrSupportHeadsetsSection = new Regex(@"<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">", RegexOptions.Compiled);
-
-		private static readonly Regex RegexVrSupportInputSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)<div class=""details_block vrsupport"">", RegexOptions.Compiled);
-
-		private static readonly Regex RegexVrSupportPlayAreaSection = new Regex(@"<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">.*<div class=""details_block vrsupport"">(.*)", RegexOptions.Compiled);
-
-		private static readonly Regex RegexVrSupportFlagMatch = new Regex(@"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""https?:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexLanguageSupport = new Regex(@"<td style=""width: 94px; text-align: left"" class=""ellipsis"">\s*([^<]*)\s*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>[\s\n\r]*<td class=""checkcol"">[\s\n\r]*(.*)[\s\n\r]*<\/td>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexPlatformWindows = new Regex(@"<span class=""platform_img win""></span>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexPlatformMac = new Regex(@"<span class=""platform_img mac""></span>", RegexOptions.Compiled);
-
-		private static readonly Regex RegexPlatformLinux = new Regex(@"<span class=""platform_img linux""></span>", RegexOptions.Compiled);
-
-		#endregion
-
-		#region Scraping
-
-		/// <summary>
-		///     Scrapes the store page with this game entry's ID and updates this entry with the information found.
-		/// </summary>
-		/// <returns>The type determined during the scrape</returns>
-		public AppTypes ScrapeStore()
+		public void ScrapeStore()
 		{
-			AppTypes result = ScrapeStoreHelper(Id);
-			SetTypeFromStoreScrape(result);
+			Program.Logger.Write(LoggerLevel.Verbose, "Scraping {0}: Initializing store scraping for Id: {0}", Id);
 
-			return result;
-		}
-
-		/// <summary>
-		///     Private helper function to perform scraping work. Downloads the given store page and updates the entry with all
-		///     information found.
-		/// </summary>
-		/// <param name="id">The id of the store page to scrape</param>
-		/// <returns>The type determined during the scrape</returns>
-		private AppTypes ScrapeStoreHelper(int id)
-		{
-			Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_InitiatingStoreScrapeForGame, id);
-
-			string page = "";
-
+			string page;
 			int redirectTarget = -1;
 
-			int oldTime = LastStoreScrape;
-
-			LastStoreScrape = Utility.GetCurrentUTime();
-
 			HttpWebResponse resp = null;
+			Stream responseStream = null;
+
 			try
 			{
 				string storeLanguage = "en";
@@ -344,28 +340,28 @@ namespace Depressurizer.Models
 					}
 				}
 
-				HttpWebRequest req = GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
+				HttpWebRequest req = GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, Id));
 				resp = (HttpWebResponse) req.GetResponse();
 
 				int count = 0;
 				while ((resp.StatusCode == HttpStatusCode.Found) && (count < 5))
 				{
 					resp.Close();
-					if (resp.Headers[HttpResponseHeader.Location] == Resources.UrlSteamStore)
-					{
-						// If we are redirected to the store front page
-						Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
-						SetTypeFromStoreScrape(AppTypes.Unknown);
 
-						return AppTypes.Unknown;
+					// Check if we were redirected to the Steam Store front page
+					if ((resp.Headers[HttpResponseHeader.Location] == @"https://store.steampowered.com/") || (resp.Headers[HttpResponseHeader.Location] == @"http://store.steampowered.com/"))
+					{
+						Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected to main store page, aborting scraping", Id);
+
+						return;
 					}
 
+					// Check if we were redirected to the same page
 					if (resp.ResponseUri.ToString() == resp.Headers[HttpResponseHeader.Location])
 					{
-						//If page redirects to itself
-						Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_RedirectsToItself, id);
+						Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Store page redirected to itself, aborting scraping", Id);
 
-						return AppTypes.Unknown;
+						return;
 					}
 
 					req = GetSteamRequest(resp.Headers[HttpResponseHeader.Location]);
@@ -373,164 +369,268 @@ namespace Depressurizer.Models
 					count++;
 				}
 
+				// Check if we were redirected too many times
 				if ((count == 5) && (resp.StatusCode == HttpStatusCode.Found))
 				{
-					//If we got too many redirects
-					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_TooManyRedirects, id);
+					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Too many redirects, aborting scraping", Id);
 
-					return AppTypes.Unknown;
+					return;
 				}
-				else if (resp.ResponseUri.Segments.Length < 2)
-				{
-					// If we were redirected to the store front page
-					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
-					SetTypeFromStoreScrape(AppTypes.Unknown);
 
-					return AppTypes.Unknown;
-				}
-				else if (resp.ResponseUri.Segments[1] == "agecheck/")
+				// Check if we were redirected to the Steam Store front page
+				if (resp.ResponseUri.Segments.Length < 2)
 				{
-					// If we encountered an age gate (cookies should bypass this, but sometimes they don't seem to)
-					if ((resp.ResponseUri.Segments.Length >= 4) && (resp.ResponseUri.Segments[3].TrimEnd('/') != id.ToString()))
+					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected to main store page, aborting scraping", Id);
+
+					return;
+				}
+
+				// Check if we encountered an age gate, cookies should bypass this, but sometimes they don't seem to
+				if (resp.ResponseUri.Segments[1] == "agecheck/")
+				{
+					// Encountered an age check with no redirect
+					if ((resp.ResponseUri.Segments.Length < 4) || (resp.ResponseUri.Segments[3].TrimEnd('/') == Id.ToString(CultureInfo.InvariantCulture)))
 					{
-						// Age check + redirect
-						Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id, resp.ResponseUri.Segments[3].TrimEnd('/'));
-						if (int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
-						{
-						}
-						else
-						{
-							// If we got an age check without numeric id (shouldn't happen)
-							return AppTypes.Unknown;
-						}
+						Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Encounterd an age check without redirect, aborting scraping", Id);
+
+						return;
 					}
-					else
-					{
-						// If we got an age check with no redirect
-						Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingAgeCheckNoRedirect, id);
 
-						return AppTypes.Unknown;
+					// Age check + redirect
+					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Hit age check for Id: {1}", Id, resp.ResponseUri.Segments[3].TrimEnd('/'));
+
+					// Check if we encountered an age gate without a numeric id
+					if (!int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
+					{
+						return;
 					}
 				}
-				else if (resp.ResponseUri.Segments[1] != "app/")
-				{
-					// Redirected outside of the app path
-					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToNonApp, id);
 
-					return AppTypes.Other;
-				}
-				else if (resp.ResponseUri.Segments.Length < 3)
+				// Check if we were redirected outside of the app route
+				if (resp.ResponseUri.Segments[1] != "app/")
 				{
-					// The URI ends with "/app/" ?
-					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_Log_ScrapingNoAppId, id);
+					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected outside the app (app/) route, aborting scraping", Id);
 
-					return AppTypes.Unknown;
+					return;
 				}
-				else if (resp.ResponseUri.Segments[2].TrimEnd('/') != id.ToString())
+
+				// The URI ends with "/app/" ?
+				if (resp.ResponseUri.Segments.Length < 3)
 				{
-					// Redirected to a different app id
-					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToOtherApp, id, resp.ResponseUri.Segments[2].TrimEnd('/'));
+					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Response URI ends with 'app' thus missing ID found, aborting scraping", Id);
+
+					return;
+				}
+
+				// Check if we were redirected to a different Id
+				if (resp.ResponseUri.Segments[2].TrimEnd('/') != Id.ToString())
+				{
 					if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
 					{
-						// if new app id is an actual number
-						return AppTypes.Unknown;
+						Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected to an unknown Id \"{1}\", aborting scraping", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
+
+						return;
 					}
+
+					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected to another app Id \"{1}\"", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
 				}
 
-				StreamReader sr = new StreamReader(resp.GetResponseStream());
-				page = sr.ReadToEnd();
-				Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageRead, id);
+				responseStream = resp.GetResponseStream();
+				if (responseStream == null)
+				{
+					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: The response stream was null, aborting scraping", Id);
+
+					return;
+				}
+
+				using (StreamReader streamReader = new StreamReader(responseStream))
+				{
+					page = streamReader.ReadToEnd();
+					Program.Logger.Write(LoggerLevel.Verbose, "Scraping {0}: Page read", Id);
+				}
+			}
+			catch (WebException e)
+			{
+				if (e.Status == WebExceptionStatus.Timeout)
+				{
+					return;
+				}
+
+				throw;
 			}
 			catch (Exception e)
 			{
-				// Something went wrong with the download.
-				Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageReadFailed, id, e.Message);
-				LastStoreScrape = oldTime;
+				Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Page read failed. {1}", Id, e.Message);
 
-				return AppTypes.Unknown;
+				return;
 			}
 			finally
 			{
-				if (resp != null)
-				{
-					resp.Close();
-				}
+				resp?.Dispose();
+				responseStream?.Dispose();
 			}
-
-			AppTypes result;
 
 			if (page.Contains("<title>Site Error</title>"))
 			{
-				Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingReceivedSiteError, id);
-				result = AppTypes.Unknown;
+				Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Received Site Error, aborting scraping", Id);
+
+				return;
 			}
-			else if (RegexIsGame.IsMatch(page) || RegexIsSoftware.IsMatch(page))
+
+			if (!RegexIsGame.IsMatch(page) && !RegexIsSoftware.IsMatch(page))
 			{
-				// Here we should have an app, but make sure.
+				Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Could not parse info from page, aborting scraping", Id);
 
-				GetAllDataFromPage(page);
-
-				// Check whether it's DLC and return appropriately
-				if (RegexIsDLC.IsMatch(page))
-				{
-					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, string.Join(",", Genres));
-					result = AppTypes.DLC;
-				}
-				else
-				{
-					Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id, string.Join(",", Genres));
-					result = RegexIsSoftware.IsMatch(page) ? AppTypes.Application : AppTypes.Game;
-				}
+				return;
 			}
-			else
+
+			LastStoreScrape = Utility.GetCurrentUTime();
+			GetAllDataFromPage(page);
+
+			if (RegexIsDLC.IsMatch(page))
 			{
-				// The URI is right, but it didn't pass the regex check
-				Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingCouldNotParse, id);
-				result = AppTypes.Unknown;
+				AppType = AppTypes.DLC;
 			}
 
-			if (redirectTarget == -1)
+			if (RegexIsGame.IsMatch(page))
 			{
-				return result;
+				AppType = AppTypes.Game;
 			}
 
-			ParentId = redirectTarget;
-			result = AppTypes.Unknown;
+			if (RegexIsSoftware.IsMatch(page))
+			{
+				AppType = AppTypes.Application;
+			}
 
-			return result;
+			if (redirectTarget != -1)
+			{
+				ParentId = redirectTarget;
+			}
+
+			Program.Logger.Write(LoggerLevel.Info, "Scraping {0}: Parsed. Genre: {1}", Id, string.Join(",", Genres));
 		}
+
+		public void ScrapeTrueSteamAchievements()
+		{
+			// We can only scrape TrueSteamAchievements in English
+			if (Settings.Instance.StoreLang != StoreLanguage.en)
+			{
+				return;
+			}
+
+			if (string.IsNullOrWhiteSpace(Name))
+			{
+				return;
+			}
+
+			string page;
+			string name = Name.Replace(" ", "-").Replace(":", "").Replace("'", "");
+			string hubPage = string.Format(CultureInfo.InvariantCulture, "https://truesteamachievements.com/game/{0}", name);
+
+			using (WebClient webClient = new WebClient())
+			{
+				page = webClient.DownloadString(hubPage);
+			}
+
+			MatchCollection matches = RegexPlatformTSA.Matches(page);
+			if (matches.Count > 0)
+			{
+				Platforms = AppPlatforms.None;
+
+				foreach (Match m in matches)
+				{
+					string platform = m.Groups[1].Value;
+
+					if (platform.Contains("Windows"))
+					{
+						Platforms |= AppPlatforms.Windows;
+					}
+
+					if (platform.Contains("Mac"))
+					{
+						Platforms |= AppPlatforms.Mac;
+					}
+
+					if (platform.Contains("Linux"))
+					{
+						Platforms |= AppPlatforms.Linux;
+					}
+				}
+			}
+
+			Match match = RegexDevelopersTSA.Match(page);
+			if (match.Success)
+			{
+				string developer = match.Groups[1].Value;
+				if (!string.IsNullOrWhiteSpace(developer))
+				{
+					Developers = new List<string>();
+
+					string[] developers = developer.Split(',');
+					foreach (string dev in developers)
+					{
+						if (!string.IsNullOrWhiteSpace(dev))
+						{
+							Developers.Add(dev);
+						}
+					}
+				}
+			}
+
+			match = RegexPublisherTSA.Match(page);
+			if (match.Success)
+			{
+				string publisher = match.Groups[1].Value;
+				if (!string.IsNullOrWhiteSpace(publisher))
+				{
+					Publishers = new List<string>();
+
+					string[] publishers = publisher.Split(',');
+					foreach (string pub in publishers)
+					{
+						if (!string.IsNullOrWhiteSpace(pub))
+						{
+							Publishers.Add(pub);
+						}
+					}
+				}
+			}
+
+			matches = RegexGenreTSA.Matches(page);
+			if (matches.Count > 0)
+			{
+				Genres = new List<string>();
+				foreach (Match m in matches)
+				{
+					string genre = WebUtility.HtmlDecode(m.Groups[1].Value.Trim());
+					if (!string.IsNullOrWhiteSpace(genre))
+					{
+						Genres.Add(genre);
+					}
+				}
+			}
+
+			LastStoreScrape = Utility.GetCurrentUTime();
+		}
+
+		#endregion
+
+		#region Methods
 
 		private static HttpWebRequest GetSteamRequest(string url)
 		{
-			HttpWebRequest req = (HttpWebRequest) WebRequest.Create(url);
-			// Cookie bypasses the age gate
-			req.CookieContainer = new CookieContainer(3);
-			req.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));
-			req.CookieContainer.Add(new Cookie("mature_content", "1", "/", "store.steampowered.com"));
-			req.CookieContainer.Add(new Cookie("lastagecheckage", "1-January-1955", "/", "store.steampowered.com"));
-			// Cookies get discarded on automatic redirects so we have to follow them manually
-			req.AllowAutoRedirect = false;
+			HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
 
-			return req;
+			request.CookieContainer = new CookieContainer(3);
+			request.CookieContainer.Add(new Cookie("birthtime", "-473392799", "/", "store.steampowered.com"));
+			request.CookieContainer.Add(new Cookie("mature_content", "1", "/", "store.steampowered.com"));
+			request.CookieContainer.Add(new Cookie("lastagecheckage", "1-January-1955", "/", "store.steampowered.com"));
+
+			request.AllowAutoRedirect = false;
+
+			return request;
 		}
 
-		/// <summary>
-		///     Updates the game's type with a type determined during a store scrape. Makes sure that better data (AppInfo type)
-		///     isn't overwritten with worse data.
-		/// </summary>
-		/// <param name="typeFromStore">Type found from the store scrape</param>
-		private void SetTypeFromStoreScrape(AppTypes typeFromStore)
-		{
-			if ((AppType == AppTypes.Unknown) || ((typeFromStore != AppTypes.Unknown) && (LastAppInfoUpdate == 0)))
-			{
-				AppType = typeFromStore;
-			}
-		}
-
-		/// <summary>
-		///     Applies all data from a steam store page to this entry
-		/// </summary>
-		/// <param name="page">The full result of the HTTP request.</param>
 		private void GetAllDataFromPage(string page)
 		{
 			// Genres
