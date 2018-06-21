@@ -289,6 +289,8 @@
     </Compile>
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="PackageInfo.cs" />
+    <Compile Include="Enums\InterfaceLanguage.cs" />
+    <Compile Include="Enums\StartupAction.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
@@ -326,7 +328,6 @@
       <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Lib\AppLogger.cs" />
-    <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="DlgGame.cs">
       <SubType>Form</SubType>
     </Compile>
