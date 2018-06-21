@@ -178,7 +178,30 @@ namespace Depressurizer.Models
 
 		#endregion
 
+		#region Properties
+
+		private static Settings Settings => Settings.Instance;
+
+		#endregion
+
 		#region Public Methods and Operators
+
+		public void Clear()
+		{
+			Genres = null;
+			Flags = null;
+			Tags = null;
+
+			Developers = null;
+			Publishers = null;
+
+			VrSupport = new VrSupport();
+			LanguageSupport = new LanguageSupport();
+
+			SteamReleaseDate = null;
+
+			LastStoreScrape = 1; //pretend it is really old data
+		}
 
 		/// <summary>
 		///     Merges in data from another entry. Useful for merging scrape results, but could also merge data from a different
@@ -319,26 +342,7 @@ namespace Depressurizer.Models
 
 			try
 			{
-				string storeLanguage = "en";
-				if (Program.Database != null)
-				{
-					if (Program.Database.dbLanguage == StoreLanguage.zh_Hans)
-					{
-						storeLanguage = "schinese";
-					}
-					else if (Program.Database.dbLanguage == StoreLanguage.zh_Hant)
-					{
-						storeLanguage = "tchinese";
-					}
-					else if (Program.Database.dbLanguage == StoreLanguage.pt_BR)
-					{
-						storeLanguage = "brazilian";
-					}
-					else
-					{
-						storeLanguage = CultureInfo.GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.Database.dbLanguage)).EnglishName.ToLowerInvariant();
-					}
-				}
+				string storeLanguage = Utility.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : Settings.StoreLanguage);
 
 				HttpWebRequest req = GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, Id));
 				resp = (HttpWebResponse) req.GetResponse();
@@ -513,7 +517,7 @@ namespace Depressurizer.Models
 		public void ScrapeTrueSteamAchievements()
 		{
 			// We can only scrape TrueSteamAchievements in English
-			if (Settings.Instance.StoreLanguage != StoreLanguage.en)
+			if (Settings.Instance.StoreLanguage != StoreLanguage.English)
 			{
 				return;
 			}

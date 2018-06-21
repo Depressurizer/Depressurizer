@@ -22,13 +22,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Dialogs;
@@ -53,7 +51,7 @@ namespace Depressurizer
 
 		#region Fields
 
-		public StoreLanguage dbLanguage = StoreLanguage.en;
+		public StoreLanguage dbLanguage = StoreLanguage.English;
 
 		// Main Data
 		public Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
@@ -75,234 +73,21 @@ namespace Depressurizer
 
 		#endregion
 
-		#region Accessors
+		#region Public Methods and Operators
 
-		public bool Contains(int id)
+		public static XmlDocument FetchAppListFromWeb()
 		{
-			return Games.ContainsKey(id);
-		}
-
-		public bool IncludeItemInGameList(int id, AppTypes scheme)
-		{
-			if (Games.ContainsKey(id))
+			XmlDocument doc = new XmlDocument();
+			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList);
+			WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
+			using (WebResponse resp = req.GetResponse())
 			{
-				return scheme.HasFlag(Games[id].AppType);
+				doc.Load(resp.GetResponseStream());
 			}
 
-			return scheme.HasFlag(AppTypes.Unknown);
-		}
+			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_XMLAppListDownloaded);
 
-		public string GetName(int id)
-		{
-			if (Games.ContainsKey(id))
-			{
-				return Games[id].Name;
-			}
-
-			return null;
-		}
-
-		public List<string> GetGenreList(int gameId, int depth = 3, bool tagFallback = true)
-		{
-			if (Games.ContainsKey(gameId))
-			{
-				List<string> res = Games[gameId].Genres;
-				if (tagFallback && ((res == null) || (res.Count == 0)))
-				{
-					List<string> tags = GetTagList(gameId, 0);
-					if ((tags != null) && (tags.Count > 0))
-					{
-						res = new List<string>(tags.Intersect(GetAllGenres()));
-					}
-				}
-
-				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					res = GetGenreList(Games[gameId].ParentId, depth - 1, tagFallback);
-				}
-
-				return res;
-			}
-
-			return null;
-		}
-
-		public List<string> GetFlagList(int gameId, int depth = 3)
-		{
-			if (Games.ContainsKey(gameId))
-			{
-				List<string> res = Games[gameId].Flags;
-				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					res = GetFlagList(Games[gameId].ParentId, depth - 1);
-				}
-
-				return res;
-			}
-
-			return null;
-		}
-
-		public List<string> GetTagList(int gameId, int depth = 3)
-		{
-			if (Games.ContainsKey(gameId))
-			{
-				List<string> res = Games[gameId].Tags;
-				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					res = GetTagList(Games[gameId].ParentId, depth - 1);
-				}
-
-				return res;
-			}
-
-			return null;
-		}
-
-		/// <summary>
-		///     Returns whether the game supports VR
-		/// </summary>
-		public bool SupportsVr(int gameId, int depth = 3)
-		{
-			if (Games.ContainsKey(gameId))
-			{
-				VrSupport res = Games[gameId].VrSupport;
-				if (((res.Headsets != null) && (res.Headsets.Count > 0)) || ((res.Input != null) && (res.Input.Count > 0)) || ((res.PlayArea != null) && (res.PlayArea.Count > 0) && (depth > 0) && (Games[gameId].ParentId > 0)))
-				{
-					return true;
-				}
-
-				if ((depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					return SupportsVr(Games[gameId].ParentId, depth - 1);
-				}
-			}
-
-			return false;
-		}
-
-		public VrSupport GetVrSupport(int gameId, int depth = 3)
-		{
-			if (Games.ContainsKey(gameId))
-			{
-				VrSupport res = Games[gameId].VrSupport;
-				if (((res.Headsets == null) || (res.Headsets.Count == 0)) && ((res.Input == null) || (res.Input.Count == 0)) && ((res.PlayArea == null) || (res.PlayArea.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					res = GetVrSupport(Games[gameId].ParentId, depth - 1);
-				}
-
-				return res;
-			}
-
-			return new VrSupport();
-		}
-
-		public List<string> GetDevelopers(int gameId, int depth = 3)
-		{
-			if (Games.ContainsKey(gameId))
-			{
-				List<string> res = Games[gameId].Developers;
-				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					res = GetDevelopers(Games[gameId].ParentId, depth - 1);
-				}
-
-				return res;
-			}
-
-			return null;
-		}
-
-		public List<string> GetPublishers(int gameId, int depth = 3)
-		{
-			if (Games.ContainsKey(gameId))
-			{
-				List<string> res = Games[gameId].Publishers;
-				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					res = GetPublishers(Games[gameId].ParentId, depth - 1);
-				}
-
-				return res;
-			}
-
-			return null;
-		}
-
-		public int GetReleaseYear(int gameId)
-		{
-			if (Games.ContainsKey(gameId))
-			{
-				DatabaseEntry dbEntry = Games[gameId];
-				DateTime releaseDate;
-				if (DateTime.TryParse(dbEntry.SteamReleaseDate, out releaseDate))
-				{
-					return releaseDate.Year;
-				}
-			}
-
-			return 0;
-		}
-
-		#endregion
-
-		#region Aggregate Accessors
-
-		/// <summary>
-		///     Gets a list of all Steam store genres found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A set of genres, as strings</returns>
-		public SortedSet<string> GetAllGenres()
-		{
-			if (allStoreGenres == null)
-			{
-				return CalculateAllGenres();
-			}
-
-			return allStoreGenres;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store genres found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A set of genres, as strings</returns>
-		public SortedSet<string> CalculateAllGenres()
-		{
-			if (allStoreGenres == null)
-			{
-				allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			}
-			else
-			{
-				allStoreGenres.Clear();
-			}
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.Genres != null)
-				{
-					allStoreGenres.UnionWith(entry.Genres);
-				}
-			}
-
-			return allStoreGenres;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store developers found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A set of developers, as strings</returns>
-		public SortedSet<string> GetAllDevelopers()
-		{
-			if (allStoreDevelopers == null)
-			{
-				return CalculateAllDevelopers();
-			}
-
-			return allStoreDevelopers;
+			return doc;
 		}
 
 		/// <summary>
@@ -333,153 +118,30 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		///     Gets a list of all Steam store publishers found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A set of publishers, as strings</returns>
-		public SortedSet<string> GetAllPublishers()
-		{
-			if (allStorePublishers == null)
-			{
-				return CalculateAllPublishers();
-			}
-
-			return allStorePublishers;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store publishers found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A set of publishers, as strings</returns>
-		public SortedSet<string> CalculateAllPublishers()
-		{
-			if (allStorePublishers == null)
-			{
-				allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			}
-			else
-			{
-				allStorePublishers.Clear();
-			}
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.Publishers != null)
-				{
-					allStorePublishers.UnionWith(entry.Publishers);
-				}
-			}
-
-			return allStorePublishers;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store flags found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A set of genres, as strings</returns>
-		public SortedSet<string> GetAllStoreFlags()
-		{
-			if (allStoreFlags == null)
-			{
-				return CalculateAllStoreFlags();
-			}
-
-			return allStoreFlags;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store flags found in the entire database.
+		///     Gets a list of all Steam store genres found in the entire database.
 		///     Always recalculates.
 		/// </summary>
 		/// <returns>A set of genres, as strings</returns>
-		public SortedSet<string> CalculateAllStoreFlags()
+		public SortedSet<string> CalculateAllGenres()
 		{
-			if (allStoreFlags == null)
+			if (allStoreGenres == null)
 			{
-				allStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+				allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 			}
 			else
 			{
-				allStoreFlags.Clear();
+				allStoreGenres.Clear();
 			}
 
 			foreach (DatabaseEntry entry in Games.Values)
 			{
-				if (entry.Flags != null)
+				if (entry.Genres != null)
 				{
-					allStoreFlags.UnionWith(entry.Flags);
+					allStoreGenres.UnionWith(entry.Genres);
 				}
 			}
 
-			return allStoreFlags;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store VR Support flags found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A VrSupport struct containing the flags</returns>
-		public VrSupport GetAllVrSupportFlags()
-		{
-			if ((allVrSupportFlags.Headsets == null) || (allVrSupportFlags.Input == null) || (allVrSupportFlags.PlayArea == null))
-			{
-				return CalculateAllVrSupportFlags();
-			}
-
-			return allVrSupportFlags;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store VR Support flags found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A VrSupport struct containing the flags</returns>
-		public VrSupport CalculateAllVrSupportFlags()
-		{
-			SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			SortedSet<string> playArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.VrSupport.Headsets != null)
-				{
-					headsets.UnionWith(entry.VrSupport.Headsets);
-				}
-
-				if (entry.VrSupport.Input != null)
-				{
-					input.UnionWith(entry.VrSupport.Input);
-				}
-
-				if (entry.VrSupport.PlayArea != null)
-				{
-					playArea.UnionWith(entry.VrSupport.PlayArea);
-				}
-			}
-
-			allVrSupportFlags.Headsets = headsets.ToList();
-			allVrSupportFlags.Input = input.ToList();
-			allVrSupportFlags.PlayArea = playArea.ToList();
-
-			return allVrSupportFlags;
-		}
-
-		/// <summary>
-		///     Gets a list of all Game Languages found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A LanguageSupport struct containing the languages</returns>
-		public LanguageSupport GetAllLanguages()
-		{
-			if ((allLanguages.FullAudio == null) || (allLanguages.Interface == null) || (allLanguages.Subtitles == null))
-			{
-				return CalculateAllLanguages();
-			}
-
-			return allLanguages;
+			return allStoreGenres;
 		}
 
 		/// <summary>
@@ -516,6 +178,96 @@ namespace Depressurizer
 			allLanguages.FullAudio = FullAudio.ToList();
 
 			return allLanguages;
+		}
+
+		/// <summary>
+		///     Gets a list of all Steam store publishers found in the entire database.
+		///     Always recalculates.
+		/// </summary>
+		/// <returns>A set of publishers, as strings</returns>
+		public SortedSet<string> CalculateAllPublishers()
+		{
+			if (allStorePublishers == null)
+			{
+				allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			}
+			else
+			{
+				allStorePublishers.Clear();
+			}
+
+			foreach (DatabaseEntry entry in Games.Values)
+			{
+				if (entry.Publishers != null)
+				{
+					allStorePublishers.UnionWith(entry.Publishers);
+				}
+			}
+
+			return allStorePublishers;
+		}
+
+		/// <summary>
+		///     Gets a list of all Steam store flags found in the entire database.
+		///     Always recalculates.
+		/// </summary>
+		/// <returns>A set of genres, as strings</returns>
+		public SortedSet<string> CalculateAllStoreFlags()
+		{
+			if (allStoreFlags == null)
+			{
+				allStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			}
+			else
+			{
+				allStoreFlags.Clear();
+			}
+
+			foreach (DatabaseEntry entry in Games.Values)
+			{
+				if (entry.Flags != null)
+				{
+					allStoreFlags.UnionWith(entry.Flags);
+				}
+			}
+
+			return allStoreFlags;
+		}
+
+		/// <summary>
+		///     Gets a list of all Steam store VR Support flags found in the entire database.
+		///     Always recalculates.
+		/// </summary>
+		/// <returns>A VrSupport struct containing the flags</returns>
+		public VrSupport CalculateAllVrSupportFlags()
+		{
+			SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> playArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			foreach (DatabaseEntry entry in Games.Values)
+			{
+				if (entry.VrSupport.Headsets != null)
+				{
+					headsets.UnionWith(entry.VrSupport.Headsets);
+				}
+
+				if (entry.VrSupport.Input != null)
+				{
+					input.UnionWith(entry.VrSupport.Input);
+				}
+
+				if (entry.VrSupport.PlayArea != null)
+				{
+					playArea.UnionWith(entry.VrSupport.PlayArea);
+				}
+			}
+
+			allVrSupportFlags.Headsets = headsets.ToList();
+			allVrSupportFlags.Input = input.ToList();
+			allVrSupportFlags.PlayArea = playArea.ToList();
+
+			return allVrSupportFlags;
 		}
 
 		/// <summary>
@@ -558,33 +310,6 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		///     Counts games for each developer.
-		/// </summary>
-		/// <param name="counts">
-		///     Existing dictionary of developers and game count. Key is the developer as a string, value is the
-		///     count
-		/// </param>
-		/// <param name="dbEntry">Entry to add developers from</param>
-		private void CalculateSortedDevListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
-		{
-			if (dbEntry.Developers != null)
-			{
-				for (int i = 0; i < dbEntry.Developers.Count; i++)
-				{
-					string dev = dbEntry.Developers[i];
-					if (counts.ContainsKey(dev))
-					{
-						counts[dev] += 1;
-					}
-					else
-					{
-						counts[dev] = 1;
-					}
-				}
-			}
-		}
-
-		/// <summary>
 		///     Gets a list of publishers found on games with their game count.
 		/// </summary>
 		/// <param name="filter">
@@ -621,33 +346,6 @@ namespace Depressurizer
 			IEnumerable<Tuple<string, int>> unsortedList = from entry in PubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
 
 			return unsortedList.ToList();
-		}
-
-		/// <summary>
-		///     Counts games for each publisher.
-		/// </summary>
-		/// <param name="counts">
-		///     Existing dictionary of publishers and game count. Key is the publisher as a string, value is the
-		///     count
-		/// </param>
-		/// <param name="dbEntry">Entry to add publishers from</param>
-		private void CalculateSortedPubListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
-		{
-			if (dbEntry.Publishers != null)
-			{
-				for (int i = 0; i < dbEntry.Publishers.Count; i++)
-				{
-					string Pub = dbEntry.Publishers[i];
-					if (counts.ContainsKey(Pub))
-					{
-						counts[Pub] += 1;
-					}
-					else
-					{
-						counts[Pub] = 1;
-					}
-				}
-			}
 		}
 
 		/// <summary>
@@ -704,84 +402,283 @@ namespace Depressurizer
 			return sortedList.ToList();
 		}
 
-		/// <summary>
-		///     Adds tags from the given DBEntry to the dictionary. Adds new elements if necessary, and increases values on
-		///     existing elements.
-		/// </summary>
-		/// <param name="counts">Existing dictionary of tags and scores. Key is the tag as a string, value is the score</param>
-		/// <param name="dbEntry">Entry to add tags from</param>
-		/// <param name="weightFactor">
-		///     The score value of the first tag in the list.
-		///     The first tag on the game will have this score, and the last tag processed will always have score 1.
-		///     The tags between will have linearly interpolated values between them.
-		/// </param>
-		/// <param name="tagsPerGame"></param>
-		private void CalculateSortedTagListHelper(Dictionary<string, float> counts, DatabaseEntry dbEntry, float weightFactor, int tagsPerGame)
+		public void ChangeLanguage(StoreLanguage language)
 		{
-			if (dbEntry.Tags != null)
+			if (Program.Database == null)
 			{
-				int tagsToLoad = tagsPerGame == 0 ? dbEntry.Tags.Count : Math.Min(tagsPerGame, dbEntry.Tags.Count);
-				for (int i = 0; i < tagsToLoad; i++)
-				{
-					// Get the score based on the weighting factor
-					float score = 1;
-					if (weightFactor > 1)
-					{
-						if (tagsToLoad <= 1)
-						{
-							score = weightFactor;
-						}
-						else
-						{
-							float interp = i / (float) (tagsToLoad - 1);
-							score = ((1 - interp) * weightFactor) + interp;
-						}
-					}
+				return;
+			}
 
-					string tag = dbEntry.Tags[i];
-					if (counts.ContainsKey(tag))
+			if (dbLanguage == language)
+			{
+				return;
+			}
+
+			dbLanguage = language;
+
+			foreach (DatabaseEntry entry in Games.Values)
+			{
+				if (entry.Id <= 0)
+				{
+					continue;
+				}
+
+				entry.Clear();
+			}
+
+			List<int> toUpdate = new List<int>();
+			if (FormMain.CurrentProfile != null)
+			{
+				foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
+				{
+					if (game.Id > 0)
 					{
-						counts[tag] += score;
-					}
-					else
-					{
-						counts[tag] = score;
+						toUpdate.Add(game.Id);
 					}
 				}
+
+				using (ScrapeDialog dialog = new ScrapeDialog(toUpdate))
+				{
+					dialog.ShowDialog();
+				}
 			}
+
+			Save("GameDB.xml.gz");
 		}
 
-		private void ClearAggregates()
+		public bool Contains(int id)
 		{
-			allStoreGenres = null;
-			allStoreFlags = null;
-			allStoreDevelopers = null;
-			allStorePublishers = null;
+			return Games.ContainsKey(id);
 		}
 
-		#endregion
-
-		#region Operations
-
-		public void UpdateAppListFromWeb()
+		/// <summary>
+		///     Gets a list of all Steam store developers found in the entire database.
+		///     Only recalculates if necessary.
+		/// </summary>
+		/// <returns>A set of developers, as strings</returns>
+		public SortedSet<string> GetAllDevelopers()
 		{
-			XmlDocument doc = FetchAppListFromWeb();
-			IntegrateAppList(doc);
-		}
-
-		public static XmlDocument FetchAppListFromWeb()
-		{
-			XmlDocument doc = new XmlDocument();
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList);
-			WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
-			using (WebResponse resp = req.GetResponse())
+			if (allStoreDevelopers == null)
 			{
-				doc.Load(resp.GetResponseStream());
+				return CalculateAllDevelopers();
 			}
 
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_XMLAppListDownloaded);
+			return allStoreDevelopers;
+		}
 
-			return doc;
+		/// <summary>
+		///     Gets a list of all Steam store genres found in the entire database.
+		///     Only recalculates if necessary.
+		/// </summary>
+		/// <returns>A set of genres, as strings</returns>
+		public SortedSet<string> GetAllGenres()
+		{
+			if (allStoreGenres == null)
+			{
+				return CalculateAllGenres();
+			}
+
+			return allStoreGenres;
+		}
+
+		/// <summary>
+		///     Gets a list of all Game Languages found in the entire database.
+		///     Only recalculates if necessary.
+		/// </summary>
+		/// <returns>A LanguageSupport struct containing the languages</returns>
+		public LanguageSupport GetAllLanguages()
+		{
+			if ((allLanguages.FullAudio == null) || (allLanguages.Interface == null) || (allLanguages.Subtitles == null))
+			{
+				return CalculateAllLanguages();
+			}
+
+			return allLanguages;
+		}
+
+		/// <summary>
+		///     Gets a list of all Steam store publishers found in the entire database.
+		///     Only recalculates if necessary.
+		/// </summary>
+		/// <returns>A set of publishers, as strings</returns>
+		public SortedSet<string> GetAllPublishers()
+		{
+			if (allStorePublishers == null)
+			{
+				return CalculateAllPublishers();
+			}
+
+			return allStorePublishers;
+		}
+
+		/// <summary>
+		///     Gets a list of all Steam store flags found in the entire database.
+		///     Only recalculates if necessary.
+		/// </summary>
+		/// <returns>A set of genres, as strings</returns>
+		public SortedSet<string> GetAllStoreFlags()
+		{
+			if (allStoreFlags == null)
+			{
+				return CalculateAllStoreFlags();
+			}
+
+			return allStoreFlags;
+		}
+
+		/// <summary>
+		///     Gets a list of all Steam store VR Support flags found in the entire database.
+		///     Only recalculates if necessary.
+		/// </summary>
+		/// <returns>A VrSupport struct containing the flags</returns>
+		public VrSupport GetAllVrSupportFlags()
+		{
+			if ((allVrSupportFlags.Headsets == null) || (allVrSupportFlags.Input == null) || (allVrSupportFlags.PlayArea == null))
+			{
+				return CalculateAllVrSupportFlags();
+			}
+
+			return allVrSupportFlags;
+		}
+
+		public List<string> GetDevelopers(int gameId, int depth = 3)
+		{
+			if (Games.ContainsKey(gameId))
+			{
+				List<string> res = Games[gameId].Developers;
+				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+				{
+					res = GetDevelopers(Games[gameId].ParentId, depth - 1);
+				}
+
+				return res;
+			}
+
+			return null;
+		}
+
+		public List<string> GetFlagList(int gameId, int depth = 3)
+		{
+			if (Games.ContainsKey(gameId))
+			{
+				List<string> res = Games[gameId].Flags;
+				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+				{
+					res = GetFlagList(Games[gameId].ParentId, depth - 1);
+				}
+
+				return res;
+			}
+
+			return null;
+		}
+
+		public List<string> GetGenreList(int gameId, int depth = 3, bool tagFallback = true)
+		{
+			if (Games.ContainsKey(gameId))
+			{
+				List<string> res = Games[gameId].Genres;
+				if (tagFallback && ((res == null) || (res.Count == 0)))
+				{
+					List<string> tags = GetTagList(gameId, 0);
+					if ((tags != null) && (tags.Count > 0))
+					{
+						res = new List<string>(tags.Intersect(GetAllGenres()));
+					}
+				}
+
+				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+				{
+					res = GetGenreList(Games[gameId].ParentId, depth - 1, tagFallback);
+				}
+
+				return res;
+			}
+
+			return null;
+		}
+
+		public string GetName(int id)
+		{
+			if (Games.ContainsKey(id))
+			{
+				return Games[id].Name;
+			}
+
+			return null;
+		}
+
+		public List<string> GetPublishers(int gameId, int depth = 3)
+		{
+			if (Games.ContainsKey(gameId))
+			{
+				List<string> res = Games[gameId].Publishers;
+				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+				{
+					res = GetPublishers(Games[gameId].ParentId, depth - 1);
+				}
+
+				return res;
+			}
+
+			return null;
+		}
+
+		public int GetReleaseYear(int gameId)
+		{
+			if (Games.ContainsKey(gameId))
+			{
+				DatabaseEntry dbEntry = Games[gameId];
+				DateTime releaseDate;
+				if (DateTime.TryParse(dbEntry.SteamReleaseDate, out releaseDate))
+				{
+					return releaseDate.Year;
+				}
+			}
+
+			return 0;
+		}
+
+		public List<string> GetTagList(int gameId, int depth = 3)
+		{
+			if (Games.ContainsKey(gameId))
+			{
+				List<string> res = Games[gameId].Tags;
+				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+				{
+					res = GetTagList(Games[gameId].ParentId, depth - 1);
+				}
+
+				return res;
+			}
+
+			return null;
+		}
+
+		public VrSupport GetVrSupport(int gameId, int depth = 3)
+		{
+			if (Games.ContainsKey(gameId))
+			{
+				VrSupport res = Games[gameId].VrSupport;
+				if (((res.Headsets == null) || (res.Headsets.Count == 0)) && ((res.Input == null) || (res.Input.Count == 0)) && ((res.PlayArea == null) || (res.PlayArea.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
+				{
+					res = GetVrSupport(Games[gameId].ParentId, depth - 1);
+				}
+
+				return res;
+			}
+
+			return new VrSupport();
+		}
+
+		public bool IncludeItemInGameList(int id, AppTypes scheme)
+		{
+			if (Games.ContainsKey(id))
+			{
+				return scheme.HasFlag(Games[id].AppType);
+			}
+
+			return scheme.HasFlag(AppTypes.Unknown);
 		}
 
 		public int IntegrateAppList(XmlDocument doc)
@@ -816,6 +713,152 @@ namespace Depressurizer
 			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
 
 			return added;
+		}
+
+		public void Load(string path)
+		{
+			Load(path, path.EndsWith(".gz"));
+		}
+
+		public void Load(string path, bool compress)
+		{
+			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadingGameDBFrom, path);
+			XmlDocument doc = new XmlDocument();
+
+			Stream stream = null;
+			try
+			{
+				stream = new FileStream(path, FileMode.Open);
+				if (compress)
+				{
+					stream = new GZipStream(stream, CompressionMode.Decompress);
+				}
+
+				doc.Load(stream);
+
+				Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLParsed);
+				Games.Clear();
+				ClearAggregates();
+
+				XmlNode gameListNode = doc.SelectSingleNode("/" + XmlName_RootNode);
+
+				int fileVersion = XmlUtil.GetIntFromNode(gameListNode[XmlName_Version], 0);
+
+				LastHltbUpdate = XmlUtil.GetIntFromNode(gameListNode[XmlName_LastHltbUpdate], 0);
+
+				dbLanguage = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), XmlUtil.GetStringFromNode(gameListNode[XmlName_dbLanguage], "en"), true);
+
+				if (fileVersion == 1)
+				{
+					LoadGamelistVersion1(gameListNode);
+				}
+				else
+				{
+					XmlSerializer x = new XmlSerializer(typeof(DatabaseEntry));
+					foreach (XmlNode gameNode in gameListNode.SelectSingleNode(XmlName_Games).ChildNodes)
+					{
+						XmlReader reader = new XmlNodeReader(gameNode);
+						DatabaseEntry entry = (DatabaseEntry) x.Deserialize(reader);
+						Games.Add(entry.Id, entry);
+					}
+				}
+
+				Program.Logger.Write(LoggerLevel.Info, "GameDB XML processed, load complete. Db Language: " + dbLanguage);
+			}
+			finally
+			{
+				stream?.Close();
+			}
+		}
+
+		public void Save(string path)
+		{
+			Save(path, path.EndsWith(".gz"));
+		}
+
+		public void Save(string path, bool compress)
+		{
+			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_SavingGameDBTo, path);
+			XmlWriterSettings settings = new XmlWriterSettings();
+			settings.Indent = true;
+			settings.CloseOutput = true;
+
+			Stream stream = null;
+			try
+			{
+				stream = new FileStream(path, FileMode.Create);
+
+				if (compress)
+				{
+					stream = new GZipStream(stream, CompressionMode.Compress);
+				}
+
+				XmlWriter writer = XmlWriter.Create(stream, settings);
+				writer.WriteStartDocument();
+				writer.WriteStartElement(XmlName_RootNode);
+
+				writer.WriteElementString(XmlName_Version, VERSION.ToString());
+
+				writer.WriteElementString(XmlName_LastHltbUpdate, LastHltbUpdate.ToString());
+
+				writer.WriteElementString(XmlName_dbLanguage, Enum.GetName(typeof(StoreLanguage), dbLanguage));
+
+				writer.WriteStartElement(XmlName_Games);
+				XmlSerializer x = new XmlSerializer(typeof(DatabaseEntry));
+				XmlSerializerNamespaces nameSpace = new XmlSerializerNamespaces();
+				nameSpace.Add("", "");
+				foreach (DatabaseEntry g in Games.Values)
+				{
+					x.Serialize(writer, g, nameSpace);
+				}
+
+				writer.WriteEndElement(); //XmlName_Games
+
+				writer.WriteEndElement(); //XmlName_RootNode
+				writer.WriteEndDocument();
+				writer.Close();
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+			finally
+			{
+				if (stream != null)
+				{
+					stream.Close();
+				}
+			}
+
+			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBSaved);
+		}
+
+		/// <summary>
+		///     Returns whether the game supports VR
+		/// </summary>
+		public bool SupportsVr(int gameId, int depth = 3)
+		{
+			if (Games.ContainsKey(gameId))
+			{
+				VrSupport res = Games[gameId].VrSupport;
+				if (((res.Headsets != null) && (res.Headsets.Count > 0)) || ((res.Input != null) && (res.Input.Count > 0)) || ((res.PlayArea != null) && (res.PlayArea.Count > 0) && (depth > 0) && (Games[gameId].ParentId > 0)))
+				{
+					return true;
+				}
+
+				if ((depth > 0) && (Games[gameId].ParentId > 0))
+				{
+					return SupportsVr(Games[gameId].ParentId, depth - 1);
+				}
+			}
+
+			return false;
+		}
+
+		public void UpdateAppListFromWeb()
+		{
+			XmlDocument doc = FetchAppListFromWeb();
+			IntegrateAppList(doc);
 		}
 
 		/// <summary>
@@ -931,202 +974,117 @@ namespace Depressurizer
 			return updated;
 		}
 
-		public void ChangeLanguage(StoreLanguage lang)
-		{
-			if (Program.Database == null)
-			{
-				return;
-			}
-
-			StoreLanguage dbLang = StoreLanguage.en;
-			if (lang == StoreLanguage.windows)
-			{
-				CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-				if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
-				{
-					dbLang = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
-				}
-				else
-				{
-					if ((currentCulture.Name == "zh-Hans") || (currentCulture.Parent.Name == "zh-Hans"))
-					{
-						dbLang = StoreLanguage.zh_Hans;
-					}
-					else if ((currentCulture.Name == "zh-Hant") || (currentCulture.Parent.Name == "zh-Hant"))
-					{
-						dbLang = StoreLanguage.zh_Hant;
-					}
-					else if ((currentCulture.Name == "pt-BR") || (currentCulture.Parent.Name == "pt-BR"))
-					{
-						dbLang = StoreLanguage.pt_BR;
-					}
-				}
-			}
-			else
-			{
-				dbLang = lang;
-			}
-
-			if (dbLanguage == dbLang)
-			{
-				return;
-			}
-
-			dbLanguage = dbLang;
-			//clean DB from data in wrong language
-			foreach (DatabaseEntry g in Games.Values)
-			{
-				if (g.Id > 0)
-				{
-					g.Tags = null;
-					g.Flags = null;
-					g.Genres = null;
-					g.SteamReleaseDate = null;
-					g.LastStoreScrape = 1; //pretend it is really old data
-					g.VrSupport = new VrSupport();
-					g.LanguageSupport = new LanguageSupport();
-				}
-			}
-
-			//Update DB with data in correct language
-			List<int> gamesToUpdate = new List<int>();
-			if (FormMain.CurrentProfile != null)
-			{
-				foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
-				{
-					if (game.Id > 0)
-					{
-						gamesToUpdate.Add(game.Id);
-					}
-				}
-
-				ScrapeDialog scrapeDlg = new ScrapeDialog(gamesToUpdate);
-				scrapeDlg.ShowDialog();
-			}
-
-			Save("GameDB.xml.gz");
-		}
-
 		#endregion
 
-		#region Serialization
+		#region Methods
 
-		public void Save(string path)
+		/// <summary>
+		///     Counts games for each developer.
+		/// </summary>
+		/// <param name="counts">
+		///     Existing dictionary of developers and game count. Key is the developer as a string, value is the
+		///     count
+		/// </param>
+		/// <param name="dbEntry">Entry to add developers from</param>
+		private void CalculateSortedDevListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
 		{
-			Save(path, path.EndsWith(".gz"));
-		}
-
-		public void Save(string path, bool compress)
-		{
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_SavingGameDBTo, path);
-			XmlWriterSettings settings = new XmlWriterSettings();
-			settings.Indent = true;
-			settings.CloseOutput = true;
-
-			Stream stream = null;
-			try
+			if (dbEntry.Developers != null)
 			{
-				stream = new FileStream(path, FileMode.Create);
-
-				if (compress)
+				for (int i = 0; i < dbEntry.Developers.Count; i++)
 				{
-					stream = new GZipStream(stream, CompressionMode.Compress);
-				}
-
-				XmlWriter writer = XmlWriter.Create(stream, settings);
-				writer.WriteStartDocument();
-				writer.WriteStartElement(XmlName_RootNode);
-
-				writer.WriteElementString(XmlName_Version, VERSION.ToString());
-
-				writer.WriteElementString(XmlName_LastHltbUpdate, LastHltbUpdate.ToString());
-
-				writer.WriteElementString(XmlName_dbLanguage, Enum.GetName(typeof(StoreLanguage), dbLanguage));
-
-				writer.WriteStartElement(XmlName_Games);
-				XmlSerializer x = new XmlSerializer(typeof(DatabaseEntry));
-				XmlSerializerNamespaces nameSpace = new XmlSerializerNamespaces();
-				nameSpace.Add("", "");
-				foreach (DatabaseEntry g in Games.Values)
-				{
-					x.Serialize(writer, g, nameSpace);
-				}
-
-				writer.WriteEndElement(); //XmlName_Games
-
-				writer.WriteEndElement(); //XmlName_RootNode
-				writer.WriteEndDocument();
-				writer.Close();
-			}
-			catch (Exception e)
-			{
-				throw e;
-			}
-			finally
-			{
-				if (stream != null)
-				{
-					stream.Close();
-				}
-			}
-
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBSaved);
-		}
-
-		public void Load(string path)
-		{
-			Load(path, path.EndsWith(".gz"));
-		}
-
-		public void Load(string path, bool compress)
-		{
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadingGameDBFrom, path);
-			XmlDocument doc = new XmlDocument();
-
-			Stream stream = null;
-			try
-			{
-				stream = new FileStream(path, FileMode.Open);
-				if (compress)
-				{
-					stream = new GZipStream(stream, CompressionMode.Decompress);
-				}
-
-				doc.Load(stream);
-
-				Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLParsed);
-				Games.Clear();
-				ClearAggregates();
-
-				XmlNode gameListNode = doc.SelectSingleNode("/" + XmlName_RootNode);
-
-				int fileVersion = XmlUtil.GetIntFromNode(gameListNode[XmlName_Version], 0);
-
-				LastHltbUpdate = XmlUtil.GetIntFromNode(gameListNode[XmlName_LastHltbUpdate], 0);
-
-				dbLanguage = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), XmlUtil.GetStringFromNode(gameListNode[XmlName_dbLanguage], "en"), true);
-
-				if (fileVersion == 1)
-				{
-					LoadGamelistVersion1(gameListNode);
-				}
-				else
-				{
-					XmlSerializer x = new XmlSerializer(typeof(DatabaseEntry));
-					foreach (XmlNode gameNode in gameListNode.SelectSingleNode(XmlName_Games).ChildNodes)
+					string dev = dbEntry.Developers[i];
+					if (counts.ContainsKey(dev))
 					{
-						XmlReader reader = new XmlNodeReader(gameNode);
-						DatabaseEntry entry = (DatabaseEntry) x.Deserialize(reader);
-						Games.Add(entry.Id, entry);
+						counts[dev] += 1;
+					}
+					else
+					{
+						counts[dev] = 1;
 					}
 				}
+			}
+		}
 
-				Program.Logger.Write(LoggerLevel.Info, "GameDB XML processed, load complete. Db Language: " + dbLanguage);
-			}
-			finally
+		/// <summary>
+		///     Counts games for each publisher.
+		/// </summary>
+		/// <param name="counts">
+		///     Existing dictionary of publishers and game count. Key is the publisher as a string, value is the
+		///     count
+		/// </param>
+		/// <param name="dbEntry">Entry to add publishers from</param>
+		private void CalculateSortedPubListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
+		{
+			if (dbEntry.Publishers != null)
 			{
-				stream?.Close();
+				for (int i = 0; i < dbEntry.Publishers.Count; i++)
+				{
+					string Pub = dbEntry.Publishers[i];
+					if (counts.ContainsKey(Pub))
+					{
+						counts[Pub] += 1;
+					}
+					else
+					{
+						counts[Pub] = 1;
+					}
+				}
 			}
+		}
+
+		/// <summary>
+		///     Adds tags from the given DBEntry to the dictionary. Adds new elements if necessary, and increases values on
+		///     existing elements.
+		/// </summary>
+		/// <param name="counts">Existing dictionary of tags and scores. Key is the tag as a string, value is the score</param>
+		/// <param name="dbEntry">Entry to add tags from</param>
+		/// <param name="weightFactor">
+		///     The score value of the first tag in the list.
+		///     The first tag on the game will have this score, and the last tag processed will always have score 1.
+		///     The tags between will have linearly interpolated values between them.
+		/// </param>
+		/// <param name="tagsPerGame"></param>
+		private void CalculateSortedTagListHelper(Dictionary<string, float> counts, DatabaseEntry dbEntry, float weightFactor, int tagsPerGame)
+		{
+			if (dbEntry.Tags != null)
+			{
+				int tagsToLoad = tagsPerGame == 0 ? dbEntry.Tags.Count : Math.Min(tagsPerGame, dbEntry.Tags.Count);
+				for (int i = 0; i < tagsToLoad; i++)
+				{
+					// Get the score based on the weighting factor
+					float score = 1;
+					if (weightFactor > 1)
+					{
+						if (tagsToLoad <= 1)
+						{
+							score = weightFactor;
+						}
+						else
+						{
+							float interp = i / (float) (tagsToLoad - 1);
+							score = ((1 - interp) * weightFactor) + interp;
+						}
+					}
+
+					string tag = dbEntry.Tags[i];
+					if (counts.ContainsKey(tag))
+					{
+						counts[tag] += score;
+					}
+					else
+					{
+						counts[tag] = score;
+					}
+				}
+			}
+		}
+
+		private void ClearAggregates()
+		{
+			allStoreGenres = null;
+			allStoreFlags = null;
+			allStoreDevelopers = null;
+			allStorePublishers = null;
 		}
 
 		/// <summary>
