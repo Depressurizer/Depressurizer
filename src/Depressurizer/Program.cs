@@ -21,6 +21,7 @@
 
 using System;
 using System.Windows.Forms;
+using Depressurizer.Dialogs;
 using Rallion;
 
 namespace Depressurizer
@@ -47,7 +48,7 @@ namespace Depressurizer
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.ApplicationExit += OnApplicationExit;
 
-			FatalError.InitializeHandler();
+			FatalErrorDialog.InitializeHandler();
 
 			Logger = new AppLogger
 			{
