@@ -88,8 +88,16 @@
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
+    <Reference Include="SharpRaven, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpRaven.2.4.0\lib\net45\SharpRaven.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -115,6 +123,7 @@
     <Compile Include="Dialogs\ScrapeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Helpers\SentryLogger.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="Helpers\DatabaseEntrySorter.cs" />
     <Compile Include="Models\LanguageSupport.cs" />
@@ -339,11 +348,11 @@
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Lib\DlgFatalError.cs">
+    <Compile Include="Dialogs\FatalErrorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Lib\DlgFatalError.designer.cs">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    <Compile Include="Dialogs\FatalErrorDialog.designer.cs">
+      <DependentUpon>FatalErrorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\DlgGetString.cs">
       <SubType>Form</SubType>
@@ -597,17 +606,17 @@
     <EmbeddedResource Include="Lib\CancelableDlg.uk.resx">
       <DependentUpon>CancelableDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.es.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\FatalErrorDialog.es.resx">
+      <DependentUpon>FatalErrorDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\FatalErrorDialog.resx">
+      <DependentUpon>FatalErrorDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.ru.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\FatalErrorDialog.ru.resx">
+      <DependentUpon>FatalErrorDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Lib\DlgFatalError.uk.resx">
-      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\FatalErrorDialog.uk.resx">
+      <DependentUpon>FatalErrorDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.es.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
