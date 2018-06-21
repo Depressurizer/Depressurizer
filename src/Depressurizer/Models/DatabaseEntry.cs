@@ -513,7 +513,7 @@ namespace Depressurizer.Models
 		public void ScrapeTrueSteamAchievements()
 		{
 			// We can only scrape TrueSteamAchievements in English
-			if (Settings.Instance.StoreLang != StoreLanguage.en)
+			if (Settings.Instance.StoreLanguage != StoreLanguage.en)
 			{
 				return;
 			}
