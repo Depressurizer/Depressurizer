@@ -26,11 +26,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Cache;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using Depressurizer.Enums;
 using Depressurizer.Properties;
@@ -141,6 +139,128 @@ namespace Depressurizer
 			return b.Count - a.Count;
 		}
 
+		public static CultureInfo GetCulture(StoreLanguage language)
+		{
+			CultureInfo culture;
+
+			switch (language)
+			{
+				case StoreLanguage.Arabic:
+					culture = new CultureInfo("ar");
+
+					break;
+				case StoreLanguage.Bulgarian:
+					culture = new CultureInfo("bg");
+
+					break;
+				case StoreLanguage.ChineseSimplified:
+					culture = new CultureInfo("zh-CN");
+
+					break;
+				case StoreLanguage.ChineseTraditional:
+					culture = new CultureInfo("zh-TW");
+
+					break;
+				case StoreLanguage.Czech:
+					culture = new CultureInfo("cs");
+
+					break;
+				case StoreLanguage.Danish:
+					culture = new CultureInfo("da");
+
+					break;
+				case StoreLanguage.Dutch:
+					culture = new CultureInfo("nl");
+
+					break;
+				case StoreLanguage.English:
+					culture = new CultureInfo("en");
+
+					break;
+				case StoreLanguage.Finnish:
+					culture = new CultureInfo("fi");
+
+					break;
+				case StoreLanguage.French:
+					culture = new CultureInfo("fr");
+
+					break;
+				case StoreLanguage.German:
+					culture = new CultureInfo("de");
+
+					break;
+				case StoreLanguage.Greek:
+					culture = new CultureInfo("el");
+
+					break;
+				case StoreLanguage.Hungarian:
+					culture = new CultureInfo("hu");
+
+					break;
+				case StoreLanguage.Italian:
+					culture = new CultureInfo("it");
+
+					break;
+				case StoreLanguage.Japanese:
+					culture = new CultureInfo("ja");
+
+					break;
+				case StoreLanguage.Korean:
+					culture = new CultureInfo("ko");
+
+					break;
+				case StoreLanguage.Norwegian:
+					culture = new CultureInfo("no");
+
+					break;
+				case StoreLanguage.Polish:
+					culture = new CultureInfo("pl");
+
+					break;
+				case StoreLanguage.Portuguese:
+					culture = new CultureInfo("pt");
+
+					break;
+				case StoreLanguage.PortugueseBrasil:
+					culture = new CultureInfo("pt-BR");
+
+					break;
+				case StoreLanguage.Romanian:
+					culture = new CultureInfo("ro");
+
+					break;
+				case StoreLanguage.Russian:
+					culture = new CultureInfo("ru");
+
+					break;
+				case StoreLanguage.Spanish:
+					culture = new CultureInfo("es");
+
+					break;
+				case StoreLanguage.Swedish:
+					culture = new CultureInfo("sv");
+
+					break;
+				case StoreLanguage.Thai:
+					culture = new CultureInfo("th");
+
+					break;
+				case StoreLanguage.Turkish:
+					culture = new CultureInfo("tr");
+
+					break;
+				case StoreLanguage.Ukrainian:
+					culture = new CultureInfo("uk");
+
+					break;
+				default:
+
+					throw new ArgumentOutOfRangeException(nameof(language), language, null);
+			}
+
+			return culture;
+		}
+
 		public static CultureInfo GetCulture(InterfaceLanguage language)
 		{
 			CultureInfo culture;
@@ -170,53 +290,6 @@ namespace Depressurizer
 				default:
 
 					throw new ArgumentOutOfRangeException(nameof(language), language, null);
-			}
-
-			return culture;
-		}
-
-		public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage dbLanguage)
-		{
-			string l = Enum.GetName(typeof(StoreLanguage), dbLanguage);
-			CultureInfo culture = CultureInfo.GetCultureInfo("en");
-			if (l == "zh_Hans")
-			{
-				culture = CultureInfo.GetCultureInfo("zh-Hans");
-			}
-			else if (l == "zh_Hant")
-			{
-				culture = CultureInfo.GetCultureInfo("zh-Hant");
-			}
-			else if (l == "pt-BR")
-			{
-				culture = CultureInfo.GetCultureInfo("pt-BR");
-			}
-			else if (l == "windows")
-			{
-				CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-				if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
-				{
-					culture = currentCulture;
-				}
-				else
-				{
-					if ((currentCulture.Name == "zh-Hans") || (currentCulture.Parent.Name == "zh-Hans"))
-					{
-						culture = CultureInfo.GetCultureInfo("zh-Hans");
-					}
-					else if ((currentCulture.Name == "zh-Hant") || (currentCulture.Parent.Name == "zh-Hant"))
-					{
-						culture = CultureInfo.GetCultureInfo("zh-Hant");
-					}
-					else if ((currentCulture.Name == "pt-BR") || (currentCulture.Parent.Name == "pt-BR"))
-					{
-						culture = CultureInfo.GetCultureInfo("pt-BR");
-					}
-				}
-			}
-			else
-			{
-				culture = CultureInfo.GetCultureInfo(l);
 			}
 
 			return culture;
@@ -298,6 +371,128 @@ namespace Depressurizer
 			}
 
 			return null;
+		}
+
+		public static string GetStoreLanguage(StoreLanguage storeLanguage)
+		{
+			string language;
+
+			switch (storeLanguage)
+			{
+				case StoreLanguage.Arabic:
+					language = "arabic";
+
+					break;
+				case StoreLanguage.Bulgarian:
+					language = "bulgarian";
+
+					break;
+				case StoreLanguage.ChineseSimplified:
+					language = "schinese";
+
+					break;
+				case StoreLanguage.ChineseTraditional:
+					language = "tchinese";
+
+					break;
+				case StoreLanguage.Czech:
+					language = "czech";
+
+					break;
+				case StoreLanguage.Danish:
+					language = "danish";
+
+					break;
+				case StoreLanguage.Dutch:
+					language = "dutch";
+
+					break;
+				case StoreLanguage.English:
+					language = "english";
+
+					break;
+				case StoreLanguage.Finnish:
+					language = "finnish";
+
+					break;
+				case StoreLanguage.French:
+					language = "french";
+
+					break;
+				case StoreLanguage.German:
+					language = "german";
+
+					break;
+				case StoreLanguage.Greek:
+					language = "greek";
+
+					break;
+				case StoreLanguage.Hungarian:
+					language = "hungarian";
+
+					break;
+				case StoreLanguage.Italian:
+					language = "italian";
+
+					break;
+				case StoreLanguage.Japanese:
+					language = "japanese";
+
+					break;
+				case StoreLanguage.Korean:
+					language = "koreana";
+
+					break;
+				case StoreLanguage.Norwegian:
+					language = "norwegian";
+
+					break;
+				case StoreLanguage.Polish:
+					language = "polish";
+
+					break;
+				case StoreLanguage.Portuguese:
+					language = "portuguese";
+
+					break;
+				case StoreLanguage.PortugueseBrasil:
+					language = "brazilian";
+
+					break;
+				case StoreLanguage.Romanian:
+					language = "romanian";
+
+					break;
+				case StoreLanguage.Russian:
+					language = "russian";
+
+					break;
+				case StoreLanguage.Spanish:
+					language = "spanish";
+
+					break;
+				case StoreLanguage.Swedish:
+					language = "swedish";
+
+					break;
+				case StoreLanguage.Thai:
+					language = "thai";
+
+					break;
+				case StoreLanguage.Turkish:
+					language = "turkish";
+
+					break;
+				case StoreLanguage.Ukrainian:
+					language = "ukrainian";
+
+					break;
+				default:
+
+					throw new ArgumentOutOfRangeException(nameof(storeLanguage), storeLanguage, null);
+			}
+
+			return language;
 		}
 
 		/// <summary>

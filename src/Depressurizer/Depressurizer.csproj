@@ -123,6 +123,7 @@
     <Compile Include="Dialogs\ScrapeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Enums\StoreLanguage.cs" />
     <Compile Include="Helpers\SentryLogger.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="Helpers\DatabaseEntrySorter.cs" />

@@ -20,7 +20,6 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Enums;
@@ -160,39 +159,13 @@ namespace Depressurizer
 				cmbUILanguage.Items.Add(culture.NativeName);
 			}
 
-			//Store Languages
-			List<string> storeLanguages = new List<string>();
-			foreach (string l in Enum.GetNames(typeof(StoreLanguage)))
+			// Store languages
+			cmbStoreLanguage.Items.Clear();
+			foreach (StoreLanguage language in Enum.GetValues(typeof(StoreLanguage)))
 			{
-				string name;
-				switch (l)
-				{
-					case "windows":
-						name = "Default";
-
-						break;
-					case "zh_Hans":
-						name = CultureInfo.GetCultureInfo("zh-Hans").NativeName;
-
-						break;
-					case "zh_Hant":
-						name = CultureInfo.GetCultureInfo("zh-Hant").NativeName;
-
-						break;
-					case "pt_BR":
-						name = CultureInfo.GetCultureInfo("pt-BR").NativeName;
-
-						break;
-					default:
-						name = CultureInfo.GetCultureInfo(l).NativeName;
-
-						break;
-				}
-
-				storeLanguages.Add(name);
+				CultureInfo culture = Utility.GetCulture(language);
+				cmbStoreLanguage.Items.Add(culture.NativeName);
 			}
-
-			cmbStoreLanguage.Items.AddRange(storeLanguages.ToArray());
 
 			FillFieldsFromSettings();
 		}

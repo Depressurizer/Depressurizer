@@ -35,63 +35,6 @@ namespace Depressurizer
 		WebsiteOnly
 	}
 
-	public enum StoreLanguage
-	{
-		windows,
-
-		bg, // Bulgarian
-
-		cs, // Czech
-
-		da, // Danish
-
-		nl, // Dutch
-
-		en, // English
-
-		fi, // Finnish
-
-		fr, // French
-
-		de, // German
-
-		el, // Greek
-
-		hu, // Hungarian
-
-		it, // Italian
-
-		ja, // Japanese
-
-		ko, // Korean
-
-		no, // Norwegian
-
-		pl, // Polish
-
-		pt, // Portuguese
-
-		pt_BR, // Portuguese (Brasil)
-
-		ro, // Romanian
-
-		ru, // Russian
-
-		zh_Hans, // Simplified Chinese
-
-		es, // Spanish
-
-		sv, // Swedish
-
-		th, // Thai
-
-		zh_Hant, // Traditional Chinese
-
-		tr, // Turkish
-
-		uk // Ukrainian
-	}
-
 	internal sealed class Settings
 	{
 		#region Static Fields
@@ -154,7 +97,7 @@ namespace Depressurizer
 
 		private string _steamPath;
 
-		private StoreLanguage _storeLanguage = StoreLanguage.windows;
+		private StoreLanguage _storeLanguage = StoreLanguage.English;
 
 		private bool _updateAppInfoOnStart = true;
 

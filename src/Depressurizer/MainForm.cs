@@ -2107,7 +2107,7 @@ namespace Depressurizer
 
 				int id = ((GameInfo) g).Id;
 				DateTime releaseDate;
-				CultureInfo culture = Utility.GetCultureInfoFromStoreLanguage(Program.Database.dbLanguage);
+				CultureInfo culture = Utility.GetCulture(Program.Database.dbLanguage);
 				if (Program.Database.Games.ContainsKey(id) && DateTime.TryParse(Program.Database.Games[id].SteamReleaseDate, culture, DateTimeStyles.None, out releaseDate))
 				{
 					return releaseDate.Year.ToString();
@@ -2926,30 +2926,12 @@ namespace Depressurizer
 
 		private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string storeLanguage = "en";
+			string storeLanguage = Utility.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : Settings.StoreLanguage);
+
 			contextGameFav_Yes.Checked = false;
 			contextGameFav_No.Checked = false;
 			contextGameHidden_Yes.Checked = false;
 			contextGameHidden_No.Checked = false;
-			if (Program.Database != null)
-			{
-				if (Program.Database.dbLanguage == StoreLanguage.zh_Hans)
-				{
-					storeLanguage = "schinese";
-				}
-				else if (Program.Database.dbLanguage == StoreLanguage.zh_Hant)
-				{
-					storeLanguage = "tchinese";
-				}
-				else if (Program.Database.dbLanguage == StoreLanguage.pt_BR)
-				{
-					storeLanguage = "brazilian";
-				}
-				else
-				{
-					storeLanguage = CultureInfo.GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.Database.dbLanguage)).EnglishName.ToLowerInvariant();
-				}
-			}
 
 			if (lstGames.SelectedObjects.Count > 0)
 			{
@@ -4009,7 +3991,7 @@ namespace Depressurizer
 				mchkAdvancedCategories.Checked = true;
 				cboFilter.SelectedIndex = i;
 				cboFilter.Text = name;
-				ApplyFilter((Filter)cboFilter.SelectedItem);
+				ApplyFilter((Filter) cboFilter.SelectedItem);
 			}
 		}
 
