@@ -30,7 +30,7 @@ namespace Depressurizer.Dialogs
 {
 	internal delegate DialogResult DlgMessageBox(string text);
 
-	public partial class FatalErrorDialog : Form
+	public partial class FatalErrorDialog : DepressurizerForm
 	{
 		#region Constants
 

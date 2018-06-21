@@ -457,10 +457,20 @@ namespace Depressurizer.Models
 			{
 				if (e.Status == WebExceptionStatus.Timeout)
 				{
+					LastStoreScrape = 1;
+
 					return;
 				}
 
-				throw;
+				HttpStatusCode response = ((HttpWebResponse) e.Response).StatusCode;
+				if (response != HttpStatusCode.InternalServerError)
+				{
+					throw;
+				}
+
+				LastStoreScrape = 1;
+
+				return;
 			}
 			catch (Exception e)
 			{
@@ -477,6 +487,7 @@ namespace Depressurizer.Models
 			if (page.Contains("<title>Site Error</title>"))
 			{
 				Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Received Site Error, aborting scraping", Id);
+				LastStoreScrape = 1;
 
 				return;
 			}

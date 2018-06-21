@@ -103,7 +103,7 @@ namespace Depressurizer
 
 		private readonly Color textColor = Color.FromArgb(255, 255, 255, 255);
 
-		private Filter advFilter = new Filter(ADVANCED_FILTER);
+		private Filter _advancedFilter = new Filter(ADVANCED_FILTER);
 
 		// For getting game banners
 		private GameBanners bannerGrabber;
@@ -236,6 +236,41 @@ namespace Depressurizer
 		#region Methods
 
 		/// <summary>
+		///     Checks github for newer versions of depressurizer.
+		/// </summary>
+		/// <returns>True if there is a newer release, false otherwise</returns>
+		private static void CheckForDepressurizerUpdates()
+		{
+			Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+			try
+			{
+				Version githubVersion;
+				string url;
+				using (WebClient wc = new WebClient())
+				{
+					wc.Headers.Set("User-Agent", "Depressurizer");
+					string json = wc.DownloadString(Resources.UrlLatestRelease);
+					JObject parsedJson = JObject.Parse(json);
+					githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
+					url = (string) parsedJson.SelectToken("html_url");
+				}
+
+				if (githubVersion > currentVersion)
+				{
+					if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
+					{
+						Process.Start(url);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
+				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+		/// <summary>
 		///     Adds the given category to all selected games.
 		/// </summary>
 		/// <param name="cat">Category to add</param>
@@ -252,7 +287,7 @@ namespace Depressurizer
 					{
 						if (forceClearOthers || Settings.Instance.SingleCatMode)
 						{
-							g.ClearCategories(false);
+							g.ClearCategories();
 							if (cat != null)
 							{
 								g.AddCategory(cat);
@@ -285,26 +320,30 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Adds a new game. Displays the game dialog to the user.
-		/// </summary>
 		private void AddGame()
 		{
-			DlgGame dlg = new DlgGame(CurrentProfile.GameData, null);
-			if (dlg.ShowDialog() == DialogResult.OK)
+			using (DlgGame dialog = new DlgGame(CurrentProfile.GameData))
 			{
+				DialogResult result = dialog.ShowDialog();
+				if (result != DialogResult.OK)
+				{
+					return;
+				}
+
 				Cursor.Current = Cursors.WaitCursor;
+
 				if (ProfileLoaded)
 				{
-					if (CurrentProfile.IgnoreList.Remove(dlg.Game.Id))
+					if (CurrentProfile.IgnoreList.Remove(dialog.Game.Id))
 					{
-						AddStatus(string.Format(GlobalStrings.MainForm_UnignoredGame, dlg.Game.Id));
+						AddStatus(string.Format(GlobalStrings.MainForm_UnignoredGame, dialog.Game.Id));
 					}
 				}
 
 				FullListRefresh();
 				MakeChange(true);
 				AddStatus(GlobalStrings.MainForm_AddedGame);
+
 				Cursor.Current = Cursors.Default;
 			}
 		}
@@ -313,31 +352,34 @@ namespace Depressurizer
 		{
 			foreach (ListViewItem catItem in lstMultiCat.Items)
 			{
-				if (catItem.StateImageIndex != 2)
+				if (catItem.StateImageIndex == 2)
 				{
-					Category cat = catItem.Tag as Category;
-					if (cat != null)
+					continue;
+				}
+
+				if (!(catItem.Tag is Category cat))
+				{
+					continue;
+				}
+
+				if (first)
+				{
+					catItem.StateImageIndex = game.ContainsCategory(cat) ? 1 : 0;
+				}
+				else
+				{
+					if (game.ContainsCategory(cat))
 					{
-						if (first)
+						if (catItem.StateImageIndex == 0)
 						{
-							catItem.StateImageIndex = game.ContainsCategory(cat) ? 1 : 0;
+							catItem.StateImageIndex = 2;
 						}
-						else
+					}
+					else
+					{
+						if (catItem.StateImageIndex == 1)
 						{
-							if (game.ContainsCategory(cat))
-							{
-								if (catItem.StateImageIndex == 0)
-								{
-									catItem.StateImageIndex = 2;
-								}
-							}
-							else
-							{
-								if (catItem.StateImageIndex == 1)
-								{
-									catItem.StateImageIndex = 2;
-								}
-							}
+							catItem.StateImageIndex = 2;
 						}
 					}
 				}
@@ -357,66 +399,81 @@ namespace Depressurizer
 					}
 				}
 
-				if (!found)
+				if (found)
 				{
-					ToolStripItem item = contextGameRemCat.Items.Add(c.Name);
-					item.Tag = c;
-					item.Click += contextGameRemCat_Category_Click;
+					continue;
 				}
+
+				ToolStripItem item = contextGameRemCat.Items.Add(c.Name);
+				item.Tag = c;
+				item.Click += contextGameRemCat_Category_Click;
 			}
 		}
 
-		private void ApplyFilter(Filter f)
+		private void ApplyFilter(Filter filter)
 		{
-			if (AdvancedCategoryFilter)
+			if (filter == null)
 			{
-				// reset Advanced settings
-				advFilter = new Filter(ADVANCED_FILTER);
+				return;
+			}
 
-				// load new Advanced settings
-				foreach (ListViewItem i in lstCategories.Items)
+			if (!AdvancedCategoryFilter)
+			{
+				return;
+			}
+
+			// reset Advanced settings
+			_advancedFilter = new Filter(ADVANCED_FILTER);
+
+			// load new Advanced settings
+			foreach (ListViewItem item in lstCategories.Items)
+			{
+				string filterName = item.Tag.ToString();
+				if (filterName.Equals(GlobalStrings.MainForm_Uncategorized))
 				{
-					if (i.Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
+					item.StateImageIndex = filter.Uncategorized;
+					_advancedFilter.Uncategorized = filter.Uncategorized;
+				}
+				else if (filterName.Equals(GlobalStrings.MainForm_Hidden))
+				{
+					item.StateImageIndex = filter.Hidden;
+					_advancedFilter.Hidden = filter.Hidden;
+				}
+				else if (filterName.Equals(GlobalStrings.MainForm_VR))
+				{
+					item.StateImageIndex = filter.VR;
+					_advancedFilter.VR = filter.VR;
+				}
+				else
+				{
+					if (!(item.Tag is Category category))
 					{
-						i.StateImageIndex = f.Uncategorized;
-						advFilter.Uncategorized = f.Uncategorized;
+						return;
 					}
-					else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
+
+					if (filter.Allow.Contains(category))
 					{
-						i.StateImageIndex = f.Hidden;
-						advFilter.Hidden = f.Hidden;
+						item.StateImageIndex = (int) AdvancedFilterState.Allow;
+						_advancedFilter.Allow.Add(category);
 					}
-					else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
+					else if (filter.Require.Contains(category))
 					{
-						i.StateImageIndex = f.VR;
-						advFilter.VR = f.VR;
+						item.StateImageIndex = (int) AdvancedFilterState.Require;
+						_advancedFilter.Require.Add(category);
+					}
+					else if (filter.Exclude.Contains(category))
+					{
+						item.StateImageIndex = (int) AdvancedFilterState.Exclude;
+						_advancedFilter.Exclude.Add(category);
 					}
 					else
 					{
-						if (f.Allow.Contains((Category) i.Tag))
-						{
-							i.StateImageIndex = (int) AdvancedFilterState.Allow;
-							advFilter.Allow.Add((Category) i.Tag);
-						}
-						else if (f.Require.Contains((Category) i.Tag))
-						{
-							i.StateImageIndex = (int) AdvancedFilterState.Require;
-							advFilter.Require.Add((Category) i.Tag);
-						}
-						else if (f.Exclude.Contains((Category) i.Tag))
-						{
-							i.StateImageIndex = (int) AdvancedFilterState.Exclude;
-							advFilter.Exclude.Add((Category) i.Tag);
-						}
-						else
-						{
-							i.StateImageIndex = (int) AdvancedFilterState.None;
-						}
+						item.StateImageIndex = (int) AdvancedFilterState.None;
 					}
 				}
-
-				OnViewChange();
 			}
+
+			OnViewChange();
 		}
 
 		/// <summary>
@@ -760,41 +817,6 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		///     Checks github for newer versions of depressurizer.
-		/// </summary>
-		/// <returns>True if there is a newer release, false otherwise</returns>
-		private void CheckForDepressurizerUpdates()
-		{
-			Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
-			try
-			{
-				Version githubVersion;
-				string url;
-				using (WebClient wc = new WebClient())
-				{
-					wc.Headers.Set("User-Agent", "Depressurizer");
-					string json = wc.DownloadString(Resources.UrlLatestRelease);
-					JObject parsedJson = JObject.Parse(json);
-					githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
-					url = (string) parsedJson.SelectToken("html_url");
-				}
-
-				if (githubVersion > currentVersion)
-				{
-					if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
-					{
-						Process.Start(url);
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
-				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-		}
-
-		/// <summary>
 		///     If there are any unsaved changes, asks the user if they want to save. Also gives the user the option to cancel the
 		///     calling action.
 		/// </summary>
@@ -823,7 +845,7 @@ namespace Depressurizer
 
 			CurrentProfile.AutoExport = close.Export;
 
-			return SaveProfile(null);
+			return SaveProfile();
 		}
 
 		private void cmdAddCatAndAssign_Click(object sender, EventArgs e)
@@ -1790,30 +1812,30 @@ namespace Depressurizer
 
 			if (i.Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
 			{
-				advFilter.Uncategorized = i.StateImageIndex;
+				_advancedFilter.Uncategorized = i.StateImageIndex;
 			}
 			else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
 			{
-				advFilter.Hidden = i.StateImageIndex;
+				_advancedFilter.Hidden = i.StateImageIndex;
 			}
 			else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
 			{
-				advFilter.VR = i.StateImageIndex;
+				_advancedFilter.VR = i.StateImageIndex;
 			}
 			else
 			{
 				switch (oldState)
 				{
 					case (int) AdvancedFilterState.Allow:
-						advFilter.Allow.Remove(c);
+						_advancedFilter.Allow.Remove(c);
 
 						break;
 					case (int) AdvancedFilterState.Require:
-						advFilter.Require.Remove(c);
+						_advancedFilter.Require.Remove(c);
 
 						break;
 					case (int) AdvancedFilterState.Exclude:
-						advFilter.Exclude.Remove(c);
+						_advancedFilter.Exclude.Remove(c);
 
 						break;
 				}
@@ -1821,15 +1843,15 @@ namespace Depressurizer
 				switch (i.StateImageIndex)
 				{
 					case (int) AdvancedFilterState.Allow:
-						advFilter.Allow.Add(c);
+						_advancedFilter.Allow.Add(c);
 
 						break;
 					case (int) AdvancedFilterState.Require:
-						advFilter.Require.Add(c);
+						_advancedFilter.Require.Add(c);
 
 						break;
 					case (int) AdvancedFilterState.Exclude:
-						advFilter.Exclude.Add(c);
+						_advancedFilter.Exclude.Add(c);
 
 						break;
 				}
@@ -3316,7 +3338,7 @@ namespace Depressurizer
 			if (res == DialogResult.Yes)
 			{
 				CurrentProfile.AutoExport = close.Export;
-				SaveProfile(null);
+				SaveProfile();
 			}
 
 			FlushStatus();
@@ -3801,12 +3823,12 @@ namespace Depressurizer
 
 				if (f != null)
 				{
-					f.Uncategorized = advFilter.Uncategorized;
-					f.Hidden = advFilter.Hidden;
-					f.VR = advFilter.VR;
-					f.Allow = advFilter.Allow;
-					f.Require = advFilter.Require;
-					f.Exclude = advFilter.Exclude;
+					f.Uncategorized = _advancedFilter.Uncategorized;
+					f.Hidden = _advancedFilter.Hidden;
+					f.VR = _advancedFilter.VR;
+					f.Allow = _advancedFilter.Allow;
+					f.Require = _advancedFilter.Require;
+					f.Exclude = _advancedFilter.Exclude;
 					if (refresh)
 					{
 						AddStatus(string.Format(GlobalStrings.MainForm_FilterAdded, f.Name));
@@ -4002,7 +4024,7 @@ namespace Depressurizer
 			{
 				splitCategories.Panel1Collapsed = false;
 				lstCategories.StateImageList = imglistFilter;
-				advFilter = new Filter(ADVANCED_FILTER);
+				_advancedFilter = new Filter(ADVANCED_FILTER);
 				cboFilter.Text = string.Empty;
 				mbtnClearFilters.Visible = true;
 				contextCat_SetAdvanced.Visible = true;
@@ -4048,42 +4070,42 @@ namespace Depressurizer
 
 			if (i.Tag.ToString() == GlobalStrings.MainForm_Uncategorized)
 			{
-				advFilter.Uncategorized = state;
+				_advancedFilter.Uncategorized = state;
 			}
 			else if (i.Tag.ToString() == GlobalStrings.MainForm_Hidden)
 			{
-				advFilter.Hidden = state;
+				_advancedFilter.Hidden = state;
 			}
 			else if (i.Tag.ToString() == GlobalStrings.MainForm_VR)
 			{
-				advFilter.VR = state;
+				_advancedFilter.VR = state;
 			}
 			else
 			{
 				switch ((AdvancedFilterState) state)
 				{
 					case AdvancedFilterState.Allow:
-						advFilter.Allow.Add(c);
-						advFilter.Require.Remove(c);
-						advFilter.Exclude.Remove(c);
+						_advancedFilter.Allow.Add(c);
+						_advancedFilter.Require.Remove(c);
+						_advancedFilter.Exclude.Remove(c);
 
 						break;
 					case AdvancedFilterState.Require:
-						advFilter.Allow.Remove(c);
-						advFilter.Require.Add(c);
-						advFilter.Exclude.Remove(c);
+						_advancedFilter.Allow.Remove(c);
+						_advancedFilter.Require.Add(c);
+						_advancedFilter.Exclude.Remove(c);
 
 						break;
 					case AdvancedFilterState.Exclude:
-						advFilter.Allow.Remove(c);
-						advFilter.Require.Remove(c);
-						advFilter.Exclude.Add(c);
+						_advancedFilter.Allow.Remove(c);
+						_advancedFilter.Require.Remove(c);
+						_advancedFilter.Exclude.Add(c);
 
 						break;
 					case AdvancedFilterState.None:
-						advFilter.Allow.Remove(c);
-						advFilter.Require.Remove(c);
-						advFilter.Exclude.Remove(c);
+						_advancedFilter.Allow.Remove(c);
+						_advancedFilter.Require.Remove(c);
+						_advancedFilter.Exclude.Remove(c);
 
 						break;
 				}
@@ -4124,7 +4146,7 @@ namespace Depressurizer
 
 			if (AdvancedCategoryFilter)
 			{
-				return g.IncludeGame(advFilter);
+				return g.IncludeGame(_advancedFilter);
 			}
 
 			if (g.Hidden)
