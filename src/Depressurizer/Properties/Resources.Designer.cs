@@ -88,7 +88,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/Depressurizer/depressurizer.
+        ///   Looks up a localized string similar to https://github.com/mvegter/depressurizer.
         /// </summary>
         internal static string DepressurizerHomepage {
             get {
@@ -205,7 +205,7 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://api.github.com/repos/Depressurizer/depressurizer/releases/latest.
+        ///   Looks up a localized string similar to https://api.github.com/repos/mvegter/Depressurizer/releases/latest.
         /// </summary>
         internal static string UrlLatestRelease {
             get {
