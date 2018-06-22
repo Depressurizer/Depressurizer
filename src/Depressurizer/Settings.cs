@@ -21,6 +21,7 @@
 using System.IO;
 using System.Threading;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Newtonsoft.Json;
 using Rallion;
 
@@ -721,7 +722,7 @@ namespace Depressurizer
 
 		public void Load()
 		{
-			Load("settings.json");
+			Load(Location.File.Settings);
 		}
 
 		public void Load(string path)
@@ -743,7 +744,7 @@ namespace Depressurizer
 
 		public void Save()
 		{
-			Save("settings.json");
+			Save(Location.File.Settings);
 		}
 
 		public void Save(string path)

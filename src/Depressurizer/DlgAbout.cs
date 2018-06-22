@@ -45,18 +45,18 @@ namespace Depressurizer
 			lblVersion.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
 			int oldLen = lnkHomepage.Text.Length;
-			lnkHomepage.Text += Resources.DepressurizerHomepage;
+			lnkHomepage.Text += Constants.DepressurizerHomepage;
 			lnkHomepage.LinkArea = new LinkArea(oldLen, lnkHomepage.Text.Length - oldLen);
 		}
 
 		private void lnkHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Process.Start(Resources.DepressurizerHomepage);
+			Process.Start(Constants.DepressurizerHomepage);
 		}
 
 		private void lnkLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Process.Start("http://www.gnu.org/licenses/");
+			Process.Start(Constants.LicensePage);
 		}
 
 		#endregion

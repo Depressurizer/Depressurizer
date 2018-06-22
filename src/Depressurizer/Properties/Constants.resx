@@ -117,52 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppInfoPath" xml:space="preserve">
-    <value>{0}\appcache\appinfo.vdf</value>
+  <data name="DepressurizerHomepage" xml:space="preserve">
+    <value>https://github.com/mvegter/depressurizer</value>
   </data>
-  <data name="AutoCat_ButtonLabel" xml:space="preserve">
-    <value>Auto-Categorize ({0} Games)</value>
+  <data name="DepressurizerLatestRelease" xml:space="preserve">
+    <value>https://api.github.com/repos/mvegter/Depressurizer/releases/latest</value>
   </data>
-  <data name="ConfigFilePath" xml:space="preserve">
-    <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
+  <data name="LicensePage" xml:space="preserve">
+    <value>https://www.gnu.org/licenses/gpl-3.0.en.html</value>
   </data>
-  <data name="LocalConfigPath" xml:space="preserve">
-    <value>{0}\userdata\{1}\config\localconfig.vdf</value>
+  <data name="SteamStore" xml:space="preserve">
+    <value>https://store.steampowered.com/</value>
   </data>
-  <data name="PackageInfoPath" xml:space="preserve">
-    <value>{0}\appcache\packageinfo.vdf</value>
+  <data name="SteamStoreApp" xml:space="preserve">
+    <value>https://store.steampowered.com/app/{0}/</value>
   </data>
-  <data name="ScreenshotsFilePath" xml:space="preserve">
-    <value>{0}\userdata\{1}\760\screenshots.vdf</value>
-  </data>
-  <data name="ShortCutsFilePath" xml:space="preserve">
-    <value>{0}\userdata\{1}\config\shortcuts.vdf</value>
-  </data>
-  <data name="UrlCustomGameListHtml" xml:space="preserve">
-    <value>http://steamcommunity.com/id/{0}/games?tab=all</value>
-  </data>
-  <data name="UrlCustomGameListXml" xml:space="preserve">
-    <value>http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1</value>
-  </data>
-  <data name="UrlCustomProfileXml" xml:space="preserve">
-    <value>http://steamcommunity.com/id/{0}?xml=1</value>
-  </data>
-  <data name="UrlGameListHtml" xml:space="preserve">
-    <value>http://steamcommunity.com/profiles/{0}/games?tab=all</value>
-  </data>
-  <data name="UrlGameListXml" xml:space="preserve">
-    <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
-  </data>
-  <data name="UrlHLTBAll" xml:space="preserve">
-    <value>https://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
-  </data>
-  <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
-    <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>
-  </data>
-  <data name="UrlSteamProfile" xml:space="preserve">
-    <value>http://steamcommunity.com/profiles/{0}?xml=1</value>
-  </data>
-  <data name="XmlNodeAvatar" xml:space="preserve">
-    <value>/profile/avatarIcon</value>
+  <data name="SteamStoreAppBanner" xml:space="preserve">
+    <value>https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg</value>
   </data>
 </root>
