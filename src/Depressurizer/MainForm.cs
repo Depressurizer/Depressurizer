@@ -1584,7 +1584,7 @@ namespace Depressurizer
 			lstGames.SetObjects(gamelist);
 			lstGames.BuildList();
 
-			mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+			mbtnAutoCategorize.Text = string.Format("Auto-Categorize ({0} Games)", AutoCatGameCount());
 
 			Cursor = Cursors.Default;
 		}
@@ -3003,7 +3003,7 @@ namespace Depressurizer
 			UpdateEnabledStatesForGames();
 			UpdateGameCheckStates();
 			UpdateAutoCatSelected_StatusMessage();
-			mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+			mbtnAutoCategorize.Text = string.Format("Auto-Categorize ({0} Games)", AutoCatGameCount());
 			Cursor.Current = Cursors.Default;
 		}
 
@@ -3264,7 +3264,7 @@ namespace Depressurizer
 		private void mchkAutoCatSelected_CheckedChanged(object sender, EventArgs e)
 		{
 			UpdateAutoCatSelected_StatusMessage();
-			mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+			mbtnAutoCategorize.Text = string.Format("Auto-Categorize ({0} Games)", AutoCatGameCount());
 		}
 
 		private void mchkBrowser_CheckedChanged(object sender, EventArgs e)

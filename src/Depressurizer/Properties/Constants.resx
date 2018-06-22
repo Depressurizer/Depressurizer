@@ -123,8 +123,26 @@
   <data name="DepressurizerLatestRelease" xml:space="preserve">
     <value>https://api.github.com/repos/mvegter/Depressurizer/releases/latest</value>
   </data>
+  <data name="HowLongToBeat" xml:space="preserve">
+    <value>https://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
+  </data>
   <data name="LicensePage" xml:space="preserve">
     <value>https://www.gnu.org/licenses/gpl-3.0.en.html</value>
+  </data>
+  <data name="SteamCustomProfileGameList" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}/games?tab=all</value>
+  </data>
+  <data name="SteamCustomProfileGameListXML" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1</value>
+  </data>
+  <data name="SteamProfileGameList" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}/games?tab=all</value>
+  </data>
+  <data name="SteamProfileGameListXML" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
+  </data>
+  <data name="SteamProfileXML" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}?xml=1</value>
   </data>
   <data name="SteamStore" xml:space="preserve">
     <value>https://store.steampowered.com/</value>

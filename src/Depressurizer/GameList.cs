@@ -135,7 +135,7 @@ namespace Depressurizer
 		/// <returns>Full text of the HTTP response</returns>
 		public static string FetchHtmlGameList(string customUrl)
 		{
-			return FetchHtmlFromUrl(string.Format(Resources.UrlCustomGameListHtml, customUrl));
+			return FetchHtmlFromUrl(string.Format(Constants.SteamCustomProfileGameList, customUrl));
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace Depressurizer
 		/// <returns>Full text of the HTTP response</returns>
 		public static string FetchHtmlGameList(long accountId)
 		{
-			return FetchHtmlFromUrl(string.Format(Resources.UrlGameListHtml, accountId));
+			return FetchHtmlFromUrl(string.Format(Constants.SteamProfileGameList, accountId));
 		}
 
 		/// <summary>
@@ -198,7 +198,7 @@ namespace Depressurizer
 		/// <returns>Fetched XML page as an XmlDocument</returns>
 		public static XmlDocument FetchXmlGameList(string customUrl)
 		{
-			return FetchXmlFromUrl(string.Format(Resources.UrlCustomGameListXml, customUrl));
+			return FetchXmlFromUrl(string.Format(Constants.SteamCustomProfileGameListXML, customUrl));
 		}
 
 		/// <summary>
@@ -208,7 +208,7 @@ namespace Depressurizer
 		/// <returns>Fetched XML page as an XmlDocument</returns>
 		public static XmlDocument FetchXmlGameList(long steamId)
 		{
-			return FetchXmlFromUrl(string.Format(Resources.UrlGameListXml, steamId));
+			return FetchXmlFromUrl(string.Format(Constants.SteamProfileGameListXML, steamId));
 		}
 
 		/// <summary>

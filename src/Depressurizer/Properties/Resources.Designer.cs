@@ -70,15 +70,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto-Categorize ({0} Games).
-        /// </summary>
-        internal static string AutoCat_ButtonLabel {
-            get {
-                return ResourceManager.GetString("AutoCat_ButtonLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}\userdata\{1}\7\remote\sharedconfig.vdf.
         /// </summary>
         internal static string ConfigFilePath {
@@ -120,60 +111,6 @@ namespace Depressurizer.Properties {
         internal static string ShortCutsFilePath {
             get {
                 return ResourceManager.GetString("ShortCutsFilePath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all.
-        /// </summary>
-        internal static string UrlCustomGameListHtml {
-            get {
-                return ResourceManager.GetString("UrlCustomGameListHtml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1.
-        /// </summary>
-        internal static string UrlCustomGameListXml {
-            get {
-                return ResourceManager.GetString("UrlCustomGameListXml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}?xml=1.
-        /// </summary>
-        internal static string UrlCustomProfileXml {
-            get {
-                return ResourceManager.GetString("UrlCustomProfileXml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all.
-        /// </summary>
-        internal static string UrlGameListHtml {
-            get {
-                return ResourceManager.GetString("UrlGameListHtml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1.
-        /// </summary>
-        internal static string UrlGameListXml {
-            get {
-                return ResourceManager.GetString("UrlGameListXml", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://www.howlongtobeatsteam.com/api/games/library/cached/all.
-        /// </summary>
-        internal static string UrlHLTBAll {
-            get {
-                return ResourceManager.GetString("UrlHLTBAll", resourceCulture);
             }
         }
         

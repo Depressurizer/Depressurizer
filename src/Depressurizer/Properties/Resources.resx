@@ -120,9 +120,6 @@
   <data name="AppInfoPath" xml:space="preserve">
     <value>{0}\appcache\appinfo.vdf</value>
   </data>
-  <data name="AutoCat_ButtonLabel" xml:space="preserve">
-    <value>Auto-Categorize ({0} Games)</value>
-  </data>
   <data name="ConfigFilePath" xml:space="preserve">
     <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
   </data>
@@ -137,24 +134,6 @@
   </data>
   <data name="ShortCutsFilePath" xml:space="preserve">
     <value>{0}\userdata\{1}\config\shortcuts.vdf</value>
-  </data>
-  <data name="UrlCustomGameListHtml" xml:space="preserve">
-    <value>http://steamcommunity.com/id/{0}/games?tab=all</value>
-  </data>
-  <data name="UrlCustomGameListXml" xml:space="preserve">
-    <value>http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1</value>
-  </data>
-  <data name="UrlCustomProfileXml" xml:space="preserve">
-    <value>http://steamcommunity.com/id/{0}?xml=1</value>
-  </data>
-  <data name="UrlGameListHtml" xml:space="preserve">
-    <value>http://steamcommunity.com/profiles/{0}/games?tab=all</value>
-  </data>
-  <data name="UrlGameListXml" xml:space="preserve">
-    <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
-  </data>
-  <data name="UrlHLTBAll" xml:space="preserve">
-    <value>https://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
   </data>
   <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
     <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>

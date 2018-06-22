@@ -79,11 +79,65 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://www.howlongtobeatsteam.com/api/games/library/cached/all.
+        /// </summary>
+        internal static string HowLongToBeat {
+            get {
+                return ResourceManager.GetString("HowLongToBeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://www.gnu.org/licenses/gpl-3.0.en.html.
         /// </summary>
         internal static string LicensePage {
             get {
                 return ResourceManager.GetString("LicensePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all.
+        /// </summary>
+        internal static string SteamCustomProfileGameList {
+            get {
+                return ResourceManager.GetString("SteamCustomProfileGameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1.
+        /// </summary>
+        internal static string SteamCustomProfileGameListXML {
+            get {
+                return ResourceManager.GetString("SteamCustomProfileGameListXML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all.
+        /// </summary>
+        internal static string SteamProfileGameList {
+            get {
+                return ResourceManager.GetString("SteamProfileGameList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1.
+        /// </summary>
+        internal static string SteamProfileGameListXML {
+            get {
+                return ResourceManager.GetString("SteamProfileGameListXML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://steamcommunity.com/id/{0}?xml=1.
+        /// </summary>
+        internal static string SteamProfileXML {
+            get {
+                return ResourceManager.GetString("SteamProfileXML", resourceCulture);
             }
         }
         
