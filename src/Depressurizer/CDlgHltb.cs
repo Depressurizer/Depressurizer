@@ -20,29 +20,40 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class HltbPrcDlg : CancelableDlg
-    {
-        public int Updated { get; private set; }
+	internal class HltbPrcDlg : CancelableDlg
+	{
+		#region Constructors and Destructors
 
-        public HltbPrcDlg()
-            : base(GlobalStrings.CDlgHltb_Title, false)
-        {
-            SetText(GlobalStrings.CDlgHltb_UpdateHltb);
-            Updated = 0;
-        }
+		public HltbPrcDlg() : base(GlobalStrings.CDlgHltb_Title, false)
+		{
+			SetText(GlobalStrings.CDlgHltb_UpdateHltb);
+			Updated = 0;
+		}
 
-        protected override void RunProcess()
-        {
-            Updated = Program.Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
-            OnThreadCompletion();
-        }
+		#endregion
 
-        protected override void Finish()
-        {
-            if (!Canceled && Error == null)
-            {
-                OnJobCompletion();
-            }
-        }
-    }
+		#region Public Properties
+
+		public int Updated { get; private set; }
+
+		#endregion
+
+		#region Methods
+
+		protected override void Finish()
+		{
+			if (!Canceled && (Error == null))
+			{
+				OnJobCompletion();
+			}
+		}
+
+		protected override void RunProcess()
+		{
+			Updated = Program.Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
+			OnThreadCompletion();
+		}
+
+		#endregion
+	}
 }

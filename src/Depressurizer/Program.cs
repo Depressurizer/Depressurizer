@@ -22,7 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Depressurizer.Dialogs;
-using Rallion;
+using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -32,7 +32,11 @@ namespace Depressurizer
 
 		public static Database Database;
 
-		public static AppLogger Logger;
+		#endregion
+
+		#region Properties
+
+		private static Logger Logger => Logger.Instance;
 
 		#endregion
 
@@ -50,27 +54,16 @@ namespace Depressurizer
 
 			FatalErrorDialog.InitializeHandler();
 
-			Logger = new AppLogger
-			{
-				Level = LoggerLevel.None,
-				DateFormat = "HH:mm:ss'.'ffffff",
-				MaxFileSize = 2000000,
-				MaxBackup = 1,
-				FileNameTemplate = "Depressurizer.log"
-			};
-
 			Settings.Instance.Load();
 
-			Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
+			Logger.Info(GlobalStrings.Program_ProgramInitialized);
 			Application.Run(new FormMain());
 		}
 
 		private static void OnApplicationExit(object sender, EventArgs e)
 		{
 			Settings.Instance.Save();
-
-			Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
-			Logger.EndSession();
+			Logger.Instance.Dispose();
 		}
 
 		#endregion

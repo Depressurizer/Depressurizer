@@ -36,6 +36,8 @@ namespace Depressurizer.Helpers
 		{
 			#region Public Properties
 
+			public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));
+
 			public static string Settings => Path.Combine(Folder.Depressurizer, "settings.json");
 
 			#endregion

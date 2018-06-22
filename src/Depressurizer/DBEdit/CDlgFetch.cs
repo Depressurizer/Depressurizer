@@ -21,33 +21,49 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class FetchPrcDlg : CancelableDlg
-    {
-        public int Added { get; private set; }
-        XmlDocument doc;
+	internal class FetchPrcDlg : CancelableDlg
+	{
+		#region Fields
 
-        public FetchPrcDlg()
-            : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
-        {
-            SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
-            Added = 0;
-        }
+		private XmlDocument doc;
 
-        protected override void RunProcess()
-        {
-            Added = 0;
-            doc = Database.FetchAppListFromWeb();
-            OnThreadCompletion();
-        }
+		#endregion
 
-        protected override void Finish()
-        {
-            if (!Canceled && doc != null && Error == null)
-            {
-                SetText(GlobalStrings.CDlgFetch_FinishingDownload);
-                Added = Program.Database.IntegrateAppList(doc);
-                OnJobCompletion();
-            }
-        }
-    }
+		#region Constructors and Destructors
+
+		public FetchPrcDlg() : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
+		{
+			SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
+			Added = 0;
+		}
+
+		#endregion
+
+		#region Public Properties
+
+		public int Added { get; private set; }
+
+		#endregion
+
+		#region Methods
+
+		protected override void Finish()
+		{
+			if (!Canceled && (doc != null) && (Error == null))
+			{
+				SetText(GlobalStrings.CDlgFetch_FinishingDownload);
+				Added = Program.Database.IntegrateAppList(doc);
+				OnJobCompletion();
+			}
+		}
+
+		protected override void RunProcess()
+		{
+			Added = 0;
+			doc = Database.FetchAppListFromWeb();
+			OnThreadCompletion();
+		}
+
+		#endregion
+	}
 }

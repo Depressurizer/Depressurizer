@@ -23,160 +23,183 @@ using System.Windows.Forms;
 
 namespace Depressurizer
 {
-    public partial class AutoCatConfigPanel_Hltb : AutoCatConfigPanel
-    {
-        BindingList<Hltb_Rule> ruleList = new BindingList<Hltb_Rule>();
-        BindingSource binding = new BindingSource();
+	public partial class AutoCatConfigPanel_Hltb : AutoCatConfigPanel
+	{
+		#region Fields
 
-        public AutoCatConfigPanel_Hltb()
-        {
-            InitializeComponent();
+		private readonly BindingSource binding = new BindingSource();
 
-            //initialize combobox
-            cmbTimeType.Items.AddRange(new object[]
-            {
-                TimeType.Main,
-                TimeType.Extras,
-                TimeType.Completionist
-            });
-            cmbTimeType.SelectedItem = TimeType.Main;
+		private readonly BindingList<Hltb_Rule> ruleList = new BindingList<Hltb_Rule>();
 
-            numRuleMinTime.DecimalPlaces = 1;
-            numRuleMaxTime.DecimalPlaces = 1;
+		#endregion
 
-            // Set up help tooltips
-            ttHelp.Ext_SetToolTip(helpRules, GlobalStrings.AutoCatUserScore_Help_Rules);
-            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
-            ttHelp.Ext_SetToolTip(helpUnknown, GlobalStrings.AutocatHltb_Help_Unknown);
+		#region Constructors and Destructors
 
-            // Set up bindings.
-            // None of these strings should be localized.
-            binding.DataSource = ruleList;
+		public AutoCatConfigPanel_Hltb()
+		{
+			InitializeComponent();
 
-            lstRules.DisplayMember = "Name";
-            lstRules.DataSource = binding;
+			//initialize combobox
+			cmbTimeType.Items.AddRange(new object[]
+			{
+				TimeType.Main,
+				TimeType.Extras,
+				TimeType.Completionist
+			});
 
-            txtRuleName.DataBindings.Add("Text", binding, "Name");
-            numRuleMinTime.DataBindings.Add("Value", binding, "MinHours");
-            numRuleMaxTime.DataBindings.Add("Value", binding, "MaxHours");
-            cmbTimeType.DataBindings.Add("SelectedItem", binding, "TimeType");
+			cmbTimeType.SelectedItem = TimeType.Main;
 
-            UpdateEnabledSettings();
-        }
+			numRuleMinTime.DecimalPlaces = 1;
+			numRuleMaxTime.DecimalPlaces = 1;
 
-        public override void SaveToAutoCat(AutoCat ac)
-        {
-            AutoCatHltb acHltb = ac as AutoCatHltb;
-            if (acHltb == null) return;
+			// Set up help tooltips
+			ttHelp.Ext_SetToolTip(helpRules, GlobalStrings.AutoCatUserScore_Help_Rules);
+			ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
+			ttHelp.Ext_SetToolTip(helpUnknown, GlobalStrings.AutocatHltb_Help_Unknown);
 
-            acHltb.Prefix = txtPrefix.Text;
-            acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
-            acHltb.UnknownText = txtUnknownText.Text;
-            acHltb.Rules = new List<Hltb_Rule>(ruleList);
-        }
+			// Set up bindings.
+			// None of these strings should be localized.
+			binding.DataSource = ruleList;
 
-        public override void LoadFromAutoCat(AutoCat ac)
-        {
-            AutoCatHltb acHltb = ac as AutoCatHltb;
-            if (acHltb == null) return;
+			lstRules.DisplayMember = "Name";
+			lstRules.DataSource = binding;
 
-            txtPrefix.Text = acHltb.Prefix;
-            chkIncludeUnknown.Checked = acHltb.IncludeUnknown;
-            txtUnknownText.Text = (acHltb.UnknownText == null) ? string.Empty : acHltb.UnknownText;
-            acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
-            acHltb.UnknownText = txtUnknownText.Text;
+			txtRuleName.DataBindings.Add("Text", binding, "Name");
+			numRuleMinTime.DataBindings.Add("Value", binding, "MinHours");
+			numRuleMaxTime.DataBindings.Add("Value", binding, "MaxHours");
+			cmbTimeType.DataBindings.Add("SelectedItem", binding, "TimeType");
 
-            ruleList.Clear();
-            foreach (Hltb_Rule rule in acHltb.Rules)
-            {
-                ruleList.Add(new Hltb_Rule(rule));
-            }
-            UpdateEnabledSettings();
-        }
+			UpdateEnabledSettings();
+		}
 
-        /// <summary>
-        /// Updates enabled states of all form elements that depend on the rule selection.
-        /// </summary>
-        private void UpdateEnabledSettings()
-        {
-            bool ruleSelected = (lstRules.SelectedIndex >= 0);
+		#endregion
 
-            txtRuleName.Enabled =
-                numRuleMaxTime.Enabled = numRuleMinTime.Enabled =
-                    cmbTimeType.Enabled =
-                        cmdRuleRemove.Enabled = ruleSelected;
-            cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
-            cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
-        }
+		#region Public Methods and Operators
 
-        /// <summary>
-        /// Moves the specified rule a certain number of spots up or down in the list. Does nothing if the spot would be off the list.
-        /// </summary>
-        /// <param name="mainIndex">Index of the rule to move.</param>
-        /// <param name="offset">Number of spots to move the rule. Negative moves up, positive moves down.</param>
-        /// <param name="selectMoved">If true, select the moved element afterwards</param>
-        private void MoveItem(int mainIndex, int offset, bool selectMoved)
-        {
-            int alterIndex = mainIndex + offset;
-            if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 ||
-                alterIndex >= lstRules.Items.Count) return;
+		public override void LoadFromAutoCat(AutoCat ac)
+		{
+			AutoCatHltb acHltb = ac as AutoCatHltb;
+			if (acHltb == null)
+			{
+				return;
+			}
 
-            Hltb_Rule mainItem = ruleList[mainIndex];
-            ruleList[mainIndex] = ruleList[alterIndex];
-            ruleList[alterIndex] = mainItem;
-            if (selectMoved) lstRules.SelectedIndex = alterIndex;
-        }
+			txtPrefix.Text = acHltb.Prefix;
+			chkIncludeUnknown.Checked = acHltb.IncludeUnknown;
+			txtUnknownText.Text = acHltb.UnknownText == null ? string.Empty : acHltb.UnknownText;
+			acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
+			acHltb.UnknownText = txtUnknownText.Text;
 
-        /// <summary>
-        /// Adds a new rule to the end of the list and selects it.
-        /// </summary>
-        private void AddRule()
-        {
-            Hltb_Rule newRule = new Hltb_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0,
-                (TimeType) cmbTimeType.SelectedItem);
-            ruleList.Add(newRule);
-            lstRules.SelectedIndex = lstRules.Items.Count - 1;
-        }
+			ruleList.Clear();
+			foreach (Hltb_Rule rule in acHltb.Rules)
+			{
+				ruleList.Add(new Hltb_Rule(rule));
+			}
 
-        /// <summary>
-        /// Removes the rule at the given index
-        /// </summary>
-        /// <param name="index">Index of the rule to remove</param>
-        private void RemoveRule(int index)
-        {
-            if (index >= 0)
-            {
-                ruleList.RemoveAt(index);
-            }
-        }
+			UpdateEnabledSettings();
+		}
 
-        #region Event Handlers
+		public override void SaveToAutoCat(AutoCat ac)
+		{
+			AutoCatHltb acHltb = ac as AutoCatHltb;
+			if (acHltb == null)
+			{
+				return;
+			}
 
-        private void lstRules_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateEnabledSettings();
-        }
+			acHltb.Prefix = txtPrefix.Text;
+			acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
+			acHltb.UnknownText = txtUnknownText.Text;
+			acHltb.Rules = new List<Hltb_Rule>(ruleList);
+		}
 
-        private void cmdRuleAdd_Click(object sender, EventArgs e)
-        {
-            AddRule();
-        }
+		#endregion
 
-        private void cmdRuleRemove_Click(object sender, EventArgs e)
-        {
-            RemoveRule(lstRules.SelectedIndex);
-        }
+		#region Methods
 
-        private void cmdRuleUp_Click(object sender, EventArgs e)
-        {
-            MoveItem(lstRules.SelectedIndex, -1, true);
-        }
+		/// <summary>
+		///     Adds a new rule to the end of the list and selects it.
+		/// </summary>
+		private void AddRule()
+		{
+			Hltb_Rule newRule = new Hltb_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0, (TimeType) cmbTimeType.SelectedItem);
+			ruleList.Add(newRule);
+			lstRules.SelectedIndex = lstRules.Items.Count - 1;
+		}
 
-        private void cmdRuleDown_Click(object sender, EventArgs e)
-        {
-            MoveItem(lstRules.SelectedIndex, 1, true);
-        }
+		private void cmdRuleAdd_Click(object sender, EventArgs e)
+		{
+			AddRule();
+		}
 
-        #endregion
-    }
+		private void cmdRuleDown_Click(object sender, EventArgs e)
+		{
+			MoveItem(lstRules.SelectedIndex, 1, true);
+		}
+
+		private void cmdRuleRemove_Click(object sender, EventArgs e)
+		{
+			RemoveRule(lstRules.SelectedIndex);
+		}
+
+		private void cmdRuleUp_Click(object sender, EventArgs e)
+		{
+			MoveItem(lstRules.SelectedIndex, -1, true);
+		}
+
+		private void lstRules_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			UpdateEnabledSettings();
+		}
+
+		/// <summary>
+		///     Moves the specified rule a certain number of spots up or down in the list. Does nothing if the spot would be off
+		///     the list.
+		/// </summary>
+		/// <param name="mainIndex">Index of the rule to move.</param>
+		/// <param name="offset">Number of spots to move the rule. Negative moves up, positive moves down.</param>
+		/// <param name="selectMoved">If true, select the moved element afterwards</param>
+		private void MoveItem(int mainIndex, int offset, bool selectMoved)
+		{
+			int alterIndex = mainIndex + offset;
+			if ((mainIndex < 0) || (mainIndex >= lstRules.Items.Count) || (alterIndex < 0) || (alterIndex >= lstRules.Items.Count))
+			{
+				return;
+			}
+
+			Hltb_Rule mainItem = ruleList[mainIndex];
+			ruleList[mainIndex] = ruleList[alterIndex];
+			ruleList[alterIndex] = mainItem;
+			if (selectMoved)
+			{
+				lstRules.SelectedIndex = alterIndex;
+			}
+		}
+
+		/// <summary>
+		///     Removes the rule at the given index
+		/// </summary>
+		/// <param name="index">Index of the rule to remove</param>
+		private void RemoveRule(int index)
+		{
+			if (index >= 0)
+			{
+				ruleList.RemoveAt(index);
+			}
+		}
+
+		/// <summary>
+		///     Updates enabled states of all form elements that depend on the rule selection.
+		/// </summary>
+		private void UpdateEnabledSettings()
+		{
+			bool ruleSelected = lstRules.SelectedIndex >= 0;
+
+			txtRuleName.Enabled = numRuleMaxTime.Enabled = numRuleMinTime.Enabled = cmbTimeType.Enabled = cmdRuleRemove.Enabled = ruleSelected;
+			cmdRuleUp.Enabled = ruleSelected && (lstRules.SelectedIndex != 0);
+			cmdRuleDown.Enabled = ruleSelected = ruleSelected && (lstRules.SelectedIndex != (lstRules.Items.Count - 1));
+		}
+
+		#endregion
+	}
 }

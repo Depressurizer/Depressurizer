@@ -21,39 +21,53 @@ using System.Windows.Forms;
 
 namespace Depressurizer
 {
-    public partial class DlgManualDownload : Form
-    {
-        public Int64 IdVal;
-        public string UrlVal;
-        public bool Custom;
+	public partial class DlgManualDownload : Form
+	{
+		#region Fields
 
-        public DlgManualDownload()
-        {
-            InitializeComponent();
-        }
+		public bool Custom;
 
-        private void cmdOk_Click(object sender, EventArgs e)
-        {
-            if (radId.Checked)
-            {
-                if (Int64.TryParse(txtEntry.Text, out IdVal))
-                {
-                    Custom = false;
-                    DialogResult = DialogResult.OK;
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show(this, GlobalStrings.DlgManualDownload_IfIDSelectedMustBeNumber);
-                }
-            }
-            else
-            {
-                Custom = true;
-                UrlVal = txtEntry.Text;
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-        }
-    }
+		public long IdVal;
+
+		public string UrlVal;
+
+		#endregion
+
+		#region Constructors and Destructors
+
+		public DlgManualDownload()
+		{
+			InitializeComponent();
+		}
+
+		#endregion
+
+		#region Methods
+
+		private void cmdOk_Click(object sender, EventArgs e)
+		{
+			if (radId.Checked)
+			{
+				if (long.TryParse(txtEntry.Text, out IdVal))
+				{
+					Custom = false;
+					DialogResult = DialogResult.OK;
+					Close();
+				}
+				else
+				{
+					MessageBox.Show(this, GlobalStrings.DlgManualDownload_IfIDSelectedMustBeNumber);
+				}
+			}
+			else
+			{
+				Custom = true;
+				UrlVal = txtEntry.Text;
+				DialogResult = DialogResult.OK;
+				Close();
+			}
+		}
+
+		#endregion
+	}
 }

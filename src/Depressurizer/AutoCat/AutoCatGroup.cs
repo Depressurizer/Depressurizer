@@ -20,135 +20,152 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Helpers;
 using Depressurizer.Models;
-using Rallion;
 
 namespace Depressurizer
 {
-    public class AutoCatGroup : AutoCat
-    {
-        #region Properties
+	public class AutoCatGroup : AutoCat
+	{
+		#region Constants
 
-        // Autocat configuration properties
-        [XmlArrayItem("Autocat")]
-        public List<string> Autocats { get; set; }
+		// Serialization strings
+		public const string TypeIdString = "AutoCatGroup";
 
-        // Meta properies
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.Group; }
-        }
+		public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Autocats = "Autocats", XmlName_Autocat = "Autocat";
 
-        public override string DisplayName
-        {
-            get
-            {
-                string displayName = Name + "[" + Autocats.Count + "]";
-                if (Filter != null) displayName += "*";
-                return displayName;
-            }
-        }
+		#endregion
 
-        // Serialization strings
-        public const string TypeIdString = "AutoCatGroup";
+		#region Constructors and Destructors
 
-        public const string
-            XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Autocats = "Autocats",
-            XmlName_Autocat = "Autocat";
+		public AutoCatGroup(string name, string filter = null, List<string> autocats = null, bool selected = false) : base(name)
+		{
+			Filter = filter;
+			Autocats = autocats == null ? new List<string>() : autocats;
+			Selected = selected;
+		}
 
-        #endregion
+		protected AutoCatGroup(AutoCatGroup other) : base(other)
+		{
+			Filter = other.Filter;
+			Autocats = new List<string>(other.Autocats);
+			Selected = other.Selected;
+		}
 
-        #region Construction
+		//XmlSerializer requires a parameterless constructor
+		private AutoCatGroup()
+		{
+		}
 
-        public AutoCatGroup(string name, string filter = null, List<string> autocats = null, bool selected = false)
-            : base(name)
-        {
-            Filter = filter;
-            Autocats = (autocats == null) ? new List<string>() : autocats;
-            Selected = selected;
-        }
+		#endregion
 
-        //XmlSerializer requires a parameterless constructor
-        private AutoCatGroup() { }
+		#region Public Properties
 
-        protected AutoCatGroup(AutoCatGroup other)
-            : base(other)
-        {
-            Filter = other.Filter;
-            Autocats = new List<string>(other.Autocats);
-            Selected = other.Selected;
-        }
+		// Autocat configuration properties
+		[XmlArrayItem("Autocat")]
+		public List<string> Autocats { get; set; }
 
-        public override AutoCat Clone()
-        {
-            return new AutoCatGroup(this);
-        }
+		// Meta properies
+		public override AutoCatType AutoCatType => AutoCatType.Group;
 
-        #endregion
+		public override string DisplayName
+		{
+			get
+			{
+				string displayName = Name + "[" + Autocats.Count + "]";
+				if (Filter != null)
+				{
+					displayName += "*";
+				}
 
-        #region Autocategorization Methods
+				return displayName;
+			}
+		}
 
-        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
-        {
-            if (games == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
-            }
-            if (db == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-            if (game == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
-                return AutoCatResult.Failure;
-            }
+		#endregion
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+		#region Properties
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+		private static Logger Logger => Logger.Instance;
 
-            return AutoCatResult.Success;
-        }
+		#endregion
 
-        #endregion
+		#region Public Methods and Operators
 
-        #region Serialization methods
+		public static AutoCatGroup LoadFromXmlElement(XmlElement xElement)
+		{
+			string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+			string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+			List<string> autocats = XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_Autocats + "/" + XmlName_Autocat));
 
-        public override void WriteToXml(XmlWriter writer)
-        {
-            writer.WriteStartElement(TypeIdString);
+			return new AutoCatGroup(name, filter, autocats);
+		}
 
-            writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+		public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
+		{
+			if (games == null)
+			{
+				Logger.Error(GlobalStrings.Log_AutoCat_GamelistNull);
 
-            if (Autocats != null && Autocats.Count > 0)
-            {
-                writer.WriteStartElement(XmlName_Autocats);
-                foreach (string name in Autocats)
-                {
-                    writer.WriteElementString(XmlName_Autocat, name);
-                }
-                writer.WriteEndElement();
-            }
+				throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
+			}
 
-            writer.WriteEndElement(); // type ID string
-        }
+			if (db == null)
+			{
+				Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
 
-        public static AutoCatGroup LoadFromXmlElement(XmlElement xElement)
-        {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            List<string> autocats =
-                XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_Autocats + "/" + XmlName_Autocat));
+				throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
+			}
 
-            return new AutoCatGroup(name, filter, autocats);
-        }
+			if (game == null)
+			{
+				Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
 
-        #endregion
-    }
+				return AutoCatResult.Failure;
+			}
+
+			if (!db.Contains(game.Id))
+			{
+				return AutoCatResult.NotInDatabase;
+			}
+
+			if (!game.IncludeGame(filter))
+			{
+				return AutoCatResult.Filtered;
+			}
+
+			return AutoCatResult.Success;
+		}
+
+		public override AutoCat Clone()
+		{
+			return new AutoCatGroup(this);
+		}
+
+		public override void WriteToXml(XmlWriter writer)
+		{
+			writer.WriteStartElement(TypeIdString);
+
+			writer.WriteElementString(XmlName_Name, Name);
+			if (Filter != null)
+			{
+				writer.WriteElementString(XmlName_Filter, Filter);
+			}
+
+			if ((Autocats != null) && (Autocats.Count > 0))
+			{
+				writer.WriteStartElement(XmlName_Autocats);
+				foreach (string name in Autocats)
+				{
+					writer.WriteElementString(XmlName_Autocat, name);
+				}
+
+				writer.WriteEndElement();
+			}
+
+			writer.WriteEndElement(); // type ID string
+		}
+
+		#endregion
+	}
 }

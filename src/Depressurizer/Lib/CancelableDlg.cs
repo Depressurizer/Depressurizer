@@ -22,214 +22,219 @@ using System.Windows.Forms;
 
 namespace Rallion
 {
-    public partial class CancelableDlg : Form
-    {
-        #region Fields
+	public partial class CancelableDlg : Form
+	{
+		#region Fields
 
-        protected object abortLock = new object();
+		protected object abortLock = new object();
 
-        protected int threadsToRun = 5;
-        protected int runningThreads;
+		protected int jobsCompleted;
 
-        protected int totalJobs = 1;
+		protected int runningThreads;
 
-        public int JobsTotal
-        {
-            get { return totalJobs; }
-        }
+		protected int threadsToRun = 5;
 
-        protected int jobsCompleted;
+		protected int totalJobs = 1;
 
-        public int JobsCompleted
-        {
-            get { return jobsCompleted; }
-        }
+		private bool _stopped;
 
-        private bool _stopped;
+		#endregion
 
-        protected bool Stopped
-        {
-            get
-            {
-                lock (abortLock)
-                {
-                    return _stopped;
-                }
-            }
-            set
-            {
-                lock (abortLock)
-                {
-                    _stopped = value;
-                }
-            }
-        }
+		#region Constructors and Destructors
 
-        protected bool Canceled { get; private set; }
+		public CancelableDlg(string title, bool stopButton)
+		{
+			InitializeComponent();
+			Text = title;
+			Canceled = false;
 
-        public Exception Error { get; protected set; }
+			cmdStop.Enabled = cmdStop.Visible = stopButton;
+		}
 
-        delegate void SimpleDelegate();
+		#endregion
 
-        delegate void TextUpdateDelegate(string s);
+		#region Delegates
 
-        delegate void EndProcDelegate(bool b);
+		private delegate void EndProcDelegate(bool b);
 
-        #endregion
+		private delegate void SimpleDelegate();
 
-        #region Initialization
+		private delegate void TextUpdateDelegate(string s);
 
-        public CancelableDlg(string title, bool stopButton)
-        {
-            InitializeComponent();
-            Text = title;
-            Canceled = false;
+		#endregion
 
-            cmdStop.Enabled = cmdStop.Visible = stopButton;
-        }
+		#region Public Properties
 
-        protected virtual void UpdateForm_Load(object sender, EventArgs e)
-        {
-            threadsToRun = Math.Min(threadsToRun, totalJobs);
-            for (int i = 0; i < threadsToRun; i++)
-            {
-                Thread t = new Thread(RunProcessChecked);
-                t.Start();
-                runningThreads++;
-            }
-            UpdateText();
-        }
+		public Exception Error { get; protected set; }
 
-        private void RunProcessChecked()
-        {
-            try
-            {
-                RunProcess();
-            }
-            catch (Exception e)
-            {
-                lock (abortLock)
-                {
-                    Stopped = true;
-                    Error = e;
-                }
-                if (IsHandleCreated)
-                {
-                    Invoke(new SimpleDelegate(Finish));
-                    Invoke(new SimpleDelegate(Close));
-                }
-            }
-        }
+		public int JobsCompleted => jobsCompleted;
 
-        #endregion
+		public int JobsTotal => totalJobs;
 
-        #region Methods to override
+		#endregion
 
-        protected virtual void RunProcess() { }
+		#region Properties
 
-        protected virtual void UpdateText() { }
+		protected bool Canceled { get; private set; }
 
-        protected virtual void Finish() { }
+		protected bool Stopped
+		{
+			get
+			{
+				lock (abortLock)
+				{
+					return _stopped;
+				}
+			}
+			set
+			{
+				lock (abortLock)
+				{
+					_stopped = value;
+				}
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Status Updaters
+		#region Methods
 
-        protected void OnJobCompletion()
-        {
-            lock (abortLock)
-            {
-                jobsCompleted++;
-            }
-            UpdateText();
-        }
+		protected void DisableAbort()
+		{
+			if (InvokeRequired)
+			{
+				Invoke(new SimpleDelegate(DisableAbort));
+			}
+			else
+			{
+				cmdStop.Enabled = cmdCancel.Enabled = false;
+			}
+		}
 
-        protected void OnThreadCompletion()
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new SimpleDelegate(OnThreadCompletion));
-            }
-            else
-            {
-                runningThreads--;
-                if (runningThreads <= 0)
-                {
-                    Close();
-                }
-            }
-        }
+		protected virtual void Finish()
+		{
+		}
 
-        #endregion
+		protected void OnJobCompletion()
+		{
+			lock (abortLock)
+			{
+				jobsCompleted++;
+			}
 
-        #region Event Handlers
+			UpdateText();
+		}
 
-        private void cmdStop_Click(object sender, EventArgs e)
-        {
-            Stopped = true;
-            DisableAbort();
-            Close();
-        }
+		protected void OnThreadCompletion()
+		{
+			if (InvokeRequired)
+			{
+				Invoke(new SimpleDelegate(OnThreadCompletion));
+			}
+			else
+			{
+				runningThreads--;
+				if (runningThreads <= 0)
+				{
+					Close();
+				}
+			}
+		}
 
-        private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            lock (abortLock)
-            {
-                Stopped = true;
-            }
-            DisableAbort();
-            //DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
-            Finish();
-            if (jobsCompleted >= totalJobs)
-            {
-                DialogResult = DialogResult.OK;
-            }
-            else if (Canceled)
-            {
-                DialogResult = DialogResult.Cancel;
-            }
-            else
-            {
-                DialogResult = DialogResult.Abort;
-            }
-        }
+		protected virtual void RunProcess()
+		{
+		}
 
-        #endregion
+		protected void SetText(string s)
+		{
+			if (InvokeRequired)
+			{
+				Invoke(new TextUpdateDelegate(SetText), s);
+			}
+			else
+			{
+				lblText.Text = s;
+			}
+		}
 
-        #region UI Updaters
+		protected virtual void UpdateForm_Load(object sender, EventArgs e)
+		{
+			threadsToRun = Math.Min(threadsToRun, totalJobs);
+			for (int i = 0; i < threadsToRun; i++)
+			{
+				Thread t = new Thread(RunProcessChecked);
+				t.Start();
+				runningThreads++;
+			}
 
-        protected void SetText(string s)
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new TextUpdateDelegate(SetText), s);
-            }
-            else
-            {
-                lblText.Text = s;
-            }
-        }
+			UpdateText();
+		}
 
-        protected void DisableAbort()
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new SimpleDelegate(DisableAbort));
-            }
-            else
-            {
-                cmdStop.Enabled = cmdCancel.Enabled = false;
-            }
-        }
+		protected virtual void UpdateText()
+		{
+		}
 
-        #endregion
+		private void cmdCancel_Click(object sender, EventArgs e)
+		{
+			Stopped = true;
+			Canceled = true;
+			DisableAbort();
+			Close();
+		}
 
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
-            Stopped = true;
-            Canceled = true;
-            DisableAbort();
-            Close();
-        }
-    }
+		private void cmdStop_Click(object sender, EventArgs e)
+		{
+			Stopped = true;
+			DisableAbort();
+			Close();
+		}
+
+		private void RunProcessChecked()
+		{
+			try
+			{
+				RunProcess();
+			}
+			catch (Exception e)
+			{
+				lock (abortLock)
+				{
+					Stopped = true;
+					Error = e;
+				}
+
+				if (IsHandleCreated)
+				{
+					Invoke(new SimpleDelegate(Finish));
+					Invoke(new SimpleDelegate(Close));
+				}
+			}
+		}
+
+		private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			lock (abortLock)
+			{
+				Stopped = true;
+			}
+
+			DisableAbort();
+			//DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
+			Finish();
+			if (jobsCompleted >= totalJobs)
+			{
+				DialogResult = DialogResult.OK;
+			}
+			else if (Canceled)
+			{
+				DialogResult = DialogResult.Cancel;
+			}
+			else
+			{
+				DialogResult = DialogResult.Abort;
+			}
+		}
+
+		#endregion
+	}
 }

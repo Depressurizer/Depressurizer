@@ -24,175 +24,238 @@ using Depressurizer.Models;
 
 namespace Depressurizer
 {
-    public partial class GameDBEntryDialog : Form
-    {
-        public DatabaseEntry Game;
+	public partial class GameDBEntryDialog : Form
+	{
+		#region Fields
 
-        private bool editMode;
+		public DatabaseEntry Game;
 
-        public GameDBEntryDialog()
-            : this(null) { }
+		private readonly char[] SPLIT_CHAR =
+		{
+			','
+		};
 
-        public GameDBEntryDialog(DatabaseEntry game)
-        {
-            InitializeComponent();
-            Game = game;
-            editMode = (game == null) ? false : true;
-        }
+		private bool editMode;
 
-        private void GameDBEntryForm_Load(object sender, EventArgs e)
-        {
-            foreach (object o in Enum.GetValues(typeof(AppTypes)))
-            {
-                int val = (int) o;
-                if ((val & (val - 1)) == 0)
-                {
-                    cmbType.Items.Add(o);
-                }
-            }
+		#endregion
 
-            InitializeFields(Game);
-        }
+		#region Constructors and Destructors
 
-        private void InitializeFields(DatabaseEntry entry = null)
-        {
-            if (entry == null)
-            {
-                cmdSave.Text = GlobalStrings.DlgGameDBEntry_Add;
-                cmbType.SelectedIndex = 0;
-            }
-            else
-            {
-                txtId.Text = Game.Id.ToString();
-                txtId.Enabled = false;
+		public GameDBEntryDialog() : this(null)
+		{
+		}
 
-                txtParent.Text = (Game.ParentId < 0) ? "" : Game.ParentId.ToString();
+		public GameDBEntryDialog(DatabaseEntry game)
+		{
+			InitializeComponent();
+			Game = game;
+			editMode = game == null ? false : true;
+		}
 
-                cmbType.SelectedItem = Game.AppType;
+		#endregion
 
-                txtName.Text = Game.Name;
-                if (Game.Genres != null) txtGenres.Text = string.Join(",", Game.Genres);
-                if (Game.Flags != null) txtFlags.Text = string.Join(",", Game.Flags);
-                if (Game.Tags != null) txtTags.Text = string.Join(",", Game.Tags);
-                if (Game.Developers != null) txtDev.Text = string.Join(",", Game.Developers);
-                if (Game.Publishers != null) txtPub.Text = string.Join(",", Game.Publishers);
-                if (Game.MetacriticUrl != null) txtMCName.Text = Game.MetacriticUrl;
-                if (Game.SteamReleaseDate != null) txtRelease.Text = Game.SteamReleaseDate;
-                numAchievements.Value = Utility.Clamp(Game.TotalAchievements, (int) numAchievements.Minimum,
-                    (int) numAchievements.Maximum);
-                numReviewScore.Value = Utility.Clamp(Game.ReviewPositivePercentage, (int) numReviewScore.Minimum,
-                    (int) numReviewScore.Maximum);
-                numReviewCount.Value = Utility.Clamp(Game.ReviewTotal, (int) numReviewCount.Minimum,
-                    (int) numReviewCount.Maximum);
-                numHltbMain.Value = Utility.Clamp(Game.HltbMain, (int) numHltbMain.Minimum, (int) numHltbMain.Maximum);
-                numHltbExtras.Value = Utility.Clamp(Game.HltbExtras, (int) numHltbExtras.Minimum,
-                    (int) numHltbExtras.Maximum);
-                numHltbCompletionist.Value = Utility.Clamp(Game.HltbCompletionist, (int) numHltbCompletionist.Minimum,
-                    (int) numHltbCompletionist.Maximum);
-                chkPlatWin.Checked = Game.Platforms.HasFlag(AppPlatforms.Windows);
-                chkPlatMac.Checked = Game.Platforms.HasFlag(AppPlatforms.Mac);
-                chkPlatLinux.Checked = Game.Platforms.HasFlag(AppPlatforms.Linux);
+		#region Methods
 
-                chkWebUpdate.Checked = Game.LastStoreScrape > 0;
-                chkAppInfoUpdate.Checked = Game.LastAppInfoUpdate > 0;
+		private void cmdCancel_Click(object sender, EventArgs e)
+		{
+			DialogResult = DialogResult.Cancel;
+			Close();
+		}
 
-                dateWeb.Value = Utility.GetDTFromUTime(Game.LastStoreScrape);
-                dateAppInfo.Value = Utility.GetDTFromUTime(Game.LastAppInfoUpdate);
-            }
-        }
+		private void cmdSave_Click(object sender, EventArgs e)
+		{
+			if (SaveToGame())
+			{
+				DialogResult = DialogResult.OK;
+				Close();
+			}
+		}
 
-        private bool ValidateEntries(out int id, out int parent)
-        {
-            parent = -1;
-            if (!int.TryParse(txtId.Text, out id) || id <= 0)
-            {
-                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger);
-                return false;
-            }
-            if (!string.IsNullOrEmpty(txtParent.Text) && !int.TryParse(txtParent.Text, out parent))
-            {
-                MessageBox.Show(GlobalStrings.DlgGameDBEntry_ParentMustBeInt);
-            }
-            return true;
-        }
+		private void GameDBEntryForm_Load(object sender, EventArgs e)
+		{
+			foreach (object o in Enum.GetValues(typeof(AppTypes)))
+			{
+				int val = (int) o;
+				if ((val & (val - 1)) == 0)
+				{
+					cmbType.Items.Add(o);
+				}
+			}
 
-        private bool SaveToGame()
-        {
-            int id, parent;
-            if (!ValidateEntries(out id, out parent))
-            {
-                return false;
-            }
+			InitializeFields(Game);
+		}
 
-            if (Game == null)
-            {
-                Game = new DatabaseEntry();
-                Game.Id = id;
-            }
+		private void InitializeFields(DatabaseEntry entry = null)
+		{
+			if (entry == null)
+			{
+				cmdSave.Text = GlobalStrings.DlgGameDBEntry_Add;
+				cmbType.SelectedIndex = 0;
+			}
+			else
+			{
+				txtId.Text = Game.Id.ToString();
+				txtId.Enabled = false;
 
-            Game.ParentId = parent;
+				txtParent.Text = Game.ParentId < 0 ? "" : Game.ParentId.ToString();
 
-            Game.AppType = (AppTypes) cmbType.SelectedItem;
-            Game.Name = txtName.Text;
+				cmbType.SelectedItem = Game.AppType;
 
+				txtName.Text = Game.Name;
+				if (Game.Genres != null)
+				{
+					txtGenres.Text = string.Join(",", Game.Genres);
+				}
 
-            Game.Genres = SplitAndTrim(txtGenres.Text);
-            Game.Flags = SplitAndTrim(txtFlags.Text);
-            Game.Tags = SplitAndTrim(txtTags.Text);
-            Game.Developers = SplitAndTrim(txtDev.Text);
-            Game.Publishers = SplitAndTrim(txtPub.Text);
+				if (Game.Flags != null)
+				{
+					txtFlags.Text = string.Join(",", Game.Flags);
+				}
 
-            Game.TotalAchievements = (int) numAchievements.Value;
-            Game.ReviewPositivePercentage = (int) numReviewScore.Value;
-            Game.ReviewTotal = (int) numReviewCount.Value;
+				if (Game.Tags != null)
+				{
+					txtTags.Text = string.Join(",", Game.Tags);
+				}
 
-            Game.HltbMain = (int) numHltbMain.Value;
-            Game.HltbExtras = (int) numHltbExtras.Value;
-            Game.HltbCompletionist = (int) numHltbCompletionist.Value;
+				if (Game.Developers != null)
+				{
+					txtDev.Text = string.Join(",", Game.Developers);
+				}
 
-            Game.MetacriticUrl = txtMCName.Text;
-            Game.SteamReleaseDate = txtRelease.Text;
+				if (Game.Publishers != null)
+				{
+					txtPub.Text = string.Join(",", Game.Publishers);
+				}
 
-            Game.Platforms = AppPlatforms.None;
-            if (chkPlatWin.Checked) Game.Platforms |= AppPlatforms.Windows;
-            if (chkPlatMac.Checked) Game.Platforms |= AppPlatforms.Mac;
-            if (chkPlatLinux.Checked) Game.Platforms |= AppPlatforms.Linux;
+				if (Game.MetacriticUrl != null)
+				{
+					txtMCName.Text = Game.MetacriticUrl;
+				}
 
-            Game.LastStoreScrape = chkWebUpdate.Checked ? Utility.GetUTime(dateWeb.Value) : 0;
-            Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? Utility.GetUTime(dateAppInfo.Value) : 0;
+				if (Game.SteamReleaseDate != null)
+				{
+					txtRelease.Text = Game.SteamReleaseDate;
+				}
 
-            return true;
-        }
+				numAchievements.Value = Utility.Clamp(Game.TotalAchievements, (int) numAchievements.Minimum, (int) numAchievements.Maximum);
+				numReviewScore.Value = Utility.Clamp(Game.ReviewPositivePercentage, (int) numReviewScore.Minimum, (int) numReviewScore.Maximum);
+				numReviewCount.Value = Utility.Clamp(Game.ReviewTotal, (int) numReviewCount.Minimum, (int) numReviewCount.Maximum);
+				numHltbMain.Value = Utility.Clamp(Game.HltbMain, (int) numHltbMain.Minimum, (int) numHltbMain.Maximum);
+				numHltbExtras.Value = Utility.Clamp(Game.HltbExtras, (int) numHltbExtras.Minimum, (int) numHltbExtras.Maximum);
+				numHltbCompletionist.Value = Utility.Clamp(Game.HltbCompletionist, (int) numHltbCompletionist.Minimum, (int) numHltbCompletionist.Maximum);
+				chkPlatWin.Checked = Game.Platforms.HasFlag(AppPlatforms.Windows);
+				chkPlatMac.Checked = Game.Platforms.HasFlag(AppPlatforms.Mac);
+				chkPlatLinux.Checked = Game.Platforms.HasFlag(AppPlatforms.Linux);
 
-        private readonly char[] SPLIT_CHAR = {','};
+				chkWebUpdate.Checked = Game.LastStoreScrape > 0;
+				chkAppInfoUpdate.Checked = Game.LastAppInfoUpdate > 0;
 
-        private List<string> SplitAndTrim(string s)
-        {
-            if (string.IsNullOrWhiteSpace(s)) return null;
+				dateWeb.Value = Utility.GetDTFromUTime(Game.LastStoreScrape);
+				dateAppInfo.Value = Utility.GetDTFromUTime(Game.LastAppInfoUpdate);
+			}
+		}
 
-            string[] split = s.Split(SPLIT_CHAR, StringSplitOptions.RemoveEmptyEntries);
-            List<string> result = new List<string>();
-            foreach (string sp in split)
-            {
-                if (!string.IsNullOrWhiteSpace(sp)) result.Add(sp.Trim());
-            }
-            if (result.Count > 0) return result;
-            return null;
-        }
+		private bool SaveToGame()
+		{
+			int id, parent;
+			if (!ValidateEntries(out id, out parent))
+			{
+				return false;
+			}
 
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
+			if (Game == null)
+			{
+				Game = new DatabaseEntry();
+				Game.Id = id;
+			}
 
-        private void cmdSave_Click(object sender, EventArgs e)
-        {
-            if (SaveToGame())
-            {
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-        }
-    }
+			Game.ParentId = parent;
+
+			Game.AppType = (AppTypes) cmbType.SelectedItem;
+			Game.Name = txtName.Text;
+
+			Game.Genres = SplitAndTrim(txtGenres.Text);
+			Game.Flags = SplitAndTrim(txtFlags.Text);
+			Game.Tags = SplitAndTrim(txtTags.Text);
+			Game.Developers = SplitAndTrim(txtDev.Text);
+			Game.Publishers = SplitAndTrim(txtPub.Text);
+
+			Game.TotalAchievements = (int) numAchievements.Value;
+			Game.ReviewPositivePercentage = (int) numReviewScore.Value;
+			Game.ReviewTotal = (int) numReviewCount.Value;
+
+			Game.HltbMain = (int) numHltbMain.Value;
+			Game.HltbExtras = (int) numHltbExtras.Value;
+			Game.HltbCompletionist = (int) numHltbCompletionist.Value;
+
+			Game.MetacriticUrl = txtMCName.Text;
+			Game.SteamReleaseDate = txtRelease.Text;
+
+			Game.Platforms = AppPlatforms.None;
+			if (chkPlatWin.Checked)
+			{
+				Game.Platforms |= AppPlatforms.Windows;
+			}
+
+			if (chkPlatMac.Checked)
+			{
+				Game.Platforms |= AppPlatforms.Mac;
+			}
+
+			if (chkPlatLinux.Checked)
+			{
+				Game.Platforms |= AppPlatforms.Linux;
+			}
+
+			Game.LastStoreScrape = chkWebUpdate.Checked ? Utility.GetUTime(dateWeb.Value) : 0;
+			Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? Utility.GetUTime(dateAppInfo.Value) : 0;
+
+			return true;
+		}
+
+		private List<string> SplitAndTrim(string s)
+		{
+			if (string.IsNullOrWhiteSpace(s))
+			{
+				return null;
+			}
+
+			string[] split = s.Split(SPLIT_CHAR, StringSplitOptions.RemoveEmptyEntries);
+			List<string> result = new List<string>();
+			foreach (string sp in split)
+			{
+				if (!string.IsNullOrWhiteSpace(sp))
+				{
+					result.Add(sp.Trim());
+				}
+			}
+
+			if (result.Count > 0)
+			{
+				return result;
+			}
+
+			return null;
+		}
+
+		private bool ValidateEntries(out int id, out int parent)
+		{
+			parent = -1;
+			if (!int.TryParse(txtId.Text, out id) || (id <= 0))
+			{
+				MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger);
+
+				return false;
+			}
+
+			if (!string.IsNullOrEmpty(txtParent.Text) && !int.TryParse(txtParent.Text, out parent))
+			{
+				MessageBox.Show(GlobalStrings.DlgGameDBEntry_ParentMustBeInt);
+			}
+
+			return true;
+		}
+
+		#endregion
+	}
 }

@@ -23,141 +23,210 @@ using System.Text;
 
 namespace Depressurizer
 {
-    enum PackageBillingType
-    {
-        NoCost = 0,
-        Store = 1,
-        CDKey = 3,
-        HardwarePromo = 5,
-        Gift = 6,
-        AutoGrant = 7,
-        StoreOrCDKey = 10,
-        FreeOnDemand = 12
-    }
+	internal enum PackageBillingType
+	{
+		NoCost = 0,
 
-    class PackageInfo
-    {
-        public List<int> AppIds;
-        public int Id;
-        public string Name;
+		Store = 1,
 
-        public PackageBillingType BillingType;
+		CDKey = 3,
 
-        public PackageInfo(int id = 0, string name = null)
-        {
-            AppIds = new List<int>();
-            Id = id;
-            Name = name;
-        }
+		HardwarePromo = 5,
 
-        public static PackageInfo FromVdfNode(VdfFileNode node)
-        {
-            VdfFileNode idNode = node.GetNodeAt(new[] {"packageId"}, false);
-            if ((idNode != null) && idNode.NodeType == ValueType.Int)
-            {
-                int id = idNode.NodeInt;
+		Gift = 6,
 
-                string name = null;
-                VdfFileNode nameNode = node.GetNodeAt(new[] {"name"}, false);
-                if (nameNode != null && nameNode.NodeType == ValueType.String)
-                {
-                    name = nameNode.NodeString;
-                }
+		AutoGrant = 7,
 
-                PackageInfo package = new PackageInfo(id, name);
+		StoreOrCDKey = 10,
 
-                VdfFileNode billingtypeNode = node["billingtype"];
-                if (billingtypeNode != null && billingtypeNode.NodeType == ValueType.String ||
-                    billingtypeNode.NodeType == ValueType.Int)
-                {
-                    int bType = billingtypeNode.NodeInt;
-                    /*if( Enum.IsDefined( typeof(PackageBillingType), bType ) ) {
+		FreeOnDemand = 12
+	}
 
-                    } else {
+	internal class PackageInfo
+	{
+		#region Fields
 
-                    }*/
-                    package.BillingType = (PackageBillingType) bType;
-                }
+		public List<int> AppIds;
 
-                VdfFileNode appsNode = node["appids"];
-                if (appsNode != null && appsNode.NodeType == ValueType.Array)
-                {
-                    foreach (VdfFileNode aNode in appsNode.NodeArray.Values)
-                    {
-                        if (aNode.NodeType == ValueType.Int)
-                        {
-                            package.AppIds.Add(aNode.NodeInt);
-                        }
-                    }
-                }
+		public PackageBillingType BillingType;
 
-                return package;
-            }
-            return null;
-        }
+		public int Id;
 
-        public static DateTime GetLocalDateTime(int timeStamp)
-        {
-            DateTime result = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            return result.AddSeconds(timeStamp).ToLocalTime();
-        }
+		public string Name;
 
-        /// <summary>
-        /// Loads Apps from packageinfo.vdf.
-        /// </summary>
-        /// <param name="path">Path of packageinfo.vdf</param>
-        public static Dictionary<int, PackageInfo> LoadPackages(string path)
-        {
-            Dictionary<int, PackageInfo> result = new Dictionary<int, PackageInfo>();
+		#endregion
 
-            /* packageinfo.vdf entry example format, sometimes has extra values. Line breaks are only for readability and not part of format.
-            * we only care about *packageid*, *billingtype*, *appids*
-            * *undeciphered*(24 bytes i haven't deciphered) *changenumber*(4 bytes, little endian) 
-            * 00 *packageid*(variable size, big endian, ascii) 00
-            * 02 packageid 00 *packageid*(4 bytes, little endian) 
-            * 02 billingtype 00 *billingtype*(4 bytes, little endian) 
-            * 02 licensetype 00 *licensetype*(4 bytes, little endian) 
-            * 02 status 00 00 00 00 00 00 extended 00 
-            * 08 00 appids 00 02 *entrynumber*(variable size, number stored as string(ascii), starts at 0, random example: 31 38 39=189) 00 *appid*(4 bytes, little endian) 
-            * 08 00 depotids 00 02 *entrynumber* 00 *depotid*(4 bytes, little endian) 02 *entrynumber* 00 *depotid* 02 *entrynumber* 00 *depotid* 
-            * 08 00 appitems 00 08 08 08 
-            */
+		#region Constructors and Destructors
 
-            BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open), Encoding.ASCII);
-            long fileLength = bReader.BaseStream.Length;
+		public PackageInfo(int id = 0, string name = null)
+		{
+			AppIds = new List<int>();
+			Id = id;
+			Name = name;
+		}
 
-            // seek to packageid: start of a new entry
-            byte[] packageidBytes =
-            {
-                0x00, 0x02, 0x70, 0x61, 0x63, 0x6B, 0x61, 0x67, 0x65, 0x69, 0x64, 0x00
-            }; // 0x00 0x02 p a c k a g e i d 0x00
-            byte[] billingtypeBytes =
-            {
-                0x02, 0x62, 0x69, 0x6C, 0x6C, 0x69, 0x6E, 0x67, 0x74, 0x79, 0x70, 0x65, 0x00
-            }; // 0x02 b i l l i n g t y p e 0x00
-            byte[] appidsBytes = {0x08, 0x00, 0x61, 0x70, 0x70, 0x69, 0x64, 0x73, 0x00}; // 0x08 0x00 appids 0x00
+		#endregion
 
-            VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
-            while (bReader.BaseStream.Position < fileLength)
-            {
-                int id = bReader.ReadInt32();
-                PackageInfo package = new PackageInfo(id);
+		#region Public Methods and Operators
 
-                VdfFileNode.ReadBin_SeekTo(bReader, billingtypeBytes, fileLength);
-                package.BillingType = (PackageBillingType) bReader.ReadInt32();
+		public static PackageInfo FromVdfNode(VdfFileNode node)
+		{
+			VdfFileNode idNode = node.GetNodeAt(new[]
+			{
+				"packageId"
+			}, false);
 
-                VdfFileNode.ReadBin_SeekTo(bReader, appidsBytes, fileLength);
-                while (bReader.ReadByte() == 0x02)
-                {
-                    while (bReader.ReadByte() != 0x00) { }
-                    package.AppIds.Add(bReader.ReadInt32());
-                }
+			if ((idNode != null) && (idNode.NodeType == ValueType.Int))
+			{
+				int id = idNode.NodeInt;
 
-                result.Add(package.Id, package);
-                VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
-            }
+				string name = null;
+				VdfFileNode nameNode = node.GetNodeAt(new[]
+				{
+					"name"
+				}, false);
 
-            return result;
-        }
-    }
+				if ((nameNode != null) && (nameNode.NodeType == ValueType.String))
+				{
+					name = nameNode.NodeString;
+				}
+
+				PackageInfo package = new PackageInfo(id, name);
+
+				VdfFileNode billingtypeNode = node["billingtype"];
+				if (((billingtypeNode != null) && (billingtypeNode.NodeType == ValueType.String)) || (billingtypeNode.NodeType == ValueType.Int))
+				{
+					int bType = billingtypeNode.NodeInt;
+					/*if( Enum.IsDefined( typeof(PackageBillingType), bType ) ) {
+
+					} else {
+
+					}*/
+					package.BillingType = (PackageBillingType) bType;
+				}
+
+				VdfFileNode appsNode = node["appids"];
+				if ((appsNode != null) && (appsNode.NodeType == ValueType.Array))
+				{
+					foreach (VdfFileNode aNode in appsNode.NodeArray.Values)
+					{
+						if (aNode.NodeType == ValueType.Int)
+						{
+							package.AppIds.Add(aNode.NodeInt);
+						}
+					}
+				}
+
+				return package;
+			}
+
+			return null;
+		}
+
+		public static DateTime GetLocalDateTime(int timeStamp)
+		{
+			DateTime result = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+
+			return result.AddSeconds(timeStamp).ToLocalTime();
+		}
+
+		/// <summary>
+		///     Loads Apps from packageinfo.vdf.
+		/// </summary>
+		/// <param name="path">Path of packageinfo.vdf</param>
+		public static Dictionary<int, PackageInfo> LoadPackages(string path)
+		{
+			Dictionary<int, PackageInfo> result = new Dictionary<int, PackageInfo>();
+
+			/* packageinfo.vdf entry example format, sometimes has extra values. Line breaks are only for readability and not part of format.
+			* we only care about *packageid*, *billingtype*, *appids*
+			* *undeciphered*(24 bytes i haven't deciphered) *changenumber*(4 bytes, little endian) 
+			* 00 *packageid*(variable size, big endian, ascii) 00
+			* 02 packageid 00 *packageid*(4 bytes, little endian) 
+			* 02 billingtype 00 *billingtype*(4 bytes, little endian) 
+			* 02 licensetype 00 *licensetype*(4 bytes, little endian) 
+			* 02 status 00 00 00 00 00 00 extended 00 
+			* 08 00 appids 00 02 *entrynumber*(variable size, number stored as string(ascii), starts at 0, random example: 31 38 39=189) 00 *appid*(4 bytes, little endian) 
+			* 08 00 depotids 00 02 *entrynumber* 00 *depotid*(4 bytes, little endian) 02 *entrynumber* 00 *depotid* 02 *entrynumber* 00 *depotid* 
+			* 08 00 appitems 00 08 08 08 
+			*/
+
+			BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open), Encoding.ASCII);
+			long fileLength = bReader.BaseStream.Length;
+
+			// seek to packageid: start of a new entry
+			byte[] packageidBytes =
+			{
+				0x00,
+				0x02,
+				0x70,
+				0x61,
+				0x63,
+				0x6B,
+				0x61,
+				0x67,
+				0x65,
+				0x69,
+				0x64,
+				0x00
+			}; // 0x00 0x02 p a c k a g e i d 0x00
+
+			byte[] billingtypeBytes =
+			{
+				0x02,
+				0x62,
+				0x69,
+				0x6C,
+				0x6C,
+				0x69,
+				0x6E,
+				0x67,
+				0x74,
+				0x79,
+				0x70,
+				0x65,
+				0x00
+			}; // 0x02 b i l l i n g t y p e 0x00
+
+			byte[] appidsBytes =
+			{
+				0x08,
+				0x00,
+				0x61,
+				0x70,
+				0x70,
+				0x69,
+				0x64,
+				0x73,
+				0x00
+			}; // 0x08 0x00 appids 0x00
+
+			VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
+			while (bReader.BaseStream.Position < fileLength)
+			{
+				int id = bReader.ReadInt32();
+				PackageInfo package = new PackageInfo(id);
+
+				VdfFileNode.ReadBin_SeekTo(bReader, billingtypeBytes, fileLength);
+				package.BillingType = (PackageBillingType) bReader.ReadInt32();
+
+				VdfFileNode.ReadBin_SeekTo(bReader, appidsBytes, fileLength);
+				while (bReader.ReadByte() == 0x02)
+				{
+					while (bReader.ReadByte() != 0x00)
+					{
+					}
+
+					package.AppIds.Add(bReader.ReadInt32());
+				}
+
+				result.Add(package.Id, package);
+				VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
+			}
+
+			return result;
+		}
+
+		#endregion
+	}
 }

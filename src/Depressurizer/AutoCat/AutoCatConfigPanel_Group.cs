@@ -22,145 +22,161 @@ using System.Windows.Forms;
 
 namespace Depressurizer
 {
-    public partial class AutoCatConfigPanel_Group : AutoCatConfigPanel
-    {
-        //private List<string> stringAutocats;
-        private List<AutoCat> Autocats;
+	public partial class AutoCatConfigPanel_Group : AutoCatConfigPanel
+	{
+		#region Fields
 
-        private AutoCat current;
+		//private List<string> stringAutocats;
+		private readonly List<AutoCat> Autocats;
 
-        public AutoCatConfigPanel_Group(List<AutoCat> autocats)
-        {
-            InitializeComponent();
+		private AutoCat current;
 
-            Autocats = autocats;
-        }
+		#endregion
 
-        #region Data modifiers
+		#region Constructors and Destructors
 
-        public override void LoadFromAutoCat(AutoCat autocat)
-        {
-            AutoCatGroup ac = autocat as AutoCatGroup;
-            current = autocat;
-            if (ac == null) return;
-            FillAutocatList(ac.Autocats);
-        }
+		public AutoCatConfigPanel_Group(List<AutoCat> autocats)
+		{
+			InitializeComponent();
 
-        public override void SaveToAutoCat(AutoCat autocat)
-        {
-            AutoCatGroup ac = autocat as AutoCatGroup;
-            if (ac == null) return;
-            ac.Autocats = GetGroup();
-        }
+			Autocats = autocats;
+		}
 
-        #endregion
+		#endregion
 
-        #region Event Handlers
+		#region Public Methods and Operators
 
-        private void btnUp_Click(object sender, EventArgs e)
-        {
-            Utility.MoveItem(lbAutocats, -1);
-        }
+		public List<string> GetGroup()
+		{
+			List<string> group = new List<string>();
+			foreach (string name in lbAutocats.Items)
+			{
+				group.Add(name);
+			}
 
-        private void btnDown_Click(object sender, EventArgs e)
-        {
-            Utility.MoveItem(lbAutocats, 1);
-        }
+			return group;
+		}
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            DlgAutoCatSelect dlg = new DlgAutoCatSelect(Autocats, current.Name);
+		public override void LoadFromAutoCat(AutoCat autocat)
+		{
+			AutoCatGroup ac = autocat as AutoCatGroup;
+			current = autocat;
+			if (ac == null)
+			{
+				return;
+			}
 
-            DialogResult res = dlg.ShowDialog();
+			FillAutocatList(ac.Autocats);
+		}
 
-            if (res == DialogResult.OK)
-            {
-                foreach (AutoCat ac in dlg.AutoCatList)
-                {
-                    if (ac.Selected && !InGroup(ac.Name))
-                    {
-                        lbAutocats.Items.Add(ac.Name);
-                    }
-                }
-            }
-        }
+		public override void SaveToAutoCat(AutoCat autocat)
+		{
+			AutoCatGroup ac = autocat as AutoCatGroup;
+			if (ac == null)
+			{
+				return;
+			}
 
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            if (lbAutocats.SelectedItems.Count > 1)
-            {
-                foreach (string s in lbAutocats.SelectedItems)
-                {
-                    lbAutocats.Items.Remove(s);
-                }
-            }
-            else if (lbAutocats.SelectedItem != null)
-            {
-                lbAutocats.Items.Remove(lbAutocats.SelectedItem);
-            }
-        }
+			ac.Autocats = GetGroup();
+		}
 
-        private void lbAutocats_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lbAutocats.SelectedItems.Count > 1)
-            {
-                btnRemove.Enabled = true;
-                btnUp.Enabled = false;
-                btnDown.Enabled = false;
-            }
-            else if (lbAutocats.SelectedItem != null)
-            {
-                btnRemove.Enabled = true;
-                btnUp.Enabled = (lbAutocats.SelectedIndex == 0) ? false : true;
-                btnDown.Enabled = (lbAutocats.SelectedIndex == (lbAutocats.Items.Count - 1)) ? false : true;
-            }
-            else
-            {
-                btnRemove.Enabled = false;
-                btnUp.Enabled = false;
-                btnDown.Enabled = false;
-            }
-        }
+		#endregion
 
-        #endregion
+		#region Methods
 
-        #region UI Updaters
+		private void btnAdd_Click(object sender, EventArgs e)
+		{
+			DlgAutoCatSelect dlg = new DlgAutoCatSelect(Autocats, current.Name);
 
-        private void FillAutocatList(List<string> group)
-        {
-            if (group != null)
-                lbAutocats.Items.Clear();
-            {
-                foreach (string name in group)
-                {
-                    lbAutocats.Items.Add(name);
-                }
-            }
-        }
+			DialogResult res = dlg.ShowDialog();
 
-        #endregion
+			if (res == DialogResult.OK)
+			{
+				foreach (AutoCat ac in dlg.AutoCatList)
+				{
+					if (ac.Selected && !InGroup(ac.Name))
+					{
+						lbAutocats.Items.Add(ac.Name);
+					}
+				}
+			}
+		}
 
-        #region Utility
+		private void btnDown_Click(object sender, EventArgs e)
+		{
+			Utility.MoveItem(lbAutocats, 1);
+		}
 
-        private bool InGroup(string find)
-        {
-            foreach (string name in lbAutocats.Items)
-            {
-                if (name == find) return true;
-            }
-            return false;
-        }
+		private void btnRemove_Click(object sender, EventArgs e)
+		{
+			if (lbAutocats.SelectedItems.Count > 1)
+			{
+				foreach (string s in lbAutocats.SelectedItems)
+				{
+					lbAutocats.Items.Remove(s);
+				}
+			}
+			else if (lbAutocats.SelectedItem != null)
+			{
+				lbAutocats.Items.Remove(lbAutocats.SelectedItem);
+			}
+		}
 
-        public List<string> GetGroup()
-        {
-            List<string> group = new List<string>();
-            foreach (string name in lbAutocats.Items)
-            {
-                group.Add(name);
-            }
-            return group;
-        }
+		private void btnUp_Click(object sender, EventArgs e)
+		{
+			Utility.MoveItem(lbAutocats, -1);
+		}
 
-        #endregion
-    }
+		private void FillAutocatList(List<string> group)
+		{
+			if (group != null)
+			{
+				lbAutocats.Items.Clear();
+			}
+
+			{
+				foreach (string name in group)
+				{
+					lbAutocats.Items.Add(name);
+				}
+			}
+		}
+
+		private bool InGroup(string find)
+		{
+			foreach (string name in lbAutocats.Items)
+			{
+				if (name == find)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private void lbAutocats_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (lbAutocats.SelectedItems.Count > 1)
+			{
+				btnRemove.Enabled = true;
+				btnUp.Enabled = false;
+				btnDown.Enabled = false;
+			}
+			else if (lbAutocats.SelectedItem != null)
+			{
+				btnRemove.Enabled = true;
+				btnUp.Enabled = lbAutocats.SelectedIndex == 0 ? false : true;
+				btnDown.Enabled = lbAutocats.SelectedIndex == (lbAutocats.Items.Count - 1) ? false : true;
+			}
+			else
+			{
+				btnRemove.Enabled = false;
+				btnUp.Enabled = false;
+				btnDown.Enabled = false;
+			}
+		}
+
+		#endregion
+	}
 }

@@ -31,10 +31,10 @@ using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Dialogs;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -73,19 +73,25 @@ namespace Depressurizer
 
 		#endregion
 
+		#region Properties
+
+		private static Logger Logger => Logger.Instance;
+
+		#endregion
+
 		#region Public Methods and Operators
 
 		public static XmlDocument FetchAppListFromWeb()
 		{
 			XmlDocument doc = new XmlDocument();
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList);
+			Logger.Info(GlobalStrings.GameDB_DownloadingSteamAppList);
 			WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
 			using (WebResponse resp = req.GetResponse())
 			{
 				doc.Load(resp.GetResponseStream());
 			}
 
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_XMLAppListDownloaded);
+			Logger.Info(GlobalStrings.GameDB_XMLAppListDownloaded);
 
 			return doc;
 		}
@@ -710,7 +716,7 @@ namespace Depressurizer
 				}
 			}
 
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
+			Logger.Info(GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
 
 			return added;
 		}
@@ -722,7 +728,7 @@ namespace Depressurizer
 
 		public void Load(string path, bool compress)
 		{
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadingGameDBFrom, path);
+			Logger.Info(GlobalStrings.GameDB_LoadingGameDBFrom, path);
 			XmlDocument doc = new XmlDocument();
 
 			Stream stream = null;
@@ -736,7 +742,7 @@ namespace Depressurizer
 
 				doc.Load(stream);
 
-				Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBXMLParsed);
+				Logger.Info(GlobalStrings.GameDB_GameDBXMLParsed);
 				Games.Clear();
 				ClearAggregates();
 
@@ -763,7 +769,7 @@ namespace Depressurizer
 					}
 				}
 
-				Program.Logger.Write(LoggerLevel.Info, "GameDB XML processed, load complete. Db Language: " + dbLanguage);
+				Logger.Info("GameDB XML processed, load complete. Db Language: " + dbLanguage);
 			}
 			finally
 			{
@@ -778,7 +784,7 @@ namespace Depressurizer
 
 		public void Save(string path, bool compress)
 		{
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_SavingGameDBTo, path);
+			Logger.Info(GlobalStrings.GameDB_SavingGameDBTo, path);
 			XmlWriterSettings settings = new XmlWriterSettings();
 			settings.Indent = true;
 			settings.CloseOutput = true;
@@ -830,7 +836,7 @@ namespace Depressurizer
 				}
 			}
 
-			Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_GameDBSaved);
+			Logger.Info(GlobalStrings.GameDB_GameDBSaved);
 		}
 
 		/// <summary>

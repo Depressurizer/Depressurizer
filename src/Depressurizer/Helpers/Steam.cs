@@ -1,25 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Depressurizer.Properties;
-using Rallion;
 
 namespace Depressurizer.Helpers
 {
 	public static class Steam
 	{
+		#region Static Fields
 
-		private static readonly List<int> IgnoreList = new List<int>
-		{
+		private static readonly List<int> IgnoreList = new List<int>();
 
-		};
+		#endregion
+
+		#region Properties
+
+		private static Logger Logger => Logger.Instance;
+
+		#endregion
+
+		#region Public Methods and Operators
 
 		/// <summary>
 		///     Grabs the banner from the Steam store
@@ -33,6 +38,10 @@ namespace Depressurizer.Helpers
 				Parallel.ForEach(apps, FetchBanner);
 			});
 		}
+
+		#endregion
+
+		#region Methods
 
 		private static void FetchBanner(int appId)
 		{
@@ -64,9 +73,11 @@ namespace Depressurizer.Helpers
 			}
 			catch
 			{
-				Program.Logger.Write(LoggerLevel.Warning, "Couldn't fetch banner for appId: {0}", appId);
+				Logger.Warn("Couldn't fetch banner for appId: {0}", appId);
 				Debug.WriteLine("Couldn't fetch banner for appId: {0}", appId);
 			}
 		}
+
+		#endregion
 	}
 }
