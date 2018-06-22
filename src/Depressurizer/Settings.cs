@@ -23,7 +23,6 @@ using System.Threading;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Newtonsoft.Json;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -71,12 +70,6 @@ namespace Depressurizer
 		private InterfaceLanguage _interfaceLanguage = InterfaceLanguage.English;
 
 		private GameListSource _listSource = GameListSource.XmlPreferred;
-
-		private int _logBackups = 1;
-
-		private LoggerLevel _logLevel = LoggerLevel.Info;
-
-		private int _logSize = 2000000;
 
 		private string _lstGamesState = "";
 
@@ -276,67 +269,6 @@ namespace Depressurizer
 				lock (SyncRoot)
 				{
 					_listSource = value;
-				}
-			}
-		}
-
-		public int LogBackups
-		{
-			get
-			{
-				lock (SyncRoot)
-				{
-					return _logBackups;
-				}
-			}
-
-			set
-			{
-				lock (SyncRoot)
-				{
-					Program.Logger.MaxBackup = value;
-
-					_logBackups = value;
-				}
-			}
-		}
-
-		public LoggerLevel LogLevel
-		{
-			get
-			{
-				lock (SyncRoot)
-				{
-					return _logLevel;
-				}
-			}
-
-			set
-			{
-				lock (SyncRoot)
-				{
-					Program.Logger.Level = value;
-					_logLevel = value;
-				}
-			}
-		}
-
-		public int LogSize
-		{
-			get
-			{
-				lock (SyncRoot)
-				{
-					return _logSize;
-				}
-			}
-
-			set
-			{
-				lock (SyncRoot)
-				{
-					Program.Logger.MaxFileSize = value;
-					_logSize = value;
 				}
 			}
 		}
@@ -718,6 +650,12 @@ namespace Depressurizer
 
 		#endregion
 
+		#region Properties
+
+		private static Logger Logger => Logger.Instance;
+
+		#endregion
+
 		#region Public Methods and Operators
 
 		public void Load()
@@ -729,10 +667,10 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
-				Program.Logger.Write(LoggerLevel.Info, "Settings: Loading a settings instance from '{0}'", path);
+				Logger.Info("Settings: Loading a settings instance from '{0}'", path);
 				if (!File.Exists(path))
 				{
-					Program.Logger.Write(LoggerLevel.Warning, "Settings: Couldn't find a settings instance at '{0}'", path);
+					Logger.Warn("Settings: Couldn't find a settings instance at '{0}'", path);
 
 					return;
 				}
@@ -751,7 +689,7 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
-				Program.Logger.Write(LoggerLevel.Info, "Settings: Saving current setttings instance to '{0}'", path);
+				Logger.Info("Settings: Saving current setttings instance to '{0}'", path);
 
 				string settings = JsonConvert.SerializeObject(_instance);
 				File.WriteAllText(path, settings);

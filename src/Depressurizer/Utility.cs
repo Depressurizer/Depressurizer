@@ -31,9 +31,9 @@ using System.Net.Cache;
 using System.Reflection;
 using System.Windows.Forms;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Depressurizer.Properties;
 using MaterialSkin.Controls;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -65,6 +65,12 @@ namespace Depressurizer
 			228100,
 			404730
 		};
+
+		#endregion
+
+		#region Properties
+
+		private static Logger Logger => Logger.Instance;
 
 		#endregion
 
@@ -338,7 +344,7 @@ namespace Depressurizer
 			{
 				if (!ignoreWarning.Contains(id))
 				{
-					Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+					Logger.Warn(string.Format(GlobalStrings.Utility_GetImage, url));
 				}
 			}
 
@@ -366,7 +372,7 @@ namespace Depressurizer
 			{
 				if (!ignoreWarning.Contains(id))
 				{
-					Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+					Logger.Warn(string.Format(GlobalStrings.Utility_GetImage, url));
 				}
 			}
 
@@ -595,7 +601,7 @@ namespace Depressurizer
 			}
 			catch (Exception e)
 			{
-				Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, localPath), e);
+				Logger.Exception(string.Format(GlobalStrings.Utility_SaveBanner, localPath), e);
 
 				return false;
 			}

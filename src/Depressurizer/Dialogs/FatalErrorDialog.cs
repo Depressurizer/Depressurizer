@@ -71,6 +71,8 @@ namespace Depressurizer.Dialogs
 
 		#region Properties
 
+		private static Logger Logger => Logger.Instance;
+
 		/// <summary>
 		///     The minimum height of the form, without info showing.
 		/// </summary>
@@ -109,7 +111,7 @@ namespace Depressurizer.Dialogs
 		/// <param name="e">The unhandled exception.</param>
 		private static void HandleUnhandledException(Exception e)
 		{
-			Program.Logger.WriteException("Fatal Error: ", e);
+			Logger.Exception("Fatal Error: ", e);
 			SentryLogger.Log(e);
 
 			using (FatalErrorDialog dialog = new FatalErrorDialog(e))

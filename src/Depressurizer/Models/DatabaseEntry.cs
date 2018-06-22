@@ -28,8 +28,8 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Depressurizer.Properties;
-using Rallion;
 
 namespace Depressurizer.Models
 {
@@ -179,6 +179,8 @@ namespace Depressurizer.Models
 		#endregion
 
 		#region Properties
+
+		private static Logger Logger => Logger.Instance;
 
 		private static Settings Settings => Settings.Instance;
 
@@ -332,7 +334,7 @@ namespace Depressurizer.Models
 
 		public void ScrapeStore()
 		{
-			Program.Logger.Write(LoggerLevel.Verbose, "Scraping {0}: Initializing store scraping for Id: {0}", Id);
+			Logger.Verbose("Scraping {0}: Initializing store scraping for Id: {0}", Id);
 
 			string page;
 			int redirectTarget = -1;
@@ -355,7 +357,7 @@ namespace Depressurizer.Models
 					// Check if we were redirected to the Steam Store front page
 					if ((resp.Headers[HttpResponseHeader.Location] == @"https://store.steampowered.com/") || (resp.Headers[HttpResponseHeader.Location] == @"http://store.steampowered.com/"))
 					{
-						Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected to main store page, aborting scraping", Id);
+						Logger.Warn("Scraping {0}: Redirected to main store page, aborting scraping", Id);
 
 						return;
 					}
@@ -363,7 +365,7 @@ namespace Depressurizer.Models
 					// Check if we were redirected to the same page
 					if (resp.ResponseUri.ToString() == resp.Headers[HttpResponseHeader.Location])
 					{
-						Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Store page redirected to itself, aborting scraping", Id);
+						Logger.Warn("Scraping {0}: Store page redirected to itself, aborting scraping", Id);
 
 						return;
 					}
@@ -376,7 +378,7 @@ namespace Depressurizer.Models
 				// Check if we were redirected too many times
 				if ((count == 5) && (resp.StatusCode == HttpStatusCode.Found))
 				{
-					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Too many redirects, aborting scraping", Id);
+					Logger.Warn("Scraping {0}: Too many redirects, aborting scraping", Id);
 
 					return;
 				}
@@ -384,7 +386,7 @@ namespace Depressurizer.Models
 				// Check if we were redirected to the Steam Store front page
 				if (resp.ResponseUri.Segments.Length < 2)
 				{
-					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected to main store page, aborting scraping", Id);
+					Logger.Warn("Scraping {0}: Redirected to main store page, aborting scraping", Id);
 
 					return;
 				}
@@ -395,13 +397,13 @@ namespace Depressurizer.Models
 					// Encountered an age check with no redirect
 					if ((resp.ResponseUri.Segments.Length < 4) || (resp.ResponseUri.Segments[3].TrimEnd('/') == Id.ToString(CultureInfo.InvariantCulture)))
 					{
-						Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Encounterd an age check without redirect, aborting scraping", Id);
+						Logger.Warn("Scraping {0}: Encounterd an age check without redirect, aborting scraping", Id);
 
 						return;
 					}
 
 					// Age check + redirect
-					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Hit age check for Id: {1}", Id, resp.ResponseUri.Segments[3].TrimEnd('/'));
+					Logger.Warn("Scraping {0}: Hit age check for Id: {1}", Id, resp.ResponseUri.Segments[3].TrimEnd('/'));
 
 					// Check if we encountered an age gate without a numeric id
 					if (!int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
@@ -413,7 +415,7 @@ namespace Depressurizer.Models
 				// Check if we were redirected outside of the app route
 				if (resp.ResponseUri.Segments[1] != "app/")
 				{
-					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected outside the app (app/) route, aborting scraping", Id);
+					Logger.Warn("Scraping {0}: Redirected outside the app (app/) route, aborting scraping", Id);
 
 					return;
 				}
@@ -421,7 +423,7 @@ namespace Depressurizer.Models
 				// The URI ends with "/app/" ?
 				if (resp.ResponseUri.Segments.Length < 3)
 				{
-					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Response URI ends with 'app' thus missing ID found, aborting scraping", Id);
+					Logger.Warn("Scraping {0}: Response URI ends with 'app' thus missing ID found, aborting scraping", Id);
 
 					return;
 				}
@@ -431,18 +433,18 @@ namespace Depressurizer.Models
 				{
 					if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
 					{
-						Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected to an unknown Id \"{1}\", aborting scraping", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
+						Logger.Warn("Scraping {0}: Redirected to an unknown Id \"{1}\", aborting scraping", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
 
 						return;
 					}
 
-					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Redirected to another app Id \"{1}\"", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
+					Logger.Warn("Scraping {0}: Redirected to another app Id \"{1}\"", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
 				}
 
 				responseStream = resp.GetResponseStream();
 				if (responseStream == null)
 				{
-					Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: The response stream was null, aborting scraping", Id);
+					Logger.Warn("Scraping {0}: The response stream was null, aborting scraping", Id);
 
 					return;
 				}
@@ -450,7 +452,7 @@ namespace Depressurizer.Models
 				using (StreamReader streamReader = new StreamReader(responseStream))
 				{
 					page = streamReader.ReadToEnd();
-					Program.Logger.Write(LoggerLevel.Verbose, "Scraping {0}: Page read", Id);
+					Logger.Verbose("Scraping {0}: Page read", Id);
 				}
 			}
 			catch (WebException e)
@@ -474,7 +476,7 @@ namespace Depressurizer.Models
 			}
 			catch (Exception e)
 			{
-				Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Page read failed. {1}", Id, e.Message);
+				Logger.Warn("Scraping {0}: Page read failed. {1}", Id, e.Message);
 
 				return;
 			}
@@ -486,7 +488,7 @@ namespace Depressurizer.Models
 
 			if (page.Contains("<title>Site Error</title>"))
 			{
-				Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Received Site Error, aborting scraping", Id);
+				Logger.Warn("Scraping {0}: Received Site Error, aborting scraping", Id);
 				LastStoreScrape = 1;
 
 				return;
@@ -494,7 +496,7 @@ namespace Depressurizer.Models
 
 			if (!RegexIsGame.IsMatch(page) && !RegexIsSoftware.IsMatch(page))
 			{
-				Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: Could not parse info from page, aborting scraping", Id);
+				Logger.Warn("Scraping {0}: Could not parse info from page, aborting scraping", Id);
 
 				return;
 			}
@@ -522,7 +524,7 @@ namespace Depressurizer.Models
 				ParentId = redirectTarget;
 			}
 
-			Program.Logger.Write(LoggerLevel.Info, "Scraping {0}: Parsed. Genre: {1}", Id, string.Join(",", Genres));
+			Logger.Info("Scraping {0}: Parsed. Genre: {1}", Id, string.Join(",", Genres));
 		}
 
 		public void ScrapeTrueSteamAchievements()

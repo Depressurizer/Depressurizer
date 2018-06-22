@@ -23,306 +23,331 @@ using Rallion;
 
 namespace Depressurizer
 {
-    public partial class DlgAutoCat : Form
-    {
-        public List<AutoCat> AutoCatList;
+	public partial class DlgAutoCat : Form
+	{
+		#region Fields
 
-        //public List<Filter> FilterList;
-        private GameList ownedGames;
+		public List<AutoCat> AutoCatList;
 
-        private AutoCat current;
-        private AutoCat initial;
-        private string profilePath;
+		private AutoCat current;
 
-        AutoCatConfigPanel currentConfigPanel;
+		private AutoCatConfigPanel currentConfigPanel;
 
-        public DlgAutoCat(List<AutoCat> autoCats, GameList ownedGames, AutoCat selected, string profile)
-        {
-            InitializeComponent();
+		private readonly AutoCat initial;
 
-            AutoCatList = new List<AutoCat>();
+		//public List<Filter> FilterList;
+		private readonly GameList ownedGames;
 
-            profilePath = profile;
+		private string profilePath;
 
-            foreach (AutoCat c in autoCats)
-            {
-                AutoCat clone = c.Clone();
-                AutoCatList.Add(clone);
-                if (c.Equals(selected))
-                {
-                    initial = clone;
-                }
-            }
+		#endregion
 
-            this.ownedGames = ownedGames;
-        }
+		#region Constructors and Destructors
 
-        #region UI Updaters
+		public DlgAutoCat(List<AutoCat> autoCats, GameList ownedGames, AutoCat selected, string profile)
+		{
+			InitializeComponent();
 
-        private void FillAutocatList()
-        {
-            lstAutoCats.Items.Clear();
-            foreach (AutoCat ac in AutoCatList)
-            {
-                lstAutoCats.Items.Add(ac);
-            }
-            lstAutoCats.DisplayMember = "DisplayName";
-        }
+			AutoCatList = new List<AutoCat>();
 
-        private void RecreateConfigPanel()
-        {
-            if (currentConfigPanel != null)
-            {
-                panelAutocat.Controls.Remove(currentConfigPanel);
-            }
+			profilePath = profile;
 
-            if (current != null)
-            {
-                currentConfigPanel = AutoCatConfigPanel.CreatePanel(current, ownedGames, AutoCatList);
-            }
+			foreach (AutoCat c in autoCats)
+			{
+				AutoCat clone = c.Clone();
+				AutoCatList.Add(clone);
+				if (c.Equals(selected))
+				{
+					initial = clone;
+				}
+			}
 
-            if (currentConfigPanel != null)
-            {
-                currentConfigPanel.Dock = DockStyle.Fill;
-               panelAutocat.Controls.Add(currentConfigPanel);
-            }
-        }
+			this.ownedGames = ownedGames;
+		}
 
-        private void FillConfigPanel()
-        {
-            if (current != null && currentConfigPanel != null)
-            {
-                currentConfigPanel.LoadFromAutoCat(current);
-                if (current.Filter != null)
-                {
-                    chkFilter.Checked = true;
-                    cboFilter.Text = current.Filter;
-                }
-                else
-                {
-                    chkFilter.Checked = false;
-                }
-            }
-        }
+		#endregion
 
-        private void FillFilterList()
-        {
-            cboFilter.DataSource = null;
-            cboFilter.DataSource = ownedGames.Filters;
-            cboFilter.ValueMember = null;
-            cboFilter.DisplayMember = "Name";
-            cboFilter.Text = "";
-        }
+		#region Methods
 
-        #endregion
+		private void btnDown_Click(object sender, EventArgs e)
+		{
+			Utility.MoveItem(lstAutoCats, 1);
+			RepositionAutoCats();
+		}
 
-        #region Data modifiers
+		private void btnUp_Click(object sender, EventArgs e)
+		{
+			Utility.MoveItem(lstAutoCats, -1);
+			RepositionAutoCats();
+		}
 
-        private void SaveToAutoCat()
-        {
-            if (current != null && currentConfigPanel != null)
-            {
-                currentConfigPanel.SaveToAutoCat(current);
-                if (chkFilter.Checked && cboFilter.Text != string.Empty) current.Filter = cboFilter.Text;
-                else current.Filter = null;
-            }
-        }
+		private void chkFilter_CheckedChanged(object sender, EventArgs e)
+		{
+			if (chkFilter.Checked)
+			{
+				cboFilter.Enabled = true;
+				FillFilterList();
+			}
+			else
+			{
+				cboFilter.Enabled = false;
+			}
+		}
 
-        private void CreateNewAutoCat()
-        {
-            string name = string.Empty;
-            AutoCatType t = AutoCatType.None;
-            bool good = true;
-            DialogResult res;
-            do
-            {
-                DlgAutoCatCreate dlg = new DlgAutoCatCreate();
-                res = dlg.ShowDialog();
-                if (res == DialogResult.OK)
-                {
-                    good = true;
-                    name = dlg.SelectedName;
-                    t = dlg.SelectedType;
-                    if (string.IsNullOrEmpty(name))
-                    {
-                        MessageBox.Show(GlobalStrings.DlgAutoCat_MustHaveName);
-                        good = false;
-                    }
-                    else if (NameExists(name))
-                    {
-                        MessageBox.Show(GlobalStrings.DlgAutoCat_NameInUse);
-                        good = false;
-                    }
-                    else if (t == AutoCatType.None)
-                    {
-                        MessageBox.Show(GlobalStrings.DlgAutoCat_SelectValidType);
-                        good = false;
-                    }
-                }
-            } while (res == DialogResult.OK && !good);
-            AutoCat newAutoCat = null;
-            if (res == DialogResult.OK)
-            {
-                newAutoCat = AutoCat.Create(t, name);
-                if (newAutoCat != null)
-                {
-                    AutoCatList.Add(newAutoCat);
-                }
-            }
-            AutoCatList.Sort();
-            FillAutocatList();
-            if (newAutoCat != null) lstAutoCats.SelectedItem = newAutoCat;
-        }
+		private void cmdCreate_Click(object sender, EventArgs e)
+		{
+			CreateNewAutoCat();
+		}
 
-        private void RenameAutoCat(AutoCat ac)
-        {
-            if (ac == null) return;
+		private void cmdDelete_Click(object sender, EventArgs e)
+		{
+			int selectedIndex = lstAutoCats.SelectedIndex;
+			RemoveAutoCat(lstAutoCats.SelectedItem as AutoCat);
+			// Select previous item after deleting.
+			if (lstAutoCats.Items.Count > 0)
+			{
+				lstAutoCats.SelectedItem = selectedIndex > 0 ? lstAutoCats.Items[selectedIndex - 1] : lstAutoCats.Items[selectedIndex];
+			}
+		}
 
-            bool good = true;
-            DialogResult res;
-            string name;
+		private void cmdRename_Click(object sender, EventArgs e)
+		{
+			RenameAutoCat(lstAutoCats.SelectedItem as AutoCat);
+		}
 
-            do
-            {
-                GetStringDlg dlg = new GetStringDlg(ac.Name, GlobalStrings.DlgAutoCat_RenameBoxTitle,
-                    GlobalStrings.DlgAutoCat_RenameBoxLabel, GlobalStrings.DlgAutoCat_RenameBoxButton);
-                res = dlg.ShowDialog();
-                name = dlg.Value;
-                if (string.IsNullOrEmpty(name))
-                {
-                    MessageBox.Show(GlobalStrings.DlgAutoCat_MustHaveName);
-                    good = false;
-                }
-                else if (NameExists(name))
-                {
-                    MessageBox.Show(GlobalStrings.DlgAutoCat_NameInUse);
-                    good = false;
-                }
-            } while (res == DialogResult.OK && !good);
-            if (res == DialogResult.OK)
-            {
-                ac.Name = name;
-            }
-            AutoCatList.Sort();
-            FillAutocatList();
-        }
+		private void cmdSave_Click(object sender, EventArgs e)
+		{
+			SaveToAutoCat();
+		}
 
-        private void RemoveAutoCat(AutoCat ac)
-        {
-            if (ac == null) return;
-            lstAutoCats.Items.Remove(ac);
-            AutoCatList.Remove(ac);
-        }
+		private void CreateNewAutoCat()
+		{
+			string name = string.Empty;
+			AutoCatType t = AutoCatType.None;
+			bool good = true;
+			DialogResult res;
+			do
+			{
+				DlgAutoCatCreate dlg = new DlgAutoCatCreate();
+				res = dlg.ShowDialog();
+				if (res == DialogResult.OK)
+				{
+					good = true;
+					name = dlg.SelectedName;
+					t = dlg.SelectedType;
+					if (string.IsNullOrEmpty(name))
+					{
+						MessageBox.Show(GlobalStrings.DlgAutoCat_MustHaveName);
+						good = false;
+					}
+					else if (NameExists(name))
+					{
+						MessageBox.Show(GlobalStrings.DlgAutoCat_NameInUse);
+						good = false;
+					}
+					else if (t == AutoCatType.None)
+					{
+						MessageBox.Show(GlobalStrings.DlgAutoCat_SelectValidType);
+						good = false;
+					}
+				}
+			} while ((res == DialogResult.OK) && !good);
 
-        #endregion
+			AutoCat newAutoCat = null;
+			if (res == DialogResult.OK)
+			{
+				newAutoCat = AutoCat.Create(t, name);
+				if (newAutoCat != null)
+				{
+					AutoCatList.Add(newAutoCat);
+				}
+			}
 
-        #region Event Handlers
+			AutoCatList.Sort();
+			FillAutocatList();
+			if (newAutoCat != null)
+			{
+				lstAutoCats.SelectedItem = newAutoCat;
+			}
+		}
 
-        private void DlgAutoCat_Load(object sender, EventArgs e)
-        {
-            FillAutocatList();
-            RecreateConfigPanel();
-            FillFilterList();
+		private void DlgAutoCat_Load(object sender, EventArgs e)
+		{
+			FillAutocatList();
+			RecreateConfigPanel();
+			FillFilterList();
 
-            if (initial != null)
-            {
-                lstAutoCats.SelectedItem = initial;
-            }
-        }
+			if (initial != null)
+			{
+				lstAutoCats.SelectedItem = initial;
+			}
+		}
 
-        private void lstAutoCats_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (current != null)
-            {
-                SaveToAutoCat();
-            }
-            current = lstAutoCats.SelectedItem as AutoCat;
-            RecreateConfigPanel();
-            FillConfigPanel();
+		private void FillAutocatList()
+		{
+			lstAutoCats.Items.Clear();
+			foreach (AutoCat ac in AutoCatList)
+			{
+				lstAutoCats.Items.Add(ac);
+			}
 
-            if (lstAutoCats.SelectedItem != null)
-            {
-                btnUp.Enabled = (lstAutoCats.SelectedIndex == 0) ? false : true;
-                btnDown.Enabled = (lstAutoCats.SelectedIndex == (lstAutoCats.Items.Count - 1)) ? false : true;
-            }
-            else
-            {
-                btnUp.Enabled = false;
-                btnDown.Enabled = false;
-            }
-        }
+			lstAutoCats.DisplayMember = "DisplayName";
+		}
 
-        private void btnUp_Click(object sender, EventArgs e)
-        {
-            Utility.MoveItem(lstAutoCats, -1);
-            RepositionAutoCats();
-        }
+		private void FillConfigPanel()
+		{
+			if ((current != null) && (currentConfigPanel != null))
+			{
+				currentConfigPanel.LoadFromAutoCat(current);
+				if (current.Filter != null)
+				{
+					chkFilter.Checked = true;
+					cboFilter.Text = current.Filter;
+				}
+				else
+				{
+					chkFilter.Checked = false;
+				}
+			}
+		}
 
-        private void btnDown_Click(object sender, EventArgs e)
-        {
-            Utility.MoveItem(lstAutoCats, 1);
-            RepositionAutoCats();
-        }
+		private void FillFilterList()
+		{
+			cboFilter.DataSource = null;
+			cboFilter.DataSource = ownedGames.Filters;
+			cboFilter.ValueMember = null;
+			cboFilter.DisplayMember = "Name";
+			cboFilter.Text = "";
+		}
 
-        private void cmdSave_Click(object sender, EventArgs e)
-        {
-            SaveToAutoCat();
-        }
+		private void lstAutoCats_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (current != null)
+			{
+				SaveToAutoCat();
+			}
 
-        private void cmdCreate_Click(object sender, EventArgs e)
-        {
-            CreateNewAutoCat();
-        }
+			current = lstAutoCats.SelectedItem as AutoCat;
+			RecreateConfigPanel();
+			FillConfigPanel();
 
-        private void cmdDelete_Click(object sender, EventArgs e)
-        {
-            int selectedIndex = lstAutoCats.SelectedIndex;
-            RemoveAutoCat(lstAutoCats.SelectedItem as AutoCat);
-            // Select previous item after deleting.
-            if (lstAutoCats.Items.Count > 0)
-            {
-                lstAutoCats.SelectedItem = selectedIndex > 0 ? lstAutoCats.Items[selectedIndex - 1] : lstAutoCats.Items[selectedIndex];
-            }
-        }
+			if (lstAutoCats.SelectedItem != null)
+			{
+				btnUp.Enabled = lstAutoCats.SelectedIndex == 0 ? false : true;
+				btnDown.Enabled = lstAutoCats.SelectedIndex == (lstAutoCats.Items.Count - 1) ? false : true;
+			}
+			else
+			{
+				btnUp.Enabled = false;
+				btnDown.Enabled = false;
+			}
+		}
 
-        private void cmdRename_Click(object sender, EventArgs e)
-        {
-            RenameAutoCat(lstAutoCats.SelectedItem as AutoCat);
-        }
+		private bool NameExists(string name)
+		{
+			foreach (AutoCat ac in AutoCatList)
+			{
+				if (ac.Name == name)
+				{
+					return true;
+				}
+			}
 
-        private void chkFilter_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkFilter.Checked)
-            {
-                cboFilter.Enabled = true;
-                FillFilterList();
-            }
-            else cboFilter.Enabled = false;
-        }
+			return false;
+		}
 
-        #endregion
+		private void RecreateConfigPanel()
+		{
+			if (currentConfigPanel != null)
+			{
+				panelAutocat.Controls.Remove(currentConfigPanel);
+			}
 
-        #region Utility
+			if (current != null)
+			{
+				currentConfigPanel = AutoCatConfigPanel.CreatePanel(current, ownedGames, AutoCatList);
+			}
 
-        private void RepositionAutoCats()
-        {
-            AutoCatList.Clear();
-            foreach (AutoCat ac in lstAutoCats.Items)
-            {
-                AutoCatList.Add(ac);
-            }
-        }
+			if (currentConfigPanel != null)
+			{
+				currentConfigPanel.Dock = DockStyle.Fill;
+				panelAutocat.Controls.Add(currentConfigPanel);
+			}
+		}
 
+		private void RemoveAutoCat(AutoCat ac)
+		{
+			if (ac == null)
+			{
+				return;
+			}
 
-        private bool NameExists(string name)
-        {
-            foreach (AutoCat ac in AutoCatList)
-            {
-                if (ac.Name == name) return true;
-            }
-            return false;
-        }
+			lstAutoCats.Items.Remove(ac);
+			AutoCatList.Remove(ac);
+		}
 
-        #endregion
-    }
+		private void RenameAutoCat(AutoCat ac)
+		{
+			if (ac == null)
+			{
+				return;
+			}
+
+			bool good = true;
+			DialogResult res;
+			string name;
+
+			do
+			{
+				GetStringDlg dlg = new GetStringDlg(ac.Name, GlobalStrings.DlgAutoCat_RenameBoxTitle, GlobalStrings.DlgAutoCat_RenameBoxLabel, GlobalStrings.DlgAutoCat_RenameBoxButton);
+				res = dlg.ShowDialog();
+				name = dlg.Value;
+				if (string.IsNullOrEmpty(name))
+				{
+					MessageBox.Show(GlobalStrings.DlgAutoCat_MustHaveName);
+					good = false;
+				}
+				else if (NameExists(name))
+				{
+					MessageBox.Show(GlobalStrings.DlgAutoCat_NameInUse);
+					good = false;
+				}
+			} while ((res == DialogResult.OK) && !good);
+
+			if (res == DialogResult.OK)
+			{
+				ac.Name = name;
+			}
+
+			AutoCatList.Sort();
+			FillAutocatList();
+		}
+
+		private void RepositionAutoCats()
+		{
+			AutoCatList.Clear();
+			foreach (AutoCat ac in lstAutoCats.Items)
+			{
+				AutoCatList.Add(ac);
+			}
+		}
+
+		private void SaveToAutoCat()
+		{
+			if ((current != null) && (currentConfigPanel != null))
+			{
+				currentConfigPanel.SaveToAutoCat(current);
+				if (chkFilter.Checked && (cboFilter.Text != string.Empty))
+				{
+					current.Filter = cboFilter.Text;
+				}
+				else
+				{
+					current.Filter = null;
+				}
+			}
+		}
+
+		#endregion
+	}
 }

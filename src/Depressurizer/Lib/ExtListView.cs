@@ -22,77 +22,108 @@ using System.Windows.Forms;
 
 namespace Depressurizer.Lib
 {
-    class ExtListView : ListView
-    {
-        public event EventHandler SelectionChanged;
+	internal class ExtListView : ListView
+	{
+		#region Fields
 
-        private bool isSelecting;
-        private IComparer suspendedComparer;
-        private int suspendSortDepth;
+		private bool isSelecting;
 
-        public ExtListView()
-        {
-            SelectedIndexChanged += ExtListView_SelectedIndexChanged;
-        }
+		private IComparer suspendedComparer;
 
-        public void ExtBeginUpdate()
-        {
-            BeginUpdate();
-            SuspendSorting();
-        }
+		private int suspendSortDepth;
 
-        public void ExtEndUpdate()
-        {
-            EndUpdate();
-            ResumeSorting(true);
-        }
+		#endregion
 
-        /// <summary>
-        /// Suspends sorting until ResumeSorting is called. Does so by clearing the ListViewItemSorter property.
-        /// </summary>
-        public void SuspendSorting()
-        {
-            if (suspendSortDepth == 0)
-            {
-                suspendedComparer = ListViewItemSorter;
-                ListViewItemSorter = null;
-            }
-            suspendSortDepth++;
-        }
+		#region Constructors and Destructors
 
-        /// <summary>
-        /// Resumes sorting after SuspendSorting has been called.
-        /// </summary>
-        /// <param name="sortNow">If true, will sort immediately.</param>
-        public void ResumeSorting(bool sortNow = false)
-        {
-            if (suspendSortDepth == 0) return;
-            if (suspendSortDepth == 1)
-            {
-                ListViewItemSorter = suspendedComparer;
-                suspendedComparer = null;
-                if (sortNow) Sort();
-            }
-            suspendSortDepth--;
-        }
+		public ExtListView()
+		{
+			SelectedIndexChanged += ExtListView_SelectedIndexChanged;
+		}
 
-        void ExtListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!isSelecting)
-            {
-                isSelecting = true;
-                Application.Idle += Application_Idle;
-            }
-        }
+		#endregion
 
-        void Application_Idle(object sender, EventArgs e)
-        {
-            isSelecting = false;
-            Application.Idle -= Application_Idle;
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, new EventArgs());
-            }
-        }
-    }
+		#region Public Events
+
+		public event EventHandler SelectionChanged;
+
+		#endregion
+
+		#region Public Methods and Operators
+
+		public void ExtBeginUpdate()
+		{
+			BeginUpdate();
+			SuspendSorting();
+		}
+
+		public void ExtEndUpdate()
+		{
+			EndUpdate();
+			ResumeSorting(true);
+		}
+
+		/// <summary>
+		///     Resumes sorting after SuspendSorting has been called.
+		/// </summary>
+		/// <param name="sortNow">If true, will sort immediately.</param>
+		public void ResumeSorting(bool sortNow = false)
+		{
+			if (suspendSortDepth == 0)
+			{
+				return;
+			}
+
+			if (suspendSortDepth == 1)
+			{
+				ListViewItemSorter = suspendedComparer;
+				suspendedComparer = null;
+				if (sortNow)
+				{
+					Sort();
+				}
+			}
+
+			suspendSortDepth--;
+		}
+
+		/// <summary>
+		///     Suspends sorting until ResumeSorting is called. Does so by clearing the ListViewItemSorter property.
+		/// </summary>
+		public void SuspendSorting()
+		{
+			if (suspendSortDepth == 0)
+			{
+				suspendedComparer = ListViewItemSorter;
+				ListViewItemSorter = null;
+			}
+
+			suspendSortDepth++;
+		}
+
+		#endregion
+
+		#region Methods
+
+		private void Application_Idle(object sender, EventArgs e)
+		{
+			isSelecting = false;
+			Application.Idle -= Application_Idle;
+			if (SelectionChanged != null)
+			{
+				SelectionChanged(this, new EventArgs());
+			}
+		}
+
+		private void ExtListView_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (!isSelecting)
+			{
+				isSelecting = true;
+				Application.Idle += Application_Idle;
+			}
+		}
+
+		#endregion
+	}
 }

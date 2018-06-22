@@ -23,56 +23,68 @@ using Microsoft.Win32;
 
 namespace Depressurizer
 {
-    public partial class DlgSteamPath : Form
-    {
-        public string Path
-        {
-            get { return txtPath.Text.Trim().TrimEnd('\\'); }
-        }
+	public partial class DlgSteamPath : Form
+	{
+		#region Constructors and Destructors
 
-        public DlgSteamPath()
-        {
-            InitializeComponent();
-            txtPath.Text = GetSteamPath();
-        }
+		public DlgSteamPath()
+		{
+			InitializeComponent();
+			txtPath.Text = GetSteamPath();
+		}
 
-        private void cmdOk_Click(object sender, EventArgs e)
-        {
-            if (!Directory.Exists(Path))
-            {
-                DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist,
-                    GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button2);
-                if (res == DialogResult.No)
-                {
-                    return;
-                }
-            }
-            Close();
-        }
+		#endregion
 
-        private void cmdBrowse_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dlg = new FolderBrowserDialog();
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                txtPath.Text = dlg.SelectedPath;
-            }
-        }
+		#region Public Properties
 
-        private string GetSteamPath()
-        {
-            try
-            {
-                string s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
-                if (s == null) s = string.Empty;
-                return s.Replace('/', '\\');
-            }
-            catch
-            {
-                return string.Empty;
-            }
-        }
-    }
+		public string Path => txtPath.Text.Trim().TrimEnd('\\');
+
+		#endregion
+
+		#region Methods
+
+		private void cmdBrowse_Click(object sender, EventArgs e)
+		{
+			FolderBrowserDialog dlg = new FolderBrowserDialog();
+			DialogResult res = dlg.ShowDialog();
+			if (res == DialogResult.OK)
+			{
+				txtPath.Text = dlg.SelectedPath;
+			}
+		}
+
+		private void cmdOk_Click(object sender, EventArgs e)
+		{
+			if (!Directory.Exists(Path))
+			{
+				DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+				if (res == DialogResult.No)
+				{
+					return;
+				}
+			}
+
+			Close();
+		}
+
+		private string GetSteamPath()
+		{
+			try
+			{
+				string s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
+				if (s == null)
+				{
+					s = string.Empty;
+				}
+
+				return s.Replace('/', '\\');
+			}
+			catch
+			{
+				return string.Empty;
+			}
+		}
+
+		#endregion
+	}
 }

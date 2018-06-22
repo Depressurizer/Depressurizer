@@ -19,245 +19,311 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using Rallion;
 using System.Xml.Serialization;
+using Depressurizer.Helpers;
 using Depressurizer.Models;
 
 namespace Depressurizer
 {
-    public enum TimeType
-    {
-        Main,
-        Extras,
-        Completionist
-    }
+	public enum TimeType
+	{
+		Main,
 
-    public class Hltb_Rule
-    {
-        [XmlElement("Text")]
-        public string Name { get; set; }
-        public float MinHours { get; set; }
-        public float MaxHours { get; set; }
-        public TimeType TimeType { get; set; }
+		Extras,
 
-        public Hltb_Rule(string name, float minHours, float maxHours, TimeType timeType)
-        {
-            Name = name;
-            MinHours = minHours;
-            MaxHours = maxHours;
-            TimeType = timeType;
-        }
+		Completionist
+	}
 
-        //XmlSerializer requires a parameterless constructor
-        private Hltb_Rule() { }
+	public class Hltb_Rule
+	{
+		#region Constructors and Destructors
 
-        public Hltb_Rule(Hltb_Rule other)
-        {
-            Name = other.Name;
-            MinHours = other.MinHours;
-            MaxHours = other.MaxHours;
-            TimeType = other.TimeType;
-        }
-    }
+		public Hltb_Rule(string name, float minHours, float maxHours, TimeType timeType)
+		{
+			Name = name;
+			MinHours = minHours;
+			MaxHours = maxHours;
+			TimeType = timeType;
+		}
 
-    public class AutoCatHltb : AutoCat
-    {
-        #region Properties
+		public Hltb_Rule(Hltb_Rule other)
+		{
+			Name = other.Name;
+			MinHours = other.MinHours;
+			MaxHours = other.MaxHours;
+			TimeType = other.TimeType;
+		}
 
-        public string Prefix { get; set; }
-        public bool IncludeUnknown { get; set; }
-        public string UnknownText { get; set; }
-        [XmlElement("Rule")]
-        public List<Hltb_Rule> Rules;
+		//XmlSerializer requires a parameterless constructor
+		private Hltb_Rule()
+		{
+		}
 
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.Hltb; }
-        }
+		#endregion
 
-        public const string TypeIdString = "AutoCatHltb";
+		#region Public Properties
 
-        public const string XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Prefix = "Prefix",
-            XmlName_IncludeUnknown = "IncludeUnknown",
-            XmlName_UnknownText = "UnknownText",
-            XmlName_Rule = "Rule",
-            XmlName_Rule_Text = "Text",
-            XmlName_Rule_MinHours = "MinHours",
-            XmlName_Rule_MaxHours = "MaxHours",
-            XmlName_Rule_TimeType = "TimeType";
+		public float MaxHours { get; set; }
 
-        #endregion
+		public float MinHours { get; set; }
 
-        #region Construction
+		[XmlElement("Text")]
+		public string Name { get; set; }
 
-        public AutoCatHltb(string name, string filter = null, string prefix = null,
-            bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false)
-            : base(name)
-        {
-            Filter = filter;
-            Prefix = prefix;
-            IncludeUnknown = includeUnknown;
-            UnknownText = unknownText;
-            Rules = (rules == null) ? new List<Hltb_Rule>() : rules;
-            Selected = selected;
-        }
+		public TimeType TimeType { get; set; }
 
-        //XmlSerializer requires a parameterless constructor
-        private AutoCatHltb() { }
+		#endregion
+	}
 
-        public AutoCatHltb(AutoCatHltb other)
-            : base(other)
-        {
-            Filter = other.Filter;
-            Prefix = other.Prefix;
-            IncludeUnknown = other.IncludeUnknown;
-            UnknownText = other.UnknownText;
-            Rules = other.Rules.ConvertAll(rule => new Hltb_Rule(rule));
-            Selected = other.Selected;
-        }
+	public class AutoCatHltb : AutoCat
+	{
+		#region Constants
 
-        public override AutoCat Clone()
-        {
-            return new AutoCatHltb(this);
-        }
+		public const string TypeIdString = "AutoCatHltb";
 
-        #endregion
+		public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_IncludeUnknown = "IncludeUnknown", XmlName_UnknownText = "UnknownText", XmlName_Rule = "Rule", XmlName_Rule_Text = "Text", XmlName_Rule_MinHours = "MinHours", XmlName_Rule_MaxHours = "MaxHours", XmlName_Rule_TimeType = "TimeType";
 
-        #region Autocategorization
+		#endregion
 
-        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
-        {
-            if (games == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
-            }
-            if (db == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-            if (game == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
-                return AutoCatResult.Failure;
-            }
+		#region Fields
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+		[XmlElement("Rule")]
+		public List<Hltb_Rule> Rules;
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+		#endregion
 
-            string result = null;
+		#region Constructors and Destructors
 
-            float hltbMain = db.Games[game.Id].HltbMain / 60.0f;
-            float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
-            float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
+		public AutoCatHltb(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false) : base(name)
+		{
+			Filter = filter;
+			Prefix = prefix;
+			IncludeUnknown = includeUnknown;
+			UnknownText = unknownText;
+			Rules = rules == null ? new List<Hltb_Rule>() : rules;
+			Selected = selected;
+		}
 
-            if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
-                result = UnknownText;
-            else
-            {
-                foreach (Hltb_Rule rule in Rules)
-                {
-                    if (CheckRule(rule, hltbMain, hltbExtras, hltbCompletionist))
-                    {
-                        result = rule.Name;
-                        break;
-                    }
-                }
-            }
+		public AutoCatHltb(AutoCatHltb other) : base(other)
+		{
+			Filter = other.Filter;
+			Prefix = other.Prefix;
+			IncludeUnknown = other.IncludeUnknown;
+			UnknownText = other.UnknownText;
+			Rules = other.Rules.ConvertAll(rule => new Hltb_Rule(rule));
+			Selected = other.Selected;
+		}
 
-            if (result != null)
-            {
-                result = GetProcessedString(result);
-                game.AddCategory(games.GetCategory(result));
-            }
-            return AutoCatResult.Success;
-        }
+		//XmlSerializer requires a parameterless constructor
+		private AutoCatHltb()
+		{
+		}
 
-        private bool CheckRule(Hltb_Rule rule, float hltbMain, float hltbExtras, float hltbCompletionist)
-        {
-            float hours = 0.0f;
-            if (rule.TimeType == TimeType.Main)
-                hours = hltbMain;
-            else if (rule.TimeType == TimeType.Extras)
-                hours = hltbExtras;
-            else if (rule.TimeType == TimeType.Completionist)
-                hours = hltbCompletionist;
-            if (hours == 0.0f) return false;
-            return (hours >= rule.MinHours && (hours <= rule.MaxHours || rule.MaxHours == 0.0f));
-        }
+		#endregion
 
-        private string GetProcessedString(string s)
-        {
-            if (!string.IsNullOrEmpty(Prefix)) return Prefix + s;
-            return s;
-        }
+		#region Public Properties
 
-        #endregion
+		public override AutoCatType AutoCatType => AutoCatType.Hltb;
 
-        #region Serialization
+		public bool IncludeUnknown { get; set; }
 
-        public override void WriteToXml(XmlWriter writer)
-        {
-            writer.WriteStartElement(TypeIdString);
+		public string Prefix { get; set; }
 
-            writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
-            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlName_UnknownText, UnknownText);
+		public string UnknownText { get; set; }
 
+		#endregion
 
-            foreach (Hltb_Rule rule in Rules)
-            {
-                writer.WriteStartElement(XmlName_Rule);
-                writer.WriteElementString(XmlName_Rule_Text, rule.Name);
-                writer.WriteElementString(XmlName_Rule_MinHours, rule.MinHours.ToString());
-                writer.WriteElementString(XmlName_Rule_MaxHours, rule.MaxHours.ToString());
-                writer.WriteElementString(XmlName_Rule_TimeType, rule.TimeType.ToString());
+		#region Properties
 
-                writer.WriteEndElement();
-            }
-            writer.WriteEndElement();
-        }
+		private static Logger Logger => Logger.Instance;
 
-        public static AutoCatHltb LoadFromXmlElement(XmlElement xElement)
-        {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
-            bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], false);
-            string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], string.Empty);
+		#endregion
 
-            List<Hltb_Rule> rules = new List<Hltb_Rule>();
-            foreach (XmlNode node in xElement.SelectNodes(XmlName_Rule))
-            {
-                string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
-                float ruleMin = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MinHours], 0);
-                float ruleMax = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MaxHours], 0);
-                string type = XmlUtil.GetStringFromNode(node[XmlName_Rule_TimeType], string.Empty);
-                TimeType ruleTimeType;
-                switch (type)
-                {
-                    case "Extras":
-                        ruleTimeType = TimeType.Extras;
-                        break;
-                    case "Completionist":
-                        ruleTimeType = TimeType.Completionist;
-                        break;
-                    default:
-                        ruleTimeType = TimeType.Main;
-                        break;
-                }
-                rules.Add(new Hltb_Rule(ruleName, ruleMin, ruleMax, ruleTimeType));
-            }
-            AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText) {Rules = rules};
-            return result;
-        }
+		#region Public Methods and Operators
 
-        #endregion
-    }
+		public static AutoCatHltb LoadFromXmlElement(XmlElement xElement)
+		{
+			string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+			string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+			string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
+			bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], false);
+			string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], string.Empty);
+
+			List<Hltb_Rule> rules = new List<Hltb_Rule>();
+			foreach (XmlNode node in xElement.SelectNodes(XmlName_Rule))
+			{
+				string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
+				float ruleMin = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MinHours], 0);
+				float ruleMax = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MaxHours], 0);
+				string type = XmlUtil.GetStringFromNode(node[XmlName_Rule_TimeType], string.Empty);
+				TimeType ruleTimeType;
+				switch (type)
+				{
+					case "Extras":
+						ruleTimeType = TimeType.Extras;
+
+						break;
+					case "Completionist":
+						ruleTimeType = TimeType.Completionist;
+
+						break;
+					default:
+						ruleTimeType = TimeType.Main;
+
+						break;
+				}
+
+				rules.Add(new Hltb_Rule(ruleName, ruleMin, ruleMax, ruleTimeType));
+			}
+
+			AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText)
+			{
+				Rules = rules
+			};
+
+			return result;
+		}
+
+		public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
+		{
+			if (games == null)
+			{
+				Logger.Error(GlobalStrings.Log_AutoCat_GamelistNull);
+
+				throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
+			}
+
+			if (db == null)
+			{
+				Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
+
+				throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
+			}
+
+			if (game == null)
+			{
+				Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
+
+				return AutoCatResult.Failure;
+			}
+
+			if (!db.Contains(game.Id))
+			{
+				return AutoCatResult.NotInDatabase;
+			}
+
+			if (!game.IncludeGame(filter))
+			{
+				return AutoCatResult.Filtered;
+			}
+
+			string result = null;
+
+			float hltbMain = db.Games[game.Id].HltbMain / 60.0f;
+			float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
+			float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
+
+			if (IncludeUnknown && (hltbMain == 0.0f) && (hltbExtras == 0.0f) && (hltbCompletionist == 0.0f))
+			{
+				result = UnknownText;
+			}
+			else
+			{
+				foreach (Hltb_Rule rule in Rules)
+				{
+					if (CheckRule(rule, hltbMain, hltbExtras, hltbCompletionist))
+					{
+						result = rule.Name;
+
+						break;
+					}
+				}
+			}
+
+			if (result != null)
+			{
+				result = GetProcessedString(result);
+				game.AddCategory(games.GetCategory(result));
+			}
+
+			return AutoCatResult.Success;
+		}
+
+		public override AutoCat Clone()
+		{
+			return new AutoCatHltb(this);
+		}
+
+		public override void WriteToXml(XmlWriter writer)
+		{
+			writer.WriteStartElement(TypeIdString);
+
+			writer.WriteElementString(XmlName_Name, Name);
+			if (Filter != null)
+			{
+				writer.WriteElementString(XmlName_Filter, Filter);
+			}
+
+			if (Prefix != null)
+			{
+				writer.WriteElementString(XmlName_Prefix, Prefix);
+			}
+
+			writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
+			writer.WriteElementString(XmlName_UnknownText, UnknownText);
+
+			foreach (Hltb_Rule rule in Rules)
+			{
+				writer.WriteStartElement(XmlName_Rule);
+				writer.WriteElementString(XmlName_Rule_Text, rule.Name);
+				writer.WriteElementString(XmlName_Rule_MinHours, rule.MinHours.ToString());
+				writer.WriteElementString(XmlName_Rule_MaxHours, rule.MaxHours.ToString());
+				writer.WriteElementString(XmlName_Rule_TimeType, rule.TimeType.ToString());
+
+				writer.WriteEndElement();
+			}
+
+			writer.WriteEndElement();
+		}
+
+		#endregion
+
+		#region Methods
+
+		private bool CheckRule(Hltb_Rule rule, float hltbMain, float hltbExtras, float hltbCompletionist)
+		{
+			float hours = 0.0f;
+			if (rule.TimeType == TimeType.Main)
+			{
+				hours = hltbMain;
+			}
+			else if (rule.TimeType == TimeType.Extras)
+			{
+				hours = hltbExtras;
+			}
+			else if (rule.TimeType == TimeType.Completionist)
+			{
+				hours = hltbCompletionist;
+			}
+
+			if (hours == 0.0f)
+			{
+				return false;
+			}
+
+			return (hours >= rule.MinHours) && ((hours <= rule.MaxHours) || (rule.MaxHours == 0.0f));
+		}
+
+		private string GetProcessedString(string s)
+		{
+			if (!string.IsNullOrEmpty(Prefix))
+			{
+				return Prefix + s;
+			}
+
+			return s;
+		}
+
+		#endregion
+	}
 }
