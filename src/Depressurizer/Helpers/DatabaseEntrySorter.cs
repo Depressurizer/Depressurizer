@@ -21,7 +21,7 @@
 using System.Collections.Generic;
 using Depressurizer.Models;
 
-namespace Depressurizer
+namespace Depressurizer.Helpers
 {
 	public class DatabaseEntrySorter : IComparer<DatabaseEntry>
 	{

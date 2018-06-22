@@ -38,6 +38,7 @@ using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Depressurizer.Dialogs;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
 using MaterialSkin;
@@ -104,11 +105,6 @@ namespace Depressurizer
 		private readonly Color textColor = Color.FromArgb(255, 255, 255, 255);
 
 		private Filter _advancedFilter = new Filter(ADVANCED_FILTER);
-
-		// For getting game banners
-		private GameBanners bannerGrabber;
-
-		private Thread bannerThread;
 
 		private Color borderColor = Color.FromArgb(255, 25, 28, 38);
 
@@ -235,37 +231,38 @@ namespace Depressurizer
 
 		#region Methods
 
-		/// <summary>
-		///     Checks github for newer versions of depressurizer.
-		/// </summary>
-		/// <returns>True if there is a newer release, false otherwise</returns>
 		private static void CheckForDepressurizerUpdates()
 		{
 			Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
 			try
 			{
 				Version githubVersion;
 				string url;
-				using (WebClient wc = new WebClient())
+
+				using (WebClient client = new WebClient())
 				{
-					wc.Headers.Set("User-Agent", "Depressurizer");
-					string json = wc.DownloadString(Resources.UrlLatestRelease);
+					client.Headers.Set("User-Agent", "Depressurizer");
+
+					string json = client.DownloadString(Constants.DepressurizerLatestRelease);
 					JObject parsedJson = JObject.Parse(json);
 					githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
 					url = (string) parsedJson.SelectToken("html_url");
 				}
 
-				if (githubVersion > currentVersion)
+				if (githubVersion <= currentVersion)
 				{
-					if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
-					{
-						Process.Start(url);
-					}
+					return;
+				}
+
+				if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
+				{
+					Process.Start(url);
 				}
 			}
 			catch (Exception e)
 			{
-				Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
+				Program.Logger.WriteException("MainForm: Exception while checking for new updates for Depressurizer.", e);
 				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
@@ -1558,8 +1555,11 @@ namespace Depressurizer
 		/// </summary>
 		private void FillGameList()
 		{
-			List<GameInfo> gamelist = new List<GameInfo>();
 			Cursor = Cursors.WaitCursor;
+
+			List<GameInfo> gamelist = new List<GameInfo>();
+			List<int> appIds = new List<int>();
+
 			if (CurrentProfile != null)
 			{
 				foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
@@ -1569,22 +1569,19 @@ namespace Depressurizer
 						continue;
 					}
 
-					gamelist.Add(g);
 					if (g.Name == null)
 					{
 						g.Name = string.Empty;
-						gamelist.Add(g);
 					}
+
+					gamelist.Add(g);
+					appIds.Add(g.Id);
 				}
 			}
 
-			if (gamelist.Count > 0)
-			{
-				StartBannerThread(new List<GameInfo>(gamelist));
-			}
+			Steam.GrabBanners(appIds);
 
 			lstGames.SetObjects(gamelist);
-
 			lstGames.BuildList();
 
 			mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
@@ -1652,12 +1649,6 @@ namespace Depressurizer
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if ((bannerThread != null) && bannerThread.IsAlive)
-			{
-				bannerGrabber.Stop();
-				Thread.Sleep(100);
-			}
-
 			Settings.X = Left;
 			Settings.Y = Top;
 			Settings.Height = Height;
@@ -2833,7 +2824,7 @@ namespace Depressurizer
 
 			// Add game banner to ID column
 			GameInfo g = (GameInfo) e.Model;
-			string bannerFile = string.Format(Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id);
+			string bannerFile = Helpers.Location.File.Banner(g.Id);
 			if (!File.Exists(bannerFile))
 			{
 				return;
@@ -2980,7 +2971,7 @@ namespace Depressurizer
 				if (webBrowser1.Visible)
 				{
 					webBrowser1.ScriptErrorsSuppressed = true;
-					webBrowser1.Navigate(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, g.Id));
+					webBrowser1.Navigate(string.Format(Constants.SteamStoreApp + "?l=" + storeLanguage, g.Id));
 				}
 			}
 			else if (webBrowser1.Visible)
@@ -2991,12 +2982,12 @@ namespace Depressurizer
 					{
 						GameInfo g = tlstGames.Objects[0];
 						webBrowser1.ScriptErrorsSuppressed = true;
-						webBrowser1.Navigate(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, g.Id));
+						webBrowser1.Navigate(string.Format(Constants.SteamStoreApp + "?l=" + storeLanguage, g.Id));
 					}
 					else
 					{
 						webBrowser1.ScriptErrorsSuppressed = true;
-						webBrowser1.Navigate(Resources.UrlSteamStore + "?l=" + storeLanguage);
+						webBrowser1.Navigate(Constants.SteamStore + "?l=" + storeLanguage);
 					}
 				}
 				catch
@@ -4207,19 +4198,6 @@ namespace Depressurizer
 		private bool ShouldHideGame(GameInfo g)
 		{
 			return !ShouldDisplayGame(g);
-		}
-
-		private void StartBannerThread(List<GameInfo> games)
-		{
-			if ((bannerThread != null) && bannerThread.IsAlive)
-			{
-				bannerGrabber.Stop();
-				Thread.Sleep(100);
-			}
-
-			bannerGrabber = new GameBanners(games);
-			bannerThread = new Thread(bannerGrabber.Grab);
-			bannerThread.Start();
 		}
 
 		/// <summary>

@@ -88,24 +88,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/mvegter/depressurizer.
-        /// </summary>
-        internal static string DepressurizerHomepage {
-            get {
-                return ResourceManager.GetString("DepressurizerHomepage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}\Game Banners\{1}.jpg.
-        /// </summary>
-        internal static string GameBannerPath {
-            get {
-                return ResourceManager.GetString("GameBannerPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}\userdata\{1}\config\localconfig.vdf.
         /// </summary>
         internal static string LocalConfigPath {
@@ -169,15 +151,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg.
-        /// </summary>
-        internal static string UrlGameBanner {
-            get {
-                return ResourceManager.GetString("UrlGameBanner", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all.
         /// </summary>
         internal static string UrlGameListHtml {
@@ -205,15 +178,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://api.github.com/repos/mvegter/Depressurizer/releases/latest.
-        /// </summary>
-        internal static string UrlLatestRelease {
-            get {
-                return ResourceManager.GetString("UrlLatestRelease", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50.
         /// </summary>
         internal static string UrlSteamCuratorRecommendations {
@@ -228,24 +192,6 @@ namespace Depressurizer.Properties {
         internal static string UrlSteamProfile {
             get {
                 return ResourceManager.GetString("UrlSteamProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://store.steampowered.com/.
-        /// </summary>
-        internal static string UrlSteamStore {
-            get {
-                return ResourceManager.GetString("UrlSteamStore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://store.steampowered.com/app/{0}/.
-        /// </summary>
-        internal static string UrlSteamStoreApp {
-            get {
-                return ResourceManager.GetString("UrlSteamStoreApp", resourceCulture);
             }
         }
         
