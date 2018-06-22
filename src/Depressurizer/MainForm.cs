@@ -66,10 +66,6 @@ namespace Depressurizer
 
 		private const string ADVANCED_FILTER = "ADVANCED_FILTER";
 
-		private const string BIG_DOWN = "{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN}";
-
-		private const string BIG_UP = "{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP}";
-
 		private const string EARLY_ACCESS = "Early Access";
 
 		private const int MAX_FILTER_STATE = 2;
@@ -1675,7 +1671,7 @@ namespace Depressurizer
 		private void FormMain_Load(object sender, EventArgs e)
 		{
 			// allow mousewheel scrolling for Add Category submenu.  Send 10 UP/DOWN per wheel click.
-			contextGame.MouseWheel += HandleMouseWheel;
+			DropdownMenuScrollWheelHandler.Enable();
 
 			// Load saved forms settings
 			Settings settings = Settings.Instance;
@@ -1851,14 +1847,6 @@ namespace Depressurizer
 			if (updateView)
 			{
 				OnViewChange();
-			}
-		}
-
-		private void HandleMouseWheel(object sender, MouseEventArgs e)
-		{
-			if (contextGame.IsDropDown)
-			{
-				SendKeys.SendWait(e.Delta > 0 ? BIG_UP : BIG_DOWN);
 			}
 		}
 
@@ -3760,23 +3748,27 @@ namespace Depressurizer
 		{
 			foreach (AutoCat ac in autocats)
 			{
-				if (ac != null)
+				if (ac == null)
 				{
-					if (ac.AutoCatType == AutoCatType.Group)
+					continue;
+				}
+
+				if (ac.AutoCatType == AutoCatType.Group)
+				{
+					AutoCatGroup acg = (AutoCatGroup) ac;
+					RunAutoCats(CurrentProfile.CloneAutoCatList(acg.Autocats, CurrentProfile.GameData.GetFilter(acg.Filter)), first, true);
+				}
+				else
+				{
+					if (!ac.Selected && !group)
 					{
-						AutoCatGroup acg = (AutoCatGroup) ac;
-						RunAutoCats(CurrentProfile.CloneAutoCatList(acg.Autocats, CurrentProfile.GameData.GetFilter(acg.Filter)), first, true);
+						continue;
 					}
-					else
-					{
-						if (ac.Selected || group)
-						{
-							ClearStatus();
-							Autocategorize(mchkAutoCatSelected.Checked, ac, first, false);
-							first = false;
-							FlushStatus();
-						}
-					}
+
+					ClearStatus();
+					Autocategorize(mchkAutoCatSelected.Checked, ac, first, false);
+					first = false;
+					FlushStatus();
 				}
 			}
 		}
@@ -3988,6 +3980,8 @@ namespace Depressurizer
 
 		private void SelectFilter()
 		{
+			RefreshFilters();
+
 			if (string.IsNullOrWhiteSpace(Settings.SelectedFilter))
 			{
 				return;
@@ -4171,33 +4165,6 @@ namespace Depressurizer
 			}
 
 			return false;
-		}
-
-		//void AddGameToCheckboxStates( GameInfo game, bool first ) {
-		//    ignoreCheckChanges = true;
-		//    if( first ) {
-		//        chkFavorite.CheckState = game.IsFavorite() ? CheckState.Checked : CheckState.Unchecked;
-		//        chkHidden.CheckState = game.Hidden ? CheckState.Checked : CheckState.Unchecked;
-		//    } else {
-		//        if( chkFavorite.CheckState != CheckState.Indeterminate ) {
-		//            if( game.IsFavorite() ) {
-		//                if( chkFavorite.CheckState == CheckState.Unchecked ) chkFavorite.CheckState = CheckState.Indeterminate;
-		//            } else {
-		//                if( chkFavorite.CheckState == CheckState.Checked ) chkFavorite.CheckState = CheckState.Indeterminate;
-		//            }
-		//        }
-		//        if( game.Hidden ) {
-		//            if( chkHidden.CheckState == CheckState.Unchecked ) chkHidden.CheckState = CheckState.Indeterminate;
-		//        } else {
-		//            if( chkHidden.CheckState == CheckState.Checked ) chkHidden.CheckState = CheckState.Indeterminate;
-		//        }
-		//    }
-		//    ignoreCheckChanges = false;
-		//}
-
-		private bool ShouldHideGame(GameInfo g)
-		{
-			return !ShouldDisplayGame(g);
 		}
 
 		/// <summary>
