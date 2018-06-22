@@ -108,6 +108,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +125,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Enums\StoreLanguage.cs" />
+    <Compile Include="GameList.cs" />
+    <Compile Include="Enums\GameListingSource.cs" />
     <Compile Include="Helpers\Location.cs" />
     <Compile Include="Helpers\SentryLogger.cs" />
     <Compile Include="Helpers\Steam.cs" />
@@ -293,6 +296,7 @@
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Enums\InterfaceLanguage.cs" />
     <Compile Include="Enums\StartupAction.cs" />
+    <Compile Include="ProfileAccessException.cs" />
     <Compile Include="Properties\Constants.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -368,7 +372,7 @@
     <Compile Include="Lib\DlgGetString.Designer.cs">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameData.cs" />
+    <Compile Include="GameInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
