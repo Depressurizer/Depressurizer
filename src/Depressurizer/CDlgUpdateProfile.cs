@@ -19,7 +19,6 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using Depressurizer.Enums;
 using Rallion;
 
 namespace Depressurizer
@@ -34,23 +33,21 @@ namespace Depressurizer
 
 		private readonly GameList data;
 
-		private XmlDocument doc;
-
-		private string htmlDoc;
-
 		private readonly SortedSet<int> ignore;
-
-		private readonly bool includeUnknown;
 
 		private readonly bool overwrite;
 
 		private readonly long SteamId;
 
+		private XmlDocument doc;
+
+		private string htmlDoc;
+
 		#endregion
 
 		#region Constructors and Destructors
 
-		public CDlgUpdateProfile(GameList data, long accountId, bool overwrite, SortedSet<int> ignore, bool inclUnknown) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+		public CDlgUpdateProfile(GameList data, long accountId, bool overwrite, SortedSet<int> ignore) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
 		{
 			custom = false;
 			SteamId = accountId;
@@ -65,12 +62,10 @@ namespace Depressurizer
 			this.overwrite = overwrite;
 			this.ignore = ignore;
 
-			includeUnknown = inclUnknown;
-
 			SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
 		}
 
-		public CDlgUpdateProfile(GameList data, string customUrl, bool overwrite, SortedSet<int> ignore, bool inclUnknown) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+		public CDlgUpdateProfile(GameList data, string customUrl, bool overwrite, SortedSet<int> ignore) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
 		{
 			custom = true;
 			this.customUrl = customUrl;
@@ -84,8 +79,6 @@ namespace Depressurizer
 
 			this.overwrite = overwrite;
 			this.ignore = ignore;
-
-			includeUnknown = inclUnknown;
 
 			SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
 		}
@@ -138,24 +131,24 @@ namespace Depressurizer
 
 		protected override void Finish()
 		{
-			if (!Canceled && (Error == null) && (UseHtml ? htmlDoc != null : doc != null))
+			if (Canceled || (Error != null) || (UseHtml ? htmlDoc == null : doc == null))
 			{
-				SetText(GlobalStrings.CDlgFetch_FinishingDownload);
-				if (UseHtml)
-				{
-					int newItems;
-					Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore, includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
-					Added = newItems;
-				}
-				else
-				{
-					int newItems;
-					Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore, includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
-					Added = newItems;
-				}
-
-				OnJobCompletion();
+				return;
 			}
+
+			SetText(GlobalStrings.CDlgFetch_FinishingDownload);
+			if (UseHtml)
+			{
+				Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore, out int newItems);
+				Added = newItems;
+			}
+			else
+			{
+				Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore, out int newItems);
+				Added = newItems;
+			}
+
+			OnJobCompletion();
 		}
 
 		protected override void RunProcess()

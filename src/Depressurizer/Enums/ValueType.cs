@@ -1,6 +1,6 @@
 ﻿#region License
 
-//     This file (AppPlatforms.cs) is part of Depressurizer.
+//     This file (ValueType.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -18,39 +18,14 @@
 
 #endregion
 
-using System;
-
 namespace Depressurizer.Enums
 {
-	/// <summary>
-	///     Operating System(s)
-	/// </summary>
-	[Flags]
-	public enum AppPlatforms
+	public enum ValueType
 	{
-		/// <summary>
-		///     Default value
-		/// </summary>
-		None = 0,
+		Array,
 
-		/// <summary>
-		///     Microsoft Windows
-		/// </summary>
-		Windows = 1 << 0,
+		String,
 
-		/// <summary>
-		///     macOS
-		/// </summary>
-		Mac = 1 << 1,
-
-		/// <summary>
-		///     Linux
-		/// </summary>
-		Linux = 1 << 2,
-
-		/// <summary>
-		///     Windows, Mac and Linux
-		/// </summary>
-		All = (1 << 3) - 1
+		Int
 	}
 }

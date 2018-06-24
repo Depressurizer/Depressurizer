@@ -34,17 +34,17 @@ namespace Depressurizer
 	{
 		#region Fields
 
+		private readonly HashSet<int> _intCols = new HashSet<int>();
+
+		private readonly HashSet<int> _revCols = new HashSet<int>();
+
 		private bool _asInt;
 
 		private int _col;
 
 		private int _direction;
 
-		private readonly HashSet<int> _intCols = new HashSet<int>();
-
 		private bool _rev;
-
-		private readonly HashSet<int> _revCols = new HashSet<int>();
 
 		#endregion
 

@@ -1,7 +1,6 @@
 ﻿#region License
 
 //     This file (AppInfo.cs) is part of Depressurizer.
-//     Copyright (C) 2011  Steve Labbe
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -21,189 +20,150 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Data;
+using System.Globalization;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 
 namespace Depressurizer.Models
 {
-	internal class AppInfo
+	/// <summary>
+	///     Steam AppInfo object
+	/// </summary>
+	public sealed class AppInfo
 	{
-		#region Fields
+		#region Constructors and Destructors
 
-		public AppTypes AppType;
-
-		public int Id;
-
-		public string Name;
-
-		public int Parent; // 0 if none
-
-		public AppPlatforms Platforms;
+		public AppInfo(int appId)
+		{
+			AppId = appId;
+		}
 
 		#endregion
 
-		#region Constructors and Destructors
+		#region Public Properties
 
-		public AppInfo(int id, string name = null, AppTypes type = AppTypes.Unknown, AppPlatforms platforms = AppPlatforms.All)
-		{
-			Id = id;
-			Name = name;
-			AppType = type;
+		/// <summary>
+		///     App Id
+		/// </summary>
+		public int AppId { get; set; } = 0;
 
-			Platforms = platforms;
-		}
+		/// <summary>
+		///     App Type
+		/// </summary>
+		public AppType AppType { get; set; } = AppType.Unknown;
+
+		/// <summary>
+		///     App Name
+		/// </summary>
+		public string Name { get; set; } = null;
+
+		/// <summary>
+		///     App's Parent Id
+		/// </summary>
+		public int ParentId { get; set; } = 0;
+
+		/// <summary>
+		///     Supported Platforms
+		/// </summary>
+		public AppPlatforms Platforms { get; set; } = AppPlatforms.None;
 
 		#endregion
 
 		#region Public Methods and Operators
 
-		public static AppInfo FromVdfNode(VdfFileNode commonNode)
+		public static AppInfo FromNode(AppInfoNode node)
 		{
-			if ((commonNode == null) || (commonNode.NodeType != ValueType.Array))
+			if (node == null)
 			{
 				return null;
 			}
 
-			AppInfo result = null;
-
-			VdfFileNode idNode = commonNode.GetNodeAt(new[]
+			if (!node.Items.ContainsKey("appinfo") || !node["appinfo"].Items.ContainsKey("common") || !node["appinfo"]["common"].Items.ContainsKey("gameid"))
 			{
-				"gameid"
-			}, false);
+				return null;
+			}
 
-			int id = -1;
-			if (idNode != null)
+			AppInfoNode dataNode = node["appinfo"]["common"];
+
+			string gameIdNode = dataNode["gameid"].Value;
+			if (!int.TryParse(gameIdNode, out int appId))
 			{
-				if (idNode.NodeType == ValueType.Int)
+				return null;
+			}
+
+			AppInfo appInfo = new AppInfo(appId);
+
+			if (dataNode.Items.ContainsKey("name"))
+			{
+				appInfo.Name = dataNode["name"].Value;
+			}
+
+			if (dataNode.Items.ContainsKey("type"))
+			{
+				string typeData = dataNode["type"].Value;
+				if (Enum.TryParse(typeData, true, out AppType type))
 				{
-					id = idNode.NodeInt;
+					appInfo.AppType = type;
 				}
-				else if (idNode.NodeType == ValueType.String)
+				else
 				{
-					if (!int.TryParse(idNode.NodeString, out id))
-					{
-						id = -1;
-					}
+					SentryLogger.Log(new DataException(string.Format(CultureInfo.InvariantCulture, "New AppType '{0}'", typeData)));
 				}
 			}
 
-			if (id >= 0)
+			if (dataNode.Items.ContainsKey("oslist"))
 			{
-				// Get name
-				string name = null;
-				VdfFileNode nameNode = commonNode.GetNodeAt(new[]
+				string osList = dataNode["oslist"].Value;
+				if (osList.IndexOf("windows", StringComparison.OrdinalIgnoreCase) != -1)
 				{
-					"name"
-				}, false);
-
-				if (nameNode != null)
-				{
-					name = nameNode.NodeData.ToString();
+					appInfo.Platforms |= AppPlatforms.Windows;
 				}
 
-				// Get type
-				string typeStr = null;
-				AppTypes type = AppTypes.Unknown;
-				VdfFileNode typeNode = commonNode.GetNodeAt(new[]
+				if (osList.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
 				{
-					"type"
-				}, false);
-
-				if (typeNode != null)
-				{
-					typeStr = typeNode.NodeData.ToString();
+					appInfo.Platforms |= AppPlatforms.Mac;
 				}
 
-				if (typeStr != null)
+				if (osList.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
 				{
-					if (!Enum.TryParse(typeStr, true, out type))
-					{
-						type = AppTypes.Other;
-					}
-				}
-
-				// Get platforms
-				string oslist = null;
-				AppPlatforms platforms = AppPlatforms.None;
-				VdfFileNode oslistNode = commonNode.GetNodeAt(new[]
-				{
-					"oslist"
-				}, false);
-
-				if (oslistNode != null)
-				{
-					oslist = oslistNode.NodeData.ToString();
-					if (oslist.IndexOf("windows", StringComparison.OrdinalIgnoreCase) != -1)
-					{
-						platforms |= AppPlatforms.Windows;
-					}
-
-					if (oslist.IndexOf("mac", StringComparison.OrdinalIgnoreCase) != -1)
-					{
-						platforms |= AppPlatforms.Mac;
-					}
-
-					if (oslist.IndexOf("linux", StringComparison.OrdinalIgnoreCase) != -1)
-					{
-						platforms |= AppPlatforms.Linux;
-					}
-				}
-
-				result = new AppInfo(id, name, type, platforms);
-
-				// Get parent
-				VdfFileNode parentNode = commonNode.GetNodeAt(new[]
-				{
-					"parent"
-				}, false);
-
-				if (parentNode != null)
-				{
-					result.Parent = parentNode.NodeInt;
+					appInfo.Platforms |= AppPlatforms.Linux;
 				}
 			}
 
-			return result;
+			if (!dataNode.Items.ContainsKey("parent"))
+			{
+				return appInfo;
+			}
+
+			string parentNode = dataNode["parent"].Value;
+			if (int.TryParse(parentNode, out int parentId))
+			{
+				appInfo.ParentId = parentId;
+			}
+
+			return appInfo;
 		}
 
 		public static Dictionary<int, AppInfo> LoadApps(string path)
 		{
-			Dictionary<int, AppInfo> result = new Dictionary<int, AppInfo>();
-			BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read));
-			long fileLength = bReader.BaseStream.Length;
-
-			// seek to common: start of a new entry
-			byte[] start =
+			Dictionary<int, AppInfo> appInfos = new Dictionary<int, AppInfo>();
+			if (string.IsNullOrWhiteSpace(path))
 			{
-				0x00,
-				0x00,
-				0x63,
-				0x6F,
-				0x6D,
-				0x6D,
-				0x6F,
-				0x6E,
-				0x00
-			}; // 0x00 0x00 c o m m o n 0x00
-
-			VdfFileNode.ReadBin_SeekTo(bReader, start, fileLength);
-
-			VdfFileNode node = VdfFileNode.LoadFromBinary(bReader, fileLength);
-			while (node != null)
-			{
-				AppInfo app = FromVdfNode(node);
-				if (app != null)
-				{
-					result.Add(app.Id, app);
-				}
-
-				VdfFileNode.ReadBin_SeekTo(bReader, start, fileLength);
-				node = VdfFileNode.LoadFromBinary(bReader, fileLength);
+				return appInfos;
 			}
 
-			bReader.Close();
+			Dictionary<uint, AppInfoNode> appInfoNodes = new AppInfoReader(path).Items;
+			foreach (AppInfoNode appInfoNode in appInfoNodes.Values)
+			{
+				AppInfo appInfo = FromNode(appInfoNode);
+				if (appInfo != null)
+				{
+					appInfos.Add(appInfo.AppId, appInfo);
+				}
+			}
 
-			return result;
+			return appInfos;
 		}
 
 		#endregion

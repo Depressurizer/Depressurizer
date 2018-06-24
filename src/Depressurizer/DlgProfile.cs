@@ -34,11 +34,11 @@ namespace Depressurizer
 
 		public Profile Profile;
 
+		private readonly bool editMode;
+
 		private int currentThreadCount;
 
 		private ThreadLocker currentThreadLock = new ThreadLocker();
-
-		private readonly bool editMode;
 
 		#endregion
 
@@ -656,10 +656,6 @@ namespace Depressurizer
 
 		public class ThreadLocker
 		{
-			#region Fields
-
-			#endregion
-
 			#region Public Properties
 
 			public bool Aborted { get; set; }

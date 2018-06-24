@@ -73,7 +73,7 @@ namespace Depressurizer
 
 		private void GameDBEntryForm_Load(object sender, EventArgs e)
 		{
-			foreach (object o in Enum.GetValues(typeof(AppTypes)))
+			foreach (object o in Enum.GetValues(typeof(AppType)))
 			{
 				int val = (int) o;
 				if ((val & (val - 1)) == 0)
@@ -171,7 +171,7 @@ namespace Depressurizer
 
 			Game.ParentId = parent;
 
-			Game.AppType = (AppTypes) cmbType.SelectedItem;
+			Game.AppType = (AppType) cmbType.SelectedItem;
 			Game.Name = txtName.Text;
 
 			Game.Genres = SplitAndTrim(txtGenres.Text);

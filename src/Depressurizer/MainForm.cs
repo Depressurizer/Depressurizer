@@ -3368,7 +3368,7 @@ namespace Depressurizer
 
 		private void menu_Profile_Restore_Config_Click(object sender, EventArgs e)
 		{
-			string sharedconfigPath = Path.GetDirectoryName(string.Format(Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(CurrentProfile.SteamID64)));
+			string sharedconfigPath = Path.GetDirectoryName(string.Format(Constants.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(CurrentProfile.SteamID64)));
 			DlgRestore restore = new DlgRestore(sharedconfigPath);
 
 			DialogResult res = restore.ShowDialog();
@@ -4287,7 +4287,7 @@ namespace Depressurizer
 		{
 			try
 			{
-				int num = Program.Database.UpdateFromAppInfo(string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath));
+				int num = Program.Database.UpdateFromAppInfo(string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath));
 				AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
 				if ((num > 0) && Settings.Instance.AutoSaveDatabase)
 				{
@@ -4373,9 +4373,7 @@ namespace Depressurizer
 			{
 				try
 				{
-					int newApps = 0;
-					AppTypes appFilter = CurrentProfile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal;
-					int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, appFilter, out newApps);
+					int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, out int newApps);
 					AddStatus(string.Format(GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps));
 					success = true;
 				}
@@ -4397,7 +4395,7 @@ namespace Depressurizer
 			{
 				try
 				{
-					CDlgUpdateProfile updateDlg = new CDlgUpdateProfile(CurrentProfile.GameData, CurrentProfile.SteamID64, CurrentProfile.OverwriteOnDownload, CurrentProfile.IgnoreList, CurrentProfile.IncludeUnknown);
+					CDlgUpdateProfile updateDlg = new CDlgUpdateProfile(CurrentProfile.GameData, CurrentProfile.SteamID64, CurrentProfile.OverwriteOnDownload, CurrentProfile.IgnoreList);
 					DialogResult res = updateDlg.ShowDialog();
 
 					if (updateDlg.Error != null)

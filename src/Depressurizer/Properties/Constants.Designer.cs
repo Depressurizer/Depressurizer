@@ -61,6 +61,24 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}\appcache\appinfo.vdf.
+        /// </summary>
+        internal static string AppInfoPath {
+            get {
+                return ResourceManager.GetString("AppInfoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\7\remote\sharedconfig.vdf.
+        /// </summary>
+        internal static string ConfigFilePath {
+            get {
+                return ResourceManager.GetString("ConfigFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://github.com/mvegter/depressurizer.
         /// </summary>
         internal static string DepressurizerHomepage {
@@ -93,6 +111,42 @@ namespace Depressurizer.Properties {
         internal static string LicensePage {
             get {
                 return ResourceManager.GetString("LicensePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\config\localconfig.vdf.
+        /// </summary>
+        internal static string LocalConfigPath {
+            get {
+                return ResourceManager.GetString("LocalConfigPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\appcache\packageinfo.vdf.
+        /// </summary>
+        internal static string PackageInfoPath {
+            get {
+                return ResourceManager.GetString("PackageInfoPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\760\screenshots.vdf.
+        /// </summary>
+        internal static string ScreenshotsFilePath {
+            get {
+                return ResourceManager.GetString("ScreenshotsFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}\userdata\{1}\config\shortcuts.vdf.
+        /// </summary>
+        internal static string ShortCutsFilePath {
+            get {
+                return ResourceManager.GetString("ShortCutsFilePath", resourceCulture);
             }
         }
         
