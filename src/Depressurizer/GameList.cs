@@ -31,6 +31,7 @@ using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
+using ValueType = Depressurizer.Enums.ValueType;
 
 namespace Depressurizer
 {
@@ -365,7 +366,7 @@ namespace Depressurizer
 		/// <param name="includeShortcuts">If true, also saves the Steam shortcut category data</param>
 		public void ExportSteamConfig(long steamId, bool discardMissing, bool includeShortcuts)
 		{
-			string filePath = string.Format(Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+			string filePath = string.Format(Constants.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
 			ExportSteamConfigFile(filePath, discardMissing);
 			if (includeShortcuts)
 			{
@@ -373,32 +374,24 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Writes Steam game category information to Steam user config file.
-		/// </summary>
-		/// <param name="filePath">Full path of the steam config file to save</param>
-		/// <param name="discardMissing">
-		///     If true, any pre-existing game entries in the file that do not have corresponding entries
-		///     in the GameList are removed
-		/// </param>
 		public void ExportSteamConfigFile(string filePath, bool discardMissing)
 		{
-			Logger.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
+			Logger.Instance.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
 
-			VdfFileNode fileData = new VdfFileNode();
+			VDFNode fileData = new VDFNode();
 			try
 			{
 				using (StreamReader reader = new StreamReader(filePath, false))
 				{
-					fileData = VdfFileNode.LoadFromText(reader, true);
+					fileData = VDFNode.LoadFromText(reader, true);
 				}
 			}
 			catch (Exception e)
 			{
-				Logger.Warn(GlobalStrings.GameData_LoadingErrorSteamConfig, e.Message);
+				Logger.Instance.Warn(GlobalStrings.GameData_LoadingErrorSteamConfig, e.Message);
 			}
 
-			VdfFileNode appListNode = fileData.GetNodeAt(new[]
+			VDFNode appListNode = fileData.GetNodeAt(new[]
 			{
 				"Software",
 				"Valve",
@@ -409,16 +402,16 @@ namespace Depressurizer
 			// Run through all Delete category data for any games not found in the GameList
 			if (discardMissing)
 			{
-				Dictionary<string, VdfFileNode> gameNodeArray = appListNode.NodeArray;
+				Dictionary<string, VDFNode> gameNodeArray = appListNode.NodeArray;
 				if (gameNodeArray != null)
 				{
-					foreach (KeyValuePair<string, VdfFileNode> pair in gameNodeArray)
+					foreach (KeyValuePair<string, VDFNode> pair in gameNodeArray)
 					{
 						int gameId;
 						if (!(int.TryParse(pair.Key, out gameId) && Games.ContainsKey(gameId)))
 						{
-							Logger.Verbose(GlobalStrings.GameData_RemovingGameCategoryFromSteamConfig, gameId);
-							pair.Value.RemoveSubnode("tags");
+							Logger.Instance.Verbose(GlobalStrings.GameData_RemovingGameCategoryFromSteamConfig, gameId);
+							pair.Value.RemoveSubNode("tags");
 						}
 					}
 				}
@@ -432,14 +425,14 @@ namespace Depressurizer
 				if (game.Id > 0)
 				{
 					// External games have negative identifier
-					Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
-					VdfFileNode gameNode = appListNode[game.Id.ToString()];
+					Logger.Instance.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
+					VDFNode gameNode = appListNode[game.Id.ToString()];
 					gameNode.MakeArray();
 
-					VdfFileNode tagsNode = gameNode["tags"];
+					VDFNode tagsNode = gameNode["tags"];
 					tagsNode.MakeArray();
 
-					Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
+					Dictionary<string, VDFNode> tags = tagsNode.NodeArray;
 					if (tags != null)
 					{
 						tags.Clear();
@@ -454,26 +447,26 @@ namespace Depressurizer
 							name = FAVORITE_CONFIG_VALUE;
 						}
 
-						tagsNode[key.ToString()] = new VdfFileNode(name);
+						tagsNode[key.ToString()] = new VDFNode(name);
 						key++;
 					}
 
 					if (game.Hidden)
 					{
-						gameNode["hidden"] = new VdfFileNode("1");
+						gameNode["hidden"] = new VDFNode("1");
 					}
 					else
 					{
-						gameNode.RemoveSubnode("hidden");
+						gameNode.RemoveSubNode("hidden");
 					}
 				}
 			}
 
-			Logger.Verbose(GlobalStrings.GameData_CleaningUpSteamConfigTree);
+			Logger.Instance.Verbose(GlobalStrings.GameData_CleaningUpSteamConfigTree);
 			appListNode.CleanTree();
 
-			Logger.Info(GlobalStrings.GameData_WritingToDisk);
-			VdfFileNode fullFile = new VdfFileNode();
+			Logger.Instance.Info(GlobalStrings.GameData_WritingToDisk);
+			VDFNode fullFile = new VDFNode();
 			fullFile["UserLocalConfigStore"] = fileData;
 			try
 			{
@@ -481,7 +474,7 @@ namespace Depressurizer
 			}
 			catch (Exception e)
 			{
-				Logger.Error(GlobalStrings.Log_GameData_ConfigBackupFailed, e.Message);
+				Logger.Instance.Error(GlobalStrings.Log_GameData_ConfigBackupFailed, e.Message);
 			}
 
 			try
@@ -501,52 +494,45 @@ namespace Depressurizer
 			}
 			catch (ArgumentException e)
 			{
-				Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
 
 				throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
 			}
 			catch (IOException e)
 			{
-				Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
 
 				throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e);
 			}
 			catch (UnauthorizedAccessException e)
 			{
-				Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
 
 				throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e);
 			}
 		}
 
-		/// <summary>
-		///     Writes category info for shortcut games to shortcuts.vdf config file for specified Steam user.
-		///     Loads the shortcut config file, then tries to match each game in the file against one of the games in the gamelist.
-		///     If it finds a match, it updates the config file with the new category info.
-		/// </summary>
-		/// <param name="SteamId">Identifier of Steam user to save information</param>
-		/// <param name="discardMissing">If true, category information in shortcuts.vdf file is removed if game is not in Game list</param>
 		public void ExportSteamShortcuts(long SteamId)
 		{
-			string filePath = string.Format(Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
-			Logger.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
+			string filePath = string.Format(Constants.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+			Logger.Instance.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
 			FileStream fStream = null;
 			BinaryReader binReader = null;
-			VdfFileNode dataRoot = null;
+			VDFNode dataRoot = null;
 			try
 			{
 				fStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 				binReader = new BinaryReader(fStream);
 
-				dataRoot = VdfFileNode.LoadFromBinary(binReader);
+				dataRoot = VDFNode.LoadFromBinary(binReader);
 			}
 			catch (FileNotFoundException e)
 			{
-				Logger.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
 			}
 			catch (IOException e)
 			{
-				Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
 			}
 
 			if (binReader != null)
@@ -573,14 +559,14 @@ namespace Depressurizer
 				StringDictionary launchIds = new StringDictionary();
 				LoadShortcutLaunchIds(SteamId, out launchIds);
 
-				VdfFileNode appsNode = dataRoot.GetNodeAt(new[]
+				VDFNode appsNode = dataRoot.GetNodeAt(new[]
 				{
 					"shortcuts"
 				}, false);
 
-				foreach (KeyValuePair<string, VdfFileNode> shortcutPair in appsNode.NodeArray)
+				foreach (KeyValuePair<string, VDFNode> shortcutPair in appsNode.NodeArray)
 				{
-					VdfFileNode nodeGame = shortcutPair.Value;
+					VDFNode nodeGame = shortcutPair.Value;
 					int nodeId = -1;
 					int.TryParse(shortcutPair.Key, out nodeId);
 
@@ -591,14 +577,14 @@ namespace Depressurizer
 						GameInfo game = gamesToSave[matchingIndex];
 						gamesToSave.RemoveAt(matchingIndex);
 
-						Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
+						Logger.Instance.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
 
-						VdfFileNode tagsNode = nodeGame.GetNodeAt(new[]
+						VDFNode tagsNode = nodeGame.GetNodeAt(new[]
 						{
 							"tags"
 						}, true);
 
-						Dictionary<string, VdfFileNode> tags = tagsNode.NodeArray;
+						Dictionary<string, VDFNode> tags = tagsNode.NodeArray;
 						if (tags != null)
 						{
 							tags.Clear();
@@ -613,24 +599,24 @@ namespace Depressurizer
 								name = FAVORITE_CONFIG_VALUE;
 							}
 
-							tagsNode[index.ToString()] = new VdfFileNode(name);
+							tagsNode[index.ToString()] = new VDFNode(name);
 							index++;
 						}
 
-						nodeGame["hidden"] = new VdfFileNode(game.Hidden ? 1 : 0);
+						nodeGame["hidden"] = new VDFNode(game.Hidden ? 1 : 0);
 					}
 				}
 
 				if (dataRoot.NodeType == ValueType.Array)
 				{
-					Logger.Info(GlobalStrings.GameData_SavingShortcutConfigFile, filePath);
+					Logger.Instance.Info(GlobalStrings.GameData_SavingShortcutConfigFile, filePath);
 					try
 					{
 						Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
 					}
 					catch (Exception e)
 					{
-						Logger.Error(GlobalStrings.Log_GameData_ShortcutBackupFailed, e.Message);
+						Logger.Instance.Error(GlobalStrings.Log_GameData_ShortcutBackupFailed, e.Message);
 					}
 
 					try
@@ -647,19 +633,19 @@ namespace Depressurizer
 					}
 					catch (ArgumentException e)
 					{
-						Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+						Logger.Instance.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
 
 						throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
 					}
 					catch (IOException e)
 					{
-						Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+						Logger.Instance.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
 
 						throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e);
 					}
 					catch (UnauthorizedAccessException e)
 					{
-						Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+						Logger.Instance.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
 
 						throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e);
 					}
@@ -781,10 +767,10 @@ namespace Depressurizer
 		/// <param name="forceInclude">If true, include games that do not match the included types</param>
 		/// <param name="includeShortcuts">If true, also import shortcut data</param>
 		/// <returns>The number of game entries found</returns>
-		public int ImportSteamConfig(long SteamId, SortedSet<int> ignore, AppTypes includedTypes, bool includeShortcuts)
+		public int ImportSteamConfig(long SteamId, SortedSet<int> ignore, bool includeShortcuts)
 		{
-			string filePath = string.Format(Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
-			int result = ImportSteamConfigFile(filePath, ignore, includedTypes);
+			string filePath = string.Format(Constants.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+			int result = ImportSteamConfigFile(filePath, ignore);
 			if (includeShortcuts)
 			{
 				result += ImportSteamShortcuts(SteamId);
@@ -800,32 +786,32 @@ namespace Depressurizer
 		/// <param name="ignore">Set of game IDs to ignore</param>
 		/// <param name="forceInclude">If true, include games even if they are not of an included type</param>
 		/// <returns>The number of game entries found</returns>
-		public int ImportSteamConfigFile(string filePath, SortedSet<int> ignore, AppTypes includedTypes)
+		public int ImportSteamConfigFile(string filePath, SortedSet<int> ignore)
 		{
-			Logger.Info(GlobalStrings.GameData_OpeningSteamConfigFile, filePath);
-			VdfFileNode dataRoot;
+			Logger.Instance.Info(GlobalStrings.GameData_OpeningSteamConfigFile, filePath);
+			VDFNode dataRoot;
 
 			try
 			{
 				using (StreamReader reader = new StreamReader(filePath, false))
 				{
-					dataRoot = VdfFileNode.LoadFromText(reader, true);
+					dataRoot = VDFNode.LoadFromText(reader, true);
 				}
 			}
-			catch (ParseException e)
+			catch (InvalidDataException e)
 			{
-				Logger.Error(GlobalStrings.GameData_ErrorParsingConfigFileParam, e.Message);
+				Logger.Instance.Error(GlobalStrings.GameData_ErrorParsingConfigFileParam, e.Message);
 
 				throw new ApplicationException(GlobalStrings.GameData_ErrorParsingSteamConfigFile + e.Message, e);
 			}
 			catch (IOException e)
 			{
-				Logger.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.Message);
+				Logger.Instance.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.Message);
 
 				throw new ApplicationException(GlobalStrings.GameData_ErrorOpeningSteamConfigFile + e.Message, e);
 			}
 
-			VdfFileNode appsNode = dataRoot.GetNodeAt(new[]
+			VDFNode appsNode = dataRoot.GetNodeAt(new[]
 			{
 				"Software",
 				"Valve",
@@ -833,22 +819,12 @@ namespace Depressurizer
 				"apps"
 			}, true);
 
-			int count = IntegrateGamesFromVdf(appsNode, ignore, includedTypes);
-			Logger.Info(GlobalStrings.GameData_SteamConfigFileLoaded, count);
+			int count = IntegrateGamesFromVdf(appsNode, ignore);
+			Logger.Instance.Info(GlobalStrings.GameData_SteamConfigFileLoaded, count);
 
 			return count;
 		}
 
-		/// <summary>
-		///     Updates set of non-Steam games. Will remove any games that are currently in the list but not found in the Steam
-		///     config.
-		/// </summary>
-		/// <param name="SteamId">The ID64 of the account to load shortcuts for</param>
-		/// <param name="overwriteCategories">
-		///     If true, overwrite categories for found games. If false, only load categories for
-		///     games without a category already set.
-		/// </param>
-		/// <returns>Total number of entries processed</returns>
 		public int ImportSteamShortcuts(long SteamId)
 		{
 			if (SteamId <= 0)
@@ -856,9 +832,15 @@ namespace Depressurizer
 				return 0;
 			}
 
+			string filePath = string.Format(Constants.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+
+			if (!File.Exists(filePath))
+			{
+				return 0;
+			}
+
 			int loadedGames = 0;
 
-			string filePath = string.Format(Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
 			FileStream fStream = null;
 			BinaryReader binReader = null;
 
@@ -867,9 +849,9 @@ namespace Depressurizer
 				fStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 				binReader = new BinaryReader(fStream);
 
-				VdfFileNode dataRoot = VdfFileNode.LoadFromBinary(binReader);
+				VDFNode dataRoot = VDFNode.LoadFromBinary(binReader);
 
-				VdfFileNode shortcutsNode = dataRoot.GetNodeAt(new[]
+				VDFNode shortcutsNode = dataRoot.GetNodeAt(new[]
 				{
 					"shortcuts"
 				}, false);
@@ -896,9 +878,9 @@ namespace Depressurizer
 					bool launchIdsLoaded = LoadShortcutLaunchIds(SteamId, out launchIds);
 
 					// Load shortcuts
-					foreach (KeyValuePair<string, VdfFileNode> shortcutPair in shortcutsNode.NodeArray)
+					foreach (KeyValuePair<string, VDFNode> shortcutPair in shortcutsNode.NodeArray)
 					{
-						VdfFileNode nodeGame = shortcutPair.Value;
+						VDFNode nodeGame = shortcutPair.Value;
 
 						int gameId = -1;
 						if (int.TryParse(shortcutPair.Key, out gameId))
@@ -913,15 +895,15 @@ namespace Depressurizer
 			}
 			catch (FileNotFoundException e)
 			{
-				Logger.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
 			}
 			catch (IOException e)
 			{
-				Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
 			}
-			catch (ParseException e)
+			catch (InvalidDataException e)
 			{
-				Logger.Error(e.ToString());
+				Logger.Instance.Error(e.ToString());
 			}
 			finally
 			{
@@ -936,7 +918,7 @@ namespace Depressurizer
 				}
 			}
 
-			Logger.Info(GlobalStrings.GameData_IntegratedShortCuts, loadedGames);
+			Logger.Instance.Info(GlobalStrings.GameData_IntegratedShortCuts, loadedGames);
 
 			return loadedGames;
 		}
@@ -950,7 +932,7 @@ namespace Depressurizer
 		/// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
 		/// <param name="newItems">The number of new items actually added</param>
 		/// <returns>Returns the number of games successfully processed and not ignored.</returns>
-		public int IntegrateHtmlGameList(string page, bool overWrite, SortedSet<int> ignore, AppTypes includedTypes, out int newItems)
+		public int IntegrateHtmlGameList(string page, bool overWrite, SortedSet<int> ignore, out int newItems)
 		{
 			newItems = 0;
 			int totalItems = 0;
@@ -972,7 +954,7 @@ namespace Depressurizer
 				{
 					appName = ProcessUnicode(appName);
 					bool isNew;
-					GameInfo integratedGame = IntegrateGame(appId, appName, overWrite, ignore, includedTypes, GameListingSource.WebProfile, out isNew);
+					GameInfo integratedGame = IntegrateGame(appId, appName, overWrite, ignore, GameListingSource.WebProfile, out isNew);
 					if (integratedGame != null)
 					{
 						totalItems++;
@@ -998,7 +980,7 @@ namespace Depressurizer
 		/// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
 		/// <param name="newItems">The number of new items actually added</param>
 		/// <returns>Returns the number of games successfully processed and not ignored.</returns>
-		public int IntegrateXmlGameList(XmlDocument doc, bool overWrite, SortedSet<int> ignore, AppTypes includedTypes, out int newItems)
+		public int IntegrateXmlGameList(XmlDocument doc, bool overWrite, SortedSet<int> ignore, out int newItems)
 		{
 			newItems = 0;
 			if (doc == null)
@@ -1018,7 +1000,7 @@ namespace Depressurizer
 					if (nameNode != null)
 					{
 						bool isNew;
-						GameInfo integratedGame = IntegrateGame(appId, nameNode.InnerText, overWrite, ignore, includedTypes, GameListingSource.WebProfile, out isNew);
+						GameInfo integratedGame = IntegrateGame(appId, nameNode.InnerText, overWrite, ignore, GameListingSource.WebProfile, out isNew);
 						if (integratedGame != null)
 						{
 							loadedGames++;
@@ -1251,29 +1233,20 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Updates the game list based on data from the localconfig file and the package cache, including LastPlayed.
-		/// </summary>
-		/// <param name="accountId">64-bit account ID to update for</param>
-		/// <param name="ignored">Set of games to ignore</param>
-		/// <param name="includeUnknown">
-		///     If true, include games that do not exist in the database or are of unknown type in the
-		///     database
-		/// </param>
-		public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignored, AppTypes includedTypes, out int newApps)
+		public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignored, out int newApps)
 		{
 			newApps = 0;
 			int totalApps = 0;
 
-			Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(Resources.PackageInfoPath, Settings.Instance.SteamPath));
+			Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(Constants.PackageInfoPath, Settings.Instance.SteamPath));
 
 			Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-			string localConfigPath = string.Format(Resources.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
-			VdfFileNode vdfFile = VdfFileNode.LoadFromText(new StreamReader(localConfigPath));
+			string localConfigPath = string.Format(Constants.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
+			VDFNode vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
 			if (vdfFile != null)
 			{
-				VdfFileNode licensesNode = vdfFile.GetNodeAt(new[]
+				VDFNode licensesNode = vdfFile.GetNodeAt(new[]
 				{
 					"UserLocalConfigStore",
 					"Licenses"
@@ -1303,7 +1276,7 @@ namespace Depressurizer
 				}
 
 				// update LastPlayed
-				VdfFileNode appsNode = vdfFile.GetNodeAt(new[]
+				VDFNode appsNode = vdfFile.GetNodeAt(new[]
 				{
 					"UserLocalConfigStore",
 					"Software",
@@ -1312,14 +1285,14 @@ namespace Depressurizer
 					"apps"
 				}, false);
 
-				GetLastPlayedFromVdf(appsNode, ignored, includedTypes);
+				GetLastPlayedFromVdf(appsNode, ignored);
 			}
 
 			foreach (KeyValuePair<int, GameListingSource> kv in ownedApps)
 			{
 				bool isNew;
 				string name = Program.Database.GetName(kv.Key);
-				GameInfo newGame = IntegrateGame(kv.Key, name, false, ignored, includedTypes, kv.Value, out isNew);
+				GameInfo newGame = IntegrateGame(kv.Key, name, false, ignored, kv.Value, out isNew);
 				if (newGame != null)
 				{
 					totalApps++;
@@ -1338,24 +1311,16 @@ namespace Depressurizer
 
 		#region Methods
 
-		/// <summary>
-		///     Searches a list of games, looking for the one that matches the information in the shortcut node.
-		///     Checks launch ID first, then checks a combination of name and ID, then just checks name.
-		/// </summary>
-		/// <param name="shortcutId">ID of the shortcut node</param>
-		/// <param name="shortcutNode">Shotcut node itself</param>
-		/// <param name="gamesToMatchAgainst">List of game objects to match against</param>
-		/// <param name="shortcutLaunchIds">List of launch IDs referenced by name</param>
-		/// <returns>The index of the matching game if found, -1 otherwise.</returns>
-		private int FindMatchingShortcut(int shortcutId, VdfFileNode shortcutNode, List<GameInfo> gamesToMatchAgainst, StringDictionary shortcutLaunchIds)
+		private int FindMatchingShortcut(int shortcutId, VDFNode shortcutNode, List<GameInfo> gamesToMatchAgainst, StringDictionary shortcutLaunchIds)
 		{
-			VdfFileNode nodeName = shortcutNode.GetNodeAt(new[]
+			VDFNode nodeName = shortcutNode.GetNodeAt(new[]
 			{
 				"appname"
 			}, false);
 
 			string gameName = nodeName != null ? nodeName.NodeString : null;
 			string launchId = shortcutLaunchIds[gameName];
+
 			// First, look for games with matching launch IDs.
 			for (int i = 0; i < gamesToMatchAgainst.Count; i++)
 			{
@@ -1386,26 +1351,19 @@ namespace Depressurizer
 			return -1;
 		}
 
-		/// <summary>
-		///     Get LastPlayed date from a VDF node containing a list of games.
-		///     Any games in the node not found in the game list will be added to the gamelist.
-		/// </summary>
-		/// <param name="appsNode">Node containing the game nodes</param>
-		/// <param name="ignore">Set of games to ignore</param>
-		/// <param name="forceInclude">Include games even if their type is not an included type</param>
-		private void GetLastPlayedFromVdf(VdfFileNode appsNode, SortedSet<int> ignore, AppTypes includedTypes)
+		private void GetLastPlayedFromVdf(VDFNode appsNode, SortedSet<int> ignore)
 		{
-			Dictionary<string, VdfFileNode> gameNodeArray = appsNode.NodeArray;
+			Dictionary<string, VDFNode> gameNodeArray = appsNode.NodeArray;
 			if (gameNodeArray != null)
 			{
-				foreach (KeyValuePair<string, VdfFileNode> gameNodePair in gameNodeArray)
+				foreach (KeyValuePair<string, VDFNode> gameNodePair in gameNodeArray)
 				{
 					int gameId;
 					if (int.TryParse(gameNodePair.Key, out gameId))
 					{
-						if (((ignore != null) && ignore.Contains(gameId)) || !Program.Database.IncludeItemInGameList(gameId, includedTypes))
+						if (((ignore != null) && ignore.Contains(gameId)) || !Program.Database.IncludeItemInGameList(gameId))
 						{
-							Logger.Verbose(GlobalStrings.GameData_SkippedProcessingGame, gameId);
+							Logger.Instance.Verbose(GlobalStrings.GameData_SkippedProcessingGame, gameId);
 						}
 						else if ((gameNodePair.Value != null) && (gameNodePair.Value.NodeType == ValueType.Array))
 						{
@@ -1416,7 +1374,7 @@ namespace Depressurizer
 							{
 								game = new GameInfo(gameId, Program.Database.GetName(gameId), this);
 								Games.Add(gameId, game);
-								Logger.Verbose(GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
+								Logger.Instance.Verbose(GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
 							}
 							else
 							{
@@ -1445,10 +1403,10 @@ namespace Depressurizer
 		/// <param name="src">The listing source that this request came from.</param>
 		/// <param name="isNew">If true, a new game was added. If false, an existing game was updated, or the operation failed.</param>
 		/// <returns>True if the game was integrated, false otherwise.</returns>
-		private GameInfo IntegrateGame(int appId, string appName, bool overwriteName, SortedSet<int> ignore, AppTypes includedTypes, GameListingSource src, out bool isNew)
+		private GameInfo IntegrateGame(int appId, string appName, bool overwriteName, SortedSet<int> ignore, GameListingSource src, out bool isNew)
 		{
 			isNew = false;
-			if (((ignore != null) && ignore.Contains(appId)) || !Program.Database.IncludeItemInGameList(appId, includedTypes))
+			if (((ignore != null) && ignore.Contains(appId)) || !Program.Database.IncludeItemInGameList(appId))
 			{
 				Logger.Verbose(GlobalStrings.GameData_SkippedIntegratingGame, appId, appName);
 
@@ -1478,32 +1436,21 @@ namespace Depressurizer
 			return result;
 		}
 
-		/// <summary>
-		///     Loads in games from a VDF node containing a list of games.
-		///     Any games in the node not found in the game list will be added to the gamelist.
-		///     If a game in the node has a tags subnode, the "favorite" field will be overwritten.
-		///     If a game in the node has a category set, it will overwrite any categories in the gamelist.
-		///     If a game in the node does NOT have a category set, the category in the gamelist will NOT be cleared.
-		/// </summary>
-		/// <param name="appsNode">Node containing the game nodes</param>
-		/// <param name="ignore">Set of games to ignore</param>
-		/// <param name="forceInclude">Include games even if their type is not an included type</param>
-		/// <returns>Number of games loaded</returns>
-		private int IntegrateGamesFromVdf(VdfFileNode appsNode, SortedSet<int> ignore, AppTypes includedTypes)
+		private int IntegrateGamesFromVdf(VDFNode appsNode, SortedSet<int> ignore)
 		{
 			int loadedGames = 0;
 
-			Dictionary<string, VdfFileNode> gameNodeArray = appsNode.NodeArray;
+			Dictionary<string, VDFNode> gameNodeArray = appsNode.NodeArray;
 			if (gameNodeArray != null)
 			{
-				foreach (KeyValuePair<string, VdfFileNode> gameNodePair in gameNodeArray)
+				foreach (KeyValuePair<string, VDFNode> gameNodePair in gameNodeArray)
 				{
 					int gameId;
 					if (int.TryParse(gameNodePair.Key, out gameId))
 					{
-						if (((ignore != null) && ignore.Contains(gameId)) || !Program.Database.IncludeItemInGameList(gameId, includedTypes))
+						if (((ignore != null) && ignore.Contains(gameId)) || !Program.Database.IncludeItemInGameList(gameId))
 						{
-							Logger.Verbose(GlobalStrings.GameData_SkippedProcessingGame, gameId);
+							Logger.Instance.Verbose(GlobalStrings.GameData_SkippedProcessingGame, gameId);
 						}
 						else if ((gameNodePair.Value != null) && (gameNodePair.Value.NodeType == ValueType.Array))
 						{
@@ -1514,7 +1461,7 @@ namespace Depressurizer
 							{
 								game = new GameInfo(gameId, Program.Database.GetName(gameId), this);
 								Games.Add(gameId, game);
-								Logger.Verbose(GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
+								Logger.Instance.Verbose(GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
 							}
 							else
 							{
@@ -1527,14 +1474,14 @@ namespace Depressurizer
 
 							game.Hidden = gameNodePair.Value.ContainsKey("hidden") && (gameNodePair.Value["hidden"].NodeInt != 0);
 
-							VdfFileNode tagsNode = gameNodePair.Value["tags"];
+							VDFNode tagsNode = gameNodePair.Value["tags"];
 							if (tagsNode != null)
 							{
-								Dictionary<string, VdfFileNode> tagArray = tagsNode.NodeArray;
+								Dictionary<string, VDFNode> tagArray = tagsNode.NodeArray;
 								if (tagArray != null)
 								{
 									List<Category> cats = new List<Category>(tagArray.Count);
-									foreach (VdfFileNode tag in tagArray.Values)
+									foreach (VDFNode tag in tagArray.Values)
 									{
 										string tagName = tag.NodeString;
 										if (tagName != null)
@@ -1554,7 +1501,7 @@ namespace Depressurizer
 								}
 							}
 
-							Logger.Verbose(GlobalStrings.GameData_ProcessedGame, gameId, string.Join(",", game.Categories));
+							Logger.Instance.Verbose(GlobalStrings.GameData_ProcessedGame, gameId, string.Join(",", game.Categories));
 						}
 					}
 				}
@@ -1563,26 +1510,15 @@ namespace Depressurizer
 			return loadedGames;
 		}
 
-		/// <summary>
-		///     Adds a non-steam game to the gamelist.
-		/// </summary>
-		/// <param name="gameId">ID of the game in the steam config file</param>
-		/// <param name="gameNode">Node for the game in the steam config file</param>
-		/// <param name="launchIds">Dictionary of launch ids (name:launchId)</param>
-		/// <param name="newGames">Number of NEW games that have been added to the list</param>
-		/// <param name="preferSteamCategories">
-		///     If true, prefers to use the categories from the steam config if there is a
-		///     conflict. If false, prefers to use the categories from the existing gamelist.
-		/// </param>
-		/// <returns>True if the game was successfully added</returns>
-		private bool IntegrateShortcut(int gameId, VdfFileNode gameNode, StringDictionary launchIds)
+		private bool IntegrateShortcut(int gameId, VDFNode gameNode, StringDictionary launchIds)
 		{
-			VdfFileNode nodeName = gameNode.GetNodeAt(new[]
+			VDFNode nodeName = gameNode.GetNodeAt(new[]
 			{
 				"appname"
 			}, false);
 
 			string gameName = nodeName != null ? nodeName.NodeString : null;
+
 			// The ID of the created game must be negative
 			int newId = -(gameId + 1);
 
@@ -1598,14 +1534,14 @@ namespace Depressurizer
 
 			// Fill in the LaunchString
 			game.LaunchString = launchIds[gameName];
-			VdfFileNode nodeExecutable = gameNode.GetNodeAt(new[]
+			VDFNode nodeExecutable = gameNode.GetNodeAt(new[]
 			{
 				"exe"
 			}, false);
 
 			game.Executable = nodeExecutable != null ? nodeExecutable.NodeString : game.Executable;
 
-			VdfFileNode nodeLastPlayTime = gameNode.GetNodeAt(new[]
+			VDFNode nodeLastPlayTime = gameNode.GetNodeAt(new[]
 			{
 				"LastPlayTime"
 			}, false);
@@ -1613,12 +1549,12 @@ namespace Depressurizer
 			game.LastPlayed = nodeLastPlayTime != null ? nodeExecutable.NodeInt : game.LastPlayed;
 
 			// Fill in categories
-			VdfFileNode tagsNode = gameNode.GetNodeAt(new[]
+			VDFNode tagsNode = gameNode.GetNodeAt(new[]
 			{
 				"tags"
 			}, false);
 
-			foreach (KeyValuePair<string, VdfFileNode> tag in tagsNode.NodeArray)
+			foreach (KeyValuePair<string, VDFNode> tag in tagsNode.NodeArray)
 			{
 				string tagName = tag.Value.NodeString;
 				game.AddCategory(GetCategory(tagName));
@@ -1628,23 +1564,17 @@ namespace Depressurizer
 			game.Hidden = false;
 			if (gameNode.ContainsKey("IsHidden"))
 			{
-				VdfFileNode hiddenNode = gameNode["IsHidden"];
+				VDFNode hiddenNode = gameNode["IsHidden"];
 				game.Hidden = (hiddenNode.NodeString == "1") || (hiddenNode.NodeInt == 1);
 			}
 
 			return true;
 		}
 
-		/// <summary>
-		///     Load launch IDs for external games from screenshots.vdf
-		/// </summary>
-		/// <param name="SteamId">Steam user identifier</param>
-		/// <param name="shortcutLaunchIds">Found games listed as pairs of {gameName, gameId} </param>
-		/// <returns>True if file was successfully loaded, false otherwise</returns>
 		private bool LoadShortcutLaunchIds(long SteamId, out StringDictionary shortcutLaunchIds)
 		{
 			bool result = false;
-			string filePath = string.Format(Resources.ScreenshotsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
+			string filePath = string.Format(Constants.ScreenshotsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(SteamId));
 
 			shortcutLaunchIds = new StringDictionary();
 
@@ -1652,14 +1582,14 @@ namespace Depressurizer
 			try
 			{
 				reader = new StreamReader(filePath, false);
-				VdfFileNode dataRoot = VdfFileNode.LoadFromText(reader, true);
+				VDFNode dataRoot = VDFNode.LoadFromText(reader, true);
 
-				VdfFileNode appsNode = dataRoot.GetNodeAt(new[]
+				VDFNode appsNode = dataRoot.GetNodeAt(new[]
 				{
 					"shortcutnames"
 				}, false);
 
-				foreach (KeyValuePair<string, VdfFileNode> shortcutPair in appsNode.NodeArray)
+				foreach (KeyValuePair<string, VDFNode> shortcutPair in appsNode.NodeArray)
 				{
 					string launchId = shortcutPair.Key;
 					string gameName = (string) shortcutPair.Value.NodeData;
@@ -1673,11 +1603,11 @@ namespace Depressurizer
 			}
 			catch (FileNotFoundException e)
 			{
-				Logger.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_ErrorOpeningConfigFileParam, e.ToString());
 			}
 			catch (IOException e)
 			{
-				Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
+				Logger.Instance.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
 			}
 
 			if (reader != null)

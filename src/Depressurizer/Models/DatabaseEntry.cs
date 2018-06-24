@@ -90,8 +90,8 @@ namespace Depressurizer.Models
 
 		#region Fields
 
-		[DefaultValue(AppTypes.Unknown)]
-		public AppTypes AppType = AppTypes.Unknown;
+		[DefaultValue(AppType.Unknown)]
+		public AppType AppType = AppType.Unknown;
 
 		[XmlIgnore]
 		public string Banner = null;
@@ -217,7 +217,7 @@ namespace Depressurizer.Models
 			bool useAppInfoFields = (other.LastAppInfoUpdate > LastAppInfoUpdate) || ((LastAppInfoUpdate == 0) && (other.LastStoreScrape >= LastStoreScrape));
 			bool useScrapeOnlyFields = other.LastStoreScrape >= LastStoreScrape;
 
-			if ((other.AppType != AppTypes.Unknown) && ((AppType == AppTypes.Unknown) || useAppInfoFields))
+			if ((other.AppType != AppType.Unknown) && ((AppType == AppType.Unknown) || useAppInfoFields))
 			{
 				AppType = other.AppType;
 			}
@@ -506,17 +506,17 @@ namespace Depressurizer.Models
 
 			if (RegexIsDLC.IsMatch(page))
 			{
-				AppType = AppTypes.DLC;
+				AppType = AppType.DLC;
 			}
 
 			if (RegexIsGame.IsMatch(page))
 			{
-				AppType = AppTypes.Game;
+				AppType = AppType.Game;
 			}
 
 			if (RegexIsSoftware.IsMatch(page))
 			{
-				AppType = AppTypes.Application;
+				AppType = AppType.Application;
 			}
 
 			if (redirectTarget != -1)

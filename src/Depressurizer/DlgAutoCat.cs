@@ -29,14 +29,14 @@ namespace Depressurizer
 
 		public List<AutoCat> AutoCatList;
 
-		private AutoCat current;
-
-		private AutoCatConfigPanel currentConfigPanel;
-
 		private readonly AutoCat initial;
 
 		//public List<Filter> FilterList;
 		private readonly GameList ownedGames;
+
+		private AutoCat current;
+
+		private AutoCatConfigPanel currentConfigPanel;
 
 		private string profilePath;
 

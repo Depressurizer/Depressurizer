@@ -1,6 +1,6 @@
 ﻿#region License
 
-//     This file (AppPlatforms.cs) is part of Depressurizer.
+//     This file (AppType.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -18,39 +18,71 @@
 
 #endregion
 
-using System;
-
 namespace Depressurizer.Enums
 {
 	/// <summary>
-	///     Operating System(s)
+	///     Steam App Type
 	/// </summary>
-	[Flags]
-	public enum AppPlatforms
+	public enum AppType
 	{
 		/// <summary>
-		///     Default value
+		///     Unknown
 		/// </summary>
-		None = 0,
+		Unknown,
 
 		/// <summary>
-		///     Microsoft Windows
+		///     Game
 		/// </summary>
-		Windows = 1 << 0,
+		Game,
 
 		/// <summary>
-		///     macOS
+		///     DLC
 		/// </summary>
-		Mac = 1 << 1,
+		DLC,
 
 		/// <summary>
-		///     Linux
+		///     Steam Demo
 		/// </summary>
-		Linux = 1 << 2,
+		Demo,
 
 		/// <summary>
-		///     Windows, Mac and Linux
+		///     Steam Software
 		/// </summary>
-		All = (1 << 3) - 1
+		Application,
+
+		/// <summary>
+		///     SDK's, servers etc..
+		/// </summary>
+		Tool,
+
+		/// <summary>
+		///     Steam Media
+		/// </summary>
+		Media,
+
+		/// <summary>
+		///     Steam Config File
+		/// </summary>
+		Config,
+
+		/// <summary>
+		///     Steam Media Content
+		/// </summary>
+		Series,
+
+		/// <summary>
+		///     Steam Media Content
+		/// </summary>
+		Video,
+
+		/// <summary>
+		///     Steam Hardware
+		/// </summary>
+		Hardware,
+
+		/// <summary>
+		///     Player-created manuals and references
+		/// </summary>
+		Guide
 	}
 }

@@ -108,8 +108,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="Helpers\DropdownMenuScrollWheelHandler.cs" />
     <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="Models\AppInfoNode.cs" />
+    <Compile Include="Enums\AppType.cs" />
+    <Compile Include="Enums\AppPlatforms.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
@@ -280,8 +284,6 @@
     <Compile Include="DlgRestore.Designer.cs">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
-    <Compile Include="Enums\AppPlatforms.cs" />
-    <Compile Include="Enums\AppTypes.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
@@ -295,7 +297,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListViewComparer.cs" />
-    <Compile Include="PackageInfo.cs" />
+    <Compile Include="Enums\ValueType.cs" />
+    <Compile Include="Models\VDFNode.cs" />
+    <Compile Include="Models\PackageInfo.cs" />
     <Compile Include="Enums\InterfaceLanguage.cs" />
     <Compile Include="Enums\StartupAction.cs" />
     <Compile Include="ProfileAccessException.cs" />
@@ -403,7 +407,6 @@
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VdfFile\VdfFileNode.cs" />
     <Compile Include="Models\VrSupport.cs" />
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>

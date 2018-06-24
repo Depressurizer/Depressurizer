@@ -28,9 +28,9 @@ namespace Depressurizer
 	{
 		#region Fields
 
-		private bool loaded;
-
 		private readonly GameList ownedGames;
+
+		private bool loaded;
 
 		// used to remove unchecked items from the Add and Remove checkedlistbox.
 		private Thread workerThread;

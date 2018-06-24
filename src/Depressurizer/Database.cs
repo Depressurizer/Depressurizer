@@ -677,14 +677,16 @@ namespace Depressurizer
 			return new VrSupport();
 		}
 
-		public bool IncludeItemInGameList(int id, AppTypes scheme)
+		public bool IncludeItemInGameList(int appId)
 		{
-			if (Games.ContainsKey(id))
+			if (!Contains(appId))
 			{
-				return scheme.HasFlag(Games[id].AppType);
+				return false;
 			}
 
-			return scheme.HasFlag(AppTypes.Unknown);
+			DatabaseEntry entry = Games[appId];
+
+			return (entry.AppType == AppType.Application) || (entry.AppType == AppType.Game);
 		}
 
 		public int IntegrateAppList(XmlDocument doc)
@@ -702,7 +704,7 @@ namespace Depressurizer
 						if (string.IsNullOrEmpty(g.Name) || (g.Name != gameName))
 						{
 							g.Name = gameName;
-							g.AppType = AppTypes.Unknown;
+							g.AppType = AppType.Unknown;
 						}
 					}
 					else
@@ -882,19 +884,19 @@ namespace Depressurizer
 			foreach (AppInfo aInf in appInfos.Values)
 			{
 				DatabaseEntry entry;
-				if (!Games.ContainsKey(aInf.Id))
+				if (!Games.ContainsKey(aInf.AppId))
 				{
 					entry = new DatabaseEntry();
-					entry.Id = aInf.Id;
+					entry.Id = aInf.AppId;
 					Games.Add(entry.Id, entry);
 				}
 				else
 				{
-					entry = Games[aInf.Id];
+					entry = Games[aInf.AppId];
 				}
 
 				entry.LastAppInfoUpdate = timestamp;
-				if (aInf.AppType != AppTypes.Unknown)
+				if (aInf.AppType != AppType.Unknown)
 				{
 					entry.AppType = aInf.AppType;
 				}
@@ -909,9 +911,9 @@ namespace Depressurizer
 					entry.Platforms = aInf.Platforms;
 				}
 
-				if (aInf.Parent > 0)
+				if (aInf.ParentId > 0)
 				{
-					entry.ParentId = aInf.Parent;
+					entry.ParentId = aInf.ParentId;
 				}
 
 				updated++;
@@ -1115,7 +1117,7 @@ namespace Depressurizer
 
 				g.Name = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Name], null);
 
-				g.AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppTypes.Unknown);
+				g.AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppType.Unknown);
 
 				g.Platforms = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Platforms], AppPlatforms.All);
 
