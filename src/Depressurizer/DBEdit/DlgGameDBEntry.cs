@@ -157,16 +157,17 @@ namespace Depressurizer
 
 		private bool SaveToGame()
 		{
-			int id, parent;
-			if (!ValidateEntries(out id, out parent))
+			if (!ValidateEntries(out int id, out int parent))
 			{
 				return false;
 			}
 
 			if (Game == null)
 			{
-				Game = new DatabaseEntry();
-				Game.Id = id;
+				Game = new DatabaseEntry
+				{
+					Id = id
+				};
 			}
 
 			Game.ParentId = parent;

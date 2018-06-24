@@ -29,6 +29,7 @@ using System.Net;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Core.Enums;
 using Depressurizer.Dialogs;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
@@ -538,8 +539,7 @@ namespace Depressurizer
 			int added = 0;
 			foreach (XmlNode node in doc.SelectNodes("/applist/apps/app"))
 			{
-				int appId;
-				if (XmlUtil.TryGetIntFromNode(node["appid"], out appId))
+				if (XmlUtil.TryGetIntFromNode(node["appid"], out int appId))
 				{
 					string gameName = XmlUtil.GetStringFromNode(node["name"], null);
 					if (Games.ContainsKey(appId))
@@ -553,9 +553,12 @@ namespace Depressurizer
 					}
 					else
 					{
-						DatabaseEntry g = new DatabaseEntry();
-						g.Id = appId;
-						g.Name = gameName;
+						DatabaseEntry g = new DatabaseEntry
+						{
+							Id = appId,
+							Name = gameName
+						};
+
 						Games.Add(appId, g);
 						added++;
 					}
@@ -631,9 +634,11 @@ namespace Depressurizer
 		public void Save(string path, bool compress)
 		{
 			Logger.Info(GlobalStrings.GameDB_SavingGameDBTo, path);
-			XmlWriterSettings settings = new XmlWriterSettings();
-			settings.Indent = true;
-			settings.CloseOutput = true;
+			XmlWriterSettings settings = new XmlWriterSettings
+			{
+				Indent = true,
+				CloseOutput = true
+			};
 
 			Stream stream = null;
 			try
@@ -730,8 +735,11 @@ namespace Depressurizer
 				DatabaseEntry entry;
 				if (!Games.ContainsKey(aInf.AppId))
 				{
-					entry = new DatabaseEntry();
-					entry.Id = aInf.AppId;
+					entry = new DatabaseEntry
+					{
+						Id = aInf.AppId
+					};
+
 					Games.Add(entry.Id, entry);
 				}
 				else
@@ -950,26 +958,27 @@ namespace Depressurizer
 
 			foreach (XmlNode gameNode in gameListNode.SelectNodes(XmlName_Game))
 			{
-				int id;
-				if (!XmlUtil.TryGetIntFromNode(gameNode[XmlName_Game_Id], out id) || Games.ContainsKey(id))
+				if (!XmlUtil.TryGetIntFromNode(gameNode[XmlName_Game_Id], out int id) || Games.ContainsKey(id))
 				{
 					continue;
 				}
 
-				DatabaseEntry g = new DatabaseEntry();
-				g.Id = id;
+				DatabaseEntry g = new DatabaseEntry
+				{
+					Id = id,
 
-				g.Name = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Name], null);
+					Name = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Name], null),
 
-				g.AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppType.Unknown);
+					AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppType.Unknown),
 
-				g.Platforms = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Platforms], AppPlatforms.All);
+					Platforms = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Platforms], AppPlatforms.All),
 
-				g.ParentId = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Parent], -1);
+					ParentId = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Parent], -1),
 
-				g.Genres = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Genre));
+					Genres = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Genre)),
 
-				g.Tags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Tag));
+					Tags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Tag))
+				};
 
 				foreach (XmlNode vrNode in gameNode.SelectNodes(XmlName_Game_vrSupport))
 				{

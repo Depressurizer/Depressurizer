@@ -20,6 +20,7 @@
 
 using System.IO;
 using System.Threading;
+using Depressurizer.Core.Enums;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Newtonsoft.Json;

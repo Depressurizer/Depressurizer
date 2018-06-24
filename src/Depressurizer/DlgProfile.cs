@@ -182,8 +182,7 @@ namespace Depressurizer
 
 		private void cmdIgnore_Click(object sender, EventArgs e)
 		{
-			int id;
-			if (int.TryParse(txtIgnore.Text, out id))
+			if (int.TryParse(txtIgnore.Text, out int id))
 			{
 				lstIgnored.Items.Add(id.ToString());
 				txtIgnore.ResetText();
@@ -512,8 +511,7 @@ namespace Depressurizer
 			SortedSet<int> ignoreSet = new SortedSet<int>();
 			foreach (ListViewItem item in lstIgnored.Items)
 			{
-				int id;
-				if (int.TryParse(item.Text, out id))
+				if (int.TryParse(item.Text, out int id))
 				{
 					ignoreSet.Add(id);
 				}
@@ -542,8 +540,7 @@ namespace Depressurizer
 
 		private bool SelectUserInList(string accountId)
 		{
-			long val;
-			if (long.TryParse(accountId, out val))
+			if (long.TryParse(accountId, out long val))
 			{
 				return SelectUserInList(val);
 			}
@@ -641,8 +638,7 @@ namespace Depressurizer
 
 		private bool ValidateEntries()
 		{
-			long id;
-			if (!long.TryParse(txtUserID.Text, out id))
+			if (!long.TryParse(txtUserID.Text, out long id))
 			{
 				MessageBox.Show(GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -764,8 +760,7 @@ namespace Depressurizer
 
 		public int Compare(object x, object y)
 		{
-			int a, b;
-			if (int.TryParse(((ListViewItem) x).Text, out a) && int.TryParse(((ListViewItem) y).Text, out b))
+			if (int.TryParse(((ListViewItem) x).Text, out int a) && int.TryParse(((ListViewItem) y).Text, out int b))
 			{
 				return a - b;
 			}

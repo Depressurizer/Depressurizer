@@ -51,9 +51,12 @@ namespace Depressurizer
 
 				foreach (string s in genreList)
 				{
-					ListViewItem l = new ListViewItem();
-					l.Text = s;
-					l.Checked = true;
+					ListViewItem l = new ListViewItem
+					{
+						Text = s,
+						Checked = true
+					};
+
 					lstIgnore.Items.Add(l);
 				}
 			}

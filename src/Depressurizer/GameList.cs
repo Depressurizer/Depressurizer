@@ -407,8 +407,7 @@ namespace Depressurizer
 				{
 					foreach (KeyValuePair<string, VDFNode> pair in gameNodeArray)
 					{
-						int gameId;
-						if (!(int.TryParse(pair.Key, out gameId) && Games.ContainsKey(gameId)))
+						if (!(int.TryParse(pair.Key, out int gameId) && Games.ContainsKey(gameId)))
 						{
 							Logger.Instance.Verbose(GlobalStrings.GameData_RemovingGameCategoryFromSteamConfig, gameId);
 							pair.Value.RemoveSubNode("tags");
@@ -874,8 +873,7 @@ namespace Depressurizer
 					}
 
 					// Load launch IDs
-					StringDictionary launchIds = null;
-					bool launchIdsLoaded = LoadShortcutLaunchIds(SteamId, out launchIds);
+					bool launchIdsLoaded = LoadShortcutLaunchIds(SteamId, out StringDictionary launchIds);
 
 					// Load shortcuts
 					foreach (KeyValuePair<string, VDFNode> shortcutPair in shortcutsNode.NodeArray)
@@ -949,12 +947,10 @@ namespace Depressurizer
 				string appIdString = m.Groups[1].Value;
 				string appName = m.Groups[2].Value;
 
-				int appId;
-				if ((appName != null) && (appIdString != null) && int.TryParse(appIdString, out appId))
+				if ((appName != null) && (appIdString != null) && int.TryParse(appIdString, out int appId))
 				{
 					appName = ProcessUnicode(appName);
-					bool isNew;
-					GameInfo integratedGame = IntegrateGame(appId, appName, overWrite, ignore, GameListingSource.WebProfile, out isNew);
+					GameInfo integratedGame = IntegrateGame(appId, appName, overWrite, ignore, GameListingSource.WebProfile, out bool isNew);
 					if (integratedGame != null)
 					{
 						totalItems++;
@@ -992,15 +988,13 @@ namespace Depressurizer
 			XmlNodeList gameNodes = doc.SelectNodes("/gamesList/games/game");
 			foreach (XmlNode gameNode in gameNodes)
 			{
-				int appId;
 				XmlNode appIdNode = gameNode["appID"];
-				if ((appIdNode != null) && int.TryParse(appIdNode.InnerText, out appId))
+				if ((appIdNode != null) && int.TryParse(appIdNode.InnerText, out int appId))
 				{
 					XmlNode nameNode = gameNode["name"];
 					if (nameNode != null)
 					{
-						bool isNew;
-						GameInfo integratedGame = IntegrateGame(appId, nameNode.InnerText, overWrite, ignore, GameListingSource.WebProfile, out isNew);
+						GameInfo integratedGame = IntegrateGame(appId, nameNode.InnerText, overWrite, ignore, GameListingSource.WebProfile, out bool isNew);
 						if (integratedGame != null)
 						{
 							loadedGames++;
@@ -1256,8 +1250,7 @@ namespace Depressurizer
 				{
 					foreach (string key in licensesNode.NodeArray.Keys)
 					{
-						int ownedPackageId;
-						if (int.TryParse(key, out ownedPackageId))
+						if (int.TryParse(key, out int ownedPackageId))
 						{
 							PackageInfo ownedPackage = allPackages[ownedPackageId];
 							if (ownedPackageId != 0)
@@ -1290,9 +1283,8 @@ namespace Depressurizer
 
 			foreach (KeyValuePair<int, GameListingSource> kv in ownedApps)
 			{
-				bool isNew;
 				string name = Program.Database.GetName(kv.Key);
-				GameInfo newGame = IntegrateGame(kv.Key, name, false, ignored, kv.Value, out isNew);
+				GameInfo newGame = IntegrateGame(kv.Key, name, false, ignored, kv.Value, out bool isNew);
 				if (newGame != null)
 				{
 					totalApps++;
@@ -1358,8 +1350,7 @@ namespace Depressurizer
 			{
 				foreach (KeyValuePair<string, VDFNode> gameNodePair in gameNodeArray)
 				{
-					int gameId;
-					if (int.TryParse(gameNodePair.Key, out gameId))
+					if (int.TryParse(gameNodePair.Key, out int gameId))
 					{
 						if (((ignore != null) && ignore.Contains(gameId)) || !Program.Database.IncludeItemInGameList(gameId))
 						{
@@ -1445,8 +1436,7 @@ namespace Depressurizer
 			{
 				foreach (KeyValuePair<string, VDFNode> gameNodePair in gameNodeArray)
 				{
-					int gameId;
-					if (int.TryParse(gameNodePair.Key, out gameId))
+					if (int.TryParse(gameNodePair.Key, out int gameId))
 					{
 						if (((ignore != null) && ignore.Contains(gameId)) || !Program.Database.IncludeItemInGameList(gameId))
 						{
