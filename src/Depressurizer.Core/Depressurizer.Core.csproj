@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\InterfaceLanguage.cs" />
     <Compile Include="Enums\StoreLanguage.cs" />
+    <Compile Include="Helpers\Language.cs" />
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

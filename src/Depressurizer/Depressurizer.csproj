@@ -300,7 +300,6 @@
     <Compile Include="Enums\ValueType.cs" />
     <Compile Include="Models\VDFNode.cs" />
     <Compile Include="Models\PackageInfo.cs" />
-    <Compile Include="Enums\InterfaceLanguage.cs" />
     <Compile Include="Enums\StartupAction.cs" />
     <Compile Include="ProfileAccessException.cs" />
     <Compile Include="Properties\Constants.Designer.cs">
