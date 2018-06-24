@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Helpers\SteamTest.cs" />
     <Compile Include="Helpers\LanguageTest.cs" />
+    <Compile Include="Models\CategoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

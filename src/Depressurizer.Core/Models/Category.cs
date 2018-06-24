@@ -1,7 +1,6 @@
 ﻿#region License
 
 //     This file (Category.cs) is part of Depressurizer.
-//     Copyright (C) 2011  Steve Labbe
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -21,12 +20,22 @@
 
 using System;
 
-namespace Depressurizer.Models
+namespace Depressurizer.Core.Models
 {
+	/// <summary>
+	///     A Depressurizer category.
+	/// </summary>
+	/// <inheritdoc />
 	public sealed class Category : IComparable
 	{
 		#region Constructors and Destructors
 
+		/// <summary>
+		///     Creates a single category with the specified name.
+		/// </summary>
+		/// <param name="name">
+		///     Name of the category.
+		/// </param>
 		public Category(string name)
 		{
 			Name = name;
@@ -36,9 +45,15 @@ namespace Depressurizer.Models
 
 		#region Public Properties
 
+		/// <summary>
+		///     Number of apps in the category.
+		/// </summary>
 		public int Count { get; set; } = 0;
 
-		public string Name { get; set; } = null;
+		/// <summary>
+		///     Name of the category.
+		/// </summary>
+		public string Name { get; set; }
 
 		#endregion
 
