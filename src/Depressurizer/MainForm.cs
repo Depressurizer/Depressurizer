@@ -129,16 +129,16 @@ namespace Depressurizer
 
 		private Color menuPrimaryText = Color.FromArgb(255, 168, 173, 175);
 
-		// Used to reload resources of main form while switching language
-		private int originalWidth;
-
 		private int originalHeight;
+
+		private int originalSplitDistanceBrowser;
 
 		private int originalSplitDistanceMain;
 
 		private int originalSplitDistanceSecondary;
 
-		private int originalSplitDistanceBrowser;
+		// Used to reload resources of main form while switching language
+		private int originalWidth;
 
 		private Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
 
