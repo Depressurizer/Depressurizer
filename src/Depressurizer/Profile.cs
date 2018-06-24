@@ -346,10 +346,10 @@ namespace Depressurizer
 			try
 			{
 				XmlDocument xml = new XmlDocument();
-				string profile = string.Format(Resources.UrlSteamProfile, SteamID64);
+				string profile = string.Format(Constants.UrlSteamProfile, SteamID64);
 				xml.Load(profile);
 
-				XmlNodeList xnList = xml.SelectNodes(Resources.XmlNodeAvatar);
+				XmlNodeList xnList = xml.SelectNodes(Constants.XmlNodeAvatar);
 				foreach (XmlNode xn in xnList)
 				{
 					string avatarURL = xn.InnerText;

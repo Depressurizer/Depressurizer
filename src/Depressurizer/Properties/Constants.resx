@@ -171,4 +171,13 @@
   <data name="SteamStoreAppBanner" xml:space="preserve">
     <value>https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg</value>
   </data>
+  <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
+    <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>
+  </data>
+  <data name="UrlSteamProfile" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}?xml=1</value>
+  </data>
+  <data name="XmlNodeAvatar" xml:space="preserve">
+    <value>/profile/avatarIcon</value>
+  </data>
 </root>
