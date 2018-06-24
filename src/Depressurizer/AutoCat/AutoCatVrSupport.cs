@@ -52,7 +52,7 @@ namespace Depressurizer
 
 		#region Fields
 
-		public VrSupport IncludedVrSupportFlags;
+		public VRSupport IncludedVrSupportFlags = new VRSupport();
 
 		#endregion
 
@@ -189,7 +189,7 @@ namespace Depressurizer
 				return AutoCatResult.Filtered;
 			}
 
-			VrSupport vrSupport = db.GetVrSupport(game.Id);
+			VRSupport vrSupport = db.GetVrSupport(game.Id);
 
 			vrSupport.Headsets = vrSupport.Headsets ?? new List<string>();
 			vrSupport.Input = vrSupport.Input ?? new List<string>();

@@ -1,6 +1,6 @@
 ﻿#region License
 
-//     This file (VrSupport.cs) is part of Depressurizer.
+//     This file (VRSupport.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -19,26 +19,30 @@
 #endregion
 
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Xml.Serialization;
 
-namespace Depressurizer.Models
+namespace Depressurizer.Core.Models
 {
-	public struct VrSupport
+	/// <summary>
+	///     Steam VR Support
+	/// </summary>
+	public sealed class VRSupport
 	{
-		#region Fields
+		#region Public Properties
 
-		[DefaultValue(null)]
-		[XmlElement("Headset")]
-		public List<string> Headsets;
+		/// <summary>
+		///     Supported VR headsets
+		/// </summary>
+		public List<string> Headsets { get; set; } = new List<string>();
 
-		[DefaultValue(null)]
-		[XmlElement("Input")]
-		public List<string> Input;
+		/// <summary>
+		///     Supported input / controllers
+		/// </summary>
+		public List<string> Input { get; set; } = new List<string>();
 
-		[DefaultValue(null)]
-		[XmlElement("PlayArea")]
-		public List<string> PlayArea;
+		/// <summary>
+		///     Supported play areas
+		/// </summary>
+		public List<string> PlayArea { get; set; } = new List<string>();
 
 		#endregion
 	}

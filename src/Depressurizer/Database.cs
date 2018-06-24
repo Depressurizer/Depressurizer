@@ -30,6 +30,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
@@ -70,7 +71,7 @@ namespace Depressurizer
 
 		private SortedSet<string> allStorePublishers;
 
-		private VrSupport allVrSupportFlags;
+		private readonly VRSupport allVrSupportFlags = new VRSupport();
 
 		#endregion
 
@@ -369,7 +370,7 @@ namespace Depressurizer
 			return allStoreFlags;
 		}
 
-		public VrSupport GetAllVrSupportFlags()
+		public VRSupport GetAllVrSupportFlags()
 		{
 			SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 			SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -506,11 +507,11 @@ namespace Depressurizer
 			return null;
 		}
 
-		public VrSupport GetVrSupport(int gameId, int depth = 3)
+		public VRSupport GetVrSupport(int gameId, int depth = 3)
 		{
 			if (Games.ContainsKey(gameId))
 			{
-				VrSupport res = Games[gameId].VrSupport;
+				VRSupport res = Games[gameId].VrSupport;
 				if (((res.Headsets == null) || (res.Headsets.Count == 0)) && ((res.Input == null) || (res.Input.Count == 0)) && ((res.PlayArea == null) || (res.PlayArea.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
 				{
 					res = GetVrSupport(Games[gameId].ParentId, depth - 1);
@@ -519,7 +520,7 @@ namespace Depressurizer
 				return res;
 			}
 
-			return new VrSupport();
+			return new VRSupport();
 		}
 
 		public bool IncludeItemInGameList(int appId)
@@ -690,23 +691,22 @@ namespace Depressurizer
 			Logger.Info(GlobalStrings.GameDB_GameDBSaved);
 		}
 
-		/// <summary>
-		///     Returns whether the game supports VR
-		/// </summary>
-		public bool SupportsVr(int gameId, int depth = 3)
+		public bool SupportsVR(int appId, int depth = 3)
 		{
-			if (Games.ContainsKey(gameId))
+			if (!Contains(appId))
 			{
-				VrSupport res = Games[gameId].VrSupport;
-				if (((res.Headsets != null) && (res.Headsets.Count > 0)) || ((res.Input != null) && (res.Input.Count > 0)) || ((res.PlayArea != null) && (res.PlayArea.Count > 0) && (depth > 0) && (Games[gameId].ParentId > 0)))
-				{
-					return true;
-				}
+				return false;
+			}
 
-				if ((depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					return SupportsVr(Games[gameId].ParentId, depth - 1);
-				}
+			VRSupport res = Games[appId].VrSupport;
+			if (((res.Headsets != null) && (res.Headsets.Count > 0)) || ((res.Input != null) && (res.Input.Count > 0)) || ((res.PlayArea != null) && (res.PlayArea.Count > 0) && (depth > 0) && (Games[appId].ParentId > 0)))
+			{
+				return true;
+			}
+
+			if ((depth > 0) && (Games[appId].ParentId > 0))
+			{
+				return SupportsVR(Games[appId].ParentId, depth - 1);
 			}
 
 			return false;
