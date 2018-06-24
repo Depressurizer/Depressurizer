@@ -92,7 +92,7 @@ namespace Depressurizer
 			using (WebClient wc = new WebClient())
 			{
 				wc.Encoding = Encoding.UTF8;
-				json = wc.DownloadString(string.Format(Resources.UrlSteamCuratorRecommendations, curatorId, 0));
+				json = wc.DownloadString(string.Format(Constants.UrlSteamCuratorRecommendations, curatorId, 0));
 			}
 
 			JObject parsedJson = JObject.Parse(json);
@@ -107,7 +107,7 @@ namespace Depressurizer
 					using (WebClient wc = new WebClient())
 					{
 						wc.Encoding = Encoding.UTF8;
-						json = wc.DownloadString(string.Format(Resources.UrlSteamCuratorRecommendations, curatorId, currentPosition));
+						json = wc.DownloadString(string.Format(Constants.UrlSteamCuratorRecommendations, curatorId, currentPosition));
 					}
 
 					parsedJson = JObject.Parse(json);
