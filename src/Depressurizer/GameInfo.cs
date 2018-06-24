@@ -307,7 +307,7 @@ namespace Depressurizer
 
 			if (f.VR != (int) AdvancedFilterState.None)
 			{
-				isVR = Program.Database.SupportsVr(Id);
+				isVR = Program.Database.SupportsVR(Id);
 			}
 
 			if ((f.Uncategorized == (int) AdvancedFilterState.Require) && isCategorized)

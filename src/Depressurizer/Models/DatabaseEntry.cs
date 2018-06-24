@@ -28,6 +28,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Models;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
@@ -163,7 +164,7 @@ namespace Depressurizer.Models
 		[DefaultValue(0)]
 		public int TotalAchievements;
 
-		public VrSupport VrSupport; //TODO: Add field to DB edit dialog
+		public VRSupport VrSupport = new VRSupport(); //TODO: Add field to DB edit dialog
 
 		#endregion
 
@@ -199,7 +200,7 @@ namespace Depressurizer.Models
 			Developers = null;
 			Publishers = null;
 
-			VrSupport = new VrSupport();
+			VrSupport = new VRSupport();
 			LanguageSupport = new LanguageSupport();
 
 			SteamReleaseDate = null;

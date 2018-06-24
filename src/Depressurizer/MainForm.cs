@@ -1542,7 +1542,7 @@ namespace Depressurizer
 					uncategorized++;
 				}
 
-				if (Program.Database.SupportsVr(g.Id) && !g.Hidden)
+				if (Program.Database.SupportsVR(g.Id) && !g.Hidden)
 				{
 					vr++;
 				}
@@ -4317,7 +4317,7 @@ namespace Depressurizer
 			// <VR>
 			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_VR)
 			{
-				return Program.Database.SupportsVr(g.Id);
+				return Program.Database.SupportsVR(g.Id);
 			}
 
 			if (!(lstCategories.SelectedItems[0].Tag is Category category))
