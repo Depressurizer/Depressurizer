@@ -30,12 +30,13 @@ namespace Depressurizer.Models
 	{
 		#region Constants
 
-		// Serialization strings
 		private const string TypeIdString = "Filter";
 
 		private const string XmlNameAllow = "Allow";
 
 		private const string XmlNameExclude = "Exclude";
+
+		private const string XmlNameGame = "Game";
 
 		private const string XmlNameHidden = "Hidden";
 
@@ -43,27 +44,11 @@ namespace Depressurizer.Models
 
 		private const string XmlNameRequire = "Require";
 
+		private const string XmlNameSoftware = "Software";
+
 		private const string XmlNameUncategorized = "Uncategorized";
 
 		private const string XmlNameVR = "VR";
-
-		#endregion
-
-		#region Fields
-
-		public int Hidden;
-
-		public string Name;
-
-		public int Uncategorized;
-
-		public int VR;
-
-		private SortedSet<Category> _allow;
-
-		private SortedSet<Category> _exclude;
-
-		private SortedSet<Category> _require;
 
 		#endregion
 
@@ -72,35 +57,32 @@ namespace Depressurizer.Models
 		public Filter(string name)
 		{
 			Name = name;
-			Uncategorized = -1;
-			Hidden = -1;
-			VR = -1;
-			Allow = new SortedSet<Category>();
-			Require = new SortedSet<Category>();
-			Exclude = new SortedSet<Category>();
 		}
 
 		#endregion
 
 		#region Public Properties
 
-		public SortedSet<Category> Allow
-		{
-			get => _allow;
-			set => _allow = new SortedSet<Category>(value);
-		}
+		public SortedSet<Category> Allow { get; set; } = new SortedSet<Category>();
 
-		public SortedSet<Category> Exclude
-		{
-			get => _exclude;
-			set => _exclude = new SortedSet<Category>(value);
-		}
+		public SortedSet<Category> Exclude { get; set; } = new SortedSet<Category>();
 
-		public SortedSet<Category> Require
-		{
-			get => _require;
-			set => _require = new SortedSet<Category>(value);
-		}
+		public int Game { get; set; } = -1;
+
+		public int Hidden { get; set; } = -1;
+
+		/// <summary>
+		///     Filter Name
+		/// </summary>
+		public string Name { get; set; } = null;
+
+		public SortedSet<Category> Require { get; set; } = new SortedSet<Category>();
+
+		public int Software { get; set; } = -1;
+
+		public int Uncategorized { get; set; } = -1;
+
+		public int VR { get; set; } = -1;
 
 		#endregion
 
@@ -141,8 +123,11 @@ namespace Depressurizer.Models
 			writer.WriteStartElement(TypeIdString);
 
 			writer.WriteElementString(XmlNameName, Name);
-			writer.WriteElementString(XmlNameUncategorized, Uncategorized.ToString());
+
+			writer.WriteElementString(XmlNameGame, Game.ToString());
 			writer.WriteElementString(XmlNameHidden, Hidden.ToString());
+			writer.WriteElementString(XmlNameSoftware, Software.ToString());
+			writer.WriteElementString(XmlNameUncategorized, Uncategorized.ToString());
 			writer.WriteElementString(XmlNameVR, VR.ToString());
 
 			foreach (Category c in Allow)
