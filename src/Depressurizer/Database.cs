@@ -97,186 +97,6 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		///     Gets a list of all Steam store developers found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A set of developers, as strings</returns>
-		public SortedSet<string> CalculateAllDevelopers()
-		{
-			if (allStoreDevelopers == null)
-			{
-				allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			}
-			else
-			{
-				allStoreDevelopers.Clear();
-			}
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.Developers != null)
-				{
-					allStoreDevelopers.UnionWith(entry.Developers);
-				}
-			}
-
-			return allStoreDevelopers;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store genres found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A set of genres, as strings</returns>
-		public SortedSet<string> CalculateAllGenres()
-		{
-			if (allStoreGenres == null)
-			{
-				allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			}
-			else
-			{
-				allStoreGenres.Clear();
-			}
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.Genres != null)
-				{
-					allStoreGenres.UnionWith(entry.Genres);
-				}
-			}
-
-			return allStoreGenres;
-		}
-
-		/// <summary>
-		///     Gets a list of all Game Languages found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A LanguageSupport struct containing the languages</returns>
-		public LanguageSupport CalculateAllLanguages()
-		{
-			SortedSet<string> Interface = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			SortedSet<string> Subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			SortedSet<string> FullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.LanguageSupport.Interface != null)
-				{
-					Interface.UnionWith(entry.LanguageSupport.Interface);
-				}
-
-				if (entry.LanguageSupport.Subtitles != null)
-				{
-					Subtitles.UnionWith(entry.LanguageSupport.Subtitles);
-				}
-
-				if (entry.LanguageSupport.FullAudio != null)
-				{
-					FullAudio.UnionWith(entry.LanguageSupport.FullAudio);
-				}
-			}
-
-			allLanguages.Interface = Interface.ToList();
-			allLanguages.Subtitles = Subtitles.ToList();
-			allLanguages.FullAudio = FullAudio.ToList();
-
-			return allLanguages;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store publishers found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A set of publishers, as strings</returns>
-		public SortedSet<string> CalculateAllPublishers()
-		{
-			if (allStorePublishers == null)
-			{
-				allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			}
-			else
-			{
-				allStorePublishers.Clear();
-			}
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.Publishers != null)
-				{
-					allStorePublishers.UnionWith(entry.Publishers);
-				}
-			}
-
-			return allStorePublishers;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store flags found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A set of genres, as strings</returns>
-		public SortedSet<string> CalculateAllStoreFlags()
-		{
-			if (allStoreFlags == null)
-			{
-				allStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			}
-			else
-			{
-				allStoreFlags.Clear();
-			}
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.Flags != null)
-				{
-					allStoreFlags.UnionWith(entry.Flags);
-				}
-			}
-
-			return allStoreFlags;
-		}
-
-		/// <summary>
-		///     Gets a list of all Steam store VR Support flags found in the entire database.
-		///     Always recalculates.
-		/// </summary>
-		/// <returns>A VrSupport struct containing the flags</returns>
-		public VrSupport CalculateAllVrSupportFlags()
-		{
-			SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-			SortedSet<string> playArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-
-			foreach (DatabaseEntry entry in Games.Values)
-			{
-				if (entry.VrSupport.Headsets != null)
-				{
-					headsets.UnionWith(entry.VrSupport.Headsets);
-				}
-
-				if (entry.VrSupport.Input != null)
-				{
-					input.UnionWith(entry.VrSupport.Input);
-				}
-
-				if (entry.VrSupport.PlayArea != null)
-				{
-					playArea.UnionWith(entry.VrSupport.PlayArea);
-				}
-			}
-
-			allVrSupportFlags.Headsets = headsets.ToList();
-			allVrSupportFlags.Input = input.ToList();
-			allVrSupportFlags.PlayArea = playArea.ToList();
-
-			return allVrSupportFlags;
-		}
-
-		/// <summary>
 		///     Gets a list of developers found on games with their game count.
 		/// </summary>
 		/// <param name="filter">
@@ -452,97 +272,129 @@ namespace Depressurizer
 			Save("GameDB.xml.gz");
 		}
 
-		public bool Contains(int id)
+		public bool Contains(int appId)
 		{
-			return Games.ContainsKey(id);
+			return Games.ContainsKey(appId);
 		}
 
-		/// <summary>
-		///     Gets a list of all Steam store developers found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A set of developers, as strings</returns>
 		public SortedSet<string> GetAllDevelopers()
 		{
-			if (allStoreDevelopers == null)
+			allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			foreach (DatabaseEntry entry in Games.Values)
 			{
-				return CalculateAllDevelopers();
+				if (entry.Developers != null)
+				{
+					allStoreDevelopers.UnionWith(entry.Developers);
+				}
 			}
 
 			return allStoreDevelopers;
 		}
 
-		/// <summary>
-		///     Gets a list of all Steam store genres found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A set of genres, as strings</returns>
 		public SortedSet<string> GetAllGenres()
 		{
-			if (allStoreGenres == null)
+			allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			foreach (DatabaseEntry entry in Games.Values)
 			{
-				return CalculateAllGenres();
+				if (entry.Genres != null)
+				{
+					allStoreGenres.UnionWith(entry.Genres);
+				}
 			}
 
 			return allStoreGenres;
 		}
 
-		/// <summary>
-		///     Gets a list of all Game Languages found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A LanguageSupport struct containing the languages</returns>
 		public LanguageSupport GetAllLanguages()
 		{
-			if ((allLanguages.FullAudio == null) || (allLanguages.Interface == null) || (allLanguages.Subtitles == null))
+			SortedSet<string> Interface = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> fullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			foreach (DatabaseEntry entry in Games.Values)
 			{
-				return CalculateAllLanguages();
+				if (entry.LanguageSupport.Interface != null)
+				{
+					Interface.UnionWith(entry.LanguageSupport.Interface);
+				}
+
+				if (entry.LanguageSupport.Subtitles != null)
+				{
+					subtitles.UnionWith(entry.LanguageSupport.Subtitles);
+				}
+
+				if (entry.LanguageSupport.FullAudio != null)
+				{
+					fullAudio.UnionWith(entry.LanguageSupport.FullAudio);
+				}
 			}
+
+			allLanguages.Interface = Interface.ToList();
+			allLanguages.Subtitles = subtitles.ToList();
+			allLanguages.FullAudio = fullAudio.ToList();
 
 			return allLanguages;
 		}
 
-		/// <summary>
-		///     Gets a list of all Steam store publishers found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A set of publishers, as strings</returns>
 		public SortedSet<string> GetAllPublishers()
 		{
-			if (allStorePublishers == null)
+			allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			foreach (DatabaseEntry entry in Games.Values)
 			{
-				return CalculateAllPublishers();
+				if (entry.Publishers != null)
+				{
+					allStorePublishers.UnionWith(entry.Publishers);
+				}
 			}
 
 			return allStorePublishers;
 		}
 
-		/// <summary>
-		///     Gets a list of all Steam store flags found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A set of genres, as strings</returns>
 		public SortedSet<string> GetAllStoreFlags()
 		{
-			if (allStoreFlags == null)
+			allStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			foreach (DatabaseEntry entry in Games.Values)
 			{
-				return CalculateAllStoreFlags();
+				if (entry.Flags != null)
+				{
+					allStoreFlags.UnionWith(entry.Flags);
+				}
 			}
 
 			return allStoreFlags;
 		}
 
-		/// <summary>
-		///     Gets a list of all Steam store VR Support flags found in the entire database.
-		///     Only recalculates if necessary.
-		/// </summary>
-		/// <returns>A VrSupport struct containing the flags</returns>
 		public VrSupport GetAllVrSupportFlags()
 		{
-			if ((allVrSupportFlags.Headsets == null) || (allVrSupportFlags.Input == null) || (allVrSupportFlags.PlayArea == null))
+			SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> playArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+			foreach (DatabaseEntry entry in Games.Values)
 			{
-				return CalculateAllVrSupportFlags();
+				if (entry.VrSupport.Headsets != null)
+				{
+					headsets.UnionWith(entry.VrSupport.Headsets);
+				}
+
+				if (entry.VrSupport.Input != null)
+				{
+					input.UnionWith(entry.VrSupport.Input);
+				}
+
+				if (entry.VrSupport.PlayArea != null)
+				{
+					playArea.UnionWith(entry.VrSupport.PlayArea);
+				}
 			}
+
+			allVrSupportFlags.Headsets = headsets.ToList();
+			allVrSupportFlags.Input = input.ToList();
+			allVrSupportFlags.PlayArea = playArea.ToList();
 
 			return allVrSupportFlags;
 		}
@@ -604,45 +456,37 @@ namespace Depressurizer
 			return null;
 		}
 
-		public string GetName(int id)
+		public string GetName(int appId)
 		{
-			if (Games.ContainsKey(id))
-			{
-				return Games[id].Name;
-			}
-
-			return null;
+			return Contains(appId) ? Games[appId].Name : string.Empty;
 		}
 
-		public List<string> GetPublishers(int gameId, int depth = 3)
+		public List<string> GetPublishers(int appId, int depth = 3)
 		{
-			if (Games.ContainsKey(gameId))
+			if (!Contains(appId))
 			{
-				List<string> res = Games[gameId].Publishers;
-				if (((res == null) || (res.Count == 0)) && (depth > 0) && (Games[gameId].ParentId > 0))
-				{
-					res = GetPublishers(Games[gameId].ParentId, depth - 1);
-				}
-
-				return res;
+				return null;
 			}
 
-			return null;
+			List<string> publishers = Games[appId].Publishers;
+			if (((publishers == null) || (publishers.Count == 0)) && (depth > 0) && (Games[appId].ParentId > 0))
+			{
+				publishers = GetPublishers(Games[appId].ParentId, depth - 1);
+			}
+
+			return publishers;
 		}
 
-		public int GetReleaseYear(int gameId)
+		public int GetReleaseYear(int appId)
 		{
-			if (Games.ContainsKey(gameId))
+			if (!Contains(appId))
 			{
-				DatabaseEntry dbEntry = Games[gameId];
-				DateTime releaseDate;
-				if (DateTime.TryParse(dbEntry.SteamReleaseDate, out releaseDate))
-				{
-					return releaseDate.Year;
-				}
+				return 0;
 			}
 
-			return 0;
+			DatabaseEntry entry = Games[appId];
+
+			return DateTime.TryParse(entry.SteamReleaseDate, out DateTime releaseDate) ? releaseDate.Year : 0;
 		}
 
 		public List<string> GetTagList(int gameId, int depth = 3)
