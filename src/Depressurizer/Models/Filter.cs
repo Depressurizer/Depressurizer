@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 
 namespace Depressurizer.Models

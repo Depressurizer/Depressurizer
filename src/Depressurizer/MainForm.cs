@@ -37,6 +37,7 @@ using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;

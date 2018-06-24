@@ -115,7 +115,6 @@
     <Compile Include="Models\AppInfoNode.cs" />
     <Compile Include="Enums\AppType.cs" />
     <Compile Include="Enums\AppPlatforms.cs" />
-    <Compile Include="Models\Category.cs" />
     <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
     </Compile>

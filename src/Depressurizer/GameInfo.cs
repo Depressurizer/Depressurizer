@@ -20,6 +20,7 @@
 #endregion
 
 using System.Collections.Generic;
+using Depressurizer.Core.Models;
 using Depressurizer.Enums;
 using Depressurizer.Models;
 

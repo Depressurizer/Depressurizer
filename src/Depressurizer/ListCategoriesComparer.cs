@@ -22,7 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 using Depressurizer.Properties;
 
 namespace Depressurizer
