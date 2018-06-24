@@ -24,14 +24,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Windows.Forms;
-using Depressurizer.Core.Enums;
-using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
 
@@ -143,162 +140,6 @@ namespace Depressurizer
 			}
 
 			return b.Count - a.Count;
-		}
-
-		public static CultureInfo GetCulture(StoreLanguage language)
-		{
-			CultureInfo culture;
-
-			switch (language)
-			{
-				case StoreLanguage.Arabic:
-					culture = new CultureInfo("ar");
-
-					break;
-				case StoreLanguage.Bulgarian:
-					culture = new CultureInfo("bg");
-
-					break;
-				case StoreLanguage.ChineseSimplified:
-					culture = new CultureInfo("zh-CN");
-
-					break;
-				case StoreLanguage.ChineseTraditional:
-					culture = new CultureInfo("zh-TW");
-
-					break;
-				case StoreLanguage.Czech:
-					culture = new CultureInfo("cs");
-
-					break;
-				case StoreLanguage.Danish:
-					culture = new CultureInfo("da");
-
-					break;
-				case StoreLanguage.Dutch:
-					culture = new CultureInfo("nl");
-
-					break;
-				case StoreLanguage.English:
-					culture = new CultureInfo("en");
-
-					break;
-				case StoreLanguage.Finnish:
-					culture = new CultureInfo("fi");
-
-					break;
-				case StoreLanguage.French:
-					culture = new CultureInfo("fr");
-
-					break;
-				case StoreLanguage.German:
-					culture = new CultureInfo("de");
-
-					break;
-				case StoreLanguage.Greek:
-					culture = new CultureInfo("el");
-
-					break;
-				case StoreLanguage.Hungarian:
-					culture = new CultureInfo("hu");
-
-					break;
-				case StoreLanguage.Italian:
-					culture = new CultureInfo("it");
-
-					break;
-				case StoreLanguage.Japanese:
-					culture = new CultureInfo("ja");
-
-					break;
-				case StoreLanguage.Korean:
-					culture = new CultureInfo("ko");
-
-					break;
-				case StoreLanguage.Norwegian:
-					culture = new CultureInfo("no");
-
-					break;
-				case StoreLanguage.Polish:
-					culture = new CultureInfo("pl");
-
-					break;
-				case StoreLanguage.Portuguese:
-					culture = new CultureInfo("pt");
-
-					break;
-				case StoreLanguage.PortugueseBrasil:
-					culture = new CultureInfo("pt-BR");
-
-					break;
-				case StoreLanguage.Romanian:
-					culture = new CultureInfo("ro");
-
-					break;
-				case StoreLanguage.Russian:
-					culture = new CultureInfo("ru");
-
-					break;
-				case StoreLanguage.Spanish:
-					culture = new CultureInfo("es");
-
-					break;
-				case StoreLanguage.Swedish:
-					culture = new CultureInfo("sv");
-
-					break;
-				case StoreLanguage.Thai:
-					culture = new CultureInfo("th");
-
-					break;
-				case StoreLanguage.Turkish:
-					culture = new CultureInfo("tr");
-
-					break;
-				case StoreLanguage.Ukrainian:
-					culture = new CultureInfo("uk");
-
-					break;
-				default:
-
-					throw new ArgumentOutOfRangeException(nameof(language), language, null);
-			}
-
-			return culture;
-		}
-
-		public static CultureInfo GetCulture(InterfaceLanguage language)
-		{
-			CultureInfo culture;
-
-			switch (language)
-			{
-				case InterfaceLanguage.Dutch:
-					culture = new CultureInfo("nl");
-
-					break;
-				case InterfaceLanguage.English:
-					culture = new CultureInfo("en");
-
-					break;
-				case InterfaceLanguage.Russian:
-					culture = new CultureInfo("ru");
-
-					break;
-				case InterfaceLanguage.Spanish:
-					culture = new CultureInfo("es");
-
-					break;
-				case InterfaceLanguage.Ukranian:
-					culture = new CultureInfo("uk");
-
-					break;
-				default:
-
-					throw new ArgumentOutOfRangeException(nameof(language), language, null);
-			}
-
-			return culture;
 		}
 
 		/// <summary>
@@ -434,39 +275,6 @@ namespace Depressurizer
 			lb.Items.Insert(newIndex, selected);
 			// Restore selection
 			lb.SetSelected(newIndex, true);
-		}
-
-		public static bool SaveRemoteImageToFile(string url, string localPath, int id = 0)
-		{
-			try
-			{
-				using (Stream inputStream = GetRemoteImageStream(url, id))
-				{
-					if (inputStream == null)
-					{
-						return false;
-					}
-
-					using (Stream outputStream = File.OpenWrite(localPath))
-					{
-						byte[] buffer = new byte[4096];
-						int bytesRead;
-						do
-						{
-							bytesRead = inputStream.Read(buffer, 0, buffer.Length);
-							outputStream.Write(buffer, 0, bytesRead);
-						} while (bytesRead != 0);
-					}
-				}
-
-				return true;
-			}
-			catch (Exception e)
-			{
-				Logger.Exception(string.Format(GlobalStrings.Utility_SaveBanner, localPath), e);
-
-				return false;
-			}
 		}
 
 		#endregion

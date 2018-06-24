@@ -36,6 +36,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Dialogs;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
@@ -46,6 +47,7 @@ using MaterialSkin.Controls;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using Rallion;
+using Steam = Depressurizer.Helpers.Steam;
 
 namespace Depressurizer
 {
@@ -2226,7 +2228,7 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				CultureInfo culture = Utility.GetCulture(Program.Database.dbLanguage);
+				CultureInfo culture = Language.GetCultureInfo(Program.Database.dbLanguage);
 				if (Program.Database.Games.ContainsKey(id) && DateTime.TryParse(Program.Database.Games[id].SteamReleaseDate, culture, DateTimeStyles.None, out DateTime releaseDate))
 				{
 					return releaseDate.Year.ToString();

@@ -23,6 +23,7 @@ using System;
 using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Enums;
 
 namespace Depressurizer
@@ -144,7 +145,7 @@ namespace Depressurizer
 			cmbUILanguage.Items.Clear();
 			foreach (InterfaceLanguage language in Enum.GetValues(typeof(InterfaceLanguage)))
 			{
-				CultureInfo culture = Utility.GetCulture(language);
+				CultureInfo culture = Language.GetCultureInfo(language);
 				cmbUILanguage.Items.Add(culture.NativeName);
 			}
 
@@ -152,7 +153,7 @@ namespace Depressurizer
 			cmbStoreLanguage.Items.Clear();
 			foreach (StoreLanguage language in Enum.GetValues(typeof(StoreLanguage)))
 			{
-				CultureInfo culture = Utility.GetCulture(language);
+				CultureInfo culture = Language.GetCultureInfo(language);
 				cmbStoreLanguage.Items.Add(culture.NativeName);
 			}
 

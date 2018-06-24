@@ -21,6 +21,7 @@
 using System.IO;
 using System.Threading;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Newtonsoft.Json;
@@ -703,7 +704,7 @@ namespace Depressurizer
 
 		private static void ChangeLanguage(InterfaceLanguage language)
 		{
-			Thread.CurrentThread.CurrentUICulture = Utility.GetCulture(language);
+			Thread.CurrentThread.CurrentUICulture = Language.GetCultureInfo(language);
 		}
 
 		#endregion
