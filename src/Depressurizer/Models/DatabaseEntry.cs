@@ -27,9 +27,11 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using Depressurizer.Core.Enums;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
+using Steam = Depressurizer.Core.Helpers.Steam;
 
 namespace Depressurizer.Models
 {
@@ -344,7 +346,7 @@ namespace Depressurizer.Models
 
 			try
 			{
-				string storeLanguage = Utility.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : Settings.StoreLanguage);
+				string storeLanguage = Steam.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : Settings.StoreLanguage);
 
 				HttpWebRequest req = GetSteamRequest(string.Format(Constants.SteamStoreApp + "?l=" + storeLanguage, Id));
 				resp = (HttpWebResponse) req.GetResponse();
@@ -743,10 +745,12 @@ namespace Depressurizer.Models
 			matches = RegexLanguageSupport.Matches(page);
 			if (matches.Count > 0)
 			{
-				LanguageSupport = new LanguageSupport();
-				LanguageSupport.Interface = new List<string>();
-				LanguageSupport.FullAudio = new List<string>();
-				LanguageSupport.Subtitles = new List<string>();
+				LanguageSupport = new LanguageSupport
+				{
+					Interface = new List<string>(),
+					FullAudio = new List<string>(),
+					Subtitles = new List<string>()
+				};
 
 				foreach (Match ma in matches)
 				{
@@ -783,8 +787,7 @@ namespace Depressurizer.Models
 					Flags.Add("Steam Achievements");
 				}
 
-				int num = 0;
-				if (int.TryParse(m.Groups[1].Value, out num))
+				if (int.TryParse(m.Groups[1].Value, out int num))
 				{
 					TotalAchievements = num;
 				}
@@ -823,8 +826,7 @@ namespace Depressurizer.Models
 			m = RegexReviews.Match(page);
 			if (m.Success)
 			{
-				int num = 0;
-				if (int.TryParse(m.Groups[1].Value, out num))
+				if (int.TryParse(m.Groups[1].Value, out int num))
 				{
 					ReviewPositivePercentage = num;
 				}

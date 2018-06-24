@@ -89,8 +89,7 @@ namespace Depressurizer
 			}
 			else
 			{
-				int id;
-				if (!int.TryParse(txtId.Text, out id))
+				if (!int.TryParse(txtId.Text, out int id))
 				{
 					MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 

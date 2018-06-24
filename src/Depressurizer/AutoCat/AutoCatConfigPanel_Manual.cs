@@ -138,9 +138,12 @@ namespace Depressurizer
 			{
 				if (!found.Contains(s))
 				{
-					ListViewItem l = new ListViewItem();
-					l.Text = s;
-					l.Name = s;
+					ListViewItem l = new ListViewItem
+					{
+						Text = s,
+						Name = s
+					};
+
 					clbRemoveSelected.Items.Add(l, true);
 				}
 			}
@@ -159,9 +162,12 @@ namespace Depressurizer
 			{
 				if (!found.Contains(s))
 				{
-					ListViewItem l = new ListViewItem();
-					l.Text = s;
-					l.Name = s;
+					ListViewItem l = new ListViewItem
+					{
+						Text = s,
+						Name = s
+					};
+
 					clbAddSelected.Items.Add(l, true);
 				}
 			}
@@ -330,9 +336,11 @@ namespace Depressurizer
 
 		private ListViewItem CreateCategoryListViewItem(Category c)
 		{
-			ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")");
-			i.Tag = c;
-			i.Name = c.Name;
+			ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")")
+			{
+				Tag = c,
+				Name = c.Name
+			};
 
 			return i;
 		}

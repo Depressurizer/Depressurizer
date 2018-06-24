@@ -1,6 +1,6 @@
-﻿#region License
+#region License
 
-//     This file (StoreLanguage.cs) is part of Depressurizer.
+//     This file (AssemblyInfo.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -18,68 +18,22 @@
 
 #endregion
 
-namespace Depressurizer.Enums
-{
-	/// <summary>
-	///     Languages supported on Steam.
-	/// </summary>
-	/// <remarks>
-	///     https://partner.steamgames.com/doc/store/localization
-	/// </remarks>
-	public enum StoreLanguage
-	{
-		Arabic,
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-		Bulgarian,
+[assembly: AssemblyTitle("Depressurizer.Test")]
+[assembly: AssemblyDescription("Tests of Depressurizer")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Martijn Vegter")]
+[assembly: AssemblyProduct("Depressurizer.Test")]
+[assembly: AssemblyCopyright("Depressurizer.Test  Copyright (C) 2018  Martijn Vegter")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
-		ChineseSimplified,
+[assembly: ComVisible(false)]
 
-		ChineseTraditional,
+[assembly: Guid("9ee8744d-a191-4082-9c87-f13734d33a58")]
 
-		Czech,
-
-		Danish,
-
-		Dutch,
-
-		English,
-
-		Finnish,
-
-		French,
-
-		German,
-
-		Greek,
-
-		Hungarian,
-
-		Italian,
-
-		Japanese,
-
-		Korean,
-
-		Norwegian,
-
-		Polish,
-
-		Portuguese,
-
-		PortugueseBrasil,
-
-		Romanian,
-
-		Russian,
-
-		Spanish,
-
-		Swedish,
-
-		Thai,
-
-		Turkish,
-
-		Ukrainian
-	}
-}
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

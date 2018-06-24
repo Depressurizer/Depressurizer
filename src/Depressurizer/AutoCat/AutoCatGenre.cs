@@ -133,8 +133,7 @@ namespace Depressurizer
 				XmlNodeList ignoreNodes = ignoreListElement.SelectNodes(XmlName_IgnoreItem);
 				foreach (XmlNode node in ignoreNodes)
 				{
-					string s;
-					if (XmlUtil.TryGetStringFromNode(node, out s))
+					if (XmlUtil.TryGetStringFromNode(node, out string s))
 					{
 						ignore.Add(s);
 					}

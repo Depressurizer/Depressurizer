@@ -495,11 +495,14 @@ namespace Depressurizer
 		{
 			if (CheckForUnsaved())
 			{
-				OpenFileDialog dlg = new OpenFileDialog();
-				dlg.DefaultExt = "gz";
-				dlg.AddExtension = true;
-				dlg.CheckFileExists = true;
-				dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
+				OpenFileDialog dlg = new OpenFileDialog
+				{
+					DefaultExt = "gz",
+					AddExtension = true,
+					CheckFileExists = true,
+					Filter = GlobalStrings.DBEditDlg_DialogFilter
+				};
+
 				DialogResult res = dlg.ShowDialog();
 				if (res == DialogResult.OK)
 				{
@@ -739,11 +742,14 @@ namespace Depressurizer
 		/// </summary>
 		private void SaveAs()
 		{
-			SaveFileDialog dlg = new SaveFileDialog();
-			dlg.DefaultExt = "gz";
-			dlg.AddExtension = true;
-			dlg.CheckFileExists = false;
-			dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
+			SaveFileDialog dlg = new SaveFileDialog
+			{
+				DefaultExt = "gz",
+				AddExtension = true,
+				CheckFileExists = false,
+				Filter = GlobalStrings.DBEditDlg_DialogFilter
+			};
+
 			DialogResult res = dlg.ShowDialog();
 			if (res == DialogResult.OK)
 			{

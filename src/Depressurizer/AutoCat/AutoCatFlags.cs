@@ -96,8 +96,7 @@ namespace Depressurizer
 				XmlNodeList flagElements = flagListElement.SelectNodes(XmlName_Flag);
 				foreach (XmlNode n in flagElements)
 				{
-					string flag;
-					if (XmlUtil.TryGetStringFromNode(n, out flag))
+					if (XmlUtil.TryGetStringFromNode(n, out string flag))
 					{
 						flags.Add(flag);
 					}

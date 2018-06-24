@@ -232,9 +232,10 @@ namespace Depressurizer
 		public static Profile Load(string path)
 		{
 			Logger.Info(GlobalStrings.Profile_LoadingProfile, path);
-			Profile profile = new Profile();
-
-			profile.FilePath = path;
+			Profile profile = new Profile
+			{
+				FilePath = path
+			};
 
 			XmlDocument doc = new XmlDocument();
 
@@ -459,9 +460,11 @@ namespace Depressurizer
 		public bool Save(string path)
 		{
 			Logger.Info(GlobalStrings.Profile_SavingProfile, path);
-			XmlWriterSettings writeSettings = new XmlWriterSettings();
-			writeSettings.CloseOutput = true;
-			writeSettings.Indent = true;
+			XmlWriterSettings writeSettings = new XmlWriterSettings
+			{
+				CloseOutput = true,
+				Indent = true
+			};
 
 			try
 			{
@@ -673,8 +676,11 @@ namespace Depressurizer
 				}
 
 				string name = XmlUtil.GetStringFromNode(node[XmlName_Game_Name], null);
-				GameInfo game = new GameInfo(id, name, profile.GameData);
-				game.Source = source;
+				GameInfo game = new GameInfo(id, name, profile.GameData)
+				{
+					Source = source
+				};
+
 				profile.GameData.Games.Add(id, game);
 
 				game.Hidden = XmlUtil.GetBoolFromNode(node[XmlName_Game_Hidden], false);

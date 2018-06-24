@@ -30,10 +30,10 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Windows.Forms;
+using Depressurizer.Core.Enums;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
-using MaterialSkin.Controls;
 
 namespace Depressurizer
 {
@@ -379,128 +379,6 @@ namespace Depressurizer
 			return null;
 		}
 
-		public static string GetStoreLanguage(StoreLanguage storeLanguage)
-		{
-			string language;
-
-			switch (storeLanguage)
-			{
-				case StoreLanguage.Arabic:
-					language = "arabic";
-
-					break;
-				case StoreLanguage.Bulgarian:
-					language = "bulgarian";
-
-					break;
-				case StoreLanguage.ChineseSimplified:
-					language = "schinese";
-
-					break;
-				case StoreLanguage.ChineseTraditional:
-					language = "tchinese";
-
-					break;
-				case StoreLanguage.Czech:
-					language = "czech";
-
-					break;
-				case StoreLanguage.Danish:
-					language = "danish";
-
-					break;
-				case StoreLanguage.Dutch:
-					language = "dutch";
-
-					break;
-				case StoreLanguage.English:
-					language = "english";
-
-					break;
-				case StoreLanguage.Finnish:
-					language = "finnish";
-
-					break;
-				case StoreLanguage.French:
-					language = "french";
-
-					break;
-				case StoreLanguage.German:
-					language = "german";
-
-					break;
-				case StoreLanguage.Greek:
-					language = "greek";
-
-					break;
-				case StoreLanguage.Hungarian:
-					language = "hungarian";
-
-					break;
-				case StoreLanguage.Italian:
-					language = "italian";
-
-					break;
-				case StoreLanguage.Japanese:
-					language = "japanese";
-
-					break;
-				case StoreLanguage.Korean:
-					language = "koreana";
-
-					break;
-				case StoreLanguage.Norwegian:
-					language = "norwegian";
-
-					break;
-				case StoreLanguage.Polish:
-					language = "polish";
-
-					break;
-				case StoreLanguage.Portuguese:
-					language = "portuguese";
-
-					break;
-				case StoreLanguage.PortugueseBrasil:
-					language = "brazilian";
-
-					break;
-				case StoreLanguage.Romanian:
-					language = "romanian";
-
-					break;
-				case StoreLanguage.Russian:
-					language = "russian";
-
-					break;
-				case StoreLanguage.Spanish:
-					language = "spanish";
-
-					break;
-				case StoreLanguage.Swedish:
-					language = "swedish";
-
-					break;
-				case StoreLanguage.Thai:
-					language = "thai";
-
-					break;
-				case StoreLanguage.Turkish:
-					language = "turkish";
-
-					break;
-				case StoreLanguage.Ukrainian:
-					language = "ukrainian";
-
-					break;
-				default:
-
-					throw new ArgumentOutOfRangeException(nameof(storeLanguage), storeLanguage, null);
-			}
-
-			return language;
-		}
-
 		/// <summary>
 		///     Converts a given DateTime to unix time
 		/// </summary>
@@ -520,22 +398,6 @@ namespace Depressurizer
 			}
 
 			return (int) tSecs;
-		}
-
-		public static bool IsOnScreen(MaterialForm form)
-		{
-			Screen[] screens = Screen.AllScreens;
-			foreach (Screen screen in screens)
-			{
-				Point formTopLeft = new Point(form.Left, form.Top);
-
-				if (screen.WorkingArea.Contains(formTopLeft))
-				{
-					return true;
-				}
-			}
-
-			return false;
 		}
 
 		/// <summary>

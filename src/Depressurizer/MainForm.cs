@@ -205,6 +205,22 @@ namespace Depressurizer
 
 		#region Public Methods and Operators
 
+		public static bool IsOnScreen(MaterialForm form)
+		{
+			Screen[] screens = Screen.AllScreens;
+			foreach (Screen screen in screens)
+			{
+				Point formTopLeft = new Point(form.Left, form.Top);
+
+				if (screen.WorkingArea.Contains(formTopLeft))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		/// <summary>
 		///     Adds a string to the status builder
 		/// </summary>
@@ -1142,9 +1158,11 @@ namespace Depressurizer
 
 		private ListViewItem CreateCategoryListViewItem(Category c)
 		{
-			ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")");
-			i.Tag = c;
-			i.Name = c.Name;
+			ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")")
+			{
+				Tag = c,
+				Name = c.Name
+			};
 
 			return i;
 		}
@@ -1403,9 +1421,12 @@ namespace Depressurizer
 					//item.Tag = c;
 					//item.Click += contextGameRemCat_Category_Click;
 
-					ListViewItem listItem = new ListViewItem(c.Name);
-					listItem.Tag = c;
-					listItem.StateImageIndex = 0;
+					ListViewItem listItem = new ListViewItem(c.Name)
+					{
+						Tag = c,
+						StateImageIndex = 0
+					};
+
 					lstMultiCat.Items.Add(listItem);
 				}
 			}
@@ -1449,10 +1470,13 @@ namespace Depressurizer
 					if (ac != null)
 					{
 						// Fill main screen dropdown
-						ListViewItem listItem = new ListViewItem(ac.DisplayName);
-						listItem.Tag = ac;
-						listItem.Name = ac.Name;
-						listItem.Checked = ac.Selected;
+						ListViewItem listItem = new ListViewItem(ac.DisplayName)
+						{
+							Tag = ac,
+							Name = ac.Name,
+							Checked = ac.Selected
+						};
+
 						lvAutoCatType.Items.Add(listItem);
 						//SelectAutoCats();
 
@@ -1752,7 +1776,7 @@ namespace Depressurizer
 			// Load saved forms settings
 			Settings settings = Settings.Instance;
 			Location = new Point(settings.X, settings.Y);
-			if (!Utility.IsOnScreen(this))
+			if (!IsOnScreen(this))
 			{
 				//TopLeft corner is off screen, so reset location
 				Location = new Point(0, 0);
@@ -2643,12 +2667,15 @@ namespace Depressurizer
 				return;
 			}
 
-			OpenFileDialog dlg = new OpenFileDialog();
-			dlg.DefaultExt = "profile";
-			dlg.AddExtension = true;
-			dlg.CheckFileExists = true;
-			dlg.Filter = GlobalStrings.DlgProfile_Filter;
-			dlg.InitialDirectory = Path.GetDirectoryName(CurrentProfile == null ? Assembly.GetExecutingAssembly().CodeBase : CurrentProfile.FilePath);
+			OpenFileDialog dlg = new OpenFileDialog
+			{
+				DefaultExt = "profile",
+				AddExtension = true,
+				CheckFileExists = true,
+				Filter = GlobalStrings.DlgProfile_Filter,
+				InitialDirectory = Path.GetDirectoryName(CurrentProfile == null ? Assembly.GetExecutingAssembly().CodeBase : CurrentProfile.FilePath)
+			};
+
 			DialogResult res = dlg.ShowDialog();
 			if (res == DialogResult.OK)
 			{
@@ -2926,11 +2953,14 @@ namespace Depressurizer
 
 			try
 			{
-				ImageDecoration decoration = new ImageDecoration(Image.FromFile(bannerFile));
-				decoration.ShrinkToWidth = true;
-				decoration.AdornmentCorner = ContentAlignment.TopLeft;
-				decoration.ReferenceCorner = ContentAlignment.TopLeft;
-				decoration.Transparency = 255;
+				ImageDecoration decoration = new ImageDecoration(Image.FromFile(bannerFile))
+				{
+					ShrinkToWidth = true,
+					AdornmentCorner = ContentAlignment.TopLeft,
+					ReferenceCorner = ContentAlignment.TopLeft,
+					Transparency = 255
+				};
+
 				//e.SubItem.Decoration = decoration;
 				e.SubItem.Decorations.Add(decoration);
 			}
@@ -3033,7 +3063,7 @@ namespace Depressurizer
 
 		private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string storeLanguage = Utility.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : Settings.StoreLanguage);
+			string storeLanguage = Core.Helpers.Steam.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : Settings.StoreLanguage);
 
 			contextGameFav_Yes.Checked = false;
 			contextGameFav_No.Checked = false;
@@ -4005,12 +4035,15 @@ namespace Depressurizer
 				return;
 			}
 
-			SaveFileDialog dlg = new SaveFileDialog();
-			dlg.DefaultExt = "profile";
-			dlg.AddExtension = true;
-			dlg.CheckPathExists = true;
-			dlg.Filter = GlobalStrings.DlgProfile_Filter;
-			dlg.InitialDirectory = Path.GetDirectoryName(CurrentProfile.FilePath);
+			SaveFileDialog dlg = new SaveFileDialog
+			{
+				DefaultExt = "profile",
+				AddExtension = true,
+				CheckPathExists = true,
+				Filter = GlobalStrings.DlgProfile_Filter,
+				InitialDirectory = Path.GetDirectoryName(CurrentProfile.FilePath)
+			};
+
 			DialogResult res = dlg.ShowDialog();
 			if (res == DialogResult.OK)
 			{
