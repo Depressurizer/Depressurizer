@@ -34,10 +34,90 @@ namespace Depressurizer
 
 		public const int VERSION = 3;
 
-		// Old Xml names
-		private const string XmlName_Old_SteamIDShort = "account_id", XmlName_Old_IgnoreExternal = "ignore_external", XmlName_Old_AutoDownload = "auto_download", XmlName_Old_Game_Favorite = "favorite";
+		private const string XmlName_AutoCatList = "autocats";
 
-		private const string XmlName_Profile = "profile", XmlName_Version = "version", XmlName_SteamID = "steam_id_64", XmlName_AutoUpdate = "auto_update", XmlName_AutoImport = "auto_import", XmlName_AutoExport = "auto_export", XmlName_LocalUpdate = "local_update", XmlName_WebUpdate = "web_update", XmlName_ExportDiscard = "export_discard", XmlName_AutoIgnore = "auto_ignore", XmlName_IncludeUnknown = "include_unknown", XmlName_BypassIgnoreOnImport = "bypass_ignore_on_import", XmlName_OverwriteNames = "overwrite_names", XmlName_IncludeShortcuts = "include_shortcuts", XmlName_ExclusionList = "exclusions", XmlName_Exclusion = "exclusion", XmlName_GameList = "games", XmlName_Game = "game", XmlName_AutoCatList = "autocats", XmlName_FilterList = "Filters", XmlName_Filter = "Filter", XmlName_FilterName = "Name", XmlName_FilterUncategorized = "Uncategorized", XmlName_FilterVR = "VR", XmlName_FilterHidden = "Hidden", XmlName_FilterAllow = "Allow", XmlName_FilterRequire = "Require", XmlName_FilterExclude = "Exclude", XmlName_Game_Id = "id", XmlName_Game_Source = "source", XmlName_Game_Name = "name", XmlName_Game_Hidden = "hidden", XmlName_Game_CategoryList = "categories", XmlName_Game_Category = "category", XmlName_Game_Executable = "executable", XmlName_Game_LastPlayed = "lastplayed";
+		private const string XmlName_AutoExport = "auto_export";
+
+		private const string XmlName_AutoIgnore = "auto_ignore";
+
+		private const string XmlName_AutoImport = "auto_import";
+
+		private const string XmlName_AutoUpdate = "auto_update";
+
+		private const string XmlName_BypassIgnoreOnImport = "bypass_ignore_on_import";
+
+		private const string XmlName_Exclusion = "exclusion";
+
+		private const string XmlName_ExclusionList = "exclusions";
+
+		private const string XmlName_ExportDiscard = "export_discard";
+
+		private const string XmlName_Filter = "Filter";
+
+		private const string XmlName_FilterAllow = "Allow";
+
+		private const string XmlName_FilterExclude = "Exclude";
+
+		private const string XmlName_FilterGame = "Game";
+
+		private const string XmlName_FilterHidden = "Hidden";
+
+		private const string XmlName_FilterList = "Filters";
+
+		private const string XmlName_FilterName = "Name";
+
+		private const string XmlName_FilterRequire = "Require";
+
+		private const string XmlName_FilterSoftware = "Software";
+
+		private const string XmlName_FilterUncategorized = "Uncategorized";
+
+		private const string XmlName_FilterVR = "VR";
+
+		private const string XmlName_Game = "game";
+
+		private const string XmlName_Game_Category = "category";
+
+		private const string XmlName_Game_CategoryList = "categories";
+
+		private const string XmlName_Game_Executable = "executable";
+
+		private const string XmlName_Game_Hidden = "hidden";
+
+		private const string XmlName_Game_Id = "id";
+
+		private const string XmlName_Game_LastPlayed = "lastplayed";
+
+		private const string XmlName_Game_Name = "name";
+
+		private const string XmlName_Game_Source = "source";
+
+		private const string XmlName_GameList = "games";
+
+		private const string XmlName_IncludeShortcuts = "include_shortcuts";
+
+		private const string XmlName_IncludeUnknown = "include_unknown";
+
+		private const string XmlName_LocalUpdate = "local_update";
+
+		private const string XmlName_Old_AutoDownload = "auto_download";
+
+		private const string XmlName_Old_Game_Favorite = "favorite";
+
+		private const string XmlName_Old_IgnoreExternal = "ignore_external";
+
+		// Old Xml names
+		private const string XmlName_Old_SteamIDShort = "account_id";
+
+		private const string XmlName_OverwriteNames = "overwrite_names";
+
+		private const string XmlName_Profile = "profile";
+
+		private const string XmlName_SteamID = "steam_id_64";
+
+		private const string XmlName_Version = "version";
+
+		private const string XmlName_WebUpdate = "web_update";
 
 		#endregion
 
@@ -87,8 +167,7 @@ namespace Depressurizer
 
 		public static long DirNametoID64(string cId)
 		{
-			long res;
-			if (long.TryParse(cId, out res))
+			if (long.TryParse(cId, out long res))
 			{
 				return res + 0x0110000100000000;
 			}
@@ -216,8 +295,7 @@ namespace Depressurizer
 
 				if (profileVersion < 2)
 				{
-					bool ignoreShortcuts = false;
-					if (XmlUtil.TryGetBoolFromNode(profileNode[XmlName_Old_IgnoreExternal], out ignoreShortcuts))
+					if (XmlUtil.TryGetBoolFromNode(profileNode[XmlName_Old_IgnoreExternal], out bool ignoreShortcuts))
 					{
 						profile.IncludeShortcuts = !ignoreShortcuts;
 					}
@@ -233,8 +311,7 @@ namespace Depressurizer
 					XmlNodeList exclusionNodes = exclusionListNode.SelectNodes(XmlName_Exclusion);
 					foreach (XmlNode node in exclusionNodes)
 					{
-						int id;
-						if (XmlUtil.TryGetIntFromNode(node, out id))
+						if (XmlUtil.TryGetIntFromNode(node, out int id))
 						{
 							profile.IgnoreList.Add(id);
 						}
@@ -516,50 +593,67 @@ namespace Depressurizer
 
 		private static void AddFilterFromXmlNode(XmlNode node, Profile profile)
 		{
-			string name;
-			if (XmlUtil.TryGetStringFromNode(node[XmlName_FilterName], out name))
+			if (!XmlUtil.TryGetStringFromNode(node[XmlName_FilterName], out string name))
 			{
-				Filter f = profile.GameData.AddFilter(name);
-				if (!XmlUtil.TryGetIntFromNode(node[XmlName_FilterUncategorized], out f.Uncategorized))
-				{
-					f.Uncategorized = -1;
-				}
+				return;
+			}
 
-				if (!XmlUtil.TryGetIntFromNode(node[XmlName_FilterHidden], out f.Hidden))
-				{
-					f.Hidden = -1;
-				}
+			Filter f = profile.GameData.AddFilter(name);
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_FilterGame], out int game))
+			{
+				f.Game = game;
+			}
 
-				if (!XmlUtil.TryGetIntFromNode(node[XmlName_FilterVR], out f.VR))
-				{
-					f.VR = -1;
-				}
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_FilterHidden], out int hidden))
+			{
+				f.Hidden = hidden;
+			}
 
-				XmlNodeList filterNodes = node.SelectNodes(XmlName_FilterAllow);
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_FilterSoftware], out int software))
+			{
+				f.Software = software;
+			}
+
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_FilterUncategorized], out int uncategorized))
+			{
+				f.Uncategorized = uncategorized;
+			}
+
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_FilterVR], out int vr))
+			{
+				f.VR = vr;
+			}
+
+			XmlNodeList filterNodes = node.SelectNodes(XmlName_FilterAllow);
+			if (filterNodes != null)
+			{
 				foreach (XmlNode fNode in filterNodes)
 				{
-					string catName;
-					if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+					if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
 					{
 						f.Allow.Add(profile.GameData.GetCategory(catName));
 					}
 				}
+			}
 
-				filterNodes = node.SelectNodes(XmlName_FilterRequire);
+			filterNodes = node.SelectNodes(XmlName_FilterRequire);
+			if (filterNodes != null)
+			{
 				foreach (XmlNode fNode in filterNodes)
 				{
-					string catName;
-					if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+					if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
 					{
 						f.Require.Add(profile.GameData.GetCategory(catName));
 					}
 				}
+			}
 
-				filterNodes = node.SelectNodes(XmlName_FilterExclude);
+			filterNodes = node.SelectNodes(XmlName_FilterExclude);
+			if (filterNodes != null)
+			{
 				foreach (XmlNode fNode in filterNodes)
 				{
-					string catName;
-					if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+					if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
 					{
 						f.Exclude.Add(profile.GameData.GetCategory(catName));
 					}
@@ -569,8 +663,7 @@ namespace Depressurizer
 
 		private static void AddGameFromXmlNode(XmlNode node, Profile profile, int profileVersion)
 		{
-			int id;
-			if (XmlUtil.TryGetIntFromNode(node[XmlName_Game_Id], out id))
+			if (XmlUtil.TryGetIntFromNode(node[XmlName_Game_Id], out int id))
 			{
 				GameListingSource source = XmlUtil.GetEnumFromNode(node[XmlName_Game_Source], GameListingSource.Unknown);
 
@@ -590,8 +683,7 @@ namespace Depressurizer
 
 				if (profileVersion < 1)
 				{
-					string catName;
-					if (XmlUtil.TryGetStringFromNode(node[XmlName_Game_Category], out catName))
+					if (XmlUtil.TryGetStringFromNode(node[XmlName_Game_Category], out string catName))
 					{
 						game.AddCategory(profile.GameData.GetCategory(catName));
 					}
@@ -609,8 +701,7 @@ namespace Depressurizer
 						XmlNodeList catNodes = catListNode.SelectNodes(XmlName_Game_Category);
 						foreach (XmlNode cNode in catNodes)
 						{
-							string cat;
-							if (XmlUtil.TryGetStringFromNode(cNode, out cat))
+							if (XmlUtil.TryGetStringFromNode(cNode, out string cat))
 							{
 								game.AddCategory(profile.GameData.GetCategory(cat));
 							}

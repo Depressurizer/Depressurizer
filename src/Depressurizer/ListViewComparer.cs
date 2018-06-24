@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using Depressurizer.Models;
 
 namespace Depressurizer
 {
@@ -29,45 +27,49 @@ namespace Depressurizer
 
 		#region Public Methods and Operators
 
-		// Compare two ListViewItems.
-		public int Compare(object object_x, object object_y)
+		/// <inheritdoc />
+		public int Compare(object x, object y)
 		{
-			// Get the objects as ListViewItems.
-			ListViewItem item_x = object_x as ListViewItem;
-			ListViewItem item_y = object_y as ListViewItem;
-
-			// Get the corresponding sub-item values.
-			string string_x;
-			string_x = item_x.SubItems.Count <= ColumnNumber ? "" : item_x.SubItems[ColumnNumber].Text;
-
-			string string_y;
-			string_y = item_y.SubItems.Count <= ColumnNumber ? "" : item_y.SubItems[ColumnNumber].Text;
-
-			// Compare them.
-			int result;
-			double double_x, double_y;
-			if (double.TryParse(string_x, out double_x) && double.TryParse(string_y, out double_y))
+			if (x == null)
 			{
-				// Treat as a number.
-				result = double_x.CompareTo(double_y);
+				return 1;
+			}
+
+			if (y == null)
+			{
+				return -1;
+			}
+
+			if (!(x is ListViewItem listViewItemX))
+			{
+				throw new ArgumentException("Object X is not a ListViewItem");
+			}
+
+			if (!(y is ListViewItem listViewItemY))
+			{
+				throw new ArgumentException("Object Y is not a ListViewItem");
+			}
+
+			string valueX = listViewItemX.SubItems.Count <= ColumnNumber ? "" : listViewItemX.SubItems[ColumnNumber].Text;
+			string valueY = listViewItemY.SubItems.Count <= ColumnNumber ? "" : listViewItemY.SubItems[ColumnNumber].Text;
+
+			int result;
+			if (double.TryParse(valueX, out double doubleX) && double.TryParse(valueY, out double doubleY))
+			{
+				result = doubleX.CompareTo(doubleY);
 			}
 			else
 			{
-				DateTime date_x, date_y;
-				if (DateTime.TryParse(string_x, out date_x) && DateTime.TryParse(string_y, out date_y))
+				if (DateTime.TryParse(valueX, out DateTime dateX) && DateTime.TryParse(valueY, out DateTime dateY))
 				{
-					// Treat as a date.
-					result = date_x.CompareTo(date_y);
+					result = DateTime.Compare(dateX, dateY);
 				}
 				else
 				{
-					// Treat as a string.
-					result = string_x.CompareTo(string_y);
+					result = string.Compare(valueX, valueY, StringComparison.CurrentCultureIgnoreCase);
 				}
 			}
 
-			// Return the correct result depending on whether
-			// we're sorting ascending or descending.
 			if (SortOrder == SortOrder.Ascending)
 			{
 				return result;
@@ -80,102 +82,4 @@ namespace Depressurizer
 	}
 
 	// Compares two lstCategories items based on a selected column.
-	public class lstCategoriesComparer : IComparer
-	{
-		#region Fields
-
-		private readonly categorySortMode SortMode;
-
-		private readonly SortOrder SortOrder;
-
-		#endregion
-
-		#region Constructors and Destructors
-
-		public lstCategoriesComparer(categorySortMode sortMode, SortOrder sortOrder)
-		{
-			SortMode = sortMode;
-			SortOrder = sortOrder;
-		}
-
-		#endregion
-
-		#region Enums
-
-		public enum categorySortMode
-		{
-			Name,
-
-			Count
-		}
-
-		#endregion
-
-		#region Public Methods and Operators
-
-		// Compare two ListViewItems.
-		public int Compare(object object_x, object object_y)
-		{
-			// Get the objects as ListViewItems.
-			ListViewItem item_x = object_x as ListViewItem;
-			ListViewItem item_y = object_y as ListViewItem;
-
-			if (item_x == null)
-			{
-				return 1;
-			}
-
-			if (item_y == null)
-			{
-				return -1;
-			}
-
-			// Handle special categories
-			List<string> specialCategories = new List<string>();
-			specialCategories.Add(GlobalStrings.MainForm_All);
-			specialCategories.Add(GlobalStrings.MainForm_Uncategorized);
-			specialCategories.Add(GlobalStrings.MainForm_Hidden);
-			specialCategories.Add(GlobalStrings.MainForm_Favorite);
-			specialCategories.Add(GlobalStrings.MainForm_VR);
-
-			foreach (string s in specialCategories)
-			{
-				if (item_x.Tag.ToString() == s)
-				{
-					return -1;
-				}
-
-				if (item_y.Tag.ToString() == s)
-				{
-					return 1;
-				}
-			}
-
-			Category cat_x = item_x.Tag as Category;
-			Category cat_y = item_y.Tag as Category;
-
-			// Compare categories.
-			int result;
-
-			if (SortMode == categorySortMode.Count)
-			{
-				result = cat_x.Count.CompareTo(cat_y.Count);
-			}
-			else
-			{
-				result = string.Compare(cat_x.Name, cat_y.Name, StringComparison.CurrentCultureIgnoreCase);
-			}
-
-			// Return the correct result depending on whether
-			// we're sorting ascending or descending.
-			if (SortOrder == SortOrder.Ascending)
-			{
-				return result;
-			}
-
-			return -result;
-		}
-
-		#endregion
-	}
 }

@@ -111,6 +111,7 @@
     <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="Helpers\DropdownMenuScrollWheelHandler.cs" />
     <Compile Include="Helpers\Logger.cs" />
+    <Compile Include="ListCategoriesComparer.cs" />
     <Compile Include="Models\AppInfoNode.cs" />
     <Compile Include="Enums\AppType.cs" />
     <Compile Include="Enums\AppPlatforms.cs" />
@@ -307,6 +308,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Constants.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
@@ -667,6 +673,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgSteamPath.resx">
       <DependentUpon>DlgSteamPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
