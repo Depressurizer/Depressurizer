@@ -22,16 +22,16 @@ using System.Globalization;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Depressurizer.Test.Helpers
 {
-	[TestClass]
+	[TestFixture]
 	public class LanguageTest
 	{
 		#region Public Methods and Operators
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_InterfaceLanguage_Dutch()
 		{
 			// Arrange
@@ -44,7 +44,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_InterfaceLanguage_English()
 		{
 			// Arrange
@@ -57,7 +57,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_InterfaceLanguage_Russian()
 		{
 			// Arrange
@@ -70,7 +70,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_InterfaceLanguage_Spanish()
 		{
 			// Arrange
@@ -83,7 +83,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_InterfaceLanguage_Ukranian()
 		{
 			// Arrange
@@ -96,7 +96,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Arabic()
 		{
 			// Arrange
@@ -109,7 +109,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Bulgarian()
 		{
 			// Arrange
@@ -122,7 +122,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Chinese_Simplified()
 		{
 			// Arrange
@@ -135,7 +135,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Chinese_Traditional()
 		{
 			// Arrange
@@ -148,7 +148,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Czech()
 		{
 			// Arrange
@@ -161,7 +161,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Danish()
 		{
 			// Arrange
@@ -174,7 +174,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Dutch()
 		{
 			// Arrange
@@ -187,7 +187,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_English()
 		{
 			// Arrange
@@ -200,7 +200,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Finnish()
 		{
 			// Arrange
@@ -213,7 +213,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_French()
 		{
 			// Arrange
@@ -226,7 +226,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_German()
 		{
 			// Arrange
@@ -239,7 +239,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Greek()
 		{
 			// Arrange
@@ -252,7 +252,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Hungarian()
 		{
 			// Arrange
@@ -265,7 +265,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Italian()
 		{
 			// Arrange
@@ -278,7 +278,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Japanese()
 		{
 			// Arrange
@@ -291,7 +291,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Korean()
 		{
 			// Arrange
@@ -304,7 +304,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Norwegian()
 		{
 			// Arrange
@@ -317,7 +317,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Polish()
 		{
 			// Arrange
@@ -330,7 +330,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Portuguese()
 		{
 			// Arrange
@@ -343,7 +343,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Portuguese_Brazil()
 		{
 			// Arrange
@@ -356,7 +356,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Romanian()
 		{
 			// Arrange
@@ -369,7 +369,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Russian()
 		{
 			// Arrange
@@ -382,7 +382,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Spanish()
 		{
 			// Arrange
@@ -395,7 +395,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Swedish()
 		{
 			// Arrange
@@ -408,7 +408,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Thai()
 		{
 			// Arrange
@@ -421,7 +421,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Turkish()
 		{
 			// Arrange
@@ -434,7 +434,7 @@ namespace Depressurizer.Test.Helpers
 			actual.Should().Be(expected);
 		}
 
-		[TestMethod]
+		[Test]
 		public void GetCultureInfo_StoreLanguage_Ukrainian()
 		{
 			// Arrange
