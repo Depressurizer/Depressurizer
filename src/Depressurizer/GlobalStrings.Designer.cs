@@ -3053,15 +3053,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;No Flags&gt;.
-        /// </summary>
-        internal static string MainForm_NoFlags {
-            get {
-                return ResourceManager.GetString("MainForm_NoFlags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No game data found. Please make sure the custom URL name is spelled correctly..
         /// </summary>
         internal static string MainForm_NoGameDataFound {
@@ -3098,15 +3089,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;No Genres&gt;.
-        /// </summary>
-        internal static string MainForm_NoGenres {
-            get {
-                return ResourceManager.GetString("MainForm_NoGenres", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to --.
         /// </summary>
         internal static string MainForm_NoHltbTime {
@@ -3121,15 +3103,6 @@ namespace Depressurizer {
         internal static string MainForm_NoProfileLoaded {
             get {
                 return ResourceManager.GetString("MainForm_NoProfileLoaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;No Tags&gt;.
-        /// </summary>
-        internal static string MainForm_NoTags {
-            get {
-                return ResourceManager.GetString("MainForm_NoTags", resourceCulture);
             }
         }
         
@@ -3383,15 +3356,6 @@ namespace Depressurizer {
         internal static string MainForm_UnignoredGame {
             get {
                 return ResourceManager.GetString("MainForm_UnignoredGame", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;Unknown&gt;.
-        /// </summary>
-        internal static string MainForm_Unknown {
-            get {
-                return ResourceManager.GetString("MainForm_Unknown", resourceCulture);
             }
         }
         

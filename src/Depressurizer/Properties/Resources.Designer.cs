@@ -97,6 +97,33 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;No Flags&gt;.
+        /// </summary>
+        internal static string Category_NoFlags {
+            get {
+                return ResourceManager.GetString("Category_NoFlags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;No Genres&gt;.
+        /// </summary>
+        internal static string Category_NoGenres {
+            get {
+                return ResourceManager.GetString("Category_NoGenres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;No Tags&gt;.
+        /// </summary>
+        internal static string Category_NoTags {
+            get {
+                return ResourceManager.GetString("Category_NoTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;Software&gt;.
         /// </summary>
         internal static string Category_Software {
@@ -111,6 +138,15 @@ namespace Depressurizer.Properties {
         internal static string Category_Uncategorized {
             get {
                 return ResourceManager.GetString("Category_Uncategorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Unknown&gt;.
+        /// </summary>
+        internal static string Category_Unknown {
+            get {
+                return ResourceManager.GetString("Category_Unknown", resourceCulture);
             }
         }
         

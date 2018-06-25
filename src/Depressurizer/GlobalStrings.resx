@@ -1104,15 +1104,6 @@ Can be slow, but will only download information for games that need it.
 If this is unchecked, newer games may not be categorized.
 Recommended: Enabled</value>
   </data>
-  <data name="MainForm_NoFlags" xml:space="preserve">
-    <value>&lt;No Flags&gt;</value>
-  </data>
-  <data name="MainForm_NoGenres" xml:space="preserve">
-    <value>&lt;No Genres&gt;</value>
-  </data>
-  <data name="MainForm_NoTags" xml:space="preserve">
-    <value>&lt;No Tags&gt;</value>
-  </data>
   <data name="GameDB_RedirectsToItself" xml:space="preserve">
     <value>Scraping {0}: Redirects to itself</value>
   </data>
@@ -1403,8 +1394,5 @@ This could take up to a few seconds per game.</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Platform" xml:space="preserve">
     <value>By Platform</value>
-  </data>
-  <data name="MainForm_Unknown" xml:space="preserve">
-    <value>&lt;Unknown&gt;</value>
   </data>
 </root>
