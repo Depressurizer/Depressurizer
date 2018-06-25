@@ -21,16 +21,16 @@
 using System;
 using Depressurizer.Core.Models;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Depressurizer.Test.Models
 {
-	[TestClass]
+	[TestFixture]
 	public class CategoryTest
 	{
 		#region Public Methods and Operators
 
-		[TestMethod]
+		[Test]
 		public void CompareTo_Alphabetically()
 		{
 			// Arrange
@@ -46,7 +46,7 @@ namespace Depressurizer.Test.Models
 			secondCompareTo.Should().BeGreaterThan(0);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CompareTo_CaseInsensitive()
 		{
 			// Arrange
@@ -62,7 +62,7 @@ namespace Depressurizer.Test.Models
 			secondCompareTo.Should().Be(0);
 		}
 
-		[TestMethod]
+		[Test]
 		public void CompareTo_InvalidObject()
 		{
 			// Arrange
@@ -82,7 +82,7 @@ namespace Depressurizer.Test.Models
 			}
 		}
 
-		[TestMethod]
+		[Test]
 		public void CompareTo_Null()
 		{
 			// Arrange
@@ -95,7 +95,7 @@ namespace Depressurizer.Test.Models
 			compareTo.Should().Be(1);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ToString_Valid()
 		{
 			// Arrange
