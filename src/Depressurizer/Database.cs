@@ -60,6 +60,8 @@ namespace Depressurizer
 
 		public int LastHltbUpdate;
 
+		private readonly VRSupport allVrSupportFlags = new VRSupport();
+
 		private LanguageSupport allLanguages;
 
 		private SortedSet<string> allStoreDevelopers;
@@ -70,8 +72,6 @@ namespace Depressurizer
 		private SortedSet<string> allStoreGenres;
 
 		private SortedSet<string> allStorePublishers;
-
-		private readonly VRSupport allVrSupportFlags = new VRSupport();
 
 		#endregion
 

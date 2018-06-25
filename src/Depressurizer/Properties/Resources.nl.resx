@@ -118,34 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Category_All" xml:space="preserve">
-    <value>&lt;All&gt;</value>
+    <value>&lt;Alles&gt;</value>
   </data>
   <data name="Category_Favorite" xml:space="preserve">
-    <value>&lt;Favorite&gt;</value>
+    <value>&lt;Favoriet&gt;</value>
   </data>
   <data name="Category_Games" xml:space="preserve">
     <value>&lt;Games&gt;</value>
   </data>
   <data name="Category_Hidden" xml:space="preserve">
-    <value>&lt;Hidden&gt;</value>
+    <value>&lt;Verborgen&gt;</value>
   </data>
   <data name="Category_NoFlags" xml:space="preserve">
-    <value>&lt;No Flags&gt;</value>
+    <value>&lt;Geen Flags&gt;</value>
   </data>
   <data name="Category_NoGenres" xml:space="preserve">
-    <value>&lt;No Genres&gt;</value>
+    <value>&lt;Geen Genres&gt;</value>
   </data>
   <data name="Category_NoTags" xml:space="preserve">
-    <value>&lt;No Tags&gt;</value>
+    <value>&lt;Geen Tags&gt;</value>
   </data>
   <data name="Category_Software" xml:space="preserve">
     <value>&lt;Software&gt;</value>
   </data>
   <data name="Category_Uncategorized" xml:space="preserve">
-    <value>&lt;Uncategorized&gt;</value>
+    <value>&lt;Ongesorteerd&gt;</value>
   </data>
   <data name="Category_Unknown" xml:space="preserve">
-    <value>&lt;Unknown&gt;</value>
+    <value>&lt;Onbekend&gt;</value>
   </data>
   <data name="Category_VR" xml:space="preserve">
     <value>&lt;VR&gt;</value>
