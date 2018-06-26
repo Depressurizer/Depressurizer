@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Models;
 
 namespace Depressurizer.Helpers
@@ -80,7 +81,7 @@ namespace Depressurizer.Helpers
 			}
 			catch (Exception e)
 			{
-				SentryLogger.Log(e);
+				Sentry.Log(e);
 
 				throw;
 			}

@@ -1,6 +1,6 @@
 ﻿#region License
 
-//     This file (SentryLogger.cs) is part of Depressurizer.
+//     This file (Sentry.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -22,12 +22,12 @@ using System;
 using SharpRaven;
 using SharpRaven.Data;
 
-namespace Depressurizer.Helpers
+namespace Depressurizer.Core.Helpers
 {
 	/// <summary>
 	///     Eror tracking that helps monitor and fix crashes in real time
 	/// </summary>
-	public static class SentryLogger
+	public static class Sentry
 	{
 		#region Properties
 

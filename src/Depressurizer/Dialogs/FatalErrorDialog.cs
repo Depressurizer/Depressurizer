@@ -24,6 +24,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 
 namespace Depressurizer.Dialogs
@@ -112,7 +113,7 @@ namespace Depressurizer.Dialogs
 		private static void HandleUnhandledException(Exception e)
 		{
 			Logger.Exception("Fatal Error: ", e);
-			SentryLogger.Log(e);
+			Sentry.Log(e);
 
 			using (FatalErrorDialog dialog = new FatalErrorDialog(e))
 			{
