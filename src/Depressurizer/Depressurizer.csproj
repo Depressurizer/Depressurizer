@@ -88,9 +88,6 @@
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
-    <Reference Include="SharpRaven, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpRaven.2.4.0\lib\net45\SharpRaven.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -133,7 +130,6 @@
     <Compile Include="GameList.cs" />
     <Compile Include="Enums\GameListingSource.cs" />
     <Compile Include="Helpers\Location.cs" />
-    <Compile Include="Helpers\SentryLogger.cs" />
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="Helpers\DatabaseEntrySorter.cs" />

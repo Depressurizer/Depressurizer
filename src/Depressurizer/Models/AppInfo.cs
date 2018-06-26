@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
 
@@ -108,7 +109,7 @@ namespace Depressurizer.Models
 				}
 				else
 				{
-					SentryLogger.Log(new DataException(string.Format(CultureInfo.InvariantCulture, "New AppType '{0}'", typeData)));
+					Sentry.Log(new DataException(string.Format(CultureInfo.InvariantCulture, "AppInfo: New AppType '{0}'", typeData)));
 				}
 			}
 

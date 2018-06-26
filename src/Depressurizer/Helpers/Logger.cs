@@ -24,6 +24,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Depressurizer.Core.Helpers;
 
 namespace Depressurizer.Helpers
 {
@@ -165,7 +166,7 @@ namespace Depressurizer.Helpers
 				}
 				catch (Exception e)
 				{
-					SentryLogger.Log(e);
+					Sentry.Log(e);
 				}
 			}
 		}
@@ -284,7 +285,7 @@ namespace Depressurizer.Helpers
 				}
 				catch (Exception e)
 				{
-					SentryLogger.Log(e);
+					Sentry.Log(e);
 				}
 			}
 		}
