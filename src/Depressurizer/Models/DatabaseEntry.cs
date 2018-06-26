@@ -29,7 +29,6 @@ using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Models;
-using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
 using Steam = Depressurizer.Core.Helpers.Steam;

@@ -18,7 +18,7 @@
 
 #endregion
 
-namespace Depressurizer.Enums
+namespace Depressurizer.Core.Enums
 {
 	/// <summary>
 	///     Steam App Type

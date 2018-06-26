@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
 
 namespace Depressurizer.Models
 {

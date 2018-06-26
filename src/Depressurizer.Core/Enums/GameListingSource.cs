@@ -1,6 +1,6 @@
 ﻿#region License
 
-//     This file (AppPlatforms.cs) is part of Depressurizer.
+//     This file (GameListingSource.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -18,39 +18,25 @@
 
 #endregion
 
-using System;
-
-namespace Depressurizer.Enums
+namespace Depressurizer.Core.Enums
 {
 	/// <summary>
-	///     Operating System(s)
+	///     Listing of the different ways to find out about a game.
+	///     The higher values take precedence over the lower values. If a game already exists with a PackageFree type, it
+	///     cannot change to SteamConfig.
 	/// </summary>
-	[Flags]
-	public enum AppPlatforms
+	public enum GameListingSource
 	{
-		/// <summary>
-		///     Default value
-		/// </summary>
-		None = 0,
+		Unknown,
 
-		/// <summary>
-		///     Microsoft Windows
-		/// </summary>
-		Windows = 1 << 0,
+		SteamConfig,
 
-		/// <summary>
-		///     macOS
-		/// </summary>
-		Mac = 1 << 1,
+		WebProfile,
 
-		/// <summary>
-		///     Linux
-		/// </summary>
-		Linux = 1 << 2,
+		PackageFree,
 
-		/// <summary>
-		///     Windows, Mac and Linux
-		/// </summary>
-		All = (1 << 3) - 1
+		PackageNormal,
+
+		Manual
 	}
 }

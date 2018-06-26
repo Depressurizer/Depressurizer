@@ -27,12 +27,12 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Depressurizer.Core.Enums;
 using Depressurizer.Core.Models;
-using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
-using ValueType = Depressurizer.Enums.ValueType;
+using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer
 {

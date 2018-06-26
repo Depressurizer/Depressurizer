@@ -20,8 +20,8 @@
 #endregion
 
 using System.Collections.Generic;
+using Depressurizer.Core.Enums;
 using Depressurizer.Core.Models;
-using Depressurizer.Enums;
 using Depressurizer.Models;
 
 namespace Depressurizer
