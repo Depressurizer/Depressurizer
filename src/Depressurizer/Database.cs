@@ -32,7 +32,6 @@ using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
-using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;

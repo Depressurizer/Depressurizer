@@ -1,6 +1,6 @@
 ﻿#region License
 
-//     This file (StartupAction.cs) is part of Depressurizer.
+//     This file (AppPlatforms.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -18,21 +18,39 @@
 
 #endregion
 
-namespace Depressurizer.Enums
+using System;
+
+namespace Depressurizer.Core.Enums
 {
 	/// <summary>
-	///     Startup action of Depressurizer
+	///     Operating System(s)
 	/// </summary>
-	internal enum StartupAction
+	[Flags]
+	public enum AppPlatforms
 	{
 		/// <summary>
-		///     Create a Depressurizer profile
+		///     Default value
 		/// </summary>
-		Create,
+		None = 0,
 
 		/// <summary>
-		///     Load a Depressurizer profile
+		///     Microsoft Windows
 		/// </summary>
-		Load
+		Windows = 1 << 0,
+
+		/// <summary>
+		///     macOS
+		/// </summary>
+		Mac = 1 << 1,
+
+		/// <summary>
+		///     Linux
+		/// </summary>
+		Linux = 1 << 2,
+
+		/// <summary>
+		///     Windows, Mac and Linux
+		/// </summary>
+		All = (1 << 3) - 1
 	}
 }

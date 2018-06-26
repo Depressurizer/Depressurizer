@@ -24,7 +24,6 @@ using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Enums;
 
 namespace Depressurizer
 {

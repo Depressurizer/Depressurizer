@@ -22,8 +22,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Enums;
 using Depressurizer.Helpers;
 
 namespace Depressurizer.Models

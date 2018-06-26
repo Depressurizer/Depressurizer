@@ -110,8 +110,6 @@
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
     <Compile Include="Models\AppInfoNode.cs" />
-    <Compile Include="Enums\AppType.cs" />
-    <Compile Include="Enums\AppPlatforms.cs" />
     <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,7 +126,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameList.cs" />
-    <Compile Include="Enums\GameListingSource.cs" />
     <Compile Include="Helpers\Location.cs" />
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
@@ -292,10 +289,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListViewComparer.cs" />
-    <Compile Include="Enums\ValueType.cs" />
     <Compile Include="Models\VDFNode.cs" />
     <Compile Include="Models\PackageInfo.cs" />
-    <Compile Include="Enums\StartupAction.cs" />
     <Compile Include="ProfileAccessException.cs" />
     <Compile Include="Properties\Constants.Designer.cs">
       <AutoGen>True</AutoGen>

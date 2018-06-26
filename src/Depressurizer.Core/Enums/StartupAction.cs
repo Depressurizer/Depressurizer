@@ -1,7 +1,6 @@
 ﻿#region License
 
-//     This file (GameListingSource.cs) is part of Depressurizer.
-//     Copyright (C) 2011  Steve Labbe
+//     This file (StartupAction.cs) is part of Depressurizer.
 //     Copyright (C) 2018  Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -19,25 +18,21 @@
 
 #endregion
 
-namespace Depressurizer.Enums
+namespace Depressurizer.Core.Enums
 {
 	/// <summary>
-	///     Listing of the different ways to find out about a game.
-	///     The higher values take precedence over the lower values. If a game already exists with a PackageFree type, it
-	///     cannot change to SteamConfig.
+	///     Startup action of Depressurizer
 	/// </summary>
-	public enum GameListingSource
+	public enum StartupAction
 	{
-		Unknown,
+		/// <summary>
+		///     Create a Depressurizer profile
+		/// </summary>
+		Create,
 
-		SteamConfig,
-
-		WebProfile,
-
-		PackageFree,
-
-		PackageNormal,
-
-		Manual
+		/// <summary>
+		///     Load a Depressurizer profile
+		/// </summary>
+		Load
 	}
 }

@@ -19,7 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
 using Depressurizer.Models;
 
 namespace Depressurizer
