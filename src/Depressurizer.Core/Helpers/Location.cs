@@ -22,7 +22,7 @@ using System;
 using System.Globalization;
 using System.IO;
 
-namespace Depressurizer.Helpers
+namespace Depressurizer.Core.Helpers
 {
 	/// <summary>
 	///     Location Controller
@@ -36,8 +36,14 @@ namespace Depressurizer.Helpers
 		{
 			#region Public Properties
 
+			/// <summary>
+			///     Default log file location.
+			/// </summary>
 			public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));
 
+			/// <summary>
+			///     Default settings file location.
+			/// </summary>
 			public static string Settings => Path.Combine(Folder.Depressurizer, "settings.json");
 
 			#endregion

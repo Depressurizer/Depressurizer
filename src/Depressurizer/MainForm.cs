@@ -2948,7 +2948,7 @@ namespace Depressurizer
 
 			// Add game banner to ID column
 			GameInfo g = (GameInfo) e.Model;
-			string bannerFile = Helpers.Location.File.Banner(g.Id);
+			string bannerFile = Core.Helpers.Location.File.Banner(g.Id);
 			if (!File.Exists(bannerFile))
 			{
 				return;

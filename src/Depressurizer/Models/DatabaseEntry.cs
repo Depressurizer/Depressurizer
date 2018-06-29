@@ -28,10 +28,9 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
-using Depressurizer.Helpers;
 using Depressurizer.Properties;
-using Steam = Depressurizer.Core.Helpers.Steam;
 
 namespace Depressurizer.Models
 {

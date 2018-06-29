@@ -24,7 +24,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
 using Rallion;

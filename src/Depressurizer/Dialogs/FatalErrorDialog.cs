@@ -25,7 +25,6 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Helpers;
 
 namespace Depressurizer.Dialogs
 {

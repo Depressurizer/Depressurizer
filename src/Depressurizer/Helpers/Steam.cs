@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
 
 namespace Depressurizer.Helpers
