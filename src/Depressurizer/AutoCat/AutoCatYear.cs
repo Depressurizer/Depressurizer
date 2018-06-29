@@ -18,7 +18,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Xml;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Models;
 
 namespace Depressurizer

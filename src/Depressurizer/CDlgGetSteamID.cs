@@ -22,7 +22,7 @@
 using System;
 using System.Net;
 using System.Xml;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
 using Rallion;
 

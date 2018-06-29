@@ -29,7 +29,7 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Windows.Forms;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
 
 namespace Depressurizer

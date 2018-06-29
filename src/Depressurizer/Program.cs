@@ -21,8 +21,8 @@
 
 using System;
 using System.Windows.Forms;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Dialogs;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {

@@ -107,7 +107,6 @@
   <ItemGroup>
     <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="Helpers\DropdownMenuScrollWheelHandler.cs" />
-    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
     <Compile Include="Models\AppInfoNode.cs" />
     <Compile Include="Dialogs\CancelableDialog.cs">
@@ -126,7 +125,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameList.cs" />
-    <Compile Include="Helpers\Location.cs" />
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="Helpers\DatabaseEntrySorter.cs" />

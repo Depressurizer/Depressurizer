@@ -24,47 +24,10 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Enums;
 
-namespace Depressurizer.Helpers
+namespace Depressurizer.Core.Helpers
 {
-	/// <summary>
-	///     Defines the set of levels recognized by the system.
-	/// </summary>
-	public enum LogLevel
-	{
-		/// <summary>
-		///     The Verbose level designates fine-grained informational events that are most useful to debug an application.
-		/// </summary>
-		Verbose,
-
-		/// <summary>
-		///     The Debug level designates fine-grained informational events that are most useful to debug an application.
-		/// </summary>
-		Debug,
-
-		/// <summary>
-		///     The Info level designates informational messages that highlight the progress of the application at coarse-grained
-		///     level.
-		/// </summary>
-		Info,
-
-		/// <summary>
-		///     The Warn level designates potentially harmful situations.
-		/// </summary>
-		Warn,
-
-		/// <summary>
-		///     The Error level designates error events that might still allow the application to continue running.
-		/// </summary>
-		Error,
-
-		/// <summary>
-		///     The Fatal level designates very severe error events that will presumably lead the application to abort.
-		/// </summary>
-		Fatal
-	}
-
 	/// <summary>
 	///     Logger Controller
 	/// </summary>
@@ -82,7 +45,7 @@ namespace Depressurizer.Helpers
 
 		#region Fields
 
-		private FileStream _outputStream;
+		private readonly FileStream _outputStream;
 
 		#endregion
 
@@ -90,7 +53,6 @@ namespace Depressurizer.Helpers
 
 		private Logger()
 		{
-			Info("Logger Instance Initialized");
 			_outputStream = new FileStream(Location.File.Log, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
 		}
 
@@ -150,24 +112,13 @@ namespace Depressurizer.Helpers
 		{
 			lock (SyncRoot)
 			{
-				try
-				{
-					FlushLog();
+				FlushLog();
 
-					byte[] output = new UTF8Encoding().GetBytes(Environment.NewLine);
-					_outputStream.Write(output, 0, output.Length);
+				byte[] output = new UTF8Encoding().GetBytes(Environment.NewLine);
+				_outputStream.Write(output, 0, output.Length);
 
-					_outputStream.Flush();
-					_outputStream.Flush(true);
-					_outputStream.Dispose();
-					_outputStream.Close();
-					_outputStream = null;
-					_instance = null;
-				}
-				catch (Exception e)
-				{
-					Sentry.Log(e);
-				}
+				_outputStream?.Dispose();
+				_instance = null;
 			}
 		}
 
@@ -274,18 +225,11 @@ namespace Depressurizer.Helpers
 		{
 			lock (SyncRoot)
 			{
-				try
+				while (LogQueue.Count > 0)
 				{
-					while (LogQueue.Count > 0)
-					{
-						LogQueue.TryDequeue(out string logEntry);
-						byte[] output = new UTF8Encoding().GetBytes(logEntry + Environment.NewLine);
-						_outputStream.Write(output, 0, output.Length);
-					}
-				}
-				catch (Exception e)
-				{
-					Sentry.Log(e);
+					LogQueue.TryDequeue(out string logEntry);
+					byte[] output = new UTF8Encoding().GetBytes(logEntry + Environment.NewLine);
+					_outputStream.Write(output, 0, output.Length);
 				}
 			}
 		}
@@ -299,11 +243,6 @@ namespace Depressurizer.Helpers
 		{
 			lock (SyncRoot)
 			{
-				if (logLevel == LogLevel.Verbose)
-				{
-					return;
-				}
-
 				string logEntry = string.Format(CultureInfo.InvariantCulture, "{0} {1,-7} | {2}", DateTime.Now, logLevel, logMessage);
 				LogQueue.Enqueue(logEntry);
 
