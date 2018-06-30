@@ -27,6 +27,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
@@ -345,7 +346,7 @@ namespace Depressurizer.Models
 
 			try
 			{
-				string storeLanguage = Steam.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : Settings.StoreLanguage);
+				string storeLanguage = Steam.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : StoreLanguage.English);
 
 				HttpWebRequest req = GetSteamRequest(string.Format(Constants.SteamStoreApp + "?l=" + storeLanguage, Id));
 				resp = (HttpWebResponse) req.GetResponse();
@@ -531,7 +532,7 @@ namespace Depressurizer.Models
 		public void ScrapeTrueSteamAchievements()
 		{
 			// We can only scrape TrueSteamAchievements in English
-			if (Settings.Instance.StoreLanguage != StoreLanguage.English)
+			if (Program.Database.dbLanguage != StoreLanguage.English)
 			{
 				return;
 			}

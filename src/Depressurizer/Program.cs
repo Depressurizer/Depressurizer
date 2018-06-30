@@ -20,7 +20,9 @@
 #endregion
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Core;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Dialogs;
 
@@ -54,6 +56,7 @@ namespace Depressurizer
 
 			FatalErrorDialog.InitializeHandler();
 
+			Settings.SetThread(Thread.CurrentThread);
 			Settings.Instance.Load();
 
 			Logger.Info(GlobalStrings.Program_ProgramInitialized);

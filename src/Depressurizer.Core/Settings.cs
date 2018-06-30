@@ -24,24 +24,18 @@ using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Newtonsoft.Json;
 
-namespace Depressurizer
+namespace Depressurizer.Core
 {
-	internal enum GameListSource
-	{
-		XmlPreferred,
-
-		XmlOnly,
-
-		WebsiteOnly
-	}
-
-	internal sealed class Settings
+	public sealed class Settings
 	{
 		#region Static Fields
 
 		private static readonly object SyncRoot = new object();
 
 		private static volatile Settings _instance;
+
+		// ReSharper disable once InconsistentNaming
+		private static Thread CurrentThread;
 
 		#endregion
 
@@ -90,8 +84,6 @@ namespace Depressurizer
 		private StartupAction _startupAction = StartupAction.Create;
 
 		private string _steamPath;
-
-		private StoreLanguage _storeLanguage = StoreLanguage.English;
 
 		private bool _updateAppInfoOnStart = true;
 
@@ -528,29 +520,6 @@ namespace Depressurizer
 			}
 		}
 
-		public StoreLanguage StoreLanguage
-		{
-			get
-			{
-				lock (SyncRoot)
-				{
-					return _storeLanguage;
-				}
-			}
-
-			set
-			{
-				lock (SyncRoot)
-				{
-					_storeLanguage = value;
-					if (Program.Database != null)
-					{
-						Program.Database.ChangeLanguage(_storeLanguage);
-					}
-				}
-			}
-		}
-
 		public bool UpdateAppInfoOnStart
 		{
 			get
@@ -658,6 +627,11 @@ namespace Depressurizer
 
 		#region Public Methods and Operators
 
+		public static void SetThread(Thread thread)
+		{
+			CurrentThread = thread;
+		}
+
 		public void Load()
 		{
 			Load(Location.File.Settings);
@@ -702,7 +676,7 @@ namespace Depressurizer
 
 		private static void ChangeLanguage(InterfaceLanguage language)
 		{
-			Thread.CurrentThread.CurrentUICulture = Language.GetCultureInfo(language);
+			CurrentThread.CurrentUICulture = Language.GetCultureInfo(language);
 		}
 
 		#endregion

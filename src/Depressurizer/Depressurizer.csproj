@@ -361,7 +361,6 @@
     <Compile Include="DlgProfile.Designer.cs">
       <DependentUpon>DlgProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="Dialogs\FatalErrorDialog.cs">
       <SubType>Form</SubType>
     </Compile>

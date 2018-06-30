@@ -36,6 +36,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
@@ -1846,8 +1847,6 @@ namespace Depressurizer
 					break;
 			}
 
-			Program.Database.ChangeLanguage(settings.StoreLanguage);
-
 			UpdateUIForSingleCat();
 			UpdateEnabledStatesForGames();
 			UpdateEnabledStatesForCategories();
@@ -3066,7 +3065,7 @@ namespace Depressurizer
 
 		private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string storeLanguage = Core.Helpers.Steam.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : Settings.StoreLanguage);
+			string storeLanguage = Core.Helpers.Steam.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : StoreLanguage.English);
 
 			contextGameFav_Yes.Checked = false;
 			contextGameFav_No.Checked = false;

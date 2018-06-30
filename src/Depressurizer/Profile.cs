@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Cache;
 using System.Xml;
+using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
