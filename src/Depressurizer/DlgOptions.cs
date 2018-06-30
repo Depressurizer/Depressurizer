@@ -22,6 +22,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Forms;
+using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 
@@ -135,7 +136,7 @@ namespace Depressurizer
 
 			//supported languages have an enum value of 1-5 (en, es, ru, uk, nl). 0 is windows language.
 			cmbUILanguage.SelectedIndex = (int) Settings.InterfaceLanguage;
-			cmbStoreLanguage.SelectedIndex = (int) Settings.StoreLanguage;
+			cmbStoreLanguage.SelectedIndex = (int) Program.Database.dbLanguage;
 		}
 
 		private void OptionsForm_Load(object sender, EventArgs e)
@@ -202,7 +203,7 @@ namespace Depressurizer
 			Settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 
 			Settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
-			Settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
+			Program.Database.ChangeLanguage((StoreLanguage) cmbStoreLanguage.SelectedIndex);
 
 			try
 			{

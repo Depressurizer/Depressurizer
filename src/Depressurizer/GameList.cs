@@ -27,6 +27,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
