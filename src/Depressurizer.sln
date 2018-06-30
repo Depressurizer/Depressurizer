@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressurizer", "Depressurizer\Depressurizer.csproj", "{9E36EFA4-82E9-44B8-ABCE-BD73B8A6CD21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressurizer.Test", "Depressurizer.Test\Depressurizer.Test.csproj", "{9EE8744D-A191-4082-9C87-F13734D33A58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressurizer.Tests", "Depressurizer.Tests\Depressurizer.Tests.csproj", "{9EE8744D-A191-4082-9C87-F13734D33A58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressurizer.Core", "Depressurizer.Core\Depressurizer.Core.csproj", "{718A6D78-7823-4DF0-8F3C-0D0CF9B4E2E3}"
 EndProject

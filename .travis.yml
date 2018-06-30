@@ -5,5 +5,5 @@ install:
   - nuget install NUnit.Runners -Version 3.7.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
-  - xbuild /p:Configuration=Release src/Depressurizer.Test/Depressurizer.Test.csproj
-  - mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./src/Depressurizer.Test/bin/Release/Depressurizer.Test.dll
+  - xbuild /p:Configuration=Release src/Depressurizer.Tests/Depressurizer.Tests.csproj
+  - mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./src/Depressurizer.Tests/bin/Release/Depressurizer.Tests.dll
