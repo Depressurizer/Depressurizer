@@ -39,7 +39,7 @@ namespace Depressurizer.Core.Helpers
 			/// <summary>
 			///     Default database file location.
 			/// </summary>
-			public static string Database => Path.Combine(Folder.Depressurizer, "database.json");
+			public static string Database => "database.json";
 
 			/// <summary>
 			///     Default log file location.
