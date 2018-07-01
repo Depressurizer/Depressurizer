@@ -31,7 +31,7 @@ namespace Depressurizer.Core.Helpers
 	{
 		#region Properties
 
-		private static RavenClient RavenClient => new RavenClient("https://a9d2b7ef3ae04cb6bdcb47868d04941b:82545065dd864f878defde6bd2ae51d9@sentry.io/267726");
+		private static RavenClient RavenClient => new RavenClient("https://fbb6fca0ff1748d7a9160b6bc92bcb1d@sentry.io/267726");
 
 		#endregion
 
