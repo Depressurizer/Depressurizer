@@ -137,6 +137,12 @@ namespace Depressurizer
 
 		#endregion
 
+		#region Properties
+
+		private static Database Database => Database.Instance;
+
+		#endregion
+
 		#region Public Methods and Operators
 
 		/// <summary>
@@ -307,7 +313,7 @@ namespace Depressurizer
 
 			if (f.VR != (int) AdvancedFilterState.None)
 			{
-				isVR = Program.Database.SupportsVR(Id);
+				isVR = Database.SupportsVR(Id);
 			}
 
 			if ((f.Uncategorized == (int) AdvancedFilterState.Require) && isCategorized)

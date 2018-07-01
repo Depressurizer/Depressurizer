@@ -37,6 +37,11 @@ namespace Depressurizer.Core.Helpers
 			#region Public Properties
 
 			/// <summary>
+			///     Default database file location.
+			/// </summary>
+			public static string Database => Path.Combine(Folder.Depressurizer, "database.json");
+
+			/// <summary>
 			///     Default log file location.
 			/// </summary>
 			public static string Log => Path.Combine(Folder.Logs, string.Format(CultureInfo.InvariantCulture, "depressurizer-({0:dd-MM-yyyy}).log", DateTime.Now));

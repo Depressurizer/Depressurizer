@@ -30,12 +30,6 @@ namespace Depressurizer
 {
 	internal static class Program
 	{
-		#region Static Fields
-
-		public static Database Database;
-
-		#endregion
-
 		#region Properties
 
 		private static Logger Logger => Logger.Instance;

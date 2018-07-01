@@ -113,6 +113,8 @@ namespace Depressurizer
 
 		#region Properties
 
+		private static Database Database => Database.Instance;
+
 		private static Logger Logger => Logger.Instance;
 
 		#endregion
@@ -251,8 +253,8 @@ namespace Depressurizer
 		{
 			base.PreProcess(games, db);
 			gamelist = games;
-			devList = Program.Database.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
-			pubList = Program.Database.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
+			devList = Database.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
+			pubList = Database.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
 		}
 
 		public override void WriteToXml(XmlWriter writer)

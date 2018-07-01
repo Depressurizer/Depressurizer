@@ -161,6 +161,8 @@ namespace Depressurizer
 
 		#region Properties
 
+		private static Database Database => Database.Instance;
+
 		private static Logger Logger => Logger.Instance;
 
 		#endregion
@@ -196,7 +198,7 @@ namespace Depressurizer
 
 			//By Tags
 			AutoCatTags act = new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Tags, null, "(" + GlobalStrings.Name_Tags + ") ");
-			foreach (Tuple<string, float> tag in Program.Database.CalculateSortedTagList(null, 1, 20, 0, false, false))
+			foreach (Tuple<string, float> tag in Database.CalculateSortedTagList(null, 1, 20, 0, false, false))
 			{
 				act.IncludedTags.Add(tag.Item1);
 			}
@@ -205,7 +207,7 @@ namespace Depressurizer
 
 			//By Flags
 			AutoCatFlags acf = new AutoCatFlags(GlobalStrings.Profile_DefaultAutoCatName_Flags, null, "(" + GlobalStrings.Name_Flags + ") ");
-			foreach (string flag in Program.Database.GetAllStoreFlags())
+			foreach (string flag in Database.GetAllStoreFlags())
 			{
 				acf.IncludedFlags.Add(flag);
 			}

@@ -51,6 +51,12 @@ namespace Depressurizer.Dialogs
 
 		#endregion
 
+		#region Properties
+
+		private static Database Database => Database.Instance;
+
+		#endregion
+
 		#region Methods
 
 		protected override void CancelableDialog_Load(object sender, EventArgs e)
@@ -72,13 +78,13 @@ namespace Depressurizer.Dialogs
 			{
 				foreach (DatabaseEntry entry in _results)
 				{
-					if (Program.Database.Contains(entry.Id))
+					if (Database.Contains(entry.Id))
 					{
-						Program.Database.Games[entry.Id].MergeIn(entry);
+						Database.Games[entry.Id].MergeIn(entry);
 					}
 					else
 					{
-						Program.Database.Games.Add(entry.Id, entry);
+						Database.Games.Add(entry.Id, entry);
 					}
 				}
 			}
@@ -127,7 +133,7 @@ namespace Depressurizer.Dialogs
 				return;
 			}
 
-			DatabaseEntry entry = Program.Database.Contains(appId) ? Program.Database.Games[appId] : new DatabaseEntry(appId);
+			DatabaseEntry entry = Database.Contains(appId) ? Database.Games[appId] : new DatabaseEntry(appId);
 			entry.ScrapeStore();
 
 			if (entry.LastStoreScrape == 0)

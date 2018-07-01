@@ -44,6 +44,8 @@ namespace Depressurizer
 
 		#region Properties
 
+		private static Database Database => Database.Instance;
+
 		private static Settings Settings => Settings.Instance;
 
 		#endregion
@@ -136,7 +138,7 @@ namespace Depressurizer
 
 			//supported languages have an enum value of 1-5 (en, es, ru, uk, nl). 0 is windows language.
 			cmbUILanguage.SelectedIndex = (int) Settings.InterfaceLanguage;
-			cmbStoreLanguage.SelectedIndex = (int) Program.Database.dbLanguage;
+			cmbStoreLanguage.SelectedIndex = (int) Database.Language;
 		}
 
 		private void OptionsForm_Load(object sender, EventArgs e)
@@ -203,7 +205,7 @@ namespace Depressurizer
 			Settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 
 			Settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
-			Program.Database.ChangeLanguage((StoreLanguage) cmbStoreLanguage.SelectedIndex);
+			Database.ChangeLanguage((StoreLanguage) cmbStoreLanguage.SelectedIndex);
 
 			try
 			{
