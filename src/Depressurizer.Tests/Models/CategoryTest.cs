@@ -23,7 +23,7 @@ using Depressurizer.Core.Models;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Depressurizer.Test.Models
+namespace Depressurizer.Tests.Models
 {
 	[TestFixture]
 	public class CategoryTest

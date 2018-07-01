@@ -8,8 +8,8 @@
     <ProjectGuid>{9EE8744D-A191-4082-9C87-F13734D33A58}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Depressurizer.Test</RootNamespace>
-    <AssemblyName>Depressurizer.Test</AssemblyName>
+    <RootNamespace>Depressurizer.Tests</RootNamespace>
+    <AssemblyName>Depressurizer.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

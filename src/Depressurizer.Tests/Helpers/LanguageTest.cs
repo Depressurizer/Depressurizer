@@ -24,7 +24,7 @@ using Depressurizer.Core.Helpers;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Depressurizer.Test.Helpers
+namespace Depressurizer.Tests.Helpers
 {
 	[TestFixture]
 	public class LanguageTest
