@@ -223,7 +223,7 @@ namespace Depressurizer
 				return false;
 			}
 
-			return SaveDB();
+			return SaveDatabase();
 		}
 
 		private void chkAll_CheckedChanged(object sender, EventArgs e)
@@ -659,7 +659,7 @@ namespace Depressurizer
 		private void menu_File_Save_Click(object sender, EventArgs e)
 		{
 			ClearStatusMsg();
-			SaveDB();
+			SaveDatabase();
 			FlushStatusMsg();
 		}
 
@@ -765,9 +765,9 @@ namespace Depressurizer
 		///     Saves the database to the program DB file.
 		/// </summary>
 		/// <returns></returns>
-		private bool SaveDB()
+		private bool SaveDatabase()
 		{
-			if (Save("GameDB.xml.gz"))
+			if (Save(Core.Helpers.Location.File.Database))
 			{
 				AddStatusMsg(GlobalStrings.DBEditDlg_DatabaseSaved);
 				UnsavedChanges = false;
