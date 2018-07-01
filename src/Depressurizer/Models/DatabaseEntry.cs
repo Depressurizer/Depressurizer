@@ -182,6 +182,8 @@ namespace Depressurizer.Models
 
 		#region Properties
 
+		private static Database Database => Database.Instance;
+
 		private static Logger Logger => Logger.Instance;
 
 		private static Settings Settings => Settings.Instance;
@@ -346,7 +348,7 @@ namespace Depressurizer.Models
 
 			try
 			{
-				string storeLanguage = Steam.GetStoreLanguage(Program.Database != null ? Program.Database.dbLanguage : StoreLanguage.English);
+				string storeLanguage = Steam.GetStoreLanguage(Database.Language);
 
 				HttpWebRequest req = GetSteamRequest(string.Format(Constants.SteamStoreApp + "?l=" + storeLanguage, Id));
 				resp = (HttpWebResponse) req.GetResponse();
@@ -532,7 +534,7 @@ namespace Depressurizer.Models
 		public void ScrapeTrueSteamAchievements()
 		{
 			// We can only scrape TrueSteamAchievements in English
-			if (Program.Database.dbLanguage != StoreLanguage.English)
+			if (Database.Language != StoreLanguage.English)
 			{
 				return;
 			}

@@ -37,20 +37,23 @@ namespace Depressurizer
 
 		#endregion
 
+		#region Properties
+
+		private static Database Database => Database.Instance;
+
+		#endregion
+
 		#region Public Methods and Operators
 
 		public void FillFlagsList()
 		{
 			lstIncluded.Items.Clear();
 
-			if (Program.Database != null)
-			{
-				SortedSet<string> flagsList = Program.Database.GetAllStoreFlags();
+			SortedSet<string> flagsList = Database.GetAllStoreFlags();
 
-				foreach (string s in flagsList)
-				{
-					lstIncluded.Items.Add(s);
-				}
+			foreach (string s in flagsList)
+			{
+				lstIncluded.Items.Add(s);
 			}
 		}
 

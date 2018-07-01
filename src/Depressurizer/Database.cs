@@ -23,54 +23,71 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
 using Depressurizer.Models;
 using Depressurizer.Properties;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
 {
-	public class Database
+	public sealed class Database
 	{
-		#region Constants
+		#region Static Fields
 
-		// Utility
-		private const int VERSION = 2;
+		private static readonly object SyncRoot = new object();
 
-		private const string XmlName_RootNode = "gamelist", XmlName_Version = "version", XmlName_LastHltbUpdate = "lastHltbUpdate", XmlName_dbLanguage = "dbLanguage", XmlName_Games = "games";
+		private static volatile Database _instance;
 
 		#endregion
 
 		#region Fields
 
-		public StoreLanguage dbLanguage = StoreLanguage.English;
-
-		// Main Data
 		public Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
 
 		public int LastHltbUpdate;
 
-		private readonly VRSupport allVrSupportFlags = new VRSupport();
+		#endregion
 
-		private LanguageSupport allLanguages;
+		#region Constructors and Destructors
 
-		private SortedSet<string> allStoreDevelopers;
+		private Database()
+		{
+		}
 
-		private SortedSet<string> allStoreFlags;
+		#endregion
 
-		// Extra data
-		private SortedSet<string> allStoreGenres;
+		#region Public Properties
 
-		private SortedSet<string> allStorePublishers;
+		public static Database Instance
+		{
+			get
+			{
+				if (_instance != null)
+				{
+					return _instance;
+				}
+
+				lock (SyncRoot)
+				{
+					if (_instance == null)
+					{
+						_instance = new Database();
+					}
+				}
+
+				return _instance;
+			}
+		}
+
+		public StoreLanguage Language { get; set; } = StoreLanguage.English;
 
 		#endregion
 
@@ -231,17 +248,12 @@ namespace Depressurizer
 
 		public void ChangeLanguage(StoreLanguage language)
 		{
-			if (Program.Database == null)
+			if (Language == language)
 			{
 				return;
 			}
 
-			if (dbLanguage == language)
-			{
-				return;
-			}
-
-			dbLanguage = language;
+			Language = language;
 
 			foreach (DatabaseEntry entry in Games.Values)
 			{
@@ -270,7 +282,7 @@ namespace Depressurizer
 				}
 			}
 
-			Save("GameDB.xml.gz");
+			Save(Location.File.Database);
 		}
 
 		public bool Contains(int appId)
@@ -280,7 +292,7 @@ namespace Depressurizer
 
 		public SortedSet<string> GetAllDevelopers()
 		{
-			allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
 			foreach (DatabaseEntry entry in Games.Values)
 			{
@@ -295,7 +307,7 @@ namespace Depressurizer
 
 		public SortedSet<string> GetAllGenres()
 		{
-			allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
 			foreach (DatabaseEntry entry in Games.Values)
 			{
@@ -310,6 +322,8 @@ namespace Depressurizer
 
 		public LanguageSupport GetAllLanguages()
 		{
+			LanguageSupport allLanguages = new LanguageSupport();
+
 			SortedSet<string> Interface = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 			SortedSet<string> subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 			SortedSet<string> fullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -341,7 +355,7 @@ namespace Depressurizer
 
 		public SortedSet<string> GetAllPublishers()
 		{
-			allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
 			foreach (DatabaseEntry entry in Games.Values)
 			{
@@ -356,7 +370,7 @@ namespace Depressurizer
 
 		public SortedSet<string> GetAllStoreFlags()
 		{
-			allStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+			SortedSet<string> allStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
 			foreach (DatabaseEntry entry in Games.Values)
 			{
@@ -371,6 +385,8 @@ namespace Depressurizer
 
 		public VRSupport GetAllVrSupportFlags()
 		{
+			VRSupport allVrSupportFlags = new VRSupport();
+
 			SortedSet<string> headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 			SortedSet<string> input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 			SortedSet<string> playArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -572,122 +588,43 @@ namespace Depressurizer
 
 		public void Load(string path)
 		{
-			Load(path, path.EndsWith(".gz"));
+			lock (SyncRoot)
+			{
+				Logger.Info("Database: Loading database from '{0}'.", path);
+				if (!File.Exists(path))
+				{
+					Logger.Warn("Database: Database file not found at '{0}'.", path);
+
+					return;
+				}
+
+				string database = File.ReadAllText(path);
+				_instance = JsonConvert.DeserializeObject<Database>(database);
+
+				Logger.Info("Database: Loaded database from '{0}'.", path);
+			}
 		}
 
-		public void Load(string path, bool compress)
+		public void Reset()
 		{
-			Logger.Info(GlobalStrings.GameDB_LoadingGameDBFrom, path);
-			XmlDocument doc = new XmlDocument();
-
-			Stream stream = null;
-			try
+			lock (SyncRoot)
 			{
-				stream = new FileStream(path, FileMode.Open);
-				if (compress)
-				{
-					stream = new GZipStream(stream, CompressionMode.Decompress);
-				}
-
-				doc.Load(stream);
-
-				Logger.Info(GlobalStrings.GameDB_GameDBXMLParsed);
-				Games.Clear();
-				ClearAggregates();
-
-				XmlNode gameListNode = doc.SelectSingleNode("/" + XmlName_RootNode);
-
-				int fileVersion = XmlUtil.GetIntFromNode(gameListNode[XmlName_Version], 0);
-
-				LastHltbUpdate = XmlUtil.GetIntFromNode(gameListNode[XmlName_LastHltbUpdate], 0);
-
-				dbLanguage = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), XmlUtil.GetStringFromNode(gameListNode[XmlName_dbLanguage], "en"), true);
-
-				if (fileVersion == 1)
-				{
-					LoadGamelistVersion1(gameListNode);
-				}
-				else
-				{
-					XmlSerializer x = new XmlSerializer(typeof(DatabaseEntry));
-					foreach (XmlNode gameNode in gameListNode.SelectSingleNode(XmlName_Games).ChildNodes)
-					{
-						XmlReader reader = new XmlNodeReader(gameNode);
-						DatabaseEntry entry = (DatabaseEntry) x.Deserialize(reader);
-						Games.Add(entry.Id, entry);
-					}
-				}
-
-				Logger.Info("GameDB XML processed, load complete. Db Language: " + dbLanguage);
-			}
-			finally
-			{
-				stream?.Close();
+				Logger.Info("Database: Database was reset.");
+				_instance = new Database();
 			}
 		}
 
 		public void Save(string path)
 		{
-			Save(path, path.EndsWith(".gz"));
-		}
-
-		public void Save(string path, bool compress)
-		{
-			Logger.Info(GlobalStrings.GameDB_SavingGameDBTo, path);
-			XmlWriterSettings settings = new XmlWriterSettings
+			lock (SyncRoot)
 			{
-				Indent = true,
-				CloseOutput = true
-			};
+				Logger.Info("Database: Saving database to '{0}'.", path);
 
-			Stream stream = null;
-			try
-			{
-				stream = new FileStream(path, FileMode.Create);
+				string database = JsonConvert.SerializeObject(_instance);
+				File.WriteAllText(path, database);
 
-				if (compress)
-				{
-					stream = new GZipStream(stream, CompressionMode.Compress);
-				}
-
-				XmlWriter writer = XmlWriter.Create(stream, settings);
-				writer.WriteStartDocument();
-				writer.WriteStartElement(XmlName_RootNode);
-
-				writer.WriteElementString(XmlName_Version, VERSION.ToString());
-
-				writer.WriteElementString(XmlName_LastHltbUpdate, LastHltbUpdate.ToString());
-
-				writer.WriteElementString(XmlName_dbLanguage, Enum.GetName(typeof(StoreLanguage), dbLanguage));
-
-				writer.WriteStartElement(XmlName_Games);
-				XmlSerializer x = new XmlSerializer(typeof(DatabaseEntry));
-				XmlSerializerNamespaces nameSpace = new XmlSerializerNamespaces();
-				nameSpace.Add("", "");
-				foreach (DatabaseEntry g in Games.Values)
-				{
-					x.Serialize(writer, g, nameSpace);
-				}
-
-				writer.WriteEndElement(); //XmlName_Games
-
-				writer.WriteEndElement(); //XmlName_RootNode
-				writer.WriteEndDocument();
-				writer.Close();
+				Logger.Info("Database: Saved database to '{0}'.", path);
 			}
-			catch (Exception e)
-			{
-				throw e;
-			}
-			finally
-			{
-				if (stream != null)
-				{
-					stream.Close();
-				}
-			}
-
-			Logger.Info(GlobalStrings.GameDB_GameDBSaved);
 		}
 
 		public bool SupportsVR(int appId, int depth = 3)
@@ -709,12 +646,6 @@ namespace Depressurizer
 			}
 
 			return false;
-		}
-
-		public void UpdateAppListFromWeb()
-		{
-			XmlDocument doc = FetchAppListFromWeb();
-			IntegrateAppList(doc);
 		}
 
 		/// <summary>
@@ -837,56 +768,42 @@ namespace Depressurizer
 
 		#region Methods
 
-		/// <summary>
-		///     Counts games for each developer.
-		/// </summary>
-		/// <param name="counts">
-		///     Existing dictionary of developers and game count. Key is the developer as a string, value is the
-		///     count
-		/// </param>
-		/// <param name="dbEntry">Entry to add developers from</param>
-		private void CalculateSortedDevListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
+		private static void CalculateSortedDevListHelper(IDictionary<string, int> counts, DatabaseEntry entry)
 		{
-			if (dbEntry.Developers != null)
+			if (entry.Developers == null)
 			{
-				for (int i = 0; i < dbEntry.Developers.Count; i++)
+				return;
+			}
+
+			foreach (string developer in entry.Developers)
+			{
+				if (counts.ContainsKey(developer))
 				{
-					string dev = dbEntry.Developers[i];
-					if (counts.ContainsKey(dev))
-					{
-						counts[dev] += 1;
-					}
-					else
-					{
-						counts[dev] = 1;
-					}
+					counts[developer] += 1;
+				}
+				else
+				{
+					counts[developer] = 1;
 				}
 			}
 		}
 
-		/// <summary>
-		///     Counts games for each publisher.
-		/// </summary>
-		/// <param name="counts">
-		///     Existing dictionary of publishers and game count. Key is the publisher as a string, value is the
-		///     count
-		/// </param>
-		/// <param name="dbEntry">Entry to add publishers from</param>
-		private void CalculateSortedPubListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
+		private static void CalculateSortedPubListHelper(IDictionary<string, int> counts, DatabaseEntry entry)
 		{
-			if (dbEntry.Publishers != null)
+			if (entry.Publishers == null)
 			{
-				for (int i = 0; i < dbEntry.Publishers.Count; i++)
+				return;
+			}
+
+			foreach (string publisher in entry.Publishers)
+			{
+				if (counts.ContainsKey(publisher))
 				{
-					string Pub = dbEntry.Publishers[i];
-					if (counts.ContainsKey(Pub))
-					{
-						counts[Pub] += 1;
-					}
-					else
-					{
-						counts[Pub] = 1;
-					}
+					counts[publisher] += 1;
+				}
+				else
+				{
+					counts[publisher] = 1;
 				}
 			}
 		}
@@ -935,87 +852,6 @@ namespace Depressurizer
 						counts[tag] = score;
 					}
 				}
-			}
-		}
-
-		private void ClearAggregates()
-		{
-			allStoreGenres = null;
-			allStoreFlags = null;
-			allStoreDevelopers = null;
-			allStorePublishers = null;
-		}
-
-		/// <summary>
-		///     Reads GameDbEntry objects from selected node and adds them to GameDb
-		///     Legacy method used to read data from version 1 of the database.
-		/// </summary>
-		/// <param name="gameListNode">Node containing GameDbEntry objects with game as element name</param>
-		private void LoadGamelistVersion1(XmlNode gameListNode)
-		{
-			const string XmlName_Game = "game", XmlName_Game_Id = "id", XmlName_Game_Name = "name", XmlName_Game_LastStoreUpdate = "lastStoreUpdate", XmlName_Game_LastAppInfoUpdate = "lastAppInfoUpdate", XmlName_Game_Type = "type", XmlName_Game_Platforms = "platforms", XmlName_Game_Parent = "parent", XmlName_Game_Genre = "genre", XmlName_Game_Tag = "tag", XmlName_Game_Achievements = "achievements", XmlName_Game_Developer = "developer", XmlName_Game_Publisher = "publisher", XmlName_Game_Flag = "flag", XmlName_Game_ReviewTotal = "reviewTotal", XmlName_Game_ReviewPositivePercent = "reviewPositiveP", XmlName_Game_MCUrl = "mcUrl", XmlName_Game_Date = "steamDate", XmlName_Game_HltbMain = "hltbMain", XmlName_Game_HltbExtras = "hltbExtras", XmlName_Game_HltbCompletionist = "hltbCompletionist", XmlName_Game_vrSupport = "vrSupport", XmlName_Game_vrSupport_Headsets = "Headset", XmlName_Game_vrSupport_Input = "Input", XmlName_Game_vrSupport_PlayArea = "PlayArea", XmlName_Game_languageSupport = "languageSupport", XmlName_Game_languageSupport_Interface = "Headset", XmlName_Game_languageSupport_FullAudio = "Input", XmlName_Game_languageSupport_Subtitles = "PlayArea";
-
-			foreach (XmlNode gameNode in gameListNode.SelectNodes(XmlName_Game))
-			{
-				if (!XmlUtil.TryGetIntFromNode(gameNode[XmlName_Game_Id], out int id) || Games.ContainsKey(id))
-				{
-					continue;
-				}
-
-				DatabaseEntry g = new DatabaseEntry
-				{
-					Id = id,
-
-					Name = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Name], null),
-
-					AppType = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Type], AppType.Unknown),
-
-					Platforms = XmlUtil.GetEnumFromNode(gameNode[XmlName_Game_Platforms], AppPlatforms.All),
-
-					ParentId = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Parent], -1),
-
-					Genres = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Genre)),
-
-					Tags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Tag))
-				};
-
-				foreach (XmlNode vrNode in gameNode.SelectNodes(XmlName_Game_vrSupport))
-				{
-					g.VrSupport.Headsets = XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Headsets));
-					g.VrSupport.Input = XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_Input));
-					g.VrSupport.PlayArea = XmlUtil.GetStringsFromNodeList(vrNode.SelectNodes(XmlName_Game_vrSupport_PlayArea));
-				}
-
-				foreach (XmlNode langNode in gameNode.SelectNodes(XmlName_Game_languageSupport))
-				{
-					g.LanguageSupport.Interface = XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_Interface));
-					g.LanguageSupport.FullAudio = XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_FullAudio));
-					g.LanguageSupport.Subtitles = XmlUtil.GetStringsFromNodeList(langNode.SelectNodes(XmlName_Game_languageSupport_Subtitles));
-				}
-
-				g.Developers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Developer));
-
-				g.Publishers = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Publisher));
-
-				g.SteamReleaseDate = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_Date], null);
-
-				g.Flags = XmlUtil.GetStringsFromNodeList(gameNode.SelectNodes(XmlName_Game_Flag));
-
-				g.TotalAchievements = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_Achievements], 0);
-
-				g.ReviewTotal = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewTotal], 0);
-				g.ReviewPositivePercentage = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_ReviewPositivePercent], 0);
-
-				g.MetacriticUrl = XmlUtil.GetStringFromNode(gameNode[XmlName_Game_MCUrl], null);
-
-				g.LastAppInfoUpdate = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastAppInfoUpdate], 0);
-				g.LastStoreScrape = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_LastStoreUpdate], 0);
-
-				g.HltbMain = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbMain], 0);
-				g.HltbExtras = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbExtras], 0);
-				g.HltbCompletionist = XmlUtil.GetIntFromNode(gameNode[XmlName_Game_HltbCompletionist], 0);
-
-				Games.Add(id, g);
 			}
 		}
 

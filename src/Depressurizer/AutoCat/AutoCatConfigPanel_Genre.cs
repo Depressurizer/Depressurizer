@@ -39,26 +39,29 @@ namespace Depressurizer
 
 		#endregion
 
+		#region Properties
+
+		private static Database Database => Database.Instance;
+
+		#endregion
+
 		#region Public Methods and Operators
 
 		public void FillGenreList()
 		{
 			lstIgnore.Items.Clear();
 
-			if (Program.Database != null)
+			SortedSet<string> genreList = Database.GetAllGenres();
+
+			foreach (string s in genreList)
 			{
-				SortedSet<string> genreList = Program.Database.GetAllGenres();
-
-				foreach (string s in genreList)
+				ListViewItem l = new ListViewItem
 				{
-					ListViewItem l = new ListViewItem
-					{
-						Text = s,
-						Checked = true
-					};
+					Text = s,
+					Checked = true
+				};
 
-					lstIgnore.Items.Add(l);
-				}
+				lstIgnore.Items.Add(l);
 			}
 		}
 

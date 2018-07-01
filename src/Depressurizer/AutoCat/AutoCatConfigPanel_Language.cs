@@ -38,6 +38,12 @@ namespace Depressurizer
 
 		#endregion
 
+		#region Properties
+
+		private static Database Database => Database.Instance;
+
+		#endregion
+
 		#region Public Methods and Operators
 
 		public void FillLanguageLists()
@@ -46,24 +52,21 @@ namespace Depressurizer
 			lstSubtitles.Items.Clear();
 			lstFullAudio.Items.Clear();
 
-			if (Program.Database != null)
+			LanguageSupport language = Database.GetAllLanguages();
+
+			foreach (string s in language.Interface)
 			{
-				LanguageSupport language = Program.Database.GetAllLanguages();
+				lstInterface.Items.Add(s);
+			}
 
-				foreach (string s in language.Interface)
-				{
-					lstInterface.Items.Add(s);
-				}
+			foreach (string s in language.Subtitles)
+			{
+				lstSubtitles.Items.Add(s);
+			}
 
-				foreach (string s in language.Subtitles)
-				{
-					lstSubtitles.Items.Add(s);
-				}
-
-				foreach (string s in language.FullAudio)
-				{
-					lstFullAudio.Items.Add(s);
-				}
+			foreach (string s in language.FullAudio)
+			{
+				lstFullAudio.Items.Add(s);
 			}
 		}
 
