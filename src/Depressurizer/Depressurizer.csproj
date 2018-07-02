@@ -126,7 +126,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameList.cs" />
-    <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="Helpers\DatabaseEntrySorter.cs" />
     <Compile Include="Models\LanguageSupport.cs" />
