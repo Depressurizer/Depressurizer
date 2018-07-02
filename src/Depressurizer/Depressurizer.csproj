@@ -105,6 +105,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommaClusteringStrategy.cs" />
     <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="Helpers\DropdownMenuScrollWheelHandler.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
@@ -289,6 +290,7 @@
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="Models\VDFNode.cs" />
     <Compile Include="Models\PackageInfo.cs" />
+    <Compile Include="MyRenderer.cs" />
     <Compile Include="ProfileAccessException.cs" />
     <Compile Include="Properties\Constants.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -305,6 +307,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ToolStripItemComparer.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
