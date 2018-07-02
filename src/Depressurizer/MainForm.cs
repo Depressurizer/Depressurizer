@@ -1736,39 +1736,41 @@ namespace Depressurizer
 
 		private void FixWebBrowserRegistry()
 		{
-			string installkey = @"SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION";
+			const string installKey = @"SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION";
 			string entryLabel = GetType().Assembly.GetName().Name + ".exe";
 
-			int value = 0;
 			int version = new WebBrowser().Version.Major;
-
-			if ((version >= 8) && (version <= 11))
-			{
-				value = version * 1000;
-			}
-			else
+			if ((version < 8) || (version > 11))
 			{
 				return;
 			}
 
-			RegistryKey existingSubKey = Registry.LocalMachine.OpenSubKey(installkey, false); // readonly key
+			int value = version * 1000;
 
-			if ((existingSubKey.GetValue(entryLabel) == null) || (Convert.ToInt32(existingSubKey.GetValue(entryLabel)) != value))
+			RegistryKey existingSubKey = Registry.LocalMachine.OpenSubKey(installKey, false); // readonly key
+			if ((existingSubKey == null) || ((existingSubKey.GetValue(entryLabel) != null) && (Convert.ToInt32(existingSubKey.GetValue(entryLabel)) == value)))
 			{
-				new RegistryPermission(PermissionState.Unrestricted).Assert();
-				try
+				return;
+			}
+
+			new RegistryPermission(PermissionState.Unrestricted).Assert();
+			try
+			{
+				existingSubKey = Registry.LocalMachine.OpenSubKey(installKey, RegistryKeyPermissionCheck.ReadWriteSubTree); // writable key
+				if (existingSubKey == null)
 				{
-					existingSubKey = Registry.LocalMachine.OpenSubKey(installkey, RegistryKeyPermissionCheck.ReadWriteSubTree); // writable key
-					existingSubKey.SetValue(entryLabel, value, RegistryValueKind.DWord);
+					return;
 				}
-				catch
-				{
-					MessageBox.Show(GlobalStrings.MainForm_AdminRights, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				}
-				finally
-				{
-					CodeAccessPermission.RevertAssert();
-				}
+
+				existingSubKey.SetValue(entryLabel, value, RegistryValueKind.DWord);
+			}
+			catch
+			{
+				MessageBox.Show(GlobalStrings.MainForm_AdminRights, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
+			finally
+			{
+				CodeAccessPermission.RevertAssert();
 			}
 		}
 
@@ -3130,17 +3132,18 @@ namespace Depressurizer
 
 		private void lstMultiCat_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			bool modKey = ModifierKeys == Keys.Shift;
-			if ((e.KeyChar == (char) Keys.Return) || (e.KeyChar == (char) Keys.Space))
+			if ((e.KeyChar != (char) Keys.Return) && (e.KeyChar != (char) Keys.Space))
 			{
-				if (lstMultiCat.SelectedItems.Count == 0)
-				{
-					return;
-				}
-
-				ListViewItem item = lstMultiCat.SelectedItems[0];
-				HandleMultiCatItemActivation(item, ModifierKeys == Keys.Shift);
+				return;
 			}
+
+			if (lstMultiCat.SelectedItems.Count == 0)
+			{
+				return;
+			}
+
+			ListViewItem item = lstMultiCat.SelectedItems[0];
+			HandleMultiCatItemActivation(item, ModifierKeys == Keys.Shift);
 		}
 
 		private void lstMultiCat_MouseDown(object sender, MouseEventArgs e)
@@ -3774,80 +3777,81 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Renames the given category. Prompts user for a new name. Updates UI. Will display an error if the rename fails.
-		/// </summary>
-		/// <param name="c">Category to rename</param>
-		/// <returns>True if category was renamed, false otherwise.</returns>
-		private bool RenameCategory()
+		private void RenameCategory()
 		{
-			if (lstCategories.SelectedItems.Count > 0)
+			if (lstCategories.SelectedItems.Count <= 0)
 			{
-				Category c = lstCategories.SelectedItems[0].Tag as Category;
-				if ((c != null) && (c != CurrentProfile.GameData.FavoriteCategory))
+				return;
+			}
+
+			Category c = lstCategories.SelectedItems[0].Tag as Category;
+			if ((c == null) || (c == CurrentProfile.GameData.FavoriteCategory))
+			{
+				return;
+			}
+
+			GetStringDlg dlg = new GetStringDlg(c.Name, string.Format(GlobalStrings.MainForm_RenameCategory, c.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
+			if (dlg.ShowDialog() != DialogResult.OK)
+			{
+				return;
+			}
+
+			string newName = dlg.Value;
+			if (newName == c.Name)
+			{
+				return;
+			}
+
+			if (ValidateCategoryName(newName))
+			{
+				Category newCat = CurrentProfile.GameData.RenameCategory(c, newName);
+				if (newCat != null)
 				{
-					GetStringDlg dlg = new GetStringDlg(c.Name, string.Format(GlobalStrings.MainForm_RenameCategory, c.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
-					if (dlg.ShowDialog() == DialogResult.OK)
+					FillAllCategoryLists();
+					RebuildGamelist();
+					MakeChange(true);
+					for (int index = 2; index < lstCategories.Items.Count; index++)
 					{
-						string newName = dlg.Value;
-						if (newName == c.Name)
+						if (lstCategories.Items[index].Tag != newCat)
 						{
-							return true;
+							continue;
 						}
 
-						if (ValidateCategoryName(newName))
-						{
-							Category newCat = CurrentProfile.GameData.RenameCategory(c, newName);
-							if (newCat != null)
-							{
-								FillAllCategoryLists();
-								RebuildGamelist();
-								MakeChange(true);
-								for (int index = 2; index < lstCategories.Items.Count; index++)
-								{
-									if (lstCategories.Items[index].Tag == newCat)
-									{
-										lstCategories.SelectedIndices.Add(index);
+						lstCategories.SelectedIndices.Add(index);
 
-										break;
-									}
-								}
-
-								AddStatus(string.Format(GlobalStrings.MainForm_CategoryRenamed, c.Name));
-
-								return true;
-							}
-						}
-
-						MessageBox.Show(string.Format(GlobalStrings.MainForm_NameIsInUse, newName), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-						return false;
+						break;
 					}
+
+					AddStatus(string.Format(GlobalStrings.MainForm_CategoryRenamed, c.Name));
+
+					return;
 				}
 			}
 
-			return false;
+			MessageBox.Show(string.Format(GlobalStrings.MainForm_NameIsInUse, newName), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 		}
 
 		private void RenameFilter(Filter f)
 		{
-			if (AdvancedCategoryFilter)
+			if (!AdvancedCategoryFilter)
 			{
-				GetStringDlg dlg = new GetStringDlg(f.Name, string.Format(GlobalStrings.MainForm_RenameFilter, f.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
-				if ((dlg.ShowDialog() == DialogResult.OK) && (f.Name != dlg.Value))
+				return;
+			}
+
+			GetStringDlg dlg = new GetStringDlg(f.Name, string.Format(GlobalStrings.MainForm_RenameFilter, f.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename);
+			if ((dlg.ShowDialog() == DialogResult.OK) && (f.Name != dlg.Value))
+			{
+				if (CurrentProfile.GameData.FilterExists(dlg.Value))
 				{
-					if (CurrentProfile.GameData.FilterExists(dlg.Value))
-					{
-						MessageBox.Show(GlobalStrings.MainForm_FilterExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					MessageBox.Show(GlobalStrings.MainForm_FilterExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-						return;
-					}
-
-					f.Name = dlg.Value;
-					RefreshFilters();
-					cboFilter.SelectedItem = f;
-					cboFilter.Text = f.Name;
+					return;
 				}
+
+				f.Name = dlg.Value;
+				RefreshFilters();
+				cboFilter.SelectedItem = f;
+				cboFilter.Text = f.Name;
 			}
 		}
 
@@ -4495,22 +4499,6 @@ namespace Depressurizer
 		}
 
 		/// <summary>
-		///     Updates list item for every game on the list, removing games that no longer need to be there, but not adding new
-		///     ones.
-		/// </summary>
-		private void UpdateGameList()
-		{
-			List<GameInfo> gamelist = lstGames.Objects.Cast<GameInfo>().ToList();
-			foreach (GameInfo g in gamelist)
-			{
-				if ((CurrentProfile != null) && (!CurrentProfile.GameData.Games.ContainsKey(g.Id) || ((g.Id < 0) && !CurrentProfile.IncludeShortcuts)))
-				{
-					gamelist.Remove(g);
-				}
-			}
-		}
-
-		/// <summary>
 		///     Updates the game list for the loaded profile.
 		/// </summary>
 		private void UpdateLibrary()
@@ -4678,163 +4666,6 @@ namespace Depressurizer
 
 			return true;
 		}
-
-		#endregion
-
-		/// <summary>
-		///     Clustering strategy for columns with comma-seperated strings. (Tags, Categories, Flags, Genres etc)
-		/// </summary>
-		public class CommaClusteringStrategy : ClusteringStrategy
-		{
-			#region Public Methods and Operators
-
-			public override object GetClusterKey(object model)
-			{
-				return ((string) Column.GetValue(model)).Replace(", ", ",").Split(',');
-			}
-
-			#endregion
-		}
-
-		public class MyRenderer : ToolStripRenderer
-		{
-			#region Methods
-
-			protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
-			{
-				Rectangle rc = new Rectangle(Point.Empty, e.Item.Size);
-				Color colorText = e.Item.Selected ? Color.FromArgb(255, 255, 255) : Color.FromArgb(169, 167, 167);
-				if (e.ToolStrip is ToolStripDropDown)
-				{
-					Color colorItem = Color.FromArgb(55, 71, 79);
-					using (SolidBrush brush = new SolidBrush(colorItem))
-					{
-						e.Graphics.FillRectangle(brush, rc);
-					}
-				}
-				else
-				{
-					Color colorItem = Color.FromArgb(38, 50, 56);
-					using (SolidBrush brush = new SolidBrush(colorItem))
-					{
-						e.Graphics.FillRectangle(brush, rc);
-					}
-				}
-
-				e.Item.ForeColor = colorText;
-
-				base.OnRenderMenuItemBackground(e);
-			}
-
-			protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
-			{
-				Brush bLight = new SolidBrush(Color.FromArgb(157, 168, 157));
-
-				if (!e.Vertical)
-				{
-					Rectangle r3;
-					if (e.Item.IsOnDropDown)
-					{
-						r3 = new Rectangle(0, 3, e.Item.Width, 1);
-						e.Graphics.FillRectangle(bLight, r3);
-					}
-				}
-
-				base.OnRenderSeparator(e);
-			}
-
-			protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
-			{
-				// Don't clear and fill the background if we already painted an image there
-				//if (e.ToolStrip.BackgroundImage != null)
-				//{
-				//    if (e.ToolStrip is StatusStrip)
-				//        e.Graphics.DrawLine(Pens.White, e.AffectedBounds.Left, e.AffectedBounds.Top, e.AffectedBounds.Right, e.AffectedBounds.Top);
-
-				//    return;
-				//}
-
-				if (e.ToolStrip is ToolStripDropDown)
-				{
-					e.Graphics.Clear(Color.FromArgb(55, 71, 79));
-
-					return;
-				}
-
-				base.OnRenderToolStripBackground(e);
-			}
-
-			protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
-			{
-				if (e.ToolStrip is ToolStripDropDown)
-				{
-					Pen p = new Pen(Color.FromArgb(41, 42, 46));
-					if (e.ToolStrip is ToolStripOverflow)
-					{
-						e.Graphics.DrawLines(p, new[]
-						{
-							e.AffectedBounds.Location,
-							new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1),
-							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1),
-							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top),
-							new Point(e.AffectedBounds.Left, e.AffectedBounds.Top)
-						});
-					}
-					else
-					{
-						e.Graphics.DrawLines(p, new[]
-						{
-							new Point(e.AffectedBounds.Left + e.ConnectedArea.Left, e.AffectedBounds.Top),
-							e.AffectedBounds.Location,
-							new Point(e.AffectedBounds.Left, e.AffectedBounds.Bottom - 1),
-							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Bottom - 1),
-							new Point(e.AffectedBounds.Right - 1, e.AffectedBounds.Top),
-							new Point(e.AffectedBounds.Left + e.ConnectedArea.Right, e.AffectedBounds.Top)
-						});
-					}
-
-					return;
-				}
-
-				if (e.ToolStrip is MenuStrip || e.ToolStrip is StatusStrip)
-				{
-					return;
-				}
-
-				using (Pen p = new Pen(Color.FromArgb(41, 42, 46)))
-				{
-					e.Graphics.DrawLine(p, new Point(e.ToolStrip.Left, e.ToolStrip.Bottom - 1), new Point(e.ToolStrip.Width, e.ToolStrip.Bottom - 1));
-				}
-
-				base.OnRenderToolStripBorder(e);
-			}
-
-			#endregion
-		}
-
-		public class ToolStripItemComparer : IComparer
-		{
-			#region Public Methods and Operators
-
-			public int Compare(object x, object y)
-			{
-				ToolStripItem oItem1 = (ToolStripItem) x;
-				ToolStripItem oItem2 = (ToolStripItem) y;
-
-				return string.Compare(oItem1.Text, oItem2.Text, true);
-			}
-
-			#endregion
-		}
-	}
-
-	public class CategorySort
-	{
-		#region Fields
-
-		public int Column;
-
-		public SortOrder Order;
 
 		#endregion
 	}
