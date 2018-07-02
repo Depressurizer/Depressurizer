@@ -18,6 +18,12 @@
 
 #endregion
 
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using Depressurizer.Core.Enums;
 
 namespace Depressurizer.Core.Helpers
@@ -27,6 +33,25 @@ namespace Depressurizer.Core.Helpers
 	/// </summary>
 	public static class Steam
 	{
+		#region Static Fields
+
+		private static readonly List<int> IgnoreList = new List<int>
+		{
+			480,
+			52440,
+			524440,
+			562020,
+			700580
+		};
+
+		#endregion
+
+		#region Properties
+
+		private static Logger Logger => Logger.Instance;
+
+		#endregion
+
 		#region Public Methods and Operators
 
 		/// <summary>
@@ -67,6 +92,62 @@ namespace Depressurizer.Core.Helpers
 			}
 
 			return storeLanguage.ToLower();
+		}
+
+		/// <summary>
+		///     Grabs the banner from the Steam store
+		/// </summary>
+		/// <param name="appIds">AppId of the apps to fetch</param>
+		public static async void GrabBanners(List<int> appIds)
+		{
+			appIds = appIds.Distinct().ToList();
+			await Task.Run(() =>
+			{
+				Parallel.ForEach(appIds, FetchBanner);
+			});
+		}
+
+		#endregion
+
+		#region Methods
+
+		private static void FetchBanner(int appId)
+		{
+			if ((appId <= 0) || IgnoreList.Contains(appId))
+			{
+				return;
+			}
+
+			if (File.Exists(Location.File.Banner(appId)))
+			{
+				return;
+			}
+
+			string bannerLink = string.Format(CultureInfo.InvariantCulture, "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg", appId);
+			try
+			{
+				using (WebClient webClient = new WebClient())
+				{
+					webClient.Headers.Set("User-Agent", "Depressurizer");
+					webClient.DownloadFile(bannerLink, Location.File.Banner(appId));
+				}
+			}
+			catch (WebException we)
+			{
+				if (we.InnerException is IOException)
+				{
+					FetchBanner(appId);
+				}
+
+				if (we.Response is HttpWebResponse errorResponse && (errorResponse.StatusCode != HttpStatusCode.NotFound))
+				{
+					throw;
+				}
+			}
+			catch
+			{
+				Logger.Warn("Couldn't fetch banner for appId: {0}", appId);
+			}
 		}
 
 		#endregion

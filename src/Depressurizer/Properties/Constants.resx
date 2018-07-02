@@ -168,9 +168,6 @@
   <data name="SteamStoreApp" xml:space="preserve">
     <value>https://store.steampowered.com/app/{0}/</value>
   </data>
-  <data name="SteamStoreAppBanner" xml:space="preserve">
-    <value>https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg</value>
-  </data>
   <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
     <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>
   </data>

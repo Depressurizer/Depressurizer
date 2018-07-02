@@ -49,7 +49,6 @@ using MaterialSkin.Controls;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using Rallion;
-using Steam = Depressurizer.Helpers.Steam;
 
 namespace Depressurizer
 {
@@ -3062,7 +3061,7 @@ namespace Depressurizer
 
 		private void lstGames_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string storeLanguage = Core.Helpers.Steam.GetStoreLanguage(Database.Language);
+			string storeLanguage = Steam.GetStoreLanguage(Database.Language);
 
 			contextGameFav_Yes.Checked = false;
 			contextGameFav_No.Checked = false;
