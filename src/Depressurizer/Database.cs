@@ -26,7 +26,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Xml;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
@@ -98,21 +97,6 @@ namespace Depressurizer
 		#endregion
 
 		#region Public Methods and Operators
-
-		public static XmlDocument FetchAppListFromWeb()
-		{
-			XmlDocument doc = new XmlDocument();
-			Logger.Info(GlobalStrings.GameDB_DownloadingSteamAppList);
-			WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
-			using (WebResponse resp = req.GetResponse())
-			{
-				doc.Load(resp.GetResponseStream());
-			}
-
-			Logger.Info(GlobalStrings.GameDB_XMLAppListDownloaded);
-
-			return doc;
-		}
 
 		/// <summary>
 		///     Gets a list of developers found on games with their game count.
@@ -473,6 +457,62 @@ namespace Depressurizer
 			return null;
 		}
 
+		/// <summary>
+		///     Gets and integrates the complete list of public apps.
+		/// </summary>
+		/// <returns>
+		///     The number of new entries.
+		/// </returns>
+		public int GetIntegrateAppList()
+		{
+			int added = 0;
+
+			Logger.Info("Database: Downloading list of public apps.");
+
+			string json;
+			using (WebClient client = new WebClient())
+			{
+				client.Headers.Set("User-Agent", "Depressurizer");
+				json = client.DownloadString("https://api.steampowered.com/ISteamApps/GetAppList/v2/");
+			}
+
+			Logger.Info("Database: Downloaded list of public apps.");
+			Logger.Info("Database: Parsing list of public apps.");
+
+			dynamic appList = JObject.Parse(json);
+			foreach (dynamic app in appList.applist.apps)
+			{
+				int appId = app["appid"];
+				string name = app["name"];
+
+				if (Contains(appId))
+				{
+					DatabaseEntry entry = Games[appId];
+					if (!string.IsNullOrWhiteSpace(entry.Name) && (entry.Name == name))
+					{
+						continue;
+					}
+
+					entry.Name = name;
+					entry.AppType = AppType.Unknown;
+				}
+				else
+				{
+					DatabaseEntry entry = new DatabaseEntry(appId)
+					{
+						Name = name
+					};
+
+					Games.Add(appId, entry);
+					added++;
+				}
+			}
+
+			Logger.Info($"Database: Parsed list of public apps, added {added} apps.");
+
+			return added;
+		}
+
 		public string GetName(int appId)
 		{
 			return Contains(appId) ? Games[appId].Name : string.Empty;
@@ -548,42 +588,6 @@ namespace Depressurizer
 			DatabaseEntry entry = Games[appId];
 
 			return (entry.AppType == AppType.Application) || (entry.AppType == AppType.Game);
-		}
-
-		public int IntegrateAppList(XmlDocument doc)
-		{
-			int added = 0;
-			foreach (XmlNode node in doc.SelectNodes("/applist/apps/app"))
-			{
-				if (XmlUtil.TryGetIntFromNode(node["appid"], out int appId))
-				{
-					string gameName = XmlUtil.GetStringFromNode(node["name"], null);
-					if (Games.ContainsKey(appId))
-					{
-						DatabaseEntry g = Games[appId];
-						if (string.IsNullOrEmpty(g.Name) || (g.Name != gameName))
-						{
-							g.Name = gameName;
-							g.AppType = AppType.Unknown;
-						}
-					}
-					else
-					{
-						DatabaseEntry g = new DatabaseEntry
-						{
-							Id = appId,
-							Name = gameName
-						};
-
-						Games.Add(appId, g);
-						added++;
-					}
-				}
-			}
-
-			Logger.Info(GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
-
-			return added;
 		}
 
 		public void Load(string path)

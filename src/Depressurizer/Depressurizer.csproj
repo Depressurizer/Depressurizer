@@ -319,9 +319,6 @@
     <Compile Include="DBEdit\DBEditDlg.Designer.cs">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="DBEdit\CDlgFetch.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="DBEdit\DlgGameDBEntry.cs">
       <SubType>Form</SubType>
     </Compile>
