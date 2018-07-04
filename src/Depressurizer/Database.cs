@@ -52,7 +52,8 @@ namespace Depressurizer
 
 		public int LastHltbUpdate;
 
-		private readonly Dictionary<int, DatabaseEntry> games = new Dictionary<int, DatabaseEntry>();
+		[JsonProperty]
+		private readonly Dictionary<int, DatabaseEntry> _database = new Dictionary<int, DatabaseEntry>();
 
 		#endregion
 
@@ -94,7 +95,7 @@ namespace Depressurizer
 			{
 				lock (SyncRoot)
 				{
-					return games.Count;
+					return _database.Count;
 				}
 			}
 		}
@@ -115,7 +116,7 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
-				games.Add(entry.Id, entry);
+				_database.Add(entry.Id, entry);
 			}
 		}
 
@@ -268,7 +269,7 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
-				games.Clear();
+				_database.Clear();
 			}
 		}
 
@@ -276,7 +277,7 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
-				return games.ContainsKey(id);
+				return _database.ContainsKey(id);
 			}
 		}
 
@@ -284,7 +285,7 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
-				return games.TryGetValue(id, out entry);
+				return _database.TryGetValue(id, out entry);
 			}
 		}
 
@@ -292,7 +293,7 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
-				return games.Values.AsQueryable();
+				return _database.Values.AsQueryable();
 			}
 		}
 
@@ -631,7 +632,7 @@ namespace Depressurizer
 		{
 			lock (SyncRoot)
 			{
-				games.Remove(entity.Id);
+				_database.Remove(entity.Id);
 			}
 		}
 
