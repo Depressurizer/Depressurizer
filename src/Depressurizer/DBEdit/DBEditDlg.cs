@@ -121,7 +121,7 @@ namespace Depressurizer
 				}
 				else
 				{
-					Database.Games.Add(dlg.Game.Id, dlg.Game);
+					Database.Add(dlg.Game);
 
 					if (ShouldDisplayGame(dlg.Game))
 					{
@@ -400,7 +400,7 @@ namespace Depressurizer
 						DatabaseEntry game = displayedGames[index];
 						if (game != null)
 						{
-							Database.Games.Remove(game.Id);
+							Database.Remove(game);
 							deleted++;
 						}
 					}
@@ -685,7 +685,7 @@ namespace Depressurizer
 		{
 			lstGames.SelectedIndices.Clear();
 			displayedGames.Clear();
-			foreach (DatabaseEntry g in Database.Games.Values)
+			foreach (DatabaseEntry g in Database.GetAll())
 			{
 				if (ShouldDisplayGame(g))
 				{
@@ -824,7 +824,7 @@ namespace Depressurizer
 
 			List<int> gamesToScrape = new List<int>();
 
-			foreach (DatabaseEntry g in Database.Games.Values)
+			foreach (DatabaseEntry g in Database.GetAll())
 			{
 				//Only scrape displayed games
 				if ((g.LastStoreScrape == 0) && ShouldDisplayGame(g))

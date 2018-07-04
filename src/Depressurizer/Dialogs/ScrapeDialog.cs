@@ -84,7 +84,7 @@ namespace Depressurizer.Dialogs
 					}
 					else
 					{
-						Database.Games.Add(entry.Id, entry);
+						Database.Add(entry);
 					}
 				}
 			}

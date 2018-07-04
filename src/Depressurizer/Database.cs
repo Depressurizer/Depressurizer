@@ -50,7 +50,7 @@ namespace Depressurizer
 
 		#region Fields
 
-		public Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
+		private Dictionary<int, DatabaseEntry> games = new Dictionary<int, DatabaseEntry>();
 
 		public int LastHltbUpdate;
 
@@ -99,25 +99,12 @@ namespace Depressurizer
 
 		#region Public Methods and Operators
 
-		/// <summary>
-		///     Gets a list of developers found on games with their game count.
-		/// </summary>
-		/// <param name="filter">
-		///     GameList including games to include in the search. If null, finds developers for all games in the
-		///     database.
-		/// </param>
-		/// <param name="minScore">
-		///     Minimum count of developers games to include in the result list. Developers with lower game
-		///     counts will be discarded.
-		/// </param>
-		/// <returns>List of developers, as strings with game counts</returns>
 		public IEnumerable<Tuple<string, int>> CalculateSortedDevList(GameList filter, int minCount)
 		{
-			SortedSet<string> developers = GetAllDevelopers();
 			Dictionary<string, int> devCounts = new Dictionary<string, int>();
 			if (filter == null)
 			{
-				foreach (DatabaseEntry dbEntry in Games.Values)
+				foreach (DatabaseEntry dbEntry in GetAll())
 				{
 					CalculateSortedDevListHelper(devCounts, dbEntry);
 				}
@@ -126,9 +113,9 @@ namespace Depressurizer
 			{
 				foreach (int gameId in filter.Games.Keys)
 				{
-					if (Games.ContainsKey(gameId) && !filter.Games[gameId].Hidden)
+					if (Contains(gameId, out DatabaseEntry entry) && !filter.Games[gameId].Hidden)
 					{
-						CalculateSortedDevListHelper(devCounts, Games[gameId]);
+						CalculateSortedDevListHelper(devCounts, entry);
 					}
 				}
 			}
@@ -138,25 +125,12 @@ namespace Depressurizer
 			return unsortedList.ToList();
 		}
 
-		/// <summary>
-		///     Gets a list of publishers found on games with their game count.
-		/// </summary>
-		/// <param name="filter">
-		///     GameList including games to include in the search. If null, finds publishers for all games in the
-		///     database.
-		/// </param>
-		/// <param name="minScore">
-		///     Minimum count of publishers games to include in the result list. publishers with lower game
-		///     counts will be discarded.
-		/// </param>
-		/// <returns>List of publishers, as strings with game counts</returns>
 		public IEnumerable<Tuple<string, int>> CalculateSortedPubList(GameList filter, int minCount)
 		{
-			SortedSet<string> publishers = GetAllPublishers();
 			Dictionary<string, int> PubCounts = new Dictionary<string, int>();
 			if (filter == null)
 			{
-				foreach (DatabaseEntry dbEntry in Games.Values)
+				foreach (DatabaseEntry dbEntry in GetAll())
 				{
 					CalculateSortedPubListHelper(PubCounts, dbEntry);
 				}
@@ -165,9 +139,9 @@ namespace Depressurizer
 			{
 				foreach (int gameId in filter.Games.Keys)
 				{
-					if (Games.ContainsKey(gameId) && !filter.Games[gameId].Hidden)
+					if (Contains(gameId, out DatabaseEntry entry) && !filter.Games[gameId].Hidden)
 					{
-						CalculateSortedPubListHelper(PubCounts, Games[gameId]);
+						CalculateSortedPubListHelper(PubCounts, entry);
 					}
 				}
 			}
@@ -201,7 +175,7 @@ namespace Depressurizer
 			Dictionary<string, float> tagCounts = new Dictionary<string, float>();
 			if (filter == null)
 			{
-				foreach (DatabaseEntry dbEntry in Games.Values)
+				foreach (DatabaseEntry dbEntry in GetAll())
 				{
 					CalculateSortedTagListHelper(tagCounts, dbEntry, weightFactor, tagsPerGame);
 				}
@@ -270,6 +244,14 @@ namespace Depressurizer
 			Save(Location.File.Database);
 		}
 
+		public void Add(DatabaseEntry entry)
+		{
+			lock (SyncRoot)
+			{
+				Games.Add(entry.Id, entry);
+			}
+		}
+
 		public bool Contains(int id)
 		{
 			lock (SyncRoot)
@@ -283,6 +265,22 @@ namespace Depressurizer
 			lock (SyncRoot)
 			{
 				return Games.TryGetValue(id, out entry);
+			}
+		}
+
+		public void Remove(DatabaseEntry entity)
+		{
+			lock (SyncRoot)
+			{
+				Games.Remove(entity.Id);
+			}
+		}
+
+		public IQueryable<DatabaseEntry> GetAll()
+		{
+			lock (SyncRoot)
+			{
+				return Games.Values.AsQueryable();
 			}
 		}
 
