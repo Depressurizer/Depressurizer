@@ -114,7 +114,7 @@ namespace Depressurizer
 			GameDBEntryDialog dlg = new GameDBEntryDialog();
 			if ((dlg.ShowDialog() == DialogResult.OK) && (dlg.Game != null))
 			{
-				if (Database.Games.ContainsKey(dlg.Game.Id))
+				if (Database.Contains(dlg.Game.Id))
 				{
 					MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));

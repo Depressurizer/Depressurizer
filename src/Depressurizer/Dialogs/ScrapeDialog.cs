@@ -78,9 +78,9 @@ namespace Depressurizer.Dialogs
 			{
 				foreach (DatabaseEntry entry in _results)
 				{
-					if (Database.Contains(entry.Id))
+					if (Database.Contains(entry.Id, out DatabaseEntry databaseEntry))
 					{
-						Database.Games[entry.Id].MergeIn(entry);
+						databaseEntry.MergeIn(entry);
 					}
 					else
 					{
@@ -133,7 +133,11 @@ namespace Depressurizer.Dialogs
 				return;
 			}
 
-			DatabaseEntry entry = Database.Contains(appId) ? Database.Games[appId] : new DatabaseEntry(appId);
+			if (!Database.Contains(appId, out DatabaseEntry entry))
+			{
+				entry = new DatabaseEntry(appId);
+			}
+
 			entry.ScrapeStore();
 
 			if (entry.LastStoreScrape == 0)

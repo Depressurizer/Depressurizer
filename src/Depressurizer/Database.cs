@@ -270,9 +270,20 @@ namespace Depressurizer
 			Save(Location.File.Database);
 		}
 
-		public bool Contains(int appId)
+		public bool Contains(int id)
 		{
-			return Games.ContainsKey(appId);
+			lock (SyncRoot)
+			{
+				return Games.ContainsKey(id);
+			}
+		}
+
+		public bool Contains(int id, out DatabaseEntry entry)
+		{
+			lock (SyncRoot)
+			{
+				return Games.TryGetValue(id, out entry);
+			}
 		}
 
 		public SortedSet<string> GetAllDevelopers()
