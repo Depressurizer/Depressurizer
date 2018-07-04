@@ -164,10 +164,7 @@ namespace Depressurizer
 
 			if (Game == null)
 			{
-				Game = new DatabaseEntry
-				{
-					Id = id
-				};
+				Game = new DatabaseEntry(id);
 			}
 
 			Game.ParentId = parent;

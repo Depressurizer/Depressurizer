@@ -28,6 +28,7 @@ using System.Net;
 using System.Text;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using Depressurizer.Dialogs;
 using Depressurizer.Models;
@@ -37,7 +38,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
 {
-	public sealed class Database
+	public sealed class Database : IRepository<DatabaseEntry>
 	{
 		#region Static Fields
 
@@ -669,11 +670,7 @@ namespace Depressurizer
 				DatabaseEntry entry;
 				if (!Games.ContainsKey(aInf.AppId))
 				{
-					entry = new DatabaseEntry
-					{
-						Id = aInf.AppId
-					};
-
+					entry = new DatabaseEntry(aInf.AppId);
 					Games.Add(entry.Id, entry);
 				}
 				else

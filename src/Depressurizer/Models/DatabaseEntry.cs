@@ -26,17 +26,16 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
 using Depressurizer.Properties;
 
 namespace Depressurizer.Models
 {
-	[XmlRoot(ElementName = "game")]
-	public sealed class DatabaseEntry
+	public sealed class DatabaseEntry : EntityBase
 	{
 		#region Static Fields
 
@@ -95,72 +94,42 @@ namespace Depressurizer.Models
 		[DefaultValue(AppType.Unknown)]
 		public AppType AppType = AppType.Unknown;
 
-		[XmlIgnore]
-		public string Banner = null;
-
-		[DefaultValue(null)]
-		[XmlElement("Genre")]
-		public List<string> Genres = new List<string>();
-
-		[DefaultValue(null)]
-		[XmlElement("Developer")]
 		public List<string> Developers = new List<string>();
 
-		[DefaultValue(null)]
-		[XmlArrayItem("Flag")]
 		public List<string> Flags = new List<string>();
 
-		// Basics:
+		public List<string> Genres = new List<string>();
 
-		[DefaultValue(0)]
 		public int HltbCompletionist;
 
-		[DefaultValue(0)]
 		public int HltbExtras;
 
-		//howlongtobeat.com times
-		[DefaultValue(0)]
 		public int HltbMain;
-
-		public int Id;
 
 		public LanguageSupport LanguageSupport; //TODO: Add field to DB edit dialog
 
-		[DefaultValue(0)]
 		public int LastAppInfoUpdate;
 
-		[DefaultValue(0)]
 		public int LastStoreScrape;
 
-		// Metacritic:
-		[DefaultValue(null)]
 		public string MetacriticUrl;
 
 		public string Name;
 
-		[DefaultValue(-1)]
 		public int ParentId = -1;
 
 		public AppPlatforms Platforms = AppPlatforms.None;
 
-		[DefaultValue(null)]
-		[XmlElement("Publisher")]
 		public List<string> Publishers = new List<string>();
 
-		[DefaultValue(0)]
 		public int ReviewPositivePercentage;
 
-		[DefaultValue(0)]
 		public int ReviewTotal;
 
-		[DefaultValue(null)]
 		public string SteamReleaseDate;
 
-		[DefaultValue(null)]
-		[XmlArrayItem("Tag")]
 		public List<string> Tags = new List<string>();
 
-		[DefaultValue(0)]
 		public int TotalAchievements;
 
 		public VRSupport VrSupport = new VRSupport(); //TODO: Add field to DB edit dialog
@@ -169,13 +138,9 @@ namespace Depressurizer.Models
 
 		#region Constructors and Destructors
 
-		public DatabaseEntry()
+		public DatabaseEntry(int id)
 		{
-		}
-
-		public DatabaseEntry(int appId)
-		{
-			Id = appId;
+			Id = id;
 		}
 
 		#endregion
@@ -185,8 +150,6 @@ namespace Depressurizer.Models
 		private static Database Database => Database.Instance;
 
 		private static Logger Logger => Logger.Instance;
-
-		private static Settings Settings => Settings.Instance;
 
 		#endregion
 
@@ -459,28 +422,10 @@ namespace Depressurizer.Models
 					Logger.Verbose("Scraping {0}: Page read", Id);
 				}
 			}
-			catch (WebException e)
-			{
-				if (e.Status == WebExceptionStatus.Timeout)
-				{
-					LastStoreScrape = 1;
-
-					return;
-				}
-
-				HttpStatusCode response = ((HttpWebResponse) e.Response).StatusCode;
-				if (response != HttpStatusCode.InternalServerError)
-				{
-					throw;
-				}
-
-				LastStoreScrape = 1;
-
-				return;
-			}
 			catch (Exception e)
 			{
 				Logger.Warn("Scraping {0}: Page read failed. {1}", Id, e.Message);
+				LastStoreScrape = 1;
 
 				return;
 			}

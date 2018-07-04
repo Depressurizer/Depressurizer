@@ -67,6 +67,7 @@
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Enums\LogLevel.cs" />
     <Compile Include="Helpers\Sentry.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Models\Category.cs" />
