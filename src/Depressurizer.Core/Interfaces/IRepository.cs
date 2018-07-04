@@ -41,9 +41,9 @@ namespace Depressurizer.Core.Interfaces
 
 		bool Contains(int id, out T entity);
 
-		void Remove(T entity);
-
 		IQueryable<T> GetAll();
+
+		void Remove(T entity);
 
 		#endregion
 	}

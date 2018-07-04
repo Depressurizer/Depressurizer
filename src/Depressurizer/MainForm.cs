@@ -2298,12 +2298,12 @@ namespace Depressurizer
 
 			colPlatforms.AspectGetter = delegate(object g)
 			{
-				if (g == null)
+				if ((g == null) || !Database.Contains(((GameInfo) g).Id, out DatabaseEntry entry))
 				{
 					return "";
 				}
 
-				AppPlatforms platforms = Database.Games[((GameInfo) g).Id].Platforms;
+				AppPlatforms platforms = entry.Platforms;
 
 				return ((platforms & AppPlatforms.Linux) != 0) && (platforms != AppPlatforms.All) ? platforms + ", SteamOS" : platforms.ToString();
 			};

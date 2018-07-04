@@ -266,10 +266,10 @@ namespace Depressurizer
 		{
 			if (MessageBox.Show(GlobalStrings.DBEditDlg_AreYouSureToClear, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 			{
-				if (Database.Games.Count > 0)
+				if (Database.Count > 0)
 				{
 					UnsavedChanges = true;
-					Database.Games.Clear();
+					Database.Clear();
 					AddStatusMsg(GlobalStrings.DBEditDlg_ClearedAllData);
 				}
 
@@ -1025,7 +1025,7 @@ namespace Depressurizer
 		/// </summary>
 		private void UpdateStatusCount()
 		{
-			statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Database.Games.Count);
+			statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Database.Count);
 			cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = lstGames.SelectedIndices.Count >= 1;
 		}
 
