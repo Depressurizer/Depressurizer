@@ -100,7 +100,7 @@ namespace Depressurizer
 
 		public StoreLanguage Language { get; set; } = StoreLanguage.English;
 
-		public int LastHLTBUpdate { get; set; }
+		public long LastHLTBUpdate { get; set; }
 
 		#endregion
 
@@ -148,12 +148,12 @@ namespace Depressurizer
 
 		public IEnumerable<Tuple<string, int>> CalculateSortedPubList(GameList filter, int minCount)
 		{
-			Dictionary<string, int> PubCounts = new Dictionary<string, int>();
+			Dictionary<string, int> pubCounts = new Dictionary<string, int>();
 			if (filter == null)
 			{
 				foreach (DatabaseEntry dbEntry in GetAll())
 				{
-					CalculateSortedPubListHelper(PubCounts, dbEntry);
+					CalculateSortedPubListHelper(pubCounts, dbEntry);
 				}
 			}
 			else
@@ -162,34 +162,16 @@ namespace Depressurizer
 				{
 					if (Contains(gameId, out DatabaseEntry entry) && !filter.Games[gameId].Hidden)
 					{
-						CalculateSortedPubListHelper(PubCounts, entry);
+						CalculateSortedPubListHelper(pubCounts, entry);
 					}
 				}
 			}
 
-			IEnumerable<Tuple<string, int>> unsortedList = from entry in PubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
+			IEnumerable<Tuple<string, int>> unsortedList = from entry in pubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
 
 			return unsortedList.ToList();
 		}
 
-		/// <summary>
-		///     Gets a list of tags found on games, sorted by a popularity score.
-		/// </summary>
-		/// <param name="filter">
-		///     GameList including games to include in the search. If null, finds tags for all games in the
-		///     database.
-		/// </param>
-		/// <param name="weightFactor">
-		///     Value of the popularity score contributed by the first processed tag for each game. Each subsequent tag contributes
-		///     less to its own score.
-		///     The last tag always contributes 1. Value less than or equal to 1 indicates no weighting.
-		/// </param>
-		/// <param name="minScore">Minimum score of tags to include in the result list. Tags with lower scores will be discarded.</param>
-		/// <param name="tagsPerGame">
-		///     Maximum tags to find per game. If a game has more tags than this, they will be discarded. 0
-		///     indicates no limit.
-		/// </param>
-		/// <returns>List of tags, as strings</returns>
 		public IEnumerable<Tuple<string, float>> CalculateSortedTagList(GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
 		{
 			SortedSet<string> genreNames = GetAllGenres();
@@ -297,21 +279,6 @@ namespace Depressurizer
 			}
 		}
 
-		public SortedSet<string> GetAllDevelopers()
-		{
-			SortedSet<string> allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-
-			foreach (DatabaseEntry entry in GetAll())
-			{
-				if (entry.Developers != null)
-				{
-					allStoreDevelopers.UnionWith(entry.Developers);
-				}
-			}
-
-			return allStoreDevelopers;
-		}
-
 		public SortedSet<string> GetAllGenres()
 		{
 			SortedSet<string> allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -358,21 +325,6 @@ namespace Depressurizer
 			allLanguages.FullAudio = fullAudio.ToList();
 
 			return allLanguages;
-		}
-
-		public SortedSet<string> GetAllPublishers()
-		{
-			SortedSet<string> allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-
-			foreach (DatabaseEntry entry in GetAll())
-			{
-				if (entry.Publishers != null)
-				{
-					allStorePublishers.UnionWith(entry.Publishers);
-				}
-			}
-
-			return allStorePublishers;
 		}
 
 		public SortedSet<string> GetAllStoreFlags()
@@ -457,27 +409,27 @@ namespace Depressurizer
 
 		public List<string> GetGenreList(int gameId, int depth = 3, bool tagFallback = true)
 		{
-			if (Contains(gameId, out DatabaseEntry entry))
+			if (!Contains(gameId, out DatabaseEntry entry))
 			{
-				List<string> res = entry.Genres;
-				if (tagFallback && ((res == null) || (res.Count == 0)))
-				{
-					List<string> tags = GetTagList(gameId, 0);
-					if ((tags != null) && (tags.Count > 0))
-					{
-						res = new List<string>(tags.Intersect(GetAllGenres()));
-					}
-				}
-
-				if (((res == null) || (res.Count == 0)) && (depth > 0) && (entry.ParentId > 0))
-				{
-					res = GetGenreList(entry.ParentId, depth - 1, tagFallback);
-				}
-
-				return res;
+				return null;
 			}
 
-			return null;
+			List<string> res = entry.Genres;
+			if (tagFallback && ((res == null) || (res.Count == 0)))
+			{
+				List<string> tags = GetTagList(gameId, 0);
+				if ((tags != null) && (tags.Count > 0))
+				{
+					res = new List<string>(tags.Intersect(GetAllGenres()));
+				}
+			}
+
+			if (((res == null) || (res.Count == 0)) && (depth > 0) && (entry.ParentId > 0))
+			{
+				res = GetGenreList(entry.ParentId, depth - 1, tagFallback);
+			}
+
+			return res;
 		}
 
 		/// <summary>
@@ -508,8 +460,7 @@ namespace Depressurizer
 				int appId = app["appid"];
 				string name = app["name"];
 
-				DatabaseEntry entry;
-				if (Contains(appId, out entry))
+				if (Contains(appId, out DatabaseEntry entry))
 				{
 					if (!string.IsNullOrWhiteSpace(entry.Name) && (entry.Name == name))
 					{
@@ -689,7 +640,7 @@ namespace Depressurizer
 			int updated = 0;
 
 			Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
-			int timestamp = Utility.GetCurrentUTime();
+			long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
 			foreach (AppInfo aInf in appInfos.Values)
 			{
@@ -783,7 +734,7 @@ namespace Depressurizer
 				}
 			}
 
-			LastHLTBUpdate = Utility.GetCurrentUTime();
+			LastHLTBUpdate = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
 			return updated;
 		}
@@ -832,49 +783,39 @@ namespace Depressurizer
 			}
 		}
 
-		/// <summary>
-		///     Adds tags from the given DBEntry to the dictionary. Adds new elements if necessary, and increases values on
-		///     existing elements.
-		/// </summary>
-		/// <param name="counts">Existing dictionary of tags and scores. Key is the tag as a string, value is the score</param>
-		/// <param name="dbEntry">Entry to add tags from</param>
-		/// <param name="weightFactor">
-		///     The score value of the first tag in the list.
-		///     The first tag on the game will have this score, and the last tag processed will always have score 1.
-		///     The tags between will have linearly interpolated values between them.
-		/// </param>
-		/// <param name="tagsPerGame"></param>
-		private void CalculateSortedTagListHelper(Dictionary<string, float> counts, DatabaseEntry dbEntry, float weightFactor, int tagsPerGame)
+		private static void CalculateSortedTagListHelper(IDictionary<string, float> counts, DatabaseEntry dbEntry, float weightFactor, int tagsPerGame)
 		{
-			if (dbEntry.Tags != null)
+			if (dbEntry.Tags == null)
 			{
-				int tagsToLoad = tagsPerGame == 0 ? dbEntry.Tags.Count : Math.Min(tagsPerGame, dbEntry.Tags.Count);
-				for (int i = 0; i < tagsToLoad; i++)
-				{
-					// Get the score based on the weighting factor
-					float score = 1;
-					if (weightFactor > 1)
-					{
-						if (tagsToLoad <= 1)
-						{
-							score = weightFactor;
-						}
-						else
-						{
-							float interp = i / (float) (tagsToLoad - 1);
-							score = ((1 - interp) * weightFactor) + interp;
-						}
-					}
+				return;
+			}
 
-					string tag = dbEntry.Tags[i];
-					if (counts.ContainsKey(tag))
+			int tagsToLoad = tagsPerGame == 0 ? dbEntry.Tags.Count : Math.Min(tagsPerGame, dbEntry.Tags.Count);
+			for (int i = 0; i < tagsToLoad; i++)
+			{
+				// Get the score based on the weighting factor
+				float score = 1;
+				if (weightFactor > 1)
+				{
+					if (tagsToLoad <= 1)
 					{
-						counts[tag] += score;
+						score = weightFactor;
 					}
 					else
 					{
-						counts[tag] = score;
+						float interp = i / (float) (tagsToLoad - 1);
+						score = ((1 - interp) * weightFactor) + interp;
 					}
+				}
+
+				string tag = dbEntry.Tags[i];
+				if (counts.ContainsKey(tag))
+				{
+					counts[tag] += score;
+				}
+				else
+				{
+					counts[tag] = score;
 				}
 			}
 		}

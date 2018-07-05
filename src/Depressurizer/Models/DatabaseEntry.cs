@@ -107,9 +107,9 @@ namespace Depressurizer.Models
 
 		public LanguageSupport LanguageSupport; //TODO: Add field to DB edit dialog
 
-		public int LastAppInfoUpdate;
+		public long LastAppInfoUpdate;
 
-		public int LastStoreScrape;
+		public long LastStoreScrape;
 
 		public string MetacriticUrl;
 
@@ -449,7 +449,7 @@ namespace Depressurizer.Models
 				return;
 			}
 
-			LastStoreScrape = Utility.GetCurrentUTime();
+			LastStoreScrape = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 			GetAllDataFromPage(page);
 
 			if (RegexIsDLC.IsMatch(page))
@@ -575,7 +575,7 @@ namespace Depressurizer.Models
 				}
 			}
 
-			LastStoreScrape = Utility.GetCurrentUTime();
+			LastStoreScrape = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 		}
 
 		#endregion

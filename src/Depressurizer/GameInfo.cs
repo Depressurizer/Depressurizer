@@ -47,7 +47,7 @@ namespace Depressurizer
 
 		public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
 
-		public int LastPlayed;
+		public long LastPlayed;
 
 		public string Name;
 

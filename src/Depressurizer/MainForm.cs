@@ -653,7 +653,7 @@ namespace Depressurizer
 					notInDbOrOldData.Add(game.Id);
 					notInDbCount++;
 				}
-				else if ((game.Id > 0) && Database.Contains(game.Id, out DatabaseEntry entry2) && (Utility.GetCurrentUTime() > (entry2.LastStoreScrape + (Settings.Instance.ScrapePromptDays * 86400)))) // 86400 seconds in a day
+				else if ((game.Id > 0) && Database.Contains(game.Id, out DatabaseEntry entry2) && (DateTimeOffset.UtcNow.ToUnixTimeSeconds() > (entry2.LastStoreScrape + (Settings.Instance.ScrapePromptDays * 86400)))) // 86400 seconds in a day
 				{
 					notInDbOrOldData.Add(game.Id);
 					oldDbDataCount++;
@@ -1846,8 +1846,8 @@ namespace Depressurizer
 				UpdateGameDBFromAppInfo();
 			}
 
-			int aWeekInSecs = 7 * 24 * 60 * 60;
-			if (Settings.Instance.UpdateHltbOnStart && (Utility.GetCurrentUTime() > (Database.LastHLTBUpdate + aWeekInSecs)))
+			const int aWeekInSecs = 7 * 24 * 60 * 60;
+			if (Settings.Instance.UpdateHltbOnStart && (DateTimeOffset.UtcNow.ToUnixTimeSeconds() > (Database.LastHLTBUpdate + aWeekInSecs)))
 			{
 				UpdateGameDBFromHltb();
 			}
@@ -2637,22 +2637,13 @@ namespace Depressurizer
 		/// </summary>
 		private void LaunchGame(GameInfo g)
 		{
-			if (g != null)
+			if (g == null)
 			{
-				//string gameIdentifier;
-				//if( g.Id < 0 ) {   // External game
-				//    if( g.LaunchString == null ) {
-				//        MessageBox.Show( GlobalStrings.MainForm_LaunchFailed );
-				//        return;
-				//    }
-				//    gameIdentifier = g.LaunchString;
-				//} else {
-				//    // Steam game
-				//    gameIdentifier = g.Id.ToString();
-				//}
-				g.LastPlayed = Utility.GetCurrentUTime();
-				Process.Start(g.Executable);
+				return;
 			}
+
+			g.LastPlayed = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+			Process.Start(g.Executable);
 		}
 
 		/// <summary>
