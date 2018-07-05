@@ -233,7 +233,7 @@ namespace Depressurizer
 				filterSuspend = true;
 				if (chkTypeAll.Checked)
 				{
-					chkTypeDLC.Checked = chkTypeGame.Checked = chkTypeOther.Checked = chkTypeUnknown.Checked = false;
+					chkTypeGame.Checked = chkTypeSoftware.Checked = chkTypeDLC.Checked = chkTypeOther.Checked = chkTypeUnknown.Checked = false;
 				}
 
 				filterSuspend = false;
@@ -252,7 +252,7 @@ namespace Depressurizer
 			{
 				filterSuspend = true;
 
-				chkTypeAll.Checked = !(chkTypeDLC.Checked || chkTypeGame.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked);
+				chkTypeAll.Checked = !(chkTypeGame.Checked || chkTypeSoftware.Checked || chkTypeDLC.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked);
 
 				filterSuspend = false;
 				RebuildDisplayList();
@@ -891,6 +891,14 @@ namespace Depressurizer
 				{
 					case AppType.Game:
 						if (chkTypeGame.Checked == false)
+						{
+							return false;
+						}
+
+						break;
+
+					case AppType.Application:
+						if (chkTypeSoftware.Checked == false)
 						{
 							return false;
 						}

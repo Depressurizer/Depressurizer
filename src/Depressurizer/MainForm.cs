@@ -1847,7 +1847,7 @@ namespace Depressurizer
 			}
 
 			int aWeekInSecs = 7 * 24 * 60 * 60;
-			if (Settings.Instance.UpdateHltbOnStart && (Utility.GetCurrentUTime() > (Database.LastHltbUpdate + aWeekInSecs)))
+			if (Settings.Instance.UpdateHltbOnStart && (Utility.GetCurrentUTime() > (Database.LastHLTBUpdate + aWeekInSecs)))
 			{
 				UpdateGameDBFromHltb();
 			}

@@ -50,8 +50,6 @@ namespace Depressurizer
 
 		#region Fields
 
-		public int LastHltbUpdate;
-
 		[JsonProperty]
 		private readonly Dictionary<int, DatabaseEntry> _database = new Dictionary<int, DatabaseEntry>();
 
@@ -101,6 +99,8 @@ namespace Depressurizer
 		}
 
 		public StoreLanguage Language { get; set; } = StoreLanguage.English;
+
+		public int LastHLTBUpdate { get; set; }
 
 		#endregion
 
@@ -783,7 +783,7 @@ namespace Depressurizer
 				}
 			}
 
-			LastHltbUpdate = Utility.GetCurrentUTime();
+			LastHLTBUpdate = Utility.GetCurrentUTime();
 
 			return updated;
 		}
