@@ -492,9 +492,20 @@ namespace Depressurizer.Models
 			string name = Name.Replace(" ", "-").Replace(":", "").Replace("'", "");
 			string hubPage = string.Format(CultureInfo.InvariantCulture, "https://truesteamachievements.com/game/{0}", name);
 
-			using (WebClient webClient = new WebClient())
+			try
 			{
-				page = webClient.DownloadString(hubPage);
+				using (WebClient webClient = new WebClient())
+				{
+					page = webClient.DownloadString(hubPage);
+				}
+
+			}
+			catch (Exception e)
+			{
+				Logger.Warn("Scraping TSA {0}: Page read failed. {1}", Id, e.Message);
+				LastStoreScrape = 1;
+
+				return;
 			}
 
 			MatchCollection matches = RegexPlatformTSA.Matches(page);
@@ -576,6 +587,8 @@ namespace Depressurizer.Models
 			}
 
 			LastStoreScrape = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+			Logger.Info("Scraping TSA {0}: Parsed. Genre: {1}", Id, string.Join(",", Genres));
 		}
 
 		#endregion
