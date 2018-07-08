@@ -773,45 +773,45 @@ namespace Depressurizer
 			return false;
 		}
 
-		/// <summary>
-		///     Performs a web scrape on the given games.
-		/// </summary>
-		/// <param name="gamesToScrape">List of id's to scrape</param>
-		private void ScrapeGames(List<int> gamesToScrape)
+		private void ScrapeGames(IList<int> appIds)
 		{
-			if (gamesToScrape.Count > 0)
+			if (appIds.Count <= 0)
 			{
-				ScrapeDialog dlg = new ScrapeDialog(gamesToScrape);
-				DialogResult res = dlg.ShowDialog();
+				AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
 
-				if (dlg.Error != null)
+				return;
+			}
+
+			using (ScrapeDialog dialog = new ScrapeDialog(appIds))
+			{
+				DialogResult result = dialog.ShowDialog();
+
+				if (dialog.Error != null)
 				{
 					AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGames);
-					MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 
-				if (res == DialogResult.Cancel)
+				if (result == DialogResult.Cancel)
 				{
 					AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
 				}
-				else if (res == DialogResult.Abort)
+				else if (result == DialogResult.Abort)
 				{
-					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dlg.CompletedJobs, dlg.TotalJobs));
+					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dialog.CompletedJobs, dialog.TotalJobs));
 				}
 				else
 				{
-					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dlg.CompletedJobs));
+					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dialog.CompletedJobs));
 				}
 
-				if (dlg.CompletedJobs > 0)
+				if (dialog.CompletedJobs <= 0)
 				{
-					UnsavedChanges = true;
-					RebuildDisplayList();
+					return;
 				}
-			}
-			else
-			{
-				AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
+
+				UnsavedChanges = true;
+				RebuildDisplayList();
 			}
 		}
 

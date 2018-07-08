@@ -1,4 +1,6 @@
-﻿namespace Depressurizer.Dialogs
+﻿using System.ComponentModel;
+
+namespace Depressurizer.Dialogs
 {
 	partial class ScrapeDialog
 	{
@@ -102,6 +104,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "ScrapeDialog";
 			this.Load += new System.EventHandler(this.ScrapeDialog_Load);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScrapeDialog_FormClosing);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

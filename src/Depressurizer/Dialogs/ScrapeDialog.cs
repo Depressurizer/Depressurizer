@@ -20,9 +20,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Depressurizer.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -49,6 +51,8 @@ namespace Depressurizer.Dialogs
 
 		private bool _stopped = false;
 
+		private string _timeLeft;
+
 		#endregion
 
 		#region Constructors and Destructors
@@ -68,7 +72,7 @@ namespace Depressurizer.Dialogs
 
 		private delegate void SimpleDelegate();
 
-		private delegate void TextUpdateDelegate(string s);
+		private delegate void TextUpdateDelegate(string text);
 
 		#endregion
 
@@ -99,6 +103,8 @@ namespace Depressurizer.Dialogs
 				_stopped = true;
 				_canceled = true;
 			}
+
+			Close();
 		}
 
 		private void ButtonStop_Click(object sender, EventArgs e)
@@ -107,27 +113,56 @@ namespace Depressurizer.Dialogs
 			{
 				_stopped = true;
 			}
+
+			Close();
+		}
+
+		private new void Close()
+		{
+			if (InvokeRequired)
+			{
+				Invoke(new SimpleDelegate(Close));
+			}
+			else
+			{
+				base.Close();
+			}
+		}
+
+		private void DisableButtons()
+		{
+			if (InvokeRequired)
+			{
+				Invoke(new SimpleDelegate(DisableButtons));
+			}
+			else
+			{
+				ButtonStop.Enabled = ButtonCancel.Enabled = false;
+			}
 		}
 
 		private void Finish()
 		{
 			lock (SyncRoot)
 			{
+				_stopped = true;
 				if (_canceled)
 				{
 					return;
 				}
+			}
 
-				foreach (DatabaseEntry entry in _results)
+			SetText("Applying data...");
+
+			foreach (DatabaseEntry entry in _results)
+			{
+				if (Database.Contains(entry.Id, out DatabaseEntry databaseEntry))
 				{
-					if (Database.Contains(entry.Id, out DatabaseEntry databaseEntry))
-					{
-						databaseEntry.MergeIn(entry);
-					}
-					else
-					{
-						Database.Add(entry);
-					}
+					databaseEntry.MergeIn(entry);
+				}
+				else
+				{
+					Database.Add(entry);
 				}
 			}
 		}
@@ -172,21 +207,45 @@ namespace Depressurizer.Dialogs
 			}
 		}
 
+		private void ScrapeDialog_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			lock (SyncRoot)
+			{
+				_stopped = true;
+			}
+
+			DisableButtons();
+			Finish();
+
+			if (CompletedJobs >= TotalJobs)
+			{
+				DialogResult = DialogResult.OK;
+			}
+			else if (_canceled)
+			{
+				DialogResult = DialogResult.Cancel;
+			}
+			else
+			{
+				DialogResult = DialogResult.Abort;
+			}
+		}
+
 		private void ScrapeDialog_Load(object sender, EventArgs e)
 		{
 			_start = DateTime.UtcNow;
 			Start();
 		}
 
-		private void SetText(string s)
+		private void SetText(string text)
 		{
 			if (InvokeRequired)
 			{
-				Invoke(new TextUpdateDelegate(SetText), s);
+				Invoke(new TextUpdateDelegate(SetText), text);
 			}
 			else
 			{
-				LabelStatus.Text = s;
+				LabelStatus.Text = text;
 			}
 		}
 
@@ -197,6 +256,7 @@ namespace Depressurizer.Dialogs
 				Task.Run(() =>
 				{
 					Parallel.ForEach(_jobs, RunJob);
+					Close();
 				});
 			}
 			catch (Exception e)
@@ -217,39 +277,33 @@ namespace Depressurizer.Dialogs
 
 		private void UpdateText()
 		{
-			TimeSpan timeRemaining = TimeSpan.Zero;
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.AppendLine(string.Format(CultureInfo.CurrentUICulture, "Scraped {0}/{1}", CompletedJobs, TotalJobs));
+
+			string timeLeft = string.Format(CultureInfo.CurrentUICulture, "{0}: ", "Time left") + "{0}";
 			if (CompletedJobs > 0)
 			{
-				double msElapsed = (DateTime.UtcNow - _start).TotalMilliseconds;
-				double msPerItem = msElapsed / CompletedJobs;
-				double msRemaining = msPerItem * (TotalJobs - CompletedJobs);
-				timeRemaining = TimeSpan.FromMilliseconds(msRemaining);
-			}
-
-			StringBuilder sb = new StringBuilder();
-			sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, CompletedJobs, TotalJobs));
-
-			sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
-			if (timeRemaining == TimeSpan.Zero)
-			{
-				sb.Append(GlobalStrings.CDlgScrape_Unknown);
-			}
-			else if (timeRemaining.TotalMinutes < 1.0)
-			{
-				sb.Append(GlobalStrings.CDlgScrape_1minute);
+				TimeSpan timeRemaining = TimeSpan.FromTicks((DateTime.UtcNow.Subtract(_start).Ticks * (TotalJobs - (CompletedJobs + 1))) / (CompletedJobs + 1));
+				if (timeRemaining.TotalHours >= 1)
+				{
+					_timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Hours + ":" + (timeRemaining.Minutes < 10 ? "0" + timeRemaining.Minutes : timeRemaining.Minutes.ToString()) + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString()));
+				}
+				else if (timeRemaining.TotalSeconds >= 60)
+				{
+					_timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, (timeRemaining.Minutes < 10 ? "0" + timeRemaining.Minutes : timeRemaining.Minutes.ToString()) + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString()));
+				}
+				else
+				{
+					_timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Seconds + "s");
+				}
 			}
 			else
 			{
-				double hours = timeRemaining.TotalHours;
-				if (hours >= 1.0)
-				{
-					sb.Append(string.Format("{0:F0}h", hours));
-				}
-
-				sb.Append(string.Format("{0:D2}m", timeRemaining.Minutes));
+				_timeLeft = string.Format(CultureInfo.CurrentUICulture, timeLeft, "Unknown");
 			}
 
-			SetText(sb.ToString());
+			stringBuilder.AppendLine(_timeLeft);
+			SetText(stringBuilder.ToString());
 		}
 
 		#endregion

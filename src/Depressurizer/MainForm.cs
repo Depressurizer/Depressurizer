@@ -317,6 +317,8 @@ namespace Depressurizer
 
 		private static void LoadDatabase()
 		{
+			Cursor.Current = Cursors.WaitCursor;
+
 			try
 			{
 				if (File.Exists(Core.Helpers.Location.File.Database))
@@ -335,6 +337,10 @@ namespace Depressurizer
 
 				Logger.Exception("MainForm: Exception during initial database load.", e);
 				Database.Reset();
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
 			}
 		}
 
@@ -674,19 +680,21 @@ namespace Depressurizer
 				message += ". " + GlobalStrings.MainForm_ScrapeNow;
 				if (MessageBox.Show(message, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 				{
-					ScrapeDialog scrapeDlg = new ScrapeDialog(notInDbOrOldData);
-					DialogResult scrapeRes = scrapeDlg.ShowDialog();
+					using (ScrapeDialog dialog = new ScrapeDialog(notInDbOrOldData))
+					{
+						DialogResult result = dialog.ShowDialog();
 
-					if (scrapeRes == DialogResult.Cancel)
-					{
-						AddStatus(string.Format(GlobalStrings.MainForm_CanceledDatabaseUpdate));
-					}
-					else
-					{
-						AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, scrapeDlg.CompletedJobs));
-						if ((scrapeDlg.CompletedJobs > 0) && Settings.Instance.AutoSaveDatabase)
+						if (result == DialogResult.Cancel)
 						{
-							SaveDatabase();
+							AddStatus(string.Format(GlobalStrings.MainForm_CanceledDatabaseUpdate));
+						}
+						else
+						{
+							AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.CompletedJobs));
+							if ((dialog.CompletedJobs > 0) && Settings.Instance.AutoSaveDatabase)
+							{
+								SaveDatabase();
+							}
 						}
 					}
 				}
@@ -3536,8 +3544,11 @@ namespace Depressurizer
 
 		private void menu_Tools_DBEdit_Click(object sender, EventArgs e)
 		{
-			DBEditDlg dlg = new DBEditDlg(CurrentProfile != null ? CurrentProfile.GameData : null);
-			dlg.ShowDialog();
+			using (DBEditDlg dlg = new DBEditDlg(CurrentProfile != null ? CurrentProfile.GameData : null))
+			{
+				dlg.ShowDialog();
+			}
+
 			LoadDatabase();
 		}
 

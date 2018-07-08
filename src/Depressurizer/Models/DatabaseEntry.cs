@@ -498,7 +498,6 @@ namespace Depressurizer.Models
 				{
 					page = webClient.DownloadString(hubPage);
 				}
-
 			}
 			catch (Exception e)
 			{
