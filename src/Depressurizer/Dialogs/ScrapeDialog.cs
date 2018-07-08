@@ -20,34 +20,65 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Depressurizer.Models;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace Depressurizer.Dialogs
 {
-	internal sealed class ScrapeDialog : CancelableDialog
+	internal partial class ScrapeDialog : MaterialForm
 	{
+		#region Static Fields
+
+		private static readonly object SyncRoot = new object();
+
+		#endregion
+
 		#region Fields
 
 		private readonly List<int> _jobs;
 
 		private readonly List<DatabaseEntry> _results = new List<DatabaseEntry>();
 
+		private bool _canceled = false;
+
 		private DateTime _start;
 
-		private string _timeLeft;
+		private bool _stopped = false;
 
 		#endregion
 
 		#region Constructors and Destructors
 
-		public ScrapeDialog(List<int> jobs) : base(string.Format(CultureInfo.CurrentUICulture, "{0}...", "Scraping"), true)
+		public ScrapeDialog(IEnumerable<int> appids)
 		{
-			_jobs = jobs;
-			TotalJobs = jobs.Count;
+			InitializeComponent();
+			MaterialSkinManager.AddFormToManage(this);
+
+			_jobs = appids.Distinct().Where(i => i > 0).ToList();
+			TotalJobs = _jobs.Count;
 		}
+
+		#endregion
+
+		#region Delegates
+
+		private delegate void SimpleDelegate();
+
+		private delegate void TextUpdateDelegate(string s);
+
+		#endregion
+
+		#region Public Properties
+
+		public int CompletedJobs { get; private set; }
+
+		public Exception Error { get; private set; }
+
+		public int TotalJobs { get; }
 
 		#endregion
 
@@ -55,27 +86,38 @@ namespace Depressurizer.Dialogs
 
 		private static Database Database => Database.Instance;
 
+		private static MaterialSkinManager MaterialSkinManager => MaterialSkinManager.Instance;
+
 		#endregion
 
 		#region Methods
 
-		protected override void CancelableDialog_Load(object sender, EventArgs e)
+		private void ButtonCancel_Click(object sender, EventArgs e)
 		{
-			_start = DateTime.UtcNow;
-			base.CancelableDialog_Load(sender, e);
-		}
-
-		protected override void OnFinish()
-		{
-			if (Canceled)
-			{
-				return;
-			}
-
-			SetText(string.Format(CultureInfo.CurrentUICulture, "{0}...", "Applying Data"));
-
 			lock (SyncRoot)
 			{
+				_stopped = true;
+				_canceled = true;
+			}
+		}
+
+		private void ButtonStop_Click(object sender, EventArgs e)
+		{
+			lock (SyncRoot)
+			{
+				_stopped = true;
+			}
+		}
+
+		private void Finish()
+		{
+			lock (SyncRoot)
+			{
+				if (_canceled)
+				{
+					return;
+				}
+
 				foreach (DatabaseEntry entry in _results)
 				{
 					if (Database.Contains(entry.Id, out DatabaseEntry databaseEntry))
@@ -90,54 +132,27 @@ namespace Depressurizer.Dialogs
 			}
 		}
 
-		protected override void OnStart()
+		private void OnJobCompletion()
 		{
-			Parallel.ForEach(_jobs, RunJob);
-			Close();
-		}
-
-		protected override void UpdateText()
-		{
-			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.AppendLine(string.Format(CultureInfo.CurrentUICulture, "Scraped {0}/{1}", CompletedJobs, TotalJobs));
-
-			string timeLeft = string.Format(CultureInfo.CurrentUICulture, "{0}: ", "Time left") + "{0}";
-			if (CompletedJobs > 0)
+			lock (SyncRoot)
 			{
-				if ((CompletedJobs > (TotalJobs / 4)) || ((CompletedJobs % 5) == 0))
-				{
-					TimeSpan timeRemaining = TimeSpan.FromTicks((DateTime.UtcNow.Subtract(_start).Ticks * (TotalJobs - (CompletedJobs + 1))) / (CompletedJobs + 1));
-					if (timeRemaining.TotalSeconds >= 60)
-					{
-						_timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Minutes + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString()));
-					}
-					else
-					{
-						_timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Seconds + "s");
-					}
-				}
-			}
-			else
-			{
-				_timeLeft = string.Format(CultureInfo.CurrentUICulture, timeLeft, "Unknown");
+				CompletedJobs++;
 			}
 
-			stringBuilder.AppendLine(_timeLeft);
-			SetText(stringBuilder.ToString());
+			UpdateText();
 		}
 
 		private void RunJob(int appId)
 		{
-			if (Stopped)
+			lock (SyncRoot)
 			{
-				return;
+				if (_stopped)
+				{
+					return;
+				}
 			}
 
-			if (!Database.Contains(appId, out DatabaseEntry entry))
-			{
-				entry = new DatabaseEntry(appId);
-			}
-
+			DatabaseEntry entry = new DatabaseEntry(appId);
 			entry.ScrapeStore();
 
 			if (entry.LastStoreScrape == 0)
@@ -147,7 +162,7 @@ namespace Depressurizer.Dialogs
 
 			lock (SyncRoot)
 			{
-				if (Stopped)
+				if (_stopped)
 				{
 					return;
 				}
@@ -155,6 +170,86 @@ namespace Depressurizer.Dialogs
 				_results.Add(entry);
 				OnJobCompletion();
 			}
+		}
+
+		private void ScrapeDialog_Load(object sender, EventArgs e)
+		{
+			_start = DateTime.UtcNow;
+			Start();
+		}
+
+		private void SetText(string s)
+		{
+			if (InvokeRequired)
+			{
+				Invoke(new TextUpdateDelegate(SetText), s);
+			}
+			else
+			{
+				LabelStatus.Text = s;
+			}
+		}
+
+		private void Start()
+		{
+			try
+			{
+				Task.Run(() =>
+				{
+					Parallel.ForEach(_jobs, RunJob);
+				});
+			}
+			catch (Exception e)
+			{
+				lock (SyncRoot)
+				{
+					_stopped = true;
+					Error = e;
+				}
+
+				if (IsHandleCreated)
+				{
+					Invoke(new SimpleDelegate(Finish));
+					Invoke(new SimpleDelegate(Close));
+				}
+			}
+		}
+
+		private void UpdateText()
+		{
+			TimeSpan timeRemaining = TimeSpan.Zero;
+			if (CompletedJobs > 0)
+			{
+				double msElapsed = (DateTime.UtcNow - _start).TotalMilliseconds;
+				double msPerItem = msElapsed / CompletedJobs;
+				double msRemaining = msPerItem * (TotalJobs - CompletedJobs);
+				timeRemaining = TimeSpan.FromMilliseconds(msRemaining);
+			}
+
+			StringBuilder sb = new StringBuilder();
+			sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, CompletedJobs, TotalJobs));
+
+			sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
+			if (timeRemaining == TimeSpan.Zero)
+			{
+				sb.Append(GlobalStrings.CDlgScrape_Unknown);
+			}
+			else if (timeRemaining.TotalMinutes < 1.0)
+			{
+				sb.Append(GlobalStrings.CDlgScrape_1minute);
+			}
+			else
+			{
+				double hours = timeRemaining.TotalHours;
+				if (hours >= 1.0)
+				{
+					sb.Append(string.Format("{0:F0}h", hours));
+				}
+
+				sb.Append(string.Format("{0:D2}m", timeRemaining.Minutes));
+			}
+
+			SetText(sb.ToString());
 		}
 
 		#endregion
