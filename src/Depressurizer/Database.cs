@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -76,10 +77,13 @@ namespace Depressurizer
 
 				lock (SyncRoot)
 				{
-					if (_instance == null)
+					if (_instance != null)
 					{
-						_instance = new Database();
+						return _instance;
 					}
+
+					_instance = new Database();
+					JsonConvert.DeserializeObject<Database>(JsonConvert.SerializeObject(_instance));
 				}
 
 				return _instance;
@@ -572,10 +576,18 @@ namespace Depressurizer
 					return;
 				}
 
-				string database = File.ReadAllText(path);
-				_instance = JsonConvert.DeserializeObject<Database>(database);
+				Stopwatch sw = new Stopwatch();
+				sw.Start();
 
-				Logger.Info("Database: Loaded database from '{0}'.", path);
+				using (StreamReader file = new StreamReader(path))
+				using (JsonReader jsonReader = new JsonTextReader(file))
+				{
+					JsonSerializer serializer = new JsonSerializer();
+					_instance = serializer.Deserialize<Database>(jsonReader);
+				}
+
+				sw.Stop();
+				Logger.Info("Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
 			}
 		}
 
@@ -602,10 +614,18 @@ namespace Depressurizer
 			{
 				Logger.Info("Database: Saving database to '{0}'.", path);
 
-				string database = JsonConvert.SerializeObject(_instance);
-				File.WriteAllText(path, database);
+				Stopwatch sw = new Stopwatch();
+				sw.Start();
 
-				Logger.Info("Database: Saved database to '{0}'.", path);
+				using (StreamWriter file = File.CreateText(path))
+				using (JsonWriter jsonWriter = new JsonTextWriter(file))
+				{
+					JsonSerializer serializer = new JsonSerializer();
+					serializer.Serialize(jsonWriter, _instance);
+				}
+
+				sw.Stop();
+				Logger.Info("Database: Saved database to '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
 			}
 		}
 
