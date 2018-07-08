@@ -187,7 +187,7 @@ namespace Depressurizer.Dialogs
 				}
 			}
 
-			DatabaseEntry entry = new DatabaseEntry(appId);
+			DatabaseEntry entry = Database.Contains(appId, out entry) ? entry : new DatabaseEntry(appId);
 			entry.ScrapeStore();
 
 			if (entry.LastStoreScrape == 0)

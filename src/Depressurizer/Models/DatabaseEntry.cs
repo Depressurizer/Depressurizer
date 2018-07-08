@@ -324,6 +324,7 @@ namespace Depressurizer.Models
 					if ((resp.Headers[HttpResponseHeader.Location] == @"https://store.steampowered.com/") || (resp.Headers[HttpResponseHeader.Location] == @"http://store.steampowered.com/"))
 					{
 						Logger.Warn("Scraping {0}: Redirected to main store page, aborting scraping", Id);
+						LastStoreScrape = 0;
 
 						return;
 					}
@@ -353,6 +354,7 @@ namespace Depressurizer.Models
 				if (resp.ResponseUri.Segments.Length < 2)
 				{
 					Logger.Warn("Scraping {0}: Redirected to main store page, aborting scraping", Id);
+					LastStoreScrape = 0;
 
 					return;
 				}
@@ -424,7 +426,7 @@ namespace Depressurizer.Models
 			catch (Exception e)
 			{
 				Logger.Warn("Scraping {0}: Page read failed. {1}", Id, e.Message);
-				LastStoreScrape = 1;
+				LastStoreScrape = 0;
 
 				return;
 			}
@@ -480,11 +482,15 @@ namespace Depressurizer.Models
 			// We can only scrape TrueSteamAchievements in English
 			if (Database.Language != StoreLanguage.English)
 			{
+				Logger.Warn("Scraping TSA {0}: Database langauge is not English, aborting scraping", Id);
+
 				return;
 			}
 
 			if (string.IsNullOrWhiteSpace(Name))
 			{
+				Logger.Warn("Scraping TSA {0}: Entry name is empty, aborting scraping", Id);
+
 				return;
 			}
 
@@ -502,7 +508,7 @@ namespace Depressurizer.Models
 			catch (Exception e)
 			{
 				Logger.Warn("Scraping TSA {0}: Page read failed. {1}", Id, e.Message);
-				LastStoreScrape = 1;
+				LastStoreScrape = 0;
 
 				return;
 			}
