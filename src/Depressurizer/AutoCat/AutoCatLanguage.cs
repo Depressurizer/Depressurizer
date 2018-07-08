@@ -193,7 +193,7 @@ namespace Depressurizer
 				return AutoCatResult.Failure;
 			}
 
-			if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
+			if (!db.Contains(game.Id, out DatabaseEntry entry) || (entry.LastStoreScrape == 0))
 			{
 				return AutoCatResult.NotInDatabase;
 			}
@@ -203,13 +203,13 @@ namespace Depressurizer
 				return AutoCatResult.Filtered;
 			}
 
-			LanguageSupport Language = db.Games[game.Id].LanguageSupport;
+			LanguageSupport language = entry.LanguageSupport;
 
-			Language.Interface = Language.Interface ?? new List<string>();
-			Language.Subtitles = Language.Subtitles ?? new List<string>();
-			Language.FullAudio = Language.FullAudio ?? new List<string>();
+			language.Interface = language.Interface ?? new List<string>();
+			language.Subtitles = language.Subtitles ?? new List<string>();
+			language.FullAudio = language.FullAudio ?? new List<string>();
 
-			IEnumerable<string> interfaceLanguage = Language.Interface.Intersect(IncludedLanguages.Interface);
+			IEnumerable<string> interfaceLanguage = language.Interface.Intersect(IncludedLanguages.Interface);
 			foreach (string catString in interfaceLanguage)
 			{
 				Category c = games.GetCategory(GetProcessedString(catString, "Interface"));
@@ -218,7 +218,7 @@ namespace Depressurizer
 
 			foreach (string catString in IncludedLanguages.Subtitles)
 			{
-				if (Language.Subtitles.Contains(catString) || ((Language.Subtitles.Count == 0) && Language.FullAudio.Contains(catString)) || ((Language.FullAudio.Count == 0) && Language.Interface.Contains(catString)))
+				if (language.Subtitles.Contains(catString) || ((language.Subtitles.Count == 0) && language.FullAudio.Contains(catString)) || ((language.FullAudio.Count == 0) && language.Interface.Contains(catString)))
 				{
 					game.AddCategory(games.GetCategory(GetProcessedString(catString, "Subtitles")));
 				}
@@ -226,7 +226,7 @@ namespace Depressurizer
 
 			foreach (string catString in IncludedLanguages.FullAudio)
 			{
-				if (Language.FullAudio.Contains(catString) || ((Language.FullAudio.Count == 0) && Language.Subtitles.Contains(catString)) || ((Language.Subtitles.Count == 0) && Language.Interface.Contains(catString)))
+				if (language.FullAudio.Contains(catString) || ((language.FullAudio.Count == 0) && language.Subtitles.Contains(catString)) || ((language.Subtitles.Count == 0) && language.Interface.Contains(catString)))
 				{
 					game.AddCategory(games.GetCategory(GetProcessedString(catString, "Full Audio")));
 				}

@@ -317,6 +317,8 @@ namespace Depressurizer
 
 		private static void LoadDatabase()
 		{
+			Cursor.Current = Cursors.WaitCursor;
+
 			try
 			{
 				if (File.Exists(Core.Helpers.Location.File.Database))
@@ -335,6 +337,10 @@ namespace Depressurizer
 
 				Logger.Exception("MainForm: Exception during initial database load.", e);
 				Database.Reset();
+			}
+			finally
+			{
+				Cursor.Current = Cursors.Default;
 			}
 		}
 
@@ -648,12 +654,12 @@ namespace Depressurizer
 			int notInDbCount = 0;
 			foreach (GameInfo game in gamesToUpdate)
 			{
-				if ((game.Id > 0) && (!Database.Contains(game.Id) || (Database.Games[game.Id].LastStoreScrape == 0)))
+				if ((game.Id > 0) && (!Database.Contains(game.Id, out DatabaseEntry entry1) || (entry1.LastStoreScrape == 0)))
 				{
 					notInDbOrOldData.Add(game.Id);
 					notInDbCount++;
 				}
-				else if ((game.Id > 0) && (Utility.GetCurrentUTime() > (Database.Games[game.Id].LastStoreScrape + (Settings.Instance.ScrapePromptDays * 86400)))) //86400 seconds in a day
+				else if ((game.Id > 0) && Database.Contains(game.Id, out DatabaseEntry entry2) && (DateTimeOffset.UtcNow.ToUnixTimeSeconds() > (entry2.LastStoreScrape + (Settings.Instance.ScrapePromptDays * 86400)))) // 86400 seconds in a day
 				{
 					notInDbOrOldData.Add(game.Id);
 					oldDbDataCount++;
@@ -674,19 +680,21 @@ namespace Depressurizer
 				message += ". " + GlobalStrings.MainForm_ScrapeNow;
 				if (MessageBox.Show(message, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 				{
-					ScrapeDialog scrapeDlg = new ScrapeDialog(notInDbOrOldData);
-					DialogResult scrapeRes = scrapeDlg.ShowDialog();
+					using (ScrapeDialog dialog = new ScrapeDialog(notInDbOrOldData))
+					{
+						DialogResult result = dialog.ShowDialog();
 
-					if (scrapeRes == DialogResult.Cancel)
-					{
-						AddStatus(string.Format(GlobalStrings.MainForm_CanceledDatabaseUpdate));
-					}
-					else
-					{
-						AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, scrapeDlg.CompletedJobs));
-						if ((scrapeDlg.CompletedJobs > 0) && Settings.Instance.AutoSaveDatabase)
+						if (result == DialogResult.Cancel)
 						{
-							SaveDatabase();
+							AddStatus(string.Format(GlobalStrings.MainForm_CanceledDatabaseUpdate));
+						}
+						else
+						{
+							AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.CompletedJobs));
+							if ((dialog.CompletedJobs > 0) && Settings.Instance.AutoSaveDatabase)
+							{
+								SaveDatabase();
+							}
 						}
 					}
 				}
@@ -1552,17 +1560,17 @@ namespace Depressurizer
 			int software = 0;
 			foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
 			{
-				if (!Database.Contains(g.Id))
+				if (!Database.Contains(g.Id, out DatabaseEntry entry))
 				{
 					continue;
 				}
 
-				DatabaseEntry entry = Database.Games[g.Id];
 				if (g.Hidden)
 				{
 					hidden++;
 				}
-				else if (!g.HasCategories())
+
+				if (!g.HasCategories() && !g.Hidden)
 				{
 					uncategorized++;
 				}
@@ -1572,12 +1580,12 @@ namespace Depressurizer
 					vr++;
 				}
 
-				if (entry.AppType == AppType.Game)
+				if ((entry.AppType == AppType.Game) && !g.Hidden)
 				{
 					games++;
 				}
 
-				if (entry.AppType == AppType.Application)
+				if ((entry.AppType == AppType.Application) && !g.Hidden)
 				{
 					software++;
 				}
@@ -1846,8 +1854,8 @@ namespace Depressurizer
 				UpdateGameDBFromAppInfo();
 			}
 
-			int aWeekInSecs = 7 * 24 * 60 * 60;
-			if (Settings.Instance.UpdateHltbOnStart && (Utility.GetCurrentUTime() > (Database.LastHltbUpdate + aWeekInSecs)))
+			const int aWeekInSecs = 7 * 24 * 60 * 60;
+			if (Settings.Instance.UpdateHltbOnStart && (DateTimeOffset.UtcNow.ToUnixTimeSeconds() > (Database.LastHLTBUpdate + aWeekInSecs)))
 			{
 				UpdateGameDBFromHltb();
 			}
@@ -2110,9 +2118,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].Genres != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.Genres != null))
 				{
-					return string.Join(", ", Database.Games[id].Genres);
+					return string.Join(", ", entry.Genres);
 				}
 
 				return Resources.Category_NoGenres;
@@ -2126,9 +2134,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].Flags != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.Flags != null))
 				{
-					return string.Join(", ", Database.Games[id].Flags);
+					return string.Join(", ", entry.Flags);
 				}
 
 				return Resources.Category_NoFlags;
@@ -2142,9 +2150,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].Tags != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.Tags != null))
 				{
-					return string.Join(", ", Database.Games[id].Tags);
+					return string.Join(", ", entry.Tags);
 				}
 
 				return Resources.Category_NoTags;
@@ -2158,9 +2166,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].VrSupport.Headsets != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.VrSupport.Headsets != null))
 				{
-					return string.Join(", ", Database.Games[id].VrSupport.Headsets);
+					return string.Join(", ", entry.VrSupport.Headsets);
 				}
 
 				return string.Empty;
@@ -2174,9 +2182,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].VrSupport.Input != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.VrSupport.Input != null))
 				{
-					return string.Join(", ", Database.Games[id].VrSupport.Input);
+					return string.Join(", ", entry.VrSupport.Input);
 				}
 
 				return string.Empty;
@@ -2190,9 +2198,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].VrSupport.PlayArea != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.VrSupport.PlayArea != null))
 				{
-					return string.Join(", ", Database.Games[id].VrSupport.PlayArea);
+					return string.Join(", ", entry.VrSupport.PlayArea);
 				}
 
 				return string.Empty;
@@ -2206,9 +2214,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].LanguageSupport.Interface != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.LanguageSupport.Interface != null))
 				{
-					return string.Join(", ", Database.Games[id].LanguageSupport.Interface);
+					return string.Join(", ", entry.LanguageSupport.Interface);
 				}
 
 				return string.Empty;
@@ -2222,9 +2230,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].LanguageSupport.Subtitles != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.LanguageSupport.Subtitles != null))
 				{
-					return string.Join(", ", Database.Games[id].LanguageSupport.Subtitles);
+					return string.Join(", ", entry.LanguageSupport.Subtitles);
 				}
 
 				return string.Empty;
@@ -2238,9 +2246,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].LanguageSupport.FullAudio != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.LanguageSupport.FullAudio != null))
 				{
-					return string.Join(", ", Database.Games[id].LanguageSupport.FullAudio);
+					return string.Join(", ", entry.LanguageSupport.FullAudio);
 				}
 
 				return string.Empty;
@@ -2255,7 +2263,7 @@ namespace Depressurizer
 
 				int id = ((GameInfo) g).Id;
 				CultureInfo culture = Language.GetCultureInfo(Database.Language);
-				if (Database.Games.ContainsKey(id) && DateTime.TryParse(Database.Games[id].SteamReleaseDate, culture, DateTimeStyles.None, out DateTime releaseDate))
+				if (Database.Contains(id, out DatabaseEntry entry) && DateTime.TryParse(entry.SteamReleaseDate, culture, DateTimeStyles.None, out DateTime releaseDate))
 				{
 					return releaseDate.Year.ToString();
 				}
@@ -2293,17 +2301,17 @@ namespace Depressurizer
 
 				int id = ((GameInfo) g).Id;
 
-				return Database.Games.ContainsKey(id) ? Database.Games[id].TotalAchievements : 0;
+				return Database.Contains(id, out DatabaseEntry entry) ? entry.TotalAchievements : 0;
 			};
 
 			colPlatforms.AspectGetter = delegate(object g)
 			{
-				if (g == null)
+				if ((g == null) || !Database.Contains(((GameInfo) g).Id, out DatabaseEntry entry))
 				{
 					return "";
 				}
 
-				AppPlatforms platforms = Database.Games[((GameInfo) g).Id].Platforms;
+				AppPlatforms platforms = entry.Platforms;
 
 				return ((platforms & AppPlatforms.Linux) != 0) && (platforms != AppPlatforms.All) ? platforms + ", SteamOS" : platforms.ToString();
 			};
@@ -2316,9 +2324,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].Developers != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.Developers != null))
 				{
-					return string.Join(", ", Database.Games[id].Developers);
+					return string.Join(", ", entry.Developers);
 				}
 
 				return Resources.Category_Unknown;
@@ -2332,9 +2340,9 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id) && (Database.Games[id].Publishers != null))
+				if (Database.Contains(id, out DatabaseEntry entry) && (entry.Publishers != null))
 				{
-					return string.Join(", ", Database.Games[id].Publishers);
+					return string.Join(", ", entry.Publishers);
 				}
 
 				return Resources.Category_Unknown;
@@ -2349,7 +2357,7 @@ namespace Depressurizer
 
 				int id = ((GameInfo) g).Id;
 
-				return Database.Games.ContainsKey(id) ? Database.Games[id].ReviewTotal : 0;
+				return Database.Contains(id, out DatabaseEntry entry) ? entry.ReviewTotal : 0;
 			};
 
 			colReviewScore.AspectGetter = delegate(object g)
@@ -2361,7 +2369,7 @@ namespace Depressurizer
 
 				int id = ((GameInfo) g).Id;
 
-				return Database.Games.ContainsKey(id) ? Database.Games[id].ReviewPositivePercentage : 0;
+				return Database.Contains(id, out DatabaseEntry entry) ? entry.ReviewPositivePercentage : 0;
 			};
 
 			colReviewLabel.AspectGetter = delegate(object g)
@@ -2372,59 +2380,59 @@ namespace Depressurizer
 				}
 
 				int id = ((GameInfo) g).Id;
-				if (Database.Games.ContainsKey(id))
+				if (!Database.Contains(id, out DatabaseEntry entry))
 				{
-					int reviewTotal = Database.Games[id].ReviewTotal;
-					int reviewPositivePercentage = Database.Games[id].ReviewPositivePercentage;
-					if (reviewTotal <= 0)
-					{
-						return -1;
-					}
-
-					if ((reviewPositivePercentage >= 95) && (reviewTotal >= 500))
-					{
-						return 9;
-					}
-
-					if ((reviewPositivePercentage >= 85) && (reviewTotal >= 50))
-					{
-						return 8;
-					}
-
-					if (reviewPositivePercentage >= 80)
-					{
-						return 7;
-					}
-
-					if (reviewPositivePercentage >= 70)
-					{
-						return 6;
-					}
-
-					if (reviewPositivePercentage >= 40)
-					{
-						return 5;
-					}
-
-					if (reviewPositivePercentage >= 20)
-					{
-						return 4;
-					}
-
-					if (reviewTotal >= 500)
-					{
-						return 3;
-					}
-
-					if (reviewTotal >= 50)
-					{
-						return 2;
-					}
-
-					return 1;
+					return 0;
 				}
 
-				return 0;
+				int reviewTotal = entry.ReviewTotal;
+				int reviewPositivePercentage = entry.ReviewPositivePercentage;
+				if (reviewTotal <= 0)
+				{
+					return -1;
+				}
+
+				if ((reviewPositivePercentage >= 95) && (reviewTotal >= 500))
+				{
+					return 9;
+				}
+
+				if ((reviewPositivePercentage >= 85) && (reviewTotal >= 50))
+				{
+					return 8;
+				}
+
+				if (reviewPositivePercentage >= 80)
+				{
+					return 7;
+				}
+
+				if (reviewPositivePercentage >= 70)
+				{
+					return 6;
+				}
+
+				if (reviewPositivePercentage >= 40)
+				{
+					return 5;
+				}
+
+				if (reviewPositivePercentage >= 20)
+				{
+					return 4;
+				}
+
+				if (reviewTotal >= 500)
+				{
+					return 3;
+				}
+
+				if (reviewTotal >= 50)
+				{
+					return 2;
+				}
+
+				return 1;
 			};
 
 			colHltbMain.AspectGetter = delegate(object g)
@@ -2436,7 +2444,7 @@ namespace Depressurizer
 
 				int id = ((GameInfo) g).Id;
 
-				return Database.Games.ContainsKey(id) ? Database.Games[id].HltbMain : 0;
+				return Database.Contains(id, out DatabaseEntry entry) ? entry.HltbMain : 0;
 			};
 
 			colHltbExtras.AspectGetter = delegate(object g)
@@ -2448,7 +2456,7 @@ namespace Depressurizer
 
 				int id = ((GameInfo) g).Id;
 
-				return Database.Games.ContainsKey(id) ? Database.Games[id].HltbExtras : 0;
+				return Database.Contains(id, out DatabaseEntry entry) ? entry.HltbExtras : 0;
 			};
 
 			colHltbCompletionist.AspectGetter = delegate(object g)
@@ -2460,7 +2468,7 @@ namespace Depressurizer
 
 				int id = ((GameInfo) g).Id;
 
-				return Database.Games.ContainsKey(id) ? Database.Games[id].HltbCompletionist : 0;
+				return Database.Contains(id, out DatabaseEntry entry) ? entry.HltbCompletionist : 0;
 			};
 
 			//Aspect to String Converters
@@ -2637,22 +2645,13 @@ namespace Depressurizer
 		/// </summary>
 		private void LaunchGame(GameInfo g)
 		{
-			if (g != null)
+			if (g == null)
 			{
-				//string gameIdentifier;
-				//if( g.Id < 0 ) {   // External game
-				//    if( g.LaunchString == null ) {
-				//        MessageBox.Show( GlobalStrings.MainForm_LaunchFailed );
-				//        return;
-				//    }
-				//    gameIdentifier = g.LaunchString;
-				//} else {
-				//    // Steam game
-				//    gameIdentifier = g.Id.ToString();
-				//}
-				g.LastPlayed = Utility.GetCurrentUTime();
-				Process.Start(g.Executable);
+				return;
 			}
+
+			g.LastPlayed = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+			Process.Start(g.Executable);
 		}
 
 		/// <summary>
@@ -2969,9 +2968,9 @@ namespace Depressurizer
 			}
 
 			// Add Early Access banner
-			if (Database.Games.ContainsKey(g.Id) && (Database.Games[g.Id].Tags != null))
+			if (Database.Contains(g.Id, out DatabaseEntry entry) && (entry.Tags != null))
 			{
-				if (Database.Games[g.Id].Tags.Contains(EARLY_ACCESS))
+				if (entry.Tags.Contains(EARLY_ACCESS))
 				{
 					ImageDecoration earlyAccessDecoration = new ImageDecoration(imglistEarlyAccess.Images[0])
 					{
@@ -3545,8 +3544,11 @@ namespace Depressurizer
 
 		private void menu_Tools_DBEdit_Click(object sender, EventArgs e)
 		{
-			DBEditDlg dlg = new DBEditDlg(CurrentProfile != null ? CurrentProfile.GameData : null);
-			dlg.ShowDialog();
+			using (DBEditDlg dlg = new DBEditDlg(CurrentProfile != null ? CurrentProfile.GameData : null))
+			{
+				dlg.ShowDialog();
+			}
+
 			LoadDatabase();
 		}
 
@@ -4293,13 +4295,13 @@ namespace Depressurizer
 			// <Games>
 			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_Games)
 			{
-				return Database.Games.ContainsKey(g.Id) && (Database.Games.First(a => a.Key == g.Id).Value.AppType == AppType.Game);
+				return Database.Contains(g.Id, out DatabaseEntry entry) && (entry.AppType == AppType.Game);
 			}
 
 			// <Software>
 			if (lstCategories.SelectedItems[0].Tag.ToString() == Resources.Category_Software)
 			{
-				return Database.Games.ContainsKey(g.Id) && (Database.Games.First(a => a.Key == g.Id).Value.AppType == AppType.Application);
+				return Database.Contains(g.Id, out DatabaseEntry entry) && (entry.AppType == AppType.Application);
 			}
 
 			// <Uncategorized>

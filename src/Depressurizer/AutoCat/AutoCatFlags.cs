@@ -130,7 +130,7 @@ namespace Depressurizer
 				return AutoCatResult.Failure;
 			}
 
-			if (!db.Contains(game.Id) || (db.Games[game.Id].LastStoreScrape == 0))
+			if (!db.Contains(game.Id, out DatabaseEntry entry) || (entry.LastStoreScrape == 0))
 			{
 				return AutoCatResult.NotInDatabase;
 			}

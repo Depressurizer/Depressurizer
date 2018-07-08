@@ -181,7 +181,7 @@ namespace Depressurizer
 				return AutoCatResult.Failure;
 			}
 
-			if (!db.Contains(game.Id))
+			if (!db.Contains(game.Id, out DatabaseEntry entry))
 			{
 				return AutoCatResult.NotInDatabase;
 			}
@@ -191,8 +191,8 @@ namespace Depressurizer
 				return AutoCatResult.Filtered;
 			}
 
-			int score = db.Games[game.Id].ReviewPositivePercentage;
-			int reviews = db.Games[game.Id].ReviewTotal;
+			int score = entry.ReviewPositivePercentage;
+			int reviews = entry.ReviewTotal;
 			if (UseWilsonScore && (reviews > 0))
 			{
 				// calculate the lower bound of the Wilson interval for 95 % confidence

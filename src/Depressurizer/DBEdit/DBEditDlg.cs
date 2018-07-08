@@ -114,14 +114,14 @@ namespace Depressurizer
 			GameDBEntryDialog dlg = new GameDBEntryDialog();
 			if ((dlg.ShowDialog() == DialogResult.OK) && (dlg.Game != null))
 			{
-				if (Database.Games.ContainsKey(dlg.Game.Id))
+				if (Database.Contains(dlg.Game.Id))
 				{
 					MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));
 				}
 				else
 				{
-					Database.Games.Add(dlg.Game.Id, dlg.Game);
+					Database.Add(dlg.Game);
 
 					if (ShouldDisplayGame(dlg.Game))
 					{
@@ -233,7 +233,7 @@ namespace Depressurizer
 				filterSuspend = true;
 				if (chkTypeAll.Checked)
 				{
-					chkTypeDLC.Checked = chkTypeGame.Checked = chkTypeOther.Checked = chkTypeUnknown.Checked = false;
+					chkTypeGame.Checked = chkTypeSoftware.Checked = chkTypeDLC.Checked = chkTypeOther.Checked = chkTypeUnknown.Checked = false;
 				}
 
 				filterSuspend = false;
@@ -252,7 +252,7 @@ namespace Depressurizer
 			{
 				filterSuspend = true;
 
-				chkTypeAll.Checked = !(chkTypeDLC.Checked || chkTypeGame.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked);
+				chkTypeAll.Checked = !(chkTypeGame.Checked || chkTypeSoftware.Checked || chkTypeDLC.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked);
 
 				filterSuspend = false;
 				RebuildDisplayList();
@@ -266,10 +266,10 @@ namespace Depressurizer
 		{
 			if (MessageBox.Show(GlobalStrings.DBEditDlg_AreYouSureToClear, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 			{
-				if (Database.Games.Count > 0)
+				if (Database.Count > 0)
 				{
 					UnsavedChanges = true;
-					Database.Games.Clear();
+					Database.Clear();
 					AddStatusMsg(GlobalStrings.DBEditDlg_ClearedAllData);
 				}
 
@@ -400,7 +400,7 @@ namespace Depressurizer
 						DatabaseEntry game = displayedGames[index];
 						if (game != null)
 						{
-							Database.Games.Remove(game.Id);
+							Database.Remove(game);
 							deleted++;
 						}
 					}
@@ -685,7 +685,7 @@ namespace Depressurizer
 		{
 			lstGames.SelectedIndices.Clear();
 			displayedGames.Clear();
-			foreach (DatabaseEntry g in Database.Games.Values)
+			foreach (DatabaseEntry g in Database.GetAll())
 			{
 				if (ShouldDisplayGame(g))
 				{
@@ -773,45 +773,45 @@ namespace Depressurizer
 			return false;
 		}
 
-		/// <summary>
-		///     Performs a web scrape on the given games.
-		/// </summary>
-		/// <param name="gamesToScrape">List of id's to scrape</param>
-		private void ScrapeGames(List<int> gamesToScrape)
+		private void ScrapeGames(IList<int> appIds)
 		{
-			if (gamesToScrape.Count > 0)
+			if (appIds.Count <= 0)
 			{
-				ScrapeDialog dlg = new ScrapeDialog(gamesToScrape);
-				DialogResult res = dlg.ShowDialog();
+				AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
 
-				if (dlg.Error != null)
+				return;
+			}
+
+			using (ScrapeDialog dialog = new ScrapeDialog(appIds))
+			{
+				DialogResult result = dialog.ShowDialog();
+
+				if (dialog.Error != null)
 				{
 					AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGames);
-					MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 
-				if (res == DialogResult.Cancel)
+				if (result == DialogResult.Cancel)
 				{
 					AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
 				}
-				else if (res == DialogResult.Abort)
+				else if (result == DialogResult.Abort)
 				{
-					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dlg.CompletedJobs, dlg.TotalJobs));
+					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dialog.CompletedJobs, dialog.TotalJobs));
 				}
 				else
 				{
-					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dlg.CompletedJobs));
+					AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dialog.CompletedJobs));
 				}
 
-				if (dlg.CompletedJobs > 0)
+				if (dialog.CompletedJobs <= 0)
 				{
-					UnsavedChanges = true;
-					RebuildDisplayList();
+					return;
 				}
-			}
-			else
-			{
-				AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
+
+				UnsavedChanges = true;
+				RebuildDisplayList();
 			}
 		}
 
@@ -824,7 +824,7 @@ namespace Depressurizer
 
 			List<int> gamesToScrape = new List<int>();
 
-			foreach (DatabaseEntry g in Database.Games.Values)
+			foreach (DatabaseEntry g in Database.GetAll())
 			{
 				//Only scrape displayed games
 				if ((g.LastStoreScrape == 0) && ShouldDisplayGame(g))
@@ -896,6 +896,14 @@ namespace Depressurizer
 						}
 
 						break;
+
+					case AppType.Application:
+						if (chkTypeSoftware.Checked == false)
+						{
+							return false;
+						}
+
+						break;
 					case AppType.DLC:
 						if (chkTypeDLC.Checked == false)
 						{
@@ -932,7 +940,7 @@ namespace Depressurizer
 					return false;
 				}
 
-				if (radWebSince.Checked && (g.LastStoreScrape > Utility.GetUTime(dateWeb.Value)))
+				if (radWebSince.Checked && (g.LastStoreScrape > ((DateTimeOffset) dateWeb.Value).ToUnixTimeSeconds()))
 				{
 					return false;
 				}
@@ -1025,7 +1033,7 @@ namespace Depressurizer
 		/// </summary>
 		private void UpdateStatusCount()
 		{
-			statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Database.Games.Count);
+			statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Database.Count);
 			cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = lstGames.SelectedIndices.Count >= 1;
 		}
 

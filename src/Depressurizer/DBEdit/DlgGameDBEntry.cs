@@ -150,8 +150,8 @@ namespace Depressurizer
 				chkWebUpdate.Checked = Game.LastStoreScrape > 0;
 				chkAppInfoUpdate.Checked = Game.LastAppInfoUpdate > 0;
 
-				dateWeb.Value = Utility.GetDTFromUTime(Game.LastStoreScrape);
-				dateAppInfo.Value = Utility.GetDTFromUTime(Game.LastAppInfoUpdate);
+				dateWeb.Value = DateTimeOffset.FromUnixTimeSeconds(Game.LastStoreScrape).DateTime;
+				dateAppInfo.Value = DateTimeOffset.FromUnixTimeSeconds(Game.LastAppInfoUpdate).DateTime;
 			}
 		}
 
@@ -164,10 +164,7 @@ namespace Depressurizer
 
 			if (Game == null)
 			{
-				Game = new DatabaseEntry
-				{
-					Id = id
-				};
+				Game = new DatabaseEntry(id);
 			}
 
 			Game.ParentId = parent;
@@ -208,8 +205,8 @@ namespace Depressurizer
 				Game.Platforms |= AppPlatforms.Linux;
 			}
 
-			Game.LastStoreScrape = chkWebUpdate.Checked ? Utility.GetUTime(dateWeb.Value) : 0;
-			Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? Utility.GetUTime(dateAppInfo.Value) : 0;
+			Game.LastStoreScrape = chkWebUpdate.Checked ? ((DateTimeOffset) dateWeb.Value).ToUnixTimeSeconds() : 0;
+			Game.LastAppInfoUpdate = chkAppInfoUpdate.Checked ? ((DateTimeOffset) dateAppInfo.Value).ToUnixTimeSeconds() : 0;
 
 			return true;
 		}
