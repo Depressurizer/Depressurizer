@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Depressurizer.Core;
@@ -979,9 +980,16 @@ namespace Depressurizer
 
 		private void UpdateFromAppInfo()
 		{
+			string path = string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath);
+			if (!File.Exists(path))
+			{
+				MessageBox.Show(Resources.AppInfo_NotFound, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+				return;
+			}
+
 			try
 			{
-				string path = string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath);
 				int updated = Database.UpdateFromAppInfo(path);
 				if (updated > 0)
 				{

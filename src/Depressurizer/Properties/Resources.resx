@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppInfo_Exception" xml:space="preserve">
+    <value>Error while updating from appinfo: {0}</value>
+  </data>
+  <data name="AppInfo_NotFound" xml:space="preserve">
+    <value>Could not find the appinfo file in the Steam installation folder! Please verify your settings.</value>
+  </data>
   <data name="Category_All" xml:space="preserve">
     <value>&lt;All&gt;</value>
   </data>
@@ -149,5 +155,8 @@
   </data>
   <data name="Category_VR" xml:space="preserve">
     <value>&lt;VR&gt;</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>

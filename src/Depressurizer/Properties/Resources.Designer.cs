@@ -61,6 +61,24 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while updating from appinfo: {0}.
+        /// </summary>
+        internal static string AppInfo_Exception {
+            get {
+                return ResourceManager.GetString("AppInfo_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find the appinfo file in the Steam installation folder! Please verify your settings..
+        /// </summary>
+        internal static string AppInfo_NotFound {
+            get {
+                return ResourceManager.GetString("AppInfo_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;All&gt;.
         /// </summary>
         internal static string Category_All {
@@ -156,6 +174,15 @@ namespace Depressurizer.Properties {
         internal static string Category_VR {
             get {
                 return ResourceManager.GetString("Category_VR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }
