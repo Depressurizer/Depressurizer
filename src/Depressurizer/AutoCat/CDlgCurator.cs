@@ -143,7 +143,7 @@ namespace Depressurizer
 		private static Dictionary<int, CuratorRecommendation> GetCuratorRecommendationsFromPage(string page)
 		{
 			Dictionary<int, CuratorRecommendation> curatorRecommendations = new Dictionary<int, CuratorRecommendation>();
-			Regex curatorRegex = new Regex(@"data-ds-appid=\""(\d+)\"".*?><span class='color_([^']*)", RegexOptions.Singleline | RegexOptions.Compiled);
+			Regex curatorRegex = new Regex(@"data-ds-appid=\""(\d+)\"".*?>\s*<span class='color_([^']*)", RegexOptions.Singleline | RegexOptions.Compiled);
 			MatchCollection matches = curatorRegex.Matches(page);
 			if (matches.Count > 0)
 			{
