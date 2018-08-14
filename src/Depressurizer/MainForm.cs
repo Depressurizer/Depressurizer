@@ -1851,7 +1851,7 @@ namespace Depressurizer
 
 			if (Settings.Instance.UpdateAppInfoOnStart)
 			{
-				UpdateGameDBFromAppInfo();
+				UpdateDatabaseFromAppInfo();
 			}
 
 			const int aWeekInSecs = 7 * 24 * 60 * 60;
@@ -4368,6 +4368,40 @@ namespace Depressurizer
 			}
 		}
 
+		private void UpdateDatabaseFromAppInfo()
+		{
+			string path = string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath);
+			if (!File.Exists(path))
+			{
+				MessageBox.Show(Resources.AppInfo_NotFound, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+				return;
+			}
+
+			int num = 0;
+			try
+			{
+				num = Database.UpdateFromAppInfo(path);
+			}
+			catch (Exception e)
+			{
+				Logger.Exception("MainForm: Error while updating database from appinfo:", e);
+				MessageBox.Show(string.Format(Resources.AppInfo_Exception, e.Message), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+			finally
+			{
+				if (num > 0)
+				{
+					AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
+
+					if (Settings.Instance.AutoSaveDatabase)
+					{
+						SaveDatabase();
+					}
+				}
+			}
+		}
+
 		private void UpdateEnabledStatesForCategories()
 		{
 			Category c = null;
@@ -4438,28 +4472,6 @@ namespace Depressurizer
 			}
 
 			lstMultiCat.EndUpdate();
-		}
-
-		/// <summary>
-		///     Updates the database using AppInfo cache. Displays an error message on failure. Saves the DB afterwards if
-		///     AutosaveDB is set.
-		/// </summary>
-		private void UpdateGameDBFromAppInfo()
-		{
-			try
-			{
-				int num = Database.UpdateFromAppInfo(string.Format(Constants.AppInfoPath, Settings.Instance.SteamPath));
-				AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
-				if ((num > 0) && Settings.Instance.AutoSaveDatabase)
-				{
-					SaveDatabase();
-				}
-			}
-			catch (Exception e)
-			{
-				Logger.Exception(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
-				MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
 		}
 
 		/// <summary>
