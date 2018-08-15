@@ -63,6 +63,32 @@ namespace Depressurizer.Tests.Models
 		}
 
 		[Test]
+		public void CompareTo_Favorite_Order_AB()
+		{
+			// Arrange
+			const int expected = -1;
+
+			// Act
+			int actual = new Category("favorite").CompareTo(new Category("Action"));
+
+			// Assert
+			actual.Should().Be(expected);
+		}
+
+		[Test]
+		public void CompareTo_Favorite_Order_BA()
+		{
+			// Arrange
+			const int expected = 1;
+
+			// Act
+			int actual = new Category("Action").CompareTo(new Category("favorite"));
+
+			// Assert
+			actual.Should().Be(expected);
+		}
+
+		[Test]
 		public void CompareTo_InvalidObject()
 		{
 			// Arrange
