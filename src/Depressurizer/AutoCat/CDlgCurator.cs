@@ -137,13 +137,13 @@ namespace Depressurizer
 		/// </summary>
 		/// <param name="page">
 		///     The results_html json node you get from
-		///     http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50
+		///     https://store.steampowered.com/curator/{0}/ajaxgetfilteredrecommendations/render/?query=&amp;start={1}&amp;count=50
 		/// </param>
 		/// <returns>A dictionary containing ids of games and their respective recommendations</returns>
 		private static Dictionary<int, CuratorRecommendation> GetCuratorRecommendationsFromPage(string page)
 		{
 			Dictionary<int, CuratorRecommendation> curatorRecommendations = new Dictionary<int, CuratorRecommendation>();
-			Regex curatorRegex = new Regex(@"data-ds-appid=\""(\d+)\"".*?><span class='color_([^']*)", RegexOptions.Singleline | RegexOptions.Compiled);
+			Regex curatorRegex = new Regex(@"data-ds-appid=\""(\d+)\"".*?>\s*<span class='color_([^']*)", RegexOptions.Singleline | RegexOptions.Compiled);
 			MatchCollection matches = curatorRegex.Matches(page);
 			if (matches.Count > 0)
 			{
