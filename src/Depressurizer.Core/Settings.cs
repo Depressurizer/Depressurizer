@@ -26,6 +26,9 @@ using Newtonsoft.Json;
 
 namespace Depressurizer.Core
 {
+	/// <summary>
+	///     Depressurizer Settings Controller
+	/// </summary>
 	public sealed class Settings
 	{
 		#region Static Fields
@@ -57,8 +60,6 @@ namespace Depressurizer.Core
 
 		private string _filter;
 
-		private int _height;
-
 		private bool _includeImputedTimes = true;
 
 		private InterfaceLanguage _interfaceLanguage = InterfaceLanguage.English;
@@ -89,24 +90,19 @@ namespace Depressurizer.Core
 
 		private bool _updateHltbOnStart = true;
 
-		private int _width;
-
-		private int _x;
-
-		private int _y;
-
 		#endregion
 
 		#region Constructors and Destructors
 
-		private Settings()
-		{
-		}
+		private Settings() { }
 
 		#endregion
 
 		#region Public Properties
 
+		/// <summary>
+		///     Depressurizer Settings Instance
+		/// </summary>
 		public static Settings Instance
 		{
 			get
@@ -181,29 +177,6 @@ namespace Depressurizer.Core
 				lock (SyncRoot)
 				{
 					_configBackupCount = value;
-				}
-			}
-		}
-
-		public int Height
-		{
-			get
-			{
-				lock (SyncRoot)
-				{
-					if (_height <= 350)
-					{
-						_height = 600;
-					}
-
-					return _height;
-				}
-			}
-			set
-			{
-				lock (SyncRoot)
-				{
-					_height = value;
 				}
 			}
 		}
@@ -556,67 +529,6 @@ namespace Depressurizer.Core
 			}
 		}
 
-		public int Width
-		{
-			get
-			{
-				lock (SyncRoot)
-				{
-					if (_width <= 600)
-					{
-						_width = 1000;
-					}
-
-					return _width;
-				}
-			}
-			set
-			{
-				lock (SyncRoot)
-				{
-					_width = value;
-				}
-			}
-		}
-
-		public int X
-		{
-			get
-			{
-				lock (SyncRoot)
-				{
-					return _x;
-				}
-			}
-
-			set
-			{
-				lock (SyncRoot)
-				{
-					_x = value;
-				}
-			}
-		}
-
-		public int Y
-		{
-			get
-			{
-				lock (SyncRoot)
-				{
-					return _y;
-				}
-			}
-
-			set
-			{
-				lock (SyncRoot)
-				{
-					_y = value;
-				}
-			}
-		}
-
 		#endregion
 
 		#region Properties
@@ -649,8 +561,11 @@ namespace Depressurizer.Core
 					return;
 				}
 
-				string settings = File.ReadAllText(path);
-				_instance = JsonConvert.DeserializeObject<Settings>(settings);
+				using (StreamReader reader = File.OpenText(path))
+				{
+					JsonSerializer serializer = new JsonSerializer();
+					_instance = (Settings) serializer.Deserialize(reader, typeof(Settings));
+				}
 			}
 		}
 
@@ -665,8 +580,11 @@ namespace Depressurizer.Core
 			{
 				Logger.Info("Settings: Saving current setttings instance to '{0}'", path);
 
-				string settings = JsonConvert.SerializeObject(_instance);
-				File.WriteAllText(path, settings);
+				using (StreamWriter writer = File.CreateText(path))
+				{
+					JsonSerializer serializer = new JsonSerializer();
+					serializer.Serialize(writer, _instance);
+				}
 			}
 		}
 

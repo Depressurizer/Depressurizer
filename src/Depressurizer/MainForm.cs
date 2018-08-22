@@ -210,22 +210,6 @@ namespace Depressurizer
 
 		#region Public Methods and Operators
 
-		public static bool IsOnScreen(MaterialForm form)
-		{
-			Screen[] screens = Screen.AllScreens;
-			foreach (Screen screen in screens)
-			{
-				Point formTopLeft = new Point(form.Left, form.Top);
-
-				if (screen.WorkingArea.Contains(formTopLeft))
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
 		/// <summary>
 		///     Adds a string to the status builder
 		/// </summary>
@@ -1783,10 +1767,6 @@ namespace Depressurizer
 
 		private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Settings.X = Left;
-			Settings.Y = Top;
-			Settings.Height = Height;
-			Settings.Width = Width;
 			Settings.SplitContainer = splitContainer.SplitterDistance;
 			Settings.SplitGame = splitGame.SplitterDistance;
 			Settings.SplitBrowser = splitBrowser.SplitterDistance;
@@ -1813,14 +1793,7 @@ namespace Depressurizer
 
 			// Load saved forms settings
 			Settings settings = Settings.Instance;
-			Location = new Point(settings.X, settings.Y);
-			if (!IsOnScreen(this))
-			{
-				//TopLeft corner is off screen, so reset location
-				Location = new Point(0, 0);
-			}
 
-			Size = new Size(settings.Width, settings.Height);
 			splitContainer.SplitterDistance = settings.SplitContainer;
 			settings.SplitGameContainerHeight = splitGame.Height;
 			splitGame.SplitterDistance = settings.SplitGame;
@@ -2574,9 +2547,7 @@ namespace Depressurizer
 			colLastPlayed.AspectToStringConverter = delegate(object obj)
 			{
 				DateTime lastPlayed = (DateTime) obj;
-				Thread threadForCulture = new Thread(delegate()
-				{
-				});
+				Thread threadForCulture = new Thread(delegate() { });
 
 				string format = threadForCulture.CurrentCulture.DateTimeFormat.ShortDatePattern;
 
@@ -3111,9 +3082,7 @@ namespace Depressurizer
 						webBrowser1.Navigate(Constants.SteamStore + "?l=" + storeLanguage);
 					}
 				}
-				catch
-				{
-				}
+				catch { }
 			}
 		}
 

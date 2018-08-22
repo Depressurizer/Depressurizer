@@ -34,6 +34,8 @@ namespace Depressurizer
 
 		private static Logger Logger => Logger.Instance;
 
+		private static Settings Settings => Settings.Instance;
+
 		#endregion
 
 		#region Methods
@@ -42,7 +44,7 @@ namespace Depressurizer
 		///     The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		private static void Main(string[] args)
+		private static void Main()
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
@@ -51,7 +53,7 @@ namespace Depressurizer
 			FatalErrorDialog.InitializeHandler();
 
 			Settings.SetThread(Thread.CurrentThread);
-			Settings.Instance.Load();
+			Settings.Load();
 
 			Logger.Info(GlobalStrings.Program_ProgramInitialized);
 			Application.Run(new FormMain());
@@ -59,8 +61,8 @@ namespace Depressurizer
 
 		private static void OnApplicationExit(object sender, EventArgs e)
 		{
-			Settings.Instance.Save();
-			Logger.Instance.Dispose();
+			Settings.Save();
+			Logger.Dispose();
 		}
 
 		#endregion
