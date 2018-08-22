@@ -106,6 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommaClusteringStrategy.cs" />
+    <Compile Include="Dialogs\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutDialog.designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ScrapeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,12 +246,6 @@
     </Compile>
     <Compile Include="CDlgHltb.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAbout.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DlgAbout.Designer.cs">
-      <DependentUpon>DlgAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="DlgAutoCatSelect.cs">
       <SubType>Form</SubType>
@@ -448,6 +448,9 @@
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.uk.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DepressurizerForm.resx">
       <DependentUpon>DepressurizerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -456,9 +459,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SteamPathDialog.resx">
       <DependentUpon>SteamPathDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAbout.resx">
-      <DependentUpon>DlgAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCatSelect.resx">
       <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>

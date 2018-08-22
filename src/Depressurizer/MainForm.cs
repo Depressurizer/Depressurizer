@@ -3369,7 +3369,10 @@ namespace Depressurizer
 
 		private void menu_About_Click(object sender, EventArgs e)
 		{
-			new DlgAbout().ShowDialog();
+			using (AboutDialog dialog = new AboutDialog())
+			{
+				dialog.ShowDialog();
+			}
 		}
 
 		private void menu_File_Close_Click(object sender, EventArgs e)
