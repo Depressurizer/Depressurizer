@@ -55,7 +55,17 @@ namespace Depressurizer
 			Settings.SetThread(Thread.CurrentThread);
 			Settings.Load();
 
-			Logger.Info(GlobalStrings.Program_ProgramInitialized);
+			if (string.IsNullOrWhiteSpace(Settings.SteamPath))
+			{
+				using (SteamPathDialog dialog = new SteamPathDialog())
+				{
+					dialog.ShowDialog();
+
+					Settings.SteamPath = dialog.Path;
+					Settings.Save();
+				}
+			}
+
 			Application.Run(new FormMain());
 		}
 

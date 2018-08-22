@@ -1814,13 +1814,6 @@ namespace Depressurizer
 			originalSplitDistanceBrowser = splitBrowser.SplitterDistance;
 
 			ClearStatus();
-			if (Settings.Instance.SteamPath == null)
-			{
-				DlgSteamPath dlg = new DlgSteamPath();
-				dlg.ShowDialog();
-				Settings.Instance.SteamPath = dlg.Path;
-				Settings.Instance.Save();
-			}
 
 			if (Settings.Instance.UpdateAppInfoOnStart)
 			{

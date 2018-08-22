@@ -178,6 +178,33 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find &quot;appinfo.vdf&quot; in the given path! Are you sure this is the correct path?.
+        /// </summary>
+        internal static string SteamPathDialog_PathDoesntContain {
+            get {
+                return ResourceManager.GetString("SteamPathDialog_PathDoesntContain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The given path does not exist! Are you sure this is the correct path?.
+        /// </summary>
+        internal static string SteamPathDialog_PathDoesntExist {
+            get {
+                return ResourceManager.GetString("SteamPathDialog_PathDoesntExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path can not be empty!.
+        /// </summary>
+        internal static string SteamPathDialog_PathEmpty {
+            get {
+                return ResourceManager.GetString("SteamPathDialog_PathEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning.
         /// </summary>
         internal static string Warning {

@@ -156,6 +156,15 @@
   <data name="Category_VR" xml:space="preserve">
     <value>&lt;VR&gt;</value>
   </data>
+  <data name="SteamPathDialog_PathDoesntContain" xml:space="preserve">
+    <value>Could not find "appinfo.vdf" in the given path! Are you sure this is the correct path?</value>
+  </data>
+  <data name="SteamPathDialog_PathDoesntExist" xml:space="preserve">
+    <value>The given path does not exist! Are you sure this is the correct path?</value>
+  </data>
+  <data name="SteamPathDialog_PathEmpty" xml:space="preserve">
+    <value>Path can not be empty!</value>
+  </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
