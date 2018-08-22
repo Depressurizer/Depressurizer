@@ -68,6 +68,7 @@
     <Compile Include="Enums\LogLevel.cs" />
     <Compile Include="Helpers\Sentry.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Models\HLTB_RawData.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Models\Category.cs" />

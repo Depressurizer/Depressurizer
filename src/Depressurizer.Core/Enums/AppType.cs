@@ -83,6 +83,11 @@ namespace Depressurizer.Core.Enums
 		/// <summary>
 		///     Player-created manuals and references
 		/// </summary>
-		Guide
+		Guide,
+
+		/// <summary>
+		///     Mod
+		/// </summary>
+		Mod
 	}
 }

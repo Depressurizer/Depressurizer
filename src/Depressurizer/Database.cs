@@ -26,7 +26,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
+using System.Net.Http;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
@@ -58,9 +58,7 @@ namespace Depressurizer
 
 		#region Constructors and Destructors
 
-		private Database()
-		{
-		}
+		private Database() { }
 
 		#endregion
 
@@ -579,11 +577,10 @@ namespace Depressurizer
 				Stopwatch sw = new Stopwatch();
 				sw.Start();
 
-				using (StreamReader file = new StreamReader(path))
-				using (JsonReader jsonReader = new JsonTextReader(file))
+				using (StreamReader file = File.OpenText(path))
 				{
 					JsonSerializer serializer = new JsonSerializer();
-					_instance = serializer.Deserialize<Database>(jsonReader);
+					_instance = (Database) serializer.Deserialize(file, typeof(Database));
 				}
 
 				sw.Stop();
@@ -618,10 +615,9 @@ namespace Depressurizer
 				sw.Start();
 
 				using (StreamWriter file = File.CreateText(path))
-				using (JsonWriter jsonWriter = new JsonTextWriter(file))
 				{
 					JsonSerializer serializer = new JsonSerializer();
-					serializer.Serialize(jsonWriter, _instance);
+					serializer.Serialize(file, _instance);
 				}
 
 				sw.Stop();
@@ -706,24 +702,27 @@ namespace Depressurizer
 		{
 			int updated = 0;
 
-			using (WebClient wc = new WebClient())
+			HttpClient client = new HttpClient();
+
+			using (Stream s = client.GetStreamAsync(Constants.HowLongToBeat).Result)
+			using (StreamReader sr = new StreamReader(s))
+			using (JsonReader reader = new JsonTextReader(sr))
 			{
-				wc.Encoding = Encoding.UTF8;
-				string json = wc.DownloadString(Constants.HowLongToBeat);
-				JObject parsedJson = JObject.Parse(json);
-				dynamic games = parsedJson.SelectToken("Games");
-				foreach (dynamic g in games)
+				JsonSerializer serializer = new JsonSerializer();
+				HLTB_RawData rawData = serializer.Deserialize<HLTB_RawData>(reader);
+
+				foreach (Game game in rawData.Games)
 				{
-					dynamic steamAppData = g.SteamAppData;
+					SteamAppData steamAppData = game.SteamAppData;
 					int id = steamAppData.SteamAppId;
 					if (!Contains(id, out DatabaseEntry entry))
 					{
 						continue;
 					}
 
-					dynamic htlbInfo = steamAppData.HltbInfo;
+					HltbInfo htlbInfo = steamAppData.HltbInfo;
 
-					if (!includeImputedTimes && (htlbInfo.MainTtbImputed == "True"))
+					if (!includeImputedTimes && htlbInfo.MainTtbImputed)
 					{
 						entry.HltbMain = 0;
 					}
@@ -732,7 +731,7 @@ namespace Depressurizer
 						entry.HltbMain = htlbInfo.MainTtb;
 					}
 
-					if (!includeImputedTimes && (htlbInfo.ExtrasTtbImputed == "True"))
+					if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed)
 					{
 						entry.HltbExtras = 0;
 					}
@@ -741,7 +740,7 @@ namespace Depressurizer
 						entry.HltbExtras = htlbInfo.ExtrasTtb;
 					}
 
-					if (!includeImputedTimes && (htlbInfo.CompletionistTtbImputed == "True"))
+					if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed)
 					{
 						entry.HltbCompletionist = 0;
 					}
