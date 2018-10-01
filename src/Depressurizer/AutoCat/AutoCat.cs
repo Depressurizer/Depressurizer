@@ -35,7 +35,7 @@ using System.Xml.Serialization;
  *       public override AutoCat Clone(): return a complete deep copy of the object
  *       
  *       public abstract AutoCatResult CategorizeGame( GameInfo game ): Perform autocategorization on a game.
- *       [Optional] public override void PreProcess( GameList games, GameDB db ): Do any pre-processing you want to do before a set of autocategorization operations.
+ *       [Optional] public override void PreProcess( GameList games, Database db ): Do any pre-processing you want to do before a set of autocategorization operations.
  *       [Optional] public override void DeProcess(): Clean up after a set of autocategorization operations.
  *
  *       [Recommended] public string TypeIDString: Just a constant string that serves as a type identifier for serialization purposes.      
@@ -97,12 +97,15 @@ namespace Depressurizer
     /// </summary>
     public abstract class AutoCat : IComparable
     {
-        private const string
-            XmlName_Filter = "Filter";
+        private const string XmlName_Filter = "Filter";
 
         public int CompareTo(object other)
         {
-            if (other is AutoCat) return string.Compare(Name, (other as AutoCat).Name);
+            if (other is AutoCat)
+            {
+                return string.Compare(Name, (other as AutoCat).Name);
+            }
+
             return 1;
         }
 
@@ -118,7 +121,7 @@ namespace Depressurizer
         ///     or other preparation.
         ///     After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
-        public virtual void PreProcess(GameList games, GameDB db)
+        public virtual void PreProcess(GameList games, Database db)
         {
             this.games = games;
             this.db = db;
@@ -134,7 +137,11 @@ namespace Depressurizer
         /// </returns>
         public virtual AutoCatResult CategorizeGame(int gameId, Filter filter)
         {
-            if (games.Games.ContainsKey(gameId)) return CategorizeGame(games.Games[gameId], filter);
+            if (games.Games.ContainsKey(gameId))
+            {
+                return CategorizeGame(games.Games[gameId], filter);
+            }
+
             return AutoCatResult.Failure;
         }
 
@@ -196,7 +203,7 @@ namespace Depressurizer
         #region Properties
 
         protected GameList games;
-        protected GameDB db;
+        protected Database db;
 
         public abstract AutoCatType AutoCatType { get; }
 
@@ -206,8 +213,12 @@ namespace Depressurizer
         {
             get
             {
-                var displayName = Name;
-                if (Filter != null) displayName += "*";
+                string displayName = Name;
+                if (Filter != null)
+                {
+                    displayName += "*";
+                }
+
                 return displayName;
             }
         }
@@ -242,8 +253,8 @@ namespace Depressurizer
 
         public virtual void WriteToXml(XmlWriter writer)
         {
-            var x = new XmlSerializer(GetType());
-            var nameSpace = new XmlSerializerNamespaces();
+            XmlSerializer x = new XmlSerializer(GetType());
+            XmlSerializerNamespaces nameSpace = new XmlSerializerNamespaces();
             nameSpace.Add("", "");
             x.Serialize(writer, this, nameSpace);
         }
@@ -251,15 +262,14 @@ namespace Depressurizer
         public static AutoCat LoadFromXmlElement(XmlElement xElement, Type type)
         {
             XmlReader reader = new XmlNodeReader(xElement);
-            var x = new XmlSerializer(type);
+            XmlSerializer x = new XmlSerializer(type);
             try
             {
                 return (AutoCat) x.Deserialize(reader);
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name),
-                    GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Program.Logger.WriteException($"Failed to load from xml an Autocat of type {type.FullName}: ", e);
             }
 
@@ -268,7 +278,7 @@ namespace Depressurizer
 
         public static AutoCat LoadACFromXmlElement(XmlElement xElement)
         {
-            var type = xElement.Name;
+            string type = xElement.Name;
 
             switch (type)
             {

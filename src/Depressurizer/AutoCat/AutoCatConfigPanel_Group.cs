@@ -41,9 +41,15 @@ namespace Depressurizer
         private void FillAutocatList(List<string> group)
         {
             if (group != null)
-                lbAutocats.Items.Clear();
             {
-                foreach (var name in group) lbAutocats.Items.Add(name);
+                lbAutocats.Items.Clear();
+            }
+
+            {
+                foreach (string name in group)
+                {
+                    lbAutocats.Items.Add(name);
+                }
             }
         }
 
@@ -53,16 +59,24 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatGroup;
+            AutoCatGroup ac = autocat as AutoCatGroup;
             current = autocat;
-            if (ac == null) return;
+            if (ac == null)
+            {
+                return;
+            }
+
             FillAutocatList(ac.Autocats);
         }
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatGroup;
-            if (ac == null) return;
+            AutoCatGroup ac = autocat as AutoCatGroup;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Autocats = GetGroup();
         }
 
@@ -82,22 +96,35 @@ namespace Depressurizer
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var dlg = new DlgAutoCatSelect(Autocats, current.Name);
+            DlgAutoCatSelect dlg = new DlgAutoCatSelect(Autocats, current.Name);
 
-            var res = dlg.ShowDialog();
+            DialogResult res = dlg.ShowDialog();
 
             if (res == DialogResult.OK)
-                foreach (var ac in dlg.AutoCatList)
+            {
+                foreach (AutoCat ac in dlg.AutoCatList)
+                {
                     if (ac.Selected && !InGroup(ac.Name))
+                    {
                         lbAutocats.Items.Add(ac.Name);
+                    }
+                }
+            }
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             if (lbAutocats.SelectedItems.Count > 1)
+            {
                 foreach (string s in lbAutocats.SelectedItems)
+                {
                     lbAutocats.Items.Remove(s);
-            else if (lbAutocats.SelectedItem != null) lbAutocats.Items.Remove(lbAutocats.SelectedItem);
+                }
+            }
+            else if (lbAutocats.SelectedItem != null)
+            {
+                lbAutocats.Items.Remove(lbAutocats.SelectedItem);
+            }
         }
 
         private void lbAutocats_SelectedIndexChanged(object sender, EventArgs e)
@@ -129,15 +156,24 @@ namespace Depressurizer
         private bool InGroup(string find)
         {
             foreach (string name in lbAutocats.Items)
+            {
                 if (name == find)
+                {
                     return true;
+                }
+            }
+
             return false;
         }
 
         public List<string> GetGroup()
         {
-            var group = new List<string>();
-            foreach (string name in lbAutocats.Items) group.Add(name);
+            List<string> group = new List<string>();
+            foreach (string name in lbAutocats.Items)
+            {
+                group.Add(name);
+            }
+
             return group;
         }
 

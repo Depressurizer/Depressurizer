@@ -35,7 +35,7 @@ namespace Depressurizer
 
         private string GenerateArguments()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append(" -auto -p \"");
 
             sb.Append(profile.FilePath);
@@ -45,15 +45,35 @@ namespace Depressurizer
             switch (cmbSteamCheck.SelectedIndex)
             {
                 case 0: // Check and close
-                    if (!defaultOpts.CheckSteam) sb.Append(" -checksteam+");
-                    if (!defaultOpts.CloseSteam) sb.Append(" -closesteam+");
+                    if (!defaultOpts.CheckSteam)
+                    {
+                        sb.Append(" -checksteam+");
+                    }
+
+                    if (!defaultOpts.CloseSteam)
+                    {
+                        sb.Append(" -closesteam+");
+                    }
+
                     break;
                 case 1: // Check and abort
-                    if (!defaultOpts.CheckSteam) sb.Append(" -checksteam+");
-                    if (defaultOpts.CloseSteam) sb.Append(" -closesteam-");
+                    if (!defaultOpts.CheckSteam)
+                    {
+                        sb.Append(" -checksteam+");
+                    }
+
+                    if (defaultOpts.CloseSteam)
+                    {
+                        sb.Append(" -closesteam-");
+                    }
+
                     break;
                 case 2: // skip
-                    if (defaultOpts.CheckSteam) sb.Append(" -checksteam-");
+                    if (defaultOpts.CheckSteam)
+                    {
+                        sb.Append(" -checksteam-");
+                    }
+
                     break;
             }
 
@@ -100,21 +120,29 @@ namespace Depressurizer
             }
 
             if (chkAllAutocats.Checked)
+            {
                 sb.Append(" -all");
+            }
             else
+            {
                 foreach (ListViewItem i in lstAutocats.CheckedItems)
                 {
                     sb.Append(" \"");
                     sb.Append(i.Text);
                     sb.Append('"');
                 }
+            }
 
             return sb.ToString();
         }
 
         private string GetSwitch(string name, bool val, bool defVal)
         {
-            if (val != defVal) return " " + name + GetToggle(val);
+            if (val != defVal)
+            {
+                return " " + name + GetToggle(val);
+            }
+
             return "";
         }
 
@@ -125,7 +153,7 @@ namespace Depressurizer
 
         private void CreateShortcut()
         {
-            var dlg = new SaveFileDialog();
+            SaveFileDialog dlg = new SaveFileDialog();
 
             dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             dlg.DefaultExt = "lnk";
@@ -133,11 +161,11 @@ namespace Depressurizer
             dlg.Filter = "Shortcuts|*.lnk";
             dlg.FileName = "Depressurizer Auto";
 
-            var res = dlg.ShowDialog();
+            DialogResult res = dlg.ShowDialog();
             if (res == DialogResult.OK)
             {
-                var shell = new WshShell();
-                var shortcut = (IWshShortcut) shell.CreateShortcut(dlg.FileName);
+                WshShell shell = new WshShell();
+                IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(dlg.FileName);
                 shortcut.TargetPath = Application.ExecutablePath;
                 shortcut.WorkingDirectory = Application.StartupPath;
                 shortcut.Arguments = GenerateArguments();
@@ -169,8 +197,12 @@ namespace Depressurizer
             txtResult.Text = GenerateCommand();
 
             if (profile != null && profile.AutoCats != null)
-                foreach (var ac in profile.AutoCats)
+            {
+                foreach (AutoCat ac in profile.AutoCats)
+                {
                     lstAutocats.Items.Add(ac.Name);
+                }
+            }
         }
     }
 }

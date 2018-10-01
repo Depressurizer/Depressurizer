@@ -15,8 +15,7 @@ namespace Depressurizer
         public const string XmlName_GroupNonEnglishCharacters = "GroupNonEnglishCharacters";
         public const string XmlName_GroupNonEnglishCharactersText = "GroupNonEnglishCharactersText";
 
-        public AutoCatName(string name, string prefix = "", bool skipThe = true, bool groupNumbers = false,
-            bool groupNonEnglishCharacters = false, string groupNonEnglishCharactersText = "") : base(name)
+        public AutoCatName(string name, string prefix = "", bool skipThe = true, bool groupNumbers = false, bool groupNonEnglishCharacters = false, string groupNonEnglishCharactersText = "") : base(name)
         {
             Name = name;
             Prefix = prefix;
@@ -60,18 +59,32 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id))
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
 
-            var cat = game.Name.Substring(0, 1);
+            string cat = game.Name.Substring(0, 1);
             cat = cat.ToUpper();
             if (SkipThe && cat == "T" && game.Name.Substring(0, 4).ToUpper() == "THE ")
+            {
                 cat = game.Name.Substring(4, 1).ToUpper();
-            if (GroupNumbers && char.IsDigit(cat[0])) cat = "#";
-            else if (GroupNonEnglishCharacters && !string.IsNullOrEmpty(GroupNonEnglishCharactersText) &&
-                     Regex.IsMatch(cat, "[^a-z0-9]", RegexOptions.IgnoreCase))
+            }
+
+            if (GroupNumbers && char.IsDigit(cat[0]))
+            {
+                cat = "#";
+            }
+            else if (GroupNonEnglishCharacters && !string.IsNullOrEmpty(GroupNonEnglishCharactersText) && Regex.IsMatch(cat, "[^a-z0-9]", RegexOptions.IgnoreCase))
+            {
                 cat = GroupNonEnglishCharactersText;
-            if (Prefix != null) cat = Prefix + cat;
+            }
+
+            if (Prefix != null)
+            {
+                cat = Prefix + cat;
+            }
 
             game.AddCategory(games.GetCategory(cat));
 
@@ -80,8 +93,7 @@ namespace Depressurizer
 
         public override AutoCat Clone()
         {
-            return new AutoCatName(Name, Prefix, SkipThe, GroupNumbers, GroupNonEnglishCharacters,
-                GroupNonEnglishCharactersText);
+            return new AutoCatName(Name, Prefix, SkipThe, GroupNumbers, GroupNonEnglishCharacters, GroupNonEnglishCharactersText);
         }
 
         public override void WriteToXml(XmlWriter writer)
@@ -92,8 +104,7 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Prefix, Prefix);
             writer.WriteElementString(XmlName_SkipThe, SkipThe.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_GroupNumbers, GroupNumbers.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlName_GroupNonEnglishCharacters,
-                GroupNonEnglishCharacters.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_GroupNonEnglishCharacters, GroupNonEnglishCharacters.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_GroupNonEnglishCharactersText, GroupNonEnglishCharactersText);
 
             writer.WriteEndElement(); // type ID string
@@ -101,16 +112,14 @@ namespace Depressurizer
 
         public static AutoCatName LoadFromXmlElement(XmlElement xElement)
         {
-            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], null);
-            var prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            var skipThe = XmlUtil.GetBoolFromNode(xElement[XmlName_SkipThe], true);
-            var groupNumbers = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNumbers], true);
-            var groupNonEnglishCharacters = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNonEnglishCharacters], false);
-            var groupNonEnglishCharactersText =
-                XmlUtil.GetStringFromNode(xElement[XmlName_GroupNonEnglishCharactersText], null);
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            bool skipThe = XmlUtil.GetBoolFromNode(xElement[XmlName_SkipThe], true);
+            bool groupNumbers = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNumbers], true);
+            bool groupNonEnglishCharacters = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNonEnglishCharacters], false);
+            string groupNonEnglishCharactersText = XmlUtil.GetStringFromNode(xElement[XmlName_GroupNonEnglishCharactersText], null);
 
-            return new AutoCatName(name, prefix, skipThe, groupNumbers, groupNonEnglishCharacters,
-                groupNonEnglishCharactersText);
+            return new AutoCatName(name, prefix, skipThe, groupNumbers, groupNonEnglishCharacters, groupNonEnglishCharactersText);
         }
     }
 }

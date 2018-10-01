@@ -36,12 +36,12 @@ namespace Depressurizer
 
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            var levels = Enum.GetNames(typeof(LoggerLevel));
+            string[] levels = Enum.GetNames(typeof(LoggerLevel));
             cmbLogLevel.Items.AddRange(levels);
 
             //UI languages
-            var UILanguages = new List<string>();
-            foreach (var l in Enum.GetNames(typeof(UILanguage)))
+            List<string> UILanguages = new List<string>();
+            foreach (string l in Enum.GetNames(typeof(UILanguage)))
             {
                 string name;
                 switch (l)
@@ -60,8 +60,8 @@ namespace Depressurizer
             cmbUILanguage.Items.AddRange(UILanguages.ToArray());
 
             //Store Languages
-            var storeLanguages = new List<string>();
-            foreach (var l in Enum.GetNames(typeof(StoreLanguage)))
+            List<string> storeLanguages = new List<string>();
+            foreach (string l in Enum.GetNames(typeof(StoreLanguage)))
             {
                 string name;
                 switch (l)
@@ -93,7 +93,7 @@ namespace Depressurizer
 
         private void FillFieldsFromSettings()
         {
-            var settings = Settings.Instance;
+            Settings settings = Settings.Instance;
             txtSteamPath.Text = settings.SteamPath;
             txtDefaultProfile.Text = settings.ProfileToLoad;
             switch (settings.StartupAction)
@@ -143,15 +143,21 @@ namespace Depressurizer
 
         private void SaveFieldsToSettings()
         {
-            var settings = Settings.Instance;
+            Settings settings = Settings.Instance;
 
             settings.SteamPath = txtSteamPath.Text;
             if (radLoad.Checked)
+            {
                 settings.StartupAction = StartupAction.Load;
+            }
             else if (radCreate.Checked)
+            {
                 settings.StartupAction = StartupAction.Create;
+            }
             else
+            {
                 settings.StartupAction = StartupAction.None;
+            }
 
             switch (cmbDatSrc.SelectedIndex)
             {
@@ -191,8 +197,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + e.Message,
-                    GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(GlobalStrings.DlgOptions_ErrorSavingSettingsFile + e.Message, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -211,16 +216,22 @@ namespace Depressurizer
 
         private void cmdSteamPathBrowse_Click(object sender, EventArgs e)
         {
-            var dlg = new FolderBrowserDialog();
-            var res = dlg.ShowDialog();
-            if (res == DialogResult.OK) txtSteamPath.Text = dlg.SelectedPath;
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            DialogResult res = dlg.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtSteamPath.Text = dlg.SelectedPath;
+            }
         }
 
         private void cmdDefaultProfileBrowse_Click(object sender, EventArgs e)
         {
-            var dlg = new OpenFileDialog();
-            var res = dlg.ShowDialog();
-            if (res == DialogResult.OK) txtDefaultProfile.Text = dlg.FileName;
+            OpenFileDialog dlg = new OpenFileDialog();
+            DialogResult res = dlg.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtDefaultProfile.Text = dlg.FileName;
+            }
         }
 
         #endregion

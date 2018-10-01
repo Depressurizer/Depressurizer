@@ -36,7 +36,7 @@ namespace Depressurizer
 
         public static AutoCatConfigPanel CreatePanel(AutoCat ac, GameList ownedGames, List<AutoCat> autocats)
         {
-            var t = ac.AutoCatType;
+            AutoCatType t = ac.AutoCatType;
             switch (t)
             {
                 case AutoCatType.Genre:
@@ -81,14 +81,21 @@ namespace Depressurizer
 
         public override Type GetReflectionType(Type objectType, object instance)
         {
-            if (objectType == typeof(TAbstract)) return typeof(TInstantiable);
+            if (objectType == typeof(TAbstract))
+            {
+                return typeof(TInstantiable);
+            }
+
             return base.GetReflectionType(objectType, instance);
         }
 
-        public override object CreateInstance(IServiceProvider provider, Type objectType, Type[] argTypes,
-            object[] args)
+        public override object CreateInstance(IServiceProvider provider, Type objectType, Type[] argTypes, object[] args)
         {
-            if (objectType == typeof(TAbstract)) objectType = typeof(TInstantiable);
+            if (objectType == typeof(TAbstract))
+            {
+                objectType = typeof(TInstantiable);
+            }
+
             return base.CreateInstance(provider, objectType, argTypes, args);
         }
     }

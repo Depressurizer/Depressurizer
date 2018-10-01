@@ -22,8 +22,7 @@ namespace Depressurizer
 {
     internal class HltbPrcDlg : CancelableDlg
     {
-        public HltbPrcDlg()
-            : base(GlobalStrings.CDlgHltb_Title, false)
+        public HltbPrcDlg() : base(GlobalStrings.CDlgHltb_Title, false)
         {
             SetText(GlobalStrings.CDlgHltb_UpdateHltb);
             Updated = 0;
@@ -33,13 +32,16 @@ namespace Depressurizer
 
         protected override void RunProcess()
         {
-            Updated = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
+            Updated = Program.Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
             OnThreadCompletion();
         }
 
         protected override void Finish()
         {
-            if (!Canceled && Error == null) OnJobCompletion();
+            if (!Canceled && Error == null)
+            {
+                OnJobCompletion();
+            }
         }
     }
 }

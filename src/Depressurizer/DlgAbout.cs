@@ -35,7 +35,7 @@ namespace Depressurizer
         {
             lblVersion.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            var oldLen = lnkHomepage.Text.Length;
+            int oldLen = lnkHomepage.Text.Length;
             lnkHomepage.Text += Resources.DepressurizerHomepage;
             lnkHomepage.LinkArea = new LinkArea(oldLen, lnkHomepage.Text.Length - oldLen);
         }

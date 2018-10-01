@@ -2012,7 +2012,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GameDB saved..
+        ///   Looks up a localized string similar to Database saved..
         /// </summary>
         internal static string GameDB_GameDBSaved {
             get {
@@ -2021,7 +2021,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GameDB XML document parsed..
+        ///   Looks up a localized string similar to Database XML document parsed..
         /// </summary>
         internal static string GameDB_GameDBXMLParsed {
             get {
@@ -2030,7 +2030,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GameDB XML processed, load complete..
+        ///   Looks up a localized string similar to Database XML processed, load complete..
         /// </summary>
         internal static string GameDB_GameDBXMLProcessed {
             get {
@@ -2057,7 +2057,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading GameDB from {0}.
+        ///   Looks up a localized string similar to Loading Database from {0}.
         /// </summary>
         internal static string GameDB_LoadingGameDBFrom {
             get {
@@ -2084,7 +2084,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving GameDB to {0}.
+        ///   Looks up a localized string similar to Saving Database to {0}.
         /// </summary>
         internal static string GameDB_SavingGameDBTo {
             get {
@@ -2756,7 +2756,7 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GameDB file does not exist..
+        ///   Looks up a localized string similar to Database file does not exist..
         /// </summary>
         internal static string MainForm_GameDBFileNotExist {
             get {

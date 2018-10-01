@@ -443,13 +443,13 @@ Overgebleven tijd:</value>
     <value>Downloading Steam app list.</value>
   </data>
   <data name="GameDB_GameDBSaved" xml:space="preserve">
-    <value>GameDB saved.</value>
+    <value>Database saved.</value>
   </data>
   <data name="GameDB_GameDBXMLParsed" xml:space="preserve">
-    <value>GameDB XML document parsed.</value>
+    <value>Database XML document parsed.</value>
   </data>
   <data name="GameDB_GameDBXMLProcessed" xml:space="preserve">
-    <value>GameDB XML processed, load complete.</value>
+    <value>Database XML processed, load complete.</value>
   </data>
   <data name="GameDB_InitiatingStoreScrapeForGame" xml:space="preserve">
     <value>Initiating store scrape for game id {0}</value>
@@ -458,10 +458,10 @@ Overgebleven tijd:</value>
     <value>Loaded {0} new items from the app list.</value>
   </data>
   <data name="GameDB_LoadingGameDBFrom" xml:space="preserve">
-    <value>Loading GameDB from {0}</value>
+    <value>Loading Database from {0}</value>
   </data>
   <data name="GameDB_SavingGameDBTo" xml:space="preserve">
-    <value>GameDB opslaan in {0}</value>
+    <value>Database opslaan in {0}</value>
   </data>
   <data name="GameDB_ScrapingAgeCheckNoRedirect" xml:space="preserve">
     <value>Scraping {0}: Age check with no redirect</value>
@@ -647,7 +647,7 @@ Doorgaan met het laden van bestand?</value>
     <value>&lt;Favoriet&gt;</value>
   </data>
   <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
-    <value>GameDB bestand bestaat niet.</value>
+    <value>Database bestand bestaat niet.</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
     <value>{0} games hebben geen web-sourced data in de lokale database</value>

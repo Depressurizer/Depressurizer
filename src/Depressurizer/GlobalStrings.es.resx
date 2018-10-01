@@ -440,13 +440,13 @@ Tiempo Restante:</value>
     <value>Descargando lista de aplicaciones de Steam.</value>
   </data>
   <data name="GameDB_GameDBSaved" xml:space="preserve">
-    <value>GameDB guardada.</value>
+    <value>Database guardada.</value>
   </data>
   <data name="GameDB_GameDBXMLParsed" xml:space="preserve">
-    <value>Documento GameDB XML interpretado.</value>
+    <value>Documento Database XML interpretado.</value>
   </data>
   <data name="GameDB_GameDBXMLProcessed" xml:space="preserve">
-    <value>GameDB XML procesado, carga completa.</value>
+    <value>Database XML procesado, carga completa.</value>
   </data>
   <data name="GameDB_InitiatingStoreScrapeForGame" xml:space="preserve">
     <value>Iniciando extracción de la tienda para el juego ID {0}</value>
@@ -455,10 +455,10 @@ Tiempo Restante:</value>
     <value>Cargadas {0} nuevas entradas de la lista de aplicaciones.</value>
   </data>
   <data name="GameDB_LoadingGameDBFrom" xml:space="preserve">
-    <value>Cargando GameDB desde {0}</value>
+    <value>Cargando Database desde {0}</value>
   </data>
   <data name="GameDB_SavingGameDBTo" xml:space="preserve">
-    <value>Guardando GameDB a {0}</value>
+    <value>Guardando Database a {0}</value>
   </data>
   <data name="GameDB_ScrapingAgeCheckNoRedirect" xml:space="preserve">
     <value>Extrayendo {0}: comprobación de edad si redirección</value>
@@ -643,7 +643,7 @@ Tiempo Restante:</value>
     <value>&lt;Favoritos&gt;</value>
   </data>
   <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
-    <value>Fichero GameDB file no existe.</value>
+    <value>Fichero Database file no existe.</value>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
     <value>Ignorados {0} juegos {1}.</value>

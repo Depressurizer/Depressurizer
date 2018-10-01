@@ -22,8 +22,7 @@ namespace Rallion
 {
     public partial class GetStringDlg : Form
     {
-        public GetStringDlg(string initialValue = "", string title = "Enter value", string label = "Enter value:",
-            string accept = "OK")
+        public GetStringDlg(string initialValue = "", string title = "Enter value", string label = "Enter value:", string accept = "OK")
         {
             InitializeComponent();
             Value = initialValue;

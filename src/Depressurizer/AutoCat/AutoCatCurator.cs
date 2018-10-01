@@ -33,17 +33,12 @@ namespace Depressurizer
 
         private Dictionary<int, CuratorRecommendation> curatorRecommendations;
 
-        public AutoCatCurator(string name, string filter = null, string categoryName = null, string curatorUrl = null,
-            List<CuratorRecommendation> includedRecommendations = null,
-            bool selected = false)
-            : base(name)
+        public AutoCatCurator(string name, string filter = null, string categoryName = null, string curatorUrl = null, List<CuratorRecommendation> includedRecommendations = null, bool selected = false) : base(name)
         {
             Filter = filter;
             CategoryName = categoryName;
             CuratorUrl = curatorUrl;
-            IncludedRecommendations = includedRecommendations == null
-                ? new List<CuratorRecommendation>()
-                : includedRecommendations;
+            IncludedRecommendations = includedRecommendations == null ? new List<CuratorRecommendation>() : includedRecommendations;
             Selected = selected;
         }
 
@@ -52,15 +47,12 @@ namespace Depressurizer
         {
         }
 
-        protected AutoCatCurator(AutoCatCurator other)
-            : base(other)
+        protected AutoCatCurator(AutoCatCurator other) : base(other)
         {
             Filter = other.Filter;
             CategoryName = other.CategoryName;
             CuratorUrl = other.CuratorUrl;
-            IncludedRecommendations = other.IncludedRecommendations == null
-                ? new List<CuratorRecommendation>()
-                : other.IncludedRecommendations;
+            IncludedRecommendations = other.IncludedRecommendations == null ? new List<CuratorRecommendation>() : other.IncludedRecommendations;
             Selected = other.Selected;
         }
 
@@ -80,7 +72,7 @@ namespace Depressurizer
             return new AutoCatCurator(this);
         }
 
-        public override void PreProcess(GameList games, GameDB db)
+        public override void PreProcess(GameList games, Database db)
         {
             this.games = games;
             this.db = db;
@@ -90,26 +82,22 @@ namespace Depressurizer
 
         private void GetRecommendations()
         {
-            var curatorIdRegex = new Regex(@"(?:https?://)?store.steampowered.com/curator/(\d+)([^\/]*)/?",
-                RegexOptions.Singleline | RegexOptions.Compiled);
-            var m = curatorIdRegex.Match(CuratorUrl);
-            if (!m.Success || !long.TryParse(m.Groups[1].Value, out var curatorId))
+            Regex curatorIdRegex = new Regex(@"(?:https?://)?store.steampowered.com/curator/(\d+)([^\/]*)/?", RegexOptions.Singleline | RegexOptions.Compiled);
+            Match m = curatorIdRegex.Match(CuratorUrl);
+            if (!m.Success || !long.TryParse(m.Groups[1].Value, out long curatorId))
             {
                 Program.Logger.Write(LoggerLevel.Error, $"Failed to parse curator id from url {CuratorUrl}.");
-                MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_CuratorIdParsing_Error, CuratorUrl),
-                    GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_CuratorIdParsing_Error, CuratorUrl), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var dlg = new GetCuratorRecommendationsDlg(curatorId);
-            var res = dlg.ShowDialog();
+            GetCuratorRecommendationsDlg dlg = new GetCuratorRecommendationsDlg(curatorId);
+            DialogResult res = dlg.ShowDialog();
 
             if (dlg.Error != null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.AutocatCurator_GetRecommendations_Error,
-                    dlg.Error.Message);
-                MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message),
-                    GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message);
+                MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (res != DialogResult.Cancel && res != DialogResult.Abort)
             {
@@ -131,15 +119,20 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (curatorRecommendations == null || curatorRecommendations.Count == 0) return AutoCatResult.Failure;
-
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
-
-            if (curatorRecommendations.ContainsKey(game.Id) &&
-                IncludedRecommendations.Contains(curatorRecommendations[game.Id]))
+            if (curatorRecommendations == null || curatorRecommendations.Count == 0)
             {
-                var typeName = Utility.GetEnumDescription(curatorRecommendations[game.Id]);
-                var c = games.GetCategory(GetProcessedString(typeName));
+                return AutoCatResult.Failure;
+            }
+
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
+
+            if (curatorRecommendations.ContainsKey(game.Id) && IncludedRecommendations.Contains(curatorRecommendations[game.Id]))
+            {
+                string typeName = Utility.GetEnumDescription(curatorRecommendations[game.Id]);
+                Category c = games.GetCategory(GetProcessedString(typeName));
                 game.AddCategory(c);
             }
 
@@ -148,7 +141,11 @@ namespace Depressurizer
 
         private string GetProcessedString(string type)
         {
-            if (!string.IsNullOrEmpty(CategoryName)) return CategoryName.Replace("{type}", type);
+            if (!string.IsNullOrEmpty(CategoryName))
+            {
+                return CategoryName.Replace("{type}", type);
+            }
+
             return type;
         }
     }

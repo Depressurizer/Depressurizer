@@ -17,6 +17,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Depressurizer
@@ -36,39 +37,59 @@ namespace Depressurizer
         {
             lstIncluded.Items.Clear();
 
-            if (Program.GameDB != null)
+            if (Program.Database != null)
             {
-                var flagsList = Program.GameDB.GetAllStoreFlags();
+                SortedSet<string> flagsList = Program.Database.GetAllStoreFlags();
 
-                foreach (var s in flagsList) lstIncluded.Items.Add(s);
+                foreach (string s in flagsList)
+                {
+                    lstIncluded.Items.Add(s);
+                }
             }
         }
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatFlags;
-            if (ac == null) return;
+            AutoCatFlags ac = autocat as AutoCatFlags;
+            if (ac == null)
+            {
+                return;
+            }
 
             txtPrefix.Text = ac.Prefix;
 
-            foreach (ListViewItem item in lstIncluded.Items) item.Checked = ac.IncludedFlags.Contains(item.Text);
+            foreach (ListViewItem item in lstIncluded.Items)
+            {
+                item.Checked = ac.IncludedFlags.Contains(item.Text);
+            }
         }
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatFlags;
-            if (ac == null) return;
+            AutoCatFlags ac = autocat as AutoCatFlags;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
 
             ac.IncludedFlags.Clear();
             foreach (ListViewItem i in lstIncluded.Items)
+            {
                 if (i.Checked)
+                {
                     ac.IncludedFlags.Add(i.Text);
+                }
+            }
         }
 
         private void SetAllListCheckStates(ListView list, bool to)
         {
-            foreach (ListViewItem item in list.Items) item.Checked = to;
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
         }
 
         private void cmdCheckAll_Click(object sender, EventArgs e)

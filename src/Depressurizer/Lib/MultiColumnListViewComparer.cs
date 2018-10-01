@@ -32,13 +32,12 @@ namespace Depressurizer
     /// </summary>
     public class MultiColumnListViewComparer : IComparer
     {
+        private readonly HashSet<int> _intCols = new HashSet<int>();
+        private readonly HashSet<int> _revCols = new HashSet<int>();
         private bool _asInt;
         private int _col;
         private int _direction;
-
-        private readonly HashSet<int> _intCols = new HashSet<int>();
         private bool _rev;
-        private readonly HashSet<int> _revCols = new HashSet<int>();
 
         public MultiColumnListViewComparer(int column = 0, int dir = 1)
         {
@@ -49,23 +48,34 @@ namespace Depressurizer
 
         public int Compare(object x, object y)
         {
-            var strA = ((ListViewItem) x).SubItems[_col].Text;
-            var strB = ((ListViewItem) y).SubItems[_col].Text;
+            string strA = ((ListViewItem) x).SubItems[_col].Text;
+            string strB = ((ListViewItem) y).SubItems[_col].Text;
 
-            var dir = _direction * (_rev ? -1 : 1);
+            int dir = _direction * (_rev ? -1 : 1);
             if (_asInt)
             {
                 int a, b;
-                if (int.TryParse(strA, out a) && int.TryParse(strB, out b)) return dir * (a - b);
+                if (int.TryParse(strA, out a) && int.TryParse(strB, out b))
+                {
+                    return dir * (a - b);
+                }
             }
 
             if (string.IsNullOrEmpty(strA))
             {
-                if (string.IsNullOrEmpty(strB)) return 0;
+                if (string.IsNullOrEmpty(strB))
+                {
+                    return 0;
+                }
+
                 return dir;
             }
 
-            if (string.IsNullOrEmpty(strB)) return -dir;
+            if (string.IsNullOrEmpty(strB))
+            {
+                return -dir;
+            }
+
             return dir * string.Compare(strA, strB);
         }
 
@@ -74,9 +84,13 @@ namespace Depressurizer
             if (forceDir == 0)
             {
                 if (clickedCol == _col)
+                {
                     _direction = -_direction;
+                }
                 else
+                {
                     _direction = 1;
+                }
             }
             else
             {
@@ -145,19 +159,22 @@ namespace Depressurizer
 
         public static void SetSortIcon(this ListView listViewControl, int columnIndex, SortOrder order)
         {
-            var columnHeader = SendMessage(listViewControl.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
-            for (var columnNumber = 0; columnNumber <= listViewControl.Columns.Count - 1; columnNumber++)
+            IntPtr columnHeader = SendMessage(listViewControl.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
+            for (int columnNumber = 0; columnNumber <= listViewControl.Columns.Count - 1; columnNumber++)
             {
-                var columnPtr = new IntPtr(columnNumber);
-                var item = new HDITEM
+                IntPtr columnPtr = new IntPtr(columnNumber);
+                HDITEM item = new HDITEM
                 {
                     mask = HDITEM.Mask.Format
                 };
 
                 if (SendMessage(columnHeader, HDM_GETITEM, columnPtr, ref item) == IntPtr.Zero)
+                {
                     throw new Win32Exception();
+                }
 
                 if (order != SortOrder.None && columnNumber == columnIndex)
+                {
                     switch (order)
                     {
                         case SortOrder.Ascending:
@@ -169,11 +186,16 @@ namespace Depressurizer
                             item.fmt |= HDITEM.Format.SortDown;
                             break;
                     }
+                }
                 else
+                {
                     item.fmt &= ~HDITEM.Format.SortDown & ~HDITEM.Format.SortUp;
+                }
 
                 if (SendMessage(columnHeader, HDM_SETITEM, columnPtr, ref item) == IntPtr.Zero)
+                {
                     throw new Win32Exception();
+                }
             }
         }
 

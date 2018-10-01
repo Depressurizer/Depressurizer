@@ -34,7 +34,7 @@ namespace Depressurizer
         {
             if (node != null)
             {
-                var textNode = node.SelectSingleNode("text()");
+                XmlNode textNode = node.SelectSingleNode("text()");
                 if (textNode != null)
                 {
                     value = node.InnerText;
@@ -56,8 +56,11 @@ namespace Depressurizer
         {
             if (node != null)
             {
-                var textNode = node.SelectSingleNode("text()");
-                if (textNode != null && int.TryParse(textNode.InnerText, out value)) return true;
+                XmlNode textNode = node.SelectSingleNode("text()");
+                if (textNode != null && int.TryParse(textNode.InnerText, out value))
+                {
+                    return true;
+                }
             }
 
             value = 0;
@@ -74,8 +77,11 @@ namespace Depressurizer
         {
             if (node != null)
             {
-                var textNode = node.SelectSingleNode("text()");
-                if (textNode != null && float.TryParse(textNode.InnerText, out value)) return true;
+                XmlNode textNode = node.SelectSingleNode("text()");
+                if (textNode != null && float.TryParse(textNode.InnerText, out value))
+                {
+                    return true;
+                }
             }
 
             value = 0;
@@ -92,8 +98,11 @@ namespace Depressurizer
         {
             if (node != null)
             {
-                var textNode = node.SelectSingleNode("text()");
-                if (textNode != null && long.TryParse(textNode.InnerText, out value)) return true;
+                XmlNode textNode = node.SelectSingleNode("text()");
+                if (textNode != null && long.TryParse(textNode.InnerText, out value))
+                {
+                    return true;
+                }
             }
 
             value = 0;
@@ -110,8 +119,11 @@ namespace Depressurizer
         {
             if (node != null)
             {
-                var textNode = node.SelectSingleNode("text()");
-                if (textNode != null && bool.TryParse(textNode.InnerText, out value)) return true;
+                XmlNode textNode = node.SelectSingleNode("text()");
+                if (textNode != null && bool.TryParse(textNode.InnerText, out value))
+                {
+                    return true;
+                }
             }
 
             value = false;
@@ -122,8 +134,11 @@ namespace Depressurizer
         {
             if (node != null)
             {
-                var att = node.Attributes["attName"];
-                if (att != null) return att.Value;
+                XmlAttribute att = node.Attributes["attName"];
+                if (att != null)
+                {
+                    return att.Value;
+                }
             }
 
             return null;
@@ -137,23 +152,29 @@ namespace Depressurizer
 
         public static bool TryGetBoolFromAttribute(XmlNode node, string attName, out bool value)
         {
-            var attText = GetAttributeText(node, attName);
-            if (attText != null && bool.TryParse(attText, out value)) return true;
+            string attText = GetAttributeText(node, attName);
+            if (attText != null && bool.TryParse(attText, out value))
+            {
+                return true;
+            }
+
             value = false;
             return false;
         }
 
-        public static TEnum GetEnumFromNode<TEnum>(XmlNode node, TEnum defaultValue)
-            where TEnum : struct, IComparable, IConvertible, IFormattable
+        public static TEnum GetEnumFromNode<TEnum>(XmlNode node, TEnum defaultValue) where TEnum : struct, IComparable, IConvertible, IFormattable
         {
             if (node != null)
             {
-                var textNode = node.SelectSingleNode("text()");
+                XmlNode textNode = node.SelectSingleNode("text()");
                 if (textNode != null)
                 {
-                    var str = textNode.InnerText;
-                    var res = defaultValue;
-                    if (Enum.TryParse(str, out res)) return res;
+                    string str = textNode.InnerText;
+                    TEnum res = defaultValue;
+                    if (Enum.TryParse(str, out res))
+                    {
+                        return res;
+                    }
                 }
             }
 
@@ -162,14 +183,21 @@ namespace Depressurizer
 
         public static List<string> GetStringsFromNodeList(XmlNodeList nodeList)
         {
-            var result = new List<string>();
+            List<string> result = new List<string>();
             foreach (XmlNode node in nodeList)
             {
-                var s = GetStringFromNode(node, null);
-                if (s != null) result.Add(s);
+                string s = GetStringFromNode(node, null);
+                if (s != null)
+                {
+                    result.Add(s);
+                }
             }
 
-            if (result.Count == 0) return null;
+            if (result.Count == 0)
+            {
+                return null;
+            }
+
             return result;
         }
     }

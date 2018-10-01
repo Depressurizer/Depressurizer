@@ -29,8 +29,7 @@ namespace Depressurizer
 
         private readonly BindingSource binding = new BindingSource();
 
-        private readonly Dictionary<string, UserScorePresetDelegate> presetMap =
-            new Dictionary<string, UserScorePresetDelegate>();
+        private readonly Dictionary<string, UserScorePresetDelegate> presetMap = new Dictionary<string, UserScorePresetDelegate>();
 
         private readonly BindingList<UserScore_Rule> ruleList = new BindingList<UserScore_Rule>();
 
@@ -59,7 +58,11 @@ namespace Depressurizer
             // Set up preset list
             presetMap.Add(GlobalStrings.AutoCatUserScore_Preset_Name_SteamLabels, GenerateSteamRules);
 
-            foreach (var s in presetMap.Keys) cmbPresets.Items.Add(s);
+            foreach (string s in presetMap.Keys)
+            {
+                cmbPresets.Items.Add(s);
+            }
+
             cmbPresets.SelectedIndex = 0;
 
             UpdateEnabledSettings();
@@ -67,8 +70,11 @@ namespace Depressurizer
 
         public override void SaveToAutoCat(AutoCat ac)
         {
-            var acScore = ac as AutoCatUserScore;
-            if (ac == null) return;
+            AutoCatUserScore acScore = ac as AutoCatUserScore;
+            if (ac == null)
+            {
+                return;
+            }
 
             acScore.Prefix = txtPrefix.Text;
             acScore.UseWilsonScore = chkUseWilsonScore.Checked;
@@ -77,14 +83,21 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
-            var acScore = ac as AutoCatUserScore;
-            if (ac == null) return;
+            AutoCatUserScore acScore = ac as AutoCatUserScore;
+            if (ac == null)
+            {
+                return;
+            }
 
             txtPrefix.Text = acScore.Prefix;
             chkUseWilsonScore.Checked = acScore.UseWilsonScore;
 
             ruleList.Clear();
-            foreach (var rule in acScore.Rules) ruleList.Add(new UserScore_Rule(rule));
+            foreach (UserScore_Rule rule in acScore.Rules)
+            {
+                ruleList.Add(new UserScore_Rule(rule));
+            }
+
             UpdateEnabledSettings();
         }
 
@@ -93,12 +106,9 @@ namespace Depressurizer
         /// </summary>
         private void UpdateEnabledSettings()
         {
-            var ruleSelected = lstRules.SelectedIndex >= 0;
+            bool ruleSelected = lstRules.SelectedIndex >= 0;
 
-            txtRuleName.Enabled =
-                numRuleMaxScore.Enabled = numRuleMinScore.Enabled =
-                    numRuleMinReviews.Enabled = numRuleMaxReviews.Enabled =
-                        cmdRuleRemove.Enabled = ruleSelected;
+            txtRuleName.Enabled = numRuleMaxScore.Enabled = numRuleMinScore.Enabled = numRuleMinReviews.Enabled = numRuleMaxReviews.Enabled = cmdRuleRemove.Enabled = ruleSelected;
             cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
             cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
         }
@@ -112,14 +122,19 @@ namespace Depressurizer
         /// <param name="selectMoved">If true, select the moved element afterwards</param>
         private void MoveItem(int mainIndex, int offset, bool selectMoved)
         {
-            var alterIndex = mainIndex + offset;
-            if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 ||
-                alterIndex >= lstRules.Items.Count) return;
+            int alterIndex = mainIndex + offset;
+            if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 || alterIndex >= lstRules.Items.Count)
+            {
+                return;
+            }
 
-            var mainItem = ruleList[mainIndex];
+            UserScore_Rule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
-            if (selectMoved) lstRules.SelectedIndex = alterIndex;
+            if (selectMoved)
+            {
+                lstRules.SelectedIndex = alterIndex;
+            }
         }
 
         /// <summary>
@@ -130,15 +145,15 @@ namespace Depressurizer
         private void ApplyPreset(string name)
         {
             if (name != null && presetMap.ContainsKey(name))
-                if (ruleList.Count == 0 || MessageBox.Show(GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset,
-                        GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                    == DialogResult.Yes)
+            {
+                if (ruleList.Count == 0 || MessageBox.Show(GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    var dlgt = presetMap[name];
+                    UserScorePresetDelegate dlgt = presetMap[name];
                     ruleList.Clear();
                     dlgt(ruleList);
                     UpdateEnabledSettings();
                 }
+            }
         }
 
         /// <summary>
@@ -146,7 +161,7 @@ namespace Depressurizer
         /// </summary>
         private void AddRule()
         {
-            var newRule = new UserScore_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 100, 0, 0);
+            UserScore_Rule newRule = new UserScore_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 100, 0, 0);
             ruleList.Add(newRule);
             lstRules.SelectedIndex = lstRules.Items.Count - 1;
         }
@@ -157,7 +172,10 @@ namespace Depressurizer
         /// <param name="index">Index of the rule to remove</param>
         private void RemoveRule(int index)
         {
-            if (index >= 0) ruleList.RemoveAt(index);
+            if (index >= 0)
+            {
+                ruleList.RemoveAt(index);
+            }
         }
 
         #region Preset generators

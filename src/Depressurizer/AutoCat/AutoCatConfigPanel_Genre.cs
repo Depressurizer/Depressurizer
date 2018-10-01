@@ -17,6 +17,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Depressurizer
@@ -38,13 +39,13 @@ namespace Depressurizer
         {
             lstIgnore.Items.Clear();
 
-            if (Program.GameDB != null)
+            if (Program.Database != null)
             {
-                var genreList = Program.GameDB.GetAllGenres();
+                SortedSet<string> genreList = Program.Database.GetAllGenres();
 
-                foreach (var s in genreList)
+                foreach (string s in genreList)
                 {
-                    var l = new ListViewItem();
+                    ListViewItem l = new ListViewItem();
                     l.Text = s;
                     l.Checked = true;
                     lstIgnore.Items.Add(l);
@@ -54,20 +55,31 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatGenre;
-            if (ac == null) return;
+            AutoCatGenre ac = autocat as AutoCatGenre;
+            if (ac == null)
+            {
+                return;
+            }
+
             chkRemoveExisting.Checked = ac.RemoveOtherGenres;
             chkTagFallback.Checked = ac.TagFallback;
             numMaxCats.Value = ac.MaxCategories;
             txtPrefix.Text = ac.Prefix;
 
-            foreach (ListViewItem item in lstIgnore.Items) item.Checked = !ac.IgnoredGenres.Contains(item.Text);
+            foreach (ListViewItem item in lstIgnore.Items)
+            {
+                item.Checked = !ac.IgnoredGenres.Contains(item.Text);
+            }
         }
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatGenre;
-            if (ac == null) return;
+            AutoCatGenre ac = autocat as AutoCatGenre;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
             ac.MaxCategories = (int) numMaxCats.Value;
             ac.RemoveOtherGenres = chkRemoveExisting.Checked;
@@ -75,13 +87,20 @@ namespace Depressurizer
 
             ac.IgnoredGenres.Clear();
             foreach (ListViewItem i in lstIgnore.Items)
+            {
                 if (!i.Checked)
+                {
                     ac.IgnoredGenres.Add(i.Text);
+                }
+            }
         }
 
         private void SetAllListCheckStates(ListView list, bool to)
         {
-            foreach (ListViewItem item in list.Items) item.Checked = to;
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
         }
 
         private void cmdCheckAll_Click(object sender, EventArgs e)

@@ -26,6 +26,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Cache;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using Depressurizer.Properties;
@@ -53,8 +54,8 @@ namespace Depressurizer
 
         public static CultureInfo GetCultureInfoFromStoreLanguage(StoreLanguage dbLanguage)
         {
-            var l = Enum.GetName(typeof(StoreLanguage), dbLanguage);
-            var culture = CultureInfo.GetCultureInfo("en");
+            string l = Enum.GetName(typeof(StoreLanguage), dbLanguage);
+            CultureInfo culture = CultureInfo.GetCultureInfo("en");
             if (l == "zh_Hans")
             {
                 culture = CultureInfo.GetCultureInfo("zh-Hans");
@@ -69,7 +70,7 @@ namespace Depressurizer
             }
             else if (l == "windows")
             {
-                var currentCulture = Thread.CurrentThread.CurrentCulture;
+                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                 if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
                 {
                     culture = currentCulture;
@@ -77,11 +78,17 @@ namespace Depressurizer
                 else
                 {
                     if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
+                    {
                         culture = CultureInfo.GetCultureInfo("zh-Hans");
+                    }
                     else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
+                    {
                         culture = CultureInfo.GetCultureInfo("zh-Hant");
+                    }
                     else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
+                    {
                         culture = CultureInfo.GetCultureInfo("pt-BR");
+                    }
                 }
             }
             else
@@ -103,8 +110,12 @@ namespace Depressurizer
         /// <param name="maxBackups">The number of old versions to maintain</param>
         public static void BackupFile(string filePath, int maxBackups)
         {
-            if (maxBackups < 1) return;
-            var targetPath = BackupFile_ClearSlot(filePath, maxBackups, 1);
+            if (maxBackups < 1)
+            {
+                return;
+            }
+
+            string targetPath = BackupFile_ClearSlot(filePath, maxBackups, 1);
             File.Copy(filePath, targetPath);
         }
 
@@ -120,15 +131,19 @@ namespace Depressurizer
         /// <returns>The path of the cleared slot</returns>
         private static string BackupFile_ClearSlot(string basePath, int maxBackups, int current)
         {
-            var thisPath = BackupFile_GetName(basePath, current);
-            if (!File.Exists(thisPath)) return thisPath;
+            string thisPath = BackupFile_GetName(basePath, current);
+            if (!File.Exists(thisPath))
+            {
+                return thisPath;
+            }
+
             if (current >= maxBackups)
             {
                 File.Delete(thisPath);
                 return thisPath;
             }
 
-            var moveTarget = BackupFile_ClearSlot(basePath, maxBackups, current + 1);
+            string moveTarget = BackupFile_ClearSlot(basePath, maxBackups, current + 1);
             File.Move(thisPath, moveTarget);
             return thisPath;
         }
@@ -141,7 +156,11 @@ namespace Depressurizer
         /// <returns>The name</returns>
         private static string BackupFile_GetName(string baseName, int slotNum)
         {
-            if (slotNum == 0) return baseName;
+            if (slotNum == 0)
+            {
+                return baseName;
+            }
+
             return string.Format("{0}.bak_{1}", baseName, slotNum);
         }
 
@@ -190,9 +209,17 @@ namespace Depressurizer
         /// <returns>int containing unix time</returns>
         public static int GetUTime(DateTime dt)
         {
-            var tSecs = (dt - epoch).TotalSeconds;
-            if (tSecs > int.MaxValue) return int.MaxValue;
-            if (tSecs < 0) return 0;
+            double tSecs = (dt - epoch).TotalSeconds;
+            if (tSecs > int.MaxValue)
+            {
+                return int.MaxValue;
+            }
+
+            if (tSecs < 0)
+            {
+                return 0;
+            }
+
             return (int) tSecs;
         }
 
@@ -218,12 +245,23 @@ namespace Depressurizer
         /// <returns>0 if equal, negative if a is greater, positive if b is greater</returns>
         public static int CompareLists(List<string> a, List<string> b)
         {
-            if (a == null) return b == null ? 0 : 1;
-            if (b == null) return -1;
-            for (var i = 0; i < a.Count && i < b.Count; i++)
+            if (a == null)
             {
-                var res = string.Compare(a[i], b[i]);
-                if (res != 0) return res;
+                return b == null ? 0 : 1;
+            }
+
+            if (b == null)
+            {
+                return -1;
+            }
+
+            for (int i = 0; i < a.Count && i < b.Count; i++)
+            {
+                int res = string.Compare(a[i], b[i]);
+                if (res != 0)
+                {
+                    return res;
+                }
             }
 
             return b.Count - a.Count;
@@ -239,8 +277,16 @@ namespace Depressurizer
         /// <returns>If val is between min and max, return val. If greater than max, return max. If less than min, return min.</returns>
         public static T Clamp<T>(T val, T min, T max) where T : IComparable<T>
         {
-            if (val.CompareTo(min) < 0) return min;
-            if (val.CompareTo(max) > 0) return max;
+            if (val.CompareTo(min) < 0)
+            {
+                return min;
+            }
+
+            if (val.CompareTo(max) > 0)
+            {
+                return max;
+            }
+
             return val;
         }
 
@@ -253,8 +299,9 @@ namespace Depressurizer
             catch
             {
                 if (!ignoreWarning.Contains(id))
-                    Program.Logger.Write(LoggerLevel.Warning,
-                        string.Format(GlobalStrings.Utility_GetImage, url));
+                {
+                    Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+                }
             }
 
             return null;
@@ -264,25 +311,25 @@ namespace Depressurizer
         {
             try
             {
-                var request = (HttpWebRequest) WebRequest.Create(url);
-                var response = (HttpWebResponse) request.GetResponse();
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse) request.GetResponse();
 
                 // Check that the remote file was found. The ContentType
                 // check is performed since a request for a non-existent
                 // image file might be redirected to a 404-page, which would
                 // yield the StatusCode "OK", even though the image was not
                 // found.
-                if ((response.StatusCode == HttpStatusCode.OK ||
-                     response.StatusCode == HttpStatusCode.Moved ||
-                     response.StatusCode == HttpStatusCode.Redirect) &&
-                    response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+                if ((response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Moved || response.StatusCode == HttpStatusCode.Redirect) && response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase))
+                {
                     return response.GetResponseStream();
+                }
             }
             catch
             {
                 if (!ignoreWarning.Contains(id))
-                    Program.Logger.Write(LoggerLevel.Warning,
-                        string.Format(GlobalStrings.Utility_GetImage, url));
+                {
+                    Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.Utility_GetImage, url));
+                }
             }
 
             return null;
@@ -292,13 +339,16 @@ namespace Depressurizer
         {
             try
             {
-                using (var inputStream = GetRemoteImageStream(url, id))
+                using (Stream inputStream = GetRemoteImageStream(url, id))
                 {
-                    if (inputStream == null) return false;
+                    if (inputStream == null)
+                    {
+                        return false;
+                    }
 
                     using (Stream outputStream = File.OpenWrite(localPath))
                     {
-                        var buffer = new byte[4096];
+                        byte[] buffer = new byte[4096];
                         int bytesRead;
                         do
                         {
@@ -319,33 +369,36 @@ namespace Depressurizer
 
         public static bool GrabBanner(int id)
         {
-            var bannerURL = string.Format(Resources.UrlGameBanner, id);
-            var bannerPath = string.Format(Resources.GameBannerPath,
-                Path.GetDirectoryName(Application.ExecutablePath), id);
+            string bannerURL = string.Format(Resources.UrlGameBanner, id);
+            string bannerPath = string.Format(Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id);
 
             try
             {
                 if (!Directory.Exists(Path.GetDirectoryName(bannerPath)))
+                {
                     Directory.CreateDirectory(Path.GetDirectoryName(bannerPath));
+                }
 
                 return SaveRemoteImageToFile(bannerURL, bannerPath, id);
             }
             catch
             {
-                Program.Logger.Write(LoggerLevel.Warning,
-                    string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
+                Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
                 return false;
             }
         }
 
         public static bool IsOnScreen(MaterialForm form)
         {
-            var screens = Screen.AllScreens;
-            foreach (var screen in screens)
+            Screen[] screens = Screen.AllScreens;
+            foreach (Screen screen in screens)
             {
-                var formTopLeft = new Point(form.Left, form.Top);
+                Point formTopLeft = new Point(form.Left, form.Top);
 
-                if (screen.WorkingArea.Contains(formTopLeft)) return true;
+                if (screen.WorkingArea.Contains(formTopLeft))
+                {
+                    return true;
+                }
             }
 
             return false;
@@ -353,13 +406,15 @@ namespace Depressurizer
 
         public static string GetEnumDescription(Enum value)
         {
-            var fi = value.GetType().GetField(value.ToString());
+            FieldInfo fi = value.GetType().GetField(value.ToString());
 
-            var attributes =
-                (DescriptionAttribute[]) fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            DescriptionAttribute[] attributes = (DescriptionAttribute[]) fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             if (attributes != null && attributes.Length > 0)
+            {
                 return attributes[0].Description;
+            }
+
             return value.ToString();
         }
 
@@ -367,16 +422,20 @@ namespace Depressurizer
         {
             // Checking selected item
             if (lb.SelectedItem == null || lb.SelectedIndex < 0 || lb.SelectedItems.Count > 1)
+            {
                 return; // No selected item or more than one item selected - nothing to do
+            }
 
             // Calculate new index using move direction
-            var newIndex = lb.SelectedIndex + direction;
+            int newIndex = lb.SelectedIndex + direction;
 
             // Checking bounds of the range
             if (newIndex < 0 || newIndex >= lb.Items.Count)
+            {
                 return; // Index out of range - nothing to do
+            }
 
-            var selected = lb.SelectedItem;
+            object selected = lb.SelectedItem;
 
             // Removing removable element
             lb.Items.Remove(selected);

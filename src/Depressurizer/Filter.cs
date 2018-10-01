@@ -10,14 +10,7 @@ namespace Depressurizer
         // Serialization strings
         private const string TypeIdString = "Filter";
 
-        private const string
-            XmlName_Name = "Name",
-            XmlName_Uncategorized = "Uncategorized",
-            XmlName_Hidden = "Hidden",
-            XmlName_VR = "VR",
-            XmlName_Allow = "Allow",
-            XmlName_Require = "Require",
-            XmlName_Exclude = "Exclude";
+        private const string XmlName_Name = "Name", XmlName_Uncategorized = "Uncategorized", XmlName_Hidden = "Hidden", XmlName_VR = "VR", XmlName_Allow = "Allow", XmlName_Require = "Require", XmlName_Exclude = "Exclude";
 
         private SortedSet<Category> _allow;
 
@@ -61,14 +54,23 @@ namespace Depressurizer
 
         public int CompareTo(object o)
         {
-            if (o == null) return 1;
+            if (o == null)
+            {
+                return 1;
+            }
 
-            var otherFilter = o as Filter;
-            if (o == null) throw new ArgumentException(GlobalStrings.Category_Exception_ObjectNotCategory);
+            Filter otherFilter = o as Filter;
+            if (o == null)
+            {
+                throw new ArgumentException(GlobalStrings.Category_Exception_ObjectNotCategory);
+            }
 
-            var comp = string.Compare(Name, otherFilter.Name, StringComparison.OrdinalIgnoreCase);
+            int comp = string.Compare(Name, otherFilter.Name, StringComparison.OrdinalIgnoreCase);
 
-            if (comp == 0) return 0;
+            if (comp == 0)
+            {
+                return 0;
+            }
 
             return comp;
         }
@@ -89,11 +91,20 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Hidden, Hidden.ToString());
             writer.WriteElementString(XmlName_VR, VR.ToString());
 
-            foreach (var c in Allow) writer.WriteElementString(XmlName_Allow, c.Name);
+            foreach (Category c in Allow)
+            {
+                writer.WriteElementString(XmlName_Allow, c.Name);
+            }
 
-            foreach (var c in Require) writer.WriteElementString(XmlName_Require, c.Name);
+            foreach (Category c in Require)
+            {
+                writer.WriteElementString(XmlName_Require, c.Name);
+            }
 
-            foreach (var c in Exclude) writer.WriteElementString(XmlName_Exclude, c.Name);
+            foreach (Category c in Exclude)
+            {
+                writer.WriteElementString(XmlName_Exclude, c.Name);
+            }
 
             writer.WriteEndElement(); // Filter
 

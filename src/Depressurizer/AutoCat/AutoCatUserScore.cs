@@ -91,24 +91,13 @@ namespace Depressurizer
 
         public const string TypeIdString = "AutoCatUserScore";
 
-        public const string XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Prefix = "Prefix",
-            XmlName_UseWilsonScore = "UseWilsonScore",
-            XmlName_Rule = "Rule",
-            XmlName_Rule_Text = "Text",
-            XmlName_Rule_MinScore = "MinScore",
-            XmlName_Rule_MaxScore = "MaxScore",
-            XmlName_Rule_MinReviews = "MinReviews",
-            XmlName_Rule_MaxReviews = "MaxReviews";
+        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_UseWilsonScore = "UseWilsonScore", XmlName_Rule = "Rule", XmlName_Rule_Text = "Text", XmlName_Rule_MinScore = "MinScore", XmlName_Rule_MaxScore = "MaxScore", XmlName_Rule_MinReviews = "MinReviews", XmlName_Rule_MaxReviews = "MaxReviews";
 
         #endregion
 
         #region Construction
 
-        public AutoCatUserScore(string name, string filter = null, string prefix = null,
-            bool useWilsonScore = false, List<UserScore_Rule> rules = null, bool selected = false)
-            : base(name)
+        public AutoCatUserScore(string name, string filter = null, string prefix = null, bool useWilsonScore = false, List<UserScore_Rule> rules = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -122,8 +111,7 @@ namespace Depressurizer
         {
         }
 
-        public AutoCatUserScore(AutoCatUserScore other)
-            : base(other)
+        public AutoCatUserScore(AutoCatUserScore other) : base(other)
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
@@ -161,12 +149,18 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id))
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
-            var score = db.Games[game.Id].ReviewPositivePercentage;
-            var reviews = db.Games[game.Id].ReviewTotal;
+            int score = db.Games[game.Id].ReviewPositivePercentage;
+            int reviews = db.Games[game.Id].ReviewTotal;
             if (UseWilsonScore && reviews > 0)
             {
                 // calculate the lower bound of the Wilson interval for 95 % confidence
@@ -178,23 +172,23 @@ namespace Depressurizer
                 // $n$ is the total number of ratings (the sample size), and
                 // $z$ is the $1-{\frac {\alpha}{2}}$ quantile of a standard normal distribution
                 // for 95% confidence, the $z = 1.96$
-                var
-                    z = 1.96; // normal distribution of (1-(1-confidence)/2), i.e. normal distribution of 0.975 for 95% confidence
-                var p = score / 100.0;
+                double z = 1.96; // normal distribution of (1-(1-confidence)/2), i.e. normal distribution of 0.975 for 95% confidence
+                double p = score / 100.0;
                 double n = reviews;
-                p = Math.Round(100 * ((p + z * z / (2 * n) - z * Math.Sqrt((p * (1 - p) + z * z / (4 * n)) / n)) /
-                                      (1 + z * z / n)));
+                p = Math.Round(100 * ((p + z * z / (2 * n) - z * Math.Sqrt((p * (1 - p) + z * z / (4 * n)) / n)) / (1 + z * z / n)));
                 // debug: System.Windows.Forms.MessageBox.Show("score " + score + " of " + reviews + " is\tp = " + p + "\n");
                 score = Convert.ToInt32(p);
             }
 
             string result = null;
-            foreach (var rule in Rules)
+            foreach (UserScore_Rule rule in Rules)
+            {
                 if (CheckRule(rule, score, reviews))
                 {
                     result = rule.Name;
                     break;
                 }
+            }
 
             if (result != null)
             {
@@ -207,13 +201,16 @@ namespace Depressurizer
 
         private bool CheckRule(UserScore_Rule rule, int score, int reviews)
         {
-            return score >= rule.MinScore && score <= rule.MaxScore && rule.MinReviews <= reviews &&
-                   (rule.MaxReviews == 0 || rule.MaxReviews >= reviews);
+            return score >= rule.MinScore && score <= rule.MaxScore && rule.MinReviews <= reviews && (rule.MaxReviews == 0 || rule.MaxReviews >= reviews);
         }
 
         private string GetProcessedString(string s)
         {
-            if (!string.IsNullOrEmpty(Prefix)) return Prefix + s;
+            if (!string.IsNullOrEmpty(Prefix))
+            {
+                return Prefix + s;
+            }
+
             return s;
         }
 
@@ -226,11 +223,19 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlName_Filter, Filter);
+            }
+
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlName_Prefix, Prefix);
+            }
+
             writer.WriteElementString(XmlName_UseWilsonScore, UseWilsonScore.ToString().ToLowerInvariant());
 
-            foreach (var rule in Rules)
+            foreach (UserScore_Rule rule in Rules)
             {
                 writer.WriteStartElement(XmlName_Rule);
                 writer.WriteElementString(XmlName_Rule_Text, rule.Name);
@@ -247,23 +252,23 @@ namespace Depressurizer
 
         public static AutoCatUserScore LoadFromXmlElement(XmlElement xElement)
         {
-            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            var filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            var prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
-            var useWilsonScore = XmlUtil.GetBoolFromNode(xElement[XmlName_UseWilsonScore], false);
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
+            bool useWilsonScore = XmlUtil.GetBoolFromNode(xElement[XmlName_UseWilsonScore], false);
 
-            var rules = new List<UserScore_Rule>();
+            List<UserScore_Rule> rules = new List<UserScore_Rule>();
             foreach (XmlNode node in xElement.SelectNodes(XmlName_Rule))
             {
-                var ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
-                var ruleMin = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinScore], 0);
-                var ruleMax = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxScore], 100);
-                var ruleMinRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinReviews], 0);
-                var ruleMaxRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxReviews], 0);
+                string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
+                int ruleMin = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinScore], 0);
+                int ruleMax = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxScore], 100);
+                int ruleMinRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinReviews], 0);
+                int ruleMaxRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxReviews], 0);
                 rules.Add(new UserScore_Rule(ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev));
             }
 
-            var result = new AutoCatUserScore(name, filter, prefix, useWilsonScore);
+            AutoCatUserScore result = new AutoCatUserScore(name, filter, prefix, useWilsonScore);
             result.Rules = rules;
             return result;
         }

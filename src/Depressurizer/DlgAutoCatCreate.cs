@@ -76,17 +76,33 @@ namespace Depressurizer
 
         private string TypeToString(AutoCatType t)
         {
-            if (t == AutoCatType.None) return null;
-            var index = Array.IndexOf(types, t);
-            if (index >= 0 && index < typeNames.Length) return typeNames[index];
+            if (t == AutoCatType.None)
+            {
+                return null;
+            }
+
+            int index = Array.IndexOf(types, t);
+            if (index >= 0 && index < typeNames.Length)
+            {
+                return typeNames[index];
+            }
+
             return null;
         }
 
         private AutoCatType StringToType(string s)
         {
-            if (s == null) return AutoCatType.None;
-            var index = Array.IndexOf(typeNames, s);
-            if (index >= 0 && index < types.Length) return types[index];
+            if (s == null)
+            {
+                return AutoCatType.None;
+            }
+
+            int index = Array.IndexOf(typeNames, s);
+            if (index >= 0 && index < types.Length)
+            {
+                return types[index];
+            }
+
             return AutoCatType.None;
         }
 
@@ -99,20 +115,32 @@ namespace Depressurizer
         private void LoadUIFromFields()
         {
             if (SelectedName == null)
+            {
                 txtName.Clear();
+            }
             else
+            {
                 txtName.Text = SelectedName;
+            }
 
-            var selString = TypeToString(SelectedType);
+            string selString = TypeToString(SelectedType);
             if (selString == null)
+            {
                 cmbType.SelectedIndex = 0;
+            }
             else
+            {
                 cmbType.SelectedItem = selString;
+            }
         }
 
         private void DlgAutoCatCreate_Load(object sender, EventArgs e)
         {
-            foreach (var s in typeNames) cmbType.Items.Add(s);
+            foreach (string s in typeNames)
+            {
+                cmbType.Items.Add(s);
+            }
+
             LoadUIFromFields();
         }
 

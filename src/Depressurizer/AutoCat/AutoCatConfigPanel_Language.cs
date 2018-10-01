@@ -39,22 +39,34 @@ namespace Depressurizer
             lstSubtitles.Items.Clear();
             lstFullAudio.Items.Clear();
 
-            if (Program.GameDB != null)
+            if (Program.Database != null)
             {
-                var language = Program.GameDB.GetAllLanguages();
+                LanguageSupport language = Program.Database.GetAllLanguages();
 
-                foreach (var s in language.Interface) lstInterface.Items.Add(s);
+                foreach (string s in language.Interface)
+                {
+                    lstInterface.Items.Add(s);
+                }
 
-                foreach (var s in language.Subtitles) lstSubtitles.Items.Add(s);
+                foreach (string s in language.Subtitles)
+                {
+                    lstSubtitles.Items.Add(s);
+                }
 
-                foreach (var s in language.FullAudio) lstFullAudio.Items.Add(s);
+                foreach (string s in language.FullAudio)
+                {
+                    lstFullAudio.Items.Add(s);
+                }
             }
         }
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatLanguage;
-            if (ac == null) return;
+            AutoCatLanguage ac = autocat as AutoCatLanguage;
+            if (ac == null)
+            {
+                return;
+            }
 
             txtPrefix.Text = ac.Prefix;
 
@@ -62,19 +74,28 @@ namespace Depressurizer
             chkTypeFallback.Checked = ac.TypeFallback;
 
             foreach (ListViewItem item in lstInterface.Items)
+            {
                 item.Checked = ac.IncludedLanguages.Interface.Contains(item.Text);
+            }
 
             foreach (ListViewItem item in lstSubtitles.Items)
+            {
                 item.Checked = ac.IncludedLanguages.Subtitles.Contains(item.Text);
+            }
 
             foreach (ListViewItem item in lstFullAudio.Items)
+            {
                 item.Checked = ac.IncludedLanguages.FullAudio.Contains(item.Text);
+            }
         }
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatLanguage;
-            if (ac == null) return;
+            AutoCatLanguage ac = autocat as AutoCatLanguage;
+            if (ac == null)
+            {
+                return;
+            }
 
             ac.Prefix = txtPrefix.Text;
 
@@ -86,21 +107,36 @@ namespace Depressurizer
             ac.IncludedLanguages.FullAudio.Clear();
 
             foreach (ListViewItem i in lstInterface.Items)
+            {
                 if (i.Checked)
+                {
                     ac.IncludedLanguages.Interface.Add(i.Text);
+                }
+            }
 
             foreach (ListViewItem i in lstSubtitles.Items)
+            {
                 if (i.Checked)
+                {
                     ac.IncludedLanguages.Subtitles.Add(i.Text);
+                }
+            }
 
             foreach (ListViewItem i in lstFullAudio.Items)
+            {
                 if (i.Checked)
+                {
                     ac.IncludedLanguages.FullAudio.Add(i.Text);
+                }
+            }
         }
 
         private void SetAllListCheckStates(ListView list, bool to)
         {
-            foreach (ListViewItem item in list.Items) item.Checked = to;
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
         }
 
         private void cmdCheckAll_Click(object sender, EventArgs e)

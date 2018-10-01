@@ -34,9 +34,9 @@ namespace Depressurizer
             AutoCatList = new List<AutoCat>();
             originalGroup = name;
 
-            foreach (var c in autoCats)
+            foreach (AutoCat c in autoCats)
             {
-                var clone = c.Clone();
+                AutoCat clone = c.Clone();
                 clone.Selected = false;
                 AutoCatList.Add(clone);
             }
@@ -47,14 +47,22 @@ namespace Depressurizer
         private void FillAutocatList()
         {
             clbAutocats.Items.Clear();
-            foreach (var ac in AutoCatList)
+            foreach (AutoCat ac in AutoCatList)
+            {
                 if (ac.Name != originalGroup)
                 {
-                    var addAC = true;
+                    bool addAC = true;
                     if (ac.AutoCatType == AutoCatType.Group)
+                    {
                         addAC = SafeGroup(((AutoCatGroup) ac).Autocats, new List<string>(new[] {originalGroup}));
-                    if (addAC) clbAutocats.Items.Add(ac);
+                    }
+
+                    if (addAC)
+                    {
+                        clbAutocats.Items.Add(ac);
+                    }
                 }
+            }
 
             clbAutocats.DisplayMember = "DisplayName";
         }
@@ -79,19 +87,25 @@ namespace Depressurizer
 
         private bool SafeGroup(List<string> autocats, List<string> groups)
         {
-            foreach (var ac in autocats)
+            foreach (string ac in autocats)
                 // is AutoCat a group?
+            {
                 if (IsGroup(ac))
                 {
                     // if group list already contains the group then we are stuck in an infinite loop.  RETURN FALSE.
-                    if (groups.Contains(ac)) return false;
+                    if (groups.Contains(ac))
+                    {
+                        return false;
+                    }
+
                     // add new group to group list
                     groups.Add(ac);
                     // get AutoCat from group name
-                    var group = GetAutoCat(ac) as AutoCatGroup;
+                    AutoCatGroup group = GetAutoCat(ac) as AutoCatGroup;
                     // send new group to SafeGroup to continue testing
                     return SafeGroup(group.Autocats, groups);
                 }
+            }
 
             // no duplicate group found.  All good! RETURN TRUE.
             return true;
@@ -100,18 +114,25 @@ namespace Depressurizer
         // find and return AutoCat using the name
         public AutoCat GetAutoCat(string name)
         {
-            if (string.IsNullOrEmpty(name)) return null;
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
 
-            foreach (var ac in AutoCatList)
+            foreach (AutoCat ac in AutoCatList)
+            {
                 if (string.Equals(ac.Name, name, StringComparison.OrdinalIgnoreCase))
+                {
                     return ac;
+                }
+            }
 
             return null;
         }
 
         private bool IsGroup(string find)
         {
-            var test = GetAutoCat(find);
+            AutoCat test = GetAutoCat(find);
             return test.AutoCatType == AutoCatType.Group ? true : false;
         }
 

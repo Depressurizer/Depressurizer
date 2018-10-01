@@ -130,7 +130,10 @@ namespace Rallion
                 lock (threadLock)
                 {
                     _fileNameBase = value;
-                    if (IsActiveSession) BeginSession();
+                    if (IsActiveSession)
+                    {
+                        BeginSession();
+                    }
                 }
             }
         }
@@ -174,7 +177,10 @@ namespace Rallion
                 lock (threadLock)
                 {
                     _filePath = value;
-                    if (IsActiveSession) BeginSession();
+                    if (IsActiveSession)
+                    {
+                        BeginSession();
+                    }
                 }
             }
         }
@@ -532,10 +538,12 @@ namespace Rallion
         /// </returns>
         private FileInfo GetFile(bool forceNew = false)
         {
-            var targetName = GetPath() + Path.DirectorySeparatorChar + GenerateFileName();
+            string targetName = GetPath() + Path.DirectorySeparatorChar + GenerateFileName();
             if (!AllowAppend || forceNew)
-                DisplaceFile(targetName, 0,
-                    MaxBackup); // If we need to make a new file, make sure there isn't a file in the way
+            {
+                DisplaceFile(targetName, 0, MaxBackup); // If we need to make a new file, make sure there isn't a file in the way
+            }
+
             return new FileInfo(GetPath() + Path.DirectorySeparatorChar + GenerateFileName());
         }
 
@@ -546,7 +554,11 @@ namespace Rallion
         /// <returns>String containing the filename to use.</returns>
         private string GenerateFileName(string template = null)
         {
-            if (template == null) template = FileNameTemplate;
+            if (template == null)
+            {
+                template = FileNameTemplate;
+            }
+
             template = template.Replace(":d", DateTime.Now.ToString("yyyyMMdd"));
             template = template.Replace(":t", DateTime.Now.ToString("hhmmss"));
             template = template.Replace(":n", Assembly.GetCallingAssembly().GetName().Name);
@@ -572,8 +584,12 @@ namespace Rallion
         /// <param name="stepsTotal">How many backups to max out at</param>
         private void DisplaceFile(string baseFile, int stepsIn, int stepsTotal)
         {
-            var thisFile = GetBackupFileName(baseFile, stepsIn);
-            if (!File.Exists(thisFile)) return;
+            string thisFile = GetBackupFileName(baseFile, stepsIn);
+            if (!File.Exists(thisFile))
+            {
+                return;
+            }
+
             if (stepsIn >= stepsTotal)
             {
                 File.Delete(thisFile); // Delete if there's no more space for more backups
@@ -602,8 +618,8 @@ namespace Rallion
         /// <returns>Number of lines in the file.</returns>
         private int CountRecords(FileInfo logFile)
         {
-            var count = 0;
-            using (var reader = new StreamReader(logFile.OpenRead()))
+            int count = 0;
+            using (StreamReader reader = new StreamReader(logFile.OpenRead()))
             {
                 while (!reader.EndOfStream)
                 {
@@ -622,10 +638,21 @@ namespace Rallion
         /// <returns>True if message can be added, false otherwise</returns>
         private bool CanWriteToFile(string message)
         {
-            if (MaxFileRecords != 0 && CurrentFileRecords >= MaxFileRecords) return false;
-            if (MaxFileSize != 0 && outputStream.Length + message.Length > MaxFileSize) return false;
-            if (MaxFileDuration != null && MaxFileDuration.Ticks != 0 &&
-                DateTime.Now - CurrentFileStartTime > MaxFileDuration) return false;
+            if (MaxFileRecords != 0 && CurrentFileRecords >= MaxFileRecords)
+            {
+                return false;
+            }
+
+            if (MaxFileSize != 0 && outputStream.Length + message.Length > MaxFileSize)
+            {
+                return false;
+            }
+
+            if (MaxFileDuration != null && MaxFileDuration.Ticks != 0 && DateTime.Now - CurrentFileStartTime > MaxFileDuration)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -643,14 +670,19 @@ namespace Rallion
             lock (threadLock)
             {
                 if (forceNew)
+                {
                     EndSession();
-                else if (IsActiveSession) return true;
+                }
+                else if (IsActiveSession)
+                {
+                    return true;
+                }
 
                 LogFile = GetFile(forceNew);
 
                 try
                 {
-                    var appending = LogFile.Exists;
+                    bool appending = LogFile.Exists;
                     CurrentFileStartTime = appending && UseOriginalCreationTime ? LogFile.CreationTime : DateTime.Now;
                     CurrentFileRecords = appending && UseTotalLineCount ? CountRecords(LogFile) : 0;
                     outputStream = new FileStream(LogFile.FullName, FileMode.Append, FileAccess.Write, FileShare.Read);
@@ -735,16 +767,23 @@ namespace Rallion
             {
                 if (Level >= lev)
                 {
-                    if (AutoSessionStart && !IsActiveSession) BeginSession();
+                    if (AutoSessionStart && !IsActiveSession)
+                    {
+                        BeginSession();
+                    }
+
                     if (IsActiveSession)
                     {
-                        var t = DateTime.Now.ToString(DateFormat);
-                        var l = LevTxt[(int) lev];
-                        var m = string.Format(message, args);
-                        var fullMessage = string.Format("{0} - {1}: {2}{3}", t, l, m, Environment.NewLine);
-                        if (!CanWriteToFile(fullMessage)) BeginSession(true);
+                        string t = DateTime.Now.ToString(DateFormat);
+                        string l = LevTxt[(int) lev];
+                        string m = string.Format(message, args);
+                        string fullMessage = string.Format("{0} - {1}: {2}{3}", t, l, m, Environment.NewLine);
+                        if (!CanWriteToFile(fullMessage))
+                        {
+                            BeginSession(true);
+                        }
 
-                        var output = new UTF8Encoding().GetBytes(fullMessage);
+                        byte[] output = new UTF8Encoding().GetBytes(fullMessage);
                         //byte[] output = fullMessage.ToCharArray();
                         outputStream.Write(output, 0, output.Length);
                         outputStream.Flush();
@@ -770,15 +809,15 @@ namespace Rallion
         {
             if (Level >= lev)
             {
-                var builder = new StringBuilder(prefix + Environment.NewLine);
-                var fields = o.GetType().GetFields();
-                foreach (var fi in fields)
+                StringBuilder builder = new StringBuilder(prefix + Environment.NewLine);
+                FieldInfo[] fields = o.GetType().GetFields();
+                foreach (FieldInfo fi in fields)
                 {
-                    var val = fi.GetValue(o);
+                    object val = fi.GetValue(o);
                     if (val is IEnumerable<object>)
                     {
-                        var index = 0;
-                        foreach (var subObj in val as IEnumerable<object>)
+                        int index = 0;
+                        foreach (object subObj in val as IEnumerable<object>)
                         {
                             builder.AppendLine(string.Format("{0}[{1}] : {2}", fi.Name, index, subObj));
                             index++;

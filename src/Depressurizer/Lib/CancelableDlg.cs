@@ -93,9 +93,9 @@ namespace Rallion
         protected virtual void UpdateForm_Load(object sender, EventArgs e)
         {
             threadsToRun = Math.Min(threadsToRun, totalJobs);
-            for (var i = 0; i < threadsToRun; i++)
+            for (int i = 0; i < threadsToRun; i++)
             {
-                var t = new Thread(RunProcessChecked);
+                Thread t = new Thread(RunProcessChecked);
                 t.Start();
                 runningThreads++;
             }
@@ -164,7 +164,10 @@ namespace Rallion
             else
             {
                 runningThreads--;
-                if (runningThreads <= 0) Close();
+                if (runningThreads <= 0)
+                {
+                    Close();
+                }
             }
         }
 
@@ -190,11 +193,17 @@ namespace Rallion
             //DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
             Finish();
             if (jobsCompleted >= totalJobs)
+            {
                 DialogResult = DialogResult.OK;
+            }
             else if (Canceled)
+            {
                 DialogResult = DialogResult.Cancel;
+            }
             else
+            {
                 DialogResult = DialogResult.Abort;
+            }
         }
 
         #endregion
@@ -204,17 +213,25 @@ namespace Rallion
         protected void SetText(string s)
         {
             if (InvokeRequired)
+            {
                 Invoke(new TextUpdateDelegate(SetText), s);
+            }
             else
+            {
                 lblText.Text = s;
+            }
         }
 
         protected void DisableAbort()
         {
             if (InvokeRequired)
+            {
                 Invoke(new SimpleDelegate(DisableAbort));
+            }
             else
+            {
                 cmdStop.Enabled = cmdCancel.Enabled = false;
+            }
         }
 
         #endregion

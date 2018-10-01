@@ -40,8 +40,7 @@ namespace Depressurizer
 
         public VrSupport IncludedVrSupportFlags;
 
-        public AutoCatVrSupport(string name, string filter = null, string prefix = null, List<string> headsets = null,
-            List<string> input = null, List<string> playArea = null, bool selected = false) : base(name)
+        public AutoCatVrSupport(string name, string filter = null, string prefix = null, List<string> headsets = null, List<string> input = null, List<string> playArea = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -95,35 +94,41 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
-            var vrSupport = db.GetVrSupport(game.Id);
+            VrSupport vrSupport = db.GetVrSupport(game.Id);
 
             vrSupport.Headsets = vrSupport.Headsets ?? new List<string>();
             vrSupport.Input = vrSupport.Input ?? new List<string>();
             vrSupport.PlayArea = vrSupport.PlayArea ?? new List<string>();
 
-            var headsets = vrSupport.Headsets.Intersect(IncludedVrSupportFlags.Headsets);
-            var input = vrSupport.Input.Intersect(IncludedVrSupportFlags.Input);
-            var playArea = vrSupport.PlayArea.Intersect(IncludedVrSupportFlags.PlayArea);
+            IEnumerable<string> headsets = vrSupport.Headsets.Intersect(IncludedVrSupportFlags.Headsets);
+            IEnumerable<string> input = vrSupport.Input.Intersect(IncludedVrSupportFlags.Input);
+            IEnumerable<string> playArea = vrSupport.PlayArea.Intersect(IncludedVrSupportFlags.PlayArea);
 
-            foreach (var catString in headsets)
+            foreach (string catString in headsets)
             {
-                var c = games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetProcessedString(catString));
                 game.AddCategory(c);
             }
 
-            foreach (var catString in input)
+            foreach (string catString in input)
             {
-                var c = games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetProcessedString(catString));
                 game.AddCategory(c);
             }
 
-            foreach (var catString in playArea)
+            foreach (string catString in playArea)
             {
-                var c = games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetProcessedString(catString));
                 game.AddCategory(c);
             }
 
@@ -132,7 +137,10 @@ namespace Depressurizer
 
         private string GetProcessedString(string baseString)
         {
-            if (string.IsNullOrEmpty(Prefix)) return baseString;
+            if (string.IsNullOrEmpty(Prefix))
+            {
+                return baseString;
+            }
 
             return Prefix + baseString;
         }
@@ -142,24 +150,40 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlNameName, Name);
-            if (Filter != null) writer.WriteElementString(XmlNameFilter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlNamePrefix, Prefix);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlNameFilter, Filter);
+            }
+
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlNamePrefix, Prefix);
+            }
 
             writer.WriteStartElement(XmlNameHeadsetsList);
 
-            foreach (var s in IncludedVrSupportFlags.Headsets) writer.WriteElementString(XmlNameFlag, s);
+            foreach (string s in IncludedVrSupportFlags.Headsets)
+            {
+                writer.WriteElementString(XmlNameFlag, s);
+            }
 
             writer.WriteEndElement(); // VR Headsets list
 
             writer.WriteStartElement(XmlNameInputList);
 
-            foreach (var s in IncludedVrSupportFlags.Input) writer.WriteElementString(XmlNameFlag, s);
+            foreach (string s in IncludedVrSupportFlags.Input)
+            {
+                writer.WriteElementString(XmlNameFlag, s);
+            }
 
             writer.WriteEndElement(); // VR Input list
 
             writer.WriteStartElement(XmlNamePlayAreaList);
 
-            foreach (var s in IncludedVrSupportFlags.PlayArea) writer.WriteElementString(XmlNameFlag, s);
+            foreach (string s in IncludedVrSupportFlags.PlayArea)
+            {
+                writer.WriteElementString(XmlNameFlag, s);
+            }
 
             writer.WriteEndElement(); // VR Play Area list
             writer.WriteEndElement(); // type ID string
@@ -167,40 +191,55 @@ namespace Depressurizer
 
         public static AutoCatVrSupport LoadFromXmlElement(XmlElement xElement)
         {
-            var name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
-            var filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
-            var prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
-            var headsetsList = new List<string>();
-            var inputList = new List<string>();
-            var playAreaList = new List<string>();
+            string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
+            List<string> headsetsList = new List<string>();
+            List<string> inputList = new List<string>();
+            List<string> playAreaList = new List<string>();
 
-            var headset = xElement[XmlNameHeadsetsList];
-            var input = xElement[XmlNameInputList];
-            var playArea = xElement[XmlNamePlayAreaList];
+            XmlElement headset = xElement[XmlNameHeadsetsList];
+            XmlElement input = xElement[XmlNameInputList];
+            XmlElement playArea = xElement[XmlNamePlayAreaList];
 
-            var headsetElements = headset?.SelectNodes(XmlNameFlag);
+            XmlNodeList headsetElements = headset?.SelectNodes(XmlNameFlag);
             if (headsetElements != null)
-                for (var i = 0; i < headsetElements.Count; i++)
+            {
+                for (int i = 0; i < headsetElements.Count; i++)
                 {
-                    var n = headsetElements[i];
-                    if (XmlUtil.TryGetStringFromNode(n, out var flag)) headsetsList.Add(flag);
+                    XmlNode n = headsetElements[i];
+                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
+                    {
+                        headsetsList.Add(flag);
+                    }
                 }
+            }
 
-            var inputElements = input?.SelectNodes(XmlNameFlag);
+            XmlNodeList inputElements = input?.SelectNodes(XmlNameFlag);
             if (inputElements != null)
-                for (var i = 0; i < inputElements.Count; i++)
+            {
+                for (int i = 0; i < inputElements.Count; i++)
                 {
-                    var n = inputElements[i];
-                    if (XmlUtil.TryGetStringFromNode(n, out var flag)) inputList.Add(flag);
+                    XmlNode n = inputElements[i];
+                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
+                    {
+                        inputList.Add(flag);
+                    }
                 }
+            }
 
-            var playAreaElements = playArea?.SelectNodes(XmlNameFlag);
+            XmlNodeList playAreaElements = playArea?.SelectNodes(XmlNameFlag);
             if (playAreaElements != null)
-                for (var i = 0; i < playAreaElements.Count; i++)
+            {
+                for (int i = 0; i < playAreaElements.Count; i++)
                 {
-                    var n = playAreaElements[i];
-                    if (XmlUtil.TryGetStringFromNode(n, out var flag)) playAreaList.Add(flag);
+                    XmlNode n = playAreaElements[i];
+                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
+                    {
+                        playAreaList.Add(flag);
+                    }
                 }
+            }
 
             return new AutoCatVrSupport(name, filter, prefix, headsetsList, inputList, playAreaList);
         }

@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using Depressurizer.Models;
 using Depressurizer.Properties;
 using Rallion;
 
@@ -29,13 +30,13 @@ namespace Depressurizer
     {
         private const int ID_FILTER_MAX = 1000000;
 
+        private readonly GameList ownedList;
+        private readonly StringBuilder statusBuilder = new StringBuilder();
+
         private string currentFilter = string.Empty;
         private int currentMinId, currentMaxId = ID_FILTER_MAX;
 
         private bool filterSuspend;
-
-        private readonly GameList ownedList;
-        private readonly StringBuilder statusBuilder = new StringBuilder();
 
         public DBEditDlg(GameList owned = null)
         {
@@ -52,31 +53,40 @@ namespace Depressurizer
         /// <returns>True if the action should proceed, false otherwise.</returns>
         private bool CheckForUnsaved()
         {
-            if (!UnsavedChanges) return true;
+            if (!UnsavedChanges)
+            {
+                return true;
+            }
 
-            var res = MessageBox.Show(GlobalStrings.DBEditDlg_UnsavedChangesSave,
-                GlobalStrings.DBEditDlg_UnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-            if (res == DialogResult.No) return true;
-            if (res == DialogResult.Cancel) return false;
+            DialogResult res = MessageBox.Show(GlobalStrings.DBEditDlg_UnsavedChangesSave, GlobalStrings.DBEditDlg_UnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            if (res == DialogResult.No)
+            {
+                return true;
+            }
+
+            if (res == DialogResult.Cancel)
+            {
+                return false;
+            }
+
             return SaveDB();
         }
 
         #region VirtualMode List Backing & Sorting Fields
 
-        private readonly List<GameDBEntry> displayedGames = new List<GameDBEntry>();
-        private readonly GameDBEntrySorter dbEntrySorter = new GameDBEntrySorter();
+        private readonly List<DatabaseEntry> displayedGames = new List<DatabaseEntry>();
+        private readonly DatabaseEntrySorter dbEntrySorter = new DatabaseEntrySorter();
 
-        private readonly Dictionary<int, GameDBEntrySorter.SortModes> columnSortMap =
-            new Dictionary<int, GameDBEntrySorter.SortModes>
-            {
-                {0, GameDBEntrySorter.SortModes.Id},
-                {1, GameDBEntrySorter.SortModes.Name},
-                {2, GameDBEntrySorter.SortModes.Genre},
-                {3, GameDBEntrySorter.SortModes.Type},
-                {4, GameDBEntrySorter.SortModes.IsScraped},
-                {5, GameDBEntrySorter.SortModes.HasAppInfo},
-                {6, GameDBEntrySorter.SortModes.Parent}
-            };
+        private readonly Dictionary<int, DatabaseEntrySorter.SortModes> columnSortMap = new Dictionary<int, DatabaseEntrySorter.SortModes>
+        {
+            {0, DatabaseEntrySorter.SortModes.Id},
+            {1, DatabaseEntrySorter.SortModes.Name},
+            {2, DatabaseEntrySorter.SortModes.Genre},
+            {3, DatabaseEntrySorter.SortModes.Type},
+            {4, DatabaseEntrySorter.SortModes.IsScraped},
+            {5, DatabaseEntrySorter.SortModes.HasAppInfo},
+            {6, DatabaseEntrySorter.SortModes.Parent}
+        };
 
         #endregion
 
@@ -87,15 +97,16 @@ namespace Depressurizer
         /// </summary>
         private void SaveAs()
         {
-            var dlg = new SaveFileDialog();
+            SaveFileDialog dlg = new SaveFileDialog();
             dlg.DefaultExt = "gz";
             dlg.AddExtension = true;
             dlg.CheckFileExists = false;
             dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
-            var res = dlg.ShowDialog();
+            DialogResult res = dlg.ShowDialog();
             if (res == DialogResult.OK)
-                AddStatusMsg(
-                    Save(dlg.FileName) ? GlobalStrings.DBEditDlg_FileSaved : GlobalStrings.DBEditDlg_SaveFailed);
+            {
+                AddStatusMsg(Save(dlg.FileName) ? GlobalStrings.DBEditDlg_FileSaved : GlobalStrings.DBEditDlg_SaveFailed);
+            }
         }
 
         /// <summary>
@@ -104,7 +115,7 @@ namespace Depressurizer
         /// <returns></returns>
         private bool SaveDB()
         {
-            if (Save("GameDB.xml.gz"))
+            if (Save("Database.xml.gz"))
             {
                 AddStatusMsg(GlobalStrings.DBEditDlg_DatabaseSaved);
                 UnsavedChanges = false;
@@ -122,11 +133,11 @@ namespace Depressurizer
         /// <returns>True if successful</returns>
         private bool Save(string filename)
         {
-            var c = Cursor;
+            Cursor c = Cursor;
             Cursor = Cursors.WaitCursor;
             try
             {
-                Program.GameDB.Save(filename);
+                Program.Database.Save(filename);
             }
             catch (Exception e)
             {
@@ -146,16 +157,16 @@ namespace Depressurizer
         {
             if (CheckForUnsaved())
             {
-                var dlg = new OpenFileDialog();
+                OpenFileDialog dlg = new OpenFileDialog();
                 dlg.DefaultExt = "gz";
                 dlg.AddExtension = true;
                 dlg.CheckFileExists = true;
                 dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
-                var res = dlg.ShowDialog();
+                DialogResult res = dlg.ShowDialog();
                 if (res == DialogResult.OK)
                 {
                     Cursor = Cursors.WaitCursor;
-                    Program.GameDB.Load(dlg.FileName);
+                    Program.Database.Load(dlg.FileName);
                     RebuildDisplayList();
                     AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
                     UnsavedChanges = true;
@@ -169,14 +180,12 @@ namespace Depressurizer
         /// </summary>
         private void ClearDB()
         {
-            if (MessageBox.Show(GlobalStrings.DBEditDlg_AreYouSureToClear, GlobalStrings.DBEditDlg_Confirm,
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                == DialogResult.Yes)
+            if (MessageBox.Show(GlobalStrings.DBEditDlg_AreYouSureToClear, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
             {
-                if (Program.GameDB.Games.Count > 0)
+                if (Program.Database.Games.Count > 0)
                 {
                     UnsavedChanges = true;
-                    Program.GameDB.Games.Clear();
+                    Program.Database.Games.Clear();
                     AddStatusMsg(GlobalStrings.DBEditDlg_ClearedAllData);
                 }
 
@@ -191,13 +200,12 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            var dlg = new FetchPrcDlg();
-            var res = dlg.ShowDialog();
+            FetchPrcDlg dlg = new FetchPrcDlg();
+            DialogResult res = dlg.ShowDialog();
 
             if (dlg.Error != null)
             {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, dlg.Error.Message),
-                    GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGameList);
             }
             else
@@ -221,16 +229,19 @@ namespace Depressurizer
         {
             try
             {
-                var path = string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath);
-                var updated = Program.GameDB.UpdateFromAppInfo(path);
-                if (updated > 0) UnsavedChanges = true;
+                string path = string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath);
+                int updated = Program.Database.UpdateFromAppInfo(path);
+                if (updated > 0)
+                {
+                    UnsavedChanges = true;
+                }
+
                 RebuildDisplayList();
                 AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedAppInfo, updated));
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_AppInfoUpdateFailed, e.Message),
-                    GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_AppInfoUpdateFailed, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionAppInfo, e.ToString());
             }
         }
@@ -239,13 +250,12 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            var dlg = new HltbPrcDlg();
-            var res = dlg.ShowDialog();
+            HltbPrcDlg dlg = new HltbPrcDlg();
+            DialogResult res = dlg.ShowDialog();
 
             if (dlg.Error != null)
             {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dlg.Error.Message),
-                    GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
                 AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
             }
@@ -271,18 +281,17 @@ namespace Depressurizer
         /// </summary>
         private void AddNewGame()
         {
-            var dlg = new GameDBEntryDialog();
+            GameDBEntryDialog dlg = new GameDBEntryDialog();
             if (dlg.ShowDialog() == DialogResult.OK && dlg.Game != null)
             {
-                if (Program.GameDB.Games.ContainsKey(dlg.Game.Id))
+                if (Program.Database.Games.ContainsKey(dlg.Game.Id))
                 {
-                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.Gen_Warning,
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));
                 }
                 else
                 {
-                    Program.GameDB.Games.Add(dlg.Game.Id, dlg.Game);
+                    Program.Database.Games.Add(dlg.Game.Id, dlg.Game);
 
                     if (ShouldDisplayGame(dlg.Game))
                     {
@@ -306,11 +315,11 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                var game = displayedGames[lstGames.SelectedIndices[0]];
+                DatabaseEntry game = displayedGames[lstGames.SelectedIndices[0]];
                 if (game != null)
                 {
-                    var dlg = new GameDBEntryDialog(game);
-                    var res = dlg.ShowDialog();
+                    GameDBEntryDialog dlg = new GameDBEntryDialog(game);
+                    DialogResult res = dlg.ShowDialog();
                     if (res == DialogResult.OK)
                     {
                         lstGames.RedrawItems(lstGames.SelectedIndices[0], lstGames.SelectedIndices[0], true);
@@ -328,20 +337,16 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                var res =
-                    MessageBox.Show(
-                        string.Format(GlobalStrings.DBEditDlg_AreYouSureDeleteGames, lstGames.SelectedIndices.Count),
-                        GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                        MessageBoxDefaultButton.Button1);
+                DialogResult res = MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_AreYouSureDeleteGames, lstGames.SelectedIndices.Count), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
                 if (res == DialogResult.Yes)
                 {
-                    var deleted = 0;
+                    int deleted = 0;
                     foreach (int index in lstGames.SelectedIndices)
                     {
-                        var game = displayedGames[index];
+                        DatabaseEntry game = displayedGames[index];
                         if (game != null)
                         {
-                            Program.GameDB.Games.Remove(game.Id);
+                            Program.Database.Games.Remove(game.Id);
                             deleted++;
                         }
                     }
@@ -364,12 +369,16 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            var gamesToScrape = new Queue<int>();
+            Queue<int> gamesToScrape = new Queue<int>();
 
-            foreach (var g in Program.GameDB.Games.Values)
+            foreach (DatabaseEntry g in Program.Database.Games.Values)
                 //Only scrape displayed games
+            {
                 if (g.LastStoreScrape == 0 && ShouldDisplayGame(g))
+                {
                     gamesToScrape.Enqueue(g.Id);
+                }
+            }
 
             ScrapeGames(gamesToScrape);
             Cursor = Cursors.Default;
@@ -384,9 +393,12 @@ namespace Depressurizer
             {
                 Cursor = Cursors.WaitCursor;
 
-                var gamesToScrape = new Queue<int>();
+                Queue<int> gamesToScrape = new Queue<int>();
 
-                foreach (int index in lstGames.SelectedIndices) gamesToScrape.Enqueue(displayedGames[index].Id);
+                foreach (int index in lstGames.SelectedIndices)
+                {
+                    gamesToScrape.Enqueue(displayedGames[index].Id);
+                }
 
                 ScrapeGames(gamesToScrape);
                 Cursor = Cursors.Default;
@@ -401,23 +413,28 @@ namespace Depressurizer
         {
             if (gamesToScrape.Count > 0)
             {
-                var dlg = new DbScrapeDlg(gamesToScrape);
-                var res = dlg.ShowDialog();
+                DbScrapeDlg dlg = new DbScrapeDlg(gamesToScrape);
+                DialogResult res = dlg.ShowDialog();
 
                 if (dlg.Error != null)
                 {
                     AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGames);
-                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dlg.Error.Message),
-                        GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (res == DialogResult.Cancel)
+                {
                     AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
+                }
                 else if (res == DialogResult.Abort)
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dlg.JobsCompleted,
-                        dlg.JobsTotal));
+                {
+                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dlg.JobsCompleted, dlg.JobsTotal));
+                }
                 else
+                {
                     AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dlg.JobsCompleted));
+                }
+
                 if (dlg.JobsCompleted > 0)
                 {
                     UnsavedChanges = true;
@@ -434,7 +451,7 @@ namespace Depressurizer
 
         #region UI Updaters
 
-        private ListViewItem CreateListViewItem(GameDBEntry g)
+        private ListViewItem CreateListViewItem(DatabaseEntry g)
         {
             return new ListViewItem(new[]
             {
@@ -452,9 +469,14 @@ namespace Depressurizer
         {
             lstGames.SelectedIndices.Clear();
             displayedGames.Clear();
-            foreach (var g in Program.GameDB.Games.Values)
+            foreach (DatabaseEntry g in Program.Database.Games.Values)
+            {
                 if (ShouldDisplayGame(g))
+                {
                     displayedGames.Add(g);
+                }
+            }
+
             displayedGames.Sort(dbEntrySorter);
             lstGames.VirtualListSize = displayedGames.Count;
             InvalidateAllListViewItems();
@@ -472,7 +494,10 @@ namespace Depressurizer
 
         private void InvalidateAllListViewItems()
         {
-            if (lstGames.VirtualListSize > 0) lstGames.RedrawItems(0, lstGames.VirtualListSize - 1, true);
+            if (lstGames.VirtualListSize > 0)
+            {
+                lstGames.RedrawItems(0, lstGames.VirtualListSize - 1, true);
+            }
         }
 
         /// <summary>
@@ -480,64 +505,125 @@ namespace Depressurizer
         /// </summary>
         /// <param name="g">entry to evaluate</param>
         /// <returns>True if the entry should be displayed</returns>
-        private bool ShouldDisplayGame(GameDBEntry g)
+        private bool ShouldDisplayGame(DatabaseEntry g)
         {
-            if (g == null) return false;
+            if (g == null)
+            {
+                return false;
+            }
 
-            if (!Program.GameDB.Contains(g.Id)) return false;
-            if (chkIdRange.Checked && (g.Id < currentMinId || g.Id > currentMaxId)) return false;
+            if (!Program.Database.Contains(g.Id))
+            {
+                return false;
+            }
 
-            if (ownedList != null && chkOwned.Checked && !ownedList.Games.ContainsKey(g.Id)) return false;
+            if (chkIdRange.Checked && (g.Id < currentMinId || g.Id > currentMaxId))
+            {
+                return false;
+            }
+
+            if (ownedList != null && chkOwned.Checked && !ownedList.Games.ContainsKey(g.Id))
+            {
+                return false;
+            }
 
             if (chkTypeAll.Checked == false)
+            {
                 switch (g.AppType)
                 {
                     case AppTypes.Game:
-                        if (chkTypeGame.Checked == false) return false;
+                        if (chkTypeGame.Checked == false)
+                        {
+                            return false;
+                        }
+
                         break;
                     case AppTypes.DLC:
-                        if (chkTypeDLC.Checked == false) return false;
+                        if (chkTypeDLC.Checked == false)
+                        {
+                            return false;
+                        }
+
                         break;
                     case AppTypes.Unknown:
-                        if (chkTypeUnknown.Checked == false) return false;
+                        if (chkTypeUnknown.Checked == false)
+                        {
+                            return false;
+                        }
+
                         break;
                     default:
-                        if (chkTypeOther.Checked == false) return false;
+                        if (chkTypeOther.Checked == false)
+                        {
+                            return false;
+                        }
+
                         break;
                 }
+            }
 
             if (radWebAll.Checked == false)
             {
-                if (radWebNo.Checked && g.LastStoreScrape > 0) return false;
-                if (radWebYes.Checked && g.LastStoreScrape <= 0) return false;
-                if (radWebSince.Checked && g.LastStoreScrape > Utility.GetUTime(dateWeb.Value)) return false;
+                if (radWebNo.Checked && g.LastStoreScrape > 0)
+                {
+                    return false;
+                }
+
+                if (radWebYes.Checked && g.LastStoreScrape <= 0)
+                {
+                    return false;
+                }
+
+                if (radWebSince.Checked && g.LastStoreScrape > Utility.GetUTime(dateWeb.Value))
+                {
+                    return false;
+                }
             }
 
             if (radAppAll.Checked == false)
             {
-                if (radAppNo.Checked && g.LastAppInfoUpdate > 0) return false;
-                if (radAppYes.Checked && g.LastAppInfoUpdate <= 0) return false;
+                if (radAppNo.Checked && g.LastAppInfoUpdate > 0)
+                {
+                    return false;
+                }
+
+                if (radAppYes.Checked && g.LastAppInfoUpdate <= 0)
+                {
+                    return false;
+                }
             }
 
-            if (currentFilter.Length > 0 && g.Name.IndexOf(currentFilter, StringComparison.CurrentCultureIgnoreCase) ==
-                -1) return false;
+            if (currentFilter.Length > 0 && g.Name.IndexOf(currentFilter, StringComparison.CurrentCultureIgnoreCase) == -1)
+            {
+                return false;
+            }
 
             return true;
         }
 
-        private bool ShouldHideGame(GameDBEntry g)
+        private bool ShouldHideGame(DatabaseEntry g)
         {
             return !ShouldDisplayGame(g);
         }
 
         private void ApplyTextFilterChange()
         {
-            var oldFilter = currentFilter;
+            string oldFilter = currentFilter;
             currentFilter = txtSearch.Text;
 
-            if (currentFilter.Equals(oldFilter, StringComparison.CurrentCultureIgnoreCase)) return;
-            if (currentFilter.IndexOf(oldFilter, StringComparison.CurrentCultureIgnoreCase) == -1) RebuildDisplayList();
-            else RefilterDisplayList();
+            if (currentFilter.Equals(oldFilter, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return;
+            }
+
+            if (currentFilter.IndexOf(oldFilter, StringComparison.CurrentCultureIgnoreCase) == -1)
+            {
+                RebuildDisplayList();
+            }
+            else
+            {
+                RefilterDisplayList();
+            }
         }
 
         private void ApplyIdFilterChange()
@@ -555,9 +641,19 @@ namespace Depressurizer
                 currentMaxId = ID_FILTER_MAX;
             }
 
-            if (currentMinId == oldMinId && currentMaxId == oldMaxId) return;
-            if (currentMinId < oldMinId || currentMaxId > oldMaxId) RebuildDisplayList();
-            else RefilterDisplayList();
+            if (currentMinId == oldMinId && currentMaxId == oldMaxId)
+            {
+                return;
+            }
+
+            if (currentMinId < oldMinId || currentMaxId > oldMaxId)
+            {
+                RebuildDisplayList();
+            }
+            else
+            {
+                RefilterDisplayList();
+            }
         }
 
         #region Status Text
@@ -594,10 +690,8 @@ namespace Depressurizer
         /// </summary>
         private void UpdateStatusCount()
         {
-            statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal,
-                lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Program.GameDB.Games.Count);
-            cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled =
-                cmdUpdateSelected.Enabled = lstGames.SelectedIndices.Count >= 1;
+            statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Program.Database.Games.Count);
+            cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = lstGames.SelectedIndices.Count >= 1;
         }
 
         #endregion
@@ -609,7 +703,7 @@ namespace Depressurizer
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Initialize list sorting
-            var initialSortCol = 0;
+            int initialSortCol = 0;
             dbEntrySorter.SetSortMode(columnSortMap[initialSortCol], 1);
             lstGames.SetSortIcon(initialSortCol, SortOrder.Ascending);
 
@@ -627,7 +721,10 @@ namespace Depressurizer
 
         private void DBEditDlg_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!CheckForUnsaved()) e.Cancel = true;
+            if (!CheckForUnsaved())
+            {
+                e.Cancel = true;
+            }
         }
 
         #region Menu
@@ -674,8 +771,7 @@ namespace Depressurizer
             if (columnSortMap.ContainsKey(e.Column))
             {
                 dbEntrySorter.SetSortMode(columnSortMap[e.Column]);
-                lstGames.SetSortIcon(e.Column,
-                    dbEntrySorter.SortDirection > 0 ? SortOrder.Ascending : SortOrder.Descending);
+                lstGames.SetSortIcon(e.Column, dbEntrySorter.SortDirection > 0 ? SortOrder.Ascending : SortOrder.Descending);
                 displayedGames.Sort(dbEntrySorter);
                 InvalidateAllListViewItems();
             }
@@ -687,8 +783,13 @@ namespace Depressurizer
             {
                 case Keys.A:
                     if (e.Modifiers == Keys.Control)
-                        for (var i = 0; i < lstGames.VirtualListSize; i++)
+                    {
+                        for (int i = 0; i < lstGames.VirtualListSize; i++)
+                        {
                             lstGames.SelectedIndices.Add(i);
+                        }
+                    }
+
                     break;
                 case Keys.Enter:
                     if (lstGames.SelectedIndices.Count > 0)
@@ -742,19 +843,23 @@ namespace Depressurizer
 
         private void lstGames_SearchForVirtualItem(object sender, SearchForVirtualItemEventArgs e)
         {
-            for (var i = e.StartIndex; i < displayedGames.Count; i++)
+            for (int i = e.StartIndex; i < displayedGames.Count; i++)
+            {
                 if (displayedGames[i].Name.StartsWith(e.Text, StringComparison.CurrentCultureIgnoreCase))
                 {
                     e.Index = i;
                     return;
                 }
+            }
 
-            for (var i = 0; i < e.StartIndex; i++)
+            for (int i = 0; i < e.StartIndex; i++)
+            {
                 if (displayedGames[i].Name.StartsWith(e.Text, StringComparison.CurrentCultureIgnoreCase))
                 {
                     e.Index = i;
                     return;
                 }
+            }
         }
 
         #endregion
@@ -785,7 +890,9 @@ namespace Depressurizer
         private void cmdStore_Click(object sender, EventArgs e)
         {
             if (lstGames.SelectedIndices.Count > 0)
+            {
                 Utility.LaunchStorePage(displayedGames[lstGames.SelectedIndices[0]].Id);
+            }
         }
 
         private void cmdAddGame_Click(object sender, EventArgs e)
@@ -853,7 +960,10 @@ namespace Depressurizer
             {
                 filterSuspend = true;
                 if (chkTypeAll.Checked)
+                {
                     chkTypeDLC.Checked = chkTypeGame.Checked = chkTypeOther.Checked = chkTypeUnknown.Checked = false;
+                }
+
                 filterSuspend = false;
                 RebuildDisplayList();
             }
@@ -865,8 +975,7 @@ namespace Depressurizer
             {
                 filterSuspend = true;
 
-                chkTypeAll.Checked = !(chkTypeDLC.Checked || chkTypeGame.Checked || chkTypeOther.Checked ||
-                                       chkTypeUnknown.Checked);
+                chkTypeAll.Checked = !(chkTypeDLC.Checked || chkTypeGame.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked);
 
                 filterSuspend = false;
                 RebuildDisplayList();
@@ -875,18 +984,28 @@ namespace Depressurizer
 
         private void radWeb_CheckedChanged(object sender, EventArgs e)
         {
-            if (((RadioButton) sender).Checked) RebuildDisplayList();
+            if (((RadioButton) sender).Checked)
+            {
+                RebuildDisplayList();
+            }
+
             ;
         }
 
         private void dateWeb_ValueChanged(object sender, EventArgs e)
         {
-            if (radWebSince.Checked) RebuildDisplayList();
+            if (radWebSince.Checked)
+            {
+                RebuildDisplayList();
+            }
         }
 
         private void radApp_CheckedChanged(object sender, EventArgs e)
         {
-            if (((RadioButton) sender).Checked) RebuildDisplayList();
+            if (((RadioButton) sender).Checked)
+            {
+                RebuildDisplayList();
+            }
         }
 
         #endregion

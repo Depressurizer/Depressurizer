@@ -75,24 +75,13 @@ namespace Depressurizer
 
         public const string TypeIdString = "AutoCatHltb";
 
-        public const string XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Prefix = "Prefix",
-            XmlName_IncludeUnknown = "IncludeUnknown",
-            XmlName_UnknownText = "UnknownText",
-            XmlName_Rule = "Rule",
-            XmlName_Rule_Text = "Text",
-            XmlName_Rule_MinHours = "MinHours",
-            XmlName_Rule_MaxHours = "MaxHours",
-            XmlName_Rule_TimeType = "TimeType";
+        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_IncludeUnknown = "IncludeUnknown", XmlName_UnknownText = "UnknownText", XmlName_Rule = "Rule", XmlName_Rule_Text = "Text", XmlName_Rule_MinHours = "MinHours", XmlName_Rule_MaxHours = "MaxHours", XmlName_Rule_TimeType = "TimeType";
 
         #endregion
 
         #region Construction
 
-        public AutoCatHltb(string name, string filter = null, string prefix = null,
-            bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false)
-            : base(name)
+        public AutoCatHltb(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -107,8 +96,7 @@ namespace Depressurizer
         {
         }
 
-        public AutoCatHltb(AutoCatHltb other)
-            : base(other)
+        public AutoCatHltb(AutoCatHltb other) : base(other)
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
@@ -147,25 +135,37 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id))
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
             string result = null;
 
-            var hltbMain = db.Games[game.Id].HltbMain / 60.0f;
-            var hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
-            var hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
+            float hltbMain = db.Games[game.Id].HltbMain / 60.0f;
+            float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
+            float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
 
             if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
+            {
                 result = UnknownText;
+            }
             else
-                foreach (var rule in Rules)
+            {
+                foreach (Hltb_Rule rule in Rules)
+                {
                     if (CheckRule(rule, hltbMain, hltbExtras, hltbCompletionist))
                     {
                         result = rule.Name;
                         break;
                     }
+                }
+            }
 
             if (result != null)
             {
@@ -178,20 +178,35 @@ namespace Depressurizer
 
         private bool CheckRule(Hltb_Rule rule, float hltbMain, float hltbExtras, float hltbCompletionist)
         {
-            var hours = 0.0f;
+            float hours = 0.0f;
             if (rule.TimeType == TimeType.Main)
+            {
                 hours = hltbMain;
+            }
             else if (rule.TimeType == TimeType.Extras)
+            {
                 hours = hltbExtras;
+            }
             else if (rule.TimeType == TimeType.Completionist)
+            {
                 hours = hltbCompletionist;
-            if (hours == 0.0f) return false;
+            }
+
+            if (hours == 0.0f)
+            {
+                return false;
+            }
+
             return hours >= rule.MinHours && (hours <= rule.MaxHours || rule.MaxHours == 0.0f);
         }
 
         private string GetProcessedString(string s)
         {
-            if (!string.IsNullOrEmpty(Prefix)) return Prefix + s;
+            if (!string.IsNullOrEmpty(Prefix))
+            {
+                return Prefix + s;
+            }
+
             return s;
         }
 
@@ -204,13 +219,21 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlName_Filter, Filter);
+            }
+
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlName_Prefix, Prefix);
+            }
+
             writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_UnknownText, UnknownText);
 
 
-            foreach (var rule in Rules)
+            foreach (Hltb_Rule rule in Rules)
             {
                 writer.WriteStartElement(XmlName_Rule);
                 writer.WriteElementString(XmlName_Rule_Text, rule.Name);
@@ -226,19 +249,19 @@ namespace Depressurizer
 
         public static AutoCatHltb LoadFromXmlElement(XmlElement xElement)
         {
-            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            var filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            var prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
-            var includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], false);
-            var unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], string.Empty);
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
+            bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], false);
+            string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], string.Empty);
 
-            var rules = new List<Hltb_Rule>();
+            List<Hltb_Rule> rules = new List<Hltb_Rule>();
             foreach (XmlNode node in xElement.SelectNodes(XmlName_Rule))
             {
-                var ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
-                var ruleMin = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MinHours], 0);
-                var ruleMax = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MaxHours], 0);
-                var type = XmlUtil.GetStringFromNode(node[XmlName_Rule_TimeType], string.Empty);
+                string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
+                float ruleMin = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MinHours], 0);
+                float ruleMax = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MaxHours], 0);
+                string type = XmlUtil.GetStringFromNode(node[XmlName_Rule_TimeType], string.Empty);
                 TimeType ruleTimeType;
                 switch (type)
                 {
@@ -256,7 +279,7 @@ namespace Depressurizer
                 rules.Add(new Hltb_Rule(ruleName, ruleMin, ruleMax, ruleTimeType));
             }
 
-            var result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText) {Rules = rules};
+            AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText) {Rules = rules};
             return result;
         }
 

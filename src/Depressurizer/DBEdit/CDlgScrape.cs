@@ -19,6 +19,7 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Depressurizer.Models;
 using Rallion;
 
 namespace Depressurizer
@@ -26,17 +27,16 @@ namespace Depressurizer
     internal class DbScrapeDlg : CancelableDlg
     {
         private readonly Queue<int> jobs;
-        private readonly List<GameDBEntry> results;
+        private readonly List<DatabaseEntry> results;
 
         private DateTime start;
 
-        public DbScrapeDlg(Queue<int> jobs)
-            : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
+        public DbScrapeDlg(Queue<int> jobs) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
             this.jobs = jobs;
             totalJobs = jobs.Count;
 
-            results = new List<GameDBEntry>();
+            results = new List<DatabaseEntry>();
         }
 
         protected override void UpdateForm_Load(object sender, EventArgs e)
@@ -49,15 +49,23 @@ namespace Depressurizer
         {
             lock (jobs)
             {
-                if (jobs.Count > 0) return jobs.Dequeue();
+                if (jobs.Count > 0)
+                {
+                    return jobs.Dequeue();
+                }
+
                 return 0;
             }
         }
 
         protected override void RunProcess()
         {
-            var stillRunning = true;
-            while (!Stopped && stillRunning) stillRunning = RunNextJob();
+            bool stillRunning = true;
+            while (!Stopped && stillRunning)
+            {
+                stillRunning = RunNextJob();
+            }
+
             OnThreadCompletion();
         }
 
@@ -67,11 +75,18 @@ namespace Depressurizer
         /// <returns>True if a job was run, false if it was aborted first</returns>
         private bool RunNextJob()
         {
-            var id = GetNextGameId();
-            if (id == 0) return false;
-            if (Stopped) return false;
+            int id = GetNextGameId();
+            if (id == 0)
+            {
+                return false;
+            }
 
-            var newGame = new GameDBEntry();
+            if (Stopped)
+            {
+                return false;
+            }
+
+            DatabaseEntry newGame = new DatabaseEntry();
             newGame.Id = id;
             newGame.ScrapeStore();
 
@@ -97,26 +112,34 @@ namespace Depressurizer
                 SetText(GlobalStrings.CDlgScrape_ApplyingData);
 
                 if (results != null)
-                    foreach (var g in results)
-                        if (Program.GameDB.Contains(g.Id))
-                            Program.GameDB.Games[g.Id].MergeIn(g);
+                {
+                    foreach (DatabaseEntry g in results)
+                    {
+                        if (Program.Database.Contains(g.Id))
+                        {
+                            Program.Database.Games[g.Id].MergeIn(g);
+                        }
                         else
-                            Program.GameDB.Games.Add(g.Id, g);
+                        {
+                            Program.Database.Games.Add(g.Id, g);
+                        }
+                    }
+                }
             }
         }
 
         protected override void UpdateText()
         {
-            var timeRemaining = TimeSpan.Zero;
+            TimeSpan timeRemaining = TimeSpan.Zero;
             if (jobsCompleted > 0)
             {
-                var msElapsed = (DateTime.Now - start).TotalMilliseconds;
-                var msPerItem = msElapsed / jobsCompleted;
-                var msRemaining = msPerItem * (totalJobs - jobsCompleted);
+                double msElapsed = (DateTime.Now - start).TotalMilliseconds;
+                double msPerItem = msElapsed / jobsCompleted;
+                double msRemaining = msPerItem * (totalJobs - jobsCompleted);
                 timeRemaining = TimeSpan.FromMilliseconds(msRemaining);
             }
 
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, jobsCompleted, totalJobs));
 
             sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
@@ -130,8 +153,12 @@ namespace Depressurizer
             }
             else
             {
-                var hours = timeRemaining.TotalHours;
-                if (hours >= 1.0) sb.Append(string.Format("{0:F0}h", hours));
+                double hours = timeRemaining.TotalHours;
+                if (hours >= 1.0)
+                {
+                    sb.Append(string.Format("{0:F0}h", hours));
+                }
+
                 sb.Append(string.Format("{0:D2}m", timeRemaining.Minutes));
             }
 

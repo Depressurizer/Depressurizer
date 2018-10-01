@@ -52,22 +52,24 @@ namespace Depressurizer
 
         public static PackageInfo FromVdfNode(VdfFileNode node)
         {
-            var idNode = node.GetNodeAt(new[] {"packageId"}, false);
+            VdfFileNode idNode = node.GetNodeAt(new[] {"packageId"}, false);
             if (idNode != null && idNode.NodeType == ValueType.Int)
             {
-                var id = idNode.NodeInt;
+                int id = idNode.NodeInt;
 
                 string name = null;
-                var nameNode = node.GetNodeAt(new[] {"name"}, false);
-                if (nameNode != null && nameNode.NodeType == ValueType.String) name = nameNode.NodeString;
-
-                var package = new PackageInfo(id, name);
-
-                var billingtypeNode = node["billingtype"];
-                if (billingtypeNode != null && billingtypeNode.NodeType == ValueType.String ||
-                    billingtypeNode.NodeType == ValueType.Int)
+                VdfFileNode nameNode = node.GetNodeAt(new[] {"name"}, false);
+                if (nameNode != null && nameNode.NodeType == ValueType.String)
                 {
-                    var bType = billingtypeNode.NodeInt;
+                    name = nameNode.NodeString;
+                }
+
+                PackageInfo package = new PackageInfo(id, name);
+
+                VdfFileNode billingtypeNode = node["billingtype"];
+                if (billingtypeNode != null && billingtypeNode.NodeType == ValueType.String || billingtypeNode.NodeType == ValueType.Int)
+                {
+                    int bType = billingtypeNode.NodeInt;
                     /*if( Enum.IsDefined( typeof(PackageBillingType), bType ) ) {
 
                     } else {
@@ -76,11 +78,17 @@ namespace Depressurizer
                     package.BillingType = (PackageBillingType) bType;
                 }
 
-                var appsNode = node["appids"];
+                VdfFileNode appsNode = node["appids"];
                 if (appsNode != null && appsNode.NodeType == ValueType.Array)
-                    foreach (var aNode in appsNode.NodeArray.Values)
+                {
+                    foreach (VdfFileNode aNode in appsNode.NodeArray.Values)
+                    {
                         if (aNode.NodeType == ValueType.Int)
+                        {
                             package.AppIds.Add(aNode.NodeInt);
+                        }
+                    }
+                }
 
                 return package;
             }
@@ -90,7 +98,7 @@ namespace Depressurizer
 
         public static DateTime GetLocalDateTime(int timeStamp)
         {
-            var result = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            DateTime result = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             return result.AddSeconds(timeStamp).ToLocalTime();
         }
 
@@ -100,7 +108,7 @@ namespace Depressurizer
         /// <param name="path">Path of packageinfo.vdf</param>
         public static Dictionary<int, PackageInfo> LoadPackages(string path)
         {
-            var result = new Dictionary<int, PackageInfo>();
+            Dictionary<int, PackageInfo> result = new Dictionary<int, PackageInfo>();
 
             /* packageinfo.vdf entry example format, sometimes has extra values. Line breaks are only for readability and not part of format.
             * we only care about *packageid*, *billingtype*, *appids*
@@ -115,8 +123,8 @@ namespace Depressurizer
             * 08 00 appitems 00 08 08 08 
             */
 
-            var bReader = new BinaryReader(new FileStream(path, FileMode.Open), Encoding.ASCII);
-            var fileLength = bReader.BaseStream.Length;
+            BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open), Encoding.ASCII);
+            long fileLength = bReader.BaseStream.Length;
 
             // seek to packageid: start of a new entry
             byte[] packageidBytes =
@@ -132,8 +140,8 @@ namespace Depressurizer
             VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
             while (bReader.BaseStream.Position < fileLength)
             {
-                var id = bReader.ReadInt32();
-                var package = new PackageInfo(id);
+                int id = bReader.ReadInt32();
+                PackageInfo package = new PackageInfo(id);
 
                 VdfFileNode.ReadBin_SeekTo(bReader, billingtypeBytes, fileLength);
                 package.BillingType = (PackageBillingType) bReader.ReadInt32();

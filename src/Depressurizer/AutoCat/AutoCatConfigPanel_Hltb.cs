@@ -66,8 +66,11 @@ namespace Depressurizer
 
         public override void SaveToAutoCat(AutoCat ac)
         {
-            var acHltb = ac as AutoCatHltb;
-            if (acHltb == null) return;
+            AutoCatHltb acHltb = ac as AutoCatHltb;
+            if (acHltb == null)
+            {
+                return;
+            }
 
             acHltb.Prefix = txtPrefix.Text;
             acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
@@ -77,8 +80,11 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
-            var acHltb = ac as AutoCatHltb;
-            if (acHltb == null) return;
+            AutoCatHltb acHltb = ac as AutoCatHltb;
+            if (acHltb == null)
+            {
+                return;
+            }
 
             txtPrefix.Text = acHltb.Prefix;
             chkIncludeUnknown.Checked = acHltb.IncludeUnknown;
@@ -87,7 +93,11 @@ namespace Depressurizer
             acHltb.UnknownText = txtUnknownText.Text;
 
             ruleList.Clear();
-            foreach (var rule in acHltb.Rules) ruleList.Add(new Hltb_Rule(rule));
+            foreach (Hltb_Rule rule in acHltb.Rules)
+            {
+                ruleList.Add(new Hltb_Rule(rule));
+            }
+
             UpdateEnabledSettings();
         }
 
@@ -96,12 +106,9 @@ namespace Depressurizer
         /// </summary>
         private void UpdateEnabledSettings()
         {
-            var ruleSelected = lstRules.SelectedIndex >= 0;
+            bool ruleSelected = lstRules.SelectedIndex >= 0;
 
-            txtRuleName.Enabled =
-                numRuleMaxTime.Enabled = numRuleMinTime.Enabled =
-                    cmbTimeType.Enabled =
-                        cmdRuleRemove.Enabled = ruleSelected;
+            txtRuleName.Enabled = numRuleMaxTime.Enabled = numRuleMinTime.Enabled = cmbTimeType.Enabled = cmdRuleRemove.Enabled = ruleSelected;
             cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
             cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
         }
@@ -115,14 +122,19 @@ namespace Depressurizer
         /// <param name="selectMoved">If true, select the moved element afterwards</param>
         private void MoveItem(int mainIndex, int offset, bool selectMoved)
         {
-            var alterIndex = mainIndex + offset;
-            if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 ||
-                alterIndex >= lstRules.Items.Count) return;
+            int alterIndex = mainIndex + offset;
+            if (mainIndex < 0 || mainIndex >= lstRules.Items.Count || alterIndex < 0 || alterIndex >= lstRules.Items.Count)
+            {
+                return;
+            }
 
-            var mainItem = ruleList[mainIndex];
+            Hltb_Rule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
-            if (selectMoved) lstRules.SelectedIndex = alterIndex;
+            if (selectMoved)
+            {
+                lstRules.SelectedIndex = alterIndex;
+            }
         }
 
         /// <summary>
@@ -130,8 +142,7 @@ namespace Depressurizer
         /// </summary>
         private void AddRule()
         {
-            var newRule = new Hltb_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0,
-                (TimeType) cmbTimeType.SelectedItem);
+            Hltb_Rule newRule = new Hltb_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0, (TimeType) cmbTimeType.SelectedItem);
             ruleList.Add(newRule);
             lstRules.SelectedIndex = lstRules.Items.Count - 1;
         }
@@ -142,7 +153,10 @@ namespace Depressurizer
         /// <param name="index">Index of the rule to remove</param>
         private void RemoveRule(int index)
         {
-            if (index >= 0) ruleList.RemoveAt(index);
+            if (index >= 0)
+            {
+                ruleList.RemoveAt(index);
+            }
         }
 
         #region Event Handlers

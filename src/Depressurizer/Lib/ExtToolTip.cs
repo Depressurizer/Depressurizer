@@ -45,19 +45,27 @@ namespace Depressurizer.Lib
 
         private void Ext_Control_MouseLeave(object sender, EventArgs e)
         {
-            var c = sender as Control;
-            if (c != null) Hide(c);
+            Control c = sender as Control;
+            if (c != null)
+            {
+                Hide(c);
+            }
         }
 
         private void Ext_Control_MouseEnter(object sender, EventArgs e)
         {
-            var c = sender as Control;
+            Control c = sender as Control;
             if (c != null)
+            {
                 if (bindings.ContainsKey(c))
                 {
-                    var s = bindings[c];
-                    if (s != null) Show(s, c, c.Width, c.Height);
+                    string s = bindings[c];
+                    if (s != null)
+                    {
+                        Show(s, c, c.Width, c.Height);
+                    }
                 }
+            }
         }
     }
 }

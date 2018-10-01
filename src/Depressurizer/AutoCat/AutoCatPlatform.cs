@@ -27,10 +27,7 @@ namespace Depressurizer
         // Serialization constants
         public const string TypeIdString = "AutoCatPlatform";
 
-        public AutoCatPlatform(string name, string filter = null, string prefix = null, bool windows = false,
-            bool mac = false, bool linux = false, bool steamOS = false,
-            bool selected = false)
-            : base(name)
+        public AutoCatPlatform(string name, string filter = null, string prefix = null, bool windows = false, bool mac = false, bool linux = false, bool steamOS = false, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -46,8 +43,7 @@ namespace Depressurizer
         {
         }
 
-        protected AutoCatPlatform(AutoCatPlatform other)
-            : base(other)
+        protected AutoCatPlatform(AutoCatPlatform other) : base(other)
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
@@ -87,25 +83,47 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            var platforms = db.Games[game.Id].Platforms;
+            AppPlatforms platforms = db.Games[game.Id].Platforms;
             if (Windows && (platforms & AppPlatforms.Windows) != 0)
+            {
                 game.AddCategory(games.GetCategory(GetProcessedString("Windows")));
+            }
+
             if (Windows && (platforms & AppPlatforms.Mac) != 0)
+            {
                 game.AddCategory(games.GetCategory(GetProcessedString("Mac")));
+            }
+
             if (Windows && (platforms & AppPlatforms.Linux) != 0)
+            {
                 game.AddCategory(games.GetCategory(GetProcessedString("Linux")));
+            }
+
             if (Windows && (platforms & AppPlatforms.Linux) != 0)
+            {
                 game.AddCategory(games.GetCategory(GetProcessedString("SteamOS")));
+            }
+
             return AutoCatResult.Success;
         }
 
         public string GetProcessedString(string s)
         {
-            if (string.IsNullOrEmpty(Prefix)) return s;
+            if (string.IsNullOrEmpty(Prefix))
+            {
+                return s;
+            }
+
             return Prefix + s;
         }
     }

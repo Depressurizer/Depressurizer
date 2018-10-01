@@ -34,8 +34,7 @@ namespace Depressurizer
             InitializeComponent();
         }
 
-        public DlgGame(GameList data, GameInfo game = null)
-            : this()
+        public DlgGame(GameList data, GameInfo game = null) : this()
         {
             Data = data;
             Game = game;
@@ -79,15 +78,13 @@ namespace Depressurizer
                 int id;
                 if (!int.TryParse(txtId.Text, out id))
                 {
-                    MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning,
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (Data.Games.ContainsKey(id))
                 {
-                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error,
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -106,11 +103,11 @@ namespace Depressurizer
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            var dlg = new OpenFileDialog();
+            OpenFileDialog dlg = new OpenFileDialog();
 
             try
             {
-                var f = new FileInfo(txtExecutable.Text);
+                FileInfo f = new FileInfo(txtExecutable.Text);
                 dlg.InitialDirectory = f.DirectoryName;
                 dlg.FileName = f.Name;
             }
@@ -118,8 +115,11 @@ namespace Depressurizer
             {
             }
 
-            var res = dlg.ShowDialog();
-            if (res == DialogResult.OK) txtExecutable.Text = dlg.FileName;
+            DialogResult res = dlg.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtExecutable.Text = dlg.FileName;
+            }
         }
     }
 }

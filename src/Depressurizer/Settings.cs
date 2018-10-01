@@ -146,8 +146,7 @@ namespace Depressurizer
 
         private Settings()
         {
-            FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                       @"\Depressurizer\Settings.xml";
+            FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Depressurizer\Settings.xml";
         }
 
         public static Settings Instance => instance ?? (instance = new Settings());
@@ -184,7 +183,11 @@ namespace Depressurizer
         {
             get
             {
-                if (_height <= 350) Height = 600;
+                if (_height <= 350)
+                {
+                    Height = 600;
+                }
+
                 return _height;
             }
             set
@@ -201,7 +204,11 @@ namespace Depressurizer
         {
             get
             {
-                if (_width <= 600) Width = 1000;
+                if (_width <= 600)
+                {
+                    Width = 1000;
+                }
+
                 return _width;
             }
             set
@@ -218,7 +225,11 @@ namespace Depressurizer
         {
             get
             {
-                if (_splitContainer <= 100) SplitContainer = 250;
+                if (_splitContainer <= 100)
+                {
+                    SplitContainer = 250;
+                }
+
                 return _splitContainer;
             }
             set
@@ -235,7 +246,11 @@ namespace Depressurizer
         {
             get
             {
-                if (_splitGame <= 100) SplitGame = SplitGameContainerHeight - 150;
+                if (_splitGame <= 100)
+                {
+                    SplitGame = SplitGameContainerHeight - 150;
+                }
+
                 return _splitGame;
             }
             set
@@ -252,7 +267,11 @@ namespace Depressurizer
         {
             get
             {
-                if (_splitBrowser <= 100) SplitBrowser = SplitBrowserContainerWidth - 300;
+                if (_splitBrowser <= 100)
+                {
+                    SplitBrowser = SplitBrowserContainerWidth - 300;
+                }
+
                 return _splitBrowser;
             }
             set
@@ -511,7 +530,10 @@ namespace Depressurizer
                 {
                     _storeLanguage = value;
                     outOfDate = true;
-                    if (Program.GameDB != null) Program.GameDB.ChangeLanguage(_storeLanguage);
+                    if (Program.Database != null)
+                    {
+                        Program.Database.ChangeLanguage(_storeLanguage);
+                    }
                 }
             }
         }

@@ -28,8 +28,12 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
-            var acName = ac as AutoCatName;
-            if (acName == null) return;
+            AutoCatName acName = ac as AutoCatName;
+            if (acName == null)
+            {
+                return;
+            }
+
             txtPrefix.Text = acName.Prefix == null ? string.Empty : acName.Prefix;
             cbSkipThe.Checked = acName.SkipThe;
             cbGroupNumbers.Checked = acName.GroupNumbers;
@@ -39,8 +43,12 @@ namespace Depressurizer
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatName;
-            if (ac == null) return;
+            AutoCatName ac = autocat as AutoCatName;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
             ac.GroupNumbers = cbGroupNumbers.Checked;
             ac.SkipThe = cbSkipThe.Checked;

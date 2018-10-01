@@ -28,9 +28,6 @@ namespace Depressurizer
         private readonly bool custom;
         private readonly string customUrl;
         private readonly GameList data;
-
-        private XmlDocument doc;
-        private string htmlDoc;
         private readonly SortedSet<int> ignore;
         private readonly bool includeUnknown;
 
@@ -38,9 +35,10 @@ namespace Depressurizer
 
         private readonly long SteamId;
 
-        public CDlgUpdateProfile(GameList data, long accountId, bool overwrite, SortedSet<int> ignore,
-            bool inclUnknown)
-            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        private XmlDocument doc;
+        private string htmlDoc;
+
+        public CDlgUpdateProfile(GameList data, long accountId, bool overwrite, SortedSet<int> ignore, bool inclUnknown) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = false;
             SteamId = accountId;
@@ -60,9 +58,7 @@ namespace Depressurizer
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        public CDlgUpdateProfile(GameList data, string customUrl, bool overwrite, SortedSet<int> ignore,
-            bool inclUnknown)
-            : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
+        public CDlgUpdateProfile(GameList data, string customUrl, bool overwrite, SortedSet<int> ignore, bool inclUnknown) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
             custom = true;
             this.customUrl = customUrl;
@@ -144,15 +140,13 @@ namespace Depressurizer
                 if (UseHtml)
                 {
                     int newItems;
-                    Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore,
-                        includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
+                    Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore, includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
                     Added = newItems;
                 }
                 else
                 {
                     int newItems;
-                    Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore,
-                        includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
+                    Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore, includeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal, out newItems);
                     Added = newItems;
                 }
 

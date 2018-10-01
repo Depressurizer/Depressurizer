@@ -48,9 +48,15 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id))
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
             return AutoCatResult.Success;
         }
@@ -69,8 +75,12 @@ namespace Depressurizer
         {
             get
             {
-                var displayName = Name + "[" + Autocats.Count + "]";
-                if (Filter != null) displayName += "*";
+                string displayName = Name + "[" + Autocats.Count + "]";
+                if (Filter != null)
+                {
+                    displayName += "*";
+                }
+
                 return displayName;
             }
         }
@@ -78,18 +88,13 @@ namespace Depressurizer
         // Serialization strings
         public const string TypeIdString = "AutoCatGroup";
 
-        public const string
-            XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Autocats = "Autocats",
-            XmlName_Autocat = "Autocat";
+        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Autocats = "Autocats", XmlName_Autocat = "Autocat";
 
         #endregion
 
         #region Construction
 
-        public AutoCatGroup(string name, string filter = null, List<string> autocats = null, bool selected = false)
-            : base(name)
+        public AutoCatGroup(string name, string filter = null, List<string> autocats = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Autocats = autocats == null ? new List<string>() : autocats;
@@ -101,8 +106,7 @@ namespace Depressurizer
         {
         }
 
-        protected AutoCatGroup(AutoCatGroup other)
-            : base(other)
+        protected AutoCatGroup(AutoCatGroup other) : base(other)
         {
             Filter = other.Filter;
             Autocats = new List<string>(other.Autocats);
@@ -123,12 +127,19 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlName_Filter, Filter);
+            }
 
             if (Autocats != null && Autocats.Count > 0)
             {
                 writer.WriteStartElement(XmlName_Autocats);
-                foreach (var name in Autocats) writer.WriteElementString(XmlName_Autocat, name);
+                foreach (string name in Autocats)
+                {
+                    writer.WriteElementString(XmlName_Autocat, name);
+                }
+
                 writer.WriteEndElement();
             }
 
@@ -137,10 +148,9 @@ namespace Depressurizer
 
         public static AutoCatGroup LoadFromXmlElement(XmlElement xElement)
         {
-            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            var filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            var autocats =
-                XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_Autocats + "/" + XmlName_Autocat));
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            List<string> autocats = XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_Autocats + "/" + XmlName_Autocat));
 
             return new AutoCatGroup(name, filter, autocats);
         }

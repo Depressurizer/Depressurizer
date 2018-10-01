@@ -99,7 +99,7 @@ namespace Rallion
         private static void HandleUnhandledException(Exception e)
         {
             Program.Logger.WriteException("Fatal Error: ", e);
-            var errForm = new FatalError(e);
+            FatalError errForm = new FatalError(e);
             errForm.ShowDialog();
             Application.Exit();
         }
@@ -121,7 +121,7 @@ namespace Rallion
         {
             HideInfo();
 
-            var appName = Application.ProductName;
+            string appName = Application.ProductName;
 
             Text = string.Format(GlobalStrings.DlgFatalError_FatalError, appName);
             lblMessage.Text = string.Format(GlobalStrings.DlgFatalError_FatalErrorOcurred, appName);
@@ -133,11 +133,11 @@ namespace Rallion
 
         private void FillFields()
         {
-            var innerExStackTraceSep = "---End of inner exception stack trace---" + Environment.NewLine;
+            string innerExStackTraceSep = "---End of inner exception stack trace---" + Environment.NewLine;
             txtErrType.Text = ex.GetType().Name;
             txtErrMsg.Text = ex.Message;
             txtTrace.Text = ex.StackTrace;
-            var innerEx = ex.InnerException;
+            Exception innerEx = ex.InnerException;
             while (innerEx != null)
             {
                 txtErrMsg.Text += Environment.NewLine + innerEx.GetType().Name + @": " + innerEx.Message;
@@ -155,7 +155,10 @@ namespace Rallion
         /// </summary>
         private void ShowInfo()
         {
-            if (ShowingInfo) return;
+            if (ShowingInfo)
+            {
+                return;
+            }
 
             // Increase the form height and allow resizing
             MinimumSize = new Size(MIN_WIDTH, MIN_HEIGHT);
@@ -170,11 +173,15 @@ namespace Rallion
         /// </summary>
         private void HideInfo()
         {
-            if (!ShowingInfo) return;
+            if (!ShowingInfo)
+            {
+                return;
+            }
+
             // Save the current info height in case we toggle back
             currentInfoHeight = Height - ShortHeight;
             // Resize and disable user resizing
-            var newHeight = ShortHeight;
+            int newHeight = ShortHeight;
             MinimumSize = new Size(MIN_WIDTH, newHeight);
             MaximumSize = new Size(MAX_WIDTH, newHeight);
             Height = newHeight;
@@ -187,8 +194,14 @@ namespace Rallion
         /// </summary>
         private void ToggleInfo()
         {
-            if (ShowingInfo) HideInfo();
-            else ShowInfo();
+            if (ShowingInfo)
+            {
+                HideInfo();
+            }
+            else
+            {
+                ShowInfo();
+            }
         }
 
         #endregion
@@ -221,16 +234,16 @@ namespace Rallion
         {
             try
             {
-                var dlg = new SaveFileDialog();
+                SaveFileDialog dlg = new SaveFileDialog();
                 dlg.CreatePrompt = false;
                 dlg.AddExtension = false;
                 dlg.AutoUpgradeEnabled = true;
                 dlg.InitialDirectory = Environment.CurrentDirectory;
                 dlg.FileName = "dError_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".log";
-                var res = dlg.ShowDialog();
+                DialogResult res = dlg.ShowDialog();
                 if (res == DialogResult.OK)
                 {
-                    var fstr = new StreamWriter(dlg.FileName);
+                    StreamWriter fstr = new StreamWriter(dlg.FileName);
                     fstr.Write(ex.ToString());
                     fstr.Close();
                     MessageBox.Show(GlobalStrings.DlgFatalError_ErrorInformationSaved);
@@ -249,13 +262,13 @@ namespace Rallion
         {
             if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
             {
-                var t = new Thread(SetClipboardText);
+                Thread t = new Thread(SetClipboardText);
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
             }
             else
             {
-                var dMsg = GlobalStrings.DlgFatalError_CouldNotCopyClipboard;
+                string dMsg = GlobalStrings.DlgFatalError_CouldNotCopyClipboard;
                 try
                 {
                     Clipboard.SetText(ex.ToString());
@@ -264,9 +277,13 @@ namespace Rallion
                 finally
                 {
                     if (InvokeRequired)
+                    {
                         Invoke(new DLG_MessageBox(MessageBox.Show), dMsg);
+                    }
                     else
+                    {
                         MessageBox.Show(dMsg);
+                    }
                 }
             }
         }

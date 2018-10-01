@@ -88,20 +88,34 @@ namespace Depressurizer
             get
             {
                 if (NodeType != ValueType.Array)
+                {
                     throw new ApplicationException(string.Format(GlobalStrings.TextVdfFile_CanNotGetKey, key));
-                var arrayData = (Dictionary<string, VdfFileNode>) NodeData;
-                if (!arrayData.ContainsKey(key)) arrayData.Add(key, new VdfFileNode());
+                }
+
+                Dictionary<string, VdfFileNode> arrayData = (Dictionary<string, VdfFileNode>) NodeData;
+                if (!arrayData.ContainsKey(key))
+                {
+                    arrayData.Add(key, new VdfFileNode());
+                }
+
                 return arrayData[key];
             }
             set
             {
                 if (NodeType == ValueType.String)
+                {
                     throw new ApplicationException(string.Format(GlobalStrings.TextVdfFile_CanNotSetKey, key));
-                var arrayData = (Dictionary<string, VdfFileNode>) NodeData;
+                }
+
+                Dictionary<string, VdfFileNode> arrayData = (Dictionary<string, VdfFileNode>) NodeData;
                 if (!arrayData.ContainsKey(key))
+                {
                     arrayData.Add(key, value);
+                }
                 else
+                {
                     arrayData[key] = value;
+                }
             }
         }
 
@@ -124,10 +138,13 @@ namespace Depressurizer
             get
             {
                 if (NodeType == ValueType.Int)
+                {
                     return (int) NodeData;
+                }
+
                 if (NodeType == ValueType.String)
                 {
-                    var res = 0;
+                    int res = 0;
                     int.TryParse(NodeString, out res);
                     return res;
                 }
@@ -144,7 +161,11 @@ namespace Depressurizer
         /// <returns>True if an array with no children, false otherwise</returns>
         protected bool IsEmpty()
         {
-            if (NodeArray != null) return NodeArray.Count == 0;
+            if (NodeArray != null)
+            {
+                return NodeArray.Count == 0;
+            }
+
             return NodeData as string == null;
         }
 
@@ -161,14 +182,22 @@ namespace Depressurizer
         /// <returns>The FileNode at the given location, or null if the location was not found / created</returns>
         public VdfFileNode GetNodeAt(string[] args, bool create = true, int index = 0)
         {
-            if (index >= args.Length) return this;
+            if (index >= args.Length)
+            {
+                return this;
+            }
+
             if (NodeType == ValueType.Array)
             {
-                var data = (Dictionary<string, VdfFileNode>) NodeData;
-                if (ContainsKey(args[index])) return data[args[index]].GetNodeAt(args, create, index + 1);
+                Dictionary<string, VdfFileNode> data = (Dictionary<string, VdfFileNode>) NodeData;
+                if (ContainsKey(args[index]))
+                {
+                    return data[args[index]].GetNodeAt(args, create, index + 1);
+                }
+
                 if (create)
                 {
-                    var newNode = new VdfFileNode();
+                    VdfFileNode newNode = new VdfFileNode();
                     data.Add(args[index], newNode);
                     return newNode.GetNodeAt(args, create, index + 1);
                 }
@@ -184,7 +213,11 @@ namespace Depressurizer
         /// <returns>True if the key was found, false otherwise</returns>
         public bool ContainsKey(string key)
         {
-            if (NodeType != ValueType.Array) return false;
+            if (NodeType != ValueType.Array)
+            {
+                return false;
+            }
+
             return ((Dictionary<string, VdfFileNode>) NodeData).ContainsKey(key);
         }
 
@@ -199,7 +232,11 @@ namespace Depressurizer
         /// <returns>True if node was removed, false if not found</returns>
         public bool RemoveSubnode(string key)
         {
-            if (NodeType != ValueType.Array) return false;
+            if (NodeType != ValueType.Array)
+            {
+                return false;
+            }
+
             return NodeArray.Remove(key);
         }
 
@@ -208,14 +245,17 @@ namespace Depressurizer
         /// </summary>
         public void CleanTree()
         {
-            var nodes = NodeArray;
+            Dictionary<string, VdfFileNode> nodes = NodeArray;
             if (nodes != null)
             {
-                var keys = nodes.Keys.ToArray();
-                foreach (var key in keys)
+                string[] keys = nodes.Keys.ToArray();
+                foreach (string key in keys)
                 {
                     nodes[key].CleanTree();
-                    if (nodes[key].IsEmpty()) NodeArray.Remove(key);
+                    if (nodes[key].IsEmpty())
+                    {
+                        NodeArray.Remove(key);
+                    }
                 }
             }
         }
@@ -240,11 +280,19 @@ namespace Depressurizer
         /// <returns>FileNode representing the contents of the stream.</returns>
         public static VdfFileNode LoadFromBinary(BinaryReader stream, long streamLength = -1)
         {
-            if (streamLength == -1) streamLength = stream.BaseStream.Length;
-            if (stream.BaseStream.Position == streamLength) return null;
-            var thisLevel = new VdfFileNode();
+            if (streamLength == -1)
+            {
+                streamLength = stream.BaseStream.Length;
+            }
 
-            var endOfStream = false;
+            if (stream.BaseStream.Position == streamLength)
+            {
+                return null;
+            }
+
+            VdfFileNode thisLevel = new VdfFileNode();
+
+            bool endOfStream = false;
 
             while (!endOfStream)
             {
@@ -261,7 +309,11 @@ namespace Depressurizer
 
                 // Get key
                 string key = null;
-                if (endOfStream || nextByte == 8 || stream.BaseStream.Position == streamLength) break;
+                if (endOfStream || nextByte == 8 || stream.BaseStream.Position == streamLength)
+                {
+                    break;
+                }
+
                 if (nextByte == 0)
                 {
                     key = ReadBin_GetStringToken(stream);
@@ -277,13 +329,13 @@ namespace Depressurizer
                 else if (nextByte == 2)
                 {
                     key = ReadBin_GetStringToken(stream);
-                    var val = stream.ReadInt32();
+                    int val = stream.ReadInt32();
                     thisLevel[key] = new VdfFileNode(val);
                 }
                 else if (nextByte == 7)
                 {
                     key = ReadBin_GetStringToken(stream);
-                    var val = stream.ReadUInt64();
+                    ulong val = stream.ReadUInt64();
                     thisLevel[key] = new VdfFileNode(val);
                 }
                 else if (nextByte == 0xFF)
@@ -373,17 +425,31 @@ namespace Depressurizer
             {
                 case ValueType.Array:
                     if (!string.IsNullOrEmpty(actualKey))
+                    {
                         WriteBin_WriteArrayKey(stream, actualKey);
-                    var data = NodeArray;
-                    foreach (var entry in data) entry.Value.SaveAsBinary(stream, entry.Key);
+                    }
+
+                    Dictionary<string, VdfFileNode> data = NodeArray;
+                    foreach (KeyValuePair<string, VdfFileNode> entry in data)
+                    {
+                        entry.Value.SaveAsBinary(stream, entry.Key);
+                    }
+
                     WriteBin_WriteEndByte(stream);
                     break;
                 case ValueType.String:
                     if (!string.IsNullOrEmpty(actualKey))
+                    {
                         WriteBin_WriteStringValue(stream, actualKey, NodeString);
+                    }
+
                     break;
                 case ValueType.Int:
-                    if (!string.IsNullOrEmpty(actualKey)) WriteBin_WriteIntegerValue(stream, actualKey, NodeInt);
+                    if (!string.IsNullOrEmpty(actualKey))
+                    {
+                        WriteBin_WriteIntegerValue(stream, actualKey, NodeInt);
+                    }
+
                     break;
             }
         }
@@ -392,13 +458,19 @@ namespace Depressurizer
 
         public static void ReadBin_SeekTo(BinaryReader stream, byte[] str, long fileLength)
         {
-            var indexAt = 0;
+            int indexAt = 0;
 
             while (indexAt < str.Length && stream.BaseStream.Position < fileLength)
+            {
                 if (stream.ReadByte() == str[indexAt])
+                {
                     indexAt++;
+                }
                 else
+                {
                     indexAt = 0;
+                }
+            }
         }
 
         /// <summary>
@@ -412,18 +484,27 @@ namespace Depressurizer
         /// <returns>The string encapsulated by the quotes.</returns>
         private static string ReadBin_GetStringToken(BinaryReader reader, long streamLength = -1)
         {
-            if (streamLength == -1) streamLength = reader.BaseStream.Length;
+            if (streamLength == -1)
+            {
+                streamLength = reader.BaseStream.Length;
+            }
 
-            var endOfStream = false;
-            var stringDone = false;
-            var bytes = new List<byte>();
+            bool endOfStream = false;
+            bool stringDone = false;
+            List<byte> bytes = new List<byte>();
             do
             {
                 try
                 {
-                    var b = reader.ReadByte();
-                    if (b == 0) stringDone = true;
-                    else bytes.Add(b);
+                    byte b = reader.ReadByte();
+                    if (b == 0)
+                    {
+                        stringDone = true;
+                    }
+                    else
+                    {
+                        bytes.Add(b);
+                    }
                 }
                 catch (EndOfStreamException)
                 {
@@ -432,10 +513,14 @@ namespace Depressurizer
             } while (!stringDone && !endOfStream && reader.BaseStream.Position < streamLength);
 
             if (!stringDone)
+            {
                 if (endOfStream)
+                {
                     throw new ParseException(GlobalStrings.TextVdfFile_UnexpectedEOF);
+                }
+            }
 
-            var token = Encoding.UTF8.GetString(bytes.ToArray());
+            string token = Encoding.UTF8.GetString(bytes.ToArray());
 
             return token;
         }
@@ -496,7 +581,7 @@ namespace Depressurizer
         /// <returns>FileNode representing the contents of the stream.</returns>
         public static VdfFileNode LoadFromText(StreamReader stream, bool useFirstAsRoot = false)
         {
-            var thisLevel = useFirstAsRoot ? null : new VdfFileNode();
+            VdfFileNode thisLevel = useFirstAsRoot ? null : new VdfFileNode();
 
             ReadText_SkipWhitespace(stream);
 
@@ -504,27 +589,44 @@ namespace Depressurizer
             {
                 ReadText_SkipWhitespace(stream);
                 // Get key
-                var nextChar = (char) stream.Read();
+                char nextChar = (char) stream.Read();
                 string key = null;
-                if (stream.EndOfStream || nextChar == '}') break;
+                if (stream.EndOfStream || nextChar == '}')
+                {
+                    break;
+                }
+
                 if (nextChar == '"')
+                {
                     key = ReadText_GetStringToken(stream);
+                }
                 else
+                {
                     throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextChar));
+                }
+
                 ReadText_SkipWhitespace(stream);
 
                 // Get value
                 nextChar = (char) stream.Read();
                 VdfFileNode newNode;
                 if (nextChar == '"')
+                {
                     newNode = new VdfFileNode(ReadText_GetStringToken(stream));
+                }
                 else if (nextChar == '{')
+                {
                     newNode = LoadFromText(stream);
+                }
                 else
-                    throw new ParseException(
-                        string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterValue, nextChar));
+                {
+                    throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterValue, nextChar));
+                }
 
-                if (useFirstAsRoot) return newNode;
+                if (useFirstAsRoot)
+                {
+                    return newNode;
+                }
 
                 thisLevel[key] = newNode;
             }
@@ -541,8 +643,9 @@ namespace Depressurizer
         {
             if (NodeType == ValueType.Array)
             {
-                var data = NodeArray;
-                foreach (var entry in data)
+                Dictionary<string, VdfFileNode> data = NodeArray;
+                foreach (KeyValuePair<string, VdfFileNode> entry in data)
+                {
                     if (entry.Value.NodeType == ValueType.Array)
                     {
                         WriteText_WriteWhitespace(stream, indent);
@@ -566,6 +669,7 @@ namespace Depressurizer
                         WriteText_WriteFormattedString(stream, entry.Value.NodeData.ToString());
                         stream.WriteLine();
                     }
+                }
             }
         }
 
@@ -582,9 +686,9 @@ namespace Depressurizer
         /// <returns>The string encapsulated by the quotes.</returns>
         private static string ReadText_GetStringToken(StreamReader stream)
         {
-            var escaped = false;
-            var stringDone = false;
-            var sb = new StringBuilder();
+            bool escaped = false;
+            bool stringDone = false;
+            StringBuilder sb = new StringBuilder();
             char nextChar;
             do
             {
@@ -624,8 +728,13 @@ namespace Depressurizer
             } while (!stringDone && !stream.EndOfStream);
 
             if (!stringDone)
+            {
                 if (stream.EndOfStream)
+                {
                     throw new ParseException(GlobalStrings.TextVdfFile_UnexpectedEOF);
+                }
+            }
+
             return sb.ToString();
         }
 
@@ -635,7 +744,7 @@ namespace Depressurizer
         /// <param name="stream">The stream to advance</param>
         private static void ReadText_SkipWhitespace(StreamReader stream)
         {
-            var nextChar = (char) stream.Peek();
+            char nextChar = (char) stream.Peek();
             while (nextChar == ' ' || nextChar == '\r' || nextChar == '\n' || nextChar == '\t')
             {
                 stream.Read();
@@ -662,7 +771,10 @@ namespace Depressurizer
         /// <param name="indent">Number of tabs</param>
         private void WriteText_WriteWhitespace(StreamWriter stream, int indent)
         {
-            for (var i = 0; i < indent; i++) stream.Write('\t');
+            for (int i = 0; i < indent; i++)
+            {
+                stream.Write('\t');
+            }
         }
 
         #endregion

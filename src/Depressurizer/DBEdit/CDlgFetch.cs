@@ -25,8 +25,7 @@ namespace Depressurizer
     {
         private XmlDocument doc;
 
-        public FetchPrcDlg()
-            : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
+        public FetchPrcDlg() : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
         {
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
             Added = 0;
@@ -37,7 +36,7 @@ namespace Depressurizer
         protected override void RunProcess()
         {
             Added = 0;
-            doc = GameDB.FetchAppListFromWeb();
+            doc = Database.FetchAppListFromWeb();
             OnThreadCompletion();
         }
 
@@ -46,7 +45,7 @@ namespace Depressurizer
             if (!Canceled && doc != null && Error == null)
             {
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
-                Added = Program.GameDB.IntegrateAppList(doc);
+                Added = Program.Database.IntegrateAppList(doc);
                 OnJobCompletion();
             }
         }

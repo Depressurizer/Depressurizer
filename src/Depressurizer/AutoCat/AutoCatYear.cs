@@ -46,22 +46,13 @@ namespace Depressurizer
         // Serialization strings
         public const string TypeIdString = "AutoCatYear";
 
-        public const string
-            XmlName_Name = "Name",
-            XmlName_Filter = "Filter",
-            XmlName_Prefix = "Prefix",
-            XmlName_IncludeUnknown = "IncludeUnknown",
-            XmlName_UnknownText = "UnknownText",
-            XmlName_GroupingMode = "GroupingMode";
+        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_IncludeUnknown = "IncludeUnknown", XmlName_UnknownText = "UnknownText", XmlName_GroupingMode = "GroupingMode";
 
         #endregion
 
         #region Construction
 
-        public AutoCatYear(string name, string filter = null, string prefix = null, bool includeUnknown = true,
-            string unknownText = null, AutoCatYear_Grouping groupMode = AutoCatYear_Grouping.None,
-            bool selected = false)
-            : base(name)
+        public AutoCatYear(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYear_Grouping groupMode = AutoCatYear_Grouping.None, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -76,8 +67,7 @@ namespace Depressurizer
         {
         }
 
-        protected AutoCatYear(AutoCatYear other)
-            : base(other)
+        protected AutoCatYear(AutoCatYear other) : base(other)
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
@@ -116,22 +106,34 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+            if (!db.Contains(game.Id))
+            {
+                return AutoCatResult.NotInDatabase;
+            }
 
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+            if (!game.IncludeGame(filter))
+            {
+                return AutoCatResult.Filtered;
+            }
 
-            var year = db.GetReleaseYear(game.Id);
-            if (year > 0 || IncludeUnknown) game.AddCategory(games.GetCategory(GetProcessedString(year)));
+            int year = db.GetReleaseYear(game.Id);
+            if (year > 0 || IncludeUnknown)
+            {
+                game.AddCategory(games.GetCategory(GetProcessedString(year)));
+            }
 
             return AutoCatResult.Success;
         }
 
         private string GetProcessedString(int year)
         {
-            var result = string.Empty;
+            string result = string.Empty;
             if (year <= 0)
+            {
                 result = UnknownText;
+            }
             else
+            {
                 switch (GroupingMode)
                 {
                     case AutoCatYear_Grouping.Decade:
@@ -144,14 +146,19 @@ namespace Depressurizer
                         result = year.ToString();
                         break;
                 }
+            }
 
-            if (string.IsNullOrEmpty(Prefix)) return result;
+            if (string.IsNullOrEmpty(Prefix))
+            {
+                return result;
+            }
+
             return Prefix + result;
         }
 
         private string GetRangeString(int year, int rangeSize)
         {
-            var first = year - year % rangeSize;
+            int first = year - year % rangeSize;
             return string.Format("{0}-{1}", first, first + rangeSize - 1);
         }
 
@@ -164,8 +171,16 @@ namespace Depressurizer
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null) writer.WriteElementString(XmlName_Filter, Filter);
-            if (Prefix != null) writer.WriteElementString(XmlName_Prefix, Prefix);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlName_Filter, Filter);
+            }
+
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlName_Prefix, Prefix);
+            }
+
             writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_UnknownText, UnknownText);
             writer.WriteElementString(XmlName_GroupingMode, GroupingMode.ToString());
@@ -175,13 +190,12 @@ namespace Depressurizer
 
         public static AutoCatYear LoadFromXmlElement(XmlElement xElement)
         {
-            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            var filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            var prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            var includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], true);
-            var unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], null);
-            var groupMode =
-                XmlUtil.GetEnumFromNode(xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None);
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], true);
+            string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], null);
+            AutoCatYear_Grouping groupMode = XmlUtil.GetEnumFromNode(xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None);
 
             return new AutoCatYear(name, filter, prefix, includeUnknown, unknownText, groupMode);
         }

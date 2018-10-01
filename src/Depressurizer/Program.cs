@@ -26,7 +26,7 @@ namespace Depressurizer
     internal static class Program
     {
         public static AppLogger Logger;
-        public static GameDB GameDB;
+        public static Database Database;
 
         /// <summary>
         ///     The main entry point for the application.
@@ -51,7 +51,7 @@ namespace Depressurizer
 
             Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
 
-            var autoOpts = ParseAutoOptions(args);
+            AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 
             if (autoOpts != null)
             {
@@ -73,10 +73,10 @@ namespace Depressurizer
 
         private static AutomaticModeOptions ParseAutoOptions(string[] args)
         {
-            var config = new AutomaticModeOptions();
-            var auto = false;
+            AutomaticModeOptions config = new AutomaticModeOptions();
+            bool auto = false;
 
-            var opts = new OptionSet
+            OptionSet opts = new OptionSet
             {
                 {"auto", v => auto = true},
                 {"p|profile=", v => config.CustomProfile = v},

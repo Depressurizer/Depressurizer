@@ -47,19 +47,19 @@ namespace Rallion
         {
             if (force || outOfDate)
             {
-                var t = GetType();
+                Type t = GetType();
 
-                var properties = t.GetProperties();
-                var doc = new XmlDocument();
-                var config = doc.CreateElement("config");
+                PropertyInfo[] properties = t.GetProperties();
+                XmlDocument doc = new XmlDocument();
+                XmlElement config = doc.CreateElement("config");
                 lock (threadLock)
                 {
-                    foreach (var pi in properties)
+                    foreach (PropertyInfo pi in properties)
                     {
-                        var val = pi.GetValue(this, null);
+                        object val = pi.GetValue(this, null);
                         if (val != null)
                         {
-                            var element = doc.CreateElement(pi.Name);
+                            XmlElement element = doc.CreateElement(pi.Name);
                             element.InnerText = val.ToString();
                             config.AppendChild(element);
                         }
@@ -84,22 +84,25 @@ namespace Rallion
         /// </summary>
         public virtual void Load()
         {
-            var type = GetType();
+            Type type = GetType();
             if (File.Exists(FilePath))
             {
-                var doc = new XmlDocument();
+                XmlDocument doc = new XmlDocument();
                 try
                 {
                     doc.Load(FilePath);
-                    var configNode = doc.SelectSingleNode("/config");
+                    XmlNode configNode = doc.SelectSingleNode("/config");
                     lock (threadLock)
                     {
                         foreach (XmlNode node in configNode.ChildNodes)
                         {
-                            var name = node.Name;
-                            var value = node.InnerText;
-                            var pi = type.GetProperty(name);
-                            if (pi != null) SetProperty(pi, value);
+                            string name = node.Name;
+                            string value = node.InnerText;
+                            PropertyInfo pi = type.GetProperty(name);
+                            if (pi != null)
+                            {
+                                SetProperty(pi, value);
+                            }
                         }
                     }
                 }
@@ -120,7 +123,7 @@ namespace Rallion
             {
                 if (propertyInfo.PropertyType.IsEnum)
                 {
-                    var eVal = Enum.Parse(propertyInfo.PropertyType, value, true);
+                    object eVal = Enum.Parse(propertyInfo.PropertyType, value, true);
                     propertyInfo.SetValue(this, eVal, null);
                 }
                 else if (propertyInfo.PropertyType == typeof(string))

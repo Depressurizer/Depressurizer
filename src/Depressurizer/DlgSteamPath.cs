@@ -37,10 +37,11 @@ namespace Depressurizer
         {
             if (!Directory.Exists(Path))
             {
-                var res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist,
-                    GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
-                    MessageBoxDefaultButton.Button2);
-                if (res == DialogResult.No) return;
+                DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (res == DialogResult.No)
+                {
+                    return;
+                }
             }
 
             Close();
@@ -48,17 +49,24 @@ namespace Depressurizer
 
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
-            var dlg = new FolderBrowserDialog();
-            var res = dlg.ShowDialog();
-            if (res == DialogResult.OK) txtPath.Text = dlg.SelectedPath;
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            DialogResult res = dlg.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtPath.Text = dlg.SelectedPath;
+            }
         }
 
         private string GetSteamPath()
         {
             try
             {
-                var s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
-                if (s == null) s = string.Empty;
+                string s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
+                if (s == null)
+                {
+                    s = string.Empty;
+                }
+
                 return s.Replace('/', '\\');
             }
             catch

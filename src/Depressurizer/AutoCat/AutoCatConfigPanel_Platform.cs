@@ -28,8 +28,12 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
-            var acPlatform = ac as AutoCatPlatform;
-            if (acPlatform == null) return;
+            AutoCatPlatform acPlatform = ac as AutoCatPlatform;
+            if (acPlatform == null)
+            {
+                return;
+            }
+
             txtPrefix.Text = acPlatform.Prefix == null ? string.Empty : acPlatform.Prefix;
             chkboxPlatforms.SetItemChecked(0, acPlatform.Windows);
             chkboxPlatforms.SetItemChecked(1, acPlatform.Mac);
@@ -39,8 +43,12 @@ namespace Depressurizer
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            var ac = autocat as AutoCatPlatform;
-            if (ac == null) return;
+            AutoCatPlatform ac = autocat as AutoCatPlatform;
+            if (ac == null)
+            {
+                return;
+            }
+
             ac.Prefix = txtPrefix.Text;
             ac.Windows = chkboxPlatforms.GetItemChecked(0);
             ac.Mac = chkboxPlatforms.GetItemChecked(1);
