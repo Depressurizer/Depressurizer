@@ -531,6 +531,9 @@ Continue loading file?</value>
   <data name="MainForm_AddedGame" xml:space="preserve">
     <value>Added game.</value>
   </data>
+  <data name="MainForm_All" xml:space="preserve">
+    <value>&lt;All&gt;</value>
+  </data>
   <data name="MainForm_AutonameCanceled" xml:space="preserve">
     <value>Autoname canceled.</value>
   </data>
@@ -640,6 +643,9 @@ Continue loading file?</value>
   <data name="MainForm_FailedToLoadStorePages" xml:space="preserve">
     <value>Failed to load store pages for {0} games.</value>
   </data>
+  <data name="MainForm_Favorite" xml:space="preserve">
+    <value>&lt;Favorite&gt;</value>
+  </data>
   <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
     <value>GameDB file does not exist.</value>
   </data>
@@ -705,6 +711,9 @@ Continue loading file?</value>
   </data>
   <data name="MainForm_SomeSelectedGameHaveCategories" xml:space="preserve">
     <value>Some of the selected games already have categories set. Would you like to overwrite these categories?</value>
+  </data>
+  <data name="MainForm_Uncategorized" xml:space="preserve">
+    <value>&lt;Uncategorized&gt;</value>
   </data>
   <data name="MainForm_UnignoredGame" xml:space="preserve">
     <value>Unignored game {0}.</value>
@@ -1104,11 +1113,26 @@ Can be slow, but will only download information for games that need it.
 If this is unchecked, newer games may not be categorized.
 Recommended: Enabled</value>
   </data>
+  <data name="MainForm_NoFlags" xml:space="preserve">
+    <value>&lt;No Flags&gt;</value>
+  </data>
+  <data name="MainForm_NoGenres" xml:space="preserve">
+    <value>&lt;No Genres&gt;</value>
+  </data>
+  <data name="MainForm_NoTags" xml:space="preserve">
+    <value>&lt;No Tags&gt;</value>
+  </data>
+  <data name="MainForm_Unknown" xml:space="preserve">
+    <value>&lt;Unknown&gt;</value>
+  </data>
   <data name="GameDB_RedirectsToItself" xml:space="preserve">
     <value>Scraping {0}: Redirects to itself</value>
   </data>
   <data name="GameDB_TooManyRedirects" xml:space="preserve">
     <value>Scraping {0}: Too Many Redirects</value>
+  </data>
+  <data name="MainForm_Hidden" xml:space="preserve">
+    <value>&lt;Hidden&gt;</value>
   </data>
   <data name="MainForm_Log_ExceptionHltb" xml:space="preserve">
     <value>Exception when auto-updating DB from HLTB.</value>
@@ -1364,6 +1388,9 @@ This could take up to a few seconds per game.</value>
   </data>
   <data name="AutoCat_Name_VrSupport" xml:space="preserve">
     <value>VR Support</value>
+  </data>
+  <data name="MainForm_VR" xml:space="preserve">
+    <value>&lt;VR&gt;</value>
   </data>
   <data name="AutoCat_Name_Language" xml:space="preserve">
     <value>Language</value>

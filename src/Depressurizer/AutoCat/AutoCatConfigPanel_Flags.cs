@@ -22,99 +22,77 @@ using System.Windows.Forms;
 
 namespace Depressurizer
 {
-	public partial class AutoCatConfigPanel_Flags : AutoCatConfigPanel
-	{
-		#region Constructors and Destructors
+    public partial class AutoCatConfigPanel_Flags : AutoCatConfigPanel
+    {
+        public AutoCatConfigPanel_Flags()
+        {
+            InitializeComponent();
 
-		public AutoCatConfigPanel_Flags()
-		{
-			InitializeComponent();
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
 
-			ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
+            FillFlagsList();
+        }
 
-			FillFlagsList();
-		}
+        public void FillFlagsList()
+        {
+            lstIncluded.Items.Clear();
 
-		#endregion
+            if (Program.GameDB != null)
+            {
+                SortedSet<string> flagsList = Program.GameDB.GetAllStoreFlags();
 
-		#region Properties
+                foreach (string s in flagsList)
+                {
+                    lstIncluded.Items.Add(s);
+                }
+            }
+        }
 
-		private static Database Database => Database.Instance;
+        public override void LoadFromAutoCat(AutoCat autocat)
+        {
+            AutoCatFlags ac = autocat as AutoCatFlags;
+            if (ac == null) return;
 
-		#endregion
+            txtPrefix.Text = ac.Prefix;
 
-		#region Public Methods and Operators
+            foreach (ListViewItem item in lstIncluded.Items)
+            {
+                item.Checked = ac.IncludedFlags.Contains(item.Text);
+            }
+        }
 
-		public void FillFlagsList()
-		{
-			lstIncluded.Items.Clear();
+        public override void SaveToAutoCat(AutoCat autocat)
+        {
+            AutoCatFlags ac = autocat as AutoCatFlags;
+            if (ac == null) return;
+            ac.Prefix = txtPrefix.Text;
 
-			SortedSet<string> flagsList = Database.GetAllStoreFlags();
+            ac.IncludedFlags.Clear();
+            foreach (ListViewItem i in lstIncluded.Items)
+            {
+                if (i.Checked)
+                {
+                    ac.IncludedFlags.Add(i.Text);
+                }
+            }
+        }
 
-			foreach (string s in flagsList)
-			{
-				lstIncluded.Items.Add(s);
-			}
-		}
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
+        }
 
-		public override void LoadFromAutoCat(AutoCat autocat)
-		{
-			AutoCatFlags ac = autocat as AutoCatFlags;
-			if (ac == null)
-			{
-				return;
-			}
+        private void cmdCheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstIncluded, true);
+        }
 
-			txtPrefix.Text = ac.Prefix;
-
-			foreach (ListViewItem item in lstIncluded.Items)
-			{
-				item.Checked = ac.IncludedFlags.Contains(item.Text);
-			}
-		}
-
-		public override void SaveToAutoCat(AutoCat autocat)
-		{
-			AutoCatFlags ac = autocat as AutoCatFlags;
-			if (ac == null)
-			{
-				return;
-			}
-
-			ac.Prefix = txtPrefix.Text;
-
-			ac.IncludedFlags.Clear();
-			foreach (ListViewItem i in lstIncluded.Items)
-			{
-				if (i.Checked)
-				{
-					ac.IncludedFlags.Add(i.Text);
-				}
-			}
-		}
-
-		#endregion
-
-		#region Methods
-
-		private void cmdCheckAll_Click(object sender, EventArgs e)
-		{
-			SetAllListCheckStates(lstIncluded, true);
-		}
-
-		private void cmdUncheckAll_Click(object sender, EventArgs e)
-		{
-			SetAllListCheckStates(lstIncluded, false);
-		}
-
-		private void SetAllListCheckStates(ListView list, bool to)
-		{
-			foreach (ListViewItem item in list.Items)
-			{
-				item.Checked = to;
-			}
-		}
-
-		#endregion
-	}
+        private void cmdUncheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstIncluded, false);
+        }
+    }
 }

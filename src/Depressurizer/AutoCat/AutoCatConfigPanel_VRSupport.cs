@@ -19,148 +19,132 @@
 
 using System;
 using System.Windows.Forms;
-using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {
-	public partial class AutoCatConfigPanel_VrSupport : AutoCatConfigPanel
-	{
-		#region Constructors and Destructors
+    public partial class AutoCatConfigPanel_VrSupport : AutoCatConfigPanel
+    {
+        public AutoCatConfigPanel_VrSupport()
+        {
+            InitializeComponent();
 
-		public AutoCatConfigPanel_VrSupport()
-		{
-			InitializeComponent();
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
 
-			ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
+            FillVrSupportLists();
+        }
 
-			FillVrSupportLists();
-		}
+        public void FillVrSupportLists()
+        {
+            lstVrHeadsets.Items.Clear();
+            lstVrInput.Items.Clear();
+            lstVrPlayArea.Items.Clear();
 
-		#endregion
+            if (Program.GameDB != null)
+            {
+                VrSupport vrSupport = Program.GameDB.GetAllVrSupportFlags();
 
-		#region Properties
+                foreach (string s in vrSupport.Headsets)
+                {
+                    lstVrHeadsets.Items.Add(s);
+                }
 
-		private static Database Database => Database.Instance;
+                foreach (string s in vrSupport.Input)
+                {
+                    lstVrInput.Items.Add(s);
+                }
 
-		#endregion
+                foreach (string s in vrSupport.PlayArea)
+                {
+                    lstVrPlayArea.Items.Add(s);
+                }
+            }
+        }
 
-		#region Public Methods and Operators
+        public override void LoadFromAutoCat(AutoCat autocat)
+        {
+            AutoCatVrSupport ac = autocat as AutoCatVrSupport;
+            if (ac == null)
+            {
+                return;
+            }
 
-		public void FillVrSupportLists()
-		{
-			lstVrHeadsets.Items.Clear();
-			lstVrInput.Items.Clear();
-			lstVrPlayArea.Items.Clear();
+            txtPrefix.Text = ac.Prefix;
 
-			VRSupport vrSupport = Database.GetAllVrSupportFlags();
+            foreach (ListViewItem item in lstVrHeadsets.Items)
+            {
+                item.Checked = ac.IncludedVrSupportFlags.Headsets.Contains(item.Text);
+            }
 
-			foreach (string s in vrSupport.Headsets)
-			{
-				lstVrHeadsets.Items.Add(s);
-			}
+            foreach (ListViewItem item in lstVrInput.Items)
+            {
+                item.Checked = ac.IncludedVrSupportFlags.Input.Contains(item.Text);
+            }
 
-			foreach (string s in vrSupport.Input)
-			{
-				lstVrInput.Items.Add(s);
-			}
+            foreach (ListViewItem item in lstVrPlayArea.Items)
+            {
+                item.Checked = ac.IncludedVrSupportFlags.PlayArea.Contains(item.Text);
+            }
+        }
 
-			foreach (string s in vrSupport.PlayArea)
-			{
-				lstVrPlayArea.Items.Add(s);
-			}
-		}
+        public override void SaveToAutoCat(AutoCat autocat)
+        {
+            AutoCatVrSupport ac = autocat as AutoCatVrSupport;
+            if (ac == null)
+            {
+                return;
+            }
 
-		public override void LoadFromAutoCat(AutoCat autocat)
-		{
-			AutoCatVrSupport ac = autocat as AutoCatVrSupport;
-			if (ac == null)
-			{
-				return;
-			}
+            ac.Prefix = txtPrefix.Text;
 
-			txtPrefix.Text = ac.Prefix;
+            ac.IncludedVrSupportFlags.Headsets.Clear();
+            ac.IncludedVrSupportFlags.Input.Clear();
+            ac.IncludedVrSupportFlags.PlayArea.Clear();
 
-			foreach (ListViewItem item in lstVrHeadsets.Items)
-			{
-				item.Checked = ac.IncludedVrSupportFlags.Headsets.Contains(item.Text);
-			}
+            foreach (ListViewItem i in lstVrHeadsets.Items)
+            {
+                if (i.Checked)
+                {
+                    ac.IncludedVrSupportFlags.Headsets.Add(i.Text);
+                }
+            }
 
-			foreach (ListViewItem item in lstVrInput.Items)
-			{
-				item.Checked = ac.IncludedVrSupportFlags.Input.Contains(item.Text);
-			}
+            foreach (ListViewItem i in lstVrInput.Items)
+            {
+                if (i.Checked)
+                {
+                    ac.IncludedVrSupportFlags.Input.Add(i.Text);
+                }
+            }
 
-			foreach (ListViewItem item in lstVrPlayArea.Items)
-			{
-				item.Checked = ac.IncludedVrSupportFlags.PlayArea.Contains(item.Text);
-			}
-		}
+            foreach (ListViewItem i in lstVrPlayArea.Items)
+            {
+                if (i.Checked)
+                {
+                    ac.IncludedVrSupportFlags.PlayArea.Add(i.Text);
+                }
+            }
+        }
 
-		public override void SaveToAutoCat(AutoCat autocat)
-		{
-			AutoCatVrSupport ac = autocat as AutoCatVrSupport;
-			if (ac == null)
-			{
-				return;
-			}
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
+        }
 
-			ac.Prefix = txtPrefix.Text;
+        private void cmdCheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstVrHeadsets, true);
+            SetAllListCheckStates(lstVrInput, true);
+            SetAllListCheckStates(lstVrPlayArea, true);
+        }
 
-			ac.IncludedVrSupportFlags.Headsets.Clear();
-			ac.IncludedVrSupportFlags.Input.Clear();
-			ac.IncludedVrSupportFlags.PlayArea.Clear();
-
-			foreach (ListViewItem i in lstVrHeadsets.Items)
-			{
-				if (i.Checked)
-				{
-					ac.IncludedVrSupportFlags.Headsets.Add(i.Text);
-				}
-			}
-
-			foreach (ListViewItem i in lstVrInput.Items)
-			{
-				if (i.Checked)
-				{
-					ac.IncludedVrSupportFlags.Input.Add(i.Text);
-				}
-			}
-
-			foreach (ListViewItem i in lstVrPlayArea.Items)
-			{
-				if (i.Checked)
-				{
-					ac.IncludedVrSupportFlags.PlayArea.Add(i.Text);
-				}
-			}
-		}
-
-		#endregion
-
-		#region Methods
-
-		private void cmdCheckAll_Click(object sender, EventArgs e)
-		{
-			SetAllListCheckStates(lstVrHeadsets, true);
-			SetAllListCheckStates(lstVrInput, true);
-			SetAllListCheckStates(lstVrPlayArea, true);
-		}
-
-		private void cmdUncheckAll_Click(object sender, EventArgs e)
-		{
-			SetAllListCheckStates(lstVrHeadsets, false);
-			SetAllListCheckStates(lstVrInput, false);
-			SetAllListCheckStates(lstVrPlayArea, false);
-		}
-
-		private void SetAllListCheckStates(ListView list, bool to)
-		{
-			foreach (ListViewItem item in list.Items)
-			{
-				item.Checked = to;
-			}
-		}
-
-		#endregion
-	}
+        private void cmdUncheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstVrHeadsets, false);
+            SetAllListCheckStates(lstVrInput, false);
+            SetAllListCheckStates(lstVrPlayArea, false);
+        }
+    }
 }

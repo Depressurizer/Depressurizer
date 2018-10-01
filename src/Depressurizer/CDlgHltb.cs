@@ -16,51 +16,33 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Depressurizer.Core;
 using Rallion;
 
 namespace Depressurizer
 {
-	internal class HltbPrcDlg : CancelableDlg
-	{
-		#region Constructors and Destructors
+    class HltbPrcDlg : CancelableDlg
+    {
+        public int Updated { get; private set; }
 
-		public HltbPrcDlg() : base(GlobalStrings.CDlgHltb_Title, false)
-		{
-			SetText(GlobalStrings.CDlgHltb_UpdateHltb);
-			Updated = 0;
-		}
+        public HltbPrcDlg()
+            : base(GlobalStrings.CDlgHltb_Title, false)
+        {
+            SetText(GlobalStrings.CDlgHltb_UpdateHltb);
+            Updated = 0;
+        }
 
-		#endregion
+        protected override void RunProcess()
+        {
+            Updated = Program.GameDB.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
+            OnThreadCompletion();
+        }
 
-		#region Public Properties
-
-		public int Updated { get; private set; }
-
-		#endregion
-
-		#region Properties
-
-		private static Database Database => Database.Instance;
-
-		#endregion
-
-		#region Methods
-
-		protected override void Finish()
-		{
-			if (!Canceled && (Error == null))
-			{
-				OnJobCompletion();
-			}
-		}
-
-		protected override void RunProcess()
-		{
-			Updated = Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
-			OnThreadCompletion();
-		}
-
-		#endregion
-	}
+        protected override void Finish()
+        {
+            if (!Canceled && Error == null)
+            {
+                OnJobCompletion();
+            }
+        }
+    }
 }

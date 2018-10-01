@@ -26,259 +26,212 @@ using System.Windows.Forms;
 
 namespace Depressurizer
 {
-	/// <summary>
-	///     Implements the manual sorting of ListView items by columns. Supports sorting string representations of integers
-	///     numerically.
-	/// </summary>
-	public class MultiColumnListViewComparer : IComparer
-	{
-		#region Fields
+    /// <summary>
+    /// Implements the manual sorting of ListView items by columns. Supports sorting string representations of integers numerically.
+    /// </summary>
+    public class MultiColumnListViewComparer : IComparer
+    {
+        private int _col;
+        private int _direction;
+        private bool _asInt;
+        private bool _rev;
 
-		private readonly HashSet<int> _intCols = new HashSet<int>();
+        private HashSet<int> _intCols = new HashSet<int>();
+        private HashSet<int> _revCols = new HashSet<int>();
 
-		private readonly HashSet<int> _revCols = new HashSet<int>();
+        public MultiColumnListViewComparer(int column = 0, int dir = 1)
+        {
+            _col = column;
+            _direction = dir;
+            _asInt = _intCols.Contains(_col);
+        }
 
-		private bool _asInt;
+        public void SetSortCol(int clickedCol, int forceDir = 0)
+        {
+            if (forceDir == 0)
+            {
+                if (clickedCol == _col)
+                {
+                    _direction = -_direction;
+                }
+                else
+                {
+                    _direction = 1;
+                }
+            }
+            else
+            {
+                _direction = forceDir;
+            }
 
-		private int _col;
+            _col = clickedCol;
+            _asInt = _intCols.Contains(_col);
+            _rev = _revCols.Contains(_col);
+        }
 
-		private int _direction;
+        public int GetSortCol()
+        {
+            return _col;
+        }
 
-		private bool _rev;
+        public int GetSortDir()
+        {
+            return _direction;
+        }
 
-		#endregion
+        public void AddIntCol(int col)
+        {
+            _intCols.Add(col);
+            _asInt = _intCols.Contains(_col);
+        }
 
-		#region Constructors and Destructors
+        public void RemoveIntCol(int col)
+        {
+            _intCols.Remove(col);
+            _asInt = _intCols.Contains(_col);
+        }
 
-		public MultiColumnListViewComparer(int column = 0, int dir = 1)
-		{
-			_col = column;
-			_direction = dir;
-			_asInt = _intCols.Contains(_col);
-		}
+        public void AddRevCol(int col)
+        {
+            _revCols.Add(col);
+            _rev = _revCols.Contains(_col);
+        }
 
-		#endregion
+        public void RemoveRevCol(int col)
+        {
+            _revCols.Remove(col);
+            _rev = _revCols.Contains(_col);
+        }
 
-		#region Public Methods and Operators
+        public int Compare(object x, object y)
+        {
+            string strA = ((ListViewItem) x).SubItems[_col].Text;
+            string strB = ((ListViewItem) y).SubItems[_col].Text;
 
-		public void AddIntCol(int col)
-		{
-			_intCols.Add(col);
-			_asInt = _intCols.Contains(_col);
-		}
+            int dir = _direction * (_rev ? -1 : 1);
+            if (_asInt)
+            {
+                int a, b;
+                if (int.TryParse(strA, out a) && int.TryParse(strB, out b))
+                {
+                    return dir * (a - b);
+                }
+            }
+            if (string.IsNullOrEmpty(strA))
+            {
+                if (string.IsNullOrEmpty(strB))
+                {
+                    return 0;
+                }
+                return dir;
+            }
+            if (string.IsNullOrEmpty(strB))
+            {
+                return -dir;
+            }
+            return dir * String.Compare(strA, strB);
+        }
+    }
 
-		public void AddRevCol(int col)
-		{
-			_revCols.Add(col);
-			_rev = _revCols.Contains(_col);
-		}
 
-		public int Compare(object x, object y)
-		{
-			string strA = ((ListViewItem) x).SubItems[_col].Text;
-			string strB = ((ListViewItem) y).SubItems[_col].Text;
+    /// <summary>
+    /// This allows drawing sorting arrows on the columns in the ListView.
+    /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static class ListViewExtensions
+    {
+        [StructLayout(LayoutKind.Sequential)]
+        public struct HDITEM
+        {
+            public Mask mask;
+            public int cxy;
+            [MarshalAs(UnmanagedType.LPTStr)] public string pszText;
+            public IntPtr hbm;
+            public int cchTextMax;
+            public Format fmt;
 
-			int dir = _direction * (_rev ? -1 : 1);
-			if (_asInt)
-			{
-				if (int.TryParse(strA, out int a) && int.TryParse(strB, out int b))
-				{
-					return dir * (a - b);
-				}
-			}
+            public IntPtr lParam;
 
-			if (string.IsNullOrEmpty(strA))
-			{
-				if (string.IsNullOrEmpty(strB))
-				{
-					return 0;
-				}
+            // _WIN32_IE >= 0x0300 
+            public int iImage;
 
-				return dir;
-			}
+            public int iOrder;
 
-			if (string.IsNullOrEmpty(strB))
-			{
-				return -dir;
-			}
+            // _WIN32_IE >= 0x0500
+            public uint type;
 
-			return dir * string.Compare(strA, strB);
-		}
+            public IntPtr pvFilter;
 
-		public int GetSortCol()
-		{
-			return _col;
-		}
+            // _WIN32_WINNT >= 0x0600
+            public uint state;
 
-		public int GetSortDir()
-		{
-			return _direction;
-		}
+            [Flags]
+            public enum Mask
+            {
+                Format = 0x4 // HDI_FORMAT
+            }
 
-		public void RemoveIntCol(int col)
-		{
-			_intCols.Remove(col);
-			_asInt = _intCols.Contains(_col);
-		}
+            [Flags]
+            public enum Format
+            {
+                SortDown = 0x200, // HDF_SORTDOWN
+                SortUp = 0x400 // HDF_SORTUP
+            }
+        }
 
-		public void RemoveRevCol(int col)
-		{
-			_revCols.Remove(col);
-			_rev = _revCols.Contains(_col);
-		}
+        public const int LVM_FIRST = 0x1000;
+        public const int LVM_GETHEADER = LVM_FIRST + 31;
 
-		public void SetSortCol(int clickedCol, int forceDir = 0)
-		{
-			if (forceDir == 0)
-			{
-				if (clickedCol == _col)
-				{
-					_direction = -_direction;
-				}
-				else
-				{
-					_direction = 1;
-				}
-			}
-			else
-			{
-				_direction = forceDir;
-			}
+        public const int HDM_FIRST = 0x1200;
+        public const int HDM_GETITEM = HDM_FIRST + 11;
+        public const int HDM_SETITEM = HDM_FIRST + 12;
 
-			_col = clickedCol;
-			_asInt = _intCols.Contains(_col);
-			_rev = _revCols.Contains(_col);
-		}
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
 
-		#endregion
-	}
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, ref HDITEM lParam);
 
-	/// <summary>
-	///     This allows drawing sorting arrows on the columns in the ListView.
-	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public static class ListViewExtensions
-	{
-		#region Constants
+        public static void SetSortIcon(this ListView listViewControl, int columnIndex, SortOrder order)
+        {
+            IntPtr columnHeader = SendMessage(listViewControl.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
+            for (int columnNumber = 0; columnNumber <= listViewControl.Columns.Count - 1; columnNumber++)
+            {
+                var columnPtr = new IntPtr(columnNumber);
+                var item = new HDITEM
+                {
+                    mask = HDITEM.Mask.Format
+                };
 
-		public const int HDM_FIRST = 0x1200;
+                if (SendMessage(columnHeader, HDM_GETITEM, columnPtr, ref item) == IntPtr.Zero)
+                {
+                    throw new Win32Exception();
+                }
 
-		public const int HDM_GETITEM = HDM_FIRST + 11;
+                if (order != SortOrder.None && columnNumber == columnIndex)
+                {
+                    switch (order)
+                    {
+                        case SortOrder.Ascending:
+                            item.fmt &= ~HDITEM.Format.SortDown;
+                            item.fmt |= HDITEM.Format.SortUp;
+                            break;
+                        case SortOrder.Descending:
+                            item.fmt &= ~HDITEM.Format.SortUp;
+                            item.fmt |= HDITEM.Format.SortDown;
+                            break;
+                    }
+                }
+                else
+                {
+                    item.fmt &= ~HDITEM.Format.SortDown & ~HDITEM.Format.SortUp;
+                }
 
-		public const int HDM_SETITEM = HDM_FIRST + 12;
-
-		public const int LVM_FIRST = 0x1000;
-
-		public const int LVM_GETHEADER = LVM_FIRST + 31;
-
-		#endregion
-
-		#region Public Methods and Operators
-
-		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-		public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
-
-		[DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-		public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, ref HDITEM lParam);
-
-		public static void SetSortIcon(this ListView listViewControl, int columnIndex, SortOrder order)
-		{
-			IntPtr columnHeader = SendMessage(listViewControl.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
-			for (int columnNumber = 0; columnNumber <= (listViewControl.Columns.Count - 1); columnNumber++)
-			{
-				IntPtr columnPtr = new IntPtr(columnNumber);
-				HDITEM item = new HDITEM
-				{
-					mask = HDITEM.Mask.Format
-				};
-
-				if (SendMessage(columnHeader, HDM_GETITEM, columnPtr, ref item) == IntPtr.Zero)
-				{
-					throw new Win32Exception();
-				}
-
-				if ((order != SortOrder.None) && (columnNumber == columnIndex))
-				{
-					switch (order)
-					{
-						case SortOrder.Ascending:
-							item.fmt &= ~HDITEM.Format.SortDown;
-							item.fmt |= HDITEM.Format.SortUp;
-
-							break;
-						case SortOrder.Descending:
-							item.fmt &= ~HDITEM.Format.SortUp;
-							item.fmt |= HDITEM.Format.SortDown;
-
-							break;
-					}
-				}
-				else
-				{
-					item.fmt &= ~HDITEM.Format.SortDown & ~HDITEM.Format.SortUp;
-				}
-
-				if (SendMessage(columnHeader, HDM_SETITEM, columnPtr, ref item) == IntPtr.Zero)
-				{
-					throw new Win32Exception();
-				}
-			}
-		}
-
-		#endregion
-
-		[StructLayout(LayoutKind.Sequential)]
-		public struct HDITEM
-		{
-			#region Fields
-
-			public int cchTextMax;
-
-			public int cxy;
-
-			public Format fmt;
-
-			public IntPtr hbm;
-
-			// _WIN32_IE >= 0x0300 
-			public int iImage;
-
-			public int iOrder;
-
-			public IntPtr lParam;
-
-			public Mask mask;
-
-			[MarshalAs(UnmanagedType.LPTStr)]
-			public string pszText;
-
-			public IntPtr pvFilter;
-
-			// _WIN32_WINNT >= 0x0600
-			public uint state;
-
-			// _WIN32_IE >= 0x0500
-			public uint type;
-
-			#endregion
-
-			#region Enums
-
-			[Flags]
-			public enum Format
-			{
-				SortDown = 0x200, // HDF_SORTDOWN
-
-				SortUp = 0x400 // HDF_SORTUP
-			}
-
-			[Flags]
-			public enum Mask
-			{
-				Format = 0x4 // HDI_FORMAT
-			}
-
-			#endregion
-		}
-	}
+                if (SendMessage(columnHeader, HDM_SETITEM, columnPtr, ref item) == IntPtr.Zero)
+                {
+                    throw new Win32Exception();
+                }
+            }
+        }
+    }
 }

@@ -2329,6 +2329,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;All&gt;.
+        /// </summary>
+        internal static string MainForm_All {
+            get {
+                return ResourceManager.GetString("MainForm_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Autoname canceled..
         /// </summary>
         internal static string MainForm_AutonameCanceled {
@@ -2693,6 +2702,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;Favorite&gt;.
+        /// </summary>
+        internal static string MainForm_Favorite {
+            get {
+                return ResourceManager.GetString("MainForm_Favorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter &apos;{0}&apos; added..
         /// </summary>
         internal static string MainForm_FilterAdded {
@@ -2773,6 +2791,15 @@ namespace Depressurizer {
         internal static string MainForm_Help_AdvancedCategories {
             get {
                 return ResourceManager.GetString("MainForm_Help_AdvancedCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Hidden&gt;.
+        /// </summary>
+        internal static string MainForm_Hidden {
+            get {
+                return ResourceManager.GetString("MainForm_Hidden", resourceCulture);
             }
         }
         
@@ -3053,6 +3080,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;No Flags&gt;.
+        /// </summary>
+        internal static string MainForm_NoFlags {
+            get {
+                return ResourceManager.GetString("MainForm_NoFlags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No game data found. Please make sure the custom URL name is spelled correctly..
         /// </summary>
         internal static string MainForm_NoGameDataFound {
@@ -3089,6 +3125,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;No Genres&gt;.
+        /// </summary>
+        internal static string MainForm_NoGenres {
+            get {
+                return ResourceManager.GetString("MainForm_NoGenres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --.
         /// </summary>
         internal static string MainForm_NoHltbTime {
@@ -3103,6 +3148,15 @@ namespace Depressurizer {
         internal static string MainForm_NoProfileLoaded {
             get {
                 return ResourceManager.GetString("MainForm_NoProfileLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;No Tags&gt;.
+        /// </summary>
+        internal static string MainForm_NoTags {
+            get {
+                return ResourceManager.GetString("MainForm_NoTags", resourceCulture);
             }
         }
         
@@ -3351,11 +3405,29 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;Uncategorized&gt;.
+        /// </summary>
+        internal static string MainForm_Uncategorized {
+            get {
+                return ResourceManager.GetString("MainForm_Uncategorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unignored game {0}..
         /// </summary>
         internal static string MainForm_UnignoredGame {
             get {
                 return ResourceManager.GetString("MainForm_UnignoredGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Unknown&gt;.
+        /// </summary>
+        internal static string MainForm_Unknown {
+            get {
+                return ResourceManager.GetString("MainForm_Unknown", resourceCulture);
             }
         }
         
@@ -3410,6 +3482,15 @@ namespace Depressurizer {
         internal static string MainForm_UpdatedViaWebAndAborted {
             get {
                 return ResourceManager.GetString("MainForm_UpdatedViaWebAndAborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;VR&gt;.
+        /// </summary>
+        internal static string MainForm_VR {
+            get {
+                return ResourceManager.GetString("MainForm_VR", resourceCulture);
             }
         }
         

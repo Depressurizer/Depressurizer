@@ -1,23 +1,21 @@
-﻿#region License
+﻿/*
+Copyright 2011, 2012, 2013 Steve Labbe.
 
-//     This file (AssemblyInfo.cs) is part of Depressurizer.
-//     Copyright (C) 2011  Steve Labbe
-//     Copyright (C) 2018  Martijn Vegter
-// 
-//     This program is free software: you can redistribute it and/or modify
-//     it under the terms of the GNU General Public License as published by
-//     the Free Software Foundation, either version 3 of the License, or
-//     (at your option) any later version.
-// 
-//     This program is distributed in the hope that it will be useful,
-//     but WITHOUT ANY WARRANTY; without even the implied warranty of
-//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//     GNU General Public License for more details.
-// 
-//     You should have received a copy of the GNU General Public License
-//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+This file is part of Depressurizer.
 
-#endregion
+Depressurizer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Depressurizer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -26,11 +24,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Depressurizer")]
-[assembly: AssemblyDescription("A Steam Library Categorizing Tool.")]
+[assembly: AssemblyDescription("Steam Category Tool")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Depressurizer")]
-[assembly: AssemblyCopyright("Depressurizer  Copyright (C) 2011  Steve Labbe, 2018  Martijn Vegter")]
+[assembly: AssemblyCopyright("Copyright © 2011–2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -52,5 +50,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.1.0.0")]
-[assembly: AssemblyFileVersion("3.1.0.0")]
+[assembly: AssemblyVersion("0.7.4.2")]
+[assembly: AssemblyFileVersion("0.7.4.2")]

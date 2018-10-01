@@ -1,80 +1,106 @@
-﻿#region License
+﻿/*
+This file is part of Depressurizer.
+Copyright 2011, 2012, 2013 Steve Labbe.
 
-//     This file (Program.cs) is part of Depressurizer.
-//     Copyright (C) 2011  Steve Labbe
-//     Copyright (C) 2018  Martijn Vegter
-// 
-//     This program is free software: you can redistribute it and/or modify
-//     it under the terms of the GNU General Public License as published by
-//     the Free Software Foundation, either version 3 of the License, or
-//     (at your option) any later version.
-// 
-//     This program is distributed in the hope that it will be useful,
-//     but WITHOUT ANY WARRANTY; without even the implied warranty of
-//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//     GNU General Public License for more details.
-// 
-//     You should have received a copy of the GNU General Public License
-//     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+Depressurizer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-#endregion
+Depressurizer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 using System;
-using System.Threading;
 using System.Windows.Forms;
-using Depressurizer.Core;
-using Depressurizer.Core.Helpers;
-using Depressurizer.Dialogs;
+using NDesk.Options;
+using Rallion;
 
 namespace Depressurizer
 {
-	internal static class Program
-	{
-		#region Properties
+    static class Program
+    {
+        public static AppLogger Logger;
+        public static GameDB GameDB;
 
-		private static Logger Logger => Logger.Instance;
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main(string[] args)
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-		private static Settings Settings => Settings.Instance;
+            FatalError.InitializeHandler();
 
-		#endregion
+            Logger = new AppLogger();
+            Logger.Level = LoggerLevel.None;
+            Logger.DateFormat = "HH:mm:ss'.'ffffff";
 
-		#region Methods
+            Logger.MaxFileSize = 2000000;
+            Logger.MaxBackup = 1;
+            Logger.FileNameTemplate = "Depressurizer.log";
 
-		/// <summary>
-		///     The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		private static void Main()
-		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.ApplicationExit += OnApplicationExit;
+            Settings.Instance.Load();
 
-			FatalErrorDialog.InitializeHandler();
+            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
 
-			Settings.SetThread(Thread.CurrentThread);
-			Settings.Load();
+            AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 
-			if (string.IsNullOrWhiteSpace(Settings.SteamPath))
-			{
-				using (SteamPathDialog dialog = new SteamPathDialog())
-				{
-					dialog.ShowDialog();
+            if (autoOpts != null)
+            {
+                Logger.Write(LoggerLevel.Info, "Automatic mode set, loading automatic mode form.");
+                Logger.WriteObject(LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:");
+                Application.Run(new AutomaticModeForm(autoOpts));
+            }
+            else
+            {
+                Logger.Write(LoggerLevel.Info, "Automatic mode not set, loading main form.");
+                Application.Run(new FormMain());
+            }
+            Settings.Instance.Save();
 
-					Settings.SteamPath = dialog.Path;
-					Settings.Save();
-				}
-			}
+            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
+            Logger.EndSession();
+        }
 
-			Application.Run(new FormMain());
-		}
+        static AutomaticModeOptions ParseAutoOptions(string[] args)
+        {
+            AutomaticModeOptions config = new AutomaticModeOptions();
+            bool auto = false;
 
-		private static void OnApplicationExit(object sender, EventArgs e)
-		{
-			Settings.Save();
-			Logger.Dispose();
-		}
+            var opts = new OptionSet
+            {
+                {"auto", v => auto = true},
+                {"p|profile=", v => config.CustomProfile = v},
+                {"checksteam", v => config.CheckSteam = (v != null)},
+                {"closesteam", v => config.CloseSteam = (v != null)},
+                {"updatelib", v => config.UpdateGameList = (v != null)},
+                {"import", v => config.ImportSteamCategories = (v != null)},
+                {"updatedblocal", v => config.UpdateAppInfo = (v != null)},
+                {"updatedbhltb", v => config.UpdateHltb = (v != null)},
+                {"updatedbweb", v => config.ScrapeUnscrapedGames = (v != null)},
+                {"savedb", v => config.SaveDBChanges = (v != null)},
+                {"saveprofile", v => config.SaveProfile = (v != null)},
+                {"export", v => config.ExportToSteam = (v != null)},
+                {"launch", v => config.SteamLaunch = SteamLaunchType.Normal},
+                {"launchbp", v => config.SteamLaunch = SteamLaunchType.BigPicture},
+                {"tolerant", v => config.TolerateMinorErrors = (v != null)},
+                {"quiet", v => config.AutoClose = AutoCloseType.UnlessError},
+                {"silent", v => config.AutoClose = AutoCloseType.Always},
+                {"all", v => config.ApplyAllAutoCats = (v != null)},
+                {"<>", v => config.AutoCats.Add(v)}
+            };
 
-		#endregion
-	}
+            opts.Parse(args);
+
+            return auto ? config : null;
+        }
+    }
 }

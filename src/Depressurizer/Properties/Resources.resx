@@ -117,55 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppInfo_Exception" xml:space="preserve">
-    <value>Error while updating from appinfo: {0}</value>
+  <data name="AppInfoPath" xml:space="preserve">
+    <value>{0}\appcache\appinfo.vdf</value>
   </data>
-  <data name="AppInfo_NotFound" xml:space="preserve">
-    <value>Could not find the appinfo file in the Steam installation folder! Please verify your settings.</value>
+  <data name="AutoCat_ButtonLabel" xml:space="preserve">
+    <value>Auto-Categorize ({0} Games)</value>
   </data>
-  <data name="Category_All" xml:space="preserve">
-    <value>&lt;All&gt;</value>
+  <data name="ConfigFilePath" xml:space="preserve">
+    <value>{0}\userdata\{1}\7\remote\sharedconfig.vdf</value>
   </data>
-  <data name="Category_Favorite" xml:space="preserve">
-    <value>&lt;Favorite&gt;</value>
+  <data name="DepressurizerHomepage" xml:space="preserve">
+    <value>https://github.com/Depressurizer/depressurizer</value>
   </data>
-  <data name="Category_Games" xml:space="preserve">
-    <value>&lt;Games&gt;</value>
+  <data name="GameBannerPath" xml:space="preserve">
+    <value>{0}\Game Banners\{1}.jpg</value>
   </data>
-  <data name="Category_Hidden" xml:space="preserve">
-    <value>&lt;Hidden&gt;</value>
+  <data name="LocalConfigPath" xml:space="preserve">
+    <value>{0}\userdata\{1}\config\localconfig.vdf</value>
   </data>
-  <data name="Category_NoFlags" xml:space="preserve">
-    <value>&lt;No Flags&gt;</value>
+  <data name="PackageInfoPath" xml:space="preserve">
+    <value>{0}\appcache\packageinfo.vdf</value>
   </data>
-  <data name="Category_NoGenres" xml:space="preserve">
-    <value>&lt;No Genres&gt;</value>
+  <data name="ScreenshotsFilePath" xml:space="preserve">
+    <value>{0}\userdata\{1}\760\screenshots.vdf</value>
   </data>
-  <data name="Category_NoTags" xml:space="preserve">
-    <value>&lt;No Tags&gt;</value>
+  <data name="ShortCutsFilePath" xml:space="preserve">
+    <value>{0}\userdata\{1}\config\shortcuts.vdf</value>
   </data>
-  <data name="Category_Software" xml:space="preserve">
-    <value>&lt;Software&gt;</value>
+  <data name="UrlCustomGameListHtml" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}/games?tab=all</value>
   </data>
-  <data name="Category_Uncategorized" xml:space="preserve">
-    <value>&lt;Uncategorized&gt;</value>
+  <data name="UrlCustomGameListXml" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}/games?tab=all&amp;xml=1</value>
   </data>
-  <data name="Category_Unknown" xml:space="preserve">
-    <value>&lt;Unknown&gt;</value>
+  <data name="UrlCustomProfileXml" xml:space="preserve">
+    <value>http://steamcommunity.com/id/{0}?xml=1</value>
   </data>
-  <data name="Category_VR" xml:space="preserve">
-    <value>&lt;VR&gt;</value>
+  <data name="UrlGameBanner" xml:space="preserve">
+    <value>https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg</value>
   </data>
-  <data name="SteamPathDialog_PathDoesntContain" xml:space="preserve">
-    <value>Could not find "appinfo.vdf" in the given path! Are you sure this is the correct path?</value>
+  <data name="UrlGameListHtml" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}/games?tab=all</value>
   </data>
-  <data name="SteamPathDialog_PathDoesntExist" xml:space="preserve">
-    <value>The given path does not exist! Are you sure this is the correct path?</value>
+  <data name="UrlGameListXml" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}/games?tab=all&amp;xml=1</value>
   </data>
-  <data name="SteamPathDialog_PathEmpty" xml:space="preserve">
-    <value>Path can not be empty!</value>
+  <data name="UrlHLTBAll" xml:space="preserve">
+    <value>https://www.howlongtobeatsteam.com/api/games/library/cached/all</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+  <data name="UrlLatestRelease" xml:space="preserve">
+    <value>https://api.github.com/repos/Depressurizer/depressurizer/releases/latest</value>
+  </data>
+  <data name="UrlSteamCuratorRecommendations" xml:space="preserve">
+    <value>http://store.steampowered.com/curators/ajaxgetcuratorrecommendations/{0}/?query=&amp;start={1}&amp;count=50</value>
+  </data>
+  <data name="UrlSteamProfile" xml:space="preserve">
+    <value>http://steamcommunity.com/profiles/{0}?xml=1</value>
+  </data>
+  <data name="UrlSteamStore" xml:space="preserve">
+    <value>http://store.steampowered.com/</value>
+  </data>
+  <data name="UrlSteamStoreApp" xml:space="preserve">
+    <value>http://store.steampowered.com/app/{0}/</value>
+  </data>
+  <data name="XmlNodeAvatar" xml:space="preserve">
+    <value>/profile/avatarIcon</value>
   </data>
 </root>

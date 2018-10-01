@@ -22,113 +22,87 @@ using System.Windows.Forms;
 
 namespace Depressurizer
 {
-	public partial class AutoCatConfigPanel_Genre : AutoCatConfigPanel
-	{
-		#region Constructors and Destructors
+    public partial class AutoCatConfigPanel_Genre : AutoCatConfigPanel
+    {
+        public AutoCatConfigPanel_Genre()
+        {
+            InitializeComponent();
 
-		public AutoCatConfigPanel_Genre()
-		{
-			InitializeComponent();
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
+            ttHelp.Ext_SetToolTip(helpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting);
+            ttHelp.Ext_SetToolTip(helpTagFallback, GlobalStrings.AutoCatGenrePanel_Help_TagFallback);
 
-			ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
-			ttHelp.Ext_SetToolTip(helpRemoveExisting, GlobalStrings.DlgAutoCat_Help_Genre_RemoveExisting);
-			ttHelp.Ext_SetToolTip(helpTagFallback, GlobalStrings.AutoCatGenrePanel_Help_TagFallback);
+            FillGenreList();
+        }
 
-			FillGenreList();
-		}
+        public void FillGenreList()
+        {
+            lstIgnore.Items.Clear();
 
-		#endregion
+            if (Program.GameDB != null)
+            {
+                SortedSet<string> genreList = Program.GameDB.GetAllGenres();
 
-		#region Properties
+                foreach (string s in genreList)
+                {
+                    ListViewItem l = new ListViewItem();
+                    l.Text = s;
+                    l.Checked = true;
+                    lstIgnore.Items.Add(l);
+                }
+            }
+        }
 
-		private static Database Database => Database.Instance;
+        public override void LoadFromAutoCat(AutoCat autocat)
+        {
+            AutoCatGenre ac = autocat as AutoCatGenre;
+            if (ac == null) return;
+            chkRemoveExisting.Checked = ac.RemoveOtherGenres;
+            chkTagFallback.Checked = ac.TagFallback;
+            numMaxCats.Value = ac.MaxCategories;
+            txtPrefix.Text = ac.Prefix;
 
-		#endregion
+            foreach (ListViewItem item in lstIgnore.Items)
+            {
+                item.Checked = !ac.IgnoredGenres.Contains(item.Text);
+            }
+        }
 
-		#region Public Methods and Operators
+        public override void SaveToAutoCat(AutoCat autocat)
+        {
+            AutoCatGenre ac = autocat as AutoCatGenre;
+            if (ac == null) return;
+            ac.Prefix = txtPrefix.Text;
+            ac.MaxCategories = (int) numMaxCats.Value;
+            ac.RemoveOtherGenres = chkRemoveExisting.Checked;
+            ac.TagFallback = chkTagFallback.Checked;
 
-		public void FillGenreList()
-		{
-			lstIgnore.Items.Clear();
+            ac.IgnoredGenres.Clear();
+            foreach (ListViewItem i in lstIgnore.Items)
+            {
+                if (!i.Checked)
+                {
+                    ac.IgnoredGenres.Add(i.Text);
+                }
+            }
+        }
 
-			SortedSet<string> genreList = Database.GetAllGenres();
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
+        }
 
-			foreach (string s in genreList)
-			{
-				ListViewItem l = new ListViewItem
-				{
-					Text = s,
-					Checked = true
-				};
+        private void cmdCheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstIgnore, true);
+        }
 
-				lstIgnore.Items.Add(l);
-			}
-		}
-
-		public override void LoadFromAutoCat(AutoCat autocat)
-		{
-			AutoCatGenre ac = autocat as AutoCatGenre;
-			if (ac == null)
-			{
-				return;
-			}
-
-			chkRemoveExisting.Checked = ac.RemoveOtherGenres;
-			chkTagFallback.Checked = ac.TagFallback;
-			numMaxCats.Value = ac.MaxCategories;
-			txtPrefix.Text = ac.Prefix;
-
-			foreach (ListViewItem item in lstIgnore.Items)
-			{
-				item.Checked = !ac.IgnoredGenres.Contains(item.Text);
-			}
-		}
-
-		public override void SaveToAutoCat(AutoCat autocat)
-		{
-			AutoCatGenre ac = autocat as AutoCatGenre;
-			if (ac == null)
-			{
-				return;
-			}
-
-			ac.Prefix = txtPrefix.Text;
-			ac.MaxCategories = (int) numMaxCats.Value;
-			ac.RemoveOtherGenres = chkRemoveExisting.Checked;
-			ac.TagFallback = chkTagFallback.Checked;
-
-			ac.IgnoredGenres.Clear();
-			foreach (ListViewItem i in lstIgnore.Items)
-			{
-				if (!i.Checked)
-				{
-					ac.IgnoredGenres.Add(i.Text);
-				}
-			}
-		}
-
-		#endregion
-
-		#region Methods
-
-		private void cmdCheckAll_Click(object sender, EventArgs e)
-		{
-			SetAllListCheckStates(lstIgnore, true);
-		}
-
-		private void cmdUncheckAll_Click(object sender, EventArgs e)
-		{
-			SetAllListCheckStates(lstIgnore, false);
-		}
-
-		private void SetAllListCheckStates(ListView list, bool to)
-		{
-			foreach (ListViewItem item in list.Items)
-			{
-				item.Checked = to;
-			}
-		}
-
-		#endregion
-	}
+        private void cmdUncheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstIgnore, false);
+        }
+    }
 }

@@ -19,154 +19,138 @@
 
 using System;
 using System.Windows.Forms;
-using Depressurizer.Models;
 
 namespace Depressurizer
 {
-	public partial class AutoCatConfigPanel_Language : AutoCatConfigPanel
-	{
-		#region Constructors and Destructors
+    public partial class AutoCatConfigPanel_Language : AutoCatConfigPanel
+    {
+        public AutoCatConfigPanel_Language()
+        {
+            InitializeComponent();
 
-		public AutoCatConfigPanel_Language()
-		{
-			InitializeComponent();
+            ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
 
-			ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
+            FillLanguageLists();
+        }
 
-			FillLanguageLists();
-		}
+        public void FillLanguageLists()
+        {
+            lstInterface.Items.Clear();
+            lstSubtitles.Items.Clear();
+            lstFullAudio.Items.Clear();
 
-		#endregion
+            if (Program.GameDB != null)
+            {
+                LanguageSupport language = Program.GameDB.GetAllLanguages();
 
-		#region Properties
+                foreach (string s in language.Interface)
+                {
+                    lstInterface.Items.Add(s);
+                }
 
-		private static Database Database => Database.Instance;
+                foreach (string s in language.Subtitles)
+                {
+                    lstSubtitles.Items.Add(s);
+                }
 
-		#endregion
+                foreach (string s in language.FullAudio)
+                {
+                    lstFullAudio.Items.Add(s);
+                }
+            }
+        }
 
-		#region Public Methods and Operators
+        public override void LoadFromAutoCat(AutoCat autocat)
+        {
+            AutoCatLanguage ac = autocat as AutoCatLanguage;
+            if (ac == null)
+            {
+                return;
+            }
 
-		public void FillLanguageLists()
-		{
-			lstInterface.Items.Clear();
-			lstSubtitles.Items.Clear();
-			lstFullAudio.Items.Clear();
+            txtPrefix.Text = ac.Prefix;
 
-			LanguageSupport language = Database.GetAllLanguages();
+            chkIncludeTypePrefix.Checked = ac.IncludeTypePrefix;
+            chkTypeFallback.Checked = ac.TypeFallback;
 
-			foreach (string s in language.Interface)
-			{
-				lstInterface.Items.Add(s);
-			}
+            foreach (ListViewItem item in lstInterface.Items)
+            {
+                item.Checked = ac.IncludedLanguages.Interface.Contains(item.Text);
+            }
 
-			foreach (string s in language.Subtitles)
-			{
-				lstSubtitles.Items.Add(s);
-			}
+            foreach (ListViewItem item in lstSubtitles.Items)
+            {
+                item.Checked = ac.IncludedLanguages.Subtitles.Contains(item.Text);
+            }
 
-			foreach (string s in language.FullAudio)
-			{
-				lstFullAudio.Items.Add(s);
-			}
-		}
+            foreach (ListViewItem item in lstFullAudio.Items)
+            {
+                item.Checked = ac.IncludedLanguages.FullAudio.Contains(item.Text);
+            }
+        }
 
-		public override void LoadFromAutoCat(AutoCat autocat)
-		{
-			AutoCatLanguage ac = autocat as AutoCatLanguage;
-			if (ac == null)
-			{
-				return;
-			}
+        public override void SaveToAutoCat(AutoCat autocat)
+        {
+            AutoCatLanguage ac = autocat as AutoCatLanguage;
+            if (ac == null)
+            {
+                return;
+            }
 
-			txtPrefix.Text = ac.Prefix;
+            ac.Prefix = txtPrefix.Text;
 
-			chkIncludeTypePrefix.Checked = ac.IncludeTypePrefix;
-			chkTypeFallback.Checked = ac.TypeFallback;
+            ac.IncludeTypePrefix = chkIncludeTypePrefix.Checked;
+            ac.TypeFallback = chkTypeFallback.Checked;
 
-			foreach (ListViewItem item in lstInterface.Items)
-			{
-				item.Checked = ac.IncludedLanguages.Interface.Contains(item.Text);
-			}
+            ac.IncludedLanguages.Interface.Clear();
+            ac.IncludedLanguages.Subtitles.Clear();
+            ac.IncludedLanguages.FullAudio.Clear();
 
-			foreach (ListViewItem item in lstSubtitles.Items)
-			{
-				item.Checked = ac.IncludedLanguages.Subtitles.Contains(item.Text);
-			}
+            foreach (ListViewItem i in lstInterface.Items)
+            {
+                if (i.Checked)
+                {
+                    ac.IncludedLanguages.Interface.Add(i.Text);
+                }
+            }
 
-			foreach (ListViewItem item in lstFullAudio.Items)
-			{
-				item.Checked = ac.IncludedLanguages.FullAudio.Contains(item.Text);
-			}
-		}
+            foreach (ListViewItem i in lstSubtitles.Items)
+            {
+                if (i.Checked)
+                {
+                    ac.IncludedLanguages.Subtitles.Add(i.Text);
+                }
+            }
 
-		public override void SaveToAutoCat(AutoCat autocat)
-		{
-			AutoCatLanguage ac = autocat as AutoCatLanguage;
-			if (ac == null)
-			{
-				return;
-			}
+            foreach (ListViewItem i in lstFullAudio.Items)
+            {
+                if (i.Checked)
+                {
+                    ac.IncludedLanguages.FullAudio.Add(i.Text);
+                }
+            }
+        }
 
-			ac.Prefix = txtPrefix.Text;
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
+        }
 
-			ac.IncludeTypePrefix = chkIncludeTypePrefix.Checked;
-			ac.TypeFallback = chkTypeFallback.Checked;
+        private void cmdCheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstInterface, true);
+            SetAllListCheckStates(lstSubtitles, true);
+            SetAllListCheckStates(lstFullAudio, true);
+        }
 
-			ac.IncludedLanguages.Interface.Clear();
-			ac.IncludedLanguages.Subtitles.Clear();
-			ac.IncludedLanguages.FullAudio.Clear();
-
-			foreach (ListViewItem i in lstInterface.Items)
-			{
-				if (i.Checked)
-				{
-					ac.IncludedLanguages.Interface.Add(i.Text);
-				}
-			}
-
-			foreach (ListViewItem i in lstSubtitles.Items)
-			{
-				if (i.Checked)
-				{
-					ac.IncludedLanguages.Subtitles.Add(i.Text);
-				}
-			}
-
-			foreach (ListViewItem i in lstFullAudio.Items)
-			{
-				if (i.Checked)
-				{
-					ac.IncludedLanguages.FullAudio.Add(i.Text);
-				}
-			}
-		}
-
-		#endregion
-
-		#region Methods
-
-		private void cmdCheckAll_Click(object sender, EventArgs e)
-		{
-			SetAllListCheckStates(lstInterface, true);
-			SetAllListCheckStates(lstSubtitles, true);
-			SetAllListCheckStates(lstFullAudio, true);
-		}
-
-		private void cmdUncheckAll_Click(object sender, EventArgs e)
-		{
-			SetAllListCheckStates(lstInterface, false);
-			SetAllListCheckStates(lstSubtitles, false);
-			SetAllListCheckStates(lstFullAudio, false);
-		}
-
-		private void SetAllListCheckStates(ListView list, bool to)
-		{
-			foreach (ListViewItem item in list.Items)
-			{
-				item.Checked = to;
-			}
-		}
-
-		#endregion
-	}
+        private void cmdUncheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstInterface, false);
+            SetAllListCheckStates(lstSubtitles, false);
+            SetAllListCheckStates(lstFullAudio, false);
+        }
+    }
 }

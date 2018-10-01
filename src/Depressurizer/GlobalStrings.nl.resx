@@ -531,6 +531,9 @@ Doorgaan met het laden van bestand?</value>
   <data name="MainForm_AddedGame" xml:space="preserve">
     <value>Spel toegevoegd.</value>
   </data>
+  <data name="MainForm_All" xml:space="preserve">
+    <value>&lt;Alles&gt;</value>
+  </data>
   <data name="MainForm_AutonameCanceled" xml:space="preserve">
     <value>Autoname geannuleerd</value>
   </data>
@@ -640,6 +643,9 @@ Doorgaan met het laden van bestand?</value>
   <data name="MainForm_FailedToLoadStorePages" xml:space="preserve">
     <value>Kan opslaan van pagina's voor {0} spellen niet laden.</value>
   </data>
+  <data name="MainForm_Favorite" xml:space="preserve">
+    <value>&lt;Favoriet&gt;</value>
+  </data>
   <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
     <value>GameDB bestand bestaat niet.</value>
   </data>
@@ -706,6 +712,10 @@ Doorgaan met het laden van bestand?</value>
   </data>
   <data name="MainForm_SomeSelectedGameHaveCategories" xml:space="preserve">
     <value>Sommige van de geselecteerde games hebben al categorieën ingesteld. Wilt u deze categorieën overschrijven?</value>
+  </data>
+  <data name="MainForm_Uncategorized" xml:space="preserve">
+    <value>&lt;Ongesorteerd&gt;</value>
+    <comment>!</comment>
   </data>
   <data name="MainForm_UnignoredGame" xml:space="preserve">
     <value>degenegeerde spellen {0}.</value>
@@ -1105,11 +1115,26 @@ Kan vertragen, maar zal alleen informatie te downloaden voor games die het nodig
 Als dit is uitgeschakeld, mogen nieuwere spellen niet worden gecategoriseerd.
 Aanbevolen: Ingeschakeld</value>
   </data>
+  <data name="MainForm_NoFlags" xml:space="preserve">
+    <value>&lt;Geen Flags&gt;</value>
+  </data>
+  <data name="MainForm_NoGenres" xml:space="preserve">
+    <value>&lt;Geen Genres&gt;</value>
+  </data>
+  <data name="MainForm_NoTags" xml:space="preserve">
+    <value>&lt;Geen Tags&gt;</value>
+  </data>
+  <data name="MainForm_Unknown" xml:space="preserve">
+    <value>&lt;Onbekend&gt;</value>
+  </data>
   <data name="GameDB_RedirectsToItself" xml:space="preserve">
     <value>Scraping {0}: Redirects to itself</value>
   </data>
   <data name="GameDB_TooManyRedirects" xml:space="preserve">
     <value>Scraping {0}: Too Many Redirects</value>
+  </data>
+  <data name="MainForm_Hidden" xml:space="preserve">
+    <value>&lt;Verborgen&gt;</value>
   </data>
   <data name="MainForm_Log_ExceptionHltb" xml:space="preserve">
     <value>Exception when auto-updating DB from HLTB.</value>
@@ -1331,7 +1356,7 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Publisher" xml:space="preserve">
     <value>Bij Uitgevers</value>
-  </data>
+    </data>
   <data name="MainForm_ScrapeNow" xml:space="preserve">
     <value>Nu ophalen?
 Dit kan oplopen tot een paar seconden per spel.</value>

@@ -204,6 +204,36 @@
   <data name="grpStartup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="radNone.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radNone.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radNone.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 65</value>
+  </data>
+  <data name="radNone.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 17</value>
+  </data>
+  <data name="radNone.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="radNone.Text" xml:space="preserve">
+    <value>Do nothing</value>
+  </data>
+  <data name="&gt;&gt;radNone.Name" xml:space="preserve">
+    <value>radNone</value>
+  </data>
+  <data name="&gt;&gt;radNone.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radNone.Parent" xml:space="preserve">
+    <value>grpStartup</value>
+  </data>
+  <data name="&gt;&gt;radNone.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="radCreate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -232,7 +262,7 @@
     <value>grpStartup</value>
   </data>
   <data name="&gt;&gt;radCreate.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="radLoad.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -262,7 +292,7 @@
     <value>grpStartup</value>
   </data>
   <data name="&gt;&gt;radLoad.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="cmdDefaultProfileBrowse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -292,7 +322,7 @@
     <value>grpStartup</value>
   </data>
   <data name="&gt;&gt;cmdDefaultProfileBrowse.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="txtDefaultProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -316,7 +346,7 @@
     <value>grpStartup</value>
   </data>
   <data name="&gt;&gt;txtDefaultProfile.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="grpStartup.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 66</value>
@@ -1192,7 +1222,7 @@
     <value>ttHelp</value>
   </data>
   <data name="&gt;&gt;ttHelp.Type" xml:space="preserve">
-    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.4.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>Depressurizer.Lib.ExtToolTip, Depressurizer, Version=0.7.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DlgOptions</value>
