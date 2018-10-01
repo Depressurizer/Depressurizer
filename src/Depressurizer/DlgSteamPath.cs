@@ -25,47 +25,39 @@ namespace Depressurizer
 {
     public partial class DlgSteamPath : Form
     {
-        public string Path
-        {
-            get { return txtPath.Text.Trim().TrimEnd('\\'); }
-        }
-
         public DlgSteamPath()
         {
             InitializeComponent();
             txtPath.Text = GetSteamPath();
         }
 
+        public string Path => txtPath.Text.Trim().TrimEnd('\\');
+
         private void cmdOk_Click(object sender, EventArgs e)
         {
             if (!Directory.Exists(Path))
             {
-                DialogResult res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist,
+                var res = MessageBox.Show(GlobalStrings.DlgSteamPath_ThatPathDoesNotExist,
                     GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2);
-                if (res == DialogResult.No)
-                {
-                    return;
-                }
+                if (res == DialogResult.No) return;
             }
+
             Close();
         }
 
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog dlg = new FolderBrowserDialog();
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                txtPath.Text = dlg.SelectedPath;
-            }
+            var dlg = new FolderBrowserDialog();
+            var res = dlg.ShowDialog();
+            if (res == DialogResult.OK) txtPath.Text = dlg.SelectedPath;
         }
 
         private string GetSteamPath()
         {
             try
             {
-                string s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
+                var s = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "steamPath", null) as string;
                 if (s == null) s = string.Empty;
                 return s.Replace('/', '\\');
             }

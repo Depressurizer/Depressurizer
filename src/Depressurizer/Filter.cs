@@ -19,6 +19,17 @@ namespace Depressurizer
             XmlName_Require = "Require",
             XmlName_Exclude = "Exclude";
 
+        private SortedSet<Category> _allow;
+
+        private SortedSet<Category> _exclude;
+
+        private SortedSet<Category> _require;
+        public int Hidden;
+
+        public string Name;
+        public int Uncategorized;
+        public int VR;
+
         public Filter(string name)
         {
             Name = name;
@@ -30,73 +41,41 @@ namespace Depressurizer
             Exclude = new SortedSet<Category>();
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        public string Name;
-        public int Uncategorized;
-        public int Hidden;
-        public int VR;
-
-        private SortedSet<Category> _allow;
-
         public SortedSet<Category> Allow
         {
-            get { return _allow; }
-            set
-            {
-                _allow = new SortedSet<Category>(value);
-                //foreach (Category c in value)
-                //{
-                //    _allow.Add(c);
-                //}
-            }
+            get => _allow;
+            set => _allow = new SortedSet<Category>(value);
         }
-
-        private SortedSet<Category> _require;
 
         public SortedSet<Category> Require
         {
-            get { return _require; }
-            set
-            {
-                _require = new SortedSet<Category>(value);
-                //foreach (Category c in value)
-                //{
-                //    _require.Add(c);
-                //}
-            }
+            get => _require;
+            set => _require = new SortedSet<Category>(value);
         }
-
-        private SortedSet<Category> _exclude;
 
         public SortedSet<Category> Exclude
         {
-            get { return _exclude; }
-            set
-            {
-                _exclude = new SortedSet<Category>(value);
-                //foreach (Category c in value)
-                //{
-                //    _exclude.Add(c);
-                //}
-            }
+            get => _exclude;
+            set => _exclude = new SortedSet<Category>(value);
         }
 
         public int CompareTo(object o)
         {
             if (o == null) return 1;
 
-            Filter otherFilter = o as Filter;
+            var otherFilter = o as Filter;
             if (o == null) throw new ArgumentException(GlobalStrings.Category_Exception_ObjectNotCategory);
 
-            int comp = String.Compare(Name, otherFilter.Name, StringComparison.OrdinalIgnoreCase);
+            var comp = string.Compare(Name, otherFilter.Name, StringComparison.OrdinalIgnoreCase);
 
             if (comp == 0) return 0;
 
             return comp;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         public void WriteToXml(XmlWriter writer)
@@ -110,20 +89,11 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_Hidden, Hidden.ToString());
             writer.WriteElementString(XmlName_VR, VR.ToString());
 
-            foreach (Category c in Allow)
-            {
-                writer.WriteElementString(XmlName_Allow, c.Name);
-            }
+            foreach (var c in Allow) writer.WriteElementString(XmlName_Allow, c.Name);
 
-            foreach (Category c in Require)
-            {
-                writer.WriteElementString(XmlName_Require, c.Name);
-            }
+            foreach (var c in Require) writer.WriteElementString(XmlName_Require, c.Name);
 
-            foreach (Category c in Exclude)
-            {
-                writer.WriteElementString(XmlName_Exclude, c.Name);
-            }
+            foreach (var c in Exclude) writer.WriteElementString(XmlName_Exclude, c.Name);
 
             writer.WriteEndElement(); // Filter
 

@@ -24,10 +24,10 @@ namespace Depressurizer
 {
     public partial class DlgGame : Form
     {
-        GameList Data;
-        public GameInfo Game;
+        private readonly GameList Data;
 
-        bool editMode;
+        private readonly bool editMode;
+        public GameInfo Game;
 
         private DlgGame()
         {
@@ -83,12 +83,14 @@ namespace Depressurizer
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
                 if (Data.Games.ContainsKey(id))
                 {
                     MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.DBEditDlg_Error,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
                 Game = new GameInfo(id, txtName.Text, Data, txtExecutable.Text);
                 Game.ApplySource(GameListingSource.Manual);
                 Data.Games.Add(id, Game);
@@ -104,21 +106,20 @@ namespace Depressurizer
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
+            var dlg = new OpenFileDialog();
 
             try
             {
-                FileInfo f = new FileInfo(txtExecutable.Text);
+                var f = new FileInfo(txtExecutable.Text);
                 dlg.InitialDirectory = f.DirectoryName;
                 dlg.FileName = f.Name;
             }
-            catch (ArgumentException) { }
-
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
+            catch (ArgumentException)
             {
-                txtExecutable.Text = dlg.FileName;
             }
+
+            var res = dlg.ShowDialog();
+            if (res == DialogResult.OK) txtExecutable.Text = dlg.FileName;
         }
     }
 }

@@ -26,16 +26,6 @@ namespace Depressurizer
 {
     public class AutoCatTags : AutoCat
     {
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.Tags; }
-        }
-
-        public string Prefix { get; set; }
-        public int MaxTags { get; set; }
-        [XmlArray("Tags"), XmlArrayItem("Tag")]
-        public HashSet<string> IncludedTags { get; set; }
-
         public const string TypeIdString = "AutoCatTags";
 
         private const string XmlName_Name = "Name",
@@ -50,12 +40,6 @@ namespace Depressurizer
             XmlName_ListTagsPerGame = "List_TagsPerGame",
             XmlName_ListExcludeGenres = "List_ExcludeGenres",
             XmlName_ListScoreSort = "List_ScoreSort";
-        public bool List_OwnedOnly { get; set; }
-        public float List_WeightFactor { get; set; }
-        public int List_MinScore { get; set; }
-        public int List_TagsPerGame { get; set; }
-        public bool List_ScoreSort { get; set; }
-        public bool List_ExcludeGenres { get; set; }
 
         public AutoCatTags(string name, string filter = null, string prefix = null,
             HashSet<string> tags = null, int maxTags = 0,
@@ -80,7 +64,9 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatTags() { }
+        private AutoCatTags()
+        {
+        }
 
         protected AutoCatTags(AutoCatTags other)
             : base(other)
@@ -99,6 +85,22 @@ namespace Depressurizer
             Selected = other.Selected;
         }
 
+        public override AutoCatType AutoCatType => AutoCatType.Tags;
+
+        public string Prefix { get; set; }
+        public int MaxTags { get; set; }
+
+        [XmlArray("Tags")]
+        [XmlArrayItem("Tag")]
+        public HashSet<string> IncludedTags { get; set; }
+
+        public bool List_OwnedOnly { get; set; }
+        public float List_WeightFactor { get; set; }
+        public int List_MinScore { get; set; }
+        public int List_TagsPerGame { get; set; }
+        public bool List_ScoreSort { get; set; }
+        public bool List_ExcludeGenres { get; set; }
+
         public override AutoCat Clone()
         {
             return new AutoCatTags(this);
@@ -111,11 +113,13 @@ namespace Depressurizer
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
+
             if (db == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
             }
+
             if (game == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
@@ -126,19 +130,17 @@ namespace Depressurizer
 
             if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            List<string> gameTags = db.GetTagList(game.Id);
+            var gameTags = db.GetTagList(game.Id);
 
             if (gameTags != null)
             {
-                int added = 0;
-                for (int index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
-                {
+                var added = 0;
+                for (var index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
                     if (IncludedTags.Contains(gameTags[index]))
                     {
                         game.AddCategory(games.GetCategory(GetProcessedString(gameTags[index])));
                         added++;
                     }
-                }
             }
 
             return AutoCatResult.Success;
@@ -146,10 +148,7 @@ namespace Depressurizer
 
         public string GetProcessedString(string s)
         {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return s;
-            }
+            if (string.IsNullOrEmpty(Prefix)) return s;
             return Prefix + s;
         }
 
@@ -165,10 +164,7 @@ namespace Depressurizer
             if (IncludedTags != null && IncludedTags.Count > 0)
             {
                 writer.WriteStartElement(XmlName_TagList);
-                foreach (string s in IncludedTags)
-                {
-                    writer.WriteElementString(XmlName_Tag, s);
-                }
+                foreach (var s in IncludedTags) writer.WriteElementString(XmlName_Tag, s);
                 writer.WriteEndElement();
             }
 
@@ -184,9 +180,9 @@ namespace Depressurizer
 
         public static AutoCatTags LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
 
-            AutoCatTags result = new AutoCatTags(name);
+            var result = new AutoCatTags(name);
 
             result.Filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
 
@@ -220,9 +216,9 @@ namespace Depressurizer
             if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListExcludeGenres], out listExcludeGenres))
                 result.List_ExcludeGenres = listExcludeGenres;
 
-            List<string> tagList =
+            var tagList =
                 XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_TagList + "/" + XmlName_Tag));
-            result.IncludedTags = (tagList == null) ? new HashSet<string>() : new HashSet<string>(tagList);
+            result.IncludedTags = tagList == null ? new HashSet<string>() : new HashSet<string>(tagList);
 
             return result;
         }

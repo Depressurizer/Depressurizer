@@ -34,17 +34,52 @@ namespace Rallion
     }
 
     /// <summary>
-    /// Simple application event logging class.
+    ///     Simple application event logging class.
     /// </summary>
     public class AppLogger
     {
+        #region Constructors
+
+        /// <summary>
+        ///     Creates a new AppLog logger with default settings.
+        /// </summary>
+        public AppLogger()
+        {
+            //Settings
+            Level = LoggerLevel.Info;
+
+            FilePath = string.Empty;
+            FileNameTemplate = "Log_:d-:t.log";
+            DateFormat = "o";
+
+            AllowAppend = true;
+            MaxFileDuration = new TimeSpan(0);
+            MaxFileRecords = 0;
+            MaxFileSize = 10000000;
+            MaxBackup = 10;
+
+            UseOriginalCreationTime = true;
+            UseTotalLineCount = true;
+
+            AutoSessionStart = true;
+
+            //Status
+            LogFile = null;
+            CurrentFileRecords = 0;
+            CurrentFileStartTime = new DateTime(0);
+            IsActiveSession = false;
+            IsSuspended = false;
+        }
+
+        #endregion
+
         #region Fields
 
         #region Internals
 
         private FileStream outputStream;
         private readonly object threadLock = new object();
-        private static string[] LevTxt = {"", " ERR", "WARN", "INFO", "VERB"};
+        private static readonly string[] LevTxt = {"", " ERR", "WARN", "INFO", "VERB"};
 
         #endregion
 
@@ -53,7 +88,7 @@ namespace Rallion
         private LoggerLevel _level;
 
         /// <summary>
-        /// The message level to log at. Any messages below this level will not be logged.
+        ///     The message level to log at. Any messages below this level will not be logged.
         /// </summary>
         public LoggerLevel Level
         {
@@ -76,10 +111,10 @@ namespace Rallion
         private string _fileNameBase;
 
         /// <summary>
-        /// Template for log filenames.
-        /// ":d" will be replaced with the date
-        /// ":t" with the time
-        /// ":n" with the assembly name
+        ///     Template for log filenames.
+        ///     ":d" will be replaced with the date
+        ///     ":t" with the time
+        ///     ":n" with the assembly name
         /// </summary>
         public string FileNameTemplate
         {
@@ -123,7 +158,7 @@ namespace Rallion
         private string _filePath;
 
         /// <summary>
-        /// Path in which to place created log files
+        ///     Path in which to place created log files
         /// </summary>
         public string FilePath
         {
@@ -147,7 +182,7 @@ namespace Rallion
         private TimeSpan _maxFileDuration;
 
         /// <summary>
-        /// Maximum time span that a log file should cover. TimeSpan of zero ticks indicates no limit.
+        ///     Maximum time span that a log file should cover. TimeSpan of zero ticks indicates no limit.
         /// </summary>
         public TimeSpan MaxFileDuration
         {
@@ -170,8 +205,8 @@ namespace Rallion
         private int _maxFileRecords;
 
         /// <summary>
-        /// Maximum number of lines that a log file should contain. Zero indicates no limit.
-        /// Some messages might be more than one line.
+        ///     Maximum number of lines that a log file should contain. Zero indicates no limit.
+        ///     Some messages might be more than one line.
         /// </summary>
         public int MaxFileRecords
         {
@@ -194,7 +229,7 @@ namespace Rallion
         private int _maxFileSize;
 
         /// <summary>
-        /// Maximum size that a log file should reach.
+        ///     Maximum size that a log file should reach.
         /// </summary>
         public int MaxFileSize
         {
@@ -217,7 +252,7 @@ namespace Rallion
         private int _maxFiles;
 
         /// <summary>
-        /// Maximum number of backup files to keep
+        ///     Maximum number of backup files to keep
         /// </summary>
         public int MaxBackup
         {
@@ -240,8 +275,8 @@ namespace Rallion
         private bool _allowAppend;
 
         /// <summary>
-        /// Whether or not to re-use existing log files when opening new logging sessions.
-        /// If false, any existing files will be shifted to the backup system.
+        ///     Whether or not to re-use existing log files when opening new logging sessions.
+        ///     If false, any existing files will be shifted to the backup system.
         /// </summary>
         public bool AllowAppend
         {
@@ -264,9 +299,10 @@ namespace Rallion
         public bool _useOrigCreateTime;
 
         /// <summary>
-        /// Whether or not to check for the file creation time when determining the creation date of an existing log file. This might not be accurate.
-        /// If false, it will just act as if the log started when the current log session opened on it.
-        /// In this case, appended log files can easily cover a longer span of time than specified in the configuration.
+        ///     Whether or not to check for the file creation time when determining the creation date of an existing log file. This
+        ///     might not be accurate.
+        ///     If false, it will just act as if the log started when the current log session opened on it.
+        ///     In this case, appended log files can easily cover a longer span of time than specified in the configuration.
         /// </summary>
         public bool UseOriginalCreationTime
         {
@@ -289,9 +325,11 @@ namespace Rallion
         private bool _useTotalLineCount;
 
         /// <summary>
-        /// Whether or not to check the total number of lines in the file to determine the record count when opening a new session on an existing file.
-        /// This might be time consuming.
-        /// If false, will act as if there were no entries in the existing file, and appended logs can have more records than specified.
+        ///     Whether or not to check the total number of lines in the file to determine the record count when opening a new
+        ///     session on an existing file.
+        ///     This might be time consuming.
+        ///     If false, will act as if there were no entries in the existing file, and appended logs can have more records than
+        ///     specified.
         /// </summary>
         public bool UseTotalLineCount
         {
@@ -314,8 +352,8 @@ namespace Rallion
         private bool _autoSessionStart;
 
         /// <summary>
-        /// Whether or not to automatically start a session if a Write call is made without one currently active.
-        /// A session will only be started if the current logging level would result in a write.
+        ///     Whether or not to automatically start a session if a Write call is made without one currently active.
+        ///     A session will only be started if the current logging level would result in a write.
         /// </summary>
         public bool AutoSessionStart
         {
@@ -342,7 +380,7 @@ namespace Rallion
         private FileInfo _logFile;
 
         /// <summary>
-        /// Gets the currently open log file. If there is no log session in progress, null.
+        ///     Gets the currently open log file. If there is no log session in progress, null.
         /// </summary>
         public FileInfo LogFile
         {
@@ -365,7 +403,7 @@ namespace Rallion
         private DateTime _currentFileStartTime;
 
         /// <summary>
-        /// Gets the start time of the current open log.
+        ///     Gets the start time of the current open log.
         /// </summary>
         public DateTime CurrentFileStartTime
         {
@@ -388,7 +426,7 @@ namespace Rallion
         private int _currentFileRecords;
 
         /// <summary>
-        /// Gets the number of records in the current open log
+        ///     Gets the number of records in the current open log
         /// </summary>
         public int CurrentFileRecords
         {
@@ -411,7 +449,7 @@ namespace Rallion
         private bool _isActiveSession;
 
         /// <summary>
-        /// Checks to see if there is a logging session in progress
+        ///     Checks to see if there is a logging session in progress
         /// </summary>
         public bool IsActiveSession
         {
@@ -434,7 +472,7 @@ namespace Rallion
         private bool _isSuspended;
 
         /// <summary>
-        /// Checks to see if the current session is suspended
+        ///     Checks to see if the current session is suspended
         /// </summary>
         public bool IsSuspended
         {
@@ -455,7 +493,7 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Checks to see if there is currently an active, un-suspended session.
+        ///     Checks to see if there is currently an active, un-suspended session.
         /// </summary>
         public bool IsLogging
         {
@@ -472,71 +510,37 @@ namespace Rallion
 
         #endregion
 
-        #region Constructors
-
-        /// <summary>
-        /// Creates a new AppLog logger with default settings.
-        /// </summary>
-        public AppLogger()
-        {
-            //Settings
-            Level = LoggerLevel.Info;
-
-            FilePath = String.Empty;
-            FileNameTemplate = "Log_:d-:t.log";
-            DateFormat = "o";
-
-            AllowAppend = true;
-            MaxFileDuration = new TimeSpan(0);
-            MaxFileRecords = 0;
-            MaxFileSize = 10000000;
-            MaxBackup = 10;
-
-            UseOriginalCreationTime = true;
-            UseTotalLineCount = true;
-
-            AutoSessionStart = true;
-
-            //Status
-            LogFile = null;
-            CurrentFileRecords = 0;
-            CurrentFileStartTime = new DateTime(0);
-            IsActiveSession = false;
-            IsSuspended = false;
-        }
-
-        #endregion
-
         #region Utility Methods
 
         /// <summary>
-        /// Gets the path that will actually be used to store log files.
-        /// If there isn't one set, it will just use the current working directory.
+        ///     Gets the path that will actually be used to store log files.
+        ///     If there isn't one set, it will just use the current working directory.
         /// </summary>
         /// <returns>String representing the directory to save logs in.</returns>
         public string GetPath()
         {
-            return (FilePath == string.Empty) ? Environment.CurrentDirectory : FilePath;
+            return FilePath == string.Empty ? Environment.CurrentDirectory : FilePath;
         }
 
         /// <summary>
-        /// Gets the file to write to, moving other files out of the way if neccessary.
+        ///     Gets the file to write to, moving other files out of the way if neccessary.
         /// </summary>
         /// <param name="forceNew">If true, will not return a reference to an existing file.</param>
-        /// <returns>FileInfo representing the file we should write to. Is not guaranteed to exist, and will not if forceNew = true.</returns>
+        /// <returns>
+        ///     FileInfo representing the file we should write to. Is not guaranteed to exist, and will not if forceNew =
+        ///     true.
+        /// </returns>
         private FileInfo GetFile(bool forceNew = false)
         {
-            string targetName = GetPath() + Path.DirectorySeparatorChar + GenerateFileName();
+            var targetName = GetPath() + Path.DirectorySeparatorChar + GenerateFileName();
             if (!AllowAppend || forceNew)
-            {
                 DisplaceFile(targetName, 0,
                     MaxBackup); // If we need to make a new file, make sure there isn't a file in the way
-            }
             return new FileInfo(GetPath() + Path.DirectorySeparatorChar + GenerateFileName());
         }
 
         /// <summary>
-        /// Generates an actual filename based on a template.
+        ///     Generates an actual filename based on a template.
         /// </summary>
         /// <param name="template">String to build the name from. If none is passed, will just use the class field.</param>
         /// <returns>String containing the filename to use.</returns>
@@ -550,7 +554,8 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Moves a file out of the way so a new log can take its place. Will shift files out of the way by appending numbers to the filename.
+        ///     Moves a file out of the way so a new log can take its place. Will shift files out of the way by appending numbers
+        ///     to the filename.
         /// </summary>
         /// <param name="baseFile">Full path of the space to clear.</param>
         private void DisplaceFile(string baseFile)
@@ -559,45 +564,46 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Recusive method that does the work of clearing a space for new log files, only deleting the oldest.
-        /// After this method runs, there will be NO file at the space specified by baseFile and stepsIn.
+        ///     Recusive method that does the work of clearing a space for new log files, only deleting the oldest.
+        ///     After this method runs, there will be NO file at the space specified by baseFile and stepsIn.
         /// </summary>
         /// <param name="baseFile">Full path of the target clear space</param>
         /// <param name="stepsIn">Which backup we're currently looking at (0 means the file itself, 1+ means that backup</param>
         /// <param name="stepsTotal">How many backups to max out at</param>
         private void DisplaceFile(string baseFile, int stepsIn, int stepsTotal)
         {
-            string thisFile = GetBackupFileName(baseFile, stepsIn);
+            var thisFile = GetBackupFileName(baseFile, stepsIn);
             if (!File.Exists(thisFile)) return;
             if (stepsIn >= stepsTotal)
             {
                 File.Delete(thisFile); // Delete if there's no more space for more backups
                 return;
             }
+
             DisplaceFile(baseFile, stepsIn + 1, stepsTotal);
             File.Move(thisFile, GetBackupFileName(baseFile, stepsIn + 1));
         }
 
         /// <summary>
-        /// Gets the filename to use for a given backup, given the base log filename
+        ///     Gets the filename to use for a given backup, given the base log filename
         /// </summary>
         /// <param name="baseFile">Full path of the actual log filename</param>
         /// <param name="backupNum">Number of this backup. 0 indicates that it is not the backup, it is current.</param>
         /// <returns>Full path of the backup file</returns>
         private string GetBackupFileName(string baseFile, int backupNum)
         {
-            return (backupNum == 0) ? baseFile : (baseFile + '.' + backupNum);
+            return backupNum == 0 ? baseFile : baseFile + '.' + backupNum;
         }
 
         /// <summary>
-        /// Counts the lines in a file.
+        ///     Counts the lines in a file.
         /// </summary>
         /// <param name="logFile">FileInfo object representing the file to check</param>
         /// <returns>Number of lines in the file.</returns>
         private int CountRecords(FileInfo logFile)
         {
-            int count = 0;
-            using (StreamReader reader = new StreamReader(logFile.OpenRead()))
+            var count = 0;
+            using (var reader = new StreamReader(logFile.OpenRead()))
             {
                 while (!reader.EndOfStream)
                 {
@@ -605,11 +611,12 @@ namespace Rallion
                     count++;
                 }
             }
+
             return count;
         }
 
         /// <summary>
-        /// Checks to see whether the current log file limits allow for the addition of the given message.
+        ///     Checks to see whether the current log file limits allow for the addition of the given message.
         /// </summary>
         /// <param name="message">Message we are looking to add</param>
         /// <returns>True if message can be added, false otherwise</returns>
@@ -627,7 +634,7 @@ namespace Rallion
         #region Status control
 
         /// <summary>
-        /// Begins a new logging session.
+        ///     Begins a new logging session.
         /// </summary>
         /// <param name="forceNew">If true, forces creation of a new file, regardless of Append setting</param>
         /// <returns>Returns true if session start was successful, false otherwise</returns>
@@ -636,21 +643,16 @@ namespace Rallion
             lock (threadLock)
             {
                 if (forceNew)
-                {
                     EndSession();
-                }
-                else if (IsActiveSession)
-                {
-                    return true;
-                }
+                else if (IsActiveSession) return true;
 
                 LogFile = GetFile(forceNew);
 
                 try
                 {
-                    bool appending = LogFile.Exists;
-                    CurrentFileStartTime = (appending && UseOriginalCreationTime) ? LogFile.CreationTime : DateTime.Now;
-                    CurrentFileRecords = (appending && UseTotalLineCount) ? CountRecords(LogFile) : 0;
+                    var appending = LogFile.Exists;
+                    CurrentFileStartTime = appending && UseOriginalCreationTime ? LogFile.CreationTime : DateTime.Now;
+                    CurrentFileRecords = appending && UseTotalLineCount ? CountRecords(LogFile) : 0;
                     outputStream = new FileStream(LogFile.FullName, FileMode.Append, FileAccess.Write, FileShare.Read);
                     IsActiveSession = true;
                 }
@@ -662,12 +664,13 @@ namespace Rallion
                 {
                     IsActiveSession = false;
                 }
+
                 return IsActiveSession;
             }
         }
 
         /// <summary>
-        /// Ends an active session and cleans up after it.
+        ///     Ends an active session and cleans up after it.
         /// </summary>
         public void EndSession()
         {
@@ -678,6 +681,7 @@ namespace Rallion
                     outputStream.Close();
                     outputStream = null;
                 }
+
                 LogFile = null;
                 CurrentFileRecords = -1;
                 CurrentFileStartTime = new DateTime(0);
@@ -687,7 +691,7 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Pauses existing session without terminating it.
+        ///     Pauses existing session without terminating it.
         /// </summary>
         public void Suspend()
         {
@@ -695,7 +699,7 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Resumes logging in a suspended session.
+        ///     Resumes logging in a suspended session.
         /// </summary>
         public void Resume()
         {
@@ -703,7 +707,7 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Forces new log file to be created. Current log file will be moved to the first backup position.
+        ///     Forces new log file to be created. Current log file will be moved to the first backup position.
         /// </summary>
         /// <returns>True if new log file was opened, false otherwise.</returns>
         public bool ForceNewFile()
@@ -720,7 +724,7 @@ namespace Rallion
         #region Writers
 
         /// <summary>
-        /// Writes specified message to the given channel.
+        ///     Writes specified message to the given channel.
         /// </summary>
         /// <param name="lev">Channel to output on</param>
         /// <param name="message">Template of the message to add</param>
@@ -731,22 +735,16 @@ namespace Rallion
             {
                 if (Level >= lev)
                 {
-                    if (AutoSessionStart && !IsActiveSession)
-                    {
-                        BeginSession();
-                    }
+                    if (AutoSessionStart && !IsActiveSession) BeginSession();
                     if (IsActiveSession)
                     {
-                        string t = DateTime.Now.ToString(DateFormat);
-                        string l = LevTxt[(int) lev];
-                        string m = string.Format(message, args);
-                        string fullMessage = string.Format("{0} - {1}: {2}{3}", t, l, m, Environment.NewLine);
-                        if (!CanWriteToFile(fullMessage))
-                        {
-                            BeginSession(true);
-                        }
+                        var t = DateTime.Now.ToString(DateFormat);
+                        var l = LevTxt[(int) lev];
+                        var m = string.Format(message, args);
+                        var fullMessage = string.Format("{0} - {1}: {2}{3}", t, l, m, Environment.NewLine);
+                        if (!CanWriteToFile(fullMessage)) BeginSession(true);
 
-                        byte[] output = new UTF8Encoding().GetBytes(fullMessage);
+                        var output = new UTF8Encoding().GetBytes(fullMessage);
                         //byte[] output = fullMessage.ToCharArray();
                         outputStream.Write(output, 0, output.Length);
                         outputStream.Flush();
@@ -762,7 +760,8 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Writes out public fields of specified object to the log. For IEnumerable values, individual items are written out; this only applies to top-level items.
+        ///     Writes out public fields of specified object to the log. For IEnumerable values, individual items are written out;
+        ///     this only applies to top-level items.
         /// </summary>
         /// <param name="lev">Channel to output on</param>
         /// <param name="o">Object to write fields of</param>
@@ -771,15 +770,15 @@ namespace Rallion
         {
             if (Level >= lev)
             {
-                StringBuilder builder = new StringBuilder(prefix + Environment.NewLine);
-                FieldInfo[] fields = o.GetType().GetFields();
-                foreach (FieldInfo fi in fields)
+                var builder = new StringBuilder(prefix + Environment.NewLine);
+                var fields = o.GetType().GetFields();
+                foreach (var fi in fields)
                 {
-                    object val = fi.GetValue(o);
+                    var val = fi.GetValue(o);
                     if (val is IEnumerable<object>)
                     {
-                        int index = 0;
-                        foreach (object subObj in (val as IEnumerable<object>))
+                        var index = 0;
+                        foreach (var subObj in val as IEnumerable<object>)
                         {
                             builder.AppendLine(string.Format("{0}[{1}] : {2}", fi.Name, index, subObj));
                             index++;
@@ -790,6 +789,7 @@ namespace Rallion
                         builder.AppendLine(string.Format("{0} : {1}", fi.Name, val));
                     }
                 }
+
                 Write(lev, builder.ToString());
             }
         }

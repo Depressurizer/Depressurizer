@@ -25,11 +25,12 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Tags : AutoCatConfigPanel
     {
+        private bool loaded;
+
+        private readonly GameList ownedGames;
+
         // used to remove unchecked items from the Tags checkedlistbox.
         private Thread workerThread;
-
-        private GameList ownedGames;
-        private bool loaded;
 
         public AutoCatConfigPanel_Tags(GameList ownedGames)
         {
@@ -56,7 +57,7 @@ namespace Depressurizer
             loaded = false;
 
             lstIncluded.Columns[0].Width = -1;
-            IEnumerable<Tuple<string, float>> tagList =
+            var tagList =
                 Program.GameDB.CalculateSortedTagList(
                     list_chkOwnedOnly.Checked ? ownedGames : null,
                     (float) list_numWeightFactor.Value,
@@ -64,14 +65,15 @@ namespace Depressurizer
                     false);
             lstIncluded.BeginUpdate();
             lstIncluded.Items.Clear();
-            foreach (Tuple<string, float> tag in tagList)
+            foreach (var tag in tagList)
             {
-                ListViewItem newItem = new ListViewItem(string.Format("{0} [{1:F0}]", tag.Item1, tag.Item2));
+                var newItem = new ListViewItem(string.Format("{0} [{1:F0}]", tag.Item1, tag.Item2));
                 newItem.Tag = tag.Item1;
                 if (preChecked != null && preChecked.Contains(tag.Item1)) newItem.Checked = true;
                 newItem.SubItems.Add(tag.Item2.ToString());
                 lstIncluded.Items.Add(newItem);
             }
+
             lstIncluded.Columns[0].Width = -1;
             SortTags(1, SortOrder.Descending);
             lstIncluded.EndUpdate();
@@ -82,15 +84,15 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
-            AutoCatTags ac = autocat as AutoCatTags;
+            var ac = autocat as AutoCatTags;
             if (ac == null) return;
-            txtPrefix.Text = (ac.Prefix == null) ? string.Empty : ac.Prefix;
+            txtPrefix.Text = ac.Prefix == null ? string.Empty : ac.Prefix;
             numMaxTags.Value = ac.MaxTags;
 
             list_numMinScore.Value = ac.List_MinScore;
             list_numTagsPerGame.Value = ac.List_TagsPerGame;
             list_chkOwnedOnly.Checked = ac.List_OwnedOnly;
-            list_numWeightFactor.Value = (Decimal) ac.List_WeightFactor;
+            list_numWeightFactor.Value = (decimal) ac.List_WeightFactor;
             list_chkExcludeGenres.Checked = ac.List_ExcludeGenres;
 
             FillTagsList(ac.IncludedTags);
@@ -100,17 +102,14 @@ namespace Depressurizer
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            AutoCatTags ac = autocat as AutoCatTags;
+            var ac = autocat as AutoCatTags;
             if (ac == null) return;
             ac.Prefix = txtPrefix.Text;
 
             ac.MaxTags = (int) numMaxTags.Value;
 
             ac.IncludedTags = new HashSet<string>();
-            foreach (ListViewItem i in lstIncluded.CheckedItems)
-            {
-                ac.IncludedTags.Add(i.Tag as string);
-            }
+            foreach (ListViewItem i in lstIncluded.CheckedItems) ac.IncludedTags.Add(i.Tag as string);
 
             ac.List_MinScore = (int) list_numMinScore.Value;
             ac.List_OwnedOnly = list_chkOwnedOnly.Checked;
@@ -121,19 +120,13 @@ namespace Depressurizer
 
         private void SetAllListCheckStates(ListView list, bool to)
         {
-            foreach (ListViewItem item in list.Items)
-            {
-                item.Checked = to;
-            }
+            foreach (ListViewItem item in list.Items) item.Checked = to;
         }
 
         private void cmdListRebuild_Click(object sender, EventArgs e)
         {
-            HashSet<string> checkedTags = new HashSet<string>();
-            foreach (ListViewItem item in lstIncluded.CheckedItems)
-            {
-                checkedTags.Add(item.Tag as string);
-            }
+            var checkedTags = new HashSet<string>();
+            foreach (ListViewItem item in lstIncluded.CheckedItems) checkedTags.Add(item.Tag as string);
             FillTagsList(checkedTags);
         }
 
@@ -149,20 +142,21 @@ namespace Depressurizer
 
         private void clbTags_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.NewValue == CheckState.Unchecked)
-            {
-                ((ListViewItem) clbTags.Items[e.Index]).Checked = false;
-            }
+            if (e.NewValue == CheckState.Unchecked) ((ListViewItem) clbTags.Items[e.Index]).Checked = false;
         }
 
         private void lstIncluded_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked) clbTags.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            if (e.Item.Checked)
+            {
+                clbTags.Items.Add(e.Item, true);
+            }
+            else if (!e.Item.Checked && loaded)
             {
                 workerThread = new Thread(TagItemWorker);
                 workerThread.Start(e.Item);
             }
+
             lblIncluded.Text = "Included tags (" + clbTags.Items.Count + "):";
         }
 
@@ -200,9 +194,23 @@ namespace Depressurizer
             SortTags(1, SortOrder.Descending);
         }
 
+        #region Utility
+
+        private void SortTags(int c, SortOrder so)
+        {
+            // Create a comparer.
+            lstIncluded.ListViewItemSorter =
+                new ListViewComparer(c, so);
+
+            // Sort.
+            lstIncluded.Sort();
+        }
+
+        #endregion
+
         #region Helper Thread 
 
-        delegate void TagItemCallback(ListViewItem obj);
+        private delegate void TagItemCallback(ListViewItem obj);
 
         private void TagItem(ListViewItem obj)
         {
@@ -221,20 +229,6 @@ namespace Depressurizer
         private void TagItemWorker(object obj)
         {
             TagItem((ListViewItem) obj);
-        }
-
-        #endregion
-
-        #region Utility
-
-        private void SortTags(int c, SortOrder so)
-        {
-            // Create a comparer.
-            lstIncluded.ListViewItemSorter =
-                new ListViewComparer(c, so);
-
-            // Sort.
-            lstIncluded.Sort();
         }
 
         #endregion

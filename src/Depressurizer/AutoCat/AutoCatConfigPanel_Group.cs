@@ -25,7 +25,7 @@ namespace Depressurizer
     public partial class AutoCatConfigPanel_Group : AutoCatConfigPanel
     {
         //private List<string> stringAutocats;
-        private List<AutoCat> Autocats;
+        private readonly List<AutoCat> Autocats;
 
         private AutoCat current;
 
@@ -36,11 +36,24 @@ namespace Depressurizer
             Autocats = autocats;
         }
 
+        #region UI Updaters
+
+        private void FillAutocatList(List<string> group)
+        {
+            if (group != null)
+                lbAutocats.Items.Clear();
+            {
+                foreach (var name in group) lbAutocats.Items.Add(name);
+            }
+        }
+
+        #endregion
+
         #region Data modifiers
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
-            AutoCatGroup ac = autocat as AutoCatGroup;
+            var ac = autocat as AutoCatGroup;
             current = autocat;
             if (ac == null) return;
             FillAutocatList(ac.Autocats);
@@ -48,7 +61,7 @@ namespace Depressurizer
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            AutoCatGroup ac = autocat as AutoCatGroup;
+            var ac = autocat as AutoCatGroup;
             if (ac == null) return;
             ac.Autocats = GetGroup();
         }
@@ -69,35 +82,22 @@ namespace Depressurizer
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            DlgAutoCatSelect dlg = new DlgAutoCatSelect(Autocats, current.Name);
+            var dlg = new DlgAutoCatSelect(Autocats, current.Name);
 
-            DialogResult res = dlg.ShowDialog();
+            var res = dlg.ShowDialog();
 
             if (res == DialogResult.OK)
-            {
-                foreach (AutoCat ac in dlg.AutoCatList)
-                {
+                foreach (var ac in dlg.AutoCatList)
                     if (ac.Selected && !InGroup(ac.Name))
-                    {
                         lbAutocats.Items.Add(ac.Name);
-                    }
-                }
-            }
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             if (lbAutocats.SelectedItems.Count > 1)
-            {
                 foreach (string s in lbAutocats.SelectedItems)
-                {
                     lbAutocats.Items.Remove(s);
-                }
-            }
-            else if (lbAutocats.SelectedItem != null)
-            {
-                lbAutocats.Items.Remove(lbAutocats.SelectedItem);
-            }
+            else if (lbAutocats.SelectedItem != null) lbAutocats.Items.Remove(lbAutocats.SelectedItem);
         }
 
         private void lbAutocats_SelectedIndexChanged(object sender, EventArgs e)
@@ -111,8 +111,8 @@ namespace Depressurizer
             else if (lbAutocats.SelectedItem != null)
             {
                 btnRemove.Enabled = true;
-                btnUp.Enabled = (lbAutocats.SelectedIndex == 0) ? false : true;
-                btnDown.Enabled = (lbAutocats.SelectedIndex == (lbAutocats.Items.Count - 1)) ? false : true;
+                btnUp.Enabled = lbAutocats.SelectedIndex == 0 ? false : true;
+                btnDown.Enabled = lbAutocats.SelectedIndex == lbAutocats.Items.Count - 1 ? false : true;
             }
             else
             {
@@ -124,40 +124,20 @@ namespace Depressurizer
 
         #endregion
 
-        #region UI Updaters
-
-        private void FillAutocatList(List<string> group)
-        {
-            if (group != null)
-                lbAutocats.Items.Clear();
-            {
-                foreach (string name in group)
-                {
-                    lbAutocats.Items.Add(name);
-                }
-            }
-        }
-
-        #endregion
-
         #region Utility
 
         private bool InGroup(string find)
         {
             foreach (string name in lbAutocats.Items)
-            {
-                if (name == find) return true;
-            }
+                if (name == find)
+                    return true;
             return false;
         }
 
         public List<string> GetGroup()
         {
-            List<string> group = new List<string>();
-            foreach (string name in lbAutocats.Items)
-            {
-                group.Add(name);
-            }
+            var group = new List<string>();
+            foreach (string name in lbAutocats.Items) group.Add(name);
             return group;
         }
 

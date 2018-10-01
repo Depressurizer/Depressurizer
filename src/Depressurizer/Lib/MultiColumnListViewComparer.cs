@@ -27,17 +27,18 @@ using System.Windows.Forms;
 namespace Depressurizer
 {
     /// <summary>
-    /// Implements the manual sorting of ListView items by columns. Supports sorting string representations of integers numerically.
+    ///     Implements the manual sorting of ListView items by columns. Supports sorting string representations of integers
+    ///     numerically.
     /// </summary>
     public class MultiColumnListViewComparer : IComparer
     {
+        private bool _asInt;
         private int _col;
         private int _direction;
-        private bool _asInt;
-        private bool _rev;
 
-        private HashSet<int> _intCols = new HashSet<int>();
-        private HashSet<int> _revCols = new HashSet<int>();
+        private readonly HashSet<int> _intCols = new HashSet<int>();
+        private bool _rev;
+        private readonly HashSet<int> _revCols = new HashSet<int>();
 
         public MultiColumnListViewComparer(int column = 0, int dir = 1)
         {
@@ -46,18 +47,36 @@ namespace Depressurizer
             _asInt = _intCols.Contains(_col);
         }
 
+        public int Compare(object x, object y)
+        {
+            var strA = ((ListViewItem) x).SubItems[_col].Text;
+            var strB = ((ListViewItem) y).SubItems[_col].Text;
+
+            var dir = _direction * (_rev ? -1 : 1);
+            if (_asInt)
+            {
+                int a, b;
+                if (int.TryParse(strA, out a) && int.TryParse(strB, out b)) return dir * (a - b);
+            }
+
+            if (string.IsNullOrEmpty(strA))
+            {
+                if (string.IsNullOrEmpty(strB)) return 0;
+                return dir;
+            }
+
+            if (string.IsNullOrEmpty(strB)) return -dir;
+            return dir * string.Compare(strA, strB);
+        }
+
         public void SetSortCol(int clickedCol, int forceDir = 0)
         {
             if (forceDir == 0)
             {
                 if (clickedCol == _col)
-                {
                     _direction = -_direction;
-                }
                 else
-                {
                     _direction = 1;
-                }
             }
             else
             {
@@ -102,44 +121,62 @@ namespace Depressurizer
             _revCols.Remove(col);
             _rev = _revCols.Contains(_col);
         }
-
-        public int Compare(object x, object y)
-        {
-            string strA = ((ListViewItem) x).SubItems[_col].Text;
-            string strB = ((ListViewItem) y).SubItems[_col].Text;
-
-            int dir = _direction * (_rev ? -1 : 1);
-            if (_asInt)
-            {
-                int a, b;
-                if (int.TryParse(strA, out a) && int.TryParse(strB, out b))
-                {
-                    return dir * (a - b);
-                }
-            }
-            if (string.IsNullOrEmpty(strA))
-            {
-                if (string.IsNullOrEmpty(strB))
-                {
-                    return 0;
-                }
-                return dir;
-            }
-            if (string.IsNullOrEmpty(strB))
-            {
-                return -dir;
-            }
-            return dir * String.Compare(strA, strB);
-        }
     }
 
 
     /// <summary>
-    /// This allows drawing sorting arrows on the columns in the ListView.
+    ///     This allows drawing sorting arrows on the columns in the ListView.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class ListViewExtensions
     {
+        public const int LVM_FIRST = 0x1000;
+        public const int LVM_GETHEADER = LVM_FIRST + 31;
+
+        public const int HDM_FIRST = 0x1200;
+        public const int HDM_GETITEM = HDM_FIRST + 11;
+        public const int HDM_SETITEM = HDM_FIRST + 12;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, ref HDITEM lParam);
+
+        public static void SetSortIcon(this ListView listViewControl, int columnIndex, SortOrder order)
+        {
+            var columnHeader = SendMessage(listViewControl.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
+            for (var columnNumber = 0; columnNumber <= listViewControl.Columns.Count - 1; columnNumber++)
+            {
+                var columnPtr = new IntPtr(columnNumber);
+                var item = new HDITEM
+                {
+                    mask = HDITEM.Mask.Format
+                };
+
+                if (SendMessage(columnHeader, HDM_GETITEM, columnPtr, ref item) == IntPtr.Zero)
+                    throw new Win32Exception();
+
+                if (order != SortOrder.None && columnNumber == columnIndex)
+                    switch (order)
+                    {
+                        case SortOrder.Ascending:
+                            item.fmt &= ~HDITEM.Format.SortDown;
+                            item.fmt |= HDITEM.Format.SortUp;
+                            break;
+                        case SortOrder.Descending:
+                            item.fmt &= ~HDITEM.Format.SortUp;
+                            item.fmt |= HDITEM.Format.SortDown;
+                            break;
+                    }
+                else
+                    item.fmt &= ~HDITEM.Format.SortDown & ~HDITEM.Format.SortUp;
+
+                if (SendMessage(columnHeader, HDM_SETITEM, columnPtr, ref item) == IntPtr.Zero)
+                    throw new Win32Exception();
+            }
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct HDITEM
         {
@@ -176,61 +213,6 @@ namespace Depressurizer
             {
                 SortDown = 0x200, // HDF_SORTDOWN
                 SortUp = 0x400 // HDF_SORTUP
-            }
-        }
-
-        public const int LVM_FIRST = 0x1000;
-        public const int LVM_GETHEADER = LVM_FIRST + 31;
-
-        public const int HDM_FIRST = 0x1200;
-        public const int HDM_GETITEM = HDM_FIRST + 11;
-        public const int HDM_SETITEM = HDM_FIRST + 12;
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, ref HDITEM lParam);
-
-        public static void SetSortIcon(this ListView listViewControl, int columnIndex, SortOrder order)
-        {
-            IntPtr columnHeader = SendMessage(listViewControl.Handle, LVM_GETHEADER, IntPtr.Zero, IntPtr.Zero);
-            for (int columnNumber = 0; columnNumber <= listViewControl.Columns.Count - 1; columnNumber++)
-            {
-                var columnPtr = new IntPtr(columnNumber);
-                var item = new HDITEM
-                {
-                    mask = HDITEM.Mask.Format
-                };
-
-                if (SendMessage(columnHeader, HDM_GETITEM, columnPtr, ref item) == IntPtr.Zero)
-                {
-                    throw new Win32Exception();
-                }
-
-                if (order != SortOrder.None && columnNumber == columnIndex)
-                {
-                    switch (order)
-                    {
-                        case SortOrder.Ascending:
-                            item.fmt &= ~HDITEM.Format.SortDown;
-                            item.fmt |= HDITEM.Format.SortUp;
-                            break;
-                        case SortOrder.Descending:
-                            item.fmt &= ~HDITEM.Format.SortUp;
-                            item.fmt |= HDITEM.Format.SortDown;
-                            break;
-                    }
-                }
-                else
-                {
-                    item.fmt &= ~HDITEM.Format.SortDown & ~HDITEM.Format.SortUp;
-                }
-
-                if (SendMessage(columnHeader, HDM_SETITEM, columnPtr, ref item) == IntPtr.Zero)
-                {
-                    throw new Win32Exception();
-                }
             }
         }
     }

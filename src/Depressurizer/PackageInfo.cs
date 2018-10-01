@@ -23,7 +23,7 @@ using System.Text;
 
 namespace Depressurizer
 {
-    enum PackageBillingType
+    internal enum PackageBillingType
     {
         NoCost = 0,
         Store = 1,
@@ -35,13 +35,13 @@ namespace Depressurizer
         FreeOnDemand = 12
     }
 
-    class PackageInfo
+    internal class PackageInfo
     {
         public List<int> AppIds;
-        public int Id;
-        public string Name;
 
         public PackageBillingType BillingType;
+        public int Id;
+        public string Name;
 
         public PackageInfo(int id = 0, string name = null)
         {
@@ -52,25 +52,22 @@ namespace Depressurizer
 
         public static PackageInfo FromVdfNode(VdfFileNode node)
         {
-            VdfFileNode idNode = node.GetNodeAt(new[] {"packageId"}, false);
-            if ((idNode != null) && idNode.NodeType == ValueType.Int)
+            var idNode = node.GetNodeAt(new[] {"packageId"}, false);
+            if (idNode != null && idNode.NodeType == ValueType.Int)
             {
-                int id = idNode.NodeInt;
+                var id = idNode.NodeInt;
 
                 string name = null;
-                VdfFileNode nameNode = node.GetNodeAt(new[] {"name"}, false);
-                if (nameNode != null && nameNode.NodeType == ValueType.String)
-                {
-                    name = nameNode.NodeString;
-                }
+                var nameNode = node.GetNodeAt(new[] {"name"}, false);
+                if (nameNode != null && nameNode.NodeType == ValueType.String) name = nameNode.NodeString;
 
-                PackageInfo package = new PackageInfo(id, name);
+                var package = new PackageInfo(id, name);
 
-                VdfFileNode billingtypeNode = node["billingtype"];
+                var billingtypeNode = node["billingtype"];
                 if (billingtypeNode != null && billingtypeNode.NodeType == ValueType.String ||
                     billingtypeNode.NodeType == ValueType.Int)
                 {
-                    int bType = billingtypeNode.NodeInt;
+                    var bType = billingtypeNode.NodeInt;
                     /*if( Enum.IsDefined( typeof(PackageBillingType), bType ) ) {
 
                     } else {
@@ -79,36 +76,31 @@ namespace Depressurizer
                     package.BillingType = (PackageBillingType) bType;
                 }
 
-                VdfFileNode appsNode = node["appids"];
+                var appsNode = node["appids"];
                 if (appsNode != null && appsNode.NodeType == ValueType.Array)
-                {
-                    foreach (VdfFileNode aNode in appsNode.NodeArray.Values)
-                    {
+                    foreach (var aNode in appsNode.NodeArray.Values)
                         if (aNode.NodeType == ValueType.Int)
-                        {
                             package.AppIds.Add(aNode.NodeInt);
-                        }
-                    }
-                }
 
                 return package;
             }
+
             return null;
         }
 
         public static DateTime GetLocalDateTime(int timeStamp)
         {
-            DateTime result = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            var result = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             return result.AddSeconds(timeStamp).ToLocalTime();
         }
 
         /// <summary>
-        /// Loads Apps from packageinfo.vdf.
+        ///     Loads Apps from packageinfo.vdf.
         /// </summary>
         /// <param name="path">Path of packageinfo.vdf</param>
         public static Dictionary<int, PackageInfo> LoadPackages(string path)
         {
-            Dictionary<int, PackageInfo> result = new Dictionary<int, PackageInfo>();
+            var result = new Dictionary<int, PackageInfo>();
 
             /* packageinfo.vdf entry example format, sometimes has extra values. Line breaks are only for readability and not part of format.
             * we only care about *packageid*, *billingtype*, *appids*
@@ -123,8 +115,8 @@ namespace Depressurizer
             * 08 00 appitems 00 08 08 08 
             */
 
-            BinaryReader bReader = new BinaryReader(new FileStream(path, FileMode.Open), Encoding.ASCII);
-            long fileLength = bReader.BaseStream.Length;
+            var bReader = new BinaryReader(new FileStream(path, FileMode.Open), Encoding.ASCII);
+            var fileLength = bReader.BaseStream.Length;
 
             // seek to packageid: start of a new entry
             byte[] packageidBytes =
@@ -140,8 +132,8 @@ namespace Depressurizer
             VdfFileNode.ReadBin_SeekTo(bReader, packageidBytes, fileLength);
             while (bReader.BaseStream.Position < fileLength)
             {
-                int id = bReader.ReadInt32();
-                PackageInfo package = new PackageInfo(id);
+                var id = bReader.ReadInt32();
+                var package = new PackageInfo(id);
 
                 VdfFileNode.ReadBin_SeekTo(bReader, billingtypeBytes, fileLength);
                 package.BillingType = (PackageBillingType) bReader.ReadInt32();
@@ -149,7 +141,10 @@ namespace Depressurizer
                 VdfFileNode.ReadBin_SeekTo(bReader, appidsBytes, fileLength);
                 while (bReader.ReadByte() == 0x02)
                 {
-                    while (bReader.ReadByte() != 0x00) { }
+                    while (bReader.ReadByte() != 0x00)
+                    {
+                    }
+
                     package.AppIds.Add(bReader.ReadInt32());
                 }
 

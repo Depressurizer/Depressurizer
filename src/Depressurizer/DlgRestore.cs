@@ -34,10 +34,7 @@ namespace Depressurizer
             var files = Directory.EnumerateFiles(path, "*.*", SearchOption.TopDirectoryOnly)
                 .Where(s => s.EndsWith(".bak_1") || s.EndsWith(".bak_2") || s.EndsWith(".bak_3"));
 
-            foreach (string f in files)
-            {
-                cboRestore.Items.Add(new ComboItem(Path.GetFileName(f), f));
-            }
+            foreach (var f in files) cboRestore.Items.Add(new ComboItem(Path.GetFileName(f), f));
         }
 
         private void cboRestore_SelectedIndexChanged(object sender, EventArgs e)
@@ -45,10 +42,10 @@ namespace Depressurizer
             if (File.Exists(((ComboItem) cboRestore.SelectedItem).Path))
             {
                 rtbRestore.Text = "";
-                string path = ((ComboItem) cboRestore.SelectedItem).Path;
+                var path = ((ComboItem) cboRestore.SelectedItem).Path;
                 rtbRestore.Text = File.ReadAllText(path);
-                DateTime dt = File.GetLastWriteTime(path);
-                long length = new FileInfo(path).Length;
+                var dt = File.GetLastWriteTime(path);
+                var length = new FileInfo(path).Length;
                 length = length / 1024;
                 lblDateStamp.Text = dt.ToString();
                 lblSize.Text = length + " KB";
@@ -62,21 +59,19 @@ namespace Depressurizer
 
         private void btnRestore_Click(object sender, EventArgs e)
         {
-            string name = ((ComboItem) cboRestore.SelectedItem).Name;
-            string message = name.Contains("vdf")
-                ? String.Format(GlobalStrings.DlgRestore_ConfigConfirm, name)
-                : String.Format(GlobalStrings.DlgRestore_ProfileConfirm, name);
-            DialogResult result = MessageBox.Show(message, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo,
+            var name = ((ComboItem) cboRestore.SelectedItem).Name;
+            var message = name.Contains("vdf")
+                ? string.Format(GlobalStrings.DlgRestore_ConfigConfirm, name)
+                : string.Format(GlobalStrings.DlgRestore_ProfileConfirm, name);
+            var result = MessageBox.Show(message, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
             if (result == DialogResult.Yes)
-            {
                 if (((ComboItem) cboRestore.SelectedItem).Restore())
                 {
                     Restored = true;
                     Close();
                 }
-            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -85,16 +80,16 @@ namespace Depressurizer
         }
     }
 
-    class ComboItem
+    internal class ComboItem
     {
-        public string Name { get; set; }
-        public string Path { get; set; }
-
         public ComboItem(string name, string path)
         {
             Name = name;
             Path = path;
         }
+
+        public string Name { get; set; }
+        public string Path { get; set; }
 
         public override string ToString()
         {
@@ -103,8 +98,8 @@ namespace Depressurizer
 
         public bool Restore()
         {
-            string file = System.IO.Path.GetFileNameWithoutExtension(Path);
-            string path = System.IO.Path.GetDirectoryName(Path);
+            var file = System.IO.Path.GetFileNameWithoutExtension(Path);
+            var path = System.IO.Path.GetDirectoryName(Path);
             file = System.IO.Path.Combine(path, file);
             try
             {

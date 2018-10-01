@@ -23,12 +23,12 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class DbScrapeDlg : CancelableDlg
+    internal class DbScrapeDlg : CancelableDlg
     {
-        Queue<int> jobs;
-        List<GameDBEntry> results;
+        private readonly Queue<int> jobs;
+        private readonly List<GameDBEntry> results;
 
-        DateTime start;
+        private DateTime start;
 
         public DbScrapeDlg(Queue<int> jobs)
             : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
@@ -49,38 +49,29 @@ namespace Depressurizer
         {
             lock (jobs)
             {
-                if (jobs.Count > 0)
-                {
-                    return jobs.Dequeue();
-                }
+                if (jobs.Count > 0) return jobs.Dequeue();
                 return 0;
             }
         }
 
         protected override void RunProcess()
         {
-            bool stillRunning = true;
-            while (!Stopped && stillRunning)
-            {
-                stillRunning = RunNextJob();
-            }
+            var stillRunning = true;
+            while (!Stopped && stillRunning) stillRunning = RunNextJob();
             OnThreadCompletion();
         }
 
         /// <summary>
-        /// Runs the next job in the queue, in a thread-safe manner. Aborts ASAP if the form is closed.
+        ///     Runs the next job in the queue, in a thread-safe manner. Aborts ASAP if the form is closed.
         /// </summary>
         /// <returns>True if a job was run, false if it was aborted first</returns>
         private bool RunNextJob()
         {
-            int id = GetNextGameId();
-            if (id == 0)
-            {
-                return false;
-            }
+            var id = GetNextGameId();
+            if (id == 0) return false;
             if (Stopped) return false;
 
-            GameDBEntry newGame = new GameDBEntry();
+            var newGame = new GameDBEntry();
             newGame.Id = id;
             newGame.ScrapeStore();
 
@@ -94,6 +85,7 @@ namespace Depressurizer
                     OnJobCompletion();
                     return true;
                 }
+
                 return false;
             }
         }
@@ -105,34 +97,26 @@ namespace Depressurizer
                 SetText(GlobalStrings.CDlgScrape_ApplyingData);
 
                 if (results != null)
-                {
-                    foreach (GameDBEntry g in results)
-                    {
+                    foreach (var g in results)
                         if (Program.GameDB.Contains(g.Id))
-                        {
                             Program.GameDB.Games[g.Id].MergeIn(g);
-                        }
                         else
-                        {
                             Program.GameDB.Games.Add(g.Id, g);
-                        }
-                    }
-                }
             }
         }
 
         protected override void UpdateText()
         {
-            TimeSpan timeRemaining = TimeSpan.Zero;
+            var timeRemaining = TimeSpan.Zero;
             if (jobsCompleted > 0)
             {
-                double msElapsed = (DateTime.Now - start).TotalMilliseconds;
-                double msPerItem = msElapsed / jobsCompleted;
-                double msRemaining = msPerItem * (totalJobs - jobsCompleted);
+                var msElapsed = (DateTime.Now - start).TotalMilliseconds;
+                var msPerItem = msElapsed / jobsCompleted;
+                var msRemaining = msPerItem * (totalJobs - jobsCompleted);
                 timeRemaining = TimeSpan.FromMilliseconds(msRemaining);
             }
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, jobsCompleted, totalJobs));
 
             sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
@@ -146,13 +130,11 @@ namespace Depressurizer
             }
             else
             {
-                double hours = timeRemaining.TotalHours;
-                if (hours >= 1.0)
-                {
-                    sb.Append(string.Format("{0:F0}h", hours));
-                }
+                var hours = timeRemaining.TotalHours;
+                if (hours >= 1.0) sb.Append(string.Format("{0:F0}h", hours));
                 sb.Append(string.Format("{0:D2}m", timeRemaining.Minutes));
             }
+
             SetText(sb.ToString());
         }
     }

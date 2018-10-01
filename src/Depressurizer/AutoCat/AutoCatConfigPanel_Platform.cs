@@ -16,8 +16,6 @@ You should have received a copy of the GNU General Public License
 along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-
 namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Platform : AutoCatConfigPanel
@@ -30,7 +28,7 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
-            AutoCatPlatform acPlatform = ac as AutoCatPlatform;
+            var acPlatform = ac as AutoCatPlatform;
             if (acPlatform == null) return;
             txtPrefix.Text = acPlatform.Prefix == null ? string.Empty : acPlatform.Prefix;
             chkboxPlatforms.SetItemChecked(0, acPlatform.Windows);
@@ -41,7 +39,7 @@ namespace Depressurizer
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            AutoCatPlatform ac = autocat as AutoCatPlatform;
+            var ac = autocat as AutoCatPlatform;
             if (ac == null) return;
             ac.Prefix = txtPrefix.Text;
             ac.Windows = chkboxPlatforms.GetItemChecked(0);

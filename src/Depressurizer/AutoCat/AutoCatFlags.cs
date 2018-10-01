@@ -27,17 +27,6 @@ namespace Depressurizer
 {
     public class AutoCatFlags : AutoCat
     {
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.Flags; }
-        }
-
-        // AutoCat configuration
-        public string Prefix { get; set; }
-
-        [XmlArray("Flags"), XmlArrayItem("Flag")]
-        public List<string> IncludedFlags { get; set; }
-
         // Serialization constants
         public const string TypeIdString = "AutoCatFlags";
 
@@ -54,12 +43,14 @@ namespace Depressurizer
         {
             Filter = filter;
             Prefix = prefix;
-            IncludedFlags = (flags == null) ? (new List<string>()) : flags;
+            IncludedFlags = flags == null ? new List<string>() : flags;
             Selected = selected;
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatFlags() { }
+        private AutoCatFlags()
+        {
+        }
 
         protected AutoCatFlags(AutoCatFlags other)
             : base(other)
@@ -69,6 +60,15 @@ namespace Depressurizer
             IncludedFlags = new List<string>(other.IncludedFlags);
             Selected = other.Selected;
         }
+
+        public override AutoCatType AutoCatType => AutoCatType.Flags;
+
+        // AutoCat configuration
+        public string Prefix { get; set; }
+
+        [XmlArray("Flags")]
+        [XmlArrayItem("Flag")]
+        public List<string> IncludedFlags { get; set; }
 
         public override AutoCat Clone()
         {
@@ -82,11 +82,13 @@ namespace Depressurizer
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
+
             if (db == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
             }
+
             if (game == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
@@ -97,24 +99,22 @@ namespace Depressurizer
 
             if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            List<string> gameFlags = db.GetFlagList(game.Id);
+            var gameFlags = db.GetFlagList(game.Id);
             if (gameFlags == null) gameFlags = new List<string>();
-            IEnumerable<string> categories = gameFlags.Intersect(IncludedFlags);
+            var categories = gameFlags.Intersect(IncludedFlags);
 
-            foreach (string catString in categories)
+            foreach (var catString in categories)
             {
-                Category c = games.GetCategory(GetProcessedString(catString));
+                var c = games.GetCategory(GetProcessedString(catString));
                 game.AddCategory(c);
             }
+
             return AutoCatResult.Success;
         }
 
         private string GetProcessedString(string baseString)
         {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
+            if (string.IsNullOrEmpty(Prefix)) return baseString;
             return Prefix + baseString;
         }
 
@@ -128,10 +128,7 @@ namespace Depressurizer
 
             writer.WriteStartElement(XmlName_FlagList);
 
-            foreach (string s in IncludedFlags)
-            {
-                writer.WriteElementString(XmlName_Flag, s);
-            }
+            foreach (var s in IncludedFlags) writer.WriteElementString(XmlName_Flag, s);
 
             writer.WriteEndElement(); // flag list
             writer.WriteEndElement(); // type ID string
@@ -139,24 +136,22 @@ namespace Depressurizer
 
         public static AutoCatFlags LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            List<string> flags = new List<string>();
+            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            var filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            var prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            var flags = new List<string>();
 
-            XmlElement flagListElement = xElement[XmlName_FlagList];
+            var flagListElement = xElement[XmlName_FlagList];
             if (flagListElement != null)
             {
-                XmlNodeList flagElements = flagListElement.SelectNodes(XmlName_Flag);
+                var flagElements = flagListElement.SelectNodes(XmlName_Flag);
                 foreach (XmlNode n in flagElements)
                 {
                     string flag;
-                    if (XmlUtil.TryGetStringFromNode(n, out flag))
-                    {
-                        flags.Add(flag);
-                    }
+                    if (XmlUtil.TryGetStringFromNode(n, out flag)) flags.Add(flag);
                 }
             }
+
             return new AutoCatFlags(name, filter, prefix, flags);
         }
     }

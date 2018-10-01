@@ -26,23 +26,50 @@ namespace Depressurizer
 {
     public class AutoCatGroup : AutoCat
     {
+        #region Autocategorization Methods
+
+        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
+        {
+            if (games == null)
+            {
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
+                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
+            }
+
+            if (db == null)
+            {
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
+                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
+            }
+
+            if (game == null)
+            {
+                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
+                return AutoCatResult.Failure;
+            }
+
+            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
+
+            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
+
+            return AutoCatResult.Success;
+        }
+
+        #endregion
+
         #region Properties
 
         // Autocat configuration properties
-        [XmlArrayItem("Autocat")]
-        public List<string> Autocats { get; set; }
+        [XmlArrayItem("Autocat")] public List<string> Autocats { get; set; }
 
         // Meta properies
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.Group; }
-        }
+        public override AutoCatType AutoCatType => AutoCatType.Group;
 
         public override string DisplayName
         {
             get
             {
-                string displayName = Name + "[" + Autocats.Count + "]";
+                var displayName = Name + "[" + Autocats.Count + "]";
                 if (Filter != null) displayName += "*";
                 return displayName;
             }
@@ -65,12 +92,14 @@ namespace Depressurizer
             : base(name)
         {
             Filter = filter;
-            Autocats = (autocats == null) ? new List<string>() : autocats;
+            Autocats = autocats == null ? new List<string>() : autocats;
             Selected = selected;
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatGroup() { }
+        private AutoCatGroup()
+        {
+        }
 
         protected AutoCatGroup(AutoCatGroup other)
             : base(other)
@@ -87,35 +116,6 @@ namespace Depressurizer
 
         #endregion
 
-        #region Autocategorization Methods
-
-        public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
-        {
-            if (games == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
-            }
-            if (db == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-            if (game == null)
-            {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
-                return AutoCatResult.Failure;
-            }
-
-            if (!db.Contains(game.Id)) return AutoCatResult.NotInDatabase;
-
-            if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
-
-            return AutoCatResult.Success;
-        }
-
-        #endregion
-
         #region Serialization methods
 
         public override void WriteToXml(XmlWriter writer)
@@ -128,10 +128,7 @@ namespace Depressurizer
             if (Autocats != null && Autocats.Count > 0)
             {
                 writer.WriteStartElement(XmlName_Autocats);
-                foreach (string name in Autocats)
-                {
-                    writer.WriteElementString(XmlName_Autocat, name);
-                }
+                foreach (var name in Autocats) writer.WriteElementString(XmlName_Autocat, name);
                 writer.WriteEndElement();
             }
 
@@ -140,9 +137,9 @@ namespace Depressurizer
 
         public static AutoCatGroup LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            List<string> autocats =
+            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            var filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            var autocats =
                 XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_Autocats + "/" + XmlName_Autocat));
 
             return new AutoCatGroup(name, filter, autocats);

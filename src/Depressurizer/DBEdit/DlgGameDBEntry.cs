@@ -24,29 +24,29 @@ namespace Depressurizer
 {
     public partial class GameDBEntryDialog : Form
     {
-        public GameDBEntry Game;
+        private readonly char[] SPLIT_CHAR = {','};
 
         private bool editMode;
+        public GameDBEntry Game;
 
         public GameDBEntryDialog()
-            : this(null) { }
+            : this(null)
+        {
+        }
 
         public GameDBEntryDialog(GameDBEntry game)
         {
             InitializeComponent();
             Game = game;
-            editMode = (game == null) ? false : true;
+            editMode = game == null ? false : true;
         }
 
         private void GameDBEntryForm_Load(object sender, EventArgs e)
         {
-            foreach (object o in Enum.GetValues(typeof(AppTypes)))
+            foreach (var o in Enum.GetValues(typeof(AppTypes)))
             {
-                int val = (int) o;
-                if ((val & (val - 1)) == 0)
-                {
-                    cmbType.Items.Add(o);
-                }
+                var val = (int) o;
+                if ((val & (val - 1)) == 0) cmbType.Items.Add(o);
             }
 
             InitializeFields(Game);
@@ -64,7 +64,7 @@ namespace Depressurizer
                 txtId.Text = Game.Id.ToString();
                 txtId.Enabled = false;
 
-                txtParent.Text = (Game.ParentId < 0) ? "" : Game.ParentId.ToString();
+                txtParent.Text = Game.ParentId < 0 ? "" : Game.ParentId.ToString();
 
                 cmbType.SelectedItem = Game.AppType;
 
@@ -107,20 +107,16 @@ namespace Depressurizer
                 MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger);
                 return false;
             }
+
             if (!string.IsNullOrEmpty(txtParent.Text) && !int.TryParse(txtParent.Text, out parent))
-            {
                 MessageBox.Show(GlobalStrings.DlgGameDBEntry_ParentMustBeInt);
-            }
             return true;
         }
 
         private bool SaveToGame()
         {
             int id, parent;
-            if (!ValidateEntries(out id, out parent))
-            {
-                return false;
-            }
+            if (!ValidateEntries(out id, out parent)) return false;
 
             if (Game == null)
             {
@@ -162,18 +158,15 @@ namespace Depressurizer
             return true;
         }
 
-        private readonly char[] SPLIT_CHAR = {','};
-
         private List<string> SplitAndTrim(string s)
         {
             if (string.IsNullOrWhiteSpace(s)) return null;
 
-            string[] split = s.Split(SPLIT_CHAR, StringSplitOptions.RemoveEmptyEntries);
-            List<string> result = new List<string>();
-            foreach (string sp in split)
-            {
-                if (!string.IsNullOrWhiteSpace(sp)) result.Add(sp.Trim());
-            }
+            var split = s.Split(SPLIT_CHAR, StringSplitOptions.RemoveEmptyEntries);
+            var result = new List<string>();
+            foreach (var sp in split)
+                if (!string.IsNullOrWhiteSpace(sp))
+                    result.Add(sp.Trim());
             if (result.Count > 0) return result;
             return null;
         }

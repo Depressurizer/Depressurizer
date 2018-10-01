@@ -21,10 +21,9 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class FetchPrcDlg : CancelableDlg
+    internal class FetchPrcDlg : CancelableDlg
     {
-        public int Added { get; private set; }
-        XmlDocument doc;
+        private XmlDocument doc;
 
         public FetchPrcDlg()
             : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
@@ -32,6 +31,8 @@ namespace Depressurizer
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
             Added = 0;
         }
+
+        public int Added { get; private set; }
 
         protected override void RunProcess()
         {

@@ -19,15 +19,14 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Net;
 using System.Xml;
+using Depressurizer.Properties;
 using Rallion;
 
 namespace Depressurizer
 {
-    class CDlgGetSteamID : CancelableDlg
+    internal class CDlgGetSteamID : CancelableDlg
     {
-        public Int64 SteamID { get; private set; }
-        private string customUrlName;
-        public bool Success { get; private set; }
+        private readonly string customUrlName;
 
         public CDlgGetSteamID(string customUrl)
             : base(GlobalStrings.CDlgGetSteamID_GettingSteamID, false)
@@ -39,17 +38,20 @@ namespace Depressurizer
             SetText(GlobalStrings.CDlgGetSteamID_GettingIDFromURL);
         }
 
+        public long SteamID { get; private set; }
+        public bool Success { get; private set; }
+
         protected override void RunProcess()
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
 
             try
             {
-                string url = string.Format(Properties.Resources.UrlCustomProfileXml, customUrlName);
+                var url = string.Format(Resources.UrlCustomProfileXml, customUrlName);
                 Program.Logger.Write(LoggerLevel.Info, GlobalStrings.CDlgGetSteamID_AttemptingDownloadXMLProfile,
                     customUrlName, url);
-                WebRequest req = HttpWebRequest.Create(url);
-                WebResponse response = req.GetResponse();
+                var req = WebRequest.Create(url);
+                var response = req.GetResponse();
                 doc.Load(response.GetResponseStream());
                 response.Close();
                 Program.Logger.Write(LoggerLevel.Info, GlobalStrings.CDlgGetSteamID_XMLProfileDownloaded);
@@ -61,15 +63,12 @@ namespace Depressurizer
                 throw new ApplicationException(GlobalStrings.CDlgGetSteamID_FailedToDownloadProfile + e.Message, e);
             }
 
-            XmlNode idNode = doc.SelectSingleNode("/profile/steamID64");
+            var idNode = doc.SelectSingleNode("/profile/steamID64");
             if (idNode != null)
             {
-                Int64 tmp;
-                Success = Int64.TryParse(idNode.InnerText, out tmp);
-                if (Success)
-                {
-                    SteamID = tmp;
-                }
+                long tmp;
+                Success = long.TryParse(idNode.InnerText, out tmp);
+                if (Success) SteamID = tmp;
             }
 
             OnThreadCompletion();
@@ -77,10 +76,7 @@ namespace Depressurizer
 
         protected override void Finish()
         {
-            if (!Canceled)
-            {
-                OnJobCompletion();
-            }
+            if (!Canceled) OnJobCompletion();
         }
     }
 }

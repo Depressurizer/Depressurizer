@@ -24,35 +24,37 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using Rallion;
 
 namespace Depressurizer
 {
     public partial class DlgProfile : Form
     {
-        public Profile Profile;
-        private bool editMode;
-
-        private ThreadLocker currentThreadLock = new ThreadLocker();
         private int currentThreadCount;
 
-        public bool DownloadNow
+        private ThreadLocker currentThreadLock = new ThreadLocker();
+        private readonly bool editMode;
+        public Profile Profile;
+
+        public bool DownloadNow => chkActUpdate.Checked;
+
+        public bool ImportNow => chkActImport.Checked;
+
+        public bool SetStartup => chkSetStartup.Checked;
+
+        private void radSelUser_CheckedChanged(object sender, EventArgs e)
         {
-            get { return chkActUpdate.Checked; }
+            lstUsers.Enabled = radSelUserFromList.Checked;
+            lstUsers.SelectedItem = null;
+            txtUserID.Enabled = radSelUserByID.Checked;
+            txtUserUrl.Enabled = radSelUserByURL.Checked;
+
+            if (radSelUserFromList.Checked) SelectUserInList(txtUserID.Text);
         }
 
-        public bool ImportNow
-        {
-            get { return chkActImport.Checked; }
-        }
+        private delegate void UpdateDelegate(int i, string s);
 
-        public bool SetStartup
-        {
-            get { return chkSetStartup.Checked; }
-        }
-
-        delegate void UpdateDelegate(int i, string s);
-
-        delegate void SimpleDelegate();
+        private delegate void SimpleDelegate();
 
         #region Init
 
@@ -68,7 +70,7 @@ namespace Depressurizer
             editMode = true;
         }
 
-        void InitializeEditMode()
+        private void InitializeEditMode()
         {
             txtFilePath.Text = Profile.FilePath;
             grpProfInfo.Enabled = false;
@@ -91,14 +93,11 @@ namespace Depressurizer
             chkIncludeUnknown.Checked = Profile.IncludeUnknown;
             chkBypassIgnoreOnImport.Checked = Profile.BypassIgnoreOnImport;
 
-            foreach (int i in Profile.IgnoreList)
-            {
-                lstIgnored.Items.Add(i.ToString());
-            }
+            foreach (var i in Profile.IgnoreList) lstIgnored.Items.Add(i.ToString());
             lstIgnored.Sort();
 
 
-            bool found = SelectUserInList(Profile.SteamID64);
+            var found = SelectUserInList(Profile.SteamID64);
             if (found)
             {
                 radSelUserFromList.Checked = true;
@@ -110,13 +109,13 @@ namespace Depressurizer
             }
         }
 
-        private bool SelectUserInList(Int64 accountId)
+        private bool SelectUserInList(long accountId)
         {
-            string profDirName = Profile.ID64toDirName(accountId);
+            var profDirName = Profile.ID64toDirName(accountId);
 
-            for (int i = 0; i < lstUsers.Items.Count; i++)
+            for (var i = 0; i < lstUsers.Items.Count; i++)
             {
-                UserRecord r = lstUsers.Items[i] as UserRecord;
+                var r = lstUsers.Items[i] as UserRecord;
                 if (r != null && r.DirName == profDirName)
                 {
                     lstUsers.SelectedIndex = i;
@@ -129,11 +128,8 @@ namespace Depressurizer
 
         private bool SelectUserInList(string accountId)
         {
-            Int64 val;
-            if (Int64.TryParse(accountId, out val))
-            {
-                return SelectUserInList(val);
-            }
+            long val;
+            if (long.TryParse(accountId, out val)) return SelectUserInList(val);
             return false;
         }
 
@@ -169,6 +165,7 @@ namespace Depressurizer
                 {
                     radSelUserFromList.Checked = true;
                 }
+
                 StartThreadedNameUpdate();
             }
 
@@ -177,24 +174,23 @@ namespace Depressurizer
 
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
+            var dlg = new SaveFileDialog();
 
             try
             {
-                FileInfo f = new FileInfo(txtFilePath.Text);
+                var f = new FileInfo(txtFilePath.Text);
                 dlg.InitialDirectory = f.DirectoryName;
                 dlg.FileName = f.Name;
             }
-            catch (ArgumentException) { }
+            catch (ArgumentException)
+            {
+            }
 
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
             dlg.Filter = GlobalStrings.DlgProfile_Filter;
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                txtFilePath.Text = dlg.FileName;
-            }
+            var res = dlg.ShowDialog();
+            if (res == DialogResult.OK) txtFilePath.Text = dlg.FileName;
         }
 
         private void cmdCancel_Click(object sender, EventArgs e)
@@ -230,10 +226,7 @@ namespace Depressurizer
 
         private void cmdUnignore_Click(object sender, EventArgs e)
         {
-            while (lstIgnored.SelectedIndices.Count > 0)
-            {
-                lstIgnored.Items.RemoveAt(lstIgnored.SelectedIndices[0]);
-            }
+            while (lstIgnored.SelectedIndices.Count > 0) lstIgnored.Items.RemoveAt(lstIgnored.SelectedIndices[0]);
         }
 
         private void cmdUserUpdate_Click(object sender, EventArgs e)
@@ -249,17 +242,15 @@ namespace Depressurizer
                 {
                     currentThreadLock.Aborted = true;
                 }
+
                 SetUpdateInterfaceStopping();
             }
         }
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UserRecord u = lstUsers.SelectedItem as UserRecord;
-            if (u != null)
-            {
-                txtUserID.Text = Profile.DirNametoID64(u.DirName).ToString();
-            }
+            var u = lstUsers.SelectedItem as UserRecord;
+            if (u != null) txtUserID.Text = Profile.DirNametoID64(u.DirName).ToString();
         }
 
         private void txtUserID_TextChanged(object sender, EventArgs e)
@@ -285,13 +276,10 @@ namespace Depressurizer
         {
             if (radSelUserByURL.Checked)
             {
-                CDlgGetSteamID dlg = new CDlgGetSteamID(txtUserUrl.Text);
+                var dlg = new CDlgGetSteamID(txtUserUrl.Text);
                 dlg.ShowDialog();
 
-                if (dlg.DialogResult == DialogResult.Cancel)
-                {
-                    return false;
-                }
+                if (dlg.DialogResult == DialogResult.Cancel) return false;
 
                 if (dlg.Success == false || dlg.SteamID == 0)
                 {
@@ -302,6 +290,7 @@ namespace Depressurizer
 
                 txtUserID.Text = dlg.SteamID.ToString();
             }
+
             if (editMode)
             {
                 if (ValidateEntries())
@@ -309,17 +298,16 @@ namespace Depressurizer
                     SaveModifiables(Profile);
                     return true;
                 }
+
                 return false;
             }
+
             return CreateProfile();
         }
 
         private bool CreateProfile()
         {
-            if (!ValidateEntries())
-            {
-                return false;
-            }
+            if (!ValidateEntries()) return false;
 
             FileInfo file;
             try
@@ -334,7 +322,6 @@ namespace Depressurizer
             }
 
             if (!file.Directory.Exists)
-            {
                 try
                 {
                     file.Directory.Create();
@@ -345,9 +332,8 @@ namespace Depressurizer
                         GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-            }
 
-            Profile profile = new Profile();
+            var profile = new Profile();
 
             SaveModifiables(profile);
             Profile.GenerateDefaultAutoCatSet(profile.AutoCats);
@@ -366,21 +352,22 @@ namespace Depressurizer
             return true;
         }
 
-        bool ValidateEntries()
+        private bool ValidateEntries()
         {
-            Int64 id;
-            if (!Int64.TryParse(txtUserID.Text, out id))
+            long id;
+            if (!long.TryParse(txtUserID.Text, out id))
             {
                 MessageBox.Show(GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
             return true;
         }
 
-        void SaveModifiables(Profile p)
+        private void SaveModifiables(Profile p)
         {
-            p.SteamID64 = Int64.Parse(txtUserID.Text);
+            p.SteamID64 = long.Parse(txtUserID.Text);
 
             p.AutoUpdate = chkAutoUpdate.Checked;
             p.AutoImport = chkAutoImport.Checked;
@@ -394,15 +381,13 @@ namespace Depressurizer
             p.IncludeUnknown = chkIncludeUnknown.Checked;
             p.BypassIgnoreOnImport = chkBypassIgnoreOnImport.Checked;
 
-            SortedSet<int> ignoreSet = new SortedSet<int>();
+            var ignoreSet = new SortedSet<int>();
             foreach (ListViewItem item in lstIgnored.Items)
             {
                 int id;
-                if (int.TryParse(item.Text, out id))
-                {
-                    ignoreSet.Add(id);
-                }
+                if (int.TryParse(item.Text, out id)) ignoreSet.Add(id);
             }
+
             p.IgnoreList = ignoreSet;
         }
 
@@ -411,7 +396,7 @@ namespace Depressurizer
         #region Utility
 
         /// <summary>
-        /// Populates the combo box with all located account IDs
+        ///     Populates the combo box with all located account IDs
         /// </summary>
         private void LoadShortIds()
         {
@@ -419,35 +404,30 @@ namespace Depressurizer
 
             lstUsers.Items.Clear();
 
-            string[] ids = GetSteamIds();
+            var ids = GetSteamIds();
 
-            foreach (string id in ids)
-            {
-                lstUsers.Items.Add(new UserRecord(id));
-            }
+            foreach (var id in ids) lstUsers.Items.Add(new UserRecord(id));
 
             lstUsers.EndUpdate();
         }
 
         /// <summary>
-        /// Gets a list of located account ids. Uses settings for the steam path.
+        ///     Gets a list of located account ids. Uses settings for the steam path.
         /// </summary>
         /// <returns>An array of located IDs</returns>
         private string[] GetSteamIds()
         {
             try
             {
-                DirectoryInfo dir = new DirectoryInfo(Settings.Instance.SteamPath + "\\userdata");
+                var dir = new DirectoryInfo(Settings.Instance.SteamPath + "\\userdata");
                 if (dir.Exists)
                 {
-                    DirectoryInfo[] userDirs = dir.GetDirectories();
-                    string[] result = new string[userDirs.Length];
-                    for (int i = 0; i < userDirs.Length; i++)
-                    {
-                        result[i] = userDirs[i].Name;
-                    }
+                    var userDirs = dir.GetDirectories();
+                    var result = new string[userDirs.Length];
+                    for (var i = 0; i < userDirs.Length; i++) result[i] = userDirs[i].Name;
                     return result;
                 }
+
                 return new string[0];
             }
             catch
@@ -460,30 +440,29 @@ namespace Depressurizer
 
         #region Display name update
 
-        public string GetDisplayName(Int64 accountId)
+        public string GetDisplayName(long accountId)
         {
             try
             {
-                XmlDocument doc = new XmlDocument();
-                HttpWebRequest req =
-                    (HttpWebRequest) HttpWebRequest.Create(
+                var doc = new XmlDocument();
+                var req =
+                    (HttpWebRequest) WebRequest.Create(
                         string.Format("http://www.steamcommunity.com/profiles/{0}?xml=true", accountId));
-                using (WebResponse resp = req.GetResponse())
+                using (var resp = req.GetResponse())
                 {
                     doc.Load(resp.GetResponseStream());
                 }
-                XmlNode nameNode = doc.SelectSingleNode("profile/steamID");
-                if (nameNode != null)
-                {
-                    return nameNode.InnerText;
-                }
+
+                var nameNode = doc.SelectSingleNode("profile/steamID");
+                if (nameNode != null) return nameNode.InnerText;
             }
             catch (Exception e)
             {
-                Program.Logger.Write(Rallion.LoggerLevel.Warning,
+                Program.Logger.Write(LoggerLevel.Warning,
                     GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
-                Program.Logger.Write(Rallion.LoggerLevel.Warning, e.Message);
+                Program.Logger.Write(LoggerLevel.Warning, e.Message);
             }
+
             return null;
         }
 
@@ -491,27 +470,24 @@ namespace Depressurizer
         {
             if (currentThreadCount > 0) return;
 
-            int maxThreads = 1;
+            var maxThreads = 1;
 
-            Queue<UpdateJob> q = new Queue<UpdateJob>();
-            for (int i = 0; i < lstUsers.Items.Count; i++)
+            var q = new Queue<UpdateJob>();
+            for (var i = 0; i < lstUsers.Items.Count; i++)
             {
-                UserRecord r = lstUsers.Items[i] as UserRecord;
-                if (r != null)
-                {
-                    q.Enqueue(new UpdateJob(i, r.DirName));
-                }
+                var r = lstUsers.Items[i] as UserRecord;
+                if (r != null) q.Enqueue(new UpdateJob(i, r.DirName));
             }
 
-            int threads = (maxThreads > q.Count) ? maxThreads : q.Count;
+            var threads = maxThreads > q.Count ? maxThreads : q.Count;
 
             if (threads > 0)
             {
                 currentThreadLock = new ThreadLocker();
                 SetUpdateInterfaceRunning();
-                for (int i = 0; i < threads; i++)
+                for (var i = 0; i < threads; i++)
                 {
-                    Thread t = new Thread(NameUpdateThread);
+                    var t = new Thread(NameUpdateThread);
                     currentThreadCount++;
                     t.Start(new UpdateData(q, currentThreadLock));
                 }
@@ -520,36 +496,32 @@ namespace Depressurizer
 
         private void NameUpdateThread(object d)
         {
-            UpdateData data = (UpdateData) d;
-            bool abort = false;
+            var data = (UpdateData) d;
+            var abort = false;
             do
             {
                 UpdateJob job = null;
                 lock (data.jobs)
                 {
                     if (data.jobs.Count > 0)
-                    {
                         job = data.jobs.Dequeue();
-                    }
                     else
-                    {
                         abort = true;
-                    }
                 }
+
                 if (job != null)
                 {
-                    string name = GetDisplayName(Profile.DirNametoID64(job.dir));
+                    var name = GetDisplayName(Profile.DirNametoID64(job.dir));
 
                     lock (data.tLock)
                     {
                         if (data.tLock.Aborted) abort = true;
                         else
-                        {
                             UpdateDisplayNameInList(job.index, name);
-                        }
                     }
                 }
             } while (!abort);
+
             OnNameUpdateThreadTerminate();
         }
 
@@ -561,14 +533,11 @@ namespace Depressurizer
             }
             else
             {
-                UserRecord u = lstUsers.Items[index] as UserRecord;
+                var u = lstUsers.Items[index] as UserRecord;
                 if (u != null)
                 {
-                    bool selected = lstUsers.SelectedIndex == index;
-                    if (name == null)
-                    {
-                        name = "?";
-                    }
+                    var selected = lstUsers.SelectedIndex == index;
+                    if (name == null) name = "?";
                     u.DisplayName = name;
 
                     lstUsers.Items.RemoveAt(index);
@@ -587,10 +556,7 @@ namespace Depressurizer
             else
             {
                 currentThreadCount--;
-                if (currentThreadCount == 0)
-                {
-                    SetUpdateInterfaceNormal();
-                }
+                if (currentThreadCount == 0) SetUpdateInterfaceNormal();
             }
         }
 
@@ -649,29 +615,20 @@ namespace Depressurizer
 
             public override string ToString()
             {
-                if (DisplayName == null)
-                {
-                    return DirName;
-                }
-                return String.Format("{0} - {1}", DirName, DisplayName);
+                if (DisplayName == null) return DirName;
+                return string.Format("{0} - {1}", DirName, DisplayName);
             }
         }
 
         public class ThreadLocker
         {
-            private bool _abort;
-
-            public bool Aborted
-            {
-                get { return _abort; }
-                set { _abort = value; }
-            }
+            public bool Aborted { get; set; }
         }
 
         public class UpdateJob
         {
-            public int index;
             public string dir;
+            public int index;
 
             public UpdateJob(int i, string d)
             {
@@ -693,31 +650,16 @@ namespace Depressurizer
         }
 
         #endregion
-
-        private void radSelUser_CheckedChanged(object sender, EventArgs e)
-        {
-            lstUsers.Enabled = radSelUserFromList.Checked;
-            lstUsers.SelectedItem = null;
-            txtUserID.Enabled = radSelUserByID.Checked;
-            txtUserUrl.Enabled = radSelUserByURL.Checked;
-
-            if (radSelUserFromList.Checked)
-            {
-                SelectUserInList(txtUserID.Text);
-            }
-        }
     }
 
-    class IgnoreListViewItemComparer : IComparer
+    internal class IgnoreListViewItemComparer : IComparer
     {
         public int Compare(object x, object y)
         {
             int a, b;
             if (int.TryParse(((ListViewItem) x).Text, out a) && int.TryParse(((ListViewItem) y).Text, out b))
-            {
-                return (a - b);
-            }
-            return String.Compare(((ListViewItem) x).Text, ((ListViewItem) y).Text);
+                return a - b;
+            return string.Compare(((ListViewItem) x).Text, ((ListViewItem) y).Text);
         }
     }
 }

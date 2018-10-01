@@ -24,6 +24,14 @@ namespace Rallion
 {
     public partial class CancelableDlg : Form
     {
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            Stopped = true;
+            Canceled = true;
+            DisableAbort();
+            Close();
+        }
+
         #region Fields
 
         protected object abortLock = new object();
@@ -33,17 +41,11 @@ namespace Rallion
 
         protected int totalJobs = 1;
 
-        public int JobsTotal
-        {
-            get { return totalJobs; }
-        }
+        public int JobsTotal => totalJobs;
 
         protected int jobsCompleted;
 
-        public int JobsCompleted
-        {
-            get { return jobsCompleted; }
-        }
+        public int JobsCompleted => jobsCompleted;
 
         private bool _stopped;
 
@@ -69,11 +71,11 @@ namespace Rallion
 
         public Exception Error { get; protected set; }
 
-        delegate void SimpleDelegate();
+        private delegate void SimpleDelegate();
 
-        delegate void TextUpdateDelegate(string s);
+        private delegate void TextUpdateDelegate(string s);
 
-        delegate void EndProcDelegate(bool b);
+        private delegate void EndProcDelegate(bool b);
 
         #endregion
 
@@ -91,12 +93,13 @@ namespace Rallion
         protected virtual void UpdateForm_Load(object sender, EventArgs e)
         {
             threadsToRun = Math.Min(threadsToRun, totalJobs);
-            for (int i = 0; i < threadsToRun; i++)
+            for (var i = 0; i < threadsToRun; i++)
             {
-                Thread t = new Thread(RunProcessChecked);
+                var t = new Thread(RunProcessChecked);
                 t.Start();
                 runningThreads++;
             }
+
             UpdateText();
         }
 
@@ -113,6 +116,7 @@ namespace Rallion
                     Stopped = true;
                     Error = e;
                 }
+
                 if (IsHandleCreated)
                 {
                     Invoke(new SimpleDelegate(Finish));
@@ -125,11 +129,17 @@ namespace Rallion
 
         #region Methods to override
 
-        protected virtual void RunProcess() { }
+        protected virtual void RunProcess()
+        {
+        }
 
-        protected virtual void UpdateText() { }
+        protected virtual void UpdateText()
+        {
+        }
 
-        protected virtual void Finish() { }
+        protected virtual void Finish()
+        {
+        }
 
         #endregion
 
@@ -141,6 +151,7 @@ namespace Rallion
             {
                 jobsCompleted++;
             }
+
             UpdateText();
         }
 
@@ -153,10 +164,7 @@ namespace Rallion
             else
             {
                 runningThreads--;
-                if (runningThreads <= 0)
-                {
-                    Close();
-                }
+                if (runningThreads <= 0) Close();
             }
         }
 
@@ -177,21 +185,16 @@ namespace Rallion
             {
                 Stopped = true;
             }
+
             DisableAbort();
             //DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
             Finish();
             if (jobsCompleted >= totalJobs)
-            {
                 DialogResult = DialogResult.OK;
-            }
             else if (Canceled)
-            {
                 DialogResult = DialogResult.Cancel;
-            }
             else
-            {
                 DialogResult = DialogResult.Abort;
-            }
         }
 
         #endregion
@@ -201,35 +204,19 @@ namespace Rallion
         protected void SetText(string s)
         {
             if (InvokeRequired)
-            {
                 Invoke(new TextUpdateDelegate(SetText), s);
-            }
             else
-            {
                 lblText.Text = s;
-            }
         }
 
         protected void DisableAbort()
         {
             if (InvokeRequired)
-            {
                 Invoke(new SimpleDelegate(DisableAbort));
-            }
             else
-            {
                 cmdStop.Enabled = cmdCancel.Enabled = false;
-            }
         }
 
         #endregion
-
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
-            Stopped = true;
-            Canceled = true;
-            DisableAbort();
-            Close();
-        }
     }
 }

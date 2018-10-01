@@ -7,8 +7,8 @@ namespace Depressurizer
 {
     public partial class DlgAutomaticModeHelper : Form
     {
-        private AutomaticModeOptions defaultOpts = new AutomaticModeOptions();
-        Profile profile;
+        private readonly AutomaticModeOptions defaultOpts = new AutomaticModeOptions();
+        private readonly Profile profile;
 
         public DlgAutomaticModeHelper(Profile profile)
         {
@@ -35,7 +35,7 @@ namespace Depressurizer
 
         private string GenerateArguments()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(" -auto -p \"");
 
             sb.Append(profile.FilePath);
@@ -100,28 +100,21 @@ namespace Depressurizer
             }
 
             if (chkAllAutocats.Checked)
-            {
                 sb.Append(" -all");
-            }
             else
-            {
                 foreach (ListViewItem i in lstAutocats.CheckedItems)
                 {
                     sb.Append(" \"");
                     sb.Append(i.Text);
                     sb.Append('"');
                 }
-            }
 
             return sb.ToString();
         }
 
         private string GetSwitch(string name, bool val, bool defVal)
         {
-            if (val != defVal)
-            {
-                return " " + name + GetToggle(val);
-            }
+            if (val != defVal) return " " + name + GetToggle(val);
             return "";
         }
 
@@ -132,7 +125,7 @@ namespace Depressurizer
 
         private void CreateShortcut()
         {
-            SaveFileDialog dlg = new SaveFileDialog();
+            var dlg = new SaveFileDialog();
 
             dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             dlg.DefaultExt = "lnk";
@@ -140,11 +133,11 @@ namespace Depressurizer
             dlg.Filter = "Shortcuts|*.lnk";
             dlg.FileName = "Depressurizer Auto";
 
-            DialogResult res = dlg.ShowDialog();
+            var res = dlg.ShowDialog();
             if (res == DialogResult.OK)
             {
-                WshShell shell = new WshShell();
-                IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(dlg.FileName);
+                var shell = new WshShell();
+                var shortcut = (IWshShortcut) shell.CreateShortcut(dlg.FileName);
                 shortcut.TargetPath = Application.ExecutablePath;
                 shortcut.WorkingDirectory = Application.StartupPath;
                 shortcut.Arguments = GenerateArguments();
@@ -176,12 +169,8 @@ namespace Depressurizer
             txtResult.Text = GenerateCommand();
 
             if (profile != null && profile.AutoCats != null)
-            {
-                foreach (AutoCat ac in profile.AutoCats)
-                {
+                foreach (var ac in profile.AutoCats)
                     lstAutocats.Items.Add(ac.Name);
-                }
-            }
         }
     }
 }

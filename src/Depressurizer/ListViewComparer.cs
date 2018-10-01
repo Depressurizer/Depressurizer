@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Depressurizer
 {
     // Compares two ListView items based on a selected column.
-    public class ListViewComparer : System.Collections.IComparer
+    public class ListViewComparer : IComparer
     {
-        private int ColumnNumber;
-        private SortOrder SortOrder;
+        private readonly int ColumnNumber;
+        private readonly SortOrder SortOrder;
 
         public ListViewComparer(int column_number,
             SortOrder sort_order)
@@ -21,8 +22,8 @@ namespace Depressurizer
         public int Compare(object object_x, object object_y)
         {
             // Get the objects as ListViewItems.
-            ListViewItem item_x = object_x as ListViewItem;
-            ListViewItem item_y = object_y as ListViewItem;
+            var item_x = object_x as ListViewItem;
+            var item_y = object_y as ListViewItem;
 
             // Get the corresponding sub-item values.
             string string_x;
@@ -45,29 +46,20 @@ namespace Depressurizer
                 DateTime date_x, date_y;
                 if (DateTime.TryParse(string_x, out date_x) &&
                     DateTime.TryParse(string_y, out date_y))
-                {
-                    // Treat as a date.
                     result = date_x.CompareTo(date_y);
-                }
                 else
-                {
-                    // Treat as a string.
                     result = string_x.CompareTo(string_y);
-                }
             }
 
             // Return the correct result depending on whether
             // we're sorting ascending or descending.
-            if (SortOrder == SortOrder.Ascending)
-            {
-                return result;
-            }
+            if (SortOrder == SortOrder.Ascending) return result;
             return -result;
         }
     }
 
     // Compares two lstCategories items based on a selected column.
-    public class lstCategoriesComparer : System.Collections.IComparer
+    public class lstCategoriesComparer : IComparer
     {
         public enum categorySortMode
         {
@@ -75,8 +67,8 @@ namespace Depressurizer
             Count
         }
 
-        private categorySortMode SortMode;
-        private SortOrder SortOrder;
+        private readonly categorySortMode SortMode;
+        private readonly SortOrder SortOrder;
 
         public lstCategoriesComparer(categorySortMode sortMode,
             SortOrder sortOrder)
@@ -89,44 +81,39 @@ namespace Depressurizer
         public int Compare(object object_x, object object_y)
         {
             // Get the objects as ListViewItems.
-            ListViewItem item_x = object_x as ListViewItem;
-            ListViewItem item_y = object_y as ListViewItem;
+            var item_x = object_x as ListViewItem;
+            var item_y = object_y as ListViewItem;
 
             if (item_x == null) return 1;
             if (item_y == null) return -1;
 
             // Handle special categories
-            List<string> specialCategories = new List<string>();
+            var specialCategories = new List<string>();
             specialCategories.Add(GlobalStrings.MainForm_All);
             specialCategories.Add(GlobalStrings.MainForm_Uncategorized);
             specialCategories.Add(GlobalStrings.MainForm_Hidden);
             specialCategories.Add(GlobalStrings.MainForm_Favorite);
             specialCategories.Add(GlobalStrings.MainForm_VR);
 
-            foreach (string s in specialCategories)
+            foreach (var s in specialCategories)
             {
                 if (item_x.Tag.ToString() == s) return -1;
                 if (item_y.Tag.ToString() == s) return 1;
             }
 
-            Category cat_x = item_x.Tag as Category;
-            Category cat_y = item_y.Tag as Category;
+            var cat_x = item_x.Tag as Category;
+            var cat_y = item_y.Tag as Category;
 
             // Compare categories.
             int result;
 
             if (SortMode == categorySortMode.Count)
-            {
                 result = cat_x.Count.CompareTo(cat_y.Count);
-            }
             else result = string.Compare(cat_x.Name, cat_y.Name, StringComparison.CurrentCultureIgnoreCase);
 
             // Return the correct result depending on whether
             // we're sorting ascending or descending.
-            if (SortOrder == SortOrder.Ascending)
-            {
-                return result;
-            }
+            if (SortOrder == SortOrder.Ascending) return result;
             return -result;
         }
     }

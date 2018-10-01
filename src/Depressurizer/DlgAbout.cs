@@ -20,6 +20,7 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -34,14 +35,14 @@ namespace Depressurizer
         {
             lblVersion.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            int oldLen = lnkHomepage.Text.Length;
-            lnkHomepage.Text += Properties.Resources.DepressurizerHomepage;
+            var oldLen = lnkHomepage.Text.Length;
+            lnkHomepage.Text += Resources.DepressurizerHomepage;
             lnkHomepage.LinkArea = new LinkArea(oldLen, lnkHomepage.Text.Length - oldLen);
         }
 
         private void lnkHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(Properties.Resources.DepressurizerHomepage);
+            Process.Start(Resources.DepressurizerHomepage);
         }
 
         private void lnkLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

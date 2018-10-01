@@ -41,58 +41,37 @@ namespace Depressurizer
 
             if (Program.GameDB != null)
             {
-                VrSupport vrSupport = Program.GameDB.GetAllVrSupportFlags();
+                var vrSupport = Program.GameDB.GetAllVrSupportFlags();
 
-                foreach (string s in vrSupport.Headsets)
-                {
-                    lstVrHeadsets.Items.Add(s);
-                }
+                foreach (var s in vrSupport.Headsets) lstVrHeadsets.Items.Add(s);
 
-                foreach (string s in vrSupport.Input)
-                {
-                    lstVrInput.Items.Add(s);
-                }
+                foreach (var s in vrSupport.Input) lstVrInput.Items.Add(s);
 
-                foreach (string s in vrSupport.PlayArea)
-                {
-                    lstVrPlayArea.Items.Add(s);
-                }
+                foreach (var s in vrSupport.PlayArea) lstVrPlayArea.Items.Add(s);
             }
         }
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
-            AutoCatVrSupport ac = autocat as AutoCatVrSupport;
-            if (ac == null)
-            {
-                return;
-            }
+            var ac = autocat as AutoCatVrSupport;
+            if (ac == null) return;
 
             txtPrefix.Text = ac.Prefix;
 
             foreach (ListViewItem item in lstVrHeadsets.Items)
-            {
                 item.Checked = ac.IncludedVrSupportFlags.Headsets.Contains(item.Text);
-            }
 
             foreach (ListViewItem item in lstVrInput.Items)
-            {
                 item.Checked = ac.IncludedVrSupportFlags.Input.Contains(item.Text);
-            }
 
             foreach (ListViewItem item in lstVrPlayArea.Items)
-            {
                 item.Checked = ac.IncludedVrSupportFlags.PlayArea.Contains(item.Text);
-            }
         }
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            AutoCatVrSupport ac = autocat as AutoCatVrSupport;
-            if (ac == null)
-            {
-                return;
-            }
+            var ac = autocat as AutoCatVrSupport;
+            if (ac == null) return;
 
             ac.Prefix = txtPrefix.Text;
 
@@ -101,36 +80,21 @@ namespace Depressurizer
             ac.IncludedVrSupportFlags.PlayArea.Clear();
 
             foreach (ListViewItem i in lstVrHeadsets.Items)
-            {
                 if (i.Checked)
-                {
                     ac.IncludedVrSupportFlags.Headsets.Add(i.Text);
-                }
-            }
 
             foreach (ListViewItem i in lstVrInput.Items)
-            {
                 if (i.Checked)
-                {
                     ac.IncludedVrSupportFlags.Input.Add(i.Text);
-                }
-            }
 
             foreach (ListViewItem i in lstVrPlayArea.Items)
-            {
                 if (i.Checked)
-                {
                     ac.IncludedVrSupportFlags.PlayArea.Add(i.Text);
-                }
-            }
         }
 
         private void SetAllListCheckStates(ListView list, bool to)
         {
-            foreach (ListViewItem item in list.Items)
-            {
-                item.Checked = to;
-            }
+            foreach (ListViewItem item in list.Items) item.Checked = to;
         }
 
         private void cmdCheckAll_Click(object sender, EventArgs e)

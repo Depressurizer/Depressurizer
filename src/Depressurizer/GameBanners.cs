@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
-    class GameBanners
+    internal class GameBanners
     {
+        private readonly List<GameInfo> _games;
         private volatile bool _shouldStop;
-        private List<GameInfo> _games;
 
         public GameBanners(List<GameInfo> games)
         {
@@ -16,20 +17,14 @@ namespace Depressurizer
 
         public void Grab()
         {
-            foreach (GameInfo g in _games)
+            foreach (var g in _games)
             {
-                if (_shouldStop)
-                {
-                    return;
-                }
+                if (_shouldStop) return;
 
                 if (g.Id < 0) continue; //external game
-                string bannerFile = string.Format(Properties.Resources.GameBannerPath,
+                var bannerFile = string.Format(Resources.GameBannerPath,
                     Path.GetDirectoryName(Application.ExecutablePath), g.Id);
-                if (!File.Exists(bannerFile))
-                {
-                    Utility.GrabBanner(g.Id);
-                }
+                if (!File.Exists(bannerFile)) Utility.GrabBanner(g.Id);
             }
         }
 

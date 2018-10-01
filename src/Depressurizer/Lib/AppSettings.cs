@@ -24,15 +24,15 @@ using System.Xml;
 namespace Rallion
 {
     /// <summary>
-    /// Base class for a settings object. Capable of loading and saving values of all public properties.
+    ///     Base class for a settings object. Capable of loading and saving values of all public properties.
     /// </summary>
-    abstract class AppSettings
+    internal abstract class AppSettings
     {
         protected readonly object threadLock = new object();
 
-        protected bool outOfDate;
-
         public string FilePath;
+
+        protected bool outOfDate;
 
         protected AppSettings()
         {
@@ -40,70 +40,76 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Saves the contents of this instance to the defined config file.
+        ///     Saves the contents of this instance to the defined config file.
         /// </summary>
         /// <param name="force">If false, will only save if the flag indicates that changes have been made. If true, always saves.</param>
         public void Save(bool force = false)
         {
             if (force || outOfDate)
             {
-                Type t = GetType();
+                var t = GetType();
 
-                PropertyInfo[] properties = t.GetProperties();
-                XmlDocument doc = new XmlDocument();
-                XmlElement config = doc.CreateElement("config");
+                var properties = t.GetProperties();
+                var doc = new XmlDocument();
+                var config = doc.CreateElement("config");
                 lock (threadLock)
                 {
-                    foreach (PropertyInfo pi in properties)
+                    foreach (var pi in properties)
                     {
-                        object val = pi.GetValue(this, null);
+                        var val = pi.GetValue(this, null);
                         if (val != null)
                         {
-                            XmlElement element = doc.CreateElement(pi.Name);
+                            var element = doc.CreateElement(pi.Name);
                             element.InnerText = val.ToString();
                             config.AppendChild(element);
                         }
                     }
                 }
+
                 doc.AppendChild(config);
                 try
                 {
                     doc.Save(FilePath);
                 }
-                catch (IOException) { }
+                catch (IOException)
+                {
+                }
+
                 outOfDate = false;
             }
         }
 
         /// <summary>
-        /// Loads settings from the defined config file.
+        ///     Loads settings from the defined config file.
         /// </summary>
         public virtual void Load()
         {
-            Type type = GetType();
+            var type = GetType();
             if (File.Exists(FilePath))
             {
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 try
                 {
                     doc.Load(FilePath);
-                    XmlNode configNode = doc.SelectSingleNode("/config");
+                    var configNode = doc.SelectSingleNode("/config");
                     lock (threadLock)
                     {
                         foreach (XmlNode node in configNode.ChildNodes)
                         {
-                            string name = node.Name;
-                            string value = node.InnerText;
-                            PropertyInfo pi = type.GetProperty(name);
-                            if (pi != null)
-                            {
-                                SetProperty(pi, value);
-                            }
+                            var name = node.Name;
+                            var value = node.InnerText;
+                            var pi = type.GetProperty(name);
+                            if (pi != null) SetProperty(pi, value);
                         }
                     }
                 }
-                catch (XmlException) { }
-                catch (IOException) { }
+                catch (XmlException)
+                {
+                }
+                catch (IOException)
+                {
+                }
+
                 outOfDate = false;
             }
         }
@@ -114,7 +120,7 @@ namespace Rallion
             {
                 if (propertyInfo.PropertyType.IsEnum)
                 {
-                    object eVal = Enum.Parse(propertyInfo.PropertyType, value, true);
+                    var eVal = Enum.Parse(propertyInfo.PropertyType, value, true);
                     propertyInfo.SetValue(this, eVal, null);
                 }
                 else if (propertyInfo.PropertyType == typeof(string))
@@ -130,7 +136,9 @@ namespace Rallion
                     propertyInfo.SetValue(this, int.Parse(value), null);
                 }
             }
-            catch { }
+            catch
+            {
+            }
         }
     }
 }

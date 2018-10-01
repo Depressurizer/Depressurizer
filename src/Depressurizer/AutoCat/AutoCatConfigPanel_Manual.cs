@@ -25,11 +25,12 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Manual : AutoCatConfigPanel
     {
+        private bool loaded;
+
+        private readonly GameList ownedGames;
+
         // used to remove unchecked items from the Add and Remove checkedlistbox.
         private Thread workerThread;
-
-        private bool loaded;
-        private GameList ownedGames;
 
         public AutoCatConfigPanel_Manual(GameList gamelist)
         {
@@ -54,31 +55,30 @@ namespace Depressurizer
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
-            AutoCatManual ac = autocat as AutoCatManual;
+            var ac = autocat as AutoCatManual;
             if (ac == null) return;
             chkRemoveAll.Checked = ac.RemoveAllCategories;
             txtPrefix.Text = ac.Prefix;
 
             lstRemove.BeginUpdate();
 
-            List<string> found = new List<string>();
+            var found = new List<string>();
             foreach (ListViewItem item in lstRemove.Items)
             {
                 item.Checked = ac.RemoveCategories.Contains(item.Name);
                 found.Add(item.Name);
             }
+
             lstRemove.EndUpdate();
 
-            foreach (string s in ac.RemoveCategories)
-            {
+            foreach (var s in ac.RemoveCategories)
                 if (!found.Contains(s))
                 {
-                    ListViewItem l = new ListViewItem();
+                    var l = new ListViewItem();
                     l.Text = s;
                     l.Name = s;
                     clbRemoveSelected.Items.Add(l, true);
                 }
-            }
 
             lstAdd.BeginUpdate();
             found = new List<string>();
@@ -87,18 +87,17 @@ namespace Depressurizer
                 item.Checked = ac.AddCategories.Contains(item.Name);
                 found.Add(item.Name);
             }
+
             lstAdd.EndUpdate();
 
-            foreach (string s in ac.AddCategories)
-            {
+            foreach (var s in ac.AddCategories)
                 if (!found.Contains(s))
                 {
-                    ListViewItem l = new ListViewItem();
+                    var l = new ListViewItem();
                     l.Text = s;
                     l.Name = s;
                     clbAddSelected.Items.Add(l, true);
                 }
-            }
 
             UpdateRemoveCount();
             UpdateAddCount();
@@ -108,25 +107,18 @@ namespace Depressurizer
 
         public override void SaveToAutoCat(AutoCat autocat)
         {
-            AutoCatManual ac = autocat as AutoCatManual;
+            var ac = autocat as AutoCatManual;
             if (ac == null) return;
             ac.Prefix = txtPrefix.Text;
             ac.RemoveAllCategories = chkRemoveAll.Checked;
 
             ac.RemoveCategories.Clear();
             if (!chkRemoveAll.Checked)
-            {
                 foreach (ListViewItem item in clbRemoveSelected.CheckedItems)
-                {
                     ac.RemoveCategories.Add(item.Name);
-                }
-            }
 
             ac.AddCategories.Clear();
-            foreach (ListViewItem item in clbAddSelected.CheckedItems)
-            {
-                ac.AddCategories.Add(item.Name);
-            }
+            foreach (ListViewItem item in clbAddSelected.CheckedItems) ac.AddCategories.Add(item.Name);
         }
 
         #endregion
@@ -140,14 +132,13 @@ namespace Depressurizer
             lstRemove.Items.Clear();
 
             if (ownedGames.Categories != null)
-            {
-                foreach (Category c in ownedGames.Categories)
+                foreach (var c in ownedGames.Categories)
                 {
-                    ListViewItem l = CreateCategoryListViewItem(c);
+                    var l = CreateCategoryListViewItem(c);
                     l.SubItems.Add(c.Count.ToString());
                     lstRemove.Items.Add(l);
                 }
-            }
+
             lstRemove.Columns[0].Width = -1;
             SortRemove(1, SortOrder.Descending);
             lstRemove.EndUpdate();
@@ -160,14 +151,13 @@ namespace Depressurizer
             lstAdd.Items.Clear();
 
             if (ownedGames.Categories != null)
-            {
-                foreach (Category c in ownedGames.Categories)
+                foreach (var c in ownedGames.Categories)
                 {
-                    ListViewItem l = CreateCategoryListViewItem(c);
+                    var l = CreateCategoryListViewItem(c);
                     l.SubItems.Add(c.Count.ToString());
                     lstAdd.Items.Add(l);
                 }
-            }
+
             lstAdd.Columns[0].Width = -1;
             SortAdd(1, SortOrder.Descending);
             lstAdd.EndUpdate();
@@ -185,10 +175,7 @@ namespace Depressurizer
 
         private void SetAllListCheckStates(ListView list, bool to)
         {
-            foreach (ListViewItem item in list.Items)
-            {
-                item.Checked = to;
-            }
+            foreach (ListViewItem item in list.Items) item.Checked = to;
         }
 
         private void nameascendingRemove_Click(object sender, EventArgs e)
@@ -269,21 +256,22 @@ namespace Depressurizer
 
         private void lstRemove_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked) clbRemoveSelected.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            if (e.Item.Checked)
+            {
+                clbRemoveSelected.Items.Add(e.Item, true);
+            }
+            else if (!e.Item.Checked && loaded)
             {
                 workerThread = new Thread(RemoveItemWorker);
                 workerThread.Start(e.Item);
             }
+
             UpdateRemoveCount();
         }
 
         private void clbRemoveSelected_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.NewValue == CheckState.Unchecked)
-            {
-                ((ListViewItem) clbRemoveSelected.Items[e.Index]).Checked = false;
-            }
+            if (e.NewValue == CheckState.Unchecked) ((ListViewItem) clbRemoveSelected.Items[e.Index]).Checked = false;
         }
 
         private void btnRemoveSelected_Click(object sender, EventArgs e)
@@ -304,7 +292,7 @@ namespace Depressurizer
 
         #region Helper Thread 
 
-        delegate void RemoveItemCallback(ListViewItem obj);
+        private delegate void RemoveItemCallback(ListViewItem obj);
 
         private void RemoveItem(ListViewItem obj)
         {
@@ -347,21 +335,22 @@ namespace Depressurizer
 
         private void lstAdd_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (e.Item.Checked) clbAddSelected.Items.Add(e.Item, true);
-            else if ((!e.Item.Checked) && loaded)
+            if (e.Item.Checked)
+            {
+                clbAddSelected.Items.Add(e.Item, true);
+            }
+            else if (!e.Item.Checked && loaded)
             {
                 workerThread = new Thread(AddItemWorker);
                 workerThread.Start(e.Item);
             }
+
             UpdateAddCount();
         }
 
         private void clbAddSelected_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.NewValue == CheckState.Unchecked)
-            {
-                ((ListViewItem) clbAddSelected.Items[e.Index]).Checked = false;
-            }
+            if (e.NewValue == CheckState.Unchecked) ((ListViewItem) clbAddSelected.Items[e.Index]).Checked = false;
         }
 
         private void btnAddSelected_Click(object sender, EventArgs e)
@@ -382,7 +371,7 @@ namespace Depressurizer
 
         #region Helper Thread
 
-        delegate void AddItemCallback(ListViewItem obj);
+        private delegate void AddItemCallback(ListViewItem obj);
 
         private void AddItem(ListViewItem obj)
         {
@@ -431,7 +420,7 @@ namespace Depressurizer
 
         private ListViewItem CreateCategoryListViewItem(Category c)
         {
-            ListViewItem i = new ListViewItem(c.Name + " (" + c.Count + ")");
+            var i = new ListViewItem(c.Name + " (" + c.Count + ")");
             i.Tag = c;
             i.Name = c.Name;
             return i;

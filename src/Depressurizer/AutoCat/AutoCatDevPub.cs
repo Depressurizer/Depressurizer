@@ -25,30 +25,10 @@ using Rallion;
 namespace Depressurizer
 {
     /// <summary>
-    /// Autocategorization scheme that adds developer and publisher categories.
+    ///     Autocategorization scheme that adds developer and publisher categories.
     /// </summary>
     public class AutoCatDevPub : AutoCat
     {
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.DevPub; }
-        }
-
-        // Autocat configuration
-        public bool AllDevelopers { get; set; }
-
-        public bool AllPublishers { get; set; }
-        public string Prefix { get; set; }
-        public bool OwnedOnly { get; set; }
-        public int MinCount { get; set; }
-        [XmlArrayItem("Developer")]
-        public List<string> Developers { get; set; }
-        [XmlArrayItem("Publisher")]
-        public List<string> Publishers { get; set; }
-
-        private IEnumerable<Tuple<string, int>> devList;
-        private IEnumerable<Tuple<string, int>> pubList;
-
         // Serialization keys
         public const string TypeIdString = "AutoCatDevPub";
 
@@ -65,10 +45,14 @@ namespace Depressurizer
             XmlName_Publishers = "Publishers",
             XmlName_Publisher = "Publisher";
 
+        private IEnumerable<Tuple<string, int>> devList;
+
         private GameList gamelist;
+        private IEnumerable<Tuple<string, int>> pubList;
 
         /// <summary>
-        /// Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally, assigns categories from another list.
+        ///     Creates a new AutoCatManual object, which removes selected (or all) categories from one list and then, optionally,
+        ///     assigns categories from another list.
         /// </summary>
         public AutoCatDevPub(string name, string filter = null, string prefix = null, bool owned = true, int count = 0,
             bool developersAll = false, bool publishersAll = false, List<string> developers = null,
@@ -81,13 +65,15 @@ namespace Depressurizer
             MinCount = count;
             AllDevelopers = developersAll;
             AllPublishers = publishersAll;
-            Developers = (developers == null) ? new List<string>() : developers;
-            Publishers = (publishers == null) ? new List<string>() : publishers;
+            Developers = developers == null ? new List<string>() : developers;
+            Publishers = publishers == null ? new List<string>() : publishers;
             Selected = selected;
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatDevPub() { }
+        private AutoCatDevPub()
+        {
+        }
 
         protected AutoCatDevPub(AutoCatDevPub other)
             : base(other)
@@ -103,13 +89,28 @@ namespace Depressurizer
             Selected = other.Selected;
         }
 
+        public override AutoCatType AutoCatType => AutoCatType.DevPub;
+
+        // Autocat configuration
+        public bool AllDevelopers { get; set; }
+
+        public bool AllPublishers { get; set; }
+        public string Prefix { get; set; }
+        public bool OwnedOnly { get; set; }
+        public int MinCount { get; set; }
+
+        [XmlArrayItem("Developer")] public List<string> Developers { get; set; }
+
+        [XmlArrayItem("Publisher")] public List<string> Publishers { get; set; }
+
         public override AutoCat Clone()
         {
             return new AutoCatDevPub(this);
         }
 
         /// <summary>
-        /// Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is false.
+        ///     Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is
+        ///     false.
         /// </summary>
         public override void PreProcess(GameList games, GameDB db)
         {
@@ -132,11 +133,13 @@ namespace Depressurizer
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
+
             if (db == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
             }
+
             if (game == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
@@ -147,61 +150,44 @@ namespace Depressurizer
 
             if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            List<string> devs = db.GetDevelopers(game.Id);
+            var devs = db.GetDevelopers(game.Id);
 
             if (devs != null)
-            {
-                for (int index = 0; index < devs.Count; index++)
-                {
+                for (var index = 0; index < devs.Count; index++)
                     if (Developers.Contains(devs[index]) || AllDevelopers)
-                    {
                         if (DevCount(devs[index]) >= MinCount)
                             game.AddCategory(games.GetCategory(GetProcessedString(devs[index])));
-                    }
-                }
-            }
 
-            List<string> pubs = db.GetPublishers(game.Id);
+            var pubs = db.GetPublishers(game.Id);
 
             if (pubs != null)
-            {
-                for (int index = 0; index < pubs.Count; index++)
-                {
+                for (var index = 0; index < pubs.Count; index++)
                     if (Publishers.Contains(pubs[index]) || AllPublishers)
-                    {
                         if (PubCount(pubs[index]) >= MinCount)
                             game.AddCategory(games.GetCategory(GetProcessedString(pubs[index])));
-                    }
-                }
-            }
 
             return AutoCatResult.Success;
         }
 
         private int DevCount(string name)
         {
-            foreach (Tuple<string, int> dev in devList)
-            {
-                if (dev.Item1 == name) return dev.Item2;
-            }
+            foreach (var dev in devList)
+                if (dev.Item1 == name)
+                    return dev.Item2;
             return 0;
         }
 
         private int PubCount(string name)
         {
-            foreach (Tuple<string, int> pub in pubList)
-            {
-                if (pub.Item1 == name) return pub.Item2;
-            }
+            foreach (var pub in pubList)
+                if (pub.Item1 == name)
+                    return pub.Item2;
             return 0;
         }
 
         private string GetProcessedString(string baseString)
         {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
+            if (string.IsNullOrEmpty(Prefix)) return baseString;
             return Prefix + baseString;
         }
 
@@ -220,20 +206,14 @@ namespace Depressurizer
             if (Developers.Count > 0)
             {
                 writer.WriteStartElement(XmlName_Developers);
-                foreach (string s in Developers)
-                {
-                    writer.WriteElementString(XmlName_Developer, s);
-                }
+                foreach (var s in Developers) writer.WriteElementString(XmlName_Developer, s);
                 writer.WriteEndElement();
             }
 
             if (Publishers.Count > 0)
             {
                 writer.WriteStartElement(XmlName_Publishers);
-                foreach (string s in Publishers)
-                {
-                    writer.WriteElementString(XmlName_Publisher, s);
-                }
+                foreach (var s in Publishers) writer.WriteElementString(XmlName_Publisher, s);
                 writer.WriteEndElement();
             }
 
@@ -242,47 +222,41 @@ namespace Depressurizer
 
         public static AutoCatDevPub LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            bool AllDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllDevelopers], false);
-            bool AllPublishers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllPublishers], false);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            bool owned = XmlUtil.GetBoolFromNode(xElement[XmlName_OwnedOnly], false);
-            int count = XmlUtil.GetIntFromNode(xElement[XmlName_MinCount], 0);
+            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            var filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            var AllDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllDevelopers], false);
+            var AllPublishers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllPublishers], false);
+            var prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            var owned = XmlUtil.GetBoolFromNode(xElement[XmlName_OwnedOnly], false);
+            var count = XmlUtil.GetIntFromNode(xElement[XmlName_MinCount], 0);
 
-            List<string> devs = new List<string>();
+            var devs = new List<string>();
 
-            XmlElement devsListElement = xElement[XmlName_Developers];
+            var devsListElement = xElement[XmlName_Developers];
             if (devsListElement != null)
             {
-                XmlNodeList devNodes = devsListElement.SelectNodes(XmlName_Developer);
+                var devNodes = devsListElement.SelectNodes(XmlName_Developer);
                 foreach (XmlNode node in devNodes)
                 {
                     string s;
-                    if (XmlUtil.TryGetStringFromNode(node, out s))
-                    {
-                        devs.Add(s);
-                    }
+                    if (XmlUtil.TryGetStringFromNode(node, out s)) devs.Add(s);
                 }
             }
 
-            List<string> pubs = new List<string>();
+            var pubs = new List<string>();
 
-            XmlElement pubsListElement = xElement[XmlName_Publishers];
+            var pubsListElement = xElement[XmlName_Publishers];
             if (pubsListElement != null)
             {
-                XmlNodeList pubNodes = pubsListElement.SelectNodes(XmlName_Publisher);
+                var pubNodes = pubsListElement.SelectNodes(XmlName_Publisher);
                 foreach (XmlNode node in pubNodes)
                 {
                     string s;
-                    if (XmlUtil.TryGetStringFromNode(node, out s))
-                    {
-                        pubs.Add(s);
-                    }
+                    if (XmlUtil.TryGetStringFromNode(node, out s)) pubs.Add(s);
                 }
             }
 
-            AutoCatDevPub result = new AutoCatDevPub(name, filter, prefix, owned, count, AllDevelopers, AllPublishers,
+            var result = new AutoCatDevPub(name, filter, prefix, owned, count, AllDevelopers, AllPublishers,
                 devs, pubs);
             return result;
         }

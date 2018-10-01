@@ -20,16 +20,16 @@ using Rallion;
 
 namespace Depressurizer
 {
-    class HltbPrcDlg : CancelableDlg
+    internal class HltbPrcDlg : CancelableDlg
     {
-        public int Updated { get; private set; }
-
         public HltbPrcDlg()
             : base(GlobalStrings.CDlgHltb_Title, false)
         {
             SetText(GlobalStrings.CDlgHltb_UpdateHltb);
             Updated = 0;
         }
+
+        public int Updated { get; private set; }
 
         protected override void RunProcess()
         {
@@ -39,10 +39,7 @@ namespace Depressurizer
 
         protected override void Finish()
         {
-            if (!Canceled && Error == null)
-            {
-                OnJobCompletion();
-            }
+            if (!Canceled && Error == null) OnJobCompletion();
         }
     }
 }

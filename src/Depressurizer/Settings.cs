@@ -17,30 +17,27 @@ along with Depressurizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
-using System.Windows.Forms;
 using Rallion;
 
 namespace Depressurizer
 {
-    enum StartupAction
+    internal enum StartupAction
     {
         None,
         Load,
         Create
     }
 
-    enum GameListSource
+    internal enum GameListSource
     {
         XmlPreferred,
         XmlOnly,
         WebsiteOnly
     }
 
-    enum UILanguage
+    internal enum UILanguage
     {
         windows,
         en, // English
@@ -81,25 +78,85 @@ namespace Depressurizer
         uk // Ukrainian
     }
 
-    class Settings : AppSettings
+    internal class Settings : AppSettings
     {
         private static Settings instance;
 
-        public static Settings Instance
-        {
-            get { return instance ?? (instance = new Settings()); }
-        }
+        private string _autocats;
 
-        public int SettingsVersion
-        {
-            get { return 3; }
-        }
+        private bool _autosaveDB = true;
+
+        private string _category;
+
+        private bool _checkForDepressurizerUpdates = true;
+
+        private int _configBackupCount = 3;
+
+        private string _filter;
+
+        private int _height;
+
+        private bool _IncludeImputedTimes = true;
+
+        private GameListSource _listSource = GameListSource.XmlPreferred;
+
+        private int _logBackups = 1;
+
+        private LoggerLevel _logLevel = LoggerLevel.Info;
+
+        private int _logSize = 2000000;
+
+        private string _lstGamesState = "";
+
+        private string _profileToLoad;
+
+        private bool _removeExtraEntries = true;
+
+        private int _scrapePromptDays = 30;
+
+        private bool _singleCatMode;
+        private int _splitBrowser;
+
+        private int _splitContainer;
+        private int _splitGame;
+
+        private StartupAction _startupAction = StartupAction.Create;
+
+        private string _steamPath;
+
+        //Language of steam store. Used in browser and when scraping tags, genres, etc
+        private StoreLanguage _storeLanguage = StoreLanguage.windows;
+
+        private bool _updateAppInfoOnStart = true;
+
+        private bool _updateHltbOnStart = true;
+
+        //Depressurizer UI language
+        private UILanguage _userLanguage = UILanguage.windows;
+
+        private int _width;
 
         private int _x;
 
+        private int _y;
+
+        public int SplitBrowserContainerWidth = 722;
+
+        public int SplitGameContainerHeight = 510;
+
+        private Settings()
+        {
+            FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                       @"\Depressurizer\Settings.xml";
+        }
+
+        public static Settings Instance => instance ?? (instance = new Settings());
+
+        public int SettingsVersion => 3;
+
         public int X
         {
-            get { return _x; }
+            get => _x;
             set
             {
                 if (_x != value)
@@ -110,11 +167,9 @@ namespace Depressurizer
             }
         }
 
-        private int _y;
-
         public int Y
         {
-            get { return _y; }
+            get => _y;
             set
             {
                 if (_y != value)
@@ -125,16 +180,11 @@ namespace Depressurizer
             }
         }
 
-        private int _height;
-
         public int Height
         {
             get
             {
-                if (_height <= 350)
-                {
-                    Height = 600;
-                }
+                if (_height <= 350) Height = 600;
                 return _height;
             }
             set
@@ -147,16 +197,11 @@ namespace Depressurizer
             }
         }
 
-        private int _width;
-
         public int Width
         {
             get
             {
-                if (_width <= 600)
-                {
-                    Width = 1000;
-                }
+                if (_width <= 600) Width = 1000;
                 return _width;
             }
             set
@@ -169,16 +214,11 @@ namespace Depressurizer
             }
         }
 
-        private int _splitContainer;
-
         public int SplitContainer
         {
             get
             {
-                if (_splitContainer <= 100)
-                {
-                    SplitContainer = 250;
-                }
+                if (_splitContainer <= 100) SplitContainer = 250;
                 return _splitContainer;
             }
             set
@@ -191,17 +231,11 @@ namespace Depressurizer
             }
         }
 
-        public int SplitGameContainerHeight = 510;
-        private int _splitGame;
-
         public int SplitGame
         {
             get
             {
-                if (_splitGame <= 100)
-                {
-                    SplitGame = SplitGameContainerHeight - 150;
-                }
+                if (_splitGame <= 100) SplitGame = SplitGameContainerHeight - 150;
                 return _splitGame;
             }
             set
@@ -214,17 +248,11 @@ namespace Depressurizer
             }
         }
 
-        public int SplitBrowserContainerWidth = 722;
-        private int _splitBrowser;
-
         public int SplitBrowser
         {
             get
             {
-                if (_splitBrowser <= 100)
-                {
-                    SplitBrowser = SplitBrowserContainerWidth - 300;
-                }
+                if (_splitBrowser <= 100) SplitBrowser = SplitBrowserContainerWidth - 300;
                 return _splitBrowser;
             }
             set
@@ -237,11 +265,9 @@ namespace Depressurizer
             }
         }
 
-        private string _filter;
-
         public string Filter
         {
-            get { return _filter; }
+            get => _filter;
             set
             {
                 if (_filter != value)
@@ -252,11 +278,9 @@ namespace Depressurizer
             }
         }
 
-        private string _category;
-
         public string Category
         {
-            get { return _category; }
+            get => _category;
             set
             {
                 if (_category != value)
@@ -267,11 +291,9 @@ namespace Depressurizer
             }
         }
 
-        private string _autocats;
-
         public string AutoCats
         {
-            get { return _autocats; }
+            get => _autocats;
             set
             {
                 if (_autocats != value)
@@ -282,11 +304,9 @@ namespace Depressurizer
             }
         }
 
-        private string _steamPath;
-
         public string SteamPath
         {
-            get { return _steamPath; }
+            get => _steamPath;
             set
             {
                 if (_steamPath != value)
@@ -297,11 +317,9 @@ namespace Depressurizer
             }
         }
 
-        private int _configBackupCount = 3;
-
         public int ConfigBackupCount
         {
-            get { return _configBackupCount; }
+            get => _configBackupCount;
             set
             {
                 if (_configBackupCount != value)
@@ -312,11 +330,9 @@ namespace Depressurizer
             }
         }
 
-        private StartupAction _startupAction = StartupAction.Create;
-
         public StartupAction StartupAction
         {
-            get { return _startupAction; }
+            get => _startupAction;
             set
             {
                 if (_startupAction != value)
@@ -327,11 +343,9 @@ namespace Depressurizer
             }
         }
 
-        private string _profileToLoad;
-
         public string ProfileToLoad
         {
-            get { return _profileToLoad; }
+            get => _profileToLoad;
             set
             {
                 if (_profileToLoad != value)
@@ -342,11 +356,9 @@ namespace Depressurizer
             }
         }
 
-        private bool _updateAppInfoOnStart = true;
-
         public bool UpdateAppInfoOnStart
         {
-            get { return _updateAppInfoOnStart; }
+            get => _updateAppInfoOnStart;
             set
             {
                 if (_updateAppInfoOnStart != value)
@@ -357,11 +369,9 @@ namespace Depressurizer
             }
         }
 
-        private bool _updateHltbOnStart = true;
-
         public bool UpdateHltbOnStart
         {
-            get { return _updateHltbOnStart; }
+            get => _updateHltbOnStart;
             set
             {
                 if (_updateHltbOnStart != value)
@@ -372,11 +382,9 @@ namespace Depressurizer
             }
         }
 
-        private bool _IncludeImputedTimes = true;
-
         public bool IncludeImputedTimes
         {
-            get { return _IncludeImputedTimes; }
+            get => _IncludeImputedTimes;
             set
             {
                 if (_IncludeImputedTimes != value)
@@ -387,11 +395,9 @@ namespace Depressurizer
             }
         }
 
-        private bool _autosaveDB = true;
-
         public bool AutosaveDB
         {
-            get { return _autosaveDB; }
+            get => _autosaveDB;
             set
             {
                 if (_autosaveDB != value)
@@ -402,11 +408,9 @@ namespace Depressurizer
             }
         }
 
-        private int _scrapePromptDays = 30;
-
         public int ScrapePromptDays
         {
-            get { return _scrapePromptDays; }
+            get => _scrapePromptDays;
             set
             {
                 if (_scrapePromptDays != value)
@@ -417,11 +421,9 @@ namespace Depressurizer
             }
         }
 
-        private bool _checkForDepressurizerUpdates = true;
-
         public bool CheckForDepressurizerUpdates
         {
-            get { return _checkForDepressurizerUpdates; }
+            get => _checkForDepressurizerUpdates;
             set
             {
                 if (_checkForDepressurizerUpdates != value)
@@ -432,11 +434,9 @@ namespace Depressurizer
             }
         }
 
-        private bool _removeExtraEntries = true;
-
         public bool RemoveExtraEntries
         {
-            get { return _removeExtraEntries; }
+            get => _removeExtraEntries;
             set
             {
                 if (_removeExtraEntries != value)
@@ -447,11 +447,9 @@ namespace Depressurizer
             }
         }
 
-        private GameListSource _listSource = GameListSource.XmlPreferred;
-
         public GameListSource ListSource
         {
-            get { return _listSource; }
+            get => _listSource;
             set
             {
                 if (_listSource != value)
@@ -462,11 +460,9 @@ namespace Depressurizer
             }
         }
 
-        private LoggerLevel _logLevel = LoggerLevel.Info;
-
         public LoggerLevel LogLevel
         {
-            get { return _logLevel; }
+            get => _logLevel;
             set
             {
                 Program.Logger.Level = value;
@@ -478,11 +474,9 @@ namespace Depressurizer
             }
         }
 
-        private int _logSize = 2000000;
-
         public int LogSize
         {
-            get { return _logSize; }
+            get => _logSize;
             set
             {
                 Program.Logger.MaxFileSize = value;
@@ -494,11 +488,9 @@ namespace Depressurizer
             }
         }
 
-        private int _logBackups = 1;
-
         public int LogBackups
         {
-            get { return _logBackups; }
+            get => _logBackups;
             set
             {
                 Program.Logger.MaxBackup = value;
@@ -510,12 +502,9 @@ namespace Depressurizer
             }
         }
 
-        //Language of steam store. Used in browser and when scraping tags, genres, etc
-        private StoreLanguage _storeLanguage = StoreLanguage.windows;
-
         public StoreLanguage StoreLang
         {
-            get { return _storeLanguage; }
+            get => _storeLanguage;
             set
             {
                 if (_storeLanguage != value)
@@ -527,12 +516,9 @@ namespace Depressurizer
             }
         }
 
-        //Depressurizer UI language
-        private UILanguage _userLanguage = UILanguage.windows;
-
         public UILanguage UserLang
         {
-            get { return _userLanguage; }
+            get => _userLanguage;
             set
             {
                 if (_userLanguage != value)
@@ -540,6 +526,32 @@ namespace Depressurizer
                     _userLanguage = value;
                     outOfDate = true;
                     changeLanguage(_userLanguage);
+                }
+            }
+        }
+
+        public bool SingleCatMode
+        {
+            get => _singleCatMode;
+            set
+            {
+                if (_singleCatMode != value)
+                {
+                    _singleCatMode = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public string LstGamesState
+        {
+            get => _lstGamesState;
+            set
+            {
+                if (_lstGamesState != value)
+                {
+                    _lstGamesState = value;
+                    outOfDate = true;
                 }
             }
         }
@@ -571,42 +583,6 @@ namespace Depressurizer
             }
 
             Thread.CurrentThread.CurrentUICulture = newCulture;
-        }
-
-        private bool _singleCatMode;
-
-        public bool SingleCatMode
-        {
-            get { return _singleCatMode; }
-            set
-            {
-                if (_singleCatMode != value)
-                {
-                    _singleCatMode = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        private string _lstGamesState = "";
-
-        public string LstGamesState
-        {
-            get { return _lstGamesState; }
-            set
-            {
-                if (_lstGamesState != value)
-                {
-                    _lstGamesState = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        private Settings()
-        {
-            FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                       @"\Depressurizer\Settings.xml";
         }
 
         public override void Load()

@@ -41,10 +41,7 @@ namespace Depressurizer
         public AutoCatYear_Grouping GroupingMode { get; set; }
 
         // Meta properies
-        public override AutoCatType AutoCatType
-        {
-            get { return AutoCatType.Year; }
-        }
+        public override AutoCatType AutoCatType => AutoCatType.Year;
 
         // Serialization strings
         public const string TypeIdString = "AutoCatYear";
@@ -75,7 +72,9 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatYear() { }
+        private AutoCatYear()
+        {
+        }
 
         protected AutoCatYear(AutoCatYear other)
             : base(other)
@@ -104,11 +103,13 @@ namespace Depressurizer
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
+
             if (db == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
             }
+
             if (game == null)
             {
                 Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
@@ -119,24 +120,18 @@ namespace Depressurizer
 
             if (!game.IncludeGame(filter)) return AutoCatResult.Filtered;
 
-            int year = db.GetReleaseYear(game.Id);
-            if (year > 0 || IncludeUnknown)
-            {
-                game.AddCategory(games.GetCategory(GetProcessedString(year)));
-            }
+            var year = db.GetReleaseYear(game.Id);
+            if (year > 0 || IncludeUnknown) game.AddCategory(games.GetCategory(GetProcessedString(year)));
 
             return AutoCatResult.Success;
         }
 
         private string GetProcessedString(int year)
         {
-            string result = string.Empty;
+            var result = string.Empty;
             if (year <= 0)
-            {
                 result = UnknownText;
-            }
             else
-            {
                 switch (GroupingMode)
                 {
                     case AutoCatYear_Grouping.Decade:
@@ -149,18 +144,14 @@ namespace Depressurizer
                         result = year.ToString();
                         break;
                 }
-            }
 
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return result;
-            }
+            if (string.IsNullOrEmpty(Prefix)) return result;
             return Prefix + result;
         }
 
         private string GetRangeString(int year, int rangeSize)
         {
-            int first = year - year % rangeSize;
+            var first = year - year % rangeSize;
             return string.Format("{0}-{1}", first, first + rangeSize - 1);
         }
 
@@ -184,12 +175,12 @@ namespace Depressurizer
 
         public static AutoCatYear LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], true);
-            string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], null);
-            AutoCatYear_Grouping groupMode =
+            var name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            var filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            var prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            var includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], true);
+            var unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], null);
+            var groupMode =
                 XmlUtil.GetEnumFromNode(xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None);
 
             return new AutoCatYear(name, filter, prefix, includeUnknown, unknownText, groupMode);

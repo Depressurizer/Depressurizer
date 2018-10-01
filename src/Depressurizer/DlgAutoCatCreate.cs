@@ -23,11 +23,8 @@ namespace Depressurizer
 {
     public partial class DlgAutoCatCreate : Form
     {
-        public string SelectedName { get; set; }
-        public AutoCatType SelectedType { get; set; }
-
-        private string[] typeNames;
-        private AutoCatType[] types;
+        private readonly string[] typeNames;
+        private readonly AutoCatType[] types;
 
         public DlgAutoCatCreate(string name = null, AutoCatType type = AutoCatType.None)
         {
@@ -51,7 +48,6 @@ namespace Depressurizer
                 GlobalStrings.AutoCat_Name_Language,
                 GlobalStrings.AutoCat_Name_Curator,
                 GlobalStrings.AutoCat_Name_Platform
-
             };
             types = new[]
             {
@@ -75,10 +71,13 @@ namespace Depressurizer
             SelectedType = type;
         }
 
+        public string SelectedName { get; set; }
+        public AutoCatType SelectedType { get; set; }
+
         private string TypeToString(AutoCatType t)
         {
             if (t == AutoCatType.None) return null;
-            int index = Array.IndexOf(types, t);
+            var index = Array.IndexOf(types, t);
             if (index >= 0 && index < typeNames.Length) return typeNames[index];
             return null;
         }
@@ -86,7 +85,7 @@ namespace Depressurizer
         private AutoCatType StringToType(string s)
         {
             if (s == null) return AutoCatType.None;
-            int index = Array.IndexOf(typeNames, s);
+            var index = Array.IndexOf(typeNames, s);
             if (index >= 0 && index < types.Length) return types[index];
             return AutoCatType.None;
         }
@@ -100,31 +99,20 @@ namespace Depressurizer
         private void LoadUIFromFields()
         {
             if (SelectedName == null)
-            {
                 txtName.Clear();
-            }
             else
-            {
                 txtName.Text = SelectedName;
-            }
 
-            string selString = TypeToString(SelectedType);
+            var selString = TypeToString(SelectedType);
             if (selString == null)
-            {
                 cmbType.SelectedIndex = 0;
-            }
             else
-            {
                 cmbType.SelectedItem = selString;
-            }
         }
 
         private void DlgAutoCatCreate_Load(object sender, EventArgs e)
         {
-            foreach (string s in typeNames)
-            {
-                cmbType.Items.Add(s);
-            }
+            foreach (var s in typeNames) cmbType.Items.Add(s);
             LoadUIFromFields();
         }
 

@@ -25,14 +25,23 @@ using Depressurizer;
 
 namespace Rallion
 {
-    delegate DialogResult DLG_MessageBox(string text);
+    internal delegate DialogResult DLG_MessageBox(string text);
 
     public partial class FatalError : Form
     {
+        #region Properties
+
+        /// <summary>
+        ///     The minimum height of the form, without info showing.
+        /// </summary>
+        private int ShortHeight => Height - ClientSize.Height + cmdClose.Bottom + 10;
+
+        #endregion
+
         #region Constants
 
         /// <summary>
-        /// The default height of the Info section
+        ///     The default height of the Info section
         /// </summary>
         private const int DEFAULT_INFO_HEIGHT = 250;
 
@@ -46,38 +55,26 @@ namespace Rallion
         #region Fields
 
         /// <summary>
-        /// The exception being displayed
+        ///     The exception being displayed
         /// </summary>
-        private Exception ex;
+        private readonly Exception ex;
 
         /// <summary>
-        /// Stores whether or not the extra info is being shown
+        ///     Stores whether or not the extra info is being shown
         /// </summary>
         private bool ShowingInfo;
 
         /// <summary>
-        /// The current height of the info section.
+        ///     The current height of the info section.
         /// </summary>
         private int currentInfoHeight = DEFAULT_INFO_HEIGHT;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// The minimum height of the form, without info showing.
-        /// </summary>
-        private int ShortHeight
-        {
-            get { return (Height - ClientSize.Height) + cmdClose.Bottom + 10; }
-        }
 
         #endregion
 
         #region Static Methods
 
         /// <summary>
-        /// Starts catching all unhandled exceptions for processing.
+        ///     Starts catching all unhandled exceptions for processing.
         /// </summary>
         public static void InitializeHandler()
         {
@@ -96,13 +93,13 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Shows the form and ends the program after an exception makes it to the top level.
+        ///     Shows the form and ends the program after an exception makes it to the top level.
         /// </summary>
         /// <param name="e">The unhandled exception.</param>
         private static void HandleUnhandledException(Exception e)
         {
             Program.Logger.WriteException("Fatal Error: ", e);
-            FatalError errForm = new FatalError(e);
+            var errForm = new FatalError(e);
             errForm.ShowDialog();
             Application.Exit();
         }
@@ -124,7 +121,7 @@ namespace Rallion
         {
             HideInfo();
 
-            string appName = Application.ProductName;
+            var appName = Application.ProductName;
 
             Text = string.Format(GlobalStrings.DlgFatalError_FatalError, appName);
             lblMessage.Text = string.Format(GlobalStrings.DlgFatalError_FatalErrorOcurred, appName);
@@ -136,11 +133,11 @@ namespace Rallion
 
         private void FillFields()
         {
-            string innerExStackTraceSep = "---End of inner exception stack trace---" + Environment.NewLine;
+            var innerExStackTraceSep = "---End of inner exception stack trace---" + Environment.NewLine;
             txtErrType.Text = ex.GetType().Name;
             txtErrMsg.Text = ex.Message;
             txtTrace.Text = ex.StackTrace;
-            Exception innerEx = ex.InnerException;
+            var innerEx = ex.InnerException;
             while (innerEx != null)
             {
                 txtErrMsg.Text += Environment.NewLine + innerEx.GetType().Name + @": " + innerEx.Message;
@@ -154,7 +151,7 @@ namespace Rallion
         #region Info control
 
         /// <summary>
-        /// Displays the extra info
+        ///     Displays the extra info
         /// </summary>
         private void ShowInfo()
         {
@@ -169,7 +166,7 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Hides the extra info
+        ///     Hides the extra info
         /// </summary>
         private void HideInfo()
         {
@@ -177,7 +174,7 @@ namespace Rallion
             // Save the current info height in case we toggle back
             currentInfoHeight = Height - ShortHeight;
             // Resize and disable user resizing
-            int newHeight = ShortHeight;
+            var newHeight = ShortHeight;
             MinimumSize = new Size(MIN_WIDTH, newHeight);
             MaximumSize = new Size(MAX_WIDTH, newHeight);
             Height = newHeight;
@@ -186,7 +183,7 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Toggles the extra info
+        ///     Toggles the extra info
         /// </summary>
         private void ToggleInfo()
         {
@@ -218,22 +215,22 @@ namespace Rallion
         #region Saving methods
 
         /// <summary>
-        /// Saves the exception data to a file in the application directory
+        ///     Saves the exception data to a file in the application directory
         /// </summary>
         private void SaveToFile()
         {
             try
             {
-                SaveFileDialog dlg = new SaveFileDialog();
+                var dlg = new SaveFileDialog();
                 dlg.CreatePrompt = false;
                 dlg.AddExtension = false;
                 dlg.AutoUpgradeEnabled = true;
                 dlg.InitialDirectory = Environment.CurrentDirectory;
                 dlg.FileName = "dError_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".log";
-                DialogResult res = dlg.ShowDialog();
+                var res = dlg.ShowDialog();
                 if (res == DialogResult.OK)
                 {
-                    StreamWriter fstr = new StreamWriter(dlg.FileName);
+                    var fstr = new StreamWriter(dlg.FileName);
                     fstr.Write(ex.ToString());
                     fstr.Close();
                     MessageBox.Show(GlobalStrings.DlgFatalError_ErrorInformationSaved);
@@ -246,19 +243,19 @@ namespace Rallion
         }
 
         /// <summary>
-        /// Copies the exception data to the clipboard
+        ///     Copies the exception data to the clipboard
         /// </summary>
         private void SetClipboardText()
         {
             if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
             {
-                Thread t = new Thread(SetClipboardText);
+                var t = new Thread(SetClipboardText);
                 t.SetApartmentState(ApartmentState.STA);
                 t.Start();
             }
             else
             {
-                string dMsg = GlobalStrings.DlgFatalError_CouldNotCopyClipboard;
+                var dMsg = GlobalStrings.DlgFatalError_CouldNotCopyClipboard;
                 try
                 {
                     Clipboard.SetText(ex.ToString());
@@ -267,13 +264,9 @@ namespace Rallion
                 finally
                 {
                     if (InvokeRequired)
-                    {
                         Invoke(new DLG_MessageBox(MessageBox.Show), dMsg);
-                    }
                     else
-                    {
                         MessageBox.Show(dMsg);
-                    }
                 }
             }
         }
