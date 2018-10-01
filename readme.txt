@@ -1,5 +1,4 @@
-Depressurizer
-for v0.7.4.2
+Depressurizer v4.0.0
 
 SUMMARY
 
@@ -29,7 +28,7 @@ USAGE GUIDE
 	GETTING STARTED
 
 		Download the latest version of Depressurizer from the project's release
-		page: https://github.com/Theo47/depressurizer/releases
+		page: https://github.com/Depressurizer/Depressurizer/releases
 
 		The first time you run Depressurizer, it will ask you for your Steam
 		directory. If it is not automatically and correctly detected, fill this
