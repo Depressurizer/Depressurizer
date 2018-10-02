@@ -26,13 +26,7 @@ namespace Depressurizer
     [TypeDescriptionProvider(typeof(InstantiableClassProvider<AutoCatConfigPanel, UserControl>))]
     public class AutoCatConfigPanel : UserControl
     {
-        public virtual void SaveToAutoCat(AutoCat ac)
-        {
-        }
-
-        public virtual void LoadFromAutoCat(AutoCat ac)
-        {
-        }
+        #region Public Methods and Operators
 
         public static AutoCatConfigPanel CreatePanel(AutoCat ac, GameList ownedGames, List<AutoCat> autocats)
         {
@@ -71,12 +65,38 @@ namespace Depressurizer
                     return null;
             }
         }
+
+        public virtual void LoadFromAutoCat(AutoCat ac)
+        {
+        }
+
+        public virtual void SaveToAutoCat(AutoCat ac)
+        {
+        }
+
+        #endregion
     }
 
     internal class InstantiableClassProvider<TAbstract, TInstantiable> : TypeDescriptionProvider
     {
+        #region Constructors and Destructors
+
         public InstantiableClassProvider() : base(TypeDescriptor.GetProvider(typeof(TAbstract)))
         {
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public override object CreateInstance(IServiceProvider provider, Type objectType, Type[] argTypes, object[] args)
+        {
+            if (objectType == typeof(TAbstract))
+            {
+                objectType = typeof(TInstantiable);
+            }
+
+            return base.CreateInstance(provider, objectType, argTypes, args);
         }
 
         public override Type GetReflectionType(Type objectType, object instance)
@@ -89,14 +109,6 @@ namespace Depressurizer
             return base.GetReflectionType(objectType, instance);
         }
 
-        public override object CreateInstance(IServiceProvider provider, Type objectType, Type[] argTypes, object[] args)
-        {
-            if (objectType == typeof(TAbstract))
-            {
-                objectType = typeof(TInstantiable);
-            }
-
-            return base.CreateInstance(provider, objectType, argTypes, args);
-        }
+        #endregion
     }
 }

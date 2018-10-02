@@ -28,15 +28,62 @@ namespace Rallion
     /// </summary>
     internal abstract class AppSettings
     {
-        protected readonly object threadLock = new object();
+        #region Fields
 
         public string FilePath;
+        protected readonly object threadLock = new object();
 
         protected bool outOfDate;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         protected AppSettings()
         {
             FilePath = "Settings.xml";
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Loads settings from the defined config file.
+        /// </summary>
+        public virtual void Load()
+        {
+            Type type = GetType();
+            if (File.Exists(FilePath))
+            {
+                XmlDocument doc = new XmlDocument();
+                try
+                {
+                    doc.Load(FilePath);
+                    XmlNode configNode = doc.SelectSingleNode("/config");
+                    lock (threadLock)
+                    {
+                        foreach (XmlNode node in configNode.ChildNodes)
+                        {
+                            string name = node.Name;
+                            string value = node.InnerText;
+                            PropertyInfo pi = type.GetProperty(name);
+                            if (pi != null)
+                            {
+                                SetProperty(pi, value);
+                            }
+                        }
+                    }
+                }
+                catch (XmlException)
+                {
+                }
+                catch (IOException)
+                {
+                }
+
+                outOfDate = false;
+            }
         }
 
         /// <summary>
@@ -79,43 +126,9 @@ namespace Rallion
             }
         }
 
-        /// <summary>
-        ///     Loads settings from the defined config file.
-        /// </summary>
-        public virtual void Load()
-        {
-            Type type = GetType();
-            if (File.Exists(FilePath))
-            {
-                XmlDocument doc = new XmlDocument();
-                try
-                {
-                    doc.Load(FilePath);
-                    XmlNode configNode = doc.SelectSingleNode("/config");
-                    lock (threadLock)
-                    {
-                        foreach (XmlNode node in configNode.ChildNodes)
-                        {
-                            string name = node.Name;
-                            string value = node.InnerText;
-                            PropertyInfo pi = type.GetProperty(name);
-                            if (pi != null)
-                            {
-                                SetProperty(pi, value);
-                            }
-                        }
-                    }
-                }
-                catch (XmlException)
-                {
-                }
-                catch (IOException)
-                {
-                }
+        #endregion
 
-                outOfDate = false;
-            }
-        }
+        #region Methods
 
         private void SetProperty(PropertyInfo propertyInfo, string value)
         {
@@ -143,5 +156,7 @@ namespace Rallion
             {
             }
         }
+
+        #endregion
     }
 }

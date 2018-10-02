@@ -7,21 +7,32 @@ namespace Depressurizer
 {
     public class Filter : IComparable
     {
+        #region Constants
+
         // Serialization strings
         private const string TypeIdString = "Filter";
 
         private const string XmlName_Name = "Name", XmlName_Uncategorized = "Uncategorized", XmlName_Hidden = "Hidden", XmlName_VR = "VR", XmlName_Allow = "Allow", XmlName_Require = "Require", XmlName_Exclude = "Exclude";
+
+        #endregion
+
+        #region Fields
+
+        public int Hidden;
+
+        public string Name;
+        public int Uncategorized;
+        public int VR;
 
         private SortedSet<Category> _allow;
 
         private SortedSet<Category> _exclude;
 
         private SortedSet<Category> _require;
-        public int Hidden;
 
-        public string Name;
-        public int Uncategorized;
-        public int VR;
+        #endregion
+
+        #region Constructors and Destructors
 
         public Filter(string name)
         {
@@ -34,10 +45,20 @@ namespace Depressurizer
             Exclude = new SortedSet<Category>();
         }
 
+        #endregion
+
+        #region Public Properties
+
         public SortedSet<Category> Allow
         {
             get => _allow;
             set => _allow = new SortedSet<Category>(value);
+        }
+
+        public SortedSet<Category> Exclude
+        {
+            get => _exclude;
+            set => _exclude = new SortedSet<Category>(value);
         }
 
         public SortedSet<Category> Require
@@ -46,11 +67,9 @@ namespace Depressurizer
             set => _require = new SortedSet<Category>(value);
         }
 
-        public SortedSet<Category> Exclude
-        {
-            get => _exclude;
-            set => _exclude = new SortedSet<Category>(value);
-        }
+        #endregion
+
+        #region Public Methods and Operators
 
         public int CompareTo(object o)
         {
@@ -110,5 +129,7 @@ namespace Depressurizer
 
             Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Filter_FilterSaveComplete);
         }
+
+        #endregion
     }
 }

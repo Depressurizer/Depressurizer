@@ -25,8 +25,14 @@ namespace Depressurizer
 {
     internal static class Program
     {
-        public static AppLogger Logger;
+        #region Static Fields
+
         public static Database Database;
+        public static AppLogger Logger;
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         ///     The main entry point for the application.
@@ -103,5 +109,7 @@ namespace Depressurizer
 
             return auto ? config : null;
         }
+
+        #endregion
     }
 }

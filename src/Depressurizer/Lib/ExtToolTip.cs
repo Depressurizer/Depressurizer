@@ -28,7 +28,13 @@ namespace Depressurizer.Lib
     /// </summary>
     public class ExtToolTip : ToolTip
     {
+        #region Fields
+
         private readonly Dictionary<Control, string> bindings = new Dictionary<Control, string>();
+
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Sets the tooltip text associated with a given control. The ToolTip will always show when the mouse is over this
@@ -43,14 +49,9 @@ namespace Depressurizer.Lib
             c.MouseLeave += Ext_Control_MouseLeave;
         }
 
-        private void Ext_Control_MouseLeave(object sender, EventArgs e)
-        {
-            Control c = sender as Control;
-            if (c != null)
-            {
-                Hide(c);
-            }
-        }
+        #endregion
+
+        #region Methods
 
         private void Ext_Control_MouseEnter(object sender, EventArgs e)
         {
@@ -67,5 +68,16 @@ namespace Depressurizer.Lib
                 }
             }
         }
+
+        private void Ext_Control_MouseLeave(object sender, EventArgs e)
+        {
+            Control c = sender as Control;
+            if (c != null)
+            {
+                Hide(c);
+            }
+        }
+
+        #endregion
     }
 }

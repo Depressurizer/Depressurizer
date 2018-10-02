@@ -24,15 +24,16 @@ namespace Depressurizer
 {
     public partial class DlgGame : Form
     {
+        #region Fields
+
+        public GameInfo Game;
         private readonly GameList Data;
 
         private readonly bool editMode;
-        public GameInfo Game;
 
-        private DlgGame()
-        {
-            InitializeComponent();
-        }
+        #endregion
+
+        #region Constructors and Destructors
 
         public DlgGame(GameList data, GameInfo game = null) : this()
         {
@@ -41,22 +42,33 @@ namespace Depressurizer
             editMode = Game != null;
         }
 
-        private void GameDlg_Load(object sender, EventArgs e)
+        private DlgGame()
         {
-            if (editMode)
+            InitializeComponent();
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            try
             {
-                Text = GlobalStrings.DlgGame_EditGame;
-                txtId.Text = Game.Id.ToString();
-                txtName.Text = Game.Name;
-                txtCategory.Text = Game.GetCatString();
-                txtExecutable.Text = Game.Executable;
-                chkFavorite.Checked = Game.IsFavorite();
-                chkHidden.Checked = Game.Hidden;
-                txtId.ReadOnly = true;
+                FileInfo f = new FileInfo(txtExecutable.Text);
+                dlg.InitialDirectory = f.DirectoryName;
+                dlg.FileName = f.Name;
             }
-            else
+            catch (ArgumentException)
             {
-                Text = GlobalStrings.DlgGame_CreateGame;
+            }
+
+            DialogResult res = dlg.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtExecutable.Text = dlg.FileName;
             }
         }
 
@@ -101,25 +113,25 @@ namespace Depressurizer
             Close();
         }
 
-        private void btnBrowse_Click(object sender, EventArgs e)
+        private void GameDlg_Load(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-
-            try
+            if (editMode)
             {
-                FileInfo f = new FileInfo(txtExecutable.Text);
-                dlg.InitialDirectory = f.DirectoryName;
-                dlg.FileName = f.Name;
+                Text = GlobalStrings.DlgGame_EditGame;
+                txtId.Text = Game.Id.ToString();
+                txtName.Text = Game.Name;
+                txtCategory.Text = Game.GetCatString();
+                txtExecutable.Text = Game.Executable;
+                chkFavorite.Checked = Game.IsFavorite();
+                chkHidden.Checked = Game.Hidden;
+                txtId.ReadOnly = true;
             }
-            catch (ArgumentException)
+            else
             {
-            }
-
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                txtExecutable.Text = dlg.FileName;
+                Text = GlobalStrings.DlgGame_CreateGame;
             }
         }
+
+        #endregion
     }
 }

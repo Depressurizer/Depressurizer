@@ -32,6 +32,8 @@ namespace Depressurizer
     /// </summary>
     public class MultiColumnListViewComparer : IComparer
     {
+        #region Fields
+
         private readonly HashSet<int> _intCols = new HashSet<int>();
         private readonly HashSet<int> _revCols = new HashSet<int>();
         private bool _asInt;
@@ -39,11 +41,31 @@ namespace Depressurizer
         private int _direction;
         private bool _rev;
 
+        #endregion
+
+        #region Constructors and Destructors
+
         public MultiColumnListViewComparer(int column = 0, int dir = 1)
         {
             _col = column;
             _direction = dir;
             _asInt = _intCols.Contains(_col);
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public void AddIntCol(int col)
+        {
+            _intCols.Add(col);
+            _asInt = _intCols.Contains(_col);
+        }
+
+        public void AddRevCol(int col)
+        {
+            _revCols.Add(col);
+            _rev = _revCols.Contains(_col);
         }
 
         public int Compare(object x, object y)
@@ -79,6 +101,28 @@ namespace Depressurizer
             return dir * string.Compare(strA, strB);
         }
 
+        public int GetSortCol()
+        {
+            return _col;
+        }
+
+        public int GetSortDir()
+        {
+            return _direction;
+        }
+
+        public void RemoveIntCol(int col)
+        {
+            _intCols.Remove(col);
+            _asInt = _intCols.Contains(_col);
+        }
+
+        public void RemoveRevCol(int col)
+        {
+            _revCols.Remove(col);
+            _rev = _revCols.Contains(_col);
+        }
+
         public void SetSortCol(int clickedCol, int forceDir = 0)
         {
             if (forceDir == 0)
@@ -102,39 +146,7 @@ namespace Depressurizer
             _rev = _revCols.Contains(_col);
         }
 
-        public int GetSortCol()
-        {
-            return _col;
-        }
-
-        public int GetSortDir()
-        {
-            return _direction;
-        }
-
-        public void AddIntCol(int col)
-        {
-            _intCols.Add(col);
-            _asInt = _intCols.Contains(_col);
-        }
-
-        public void RemoveIntCol(int col)
-        {
-            _intCols.Remove(col);
-            _asInt = _intCols.Contains(_col);
-        }
-
-        public void AddRevCol(int col)
-        {
-            _revCols.Add(col);
-            _rev = _revCols.Contains(_col);
-        }
-
-        public void RemoveRevCol(int col)
-        {
-            _revCols.Remove(col);
-            _rev = _revCols.Contains(_col);
-        }
+        #endregion
     }
 
 
@@ -144,12 +156,17 @@ namespace Depressurizer
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class ListViewExtensions
     {
-        public const int LVM_FIRST = 0x1000;
-        public const int LVM_GETHEADER = LVM_FIRST + 31;
+        #region Constants
 
         public const int HDM_FIRST = 0x1200;
         public const int HDM_GETITEM = HDM_FIRST + 11;
         public const int HDM_SETITEM = HDM_FIRST + 12;
+        public const int LVM_FIRST = 0x1000;
+        public const int LVM_GETHEADER = LVM_FIRST + 31;
+
+        #endregion
+
+        #region Public Methods and Operators
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
@@ -199,36 +216,38 @@ namespace Depressurizer
             }
         }
 
+        #endregion
+
         [StructLayout(LayoutKind.Sequential)]
         public struct HDITEM
         {
-            public Mask mask;
-            public int cxy;
-            [MarshalAs(UnmanagedType.LPTStr)] public string pszText;
-            public IntPtr hbm;
-            public int cchTextMax;
-            public Format fmt;
+            #region Fields
 
-            public IntPtr lParam;
+            public int cchTextMax;
+            public int cxy;
+            public Format fmt;
+            public IntPtr hbm;
 
             // _WIN32_IE >= 0x0300 
             public int iImage;
 
             public int iOrder;
 
-            // _WIN32_IE >= 0x0500
-            public uint type;
+            public IntPtr lParam;
+            public Mask mask;
+            [MarshalAs(UnmanagedType.LPTStr)] public string pszText;
 
             public IntPtr pvFilter;
 
             // _WIN32_WINNT >= 0x0600
             public uint state;
 
-            [Flags]
-            public enum Mask
-            {
-                Format = 0x4 // HDI_FORMAT
-            }
+            // _WIN32_IE >= 0x0500
+            public uint type;
+
+            #endregion
+
+            #region Enums
 
             [Flags]
             public enum Format
@@ -236,6 +255,14 @@ namespace Depressurizer
                 SortDown = 0x200, // HDF_SORTDOWN
                 SortUp = 0x400 // HDF_SORTUP
             }
+
+            [Flags]
+            public enum Mask
+            {
+                Format = 0x4 // HDI_FORMAT
+            }
+
+            #endregion
         }
     }
 }

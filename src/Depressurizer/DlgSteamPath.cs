@@ -25,13 +25,33 @@ namespace Depressurizer
 {
     public partial class DlgSteamPath : Form
     {
+        #region Constructors and Destructors
+
         public DlgSteamPath()
         {
             InitializeComponent();
             txtPath.Text = GetSteamPath();
         }
 
+        #endregion
+
+        #region Public Properties
+
         public string Path => txtPath.Text.Trim().TrimEnd('\\');
+
+        #endregion
+
+        #region Methods
+
+        private void cmdBrowse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            DialogResult res = dlg.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtPath.Text = dlg.SelectedPath;
+            }
+        }
 
         private void cmdOk_Click(object sender, EventArgs e)
         {
@@ -45,16 +65,6 @@ namespace Depressurizer
             }
 
             Close();
-        }
-
-        private void cmdBrowse_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dlg = new FolderBrowserDialog();
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                txtPath.Text = dlg.SelectedPath;
-            }
         }
 
         private string GetSteamPath()
@@ -74,5 +84,7 @@ namespace Depressurizer
                 return string.Empty;
             }
         }
+
+        #endregion
     }
 }

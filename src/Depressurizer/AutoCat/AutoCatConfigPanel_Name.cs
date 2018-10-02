@@ -20,11 +20,17 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Name : AutoCatConfigPanel
     {
+        #region Constructors and Destructors
+
         public AutoCatConfigPanel_Name()
         {
             InitializeComponent();
             ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
@@ -55,5 +61,7 @@ namespace Depressurizer
             ac.GroupNonEnglishCharacters = chkgroupNonEnglishCharacters.Checked;
             ac.GroupNonEnglishCharactersText = txtGroupNonEnglishCharactersText.Text;
         }
+
+        #endregion
     }
 }

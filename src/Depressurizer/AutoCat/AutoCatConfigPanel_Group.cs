@@ -24,10 +24,16 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Group : AutoCatConfigPanel
     {
+        #region Fields
+
         //private List<string> stringAutocats;
         private readonly List<AutoCat> Autocats;
 
         private AutoCat current;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public AutoCatConfigPanel_Group(List<AutoCat> autocats)
         {
@@ -36,26 +42,20 @@ namespace Depressurizer
             Autocats = autocats;
         }
 
-        #region UI Updaters
-
-        private void FillAutocatList(List<string> group)
-        {
-            if (group != null)
-            {
-                lbAutocats.Items.Clear();
-            }
-
-            {
-                foreach (string name in group)
-                {
-                    lbAutocats.Items.Add(name);
-                }
-            }
-        }
-
         #endregion
 
-        #region Data modifiers
+        #region Public Methods and Operators
+
+        public List<string> GetGroup()
+        {
+            List<string> group = new List<string>();
+            foreach (string name in lbAutocats.Items)
+            {
+                group.Add(name);
+            }
+
+            return group;
+        }
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
@@ -82,17 +82,7 @@ namespace Depressurizer
 
         #endregion
 
-        #region Event Handlers
-
-        private void btnUp_Click(object sender, EventArgs e)
-        {
-            Utility.MoveItem(lbAutocats, -1);
-        }
-
-        private void btnDown_Click(object sender, EventArgs e)
-        {
-            Utility.MoveItem(lbAutocats, 1);
-        }
+        #region Methods
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -112,6 +102,11 @@ namespace Depressurizer
             }
         }
 
+        private void btnDown_Click(object sender, EventArgs e)
+        {
+            Utility.MoveItem(lbAutocats, 1);
+        }
+
         private void btnRemove_Click(object sender, EventArgs e)
         {
             if (lbAutocats.SelectedItems.Count > 1)
@@ -125,6 +120,39 @@ namespace Depressurizer
             {
                 lbAutocats.Items.Remove(lbAutocats.SelectedItem);
             }
+        }
+
+        private void btnUp_Click(object sender, EventArgs e)
+        {
+            Utility.MoveItem(lbAutocats, -1);
+        }
+
+        private void FillAutocatList(List<string> group)
+        {
+            if (group != null)
+            {
+                lbAutocats.Items.Clear();
+            }
+
+            {
+                foreach (string name in group)
+                {
+                    lbAutocats.Items.Add(name);
+                }
+            }
+        }
+
+        private bool InGroup(string find)
+        {
+            foreach (string name in lbAutocats.Items)
+            {
+                if (name == find)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void lbAutocats_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,34 +175,6 @@ namespace Depressurizer
                 btnUp.Enabled = false;
                 btnDown.Enabled = false;
             }
-        }
-
-        #endregion
-
-        #region Utility
-
-        private bool InGroup(string find)
-        {
-            foreach (string name in lbAutocats.Items)
-            {
-                if (name == find)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public List<string> GetGroup()
-        {
-            List<string> group = new List<string>();
-            foreach (string name in lbAutocats.Items)
-            {
-                group.Add(name);
-            }
-
-            return group;
         }
 
         #endregion

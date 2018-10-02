@@ -29,15 +29,6 @@ namespace Rallion
 
     public partial class FatalError : Form
     {
-        #region Properties
-
-        /// <summary>
-        ///     The minimum height of the form, without info showing.
-        /// </summary>
-        private int ShortHeight => Height - ClientSize.Height + cmdClose.Bottom + 10;
-
-        #endregion
-
         #region Constants
 
         /// <summary>
@@ -45,10 +36,11 @@ namespace Rallion
         /// </summary>
         private const int DEFAULT_INFO_HEIGHT = 250;
 
-        private const int MIN_WIDTH = 300;
+        private const int MAX_HEIGHT = 2000;
         private const int MAX_WIDTH = 2000;
         private const int MIN_HEIGHT = 300;
-        private const int MAX_HEIGHT = 2000;
+
+        private const int MIN_WIDTH = 300;
 
         #endregion
 
@@ -60,18 +52,40 @@ namespace Rallion
         private readonly Exception ex;
 
         /// <summary>
-        ///     Stores whether or not the extra info is being shown
-        /// </summary>
-        private bool ShowingInfo;
-
-        /// <summary>
         ///     The current height of the info section.
         /// </summary>
         private int currentInfoHeight = DEFAULT_INFO_HEIGHT;
 
+        /// <summary>
+        ///     Stores whether or not the extra info is being shown
+        /// </summary>
+        private bool ShowingInfo;
+
         #endregion
 
-        #region Static Methods
+        #region Constructors and Destructors
+
+        private FatalError(Exception e)
+        {
+            InitializeComponent();
+            ex = e;
+            ShowingInfo = true;
+            TopMost = true;
+            TopLevel = true;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     The minimum height of the form, without info showing.
+        /// </summary>
+        private int ShortHeight => Height - ClientSize.Height + cmdClose.Bottom + 10;
+
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Starts catching all unhandled exceptions for processing.
@@ -81,6 +95,10 @@ namespace Rallion
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += Application_ThreadException;
         }
+
+        #endregion
+
+        #region Methods
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
@@ -104,17 +122,19 @@ namespace Rallion
             Application.Exit();
         }
 
-        #endregion
-
-        #region Construction
-
-        private FatalError(Exception e)
+        private void cmdCopy_Click(object sender, EventArgs e)
         {
-            InitializeComponent();
-            ex = e;
-            ShowingInfo = true;
-            TopMost = true;
-            TopLevel = true;
+            SetClipboardText();
+        }
+
+        private void cmdSave_Click(object sender, EventArgs e)
+        {
+            SaveToFile();
+        }
+
+        private void cmdShow_Click(object sender, EventArgs e)
+        {
+            ToggleInfo();
         }
 
         private void FatalError_Load(object sender, EventArgs e)
@@ -146,28 +166,6 @@ namespace Rallion
             }
         }
 
-        #endregion
-
-        #region Info control
-
-        /// <summary>
-        ///     Displays the extra info
-        /// </summary>
-        private void ShowInfo()
-        {
-            if (ShowingInfo)
-            {
-                return;
-            }
-
-            // Increase the form height and allow resizing
-            MinimumSize = new Size(MIN_WIDTH, MIN_HEIGHT);
-            MaximumSize = new Size(MAX_WIDTH, MAX_HEIGHT);
-            Height = ShortHeight + currentInfoHeight;
-            // Show extra components
-            grpMoreInfo.Visible = grpMoreInfo.Enabled = ShowingInfo = true;
-        }
-
         /// <summary>
         ///     Hides the extra info
         /// </summary>
@@ -188,44 +186,6 @@ namespace Rallion
             // Hide extra components
             grpMoreInfo.Visible = grpMoreInfo.Enabled = ShowingInfo = false;
         }
-
-        /// <summary>
-        ///     Toggles the extra info
-        /// </summary>
-        private void ToggleInfo()
-        {
-            if (ShowingInfo)
-            {
-                HideInfo();
-            }
-            else
-            {
-                ShowInfo();
-            }
-        }
-
-        #endregion
-
-        #region Event Handlers
-
-        private void cmdShow_Click(object sender, EventArgs e)
-        {
-            ToggleInfo();
-        }
-
-        private void cmdSave_Click(object sender, EventArgs e)
-        {
-            SaveToFile();
-        }
-
-        private void cmdCopy_Click(object sender, EventArgs e)
-        {
-            SetClipboardText();
-        }
-
-        #endregion
-
-        #region Saving methods
 
         /// <summary>
         ///     Saves the exception data to a file in the application directory
@@ -285,6 +245,39 @@ namespace Rallion
                         MessageBox.Show(dMsg);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        ///     Displays the extra info
+        /// </summary>
+        private void ShowInfo()
+        {
+            if (ShowingInfo)
+            {
+                return;
+            }
+
+            // Increase the form height and allow resizing
+            MinimumSize = new Size(MIN_WIDTH, MIN_HEIGHT);
+            MaximumSize = new Size(MAX_WIDTH, MAX_HEIGHT);
+            Height = ShortHeight + currentInfoHeight;
+            // Show extra components
+            grpMoreInfo.Visible = grpMoreInfo.Enabled = ShowingInfo = true;
+        }
+
+        /// <summary>
+        ///     Toggles the extra info
+        /// </summary>
+        private void ToggleInfo()
+        {
+            if (ShowingInfo)
+            {
+                HideInfo();
+            }
+            else
+            {
+                ShowInfo();
             }
         }
 

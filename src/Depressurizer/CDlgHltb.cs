@@ -22,19 +22,23 @@ namespace Depressurizer
 {
     internal class HltbPrcDlg : CancelableDlg
     {
+        #region Constructors and Destructors
+
         public HltbPrcDlg() : base(GlobalStrings.CDlgHltb_Title, false)
         {
             SetText(GlobalStrings.CDlgHltb_UpdateHltb);
             Updated = 0;
         }
 
+        #endregion
+
+        #region Public Properties
+
         public int Updated { get; private set; }
 
-        protected override void RunProcess()
-        {
-            Updated = Program.Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
-            OnThreadCompletion();
-        }
+        #endregion
+
+        #region Methods
 
         protected override void Finish()
         {
@@ -43,5 +47,13 @@ namespace Depressurizer
                 OnJobCompletion();
             }
         }
+
+        protected override void RunProcess()
+        {
+            Updated = Program.Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
+            OnThreadCompletion();
+        }
+
+        #endregion
     }
 }

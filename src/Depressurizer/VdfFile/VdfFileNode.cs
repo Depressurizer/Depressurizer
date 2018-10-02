@@ -33,9 +33,15 @@ namespace Depressurizer
 
     public class VdfFileNode
     {
+        #region Fields
+
         // Can be an int, string or Dictionary<string,VdfFileNode>
         public object NodeData;
         public ValueType NodeType;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Creates a new array-type node
@@ -75,6 +81,48 @@ namespace Depressurizer
             NodeType = ValueType.Int;
             NodeData = value;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Quick shortcut for casting data to a a dictionary
+        /// </summary>
+        public Dictionary<string, VdfFileNode> NodeArray =>
+            NodeType == ValueType.Array ? NodeData as Dictionary<string, VdfFileNode> : null;
+
+        /// <summary>
+        ///     Quick shortcut for casting data to int. If the node is a string, tries to parse to int. Returns 0 if failure.
+        /// </summary>
+        public int NodeInt
+        {
+            get
+            {
+                if (NodeType == ValueType.Int)
+                {
+                    return (int) NodeData;
+                }
+
+                if (NodeType == ValueType.String)
+                {
+                    int res = 0;
+                    int.TryParse(NodeString, out res);
+                    return res;
+                }
+
+                return 0;
+            }
+        }
+
+        /// <summary>
+        ///     Quick shortcut for casting data to string
+        /// </summary>
+        public string NodeString => NodeType == ValueType.String ? NodeData as string : null;
+
+        #endregion
+
+        #region Public Indexers
 
         /// <summary>
         ///     Gets or sets the subnode with the given key. Can only be used with an array node. If the subnode does not exist,
@@ -119,159 +167,9 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        ///     Quick shortcut for casting data to a a dictionary
-        /// </summary>
-        public Dictionary<string, VdfFileNode> NodeArray =>
-            NodeType == ValueType.Array ? NodeData as Dictionary<string, VdfFileNode> : null;
-
-        /// <summary>
-        ///     Quick shortcut for casting data to string
-        /// </summary>
-        public string NodeString => NodeType == ValueType.String ? NodeData as string : null;
-
-        /// <summary>
-        ///     Quick shortcut for casting data to int. If the node is a string, tries to parse to int. Returns 0 if failure.
-        /// </summary>
-        public int NodeInt
-        {
-            get
-            {
-                if (NodeType == ValueType.Int)
-                {
-                    return (int) NodeData;
-                }
-
-                if (NodeType == ValueType.String)
-                {
-                    int res = 0;
-                    int.TryParse(NodeString, out res);
-                    return res;
-                }
-
-                return 0;
-            }
-        }
-
-        #region Utility
-
-        /// <summary>
-        ///     Checks whether or not this node has any children
-        /// </summary>
-        /// <returns>True if an array with no children, false otherwise</returns>
-        protected bool IsEmpty()
-        {
-            if (NodeArray != null)
-            {
-                return NodeArray.Count == 0;
-            }
-
-            return NodeData as string == null;
-        }
-
         #endregion
 
-        #region Accessors
-
-        /// <summary>
-        ///     Gets the node at the given address. May be used to build structure.
-        /// </summary>
-        /// <param name="args">An ordered list of keys, like a path</param>
-        /// <param name="create">If true, will create any nodes it does not find along the path.</param>
-        /// <param name="index">Start index of the arg array</param>
-        /// <returns>The FileNode at the given location, or null if the location was not found / created</returns>
-        public VdfFileNode GetNodeAt(string[] args, bool create = true, int index = 0)
-        {
-            if (index >= args.Length)
-            {
-                return this;
-            }
-
-            if (NodeType == ValueType.Array)
-            {
-                Dictionary<string, VdfFileNode> data = (Dictionary<string, VdfFileNode>) NodeData;
-                if (ContainsKey(args[index]))
-                {
-                    return data[args[index]].GetNodeAt(args, create, index + 1);
-                }
-
-                if (create)
-                {
-                    VdfFileNode newNode = new VdfFileNode();
-                    data.Add(args[index], newNode);
-                    return newNode.GetNodeAt(args, create, index + 1);
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        ///     Checks whether the given key exists within an array-type node
-        /// </summary>
-        /// <param name="key">The key to look for</param>
-        /// <returns>True if the key was found, false otherwise</returns>
-        public bool ContainsKey(string key)
-        {
-            if (NodeType != ValueType.Array)
-            {
-                return false;
-            }
-
-            return ((Dictionary<string, VdfFileNode>) NodeData).ContainsKey(key);
-        }
-
-        #endregion
-
-        #region Modifiers
-
-        /// <summary>
-        ///     Removes the subnode with the given key. Can only be called on array nodes.
-        /// </summary>
-        /// <param name="key">Key of the subnode to remove</param>
-        /// <returns>True if node was removed, false if not found</returns>
-        public bool RemoveSubnode(string key)
-        {
-            if (NodeType != ValueType.Array)
-            {
-                return false;
-            }
-
-            return NodeArray.Remove(key);
-        }
-
-        /// <summary>
-        ///     Removes any array nodes without any value-type children
-        /// </summary>
-        public void CleanTree()
-        {
-            Dictionary<string, VdfFileNode> nodes = NodeArray;
-            if (nodes != null)
-            {
-                string[] keys = nodes.Keys.ToArray();
-                foreach (string key in keys)
-                {
-                    nodes[key].CleanTree();
-                    if (nodes[key].IsEmpty())
-                    {
-                        NodeArray.Remove(key);
-                    }
-                }
-            }
-        }
-
-        public void MakeArray()
-        {
-            if (NodeType != ValueType.Array)
-            {
-                NodeType = ValueType.Array;
-                NodeData = new Dictionary<string, VdfFileNode>(StringComparer.OrdinalIgnoreCase);
-            }
-        }
-
-        #endregion
-
-        #region Saving and Loading - Binary
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Loads a FileNode from stream.
@@ -349,6 +247,175 @@ namespace Depressurizer
             }
 
             return thisLevel;
+        }
+
+        /// <summary>
+        ///     Loads a FileNode from stream.
+        /// </summary>
+        /// <param name="stream">Stream to load from</param>
+        /// <returns>FileNode representing the contents of the stream.</returns>
+        public static VdfFileNode LoadFromText(StreamReader stream, bool useFirstAsRoot = false)
+        {
+            VdfFileNode thisLevel = useFirstAsRoot ? null : new VdfFileNode();
+
+            ReadText_SkipWhitespace(stream);
+
+            while (!stream.EndOfStream)
+            {
+                ReadText_SkipWhitespace(stream);
+                // Get key
+                char nextChar = (char) stream.Read();
+                string key = null;
+                if (stream.EndOfStream || nextChar == '}')
+                {
+                    break;
+                }
+
+                if (nextChar == '"')
+                {
+                    key = ReadText_GetStringToken(stream);
+                }
+                else
+                {
+                    throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextChar));
+                }
+
+                ReadText_SkipWhitespace(stream);
+
+                // Get value
+                nextChar = (char) stream.Read();
+                VdfFileNode newNode;
+                if (nextChar == '"')
+                {
+                    newNode = new VdfFileNode(ReadText_GetStringToken(stream));
+                }
+                else if (nextChar == '{')
+                {
+                    newNode = LoadFromText(stream);
+                }
+                else
+                {
+                    throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterValue, nextChar));
+                }
+
+                if (useFirstAsRoot)
+                {
+                    return newNode;
+                }
+
+                thisLevel[key] = newNode;
+            }
+
+            return thisLevel;
+        }
+
+        public static void ReadBin_SeekTo(BinaryReader stream, byte[] str, long fileLength)
+        {
+            int indexAt = 0;
+
+            while (indexAt < str.Length && stream.BaseStream.Position < fileLength)
+            {
+                if (stream.ReadByte() == str[indexAt])
+                {
+                    indexAt++;
+                }
+                else
+                {
+                    indexAt = 0;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Removes any array nodes without any value-type children
+        /// </summary>
+        public void CleanTree()
+        {
+            Dictionary<string, VdfFileNode> nodes = NodeArray;
+            if (nodes != null)
+            {
+                string[] keys = nodes.Keys.ToArray();
+                foreach (string key in keys)
+                {
+                    nodes[key].CleanTree();
+                    if (nodes[key].IsEmpty())
+                    {
+                        NodeArray.Remove(key);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Checks whether the given key exists within an array-type node
+        /// </summary>
+        /// <param name="key">The key to look for</param>
+        /// <returns>True if the key was found, false otherwise</returns>
+        public bool ContainsKey(string key)
+        {
+            if (NodeType != ValueType.Array)
+            {
+                return false;
+            }
+
+            return ((Dictionary<string, VdfFileNode>) NodeData).ContainsKey(key);
+        }
+
+        /// <summary>
+        ///     Gets the node at the given address. May be used to build structure.
+        /// </summary>
+        /// <param name="args">An ordered list of keys, like a path</param>
+        /// <param name="create">If true, will create any nodes it does not find along the path.</param>
+        /// <param name="index">Start index of the arg array</param>
+        /// <returns>The FileNode at the given location, or null if the location was not found / created</returns>
+        public VdfFileNode GetNodeAt(string[] args, bool create = true, int index = 0)
+        {
+            if (index >= args.Length)
+            {
+                return this;
+            }
+
+            if (NodeType == ValueType.Array)
+            {
+                Dictionary<string, VdfFileNode> data = (Dictionary<string, VdfFileNode>) NodeData;
+                if (ContainsKey(args[index]))
+                {
+                    return data[args[index]].GetNodeAt(args, create, index + 1);
+                }
+
+                if (create)
+                {
+                    VdfFileNode newNode = new VdfFileNode();
+                    data.Add(args[index], newNode);
+                    return newNode.GetNodeAt(args, create, index + 1);
+                }
+            }
+
+            return null;
+        }
+
+        public void MakeArray()
+        {
+            if (NodeType != ValueType.Array)
+            {
+                NodeType = ValueType.Array;
+                NodeData = new Dictionary<string, VdfFileNode>(StringComparer.OrdinalIgnoreCase);
+            }
+        }
+
+        /// <summary>
+        ///     Removes the subnode with the given key. Can only be called on array nodes.
+        /// </summary>
+        /// <param name="key">Key of the subnode to remove</param>
+        /// <returns>True if node was removed, false if not found</returns>
+        public bool RemoveSubnode(string key)
+        {
+            if (NodeType != ValueType.Array)
+            {
+                return false;
+            }
+
+            return NodeArray.Remove(key);
         }
 
         /* This isn't perfect, and it's not needed for now, but it allows reading both the common AND extended elements from AppInfo.vdf
@@ -454,23 +521,61 @@ namespace Depressurizer
             }
         }
 
-        #region Utility
-
-        public static void ReadBin_SeekTo(BinaryReader stream, byte[] str, long fileLength)
+        /// <summary>
+        ///     Writes this FileNode to a stream
+        /// </summary>
+        /// <param name="stream">Stream to write to</param>
+        /// <param name="indent">Indentation level of each line.</param>
+        public void SaveAsText(StreamWriter stream, int indent = 0)
         {
-            int indexAt = 0;
-
-            while (indexAt < str.Length && stream.BaseStream.Position < fileLength)
+            if (NodeType == ValueType.Array)
             {
-                if (stream.ReadByte() == str[indexAt])
+                Dictionary<string, VdfFileNode> data = NodeArray;
+                foreach (KeyValuePair<string, VdfFileNode> entry in data)
                 {
-                    indexAt++;
-                }
-                else
-                {
-                    indexAt = 0;
+                    if (entry.Value.NodeType == ValueType.Array)
+                    {
+                        WriteText_WriteWhitespace(stream, indent);
+                        WriteText_WriteFormattedString(stream, entry.Key);
+                        stream.WriteLine();
+
+                        WriteText_WriteWhitespace(stream, indent);
+                        stream.WriteLine('{');
+
+                        entry.Value.SaveAsText(stream, indent + 1);
+
+                        WriteText_WriteWhitespace(stream, indent);
+                        stream.WriteLine('}');
+                    }
+                    else
+                    {
+                        WriteText_WriteWhitespace(stream, indent);
+                        WriteText_WriteFormattedString(stream, entry.Key);
+                        stream.Write("\t\t");
+
+                        WriteText_WriteFormattedString(stream, entry.Value.NodeData.ToString());
+                        stream.WriteLine();
+                    }
                 }
             }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Checks whether or not this node has any children
+        /// </summary>
+        /// <returns>True if an array with no children, false otherwise</returns>
+        protected bool IsEmpty()
+        {
+            if (NodeArray != null)
+            {
+                return NodeArray.Count == 0;
+            }
+
+            return NodeData as string == null;
         }
 
         /// <summary>
@@ -524,156 +629,6 @@ namespace Depressurizer
 
             return token;
         }
-
-        /// <summary>
-        ///     Writes a array key to a stream, adding start/end bytes.
-        /// </summary>
-        /// <param name="writer">Stream to write to</param>
-        /// <param name="arrayKey">String to write</param>
-        private void WriteBin_WriteArrayKey(BinaryWriter writer, string arrayKey)
-        {
-            writer.Write((byte) 0);
-            writer.Write(arrayKey.ToCharArray());
-            writer.Write((byte) 0);
-        }
-
-        /// <summary>
-        ///     Writes a pair o key and value to a stream, adding star/end and separator bytes
-        /// </summary>
-        /// <param name="writer"></param>
-        /// <param name="pair"></param>
-        private void WriteBin_WriteStringValue(BinaryWriter writer, string key, string val)
-        {
-            writer.Write((byte) 1);
-            writer.Write(key.ToCharArray());
-            writer.Write((byte) 0);
-            writer.Write(val.ToCharArray());
-            writer.Write((byte) 0);
-        }
-
-        private void WriteBin_WriteIntegerValue(BinaryWriter writer, string key, int val)
-        {
-            writer.Write((byte) 2);
-            writer.Write(key.ToCharArray());
-            writer.Write((byte) 0);
-            writer.Write(val);
-        }
-
-        /// <summary>
-        ///     Write an end byte to stream
-        /// </summary>
-        /// <param name="writer"></param>
-        private void WriteBin_WriteEndByte(BinaryWriter writer)
-        {
-            writer.Write((byte) 8);
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Saving and Loading - Text
-
-        /// <summary>
-        ///     Loads a FileNode from stream.
-        /// </summary>
-        /// <param name="stream">Stream to load from</param>
-        /// <returns>FileNode representing the contents of the stream.</returns>
-        public static VdfFileNode LoadFromText(StreamReader stream, bool useFirstAsRoot = false)
-        {
-            VdfFileNode thisLevel = useFirstAsRoot ? null : new VdfFileNode();
-
-            ReadText_SkipWhitespace(stream);
-
-            while (!stream.EndOfStream)
-            {
-                ReadText_SkipWhitespace(stream);
-                // Get key
-                char nextChar = (char) stream.Read();
-                string key = null;
-                if (stream.EndOfStream || nextChar == '}')
-                {
-                    break;
-                }
-
-                if (nextChar == '"')
-                {
-                    key = ReadText_GetStringToken(stream);
-                }
-                else
-                {
-                    throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterKey, nextChar));
-                }
-
-                ReadText_SkipWhitespace(stream);
-
-                // Get value
-                nextChar = (char) stream.Read();
-                VdfFileNode newNode;
-                if (nextChar == '"')
-                {
-                    newNode = new VdfFileNode(ReadText_GetStringToken(stream));
-                }
-                else if (nextChar == '{')
-                {
-                    newNode = LoadFromText(stream);
-                }
-                else
-                {
-                    throw new ParseException(string.Format(GlobalStrings.TextVdfFile_UnexpectedCharacterValue, nextChar));
-                }
-
-                if (useFirstAsRoot)
-                {
-                    return newNode;
-                }
-
-                thisLevel[key] = newNode;
-            }
-
-            return thisLevel;
-        }
-
-        /// <summary>
-        ///     Writes this FileNode to a stream
-        /// </summary>
-        /// <param name="stream">Stream to write to</param>
-        /// <param name="indent">Indentation level of each line.</param>
-        public void SaveAsText(StreamWriter stream, int indent = 0)
-        {
-            if (NodeType == ValueType.Array)
-            {
-                Dictionary<string, VdfFileNode> data = NodeArray;
-                foreach (KeyValuePair<string, VdfFileNode> entry in data)
-                {
-                    if (entry.Value.NodeType == ValueType.Array)
-                    {
-                        WriteText_WriteWhitespace(stream, indent);
-                        WriteText_WriteFormattedString(stream, entry.Key);
-                        stream.WriteLine();
-
-                        WriteText_WriteWhitespace(stream, indent);
-                        stream.WriteLine('{');
-
-                        entry.Value.SaveAsText(stream, indent + 1);
-
-                        WriteText_WriteWhitespace(stream, indent);
-                        stream.WriteLine('}');
-                    }
-                    else
-                    {
-                        WriteText_WriteWhitespace(stream, indent);
-                        WriteText_WriteFormattedString(stream, entry.Key);
-                        stream.Write("\t\t");
-
-                        WriteText_WriteFormattedString(stream, entry.Value.NodeData.ToString());
-                        stream.WriteLine();
-                    }
-                }
-            }
-        }
-
-        #region Utility
 
         /// <summary>
         ///     Reads a from the specified stream until it reaches a string terminator (double quote with no escaping slash).
@@ -753,6 +708,49 @@ namespace Depressurizer
         }
 
         /// <summary>
+        ///     Writes a array key to a stream, adding start/end bytes.
+        /// </summary>
+        /// <param name="writer">Stream to write to</param>
+        /// <param name="arrayKey">String to write</param>
+        private void WriteBin_WriteArrayKey(BinaryWriter writer, string arrayKey)
+        {
+            writer.Write((byte) 0);
+            writer.Write(arrayKey.ToCharArray());
+            writer.Write((byte) 0);
+        }
+
+        /// <summary>
+        ///     Write an end byte to stream
+        /// </summary>
+        /// <param name="writer"></param>
+        private void WriteBin_WriteEndByte(BinaryWriter writer)
+        {
+            writer.Write((byte) 8);
+        }
+
+        private void WriteBin_WriteIntegerValue(BinaryWriter writer, string key, int val)
+        {
+            writer.Write((byte) 2);
+            writer.Write(key.ToCharArray());
+            writer.Write((byte) 0);
+            writer.Write(val);
+        }
+
+        /// <summary>
+        ///     Writes a pair o key and value to a stream, adding star/end and separator bytes
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="pair"></param>
+        private void WriteBin_WriteStringValue(BinaryWriter writer, string key, string val)
+        {
+            writer.Write((byte) 1);
+            writer.Write(key.ToCharArray());
+            writer.Write((byte) 0);
+            writer.Write(val.ToCharArray());
+            writer.Write((byte) 0);
+        }
+
+        /// <summary>
         ///     Writes a string to a stream, adding start/end quotes and escaping any quotes within the string.
         /// </summary>
         /// <param name="stream">Stream to write to</param>
@@ -778,12 +776,12 @@ namespace Depressurizer
         }
 
         #endregion
-
-        #endregion
     }
 
     public class ParseException : ApplicationException
     {
+        #region Constructors and Destructors
+
         public ParseException()
         {
         }
@@ -791,5 +789,7 @@ namespace Depressurizer
         public ParseException(string message) : base(message)
         {
         }
+
+        #endregion
     }
 }

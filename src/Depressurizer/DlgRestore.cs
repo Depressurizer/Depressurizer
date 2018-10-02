@@ -26,7 +26,13 @@ namespace Depressurizer
 {
     public partial class DlgRestore : Form
     {
+        #region Fields
+
         public bool Restored;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public DlgRestore(string path)
         {
@@ -37,6 +43,31 @@ namespace Depressurizer
             foreach (string f in files)
             {
                 cboRestore.Items.Add(new ComboItem(Path.GetFileName(f), f));
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnRestore_Click(object sender, EventArgs e)
+        {
+            string name = ((ComboItem) cboRestore.SelectedItem).Name;
+            string message = name.Contains("vdf") ? string.Format(GlobalStrings.DlgRestore_ConfigConfirm, name) : string.Format(GlobalStrings.DlgRestore_ProfileConfirm, name);
+            DialogResult result = MessageBox.Show(message, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                if (((ComboItem) cboRestore.SelectedItem).Restore())
+                {
+                    Restored = true;
+                    Close();
+                }
             }
         }
 
@@ -60,43 +91,29 @@ namespace Depressurizer
             }
         }
 
-        private void btnRestore_Click(object sender, EventArgs e)
-        {
-            string name = ((ComboItem) cboRestore.SelectedItem).Name;
-            string message = name.Contains("vdf") ? string.Format(GlobalStrings.DlgRestore_ConfigConfirm, name) : string.Format(GlobalStrings.DlgRestore_ProfileConfirm, name);
-            DialogResult result = MessageBox.Show(message, GlobalStrings.MainForm_Overwrite, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                if (((ComboItem) cboRestore.SelectedItem).Restore())
-                {
-                    Restored = true;
-                    Close();
-                }
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        #endregion
     }
 
     internal class ComboItem
     {
+        #region Constructors and Destructors
+
         public ComboItem(string name, string path)
         {
             Name = name;
             Path = path;
         }
 
+        #endregion
+
+        #region Public Properties
+
         public string Name { get; set; }
         public string Path { get; set; }
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        #endregion
+
+        #region Public Methods and Operators
 
         public bool Restore()
         {
@@ -113,5 +130,12 @@ namespace Depressurizer
                 return false;
             }
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        #endregion
     }
 }

@@ -25,10 +25,16 @@ namespace Depressurizer
 {
     public partial class GameDBEntryDialog : Form
     {
+        #region Fields
+
+        public DatabaseEntry Game;
         private readonly char[] SPLIT_CHAR = {','};
 
         private bool editMode;
-        public DatabaseEntry Game;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public GameDBEntryDialog() : this(null)
         {
@@ -39,6 +45,25 @@ namespace Depressurizer
             InitializeComponent();
             Game = game;
             editMode = game == null ? false : true;
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        private void cmdSave_Click(object sender, EventArgs e)
+        {
+            if (SaveToGame())
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
         }
 
         private void GameDBEntryForm_Load(object sender, EventArgs e)
@@ -125,23 +150,6 @@ namespace Depressurizer
             }
         }
 
-        private bool ValidateEntries(out int id, out int parent)
-        {
-            parent = -1;
-            if (!int.TryParse(txtId.Text, out id) || id <= 0)
-            {
-                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger);
-                return false;
-            }
-
-            if (!string.IsNullOrEmpty(txtParent.Text) && !int.TryParse(txtParent.Text, out parent))
-            {
-                MessageBox.Show(GlobalStrings.DlgGameDBEntry_ParentMustBeInt);
-            }
-
-            return true;
-        }
-
         private bool SaveToGame()
         {
             int id, parent;
@@ -226,19 +234,23 @@ namespace Depressurizer
             return null;
         }
 
-        private void cmdCancel_Click(object sender, EventArgs e)
+        private bool ValidateEntries(out int id, out int parent)
         {
-            DialogResult = DialogResult.Cancel;
-            Close();
+            parent = -1;
+            if (!int.TryParse(txtId.Text, out id) || id <= 0)
+            {
+                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger);
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(txtParent.Text) && !int.TryParse(txtParent.Text, out parent))
+            {
+                MessageBox.Show(GlobalStrings.DlgGameDBEntry_ParentMustBeInt);
+            }
+
+            return true;
         }
 
-        private void cmdSave_Click(object sender, EventArgs e)
-        {
-            if (SaveToGame())
-            {
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-        }
+        #endregion
     }
 }

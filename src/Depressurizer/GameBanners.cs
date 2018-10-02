@@ -7,13 +7,23 @@ namespace Depressurizer
 {
     internal class GameBanners
     {
+        #region Fields
+
         private readonly List<GameInfo> _games;
         private volatile bool _shouldStop;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public GameBanners(List<GameInfo> games)
         {
             _games = games;
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void Grab()
         {
@@ -41,5 +51,7 @@ namespace Depressurizer
         {
             _shouldStop = true;
         }
+
+        #endregion
     }
 }

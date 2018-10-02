@@ -23,14 +23,24 @@ namespace Depressurizer
 {
     public partial class DlgManualDownload : Form
     {
+        #region Fields
+
         public bool Custom;
         public long IdVal;
         public string UrlVal;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public DlgManualDownload()
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Methods
 
         private void cmdOk_Click(object sender, EventArgs e)
         {
@@ -55,5 +65,7 @@ namespace Depressurizer
                 Close();
             }
         }
+
+        #endregion
     }
 }

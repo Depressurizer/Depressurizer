@@ -26,10 +26,16 @@ namespace Depressurizer
 {
     public partial class DlgAbout : Form
     {
+        #region Constructors and Destructors
+
         public DlgAbout()
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Methods
 
         private void DlgAbout_Load(object sender, EventArgs e)
         {
@@ -54,5 +60,7 @@ namespace Depressurizer
         {
             Process.Start("http://www.novell.com");
         }
+
+        #endregion
     }
 }

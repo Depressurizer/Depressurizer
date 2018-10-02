@@ -30,36 +30,17 @@ namespace Depressurizer
 {
     public partial class DlgProfile : Form
     {
+        #region Fields
+
+        public Profile Profile;
         private readonly bool editMode;
         private int currentThreadCount;
 
         private ThreadLocker currentThreadLock = new ThreadLocker();
-        public Profile Profile;
 
-        public bool DownloadNow => chkActUpdate.Checked;
+        #endregion
 
-        public bool ImportNow => chkActImport.Checked;
-
-        public bool SetStartup => chkSetStartup.Checked;
-
-        private void radSelUser_CheckedChanged(object sender, EventArgs e)
-        {
-            lstUsers.Enabled = radSelUserFromList.Checked;
-            lstUsers.SelectedItem = null;
-            txtUserID.Enabled = radSelUserByID.Checked;
-            txtUserUrl.Enabled = radSelUserByURL.Checked;
-
-            if (radSelUserFromList.Checked)
-            {
-                SelectUserInList(txtUserID.Text);
-            }
-        }
-
-        private delegate void UpdateDelegate(int i, string s);
-
-        private delegate void SimpleDelegate();
-
-        #region Init
+        #region Constructors and Destructors
 
         public DlgProfile()
         {
@@ -72,221 +53,57 @@ namespace Depressurizer
             editMode = true;
         }
 
-        private void InitializeEditMode()
-        {
-            txtFilePath.Text = Profile.FilePath;
-            grpProfInfo.Enabled = false;
+        #endregion
 
-            chkActUpdate.Checked = false;
-            chkActImport.Checked = false;
-            chkSetStartup.Checked = false;
+        #region Delegates
 
-            chkAutoUpdate.Checked = Profile.AutoUpdate;
-            chkAutoImport.Checked = Profile.AutoImport;
-            chkLocalUpdate.Checked = Profile.LocalUpdate;
-            chkWebUpdate.Checked = Profile.WebUpdate;
-            chkExportDiscard.Checked = Profile.ExportDiscard;
-            chkIncludeShortcuts.Checked = Profile.IncludeShortcuts;
-            chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
+        private delegate void SimpleDelegate();
 
-            Text = GlobalStrings.DlgProfile_EditProfile;
-
-            chkAutoIgnore.Checked = Profile.AutoIgnore;
-            chkIncludeUnknown.Checked = Profile.IncludeUnknown;
-            chkBypassIgnoreOnImport.Checked = Profile.BypassIgnoreOnImport;
-
-            foreach (int i in Profile.IgnoreList)
-            {
-                lstIgnored.Items.Add(i.ToString());
-            }
-
-            lstIgnored.Sort();
-
-
-            bool found = SelectUserInList(Profile.SteamID64);
-            if (found)
-            {
-                radSelUserFromList.Checked = true;
-            }
-            else
-            {
-                radSelUserByID.Checked = true;
-                txtUserID.Text = Profile.SteamID64.ToString();
-            }
-        }
-
-        private bool SelectUserInList(long accountId)
-        {
-            string profDirName = Profile.ID64toDirName(accountId);
-
-            for (int i = 0; i < lstUsers.Items.Count; i++)
-            {
-                UserRecord r = lstUsers.Items[i] as UserRecord;
-                if (r != null && r.DirName == profDirName)
-                {
-                    lstUsers.SelectedIndex = i;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private bool SelectUserInList(string accountId)
-        {
-            long val;
-            if (long.TryParse(accountId, out val))
-            {
-                return SelectUserInList(val);
-            }
-
-            return false;
-        }
+        private delegate void UpdateDelegate(int i, string s);
 
         #endregion
 
-        #region Event Handlers
+        #region Public Properties
 
-        private void ProfileDlg_Load(object sender, EventArgs e)
+        public bool DownloadNow => chkActUpdate.Checked;
+
+        public bool ImportNow => chkActImport.Checked;
+
+        public bool SetStartup => chkSetStartup.Checked;
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public string GetDisplayName(long accountId)
         {
-            ttHelp.Ext_SetToolTip(lblHelp_ExportDiscard, GlobalStrings.DlgProfile_Help_ExportDiscard);
-            ttHelp.Ext_SetToolTip(lblHelp_LocalUpdate, GlobalStrings.DlgProfile_Help_LocalUpdate);
-            ttHelp.Ext_SetToolTip(lblHelp_WebUpdate, GlobalStrings.DlgProfile_Help_WebUpdate);
-            ttHelp.Ext_SetToolTip(lblHelp_IncludeUnknown, GlobalStrings.DlgProfile_Help_IncludeUnknown);
-            ttHelp.Ext_SetToolTip(lblHelp_BypassIgnoreOnImport, GlobalStrings.DlgProfile_Help_BypassIgnoreOnImport);
-
-            LoadShortIds();
-            if (editMode)
-            {
-                InitializeEditMode();
-            }
-            else
-            {
-                txtFilePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Depressurizer\Default.profile";
-
-                if (lstUsers.Items.Count == 0)
-                {
-                    MessageBox.Show(GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    radSelUserByURL.Checked = true;
-                }
-                else
-                {
-                    radSelUserFromList.Checked = true;
-                }
-
-                StartThreadedNameUpdate();
-            }
-
-            lstIgnored.ListViewItemSorter = new IgnoreListViewItemComparer();
-        }
-
-        private void cmdBrowse_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog dlg = new SaveFileDialog();
-
             try
             {
-                FileInfo f = new FileInfo(txtFilePath.Text);
-                dlg.InitialDirectory = f.DirectoryName;
-                dlg.FileName = f.Name;
-            }
-            catch (ArgumentException)
-            {
-            }
-
-            dlg.DefaultExt = "profile";
-            dlg.AddExtension = true;
-            dlg.Filter = GlobalStrings.DlgProfile_Filter;
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                txtFilePath.Text = dlg.FileName;
-            }
-        }
-
-        private void cmdCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
-
-        private void cmdOk_Click(object sender, EventArgs e)
-        {
-            if (Apply())
-            {
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-        }
-
-        private void cmdIgnore_Click(object sender, EventArgs e)
-        {
-            int id;
-            if (int.TryParse(txtIgnore.Text, out id))
-            {
-                lstIgnored.Items.Add(id.ToString());
-                txtIgnore.ResetText();
-                lstIgnored.Sort();
-            }
-            else
-            {
-                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void cmdUnignore_Click(object sender, EventArgs e)
-        {
-            while (lstIgnored.SelectedIndices.Count > 0)
-            {
-                lstIgnored.Items.RemoveAt(lstIgnored.SelectedIndices[0]);
-            }
-        }
-
-        private void cmdUserUpdate_Click(object sender, EventArgs e)
-        {
-            StartThreadedNameUpdate();
-        }
-
-        private void cmdUserUpdateCancel_Click(object sender, EventArgs e)
-        {
-            if (currentThreadCount > 0)
-            {
-                lock (currentThreadLock)
+                XmlDocument doc = new XmlDocument();
+                HttpWebRequest req = (HttpWebRequest) WebRequest.Create(string.Format("http://www.steamcommunity.com/profiles/{0}?xml=true", accountId));
+                using (WebResponse resp = req.GetResponse())
                 {
-                    currentThreadLock.Aborted = true;
+                    doc.Load(resp.GetResponseStream());
                 }
 
-                SetUpdateInterfaceStopping();
+                XmlNode nameNode = doc.SelectSingleNode("profile/steamID");
+                if (nameNode != null)
+                {
+                    return nameNode.InnerText;
+                }
             }
-        }
-
-        private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UserRecord u = lstUsers.SelectedItem as UserRecord;
-            if (u != null)
+            catch (Exception e)
             {
-                txtUserID.Text = Profile.DirNametoID64(u.DirName).ToString();
+                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
+                Program.Logger.Write(LoggerLevel.Warning, e.Message);
             }
-        }
 
-        private void txtUserID_TextChanged(object sender, EventArgs e)
-        {
-            //    if( !skipUserClear ) {
-            //        lstUsers.ClearSelected();
-            //    }
-        }
-
-        private void ProfileDlg_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            lock (currentThreadLock)
-            {
-                currentThreadLock.Aborted = true;
-            }
+            return null;
         }
 
         #endregion
 
-        #region Saving
+        #region Methods
 
         private bool Apply()
         {
@@ -321,6 +138,86 @@ namespace Depressurizer
             }
 
             return CreateProfile();
+        }
+
+        private void cmdBrowse_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+
+            try
+            {
+                FileInfo f = new FileInfo(txtFilePath.Text);
+                dlg.InitialDirectory = f.DirectoryName;
+                dlg.FileName = f.Name;
+            }
+            catch (ArgumentException)
+            {
+            }
+
+            dlg.DefaultExt = "profile";
+            dlg.AddExtension = true;
+            dlg.Filter = GlobalStrings.DlgProfile_Filter;
+            DialogResult res = dlg.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                txtFilePath.Text = dlg.FileName;
+            }
+        }
+
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        private void cmdIgnore_Click(object sender, EventArgs e)
+        {
+            int id;
+            if (int.TryParse(txtIgnore.Text, out id))
+            {
+                lstIgnored.Items.Add(id.ToString());
+                txtIgnore.ResetText();
+                lstIgnored.Sort();
+            }
+            else
+            {
+                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void cmdOk_Click(object sender, EventArgs e)
+        {
+            if (Apply())
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
+
+        private void cmdUnignore_Click(object sender, EventArgs e)
+        {
+            while (lstIgnored.SelectedIndices.Count > 0)
+            {
+                lstIgnored.Items.RemoveAt(lstIgnored.SelectedIndices[0]);
+            }
+        }
+
+        private void cmdUserUpdate_Click(object sender, EventArgs e)
+        {
+            StartThreadedNameUpdate();
+        }
+
+        private void cmdUserUpdateCancel_Click(object sender, EventArgs e)
+        {
+            if (currentThreadCount > 0)
+            {
+                lock (currentThreadLock)
+                {
+                    currentThreadLock.Aborted = true;
+                }
+
+                SetUpdateInterfaceStopping();
+            }
         }
 
         private bool CreateProfile()
@@ -373,70 +270,6 @@ namespace Depressurizer
             return true;
         }
 
-        private bool ValidateEntries()
-        {
-            long id;
-            if (!long.TryParse(txtUserID.Text, out id))
-            {
-                MessageBox.Show(GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            return true;
-        }
-
-        private void SaveModifiables(Profile p)
-        {
-            p.SteamID64 = long.Parse(txtUserID.Text);
-
-            p.AutoUpdate = chkAutoUpdate.Checked;
-            p.AutoImport = chkAutoImport.Checked;
-            p.LocalUpdate = chkLocalUpdate.Checked;
-            p.WebUpdate = chkWebUpdate.Checked;
-            p.ExportDiscard = chkExportDiscard.Checked;
-            p.IncludeShortcuts = chkIncludeShortcuts.Checked;
-            p.OverwriteOnDownload = chkOverwriteNames.Checked;
-
-            p.AutoIgnore = chkAutoIgnore.Checked;
-            p.IncludeUnknown = chkIncludeUnknown.Checked;
-            p.BypassIgnoreOnImport = chkBypassIgnoreOnImport.Checked;
-
-            SortedSet<int> ignoreSet = new SortedSet<int>();
-            foreach (ListViewItem item in lstIgnored.Items)
-            {
-                int id;
-                if (int.TryParse(item.Text, out id))
-                {
-                    ignoreSet.Add(id);
-                }
-            }
-
-            p.IgnoreList = ignoreSet;
-        }
-
-        #endregion
-
-        #region Utility
-
-        /// <summary>
-        ///     Populates the combo box with all located account IDs
-        /// </summary>
-        private void LoadShortIds()
-        {
-            lstUsers.BeginUpdate();
-
-            lstUsers.Items.Clear();
-
-            string[] ids = GetSteamIds();
-
-            foreach (string id in ids)
-            {
-                lstUsers.Items.Add(new UserRecord(id));
-            }
-
-            lstUsers.EndUpdate();
-        }
-
         /// <summary>
         ///     Gets a list of located account ids. Uses settings for the steam path.
         /// </summary>
@@ -466,67 +299,74 @@ namespace Depressurizer
             }
         }
 
-        #endregion
-
-        #region Display name update
-
-        public string GetDisplayName(long accountId)
+        private void InitializeEditMode()
         {
-            try
-            {
-                XmlDocument doc = new XmlDocument();
-                HttpWebRequest req = (HttpWebRequest) WebRequest.Create(string.Format("http://www.steamcommunity.com/profiles/{0}?xml=true", accountId));
-                using (WebResponse resp = req.GetResponse())
-                {
-                    doc.Load(resp.GetResponseStream());
-                }
+            txtFilePath.Text = Profile.FilePath;
+            grpProfInfo.Enabled = false;
 
-                XmlNode nameNode = doc.SelectSingleNode("profile/steamID");
-                if (nameNode != null)
-                {
-                    return nameNode.InnerText;
-                }
-            }
-            catch (Exception e)
+            chkActUpdate.Checked = false;
+            chkActImport.Checked = false;
+            chkSetStartup.Checked = false;
+
+            chkAutoUpdate.Checked = Profile.AutoUpdate;
+            chkAutoImport.Checked = Profile.AutoImport;
+            chkLocalUpdate.Checked = Profile.LocalUpdate;
+            chkWebUpdate.Checked = Profile.WebUpdate;
+            chkExportDiscard.Checked = Profile.ExportDiscard;
+            chkIncludeShortcuts.Checked = Profile.IncludeShortcuts;
+            chkOverwriteNames.Checked = Profile.OverwriteOnDownload;
+
+            Text = GlobalStrings.DlgProfile_EditProfile;
+
+            chkAutoIgnore.Checked = Profile.AutoIgnore;
+            chkIncludeUnknown.Checked = Profile.IncludeUnknown;
+            chkBypassIgnoreOnImport.Checked = Profile.BypassIgnoreOnImport;
+
+            foreach (int i in Profile.IgnoreList)
             {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
-                Program.Logger.Write(LoggerLevel.Warning, e.Message);
+                lstIgnored.Items.Add(i.ToString());
             }
 
-            return null;
+            lstIgnored.Sort();
+
+
+            bool found = SelectUserInList(Profile.SteamID64);
+            if (found)
+            {
+                radSelUserFromList.Checked = true;
+            }
+            else
+            {
+                radSelUserByID.Checked = true;
+                txtUserID.Text = Profile.SteamID64.ToString();
+            }
         }
 
-        private void StartThreadedNameUpdate()
+        /// <summary>
+        ///     Populates the combo box with all located account IDs
+        /// </summary>
+        private void LoadShortIds()
         {
-            if (currentThreadCount > 0)
+            lstUsers.BeginUpdate();
+
+            lstUsers.Items.Clear();
+
+            string[] ids = GetSteamIds();
+
+            foreach (string id in ids)
             {
-                return;
+                lstUsers.Items.Add(new UserRecord(id));
             }
 
-            int maxThreads = 1;
+            lstUsers.EndUpdate();
+        }
 
-            Queue<UpdateJob> q = new Queue<UpdateJob>();
-            for (int i = 0; i < lstUsers.Items.Count; i++)
+        private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UserRecord u = lstUsers.SelectedItem as UserRecord;
+            if (u != null)
             {
-                UserRecord r = lstUsers.Items[i] as UserRecord;
-                if (r != null)
-                {
-                    q.Enqueue(new UpdateJob(i, r.DirName));
-                }
-            }
-
-            int threads = maxThreads > q.Count ? maxThreads : q.Count;
-
-            if (threads > 0)
-            {
-                currentThreadLock = new ThreadLocker();
-                SetUpdateInterfaceRunning();
-                for (int i = 0; i < threads; i++)
-                {
-                    Thread t = new Thread(NameUpdateThread);
-                    currentThreadCount++;
-                    t.Start(new UpdateData(q, currentThreadLock));
-                }
+                txtUserID.Text = Profile.DirNametoID64(u.DirName).ToString();
             }
         }
 
@@ -570,6 +410,195 @@ namespace Depressurizer
             OnNameUpdateThreadTerminate();
         }
 
+        private void OnNameUpdateThreadTerminate()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new SimpleDelegate(OnNameUpdateThreadTerminate));
+            }
+            else
+            {
+                currentThreadCount--;
+                if (currentThreadCount == 0)
+                {
+                    SetUpdateInterfaceNormal();
+                }
+            }
+        }
+
+        private void ProfileDlg_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            lock (currentThreadLock)
+            {
+                currentThreadLock.Aborted = true;
+            }
+        }
+
+        private void ProfileDlg_Load(object sender, EventArgs e)
+        {
+            ttHelp.Ext_SetToolTip(lblHelp_ExportDiscard, GlobalStrings.DlgProfile_Help_ExportDiscard);
+            ttHelp.Ext_SetToolTip(lblHelp_LocalUpdate, GlobalStrings.DlgProfile_Help_LocalUpdate);
+            ttHelp.Ext_SetToolTip(lblHelp_WebUpdate, GlobalStrings.DlgProfile_Help_WebUpdate);
+            ttHelp.Ext_SetToolTip(lblHelp_IncludeUnknown, GlobalStrings.DlgProfile_Help_IncludeUnknown);
+            ttHelp.Ext_SetToolTip(lblHelp_BypassIgnoreOnImport, GlobalStrings.DlgProfile_Help_BypassIgnoreOnImport);
+
+            LoadShortIds();
+            if (editMode)
+            {
+                InitializeEditMode();
+            }
+            else
+            {
+                txtFilePath.Text = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Depressurizer\Default.profile";
+
+                if (lstUsers.Items.Count == 0)
+                {
+                    MessageBox.Show(GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    radSelUserByURL.Checked = true;
+                }
+                else
+                {
+                    radSelUserFromList.Checked = true;
+                }
+
+                StartThreadedNameUpdate();
+            }
+
+            lstIgnored.ListViewItemSorter = new IgnoreListViewItemComparer();
+        }
+
+        private void radSelUser_CheckedChanged(object sender, EventArgs e)
+        {
+            lstUsers.Enabled = radSelUserFromList.Checked;
+            lstUsers.SelectedItem = null;
+            txtUserID.Enabled = radSelUserByID.Checked;
+            txtUserUrl.Enabled = radSelUserByURL.Checked;
+
+            if (radSelUserFromList.Checked)
+            {
+                SelectUserInList(txtUserID.Text);
+            }
+        }
+
+        private void SaveModifiables(Profile p)
+        {
+            p.SteamID64 = long.Parse(txtUserID.Text);
+
+            p.AutoUpdate = chkAutoUpdate.Checked;
+            p.AutoImport = chkAutoImport.Checked;
+            p.LocalUpdate = chkLocalUpdate.Checked;
+            p.WebUpdate = chkWebUpdate.Checked;
+            p.ExportDiscard = chkExportDiscard.Checked;
+            p.IncludeShortcuts = chkIncludeShortcuts.Checked;
+            p.OverwriteOnDownload = chkOverwriteNames.Checked;
+
+            p.AutoIgnore = chkAutoIgnore.Checked;
+            p.IncludeUnknown = chkIncludeUnknown.Checked;
+            p.BypassIgnoreOnImport = chkBypassIgnoreOnImport.Checked;
+
+            SortedSet<int> ignoreSet = new SortedSet<int>();
+            foreach (ListViewItem item in lstIgnored.Items)
+            {
+                int id;
+                if (int.TryParse(item.Text, out id))
+                {
+                    ignoreSet.Add(id);
+                }
+            }
+
+            p.IgnoreList = ignoreSet;
+        }
+
+        private bool SelectUserInList(long accountId)
+        {
+            string profDirName = Profile.ID64toDirName(accountId);
+
+            for (int i = 0; i < lstUsers.Items.Count; i++)
+            {
+                UserRecord r = lstUsers.Items[i] as UserRecord;
+                if (r != null && r.DirName == profDirName)
+                {
+                    lstUsers.SelectedIndex = i;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool SelectUserInList(string accountId)
+        {
+            long val;
+            if (long.TryParse(accountId, out val))
+            {
+                return SelectUserInList(val);
+            }
+
+            return false;
+        }
+
+        private void SetUpdateInterfaceNormal()
+        {
+            cmdUserUpdate.Enabled = true;
+            cmdUserUpdateCancel.Enabled = false;
+            lblUserStatus.Text = GlobalStrings.DlgProfile_ClickUpdateToDisplayNames;
+        }
+
+        private void SetUpdateInterfaceRunning()
+        {
+            cmdUserUpdate.Enabled = false;
+            cmdUserUpdateCancel.Enabled = true;
+            lblUserStatus.Text = GlobalStrings.DlgProfile_UpdatingNames;
+        }
+
+        private void SetUpdateInterfaceStopping()
+        {
+            cmdUserUpdate.Enabled = false;
+            cmdUserUpdateCancel.Enabled = false;
+            lblUserStatus.Text = GlobalStrings.DlgProfile_Cancelling;
+        }
+
+        private void StartThreadedNameUpdate()
+        {
+            if (currentThreadCount > 0)
+            {
+                return;
+            }
+
+            int maxThreads = 1;
+
+            Queue<UpdateJob> q = new Queue<UpdateJob>();
+            for (int i = 0; i < lstUsers.Items.Count; i++)
+            {
+                UserRecord r = lstUsers.Items[i] as UserRecord;
+                if (r != null)
+                {
+                    q.Enqueue(new UpdateJob(i, r.DirName));
+                }
+            }
+
+            int threads = maxThreads > q.Count ? maxThreads : q.Count;
+
+            if (threads > 0)
+            {
+                currentThreadLock = new ThreadLocker();
+                SetUpdateInterfaceRunning();
+                for (int i = 0; i < threads; i++)
+                {
+                    Thread t = new Thread(NameUpdateThread);
+                    currentThreadCount++;
+                    t.Start(new UpdateData(q, currentThreadLock));
+                }
+            }
+        }
+
+        private void txtUserID_TextChanged(object sender, EventArgs e)
+        {
+            //    if( !skipUserClear ) {
+            //        lstUsers.ClearSelected();
+            //    }
+        }
+
         private void UpdateDisplayNameInList(int index, string name)
         {
             if (InvokeRequired)
@@ -596,41 +625,100 @@ namespace Depressurizer
             }
         }
 
-        private void OnNameUpdateThreadTerminate()
+        private bool ValidateEntries()
         {
-            if (InvokeRequired)
+            long id;
+            if (!long.TryParse(txtUserID.Text, out id))
             {
-                Invoke(new SimpleDelegate(OnNameUpdateThreadTerminate));
+                MessageBox.Show(GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
-            else
+
+            return true;
+        }
+
+        #endregion
+
+        public class ThreadLocker
+        {
+            #region Public Properties
+
+            public bool Aborted { get; set; }
+
+            #endregion
+        }
+
+        public class UpdateData
+        {
+            #region Fields
+
+            public Queue<UpdateJob> jobs;
+            public ThreadLocker tLock;
+
+            #endregion
+
+            #region Constructors and Destructors
+
+            public UpdateData(Queue<UpdateJob> q, ThreadLocker l)
             {
-                currentThreadCount--;
-                if (currentThreadCount == 0)
+                jobs = q;
+                tLock = l;
+            }
+
+            #endregion
+        }
+
+        public class UpdateJob
+        {
+            #region Fields
+
+            public string dir;
+            public int index;
+
+            #endregion
+
+            #region Constructors and Destructors
+
+            public UpdateJob(int i, string d)
+            {
+                index = i;
+                dir = d;
+            }
+
+            #endregion
+        }
+
+        public class UserRecord
+        {
+            #region Fields
+
+            public string DirName;
+            public string DisplayName;
+
+            #endregion
+
+            #region Constructors and Destructors
+
+            public UserRecord(string dir)
+            {
+                DirName = dir;
+            }
+
+            #endregion
+
+            #region Public Methods and Operators
+
+            public override string ToString()
+            {
+                if (DisplayName == null)
                 {
-                    SetUpdateInterfaceNormal();
+                    return DirName;
                 }
+
+                return string.Format("{0} - {1}", DirName, DisplayName);
             }
-        }
 
-        private void SetUpdateInterfaceNormal()
-        {
-            cmdUserUpdate.Enabled = true;
-            cmdUserUpdateCancel.Enabled = false;
-            lblUserStatus.Text = GlobalStrings.DlgProfile_ClickUpdateToDisplayNames;
-        }
-
-        private void SetUpdateInterfaceRunning()
-        {
-            cmdUserUpdate.Enabled = false;
-            cmdUserUpdateCancel.Enabled = true;
-            lblUserStatus.Text = GlobalStrings.DlgProfile_UpdatingNames;
-        }
-
-        private void SetUpdateInterfaceStopping()
-        {
-            cmdUserUpdate.Enabled = false;
-            cmdUserUpdateCancel.Enabled = false;
-            lblUserStatus.Text = GlobalStrings.DlgProfile_Cancelling;
+            #endregion
         }
 
         /*
@@ -650,66 +738,12 @@ namespace Depressurizer
             }
         }
         */
-
-        #endregion
-
-        #region Utility structures
-
-        public class UserRecord
-        {
-            public string DirName;
-            public string DisplayName;
-
-            public UserRecord(string dir)
-            {
-                DirName = dir;
-            }
-
-            public override string ToString()
-            {
-                if (DisplayName == null)
-                {
-                    return DirName;
-                }
-
-                return string.Format("{0} - {1}", DirName, DisplayName);
-            }
-        }
-
-        public class ThreadLocker
-        {
-            public bool Aborted { get; set; }
-        }
-
-        public class UpdateJob
-        {
-            public string dir;
-            public int index;
-
-            public UpdateJob(int i, string d)
-            {
-                index = i;
-                dir = d;
-            }
-        }
-
-        public class UpdateData
-        {
-            public Queue<UpdateJob> jobs;
-            public ThreadLocker tLock;
-
-            public UpdateData(Queue<UpdateJob> q, ThreadLocker l)
-            {
-                jobs = q;
-                tLock = l;
-            }
-        }
-
-        #endregion
     }
 
     internal class IgnoreListViewItemComparer : IComparer
     {
+        #region Public Methods and Operators
+
         public int Compare(object x, object y)
         {
             int a, b;
@@ -720,5 +754,7 @@ namespace Depressurizer
 
             return string.Compare(((ListViewItem) x).Text, ((ListViewItem) y).Text);
         }
+
+        #endregion
     }
 }

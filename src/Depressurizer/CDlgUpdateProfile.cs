@@ -25,6 +25,8 @@ namespace Depressurizer
 {
     internal class CDlgUpdateProfile : CancelableDlg
     {
+        #region Fields
+
         private readonly bool custom;
         private readonly string customUrl;
         private readonly GameList data;
@@ -37,6 +39,10 @@ namespace Depressurizer
 
         private XmlDocument doc;
         private string htmlDoc;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public CDlgUpdateProfile(GameList data, long accountId, bool overwrite, SortedSet<int> ignore, bool inclUnknown) : base(GlobalStrings.CDlgUpdateProfile_UpdatingGameList, true)
         {
@@ -78,43 +84,32 @@ namespace Depressurizer
             SetText(GlobalStrings.CDlgFetch_DownloadingGameList);
         }
 
-        public int Fetched { get; private set; }
+        #endregion
+
+        #region Public Properties
+
         public int Added { get; private set; }
+        public bool Failover { get; private set; }
+
+        public int Fetched { get; private set; }
         public int Removed { get; private set; }
 
         public bool UseHtml { get; private set; }
-        public bool Failover { get; private set; }
 
-        protected override void RunProcess()
+        #endregion
+
+        #region Methods
+
+        protected void FetchHtml()
         {
-            Added = 0;
-            Fetched = 0;
-            switch (Settings.Instance.ListSource)
-            {
-                case GameListSource.XmlPreferred:
-                    FetchXmlPref();
-                    break;
-                case GameListSource.XmlOnly:
-                    FetchXml();
-                    break;
-                case GameListSource.WebsiteOnly:
-                    FetchHtml();
-                    break;
-            }
-
-            OnThreadCompletion();
+            UseHtml = true;
+            htmlDoc = custom ? GameList.FetchHtmlGameList(customUrl) : GameList.FetchHtmlGameList(SteamId);
         }
 
         protected void FetchXml()
         {
             UseHtml = false;
             doc = custom ? GameList.FetchXmlGameList(customUrl) : GameList.FetchXmlGameList(SteamId);
-        }
-
-        protected void FetchHtml()
-        {
-            UseHtml = true;
-            htmlDoc = custom ? GameList.FetchHtmlGameList(customUrl) : GameList.FetchHtmlGameList(SteamId);
         }
 
         protected void FetchXmlPref()
@@ -153,5 +148,27 @@ namespace Depressurizer
                 OnJobCompletion();
             }
         }
+
+        protected override void RunProcess()
+        {
+            Added = 0;
+            Fetched = 0;
+            switch (Settings.Instance.ListSource)
+            {
+                case GameListSource.XmlPreferred:
+                    FetchXmlPref();
+                    break;
+                case GameListSource.XmlOnly:
+                    FetchXml();
+                    break;
+                case GameListSource.WebsiteOnly:
+                    FetchHtml();
+                    break;
+            }
+
+            OnThreadCompletion();
+        }
+
+        #endregion
     }
 }

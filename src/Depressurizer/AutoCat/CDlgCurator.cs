@@ -40,15 +40,33 @@ namespace Depressurizer
 
     internal class GetCuratorRecommendationsDlg : CancelableDlg
     {
-        private readonly long curatorId;
+        #region Fields
+
         public Dictionary<int, CuratorRecommendation> CuratorRecommendations;
         public int TotalCount;
+        private readonly long curatorId;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public GetCuratorRecommendationsDlg(long curatorId) : base(GlobalStrings.CDlgCurator_GettingRecommendations, false)
         {
             SetText(GlobalStrings.CDlgCurator_GettingRecommendations);
             this.curatorId = curatorId;
             CuratorRecommendations = new Dictionary<int, CuratorRecommendation>();
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected override void Finish()
+        {
+            if (!Canceled && CuratorRecommendations.Count > 0 && Error == null)
+            {
+                OnJobCompletion();
+            }
         }
 
         protected override void RunProcess()
@@ -96,14 +114,6 @@ namespace Depressurizer
             }
 
             OnThreadCompletion();
-        }
-
-        protected override void Finish()
-        {
-            if (!Canceled && CuratorRecommendations.Count > 0 && Error == null)
-            {
-                OnJobCompletion();
-            }
         }
 
         /// <summary>
@@ -155,5 +165,7 @@ namespace Depressurizer
 
             return curatorRecommendations;
         }
+
+        #endregion
     }
 }

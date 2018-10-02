@@ -26,7 +26,13 @@ namespace Depressurizer
 {
     internal class CDlgGetSteamID : CancelableDlg
     {
+        #region Fields
+
         private readonly string customUrlName;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public CDlgGetSteamID(string customUrl) : base(GlobalStrings.CDlgGetSteamID_GettingSteamID, false)
         {
@@ -37,8 +43,24 @@ namespace Depressurizer
             SetText(GlobalStrings.CDlgGetSteamID_GettingIDFromURL);
         }
 
+        #endregion
+
+        #region Public Properties
+
         public long SteamID { get; private set; }
         public bool Success { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        protected override void Finish()
+        {
+            if (!Canceled)
+            {
+                OnJobCompletion();
+            }
+        }
 
         protected override void RunProcess()
         {
@@ -74,12 +96,6 @@ namespace Depressurizer
             OnThreadCompletion();
         }
 
-        protected override void Finish()
-        {
-            if (!Canceled)
-            {
-                OnJobCompletion();
-            }
-        }
+        #endregion
     }
 }

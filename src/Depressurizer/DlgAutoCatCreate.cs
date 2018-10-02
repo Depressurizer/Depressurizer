@@ -23,8 +23,14 @@ namespace Depressurizer
 {
     public partial class DlgAutoCatCreate : Form
     {
+        #region Fields
+
         private readonly string[] typeNames;
         private readonly AutoCatType[] types;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public DlgAutoCatCreate(string name = null, AutoCatType type = AutoCatType.None)
         {
@@ -71,45 +77,30 @@ namespace Depressurizer
             SelectedType = type;
         }
 
+        #endregion
+
+        #region Public Properties
+
         public string SelectedName { get; set; }
         public AutoCatType SelectedType { get; set; }
 
-        private string TypeToString(AutoCatType t)
+        #endregion
+
+        #region Methods
+
+        private void cmdCreate_Click(object sender, EventArgs e)
         {
-            if (t == AutoCatType.None)
-            {
-                return null;
-            }
-
-            int index = Array.IndexOf(types, t);
-            if (index >= 0 && index < typeNames.Length)
-            {
-                return typeNames[index];
-            }
-
-            return null;
+            SaveUIToFields();
         }
 
-        private AutoCatType StringToType(string s)
+        private void DlgAutoCatCreate_Load(object sender, EventArgs e)
         {
-            if (s == null)
+            foreach (string s in typeNames)
             {
-                return AutoCatType.None;
+                cmbType.Items.Add(s);
             }
 
-            int index = Array.IndexOf(typeNames, s);
-            if (index >= 0 && index < types.Length)
-            {
-                return types[index];
-            }
-
-            return AutoCatType.None;
-        }
-
-        private void SaveUIToFields()
-        {
-            SelectedName = txtName.Text;
-            SelectedType = StringToType(cmbType.SelectedItem as string);
+            LoadUIFromFields();
         }
 
         private void LoadUIFromFields()
@@ -134,19 +125,44 @@ namespace Depressurizer
             }
         }
 
-        private void DlgAutoCatCreate_Load(object sender, EventArgs e)
+        private void SaveUIToFields()
         {
-            foreach (string s in typeNames)
+            SelectedName = txtName.Text;
+            SelectedType = StringToType(cmbType.SelectedItem as string);
+        }
+
+        private AutoCatType StringToType(string s)
+        {
+            if (s == null)
             {
-                cmbType.Items.Add(s);
+                return AutoCatType.None;
             }
 
-            LoadUIFromFields();
+            int index = Array.IndexOf(typeNames, s);
+            if (index >= 0 && index < types.Length)
+            {
+                return types[index];
+            }
+
+            return AutoCatType.None;
         }
 
-        private void cmdCreate_Click(object sender, EventArgs e)
+        private string TypeToString(AutoCatType t)
         {
-            SaveUIToFields();
+            if (t == AutoCatType.None)
+            {
+                return null;
+            }
+
+            int index = Array.IndexOf(types, t);
+            if (index >= 0 && index < typeNames.Length)
+            {
+                return typeNames[index];
+            }
+
+            return null;
         }
+
+        #endregion
     }
 }

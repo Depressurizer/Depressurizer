@@ -50,11 +50,17 @@ namespace Depressurizer
 
     internal class AppInfo
     {
+        #region Fields
+
         public AppTypes AppType;
         public int Id;
         public string Name;
         public int Parent; // 0 if none
         public AppPlatforms Platforms;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public AppInfo(int id, string name = null, AppTypes type = AppTypes.Unknown, AppPlatforms platforms = AppPlatforms.All)
         {
@@ -64,6 +70,10 @@ namespace Depressurizer
 
             Platforms = platforms;
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public static AppInfo FromVdfNode(VdfFileNode commonNode)
         {
@@ -181,5 +191,7 @@ namespace Depressurizer
             bReader.Close();
             return result;
         }
+
+        #endregion
     }
 }

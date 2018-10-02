@@ -31,17 +31,7 @@ namespace Depressurizer
 
     public class AutoCatYear : AutoCat
     {
-        #region Properties
-
-        // Autocat configuration properties
-        public string Prefix { get; set; }
-
-        public bool IncludeUnknown { get; set; }
-        public string UnknownText { get; set; }
-        public AutoCatYear_Grouping GroupingMode { get; set; }
-
-        // Meta properies
-        public override AutoCatType AutoCatType => AutoCatType.Year;
+        #region Constants
 
         // Serialization strings
         public const string TypeIdString = "AutoCatYear";
@@ -50,7 +40,7 @@ namespace Depressurizer
 
         #endregion
 
-        #region Construction
+        #region Constructors and Destructors
 
         public AutoCatYear(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYear_Grouping groupMode = AutoCatYear_Grouping.None, bool selected = false) : base(name)
         {
@@ -60,11 +50,6 @@ namespace Depressurizer
             UnknownText = unknownText;
             GroupingMode = groupMode;
             Selected = selected;
-        }
-
-        //XmlSerializer requires a parameterless constructor
-        private AutoCatYear()
-        {
         }
 
         protected AutoCatYear(AutoCatYear other) : base(other)
@@ -77,14 +62,40 @@ namespace Depressurizer
             Selected = other.Selected;
         }
 
-        public override AutoCat Clone()
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatYear()
         {
-            return new AutoCatYear(this);
         }
 
         #endregion
 
-        #region Autocategorization Methods
+        #region Public Properties
+
+        // Meta properies
+        public override AutoCatType AutoCatType => AutoCatType.Year;
+        public AutoCatYear_Grouping GroupingMode { get; set; }
+
+        public bool IncludeUnknown { get; set; }
+
+        // Autocat configuration properties
+        public string Prefix { get; set; }
+        public string UnknownText { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static AutoCatYear LoadFromXmlElement(XmlElement xElement)
+        {
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], true);
+            string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], null);
+            AutoCatYear_Grouping groupMode = XmlUtil.GetEnumFromNode(xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None);
+
+            return new AutoCatYear(name, filter, prefix, includeUnknown, unknownText, groupMode);
+        }
 
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
@@ -125,6 +136,37 @@ namespace Depressurizer
             return AutoCatResult.Success;
         }
 
+        public override AutoCat Clone()
+        {
+            return new AutoCatYear(this);
+        }
+
+        public override void WriteToXml(XmlWriter writer)
+        {
+            writer.WriteStartElement(TypeIdString);
+
+            writer.WriteElementString(XmlName_Name, Name);
+            if (Filter != null)
+            {
+                writer.WriteElementString(XmlName_Filter, Filter);
+            }
+
+            if (Prefix != null)
+            {
+                writer.WriteElementString(XmlName_Prefix, Prefix);
+            }
+
+            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
+            writer.WriteElementString(XmlName_UnknownText, UnknownText);
+            writer.WriteElementString(XmlName_GroupingMode, GroupingMode.ToString());
+
+            writer.WriteEndElement(); // type ID string
+        }
+
+        #endregion
+
+        #region Methods
+
         private string GetProcessedString(int year)
         {
             string result = string.Empty;
@@ -160,44 +202,6 @@ namespace Depressurizer
         {
             int first = year - year % rangeSize;
             return string.Format("{0}-{1}", first, first + rangeSize - 1);
-        }
-
-        #endregion
-
-        #region Serialization methods
-
-        public override void WriteToXml(XmlWriter writer)
-        {
-            writer.WriteStartElement(TypeIdString);
-
-            writer.WriteElementString(XmlName_Name, Name);
-            if (Filter != null)
-            {
-                writer.WriteElementString(XmlName_Filter, Filter);
-            }
-
-            if (Prefix != null)
-            {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
-            }
-
-            writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlName_UnknownText, UnknownText);
-            writer.WriteElementString(XmlName_GroupingMode, GroupingMode.ToString());
-
-            writer.WriteEndElement(); // type ID string
-        }
-
-        public static AutoCatYear LoadFromXmlElement(XmlElement xElement)
-        {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], true);
-            string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], null);
-            AutoCatYear_Grouping groupMode = XmlUtil.GetEnumFromNode(xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None);
-
-            return new AutoCatYear(name, filter, prefix, includeUnknown, unknownText, groupMode);
         }
 
         #endregion

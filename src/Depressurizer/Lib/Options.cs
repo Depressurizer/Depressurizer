@@ -146,53 +146,33 @@ namespace NDesk.Options
 {
     public class OptionValueCollection : IList, IList<string>
     {
+        #region Fields
+
         private readonly OptionContext c;
         private readonly List<string> values = new List<string>();
+
+        #endregion
+
+        #region Constructors and Destructors
 
         internal OptionValueCollection(OptionContext c)
         {
             this.c = c;
         }
 
-        #region IEnumerable
+        #endregion
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return values.GetEnumerator();
-        }
+        #region Public Properties
+
+        public int Count => values.Count;
+
+        public bool IsReadOnly => false;
 
         #endregion
 
-        #region IEnumerable<T>
+        #region Explicit Interface Properties
 
-        public IEnumerator<string> GetEnumerator()
-        {
-            return values.GetEnumerator();
-        }
-
-        #endregion
-
-        public List<string> ToList()
-        {
-            return new List<string>(values);
-        }
-
-        public string[] ToArray()
-        {
-            return values.ToArray();
-        }
-
-        public override string ToString()
-        {
-            return string.Join(", ", values.ToArray());
-        }
-
-        #region ICollection
-
-        void ICollection.CopyTo(Array array, int index)
-        {
-            (values as ICollection).CopyTo(array, index);
-        }
+        bool IList.IsFixedSize => false;
 
         bool ICollection.IsSynchronized => (values as ICollection).IsSynchronized;
 
@@ -200,7 +180,31 @@ namespace NDesk.Options
 
         #endregion
 
-        #region ICollection<T>
+        #region Public Indexers
+
+        public string this[int index]
+        {
+            get
+            {
+                AssertValid(index);
+                return index >= values.Count ? null : values[index];
+            }
+            set => values[index] = value;
+        }
+
+        #endregion
+
+        #region Explicit Interface Indexers
+
+        object IList.this[int index]
+        {
+            get => this[index];
+            set => (values as IList)[index] = value;
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void Add(string item)
         {
@@ -222,18 +226,49 @@ namespace NDesk.Options
             values.CopyTo(array, arrayIndex);
         }
 
+        public IEnumerator<string> GetEnumerator()
+        {
+            return values.GetEnumerator();
+        }
+
+        public int IndexOf(string item)
+        {
+            return values.IndexOf(item);
+        }
+
+        public void Insert(int index, string item)
+        {
+            values.Insert(index, item);
+        }
+
         public bool Remove(string item)
         {
             return values.Remove(item);
         }
 
-        public int Count => values.Count;
+        public void RemoveAt(int index)
+        {
+            values.RemoveAt(index);
+        }
 
-        public bool IsReadOnly => false;
+        public string[] ToArray()
+        {
+            return values.ToArray();
+        }
+
+        public List<string> ToList()
+        {
+            return new List<string>(values);
+        }
+
+        public override string ToString()
+        {
+            return string.Join(", ", values.ToArray());
+        }
 
         #endregion
 
-        #region IList
+        #region Explicit Interface Methods
 
         int IList.Add(object value)
         {
@@ -243,6 +278,16 @@ namespace NDesk.Options
         bool IList.Contains(object value)
         {
             return (values as IList).Contains(value);
+        }
+
+        void ICollection.CopyTo(Array array, int index)
+        {
+            (values as ICollection).CopyTo(array, index);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return values.GetEnumerator();
         }
 
         int IList.IndexOf(object value)
@@ -265,32 +310,9 @@ namespace NDesk.Options
             (values as IList).RemoveAt(index);
         }
 
-        bool IList.IsFixedSize => false;
-
-        object IList.this[int index]
-        {
-            get => this[index];
-            set => (values as IList)[index] = value;
-        }
-
         #endregion
 
-        #region IList<T>
-
-        public int IndexOf(string item)
-        {
-            return values.IndexOf(item);
-        }
-
-        public void Insert(int index, string item)
-        {
-            values.Insert(index, item);
-        }
-
-        public void RemoveAt(int index)
-        {
-            values.RemoveAt(index);
-        }
+        #region Methods
 
         private void AssertValid(int index)
         {
@@ -310,36 +332,34 @@ namespace NDesk.Options
             }
         }
 
-        public string this[int index]
-        {
-            get
-            {
-                AssertValid(index);
-                return index >= values.Count ? null : values[index];
-            }
-            set => values[index] = value;
-        }
-
         #endregion
     }
 
     public class OptionContext
     {
+        #region Constructors and Destructors
+
         public OptionContext(OptionSet set)
         {
             OptionSet = set;
             OptionValues = new OptionValueCollection(this);
         }
 
+        #endregion
+
+        #region Public Properties
+
         public Option Option { get; set; }
 
-        public string OptionName { get; set; }
-
         public int OptionIndex { get; set; }
+
+        public string OptionName { get; set; }
 
         public OptionSet OptionSet { get; }
 
         public OptionValueCollection OptionValues { get; }
+
+        #endregion
     }
 
     public enum OptionValueType
@@ -351,7 +371,13 @@ namespace NDesk.Options
 
     public abstract class Option
     {
+        #region Static Fields
+
         private static readonly char[] NameTerminator = {'=', ':'};
+
+        #endregion
+
+        #region Constructors and Destructors
 
         protected Option(string prototype, string description) : this(prototype, description, 1)
         {
@@ -396,17 +422,29 @@ namespace NDesk.Options
             }
         }
 
-        public string Prototype { get; }
+        #endregion
+
+        #region Public Properties
 
         public string Description { get; }
 
+        public int MaxValueCount { get; }
+
         public OptionValueType OptionValueType { get; }
 
-        public int MaxValueCount { get; }
+        public string Prototype { get; }
+
+        #endregion
+
+        #region Properties
 
         internal string[] Names { get; }
 
         internal string[] ValueSeparators { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public string[] GetNames()
         {
@@ -422,6 +460,23 @@ namespace NDesk.Options
 
             return (string[]) ValueSeparators.Clone();
         }
+
+        public void Invoke(OptionContext c)
+        {
+            OnParseComplete(c);
+            c.OptionName = null;
+            c.Option = null;
+            c.OptionValues.Clear();
+        }
+
+        public override string ToString()
+        {
+            return Prototype;
+        }
+
+        #endregion
+
+        #region Methods
 
         protected static T Parse<T>(string value, OptionContext c)
         {
@@ -440,6 +495,48 @@ namespace NDesk.Options
             }
 
             return t;
+        }
+
+        protected abstract void OnParseComplete(OptionContext c);
+
+        private static void AddSeparators(string name, int end, ICollection<string> seps)
+        {
+            int start = -1;
+            for (int i = end + 1; i < name.Length; ++i)
+            {
+                switch (name[i])
+                {
+                    case '{':
+                        if (start != -1)
+                        {
+                            throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
+                        }
+
+                        start = i + 1;
+                        break;
+                    case '}':
+                        if (start == -1)
+                        {
+                            throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
+                        }
+
+                        seps.Add(name.Substring(start, i - start));
+                        start = -1;
+                        break;
+                    default:
+                        if (start == -1)
+                        {
+                            seps.Add(name[i].ToString());
+                        }
+
+                        break;
+                }
+            }
+
+            if (start != -1)
+            {
+                throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
+            }
         }
 
         private OptionValueType ParsePrototype()
@@ -502,65 +599,14 @@ namespace NDesk.Options
             return type == '=' ? OptionValueType.Required : OptionValueType.Optional;
         }
 
-        private static void AddSeparators(string name, int end, ICollection<string> seps)
-        {
-            int start = -1;
-            for (int i = end + 1; i < name.Length; ++i)
-            {
-                switch (name[i])
-                {
-                    case '{':
-                        if (start != -1)
-                        {
-                            throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
-                        }
-
-                        start = i + 1;
-                        break;
-                    case '}':
-                        if (start == -1)
-                        {
-                            throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
-                        }
-
-                        seps.Add(name.Substring(start, i - start));
-                        start = -1;
-                        break;
-                    default:
-                        if (start == -1)
-                        {
-                            seps.Add(name[i].ToString());
-                        }
-
-                        break;
-                }
-            }
-
-            if (start != -1)
-            {
-                throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
-            }
-        }
-
-        public void Invoke(OptionContext c)
-        {
-            OnParseComplete(c);
-            c.OptionName = null;
-            c.Option = null;
-            c.OptionValues.Clear();
-        }
-
-        protected abstract void OnParseComplete(OptionContext c);
-
-        public override string ToString()
-        {
-            return Prototype;
-        }
+        #endregion
     }
 
     [Serializable]
     public class OptionException : Exception
     {
+        #region Constructors and Destructors
+
         public OptionException()
         {
         }
@@ -580,7 +626,15 @@ namespace NDesk.Options
             OptionName = info.GetString("OptionName");
         }
 
+        #endregion
+
+        #region Public Properties
+
         public string OptionName { get; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         [SecurityPermission(SecurityAction.LinkDemand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -588,6 +642,8 @@ namespace NDesk.Options
             base.GetObjectData(info, context);
             info.AddValue("OptionName", OptionName);
         }
+
+        #endregion
     }
 
     public delegate void OptionAction<TKey, TValue>(TKey key, TValue value);
@@ -700,7 +756,13 @@ namespace NDesk.Options
 
         private sealed class ActionOption : Option
         {
+            #region Fields
+
             private readonly Action<OptionValueCollection> action;
+
+            #endregion
+
+            #region Constructors and Destructors
 
             public ActionOption(string prototype, string description, int count, Action<OptionValueCollection> action) : base(prototype, description, count)
             {
@@ -712,10 +774,16 @@ namespace NDesk.Options
                 this.action = action;
             }
 
+            #endregion
+
+            #region Methods
+
             protected override void OnParseComplete(OptionContext c)
             {
                 action(c.OptionValues);
             }
+
+            #endregion
         }
 
         public OptionSet Add(string prototype, Action<string> action)
@@ -754,7 +822,13 @@ namespace NDesk.Options
 
         private sealed class ActionOption<T> : Option
         {
+            #region Fields
+
             private readonly Action<T> action;
+
+            #endregion
+
+            #region Constructors and Destructors
 
             public ActionOption(string prototype, string description, Action<T> action) : base(prototype, description, 1)
             {
@@ -766,15 +840,27 @@ namespace NDesk.Options
                 this.action = action;
             }
 
+            #endregion
+
+            #region Methods
+
             protected override void OnParseComplete(OptionContext c)
             {
                 action(Parse<T>(c.OptionValues[0], c));
             }
+
+            #endregion
         }
 
         private sealed class ActionOption<TKey, TValue> : Option
         {
+            #region Fields
+
             private readonly OptionAction<TKey, TValue> action;
+
+            #endregion
+
+            #region Constructors and Destructors
 
             public ActionOption(string prototype, string description, OptionAction<TKey, TValue> action) : base(prototype, description, 2)
             {
@@ -786,10 +872,16 @@ namespace NDesk.Options
                 this.action = action;
             }
 
+            #endregion
+
+            #region Methods
+
             protected override void OnParseComplete(OptionContext c)
             {
                 action(Parse<TKey>(c.OptionValues[0], c), Parse<TValue>(c.OptionValues[1], c));
             }
+
+            #endregion
         }
 
         public OptionSet Add<T>(string prototype, Action<T> action)

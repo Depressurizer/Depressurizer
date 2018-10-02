@@ -5,6 +5,16 @@ namespace Depressurizer
 {
     public class DatabaseEntrySorter : IComparer<DatabaseEntry>
     {
+        #region Fields
+
+        public int SortDirection = 1;
+
+        public SortModes SortMode = SortModes.Id;
+
+        #endregion
+
+        #region Enums
+
         public enum SortModes
         {
             Id,
@@ -16,9 +26,9 @@ namespace Depressurizer
             Parent
         }
 
-        public int SortDirection = 1;
+        #endregion
 
-        public SortModes SortMode = SortModes.Id;
+        #region Public Methods and Operators
 
         public int Compare(DatabaseEntry a, DatabaseEntry b)
         {
@@ -63,5 +73,7 @@ namespace Depressurizer
                 SortDirection = forceDir == 0 ? 1 : forceDir;
             }
         }
+
+        #endregion
     }
 }

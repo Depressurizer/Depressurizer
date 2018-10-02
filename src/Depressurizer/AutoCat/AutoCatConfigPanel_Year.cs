@@ -20,12 +20,18 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Year : AutoCatConfigPanel
     {
+        #region Constructors and Destructors
+
         public AutoCatConfigPanel_Year()
         {
             InitializeComponent();
             ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
             ttHelp.Ext_SetToolTip(helpUnknown, GlobalStrings.AutoCatYearPanel_Help_Unknown);
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
@@ -76,5 +82,7 @@ namespace Depressurizer
                 ac.GroupingMode = AutoCatYear_Grouping.Decade;
             }
         }
+
+        #endregion
     }
 }

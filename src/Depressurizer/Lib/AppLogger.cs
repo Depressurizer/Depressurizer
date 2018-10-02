@@ -38,7 +38,54 @@ namespace Rallion
     /// </summary>
     public class AppLogger
     {
-        #region Constructors
+        #region Static Fields
+
+        private static readonly string[] LevTxt = {"", " ERR", "WARN", "INFO", "VERB"};
+
+        #endregion
+
+        #region Fields
+
+        public bool _useOrigCreateTime;
+        private readonly object threadLock = new object();
+
+        private bool _allowAppend;
+
+        private bool _autoSessionStart;
+
+        private int _currentFileRecords;
+
+        private DateTime _currentFileStartTime;
+
+        private string _dateFormat;
+
+        private string _fileNameBase;
+
+        private string _filePath;
+
+        private bool _isActiveSession;
+
+        private bool _isSuspended;
+
+        private LoggerLevel _level;
+
+        private FileInfo _logFile;
+
+        private TimeSpan _maxFileDuration;
+
+        private int _maxFileRecords;
+
+        private int _maxFiles;
+
+        private int _maxFileSize;
+
+        private bool _useTotalLineCount;
+
+        private FileStream outputStream;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Creates a new AppLog logger with default settings.
@@ -73,42 +120,111 @@ namespace Rallion
 
         #endregion
 
-        #region Fields
-
-        #region Internals
-
-        private FileStream outputStream;
-        private readonly object threadLock = new object();
-        private static readonly string[] LevTxt = {"", " ERR", "WARN", "INFO", "VERB"};
-
-        #endregion
-
-        #region Configuration
-
-        private LoggerLevel _level;
+        #region Public Properties
 
         /// <summary>
-        ///     The message level to log at. Any messages below this level will not be logged.
+        ///     Whether or not to re-use existing log files when opening new logging sessions.
+        ///     If false, any existing files will be shifted to the backup system.
         /// </summary>
-        public LoggerLevel Level
+        public bool AllowAppend
         {
             get
             {
                 lock (threadLock)
                 {
-                    return _level;
+                    return _allowAppend;
                 }
             }
             set
             {
                 lock (threadLock)
                 {
-                    _level = value;
+                    _allowAppend = value;
                 }
             }
         }
 
-        private string _fileNameBase;
+        /// <summary>
+        ///     Whether or not to automatically start a session if a Write call is made without one currently active.
+        ///     A session will only be started if the current logging level would result in a write.
+        /// </summary>
+        public bool AutoSessionStart
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _autoSessionStart;
+                }
+            }
+            set
+            {
+                lock (threadLock)
+                {
+                    _autoSessionStart = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Gets the number of records in the current open log
+        /// </summary>
+        public int CurrentFileRecords
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _currentFileRecords;
+                }
+            }
+            private set
+            {
+                lock (threadLock)
+                {
+                    _currentFileRecords = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Gets the start time of the current open log.
+        /// </summary>
+        public DateTime CurrentFileStartTime
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _currentFileStartTime;
+                }
+            }
+            private set
+            {
+                lock (threadLock)
+                {
+                    _currentFileStartTime = value;
+                }
+            }
+        }
+
+        public string DateFormat
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _dateFormat;
+                }
+            }
+            set
+            {
+                lock (threadLock)
+                {
+                    _dateFormat = value;
+                }
+            }
+        }
 
         /// <summary>
         ///     Template for log filenames.
@@ -138,28 +254,6 @@ namespace Rallion
             }
         }
 
-        private string _dateFormat;
-
-        public string DateFormat
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _dateFormat;
-                }
-            }
-            set
-            {
-                lock (threadLock)
-                {
-                    _dateFormat = value;
-                }
-            }
-        }
-
-        private string _filePath;
-
         /// <summary>
         ///     Path in which to place created log files
         /// </summary>
@@ -185,7 +279,124 @@ namespace Rallion
             }
         }
 
-        private TimeSpan _maxFileDuration;
+        /// <summary>
+        ///     Checks to see if there is a logging session in progress
+        /// </summary>
+        public bool IsActiveSession
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _isActiveSession;
+                }
+            }
+            private set
+            {
+                lock (threadLock)
+                {
+                    _isActiveSession = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Checks to see if there is currently an active, un-suspended session.
+        /// </summary>
+        public bool IsLogging
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return IsActiveSession && !IsSuspended;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Checks to see if the current session is suspended
+        /// </summary>
+        public bool IsSuspended
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _isSuspended;
+                }
+            }
+            private set
+            {
+                lock (threadLock)
+                {
+                    _isSuspended = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     The message level to log at. Any messages below this level will not be logged.
+        /// </summary>
+        public LoggerLevel Level
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _level;
+                }
+            }
+            set
+            {
+                lock (threadLock)
+                {
+                    _level = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Gets the currently open log file. If there is no log session in progress, null.
+        /// </summary>
+        public FileInfo LogFile
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _logFile;
+                }
+            }
+            private set
+            {
+                lock (threadLock)
+                {
+                    _logFile = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Maximum number of backup files to keep
+        /// </summary>
+        public int MaxBackup
+        {
+            get
+            {
+                lock (threadLock)
+                {
+                    return _maxFiles;
+                }
+            }
+            set
+            {
+                lock (threadLock)
+                {
+                    _maxFiles = value;
+                }
+            }
+        }
 
         /// <summary>
         ///     Maximum time span that a log file should cover. TimeSpan of zero ticks indicates no limit.
@@ -207,8 +418,6 @@ namespace Rallion
                 }
             }
         }
-
-        private int _maxFileRecords;
 
         /// <summary>
         ///     Maximum number of lines that a log file should contain. Zero indicates no limit.
@@ -232,8 +441,6 @@ namespace Rallion
             }
         }
 
-        private int _maxFileSize;
-
         /// <summary>
         ///     Maximum size that a log file should reach.
         /// </summary>
@@ -254,55 +461,6 @@ namespace Rallion
                 }
             }
         }
-
-        private int _maxFiles;
-
-        /// <summary>
-        ///     Maximum number of backup files to keep
-        /// </summary>
-        public int MaxBackup
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _maxFiles;
-                }
-            }
-            set
-            {
-                lock (threadLock)
-                {
-                    _maxFiles = value;
-                }
-            }
-        }
-
-        private bool _allowAppend;
-
-        /// <summary>
-        ///     Whether or not to re-use existing log files when opening new logging sessions.
-        ///     If false, any existing files will be shifted to the backup system.
-        /// </summary>
-        public bool AllowAppend
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _allowAppend;
-                }
-            }
-            set
-            {
-                lock (threadLock)
-                {
-                    _allowAppend = value;
-                }
-            }
-        }
-
-        public bool _useOrigCreateTime;
 
         /// <summary>
         ///     Whether or not to check for the file creation time when determining the creation date of an existing log file. This
@@ -327,8 +485,6 @@ namespace Rallion
                 }
             }
         }
-
-        private bool _useTotalLineCount;
 
         /// <summary>
         ///     Whether or not to check the total number of lines in the file to determine the record count when opening a new
@@ -355,310 +511,9 @@ namespace Rallion
             }
         }
 
-        private bool _autoSessionStart;
-
-        /// <summary>
-        ///     Whether or not to automatically start a session if a Write call is made without one currently active.
-        ///     A session will only be started if the current logging level would result in a write.
-        /// </summary>
-        public bool AutoSessionStart
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _autoSessionStart;
-                }
-            }
-            set
-            {
-                lock (threadLock)
-                {
-                    _autoSessionStart = value;
-                }
-            }
-        }
-
         #endregion
 
-        #region Information
-
-        private FileInfo _logFile;
-
-        /// <summary>
-        ///     Gets the currently open log file. If there is no log session in progress, null.
-        /// </summary>
-        public FileInfo LogFile
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _logFile;
-                }
-            }
-            private set
-            {
-                lock (threadLock)
-                {
-                    _logFile = value;
-                }
-            }
-        }
-
-        private DateTime _currentFileStartTime;
-
-        /// <summary>
-        ///     Gets the start time of the current open log.
-        /// </summary>
-        public DateTime CurrentFileStartTime
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _currentFileStartTime;
-                }
-            }
-            private set
-            {
-                lock (threadLock)
-                {
-                    _currentFileStartTime = value;
-                }
-            }
-        }
-
-        private int _currentFileRecords;
-
-        /// <summary>
-        ///     Gets the number of records in the current open log
-        /// </summary>
-        public int CurrentFileRecords
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _currentFileRecords;
-                }
-            }
-            private set
-            {
-                lock (threadLock)
-                {
-                    _currentFileRecords = value;
-                }
-            }
-        }
-
-        private bool _isActiveSession;
-
-        /// <summary>
-        ///     Checks to see if there is a logging session in progress
-        /// </summary>
-        public bool IsActiveSession
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _isActiveSession;
-                }
-            }
-            private set
-            {
-                lock (threadLock)
-                {
-                    _isActiveSession = value;
-                }
-            }
-        }
-
-        private bool _isSuspended;
-
-        /// <summary>
-        ///     Checks to see if the current session is suspended
-        /// </summary>
-        public bool IsSuspended
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return _isSuspended;
-                }
-            }
-            private set
-            {
-                lock (threadLock)
-                {
-                    _isSuspended = value;
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Checks to see if there is currently an active, un-suspended session.
-        /// </summary>
-        public bool IsLogging
-        {
-            get
-            {
-                lock (threadLock)
-                {
-                    return IsActiveSession && !IsSuspended;
-                }
-            }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Utility Methods
-
-        /// <summary>
-        ///     Gets the path that will actually be used to store log files.
-        ///     If there isn't one set, it will just use the current working directory.
-        /// </summary>
-        /// <returns>String representing the directory to save logs in.</returns>
-        public string GetPath()
-        {
-            return FilePath == string.Empty ? Environment.CurrentDirectory : FilePath;
-        }
-
-        /// <summary>
-        ///     Gets the file to write to, moving other files out of the way if neccessary.
-        /// </summary>
-        /// <param name="forceNew">If true, will not return a reference to an existing file.</param>
-        /// <returns>
-        ///     FileInfo representing the file we should write to. Is not guaranteed to exist, and will not if forceNew =
-        ///     true.
-        /// </returns>
-        private FileInfo GetFile(bool forceNew = false)
-        {
-            string targetName = GetPath() + Path.DirectorySeparatorChar + GenerateFileName();
-            if (!AllowAppend || forceNew)
-            {
-                DisplaceFile(targetName, 0, MaxBackup); // If we need to make a new file, make sure there isn't a file in the way
-            }
-
-            return new FileInfo(GetPath() + Path.DirectorySeparatorChar + GenerateFileName());
-        }
-
-        /// <summary>
-        ///     Generates an actual filename based on a template.
-        /// </summary>
-        /// <param name="template">String to build the name from. If none is passed, will just use the class field.</param>
-        /// <returns>String containing the filename to use.</returns>
-        private string GenerateFileName(string template = null)
-        {
-            if (template == null)
-            {
-                template = FileNameTemplate;
-            }
-
-            template = template.Replace(":d", DateTime.Now.ToString("yyyyMMdd"));
-            template = template.Replace(":t", DateTime.Now.ToString("hhmmss"));
-            template = template.Replace(":n", Assembly.GetCallingAssembly().GetName().Name);
-            return template;
-        }
-
-        /// <summary>
-        ///     Moves a file out of the way so a new log can take its place. Will shift files out of the way by appending numbers
-        ///     to the filename.
-        /// </summary>
-        /// <param name="baseFile">Full path of the space to clear.</param>
-        private void DisplaceFile(string baseFile)
-        {
-            DisplaceFile(baseFile, 0, MaxBackup);
-        }
-
-        /// <summary>
-        ///     Recusive method that does the work of clearing a space for new log files, only deleting the oldest.
-        ///     After this method runs, there will be NO file at the space specified by baseFile and stepsIn.
-        /// </summary>
-        /// <param name="baseFile">Full path of the target clear space</param>
-        /// <param name="stepsIn">Which backup we're currently looking at (0 means the file itself, 1+ means that backup</param>
-        /// <param name="stepsTotal">How many backups to max out at</param>
-        private void DisplaceFile(string baseFile, int stepsIn, int stepsTotal)
-        {
-            string thisFile = GetBackupFileName(baseFile, stepsIn);
-            if (!File.Exists(thisFile))
-            {
-                return;
-            }
-
-            if (stepsIn >= stepsTotal)
-            {
-                File.Delete(thisFile); // Delete if there's no more space for more backups
-                return;
-            }
-
-            DisplaceFile(baseFile, stepsIn + 1, stepsTotal);
-            File.Move(thisFile, GetBackupFileName(baseFile, stepsIn + 1));
-        }
-
-        /// <summary>
-        ///     Gets the filename to use for a given backup, given the base log filename
-        /// </summary>
-        /// <param name="baseFile">Full path of the actual log filename</param>
-        /// <param name="backupNum">Number of this backup. 0 indicates that it is not the backup, it is current.</param>
-        /// <returns>Full path of the backup file</returns>
-        private string GetBackupFileName(string baseFile, int backupNum)
-        {
-            return backupNum == 0 ? baseFile : baseFile + '.' + backupNum;
-        }
-
-        /// <summary>
-        ///     Counts the lines in a file.
-        /// </summary>
-        /// <param name="logFile">FileInfo object representing the file to check</param>
-        /// <returns>Number of lines in the file.</returns>
-        private int CountRecords(FileInfo logFile)
-        {
-            int count = 0;
-            using (StreamReader reader = new StreamReader(logFile.OpenRead()))
-            {
-                while (!reader.EndOfStream)
-                {
-                    reader.ReadLine();
-                    count++;
-                }
-            }
-
-            return count;
-        }
-
-        /// <summary>
-        ///     Checks to see whether the current log file limits allow for the addition of the given message.
-        /// </summary>
-        /// <param name="message">Message we are looking to add</param>
-        /// <returns>True if message can be added, false otherwise</returns>
-        private bool CanWriteToFile(string message)
-        {
-            if (MaxFileRecords != 0 && CurrentFileRecords >= MaxFileRecords)
-            {
-                return false;
-            }
-
-            if (MaxFileSize != 0 && outputStream.Length + message.Length > MaxFileSize)
-            {
-                return false;
-            }
-
-            if (MaxFileDuration != null && MaxFileDuration.Ticks != 0 && DateTime.Now - CurrentFileStartTime > MaxFileDuration)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        #endregion
-
-        #region Status control
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Begins a new logging session.
@@ -723,22 +578,6 @@ namespace Rallion
         }
 
         /// <summary>
-        ///     Pauses existing session without terminating it.
-        /// </summary>
-        public void Suspend()
-        {
-            IsSuspended = true;
-        }
-
-        /// <summary>
-        ///     Resumes logging in a suspended session.
-        /// </summary>
-        public void Resume()
-        {
-            IsSuspended = false;
-        }
-
-        /// <summary>
         ///     Forces new log file to be created. Current log file will be moved to the first backup position.
         /// </summary>
         /// <returns>True if new log file was opened, false otherwise.</returns>
@@ -751,9 +590,31 @@ namespace Rallion
             }
         }
 
-        #endregion
+        /// <summary>
+        ///     Gets the path that will actually be used to store log files.
+        ///     If there isn't one set, it will just use the current working directory.
+        /// </summary>
+        /// <returns>String representing the directory to save logs in.</returns>
+        public string GetPath()
+        {
+            return FilePath == string.Empty ? Environment.CurrentDirectory : FilePath;
+        }
 
-        #region Writers
+        /// <summary>
+        ///     Resumes logging in a suspended session.
+        /// </summary>
+        public void Resume()
+        {
+            IsSuspended = false;
+        }
+
+        /// <summary>
+        ///     Pauses existing session without terminating it.
+        /// </summary>
+        public void Suspend()
+        {
+            IsSuspended = true;
+        }
 
         /// <summary>
         ///     Writes specified message to the given channel.
@@ -831,6 +692,138 @@ namespace Rallion
 
                 Write(lev, builder.ToString());
             }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Checks to see whether the current log file limits allow for the addition of the given message.
+        /// </summary>
+        /// <param name="message">Message we are looking to add</param>
+        /// <returns>True if message can be added, false otherwise</returns>
+        private bool CanWriteToFile(string message)
+        {
+            if (MaxFileRecords != 0 && CurrentFileRecords >= MaxFileRecords)
+            {
+                return false;
+            }
+
+            if (MaxFileSize != 0 && outputStream.Length + message.Length > MaxFileSize)
+            {
+                return false;
+            }
+
+            if (MaxFileDuration != null && MaxFileDuration.Ticks != 0 && DateTime.Now - CurrentFileStartTime > MaxFileDuration)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        ///     Counts the lines in a file.
+        /// </summary>
+        /// <param name="logFile">FileInfo object representing the file to check</param>
+        /// <returns>Number of lines in the file.</returns>
+        private int CountRecords(FileInfo logFile)
+        {
+            int count = 0;
+            using (StreamReader reader = new StreamReader(logFile.OpenRead()))
+            {
+                while (!reader.EndOfStream)
+                {
+                    reader.ReadLine();
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        ///     Moves a file out of the way so a new log can take its place. Will shift files out of the way by appending numbers
+        ///     to the filename.
+        /// </summary>
+        /// <param name="baseFile">Full path of the space to clear.</param>
+        private void DisplaceFile(string baseFile)
+        {
+            DisplaceFile(baseFile, 0, MaxBackup);
+        }
+
+        /// <summary>
+        ///     Recusive method that does the work of clearing a space for new log files, only deleting the oldest.
+        ///     After this method runs, there will be NO file at the space specified by baseFile and stepsIn.
+        /// </summary>
+        /// <param name="baseFile">Full path of the target clear space</param>
+        /// <param name="stepsIn">Which backup we're currently looking at (0 means the file itself, 1+ means that backup</param>
+        /// <param name="stepsTotal">How many backups to max out at</param>
+        private void DisplaceFile(string baseFile, int stepsIn, int stepsTotal)
+        {
+            string thisFile = GetBackupFileName(baseFile, stepsIn);
+            if (!File.Exists(thisFile))
+            {
+                return;
+            }
+
+            if (stepsIn >= stepsTotal)
+            {
+                File.Delete(thisFile); // Delete if there's no more space for more backups
+                return;
+            }
+
+            DisplaceFile(baseFile, stepsIn + 1, stepsTotal);
+            File.Move(thisFile, GetBackupFileName(baseFile, stepsIn + 1));
+        }
+
+        /// <summary>
+        ///     Generates an actual filename based on a template.
+        /// </summary>
+        /// <param name="template">String to build the name from. If none is passed, will just use the class field.</param>
+        /// <returns>String containing the filename to use.</returns>
+        private string GenerateFileName(string template = null)
+        {
+            if (template == null)
+            {
+                template = FileNameTemplate;
+            }
+
+            template = template.Replace(":d", DateTime.Now.ToString("yyyyMMdd"));
+            template = template.Replace(":t", DateTime.Now.ToString("hhmmss"));
+            template = template.Replace(":n", Assembly.GetCallingAssembly().GetName().Name);
+            return template;
+        }
+
+        /// <summary>
+        ///     Gets the filename to use for a given backup, given the base log filename
+        /// </summary>
+        /// <param name="baseFile">Full path of the actual log filename</param>
+        /// <param name="backupNum">Number of this backup. 0 indicates that it is not the backup, it is current.</param>
+        /// <returns>Full path of the backup file</returns>
+        private string GetBackupFileName(string baseFile, int backupNum)
+        {
+            return backupNum == 0 ? baseFile : baseFile + '.' + backupNum;
+        }
+
+        /// <summary>
+        ///     Gets the file to write to, moving other files out of the way if neccessary.
+        /// </summary>
+        /// <param name="forceNew">If true, will not return a reference to an existing file.</param>
+        /// <returns>
+        ///     FileInfo representing the file we should write to. Is not guaranteed to exist, and will not if forceNew =
+        ///     true.
+        /// </returns>
+        private FileInfo GetFile(bool forceNew = false)
+        {
+            string targetName = GetPath() + Path.DirectorySeparatorChar + GenerateFileName();
+            if (!AllowAppend || forceNew)
+            {
+                DisplaceFile(targetName, 0, MaxBackup); // If we need to make a new file, make sure there isn't a file in the way
+            }
+
+            return new FileInfo(GetPath() + Path.DirectorySeparatorChar + GenerateFileName());
         }
 
         #endregion

@@ -80,7 +80,17 @@ namespace Depressurizer
 
     internal class Settings : AppSettings
     {
+        #region Static Fields
+
         private static Settings instance;
+
+        #endregion
+
+        #region Fields
+
+        public int SplitBrowserContainerWidth = 722;
+
+        public int SplitGameContainerHeight = 510;
 
         private string _autocats;
 
@@ -140,40 +150,94 @@ namespace Depressurizer
 
         private int _y;
 
-        public int SplitBrowserContainerWidth = 722;
+        #endregion
 
-        public int SplitGameContainerHeight = 510;
+        #region Constructors and Destructors
 
         private Settings()
         {
             FilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Depressurizer\Settings.xml";
         }
 
+        #endregion
+
+        #region Public Properties
+
         public static Settings Instance => instance ?? (instance = new Settings());
 
-        public int SettingsVersion => 3;
-
-        public int X
+        public string AutoCats
         {
-            get => _x;
+            get => _autocats;
             set
             {
-                if (_x != value)
+                if (_autocats != value)
                 {
-                    _x = value;
+                    _autocats = value;
                     outOfDate = true;
                 }
             }
         }
 
-        public int Y
+        public bool AutosaveDB
         {
-            get => _y;
+            get => _autosaveDB;
             set
             {
-                if (_y != value)
+                if (_autosaveDB != value)
                 {
-                    _y = value;
+                    _autosaveDB = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public string Category
+        {
+            get => _category;
+            set
+            {
+                if (_category != value)
+                {
+                    _category = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public bool CheckForDepressurizerUpdates
+        {
+            get => _checkForDepressurizerUpdates;
+            set
+            {
+                if (_checkForDepressurizerUpdates != value)
+                {
+                    _checkForDepressurizerUpdates = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public int ConfigBackupCount
+        {
+            get => _configBackupCount;
+            set
+            {
+                if (_configBackupCount != value)
+                {
+                    _configBackupCount = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public string Filter
+        {
+            get => _filter;
+            set
+            {
+                if (_filter != value)
+                {
+                    _filter = value;
                     outOfDate = true;
                 }
             }
@@ -200,22 +264,157 @@ namespace Depressurizer
             }
         }
 
-        public int Width
+        public bool IncludeImputedTimes
+        {
+            get => _IncludeImputedTimes;
+            set
+            {
+                if (_IncludeImputedTimes != value)
+                {
+                    _IncludeImputedTimes = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public GameListSource ListSource
+        {
+            get => _listSource;
+            set
+            {
+                if (_listSource != value)
+                {
+                    _listSource = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public int LogBackups
+        {
+            get => _logBackups;
+            set
+            {
+                Program.Logger.MaxBackup = value;
+                if (_logBackups != value)
+                {
+                    _logBackups = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public LoggerLevel LogLevel
+        {
+            get => _logLevel;
+            set
+            {
+                Program.Logger.Level = value;
+                if (_logLevel != value)
+                {
+                    _logLevel = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public int LogSize
+        {
+            get => _logSize;
+            set
+            {
+                Program.Logger.MaxFileSize = value;
+                if (_logSize != value)
+                {
+                    _logSize = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public string LstGamesState
+        {
+            get => _lstGamesState;
+            set
+            {
+                if (_lstGamesState != value)
+                {
+                    _lstGamesState = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public string ProfileToLoad
+        {
+            get => _profileToLoad;
+            set
+            {
+                if (_profileToLoad != value)
+                {
+                    _profileToLoad = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public bool RemoveExtraEntries
+        {
+            get => _removeExtraEntries;
+            set
+            {
+                if (_removeExtraEntries != value)
+                {
+                    _removeExtraEntries = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public int ScrapePromptDays
+        {
+            get => _scrapePromptDays;
+            set
+            {
+                if (_scrapePromptDays != value)
+                {
+                    _scrapePromptDays = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public int SettingsVersion => 3;
+
+        public bool SingleCatMode
+        {
+            get => _singleCatMode;
+            set
+            {
+                if (_singleCatMode != value)
+                {
+                    _singleCatMode = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        public int SplitBrowser
         {
             get
             {
-                if (_width <= 600)
+                if (_splitBrowser <= 100)
                 {
-                    Width = 1000;
+                    SplitBrowser = SplitBrowserContainerWidth - 300;
                 }
 
-                return _width;
+                return _splitBrowser;
             }
             set
             {
-                if (_width != value)
+                if (_splitBrowser != value)
                 {
-                    _width = value;
+                    _splitBrowser = value;
                     outOfDate = true;
                 }
             }
@@ -263,61 +462,14 @@ namespace Depressurizer
             }
         }
 
-        public int SplitBrowser
+        public StartupAction StartupAction
         {
-            get
-            {
-                if (_splitBrowser <= 100)
-                {
-                    SplitBrowser = SplitBrowserContainerWidth - 300;
-                }
-
-                return _splitBrowser;
-            }
+            get => _startupAction;
             set
             {
-                if (_splitBrowser != value)
+                if (_startupAction != value)
                 {
-                    _splitBrowser = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public string Filter
-        {
-            get => _filter;
-            set
-            {
-                if (_filter != value)
-                {
-                    _filter = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public string Category
-        {
-            get => _category;
-            set
-            {
-                if (_category != value)
-                {
-                    _category = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public string AutoCats
-        {
-            get => _autocats;
-            set
-            {
-                if (_autocats != value)
-                {
-                    _autocats = value;
+                    _startupAction = value;
                     outOfDate = true;
                 }
             }
@@ -336,41 +488,19 @@ namespace Depressurizer
             }
         }
 
-        public int ConfigBackupCount
+        public StoreLanguage StoreLang
         {
-            get => _configBackupCount;
+            get => _storeLanguage;
             set
             {
-                if (_configBackupCount != value)
+                if (_storeLanguage != value)
                 {
-                    _configBackupCount = value;
+                    _storeLanguage = value;
                     outOfDate = true;
-                }
-            }
-        }
-
-        public StartupAction StartupAction
-        {
-            get => _startupAction;
-            set
-            {
-                if (_startupAction != value)
-                {
-                    _startupAction = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public string ProfileToLoad
-        {
-            get => _profileToLoad;
-            set
-            {
-                if (_profileToLoad != value)
-                {
-                    _profileToLoad = value;
-                    outOfDate = true;
+                    if (Program.Database != null)
+                    {
+                        Program.Database.ChangeLanguage(_storeLanguage);
+                    }
                 }
             }
         }
@@ -401,143 +531,6 @@ namespace Depressurizer
             }
         }
 
-        public bool IncludeImputedTimes
-        {
-            get => _IncludeImputedTimes;
-            set
-            {
-                if (_IncludeImputedTimes != value)
-                {
-                    _IncludeImputedTimes = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public bool AutosaveDB
-        {
-            get => _autosaveDB;
-            set
-            {
-                if (_autosaveDB != value)
-                {
-                    _autosaveDB = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public int ScrapePromptDays
-        {
-            get => _scrapePromptDays;
-            set
-            {
-                if (_scrapePromptDays != value)
-                {
-                    _scrapePromptDays = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public bool CheckForDepressurizerUpdates
-        {
-            get => _checkForDepressurizerUpdates;
-            set
-            {
-                if (_checkForDepressurizerUpdates != value)
-                {
-                    _checkForDepressurizerUpdates = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public bool RemoveExtraEntries
-        {
-            get => _removeExtraEntries;
-            set
-            {
-                if (_removeExtraEntries != value)
-                {
-                    _removeExtraEntries = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public GameListSource ListSource
-        {
-            get => _listSource;
-            set
-            {
-                if (_listSource != value)
-                {
-                    _listSource = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public LoggerLevel LogLevel
-        {
-            get => _logLevel;
-            set
-            {
-                Program.Logger.Level = value;
-                if (_logLevel != value)
-                {
-                    _logLevel = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public int LogSize
-        {
-            get => _logSize;
-            set
-            {
-                Program.Logger.MaxFileSize = value;
-                if (_logSize != value)
-                {
-                    _logSize = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public int LogBackups
-        {
-            get => _logBackups;
-            set
-            {
-                Program.Logger.MaxBackup = value;
-                if (_logBackups != value)
-                {
-                    _logBackups = value;
-                    outOfDate = true;
-                }
-            }
-        }
-
-        public StoreLanguage StoreLang
-        {
-            get => _storeLanguage;
-            set
-            {
-                if (_storeLanguage != value)
-                {
-                    _storeLanguage = value;
-                    outOfDate = true;
-                    if (Program.Database != null)
-                    {
-                        Program.Database.ChangeLanguage(_storeLanguage);
-                    }
-                }
-            }
-        }
-
         public UILanguage UserLang
         {
             get => _userLanguage;
@@ -552,31 +545,66 @@ namespace Depressurizer
             }
         }
 
-        public bool SingleCatMode
+        public int Width
         {
-            get => _singleCatMode;
+            get
+            {
+                if (_width <= 600)
+                {
+                    Width = 1000;
+                }
+
+                return _width;
+            }
             set
             {
-                if (_singleCatMode != value)
+                if (_width != value)
                 {
-                    _singleCatMode = value;
+                    _width = value;
                     outOfDate = true;
                 }
             }
         }
 
-        public string LstGamesState
+        public int X
         {
-            get => _lstGamesState;
+            get => _x;
             set
             {
-                if (_lstGamesState != value)
+                if (_x != value)
                 {
-                    _lstGamesState = value;
+                    _x = value;
                     outOfDate = true;
                 }
             }
         }
+
+        public int Y
+        {
+            get => _y;
+            set
+            {
+                if (_y != value)
+                {
+                    _y = value;
+                    outOfDate = true;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public override void Load()
+        {
+            base.Load();
+            //   Program.Logger.Level = LogLevel;
+        }
+
+        #endregion
+
+        #region Methods
 
         private void changeLanguage(UILanguage userLanguage)
         {
@@ -607,10 +635,6 @@ namespace Depressurizer
             Thread.CurrentThread.CurrentUICulture = newCulture;
         }
 
-        public override void Load()
-        {
-            base.Load();
-            //   Program.Logger.Level = LogLevel;
-        }
+        #endregion
     }
 }

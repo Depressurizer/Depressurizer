@@ -6,6 +6,8 @@ namespace Depressurizer
 {
     public struct VrSupport
     {
+        #region Fields
+
         [DefaultValue(null)] [XmlElement("Headset")]
         public List<string> Headsets;
 
@@ -14,5 +16,7 @@ namespace Depressurizer
 
         [DefaultValue(null)] [XmlElement("PlayArea")]
         public List<string> PlayArea;
+
+        #endregion
     }
 }

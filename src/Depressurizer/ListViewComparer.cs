@@ -8,14 +8,24 @@ namespace Depressurizer
     // Compares two ListView items based on a selected column.
     public class ListViewComparer : IComparer
     {
+        #region Fields
+
         private readonly int ColumnNumber;
         private readonly SortOrder SortOrder;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public ListViewComparer(int column_number, SortOrder sort_order)
         {
             ColumnNumber = column_number;
             SortOrder = sort_order;
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         // Compare two ListViewItems.
         public int Compare(object object_x, object object_y)
@@ -61,25 +71,41 @@ namespace Depressurizer
 
             return -result;
         }
+
+        #endregion
     }
 
     // Compares two lstCategories items based on a selected column.
     public class lstCategoriesComparer : IComparer
     {
-        public enum categorySortMode
-        {
-            Name,
-            Count
-        }
+        #region Fields
 
         private readonly categorySortMode SortMode;
         private readonly SortOrder SortOrder;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public lstCategoriesComparer(categorySortMode sortMode, SortOrder sortOrder)
         {
             SortMode = sortMode;
             SortOrder = sortOrder;
         }
+
+        #endregion
+
+        #region Enums
+
+        public enum categorySortMode
+        {
+            Name,
+            Count
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         // Compare two ListViewItems.
         public int Compare(object object_x, object object_y)
@@ -143,5 +169,7 @@ namespace Depressurizer
 
             return -result;
         }
+
+        #endregion
     }
 }

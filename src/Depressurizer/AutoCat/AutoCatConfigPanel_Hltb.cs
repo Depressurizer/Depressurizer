@@ -25,8 +25,14 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Hltb : AutoCatConfigPanel
     {
+        #region Fields
+
         private readonly BindingSource binding = new BindingSource();
         private readonly BindingList<Hltb_Rule> ruleList = new BindingList<Hltb_Rule>();
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public AutoCatConfigPanel_Hltb()
         {
@@ -64,19 +70,9 @@ namespace Depressurizer
             UpdateEnabledSettings();
         }
 
-        public override void SaveToAutoCat(AutoCat ac)
-        {
-            AutoCatHltb acHltb = ac as AutoCatHltb;
-            if (acHltb == null)
-            {
-                return;
-            }
+        #endregion
 
-            acHltb.Prefix = txtPrefix.Text;
-            acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
-            acHltb.UnknownText = txtUnknownText.Text;
-            acHltb.Rules = new List<Hltb_Rule>(ruleList);
-        }
+        #region Public Methods and Operators
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
@@ -101,16 +97,57 @@ namespace Depressurizer
             UpdateEnabledSettings();
         }
 
-        /// <summary>
-        ///     Updates enabled states of all form elements that depend on the rule selection.
-        /// </summary>
-        private void UpdateEnabledSettings()
+        public override void SaveToAutoCat(AutoCat ac)
         {
-            bool ruleSelected = lstRules.SelectedIndex >= 0;
+            AutoCatHltb acHltb = ac as AutoCatHltb;
+            if (acHltb == null)
+            {
+                return;
+            }
 
-            txtRuleName.Enabled = numRuleMaxTime.Enabled = numRuleMinTime.Enabled = cmbTimeType.Enabled = cmdRuleRemove.Enabled = ruleSelected;
-            cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
-            cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
+            acHltb.Prefix = txtPrefix.Text;
+            acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
+            acHltb.UnknownText = txtUnknownText.Text;
+            acHltb.Rules = new List<Hltb_Rule>(ruleList);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Adds a new rule to the end of the list and selects it.
+        /// </summary>
+        private void AddRule()
+        {
+            Hltb_Rule newRule = new Hltb_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0, (TimeType) cmbTimeType.SelectedItem);
+            ruleList.Add(newRule);
+            lstRules.SelectedIndex = lstRules.Items.Count - 1;
+        }
+
+        private void cmdRuleAdd_Click(object sender, EventArgs e)
+        {
+            AddRule();
+        }
+
+        private void cmdRuleDown_Click(object sender, EventArgs e)
+        {
+            MoveItem(lstRules.SelectedIndex, 1, true);
+        }
+
+        private void cmdRuleRemove_Click(object sender, EventArgs e)
+        {
+            RemoveRule(lstRules.SelectedIndex);
+        }
+
+        private void cmdRuleUp_Click(object sender, EventArgs e)
+        {
+            MoveItem(lstRules.SelectedIndex, -1, true);
+        }
+
+        private void lstRules_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateEnabledSettings();
         }
 
         /// <summary>
@@ -138,16 +175,6 @@ namespace Depressurizer
         }
 
         /// <summary>
-        ///     Adds a new rule to the end of the list and selects it.
-        /// </summary>
-        private void AddRule()
-        {
-            Hltb_Rule newRule = new Hltb_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0, (TimeType) cmbTimeType.SelectedItem);
-            ruleList.Add(newRule);
-            lstRules.SelectedIndex = lstRules.Items.Count - 1;
-        }
-
-        /// <summary>
         ///     Removes the rule at the given index
         /// </summary>
         /// <param name="index">Index of the rule to remove</param>
@@ -159,31 +186,16 @@ namespace Depressurizer
             }
         }
 
-        #region Event Handlers
-
-        private void lstRules_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        ///     Updates enabled states of all form elements that depend on the rule selection.
+        /// </summary>
+        private void UpdateEnabledSettings()
         {
-            UpdateEnabledSettings();
-        }
+            bool ruleSelected = lstRules.SelectedIndex >= 0;
 
-        private void cmdRuleAdd_Click(object sender, EventArgs e)
-        {
-            AddRule();
-        }
-
-        private void cmdRuleRemove_Click(object sender, EventArgs e)
-        {
-            RemoveRule(lstRules.SelectedIndex);
-        }
-
-        private void cmdRuleUp_Click(object sender, EventArgs e)
-        {
-            MoveItem(lstRules.SelectedIndex, -1, true);
-        }
-
-        private void cmdRuleDown_Click(object sender, EventArgs e)
-        {
-            MoveItem(lstRules.SelectedIndex, 1, true);
+            txtRuleName.Enabled = numRuleMaxTime.Enabled = numRuleMinTime.Enabled = cmbTimeType.Enabled = cmdRuleRemove.Enabled = ruleSelected;
+            cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
+            cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
         }
 
         #endregion

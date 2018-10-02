@@ -25,11 +25,17 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_DevPub : AutoCatConfigPanel
     {
+        #region Fields
+
         private readonly GameList ownedGames;
         private bool loaded;
 
         // used to remove unchecked items from the Add and Remove checkedlistbox.
         private Thread workerThread;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public AutoCatConfigPanel_DevPub(GameList g)
         {
@@ -51,30 +57,77 @@ namespace Depressurizer
             lstPublishers.Columns[1].Width = 0;
         }
 
-        #region Event Handlers
+        #endregion
 
-        private void cmdListRebuild_Click(object sender, EventArgs e)
-        {
-            HashSet<string> checkedTags = new HashSet<string>();
-            foreach (ListViewItem item in lstDevelopers.CheckedItems)
-            {
-                checkedTags.Add(item.Tag as string);
-            }
+        #region Delegates
 
-            FillDevList(checkedTags);
+        private delegate void DevItemCallback(ListViewItem obj);
 
-            checkedTags = new HashSet<string>();
-            foreach (ListViewItem item in lstPublishers.CheckedItems)
-            {
-                checkedTags.Add(item.Tag as string);
-            }
-
-            FillPubList(checkedTags);
-        }
+        private delegate void PubItemCallback(ListViewItem obj);
 
         #endregion
 
-        #region Data Modifiers
+        #region Public Methods and Operators
+
+        public void FillDevList(ICollection<string> preChecked = null)
+        {
+            if (Program.Database != null)
+            {
+                Cursor = Cursors.WaitCursor;
+                IEnumerable<Tuple<string, int>> devList = Program.Database.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
+                clbDevelopersSelected.Items.Clear();
+                lstDevelopers.BeginUpdate();
+                lstDevelopers.Items.Clear();
+                foreach (Tuple<string, int> dev in devList)
+                {
+                    ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", dev.Item1, dev.Item2));
+                    newItem.Tag = dev.Item1;
+                    if (preChecked != null && preChecked.Contains(dev.Item1))
+                    {
+                        newItem.Checked = true;
+                    }
+
+                    newItem.SubItems.Add(dev.Item2.ToString());
+                    lstDevelopers.Items.Add(newItem);
+                }
+
+                lstDevelopers.Columns[0].Width = -1;
+                SortDevelopers(1, SortOrder.Descending);
+                lstDevelopers.EndUpdate();
+                chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count + ")";
+                Cursor = Cursors.Default;
+            }
+        }
+
+        public void FillPubList(ICollection<string> preChecked = null)
+        {
+            if (Program.Database != null)
+            {
+                Cursor = Cursors.WaitCursor;
+                IEnumerable<Tuple<string, int>> pubList = Program.Database.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
+                clbPublishersSelected.Items.Clear();
+                lstPublishers.BeginUpdate();
+                lstPublishers.Items.Clear();
+                foreach (Tuple<string, int> pub in pubList)
+                {
+                    ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", pub.Item1, pub.Item2));
+                    newItem.Tag = pub.Item1;
+                    if (preChecked != null && preChecked.Contains(pub.Item1))
+                    {
+                        newItem.Checked = true;
+                    }
+
+                    newItem.SubItems.Add(pub.Item2.ToString());
+                    lstPublishers.Items.Add(newItem);
+                }
+
+                lstPublishers.Columns[0].Width = -1;
+                SortPublishers(1, SortOrder.Descending);
+                lstPublishers.EndUpdate();
+                chkAllPublishers.Text = "All (" + lstPublishers.Items.Count + ")";
+                Cursor = Cursors.Default;
+            }
+        }
 
         public override void LoadFromAutoCat(AutoCat autocat)
         {
@@ -147,153 +200,57 @@ namespace Depressurizer
 
         #endregion
 
-        #region UI Updaters
-
-        public void FillDevList(ICollection<string> preChecked = null)
-        {
-            if (Program.Database != null)
-            {
-                Cursor = Cursors.WaitCursor;
-                IEnumerable<Tuple<string, int>> devList = Program.Database.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
-                clbDevelopersSelected.Items.Clear();
-                lstDevelopers.BeginUpdate();
-                lstDevelopers.Items.Clear();
-                foreach (Tuple<string, int> dev in devList)
-                {
-                    ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", dev.Item1, dev.Item2));
-                    newItem.Tag = dev.Item1;
-                    if (preChecked != null && preChecked.Contains(dev.Item1))
-                    {
-                        newItem.Checked = true;
-                    }
-
-                    newItem.SubItems.Add(dev.Item2.ToString());
-                    lstDevelopers.Items.Add(newItem);
-                }
-
-                lstDevelopers.Columns[0].Width = -1;
-                SortDevelopers(1, SortOrder.Descending);
-                lstDevelopers.EndUpdate();
-                chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count + ")";
-                Cursor = Cursors.Default;
-            }
-        }
-
-        public void FillPubList(ICollection<string> preChecked = null)
-        {
-            if (Program.Database != null)
-            {
-                Cursor = Cursors.WaitCursor;
-                IEnumerable<Tuple<string, int>> pubList = Program.Database.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
-                clbPublishersSelected.Items.Clear();
-                lstPublishers.BeginUpdate();
-                lstPublishers.Items.Clear();
-                foreach (Tuple<string, int> pub in pubList)
-                {
-                    ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", pub.Item1, pub.Item2));
-                    newItem.Tag = pub.Item1;
-                    if (preChecked != null && preChecked.Contains(pub.Item1))
-                    {
-                        newItem.Checked = true;
-                    }
-
-                    newItem.SubItems.Add(pub.Item2.ToString());
-                    lstPublishers.Items.Add(newItem);
-                }
-
-                lstPublishers.Columns[0].Width = -1;
-                SortPublishers(1, SortOrder.Descending);
-                lstPublishers.EndUpdate();
-                chkAllPublishers.Text = "All (" + lstPublishers.Items.Count + ")";
-                Cursor = Cursors.Default;
-            }
-        }
-
-        private void SetAllListCheckStates(ListView list, bool to)
-        {
-            foreach (ListViewItem item in list.Items)
-            {
-                item.Checked = to;
-            }
-        }
-
-        private void nameascendingDev_Click(object sender, EventArgs e)
-        {
-            SortDevelopers(0, SortOrder.Ascending);
-        }
-
-        private void namedescendingDev_Click(object sender, EventArgs e)
-        {
-            SortDevelopers(0, SortOrder.Descending);
-        }
-
-        private void countascendingDev_Click(object sender, EventArgs e)
-        {
-            SortDevelopers(1, SortOrder.Ascending);
-        }
-
-        private void countdescendingDev_Click(object sender, EventArgs e)
-        {
-            SortDevelopers(1, SortOrder.Descending);
-        }
-
-        private void nameascendingPub_Click(object sender, EventArgs e)
-        {
-            SortPublishers(0, SortOrder.Ascending);
-        }
-
-        private void namedescendingPub_Click(object sender, EventArgs e)
-        {
-            SortPublishers(0, SortOrder.Descending);
-        }
-
-        private void countascendingPub_Click(object sender, EventArgs e)
-        {
-            SortPublishers(1, SortOrder.Ascending);
-        }
-
-        private void countdescendingPub_Click(object sender, EventArgs e)
-        {
-            SortPublishers(1, SortOrder.Descending);
-        }
-
-        #endregion
-
-        #region Utility
-
-        private void SortDevelopers(int c, SortOrder so)
-        {
-            // Create a comparer.
-            lstDevelopers.ListViewItemSorter = new ListViewComparer(c, so);
-
-            // Sort.
-            lstDevelopers.Sort();
-        }
-
-        private void SortPublishers(int c, SortOrder so)
-        {
-            // Create a comparer.
-            lstPublishers.ListViewItemSorter = new ListViewComparer(c, so);
-
-            // Sort.
-            lstDevelopers.Sort();
-        }
-
-        #endregion
-
-        #region Developers
-
-        #region Event Handlers
+        #region Methods
 
         private void btnDevCheckAll_Click(object sender, EventArgs e)
         {
             SetAllListCheckStates(lstDevelopers, true);
         }
 
+        private void btnDevSelected_Click(object sender, EventArgs e)
+        {
+            if (splitDevTop.Panel1Collapsed)
+            {
+                splitDevTop.Panel1Collapsed = false;
+                btnDevSelected.Text = "<";
+            }
+            else
+            {
+                splitDevTop.Panel1Collapsed = true;
+                btnDevSelected.Text = ">";
+            }
+        }
+
         private void btnDevUncheckAll_Click(object sender, EventArgs e)
         {
             loaded = false;
             FillDevList();
+            loaded = true;
+        }
+
+        private void btnPubCheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstPublishers, true);
+        }
+
+        private void btnPubSelected_Click(object sender, EventArgs e)
+        {
+            if (splitPubTop.Panel1Collapsed)
+            {
+                splitPubTop.Panel1Collapsed = false;
+                btnPubSelected.Text = "<";
+            }
+            else
+            {
+                splitPubTop.Panel1Collapsed = true;
+                btnPubSelected.Text = ">";
+            }
+        }
+
+        private void btnPubUncheckAll_Click(object sender, EventArgs e)
+        {
+            loaded = false;
+            FillPubList();
             loaded = true;
         }
 
@@ -315,85 +272,6 @@ namespace Depressurizer
             }
         }
 
-        private void lstDevelopers_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-            if (e.Item.Checked)
-            {
-                clbDevelopersSelected.Items.Add(e.Item, true);
-            }
-            else if (!e.Item.Checked && loaded && clbDevelopersSelected.Items.Contains(e.Item))
-            {
-                workerThread = new Thread(DevelopersItemWorker);
-                workerThread.Start(e.Item);
-            }
-        }
-
-        private void clbDevelopersSelected_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (e.NewValue == CheckState.Unchecked)
-            {
-                ((ListViewItem) clbDevelopersSelected.Items[e.Index]).Checked = false;
-            }
-        }
-
-        private void btnDevSelected_Click(object sender, EventArgs e)
-        {
-            if (splitDevTop.Panel1Collapsed)
-            {
-                splitDevTop.Panel1Collapsed = false;
-                btnDevSelected.Text = "<";
-            }
-            else
-            {
-                splitDevTop.Panel1Collapsed = true;
-                btnDevSelected.Text = ">";
-            }
-        }
-
-        #endregion
-
-        #region Helper Thread
-
-        private delegate void DevItemCallback(ListViewItem obj);
-
-        private void DevelopersRemoveItem(ListViewItem obj)
-        {
-            if (clbDevelopersSelected.InvokeRequired)
-            {
-                DevItemCallback callback = DevelopersRemoveItem;
-                Invoke(callback, obj);
-            }
-            else
-            {
-                clbDevelopersSelected.Items.Remove(obj);
-            }
-        }
-
-        private void DevelopersItemWorker(object obj)
-        {
-            DevelopersRemoveItem((ListViewItem) obj);
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Publishers
-
-        #region Event Handlers
-
-        private void btnPubCheckAll_Click(object sender, EventArgs e)
-        {
-            SetAllListCheckStates(lstPublishers, true);
-        }
-
-        private void btnPubUncheckAll_Click(object sender, EventArgs e)
-        {
-            loaded = false;
-            FillPubList();
-            loaded = true;
-        }
-
         private void chkAllPublishers_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAllPublishers.Checked)
@@ -412,6 +290,92 @@ namespace Depressurizer
             }
         }
 
+        private void clbDevelopersSelected_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Unchecked)
+            {
+                ((ListViewItem) clbDevelopersSelected.Items[e.Index]).Checked = false;
+            }
+        }
+
+        private void clbPublishersSelected_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Unchecked)
+            {
+                ((ListViewItem) clbPublishersSelected.Items[e.Index]).Checked = false;
+            }
+        }
+
+        private void cmdListRebuild_Click(object sender, EventArgs e)
+        {
+            HashSet<string> checkedTags = new HashSet<string>();
+            foreach (ListViewItem item in lstDevelopers.CheckedItems)
+            {
+                checkedTags.Add(item.Tag as string);
+            }
+
+            FillDevList(checkedTags);
+
+            checkedTags = new HashSet<string>();
+            foreach (ListViewItem item in lstPublishers.CheckedItems)
+            {
+                checkedTags.Add(item.Tag as string);
+            }
+
+            FillPubList(checkedTags);
+        }
+
+        private void countascendingDev_Click(object sender, EventArgs e)
+        {
+            SortDevelopers(1, SortOrder.Ascending);
+        }
+
+        private void countascendingPub_Click(object sender, EventArgs e)
+        {
+            SortPublishers(1, SortOrder.Ascending);
+        }
+
+        private void countdescendingDev_Click(object sender, EventArgs e)
+        {
+            SortDevelopers(1, SortOrder.Descending);
+        }
+
+        private void countdescendingPub_Click(object sender, EventArgs e)
+        {
+            SortPublishers(1, SortOrder.Descending);
+        }
+
+        private void DevelopersItemWorker(object obj)
+        {
+            DevelopersRemoveItem((ListViewItem) obj);
+        }
+
+        private void DevelopersRemoveItem(ListViewItem obj)
+        {
+            if (clbDevelopersSelected.InvokeRequired)
+            {
+                DevItemCallback callback = DevelopersRemoveItem;
+                Invoke(callback, obj);
+            }
+            else
+            {
+                clbDevelopersSelected.Items.Remove(obj);
+            }
+        }
+
+        private void lstDevelopers_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (e.Item.Checked)
+            {
+                clbDevelopersSelected.Items.Add(e.Item, true);
+            }
+            else if (!e.Item.Checked && loaded && clbDevelopersSelected.Items.Contains(e.Item))
+            {
+                workerThread = new Thread(DevelopersItemWorker);
+                workerThread.Start(e.Item);
+            }
+        }
+
         private void lstPublishers_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             if (e.Item.Checked)
@@ -425,33 +389,30 @@ namespace Depressurizer
             }
         }
 
-        private void clbPublishersSelected_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void nameascendingDev_Click(object sender, EventArgs e)
         {
-            if (e.NewValue == CheckState.Unchecked)
-            {
-                ((ListViewItem) clbPublishersSelected.Items[e.Index]).Checked = false;
-            }
+            SortDevelopers(0, SortOrder.Ascending);
         }
 
-        private void btnPubSelected_Click(object sender, EventArgs e)
+        private void nameascendingPub_Click(object sender, EventArgs e)
         {
-            if (splitPubTop.Panel1Collapsed)
-            {
-                splitPubTop.Panel1Collapsed = false;
-                btnPubSelected.Text = "<";
-            }
-            else
-            {
-                splitPubTop.Panel1Collapsed = true;
-                btnPubSelected.Text = ">";
-            }
+            SortPublishers(0, SortOrder.Ascending);
         }
 
-        #endregion
+        private void namedescendingDev_Click(object sender, EventArgs e)
+        {
+            SortDevelopers(0, SortOrder.Descending);
+        }
 
-        #region Helper Thread
+        private void namedescendingPub_Click(object sender, EventArgs e)
+        {
+            SortPublishers(0, SortOrder.Descending);
+        }
 
-        private delegate void PubItemCallback(ListViewItem obj);
+        private void PublishersItemWorker(object obj)
+        {
+            PublishersRemoveItem((ListViewItem) obj);
+        }
 
         private void PublishersRemoveItem(ListViewItem obj)
         {
@@ -466,12 +427,31 @@ namespace Depressurizer
             }
         }
 
-        private void PublishersItemWorker(object obj)
+        private void SetAllListCheckStates(ListView list, bool to)
         {
-            PublishersRemoveItem((ListViewItem) obj);
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
         }
 
-        #endregion
+        private void SortDevelopers(int c, SortOrder so)
+        {
+            // Create a comparer.
+            lstDevelopers.ListViewItemSorter = new ListViewComparer(c, so);
+
+            // Sort.
+            lstDevelopers.Sort();
+        }
+
+        private void SortPublishers(int c, SortOrder so)
+        {
+            // Create a comparer.
+            lstPublishers.ListViewItemSorter = new ListViewComparer(c, so);
+
+            // Sort.
+            lstDevelopers.Sort();
+        }
 
         #endregion
     }

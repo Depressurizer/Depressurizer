@@ -24,6 +24,8 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_VrSupport : AutoCatConfigPanel
     {
+        #region Constructors and Destructors
+
         public AutoCatConfigPanel_VrSupport()
         {
             InitializeComponent();
@@ -32,6 +34,10 @@ namespace Depressurizer
 
             FillVrSupportLists();
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void FillVrSupportLists()
         {
@@ -125,13 +131,9 @@ namespace Depressurizer
             }
         }
 
-        private void SetAllListCheckStates(ListView list, bool to)
-        {
-            foreach (ListViewItem item in list.Items)
-            {
-                item.Checked = to;
-            }
-        }
+        #endregion
+
+        #region Methods
 
         private void cmdCheckAll_Click(object sender, EventArgs e)
         {
@@ -146,5 +148,15 @@ namespace Depressurizer
             SetAllListCheckStates(lstVrInput, false);
             SetAllListCheckStates(lstVrPlayArea, false);
         }
+
+        private void SetAllListCheckStates(ListView list, bool to)
+        {
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
+        }
+
+        #endregion
     }
 }

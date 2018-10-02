@@ -7,13 +7,19 @@ namespace Depressurizer
 {
     public class AutoCatName : AutoCat
     {
+        #region Constants
+
         public const string TypeIdString = "AutoCatName";
-        public const string XmlName_Prefix = "Prefix";
-        public const string XmlName_Name = "Name";
-        public const string XmlName_SkipThe = "SkipThe";
-        public const string XmlName_GroupNumbers = "GroupNumbers";
         public const string XmlName_GroupNonEnglishCharacters = "GroupNonEnglishCharacters";
         public const string XmlName_GroupNonEnglishCharactersText = "GroupNonEnglishCharactersText";
+        public const string XmlName_GroupNumbers = "GroupNumbers";
+        public const string XmlName_Name = "Name";
+        public const string XmlName_Prefix = "Prefix";
+        public const string XmlName_SkipThe = "SkipThe";
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public AutoCatName(string name, string prefix = "", bool skipThe = true, bool groupNumbers = false, bool groupNonEnglishCharacters = false, string groupNonEnglishCharactersText = "") : base(name)
         {
@@ -30,14 +36,33 @@ namespace Depressurizer
         {
         }
 
-        public string Prefix { get; set; }
-        public bool SkipThe { get; set; }
-        public bool GroupNumbers { get; set; }
-        public bool GroupNonEnglishCharacters { get; set; }
-        public string GroupNonEnglishCharactersText { get; set; }
+        #endregion
 
+        #region Public Properties
 
         public override AutoCatType AutoCatType => AutoCatType.Name;
+        public bool GroupNonEnglishCharacters { get; set; }
+        public string GroupNonEnglishCharactersText { get; set; }
+        public bool GroupNumbers { get; set; }
+
+        public string Prefix { get; set; }
+        public bool SkipThe { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static AutoCatName LoadFromXmlElement(XmlElement xElement)
+        {
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            bool skipThe = XmlUtil.GetBoolFromNode(xElement[XmlName_SkipThe], true);
+            bool groupNumbers = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNumbers], true);
+            bool groupNonEnglishCharacters = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNonEnglishCharacters], false);
+            string groupNonEnglishCharactersText = XmlUtil.GetStringFromNode(xElement[XmlName_GroupNonEnglishCharactersText], null);
+
+            return new AutoCatName(name, prefix, skipThe, groupNumbers, groupNonEnglishCharacters, groupNonEnglishCharactersText);
+        }
 
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
@@ -110,16 +135,6 @@ namespace Depressurizer
             writer.WriteEndElement(); // type ID string
         }
 
-        public static AutoCatName LoadFromXmlElement(XmlElement xElement)
-        {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            bool skipThe = XmlUtil.GetBoolFromNode(xElement[XmlName_SkipThe], true);
-            bool groupNumbers = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNumbers], true);
-            bool groupNonEnglishCharacters = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNonEnglishCharacters], false);
-            string groupNonEnglishCharactersText = XmlUtil.GetStringFromNode(xElement[XmlName_GroupNonEnglishCharactersText], null);
-
-            return new AutoCatName(name, prefix, skipThe, groupNumbers, groupNonEnglishCharacters, groupNonEnglishCharactersText);
-        }
+        #endregion
     }
 }

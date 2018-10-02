@@ -27,18 +27,28 @@ namespace Depressurizer
 {
     public class AutoCatVrSupport : AutoCat
     {
+        #region Constants
+
         // Serialization constants
         public const string TypeIdString = "AutoCatVrSupport";
-
-        private const string XmlNameName = "Name";
         private const string XmlNameFilter = "Filter";
-        private const string XmlNamePrefix = "Prefix";
+        private const string XmlNameFlag = "Flag";
         private const string XmlNameHeadsetsList = "Headsets";
         private const string XmlNameInputList = "Input";
+
+        private const string XmlNameName = "Name";
         private const string XmlNamePlayAreaList = "PlayArea";
-        private const string XmlNameFlag = "Flag";
+        private const string XmlNamePrefix = "Prefix";
+
+        #endregion
+
+        #region Fields
 
         public VrSupport IncludedVrSupportFlags;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public AutoCatVrSupport(string name, string filter = null, string prefix = null, List<string> headsets = null, List<string> input = null, List<string> playArea = null, bool selected = false) : base(name)
         {
@@ -51,11 +61,6 @@ namespace Depressurizer
             Selected = selected;
         }
 
-        //XmlSerializer requires a parameterless constructor
-        private AutoCatVrSupport()
-        {
-        }
-
         protected AutoCatVrSupport(AutoCatVrSupport other) : base(other)
         {
             Filter = other.Filter;
@@ -64,14 +69,77 @@ namespace Depressurizer
             Selected = other.Selected;
         }
 
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatVrSupport()
+        {
+        }
+
+        #endregion
+
+        #region Public Properties
+
         public override AutoCatType AutoCatType => AutoCatType.VrSupport;
 
         // AutoCat configuration
         public string Prefix { get; set; }
 
-        public override AutoCat Clone()
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static AutoCatVrSupport LoadFromXmlElement(XmlElement xElement)
         {
-            return new AutoCatVrSupport(this);
+            string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
+            List<string> headsetsList = new List<string>();
+            List<string> inputList = new List<string>();
+            List<string> playAreaList = new List<string>();
+
+            XmlElement headset = xElement[XmlNameHeadsetsList];
+            XmlElement input = xElement[XmlNameInputList];
+            XmlElement playArea = xElement[XmlNamePlayAreaList];
+
+            XmlNodeList headsetElements = headset?.SelectNodes(XmlNameFlag);
+            if (headsetElements != null)
+            {
+                for (int i = 0; i < headsetElements.Count; i++)
+                {
+                    XmlNode n = headsetElements[i];
+                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
+                    {
+                        headsetsList.Add(flag);
+                    }
+                }
+            }
+
+            XmlNodeList inputElements = input?.SelectNodes(XmlNameFlag);
+            if (inputElements != null)
+            {
+                for (int i = 0; i < inputElements.Count; i++)
+                {
+                    XmlNode n = inputElements[i];
+                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
+                    {
+                        inputList.Add(flag);
+                    }
+                }
+            }
+
+            XmlNodeList playAreaElements = playArea?.SelectNodes(XmlNameFlag);
+            if (playAreaElements != null)
+            {
+                for (int i = 0; i < playAreaElements.Count; i++)
+                {
+                    XmlNode n = playAreaElements[i];
+                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
+                    {
+                        playAreaList.Add(flag);
+                    }
+                }
+            }
+
+            return new AutoCatVrSupport(name, filter, prefix, headsetsList, inputList, playAreaList);
         }
 
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
@@ -135,14 +203,9 @@ namespace Depressurizer
             return AutoCatResult.Success;
         }
 
-        private string GetProcessedString(string baseString)
+        public override AutoCat Clone()
         {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-
-            return Prefix + baseString;
+            return new AutoCatVrSupport(this);
         }
 
         public override void WriteToXml(XmlWriter writer)
@@ -189,59 +252,20 @@ namespace Depressurizer
             writer.WriteEndElement(); // type ID string
         }
 
-        public static AutoCatVrSupport LoadFromXmlElement(XmlElement xElement)
+        #endregion
+
+        #region Methods
+
+        private string GetProcessedString(string baseString)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
-            List<string> headsetsList = new List<string>();
-            List<string> inputList = new List<string>();
-            List<string> playAreaList = new List<string>();
-
-            XmlElement headset = xElement[XmlNameHeadsetsList];
-            XmlElement input = xElement[XmlNameInputList];
-            XmlElement playArea = xElement[XmlNamePlayAreaList];
-
-            XmlNodeList headsetElements = headset?.SelectNodes(XmlNameFlag);
-            if (headsetElements != null)
+            if (string.IsNullOrEmpty(Prefix))
             {
-                for (int i = 0; i < headsetElements.Count; i++)
-                {
-                    XmlNode n = headsetElements[i];
-                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
-                    {
-                        headsetsList.Add(flag);
-                    }
-                }
+                return baseString;
             }
 
-            XmlNodeList inputElements = input?.SelectNodes(XmlNameFlag);
-            if (inputElements != null)
-            {
-                for (int i = 0; i < inputElements.Count; i++)
-                {
-                    XmlNode n = inputElements[i];
-                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
-                    {
-                        inputList.Add(flag);
-                    }
-                }
-            }
-
-            XmlNodeList playAreaElements = playArea?.SelectNodes(XmlNameFlag);
-            if (playAreaElements != null)
-            {
-                for (int i = 0; i < playAreaElements.Count; i++)
-                {
-                    XmlNode n = playAreaElements[i];
-                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
-                    {
-                        playAreaList.Add(flag);
-                    }
-                }
-            }
-
-            return new AutoCatVrSupport(name, filter, prefix, headsetsList, inputList, playAreaList);
+            return Prefix + baseString;
         }
+
+        #endregion
     }
 }

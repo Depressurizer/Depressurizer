@@ -27,10 +27,16 @@ namespace Depressurizer
 {
     public class AutoCatFlags : AutoCat
     {
+        #region Constants
+
         // Serialization constants
         public const string TypeIdString = "AutoCatFlags";
 
         private const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_FlagList = "Flags", XmlName_Flag = "Flag";
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public AutoCatFlags(string name, string filter = null, string prefix = null, List<string> flags = null, bool selected = false) : base(name)
         {
@@ -38,11 +44,6 @@ namespace Depressurizer
             Prefix = prefix;
             IncludedFlags = flags == null ? new List<string>() : flags;
             Selected = selected;
-        }
-
-        //XmlSerializer requires a parameterless constructor
-        private AutoCatFlags()
-        {
         }
 
         protected AutoCatFlags(AutoCatFlags other) : base(other)
@@ -53,18 +54,50 @@ namespace Depressurizer
             Selected = other.Selected;
         }
 
-        public override AutoCatType AutoCatType => AutoCatType.Flags;
+        //XmlSerializer requires a parameterless constructor
+        private AutoCatFlags()
+        {
+        }
 
-        // AutoCat configuration
-        public string Prefix { get; set; }
+        #endregion
+
+        #region Public Properties
+
+        public override AutoCatType AutoCatType => AutoCatType.Flags;
 
         [XmlArray("Flags")]
         [XmlArrayItem("Flag")]
         public List<string> IncludedFlags { get; set; }
 
-        public override AutoCat Clone()
+        // AutoCat configuration
+        public string Prefix { get; set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        public static AutoCatFlags LoadFromXmlElement(XmlElement xElement)
         {
-            return new AutoCatFlags(this);
+            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            List<string> flags = new List<string>();
+
+            XmlElement flagListElement = xElement[XmlName_FlagList];
+            if (flagListElement != null)
+            {
+                XmlNodeList flagElements = flagListElement.SelectNodes(XmlName_Flag);
+                foreach (XmlNode n in flagElements)
+                {
+                    string flag;
+                    if (XmlUtil.TryGetStringFromNode(n, out flag))
+                    {
+                        flags.Add(flag);
+                    }
+                }
+            }
+
+            return new AutoCatFlags(name, filter, prefix, flags);
         }
 
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
@@ -114,14 +147,9 @@ namespace Depressurizer
             return AutoCatResult.Success;
         }
 
-        private string GetProcessedString(string baseString)
+        public override AutoCat Clone()
         {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-
-            return Prefix + baseString;
+            return new AutoCatFlags(this);
         }
 
         public override void WriteToXml(XmlWriter writer)
@@ -150,28 +178,20 @@ namespace Depressurizer
             writer.WriteEndElement(); // type ID string
         }
 
-        public static AutoCatFlags LoadFromXmlElement(XmlElement xElement)
-        {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
-            List<string> flags = new List<string>();
+        #endregion
 
-            XmlElement flagListElement = xElement[XmlName_FlagList];
-            if (flagListElement != null)
+        #region Methods
+
+        private string GetProcessedString(string baseString)
+        {
+            if (string.IsNullOrEmpty(Prefix))
             {
-                XmlNodeList flagElements = flagListElement.SelectNodes(XmlName_Flag);
-                foreach (XmlNode n in flagElements)
-                {
-                    string flag;
-                    if (XmlUtil.TryGetStringFromNode(n, out flag))
-                    {
-                        flags.Add(flag);
-                    }
-                }
+                return baseString;
             }
 
-            return new AutoCatFlags(name, filter, prefix, flags);
+            return Prefix + baseString;
         }
+
+        #endregion
     }
 }

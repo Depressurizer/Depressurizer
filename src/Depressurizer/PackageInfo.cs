@@ -37,11 +37,17 @@ namespace Depressurizer
 
     internal class PackageInfo
     {
+        #region Fields
+
         public List<int> AppIds;
 
         public PackageBillingType BillingType;
         public int Id;
         public string Name;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public PackageInfo(int id = 0, string name = null)
         {
@@ -49,6 +55,10 @@ namespace Depressurizer
             Id = id;
             Name = name;
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public static PackageInfo FromVdfNode(VdfFileNode node)
         {
@@ -162,5 +172,7 @@ namespace Depressurizer
 
             return result;
         }
+
+        #endregion
     }
 }

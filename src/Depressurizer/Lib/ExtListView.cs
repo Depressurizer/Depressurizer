@@ -24,16 +24,30 @@ namespace Depressurizer.Lib
 {
     internal class ExtListView : ListView
     {
+        #region Fields
+
         private bool isSelecting;
         private IComparer suspendedComparer;
         private int suspendSortDepth;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public ExtListView()
         {
             SelectedIndexChanged += ExtListView_SelectedIndexChanged;
         }
 
+        #endregion
+
+        #region Public Events
+
         public event EventHandler SelectionChanged;
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void ExtBeginUpdate()
         {
@@ -45,20 +59,6 @@ namespace Depressurizer.Lib
         {
             EndUpdate();
             ResumeSorting(true);
-        }
-
-        /// <summary>
-        ///     Suspends sorting until ResumeSorting is called. Does so by clearing the ListViewItemSorter property.
-        /// </summary>
-        public void SuspendSorting()
-        {
-            if (suspendSortDepth == 0)
-            {
-                suspendedComparer = ListViewItemSorter;
-                ListViewItemSorter = null;
-            }
-
-            suspendSortDepth++;
         }
 
         /// <summary>
@@ -85,14 +85,23 @@ namespace Depressurizer.Lib
             suspendSortDepth--;
         }
 
-        private void ExtListView_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        ///     Suspends sorting until ResumeSorting is called. Does so by clearing the ListViewItemSorter property.
+        /// </summary>
+        public void SuspendSorting()
         {
-            if (!isSelecting)
+            if (suspendSortDepth == 0)
             {
-                isSelecting = true;
-                Application.Idle += Application_Idle;
+                suspendedComparer = ListViewItemSorter;
+                ListViewItemSorter = null;
             }
+
+            suspendSortDepth++;
         }
+
+        #endregion
+
+        #region Methods
 
         private void Application_Idle(object sender, EventArgs e)
         {
@@ -103,5 +112,16 @@ namespace Depressurizer.Lib
                 SelectionChanged(this, new EventArgs());
             }
         }
+
+        private void ExtListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!isSelecting)
+            {
+                isSelecting = true;
+                Application.Idle += Application_Idle;
+            }
+        }
+
+        #endregion
     }
 }

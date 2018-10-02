@@ -25,11 +25,17 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Tags : AutoCatConfigPanel
     {
+        #region Fields
+
         private readonly GameList ownedGames;
         private bool loaded;
 
         // used to remove unchecked items from the Tags checkedlistbox.
         private Thread workerThread;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public AutoCatConfigPanel_Tags(GameList ownedGames)
         {
@@ -49,6 +55,16 @@ namespace Depressurizer
             //Hide count column
             lstIncluded.Columns[1].Width = 0;
         }
+
+        #endregion
+
+        #region Delegates
+
+        private delegate void TagItemCallback(ListViewItem obj);
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public void FillTagsList(ICollection<string> preChecked = null)
         {
@@ -127,12 +143,35 @@ namespace Depressurizer
             ac.List_ExcludeGenres = list_chkExcludeGenres.Checked;
         }
 
-        private void SetAllListCheckStates(ListView list, bool to)
+        #endregion
+
+        #region Methods
+
+        private void btnTagSelected_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in list.Items)
+            if (splitTags.Panel1Collapsed)
             {
-                item.Checked = to;
+                splitTags.Panel1Collapsed = false;
+                btnTagSelected.Text = "<";
             }
+            else
+            {
+                splitTags.Panel1Collapsed = true;
+                btnTagSelected.Text = ">";
+            }
+        }
+
+        private void clbTags_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Unchecked)
+            {
+                ((ListViewItem) clbTags.Items[e.Index]).Checked = false;
+            }
+        }
+
+        private void cmdCheckAll_Click(object sender, EventArgs e)
+        {
+            SetAllListCheckStates(lstIncluded, true);
         }
 
         private void cmdListRebuild_Click(object sender, EventArgs e)
@@ -146,22 +185,19 @@ namespace Depressurizer
             FillTagsList(checkedTags);
         }
 
-        private void cmdCheckAll_Click(object sender, EventArgs e)
-        {
-            SetAllListCheckStates(lstIncluded, true);
-        }
-
         private void cmdUncheckAll_Click(object sender, EventArgs e)
         {
             SetAllListCheckStates(lstIncluded, false);
         }
 
-        private void clbTags_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void countascendingTags_Click(object sender, EventArgs e)
         {
-            if (e.NewValue == CheckState.Unchecked)
-            {
-                ((ListViewItem) clbTags.Items[e.Index]).Checked = false;
-            }
+            SortTags(1, SortOrder.Ascending);
+        }
+
+        private void countdescendingTags_Click(object sender, EventArgs e)
+        {
+            SortTags(1, SortOrder.Descending);
         }
 
         private void lstIncluded_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -179,20 +215,6 @@ namespace Depressurizer
             lblIncluded.Text = "Included tags (" + clbTags.Items.Count + "):";
         }
 
-        private void btnTagSelected_Click(object sender, EventArgs e)
-        {
-            if (splitTags.Panel1Collapsed)
-            {
-                splitTags.Panel1Collapsed = false;
-                btnTagSelected.Text = "<";
-            }
-            else
-            {
-                splitTags.Panel1Collapsed = true;
-                btnTagSelected.Text = ">";
-            }
-        }
-
         private void nameascendingTags_Click(object sender, EventArgs e)
         {
             SortTags(0, SortOrder.Ascending);
@@ -203,17 +225,13 @@ namespace Depressurizer
             SortTags(0, SortOrder.Descending);
         }
 
-        private void countascendingTags_Click(object sender, EventArgs e)
+        private void SetAllListCheckStates(ListView list, bool to)
         {
-            SortTags(1, SortOrder.Ascending);
+            foreach (ListViewItem item in list.Items)
+            {
+                item.Checked = to;
+            }
         }
-
-        private void countdescendingTags_Click(object sender, EventArgs e)
-        {
-            SortTags(1, SortOrder.Descending);
-        }
-
-        #region Utility
 
         private void SortTags(int c, SortOrder so)
         {
@@ -223,12 +241,6 @@ namespace Depressurizer
             // Sort.
             lstIncluded.Sort();
         }
-
-        #endregion
-
-        #region Helper Thread 
-
-        private delegate void TagItemCallback(ListViewItem obj);
 
         private void TagItem(ListViewItem obj)
         {

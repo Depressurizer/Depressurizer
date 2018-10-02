@@ -23,7 +23,13 @@ namespace Depressurizer
 {
     internal class FetchPrcDlg : CancelableDlg
     {
+        #region Fields
+
         private XmlDocument doc;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public FetchPrcDlg() : base(GlobalStrings.CDlgFetch_UpdatingGameList, false)
         {
@@ -31,14 +37,15 @@ namespace Depressurizer
             Added = 0;
         }
 
+        #endregion
+
+        #region Public Properties
+
         public int Added { get; private set; }
 
-        protected override void RunProcess()
-        {
-            Added = 0;
-            doc = Database.FetchAppListFromWeb();
-            OnThreadCompletion();
-        }
+        #endregion
+
+        #region Methods
 
         protected override void Finish()
         {
@@ -49,5 +56,14 @@ namespace Depressurizer
                 OnJobCompletion();
             }
         }
+
+        protected override void RunProcess()
+        {
+            Added = 0;
+            doc = Database.FetchAppListFromWeb();
+            OnThreadCompletion();
+        }
+
+        #endregion
     }
 }

@@ -20,11 +20,17 @@ namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Platform : AutoCatConfigPanel
     {
+        #region Constructors and Destructors
+
         public AutoCatConfigPanel_Platform()
         {
             InitializeComponent();
             ttHelp.Ext_SetToolTip(helpPrefix, GlobalStrings.DlgAutoCat_Help_Prefix);
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public override void LoadFromAutoCat(AutoCat ac)
         {
@@ -55,5 +61,7 @@ namespace Depressurizer
             ac.Linux = chkboxPlatforms.GetItemChecked(2);
             ac.SteamOS = chkboxPlatforms.GetItemChecked(3);
         }
+
+        #endregion
     }
 }
