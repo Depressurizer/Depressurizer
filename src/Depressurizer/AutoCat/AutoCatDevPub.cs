@@ -108,6 +108,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Database Database => Database.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public static AutoCatDevPub LoadFromXmlElement(XmlElement xElement)
@@ -240,8 +246,8 @@ namespace Depressurizer
         {
             base.PreProcess(games, db);
             gamelist = games;
-            devList = Program.Database.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
-            pubList = Program.Database.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
+            devList = Database.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
+            pubList = Database.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);
         }
 
         public override void WriteToXml(XmlWriter writer)

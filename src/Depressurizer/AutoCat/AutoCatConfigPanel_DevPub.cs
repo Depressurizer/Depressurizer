@@ -71,66 +71,66 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Database Database => Database.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public void FillDevList(ICollection<string> preChecked = null)
         {
-            if (Program.Database != null)
+            Cursor = Cursors.WaitCursor;
+            IEnumerable<Tuple<string, int>> devList = Database.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
+            clbDevelopersSelected.Items.Clear();
+            lstDevelopers.BeginUpdate();
+            lstDevelopers.Items.Clear();
+            foreach (Tuple<string, int> dev in devList)
             {
-                Cursor = Cursors.WaitCursor;
-                IEnumerable<Tuple<string, int>> devList = Program.Database.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
-                clbDevelopersSelected.Items.Clear();
-                lstDevelopers.BeginUpdate();
-                lstDevelopers.Items.Clear();
-                foreach (Tuple<string, int> dev in devList)
+                ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", dev.Item1, dev.Item2));
+                newItem.Tag = dev.Item1;
+                if (preChecked != null && preChecked.Contains(dev.Item1))
                 {
-                    ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", dev.Item1, dev.Item2));
-                    newItem.Tag = dev.Item1;
-                    if (preChecked != null && preChecked.Contains(dev.Item1))
-                    {
-                        newItem.Checked = true;
-                    }
-
-                    newItem.SubItems.Add(dev.Item2.ToString());
-                    lstDevelopers.Items.Add(newItem);
+                    newItem.Checked = true;
                 }
 
-                lstDevelopers.Columns[0].Width = -1;
-                SortDevelopers(1, SortOrder.Descending);
-                lstDevelopers.EndUpdate();
-                chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count + ")";
-                Cursor = Cursors.Default;
+                newItem.SubItems.Add(dev.Item2.ToString());
+                lstDevelopers.Items.Add(newItem);
             }
+
+            lstDevelopers.Columns[0].Width = -1;
+            SortDevelopers(1, SortOrder.Descending);
+            lstDevelopers.EndUpdate();
+            chkAllDevelopers.Text = "All (" + lstDevelopers.Items.Count + ")";
+            Cursor = Cursors.Default;
         }
 
         public void FillPubList(ICollection<string> preChecked = null)
         {
-            if (Program.Database != null)
+            Cursor = Cursors.WaitCursor;
+            IEnumerable<Tuple<string, int>> pubList = Database.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
+            clbPublishersSelected.Items.Clear();
+            lstPublishers.BeginUpdate();
+            lstPublishers.Items.Clear();
+            foreach (Tuple<string, int> pub in pubList)
             {
-                Cursor = Cursors.WaitCursor;
-                IEnumerable<Tuple<string, int>> pubList = Program.Database.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
-                clbPublishersSelected.Items.Clear();
-                lstPublishers.BeginUpdate();
-                lstPublishers.Items.Clear();
-                foreach (Tuple<string, int> pub in pubList)
+                ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", pub.Item1, pub.Item2));
+                newItem.Tag = pub.Item1;
+                if (preChecked != null && preChecked.Contains(pub.Item1))
                 {
-                    ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", pub.Item1, pub.Item2));
-                    newItem.Tag = pub.Item1;
-                    if (preChecked != null && preChecked.Contains(pub.Item1))
-                    {
-                        newItem.Checked = true;
-                    }
-
-                    newItem.SubItems.Add(pub.Item2.ToString());
-                    lstPublishers.Items.Add(newItem);
+                    newItem.Checked = true;
                 }
 
-                lstPublishers.Columns[0].Width = -1;
-                SortPublishers(1, SortOrder.Descending);
-                lstPublishers.EndUpdate();
-                chkAllPublishers.Text = "All (" + lstPublishers.Items.Count + ")";
-                Cursor = Cursors.Default;
+                newItem.SubItems.Add(pub.Item2.ToString());
+                lstPublishers.Items.Add(newItem);
             }
+
+            lstPublishers.Columns[0].Width = -1;
+            SortPublishers(1, SortOrder.Descending);
+            lstPublishers.EndUpdate();
+            chkAllPublishers.Text = "All (" + lstPublishers.Items.Count + ")";
+            Cursor = Cursors.Default;
         }
 
         public override void LoadFromAutoCat(AutoCat autocat)

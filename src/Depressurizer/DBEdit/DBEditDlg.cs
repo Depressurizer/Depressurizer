@@ -77,6 +77,8 @@ namespace Depressurizer
 
         #region Properties
 
+        private static Database Database => Database.Instance;
+
         private bool UnsavedChanges { get; set; }
 
         #endregion
@@ -91,14 +93,14 @@ namespace Depressurizer
             GameDBEntryDialog dlg = new GameDBEntryDialog();
             if (dlg.ShowDialog() == DialogResult.OK && dlg.Game != null)
             {
-                if (Program.Database.Games.ContainsKey(dlg.Game.Id))
+                if (Database.Games.ContainsKey(dlg.Game.Id))
                 {
                     MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));
                 }
                 else
                 {
-                    Program.Database.Games.Add(dlg.Game.Id, dlg.Game);
+                    Database.Games.Add(dlg.Game.Id, dlg.Game);
 
                     if (ShouldDisplayGame(dlg.Game))
                     {
@@ -198,7 +200,7 @@ namespace Depressurizer
                 return false;
             }
 
-            return SaveDB();
+            return SaveDatabase();
         }
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
@@ -241,10 +243,10 @@ namespace Depressurizer
         {
             if (MessageBox.Show(GlobalStrings.DBEditDlg_AreYouSureToClear, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
             {
-                if (Program.Database.Games.Count > 0)
+                if (Database.Games.Count > 0)
                 {
                     UnsavedChanges = true;
-                    Program.Database.Games.Clear();
+                    Database.Games.Clear();
                     AddStatusMsg(GlobalStrings.DBEditDlg_ClearedAllData);
                 }
 
@@ -375,7 +377,7 @@ namespace Depressurizer
                         DatabaseEntry game = displayedGames[index];
                         if (game != null)
                         {
-                            Program.Database.Games.Remove(game.Id);
+                            Database.Games.Remove(game.Id);
                             deleted++;
                         }
                     }
@@ -470,12 +472,12 @@ namespace Depressurizer
         /// <summary>
         ///     Loads a db from a user-specified file.
         /// </summary>
-        private void LoadDB()
+        private void LoadDatabase()
         {
             if (CheckForUnsaved())
             {
                 OpenFileDialog dlg = new OpenFileDialog();
-                dlg.DefaultExt = "gz";
+                dlg.DefaultExt = "json";
                 dlg.AddExtension = true;
                 dlg.CheckFileExists = true;
                 dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
@@ -483,7 +485,7 @@ namespace Depressurizer
                 if (res == DialogResult.OK)
                 {
                     Cursor = Cursors.WaitCursor;
-                    Program.Database.Load(dlg.FileName);
+                    Database.Load(dlg.FileName);
                     RebuildDisplayList();
                     AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
                     UnsavedChanges = true;
@@ -622,14 +624,14 @@ namespace Depressurizer
         private void menu_File_Load_Click(object sender, EventArgs e)
         {
             ClearStatusMsg();
-            LoadDB();
+            LoadDatabase();
             FlushStatusMsg();
         }
 
         private void menu_File_Save_Click(object sender, EventArgs e)
         {
             ClearStatusMsg();
-            SaveDB();
+            SaveDatabase();
             FlushStatusMsg();
         }
 
@@ -662,7 +664,7 @@ namespace Depressurizer
         {
             lstGames.SelectedIndices.Clear();
             displayedGames.Clear();
-            foreach (DatabaseEntry g in Program.Database.Games.Values)
+            foreach (DatabaseEntry g in Database.Games.Values)
             {
                 if (ShouldDisplayGame(g))
                 {
@@ -696,7 +698,7 @@ namespace Depressurizer
             Cursor = Cursors.WaitCursor;
             try
             {
-                Program.Database.Save(filename);
+                Database.Save(filename);
             }
             catch (Exception e)
             {
@@ -715,7 +717,7 @@ namespace Depressurizer
         private void SaveAs()
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.DefaultExt = "gz";
+            dlg.DefaultExt = "json";
             dlg.AddExtension = true;
             dlg.CheckFileExists = false;
             dlg.Filter = GlobalStrings.DBEditDlg_DialogFilter;
@@ -730,9 +732,9 @@ namespace Depressurizer
         ///     Saves the database to the program DB file.
         /// </summary>
         /// <returns></returns>
-        private bool SaveDB()
+        private bool SaveDatabase()
         {
-            if (Save("Database.xml.gz"))
+            if (Save("database.json"))
             {
                 AddStatusMsg(GlobalStrings.DBEditDlg_DatabaseSaved);
                 UnsavedChanges = false;
@@ -794,7 +796,7 @@ namespace Depressurizer
 
             Queue<int> gamesToScrape = new Queue<int>();
 
-            foreach (DatabaseEntry g in Program.Database.Games.Values)
+            foreach (DatabaseEntry g in Database.Games.Values)
                 //Only scrape displayed games
             {
                 if (g.LastStoreScrape == 0 && ShouldDisplayGame(g))
@@ -840,7 +842,7 @@ namespace Depressurizer
                 return false;
             }
 
-            if (!Program.Database.Contains(g.Id))
+            if (!Database.Contains(g.Id))
             {
                 return false;
             }
@@ -944,7 +946,7 @@ namespace Depressurizer
             try
             {
                 string path = string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath);
-                int updated = Program.Database.UpdateFromAppInfo(path);
+                int updated = Database.UpdateFromAppInfo(path);
                 if (updated > 0)
                 {
                     UnsavedChanges = true;
@@ -995,7 +997,7 @@ namespace Depressurizer
         /// </summary>
         private void UpdateStatusCount()
         {
-            statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Program.Database.Games.Count);
+            statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Database.Games.Count);
             cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = lstGames.SelectedIndices.Count >= 1;
         }
 

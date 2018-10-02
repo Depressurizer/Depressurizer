@@ -51,6 +51,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Database Database => Database.Instance;
+
+        #endregion
+
         #region Methods
 
         protected override void Finish()
@@ -63,13 +69,13 @@ namespace Depressurizer
                 {
                     foreach (DatabaseEntry g in results)
                     {
-                        if (Program.Database.Contains(g.Id))
+                        if (Database.Contains(g.Id))
                         {
-                            Program.Database.Games[g.Id].MergeIn(g);
+                            Database.Games[g.Id].MergeIn(g);
                         }
                         else
                         {
-                            Program.Database.Games.Add(g.Id, g);
+                            Database.Games.Add(g.Id, g);
                         }
                     }
                 }

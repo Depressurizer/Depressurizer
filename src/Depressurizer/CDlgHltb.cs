@@ -42,6 +42,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Database Database => Database.Instance;
+
+        #endregion
+
         #region Methods
 
         protected override void Finish()
@@ -54,7 +60,7 @@ namespace Depressurizer
 
         protected override void RunProcess()
         {
-            Updated = Program.Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
+            Updated = Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes);
             OnThreadCompletion();
         }
 

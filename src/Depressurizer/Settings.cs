@@ -497,15 +497,14 @@ namespace Depressurizer
             get => _storeLanguage;
             set
             {
-                if (_storeLanguage != value)
+                if (_storeLanguage == value)
                 {
-                    _storeLanguage = value;
-                    outOfDate = true;
-                    if (Program.Database != null)
-                    {
-                        Program.Database.ChangeLanguage(_storeLanguage);
-                    }
+                    return;
                 }
+
+                _storeLanguage = value;
+                outOfDate = true;
+                Database.ChangeLanguage(_storeLanguage);
             }
         }
 
@@ -595,6 +594,12 @@ namespace Depressurizer
                 }
             }
         }
+
+        #endregion
+
+        #region Properties
+
+        private static Database Database => Database.Instance;
 
         #endregion
 

@@ -40,6 +40,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Database Database => Database.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public void FillVrSupportLists()
@@ -48,24 +54,22 @@ namespace Depressurizer
             lstVrInput.Items.Clear();
             lstVrPlayArea.Items.Clear();
 
-            if (Program.Database != null)
+
+            VrSupport vrSupport = Database.GetAllVrSupportFlags();
+
+            foreach (string s in vrSupport.Headsets)
             {
-                VrSupport vrSupport = Program.Database.GetAllVrSupportFlags();
+                lstVrHeadsets.Items.Add(s);
+            }
 
-                foreach (string s in vrSupport.Headsets)
-                {
-                    lstVrHeadsets.Items.Add(s);
-                }
+            foreach (string s in vrSupport.Input)
+            {
+                lstVrInput.Items.Add(s);
+            }
 
-                foreach (string s in vrSupport.Input)
-                {
-                    lstVrInput.Items.Add(s);
-                }
-
-                foreach (string s in vrSupport.PlayArea)
-                {
-                    lstVrPlayArea.Items.Add(s);
-                }
+            foreach (string s in vrSupport.PlayArea)
+            {
+                lstVrPlayArea.Items.Add(s);
             }
         }
 

@@ -138,6 +138,12 @@ namespace Depressurizer.Models
 
         #endregion
 
+        #region Properties
+
+        private static Database Database => Database.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         /// <summary>
@@ -537,24 +543,23 @@ namespace Depressurizer.Models
             try
             {
                 string storeLanguage = "en";
-                if (Program.Database != null)
+
+                switch (Database.Language)
                 {
-                    switch (Program.Database.dbLanguage)
-                    {
-                        case StoreLanguage.zh_Hans:
-                            storeLanguage = "schinese";
-                            break;
-                        case StoreLanguage.zh_Hant:
-                            storeLanguage = "tchinese";
-                            break;
-                        case StoreLanguage.pt_BR:
-                            storeLanguage = "brazilian";
-                            break;
-                        default:
-                            storeLanguage = CultureInfo.GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Program.Database.dbLanguage)).EnglishName.ToLowerInvariant();
-                            break;
-                    }
+                    case StoreLanguage.zh_Hans:
+                        storeLanguage = "schinese";
+                        break;
+                    case StoreLanguage.zh_Hant:
+                        storeLanguage = "tchinese";
+                        break;
+                    case StoreLanguage.pt_BR:
+                        storeLanguage = "brazilian";
+                        break;
+                    default:
+                        storeLanguage = CultureInfo.GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Database.Language)).EnglishName.ToLowerInvariant();
+                        break;
                 }
+
 
                 HttpWebRequest req = GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();

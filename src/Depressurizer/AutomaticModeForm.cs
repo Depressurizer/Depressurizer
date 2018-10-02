@@ -52,6 +52,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Database Database => Database.Instance;
+
+        #endregion
+
         #region Methods
 
         private bool AutocatGames(Profile p, List<string> autocatStrings, bool doAll)
@@ -232,21 +238,16 @@ namespace Depressurizer
             }
         }
 
-        private bool LoadGameDB()
+        private bool LoadDatabase()
         {
             Write("Loading database...");
             bool success = false;
             try
             {
-                Program.Database = new Database();
-                if (File.Exists("Database.xml.gz"))
+                Database.Reset();
+                if (File.Exists("database.json"))
                 {
-                    Program.Database.Load("Database.xml.gz");
-                    success = true;
-                }
-                else if (File.Exists("Database.xml"))
-                {
-                    Program.Database.Load("Database.xml");
+                    Database.Load("database.json");
                     success = true;
                 }
                 else
@@ -312,7 +313,7 @@ namespace Depressurizer
         {
             Program.Logger.Write(LoggerLevel.Info, "Starting automatic operation.");
 
-            if (!LoadGameDB())
+            if (!LoadDatabase())
             {
                 encounteredError = true;
                 WriteLine("Aborting.");
@@ -381,7 +382,7 @@ namespace Depressurizer
                 }
             }
 
-            if (!SaveDB(options.SaveDBChanges))
+            if (!SaveDatabase(options.SaveDBChanges))
             {
                 encounteredError = true;
                 if (!options.TolerateMinorErrors)
@@ -428,7 +429,7 @@ namespace Depressurizer
             foreach (AutoCat ac in autocats)
             {
                 Write("Running autocat '" + ac.Name + "'...");
-                ac.PreProcess(p.GameData, Program.Database);
+                ac.PreProcess(p.GameData, Database);
 
                 if (ac.AutoCatType == AutoCatType.Group)
                 {
@@ -451,7 +452,7 @@ namespace Depressurizer
             }
         }
 
-        private bool SaveDB(bool doSave)
+        private bool SaveDatabase(bool doSave)
         {
             if (!doSave)
             {
@@ -469,7 +470,7 @@ namespace Depressurizer
             Write("Saving database...");
             try
             {
-                Program.Database.Save("Database.xml.gz");
+                Database.Save("database.json");
                 success = true;
             }
             catch (Exception e)
@@ -530,7 +531,7 @@ namespace Depressurizer
                 Queue<int> jobs = new Queue<int>();
                 foreach (int id in p.GameData.Games.Keys)
                 {
-                    if (id > 0 && !Program.Database.Contains(id) || Program.Database.Games[id].LastStoreScrape == 0)
+                    if (id > 0 && !Database.Contains(id) || Database.Games[id].LastStoreScrape == 0)
                     {
                         jobs.Enqueue(id);
                     }
@@ -623,7 +624,7 @@ namespace Depressurizer
             try
             {
                 string path = string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath);
-                if (Program.Database.UpdateFromAppInfo(path) > 0)
+                if (Database.UpdateFromAppInfo(path) > 0)
                 {
                     dbModified = true;
                 }
@@ -653,7 +654,7 @@ namespace Depressurizer
             }
 
             int HalfAWeekInSecs = 84 * 24 * 60 * 60;
-            if (Utility.GetCurrentUTime() > Program.Database.LastHltbUpdate + HalfAWeekInSecs)
+            if (Utility.GetCurrentUTime() > Database.LastHltbUpdate + HalfAWeekInSecs)
             {
                 WriteLine("Skipping HLTB update.");
                 return true;
@@ -663,7 +664,7 @@ namespace Depressurizer
             bool success = false;
             try
             {
-                if (Program.Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes) > 0)
+                if (Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes) > 0)
                 {
                     dbModified = true;
                 }

@@ -49,6 +49,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Database Database => Database.Instance;
+
+        #endregion
+
         #region Methods
 
         protected override void Finish()
@@ -56,7 +62,7 @@ namespace Depressurizer
             if (!Canceled && doc != null && Error == null)
             {
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
-                Added = Program.Database.IntegrateAppList(doc);
+                Added = Database.IntegrateAppList(doc);
                 OnJobCompletion();
             }
         }
