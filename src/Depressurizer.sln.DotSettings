@@ -477,6 +477,24 @@
 	<s:String x:Key="/Default/CodeStyle/CSharpVarKeywordUsage/ForBuiltInTypes/@EntryValue">UseExplicitType</s:String>
 	<s:String x:Key="/Default/CodeStyle/CSharpVarKeywordUsage/ForOtherTypes/@EntryValue">UseExplicitType</s:String>
 	<s:String x:Key="/Default/CodeStyle/CSharpVarKeywordUsage/ForSimpleTypes/@EntryValue">UseExplicitType</s:String>
+	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderRegionName/@EntryValue">LICENSE</s:String>
+	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderText/@EntryValue">    This file ($FILENAME$) is part of $SOLUTION$.&#xD;
+    Copyright (C) 2011 Steve Labbe&#xD;
+    Copyright (C) 2017 Theodoros Dimos&#xD;
+    Copyright (C) 2017 Martijn Vegter&#xD;
+&#xD;
+    This program is free software: you can redistribute it and/or modify&#xD;
+    it under the terms of the GNU General Public License as published by&#xD;
+    the Free Software Foundation, either version 3 of the License, or&#xD;
+    (at your option) any later version.&#xD;
+&#xD;
+    This program is distributed in the hope that it will be useful,&#xD;
+    but WITHOUT ANY WARRANTY; without even the implied warranty of&#xD;
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xD;
+    GNU General Public License for more details.&#xD;
+&#xD;
+    You should have received a copy of the GNU General Public License&#xD;
+    along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</s:String>
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=DLC/@EntryIndexedValue">DLC</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Depressurizer/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Metacritic/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
