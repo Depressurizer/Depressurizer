@@ -42,13 +42,27 @@ namespace Depressurizer
 
         private readonly Dictionary<int, DatabaseEntrySorter.SortModes> columnSortMap = new Dictionary<int, DatabaseEntrySorter.SortModes>
         {
-            {0, DatabaseEntrySorter.SortModes.Id},
-            {1, DatabaseEntrySorter.SortModes.Name},
-            {2, DatabaseEntrySorter.SortModes.Genre},
-            {3, DatabaseEntrySorter.SortModes.Type},
-            {4, DatabaseEntrySorter.SortModes.IsScraped},
-            {5, DatabaseEntrySorter.SortModes.HasAppInfo},
-            {6, DatabaseEntrySorter.SortModes.Parent}
+            {
+                0, DatabaseEntrySorter.SortModes.Id
+            },
+            {
+                1, DatabaseEntrySorter.SortModes.Name
+            },
+            {
+                2, DatabaseEntrySorter.SortModes.Genre
+            },
+            {
+                3, DatabaseEntrySorter.SortModes.Type
+            },
+            {
+                4, DatabaseEntrySorter.SortModes.IsScraped
+            },
+            {
+                5, DatabaseEntrySorter.SortModes.HasAppInfo
+            },
+            {
+                6, DatabaseEntrySorter.SortModes.Parent
+            }
         };
 
         private readonly DatabaseEntrySorter dbEntrySorter = new DatabaseEntrySorter();

@@ -163,7 +163,10 @@ namespace Depressurizer
                 rules.Add(new Hltb_Rule(ruleName, ruleMin, ruleMax, ruleTimeType));
             }
 
-            AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText) {Rules = rules};
+            AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText)
+            {
+                Rules = rules
+            };
             return result;
         }
 

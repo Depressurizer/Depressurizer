@@ -99,7 +99,10 @@ namespace Depressurizer
                     bool addAC = true;
                     if (ac.AutoCatType == AutoCatType.Group)
                     {
-                        addAC = SafeGroup(((AutoCatGroup) ac).Autocats, new List<string>(new[] {originalGroup}));
+                        addAC = SafeGroup(((AutoCatGroup) ac).Autocats, new List<string>(new[]
+                        {
+                            originalGroup
+                        }));
                     }
 
                     if (addAC)

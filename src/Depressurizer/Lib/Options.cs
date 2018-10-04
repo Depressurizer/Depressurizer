@@ -373,7 +373,11 @@ namespace NDesk.Options
     {
         #region Static Fields
 
-        private static readonly char[] NameTerminator = {'=', ':'};
+        private static readonly char[] NameTerminator =
+        {
+            '=',
+            ':'
+        };
 
         #endregion
 
@@ -584,7 +588,11 @@ namespace NDesk.Options
             {
                 if (seps.Count == 0)
                 {
-                    ValueSeparators = new[] {":", "="};
+                    ValueSeparators = new[]
+                    {
+                        ":",
+                        "="
+                    };
                 }
                 else if (seps.Count == 1 && seps[0].Length == 0)
                 {
@@ -1070,7 +1078,12 @@ namespace NDesk.Options
         {
             if (option != null)
             {
-                foreach (string o in c.Option.ValueSeparators != null ? option.Split(c.Option.ValueSeparators, StringSplitOptions.None) : new[] {option})
+                foreach (string o in c.Option.ValueSeparators != null
+                    ? option.Split(c.Option.ValueSeparators, StringSplitOptions.None)
+                    : new[]
+                    {
+                        option
+                    })
                 {
                     c.OptionValues.Add(o);
                 }
@@ -1265,7 +1278,16 @@ namespace NDesk.Options
             }
 
             string[] nameStart;
-            nameStart = maxIndex == 1 ? new[] {"{0:", "{"} : new[] {"{" + index + ":"};
+            nameStart = maxIndex == 1
+                ? new[]
+                {
+                    "{0:",
+                    "{"
+                }
+                : new[]
+                {
+                    "{" + index + ":"
+                };
             for (int i = 0; i < nameStart.Length; ++i)
             {
                 int start, j = 0;

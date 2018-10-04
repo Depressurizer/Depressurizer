@@ -93,8 +93,7 @@ namespace Depressurizer
         /// <summary>
         ///     Quick shortcut for casting data to a a dictionary
         /// </summary>
-        public Dictionary<string, VdfFileNode> NodeArray =>
-            NodeType == ValueType.Array ? NodeData as Dictionary<string, VdfFileNode> : null;
+        public Dictionary<string, VdfFileNode> NodeArray => NodeType == ValueType.Array ? NodeData as Dictionary<string, VdfFileNode> : null;
 
         /// <summary>
         ///     Quick shortcut for casting data to int. If the node is a string, tries to parse to int. Returns 0 if failure.

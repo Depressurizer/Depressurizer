@@ -490,25 +490,25 @@ namespace Depressurizer
                     {
                         gamesToUpdate.Add(g);
                     }
-                    else if (tlstGames.Objects.Count > 0 && autoCat.Filter == null)
+                }
+            }
+            else if (tlstGames.Objects.Count > 0 && autoCat.Filter == null)
+            {
+                foreach (GameInfo g in tlstGames.Objects)
+                {
+                    if (g.Id > 0)
                     {
-                        foreach (GameInfo g1 in tlstGames.Objects)
-                        {
-                            if (g1.Id > 0)
-                            {
-                                gamesToUpdate.Add(g1);
-                            }
-                            else
-                            {
-                                foreach (GameInfo g2 in CurrentProfile.GameData.Games.Values)
-                                {
-                                    if (g2 != null && g2.Id > 0)
-                                    {
-                                        gamesToUpdate.Add(g2);
-                                    }
-                                }
-                            }
-                        }
+                        gamesToUpdate.Add(g);
+                    }
+                }
+            }
+            else
+            {
+                foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
+                {
+                    if (g != null && g.Id > 0)
+                    {
+                        gamesToUpdate.Add(g);
                     }
                 }
             }
@@ -547,19 +547,21 @@ namespace Depressurizer
                 message += ". " + GlobalStrings.MainForm_ScrapeNow;
                 if (MessageBox.Show(message, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    DbScrapeDlg scrapeDlg = new DbScrapeDlg(notInDbOrOldData);
-                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
+                    using (DbScrapeDlg dialog = new DbScrapeDlg(notInDbOrOldData))
+                    {
+                        DialogResult result = dialog.ShowDialog();
 
-                    if (scrapeRes == DialogResult.Cancel)
-                    {
-                        AddStatus(string.Format(GlobalStrings.MainForm_CanceledDatabaseUpdate));
-                    }
-                    else
-                    {
-                        AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, scrapeDlg.JobsCompleted));
-                        if (scrapeDlg.JobsCompleted > 0 && Settings.Instance.AutosaveDB)
+                        if (result == DialogResult.Cancel)
                         {
-                            SaveDatabase();
+                            AddStatus(string.Format(GlobalStrings.MainForm_CanceledDatabaseUpdate));
+                        }
+                        else
+                        {
+                            AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.JobsCompleted));
+                            if (dialog.JobsCompleted > 0 && Settings.Instance.AutosaveDB)
+                            {
+                                SaveDatabase();
+                            }
                         }
                     }
                 }
@@ -2290,15 +2292,33 @@ namespace Depressurizer
                 int index = (int) obj;
                 Dictionary<int, string> reviewLabels = new Dictionary<int, string>
                 {
-                    {9, "Overwhelmingly Positive"},
-                    {8, "Very Positive"},
-                    {7, "Positive"},
-                    {6, "Mostly Positive"},
-                    {5, "Mixed"},
-                    {4, "Mostly Negative"},
-                    {3, "Negative"},
-                    {2, "Very Negative"},
-                    {1, "Overwhelmingly Negative"}
+                    {
+                        9, "Overwhelmingly Positive"
+                    },
+                    {
+                        8, "Very Positive"
+                    },
+                    {
+                        7, "Positive"
+                    },
+                    {
+                        6, "Mostly Positive"
+                    },
+                    {
+                        5, "Mixed"
+                    },
+                    {
+                        4, "Mostly Negative"
+                    },
+                    {
+                        3, "Negative"
+                    },
+                    {
+                        2, "Very Negative"
+                    },
+                    {
+                        1, "Overwhelmingly Negative"
+                    }
                 };
                 return reviewLabels.ContainsKey(index) ? reviewLabels[index] : GlobalStrings.MainForm_Unknown;
             };
@@ -3380,17 +3400,19 @@ namespace Depressurizer
 
         private void menuToolsAutocat_Item_Click(object sender, EventArgs e)
         {
-            ToolStripItem item = sender as ToolStripItem;
-            if (item != null)
+            if (!(sender is ToolStripItem item))
             {
-                AutoCat autoCat = item.Tag as AutoCat;
-                if (autoCat != null)
-                {
-                    ClearStatus();
-                    Autocategorize(false, autoCat);
-                    FlushStatus();
-                }
+                return;
             }
+
+            if (!(item.Tag is AutoCat autoCat))
+            {
+                return;
+            }
+
+            ClearStatus();
+            Autocategorize(false, autoCat);
+            FlushStatus();
         }
 
         private void mtxtSearch_TextChanged(object sender, EventArgs e)

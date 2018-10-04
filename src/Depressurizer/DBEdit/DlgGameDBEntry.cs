@@ -32,7 +32,11 @@ namespace Depressurizer
         #region Fields
 
         public DatabaseEntry Game;
-        private readonly char[] SPLIT_CHAR = {','};
+
+        private readonly char[] SPLIT_CHAR =
+        {
+            ','
+        };
 
         private bool editMode;
 

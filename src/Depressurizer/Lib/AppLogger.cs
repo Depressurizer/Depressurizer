@@ -44,7 +44,14 @@ namespace Rallion
     {
         #region Static Fields
 
-        private static readonly string[] LevTxt = {"", " ERR", "WARN", "INFO", "VERB"};
+        private static readonly string[] LevTxt =
+        {
+            "",
+            " ERR",
+            "WARN",
+            "INFO",
+            "VERB"
+        };
 
         #endregion
 
