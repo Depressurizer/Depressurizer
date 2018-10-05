@@ -28,6 +28,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using Depressurizer.Enums;
 using Depressurizer.Properties;
 using Rallion;
 
@@ -82,7 +83,7 @@ namespace Depressurizer.Models
 
         #region Fields
 
-        [DefaultValue(AppTypes.Unknown)] public AppTypes AppType = AppTypes.Unknown;
+        [DefaultValue(AppType.Unknown)] public AppType AppType = AppType.Unknown;
 
         [DefaultValue(null)] [XmlElement("Genre")]
         public List<string> Genres = new List<string>();
@@ -158,7 +159,7 @@ namespace Depressurizer.Models
             bool useAppInfoFields = other.LastAppInfoUpdate > LastAppInfoUpdate || LastAppInfoUpdate == 0 && other.LastStoreScrape >= LastStoreScrape;
             bool useScrapeOnlyFields = other.LastStoreScrape >= LastStoreScrape;
 
-            if (other.AppType != AppTypes.Unknown && (AppType == AppTypes.Unknown || useAppInfoFields))
+            if (other.AppType != AppType.Unknown && (AppType == AppType.Unknown || useAppInfoFields))
             {
                 AppType = other.AppType;
             }
@@ -277,9 +278,9 @@ namespace Depressurizer.Models
         ///     Scrapes the store page with this game entry's ID and updates this entry with the information found.
         /// </summary>
         /// <returns>The type determined during the scrape</returns>
-        public AppTypes ScrapeStore()
+        public AppType ScrapeStore()
         {
-            AppTypes result = ScrapeStoreHelper(Id);
+            AppType result = ScrapeStoreHelper(Id);
             SetTypeFromStoreScrape(result);
             return result;
         }
@@ -525,7 +526,7 @@ namespace Depressurizer.Models
         /// </summary>
         /// <param name="id">The id of the store page to scrape</param>
         /// <returns>The type determined during the scrape</returns>
-        private AppTypes ScrapeStoreHelper(int id)
+        private AppType ScrapeStoreHelper(int id)
         {
             Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_InitiatingStoreScrapeForGame, id);
 
@@ -572,15 +573,15 @@ namespace Depressurizer.Models
                     {
                         // If we are redirected to the store front page
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
-                        SetTypeFromStoreScrape(AppTypes.Unknown);
-                        return AppTypes.Unknown;
+                        SetTypeFromStoreScrape(AppType.Unknown);
+                        return AppType.Unknown;
                     }
 
                     if (resp.ResponseUri.ToString() == resp.Headers[HttpResponseHeader.Location])
                     {
                         //If page redirects to itself
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_RedirectsToItself, id);
-                        return AppTypes.Unknown;
+                        return AppType.Unknown;
                     }
 
                     req = GetSteamRequest(resp.Headers[HttpResponseHeader.Location]);
@@ -592,14 +593,14 @@ namespace Depressurizer.Models
                 {
                     //If we got too many redirects
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_TooManyRedirects, id);
-                    return AppTypes.Unknown;
+                    return AppType.Unknown;
                 }
                 else if (resp.ResponseUri.Segments.Length < 2)
                 {
                     // If we were redirected to the store front page
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
-                    SetTypeFromStoreScrape(AppTypes.Unknown);
-                    return AppTypes.Unknown;
+                    SetTypeFromStoreScrape(AppType.Unknown);
+                    return AppType.Unknown;
                 }
                 else if (resp.ResponseUri.Segments[1] == "agecheck/")
                 {
@@ -614,27 +615,27 @@ namespace Depressurizer.Models
                         else
                         {
                             // If we got an age check without numeric id (shouldn't happen)
-                            return AppTypes.Unknown;
+                            return AppType.Unknown;
                         }
                     }
                     else
                     {
                         // If we got an age check with no redirect
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingAgeCheckNoRedirect, id);
-                        return AppTypes.Unknown;
+                        return AppType.Unknown;
                     }
                 }
                 else if (resp.ResponseUri.Segments[1] != "app/")
                 {
                     // Redirected outside of the app path
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToNonApp, id);
-                    return AppTypes.Other;
+                    return AppType.Unknown;
                 }
                 else if (resp.ResponseUri.Segments.Length < 3)
                 {
                     // The URI ends with "/app/" ?
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_Log_ScrapingNoAppId, id);
-                    return AppTypes.Unknown;
+                    return AppType.Unknown;
                 }
                 else if (resp.ResponseUri.Segments[2].TrimEnd('/') != id.ToString())
                 {
@@ -642,7 +643,7 @@ namespace Depressurizer.Models
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingRedirectedToOtherApp, id, resp.ResponseUri.Segments[2].TrimEnd('/'));
                     if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
                     {
-                        return AppTypes.Unknown;
+                        return AppType.Unknown;
                     }
                 }
 
@@ -650,7 +651,7 @@ namespace Depressurizer.Models
                 if (responseStream == null)
                 {
                     Program.Logger.Write(LoggerLevel.Warning, "Scraping {0}: The response stream was null, aborting scraping.", Id);
-                    return AppTypes.Unknown;
+                    return AppType.Unknown;
                 }
 
                 using (StreamReader streamReader = new StreamReader(responseStream))
@@ -665,7 +666,7 @@ namespace Depressurizer.Models
                 // Something went wrong with the download.
                 Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingPageReadFailed, id, e.Message);
                 LastStoreScrape = oldTime;
-                return AppTypes.Unknown;
+                return AppType.Unknown;
             }
             finally
             {
@@ -673,12 +674,12 @@ namespace Depressurizer.Models
                 responseStream?.Dispose();
             }
 
-            AppTypes result;
+            AppType result;
 
             if (page.Contains("<title>Site Error</title>"))
             {
                 Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingReceivedSiteError, id);
-                result = AppTypes.Unknown;
+                result = AppType.Unknown;
             }
             else if (RegexIsGame.IsMatch(page) || RegexIsSoftware.IsMatch(page))
             {
@@ -690,19 +691,19 @@ namespace Depressurizer.Models
                 if (RegexIsDLC.IsMatch(page))
                 {
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsedDLC, id, string.Join(",", Genres));
-                    result = AppTypes.DLC;
+                    result = AppType.DLC;
                 }
                 else
                 {
                     Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingParsed, id, string.Join(",", Genres));
-                    result = RegexIsSoftware.IsMatch(page) ? AppTypes.Application : AppTypes.Game;
+                    result = RegexIsSoftware.IsMatch(page) ? AppType.Application : AppType.Game;
                 }
             }
             else
             {
                 // The URI is right, but it didn't pass the regex check
                 Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingCouldNotParse, id);
-                result = AppTypes.Unknown;
+                result = AppType.Unknown;
             }
 
             if (redirectTarget == -1)
@@ -711,7 +712,7 @@ namespace Depressurizer.Models
             }
 
             ParentId = redirectTarget;
-            result = AppTypes.Unknown;
+            result = AppType.Unknown;
 
             return result;
         }
@@ -721,9 +722,9 @@ namespace Depressurizer.Models
         ///     isn't overwritten with worse data.
         /// </summary>
         /// <param name="typeFromStore">Type found from the store scrape</param>
-        private void SetTypeFromStoreScrape(AppTypes typeFromStore)
+        private void SetTypeFromStoreScrape(AppType typeFromStore)
         {
-            if (AppType == AppTypes.Unknown || typeFromStore != AppTypes.Unknown && LastAppInfoUpdate == 0)
+            if (AppType == AppType.Unknown || typeFromStore != AppType.Unknown && LastAppInfoUpdate == 0)
             {
                 AppType = typeFromStore;
             }

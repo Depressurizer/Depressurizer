@@ -110,7 +110,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppInfo.cs" />
+    <Compile Include="Enums\AppPlatforms.cs" />
+    <Compile Include="Models\AppInfo.cs" />
     <Compile Include="AutoCat\AutoCatConfigPanel_Curator.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -267,8 +268,12 @@
     <Compile Include="DlgRestore.Designer.cs">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
+    <Compile Include="Enums\AppType.cs" />
+    <Compile Include="Enums\ValueType.cs" />
     <Compile Include="GameBanners.cs" />
     <Compile Include="Filter.cs" />
+    <Compile Include="Helpers\AppInfoReader.cs" />
+    <Compile Include="Models\AppInfoNode.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="DatabaseEntrySorter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
@@ -285,6 +290,7 @@
     </Compile>
     <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
+    <Compile Include="Models\VDFNode.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility.cs" />
@@ -390,7 +396,7 @@
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VdfFile\VdfFileNode.cs" />
+    <Compile Include="VdfFile\ParseException.cs" />
     <Compile Include="VrSupport.cs" />
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
@@ -695,22 +701,22 @@
   <ItemGroup>
     <PublishFile Include="Depressurizer.exe.config">
       <Visible>False</Visible>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Depressurizer.exe.manifest">
       <Visible>False</Visible>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
   </ItemGroup>

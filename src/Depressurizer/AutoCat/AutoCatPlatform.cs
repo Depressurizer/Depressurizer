@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using Depressurizer.Enums;
 using Rallion;
 
 namespace Depressurizer

@@ -30,6 +30,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using Depressurizer.Enums;
 using Depressurizer.Models;
 using Depressurizer.Properties;
 using Newtonsoft.Json;
@@ -722,14 +723,14 @@ namespace Depressurizer
             return new VrSupport();
         }
 
-        public bool IncludeItemInGameList(int id, AppTypes scheme)
+        public bool IncludeItemInGameList(int appId)
         {
-            if (Games.ContainsKey(id))
+            if (!Games.ContainsKey(appId))
             {
-                return scheme.HasFlag(Games[id].AppType);
+                return false;
             }
 
-            return scheme.HasFlag(AppTypes.Unknown);
+            return Games[appId].AppType == AppType.Application || Games[appId].AppType == AppType.Game;
         }
 
         public int IntegrateAppList(XmlDocument doc)
@@ -747,7 +748,7 @@ namespace Depressurizer
                         if (string.IsNullOrEmpty(g.Name) || g.Name != gameName)
                         {
                             g.Name = gameName;
-                            g.AppType = AppTypes.Unknown;
+                            g.AppType = AppType.Unknown;
                         }
                     }
                     else
@@ -877,7 +878,7 @@ namespace Depressurizer
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
-                if (aInf.AppType != AppTypes.Unknown)
+                if (aInf.AppType != AppType.Unknown)
                 {
                     entry.AppType = aInf.AppType;
                 }

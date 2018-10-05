@@ -37,6 +37,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using Depressurizer.Enums;
 using Depressurizer.Properties;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -4313,8 +4314,7 @@ namespace Depressurizer
                 try
                 {
                     int newApps = 0;
-                    AppTypes appFilter = CurrentProfile.IncludeUnknown ? AppTypes.InclusionUnknown : AppTypes.InclusionNormal;
-                    int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, appFilter, out newApps);
+                    int totalApps = CurrentProfile.GameData.UpdateGameListFromOwnedPackageInfo(CurrentProfile.SteamID64, CurrentProfile.IgnoreList, out newApps);
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_LocalUpdate, totalApps, newApps));
                     success = true;
                 }
