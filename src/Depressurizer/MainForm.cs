@@ -50,8 +50,11 @@ namespace Depressurizer
     public enum AdvancedFilterState
     {
         None = -1,
+
         Allow = 0,
+
         Require = 1,
+
         Exclude = 2
     }
 
@@ -60,9 +63,11 @@ namespace Depressurizer
         #region Constants
 
         private const string ADVANCED_FILTER = "ADVANCED_FILTER";
+
         private const string BIG_DOWN = "{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN},{DOWN}";
 
         private const string BIG_UP = "{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP},{UP}";
+
         private const string EARLY_ACCESS = "Early Access";
 
         private const int MAX_FILTER_STATE = 2;
@@ -78,23 +83,32 @@ namespace Depressurizer
         #region Fields
 
         private readonly Color accent = Color.FromArgb(255, 0, 145, 234);
+
         private readonly Color formColor = Color.FromArgb(255, 42, 42, 44);
+
         private readonly Color headerFontColor = Color.FromArgb(255, 169, 167, 167);
+
         private readonly Color listBackground = Color.FromArgb(255, 22, 22, 22);
 
         private readonly MaterialSkinManager materialSkinManager;
+
         private readonly Color primary = Color.FromArgb(255, 55, 71, 79);
+
         private readonly Color primaryDark = Color.FromArgb(255, 38, 50, 56);
+
         private readonly Color primaryLight = Color.FromArgb(255, 96, 125, 139);
 
         private readonly StringBuilder statusBuilder = new StringBuilder();
+
         private readonly Color textColor = Color.FromArgb(255, 255, 255, 255);
+
         private Filter advFilter = new Filter(ADVANCED_FILTER);
 
         // For getting game banners
         private GameBanners bannerGrabber;
 
         private Thread bannerThread;
+
         private Color borderColor = Color.FromArgb(255, 25, 28, 38);
 
         // used to prevent moving the filler column in the game list
@@ -104,6 +118,7 @@ namespace Depressurizer
         private bool doubleClick;
 
         private int dragOldCat;
+
         private Color headerCellColor = Color.FromArgb(255, 58, 58, 58);
 
         private Color highlightCellColor = Color.FromArgb(255, 25, 55, 84);
@@ -112,13 +127,18 @@ namespace Depressurizer
         private bool isDragging;
 
         private object lastSelectedCat; // Stores last selected category to minimize game list refreshes
+
         private Color menuColorDark = Color.FromArgb(255, 38, 50, 56);
+
         private Color menuColorLight = Color.FromArgb(255, 55, 71, 79);
+
         private Color menuHighlightText = Color.FromArgb(255, 255, 255, 234);
+
         private Color menuPrimaryText = Color.FromArgb(255, 168, 173, 175);
 
         // Used to reload resources of main form while switching language
         private int originalWidth, originalHeight, originalSplitDistanceMain, originalSplitDistanceSecondary, originalSplitDistanceBrowser;
+
         private Color primaryCellColor = Color.FromArgb(255, 29, 29, 29);
 
         private TypedObjectListView<GameInfo> tlstGames;
@@ -559,7 +579,7 @@ namespace Depressurizer
                         else
                         {
                             AddStatus(string.Format(GlobalStrings.MainForm_UpdatedDatabaseEntries, dialog.JobsCompleted));
-                            if (dialog.JobsCompleted > 0 && Settings.Instance.AutosaveDB)
+                            if (dialog.JobsCompleted > 0 && Settings.Instance.AutoSaveDatabase)
                             {
                                 SaveDatabase();
                             }
@@ -845,7 +865,6 @@ namespace Depressurizer
                 txtAddCatAndAssign.Clear();
             }
         }
-
 
         private void cmdGameAdd_Click(object sender, EventArgs e)
         {
@@ -1743,7 +1762,7 @@ namespace Depressurizer
                     break;
             }
 
-            Database.ChangeLanguage(settings.StoreLang);
+            Database.ChangeLanguage(settings.StoreLanguage);
 
             UpdateUIForSingleCat();
             UpdateEnabledStatesForGames();
@@ -1774,7 +1793,6 @@ namespace Depressurizer
             Point clientPoint = lstCategories.PointToClient(new Point(x, y));
             return lstCategories.GetItemAt(clientPoint.X, clientPoint.Y);
         }
-
 
         private void HandleAdvancedCategoryItemActivation(ListViewItem i, bool reverse, bool updateView = true)
         {
@@ -2913,9 +2931,7 @@ namespace Depressurizer
                         webBrowser1.Navigate(Resources.UrlSteamStore + "?l=" + storeLanguage);
                     }
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
 
@@ -4221,7 +4237,7 @@ namespace Depressurizer
 
         /// <summary>
         ///     Updates the database using AppInfo cache. Displays an error message on failure. Saves the DB afterwards if
-        ///     AutosaveDB is set.
+        ///     AutoSaveDatabase is set.
         /// </summary>
         private void UpdateGameDBFromAppInfo()
         {
@@ -4229,7 +4245,7 @@ namespace Depressurizer
             {
                 int num = Database.UpdateFromAppInfo(string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath));
                 AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
-                if (num > 0 && Settings.Instance.AutosaveDB)
+                if (num > 0 && Settings.Instance.AutoSaveDatabase)
                 {
                     SaveDatabase();
                 }
@@ -4243,7 +4259,7 @@ namespace Depressurizer
 
         /// <summary>
         ///     Updates the database using data from howlongtobeatsteam.com. Displays an error message on failure. Saves the DB
-        ///     afterwards if AutosaveDB is set.
+        ///     afterwards if AutoSaveDatabase is set.
         /// </summary>
         private void UpdateGameDBFromHltb()
         {
@@ -4267,7 +4283,7 @@ namespace Depressurizer
                 else
                 {
                     AddStatus(string.Format(GlobalStrings.MainForm_Status_HltbAutoupdate, dlg.Updated));
-                    if (dlg.Updated > 0 && Settings.Instance.AutosaveDB)
+                    if (dlg.Updated > 0 && Settings.Instance.AutoSaveDatabase)
                     {
                         SaveDatabase();
                     }
@@ -4614,6 +4630,7 @@ namespace Depressurizer
         #region Fields
 
         public int Column;
+
         public SortOrder Order;
 
         #endregion

@@ -30,7 +30,9 @@ namespace Depressurizer
         #region Fields
 
         public bool Custom;
+
         public long IdVal;
+
         public string UrlVal;
 
         #endregion

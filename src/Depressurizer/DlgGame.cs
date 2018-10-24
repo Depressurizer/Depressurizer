@@ -31,6 +31,7 @@ namespace Depressurizer
         #region Fields
 
         public GameInfo Game;
+
         private readonly GameList Data;
 
         private readonly bool editMode;
@@ -65,9 +66,7 @@ namespace Depressurizer
                 dlg.InitialDirectory = f.DirectoryName;
                 dlg.FileName = f.Name;
             }
-            catch (ArgumentException)
-            {
-            }
+            catch (ArgumentException) { }
 
             DialogResult res = dlg.ShowDialog();
             if (res == DialogResult.OK)

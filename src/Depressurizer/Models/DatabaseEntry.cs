@@ -94,9 +94,7 @@ namespace Depressurizer.Models
         [DefaultValue(null)] [XmlArrayItem("Flag")]
         public List<string> Flags = new List<string>();
 
-
         // Basics:
-
 
         [DefaultValue(0)] public int HltbCompletionist;
 
@@ -115,6 +113,7 @@ namespace Depressurizer.Models
 
         // Metacritic:
         [DefaultValue(null)] public string MetacriticUrl;
+
         public string Name;
 
         [DefaultValue(-1)] public int ParentId = -1;
@@ -609,9 +608,7 @@ namespace Depressurizer.Models
                     {
                         // Age check + redirect
                         Program.Logger.Write(LoggerLevel.Verbose, GlobalStrings.GameDB_ScrapingHitAgeCheck, id, resp.ResponseUri.Segments[3].TrimEnd('/'));
-                        if (int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
-                        {
-                        }
+                        if (int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget)) { }
                         else
                         {
                             // If we got an age check without numeric id (shouldn't happen)

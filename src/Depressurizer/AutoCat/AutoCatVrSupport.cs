@@ -34,13 +34,19 @@ namespace Depressurizer
 
         // Serialization constants
         public const string TypeIdString = "AutoCatVrSupport";
+
         private const string XmlNameFilter = "Filter";
+
         private const string XmlNameFlag = "Flag";
+
         private const string XmlNameHeadsetsList = "Headsets";
+
         private const string XmlNameInputList = "Input";
 
         private const string XmlNameName = "Name";
+
         private const string XmlNamePlayAreaList = "PlayArea";
+
         private const string XmlNamePrefix = "Prefix";
 
         #endregion
@@ -73,9 +79,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatVrSupport()
-        {
-        }
+        private AutoCatVrSupport() { }
 
         #endregion
 

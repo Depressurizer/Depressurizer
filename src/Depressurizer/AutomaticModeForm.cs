@@ -27,6 +27,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using Depressurizer.Enums;
 using Depressurizer.Properties;
 using Rallion;
 
@@ -37,7 +38,9 @@ namespace Depressurizer
         #region Fields
 
         private readonly AutomaticModeOptions options;
+
         private bool dbModified;
+
         private bool encounteredError;
 
         #endregion
@@ -800,14 +803,18 @@ namespace Depressurizer
     public enum SteamLaunchType
     {
         None,
+
         Normal,
+
         BigPicture
     }
 
     public enum AutoCloseType
     {
         None,
+
         UnlessError,
+
         Always
     }
 
@@ -816,20 +823,35 @@ namespace Depressurizer
         #region Fields
 
         public bool ApplyAllAutoCats = false;
+
         public List<string> AutoCats = new List<string>();
+
         public AutoCloseType AutoClose = AutoCloseType.None;
+
         public bool CheckSteam = true;
+
         public bool CloseSteam = true;
+
         public string CustomProfile = null;
+
         public bool ExportToSteam = true;
+
         public bool ImportSteamCategories = false;
+
         public bool SaveDBChanges = true;
+
         public bool SaveProfile = true;
+
         public bool ScrapeUnscrapedGames = true;
+
         public SteamLaunchType SteamLaunch = SteamLaunchType.None;
+
         public bool TolerateMinorErrors = false;
+
         public bool UpdateAppInfo = true;
+
         public bool UpdateGameList = true;
+
         public bool UpdateHltb = true;
 
         #endregion

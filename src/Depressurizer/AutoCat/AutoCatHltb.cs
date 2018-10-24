@@ -31,7 +31,9 @@ namespace Depressurizer
     public enum TimeType
     {
         Main,
+
         Extras,
+
         Completionist
     }
 
@@ -56,9 +58,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private Hltb_Rule()
-        {
-        }
+        private Hltb_Rule() { }
 
         #endregion
 
@@ -69,6 +69,7 @@ namespace Depressurizer
         public float MinHours { get; set; }
 
         [XmlElement("Text")] public string Name { get; set; }
+
         public TimeType TimeType { get; set; }
 
         #endregion
@@ -113,18 +114,18 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatHltb()
-        {
-        }
+        private AutoCatHltb() { }
 
         #endregion
 
         #region Public Properties
 
         public override AutoCatType AutoCatType => AutoCatType.Hltb;
+
         public bool IncludeUnknown { get; set; }
 
         public string Prefix { get; set; }
+
         public string UnknownText { get; set; }
 
         #endregion

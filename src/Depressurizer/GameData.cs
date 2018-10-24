@@ -61,10 +61,15 @@ namespace Depressurizer
     public enum GameListingSource
     {
         Unknown,
+
         SteamConfig,
+
         WebProfile,
+
         PackageFree,
+
         PackageNormal,
+
         Manual
     }
 
@@ -82,11 +87,17 @@ namespace Depressurizer
         #region Fields
 
         public SortedSet<Category> Categories;
+
         public GameList GameList;
+
         public bool Hidden;
+
         public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
+
         public int LastPlayed;
+
         public string Name;
+
         public GameListingSource Source;
 
         private string _executable;
@@ -507,6 +518,7 @@ namespace Depressurizer
         #region Fields
 
         public int Count;
+
         public string Name;
 
         #endregion
@@ -571,6 +583,7 @@ namespace Depressurizer
         #region Constants
 
         public const string FAVORITE_CONFIG_VALUE = "favorite";
+
         public const string FAVORITE_NEW_CONFIG_VALUE = "<Favorite>";
 
         #endregion
@@ -584,6 +597,7 @@ namespace Depressurizer
         #region Fields
 
         public List<Category> Categories;
+
         public List<Filter> Filters;
 
         public Dictionary<int, GameInfo> Games;
@@ -2222,9 +2236,7 @@ namespace Depressurizer
     {
         #region Constructors and Destructors
 
-        public ProfileAccessException(string m) : base(m)
-        {
-        }
+        public ProfileAccessException(string m) : base(m) { }
 
         #endregion
     }

@@ -32,6 +32,7 @@ namespace Depressurizer
         #region Fields
 
         public List<AutoCat> AutoCatList;
+
         private readonly AutoCat initial;
 
         //public List<Filter> FilterList;
@@ -40,6 +41,7 @@ namespace Depressurizer
         private AutoCat current;
 
         private AutoCatConfigPanel currentConfigPanel;
+
         private string profilePath;
 
         #endregion
@@ -244,7 +246,6 @@ namespace Depressurizer
                 btnDown.Enabled = false;
             }
         }
-
 
         private bool NameExists(string name)
         {

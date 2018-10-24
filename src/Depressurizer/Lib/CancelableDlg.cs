@@ -33,6 +33,7 @@ namespace Rallion
         protected object abortLock = new object();
 
         protected int jobsCompleted;
+
         protected int runningThreads;
 
         protected int threadsToRun = 5;
@@ -114,9 +115,7 @@ namespace Rallion
             }
         }
 
-        protected virtual void Finish()
-        {
-        }
+        protected virtual void Finish() { }
 
         protected void OnJobCompletion()
         {
@@ -144,9 +143,7 @@ namespace Rallion
             }
         }
 
-        protected virtual void RunProcess()
-        {
-        }
+        protected virtual void RunProcess() { }
 
         protected void SetText(string s)
         {
@@ -173,9 +170,7 @@ namespace Rallion
             UpdateText();
         }
 
-        protected virtual void UpdateText()
-        {
-        }
+        protected virtual void UpdateText() { }
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {

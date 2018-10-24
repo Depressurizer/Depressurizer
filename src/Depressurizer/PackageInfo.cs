@@ -32,12 +32,19 @@ namespace Depressurizer
     internal enum PackageBillingType
     {
         NoCost = 0,
+
         Store = 1,
+
         CDKey = 3,
+
         HardwarePromo = 5,
+
         Gift = 6,
+
         AutoGrant = 7,
+
         StoreOrCDKey = 10,
+
         FreeOnDemand = 12
     }
 
@@ -48,7 +55,9 @@ namespace Depressurizer
         public List<int> AppIds;
 
         public PackageBillingType BillingType;
+
         public int Id;
+
         public string Name;
 
         #endregion
@@ -205,9 +214,7 @@ namespace Depressurizer
                 VDFNode.ReadBin_SeekTo(bReader, appidsBytes, fileLength);
                 while (bReader.ReadByte() == 0x02)
                 {
-                    while (bReader.ReadByte() != 0x00)
-                    {
-                    }
+                    while (bReader.ReadByte() != 0x00) { }
 
                     package.AppIds.Add(bReader.ReadInt32());
                 }

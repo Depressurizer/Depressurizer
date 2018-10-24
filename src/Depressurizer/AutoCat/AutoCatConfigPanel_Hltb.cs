@@ -32,6 +32,7 @@ namespace Depressurizer
         #region Fields
 
         private readonly BindingSource binding = new BindingSource();
+
         private readonly BindingList<Hltb_Rule> ruleList = new BindingList<Hltb_Rule>();
 
         #endregion

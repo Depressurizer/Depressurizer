@@ -24,6 +24,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
+using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Rallion;
 
 namespace Depressurizer
@@ -109,7 +111,7 @@ namespace Depressurizer
             chkUpdateAppInfoOnStartup.Checked = settings.UpdateAppInfoOnStart;
             chkUpdateHltbOnStartup.Checked = settings.UpdateHltbOnStart;
             chkIncludeImputedTimes.Checked = settings.IncludeImputedTimes;
-            chkAutosaveDB.Checked = settings.AutosaveDB;
+            chkAutosaveDB.Checked = settings.AutoSaveDatabase;
             numScrapePromptDays.Value = settings.ScrapePromptDays;
 
             chkCheckForDepressurizerUpdates.Checked = settings.CheckForDepressurizerUpdates;
@@ -121,8 +123,8 @@ namespace Depressurizer
             numLogBackup.Value = settings.LogBackups;
 
             //supported languages have an enum value of 1-5 (en, es, ru, uk, nl). 0 is windows language.
-            cmbUILanguage.SelectedIndex = (int) settings.UserLang;
-            cmbStoreLanguage.SelectedIndex = (int) settings.StoreLang;
+            cmbUILanguage.SelectedIndex = (int) settings.InterfaceLanguage;
+            cmbStoreLanguage.SelectedIndex = (int) settings.StoreLanguage;
         }
 
         private void OptionsForm_Load(object sender, EventArgs e)
@@ -130,25 +132,12 @@ namespace Depressurizer
             string[] levels = Enum.GetNames(typeof(LoggerLevel));
             cmbLogLevel.Items.AddRange(levels);
 
-            //UI languages
-            List<string> UILanguages = new List<string>();
-            foreach (string l in Enum.GetNames(typeof(UILanguage)))
+            // Interface languages
+            foreach (InterfaceLanguage language in Enum.GetValues(typeof(InterfaceLanguage)))
             {
-                string name;
-                switch (l)
-                {
-                    case "windows":
-                        name = "Default";
-                        break;
-                    default:
-                        name = CultureInfo.GetCultureInfo(l).NativeName;
-                        break;
-                }
-
-                UILanguages.Add(name);
+                CultureInfo cultureInfo = Language.GetCultureInfo(language);
+                cmbUILanguage.Items.Add(cultureInfo.NativeName);
             }
-
-            cmbUILanguage.Items.AddRange(UILanguages.ToArray());
 
             //Store Languages
             List<string> storeLanguages = new List<string>();
@@ -218,7 +207,7 @@ namespace Depressurizer
             settings.UpdateAppInfoOnStart = chkUpdateAppInfoOnStartup.Checked;
             settings.UpdateHltbOnStart = chkUpdateHltbOnStartup.Checked;
             settings.IncludeImputedTimes = chkIncludeImputedTimes.Checked;
-            settings.AutosaveDB = chkAutosaveDB.Checked;
+            settings.AutoSaveDatabase = chkAutosaveDB.Checked;
             settings.ScrapePromptDays = (int) numScrapePromptDays.Value;
 
             settings.CheckForDepressurizerUpdates = chkCheckForDepressurizerUpdates.Checked;
@@ -229,8 +218,8 @@ namespace Depressurizer
             settings.LogSize = (int) numLogSize.Value;
             settings.LogBackups = (int) numLogBackup.Value;
 
-            settings.UserLang = (UILanguage) cmbUILanguage.SelectedIndex;
-            settings.StoreLang = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
+            settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
+            settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
 
             try
             {

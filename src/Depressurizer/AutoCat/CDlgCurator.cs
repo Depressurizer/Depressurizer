@@ -35,8 +35,11 @@ namespace Depressurizer
     public enum CuratorRecommendation
     {
         [Description("Error")] Error,
+
         [Description("Recommended")] Recommended,
+
         [Description("Not Recommended")] NotRecommended,
+
         [Description("Informational")] Informational
     }
 
@@ -45,7 +48,9 @@ namespace Depressurizer
         #region Fields
 
         public Dictionary<int, CuratorRecommendation> CuratorRecommendations;
+
         public int TotalCount;
+
         private readonly long curatorId;
 
         #endregion

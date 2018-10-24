@@ -29,9 +29,7 @@ namespace Depressurizer.Models
     {
         #region Constructors and Destructors
 
-        public AppInfoNode()
-        {
-        }
+        public AppInfoNode() { }
 
         public AppInfoNode(string value)
         {

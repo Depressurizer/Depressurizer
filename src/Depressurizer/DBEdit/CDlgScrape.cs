@@ -33,6 +33,7 @@ namespace Depressurizer
         #region Fields
 
         private readonly Queue<int> jobs;
+
         private readonly List<DatabaseEntry> results;
 
         private DateTime start;

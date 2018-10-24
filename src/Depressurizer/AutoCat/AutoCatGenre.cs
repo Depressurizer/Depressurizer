@@ -85,9 +85,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatGenre()
-        {
-        }
+        private AutoCatGenre() { }
 
         #endregion
 
@@ -101,6 +99,7 @@ namespace Depressurizer
 
         // Autocat configuration
         public int MaxCategories { get; set; }
+
         public string Prefix { get; set; }
 
         [XmlElement("RemoveOthers")] public bool RemoveOtherGenres { get; set; }

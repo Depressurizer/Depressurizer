@@ -32,6 +32,7 @@ namespace Depressurizer
         #region Fields
 
         private readonly GameList ownedGames;
+
         private bool loaded;
 
         // used to remove unchecked items from the Tags checkedlistbox.

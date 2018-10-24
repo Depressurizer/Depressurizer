@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using Depressurizer.Enums;
 using Rallion;
 
 namespace Depressurizer
@@ -32,9 +33,13 @@ namespace Depressurizer
         #region Fields
 
         private readonly bool custom;
+
         private readonly string customUrl;
+
         private readonly GameList data;
+
         private readonly SortedSet<int> ignore;
+
         private readonly bool includeUnknown;
 
         private readonly bool overwrite;
@@ -42,6 +47,7 @@ namespace Depressurizer
         private readonly long SteamId;
 
         private XmlDocument doc;
+
         private string htmlDoc;
 
         #endregion
@@ -93,9 +99,11 @@ namespace Depressurizer
         #region Public Properties
 
         public int Added { get; private set; }
+
         public bool Failover { get; private set; }
 
         public int Fetched { get; private set; }
+
         public int Removed { get; private set; }
 
         public bool UseHtml { get; private set; }
@@ -123,9 +131,7 @@ namespace Depressurizer
                 FetchXml();
                 return;
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
 
             Failover = true;
             FetchHtml();

@@ -33,6 +33,7 @@ using System.Net.Cache;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Enums;
 using Depressurizer.Properties;
 using MaterialSkin.Controls;
 using Rallion;

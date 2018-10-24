@@ -41,7 +41,9 @@ namespace Rallion
         private const int DEFAULT_INFO_HEIGHT = 250;
 
         private const int MAX_HEIGHT = 2000;
+
         private const int MAX_WIDTH = 2000;
+
         private const int MIN_HEIGHT = 300;
 
         private const int MIN_WIDTH = 300;

@@ -6,13 +6,9 @@ namespace Depressurizer
     {
         #region Constructors and Destructors
 
-        public ParseException()
-        {
-        }
+        public ParseException() { }
 
-        public ParseException(string message) : base(message)
-        {
-        }
+        public ParseException(string message) : base(message) { }
 
         #endregion
     }

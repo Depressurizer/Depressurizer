@@ -37,7 +37,9 @@ namespace Depressurizer
         #region Fields
 
         public Profile Profile;
+
         private readonly bool editMode;
+
         private int currentThreadCount;
 
         private ThreadLocker currentThreadLock = new ThreadLocker();
@@ -154,9 +156,7 @@ namespace Depressurizer
                 dlg.InitialDirectory = f.DirectoryName;
                 dlg.FileName = f.Name;
             }
-            catch (ArgumentException)
-            {
-            }
+            catch (ArgumentException) { }
 
             dlg.DefaultExt = "profile";
             dlg.AddExtension = true;
@@ -657,6 +657,7 @@ namespace Depressurizer
             #region Fields
 
             public Queue<UpdateJob> jobs;
+
             public ThreadLocker tLock;
 
             #endregion
@@ -677,6 +678,7 @@ namespace Depressurizer
             #region Fields
 
             public string dir;
+
             public int index;
 
             #endregion
@@ -697,6 +699,7 @@ namespace Depressurizer
             #region Fields
 
             public string DirName;
+
             public string DisplayName;
 
             #endregion

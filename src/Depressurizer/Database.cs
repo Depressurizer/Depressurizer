@@ -54,25 +54,27 @@ namespace Depressurizer
 
         // Main Data
         public Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
+
         public int LastHltbUpdate;
 
         private LanguageSupport allLanguages;
+
         private SortedSet<string> allStoreDevelopers;
 
         private SortedSet<string> allStoreFlags;
 
         // Extra data
         private SortedSet<string> allStoreGenres;
+
         private SortedSet<string> allStorePublishers;
+
         private VrSupport allVrSupportFlags;
 
         #endregion
 
         #region Constructors and Destructors
 
-        private Database()
-        {
-        }
+        private Database() { }
 
         #endregion
 
@@ -591,7 +593,6 @@ namespace Depressurizer
 
             return allVrSupportFlags;
         }
-
 
         public List<string> GetDevelopers(int gameId, int depth = 3)
         {

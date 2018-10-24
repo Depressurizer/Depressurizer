@@ -1,6 +1,6 @@
 ﻿#region LICENSE
 
-//     This file (LanguageSupport.cs) is part of Depressurizer.
+//     This file (StoreLanguage.cs) is part of Depressurizer.
 //     Copyright (C) 2011 Steve Labbe
 //     Copyright (C) 2017 Theodoros Dimos
 //     Copyright (C) 2017 Martijn Vegter
@@ -20,25 +20,62 @@
 
 #endregion
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Xml.Serialization;
-
-namespace Depressurizer
+namespace Depressurizer.Enums
 {
-    public struct LanguageSupport
+    public enum StoreLanguage
     {
-        #region Fields
+        windows,
 
-        [DefaultValue(null)] [XmlElement("Interface")]
-        public List<string> Interface;
+        bg, // Bulgarian
 
-        [DefaultValue(null)] [XmlElement("FullAudio")]
-        public List<string> FullAudio;
+        cs, // Czech
 
-        [DefaultValue(null)] [XmlElement("Subtitles")]
-        public List<string> Subtitles;
+        da, // Danish
 
-        #endregion
+        nl, // Dutch
+
+        en, // English
+
+        fi, // Finnish
+
+        fr, // French
+
+        de, // German
+
+        el, // Greek
+
+        hu, // Hungarian
+
+        it, // Italian
+
+        ja, // Japanese
+
+        ko, // Korean
+
+        no, // Norwegian
+
+        pl, // Polish
+
+        pt, // Portuguese
+
+        pt_BR, // Portuguese (Brasil)
+
+        ro, // Romanian
+
+        ru, // Russian
+
+        zh_Hans, // Simplified Chinese
+
+        es, // Spanish
+
+        sv, // Swedish
+
+        th, // Thai
+
+        zh_Hant, // Traditional Chinese
+
+        tr, // Turkish
+
+        uk // Ukrainian
     }
 }

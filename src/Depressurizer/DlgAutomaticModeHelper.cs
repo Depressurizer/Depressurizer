@@ -32,6 +32,7 @@ namespace Depressurizer
         #region Fields
 
         private readonly AutomaticModeOptions defaultOpts = new AutomaticModeOptions();
+
         private readonly Profile profile;
 
         #endregion

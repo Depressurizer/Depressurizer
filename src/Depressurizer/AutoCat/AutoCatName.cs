@@ -32,11 +32,17 @@ namespace Depressurizer
         #region Constants
 
         public const string TypeIdString = "AutoCatName";
+
         public const string XmlName_GroupNonEnglishCharacters = "GroupNonEnglishCharacters";
+
         public const string XmlName_GroupNonEnglishCharactersText = "GroupNonEnglishCharactersText";
+
         public const string XmlName_GroupNumbers = "GroupNumbers";
+
         public const string XmlName_Name = "Name";
+
         public const string XmlName_Prefix = "Prefix";
+
         public const string XmlName_SkipThe = "SkipThe";
 
         #endregion
@@ -54,20 +60,22 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatName()
-        {
-        }
+        private AutoCatName() { }
 
         #endregion
 
         #region Public Properties
 
         public override AutoCatType AutoCatType => AutoCatType.Name;
+
         public bool GroupNonEnglishCharacters { get; set; }
+
         public string GroupNonEnglishCharactersText { get; set; }
+
         public bool GroupNumbers { get; set; }
 
         public string Prefix { get; set; }
+
         public bool SkipThe { get; set; }
 
         #endregion

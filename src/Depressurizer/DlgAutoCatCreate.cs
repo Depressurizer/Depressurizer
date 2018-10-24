@@ -30,6 +30,7 @@ namespace Depressurizer
         #region Fields
 
         private readonly string[] typeNames;
+
         private readonly AutoCatType[] types;
 
         #endregion
@@ -86,6 +87,7 @@ namespace Depressurizer
         #region Public Properties
 
         public string SelectedName { get; set; }
+
         public AutoCatType SelectedType { get; set; }
 
         #endregion

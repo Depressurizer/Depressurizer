@@ -81,9 +81,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatTags()
-        {
-        }
+        private AutoCatTags() { }
 
         #endregion
 
@@ -96,12 +94,17 @@ namespace Depressurizer
         public HashSet<string> IncludedTags { get; set; }
 
         public bool List_ExcludeGenres { get; set; }
+
         public int List_MinScore { get; set; }
 
         public bool List_OwnedOnly { get; set; }
+
         public bool List_ScoreSort { get; set; }
+
         public int List_TagsPerGame { get; set; }
+
         public float List_WeightFactor { get; set; }
+
         public int MaxTags { get; set; }
 
         public string Prefix { get; set; }

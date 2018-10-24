@@ -71,9 +71,11 @@ namespace Depressurizer
         private readonly List<DatabaseEntry> displayedGames = new List<DatabaseEntry>();
 
         private readonly GameList ownedList;
+
         private readonly StringBuilder statusBuilder = new StringBuilder();
 
         private string currentFilter = string.Empty;
+
         private int currentMinId, currentMaxId = ID_FILTER_MAX;
 
         private bool filterSuspend;

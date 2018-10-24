@@ -31,7 +31,9 @@ namespace Depressurizer.Lib
         #region Fields
 
         private bool isSelecting;
+
         private IComparer suspendedComparer;
+
         private int suspendSortDepth;
 
         #endregion

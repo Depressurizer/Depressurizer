@@ -60,20 +60,21 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatPlatform()
-        {
-        }
+        private AutoCatPlatform() { }
 
         #endregion
 
         #region Public Properties
 
         public override AutoCatType AutoCatType => AutoCatType.Platform;
+
         public bool Linux { get; set; }
+
         public bool Mac { get; set; }
 
         // AutoCat configuration
         public string Prefix { get; set; }
+
         public bool SteamOS { get; set; }
 
         public bool Windows { get; set; }

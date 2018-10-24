@@ -33,6 +33,7 @@ namespace Depressurizer
         #region Fields
 
         private readonly int ColumnNumber;
+
         private readonly SortOrder SortOrder;
 
         #endregion
@@ -103,6 +104,7 @@ namespace Depressurizer
         #region Fields
 
         private readonly categorySortMode SortMode;
+
         private readonly SortOrder SortOrder;
 
         #endregion
@@ -122,6 +124,7 @@ namespace Depressurizer
         public enum categorySortMode
         {
             Name,
+
             Count
         }
 

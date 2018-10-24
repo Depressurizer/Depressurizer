@@ -45,9 +45,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public GameDBEntryDialog() : this(null)
-        {
-        }
+        public GameDBEntryDialog() : this(null) { }
 
         public GameDBEntryDialog(DatabaseEntry game)
         {

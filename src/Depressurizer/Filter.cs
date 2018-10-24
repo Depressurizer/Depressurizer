@@ -43,7 +43,9 @@ namespace Depressurizer
         public int Hidden;
 
         public string Name;
+
         public int Uncategorized;
+
         public int VR;
 
         private SortedSet<Category> _allow;

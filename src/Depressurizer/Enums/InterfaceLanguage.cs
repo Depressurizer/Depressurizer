@@ -1,6 +1,8 @@
 ﻿#region LICENSE
 
-//     This file (ValueType.cs) is part of Depressurizer.
+//     This file (InterfaceLanguage.cs) is part of Depressurizer.
+//     Copyright (C) 2011 Steve Labbe
+//     Copyright (C) 2017 Theodoros Dimos
 //     Copyright (C) 2017 Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -20,12 +22,34 @@
 
 namespace Depressurizer.Enums
 {
-    public enum ValueType
+    /// <summary>
+    ///     Depressurizer interface languages.
+    /// </summary>
+    internal enum InterfaceLanguage
     {
-        Array,
+        /// <summary>
+        ///     English - United States
+        /// </summary>
+        English = 0,
 
-        String,
+        /// <summary>
+        ///     Spanish - Spain
+        /// </summary>
+        Spanish = 1,
 
-        Int
+        /// <summary>
+        ///     Russian - Russia
+        /// </summary>
+        Russian = 2,
+
+        /// <summary>
+        ///     Ukrainian - Ukraine
+        /// </summary>
+        Ukrainian = 3,
+
+        /// <summary>
+        ///     Dutch - The Netherlands
+        /// </summary>
+        Dutch = 4
     }
 }

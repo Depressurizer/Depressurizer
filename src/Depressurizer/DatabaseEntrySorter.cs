@@ -40,11 +40,17 @@ namespace Depressurizer
         public enum SortModes
         {
             Id,
+
             Name,
+
             Genre,
+
             Type,
+
             IsScraped,
+
             HasAppInfo,
+
             Parent
         }
 

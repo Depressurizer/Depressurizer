@@ -47,6 +47,7 @@ namespace Depressurizer
         private IEnumerable<Tuple<string, int>> devList;
 
         private GameList gamelist;
+
         private IEnumerable<Tuple<string, int>> pubList;
 
         #endregion
@@ -84,9 +85,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatDevPub()
-        {
-        }
+        private AutoCatDevPub() { }
 
         #endregion
 
@@ -100,8 +99,11 @@ namespace Depressurizer
         public override AutoCatType AutoCatType => AutoCatType.DevPub;
 
         [XmlArrayItem("Developer")] public List<string> Developers { get; set; }
+
         public int MinCount { get; set; }
+
         public bool OwnedOnly { get; set; }
+
         public string Prefix { get; set; }
 
         [XmlArrayItem("Publisher")] public List<string> Publishers { get; set; }

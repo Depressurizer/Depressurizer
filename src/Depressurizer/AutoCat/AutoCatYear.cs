@@ -29,7 +29,9 @@ namespace Depressurizer
     public enum AutoCatYear_Grouping
     {
         None,
+
         Decade,
+
         HalfDecade
     }
 
@@ -67,9 +69,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatYear()
-        {
-        }
+        private AutoCatYear() { }
 
         #endregion
 
@@ -77,12 +77,14 @@ namespace Depressurizer
 
         // Meta properies
         public override AutoCatType AutoCatType => AutoCatType.Year;
+
         public AutoCatYear_Grouping GroupingMode { get; set; }
 
         public bool IncludeUnknown { get; set; }
 
         // Autocat configuration properties
         public string Prefix { get; set; }
+
         public string UnknownText { get; set; }
 
         #endregion

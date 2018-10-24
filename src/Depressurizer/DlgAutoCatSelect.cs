@@ -31,6 +31,7 @@ namespace Depressurizer
         #region Fields
 
         public List<AutoCat> AutoCatList;
+
         public string originalGroup;
 
         #endregion

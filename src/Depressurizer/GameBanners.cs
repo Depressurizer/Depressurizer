@@ -32,6 +32,7 @@ namespace Depressurizer
         #region Fields
 
         private readonly List<GameInfo> _games;
+
         private volatile bool _shouldStop;
 
         #endregion

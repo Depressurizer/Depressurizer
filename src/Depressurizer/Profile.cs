@@ -46,6 +46,7 @@ namespace Depressurizer
         #region Fields
 
         public List<AutoCat> AutoCats = new List<AutoCat>();
+
         public bool AutoExport = true;
 
         public bool AutoIgnore = true;
@@ -53,6 +54,7 @@ namespace Depressurizer
         public bool AutoImport = true;
 
         public bool AutoUpdate = true;
+
         public bool BypassIgnoreOnImport;
 
         public bool ExportDiscard = true;
@@ -64,6 +66,7 @@ namespace Depressurizer
         public SortedSet<int> IgnoreList = new SortedSet<int>();
 
         public bool IncludeShortcuts = true;
+
         public bool IncludeUnknown;
 
         public bool LocalUpdate = true;
@@ -71,6 +74,7 @@ namespace Depressurizer
         public bool OverwriteOnDownload;
 
         public long SteamID64;
+
         public bool WebUpdate = true;
 
         #endregion
@@ -352,9 +356,7 @@ namespace Depressurizer
                     return Utility.GetImage(avatarURL, RequestCacheLevel.BypassCache);
                 }
             }
-            catch
-            {
-            }
+            catch { }
 
             return null;
         }

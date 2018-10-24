@@ -31,9 +31,13 @@ namespace Rallion
     public enum LoggerLevel
     {
         None,
+
         Error,
+
         Warning,
+
         Info,
+
         Verbose
     }
 
@@ -58,6 +62,7 @@ namespace Rallion
         #region Fields
 
         public bool _useOrigCreateTime;
+
         private readonly object threadLock = new object();
 
         private bool _allowAppend;

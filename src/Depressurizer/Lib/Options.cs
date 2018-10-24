@@ -149,6 +149,7 @@ namespace NDesk.Options
         #region Fields
 
         private readonly OptionContext c;
+
         private readonly List<string> values = new List<string>();
 
         #endregion
@@ -365,7 +366,9 @@ namespace NDesk.Options
     public enum OptionValueType
     {
         None,
+
         Optional,
+
         Required
     }
 
@@ -383,9 +386,7 @@ namespace NDesk.Options
 
         #region Constructors and Destructors
 
-        protected Option(string prototype, string description) : this(prototype, description, 1)
-        {
-        }
+        protected Option(string prototype, string description) : this(prototype, description, 1) { }
 
         protected Option(string prototype, string description, int maxValueCount)
         {
@@ -615,9 +616,7 @@ namespace NDesk.Options
     {
         #region Constructors and Destructors
 
-        public OptionException()
-        {
-        }
+        public OptionException() { }
 
         public OptionException(string message, string optionName) : base(message)
         {
@@ -658,9 +657,7 @@ namespace NDesk.Options
 
     public class OptionSet : KeyedCollection<string, Option>
     {
-        public OptionSet() : this(delegate(string f) { return f; })
-        {
-        }
+        public OptionSet() : this(delegate(string f) { return f; }) { }
 
         public OptionSet(Converter<string, string> localizer)
         {

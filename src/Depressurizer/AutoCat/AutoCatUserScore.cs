@@ -51,16 +51,16 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private UserScore_Rule()
-        {
-        }
+        private UserScore_Rule() { }
 
         #endregion
 
         #region Public Properties
 
         public int MaxReviews { get; set; }
+
         public int MaxScore { get; set; }
+
         public int MinReviews { get; set; }
 
         public int MinScore { get; set; }
@@ -107,9 +107,7 @@ namespace Depressurizer
         }
 
         //XmlSerializer requires a parameterless constructor
-        private AutoCatUserScore()
-        {
-        }
+        private AutoCatUserScore() { }
 
         #endregion
 
@@ -118,6 +116,7 @@ namespace Depressurizer
         public override AutoCatType AutoCatType => AutoCatType.UserScore;
 
         public string Prefix { get; set; }
+
         public bool UseWilsonScore { get; set; }
 
         #endregion

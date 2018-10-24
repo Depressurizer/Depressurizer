@@ -38,10 +38,15 @@ namespace Depressurizer
         #region Fields
 
         private readonly HashSet<int> _intCols = new HashSet<int>();
+
         private readonly HashSet<int> _revCols = new HashSet<int>();
+
         private bool _asInt;
+
         private int _col;
+
         private int _direction;
+
         private bool _rev;
 
         #endregion
@@ -152,7 +157,6 @@ namespace Depressurizer
         #endregion
     }
 
-
     /// <summary>
     ///     This allows drawing sorting arrows on the columns in the ListView.
     /// </summary>
@@ -162,9 +166,13 @@ namespace Depressurizer
         #region Constants
 
         public const int HDM_FIRST = 0x1200;
+
         public const int HDM_GETITEM = HDM_FIRST + 11;
+
         public const int HDM_SETITEM = HDM_FIRST + 12;
+
         public const int LVM_FIRST = 0x1000;
+
         public const int LVM_GETHEADER = LVM_FIRST + 31;
 
         #endregion
@@ -227,8 +235,11 @@ namespace Depressurizer
             #region Fields
 
             public int cchTextMax;
+
             public int cxy;
+
             public Format fmt;
+
             public IntPtr hbm;
 
             // _WIN32_IE >= 0x0300 
@@ -237,7 +248,9 @@ namespace Depressurizer
             public int iOrder;
 
             public IntPtr lParam;
+
             public Mask mask;
+
             [MarshalAs(UnmanagedType.LPTStr)] public string pszText;
 
             public IntPtr pvFilter;
@@ -256,6 +269,7 @@ namespace Depressurizer
             public enum Format
             {
                 SortDown = 0x200, // HDF_SORTDOWN
+
                 SortUp = 0x400 // HDF_SORTUP
             }
 

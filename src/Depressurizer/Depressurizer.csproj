@@ -91,8 +91,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
@@ -111,6 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\AppPlatforms.cs" />
+    <Compile Include="Enums\GameListSource.cs" />
+    <Compile Include="Helpers\Language.cs" />
+    <Compile Include="Helpers\Locations.cs" />
     <Compile Include="Models\AppInfo.cs" />
     <Compile Include="AutoCat\AutoCatConfigPanel_Curator.cs">
       <SubType>UserControl</SubType>
@@ -293,6 +296,9 @@
     <Compile Include="Models\VDFNode.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Enums\StoreLanguage.cs" />
+    <Compile Include="Enums\StartupAction.cs" />
+    <Compile Include="Enums\InterfaceLanguage.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
@@ -333,7 +339,6 @@
       <DependentUpon>GlobalStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Lib\AppLogger.cs" />
-    <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="DlgGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -701,22 +706,22 @@
   <ItemGroup>
     <PublishFile Include="Depressurizer.exe.config">
       <Visible>False</Visible>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="Depressurizer.exe.manifest">
       <Visible>False</Visible>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
   </ItemGroup>
@@ -740,6 +745,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
