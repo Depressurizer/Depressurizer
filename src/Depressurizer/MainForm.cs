@@ -38,6 +38,7 @@ using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Depressurizer.Properties;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -103,9 +104,6 @@ namespace Depressurizer
         private readonly Color textColor = Color.FromArgb(255, 255, 255, 255);
 
         private Filter advFilter = new Filter(ADVANCED_FILTER);
-
-        // For getting game banners
-        private GameBanners bannerGrabber;
 
         private Thread bannerThread;
 
@@ -1558,7 +1556,7 @@ namespace Depressurizer
         /// </summary>
         private void FillGameList()
         {
-            List<GameInfo> gamelist = new List<GameInfo>();
+            List<GameInfo> gameInfos = new List<GameInfo>();
             Cursor = Cursors.WaitCursor;
             if (CurrentProfile != null)
             {
@@ -1569,22 +1567,20 @@ namespace Depressurizer
                         continue;
                     }
 
-                    gamelist.Add(g);
-                    if (g.Name == null)
+                    gameInfos.Add(g);
+                    if (g.Name != null)
                     {
-                        g.Name = string.Empty;
-                        gamelist.Add(g);
+                        continue;
                     }
+
+                    g.Name = string.Empty;
+                    gameInfos.Add(g);
                 }
             }
 
-            if (gamelist.Count > 0)
-            {
-                StartBannerThread(new List<GameInfo>(gamelist));
-            }
+            Steam.GrabBanners(gameInfos.Select(game => game.Id).ToList());
 
-            lstGames.SetObjects(gamelist);
-
+            lstGames.SetObjects(gameInfos);
             lstGames.BuildList();
 
             mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
@@ -1652,12 +1648,6 @@ namespace Depressurizer
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (bannerThread != null && bannerThread.IsAlive)
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-
             Settings settings = Settings.Instance;
             settings.X = Left;
             settings.Y = Top;
@@ -4110,19 +4100,6 @@ namespace Depressurizer
         private bool ShouldHideGame(GameInfo g)
         {
             return !ShouldDisplayGame(g);
-        }
-
-        private void StartBannerThread(List<GameInfo> games)
-        {
-            if (bannerThread != null && bannerThread.IsAlive)
-            {
-                bannerGrabber.Stop();
-                Thread.Sleep(100);
-            }
-
-            bannerGrabber = new GameBanners(games);
-            bannerThread = new Thread(bannerGrabber.Grab);
-            bannerThread.Start();
         }
 
         /// <summary>

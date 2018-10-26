@@ -114,6 +114,7 @@
     <Compile Include="Enums\GameListSource.cs" />
     <Compile Include="Helpers\Language.cs" />
     <Compile Include="Helpers\Locations.cs" />
+    <Compile Include="Helpers\Steam.cs" />
     <Compile Include="Models\AppInfo.cs" />
     <Compile Include="AutoCat\AutoCatConfigPanel_Curator.cs">
       <SubType>UserControl</SubType>
@@ -273,7 +274,6 @@
     </Compile>
     <Compile Include="Enums\AppType.cs" />
     <Compile Include="Enums\ValueType.cs" />
-    <Compile Include="GameBanners.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="Models\AppInfoNode.cs" />

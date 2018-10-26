@@ -288,27 +288,6 @@ namespace Depressurizer
             return (int) tSecs;
         }
 
-        public static bool GrabBanner(int id)
-        {
-            string bannerURL = string.Format(Resources.UrlGameBanner, id);
-            string bannerPath = string.Format(Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), id);
-
-            try
-            {
-                if (!Directory.Exists(Path.GetDirectoryName(bannerPath)))
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(bannerPath));
-                }
-
-                return SaveRemoteImageToFile(bannerURL, bannerPath, id);
-            }
-            catch
-            {
-                Program.Logger.Write(LoggerLevel.Warning, string.Format(GlobalStrings.GameData_GetBanner, bannerURL));
-                return false;
-            }
-        }
-
         public static bool IsOnScreen(MaterialForm form)
         {
             Screen[] screens = Screen.AllScreens;
@@ -359,38 +338,6 @@ namespace Depressurizer
             lb.Items.Insert(newIndex, selected);
             // Restore selection
             lb.SetSelected(newIndex, true);
-        }
-
-        public static bool SaveRemoteImageToFile(string url, string localPath, int id = 0)
-        {
-            try
-            {
-                using (Stream inputStream = GetRemoteImageStream(url, id))
-                {
-                    if (inputStream == null)
-                    {
-                        return false;
-                    }
-
-                    using (Stream outputStream = File.OpenWrite(localPath))
-                    {
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
-                        do
-                        {
-                            bytesRead = inputStream.Read(buffer, 0, buffer.Length);
-                            outputStream.Write(buffer, 0, bytesRead);
-                        } while (bytesRead != 0);
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Program.Logger.WriteException(string.Format(GlobalStrings.Utility_SaveBanner, localPath), e);
-                return false;
-            }
         }
 
         #endregion
