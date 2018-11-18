@@ -305,6 +305,7 @@
     <Compile Include="Enums\StoreLanguage.cs" />
     <Compile Include="Enums\StartupAction.cs" />
     <Compile Include="Enums\InterfaceLanguage.cs" />
+    <Compile Include="ToolStripItemComparer.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
