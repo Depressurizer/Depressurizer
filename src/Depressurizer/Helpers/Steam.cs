@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Rallion;
 
 namespace Depressurizer.Helpers
 {
@@ -286,6 +285,12 @@ namespace Depressurizer.Helpers
 
         #endregion
 
+        #region Properties
+
+        private static Logger Logger => Logger.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         /// <summary>
@@ -338,11 +343,11 @@ namespace Depressurizer.Helpers
                 }
 
                 BannerFailed.Add(appId);
-                Program.Logger.Write(LoggerLevel.Warning, "Couldn't fetch banner for appId: {0}", appId);
+                Logger.Warn("Couldn't fetch banner for appId: {0}", appId);
             }
             catch
             {
-                Program.Logger.Write(LoggerLevel.Warning, "Couldn't fetch banner for appId: {0}", appId);
+                Logger.Warn("Couldn't fetch banner for appId: {0}", appId);
             }
         }
 

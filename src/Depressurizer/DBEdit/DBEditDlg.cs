@@ -25,9 +25,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -95,6 +95,8 @@ namespace Depressurizer
         #region Properties
 
         private static Database Database => Database.Instance;
+
+        private static Logger Logger => Logger.Instance;
 
         private bool UnsavedChanges { get; set; }
 
@@ -975,7 +977,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_AppInfoUpdateFailed, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionAppInfo, e.ToString());
+                Logger.Error(GlobalStrings.DBEditDlg_Log_ExceptionAppInfo, e.ToString());
             }
         }
 
@@ -989,7 +991,7 @@ namespace Depressurizer
             if (dlg.Error != null)
             {
                 MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
+                Logger.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
                 AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
             }
             else

@@ -26,7 +26,6 @@ using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -118,10 +117,6 @@ namespace Depressurizer
 
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
-            cmbLogLevel.SelectedIndex = (int) settings.LogLevel;
-            numLogSize.Value = settings.LogSize;
-            numLogBackup.Value = settings.LogBackups;
-
             //supported languages have an enum value of 1-5 (en, es, ru, uk, nl). 0 is windows language.
             cmbUILanguage.SelectedIndex = (int) settings.InterfaceLanguage;
             cmbStoreLanguage.SelectedIndex = (int) settings.StoreLanguage;
@@ -129,9 +124,6 @@ namespace Depressurizer
 
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            string[] levels = Enum.GetNames(typeof(LoggerLevel));
-            cmbLogLevel.Items.AddRange(levels);
-
             // Interface languages
             foreach (InterfaceLanguage language in Enum.GetValues(typeof(InterfaceLanguage)))
             {
@@ -213,10 +205,6 @@ namespace Depressurizer
             settings.CheckForDepressurizerUpdates = chkCheckForDepressurizerUpdates.Checked;
 
             settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
-
-            settings.LogLevel = (LoggerLevel) cmbLogLevel.SelectedIndex;
-            settings.LogSize = (int) numLogSize.Value;
-            settings.LogBackups = (int) numLogBackup.Value;
 
             settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
             settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;

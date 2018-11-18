@@ -26,6 +26,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Depressurizer;
+using Depressurizer.Helpers;
 
 namespace Rallion
 {
@@ -84,6 +85,8 @@ namespace Rallion
 
         #region Properties
 
+        private static Logger Logger => Logger.Instance;
+
         /// <summary>
         ///     The minimum height of the form, without info showing.
         /// </summary>
@@ -122,7 +125,7 @@ namespace Rallion
         /// <param name="e">The unhandled exception.</param>
         private static void HandleUnhandledException(Exception e)
         {
-            Program.Logger.WriteException("Fatal Error: ", e);
+            Logger.Exception("Fatal Error: ", e);
             FatalError errForm = new FatalError(e);
             errForm.ShowDialog();
             Application.Exit();

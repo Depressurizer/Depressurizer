@@ -31,11 +31,11 @@ using System.Text;
 using System.Threading;
 using System.Xml;
 using Depressurizer.Enums;
+using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Rallion;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Depressurizer
@@ -105,19 +105,25 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Logger Logger => Logger.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public static XmlDocument FetchAppListFromWeb()
         {
             XmlDocument doc = new XmlDocument();
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_DownloadingSteamAppList);
+            Logger.Info(GlobalStrings.GameDB_DownloadingSteamAppList);
             WebRequest req = WebRequest.Create(@"http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=xml");
             using (WebResponse resp = req.GetResponse())
             {
                 doc.Load(resp.GetResponseStream());
             }
 
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_XMLAppListDownloaded);
+            Logger.Info(GlobalStrings.GameDB_XMLAppListDownloaded);
             return doc;
         }
 
@@ -763,7 +769,7 @@ namespace Depressurizer
                 }
             }
 
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
+            Logger.Info(GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
             return added;
         }
 
@@ -771,10 +777,10 @@ namespace Depressurizer
         {
             lock (SyncRoot)
             {
-                Program.Logger.Write(LoggerLevel.Info, "Database: Loading database from '{0}'.", path);
+                Logger.Info("Database: Loading database from '{0}'.", path);
                 if (!File.Exists(path))
                 {
-                    Program.Logger.Write(LoggerLevel.Warning, "Database: Database file not found at '{0}'.", path);
+                    Logger.Warn("Database: Database file not found at '{0}'.", path);
 
                     return;
                 }
@@ -793,7 +799,7 @@ namespace Depressurizer
                 }
 
                 sw.Stop();
-                Program.Logger.Write(LoggerLevel.Info, "Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
+                Logger.Info("Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
             }
         }
 
@@ -801,7 +807,7 @@ namespace Depressurizer
         {
             lock (SyncRoot)
             {
-                Program.Logger.Write(LoggerLevel.Info, "Database: Database was reset.");
+                Logger.Info("Database: Database was reset.");
                 _instance = new Database();
             }
         }
@@ -810,7 +816,7 @@ namespace Depressurizer
         {
             lock (SyncRoot)
             {
-                Program.Logger.Write(LoggerLevel.Info, "Database: Saving database to '{0}'.", path);
+                Logger.Info("Database: Saving database to '{0}'.", path);
 
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
@@ -826,7 +832,7 @@ namespace Depressurizer
                 }
 
                 sw.Stop();
-                Program.Logger.Write(LoggerLevel.Info, "Database: Saved database to '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
+                Logger.Info("Database: Saved database to '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
             }
         }
 

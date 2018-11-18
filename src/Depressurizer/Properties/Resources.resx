@@ -129,9 +129,6 @@
   <data name="DepressurizerHomepage" xml:space="preserve">
     <value>https://github.com/Depressurizer/depressurizer</value>
   </data>
-  <data name="GameBannerPath" xml:space="preserve">
-    <value>{0}\Game Banners\{1}.jpg</value>
-  </data>
   <data name="LocalConfigPath" xml:space="preserve">
     <value>{0}\userdata\{1}\config\localconfig.vdf</value>
   </data>

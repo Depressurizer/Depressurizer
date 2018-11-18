@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using Rallion;
+using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -108,6 +108,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Logger Logger => Logger.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public static AutoCatGenre LoadFromXmlElement(XmlElement xElement)
@@ -143,19 +149,19 @@ namespace Depressurizer
         {
             if (games == null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
+                Logger.Error(GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
             if (db == null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_DBNull);
+                Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
             }
 
             if (game == null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
+                Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 

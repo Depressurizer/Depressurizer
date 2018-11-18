@@ -28,7 +28,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-using Rallion;
+using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -79,6 +79,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Logger Logger => Logger.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public string GetDisplayName(long accountId)
@@ -100,8 +106,8 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
-                Program.Logger.Write(LoggerLevel.Warning, e.Message);
+                Logger.Warn(GlobalStrings.DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName, accountId);
+                Logger.Warn(e.Message);
             }
 
             return null;

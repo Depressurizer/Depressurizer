@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using Rallion;
+using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -93,6 +93,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Logger Logger => Logger.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public int CompareTo(object o)
@@ -125,7 +131,7 @@ namespace Depressurizer
 
         public void WriteToXml(XmlWriter writer)
         {
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Filter_SavingFilter, Name);
+            Logger.Info(GlobalStrings.Filter_SavingFilter, Name);
 
             writer.WriteStartElement(TypeIdString);
 
@@ -151,7 +157,7 @@ namespace Depressurizer
 
             writer.WriteEndElement(); // Filter
 
-            Program.Logger.Write(LoggerLevel.Info, GlobalStrings.Filter_FilterSaveComplete);
+            Logger.Info(GlobalStrings.Filter_FilterSaveComplete);
         }
 
         #endregion

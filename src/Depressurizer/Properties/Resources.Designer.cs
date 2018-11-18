@@ -97,15 +97,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\Game Banners\{1}.jpg.
-        /// </summary>
-        internal static string GameBannerPath {
-            get {
-                return ResourceManager.GetString("GameBannerPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}\userdata\{1}\config\localconfig.vdf.
         /// </summary>
         internal static string LocalConfigPath {

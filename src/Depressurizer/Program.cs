@@ -22,6 +22,7 @@
 
 using System;
 using System.Windows.Forms;
+using Depressurizer.Helpers;
 using NDesk.Options;
 using Rallion;
 
@@ -29,13 +30,22 @@ namespace Depressurizer
 {
     internal static class Program
     {
-        #region Static Fields
+        #region Properties
 
-        public static AppLogger Logger;
+        private static Logger Logger => Logger.Instance;
+
+        private static Settings Settings => Settings.Instance;
 
         #endregion
 
         #region Methods
+
+        private static void ApplicationExit(object sender, EventArgs e)
+        {
+            Settings.Save();
+            Logger.Info(GlobalStrings.Program_ProgramClosing);
+            Logger.Dispose();
+        }
 
         /// <summary>
         ///     The main entry point for the application.
@@ -45,39 +55,26 @@ namespace Depressurizer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ApplicationExit += ApplicationExit;
 
             FatalError.InitializeHandler();
+            Settings.Load();
 
-            Logger = new AppLogger();
-            Logger.Level = LoggerLevel.None;
-            Logger.DateFormat = "HH:mm:ss'.'ffffff";
-
-            Logger.MaxFileSize = 2000000;
-            Logger.MaxBackup = 1;
-            Logger.FileNameTemplate = "Depressurizer.log";
-
-            Settings.Instance.Load();
-
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramInitialized, Logger.Level);
+            Logger.Info(GlobalStrings.Program_ProgramInitialized);
 
             AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 
             if (autoOpts != null)
             {
-                Logger.Write(LoggerLevel.Info, "Automatic mode set, loading automatic mode form.");
-                Logger.WriteObject(LoggerLevel.Verbose, autoOpts, "Automatic Mode Options:");
+                Logger.Info("Automatic mode set, loading automatic mode form.");
+                Logger.Verbose("Automatic Mode Options: {0}", autoOpts);
                 Application.Run(new AutomaticModeForm(autoOpts));
             }
             else
             {
-                Logger.Write(LoggerLevel.Info, "Automatic mode not set, loading main form.");
+                Logger.Info("Automatic mode not set, loading main form.");
                 Application.Run(new FormMain());
             }
-
-            Settings.Instance.Save();
-
-            Logger.Write(LoggerLevel.Info, GlobalStrings.Program_ProgramClosing);
-            Logger.EndSession();
         }
 
         private static AutomaticModeOptions ParseAutoOptions(string[] args)

@@ -93,7 +93,7 @@ namespace Depressurizer
         {
             if (mode == SortMode)
             {
-                SortDirection = forceDir == 0 ? (SortDirection *= -1) : forceDir;
+                SortDirection = forceDir == 0 ? SortDirection *= -1 : forceDir;
             }
             else
             {

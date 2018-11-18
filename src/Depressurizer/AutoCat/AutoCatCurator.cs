@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using Rallion;
+using Depressurizer.Helpers;
 
 namespace Depressurizer
 {
@@ -84,19 +84,25 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Logger Logger => Logger.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GamelistNull);
+                Logger.Error(GlobalStrings.Log_AutoCat_GamelistNull);
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
             if (game == null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.Log_AutoCat_GameNull);
+                Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 
@@ -153,7 +159,7 @@ namespace Depressurizer
             Match m = curatorIdRegex.Match(CuratorUrl);
             if (!m.Success || !long.TryParse(m.Groups[1].Value, out long curatorId))
             {
-                Program.Logger.Write(LoggerLevel.Error, $"Failed to parse curator id from url {CuratorUrl}.");
+                Logger.Error($"Failed to parse curator id from url {CuratorUrl}.");
                 MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_CuratorIdParsing_Error, CuratorUrl), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -163,7 +169,7 @@ namespace Depressurizer
 
             if (dlg.Error != null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message);
+                Logger.Error(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message);
                 MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (res != DialogResult.Cancel && res != DialogResult.Abort)

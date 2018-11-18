@@ -74,13 +74,6 @@ namespace Depressurizer {
             this.chkUpdateAppInfoOnStartup = new System.Windows.Forms.CheckBox();
             this.grpUILanguage = new System.Windows.Forms.GroupBox();
             this.cmbUILanguage = new System.Windows.Forms.ComboBox();
-            this.tabLogging = new System.Windows.Forms.TabPage();
-            this.numLogBackup = new System.Windows.Forms.NumericUpDown();
-            this.numLogSize = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbLogLevel = new System.Windows.Forms.ComboBox();
             this.ttHelp = new Depressurizer.Lib.ExtToolTip();
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
@@ -93,9 +86,6 @@ namespace Depressurizer {
             this.grpDatabase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).BeginInit();
             this.grpUILanguage.SuspendLayout();
-            this.tabLogging.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).BeginInit();
             this.SuspendLayout();
             // 
             // grpSteamDir
@@ -211,7 +201,6 @@ namespace Depressurizer {
             // 
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Controls.Add(this.tabGeneral);
-            this.tabControl.Controls.Add(this.tabLogging);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             // 
@@ -334,70 +323,6 @@ namespace Depressurizer {
             resources.ApplyResources(this.cmbUILanguage, "cmbUILanguage");
             this.cmbUILanguage.Name = "cmbUILanguage";
             // 
-            // tabLogging
-            // 
-            this.tabLogging.Controls.Add(this.numLogBackup);
-            this.tabLogging.Controls.Add(this.numLogSize);
-            this.tabLogging.Controls.Add(this.label3);
-            this.tabLogging.Controls.Add(this.label2);
-            this.tabLogging.Controls.Add(this.label1);
-            this.tabLogging.Controls.Add(this.cmbLogLevel);
-            resources.ApplyResources(this.tabLogging, "tabLogging");
-            this.tabLogging.Name = "tabLogging";
-            this.tabLogging.UseVisualStyleBackColor = true;
-            // 
-            // numLogBackup
-            // 
-            resources.ApplyResources(this.numLogBackup, "numLogBackup");
-            this.numLogBackup.Name = "numLogBackup";
-            // 
-            // numLogSize
-            // 
-            this.numLogSize.Increment = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            resources.ApplyResources(this.numLogSize, "numLogSize");
-            this.numLogSize.Maximum = new decimal(new int[] {
-            20000000,
-            0,
-            0,
-            0});
-            this.numLogSize.Minimum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.numLogSize.Name = "numLogSize";
-            this.numLogSize.Value = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // cmbLogLevel
-            // 
-            resources.ApplyResources(this.cmbLogLevel, "cmbLogLevel");
-            this.cmbLogLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbLogLevel.FormattingEnabled = true;
-            this.cmbLogLevel.Name = "cmbLogLevel";
-            // 
             // DlgOptions
             // 
             resources.ApplyResources(this, "$this");
@@ -426,10 +351,6 @@ namespace Depressurizer {
             this.grpDatabase.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScrapePromptDays)).EndInit();
             this.grpUILanguage.ResumeLayout(false);
-            this.tabLogging.ResumeLayout(false);
-            this.tabLogging.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogBackup)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLogSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -454,13 +375,6 @@ namespace Depressurizer {
         private System.Windows.Forms.ComboBox cmbDatSrc;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabGeneral;
-        private System.Windows.Forms.TabPage tabLogging;
-        private System.Windows.Forms.NumericUpDown numLogBackup;
-        private System.Windows.Forms.NumericUpDown numLogSize;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmbLogLevel;
         private System.Windows.Forms.GroupBox grpUILanguage;
         private System.Windows.Forms.ComboBox cmbUILanguage;
         private System.Windows.Forms.GroupBox grpDatabase;

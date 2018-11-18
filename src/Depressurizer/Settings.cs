@@ -26,7 +26,6 @@ using System.Threading;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
 using Newtonsoft.Json;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -47,12 +46,6 @@ namespace Depressurizer
         public int SplitGameContainerHeight = 510;
 
         private int _height;
-
-        private int _logBackups = 1;
-
-        private LoggerLevel _logLevel = LoggerLevel.Info;
-
-        private int _logSize = 2000000;
 
         private int _splitBrowser;
 
@@ -144,39 +137,6 @@ namespace Depressurizer
         }
 
         public GameListSource ListSource { get; set; } = GameListSource.XmlPreferred;
-
-        public int LogBackups
-        {
-            get => _logBackups;
-            set
-            {
-                Program.Logger.MaxBackup = value;
-
-                _logBackups = value;
-            }
-        }
-
-        public LoggerLevel LogLevel
-        {
-            get => _logLevel;
-            set
-            {
-                Program.Logger.Level = value;
-
-                _logLevel = value;
-            }
-        }
-
-        public int LogSize
-        {
-            get => _logSize;
-            set
-            {
-                Program.Logger.MaxFileSize = value;
-
-                _logSize = value;
-            }
-        }
 
         public string LstGamesState { get; set; } = "";
 
@@ -280,6 +240,8 @@ namespace Depressurizer
 
         private static Database Database => Database.Instance;
 
+        private static Logger Logger => Logger.Instance;
+
         #endregion
 
         #region Public Methods and Operators
@@ -293,10 +255,10 @@ namespace Depressurizer
         {
             lock (SyncRoot)
             {
-                Program.Logger.Write(LoggerLevel.Info, "Settings: Loading a settings instance from '{0}'.", path);
+                Logger.Info("Settings: Loading a settings instance from '{0}'.", path);
                 if (!File.Exists(path))
                 {
-                    Program.Logger.Write(LoggerLevel.Warning, "Settings: Couldn't find a settings file at '{0}'.", path);
+                    Logger.Warn("Settings: Couldn't find a settings file at '{0}'.", path);
 
                     return;
                 }
@@ -318,7 +280,7 @@ namespace Depressurizer
         {
             lock (SyncRoot)
             {
-                Program.Logger.Write(LoggerLevel.Info, "Settings: Saving current settings instance to '{0}'.", path);
+                Logger.Info("Settings: Saving current settings instance to '{0}'.", path);
 
                 using (StreamWriter writer = File.CreateText(path))
                 {

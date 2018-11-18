@@ -194,6 +194,8 @@ namespace Depressurizer
 
         private static Database Database => Database.Instance;
 
+        private static Logger Logger => Logger.Instance;
+
         private bool AdvancedCategoryFilter => mchkAdvancedCategories.Checked;
 
         #endregion
@@ -247,13 +249,13 @@ namespace Depressurizer
                 else
                 {
                     MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + GlobalStrings.MainForm_GameDBFileNotExist);
-                    Program.Logger.Write(LoggerLevel.Warning, GlobalStrings.MainForm_GameDBFileNotExist);
+                    Logger.Warn(GlobalStrings.MainForm_GameDBFileNotExist);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(GlobalStrings.MainForm_ErrorLoadingGameDB + ex.Message);
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionOnDBLoad, ex);
+                Logger.Exception(GlobalStrings.MainForm_Log_ExceptionOnDBLoad, ex);
                 Database.Reset();
             }
         }
@@ -503,31 +505,31 @@ namespace Depressurizer
 
             if (selectedOnly && autoCat.Filter == null)
             {
-                foreach (GameInfo g in tlstGames.SelectedObjects)
+                foreach (GameInfo g1 in tlstGames.SelectedObjects)
                 {
-                    if (g.Id > 0)
+                    if (g1.Id > 0)
                     {
-                        gamesToUpdate.Add(g);
+                        gamesToUpdate.Add(g1);
                     }
                 }
             }
             else if (tlstGames.Objects.Count > 0 && autoCat.Filter == null)
             {
-                foreach (GameInfo g in tlstGames.Objects)
+                foreach (GameInfo g2 in tlstGames.Objects)
                 {
-                    if (g.Id > 0)
+                    if (g2.Id > 0)
                     {
-                        gamesToUpdate.Add(g);
+                        gamesToUpdate.Add(g2);
                     }
                 }
             }
             else
             {
-                foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
+                foreach (GameInfo g3 in CurrentProfile.GameData.Games.Values)
                 {
-                    if (g != null && g.Id > 0)
+                    if (g3 != null && g3.Id > 0)
                     {
-                        gamesToUpdate.Add(g);
+                        gamesToUpdate.Add(g3);
                     }
                 }
             }
@@ -740,21 +742,19 @@ namespace Depressurizer
                 }
                 else if (c is ListView)
                 {
-                    // jpodadera. Because a framework bug, names of ColumnHeader objects are empty. 
-                    // Resolved by saving names to Tag property.
                     foreach (ColumnHeader cHeader in (c as ListView).Columns)
                     {
                         if (cHeader.Tag != null)
                         {
                             resources.ApplyResources(cHeader, cHeader.Tag.ToString(), newCulture);
                         }
-                    }
-                }
-                else
-                {
-                    foreach (Control childControl in c.Controls)
-                    {
-                        changeLanguageControls(childControl, resources, newCulture);
+                        else
+                        {
+                            foreach (Control childControl in c.Controls)
+                            {
+                                changeLanguageControls(childControl, resources, newCulture);
+                            }
+                        }
                     }
                 }
 
@@ -818,7 +818,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
+                Logger.Exception(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -1336,7 +1336,7 @@ namespace Depressurizer
                 catch (Exception e)
                 {
                     MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorExportingToSteam, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionExport, e);
+                    Logger.Exception(GlobalStrings.MainForm_Log_ExceptionExport, e);
                     AddStatus(GlobalStrings.MainForm_ExportFailed);
                 }
             }
@@ -1907,7 +1907,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorImportingSteamDataList, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Program.Logger.WriteException("Exception encountered while importing the remoteconfig file.", e);
+                Logger.Exception("Exception encountered while importing the remoteconfig file.", e);
                 AddStatus(GlobalStrings.MainForm_ImportFailed);
             }
 
@@ -2505,7 +2505,7 @@ namespace Depressurizer
             catch (ApplicationException e)
             {
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorLoadingProfile, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionLoadingProfile, e);
+                Logger.Exception(GlobalStrings.MainForm_Log_ExceptionLoadingProfile, e);
                 OnProfileChange();
                 AddStatus(GlobalStrings.MainForm_FailedLoadProfile);
                 return;
@@ -2740,7 +2740,7 @@ namespace Depressurizer
 
             // Add game banner to ID column
             GameInfo g = (GameInfo) e.Model;
-            string bannerFile = string.Format(Resources.GameBannerPath, Path.GetDirectoryName(Application.ExecutablePath), g.Id);
+            string bannerFile = Locations.File.Banner(g.Id);
             if (!File.Exists(bannerFile))
             {
                 return;
@@ -3046,7 +3046,7 @@ namespace Depressurizer
                 catch (Exception e)
                 {
                     MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorManualExport, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionExport, e);
+                    Logger.Exception(GlobalStrings.MainForm_Log_ExceptionExport, e);
                     AddStatus(GlobalStrings.MainForm_ExportFailed);
                 }
 
@@ -3720,7 +3720,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAutosavingDB, e);
+                Logger.Exception(GlobalStrings.MainForm_Log_ExceptionAutosavingDB, e);
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -3816,7 +3816,7 @@ namespace Depressurizer
             catch (ApplicationException e)
             {
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorSavingProfile, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionSavingProfile, e);
+                Logger.Exception(GlobalStrings.MainForm_Log_ExceptionSavingProfile, e);
                 AddStatus(GlobalStrings.MainForm_FailedSaveProfile);
                 return false;
             }
@@ -4229,7 +4229,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
+                Logger.Exception(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -4247,7 +4247,7 @@ namespace Depressurizer
 
             if (dlg.Error != null)
             {
-                Program.Logger.Write(LoggerLevel.Error, GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
+                Logger.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorHltb, dlg.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
             }
@@ -4314,7 +4314,7 @@ namespace Depressurizer
                 catch (Exception e)
                 {
                     MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_LocalUpdateError, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionLocalUpdate, e);
+                    Logger.Exception(GlobalStrings.MainForm_Log_ExceptionLocalUpdate, e);
                     AddStatus(GlobalStrings.MainForm_Status_LocalUpdateFailed);
                     success = false;
                 }
@@ -4334,7 +4334,7 @@ namespace Depressurizer
 
                     if (updateDlg.Error != null)
                     {
-                        Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionWebUpdateDialog, updateDlg.Error);
+                        Logger.Exception(GlobalStrings.MainForm_Log_ExceptionWebUpdateDialog, updateDlg.Error);
                         AddStatus(string.Format(GlobalStrings.MainForm_ErrorDownloadingProfileData, updateDlg.UseHtml ? "HTML" : "XML"));
                         MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorDowloadingProfile, updateDlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -4367,7 +4367,7 @@ namespace Depressurizer
                 }
                 catch (Exception e)
                 {
-                    Program.Logger.WriteException(GlobalStrings.MainForm_Log_ExceptionWebUpdate, e);
+                    Logger.Exception(GlobalStrings.MainForm_Log_ExceptionWebUpdate, e);
                     MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorDowloadingProfile, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     AddStatus(GlobalStrings.MainForm_DownloadFailed);
                 }

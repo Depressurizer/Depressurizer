@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Helpers;
 
 /* ADDING NEW AUTOCAT METHODS
  * 
@@ -175,6 +176,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Logger Logger => Logger.Instance;
+
+        #endregion
+
         #region Public Methods and Operators
 
         public static AutoCat Create(AutoCatType type, string name)
@@ -266,7 +273,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 MessageBox.Show(string.Format(GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Program.Logger.WriteException($"Failed to load from xml an Autocat of type {type.FullName}: ", e);
+                Logger.Exception($"Failed to load from xml an Autocat of type {type.FullName}: ", e);
             }
 
             return null;
