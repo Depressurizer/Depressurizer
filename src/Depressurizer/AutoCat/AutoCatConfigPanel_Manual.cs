@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Models;
 
 namespace Depressurizer
 {

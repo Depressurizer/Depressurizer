@@ -110,9 +110,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Enums\AppPlatforms.cs" />
     <Compile Include="Enums\GameListSource.cs" />
     <Compile Include="Enums\LogLevel.cs" />
+    <Compile Include="GameList.cs" />
+    <Compile Include="GameListingSource.cs" />
     <Compile Include="Helpers\Language.cs" />
     <Compile Include="Helpers\Locations.cs" />
     <Compile Include="Helpers\Logger.cs" />
@@ -297,6 +300,7 @@
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="Models\VDFNode.cs" />
     <Compile Include="PackageInfo.cs" />
+    <Compile Include="ProfileAccessException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\StoreLanguage.cs" />
     <Compile Include="Enums\StartupAction.cs" />
@@ -373,7 +377,7 @@
     <Compile Include="Lib\DlgGetString.Designer.cs">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameData.cs" />
+    <Compile Include="GameInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
