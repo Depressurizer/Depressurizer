@@ -176,7 +176,7 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -186,7 +186,7 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            VrSupport vrSupport = db.GetVrSupport(game.Id);
+            VrSupport vrSupport = entry.VrSupport;
 
             vrSupport.Headsets = vrSupport.Headsets ?? new List<string>();
             vrSupport.Input = vrSupport.Input ?? new List<string>();

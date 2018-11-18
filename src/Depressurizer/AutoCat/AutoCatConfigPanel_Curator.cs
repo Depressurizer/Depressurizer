@@ -55,9 +55,9 @@ namespace Depressurizer
             lstIncluded.Items[2].Tag = Enum.GetName(typeof(CuratorRecommendation), CuratorRecommendation.Informational);
         }
 
-        public override void LoadFromAutoCat(AutoCat autocat)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatCurator ac = autocat as AutoCatCurator;
+            AutoCatCurator ac = autoCat as AutoCatCurator;
             if (ac == null)
             {
                 return;
@@ -72,9 +72,9 @@ namespace Depressurizer
             }
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatCurator ac = autocat as AutoCatCurator;
+            AutoCatCurator ac = autoCat as AutoCatCurator;
             if (ac == null)
             {
                 return;

@@ -47,7 +47,7 @@ namespace Depressurizer
         {
             Filter = filter;
             Prefix = prefix;
-            IncludedFlags = flags == null ? new List<string>() : flags;
+            IncludedFlags = flags ?? new List<string>();
             Selected = selected;
         }
 
@@ -93,16 +93,17 @@ namespace Depressurizer
             List<string> flags = new List<string>();
 
             XmlElement flagListElement = xElement[XmlName_FlagList];
-            if (flagListElement != null)
+            if (flagListElement == null)
             {
-                XmlNodeList flagElements = flagListElement.SelectNodes(XmlName_Flag);
-                foreach (XmlNode n in flagElements)
+                return new AutoCatFlags(name, filter, prefix, flags);
+            }
+
+            XmlNodeList flagElements = flagListElement.SelectNodes(XmlName_Flag);
+            foreach (XmlNode n in flagElements)
+            {
+                if (XmlUtil.TryGetStringFromNode(n, out string flag))
                 {
-                    string flag;
-                    if (XmlUtil.TryGetStringFromNode(n, out flag))
-                    {
-                        flags.Add(flag);
-                    }
+                    flags.Add(flag);
                 }
             }
 
@@ -129,7 +130,7 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id) || db.Games[game.Id].LastStoreScrape == 0)
+            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
             {
                 return AutoCatResult.NotInDatabase;
             }

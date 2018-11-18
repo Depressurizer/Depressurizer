@@ -73,9 +73,9 @@ namespace Depressurizer
             }
         }
 
-        public override void LoadFromAutoCat(AutoCat autocat)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatLanguage ac = autocat as AutoCatLanguage;
+            AutoCatLanguage ac = autoCat as AutoCatLanguage;
             if (ac == null)
             {
                 return;
@@ -102,9 +102,9 @@ namespace Depressurizer
             }
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatLanguage ac = autocat as AutoCatLanguage;
+            AutoCatLanguage ac = autoCat as AutoCatLanguage;
             if (ac == null)
             {
                 return;

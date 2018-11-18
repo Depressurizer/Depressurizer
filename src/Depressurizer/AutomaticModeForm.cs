@@ -29,6 +29,7 @@ using System.Windows.Forms;
 using System.Xml;
 using Depressurizer.Enums;
 using Depressurizer.Helpers;
+using Depressurizer.Models;
 using Depressurizer.Properties;
 
 namespace Depressurizer
@@ -64,6 +65,36 @@ namespace Depressurizer
         #endregion
 
         #region Methods
+
+        private static bool UpdateGameList_Web_Html(Profile profile)
+        {
+            try
+            {
+                string doc = GameList.FetchHtmlGameList(profile.SteamID64);
+                profile.GameData.IntegrateHtmlGameList(doc, false, profile.IgnoreList, out int newApps);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Exception("Automatic mode: Error on HTML web profile update.", e);
+                return false;
+            }
+        }
+
+        private static bool UpdateGameList_Web_Xml(Profile profile)
+        {
+            try
+            {
+                XmlDocument doc = GameList.FetchXmlGameList(profile.SteamID64);
+                profile.GameData.IntegrateXmlGameList(doc, false, profile.IgnoreList, out int _);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.Exception("Automatic mode: Error on XML web profile update.", e);
+                return false;
+            }
+        }
 
         private bool AutocatGames(Profile p, List<string> autocatStrings, bool doAll)
         {
@@ -536,7 +567,8 @@ namespace Depressurizer
                 Queue<int> jobs = new Queue<int>();
                 foreach (int id in p.GameData.Games.Keys)
                 {
-                    if (id > 0 && !Database.Contains(id) || Database.Games[id].LastStoreScrape == 0)
+                    DatabaseEntry entry = null;
+                    if (id > 0 && !Database.Contains(id, out entry) || entry != null && entry.LastStoreScrape == 0)
                     {
                         jobs.Enqueue(id);
                     }
@@ -748,38 +780,6 @@ namespace Depressurizer
             }
 
             return success;
-        }
-
-        private bool UpdateGameList_Web_Html(Profile profile)
-        {
-            try
-            {
-                string doc = GameList.FetchHtmlGameList(profile.SteamID64);
-                int newApps;
-                profile.GameData.IntegrateHtmlGameList(doc, false, profile.IgnoreList, out newApps);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Logger.Exception("Automatic mode: Error on HTML web profile update.", e);
-                return false;
-            }
-        }
-
-        private bool UpdateGameList_Web_Xml(Profile profile)
-        {
-            try
-            {
-                XmlDocument doc = GameList.FetchXmlGameList(profile.SteamID64);
-                int newApps;
-                profile.GameData.IntegrateXmlGameList(doc, false, profile.IgnoreList, out newApps);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Logger.Exception("Automatic mode: Error on XML web profile update.", e);
-                return false;
-            }
         }
 
         private void Write(string text)

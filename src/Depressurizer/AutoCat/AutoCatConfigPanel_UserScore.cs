@@ -103,10 +103,10 @@ namespace Depressurizer
             rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0));
         }
 
-        public override void LoadFromAutoCat(AutoCat ac)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatUserScore acScore = ac as AutoCatUserScore;
-            if (ac == null)
+            AutoCatUserScore acScore = autoCat as AutoCatUserScore;
+            if (autoCat == null)
             {
                 return;
             }
@@ -123,10 +123,10 @@ namespace Depressurizer
             UpdateEnabledSettings();
         }
 
-        public override void SaveToAutoCat(AutoCat ac)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatUserScore acScore = ac as AutoCatUserScore;
-            if (ac == null)
+            AutoCatUserScore acScore = autoCat as AutoCatUserScore;
+            if (autoCat == null)
             {
                 return;
             }

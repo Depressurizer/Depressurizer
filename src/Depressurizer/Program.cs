@@ -43,7 +43,6 @@ namespace Depressurizer
         private static void ApplicationExit(object sender, EventArgs e)
         {
             Settings.Save();
-            Logger.Info(GlobalStrings.Program_ProgramClosing);
             Logger.Dispose();
         }
 
@@ -58,9 +57,8 @@ namespace Depressurizer
             Application.ApplicationExit += ApplicationExit;
 
             FatalError.InitializeHandler();
-            Settings.Load();
 
-            Logger.Info(GlobalStrings.Program_ProgramInitialized);
+            Settings.Load();
 
             AutomaticModeOptions autoOpts = ParseAutoOptions(args);
 

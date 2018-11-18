@@ -36,9 +36,9 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public override void LoadFromAutoCat(AutoCat ac)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatName acName = ac as AutoCatName;
+            AutoCatName acName = autoCat as AutoCatName;
             if (acName == null)
             {
                 return;
@@ -51,9 +51,9 @@ namespace Depressurizer
             txtGroupNonEnglishCharactersText.Text = acName.GroupNonEnglishCharactersText;
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatName ac = autocat as AutoCatName;
+            AutoCatName ac = autoCat as AutoCatName;
             if (ac == null)
             {
                 return;

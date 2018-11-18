@@ -116,9 +116,9 @@ namespace Depressurizer
             lstRemove.EndUpdate();
         }
 
-        public override void LoadFromAutoCat(AutoCat autocat)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatManual ac = autocat as AutoCatManual;
+            AutoCatManual ac = autoCat as AutoCatManual;
             if (ac == null)
             {
                 return;
@@ -176,9 +176,9 @@ namespace Depressurizer
             loaded = true;
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatManual ac = autocat as AutoCatManual;
+            AutoCatManual ac = autoCat as AutoCatManual;
             if (ac == null)
             {
                 return;

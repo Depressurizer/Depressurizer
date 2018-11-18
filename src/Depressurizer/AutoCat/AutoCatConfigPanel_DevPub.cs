@@ -89,8 +89,11 @@ namespace Depressurizer
             lstDevelopers.Items.Clear();
             foreach (Tuple<string, int> dev in devList)
             {
-                ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", dev.Item1, dev.Item2));
-                newItem.Tag = dev.Item1;
+                ListViewItem newItem = new ListViewItem($"{dev.Item1} [{dev.Item2}]")
+                {
+                    Tag = dev.Item1
+                };
+
                 if (preChecked != null && preChecked.Contains(dev.Item1))
                 {
                     newItem.Checked = true;
@@ -116,7 +119,7 @@ namespace Depressurizer
             lstPublishers.Items.Clear();
             foreach (Tuple<string, int> pub in pubList)
             {
-                ListViewItem newItem = new ListViewItem(string.Format("{0} [{1}]", pub.Item1, pub.Item2));
+                ListViewItem newItem = new ListViewItem($"{pub.Item1} [{pub.Item2}]");
                 newItem.Tag = pub.Item1;
                 if (preChecked != null && preChecked.Contains(pub.Item1))
                 {
@@ -134,10 +137,9 @@ namespace Depressurizer
             Cursor = Cursors.Default;
         }
 
-        public override void LoadFromAutoCat(AutoCat autocat)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatDevPub ac = autocat as AutoCatDevPub;
-            if (ac == null)
+            if (!(autoCat is AutoCatDevPub ac))
             {
                 return;
             }
@@ -170,10 +172,9 @@ namespace Depressurizer
             loaded = true;
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatDevPub ac = autocat as AutoCatDevPub;
-            if (ac == null)
+            if (!(autoCat is AutoCatDevPub ac))
             {
                 return;
             }
@@ -194,12 +195,14 @@ namespace Depressurizer
             }
 
             ac.Publishers.Clear();
-            if (!chkAllPublishers.Checked)
+            if (chkAllPublishers.Checked)
             {
-                foreach (ListViewItem item in clbPublishersSelected.CheckedItems)
-                {
-                    ac.Publishers.Add(item.Tag.ToString());
-                }
+                return;
+            }
+
+            foreach (ListViewItem item in clbPublishersSelected.CheckedItems)
+            {
+                ac.Publishers.Add(item.Tag.ToString());
             }
         }
 

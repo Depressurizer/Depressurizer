@@ -119,7 +119,7 @@ namespace Depressurizer
         /// <returns>Full text of the HTTP response</returns>
         public static string FetchHtmlGameList(string customUrl)
         {
-            return FetchHtmlFromUrl(string.Format(Resources.UrlCustomGameListHtml, customUrl));
+            return FetchHtmlFromUrl(string.Format(CultureInfo.InvariantCulture, Resources.UrlCustomGameListHtml, customUrl));
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Depressurizer
         /// <returns>Full text of the HTTP response</returns>
         public static string FetchHtmlGameList(long accountId)
         {
-            return FetchHtmlFromUrl(string.Format(Resources.UrlGameListHtml, accountId));
+            return FetchHtmlFromUrl(string.Format(CultureInfo.InvariantCulture, Resources.UrlGameListHtml, accountId));
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace Depressurizer
         /// <returns>Fetched XML page as an XmlDocument</returns>
         public static XmlDocument FetchXmlGameList(string customUrl)
         {
-            return FetchXmlFromUrl(string.Format(Resources.UrlCustomGameListXml, customUrl));
+            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Resources.UrlCustomGameListXml, customUrl));
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Depressurizer
         /// <returns>Fetched XML page as an XmlDocument</returns>
         public static XmlDocument FetchXmlGameList(long steamId)
         {
-            return FetchXmlFromUrl(string.Format(Resources.UrlGameListXml, steamId));
+            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Resources.UrlGameListXml, steamId));
         }
 
         /// <summary>
@@ -323,7 +323,7 @@ namespace Depressurizer
         /// <param name="includeShortcuts">If true, also saves the Steam shortcut category data</param>
         public void ExportSteamConfig(long steamId, bool discardMissing, bool includeShortcuts)
         {
-            string filePath = string.Format(Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
             ExportSteamConfigFile(filePath, discardMissing);
             if (includeShortcuts)
             {
@@ -395,7 +395,7 @@ namespace Depressurizer
 
                 // External games have negative identifier
                 Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
-                VDFNode gameNode = appListNode[game.Id.ToString()];
+                VDFNode gameNode = appListNode[game.Id.ToString(CultureInfo.InvariantCulture)];
                 gameNode.MakeArray();
 
                 VDFNode tagsNode = gameNode["tags"];
@@ -486,7 +486,7 @@ namespace Depressurizer
         /// <param name="steamId">Identifier of Steam user to save information</param>
         public void ExportSteamShortcuts(long steamId)
         {
-            string filePath = string.Format(Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
             Logger.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
             FileStream fStream = null;
             BinaryReader binReader = null;
@@ -573,7 +573,7 @@ namespace Depressurizer
                                 name = FAVORITE_CONFIG_VALUE;
                             }
 
-                            tagsNode[index.ToString()] = new VDFNode(name);
+                            tagsNode[index.ToString(CultureInfo.InvariantCulture)] = new VDFNode(name);
                             index++;
                         }
 
@@ -738,7 +738,7 @@ namespace Depressurizer
         /// <returns>The number of game entries found</returns>
         public int ImportSteamConfig(long steamId, SortedSet<int> ignore, bool includeShortcuts)
         {
-            string filePath = string.Format(Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
             int result = ImportSteamConfigFile(filePath, ignore);
             if (includeShortcuts)
             {
@@ -804,7 +804,7 @@ namespace Depressurizer
 
             int loadedGames = 0;
 
-            string filePath = string.Format(Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
             FileStream fStream = null;
             BinaryReader binReader = null;
 
@@ -1167,11 +1167,11 @@ namespace Depressurizer
             newApps = 0;
             int totalApps = 0;
 
-            Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(Resources.PackageInfoPath, Settings.Instance.SteamPath));
+            Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(CultureInfo.InvariantCulture, Resources.PackageInfoPath, Settings.Instance.SteamPath));
 
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-            string localConfigPath = string.Format(Resources.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
+            string localConfigPath = string.Format(CultureInfo.InvariantCulture, Resources.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
             VDFNode vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
             if (vdfFile != null)
             {
@@ -1255,7 +1255,7 @@ namespace Depressurizer
             {
                 "appname"
             }, false);
-            string gameName = nodeName != null ? nodeName.NodeString : null;
+            string gameName = nodeName?.NodeString;
             string launchId = shortcutLaunchIds[gameName];
             // First, look for games with matching launch IDs.
             for (int i = 0; i < gamesToMatchAgainst.Count; i++)
@@ -1295,7 +1295,7 @@ namespace Depressurizer
         /// <returns>True if file was successfully loaded, false otherwise</returns>
         private static void LoadShortcutLaunchIds(long steamId, out StringDictionary shortcutLaunchIds)
         {
-            string filePath = string.Format(Resources.ScreenshotsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ScreenshotsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
 
             shortcutLaunchIds = new StringDictionary();
 
@@ -1534,7 +1534,7 @@ namespace Depressurizer
             {
                 "appname"
             }, false);
-            string gameName = nodeName != null ? nodeName.NodeString : null;
+            string gameName = nodeName?.NodeString;
             // The ID of the created game must be negative
             int newId = -(gameId + 1);
 

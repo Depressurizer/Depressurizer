@@ -160,15 +160,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg.
-        /// </summary>
-        internal static string UrlGameBanner {
-            get {
-                return ResourceManager.GetString("UrlGameBanner", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}/games?tab=all.
         /// </summary>
         internal static string UrlGameListHtml {

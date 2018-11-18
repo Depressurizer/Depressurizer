@@ -70,9 +70,9 @@ namespace Depressurizer
             }
         }
 
-        public virtual void LoadFromAutoCat(AutoCat ac) { }
+        public virtual void LoadFromAutoCat(AutoCat autoCat) { }
 
-        public virtual void SaveToAutoCat(AutoCat ac) { }
+        public virtual void SaveToAutoCat(AutoCat autoCat) { }
 
         #endregion
     }

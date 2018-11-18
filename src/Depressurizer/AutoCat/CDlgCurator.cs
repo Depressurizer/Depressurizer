@@ -22,6 +22,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -90,7 +91,7 @@ namespace Depressurizer
             using (WebClient wc = new WebClient())
             {
                 wc.Encoding = Encoding.UTF8;
-                json = wc.DownloadString(string.Format(Resources.UrlSteamCuratorRecommendations, curatorId, 0));
+                json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamCuratorRecommendations, curatorId, 0));
             }
 
             JObject parsedJson = JObject.Parse(json);
@@ -105,7 +106,7 @@ namespace Depressurizer
                     using (WebClient wc = new WebClient())
                     {
                         wc.Encoding = Encoding.UTF8;
-                        json = wc.DownloadString(string.Format(Resources.UrlSteamCuratorRecommendations, curatorId, currentPosition));
+                        json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamCuratorRecommendations, curatorId, currentPosition));
                     }
 
                     parsedJson = JObject.Parse(json);

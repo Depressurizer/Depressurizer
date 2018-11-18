@@ -36,9 +36,9 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public override void LoadFromAutoCat(AutoCat ac)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatPlatform acPlatform = ac as AutoCatPlatform;
+            AutoCatPlatform acPlatform = autoCat as AutoCatPlatform;
             if (acPlatform == null)
             {
                 return;
@@ -51,9 +51,9 @@ namespace Depressurizer
             chkboxPlatforms.SetItemChecked(3, acPlatform.SteamOS);
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatPlatform ac = autocat as AutoCatPlatform;
+            AutoCatPlatform ac = autoCat as AutoCatPlatform;
             if (ac == null)
             {
                 return;

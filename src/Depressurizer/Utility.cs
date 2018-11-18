@@ -316,7 +316,7 @@ namespace Depressurizer
         /// <param name="appId"></param>
         public static void LaunchStorePage(int appId)
         {
-            Process.Start(string.Format(Resources.UrlSteamStoreApp, appId));
+            Process.Start(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamStoreApp, appId));
         }
 
         public static void MoveItem(ListBox lb, int direction)

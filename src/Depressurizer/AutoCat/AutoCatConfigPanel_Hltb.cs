@@ -79,9 +79,9 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public override void LoadFromAutoCat(AutoCat ac)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatHltb acHltb = ac as AutoCatHltb;
+            AutoCatHltb acHltb = autoCat as AutoCatHltb;
             if (acHltb == null)
             {
                 return;
@@ -102,9 +102,9 @@ namespace Depressurizer
             UpdateEnabledSettings();
         }
 
-        public override void SaveToAutoCat(AutoCat ac)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatHltb acHltb = ac as AutoCatHltb;
+            AutoCatHltb acHltb = autoCat as AutoCatHltb;
             if (acHltb == null)
             {
                 return;

@@ -37,9 +37,9 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public override void LoadFromAutoCat(AutoCat ac)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatYear acYear = ac as AutoCatYear;
+            AutoCatYear acYear = autoCat as AutoCatYear;
             if (acYear == null)
             {
                 return;
@@ -62,9 +62,9 @@ namespace Depressurizer
             }
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatYear ac = autocat as AutoCatYear;
+            AutoCatYear ac = autoCat as AutoCatYear;
             if (ac == null)
             {
                 return;

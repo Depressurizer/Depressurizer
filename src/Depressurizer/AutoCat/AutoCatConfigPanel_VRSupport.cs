@@ -73,9 +73,9 @@ namespace Depressurizer
             }
         }
 
-        public override void LoadFromAutoCat(AutoCat autocat)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatVrSupport ac = autocat as AutoCatVrSupport;
+            AutoCatVrSupport ac = autoCat as AutoCatVrSupport;
             if (ac == null)
             {
                 return;
@@ -99,9 +99,9 @@ namespace Depressurizer
             }
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatVrSupport ac = autocat as AutoCatVrSupport;
+            AutoCatVrSupport ac = autoCat as AutoCatVrSupport;
             if (ac == null)
             {
                 return;

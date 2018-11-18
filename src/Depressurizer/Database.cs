@@ -52,7 +52,7 @@ namespace Depressurizer
 
         #region Fields
 
-        public Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
+        public readonly Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
 
         public int LastHltbUpdate;
 
@@ -99,6 +99,8 @@ namespace Depressurizer
             }
         }
 
+        public int Count => Games.Count;
+
         public StoreLanguage Language { get; set; } = StoreLanguage.en;
 
         #endregion
@@ -123,6 +125,18 @@ namespace Depressurizer
 
             Logger.Info(GlobalStrings.GameDB_XMLAppListDownloaded);
             return doc;
+        }
+
+        public void Add(DatabaseEntry entry)
+        {
+            if (Contains(entry.Id, out DatabaseEntry databaseEntry))
+            {
+                databaseEntry.MergeIn(entry);
+            }
+            else
+            {
+                Games.Add(entry.Id, entry);
+            }
         }
 
         /// <summary>
@@ -503,9 +517,26 @@ namespace Depressurizer
             Save("database.json");
         }
 
-        public bool Contains(int id)
+        public void Clear()
         {
-            return Games.ContainsKey(id);
+            Games.Clear();
+        }
+
+        public bool Contains(int appId)
+        {
+            return Games.ContainsKey(appId);
+        }
+
+        public bool Contains(int appId, out DatabaseEntry entry)
+        {
+            entry = null;
+
+            if (Contains(appId))
+            {
+                entry = Games[appId];
+            }
+
+            return entry != null;
         }
 
         /// <summary>
@@ -813,6 +844,11 @@ namespace Depressurizer
                 sw.Stop();
                 Logger.Info("Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
             }
+        }
+
+        public void Remove(int appId)
+        {
+            Games.Remove(appId);
         }
 
         public void Reset()

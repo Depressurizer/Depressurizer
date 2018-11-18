@@ -92,7 +92,7 @@ namespace Depressurizer
             try
             {
                 XmlDocument doc = new XmlDocument();
-                HttpWebRequest req = (HttpWebRequest) WebRequest.Create(string.Format("http://www.steamcommunity.com/profiles/{0}?xml=true", accountId));
+                HttpWebRequest req = (HttpWebRequest) WebRequest.Create($"http://www.steamcommunity.com/profiles/{accountId}?xml=true");
                 using (WebResponse resp = req.GetResponse())
                 {
                     doc.Load(resp.GetResponseStream());
@@ -728,29 +728,11 @@ namespace Depressurizer
                     return DirName;
                 }
 
-                return string.Format("{0} - {1}", DirName, DisplayName);
+                return $"{DirName} - {DisplayName}";
             }
 
             #endregion
         }
-
-        /*
-        private void NonthreadedNameUpdate() {
-            for( int i = 0; i < lstUsers.Items.Count; i++ ) {
-                UserRecord u = lstUsers.Items[i] as UserRecord;
-                if( u != null ) {
-                    string name = GetDisplayName( Profile.DirNametoID64( u.DirName ) );
-                    if( name == null ) {
-                        u.DisplayName = "?";
-                    } else {
-                        u.DisplayName = name;
-                    }
-                }
-                lstUsers.Items.RemoveAt( i );
-                lstUsers.Items.Insert( i, u );
-            }
-        }
-        */
     }
 
     internal class IgnoreListViewItemComparer : IComparer

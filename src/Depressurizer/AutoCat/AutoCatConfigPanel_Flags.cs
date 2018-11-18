@@ -62,9 +62,9 @@ namespace Depressurizer
             }
         }
 
-        public override void LoadFromAutoCat(AutoCat autocat)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatFlags ac = autocat as AutoCatFlags;
+            AutoCatFlags ac = autoCat as AutoCatFlags;
             if (ac == null)
             {
                 return;
@@ -78,9 +78,9 @@ namespace Depressurizer
             }
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatFlags ac = autocat as AutoCatFlags;
+            AutoCatFlags ac = autoCat as AutoCatFlags;
             if (ac == null)
             {
                 return;

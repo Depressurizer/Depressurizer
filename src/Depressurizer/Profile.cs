@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Net.Cache;
 using System.Xml;
 using Depressurizer.Helpers;
@@ -349,7 +350,7 @@ namespace Depressurizer
             try
             {
                 XmlDocument xml = new XmlDocument();
-                string profile = string.Format(Resources.UrlSteamProfile, SteamID64);
+                string profile = string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamProfile, SteamID64);
                 xml.Load(profile);
 
                 XmlNodeList xnList = xml.SelectNodes(Resources.XmlNodeAvatar);

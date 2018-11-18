@@ -70,13 +70,13 @@ namespace Depressurizer
                 {
                     foreach (DatabaseEntry g in results)
                     {
-                        if (Database.Contains(g.Id))
+                        if (Database.Contains(g.Id, out DatabaseEntry entry))
                         {
-                            Database.Games[g.Id].MergeIn(g);
+                            entry.MergeIn(g);
                         }
                         else
                         {
-                            Database.Games.Add(g.Id, g);
+                            Database.Add(g);
                         }
                     }
                 }

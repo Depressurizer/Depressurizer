@@ -88,8 +88,11 @@ namespace Depressurizer
             lstIncluded.Items.Clear();
             foreach (Tuple<string, float> tag in tagList)
             {
-                ListViewItem newItem = new ListViewItem(string.Format("{0} [{1:F0}]", tag.Item1, tag.Item2));
-                newItem.Tag = tag.Item1;
+                ListViewItem newItem = new ListViewItem($"{tag.Item1} [{tag.Item2:F0}]")
+                {
+                    Tag = tag.Item1
+                };
+
                 if (preChecked != null && preChecked.Contains(tag.Item1))
                 {
                     newItem.Checked = true;
@@ -107,9 +110,9 @@ namespace Depressurizer
             loaded = true;
         }
 
-        public override void LoadFromAutoCat(AutoCat autocat)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatTags ac = autocat as AutoCatTags;
+            AutoCatTags ac = autoCat as AutoCatTags;
             if (ac == null)
             {
                 return;
@@ -129,9 +132,9 @@ namespace Depressurizer
             loaded = true;
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatTags ac = autocat as AutoCatTags;
+            AutoCatTags ac = autoCat as AutoCatTags;
             if (ac == null)
             {
                 return;

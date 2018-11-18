@@ -198,7 +198,7 @@ namespace Depressurizer
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id))
+            if (!db.Contains(game.Id, out DatabaseEntry entry))
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -210,9 +210,9 @@ namespace Depressurizer
 
             string result = null;
 
-            float hltbMain = db.Games[game.Id].HltbMain / 60.0f;
-            float hltbExtras = db.Games[game.Id].HltbExtras / 60.0f;
-            float hltbCompletionist = db.Games[game.Id].HltbCompletionist / 60.0f;
+            float hltbMain = entry.HltbMain / 60.0f;
+            float hltbExtras = entry.HltbExtras / 60.0f;
+            float hltbCompletionist = entry.HltbCompletionist / 60.0f;
 
             if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
             {

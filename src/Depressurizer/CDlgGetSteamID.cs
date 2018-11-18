@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Globalization;
 using System.Net;
 using System.Xml;
 using Depressurizer.Helpers;
@@ -80,7 +81,7 @@ namespace Depressurizer
 
             try
             {
-                string url = string.Format(Resources.UrlCustomProfileXml, customUrlName);
+                string url = string.Format(CultureInfo.InvariantCulture, Resources.UrlCustomProfileXml, customUrlName);
                 Logger.Info(GlobalStrings.CDlgGetSteamID_AttemptingDownloadXMLProfile, customUrlName, url);
                 WebRequest req = WebRequest.Create(url);
                 WebResponse response = req.GetResponse();

@@ -61,10 +61,10 @@ namespace Depressurizer
             return group;
         }
 
-        public override void LoadFromAutoCat(AutoCat autocat)
+        public override void LoadFromAutoCat(AutoCat autoCat)
         {
-            AutoCatGroup ac = autocat as AutoCatGroup;
-            current = autocat;
+            AutoCatGroup ac = autoCat as AutoCatGroup;
+            current = autoCat;
             if (ac == null)
             {
                 return;
@@ -73,9 +73,9 @@ namespace Depressurizer
             FillAutocatList(ac.Autocats);
         }
 
-        public override void SaveToAutoCat(AutoCat autocat)
+        public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatGroup ac = autocat as AutoCatGroup;
+            AutoCatGroup ac = autoCat as AutoCatGroup;
             if (ac == null)
             {
                 return;

@@ -572,7 +572,7 @@ namespace Depressurizer.Models
                 }
 
 
-                HttpWebRequest req = GetSteamRequest(string.Format(Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
+                HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
