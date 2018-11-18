@@ -138,6 +138,15 @@ namespace Depressurizer.Models
 
         #endregion
 
+        #region Constructors and Destructors
+
+        public DatabaseEntry(int appId)
+        {
+            Id = appId;
+        }
+
+        #endregion
+
         #region Properties
 
         private static Database Database => Database.Instance;
@@ -544,7 +553,7 @@ namespace Depressurizer.Models
 
             try
             {
-                string storeLanguage = "en";
+                string storeLanguage;
 
                 switch (Database.Language)
                 {

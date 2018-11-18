@@ -167,8 +167,7 @@ namespace Depressurizer
                 return false;
             }
 
-            DatabaseEntry newGame = new DatabaseEntry();
-            newGame.Id = id;
+            DatabaseEntry newGame = new DatabaseEntry(id);
             newGame.ScrapeStore();
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.

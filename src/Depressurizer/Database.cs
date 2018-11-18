@@ -52,23 +52,21 @@ namespace Depressurizer
 
         #region Fields
 
-        // Main Data
         public Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
 
         public int LastHltbUpdate;
 
-        private LanguageSupport allLanguages;
+        private LanguageSupport _allLanguages;
 
-        private SortedSet<string> allStoreDevelopers;
+        private SortedSet<string> _allStoreDevelopers;
 
-        private SortedSet<string> allStoreFlags;
+        private SortedSet<string> _allStoreFlags;
 
-        // Extra data
-        private SortedSet<string> allStoreGenres;
+        private SortedSet<string> _allStoreGenres;
 
-        private SortedSet<string> allStorePublishers;
+        private SortedSet<string> _allStorePublishers;
 
-        private VrSupport allVrSupportFlags;
+        private VrSupport _allVrSupportFlags;
 
         #endregion
 
@@ -134,24 +132,24 @@ namespace Depressurizer
         /// <returns>A set of developers, as strings</returns>
         public SortedSet<string> CalculateAllDevelopers()
         {
-            if (allStoreDevelopers == null)
+            if (_allStoreDevelopers == null)
             {
-                allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                _allStoreDevelopers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             }
             else
             {
-                allStoreDevelopers.Clear();
+                _allStoreDevelopers.Clear();
             }
 
             foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.Developers != null)
                 {
-                    allStoreDevelopers.UnionWith(entry.Developers);
+                    _allStoreDevelopers.UnionWith(entry.Developers);
                 }
             }
 
-            return allStoreDevelopers;
+            return _allStoreDevelopers;
         }
 
         /// <summary>
@@ -161,24 +159,24 @@ namespace Depressurizer
         /// <returns>A set of genres, as strings</returns>
         public SortedSet<string> CalculateAllGenres()
         {
-            if (allStoreGenres == null)
+            if (_allStoreGenres == null)
             {
-                allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                _allStoreGenres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             }
             else
             {
-                allStoreGenres.Clear();
+                _allStoreGenres.Clear();
             }
 
             foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.Genres != null)
                 {
-                    allStoreGenres.UnionWith(entry.Genres);
+                    _allStoreGenres.UnionWith(entry.Genres);
                 }
             }
 
-            return allStoreGenres;
+            return _allStoreGenres;
         }
 
         /// <summary>
@@ -189,8 +187,8 @@ namespace Depressurizer
         public LanguageSupport CalculateAllLanguages()
         {
             SortedSet<string> Interface = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-            SortedSet<string> Subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-            SortedSet<string> FullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            SortedSet<string> subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+            SortedSet<string> fullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
             foreach (DatabaseEntry entry in Games.Values)
             {
@@ -201,19 +199,19 @@ namespace Depressurizer
 
                 if (entry.LanguageSupport.Subtitles != null)
                 {
-                    Subtitles.UnionWith(entry.LanguageSupport.Subtitles);
+                    subtitles.UnionWith(entry.LanguageSupport.Subtitles);
                 }
 
                 if (entry.LanguageSupport.FullAudio != null)
                 {
-                    FullAudio.UnionWith(entry.LanguageSupport.FullAudio);
+                    fullAudio.UnionWith(entry.LanguageSupport.FullAudio);
                 }
             }
 
-            allLanguages.Interface = Interface.ToList();
-            allLanguages.Subtitles = Subtitles.ToList();
-            allLanguages.FullAudio = FullAudio.ToList();
-            return allLanguages;
+            _allLanguages.Interface = Interface.ToList();
+            _allLanguages.Subtitles = subtitles.ToList();
+            _allLanguages.FullAudio = fullAudio.ToList();
+            return _allLanguages;
         }
 
         /// <summary>
@@ -223,24 +221,24 @@ namespace Depressurizer
         /// <returns>A set of publishers, as strings</returns>
         public SortedSet<string> CalculateAllPublishers()
         {
-            if (allStorePublishers == null)
+            if (_allStorePublishers == null)
             {
-                allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                _allStorePublishers = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             }
             else
             {
-                allStorePublishers.Clear();
+                _allStorePublishers.Clear();
             }
 
             foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.Publishers != null)
                 {
-                    allStorePublishers.UnionWith(entry.Publishers);
+                    _allStorePublishers.UnionWith(entry.Publishers);
                 }
             }
 
-            return allStorePublishers;
+            return _allStorePublishers;
         }
 
         /// <summary>
@@ -250,24 +248,24 @@ namespace Depressurizer
         /// <returns>A set of genres, as strings</returns>
         public SortedSet<string> CalculateAllStoreFlags()
         {
-            if (allStoreFlags == null)
+            if (_allStoreFlags == null)
             {
-                allStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                _allStoreFlags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
             }
             else
             {
-                allStoreFlags.Clear();
+                _allStoreFlags.Clear();
             }
 
             foreach (DatabaseEntry entry in Games.Values)
             {
                 if (entry.Flags != null)
                 {
-                    allStoreFlags.UnionWith(entry.Flags);
+                    _allStoreFlags.UnionWith(entry.Flags);
                 }
             }
 
-            return allStoreFlags;
+            return _allStoreFlags;
         }
 
         /// <summary>
@@ -299,10 +297,10 @@ namespace Depressurizer
                 }
             }
 
-            allVrSupportFlags.Headsets = headsets.ToList();
-            allVrSupportFlags.Input = input.ToList();
-            allVrSupportFlags.PlayArea = playArea.ToList();
-            return allVrSupportFlags;
+            _allVrSupportFlags.Headsets = headsets.ToList();
+            _allVrSupportFlags.Input = input.ToList();
+            _allVrSupportFlags.PlayArea = playArea.ToList();
+            return _allVrSupportFlags;
         }
 
         /// <summary>
@@ -312,14 +310,14 @@ namespace Depressurizer
         ///     GameList including games to include in the search. If null, finds developers for all games in the
         ///     database.
         /// </param>
-        /// <param name="minScore">
+        /// <param name="minCount">
         ///     Minimum count of developers games to include in the result list. Developers with lower game
         ///     counts will be discarded.
         /// </param>
         /// <returns>List of developers, as strings with game counts</returns>
         public IEnumerable<Tuple<string, int>> CalculateSortedDevList(GameList filter, int minCount)
         {
-            SortedSet<string> developers = GetAllDevelopers();
+            GetAllDevelopers();
             Dictionary<string, int> devCounts = new Dictionary<string, int>();
             if (filter == null)
             {
@@ -350,20 +348,20 @@ namespace Depressurizer
         ///     GameList including games to include in the search. If null, finds publishers for all games in the
         ///     database.
         /// </param>
-        /// <param name="minScore">
+        /// <param name="minCount">
         ///     Minimum count of publishers games to include in the result list. publishers with lower game
         ///     counts will be discarded.
         /// </param>
         /// <returns>List of publishers, as strings with game counts</returns>
         public IEnumerable<Tuple<string, int>> CalculateSortedPubList(GameList filter, int minCount)
         {
-            SortedSet<string> publishers = GetAllPublishers();
-            Dictionary<string, int> PubCounts = new Dictionary<string, int>();
+            GetAllPublishers();
+            Dictionary<string, int> pubCounts = new Dictionary<string, int>();
             if (filter == null)
             {
                 foreach (DatabaseEntry dbEntry in Games.Values)
                 {
-                    CalculateSortedPubListHelper(PubCounts, dbEntry);
+                    CalculateSortedPubListHelper(pubCounts, dbEntry);
                 }
             }
             else
@@ -372,12 +370,12 @@ namespace Depressurizer
                 {
                     if (Games.ContainsKey(gameId) && !filter.Games[gameId].Hidden)
                     {
-                        CalculateSortedPubListHelper(PubCounts, Games[gameId]);
+                        CalculateSortedPubListHelper(pubCounts, Games[gameId]);
                     }
                 }
             }
 
-            IEnumerable<Tuple<string, int>> unsortedList = from entry in PubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
+            IEnumerable<Tuple<string, int>> unsortedList = from entry in pubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
             return unsortedList.ToList();
         }
 
@@ -517,12 +515,12 @@ namespace Depressurizer
         /// <returns>A set of developers, as strings</returns>
         public SortedSet<string> GetAllDevelopers()
         {
-            if (allStoreDevelopers == null)
+            if (_allStoreDevelopers == null)
             {
                 return CalculateAllDevelopers();
             }
 
-            return allStoreDevelopers;
+            return _allStoreDevelopers;
         }
 
         /// <summary>
@@ -532,12 +530,12 @@ namespace Depressurizer
         /// <returns>A set of genres, as strings</returns>
         public SortedSet<string> GetAllGenres()
         {
-            if (allStoreGenres == null)
+            if (_allStoreGenres == null)
             {
                 return CalculateAllGenres();
             }
 
-            return allStoreGenres;
+            return _allStoreGenres;
         }
 
         /// <summary>
@@ -547,12 +545,12 @@ namespace Depressurizer
         /// <returns>A LanguageSupport struct containing the languages</returns>
         public LanguageSupport GetAllLanguages()
         {
-            if (allLanguages.FullAudio == null || allLanguages.Interface == null || allLanguages.Subtitles == null)
+            if (_allLanguages.FullAudio == null || _allLanguages.Interface == null || _allLanguages.Subtitles == null)
             {
                 return CalculateAllLanguages();
             }
 
-            return allLanguages;
+            return _allLanguages;
         }
 
         /// <summary>
@@ -562,12 +560,12 @@ namespace Depressurizer
         /// <returns>A set of publishers, as strings</returns>
         public SortedSet<string> GetAllPublishers()
         {
-            if (allStorePublishers == null)
+            if (_allStorePublishers == null)
             {
                 return CalculateAllPublishers();
             }
 
-            return allStorePublishers;
+            return _allStorePublishers;
         }
 
         /// <summary>
@@ -577,12 +575,12 @@ namespace Depressurizer
         /// <returns>A set of genres, as strings</returns>
         public SortedSet<string> GetAllStoreFlags()
         {
-            if (allStoreFlags == null)
+            if (_allStoreFlags == null)
             {
                 return CalculateAllStoreFlags();
             }
 
-            return allStoreFlags;
+            return _allStoreFlags;
         }
 
         /// <summary>
@@ -592,12 +590,12 @@ namespace Depressurizer
         /// <returns>A VrSupport struct containing the flags</returns>
         public VrSupport GetAllVrSupportFlags()
         {
-            if (allVrSupportFlags.Headsets == null || allVrSupportFlags.Input == null || allVrSupportFlags.PlayArea == null)
+            if (_allVrSupportFlags.Headsets == null || _allVrSupportFlags.Input == null || _allVrSupportFlags.PlayArea == null)
             {
                 return CalculateAllVrSupportFlags();
             }
 
-            return allVrSupportFlags;
+            return _allVrSupportFlags;
         }
 
         public List<string> GetDevelopers(int gameId, int depth = 3)
@@ -685,14 +683,15 @@ namespace Depressurizer
 
         public int GetReleaseYear(int gameId)
         {
-            if (Games.ContainsKey(gameId))
+            if (!Games.ContainsKey(gameId))
             {
-                DatabaseEntry dbEntry = Games[gameId];
-                DateTime releaseDate;
-                if (DateTime.TryParse(dbEntry.SteamReleaseDate, out releaseDate))
-                {
-                    return releaseDate.Year;
-                }
+                return 0;
+            }
+
+            DatabaseEntry entry = Games[gameId];
+            if (DateTime.TryParse(entry.SteamReleaseDate, out DateTime releaseDate))
+            {
+                return releaseDate.Year;
             }
 
             return 0;
@@ -700,34 +699,34 @@ namespace Depressurizer
 
         public List<string> GetTagList(int gameId, int depth = 3)
         {
-            if (Games.ContainsKey(gameId))
+            if (!Games.ContainsKey(gameId))
             {
-                List<string> res = Games[gameId].Tags;
-                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    res = GetTagList(Games[gameId].ParentId, depth - 1);
-                }
-
-                return res;
+                return null;
             }
 
-            return null;
+            List<string> tags = Games[gameId].Tags;
+            if ((tags == null || tags.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+            {
+                tags = GetTagList(Games[gameId].ParentId, depth - 1);
+            }
+
+            return tags;
         }
 
         public VrSupport GetVrSupport(int gameId, int depth = 3)
         {
-            if (Games.ContainsKey(gameId))
+            if (!Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].VrSupport;
-                if ((res.Headsets == null || res.Headsets.Count == 0) && (res.Input == null || res.Input.Count == 0) && (res.PlayArea == null || res.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    res = GetVrSupport(Games[gameId].ParentId, depth - 1);
-                }
-
-                return res;
+                return new VrSupport();
             }
 
-            return new VrSupport();
+            VrSupport vrSupport = Games[gameId].VrSupport;
+            if ((vrSupport.Headsets == null || vrSupport.Headsets.Count == 0) && (vrSupport.Input == null || vrSupport.Input.Count == 0) && (vrSupport.PlayArea == null || vrSupport.PlayArea.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+            {
+                vrSupport = GetVrSupport(Games[gameId].ParentId, depth - 1);
+            }
+
+            return vrSupport;
         }
 
         public bool IncludeItemInGameList(int appId)
@@ -742,30 +741,41 @@ namespace Depressurizer
 
         public int IntegrateAppList(XmlDocument doc)
         {
-            int added = 0;
-            foreach (XmlNode node in doc.SelectNodes("/applist/apps/app"))
+            XmlNodeList nodeList = doc?.SelectNodes("/applist/apps/app");
+            if (nodeList == null)
             {
-                int appId;
-                if (XmlUtil.TryGetIntFromNode(node["appid"], out appId))
+                return 0;
+            }
+
+            int added = 0;
+            foreach (XmlNode node in nodeList)
+            {
+                if (!XmlUtil.TryGetIntFromNode(node["appid"], out int appId))
                 {
-                    string gameName = XmlUtil.GetStringFromNode(node["name"], null);
-                    if (Games.ContainsKey(appId))
+                    continue;
+                }
+
+                string gameName = XmlUtil.GetStringFromNode(node["name"], null);
+                if (Games.ContainsKey(appId))
+                {
+                    DatabaseEntry entry = Games[appId];
+                    if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name.Equals(gameName))
                     {
-                        DatabaseEntry g = Games[appId];
-                        if (string.IsNullOrEmpty(g.Name) || g.Name != gameName)
-                        {
-                            g.Name = gameName;
-                            g.AppType = AppType.Unknown;
-                        }
+                        continue;
                     }
-                    else
+
+                    entry.Name = gameName;
+                    entry.AppType = AppType.Unknown;
+                }
+                else
+                {
+                    DatabaseEntry entry = new DatabaseEntry(appId)
                     {
-                        DatabaseEntry g = new DatabaseEntry();
-                        g.Id = appId;
-                        g.Name = gameName;
-                        Games.Add(appId, g);
-                        added++;
-                    }
+                        Name = gameName
+                    };
+
+                    Games.Add(appId, entry);
+                    added++;
                 }
             }
 
@@ -790,10 +800,12 @@ namespace Depressurizer
 
                 using (StreamReader file = File.OpenText(path))
                 {
-                    JsonSerializer serializer = new JsonSerializer();
+                    JsonSerializer serializer = new JsonSerializer
+                    {
 #if DEBUG
-                    serializer.Formatting = Formatting.Indented;
+                        Formatting = Formatting.Indented
 #endif
+                    };
 
                     _instance = (Database) serializer.Deserialize(file, typeof(Database));
                 }
@@ -823,10 +835,12 @@ namespace Depressurizer
 
                 using (StreamWriter file = File.CreateText(path))
                 {
-                    JsonSerializer serializer = new JsonSerializer();
+                    JsonSerializer serializer = new JsonSerializer
+                    {
 #if DEBUG
-                    serializer.Formatting = Formatting.Indented;
+                        Formatting = Formatting.Indented
 #endif
+                    };
 
                     serializer.Serialize(file, _instance);
                 }
@@ -841,18 +855,20 @@ namespace Depressurizer
         /// </summary>
         public bool SupportsVr(int gameId, int depth = 3)
         {
-            if (Games.ContainsKey(gameId))
+            if (!Games.ContainsKey(gameId))
             {
-                VrSupport res = Games[gameId].VrSupport;
-                if (res.Headsets != null && res.Headsets.Count > 0 || res.Input != null && res.Input.Count > 0 || res.PlayArea != null && res.PlayArea.Count > 0 && depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    return true;
-                }
+                return false;
+            }
 
-                if (depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    return SupportsVr(Games[gameId].ParentId, depth - 1);
-                }
+            VrSupport vrSupport = Games[gameId].VrSupport;
+            if (vrSupport.Headsets != null && vrSupport.Headsets.Count > 0 || vrSupport.Input != null && vrSupport.Input.Count > 0 || vrSupport.PlayArea != null && vrSupport.PlayArea.Count > 0 && depth > 0 && Games[gameId].ParentId > 0)
+            {
+                return true;
+            }
+
+            if (depth > 0 && Games[gameId].ParentId > 0)
+            {
+                return SupportsVr(Games[gameId].ParentId, depth - 1);
             }
 
             return false;
@@ -875,8 +891,7 @@ namespace Depressurizer
                 DatabaseEntry entry;
                 if (!Games.ContainsKey(aInf.Id))
                 {
-                    entry = new DatabaseEntry();
-                    entry.Id = aInf.Id;
+                    entry = new DatabaseEntry(aInf.Id);
                     Games.Add(entry.Id, entry);
                 }
                 else
@@ -975,6 +990,34 @@ namespace Depressurizer
         #region Methods
 
         /// <summary>
+        ///     Counts games for each developer.
+        /// </summary>
+        /// <param name="counts">
+        ///     Existing dictionary of developers and game count. Key is the developer as a string, value is the
+        ///     count
+        /// </param>
+        /// <param name="entry">Entry to add developers from</param>
+        private static void CalculateSortedDevListHelper(IDictionary<string, int> counts, DatabaseEntry entry)
+        {
+            if (entry.Developers == null)
+            {
+                return;
+            }
+
+            foreach (string developer in entry.Developers)
+            {
+                if (counts.ContainsKey(developer))
+                {
+                    counts[developer] += 1;
+                }
+                else
+                {
+                    counts[developer] = 1;
+                }
+            }
+        }
+
+        /// <summary>
         ///     Counts games for each publisher.
         /// </summary>
         /// <param name="counts">
@@ -1047,33 +1090,6 @@ namespace Depressurizer
                 else
                 {
                     counts[tag] = score;
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Counts games for each developer.
-        /// </summary>
-        /// <param name="counts">
-        ///     Existing dictionary of developers and game count. Key is the developer as a string, value is the
-        ///     count
-        /// </param>
-        /// <param name="dbEntry">Entry to add developers from</param>
-        private void CalculateSortedDevListHelper(Dictionary<string, int> counts, DatabaseEntry dbEntry)
-        {
-            if (dbEntry.Developers != null)
-            {
-                for (int i = 0; i < dbEntry.Developers.Count; i++)
-                {
-                    string dev = dbEntry.Developers[i];
-                    if (counts.ContainsKey(dev))
-                    {
-                        counts[dev] += 1;
-                    }
-                    else
-                    {
-                        counts[dev] = 1;
-                    }
                 }
             }
         }
