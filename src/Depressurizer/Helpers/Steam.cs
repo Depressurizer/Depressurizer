@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Depressurizer.Helpers
 {
@@ -280,7 +281,25 @@ namespace Depressurizer.Helpers
             9933,
             9942,
             9949,
-            10000
+            10000,
+            12250,
+            524440,
+            562020,
+            654310,
+            881000,
+            12250,
+            562020,
+            700580,
+            12250,
+            524440,
+            562020,
+            654310,
+            881000,
+            12250,
+            562020,
+            700580,
+            524440,
+            654310
         };
 
         #endregion
@@ -301,6 +320,10 @@ namespace Depressurizer.Helpers
         {
             appIds = appIds.Distinct().ToList();
             await Task.Run(() => { Parallel.ForEach(appIds, FetchBanner); });
+
+            // Report failing banners using Sentry.IO
+            IgnoreList.AddRange(BannerFailed);
+            Sentry.Log(new InvalidDataException($"Failed banners ${JsonConvert.SerializeObject(IgnoreList)}"));
         }
 
         #endregion

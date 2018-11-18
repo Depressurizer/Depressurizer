@@ -74,6 +74,8 @@ namespace Rallion
 
         private FatalError(Exception e)
         {
+            Sentry.Log(e);
+
             InitializeComponent();
             ex = e;
             ShowingInfo = true;
