@@ -24,26 +24,38 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Depressurizer.Helpers;
-using Depressurizer.Models;
 
-namespace Depressurizer
+namespace Depressurizer.Models
 {
+    /// <summary>
+    ///     Class representing a Filter.
+    /// </summary>
+    /// <inheritdoc />
     public class Filter : IComparable
     {
         #region Constants
 
-        // Serialization strings
         private const string TypeIdString = "Filter";
 
-        private const string XmlName_Name = "Name", XmlName_Uncategorized = "Uncategorized", XmlName_Hidden = "Hidden", XmlName_VR = "VR", XmlName_Allow = "Allow", XmlName_Require = "Require", XmlName_Exclude = "Exclude";
+        private const string XmlName_Allow = "Allow";
+
+        private const string XmlName_Exclude = "Exclude";
+
+        private const string XmlName_Hidden = "Hidden";
+
+        private const string XmlName_Name = "Name";
+
+        private const string XmlName_Require = "Require";
+
+        private const string XmlName_Uncategorized = "Uncategorized";
+
+        private const string XmlName_VR = "VR";
 
         #endregion
 
         #region Fields
 
         public int Hidden;
-
-        public string Name;
 
         public int Uncategorized;
 
@@ -86,6 +98,11 @@ namespace Depressurizer
             set => _exclude = new SortedSet<Category>(value);
         }
 
+        /// <summary>
+        ///     Name of the filter.
+        /// </summary>
+        public string Name { get; set; }
+
         public SortedSet<Category> Require
         {
             get => _require;
@@ -102,29 +119,23 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public int CompareTo(object o)
+        /// <inheritdoc />
+        public int CompareTo(object obj)
         {
-            if (o == null)
+            if (obj == null)
             {
                 return 1;
             }
 
-            Filter otherFilter = o as Filter;
-            if (o == null)
+            if (!(obj is Category otherFilter))
             {
-                throw new ArgumentException(GlobalStrings.Category_Exception_ObjectNotCategory);
+                throw new ArgumentException("Object is not a Filter!");
             }
 
-            int comp = string.Compare(Name, otherFilter.Name, StringComparison.OrdinalIgnoreCase);
-
-            if (comp == 0)
-            {
-                return 0;
-            }
-
-            return comp;
+            return string.Compare(Name, otherFilter.Name, StringComparison.OrdinalIgnoreCase);
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Name;

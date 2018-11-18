@@ -279,7 +279,7 @@
     </Compile>
     <Compile Include="Enums\AppType.cs" />
     <Compile Include="Enums\ValueType.cs" />
-    <Compile Include="Filter.cs" />
+    <Compile Include="Models\Filter.cs" />
     <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="Models\AppInfoNode.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />

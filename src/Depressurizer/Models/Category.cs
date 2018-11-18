@@ -50,7 +50,7 @@ namespace Depressurizer.Models
 
             if (!(obj is Category otherCategory))
             {
-                throw new ArgumentException("Object is not a Category");
+                throw new ArgumentException("Object is not a Category!");
             }
 
             if (Name.Equals(otherCategory.Name, StringComparison.OrdinalIgnoreCase))
@@ -68,7 +68,7 @@ namespace Depressurizer.Models
                 return 1;
             }
 
-            return string.CompareOrdinal(Name, otherCategory.Name);
+            return string.Compare(Name, otherCategory.Name, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <inheritdoc />

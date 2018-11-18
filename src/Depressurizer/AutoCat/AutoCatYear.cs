@@ -23,6 +23,7 @@
 using System;
 using System.Xml;
 using Depressurizer.Helpers;
+using Depressurizer.Models;
 
 namespace Depressurizer
 {
