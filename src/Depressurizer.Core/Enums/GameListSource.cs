@@ -1,6 +1,6 @@
 ﻿#region LICENSE
 
-//     This file (InterfaceLanguage.cs) is part of Depressurizer.
+//     This file (GameListSource.cs) is part of Depressurizer.
 //     Copyright (C) 2011 Steve Labbe
 //     Copyright (C) 2017 Theodoros Dimos
 //     Copyright (C) 2017 Martijn Vegter
@@ -20,36 +20,14 @@
 
 #endregion
 
-namespace Depressurizer.Enums
+namespace Depressurizer.Core.Enums
 {
-    /// <summary>
-    ///     Depressurizer interface languages.
-    /// </summary>
-    internal enum InterfaceLanguage
+    public enum GameListSource
     {
-        /// <summary>
-        ///     English - United States
-        /// </summary>
-        English = 0,
+        XmlPreferred,
 
-        /// <summary>
-        ///     Spanish - Spain
-        /// </summary>
-        Spanish = 1,
+        XmlOnly,
 
-        /// <summary>
-        ///     Russian - Russia
-        /// </summary>
-        Russian = 2,
-
-        /// <summary>
-        ///     Ukrainian - Ukraine
-        /// </summary>
-        Ukrainian = 3,
-
-        /// <summary>
-        ///     Dutch - The Netherlands
-        /// </summary>
-        Dutch = 4
+        WebsiteOnly
     }
 }

@@ -28,7 +28,8 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
 
@@ -553,25 +554,7 @@ namespace Depressurizer.Models
 
             try
             {
-                string storeLanguage;
-
-                switch (Database.Language)
-                {
-                    case StoreLanguage.zh_Hans:
-                        storeLanguage = "schinese";
-                        break;
-                    case StoreLanguage.zh_Hant:
-                        storeLanguage = "tchinese";
-                        break;
-                    case StoreLanguage.pt_BR:
-                        storeLanguage = "brazilian";
-                        break;
-                    default:
-                        storeLanguage = CultureInfo.GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Database.Language)).EnglishName.ToLowerInvariant();
-                        break;
-                }
-
-
+                string storeLanguage = Language.LanguageCode(Database.Language);
                 HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();
 

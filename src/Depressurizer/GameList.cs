@@ -9,7 +9,7 @@ using System.Xml;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
-using ValueType = Depressurizer.Enums.ValueType;
+using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer
 {

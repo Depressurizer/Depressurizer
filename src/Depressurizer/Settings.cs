@@ -23,13 +23,15 @@
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Interfaces;
 using Depressurizer.Helpers;
 using Newtonsoft.Json;
 
 namespace Depressurizer
 {
-    internal sealed class Settings
+    internal sealed class Settings : ISettings
     {
         #region Static Fields
 
@@ -53,7 +55,7 @@ namespace Depressurizer
 
         private int _splitGame;
 
-        private StoreLanguage _storeLanguage = StoreLanguage.windows;
+        private StoreLanguage _storeLanguage = StoreLanguage.English;
 
         private InterfaceLanguage _userLanguage = InterfaceLanguage.English;
 
@@ -102,6 +104,7 @@ namespace Depressurizer
 
         public string Filter { get; set; }
 
+        /// <inheritdoc />
         public int Height
         {
             get
@@ -216,6 +219,7 @@ namespace Depressurizer
 
         public bool UpdateHltbOnStart { get; set; } = true;
 
+        /// <inheritdoc />
         public int Width
         {
             get
@@ -230,8 +234,10 @@ namespace Depressurizer
             set => _width = value;
         }
 
+        /// <inheritdoc />
         public int X { get; set; }
 
+        /// <inheritdoc />
         public int Y { get; set; }
 
         #endregion
@@ -246,11 +252,13 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
+        /// <inheritdoc />
         public void Load()
         {
             Load(Locations.File.Settings);
         }
 
+        /// <inheritdoc />
         public void Load(string path)
         {
             lock (SyncRoot)
@@ -271,11 +279,13 @@ namespace Depressurizer
             }
         }
 
+        /// <inheritdoc />
         public void Save()
         {
             Save(Locations.File.Settings);
         }
 
+        /// <inheritdoc />
         public void Save(string path)
         {
             lock (SyncRoot)

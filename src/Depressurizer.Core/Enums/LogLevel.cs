@@ -18,7 +18,7 @@
 
 #endregion
 
-namespace Depressurizer.Enums
+namespace Depressurizer.Core.Enums
 {
     /// <summary>
     ///     Defines the set of levels recognized by the system.

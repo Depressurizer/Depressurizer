@@ -37,7 +37,8 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
@@ -2138,7 +2139,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                CultureInfo culture = Utility.GetCultureInfoFromStoreLanguage(Database.Language);
+                CultureInfo culture = Language.GetCultureInfo(Database.Language);
                 if (Database.Contains(id, out DatabaseEntry entry) && DateTime.TryParse(entry.SteamReleaseDate, culture, DateTimeStyles.None, out DateTime releaseDate))
                 {
                     return releaseDate.Year.ToString();
@@ -2903,24 +2904,7 @@ namespace Depressurizer
             contextGameHidden_Yes.Checked = false;
             contextGameHidden_No.Checked = false;
 
-            string storeLanguage;
-            if (Database.Language == StoreLanguage.zh_Hans)
-            {
-                storeLanguage = "schinese";
-            }
-            else if (Database.Language == StoreLanguage.zh_Hant)
-            {
-                storeLanguage = "tchinese";
-            }
-            else if (Database.Language == StoreLanguage.pt_BR)
-            {
-                storeLanguage = "brazilian";
-            }
-            else
-            {
-                storeLanguage = CultureInfo.GetCultureInfo(Enum.GetName(typeof(StoreLanguage), Database.Language)).EnglishName.ToLowerInvariant();
-            }
-
+            string storeLanguage = Language.LanguageCode(Database.Language);
 
             if (lstGames.SelectedObjects.Count > 0)
             {

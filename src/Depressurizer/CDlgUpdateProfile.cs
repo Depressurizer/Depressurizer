@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
 using Rallion;
 
 namespace Depressurizer

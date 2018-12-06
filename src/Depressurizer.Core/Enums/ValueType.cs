@@ -1,8 +1,6 @@
 ﻿#region LICENSE
 
-//     This file (StartupAction.cs) is part of Depressurizer.
-//     Copyright (C) 2011 Steve Labbe
-//     Copyright (C) 2017 Theodoros Dimos
+//     This file (ValueType.cs) is part of Depressurizer.
 //     Copyright (C) 2017 Martijn Vegter
 // 
 //     This program is free software: you can redistribute it and/or modify
@@ -20,14 +18,14 @@
 
 #endregion
 
-namespace Depressurizer.Enums
+namespace Depressurizer.Core.Enums
 {
-    internal enum StartupAction
+    public enum ValueType
     {
-        None,
+        Array,
 
-        Load,
+        String,
 
-        Create
+        Int
     }
 }

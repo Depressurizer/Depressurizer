@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Depressurizer.Models;
-using ValueType = Depressurizer.Enums.ValueType;
+using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer
 {

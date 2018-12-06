@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;

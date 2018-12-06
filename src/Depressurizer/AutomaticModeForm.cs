@@ -27,7 +27,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;

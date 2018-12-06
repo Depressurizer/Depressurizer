@@ -23,14 +23,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Xml;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
@@ -101,7 +99,7 @@ namespace Depressurizer
 
         public int Count => Games.Count;
 
-        public StoreLanguage Language { get; set; } = StoreLanguage.en;
+        public StoreLanguage Language { get; set; } = StoreLanguage.English;
 
         #endregion
 
@@ -448,35 +446,7 @@ namespace Depressurizer
 
         public void ChangeLanguage(StoreLanguage language)
         {
-            StoreLanguage dbLang = StoreLanguage.en;
-            if (language == StoreLanguage.windows)
-            {
-                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
-                if (Enum.GetNames(typeof(StoreLanguage)).ToList().Contains(currentCulture.TwoLetterISOLanguageName))
-                {
-                    dbLang = (StoreLanguage) Enum.Parse(typeof(StoreLanguage), currentCulture.TwoLetterISOLanguageName);
-                }
-                else
-                {
-                    if (currentCulture.Name == "zh-Hans" || currentCulture.Parent.Name == "zh-Hans")
-                    {
-                        dbLang = StoreLanguage.zh_Hans;
-                    }
-                    else if (currentCulture.Name == "zh-Hant" || currentCulture.Parent.Name == "zh-Hant")
-                    {
-                        dbLang = StoreLanguage.zh_Hant;
-                    }
-                    else if (currentCulture.Name == "pt-BR" || currentCulture.Parent.Name == "pt-BR")
-                    {
-                        dbLang = StoreLanguage.pt_BR;
-                    }
-                }
-            }
-            else
-            {
-                dbLang = language;
-            }
-
+            StoreLanguage dbLang = language;
             if (Language == dbLang)
             {
                 return;

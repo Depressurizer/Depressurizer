@@ -20,7 +20,7 @@
 
 using System;
 
-namespace Depressurizer.Enums
+namespace Depressurizer.Core.Enums
 {
     /// <summary>
     ///     Operating System(s)

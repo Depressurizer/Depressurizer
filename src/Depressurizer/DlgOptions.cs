@@ -21,11 +21,10 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
-using Depressurizer.Enums;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 
 namespace Depressurizer
 {
@@ -117,7 +116,7 @@ namespace Depressurizer
 
             chkRemoveExtraEntries.Checked = settings.RemoveExtraEntries;
 
-            //supported languages have an enum value of 1-5 (en, es, ru, uk, nl). 0 is windows language.
+            // Languages
             cmbUILanguage.SelectedIndex = (int) settings.InterfaceLanguage;
             cmbStoreLanguage.SelectedIndex = (int) settings.StoreLanguage;
         }
@@ -131,34 +130,12 @@ namespace Depressurizer
                 cmbUILanguage.Items.Add(cultureInfo.NativeName);
             }
 
-            //Store Languages
-            List<string> storeLanguages = new List<string>();
-            foreach (string l in Enum.GetNames(typeof(StoreLanguage)))
+            // Store languages
+            foreach (StoreLanguage language in Enum.GetValues(typeof(StoreLanguage)))
             {
-                string name;
-                switch (l)
-                {
-                    case "windows":
-                        name = "Default";
-                        break;
-                    case "zh_Hans":
-                        name = CultureInfo.GetCultureInfo("zh-Hans").NativeName;
-                        break;
-                    case "zh_Hant":
-                        name = CultureInfo.GetCultureInfo("zh-Hant").NativeName;
-                        break;
-                    case "pt_BR":
-                        name = CultureInfo.GetCultureInfo("pt-BR").NativeName;
-                        break;
-                    default:
-                        name = CultureInfo.GetCultureInfo(l).NativeName;
-                        break;
-                }
-
-                storeLanguages.Add(name);
+                CultureInfo cultureInfo = Language.GetCultureInfo(language);
+                cmbStoreLanguage.Items.Add(cultureInfo.NativeName);
             }
-
-            cmbStoreLanguage.Items.AddRange(storeLanguages.ToArray());
 
             FillFieldsFromSettings();
         }

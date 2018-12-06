@@ -21,7 +21,7 @@
 #endregion
 
 using System;
-using Depressurizer.Enums;
+using Depressurizer.Core.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 
