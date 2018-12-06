@@ -26,6 +26,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Net.Cache;
 using System.Xml;
+using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;

@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;

@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 

@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Depressurizer.Models
+namespace Depressurizer.Core.Models
 {
     /// <summary>
-    ///     Class representing a Category.
+    ///     Class representing a single Category.
     /// </summary>
     /// <inheritdoc />
     public class Category : IComparable
@@ -11,14 +11,13 @@ namespace Depressurizer.Models
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Create a Category object.
+        ///     Creates a category object.
         /// </summary>
         /// <param name="name">
         ///     Name of the category.
         /// </param>
         public Category(string name)
         {
-            Count = 0;
             Name = name;
         }
 
@@ -29,7 +28,7 @@ namespace Depressurizer.Models
         /// <summary>
         ///     Number of apps in the category.
         /// </summary>
-        public int Count { get; set; }
+        public int Count { get; set; } = 0;
 
         /// <summary>
         ///     Name of the category.
@@ -50,7 +49,7 @@ namespace Depressurizer.Models
 
             if (!(obj is Category otherCategory))
             {
-                throw new ArgumentException("Object is not a Category!");
+                throw new ArgumentException("Object is not a Category");
             }
 
             if (Name.Equals(otherCategory.Name, StringComparison.OrdinalIgnoreCase))

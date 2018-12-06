@@ -121,7 +121,6 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\Sentry.cs" />
-    <Compile Include="Models\Category.cs" />
     <Compile Include="GameList.cs" />
     <Compile Include="GameListingSource.cs" />
     <Compile Include="Helpers\Locations.cs" />

@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 
 namespace Depressurizer.Models
@@ -127,7 +128,7 @@ namespace Depressurizer.Models
                 return 1;
             }
 
-            if (!(obj is Category otherFilter))
+            if (!(obj is Filter otherFilter))
             {
                 throw new ArgumentException("Object is not a Filter!");
             }
