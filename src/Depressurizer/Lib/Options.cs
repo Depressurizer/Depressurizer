@@ -418,7 +418,7 @@ namespace NDesk.Options
 
             if (OptionValueType == OptionValueType.None && maxValueCount > 1)
             {
-                throw new ArgumentException(string.Format("Cannot provide maxValueCount of {0} for OptionValueType.None.", maxValueCount), "maxValueCount");
+                throw new ArgumentException($"Cannot provide maxValueCount of {maxValueCount} for OptionValueType.None.", "maxValueCount");
             }
 
             if (Array.IndexOf(Names, "<>") >= 0 && (Names.Length == 1 && OptionValueType != OptionValueType.None || Names.Length > 1 && MaxValueCount > 1))
@@ -514,7 +514,7 @@ namespace NDesk.Options
                     case '{':
                         if (start != -1)
                         {
-                            throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
+                            throw new ArgumentException($"Ill-formed name/value separator found in \"{name}\".", "prototype");
                         }
 
                         start = i + 1;
@@ -522,7 +522,7 @@ namespace NDesk.Options
                     case '}':
                         if (start == -1)
                         {
-                            throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
+                            throw new ArgumentException($"Ill-formed name/value separator found in \"{name}\".", "prototype");
                         }
 
                         seps.Add(name.Substring(start, i - start));
@@ -540,7 +540,7 @@ namespace NDesk.Options
 
             if (start != -1)
             {
-                throw new ArgumentException(string.Format("Ill-formed name/value separator found in \"{0}\".", name), "prototype");
+                throw new ArgumentException($"Ill-formed name/value separator found in \"{name}\".", "prototype");
             }
         }
 
@@ -569,7 +569,7 @@ namespace NDesk.Options
                 }
                 else
                 {
-                    throw new ArgumentException(string.Format("Conflicting option types: '{0}' vs. '{1}'.", type, name[end]), "prototype");
+                    throw new ArgumentException($"Conflicting option types: '{type}' vs. '{name[end]}'.", "prototype");
                 }
 
                 AddSeparators(name, end, seps);
@@ -582,7 +582,7 @@ namespace NDesk.Options
 
             if (MaxValueCount <= 1 && seps.Count != 0)
             {
-                throw new ArgumentException(string.Format("Cannot provide key/value separators for Options taking {0} value(s).", MaxValueCount), "prototype");
+                throw new ArgumentException($"Cannot provide key/value separators for Options taking {MaxValueCount} value(s).", "prototype");
             }
 
             if (MaxValueCount > 1)
@@ -1092,7 +1092,7 @@ namespace NDesk.Options
             }
             else if (c.OptionValues.Count > c.Option.MaxValueCount)
             {
-                throw new OptionException(MessageLocalizer(string.Format("Error: Found {0} option values when expecting {1}.", c.OptionValues.Count, c.Option.MaxValueCount)), c.OptionName);
+                throw new OptionException(MessageLocalizer($"Error: Found {c.OptionValues.Count} option values when expecting {c.Option.MaxValueCount}."), c.OptionName);
             }
         }
 

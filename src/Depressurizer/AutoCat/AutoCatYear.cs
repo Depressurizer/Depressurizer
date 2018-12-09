@@ -214,7 +214,7 @@ namespace Depressurizer
         private string GetRangeString(int year, int rangeSize)
         {
             int first = year - year % rangeSize;
-            return string.Format("{0}-{1}", first, first + rangeSize - 1);
+            return $"{first}-{first + rangeSize - 1}";
         }
 
         #endregion

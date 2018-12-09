@@ -599,61 +599,71 @@ namespace Depressurizer
             return _allVrSupportFlags;
         }
 
-        public List<string> GetDevelopers(int gameId, int depth = 3)
+        public List<string> GetDevelopers(int appId)
         {
-            if (Games.ContainsKey(gameId))
-            {
-                List<string> res = Games[gameId].Developers;
-                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    res = GetDevelopers(Games[gameId].ParentId, depth - 1);
-                }
-
-                return res;
-            }
-
-            return null;
+            return GetDevelopers(appId, 3);
         }
 
-        public List<string> GetFlagList(int gameId, int depth = 3)
+        public List<string> GetDevelopers(int appId, int depth)
         {
-            if (Games.ContainsKey(gameId))
+            if (!Contains(appId, out DatabaseEntry entry))
             {
-                List<string> res = Games[gameId].Flags;
-                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    res = GetFlagList(Games[gameId].ParentId, depth - 1);
-                }
-
-                return res;
+                return new List<string>();
             }
 
-            return null;
+            List<string> result = entry.Developers ?? new List<string>();
+            if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
+            {
+                result = GetDevelopers(entry.ParentId, depth - 1);
+            }
+
+            return result;
         }
 
-        public List<string> GetGenreList(int gameId, int depth = 3, bool tagFallback = true)
+        public List<string> GetFlagList(int appId)
         {
-            if (Games.ContainsKey(gameId))
+            return GetFlagList(appId, 3);
+        }
+
+        public List<string> GetFlagList(int appId, int depth)
+        {
+            if (!Contains(appId, out DatabaseEntry entry))
             {
-                List<string> res = Games[gameId].Genres;
-                if (tagFallback && (res == null || res.Count == 0))
-                {
-                    List<string> tags = GetTagList(gameId, 0);
-                    if (tags != null && tags.Count > 0)
-                    {
-                        res = new List<string>(tags.Intersect(GetAllGenres()));
-                    }
-                }
-
-                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    res = GetGenreList(Games[gameId].ParentId, depth - 1, tagFallback);
-                }
-
-                return res;
+                return new List<string>();
             }
 
-            return null;
+            List<string> result = entry.Flags ?? new List<string>();
+            if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
+            {
+                result = GetFlagList(entry.ParentId, depth - 1);
+            }
+
+            return result;
+        }
+
+        public List<string> GetGenreList(int appId, int depth, bool tagFallback = true)
+        {
+            if (!Contains(appId, out DatabaseEntry entry))
+            {
+                return new List<string>();
+            }
+
+            List<string> result = entry.Genres ?? new List<string>();
+            if (tagFallback && result.Count == 0)
+            {
+                List<string> tags = GetTagList(appId, 0);
+                if (tags != null && tags.Count > 0)
+                {
+                    result = new List<string>(tags.Intersect(GetAllGenres()));
+                }
+            }
+
+            if ((result.Count == 0) && depth > 0 && entry.ParentId > 0)
+            {
+                result = GetGenreList(entry.ParentId, depth - 1, tagFallback);
+            }
+
+            return result;
         }
 
         public string GetName(int id)
@@ -666,30 +676,34 @@ namespace Depressurizer
             return null;
         }
 
-        public List<string> GetPublishers(int gameId, int depth = 3)
+        public List<string> GetPublishers(int appId)
         {
-            if (Games.ContainsKey(gameId))
-            {
-                List<string> res = Games[gameId].Publishers;
-                if ((res == null || res.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
-                {
-                    res = GetPublishers(Games[gameId].ParentId, depth - 1);
-                }
-
-                return res;
-            }
-
-            return null;
+            return GetPublishers(appId, 3);
         }
 
-        public int GetReleaseYear(int gameId)
+        public List<string> GetPublishers(int appId, int depth)
         {
-            if (!Games.ContainsKey(gameId))
+            if (!Contains(appId, out DatabaseEntry entry))
+            {
+                return new List<string>();
+            }
+
+            List<string> result = entry.Publishers ?? new List<string>();
+            if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
+            {
+                result = GetPublishers(entry.ParentId, depth - 1);
+            }
+
+            return result;
+        }
+
+        public int GetReleaseYear(int appId)
+        {
+            if (!Contains(appId, out DatabaseEntry entry))
             {
                 return 0;
             }
 
-            DatabaseEntry entry = Games[gameId];
             if (DateTime.TryParse(entry.SteamReleaseDate, out DateTime releaseDate))
             {
                 return releaseDate.Year;
@@ -698,17 +712,22 @@ namespace Depressurizer
             return 0;
         }
 
-        public List<string> GetTagList(int gameId, int depth = 3)
+        public List<string> GetTagList(int appId)
         {
-            if (!Games.ContainsKey(gameId))
+            return GetTagList(appId, 3);
+        }
+
+        public List<string> GetTagList(int appId, int depth)
+        {
+            if (!Contains(appId, out DatabaseEntry entry))
             {
-                return null;
+                return new List<string>();
             }
 
-            List<string> tags = Games[gameId].Tags;
-            if ((tags == null || tags.Count == 0) && depth > 0 && Games[gameId].ParentId > 0)
+            List<string> tags = entry.Tags ?? new List<string>();
+            if (tags.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
-                tags = GetTagList(Games[gameId].ParentId, depth - 1);
+                tags = GetTagList(entry.ParentId, depth - 1);
             }
 
             return tags;

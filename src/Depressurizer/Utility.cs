@@ -33,7 +33,6 @@ using System.Reflection;
 using System.Windows.Forms;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
-using MaterialSkin.Controls;
 
 namespace Depressurizer
 {
@@ -244,10 +243,9 @@ namespace Depressurizer
             return (int) tSecs;
         }
 
-        public static bool IsOnScreen(MaterialForm form)
+        public static bool IsOnScreen(Control form)
         {
-            Screen[] screens = Screen.AllScreens;
-            foreach (Screen screen in screens)
+            foreach (Screen screen in Screen.AllScreens)
             {
                 Point formTopLeft = new Point(form.Left, form.Top);
 
@@ -342,7 +340,7 @@ namespace Depressurizer
                 return baseName;
             }
 
-            return string.Format("{0}.bak_{1}", baseName, slotNum);
+            return $"{baseName}.bak_{slotNum}";
         }
 
         #endregion

@@ -128,10 +128,10 @@ namespace Depressurizer
                 double hours = timeRemaining.TotalHours;
                 if (hours >= 1.0)
                 {
-                    sb.Append(string.Format("{0:F0}h", hours));
+                    sb.Append($"{hours:F0}h");
                 }
 
-                sb.Append(string.Format("{0:D2}m", timeRemaining.Minutes));
+                sb.Append($"{timeRemaining.Minutes:D2}m");
             }
 
             SetText(sb.ToString());
