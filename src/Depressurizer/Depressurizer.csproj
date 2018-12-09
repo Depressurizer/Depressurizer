@@ -119,6 +119,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommaClusteringStrategy.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\Sentry.cs" />
     <Compile Include="GameList.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
     <Compile Include="Models\VDFNode.cs" />
+    <Compile Include="MyRenderer.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="ProfileAccessException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
