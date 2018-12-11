@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.Models;
@@ -183,25 +184,23 @@ namespace Depressurizer
                 game.RemoveCategory(genreCategories);
             }
 
-            List<string> genreList = db.GetGenreList(game.Id, MAX_PARENT_DEPTH, TagFallback);
-            if (genreList != null && genreList.Count > 0)
-            {
-                List<Category> categories = new List<Category>();
-                int max = MaxCategories;
-                for (int i = 0; i < genreList.Count && (MaxCategories == 0 || i < max); i++)
-                {
-                    if (!IgnoredGenres.Contains(genreList[i]))
-                    {
-                        categories.Add(games.GetCategory(GetProcessedString(genreList[i])));
-                    }
-                    else
-                    {
-                        max++; // ignored genres don't contribute to max
-                    }
-                }
+            Collection<string> genreList = db.GetGenreList(game.Id, MAX_PARENT_DEPTH, TagFallback);
 
-                game.AddCategory(categories);
+            List<Category> categories = new List<Category>();
+            int max = MaxCategories;
+            for (int i = 0; i < genreList.Count && (MaxCategories == 0 || i < max); i++)
+            {
+                if (!IgnoredGenres.Contains(genreList[i]))
+                {
+                    categories.Add(games.GetCategory(GetProcessedString(genreList[i])));
+                }
+                else
+                {
+                    max++; // ignored genres don't contribute to max
+                }
             }
+
+            game.AddCategory(categories);
 
             return AutoCatResult.Success;
         }

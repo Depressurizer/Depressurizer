@@ -1,40 +1,17 @@
-﻿#region LICENSE
-
-//     This file (Database.cs) is part of Depressurizer.
-//     Copyright (C) 2011 Steve Labbe
-//     Copyright (C) 2017 Theodoros Dimos
-//     Copyright (C) 2017 Martijn Vegter
-// 
-//     This program is free software: you can redistribute it and/or modify
-//     it under the terms of the GNU General Public License as published by
-//     the Free Software Foundation, either version 3 of the License, or
-//     (at your option) any later version.
-// 
-//     This program is distributed in the hope that it will be useful,
-//     but WITHOUT ANY WARRANTY; without even the implied warranty of
-//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//     GNU General Public License for more details.
-// 
-//     You should have received a copy of the GNU General Public License
-//     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Xml;
+using System.Net.Http;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
-using Depressurizer.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Depressurizer
 {
@@ -153,13 +130,13 @@ namespace Depressurizer
         }
 
         [JsonIgnore]
-        public VrSupport AllVRSupport
+        public VRSupport AllVRSupport
         {
             get
             {
                 lock (SyncRoot)
                 {
-                    VrSupport vrSupport = new VrSupport();
+                    VRSupport vrSupport = new VRSupport();
 
                     // ReSharper disable InconsistentNaming
                     SortedSet<string> Headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -169,9 +146,9 @@ namespace Depressurizer
 
                     foreach (DatabaseEntry entry in Games.Values)
                     {
-                        Headsets.UnionWith(entry.VrSupport.Headsets);
-                        Input.UnionWith(entry.VrSupport.Input);
-                        PlayArea.UnionWith(entry.VrSupport.PlayArea);
+                        Headsets.UnionWith(entry.VRSupport.Headsets);
+                        Input.UnionWith(entry.VRSupport.Input);
+                        PlayArea.UnionWith(entry.VRSupport.PlayArea);
                     }
 
                     vrSupport.Headsets = Headsets.ToList();
@@ -188,7 +165,7 @@ namespace Depressurizer
 
         public StoreLanguage Language { get; set; } = StoreLanguage.English;
 
-        public int LastHLTBUpdate { get; set; }
+        public long LastHLTBUpdate { get; set; }
 
         #endregion
 
@@ -202,13 +179,21 @@ namespace Depressurizer
 
         public void Add(DatabaseEntry entry)
         {
-            if (Contains(entry.Id, out DatabaseEntry databaseEntry))
+            lock (SyncRoot)
             {
-                databaseEntry.MergeIn(entry);
-            }
-            else
-            {
-                Games.Add(entry.Id, entry);
+                if (entry == null)
+                {
+                    return;
+                }
+
+                if (Contains(entry.Id, out DatabaseEntry databaseEntry))
+                {
+                    databaseEntry.MergeIn(entry);
+                }
+                else
+                {
+                    Games.Add(entry.Id, entry);
+                }
             }
         }
 
@@ -249,36 +234,26 @@ namespace Depressurizer
             return unsortedList.ToList();
         }
 
-        /// <summary>
-        ///     Gets a list of publishers found on games with their game count.
-        /// </summary>
-        /// <param name="filter">
-        ///     GameList including games to include in the search. If null, finds publishers for all games in the
-        ///     database.
-        /// </param>
-        /// <param name="minCount">
-        ///     Minimum count of publishers games to include in the result list. publishers with lower game
-        ///     counts will be discarded.
-        /// </param>
-        /// <returns>List of publishers, as strings with game counts</returns>
         public IEnumerable<Tuple<string, int>> CalculateSortedPubList(GameList filter, int minCount)
         {
             Dictionary<string, int> pubCounts = new Dictionary<string, int>();
             if (filter == null)
             {
-                foreach (DatabaseEntry dbEntry in Games.Values)
+                foreach (DatabaseEntry entry in Games.Values)
                 {
-                    CalculateSortedPubListHelper(pubCounts, dbEntry);
+                    CalculateSortedPubListHelper(pubCounts, entry);
                 }
             }
             else
             {
-                foreach (int gameId in filter.Games.Keys)
+                foreach (int appId in filter.Games.Keys)
                 {
-                    if (Games.ContainsKey(gameId) && !filter.Games[gameId].Hidden)
+                    if (!Contains(appId, out DatabaseEntry entry) || filter.Games[appId].Hidden)
                     {
-                        CalculateSortedPubListHelper(pubCounts, Games[gameId]);
+                        continue;
                     }
+
+                    CalculateSortedPubListHelper(pubCounts, entry);
                 }
             }
 
@@ -286,41 +261,23 @@ namespace Depressurizer
             return unsortedList.ToList();
         }
 
-        /// <summary>
-        ///     Gets a list of tags found on games, sorted by a popularity score.
-        /// </summary>
-        /// <param name="filter">
-        ///     GameList including games to include in the search. If null, finds tags for all games in the
-        ///     database.
-        /// </param>
-        /// <param name="weightFactor">
-        ///     Value of the popularity score contributed by the first processed tag for each game. Each subsequent tag contributes
-        ///     less to its own score.
-        ///     The last tag always contributes 1. Value less than or equal to 1 indicates no weighting.
-        /// </param>
-        /// <param name="minScore">Minimum score of tags to include in the result list. Tags with lower scores will be discarded.</param>
-        /// <param name="tagsPerGame">
-        ///     Maximum tags to find per game. If a game has more tags than this, they will be discarded. 0
-        ///     indicates no limit.
-        /// </param>
-        /// <returns>List of tags, as strings</returns>
         public IEnumerable<Tuple<string, float>> CalculateSortedTagList(GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
         {
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if (filter == null)
             {
-                foreach (DatabaseEntry dbEntry in Games.Values)
+                foreach (DatabaseEntry entry in Games.Values)
                 {
-                    CalculateSortedTagListHelper(tagCounts, dbEntry, weightFactor, tagsPerGame);
+                    CalculateSortedTagListHelper(tagCounts, entry, weightFactor, tagsPerGame);
                 }
             }
             else
             {
-                foreach (int gameId in filter.Games.Keys)
+                foreach (int appId in filter.Games.Keys)
                 {
-                    if (Games.ContainsKey(gameId) && !filter.Games[gameId].Hidden)
+                    if (Contains(appId, out DatabaseEntry entry) && !filter.Games[appId].Hidden)
                     {
-                        CalculateSortedTagListHelper(tagCounts, Games[gameId], weightFactor, tagsPerGame);
+                        CalculateSortedTagListHelper(tagCounts, entry, weightFactor, tagsPerGame);
                     }
                 }
             }
@@ -360,7 +317,7 @@ namespace Depressurizer
                 g.Genres = null;
                 g.SteamReleaseDate = null;
                 g.LastStoreScrape = 1; //pretend it is really old data
-                g.VrSupport = new VrSupport();
+                g.VRSupport = new VRSupport();
                 g.LanguageSupport = new LanguageSupport();
             }
 
@@ -410,19 +367,19 @@ namespace Depressurizer
             return entry != null;
         }
 
-        public List<string> GetDevelopers(int appId)
+        public Collection<string> GetDevelopers(int appId)
         {
             return GetDevelopers(appId, 3);
         }
 
-        public List<string> GetDevelopers(int appId, int depth)
+        public Collection<string> GetDevelopers(int appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new List<string>();
+                return new Collection<string>();
             }
 
-            List<string> result = entry.Developers ?? new List<string>();
+            Collection<string> result = entry.Developers ?? new Collection<string>();
             if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
                 result = GetDevelopers(entry.ParentId, depth - 1);
@@ -431,19 +388,19 @@ namespace Depressurizer
             return result;
         }
 
-        public List<string> GetFlagList(int appId)
+        public Collection<string> GetFlagList(int appId)
         {
             return GetFlagList(appId, 3);
         }
 
-        public List<string> GetFlagList(int appId, int depth)
+        public Collection<string> GetFlagList(int appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new List<string>();
+                return new Collection<string>();
             }
 
-            List<string> result = entry.Flags ?? new List<string>();
+            Collection<string> result = entry.Flags ?? new Collection<string>();
             if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
                 result = GetFlagList(entry.ParentId, depth - 1);
@@ -452,25 +409,25 @@ namespace Depressurizer
             return result;
         }
 
-        public List<string> GetGenreList(int appId, int depth)
+        public Collection<string> GetGenreList(int appId, int depth)
         {
             return GetGenreList(appId, depth, true);
         }
 
-        public List<string> GetGenreList(int appId, int depth, bool tagFallback)
+        public Collection<string> GetGenreList(int appId, int depth, bool tagFallback)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new List<string>();
+                return new Collection<string>();
             }
 
-            List<string> result = entry.Genres ?? new List<string>();
+            Collection<string> result = entry.Genres ?? new Collection<string>();
             if (tagFallback && result.Count == 0)
             {
-                List<string> tags = GetTagList(appId, 0);
+                Collection<string> tags = GetTagList(appId, 0);
                 if (tags != null && tags.Count > 0)
                 {
-                    result = new List<string>(tags.Intersect(AllGenres));
+                    result = new Collection<string>(tags.Where(tag => AllGenres.Contains(tag)).ToList());
                 }
             }
 
@@ -532,7 +489,7 @@ namespace Depressurizer
                 }
             }
 
-            Logger.Info($"Database: Parsed list of public apps, added {added} apps.");
+            Logger.Info("Database: Parsed list of public apps, added {0} apps.", added);
 
             return added;
         }
@@ -544,22 +501,22 @@ namespace Depressurizer
                 return entry.Name;
             }
 
-            return null;
+            return string.Empty;
         }
 
-        public List<string> GetPublishers(int appId)
+        public Collection<string> GetPublishers(int appId)
         {
             return GetPublishers(appId, 3);
         }
 
-        public List<string> GetPublishers(int appId, int depth)
+        public Collection<string> GetPublishers(int appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new List<string>();
+                return new Collection<string>();
             }
 
-            List<string> result = entry.Publishers ?? new List<string>();
+            Collection<string> result = entry.Publishers ?? new Collection<string>();
             if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
                 result = GetPublishers(entry.ParentId, depth - 1);
@@ -583,19 +540,19 @@ namespace Depressurizer
             return 0;
         }
 
-        public List<string> GetTagList(int appId)
+        public Collection<string> GetTagList(int appId)
         {
             return GetTagList(appId, 3);
         }
 
-        public List<string> GetTagList(int appId, int depth)
+        public Collection<string> GetTagList(int appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new List<string>();
+                return new Collection<string>();
             }
 
-            List<string> tags = entry.Tags ?? new List<string>();
+            Collection<string> tags = entry.Tags ?? new Collection<string>();
             if (tags.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
                 tags = GetTagList(entry.ParentId, depth - 1);
@@ -606,56 +563,12 @@ namespace Depressurizer
 
         public bool IncludeItemInGameList(int appId)
         {
-            if (!Games.ContainsKey(appId))
+            if (!Contains(appId, out DatabaseEntry entry))
             {
                 return false;
             }
 
-            return Games[appId].AppType == AppType.Application || Games[appId].AppType == AppType.Game;
-        }
-
-        public int IntegrateAppList(XmlDocument doc)
-        {
-            XmlNodeList nodeList = doc?.SelectNodes("/applist/apps/app");
-            if (nodeList == null)
-            {
-                return 0;
-            }
-
-            int added = 0;
-            foreach (XmlNode node in nodeList)
-            {
-                if (!XmlUtil.TryGetIntFromNode(node["appid"], out int appId))
-                {
-                    continue;
-                }
-
-                string gameName = XmlUtil.GetStringFromNode(node["name"], null);
-                if (Games.ContainsKey(appId))
-                {
-                    DatabaseEntry entry = Games[appId];
-                    if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name.Equals(gameName))
-                    {
-                        continue;
-                    }
-
-                    entry.Name = gameName;
-                    entry.AppType = AppType.Unknown;
-                }
-                else
-                {
-                    DatabaseEntry entry = new DatabaseEntry(appId)
-                    {
-                        Name = gameName
-                    };
-
-                    Games.Add(appId, entry);
-                    added++;
-                }
-            }
-
-            Logger.Info(GlobalStrings.GameDB_LoadedNewItemsFromAppList, added);
-            return added;
+            return entry.AppType == AppType.Application || entry.AppType == AppType.Game;
         }
 
         public void Load()
@@ -752,7 +665,7 @@ namespace Depressurizer
                 return false;
             }
 
-            VrSupport vrSupport = entry.VrSupport;
+            VRSupport vrSupport = entry.VRSupport;
             if (vrSupport.Headsets != null && vrSupport.Headsets.Count > 0 || vrSupport.Input != null && vrSupport.Input.Count > 0 || vrSupport.PlayArea != null && vrSupport.PlayArea.Count > 0 && depth > 0 && entry.ParentId > 0)
             {
                 return true;
@@ -780,15 +693,14 @@ namespace Depressurizer
 
             foreach (AppInfo aInf in appInfos.Values)
             {
-                DatabaseEntry entry;
-                if (!Games.ContainsKey(aInf.Id))
+                if (Contains(aInf.Id, out DatabaseEntry entry))
                 {
-                    entry = new DatabaseEntry(aInf.Id);
-                    Games.Add(entry.Id, entry);
+                    entry = Games[aInf.Id];
                 }
                 else
                 {
-                    entry = Games[aInf.Id];
+                    entry = new DatabaseEntry(aInf.Id);
+                    Games.Add(entry.Id, entry);
                 }
 
                 entry.LastAppInfoUpdate = timestamp;
@@ -818,64 +730,83 @@ namespace Depressurizer
             return updated;
         }
 
-        /// <summary>
-        ///     Update the database with information from howlongtobeatsteam.com.
-        /// </summary>
-        /// <param name="includeImputedTimes">Whether to include imputed hltb times</param>
-        /// <returns>The number of entries integrated into the database.</returns>
         public int UpdateFromHLTB(bool includeImputedTimes)
         {
             int updated = 0;
 
-            using (WebClient wc = new WebClient())
+            lock (SyncRoot)
             {
-                wc.Encoding = Encoding.UTF8;
-                string json = wc.DownloadString(Resources.UrlHLTBAll);
-                JObject parsedJson = JObject.Parse(json);
-                dynamic games = parsedJson.SelectToken("Games");
-                foreach (dynamic g in games)
+                HttpClient client = null;
+                Stream stream = null;
+                StreamReader streamReader = null;
+
+                try
                 {
-                    dynamic steamAppData = g.SteamAppData;
-                    int appId = steamAppData.SteamAppId;
-                    if (!Contains(appId, out DatabaseEntry entry))
-                    {
-                        continue;
-                    }
+                    client = new HttpClient();
+                    stream = client.GetStreamAsync("https://www.howlongtobeatsteam.com/api/games/library/cached/all").Result;
+                    streamReader = new StreamReader(stream);
 
-                    dynamic htlbInfo = steamAppData.HltbInfo;
+                    using (JsonReader reader = new JsonTextReader(streamReader))
+                    {
+                        streamReader = null;
+                        stream = null;
+                        client = null;
 
-                    if (!includeImputedTimes && htlbInfo.MainTtbImputed == "True")
-                    {
-                        entry.HltbMain = 0;
-                    }
-                    else
-                    {
-                        entry.HltbMain = htlbInfo.MainTtb;
-                    }
+                        JsonSerializer serializer = new JsonSerializer();
+                        HLTB_RawData rawData = serializer.Deserialize<HLTB_RawData>(reader);
 
-                    if (!includeImputedTimes && htlbInfo.ExtrasTtbImputed == "True")
-                    {
-                        entry.HltbExtras = 0;
-                    }
-                    else
-                    {
-                        entry.HltbExtras = htlbInfo.ExtrasTtb;
-                    }
+                        foreach (Game game in rawData.Games)
+                        {
+                            SteamAppData steamAppData = game.SteamAppData;
+                            int id = steamAppData.SteamAppId;
+                            if (!Contains(id, out DatabaseEntry entry))
+                            {
+                                continue;
+                            }
 
-                    if (!includeImputedTimes && htlbInfo.CompletionistTtbImputed == "True")
-                    {
-                        entry.HltbCompletionist = 0;
-                    }
-                    else
-                    {
-                        entry.HltbCompletionist = htlbInfo.CompletionistTtb;
-                    }
+                            HltbInfo info = steamAppData.HltbInfo;
 
-                    updated++;
+                            if (!includeImputedTimes && info.MainTtbImputed)
+                            {
+                                entry.HltbMain = 0;
+                            }
+                            else
+                            {
+                                entry.HltbMain = info.MainTtb;
+                            }
+
+                            if (!includeImputedTimes && info.ExtrasTtbImputed)
+                            {
+                                entry.HltbExtras = 0;
+                            }
+                            else
+                            {
+                                entry.HltbExtras = info.ExtrasTtb;
+                            }
+
+                            if (!includeImputedTimes && info.CompletionistTtbImputed)
+                            {
+                                entry.HltbCompletionist = 0;
+                            }
+                            else
+                            {
+                                entry.HltbCompletionist = info.CompletionistTtb;
+                            }
+
+                            updated++;
+                        }
+                    }
                 }
+                finally
+                {
+                    streamReader?.Dispose();
+                    stream?.Dispose();
+                    client?.Dispose();
+                }
+
+                LastHLTBUpdate = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             }
 
-            LastHLTBUpdate = Utility.GetCurrentUTime();
             return updated;
         }
 

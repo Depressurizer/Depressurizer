@@ -22,6 +22,7 @@
 
 using System;
 using System.Windows.Forms;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {

@@ -55,7 +55,7 @@ namespace Depressurizer
 
         #region Fields
 
-        public VrSupport IncludedVrSupportFlags;
+        private VRSupport _includedVrSupportFlags;
 
         #endregion
 
@@ -66,9 +66,9 @@ namespace Depressurizer
             Filter = filter;
             Prefix = prefix;
 
-            IncludedVrSupportFlags.Headsets = headsets ?? new List<string>();
-            IncludedVrSupportFlags.Input = input ?? new List<string>();
-            IncludedVrSupportFlags.PlayArea = playArea ?? new List<string>();
+            IncludedVRSupportFlags.Headsets = headsets ?? new List<string>();
+            IncludedVRSupportFlags.Input = input ?? new List<string>();
+            IncludedVRSupportFlags.PlayArea = playArea ?? new List<string>();
             Selected = selected;
         }
 
@@ -76,7 +76,7 @@ namespace Depressurizer
         {
             Filter = other.Filter;
             Prefix = other.Prefix;
-            IncludedVrSupportFlags = other.IncludedVrSupportFlags;
+            IncludedVRSupportFlags = other.IncludedVRSupportFlags;
             Selected = other.Selected;
         }
 
@@ -88,6 +88,12 @@ namespace Depressurizer
         #region Public Properties
 
         public override AutoCatType AutoCatType => AutoCatType.VrSupport;
+
+        public VRSupport IncludedVRSupportFlags
+        {
+            get => _includedVrSupportFlags ?? (_includedVrSupportFlags = new VRSupport());
+            set => _includedVrSupportFlags = value;
+        }
 
         // AutoCat configuration
         public string Prefix { get; set; }
@@ -187,15 +193,15 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            VrSupport vrSupport = entry.VrSupport;
+            VRSupport vrSupport = entry.VRSupport;
 
             vrSupport.Headsets = vrSupport.Headsets ?? new List<string>();
             vrSupport.Input = vrSupport.Input ?? new List<string>();
             vrSupport.PlayArea = vrSupport.PlayArea ?? new List<string>();
 
-            IEnumerable<string> headsets = vrSupport.Headsets.Intersect(IncludedVrSupportFlags.Headsets);
-            IEnumerable<string> input = vrSupport.Input.Intersect(IncludedVrSupportFlags.Input);
-            IEnumerable<string> playArea = vrSupport.PlayArea.Intersect(IncludedVrSupportFlags.PlayArea);
+            IEnumerable<string> headsets = vrSupport.Headsets.Intersect(IncludedVRSupportFlags.Headsets);
+            IEnumerable<string> input = vrSupport.Input.Intersect(IncludedVRSupportFlags.Input);
+            IEnumerable<string> playArea = vrSupport.PlayArea.Intersect(IncludedVRSupportFlags.PlayArea);
 
             foreach (string catString in headsets)
             {
@@ -240,7 +246,7 @@ namespace Depressurizer
 
             writer.WriteStartElement(XmlNameHeadsetsList);
 
-            foreach (string s in IncludedVrSupportFlags.Headsets)
+            foreach (string s in IncludedVRSupportFlags.Headsets)
             {
                 writer.WriteElementString(XmlNameFlag, s);
             }
@@ -249,7 +255,7 @@ namespace Depressurizer
 
             writer.WriteStartElement(XmlNameInputList);
 
-            foreach (string s in IncludedVrSupportFlags.Input)
+            foreach (string s in IncludedVRSupportFlags.Input)
             {
                 writer.WriteElementString(XmlNameFlag, s);
             }
@@ -258,7 +264,7 @@ namespace Depressurizer
 
             writer.WriteStartElement(XmlNamePlayAreaList);
 
-            foreach (string s in IncludedVrSupportFlags.PlayArea)
+            foreach (string s in IncludedVRSupportFlags.PlayArea)
             {
                 writer.WriteElementString(XmlNameFlag, s);
             }

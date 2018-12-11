@@ -21,7 +21,7 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Models;
@@ -213,29 +213,28 @@ namespace Depressurizer
             return true;
         }
 
-        private List<string> SplitAndTrim(string s)
+        private Collection<string> SplitAndTrim(string s)
         {
+            Collection<string> result = new Collection<string>();
+
             if (string.IsNullOrWhiteSpace(s))
-            {
-                return null;
-            }
-
-            string[] split = s.Split(SPLIT_CHAR, StringSplitOptions.RemoveEmptyEntries);
-            List<string> result = new List<string>();
-            foreach (string sp in split)
-            {
-                if (!string.IsNullOrWhiteSpace(sp))
-                {
-                    result.Add(sp.Trim());
-                }
-            }
-
-            if (result.Count > 0)
             {
                 return result;
             }
 
-            return null;
+            string[] split = s.Split(SPLIT_CHAR, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string sp in split)
+            {
+                if (string.IsNullOrWhiteSpace(sp))
+                {
+                    continue;
+                }
+
+                result.Add(sp.Trim());
+            }
+
+            return result;
         }
 
         private bool ValidateEntries(out int id, out int parent)

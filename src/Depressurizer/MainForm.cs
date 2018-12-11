@@ -2029,7 +2029,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.Genres != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.Genres);
                 }
@@ -2044,7 +2044,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.Flags != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.Flags);
                 }
@@ -2074,9 +2074,9 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.VrSupport.Headsets != null)
+                if (Database.Contains(id, out DatabaseEntry entry) || entry.VRSupport.Headsets != null)
                 {
-                    return string.Join(", ", entry.VrSupport.Headsets);
+                    return string.Join(", ", entry.VRSupport.Headsets);
                 }
 
                 return string.Empty;
@@ -2089,9 +2089,9 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.VrSupport.Input != null)
+                if (Database.Contains(id, out DatabaseEntry entry) || entry.VRSupport.Input != null)
                 {
-                    return string.Join(", ", entry.VrSupport.Input);
+                    return string.Join(", ", entry.VRSupport.Input);
                 }
 
                 return string.Empty;
@@ -2104,9 +2104,9 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.VrSupport.PlayArea != null)
+                if (Database.Contains(id, out DatabaseEntry entry) || entry.VRSupport.PlayArea != null)
                 {
-                    return string.Join(", ", entry.VrSupport.PlayArea);
+                    return string.Join(", ", entry.VRSupport.PlayArea);
                 }
 
                 return string.Empty;

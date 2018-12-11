@@ -120,7 +120,7 @@ namespace Depressurizer
         /// <param name="a">First list</param>
         /// <param name="b">Second list</param>
         /// <returns>0 if equal, negative if a is greater, positive if b is greater</returns>
-        public static int CompareLists(List<string> a, List<string> b)
+        public static int CompareLists(IList<string> a, IList<string> b)
         {
             if (a == null)
             {

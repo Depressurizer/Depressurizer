@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Helpers;
@@ -212,19 +213,18 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            List<string> gameTags = db.GetTagList(game.Id);
+            Collection<string> gameTags = db.GetTagList(game.Id);
 
-            if (gameTags != null)
+            int added = 0;
+            for (int index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
             {
-                int added = 0;
-                for (int index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
+                if (!IncludedTags.Contains(gameTags[index]))
                 {
-                    if (IncludedTags.Contains(gameTags[index]))
-                    {
-                        game.AddCategory(games.GetCategory(GetProcessedString(gameTags[index])));
-                        added++;
-                    }
+                    continue;
                 }
+
+                game.AddCategory(games.GetCategory(GetProcessedString(gameTags[index])));
+                added++;
             }
 
             return AutoCatResult.Success;

@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -141,12 +142,7 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            List<string> gameFlags = db.GetFlagList(game.Id);
-            if (gameFlags == null)
-            {
-                gameFlags = new List<string>();
-            }
-
+            Collection<string> gameFlags = db.GetFlagList(game.Id);
             IEnumerable<string> categories = gameFlags.Intersect(IncludedFlags);
 
             foreach (string catString in categories)

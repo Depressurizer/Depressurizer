@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Helpers;
@@ -199,35 +200,31 @@ namespace Depressurizer
                 return AutoCatResult.Filtered;
             }
 
-            List<string> devs = db.GetDevelopers(game.Id);
-
-            if (devs != null)
+            Collection<string> developers = db.GetDevelopers(game.Id);
+            foreach (string developer in developers)
             {
-                for (int index = 0; index < devs.Count; index++)
+                if (!Developers.Contains(developer) && !AllDevelopers)
                 {
-                    if (Developers.Contains(devs[index]) || AllDevelopers)
-                    {
-                        if (DevCount(devs[index]) >= MinCount)
-                        {
-                            game.AddCategory(games.GetCategory(GetProcessedString(devs[index])));
-                        }
-                    }
+                    continue;
+                }
+
+                if (DevCount(developer) >= MinCount)
+                {
+                    game.AddCategory(games.GetCategory(GetProcessedString(developer)));
                 }
             }
 
-            List<string> pubs = db.GetPublishers(game.Id);
-
-            if (pubs != null)
+            Collection<string> publishers = db.GetPublishers(game.Id);
+            foreach (string publisher in publishers)
             {
-                for (int index = 0; index < pubs.Count; index++)
+                if (!Publishers.Contains(publisher) && !AllPublishers)
                 {
-                    if (Publishers.Contains(pubs[index]) || AllPublishers)
-                    {
-                        if (PubCount(pubs[index]) >= MinCount)
-                        {
-                            game.AddCategory(games.GetCategory(GetProcessedString(pubs[index])));
-                        }
-                    }
+                    continue;
+                }
+
+                if (PubCount(publisher) >= MinCount)
+                {
+                    game.AddCategory(games.GetCategory(GetProcessedString(publisher)));
                 }
             }
 

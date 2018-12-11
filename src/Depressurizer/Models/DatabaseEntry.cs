@@ -22,20 +22,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
 
 namespace Depressurizer.Models
 {
-    [XmlRoot(ElementName = "game")]
     public class DatabaseEntry
     {
         #region Static Fields
@@ -84,75 +83,19 @@ namespace Depressurizer.Models
 
         #region Fields
 
-        [DefaultValue(AppType.Unknown)]
-        public AppType AppType = AppType.Unknown;
+        private Collection<string> _developers;
 
-        [DefaultValue(null)]
-        [XmlElement("Genre")]
-        public List<string> Genres = new List<string>();
+        private Collection<string> _flags;
 
-        [DefaultValue(null)]
-        [XmlElement("Developer")]
-        public List<string> Developers = new List<string>();
+        private Collection<string> _genres;
 
-        [DefaultValue(null)]
-        [XmlArrayItem("Flag")]
-        public List<string> Flags = new List<string>();
+        private LanguageSupport _languageSupport;
 
-        // Basics:
+        private Collection<string> _publishers;
 
-        [DefaultValue(0)]
-        public int HltbCompletionist;
+        private Collection<string> _tags;
 
-        [DefaultValue(0)]
-        public int HltbExtras;
-
-        //howlongtobeat.com times
-        [DefaultValue(0)]
-        public int HltbMain;
-
-        public int Id;
-
-        public LanguageSupport LanguageSupport; //TODO: Add field to DB edit dialog
-
-        [DefaultValue(0)]
-        public int LastAppInfoUpdate;
-
-        [DefaultValue(0)]
-        public int LastStoreScrape;
-
-        // Metacritic:
-        [DefaultValue(null)]
-        public string MetacriticUrl;
-
-        public string Name;
-
-        [DefaultValue(-1)]
-        public int ParentId = -1;
-
-        public AppPlatforms Platforms = AppPlatforms.None;
-
-        [DefaultValue(null)]
-        [XmlElement("Publisher")]
-        public List<string> Publishers = new List<string>();
-
-        [DefaultValue(0)]
-        public int ReviewPositivePercentage;
-
-        [DefaultValue(0)]
-        public int ReviewTotal;
-
-        [DefaultValue(null)]
-        public string SteamReleaseDate;
-
-        [DefaultValue(null)]
-        [XmlArrayItem("Tag")]
-        public List<string> Tags = new List<string>();
-
-        [DefaultValue(0)]
-        public int TotalAchievements;
-
-        public VrSupport VrSupport; //TODO: Add field to DB edit dialog
+        private VRSupport _vrSupport;
 
         #endregion
 
@@ -161,6 +104,88 @@ namespace Depressurizer.Models
         public DatabaseEntry(int appId)
         {
             Id = appId;
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        public AppType AppType { get; set; } = AppType.Unknown;
+
+        public Collection<string> Developers
+        {
+            get => _developers ?? (_developers = new Collection<string>());
+            set => _developers = value;
+        }
+
+        public Collection<string> Flags
+        {
+            get => _flags ?? (_flags = new Collection<string>());
+            set => _flags = value;
+        }
+
+        public Collection<string> Genres
+        {
+            get => _genres ?? (_genres = new Collection<string>());
+            set => _genres = value;
+        }
+
+        public int HltbCompletionist { get; set; }
+
+        public int HltbExtras { get; set; }
+
+        public int HltbMain { get; set; }
+
+        public int Id { get; set; }
+
+        /// <remarks>
+        ///     TODO: Add field to DB edit dialog
+        /// </remarks>
+        public LanguageSupport LanguageSupport
+        {
+            get => _languageSupport ?? (_languageSupport = new LanguageSupport());
+            set => _languageSupport = value;
+        }
+
+        public int LastAppInfoUpdate { get; set; }
+
+        public int LastStoreScrape { get; set; }
+
+        public string MetacriticUrl { get; set; }
+
+        public string Name { get; set; }
+
+        public int ParentId { get; set; } = -1;
+
+        public AppPlatforms Platforms { get; set; } = AppPlatforms.None;
+
+        public Collection<string> Publishers
+        {
+            get => _publishers ?? (_publishers = new Collection<string>());
+            set => _publishers = value;
+        }
+
+        public int ReviewPositivePercentage { get; set; }
+
+        public int ReviewTotal { get; set; }
+
+        public string SteamReleaseDate { get; set; }
+
+        public Collection<string> Tags
+        {
+            get => _tags ?? (_tags = new Collection<string>());
+            set => _tags = value;
+        }
+
+        public int TotalAchievements { get; set; }
+
+        /// <remarks>
+        ///     TODO: Add field to DB edit dialog
+        /// </remarks>
+        public VRSupport VRSupport
+        {
+            get => _vrSupport ?? (_vrSupport = new VRSupport());
+            set => _vrSupport = value;
         }
 
         #endregion
@@ -212,27 +237,27 @@ namespace Depressurizer.Models
 
             if (useScrapeOnlyFields)
             {
-                if (other.Genres != null && other.Genres.Count > 0)
+                if (other.Genres.Count > 0)
                 {
                     Genres = other.Genres;
                 }
 
-                if (other.Flags != null && other.Flags.Count > 0)
+                if (other.Flags.Count > 0)
                 {
                     Flags = other.Flags;
                 }
 
-                if (other.Tags != null && other.Tags.Count > 0)
+                if (other.Tags.Count > 0)
                 {
                     Tags = other.Tags;
                 }
 
-                if (other.Developers != null && other.Developers.Count > 0)
+                if (other.Developers.Count > 0)
                 {
                     Developers = other.Developers;
                 }
 
-                if (other.Publishers != null && other.Publishers.Count > 0)
+                if (other.Publishers.Count > 0)
                 {
                     Publishers = other.Publishers;
                 }
@@ -247,36 +272,42 @@ namespace Depressurizer.Models
                     TotalAchievements = other.TotalAchievements;
                 }
 
-                //VR Support
-                if (other.VrSupport.Headsets != null && other.VrSupport.Headsets.Count > 0)
+                // VR Support
+                if (other.VRSupport.Headsets.Count > 0)
                 {
-                    VrSupport.Headsets = other.VrSupport.Headsets;
+                    VRSupport.Headsets.Clear();
+                    VRSupport.Headsets.AddRange(other.VRSupport.Headsets);
                 }
 
-                if (other.VrSupport.Input != null && other.VrSupport.Input.Count > 0)
+                if (other.VRSupport.Input.Count > 0)
                 {
-                    VrSupport.Input = other.VrSupport.Input;
+                    VRSupport.Input.Clear();
+                    VRSupport.Input.AddRange(other.VRSupport.Input);
                 }
 
-                if (other.VrSupport.PlayArea != null && other.VrSupport.PlayArea.Count > 0)
+                if (other.VRSupport.PlayArea.Count > 0)
                 {
-                    VrSupport.PlayArea = other.VrSupport.PlayArea;
+                    VRSupport.PlayArea.Clear();
+                    VRSupport.PlayArea.AddRange(other.VRSupport.PlayArea);
                 }
 
-                //Language Support
-                if (other.LanguageSupport.FullAudio != null && other.LanguageSupport.FullAudio.Count > 0)
+                // Language Support
+                if (other.LanguageSupport.FullAudio.Count > 0)
                 {
-                    LanguageSupport.FullAudio = other.LanguageSupport.FullAudio;
+                    LanguageSupport.FullAudio.Clear();
+                    LanguageSupport.FullAudio.AddRange(other.LanguageSupport.FullAudio);
                 }
 
-                if (other.LanguageSupport.Interface != null && other.LanguageSupport.Interface.Count > 0)
+                if (other.LanguageSupport.Interface.Count > 0)
                 {
-                    LanguageSupport.Interface = other.LanguageSupport.Interface;
+                    LanguageSupport.Interface.Clear();
+                    LanguageSupport.Interface.AddRange(other.LanguageSupport.Interface);
                 }
 
-                if (other.LanguageSupport.Subtitles != null && other.LanguageSupport.Subtitles.Count > 0)
+                if (other.LanguageSupport.Subtitles.Count > 0)
                 {
-                    LanguageSupport.Subtitles = other.LanguageSupport.Subtitles;
+                    LanguageSupport.Subtitles.Clear();
+                    LanguageSupport.Subtitles.AddRange(other.LanguageSupport.Subtitles);
                 }
 
                 if (other.ReviewTotal != 0)
@@ -340,7 +371,7 @@ namespace Depressurizer.Models
             Match m = RegexGenre.Match(page);
             if (m.Success)
             {
-                Genres = new List<string>();
+                Genres.Clear();
                 foreach (Capture cap in m.Groups[2].Captures)
                 {
                     Genres.Add(cap.Value);
@@ -351,7 +382,7 @@ namespace Depressurizer.Models
             MatchCollection matches = RegexFlags.Matches(page);
             if (matches.Count > 0)
             {
-                Flags = new List<string>();
+                Flags.Clear();
                 foreach (Match ma in matches)
                 {
                     string flag = ma.Groups[1].Value;
@@ -366,7 +397,7 @@ namespace Depressurizer.Models
             matches = RegexTags.Matches(page);
             if (matches.Count > 0)
             {
-                Tags = new List<string>();
+                Tags.Clear();
                 foreach (Match ma in matches)
                 {
                     string tag = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
@@ -382,13 +413,13 @@ namespace Depressurizer.Models
             if (m.Success)
             {
                 matches = RegexVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                VrSupport.Headsets = new List<string>();
+                VRSupport.Headsets.Clear();
                 foreach (Match ma in matches)
                 {
                     string headset = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
                     if (!string.IsNullOrWhiteSpace(headset))
                     {
-                        VrSupport.Headsets.Add(headset);
+                        VRSupport.Headsets.Add(headset);
                     }
                 }
             }
@@ -398,13 +429,13 @@ namespace Depressurizer.Models
             if (m.Success)
             {
                 matches = RegexVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                VrSupport.Input = new List<string>();
+                VRSupport.Input.Clear();
                 foreach (Match ma in matches)
                 {
                     string input = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
                     if (!string.IsNullOrWhiteSpace(input))
                     {
-                        VrSupport.Input.Add(input);
+                        VRSupport.Input.Add(input);
                     }
                 }
             }
@@ -414,13 +445,13 @@ namespace Depressurizer.Models
             if (m.Success)
             {
                 matches = RegexVrSupportFlagMatch.Matches(m.Groups[1].Value.Trim());
-                VrSupport.PlayArea = new List<string>();
+                VRSupport.PlayArea.Clear();
                 foreach (Match ma in matches)
                 {
                     string playArea = WebUtility.HtmlDecode(ma.Groups[1].Value.Trim());
                     if (!string.IsNullOrWhiteSpace(playArea))
                     {
-                        VrSupport.PlayArea.Add(playArea);
+                        VRSupport.PlayArea.Add(playArea);
                     }
                 }
             }
@@ -481,7 +512,7 @@ namespace Depressurizer.Models
             m = RegexDevelopers.Match(page);
             if (m.Success)
             {
-                Developers = new List<string>();
+                Developers.Clear();
                 foreach (Capture cap in m.Groups[3].Captures)
                 {
                     Developers.Add(WebUtility.HtmlDecode(cap.Value));
@@ -492,7 +523,7 @@ namespace Depressurizer.Models
             m = RegexPublishers.Match(page);
             if (m.Success)
             {
-                Publishers = new List<string>();
+                Publishers.Clear();
                 foreach (Capture cap in m.Groups[3].Captures)
                 {
                     Publishers.Add(WebUtility.HtmlDecode(cap.Value));

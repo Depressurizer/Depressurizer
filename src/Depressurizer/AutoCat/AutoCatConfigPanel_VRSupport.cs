@@ -22,6 +22,7 @@
 
 using System;
 using System.Windows.Forms;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {
@@ -54,7 +55,7 @@ namespace Depressurizer
             lstVrInput.Items.Clear();
             lstVrPlayArea.Items.Clear();
 
-            VrSupport vrSupport = Database.AllVRSupport;
+            VRSupport vrSupport = Database.AllVRSupport;
 
             foreach (string s in vrSupport.Headsets)
             {
@@ -84,17 +85,17 @@ namespace Depressurizer
 
             foreach (ListViewItem item in lstVrHeadsets.Items)
             {
-                item.Checked = ac.IncludedVrSupportFlags.Headsets.Contains(item.Text);
+                item.Checked = ac.IncludedVRSupportFlags.Headsets.Contains(item.Text);
             }
 
             foreach (ListViewItem item in lstVrInput.Items)
             {
-                item.Checked = ac.IncludedVrSupportFlags.Input.Contains(item.Text);
+                item.Checked = ac.IncludedVRSupportFlags.Input.Contains(item.Text);
             }
 
             foreach (ListViewItem item in lstVrPlayArea.Items)
             {
-                item.Checked = ac.IncludedVrSupportFlags.PlayArea.Contains(item.Text);
+                item.Checked = ac.IncludedVRSupportFlags.PlayArea.Contains(item.Text);
             }
         }
 
@@ -108,15 +109,15 @@ namespace Depressurizer
 
             ac.Prefix = txtPrefix.Text;
 
-            ac.IncludedVrSupportFlags.Headsets.Clear();
-            ac.IncludedVrSupportFlags.Input.Clear();
-            ac.IncludedVrSupportFlags.PlayArea.Clear();
+            ac.IncludedVRSupportFlags.Headsets.Clear();
+            ac.IncludedVRSupportFlags.Input.Clear();
+            ac.IncludedVRSupportFlags.PlayArea.Clear();
 
             foreach (ListViewItem i in lstVrHeadsets.Items)
             {
                 if (i.Checked)
                 {
-                    ac.IncludedVrSupportFlags.Headsets.Add(i.Text);
+                    ac.IncludedVRSupportFlags.Headsets.Add(i.Text);
                 }
             }
 
@@ -124,7 +125,7 @@ namespace Depressurizer
             {
                 if (i.Checked)
                 {
-                    ac.IncludedVrSupportFlags.Input.Add(i.Text);
+                    ac.IncludedVRSupportFlags.Input.Add(i.Text);
                 }
             }
 
@@ -132,7 +133,7 @@ namespace Depressurizer
             {
                 if (i.Checked)
                 {
-                    ac.IncludedVrSupportFlags.PlayArea.Add(i.Text);
+                    ac.IncludedVRSupportFlags.PlayArea.Add(i.Text);
                 }
             }
         }
