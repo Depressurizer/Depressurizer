@@ -21,7 +21,6 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Depressurizer
@@ -53,12 +52,9 @@ namespace Depressurizer
         {
             lstIncluded.Items.Clear();
 
-
-            SortedSet<string> flagsList = Database.GetAllStoreFlags();
-
-            foreach (string s in flagsList)
+            foreach (string flag in Database.AllFlags)
             {
-                lstIncluded.Items.Add(s);
+                lstIncluded.Items.Add(flag);
             }
         }
 

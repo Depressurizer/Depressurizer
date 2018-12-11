@@ -21,7 +21,6 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Depressurizer
@@ -55,15 +54,15 @@ namespace Depressurizer
         {
             lstIgnore.Items.Clear();
 
-
-            SortedSet<string> genreList = Database.GetAllGenres();
-
-            foreach (string s in genreList)
+            foreach (string genre in Database.AllGenres)
             {
-                ListViewItem l = new ListViewItem();
-                l.Text = s;
-                l.Checked = true;
-                lstIgnore.Items.Add(l);
+                ListViewItem listViewItem = new ListViewItem
+                {
+                    Text = genre,
+                    Checked = true
+                };
+
+                lstIgnore.Items.Add(listViewItem);
             }
         }
 

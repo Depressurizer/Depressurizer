@@ -69,7 +69,8 @@ namespace Depressurizer
 
         public float MinHours { get; set; }
 
-        [XmlElement("Text")] public string Name { get; set; }
+        [XmlElement("Text")]
+        public string Name { get; set; }
 
         public TimeType TimeType { get; set; }
 
@@ -88,7 +89,8 @@ namespace Depressurizer
 
         #region Fields
 
-        [XmlElement("Rule")] public List<Hltb_Rule> Rules;
+        [XmlElement("Rule")]
+        public List<Hltb_Rule> Rules;
 
         #endregion
 
@@ -261,7 +263,6 @@ namespace Depressurizer
 
             writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_UnknownText, UnknownText);
-
 
             foreach (Hltb_Rule rule in Rules)
             {

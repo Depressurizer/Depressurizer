@@ -113,7 +113,6 @@ namespace Depressurizer
             sb.Append(profile.FilePath);
             sb.Append('"');
 
-
             switch (cmbSteamCheck.SelectedIndex)
             {
                 case 0: // Check and close

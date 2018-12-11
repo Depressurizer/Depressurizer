@@ -431,7 +431,6 @@ namespace Depressurizer
                 }
             }
 
-
             Logger.Verbose(GlobalStrings.GameData_CleaningUpSteamConfigTree);
             appListNode.CleanTree();
 
@@ -674,6 +673,7 @@ namespace Depressurizer
 
             // Create a new category and return it
             return AddCategory(name);
+
             //Category newCat = new Category( name );
             //Categories.Add( newCat );
             //return newCat;

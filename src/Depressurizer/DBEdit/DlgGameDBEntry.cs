@@ -174,7 +174,6 @@ namespace Depressurizer
             Game.AppType = (AppType) cmbType.SelectedItem;
             Game.Name = txtName.Text;
 
-
             Game.Genres = SplitAndTrim(txtGenres.Text);
             Game.Flags = SplitAndTrim(txtFlags.Text);
             Game.Tags = SplitAndTrim(txtTags.Text);

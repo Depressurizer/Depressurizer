@@ -36,13 +36,17 @@ namespace Depressurizer
 {
     public enum CuratorRecommendation
     {
-        [Description("Error")] Error,
+        [Description("Error")]
+        Error,
 
-        [Description("Recommended")] Recommended,
+        [Description("Recommended")]
+        Recommended,
 
-        [Description("Not Recommended")] NotRecommended,
+        [Description("Not Recommended")]
+        NotRecommended,
 
-        [Description("Informational")] Informational
+        [Description("Informational")]
+        Informational
     }
 
     internal class GetCuratorRecommendationsDlg : CancelableDlg

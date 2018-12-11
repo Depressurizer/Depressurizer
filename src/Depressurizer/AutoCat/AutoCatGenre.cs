@@ -104,7 +104,8 @@ namespace Depressurizer
 
         public string Prefix { get; set; }
 
-        [XmlElement("RemoveOthers")] public bool RemoveOtherGenres { get; set; }
+        [XmlElement("RemoveOthers")]
+        public bool RemoveOtherGenres { get; set; }
 
         public bool TagFallback { get; set; }
 
@@ -223,17 +224,18 @@ namespace Depressurizer
         public override void PreProcess(GameList games, Database db)
         {
             base.PreProcess(games, db);
-            if (RemoveOtherGenres)
+            if (!RemoveOtherGenres)
             {
-                SortedSet<string> genreStrings = db.GetAllGenres();
-                genreCategories = new SortedSet<Category>();
+                return;
+            }
 
-                foreach (string cStr in genreStrings)
+            genreCategories = new SortedSet<Category>();
+
+            foreach (string genre in db.AllGenres)
+            {
+                if (games.CategoryExists(string.IsNullOrEmpty(Prefix) ? genre : Prefix + genre) && !IgnoredGenres.Contains(genre))
                 {
-                    if (games.CategoryExists(string.IsNullOrEmpty(Prefix) ? cStr : Prefix + cStr) && !IgnoredGenres.Contains(cStr))
-                    {
-                        genreCategories.Add(games.GetCategory(cStr));
-                    }
+                    genreCategories.Add(games.GetCategory(genre));
                 }
             }
         }

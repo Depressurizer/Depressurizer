@@ -92,7 +92,8 @@ namespace Depressurizer
         public string Prefix { get; set; }
 
         // Autocat configuration
-        [XmlElement("RemoveAll")] public bool RemoveAllCategories { get; set; }
+        [XmlElement("RemoveAll")]
+        public bool RemoveAllCategories { get; set; }
 
         [XmlArray("Remove")]
         [XmlArrayItem("Category")]

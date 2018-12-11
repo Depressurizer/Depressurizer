@@ -281,9 +281,9 @@ namespace Depressurizer
             try
             {
                 Database.Reset();
-                if (File.Exists("database.json"))
+                if (File.Exists(Locations.File.Database))
                 {
-                    Database.Load("database.json");
+                    Database.Load(Locations.File.Database);
                     success = true;
                 }
                 else
@@ -506,7 +506,7 @@ namespace Depressurizer
             Write("Saving database...");
             try
             {
-                Database.Save("database.json");
+                Database.Save(Locations.File.Database);
                 success = true;
             }
             catch (Exception e)
@@ -691,7 +691,7 @@ namespace Depressurizer
             }
 
             int HalfAWeekInSecs = 84 * 24 * 60 * 60;
-            if (Utility.GetCurrentUTime() > Database.LastHltbUpdate + HalfAWeekInSecs)
+            if (Utility.GetCurrentUTime() > Database.LastHLTBUpdate + HalfAWeekInSecs)
             {
                 WriteLine("Skipping HLTB update.");
                 return true;
@@ -701,7 +701,7 @@ namespace Depressurizer
             bool success = false;
             try
             {
-                if (Database.UpdateFromHltb(Settings.Instance.IncludeImputedTimes) > 0)
+                if (Database.UpdateFromHLTB(Settings.Instance.IncludeImputedTimes) > 0)
                 {
                     dbModified = true;
                 }

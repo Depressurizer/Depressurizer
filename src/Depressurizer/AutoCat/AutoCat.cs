@@ -70,35 +70,50 @@ namespace Depressurizer
 {
     public enum AutoCatType
     {
-        [Description("None")] None,
+        [Description("None")]
+        None,
 
-        [Description("AutoCatGenre")] Genre,
+        [Description("AutoCatGenre")]
+        Genre,
 
-        [Description("AutoCatFlags")] Flags,
+        [Description("AutoCatFlags")]
+        Flags,
 
-        [Description("AutoCatTags")] Tags,
+        [Description("AutoCatTags")]
+        Tags,
 
-        [Description("AutoCatYear")] Year,
+        [Description("AutoCatYear")]
+        Year,
 
-        [Description("AutoCatUserScore")] UserScore,
+        [Description("AutoCatUserScore")]
+        UserScore,
 
-        [Description("AutoCatHltb")] Hltb,
+        [Description("AutoCatHltb")]
+        Hltb,
 
-        [Description("AutoCatManual")] Manual,
+        [Description("AutoCatManual")]
+        Manual,
 
-        [Description("AutoCatDevPub")] DevPub,
+        [Description("AutoCatDevPub")]
+        DevPub,
 
-        [Description("AutoCatGroup")] Group,
+        [Description("AutoCatGroup")]
+        Group,
 
-        [Description("AutoCatName")] Name,
+        [Description("AutoCatName")]
+        Name,
 
-        [Description("AutoCatVrSupport")] VrSupport,
+        [Description("AutoCatVrSupport")]
+        VrSupport,
 
-        [Description("AutoCatLanguage")] Language,
+        [Description("AutoCatLanguage")]
+        Language,
 
-        [Description("AutoCatCurator")] Curator,
+        [Description("AutoCatCurator")]
+        Curator,
 
-        [Description("AutoCatPlatform")] Platform
+        [Description("AutoCatPlatform")]
+        Platform
     }
 
     public enum AutoCatResult
@@ -173,7 +188,8 @@ namespace Depressurizer
 
         public string Name { get; set; }
 
-        [XmlIgnore] public bool Selected { get; set; }
+        [XmlIgnore]
+        public bool Selected { get; set; }
 
         #endregion
 

@@ -30,13 +30,16 @@ namespace Depressurizer
     {
         #region Fields
 
-        [DefaultValue(null)] [XmlElement("Headset")]
+        [DefaultValue(null)]
+        [XmlElement("Headset")]
         public List<string> Headsets;
 
-        [DefaultValue(null)] [XmlElement("Input")]
+        [DefaultValue(null)]
+        [XmlElement("Input")]
         public List<string> Input;
 
-        [DefaultValue(null)] [XmlElement("PlayArea")]
+        [DefaultValue(null)]
+        [XmlElement("PlayArea")]
         public List<string> PlayArea;
 
         #endregion

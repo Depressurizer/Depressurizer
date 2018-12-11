@@ -347,10 +347,9 @@ namespace Depressurizer
         {
             try
             {
-                Database.Reset();
-                if (File.Exists("database.json"))
+                if (File.Exists(Locations.File.Database))
                 {
-                    Database.Load("database.json");
+                    Database.Load(Locations.File.Database);
                 }
                 else
                 {
@@ -1546,7 +1545,7 @@ namespace Depressurizer
                     uncategorized++;
                 }
 
-                if (Database.SupportsVr(g.Id) && !g.Hidden)
+                if (Database.SupportsVR(g.Id) && !g.Hidden)
                 {
                     vr++;
                 }
@@ -1786,7 +1785,7 @@ namespace Depressurizer
             }
 
             const int aWeekInSecs = 7 * 24 * 60 * 60;
-            if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() > Database.LastHltbUpdate + aWeekInSecs)
+            if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() > Database.LastHLTBUpdate + aWeekInSecs)
             {
                 UpdateDatabaseFromHLTB();
             }
@@ -2834,7 +2833,6 @@ namespace Depressurizer
                 CornerRounding = 4,
                 Transparency = 200
             };
-
 
             e.SubItem.Decorations.Add(td);
         }
@@ -4128,7 +4126,7 @@ namespace Depressurizer
 
             if (lstCategories.SelectedItems[0].Tag.ToString() == GlobalStrings.MainForm_VR)
             {
-                return Database.SupportsVr(g.Id);
+                return Database.SupportsVR(g.Id);
             }
 
             if (!(lstCategories.SelectedItems[0].Tag is Category category))

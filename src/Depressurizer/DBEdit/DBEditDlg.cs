@@ -452,26 +452,19 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            FetchPrcDlg dlg = new FetchPrcDlg();
-            DialogResult res = dlg.ShowDialog();
-
-            if (dlg.Error != null)
+            int added = 0;
+            try
             {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                added = Database.GetIntegrateAppList();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGameList);
             }
-            else
-            {
-                if (res == DialogResult.Cancel || res == DialogResult.Abort)
-                {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_CanceledListUpdate);
-                }
-                else
-                {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedGameList, dlg.Added));
-                    UnsavedChanges = true;
-                }
-            }
+
+            AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedGameList, added));
+            UnsavedChanges = true;
 
             RebuildDisplayList();
             Cursor = Cursors.Default;

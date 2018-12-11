@@ -126,7 +126,6 @@ namespace Depressurizer
                 return AutoCatResult.NotInDatabase;
             }
 
-
             string cat = game.Name.Substring(0, 1);
             cat = cat.ToUpper();
             if (SkipThe && cat == "T" && game.Name.Substring(0, 4).ToUpper() == "THE ")

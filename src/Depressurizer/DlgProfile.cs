@@ -339,7 +339,6 @@ namespace Depressurizer
 
             lstIgnored.Sort();
 
-
             bool found = SelectUserInList(Profile.SteamID64);
             if (found)
             {

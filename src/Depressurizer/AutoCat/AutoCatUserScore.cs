@@ -66,7 +66,8 @@ namespace Depressurizer
 
         public int MinScore { get; set; }
 
-        [XmlElement("Text")] public string Name { get; set; }
+        [XmlElement("Text")]
+        public string Name { get; set; }
 
         #endregion
     }
@@ -83,7 +84,8 @@ namespace Depressurizer
 
         #region Fields
 
-        [XmlElement("Rule")] public List<UserScore_Rule> Rules;
+        [XmlElement("Rule")]
+        public List<UserScore_Rule> Rules;
 
         #endregion
 

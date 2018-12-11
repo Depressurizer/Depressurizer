@@ -64,7 +64,8 @@ namespace Depressurizer
         #region Public Properties
 
         // Autocat configuration properties
-        [XmlArrayItem("Autocat")] public List<string> Autocats { get; set; }
+        [XmlArrayItem("Autocat")]
+        public List<string> Autocats { get; set; }
 
         // Meta properies
         public override AutoCatType AutoCatType => AutoCatType.Group;

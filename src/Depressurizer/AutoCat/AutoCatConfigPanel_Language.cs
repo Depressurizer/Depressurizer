@@ -54,8 +54,7 @@ namespace Depressurizer
             lstSubtitles.Items.Clear();
             lstFullAudio.Items.Clear();
 
-
-            LanguageSupport language = Database.GetAllLanguages();
+            LanguageSupport language = Database.AllLanguages;
 
             foreach (string s in language.Interface)
             {

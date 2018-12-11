@@ -84,56 +84,73 @@ namespace Depressurizer.Models
 
         #region Fields
 
-        [DefaultValue(AppType.Unknown)] public AppType AppType = AppType.Unknown;
+        [DefaultValue(AppType.Unknown)]
+        public AppType AppType = AppType.Unknown;
 
-        [DefaultValue(null)] [XmlElement("Genre")]
+        [DefaultValue(null)]
+        [XmlElement("Genre")]
         public List<string> Genres = new List<string>();
 
-        [DefaultValue(null)] [XmlElement("Developer")]
+        [DefaultValue(null)]
+        [XmlElement("Developer")]
         public List<string> Developers = new List<string>();
 
-        [DefaultValue(null)] [XmlArrayItem("Flag")]
+        [DefaultValue(null)]
+        [XmlArrayItem("Flag")]
         public List<string> Flags = new List<string>();
 
         // Basics:
 
-        [DefaultValue(0)] public int HltbCompletionist;
+        [DefaultValue(0)]
+        public int HltbCompletionist;
 
-        [DefaultValue(0)] public int HltbExtras;
+        [DefaultValue(0)]
+        public int HltbExtras;
 
         //howlongtobeat.com times
-        [DefaultValue(0)] public int HltbMain;
+        [DefaultValue(0)]
+        public int HltbMain;
 
         public int Id;
 
         public LanguageSupport LanguageSupport; //TODO: Add field to DB edit dialog
 
-        [DefaultValue(0)] public int LastAppInfoUpdate;
+        [DefaultValue(0)]
+        public int LastAppInfoUpdate;
 
-        [DefaultValue(0)] public int LastStoreScrape;
+        [DefaultValue(0)]
+        public int LastStoreScrape;
 
         // Metacritic:
-        [DefaultValue(null)] public string MetacriticUrl;
+        [DefaultValue(null)]
+        public string MetacriticUrl;
 
         public string Name;
 
-        [DefaultValue(-1)] public int ParentId = -1;
+        [DefaultValue(-1)]
+        public int ParentId = -1;
 
         public AppPlatforms Platforms = AppPlatforms.None;
 
-        [DefaultValue(null)] [XmlElement("Publisher")]
+        [DefaultValue(null)]
+        [XmlElement("Publisher")]
         public List<string> Publishers = new List<string>();
 
-        [DefaultValue(0)] public int ReviewPositivePercentage;
+        [DefaultValue(0)]
+        public int ReviewPositivePercentage;
 
-        [DefaultValue(0)] public int ReviewTotal;
+        [DefaultValue(0)]
+        public int ReviewTotal;
 
-        [DefaultValue(null)] public string SteamReleaseDate;
+        [DefaultValue(null)]
+        public string SteamReleaseDate;
 
-        [DefaultValue(null)] [XmlArrayItem("Tag")]
+        [DefaultValue(null)]
+        [XmlArrayItem("Tag")]
         public List<string> Tags = new List<string>();
 
-        [DefaultValue(0)] public int TotalAchievements;
+        [DefaultValue(0)]
+        public int TotalAchievements;
 
         public VrSupport VrSupport; //TODO: Add field to DB edit dialog
 

@@ -54,8 +54,7 @@ namespace Depressurizer
             lstVrInput.Items.Clear();
             lstVrPlayArea.Items.Clear();
 
-
-            VrSupport vrSupport = Database.GetAllVrSupportFlags();
+            VrSupport vrSupport = Database.AllVRSupport;
 
             foreach (string s in vrSupport.Headsets)
             {

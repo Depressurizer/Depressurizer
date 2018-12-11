@@ -251,7 +251,8 @@ namespace Depressurizer
 
             public Mask mask;
 
-            [MarshalAs(UnmanagedType.LPTStr)] public string pszText;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pszText;
 
             public IntPtr pvFilter;
 

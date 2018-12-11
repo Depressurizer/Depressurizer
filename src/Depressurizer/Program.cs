@@ -32,6 +32,8 @@ namespace Depressurizer
     {
         #region Properties
 
+        private static Database Database => Database.Instance;
+
         private static Logger Logger => Logger.Instance;
 
         private static Settings Settings => Settings.Instance;
@@ -58,6 +60,7 @@ namespace Depressurizer
 
             FatalError.InitializeHandler();
 
+            Database.Load();
             Settings.Load();
 
             AutomaticModeOptions autoOpts = ParseAutoOptions(args);

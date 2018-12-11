@@ -99,7 +99,8 @@ namespace Depressurizer
 
         public override AutoCatType AutoCatType => AutoCatType.DevPub;
 
-        [XmlArrayItem("Developer")] public List<string> Developers { get; set; }
+        [XmlArrayItem("Developer")]
+        public List<string> Developers { get; set; }
 
         public int MinCount { get; set; }
 
@@ -107,7 +108,8 @@ namespace Depressurizer
 
         public string Prefix { get; set; }
 
-        [XmlArrayItem("Publisher")] public List<string> Publishers { get; set; }
+        [XmlArrayItem("Publisher")]
+        public List<string> Publishers { get; set; }
 
         #endregion
 

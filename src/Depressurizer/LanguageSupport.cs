@@ -30,13 +30,16 @@ namespace Depressurizer
     {
         #region Fields
 
-        [DefaultValue(null)] [XmlElement("Interface")]
+        [DefaultValue(null)]
+        [XmlElement("Interface")]
         public List<string> Interface;
 
-        [DefaultValue(null)] [XmlElement("FullAudio")]
+        [DefaultValue(null)]
+        [XmlElement("FullAudio")]
         public List<string> FullAudio;
 
-        [DefaultValue(null)] [XmlElement("Subtitles")]
+        [DefaultValue(null)]
+        [XmlElement("Subtitles")]
         public List<string> Subtitles;
 
         #endregion
