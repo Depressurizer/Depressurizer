@@ -1,4 +1,4 @@
-Depressurizer v4.2.0
+Depressurizer v4.3.0
 
 SUMMARY
 
