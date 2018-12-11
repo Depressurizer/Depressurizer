@@ -576,19 +576,21 @@ namespace Depressurizer
 
                 if (jobs.Count > 0)
                 {
-                    DbScrapeDlg scrapeDlg = new DbScrapeDlg(jobs);
-                    DialogResult scrapeRes = scrapeDlg.ShowDialog();
+                    using (DbScrapeDlg dialog = new DbScrapeDlg(jobs))
+                    {
+                        DialogResult result = dialog.ShowDialog();
 
-                    if (scrapeRes == DialogResult.Cancel)
-                    {
-                        WriteLine("Scraping cancelled.");
-                    }
-                    else
-                    {
-                        WriteLine("Scraping complete.");
-                        if (scrapeDlg.JobsCompleted > 0)
+                        if (result == DialogResult.Cancel)
                         {
-                            dbModified = true;
+                            WriteLine("Scraping cancelled.");
+                        }
+                        else
+                        {
+                            WriteLine("Scraping complete.");
+                            if (dialog.JobsCompleted > 0)
+                            {
+                                dbModified = true;
+                            }
                         }
                     }
                 }

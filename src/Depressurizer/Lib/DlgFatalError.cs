@@ -205,18 +205,25 @@ namespace Rallion
         {
             try
             {
-                SaveFileDialog dlg = new SaveFileDialog();
-                dlg.CreatePrompt = false;
-                dlg.AddExtension = false;
-                dlg.AutoUpgradeEnabled = true;
-                dlg.InitialDirectory = Environment.CurrentDirectory;
-                dlg.FileName = "dError_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".log";
-                DialogResult res = dlg.ShowDialog();
-                if (res == DialogResult.OK)
+                using (SaveFileDialog dialog = new SaveFileDialog())
                 {
-                    StreamWriter fstr = new StreamWriter(dlg.FileName);
-                    fstr.Write(ex.ToString());
-                    fstr.Close();
+                    dialog.CreatePrompt = false;
+                    dialog.AddExtension = false;
+                    dialog.AutoUpgradeEnabled = true;
+                    dialog.InitialDirectory = Environment.CurrentDirectory;
+                    dialog.FileName = "dError_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".log";
+
+                    DialogResult result = dialog.ShowDialog();
+                    if (result != DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    using (StreamWriter streamWriter = new StreamWriter(dialog.FileName))
+                    {
+                        streamWriter.Write(ex.ToString());
+                    }
+
                     MessageBox.Show(GlobalStrings.DlgFatalError_ErrorInformationSaved);
                 }
             }

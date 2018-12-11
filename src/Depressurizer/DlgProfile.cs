@@ -121,21 +121,23 @@ namespace Depressurizer
         {
             if (radSelUserByURL.Checked)
             {
-                CDlgGetSteamID dlg = new CDlgGetSteamID(txtUserUrl.Text);
-                dlg.ShowDialog();
-
-                if (dlg.DialogResult == DialogResult.Cancel)
+                using (CDlgGetSteamID dialog = new CDlgGetSteamID(txtUserUrl.Text))
                 {
-                    return false;
-                }
+                    DialogResult result = dialog.ShowDialog();
 
-                if (dlg.Success == false || dlg.SteamID == 0)
-                {
-                    MessageBox.Show(this, GlobalStrings.DlgProfile_CouldNotFindSteamProfile, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
+                    if (result == DialogResult.Cancel)
+                    {
+                        return false;
+                    }
 
-                txtUserID.Text = dlg.SteamID.ToString();
+                    if (dialog.Success == false || dialog.SteamID == 0)
+                    {
+                        MessageBox.Show(this, GlobalStrings.DlgProfile_CouldNotFindSteamProfile, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                    txtUserID.Text = dialog.SteamID.ToString();
+                }
             }
 
             if (editMode)
@@ -154,23 +156,24 @@ namespace Depressurizer
 
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-
-            try
+            using (SaveFileDialog dialog = new SaveFileDialog())
             {
-                FileInfo f = new FileInfo(txtFilePath.Text);
-                dlg.InitialDirectory = f.DirectoryName;
-                dlg.FileName = f.Name;
-            }
-            catch (ArgumentException) { }
+                try
+                {
+                    FileInfo f = new FileInfo(txtFilePath.Text);
+                    dialog.InitialDirectory = f.DirectoryName;
+                    dialog.FileName = f.Name;
+                }
+                catch (ArgumentException) { }
 
-            dlg.DefaultExt = "profile";
-            dlg.AddExtension = true;
-            dlg.Filter = GlobalStrings.DlgProfile_Filter;
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                txtFilePath.Text = dlg.FileName;
+                dialog.DefaultExt = "profile";
+                dialog.AddExtension = true;
+                dialog.Filter = GlobalStrings.DlgProfile_Filter;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    txtFilePath.Text = dialog.FileName;
+                }
             }
         }
 

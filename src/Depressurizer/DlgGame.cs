@@ -58,20 +58,21 @@ namespace Depressurizer
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-
-            try
+            using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                FileInfo f = new FileInfo(txtExecutable.Text);
-                dlg.InitialDirectory = f.DirectoryName;
-                dlg.FileName = f.Name;
-            }
-            catch (ArgumentException) { }
+                try
+                {
+                    FileInfo fileInfo = new FileInfo(txtExecutable.Text);
+                    dialog.InitialDirectory = fileInfo.DirectoryName;
+                    dialog.FileName = fileInfo.Name;
+                }
+                catch (ArgumentException) { }
 
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                txtExecutable.Text = dlg.FileName;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    txtExecutable.Text = dialog.FileName;
+                }
             }
         }
 

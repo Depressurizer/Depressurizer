@@ -124,9 +124,13 @@ namespace Depressurizer
         /// </summary>
         private void AddNewGame()
         {
-            GameDBEntryDialog dlg = new GameDBEntryDialog();
-            if (dlg.ShowDialog() == DialogResult.OK && dlg.Game != null)
+            using (GameDBEntryDialog dlg = new GameDBEntryDialog())
             {
+                if (dlg.ShowDialog() != DialogResult.OK || dlg.Game == null)
+                {
+                    return;
+                }
+
                 if (Database.Contains(dlg.Game.Id))
                 {
                     MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -428,20 +432,28 @@ namespace Depressurizer
         /// </summary>
         private void EditSelectedGame()
         {
-            if (lstGames.SelectedIndices.Count > 0)
+            if (lstGames.SelectedIndices.Count <= 0)
             {
-                DatabaseEntry game = displayedGames[lstGames.SelectedIndices[0]];
-                if (game != null)
+                return;
+            }
+
+            DatabaseEntry game = displayedGames[lstGames.SelectedIndices[0]];
+            if (game == null)
+            {
+                return;
+            }
+
+            using (GameDBEntryDialog dialog = new GameDBEntryDialog(game))
+            {
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK)
                 {
-                    GameDBEntryDialog dlg = new GameDBEntryDialog(game);
-                    DialogResult res = dlg.ShowDialog();
-                    if (res == DialogResult.OK)
-                    {
-                        lstGames.RedrawItems(lstGames.SelectedIndices[0], lstGames.SelectedIndices[0], true);
-                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_EditedGame, game.Id));
-                        UnsavedChanges = true;
-                    }
+                    return;
                 }
+
+                lstGames.RedrawItems(lstGames.SelectedIndices[0], lstGames.SelectedIndices[0], true);
+                AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_EditedGame, game.Id));
+                UnsavedChanges = true;
             }
         }
 
@@ -497,29 +509,32 @@ namespace Depressurizer
         /// </summary>
         private void LoadDatabase()
         {
-            if (CheckForUnsaved())
+            if (!CheckForUnsaved())
             {
-                OpenFileDialog dlg = new OpenFileDialog
-                {
-                    DefaultExt = "json",
-                    AddExtension = true,
-                    CheckFileExists = true,
-                    Filter = GlobalStrings.DBEditDlg_DialogFilter
-                };
-
-                DialogResult res = dlg.ShowDialog();
-                if (res != DialogResult.OK)
-                {
-                    return;
-                }
-
-                Cursor = Cursors.WaitCursor;
-                Database.Load(dlg.FileName);
-                RebuildDisplayList();
-                AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
-                UnsavedChanges = true;
-                Cursor = Cursors.Default;
+                return;
             }
+
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                DefaultExt = "json",
+                AddExtension = true,
+                CheckFileExists = true,
+                Filter = GlobalStrings.DBEditDlg_DialogFilter
+            };
+
+            DialogResult result = dialog.ShowDialog();
+            if (result != DialogResult.OK)
+            {
+                return;
+            }
+
+            Cursor = Cursors.WaitCursor;
+            Database.Load(dialog.FileName);
+
+            RebuildDisplayList();
+            AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
+            UnsavedChanges = true;
+            Cursor = Cursors.Default;
         }
 
         private void lstGames_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -744,17 +759,18 @@ namespace Depressurizer
         /// </summary>
         private void SaveAs()
         {
-            SaveFileDialog dlg = new SaveFileDialog
+            SaveFileDialog dialog = new SaveFileDialog
             {
                 DefaultExt = "json",
                 AddExtension = true,
                 CheckFileExists = false,
                 Filter = GlobalStrings.DBEditDlg_DialogFilter
             };
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
+
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                AddStatusMsg(Save(dlg.FileName) ? GlobalStrings.DBEditDlg_FileSaved : GlobalStrings.DBEditDlg_SaveFailed);
+                AddStatusMsg(Save(dialog.FileName) ? GlobalStrings.DBEditDlg_FileSaved : GlobalStrings.DBEditDlg_SaveFailed);
             }
         }
 
@@ -781,39 +797,42 @@ namespace Depressurizer
         /// <param name="gamesToScrape">Queue of games to scrape</param>
         private void ScrapeGames(Queue<int> gamesToScrape)
         {
-            if (gamesToScrape.Count > 0)
-            {
-                DbScrapeDlg dlg = new DbScrapeDlg(gamesToScrape);
-                DialogResult res = dlg.ShowDialog();
-
-                if (dlg.Error != null)
-                {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGames);
-                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                if (res == DialogResult.Cancel)
-                {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
-                }
-                else if (res == DialogResult.Abort)
-                {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dlg.JobsCompleted, dlg.JobsTotal));
-                }
-                else
-                {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dlg.JobsCompleted));
-                }
-
-                if (dlg.JobsCompleted > 0)
-                {
-                    UnsavedChanges = true;
-                    RebuildDisplayList();
-                }
-            }
-            else
+            if (gamesToScrape.Count <= 0)
             {
                 AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
+                return;
+            }
+
+            using (DbScrapeDlg dialog = new DbScrapeDlg(gamesToScrape))
+            {
+                DialogResult result = dialog.ShowDialog();
+
+                if (dialog.Error != null)
+                {
+                    AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGames);
+                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                switch (result)
+                {
+                    case DialogResult.Cancel:
+                        AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
+                        break;
+                    case DialogResult.Abort:
+                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dialog.JobsCompleted, dialog.JobsTotal));
+                        break;
+                    default:
+                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dialog.JobsCompleted));
+                        break;
+                }
+
+                if (dialog.JobsCompleted <= 0)
+                {
+                    return;
+                }
+
+                UnsavedChanges = true;
+                RebuildDisplayList();
             }
         }
 
@@ -996,25 +1015,27 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            HltbPrcDlg dlg = new HltbPrcDlg();
-            DialogResult res = dlg.ShowDialog();
+            using (HltbPrcDlg dialog = new HltbPrcDlg())
+            {
+                DialogResult result = dialog.ShowDialog();
 
-            if (dlg.Error != null)
-            {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Logger.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dlg.Error.Message);
-                AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
-            }
-            else
-            {
-                if (res == DialogResult.Cancel || res == DialogResult.Abort)
+                if (dialog.Error != null)
                 {
-                    AddStatusMsg(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logger.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dialog.Error.Message);
+                    AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
                 }
                 else
                 {
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedHltb, dlg.Updated));
-                    UnsavedChanges = true;
+                    if (result == DialogResult.Cancel || result == DialogResult.Abort)
+                    {
+                        AddStatusMsg(GlobalStrings.DBEditDlg_CanceledHltbUpdate);
+                    }
+                    else
+                    {
+                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedHltb, dialog.Updated));
+                        UnsavedChanges = true;
+                    }
                 }
             }
 

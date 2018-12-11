@@ -812,7 +812,10 @@ namespace Depressurizer
 
         private void autoModeHelperToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new DlgAutomaticModeHelper(CurrentProfile).ShowDialog();
+            using (DlgAutomaticModeHelper dialog = new DlgAutomaticModeHelper(CurrentProfile))
+            {
+                dialog.ShowDialog();
+            }
         }
 
         /// <summary>
@@ -2511,19 +2514,19 @@ namespace Depressurizer
                 return;
             }
 
-            OpenFileDialog dlg = new OpenFileDialog
+            using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                DefaultExt = "profile",
-                AddExtension = true,
-                CheckFileExists = true,
-                Filter = GlobalStrings.DlgProfile_Filter,
-                InitialDirectory = Path.GetDirectoryName(CurrentProfile == null ? Assembly.GetExecutingAssembly().CodeBase : CurrentProfile.FilePath)
-            };
+                dialog.DefaultExt = "profile";
+                dialog.AddExtension = true;
+                dialog.CheckFileExists = true;
+                dialog.Filter = GlobalStrings.DlgProfile_Filter;
+                dialog.InitialDirectory = Path.GetDirectoryName(CurrentProfile == null ? Assembly.GetExecutingAssembly().CodeBase : CurrentProfile.FilePath);
 
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                LoadProfile(dlg.FileName, false);
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    LoadProfile(dialog.FileName, false);
+                }
             }
         }
 
@@ -3897,18 +3900,19 @@ namespace Depressurizer
                 return;
             }
 
-            SaveFileDialog dlg = new SaveFileDialog
+            using (SaveFileDialog dialog = new SaveFileDialog())
             {
-                DefaultExt = "profile",
-                AddExtension = true,
-                CheckPathExists = true,
-                Filter = GlobalStrings.DlgProfile_Filter,
-                InitialDirectory = Path.GetDirectoryName(CurrentProfile.FilePath)
-            };
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                SaveProfile(dlg.FileName);
+                dialog.DefaultExt = "profile";
+                dialog.AddExtension = true;
+                dialog.CheckPathExists = true;
+                dialog.Filter = GlobalStrings.DlgProfile_Filter;
+                dialog.InitialDirectory = Path.GetDirectoryName(CurrentProfile.FilePath);
+
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    SaveProfile(dialog.FileName);
+                }
             }
         }
 

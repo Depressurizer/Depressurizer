@@ -129,36 +129,41 @@ namespace Depressurizer
             string name = string.Empty;
             AutoCatType t = AutoCatType.None;
             bool good = true;
-            DialogResult res;
+            DialogResult result;
             do
             {
-                DlgAutoCatCreate dlg = new DlgAutoCatCreate();
-                res = dlg.ShowDialog();
-                if (res == DialogResult.OK)
+                using (DlgAutoCatCreate dialog = new DlgAutoCatCreate())
                 {
+                    result = dialog.ShowDialog();
+                    if (result != DialogResult.OK)
+                    {
+                        continue;
+                    }
+
                     good = true;
-                    name = dlg.SelectedName;
-                    t = dlg.SelectedType;
-                    if (string.IsNullOrEmpty(name))
-                    {
-                        MessageBox.Show(GlobalStrings.DlgAutoCat_MustHaveName);
-                        good = false;
-                    }
-                    else if (NameExists(name))
-                    {
-                        MessageBox.Show(GlobalStrings.DlgAutoCat_NameInUse);
-                        good = false;
-                    }
-                    else if (t == AutoCatType.None)
-                    {
-                        MessageBox.Show(GlobalStrings.DlgAutoCat_SelectValidType);
-                        good = false;
-                    }
+                    name = dialog.SelectedName;
+                    t = dialog.SelectedType;
                 }
-            } while (res == DialogResult.OK && !good);
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    MessageBox.Show(GlobalStrings.DlgAutoCat_MustHaveName);
+                    good = false;
+                }
+                else if (NameExists(name))
+                {
+                    MessageBox.Show(GlobalStrings.DlgAutoCat_NameInUse);
+                    good = false;
+                }
+                else if (t == AutoCatType.None)
+                {
+                    MessageBox.Show(GlobalStrings.DlgAutoCat_SelectValidType);
+                    good = false;
+                }
+            } while (result == DialogResult.OK && !good);
 
             AutoCat newAutoCat = null;
-            if (res == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 newAutoCat = AutoCat.Create(t, name);
                 if (newAutoCat != null)

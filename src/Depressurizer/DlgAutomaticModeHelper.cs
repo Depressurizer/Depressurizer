@@ -68,24 +68,27 @@ namespace Depressurizer
 
         private void CreateShortcut()
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-
-            dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            dlg.DefaultExt = "lnk";
-            dlg.AddExtension = true;
-            dlg.Filter = "Shortcuts|*.lnk";
-            dlg.FileName = "Depressurizer Auto";
-
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
+            SaveFileDialog dialog = new SaveFileDialog
             {
-                WshShell shell = new WshShell();
-                IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(dlg.FileName);
-                shortcut.TargetPath = Application.ExecutablePath;
-                shortcut.WorkingDirectory = Application.StartupPath;
-                shortcut.Arguments = GenerateArguments();
-                shortcut.Save();
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                DefaultExt = "lnk",
+                AddExtension = true,
+                Filter = "Shortcuts|*.lnk",
+                FileName = "Depressurizer Auto"
+            };
+
+            DialogResult result = dialog.ShowDialog();
+            if (result != DialogResult.OK)
+            {
+                return;
             }
+
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = (IWshShortcut) shell.CreateShortcut(dialog.FileName);
+            shortcut.TargetPath = Application.ExecutablePath;
+            shortcut.WorkingDirectory = Application.StartupPath;
+            shortcut.Arguments = GenerateArguments();
+            shortcut.Save();
         }
 
         private void DlgAutomaticModeHelper_Load(object sender, EventArgs e)

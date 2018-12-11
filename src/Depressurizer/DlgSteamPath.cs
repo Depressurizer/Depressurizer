@@ -49,11 +49,13 @@ namespace Depressurizer
 
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog dlg = new FolderBrowserDialog();
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
-                txtPath.Text = dlg.SelectedPath;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    txtPath.Text = dialog.SelectedPath;
+                }
             }
         }
 

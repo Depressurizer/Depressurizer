@@ -57,21 +57,25 @@ namespace Depressurizer
 
         private void cmdDefaultProfileBrowse_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
+            using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                txtDefaultProfile.Text = dlg.FileName;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    txtDefaultProfile.Text = dialog.FileName;
+                }
             }
         }
 
         private void cmdSteamPathBrowse_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog dlg = new FolderBrowserDialog();
-            DialogResult res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
-                txtSteamPath.Text = dlg.SelectedPath;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    txtSteamPath.Text = dialog.SelectedPath;
+                }
             }
         }
 

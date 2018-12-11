@@ -166,17 +166,19 @@ namespace Depressurizer
                 return;
             }
 
-            GetCuratorRecommendationsDlg dlg = new GetCuratorRecommendationsDlg(curatorId);
-            DialogResult res = dlg.ShowDialog();
+            using (GetCuratorRecommendationsDlg dialog = new GetCuratorRecommendationsDlg(curatorId))
+            {
+                DialogResult result = dialog.ShowDialog();
 
-            if (dlg.Error != null)
-            {
-                Logger.Error(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message);
-                MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_GetRecommendations_Error, dlg.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else if (res != DialogResult.Cancel && res != DialogResult.Abort)
-            {
-                curatorRecommendations = dlg.CuratorRecommendations;
+                if (dialog.Error != null)
+                {
+                    Logger.Error(GlobalStrings.AutocatCurator_GetRecommendations_Error, dialog.Error.Message);
+                    MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_GetRecommendations_Error, dialog.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (result != DialogResult.Cancel && result != DialogResult.Abort)
+                {
+                    curatorRecommendations = dialog.CuratorRecommendations;
+                }
             }
         }
 

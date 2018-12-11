@@ -90,17 +90,20 @@ namespace Depressurizer
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            DlgAutoCatSelect dlg = new DlgAutoCatSelect(Autocats, current.Name);
-
-            DialogResult res = dlg.ShowDialog();
-
-            if (res == DialogResult.OK)
+            using (DlgAutoCatSelect dialog = new DlgAutoCatSelect(Autocats, current.Name))
             {
-                foreach (AutoCat ac in dlg.AutoCatList)
+                DialogResult result = dialog.ShowDialog();
+
+                if (result != DialogResult.OK)
                 {
-                    if (ac.Selected && !InGroup(ac.Name))
+                    return;
+                }
+
+                foreach (AutoCat autoCat in dialog.AutoCatList)
+                {
+                    if (autoCat.Selected && !InGroup(autoCat.Name))
                     {
-                        lbAutocats.Items.Add(ac.Name);
+                        lbAutocats.Items.Add(autoCat.Name);
                     }
                 }
             }
