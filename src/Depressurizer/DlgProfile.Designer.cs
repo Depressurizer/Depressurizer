@@ -496,7 +496,6 @@ namespace Depressurizer {
             this.Controls.Add(this.cmdOk);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "DlgProfile";
-            this.ShowInTaskbar = false;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProfileDlg_FormClosing);
             this.Load += new System.EventHandler(this.ProfileDlg_Load);
             this.grpUserInfo.ResumeLayout(false);

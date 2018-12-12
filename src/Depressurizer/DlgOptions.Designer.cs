@@ -168,6 +168,7 @@ namespace Depressurizer {
             // cmdCancel
             // 
             resources.ApplyResources(this.cmdCancel, "cmdCancel");
+            this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
@@ -325,15 +326,16 @@ namespace Depressurizer {
             // 
             // DlgOptions
             // 
+            this.AcceptButton = this.cmdAccept;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ControlBox = false;
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdAccept);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "DlgOptions";
-            this.ShowInTaskbar = false;
             this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.grpSteamDir.ResumeLayout(false);
             this.grpSteamDir.PerformLayout();

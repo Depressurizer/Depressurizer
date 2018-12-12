@@ -281,8 +281,9 @@ namespace Depressurizer {
             // 
             // mbtnFilterSave
             // 
-            this.mbtnFilterSave.Depth = 0;
             resources.ApplyResources(this.mbtnFilterSave, "mbtnFilterSave");
+            this.mbtnFilterSave.Depth = 0;
+            this.mbtnFilterSave.Icon = null;
             this.mbtnFilterSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnFilterSave.Name = "mbtnFilterSave";
             this.mbtnFilterSave.Primary = true;
@@ -291,8 +292,9 @@ namespace Depressurizer {
             // 
             // mbtnFilterDelete
             // 
-            this.mbtnFilterDelete.Depth = 0;
             resources.ApplyResources(this.mbtnFilterDelete, "mbtnFilterDelete");
+            this.mbtnFilterDelete.Depth = 0;
+            this.mbtnFilterDelete.Icon = null;
             this.mbtnFilterDelete.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnFilterDelete.Name = "mbtnFilterDelete";
             this.mbtnFilterDelete.Primary = true;
@@ -301,8 +303,9 @@ namespace Depressurizer {
             // 
             // mbtnFilterRename
             // 
-            this.mbtnFilterRename.Depth = 0;
             resources.ApplyResources(this.mbtnFilterRename, "mbtnFilterRename");
+            this.mbtnFilterRename.Depth = 0;
+            this.mbtnFilterRename.Icon = null;
             this.mbtnFilterRename.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnFilterRename.Name = "mbtnFilterRename";
             this.mbtnFilterRename.Primary = true;
@@ -471,8 +474,9 @@ namespace Depressurizer {
             // 
             // mbtnAutoCategorize
             // 
-            this.mbtnAutoCategorize.Depth = 0;
             resources.ApplyResources(this.mbtnAutoCategorize, "mbtnAutoCategorize");
+            this.mbtnAutoCategorize.Depth = 0;
+            this.mbtnAutoCategorize.Icon = null;
             this.mbtnAutoCategorize.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnAutoCategorize.Name = "mbtnAutoCategorize";
             this.mbtnAutoCategorize.Primary = true;
@@ -493,8 +497,9 @@ namespace Depressurizer {
             // 
             // mbtnEditAutocats
             // 
-            this.mbtnEditAutocats.Depth = 0;
             resources.ApplyResources(this.mbtnEditAutocats, "mbtnEditAutocats");
+            this.mbtnEditAutocats.Depth = 0;
+            this.mbtnEditAutocats.Icon = null;
             this.mbtnEditAutocats.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnEditAutocats.Name = "mbtnEditAutocats";
             this.mbtnEditAutocats.Primary = true;
@@ -556,8 +561,9 @@ namespace Depressurizer {
             // 
             // mbtnCatAdd
             // 
-            this.mbtnCatAdd.Depth = 0;
             resources.ApplyResources(this.mbtnCatAdd, "mbtnCatAdd");
+            this.mbtnCatAdd.Depth = 0;
+            this.mbtnCatAdd.Icon = null;
             this.mbtnCatAdd.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnCatAdd.Name = "mbtnCatAdd";
             this.mbtnCatAdd.Primary = true;
@@ -566,8 +572,9 @@ namespace Depressurizer {
             // 
             // mbtnCatDelete
             // 
-            this.mbtnCatDelete.Depth = 0;
             resources.ApplyResources(this.mbtnCatDelete, "mbtnCatDelete");
+            this.mbtnCatDelete.Depth = 0;
+            this.mbtnCatDelete.Icon = null;
             this.mbtnCatDelete.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnCatDelete.Name = "mbtnCatDelete";
             this.mbtnCatDelete.Primary = true;
@@ -576,8 +583,9 @@ namespace Depressurizer {
             // 
             // mbtnCatRename
             // 
-            this.mbtnCatRename.Depth = 0;
             resources.ApplyResources(this.mbtnCatRename, "mbtnCatRename");
+            this.mbtnCatRename.Depth = 0;
+            this.mbtnCatRename.Icon = null;
             this.mbtnCatRename.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnCatRename.Name = "mbtnCatRename";
             this.mbtnCatRename.Primary = true;
@@ -613,8 +621,9 @@ namespace Depressurizer {
             // 
             // mbtnClearFilters
             // 
-            this.mbtnClearFilters.Depth = 0;
             resources.ApplyResources(this.mbtnClearFilters, "mbtnClearFilters");
+            this.mbtnClearFilters.Depth = 0;
+            this.mbtnClearFilters.Icon = null;
             this.mbtnClearFilters.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnClearFilters.Name = "mbtnClearFilters";
             this.mbtnClearFilters.Primary = true;
@@ -1119,8 +1128,9 @@ namespace Depressurizer {
             // 
             // mbtnCategories
             // 
-            this.mbtnCategories.Depth = 0;
             resources.ApplyResources(this.mbtnCategories, "mbtnCategories");
+            this.mbtnCategories.Depth = 0;
+            this.mbtnCategories.Icon = null;
             this.mbtnCategories.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnCategories.Name = "mbtnCategories";
             this.mbtnCategories.Primary = true;
@@ -1154,8 +1164,9 @@ namespace Depressurizer {
             // 
             // mbtnSearchClear
             // 
-            this.mbtnSearchClear.Depth = 0;
             resources.ApplyResources(this.mbtnSearchClear, "mbtnSearchClear");
+            this.mbtnSearchClear.Depth = 0;
+            this.mbtnSearchClear.Icon = null;
             this.mbtnSearchClear.MouseState = MaterialSkin.MouseState.HOVER;
             this.mbtnSearchClear.Name = "mbtnSearchClear";
             this.mbtnSearchClear.Primary = true;
@@ -1175,6 +1186,7 @@ namespace Depressurizer {
             this.mtxtSearch.Depth = 0;
             this.mtxtSearch.Hint = "";
             resources.ApplyResources(this.mtxtSearch, "mtxtSearch");
+            this.mtxtSearch.MaxLength = 32767;
             this.mtxtSearch.MouseState = MaterialSkin.MouseState.HOVER;
             this.mtxtSearch.Name = "mtxtSearch";
             this.mtxtSearch.PasswordChar = '\0';
@@ -1551,10 +1563,13 @@ namespace Depressurizer {
             ((System.ComponentModel.ISupportInitialize)(this.splitCategories)).EndInit();
             this.splitCategories.ResumeLayout(false);
             this.tblLayoutPanelFilterToolbar.ResumeLayout(false);
+            this.tblLayoutPanelFilterToolbar.PerformLayout();
             this.contextCat.ResumeLayout(false);
             this.tblLayoutPanelAutocats.ResumeLayout(false);
+            this.tblLayoutPanelAutocats.PerformLayout();
             this.contextAutoCat.ResumeLayout(false);
             this.tblLayoutPanelCategoryButtons.ResumeLayout(false);
+            this.tblLayoutPanelCategoryButtons.PerformLayout();
             this.tblLayoutPanelAdvancedModeToolbar.ResumeLayout(false);
             this.tblLayoutPanelAdvancedModeToolbar.PerformLayout();
             this.splitBrowser.Panel1.ResumeLayout(false);
