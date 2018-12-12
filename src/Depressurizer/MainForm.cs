@@ -1987,57 +1987,47 @@ namespace Depressurizer
             Cursor = Cursors.Default;
         }
 
-        /// <summary>
-        ///     Initializes the lstGames Control.
-        /// </summary>
         private void InitializeLstGames()
         {
             tlstGames = new TypedObjectListView<GameInfo>(lstGames);
-            //Aspect Getters
             tlstGames.GenerateAspectGetters();
+
             colGameID.AspectToStringConverter = delegate { return string.Empty; };
-            //colGameID.AspectToStringConverter = delegate(object obj)
-            //{
-            //    int id = (int)obj;
-            //    return (id < 0) ? GlobalStrings.MainForm_External : id.ToString();
-            //};
-            //colTitle.AspectGetter = delegate (Object g) { return String.Empty; };
             colCategories.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                return ((GameInfo) g).GetCatString(GlobalStrings.MainForm_Uncategorized);
+                return gameInfo.GetCatString(GlobalStrings.MainForm_Uncategorized);
             };
             colFavorite.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                return ((GameInfo) g).IsFavorite() ? "X" : string.Empty;
+                return gameInfo.IsFavorite() ? "X" : string.Empty;
             };
             colHidden.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                return ((GameInfo) g).Hidden ? "X" : string.Empty;
+                return gameInfo.Hidden ? "X" : string.Empty;
             };
             colGenres.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return GlobalStrings.MainForm_NoGenres;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.Genres.Count > 0)
                 {
                     return string.Join(", ", entry.Genres);
                 }
@@ -2046,13 +2036,12 @@ namespace Depressurizer
             };
             colFlags.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return GlobalStrings.MainForm_NoFlags;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.Flags.Count > 0)
                 {
                     return string.Join(", ", entry.Flags);
                 }
@@ -2061,13 +2050,12 @@ namespace Depressurizer
             };
             colTags.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return GlobalStrings.MainForm_NoTags;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.Tags.Count > 0)
                 {
                     return string.Join(", ", entry.Tags);
                 }
@@ -2076,13 +2064,12 @@ namespace Depressurizer
             };
             colVRHeadsets.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.VRSupport.Headsets.Count > 0)
                 {
                     return string.Join(", ", entry.VRSupport.Headsets);
                 }
@@ -2091,13 +2078,12 @@ namespace Depressurizer
             };
             colVRInput.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.VRSupport.Input.Count > 0)
                 {
                     return string.Join(", ", entry.VRSupport.Input);
                 }
@@ -2106,13 +2092,12 @@ namespace Depressurizer
             };
             colVRPlayArea.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.VRSupport.PlayArea.Count > 0)
                 {
                     return string.Join(", ", entry.VRSupport.PlayArea);
                 }
@@ -2121,13 +2106,12 @@ namespace Depressurizer
             };
             colLanguageInterface.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.LanguageSupport.Interface.Count > 0)
                 {
                     return string.Join(", ", entry.LanguageSupport.Interface);
                 }
@@ -2136,13 +2120,12 @@ namespace Depressurizer
             };
             colLanguageSubtitles.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.LanguageSupport.Subtitles.Count > 0)
                 {
                     return string.Join(", ", entry.LanguageSupport.Subtitles);
                 }
@@ -2151,13 +2134,12 @@ namespace Depressurizer
             };
             colLanguageFullAudio.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return string.Empty;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.LanguageSupport.FullAudio.Count > 0)
                 {
                     return string.Join(", ", entry.LanguageSupport.FullAudio);
                 }
@@ -2166,14 +2148,18 @@ namespace Depressurizer
             };
             colYear.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return GlobalStrings.MainForm_Unknown;
                 }
 
-                int id = ((GameInfo) g).Id;
+                if (!Database.Contains(gameInfo.Id, out DatabaseEntry entry))
+                {
+                    return GlobalStrings.MainForm_Unknown;
+                }
+
                 CultureInfo culture = Language.GetCultureInfo(Database.Language);
-                if (Database.Contains(id, out DatabaseEntry entry) && DateTime.TryParse(entry.SteamReleaseDate, culture, DateTimeStyles.None, out DateTime releaseDate))
+                if (DateTime.TryParse(entry.SteamReleaseDate, culture, DateTimeStyles.None, out DateTime releaseDate))
                 {
                     return releaseDate.Year.ToString();
                 }
@@ -2182,33 +2168,32 @@ namespace Depressurizer
             };
             colLastPlayed.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return DateTime.MinValue;
                 }
 
-                if (((GameInfo) g).LastPlayed <= 0)
+                if (gameInfo.LastPlayed <= 0)
                 {
                     return DateTime.MinValue;
                 }
 
-                return Utility.GetDTFromUTime(((GameInfo) g).LastPlayed).Date;
+                return Utility.GetDTFromUTime(gameInfo.LastPlayed).Date;
             };
             colAchievements.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return 0;
                 }
 
-                int id = ((GameInfo) g).Id;
-                return Database.Contains(id, out DatabaseEntry entry) ? entry.TotalAchievements : 0;
+                return Database.Contains(gameInfo.Id, out DatabaseEntry entry) ? entry.TotalAchievements : 0;
             };
             colPlatforms.AspectGetter = delegate(object g)
             {
-                if (g == null || !Database.Contains(((GameInfo) g).Id, out DatabaseEntry entry))
+                if (g == null || !(g is GameInfo gameInfo) || Database.Contains(gameInfo.Id, out DatabaseEntry entry))
                 {
-                    return "";
+                    return string.Empty;
                 }
 
                 AppPlatforms platforms = entry.Platforms;
@@ -2216,13 +2201,12 @@ namespace Depressurizer
             };
             colDevelopers.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return GlobalStrings.MainForm_Unknown;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.Developers.Count > 0)
                 {
                     return string.Join(", ", entry.Developers);
                 }
@@ -2231,13 +2215,12 @@ namespace Depressurizer
             };
             colPublishers.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return GlobalStrings.MainForm_Unknown;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry))
+                if (Database.Contains(gameInfo.Id, out DatabaseEntry entry) && entry.Publishers.Count > 0)
                 {
                     return string.Join(", ", entry.Publishers);
                 }
@@ -2246,33 +2229,30 @@ namespace Depressurizer
             };
             colNumberOfReviews.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return 0;
                 }
 
-                int id = ((GameInfo) g).Id;
-                return Database.Contains(id, out DatabaseEntry entry) ? entry.ReviewTotal : 0;
+                return Database.Contains(gameInfo.Id, out DatabaseEntry entry) ? entry.ReviewTotal : 0;
             };
             colReviewScore.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return 0;
                 }
 
-                int id = ((GameInfo) g).Id;
-                return Database.Contains(id, out DatabaseEntry entry) ? entry.ReviewPositivePercentage : 0;
+                return Database.Contains(gameInfo.Id, out DatabaseEntry entry) ? entry.ReviewPositivePercentage : 0;
             };
             colReviewLabel.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return 0;
                 }
 
-                int id = ((GameInfo) g).Id;
-                if (!Database.Contains(id, out DatabaseEntry entry))
+                if (!Database.Contains(gameInfo.Id, out DatabaseEntry entry))
                 {
                     return 0;
                 }
@@ -2328,33 +2308,30 @@ namespace Depressurizer
             };
             colHltbMain.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return 0;
                 }
 
-                int id = ((GameInfo) g).Id;
-                return Database.Contains(id, out DatabaseEntry entry) ? entry.HltbMain : 0;
+                return Database.Contains(gameInfo.Id, out DatabaseEntry entry) ? entry.HltbMain : 0;
             };
             colHltbExtras.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return 0;
                 }
 
-                int id = ((GameInfo) g).Id;
-                return Database.Contains(id, out DatabaseEntry entry) ? entry.HltbExtras : 0;
+                return Database.Contains(gameInfo.Id, out DatabaseEntry entry) ? entry.HltbExtras : 0;
             };
             colHltbCompletionist.AspectGetter = delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return 0;
                 }
 
-                int id = ((GameInfo) g).Id;
-                return Database.Contains(id, out DatabaseEntry entry) ? entry.HltbCompletionist : 0;
+                return Database.Contains(gameInfo.Id, out DatabaseEntry entry) ? entry.HltbCompletionist : 0;
             };
 
             //Aspect to String Converters
@@ -2471,12 +2448,12 @@ namespace Depressurizer
             colPlatforms.ClusteringStrategy = new CommaClusteringStrategy();
             lstGames.AdditionalFilter = new ModelFilter(delegate(object g)
             {
-                if (g == null)
+                if (g == null || !(g is GameInfo gameInfo))
                 {
                     return false;
                 }
 
-                return ShouldDisplayGame((GameInfo) g);
+                return ShouldDisplayGame(gameInfo);
             });
 
             //Formating
