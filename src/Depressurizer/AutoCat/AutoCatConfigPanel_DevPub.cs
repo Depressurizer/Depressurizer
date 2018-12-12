@@ -80,7 +80,12 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public void FillDevList(ICollection<string> preChecked = null)
+        public void FillDevList()
+        {
+            FillDevList(null);
+        }
+
+        public void FillDevList(ICollection<string> preChecked)
         {
             Cursor = Cursors.WaitCursor;
             IEnumerable<Tuple<string, int>> devList = Database.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
@@ -110,7 +115,12 @@ namespace Depressurizer
             Cursor = Cursors.Default;
         }
 
-        public void FillPubList(ICollection<string> preChecked = null)
+        public void FillPubList()
+        {
+            FillPubList(null);
+        }
+
+        public void FillPubList(ICollection<string> preChecked)
         {
             Cursor = Cursors.WaitCursor;
             IEnumerable<Tuple<string, int>> pubList = Database.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);

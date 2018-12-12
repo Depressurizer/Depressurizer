@@ -1725,20 +1725,19 @@ namespace Depressurizer
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings settings = Settings.Instance;
-            settings.X = Left;
-            settings.Y = Top;
-            settings.Height = Height;
-            settings.Width = Width;
-            settings.SplitContainer = splitContainer.SplitterDistance;
-            settings.SplitGame = splitGame.SplitterDistance;
-            settings.SplitBrowser = splitBrowser.SplitterDistance;
+            Settings.X = Left;
+            Settings.Y = Top;
+            Settings.Height = Height;
+            Settings.Width = Width;
+            Settings.SplitContainer = splitContainer.SplitterDistance;
+            Settings.SplitGame = splitGame.SplitterDistance;
+            Settings.SplitBrowser = splitBrowser.SplitterDistance;
 
-            settings.Filter = AdvancedCategoryFilter ? cboFilter.Text : string.Empty;
+            Settings.Filter = AdvancedCategoryFilter ? cboFilter.Text : string.Empty;
 
             if (lstCategories.SelectedItems.Count > 0)
             {
-                settings.Category = lstCategories.SelectedItems[0].Name;
+                Settings.Category = lstCategories.SelectedItems[0].Name;
             }
 
             SaveSelectedAutoCats();
@@ -1755,19 +1754,18 @@ namespace Depressurizer
             contextGame.MouseWheel += HandleMouseWheel;
 
             // Load saved forms settings
-            Settings settings = Settings.Instance;
-            Location = new Point(settings.X, settings.Y);
+            Location = new Point(Settings.X, Settings.Y);
             if (!Utility.IsOnScreen(this))
             {
                 Location = new Point(0, 0);
             }
 
-            Size = new Size(settings.Width, settings.Height);
-            splitContainer.SplitterDistance = settings.SplitContainer;
-            settings.SplitGameContainerHeight = splitGame.Height;
-            splitGame.SplitterDistance = settings.SplitGame;
-            settings.SplitBrowserContainerWidth = splitBrowser.Width;
-            splitBrowser.SplitterDistance = settings.SplitBrowser;
+            Size = new Size(Settings.Width, Settings.Height);
+            splitContainer.SplitterDistance = Settings.SplitContainer;
+            Settings.SplitGameContainerHeight = splitGame.Height;
+            splitGame.SplitterDistance = Settings.SplitGame;
+            Settings.SplitBrowserContainerWidth = splitBrowser.Width;
+            splitBrowser.SplitterDistance = Settings.SplitBrowser;
 
             ttHelp.Ext_SetToolTip(mchkAdvancedCategories, GlobalStrings.MainForm_Help_AdvancedCategories);
 
@@ -1816,7 +1814,7 @@ namespace Depressurizer
                     break;
             }
 
-            Database.ChangeLanguage(settings.StoreLanguage);
+            Database.ChangeLanguage(Settings.StoreLanguage);
 
             UpdateUIForSingleCat();
             UpdateEnabledStatesForGames();
@@ -1829,10 +1827,9 @@ namespace Depressurizer
                 return;
             }
 
-            // restore previous session
-            SelectCategory(settings);
-            SelectFilter(settings);
-            SelectAutoCats(settings);
+            SelectCategory();
+            SelectFilter();
+            SelectAutoCats();
         }
 
         /// <summary>
@@ -3940,14 +3937,14 @@ namespace Depressurizer
             Settings.AutoCats = autoCats;
         }
 
-        private void SelectAutoCats(Settings settings)
+        private void SelectAutoCats()
         {
-            if (settings.AutoCats == null)
+            if (Settings.AutoCats == null)
             {
                 return;
             }
 
-            List<string> autoCats = settings.AutoCats.Split(',').ToList();
+            List<string> autoCats = Settings.AutoCats.Split(',').ToList();
             foreach (string autoCat in autoCats)
             {
                 foreach (ListViewItem listViewItem in lvAutoCatType.Items)
@@ -3962,9 +3959,9 @@ namespace Depressurizer
             }
         }
 
-        private void SelectCategory(Settings settings)
+        private void SelectCategory()
         {
-            if (string.IsNullOrWhiteSpace(settings.Category))
+            if (string.IsNullOrWhiteSpace(Settings.Category))
             {
                 return;
             }
@@ -3972,7 +3969,7 @@ namespace Depressurizer
             lstCategories.SelectedIndices.Clear();
             for (int i = 0; i < lstCategories.Items.Count; i++)
             {
-                if (lstCategories.Items[i].Name != settings.Category)
+                if (lstCategories.Items[i].Name != Settings.Category)
                 {
                     continue;
                 }
@@ -3982,9 +3979,11 @@ namespace Depressurizer
             }
         }
 
-        private void SelectFilter(Settings settings)
+        private void SelectFilter()
         {
-            if (string.IsNullOrWhiteSpace(settings.Filter))
+            RefreshFilters();
+
+            if (string.IsNullOrWhiteSpace(Settings.Filter))
             {
                 return;
             }
@@ -3992,7 +3991,7 @@ namespace Depressurizer
             for (int i = 0; i < cboFilter.Items.Count; i++)
             {
                 string name = cboFilter.GetItemText(cboFilter.Items[i]);
-                if (name != settings.Filter)
+                if (name != Settings.Filter)
                 {
                     continue;
                 }

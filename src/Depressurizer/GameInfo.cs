@@ -200,9 +200,17 @@ namespace Depressurizer
 
         /// <summary>
         ///     Removes all categories from this game.
+        /// </summary>
+        public void ClearCategories()
+        {
+            ClearCategories(false);
+        }
+
+        /// <summary>
+        ///     Removes all categories from this game.
         ///     <param name="alsoClearFavorite">If true, removes the favorite category as well.</param>
         /// </summary>
-        public void ClearCategories(bool alsoClearFavorite = false)
+        public void ClearCategories(bool alsoClearFavorite)
         {
             foreach (Category cat in Categories)
             {
@@ -244,10 +252,29 @@ namespace Depressurizer
         /// <summary>
         ///     Gets a string listing the game's assigned categories.
         /// </summary>
+        /// <returns>List of the game's categories, separated by commas.</returns>
+        public string GetCatString()
+        {
+            return GetCatString(null);
+        }
+
+        /// <summary>
+        ///     Gets a string listing the game's assigned categories.
+        /// </summary>
+        /// <param name="ifEmpty">Value to return if there are no categories</param>
+        /// <returns>List of the game's categories, separated by commas.</returns>
+        public string GetCatString(string ifEmpty)
+        {
+            return GetCatString(ifEmpty, false);
+        }
+
+        /// <summary>
+        ///     Gets a string listing the game's assigned categories.
+        /// </summary>
         /// <param name="ifEmpty">Value to return if there are no categories</param>
         /// <param name="includeFavorite">If true, include the favorite category.</param>
         /// <returns>List of the game's categories, separated by commas.</returns>
-        public string GetCatString(string ifEmpty = "", bool includeFavorite = false)
+        public string GetCatString(string ifEmpty, bool includeFavorite)
         {
             string result = "";
             bool first = true;
@@ -271,12 +298,21 @@ namespace Depressurizer
         /// <summary>
         ///     Check to see if the game has any categories at all (except the Favorite category)
         /// </summary>
+        /// <returns>True if the category set is not empty</returns>
+        public bool HasCategories()
+        {
+            return HasCategories(false);
+        }
+
+        /// <summary>
+        ///     Check to see if the game has any categories at all (except the Favorite category)
+        /// </summary>
         /// <param name="includeFavorite">
         ///     If true, will only return true if the game is not in the favorite category. If false, the
         ///     favorite category is ignored.
         /// </param>
         /// <returns>True if the category set is not empty</returns>
-        public bool HasCategories(bool includeFavorite = false)
+        public bool HasCategories(bool includeFavorite)
         {
             if (Categories.Count == 0)
             {

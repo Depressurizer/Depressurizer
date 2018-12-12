@@ -15,7 +15,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
 {
-    public class Database
+    public sealed class Database
     {
         #region Static Fields
 
@@ -27,7 +27,7 @@ namespace Depressurizer
 
         #region Fields
 
-        public readonly Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
+        private readonly Dictionary<int, DatabaseEntry> _games = new Dictionary<int, DatabaseEntry>();
 
         #endregion
 
@@ -69,7 +69,7 @@ namespace Depressurizer
                 {
                     SortedSet<string> flags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-                    foreach (DatabaseEntry entry in Games.Values)
+                    foreach (DatabaseEntry entry in Values)
                     {
                         flags.UnionWith(entry.Flags);
                     }
@@ -88,7 +88,7 @@ namespace Depressurizer
                 {
                     SortedSet<string> genres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
 
-                    foreach (DatabaseEntry entry in Games.Values)
+                    foreach (DatabaseEntry entry in Values)
                     {
                         genres.UnionWith(entry.Genres);
                     }
@@ -113,7 +113,7 @@ namespace Depressurizer
                     SortedSet<string> Subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
                     // ReSharper restore InconsistentNaming
 
-                    foreach (DatabaseEntry entry in Games.Values)
+                    foreach (DatabaseEntry entry in Values)
                     {
                         FullAudio.UnionWith(entry.LanguageSupport.FullAudio);
                         Interface.UnionWith(entry.LanguageSupport.Interface);
@@ -144,7 +144,7 @@ namespace Depressurizer
                     SortedSet<string> PlayArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
                     // ReSharper restore InconsistentNaming
 
-                    foreach (DatabaseEntry entry in Games.Values)
+                    foreach (DatabaseEntry entry in Values)
                     {
                         Headsets.UnionWith(entry.VRSupport.Headsets);
                         Input.UnionWith(entry.VRSupport.Input);
@@ -161,11 +161,22 @@ namespace Depressurizer
         }
 
         [JsonIgnore]
-        public int Count => Games.Count;
+        public int Count => _games.Count;
 
         public StoreLanguage Language { get; set; } = StoreLanguage.English;
 
         public long LastHLTBUpdate { get; set; }
+
+        public Dictionary<int, DatabaseEntry>.ValueCollection Values
+        {
+            get
+            {
+                lock (SyncRoot)
+                {
+                    return _games.Values;
+                }
+            }
+        }
 
         #endregion
 
@@ -192,7 +203,7 @@ namespace Depressurizer
                 }
                 else
                 {
-                    Games.Add(entry.Id, entry);
+                    _games.Add(entry.Id, entry);
                 }
             }
         }
@@ -214,7 +225,7 @@ namespace Depressurizer
             Dictionary<string, int> devCounts = new Dictionary<string, int>();
             if (gameList == null)
             {
-                foreach (DatabaseEntry entry in Games.Values)
+                foreach (DatabaseEntry entry in Values)
                 {
                     CalculateSortedDevListHelper(devCounts, entry);
                 }
@@ -239,7 +250,7 @@ namespace Depressurizer
             Dictionary<string, int> pubCounts = new Dictionary<string, int>();
             if (filter == null)
             {
-                foreach (DatabaseEntry entry in Games.Values)
+                foreach (DatabaseEntry entry in Values)
                 {
                     CalculateSortedPubListHelper(pubCounts, entry);
                 }
@@ -266,7 +277,7 @@ namespace Depressurizer
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if (filter == null)
             {
-                foreach (DatabaseEntry entry in Games.Values)
+                foreach (DatabaseEntry entry in Values)
                 {
                     CalculateSortedTagListHelper(tagCounts, entry, weightFactor, tagsPerGame);
                 }
@@ -305,7 +316,7 @@ namespace Depressurizer
 
             Language = dbLang;
             //clean DB from data in wrong language
-            foreach (DatabaseEntry g in Games.Values)
+            foreach (DatabaseEntry g in Values)
             {
                 if (g.Id <= 0)
                 {
@@ -346,25 +357,31 @@ namespace Depressurizer
         {
             lock (SyncRoot)
             {
-                Games.Clear();
+                _games.Clear();
             }
         }
 
         public bool Contains(int appId)
         {
-            return Games.ContainsKey(appId);
+            lock (SyncRoot)
+            {
+                return _games.ContainsKey(appId);
+            }
         }
 
         public bool Contains(int appId, out DatabaseEntry entry)
         {
-            entry = null;
-
-            if (Contains(appId))
+            lock (SyncRoot)
             {
-                entry = Games[appId];
-            }
+                entry = null;
 
-            return entry != null;
+                if (Contains(appId))
+                {
+                    entry = _games[appId];
+                }
+
+                return entry != null;
+            }
         }
 
         public Collection<string> GetDevelopers(int appId)
@@ -407,11 +424,6 @@ namespace Depressurizer
             }
 
             return result;
-        }
-
-        public Collection<string> GetGenreList(int appId, int depth)
-        {
-            return GetGenreList(appId, depth, true);
         }
 
         public Collection<string> GetGenreList(int appId, int depth, bool tagFallback)
@@ -610,7 +622,7 @@ namespace Depressurizer
 
         public void Remove(int appId)
         {
-            Games.Remove(appId);
+            _games.Remove(appId);
         }
 
         public void Reset()
@@ -693,14 +705,10 @@ namespace Depressurizer
 
             foreach (AppInfo aInf in appInfos.Values)
             {
-                if (Contains(aInf.Id, out DatabaseEntry entry))
-                {
-                    entry = Games[aInf.Id];
-                }
-                else
+                if (!Contains(aInf.Id, out DatabaseEntry entry))
                 {
                     entry = new DatabaseEntry(aInf.Id);
-                    Games.Add(entry.Id, entry);
+                    Add(entry);
                 }
 
                 entry.LastAppInfoUpdate = timestamp;

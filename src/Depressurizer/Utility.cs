@@ -177,7 +177,12 @@ namespace Depressurizer
             return value.ToString();
         }
 
-        public static Image GetImage(string url, RequestCacheLevel cache, int id = 0)
+        public static Image GetImage(string url, RequestCacheLevel cache)
+        {
+            return GetImage(url, cache, 0);
+        }
+
+        public static Image GetImage(string url, RequestCacheLevel cache, int id)
         {
             try
             {
@@ -194,7 +199,12 @@ namespace Depressurizer
             return null;
         }
 
-        public static Stream GetRemoteImageStream(string url, int id = 0)
+        public static Stream GetRemoteImageStream(string url)
+        {
+            return GetRemoteImageStream(url, 0);
+        }
+
+        public static Stream GetRemoteImageStream(string url, int id)
         {
             try
             {

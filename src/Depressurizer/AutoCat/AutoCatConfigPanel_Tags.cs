@@ -77,7 +77,12 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public void FillTagsList(ICollection<string> preChecked = null)
+        public void FillTagsList()
+        {
+            FillTagsList(null);
+        }
+
+        public void FillTagsList(ICollection<string> preChecked)
         {
             clbTags.Items.Clear();
             loaded = false;

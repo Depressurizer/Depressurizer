@@ -414,7 +414,6 @@
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VdfFile\ParseException.cs" />
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
     </EmbeddedResource>

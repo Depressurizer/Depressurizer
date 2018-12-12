@@ -89,7 +89,12 @@ namespace Depressurizer
             return SortDirection * res;
         }
 
-        public void SetSortMode(SortModes mode, int forceDir = 0)
+        public void SetSortMode(SortModes mode)
+        {
+            SetSortMode(mode, 0);
+        }
+
+        public void SetSortMode(SortModes mode, int forceDir)
         {
             if (mode == SortMode)
             {

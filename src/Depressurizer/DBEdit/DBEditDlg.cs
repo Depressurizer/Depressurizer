@@ -707,7 +707,7 @@ namespace Depressurizer
         {
             lstGames.SelectedIndices.Clear();
             displayedGames.Clear();
-            foreach (DatabaseEntry g in Database.Games.Values)
+            foreach (DatabaseEntry g in Database.Values)
             {
                 if (ShouldDisplayGame(g))
                 {
@@ -845,7 +845,7 @@ namespace Depressurizer
 
             Queue<int> gamesToScrape = new Queue<int>();
 
-            foreach (DatabaseEntry g in Database.Games.Values)
+            foreach (DatabaseEntry g in Database.Values)
                 //Only scrape displayed games
             {
                 if (g.LastStoreScrape == 0 && ShouldDisplayGame(g))

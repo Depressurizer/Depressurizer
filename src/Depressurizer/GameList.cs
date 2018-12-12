@@ -767,7 +767,7 @@ namespace Depressurizer
                     dataRoot = VDFNode.LoadFromText(reader, true);
                 }
             }
-            catch (ParseException e)
+            catch (InvalidDataException e)
             {
                 Logger.Error(GlobalStrings.GameData_ErrorParsingConfigFileParam, e.Message);
                 throw new ApplicationException(GlobalStrings.GameData_ErrorParsingSteamConfigFile + e.Message, e);
@@ -866,7 +866,7 @@ namespace Depressurizer
             {
                 Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
             }
-            catch (ParseException e)
+            catch (InvalidDataException e)
             {
                 Logger.Error(e.ToString());
             }
