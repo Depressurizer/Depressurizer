@@ -277,21 +277,19 @@ namespace Depressurizer
             resources.ApplyResources(item, item.Name, newCulture);
         }
 
-        /// <summary>
-        ///     Checks github for newer versions of depressurizer.
-        /// </summary>
-        /// <returns>True if there is a newer release, false otherwise</returns>
         private static void CheckForDepressurizerUpdates()
         {
             Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
             try
             {
                 Version githubVersion;
                 string url;
+
                 using (WebClient wc = new WebClient())
                 {
-                    wc.Headers.Set("User-Agent", "Depressurizer");
-                    string json = wc.DownloadString(Resources.UrlLatestRelease);
+                    string json = wc.DownloadString(Constants.DepressurizerLatestRelease);
+
                     JObject parsedJson = JObject.Parse(json);
                     githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
                     url = (string) parsedJson.SelectToken("html_url");
@@ -309,7 +307,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                Logger.Exception(GlobalStrings.MainForm_Log_ExceptionDepressurizerUpdate, e);
+                Logger.Exception("MainForm: Exception while checking for new updates for Depressurizer.", e);
                 MessageBox.Show(string.Format(GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }

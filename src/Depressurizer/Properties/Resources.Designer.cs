@@ -178,24 +178,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://www.howlongtobeatsteam.com/api/games/library/cached/all.
-        /// </summary>
-        internal static string UrlHLTBAll {
-            get {
-                return ResourceManager.GetString("UrlHLTBAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://api.github.com/repos/Depressurizer/depressurizer/releases/latest.
-        /// </summary>
-        internal static string UrlLatestRelease {
-            get {
-                return ResourceManager.GetString("UrlLatestRelease", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to https://store.steampowered.com/curator/{0}/ajaxgetfilteredrecommendations/render/?query=&amp;start={1}&amp;count=50.
         /// </summary>
         internal static string UrlSteamCuratorRecommendations {

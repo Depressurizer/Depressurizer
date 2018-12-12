@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
@@ -751,7 +752,7 @@ namespace Depressurizer
                 try
                 {
                     client = new HttpClient();
-                    stream = client.GetStreamAsync("https://www.howlongtobeatsteam.com/api/games/library/cached/all").Result;
+                    stream = client.GetStreamAsync(Constants.HowLongToBeat).Result;
                     streamReader = new StreamReader(stream);
 
                     using (JsonReader reader = new JsonTextReader(streamReader))
