@@ -1271,14 +1271,19 @@ namespace Depressurizer
             }
         }
 
-        private void DeleteFilter(Filter f)
+        private void DeleteFilter(Filter filter)
         {
+            if (filter == null)
+            {
+                MessageBox.Show(string.Format(GlobalStrings.MainForm_CouldNotDeleteFilter), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
             if (!ProfileLoaded || !AdvancedCategoryFilter)
             {
                 return;
             }
 
-            DialogResult res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteFilter, f.Name), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteFilter, filter.Name), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (res != DialogResult.Yes)
             {
                 return;
@@ -1286,8 +1291,8 @@ namespace Depressurizer
 
             try
             {
-                CurrentProfile.GameData.Filters.Remove(f);
-                AddStatus(string.Format(GlobalStrings.MainForm_FilterDeleted, f.Name));
+                CurrentProfile.GameData.Filters.Remove(filter);
+                AddStatus(string.Format(GlobalStrings.MainForm_FilterDeleted, filter.Name));
                 RefreshFilters();
             }
             catch
@@ -3198,26 +3203,44 @@ namespace Depressurizer
 
         private void mbtnFilterDelete_Click(object sender, EventArgs e)
         {
-            if (AdvancedCategoryFilter)
+            if (!AdvancedCategoryFilter || cboFilter.SelectedItem == null)
             {
-                DeleteFilter((Filter) cboFilter.SelectedItem);
+                return;
             }
+
+            if (!(cboFilter.SelectedItem is Filter filter))
+            {
+                MessageBox.Show("Selected item is not a Filter!", GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DeleteFilter(filter);
         }
 
         private void mbtnFilterRename_Click(object sender, EventArgs e)
         {
-            if (cboFilter.SelectedItem != null && AdvancedCategoryFilter)
+            if (!AdvancedCategoryFilter || cboFilter.SelectedItem == null)
             {
-                RenameFilter((Filter) cboFilter.SelectedItem);
+                return;
             }
+
+            if (!(cboFilter.SelectedItem is Filter filter))
+            {
+                MessageBox.Show("Selected item is not a Filter!", GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            RenameFilter(filter);
         }
 
         private void mbtnSaveFilter_Click(object sender, EventArgs e)
         {
-            if (AdvancedCategoryFilter)
+            if (!AdvancedCategoryFilter)
             {
-                SaveFilter();
+                return;
             }
+
+            SaveFilter();
         }
 
         private void mbtnSearchClear_Click(object sender, EventArgs e)
@@ -3706,6 +3729,12 @@ namespace Depressurizer
 
         private void RenameFilter(Filter filter)
         {
+            if (filter == null)
+            {
+                MessageBox.Show("Could not rename filter!", GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             if (!AdvancedCategoryFilter)
             {
                 return;
