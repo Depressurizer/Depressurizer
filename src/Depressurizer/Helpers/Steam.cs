@@ -321,9 +321,11 @@ namespace Depressurizer.Helpers
             appIds = appIds.Distinct().ToList();
             await Task.Run(() => { Parallel.ForEach(appIds, FetchBanner); });
 
+#if DEBUG
             // Report failing banners using Sentry.IO
             IgnoreList.AddRange(BannerFailed);
             Sentry.Log(new InvalidDataException($"Failed banners ${JsonConvert.SerializeObject(IgnoreList)}"));
+#endif
         }
 
         #endregion
