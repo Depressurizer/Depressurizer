@@ -2067,7 +2067,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.Tags != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.Tags);
                 }
@@ -2082,7 +2082,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.VRSupport.Headsets != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.VRSupport.Headsets);
                 }
@@ -2097,7 +2097,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.VRSupport.Input != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.VRSupport.Input);
                 }
@@ -2112,7 +2112,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.VRSupport.PlayArea != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.VRSupport.PlayArea);
                 }
@@ -2127,7 +2127,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.LanguageSupport.Interface != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.LanguageSupport.Interface);
                 }
@@ -2142,7 +2142,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.LanguageSupport.Subtitles != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.LanguageSupport.Subtitles);
                 }
@@ -2157,7 +2157,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.LanguageSupport.FullAudio != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.LanguageSupport.FullAudio);
                 }
@@ -2222,7 +2222,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.Developers != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.Developers);
                 }
@@ -2237,7 +2237,7 @@ namespace Depressurizer
                 }
 
                 int id = ((GameInfo) g).Id;
-                if (Database.Contains(id, out DatabaseEntry entry) || entry.Publishers != null)
+                if (Database.Contains(id, out DatabaseEntry entry))
                 {
                     return string.Join(", ", entry.Publishers);
                 }
@@ -2818,7 +2818,7 @@ namespace Depressurizer
             }
 
             // Add Early Access banner
-            if (Database.Contains(g.Id, out DatabaseEntry entry) && entry.Tags != null)
+            if (Database.Contains(g.Id, out DatabaseEntry entry))
             {
                 if (entry.Tags.Contains(EARLY_ACCESS))
                 {
