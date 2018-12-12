@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Depressurizer.Helpers;
 using NDesk.Options;
 using Rallion;
+using Sentry;
 
 namespace Depressurizer
 {
@@ -54,27 +55,30 @@ namespace Depressurizer
         [STAThread]
         private static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.ApplicationExit += ApplicationExit;
-
-            FatalError.InitializeHandler();
-
-            Database.Load();
-            Settings.Load();
-
-            AutomaticModeOptions autoOpts = ParseAutoOptions(args);
-
-            if (autoOpts != null)
+            using (SentrySdk.Init("https://fbb6fca0ff1748d7a9160b6bc92bcb1d@sentry.io/267726"))
             {
-                Logger.Info("Automatic mode set, loading automatic mode form.");
-                Logger.Verbose("Automatic Mode Options: {0}", autoOpts);
-                Application.Run(new AutomaticModeForm(autoOpts));
-            }
-            else
-            {
-                Logger.Info("Automatic mode not set, loading main form.");
-                Application.Run(new FormMain());
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.ApplicationExit += ApplicationExit;
+
+                FatalError.InitializeHandler();
+
+                Database.Load();
+                Settings.Load();
+
+                AutomaticModeOptions autoOpts = ParseAutoOptions(args);
+
+                if (autoOpts != null)
+                {
+                    Logger.Info("Automatic mode set, loading automatic mode form.");
+                    Logger.Verbose("Automatic Mode Options: {0}", autoOpts);
+                    Application.Run(new AutomaticModeForm(autoOpts));
+                }
+                else
+                {
+                    Logger.Info("Automatic mode not set, loading main form.");
+                    Application.Run(new FormMain());
+                }
             }
         }
 
