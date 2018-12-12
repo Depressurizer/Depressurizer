@@ -59,7 +59,8 @@ namespace Depressurizer.Core.Helpers
                 case StoreLanguage.Spanish:
                     return new CultureInfo("es");
                 case StoreLanguage.SpanishLatin:
-                    return new CultureInfo("es-419");
+                    // TODO: Confirm this is the proper language code.
+                    return new CultureInfo("es-MX");
                 case StoreLanguage.Swedish:
                     return new CultureInfo("sv");
                 case StoreLanguage.Thai:
