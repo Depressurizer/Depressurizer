@@ -3,4 +3,4 @@ solution: src/Depressurizer.sln
 install:
   - nuget restore src/Depressurizer.sln
 script:
-  - xbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
+  - msbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
