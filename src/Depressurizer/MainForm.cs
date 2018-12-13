@@ -29,17 +29,6 @@ using Rallion;
 
 namespace Depressurizer
 {
-    public enum AdvancedFilterState
-    {
-        None = -1,
-
-        Allow = 0,
-
-        Require = 1,
-
-        Exclude = 2
-    }
-
     public partial class FormMain : MaterialForm
     {
         #region Constants
@@ -1883,6 +1872,8 @@ namespace Depressurizer
 
                 switch (oldState)
                 {
+                    case (int) AdvancedFilterState.None:
+                        break;
                     case (int) AdvancedFilterState.Allow:
                         advFilter.Allow.Remove(category);
                         break;
@@ -1898,6 +1889,8 @@ namespace Depressurizer
 
                 switch (i.StateImageIndex)
                 {
+                    case (int) AdvancedFilterState.None:
+                        break;
                     case (int) AdvancedFilterState.Allow:
                         advFilter.Allow.Add(category);
                         break;

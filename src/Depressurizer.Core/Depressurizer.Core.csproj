@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AdvancedFilterState.cs" />
     <Compile Include="Enums\AppPlatforms.cs" />
     <Compile Include="Enums\AppType.cs" />
     <Compile Include="Enums\GameListSource.cs" />
