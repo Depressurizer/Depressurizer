@@ -1,0 +1,526 @@
+<?xml version="1.0"?>
+
+<doc>
+  <assembly>
+    <name>Depressurizer.Core</name>
+  </assembly>
+  <members>
+    <member name="T:Depressurizer.Core.Enums.AppPlatforms">
+      <summary>
+        Operating System(s)
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppPlatforms.None">
+      <summary>
+        Default value
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppPlatforms.Windows">
+      <summary>
+        Microsoft Windows
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppPlatforms.Mac">
+      <summary>
+        macOS
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppPlatforms.Linux">
+      <summary>
+        Linux
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppPlatforms.All">
+      <summary>
+        Windows, Mac and Linux
+      </summary>
+    </member>
+    <member name="T:Depressurizer.Core.Enums.AppType">
+      <summary>
+        Steam App Type
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Unknown">
+      <summary>
+        Unknown
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Game">
+      <summary>
+        Game
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.DLC">
+      <summary>
+        DLC
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Demo">
+      <summary>
+        Steam Demo
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Application">
+      <summary>
+        Steam Software
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Tool">
+      <summary>
+        SDK's, servers etc..
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Media">
+      <summary>
+        Steam Media
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Config">
+      <summary>
+        Steam Config File
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Series">
+      <summary>
+        Steam Media Content
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Video">
+      <summary>
+        Steam Media Content
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Hardware">
+      <summary>
+        Steam Hardware
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Guide">
+      <summary>
+        Player-created manuals and references
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.AppType.Mod">
+      <summary>
+        Mod
+      </summary>
+    </member>
+    <member name="T:Depressurizer.Core.Enums.InterfaceLanguage">
+      <summary>
+        Depressurizer interface languages.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.InterfaceLanguage.English">
+      <summary>
+        English - United States
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.InterfaceLanguage.Spanish">
+      <summary>
+        Spanish - Spain
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.InterfaceLanguage.Russian">
+      <summary>
+        Russian - Russia
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.InterfaceLanguage.Ukrainian">
+      <summary>
+        Ukrainian - Ukraine
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.InterfaceLanguage.Dutch">
+      <summary>
+        Dutch - The Netherlands
+      </summary>
+    </member>
+    <member name="T:Depressurizer.Core.Enums.LogLevel">
+      <summary>
+        Defines the set of levels recognized by the system.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.LogLevel.Verbose">
+      <summary>
+        Designates finer-grained informational events than the DEBUG.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.LogLevel.Debug">
+      <summary>
+        Designates fine-grained informational events that are most useful to debug an application.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.LogLevel.Info">
+      <summary>
+        Designates informational messages that highlight the progress of the application at coarse-grained level.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.LogLevel.Warn">
+      <summary>
+        Designates potentially harmful situations.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.LogLevel.Error">
+      <summary>
+        Designates error events that might still allow the application to continue running.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.LogLevel.Fatal">
+      <summary>
+        Designates very severe error events that will presumably lead the application to abort.
+      </summary>
+    </member>
+    <member name="T:Depressurizer.Core.Enums.StartupAction">
+      <summary>
+        Depressurizer startup actions.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StartupAction.None">
+      <summary>
+        Execute the default sequence.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StartupAction.Load">
+      <summary>
+        Load the profile specified in the settings file.
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StartupAction.Create">
+      <summary>
+        Load the "Create a profile" dialog.
+      </summary>
+    </member>
+    <member name="T:Depressurizer.Core.Enums.StoreLanguage">
+      <summary>
+        These are the languages supported on Steam.
+      </summary>
+      <remarks>
+        https://partner.steamgames.com/doc/store/localization
+      </remarks>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Arabic">
+      <summary>
+        Arabic - العربية
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Bulgarian">
+      <summary>
+        Bulgarian - български език
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.ChineseSimplified">
+      <summary>
+        Chinese (Simplified) - 简体中文
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.ChineseTraditional">
+      <summary>
+        Chinese (Traditional) - 繁體中文
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Czech">
+      <summary>
+        Czech - čeština
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Danish">
+      <summary>
+        Danish - Dansk
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Dutch">
+      <summary>
+        Dutch - Nederlands
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.English">
+      <summary>
+        English - English
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Finnish">
+      <summary>
+        Finnish - Suomi
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.French">
+      <summary>
+        French - Français
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.German">
+      <summary>
+        German - Deutsch
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Greek">
+      <summary>
+        Greek - Ελληνικά
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Hungarian">
+      <summary>
+        Hungarian - Magyar
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Italian">
+      <summary>
+        Italian - Italiano
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Japanese">
+      <summary>
+        Japanese - 日本語
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Korean">
+      <summary>
+        Korean - 한국어
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Norwegian">
+      <summary>
+        Norwegian - Norsk
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Polish">
+      <summary>
+        Polish - Polski
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Portuguese">
+      <summary>
+        Portuguese - Português
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.PortugueseBrasil">
+      <summary>
+        Portuguese-Brazil - Português-Brasil
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Romanian">
+      <summary>
+        Romanian - Română
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Russian">
+      <summary>
+        Russian - Русский
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Spanish">
+      <summary>
+        Spanish - Español
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.SpanishLatin">
+      <summary>
+        Spanish-Latin America - Español-Latinoamérica
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Swedish">
+      <summary>
+        Swedish - Svenska
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Thai">
+      <summary>
+        Thai - ไทย
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Turkish">
+      <summary>
+        Turkish - Türkçe
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Ukrainian">
+      <summary>
+        Ukrainian - Українська
+      </summary>
+    </member>
+    <member name="F:Depressurizer.Core.Enums.StoreLanguage.Vietnamese">
+      <summary>
+        Vietnamese - Tiếng Việt
+      </summary>
+    </member>
+    <member name="T:Depressurizer.Core.Helpers.Constants">
+      <summary>
+        Static class containing all constants.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Helpers.Constants.DepressurizerHomepage">
+      <summary>
+        URL to the Depressurizer homepage.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Helpers.Constants.DepressurizerLatestRelease">
+      <summary>
+        URL to the API page for the latest Depressurizer release.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Helpers.Constants.GetAppList">
+      <summary>
+        Full list of every publicly facing program in the store/library.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Helpers.Constants.HowLongToBeat">
+      <summary>
+        URL to the API page of HowLongToBeat.com.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Helpers.Constants.StoreBanner">
+      <summary>
+        Generic URL for a single Steam Store banner, must be formatted with an appid.
+      </summary>
+    </member>
+    <member name="T:Depressurizer.Core.Helpers.Language">
+      <summary>
+        Static class containing helper functions related to the language enums.
+      </summary>
+    </member>
+    <member name="M:Depressurizer.Core.Helpers.Language.GetCultureInfo(Depressurizer.Core.Enums.StoreLanguage)">
+      <summary>
+        Returns a CultureInfo instance for the specified language.
+      </summary>
+      <param name="language">
+        Store language to get the CultureInfo for.
+      </param>
+      <returns>
+        Returns a CultureInfo instance.
+      </returns>
+      <remarks>
+        https://partner.steamgames.com/doc/store/localization
+      </remarks>
+    </member>
+    <member name="M:Depressurizer.Core.Helpers.Language.GetCultureInfo(Depressurizer.Core.Enums.InterfaceLanguage)">
+      <summary>
+        Returns a CultureInfo instance for the specified language.
+      </summary>
+      <param name="language">
+        Interface language to get the CultureInfo for.
+      </param>
+      <returns>
+        Returns a CultureInfo instance.
+      </returns>
+    </member>
+    <member name="M:Depressurizer.Core.Helpers.Language.LanguageCode(Depressurizer.Core.Enums.StoreLanguage)">
+      <summary>
+        Returns the Steam Store API language code for the specified language.
+      </summary>
+      <param name="language">
+        Store language to get the API code for.
+      </param>
+      <returns>
+        Returns the API language code.
+      </returns>
+      <remarks>
+        https://partner.steamgames.com/doc/store/localization
+      </remarks>
+    </member>
+    <member name="T:Depressurizer.Core.Interfaces.ISettings">
+      <summary>
+        Interface for the Depressurizer settings controller.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Interfaces.ISettings.Height">
+      <summary>
+        Height of the main window.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Interfaces.ISettings.Width">
+      <summary>
+        Width of the main window.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Interfaces.ISettings.X">
+      <summary>
+        X-position of the main window.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Interfaces.ISettings.Y">
+      <summary>
+        Y-position of the main window.
+      </summary>
+    </member>
+    <member name="M:Depressurizer.Core.Interfaces.ISettings.Load">
+      <summary>
+        Load settings from the default location.
+      </summary>
+    </member>
+    <member name="M:Depressurizer.Core.Interfaces.ISettings.Load(System.String)">
+      <summary>
+        Load settings from the specified location.
+      </summary>
+    </member>
+    <member name="M:Depressurizer.Core.Interfaces.ISettings.Save">
+      <summary>
+        Save settings to the default location.
+      </summary>
+    </member>
+    <member name="M:Depressurizer.Core.Interfaces.ISettings.Save(System.String)">
+      <summary>
+        Save settings to the specified location.
+      </summary>
+    </member>
+    <member name="T:Depressurizer.Core.Models.Category">
+      <summary>
+        Class representing a single Category.
+      </summary>
+      <inheritdoc />
+    </member>
+    <member name="M:Depressurizer.Core.Models.Category.#ctor(System.String)">
+      <summary>
+        Creates a category object.
+      </summary>
+      <param name="name">
+        Name of the category.
+      </param>
+    </member>
+    <member name="P:Depressurizer.Core.Models.Category.Count">
+      <summary>
+        Number of apps in the category.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Models.Category.Name">
+      <summary>
+        Name of the category.
+      </summary>
+    </member>
+    <member name="M:Depressurizer.Core.Models.Category.CompareTo(System.Object)">
+      <inheritdoc />
+    </member>
+    <member name="M:Depressurizer.Core.Models.Category.ToString">
+      <inheritdoc />
+    </member>
+    <member name="P:Depressurizer.Core.Models.LanguageSupport.FullAudio">
+      <summary>
+        List containing supported audio languages.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Models.LanguageSupport.Interface">
+      <summary>
+        List containing supported interface languages.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Models.LanguageSupport.Subtitles">
+      <summary>
+        List containing supported subtitle languages.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Models.VRSupport.Headsets">
+      <summary>
+        List containing all supported virtual reality headsets.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Models.VRSupport.Input">
+      <summary>
+        List containing all supported input devices.
+      </summary>
+    </member>
+    <member name="P:Depressurizer.Core.Models.VRSupport.PlayArea">
+      <summary>
+        List containing all supported play area's.
+      </summary>
+    </member>
+  </members>
+</doc>
