@@ -1029,8 +1029,7 @@ namespace NDesk.Options
                 return true;
             }
 
-            string f, n, s, v;
-            if (!GetOptionParts(argument, out f, out n, out s, out v))
+            if (!GetOptionParts(argument, out string f, out string n, out string s, out string v))
             {
                 return false;
             }

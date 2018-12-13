@@ -150,8 +150,10 @@ namespace Depressurizer
                 rules.Add(new UserScore_Rule(ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev));
             }
 
-            AutoCatUserScore result = new AutoCatUserScore(name, filter, prefix, useWilsonScore);
-            result.Rules = rules;
+            AutoCatUserScore result = new AutoCatUserScore(name, filter, prefix, useWilsonScore)
+            {
+                Rules = rules
+            };
             return result;
         }
 

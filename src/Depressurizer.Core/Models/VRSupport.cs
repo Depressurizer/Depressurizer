@@ -16,18 +16,27 @@ namespace Depressurizer.Core.Models
 
         #region Public Properties
 
+        /// <summary>
+        ///     List containing all supported virtual reality headsets.
+        /// </summary>
         public List<string> Headsets
         {
             get => _headsets ?? (_headsets = new List<string>());
             set => _headsets = value;
         }
 
+        /// <summary>
+        ///     List containing all supported input devices.
+        /// </summary>
         public List<string> Input
         {
             get => _input ?? (_input = new List<string>());
             set => _input = value;
         }
 
+        /// <summary>
+        ///     List containing all supported play area's.
+        /// </summary>
         public List<string> PlayArea
         {
             get => _playArea ?? (_playArea = new List<string>());

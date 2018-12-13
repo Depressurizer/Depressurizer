@@ -98,8 +98,7 @@ namespace Depressurizer
             XmlNode idNode = doc.SelectSingleNode("/profile/steamID64");
             if (idNode != null)
             {
-                long tmp;
-                Success = long.TryParse(idNode.InnerText, out tmp);
+                Success = long.TryParse(idNode.InnerText, out long tmp);
                 if (Success)
                 {
                     SteamID = tmp;

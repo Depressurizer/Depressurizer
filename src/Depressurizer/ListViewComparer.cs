@@ -67,16 +67,14 @@ namespace Depressurizer
 
             // Compare them.
             int result;
-            double double_x, double_y;
-            if (double.TryParse(string_x, out double_x) && double.TryParse(string_y, out double_y))
+            if (double.TryParse(string_x, out double double_x) && double.TryParse(string_y, out double double_y))
             {
                 // Treat as a number.
                 result = double_x.CompareTo(double_y);
             }
             else
             {
-                DateTime date_x, date_y;
-                if (DateTime.TryParse(string_x, out date_x) && DateTime.TryParse(string_y, out date_y))
+                if (DateTime.TryParse(string_x, out DateTime date_x) && DateTime.TryParse(string_y, out DateTime date_y))
                 {
                     result = date_x.CompareTo(date_y);
                 }

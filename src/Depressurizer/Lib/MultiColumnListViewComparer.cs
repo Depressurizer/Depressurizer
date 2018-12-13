@@ -84,8 +84,7 @@ namespace Depressurizer
             int dir = _direction * (_rev ? -1 : 1);
             if (_asInt)
             {
-                int a, b;
-                if (int.TryParse(strA, out a) && int.TryParse(strB, out b))
+                if (int.TryParse(strA, out int a) && int.TryParse(strB, out int b))
                 {
                     return dir * (a - b);
                 }

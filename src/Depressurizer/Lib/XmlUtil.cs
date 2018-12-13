@@ -46,14 +46,12 @@ namespace Depressurizer
 
         public static bool GetBoolFromAttribute(XmlNode node, string attName, bool defaultValue)
         {
-            bool result;
-            return TryGetBoolFromAttribute(node, attName, out result) ? result : defaultValue;
+            return TryGetBoolFromAttribute(node, attName, out bool result) ? result : defaultValue;
         }
 
         public static bool GetBoolFromNode(XmlNode node, bool defaultValue)
         {
-            bool result;
-            return TryGetBoolFromNode(node, out result) ? result : defaultValue;
+            return TryGetBoolFromNode(node, out bool result) ? result : defaultValue;
         }
 
         public static TEnum GetEnumFromNode<TEnum>(XmlNode node, TEnum defaultValue) where TEnum : struct, IComparable, IConvertible, IFormattable
@@ -77,26 +75,22 @@ namespace Depressurizer
 
         public static float GetFloatFromNode(XmlNode node, float defaultValue)
         {
-            float result;
-            return TryGetFloatFromNode(node, out result) ? result : defaultValue;
+            return TryGetFloatFromNode(node, out float result) ? result : defaultValue;
         }
 
         public static long GetInt64FromNode(XmlNode node, long defaultValue)
         {
-            long result;
-            return TryGetInt64FromNode(node, out result) ? result : defaultValue;
+            return TryGetInt64FromNode(node, out long result) ? result : defaultValue;
         }
 
         public static int GetIntFromNode(XmlNode node, int defaultValue)
         {
-            int result;
-            return TryGetIntFromNode(node, out result) ? result : defaultValue;
+            return TryGetIntFromNode(node, out int result) ? result : defaultValue;
         }
 
         public static string GetStringFromNode(XmlNode node, string defaultValue)
         {
-            string result;
-            return TryGetStringFromNode(node, out result) ? result : defaultValue;
+            return TryGetStringFromNode(node, out string result) ? result : defaultValue;
         }
 
         public static List<string> GetStringsFromNodeList(XmlNodeList nodeList)

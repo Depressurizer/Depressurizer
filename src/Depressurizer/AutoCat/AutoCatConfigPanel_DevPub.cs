@@ -129,8 +129,10 @@ namespace Depressurizer
             lstPublishers.Items.Clear();
             foreach (Tuple<string, int> pub in pubList)
             {
-                ListViewItem newItem = new ListViewItem($"{pub.Item1} [{pub.Item2}]");
-                newItem.Tag = pub.Item1;
+                ListViewItem newItem = new ListViewItem($"{pub.Item1} [{pub.Item2}]")
+                {
+                    Tag = pub.Item1
+                };
                 if (preChecked != null && preChecked.Contains(pub.Item1))
                 {
                     newItem.Checked = true;

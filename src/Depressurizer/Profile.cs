@@ -94,8 +94,7 @@ namespace Depressurizer
 
         public static long DirNametoID64(string cId)
         {
-            long res;
-            if (long.TryParse(cId, out res))
+            if (long.TryParse(cId, out long res))
             {
                 return res + 0x0110000100000000;
             }
@@ -160,9 +159,10 @@ namespace Depressurizer
         public static Profile Load(string path)
         {
             Logger.Info(GlobalStrings.Profile_LoadingProfile, path);
-            Profile profile = new Profile();
-
-            profile.FilePath = path;
+            Profile profile = new Profile
+            {
+                FilePath = path
+            };
 
             XmlDocument doc = new XmlDocument();
 
@@ -222,8 +222,7 @@ namespace Depressurizer
 
                 if (profileVersion < 2)
                 {
-                    bool ignoreShortcuts = false;
-                    if (XmlUtil.TryGetBoolFromNode(profileNode[XmlName_Old_IgnoreExternal], out ignoreShortcuts))
+                    if (XmlUtil.TryGetBoolFromNode(profileNode[XmlName_Old_IgnoreExternal], out bool ignoreShortcuts))
                     {
                         profile.IncludeShortcuts = !ignoreShortcuts;
                     }
@@ -239,8 +238,7 @@ namespace Depressurizer
                     XmlNodeList exclusionNodes = exclusionListNode.SelectNodes(XmlName_Exclusion);
                     foreach (XmlNode node in exclusionNodes)
                     {
-                        int id;
-                        if (XmlUtil.TryGetIntFromNode(node, out id))
+                        if (XmlUtil.TryGetIntFromNode(node, out int id))
                         {
                             profile.IgnoreList.Add(id);
                         }
@@ -366,11 +364,6 @@ namespace Depressurizer
             return null;
         }
 
-        public bool IgnoreGame(int gameId)
-        {
-            return IgnoreList.Add(gameId);
-        }
-
         public int ImportSteamData()
         {
             return GameData.ImportSteamConfig(SteamID64, IgnoreList, IncludeShortcuts);
@@ -384,9 +377,11 @@ namespace Depressurizer
         public bool Save(string path)
         {
             Logger.Info(GlobalStrings.Profile_SavingProfile, path);
-            XmlWriterSettings writeSettings = new XmlWriterSettings();
-            writeSettings.CloseOutput = true;
-            writeSettings.Indent = true;
+            XmlWriterSettings writeSettings = new XmlWriterSettings
+            {
+                CloseOutput = true,
+                Indent = true
+            };
 
             try
             {
@@ -516,8 +511,7 @@ namespace Depressurizer
 
         private static void AddFilterFromXmlNode(XmlNode node, Profile profile)
         {
-            string name;
-            if (XmlUtil.TryGetStringFromNode(node[XmlName_FilterName], out name))
+            if (XmlUtil.TryGetStringFromNode(node[XmlName_FilterName], out string name))
             {
                 Filter f = profile.GameData.AddFilter(name);
                 if (!XmlUtil.TryGetIntFromNode(node[XmlName_FilterUncategorized], out f.Uncategorized))
@@ -538,8 +532,7 @@ namespace Depressurizer
                 XmlNodeList filterNodes = node.SelectNodes(XmlName_FilterAllow);
                 foreach (XmlNode fNode in filterNodes)
                 {
-                    string catName;
-                    if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+                    if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
                     {
                         f.Allow.Add(profile.GameData.GetCategory(catName));
                     }
@@ -548,8 +541,7 @@ namespace Depressurizer
                 filterNodes = node.SelectNodes(XmlName_FilterRequire);
                 foreach (XmlNode fNode in filterNodes)
                 {
-                    string catName;
-                    if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+                    if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
                     {
                         f.Require.Add(profile.GameData.GetCategory(catName));
                     }
@@ -558,8 +550,7 @@ namespace Depressurizer
                 filterNodes = node.SelectNodes(XmlName_FilterExclude);
                 foreach (XmlNode fNode in filterNodes)
                 {
-                    string catName;
-                    if (XmlUtil.TryGetStringFromNode(fNode, out catName))
+                    if (XmlUtil.TryGetStringFromNode(fNode, out string catName))
                     {
                         f.Exclude.Add(profile.GameData.GetCategory(catName));
                     }
@@ -569,8 +560,7 @@ namespace Depressurizer
 
         private static void AddGameFromXmlNode(XmlNode node, Profile profile, int profileVersion)
         {
-            int id;
-            if (XmlUtil.TryGetIntFromNode(node[XmlName_Game_Id], out id))
+            if (XmlUtil.TryGetIntFromNode(node[XmlName_Game_Id], out int id))
             {
                 GameListingSource source = XmlUtil.GetEnumFromNode(node[XmlName_Game_Source], GameListingSource.Unknown);
 
@@ -580,8 +570,10 @@ namespace Depressurizer
                 }
 
                 string name = XmlUtil.GetStringFromNode(node[XmlName_Game_Name], null);
-                GameInfo game = new GameInfo(id, name, profile.GameData);
-                game.Source = source;
+                GameInfo game = new GameInfo(id, name, profile.GameData)
+                {
+                    Source = source
+                };
                 profile.GameData.Games.Add(id, game);
 
                 game.Hidden = XmlUtil.GetBoolFromNode(node[XmlName_Game_Hidden], false);
@@ -590,8 +582,7 @@ namespace Depressurizer
 
                 if (profileVersion < 1)
                 {
-                    string catName;
-                    if (XmlUtil.TryGetStringFromNode(node[XmlName_Game_Category], out catName))
+                    if (XmlUtil.TryGetStringFromNode(node[XmlName_Game_Category], out string catName))
                     {
                         game.AddCategory(profile.GameData.GetCategory(catName));
                     }
@@ -609,8 +600,7 @@ namespace Depressurizer
                         XmlNodeList catNodes = catListNode.SelectNodes(XmlName_Game_Category);
                         foreach (XmlNode cNode in catNodes)
                         {
-                            string cat;
-                            if (XmlUtil.TryGetStringFromNode(cNode, out cat))
+                            if (XmlUtil.TryGetStringFromNode(cNode, out string cat))
                             {
                                 game.AddCategory(profile.GameData.GetCategory(cat));
                             }

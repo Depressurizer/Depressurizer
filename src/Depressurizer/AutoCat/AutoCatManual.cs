@@ -124,8 +124,7 @@ namespace Depressurizer
                 XmlNodeList removeNodes = removeListElement.SelectNodes(XmlName_RemoveItem);
                 foreach (XmlNode node in removeNodes)
                 {
-                    string s;
-                    if (XmlUtil.TryGetStringFromNode(node, out s))
+                    if (XmlUtil.TryGetStringFromNode(node, out string s))
                     {
                         remove.Add(s);
                     }
@@ -140,8 +139,7 @@ namespace Depressurizer
                 XmlNodeList addNodes = addListElement.SelectNodes(XmlName_AddItem);
                 foreach (XmlNode node in addNodes)
                 {
-                    string s;
-                    if (XmlUtil.TryGetStringFromNode(node, out s))
+                    if (XmlUtil.TryGetStringFromNode(node, out string s))
                     {
                         add.Add(s);
                     }

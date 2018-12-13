@@ -4,10 +4,25 @@ using Depressurizer.Core.Enums;
 
 namespace Depressurizer.Core.Helpers
 {
+    /// <summary>
+    ///     Static class containing helper functions related to the language enums.
+    /// </summary>
     public static class Language
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        ///     Returns a CultureInfo instance for the specified language.
+        /// </summary>
+        /// <param name="language">
+        ///     Store language to get the CultureInfo for.
+        /// </param>
+        /// <returns>
+        ///     Returns a CultureInfo instance.
+        /// </returns>
+        /// <remarks>
+        ///     https://partner.steamgames.com/doc/store/localization
+        /// </remarks>
         public static CultureInfo GetCultureInfo(StoreLanguage language)
         {
             switch (language)
@@ -76,6 +91,15 @@ namespace Depressurizer.Core.Helpers
             }
         }
 
+        /// <summary>
+        ///     Returns a CultureInfo instance for the specified language.
+        /// </summary>
+        /// <param name="language">
+        ///     Interface language to get the CultureInfo for.
+        /// </param>
+        /// <returns>
+        ///     Returns a CultureInfo instance.
+        /// </returns>
         public static CultureInfo GetCultureInfo(InterfaceLanguage language)
         {
             switch (language)
@@ -95,6 +119,18 @@ namespace Depressurizer.Core.Helpers
             }
         }
 
+        /// <summary>
+        ///     Returns the Steam Store API language code for the specified language.
+        /// </summary>
+        /// <param name="language">
+        ///     Store language to get the API code for.
+        /// </param>
+        /// <returns>
+        ///     Returns the API language code.
+        /// </returns>
+        /// <remarks>
+        ///     https://partner.steamgames.com/doc/store/localization
+        /// </remarks>
         public static string LanguageCode(StoreLanguage language)
         {
             switch (language)

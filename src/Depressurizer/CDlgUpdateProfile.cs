@@ -144,14 +144,12 @@ namespace Depressurizer
                 SetText(GlobalStrings.CDlgFetch_FinishingDownload);
                 if (UseHtml)
                 {
-                    int newItems;
-                    Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore, out newItems);
+                    Fetched = data.IntegrateHtmlGameList(htmlDoc, overwrite, ignore, out int newItems);
                     Added = newItems;
                 }
                 else
                 {
-                    int newItems;
-                    Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore, out newItems);
+                    Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore, out int newItems);
                     Added = newItems;
                 }
 

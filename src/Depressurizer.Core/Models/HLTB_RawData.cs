@@ -2,6 +2,10 @@
 using Depressurizer.Core.Enums;
 using Newtonsoft.Json;
 
+// ReSharper disable All
+
+#pragma warning disable 1591
+
 namespace Depressurizer.Core.Models
 {
     public sealed class HLTB_RawData

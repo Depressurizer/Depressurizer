@@ -125,54 +125,47 @@ namespace Depressurizer
         {
             string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
 
-            AutoCatTags result = new AutoCatTags(name);
+            AutoCatTags result = new AutoCatTags(name)
+            {
+                Filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null)
+            };
 
-            result.Filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-
-            string prefix;
-            if (XmlUtil.TryGetStringFromNode(xElement[XmlName_Prefix], out prefix))
+            if (XmlUtil.TryGetStringFromNode(xElement[XmlName_Prefix], out string prefix))
             {
                 result.Prefix = prefix;
             }
 
-            int maxTags;
-            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_MaxTags], out maxTags))
+            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_MaxTags], out int maxTags))
             {
                 result.MaxTags = maxTags;
             }
 
-            bool listOwnedOnly;
-            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListOwnedOnly], out listOwnedOnly))
+            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListOwnedOnly], out bool listOwnedOnly))
             {
                 result.List_OwnedOnly = listOwnedOnly;
             }
 
-            float listWeightFactor;
-            if (XmlUtil.TryGetFloatFromNode(xElement[XmlName_ListWeightFactor], out listWeightFactor))
+            if (XmlUtil.TryGetFloatFromNode(xElement[XmlName_ListWeightFactor], out float listWeightFactor))
             {
                 result.List_WeightFactor = listWeightFactor;
             }
 
-            int listMinScore;
-            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListMinScore], out listMinScore))
+            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListMinScore], out int listMinScore))
             {
                 result.List_MinScore = listMinScore;
             }
 
-            int listTagsPerGame;
-            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListTagsPerGame], out listTagsPerGame))
+            if (XmlUtil.TryGetIntFromNode(xElement[XmlName_ListTagsPerGame], out int listTagsPerGame))
             {
                 result.List_TagsPerGame = listTagsPerGame;
             }
 
-            bool listScoreSort;
-            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListScoreSort], out listScoreSort))
+            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListScoreSort], out bool listScoreSort))
             {
                 result.List_ScoreSort = listScoreSort;
             }
 
-            bool listExcludeGenres;
-            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListExcludeGenres], out listExcludeGenres))
+            if (XmlUtil.TryGetBoolFromNode(xElement[XmlName_ListExcludeGenres], out bool listExcludeGenres))
             {
                 result.List_ExcludeGenres = listExcludeGenres;
             }
