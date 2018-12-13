@@ -4,8 +4,8 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/graphs/contributors)
 [![GitHub issues](https://img.shields.io/github/issues/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/issues)
 [![GitHub license](https://img.shields.io/github/license/Depressurizer/Depressurizer.svg?style=flat-square)](https://github.com/mvegter/Depressurizer/blob/dev/LICENSE)
-[![Travis](https://api.travis-ci.com/Depressurizer/Depressurizer.svg?branch=master)](https://travis-ci.com/Depressurizer/Depressurizer)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/github/Depressurizer/Depressurizer?branch=master&svg=true)](https://ci.appveyor.com/project/mvegter/depressurizer-jpq5j)
+[![Travis](https://img.shields.io/travis/com/Depressurizer/Depressurizer/master.svg?style=flat-square)](https://travis-ci.com/Depressurizer/Depressurizer)
+[![AppVeyor](https://img.shields.io/appveyor/ci/mvegter/depressurizer-jpq5j/master.svg?style=flat-square)](https://ci.appveyor.com/project/mvegter/depressurizer-jpq5j)
 
 <sup>This is a continuation of [rallion](https://github.com/rallion)'s [Depressurizer](https://github.com/rallion/depressurizer).</sup>
 
