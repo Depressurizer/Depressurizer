@@ -1,46 +1,52 @@
-﻿#region LICENSE
-
-//     This file (Steam.cs) is part of Depressurizer.
-//     Copyright (C) 2018 Martijn Vegter
-// 
-//     This program is free software: you can redistribute it and/or modify
-//     it under the terms of the GNU General Public License as published by
-//     the Free Software Foundation, either version 3 of the License, or
-//     (at your option) any later version.
-// 
-//     This program is distributed in the hope that it will be useful,
-//     but WITHOUT ANY WARRANTY; without even the implied warranty of
-//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//     GNU General Public License for more details.
-// 
-//     You should have received a copy of the GNU General Public License
-//     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-#endregion
-
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Depressurizer.Core.Helpers;
+#if DEBUG
 using Newtonsoft.Json;
 using Sentry;
 
+#endif
+
 namespace Depressurizer.Helpers
 {
-    internal class Steam
+    /// <summary>
+    ///     Static class containing helper functions related to Steam.
+    /// </summary>
+    internal static class Steam
     {
         #region Static Fields
 
+#if DEBUG
+        /// <summary>
+        ///     List containing the id's of the apps who's banner failed to download.
+        /// </summary>
         private static readonly List<int> BannerFailed = new List<int>();
-
-        private static readonly List<int> IgnoreList = new List<int>();
+#endif
+        /// <summary>
+        ///     List of known id's that don't have a banner available.
+        /// </summary>
+        private static readonly List<int> IgnoreList = new List<int>
+        {
+            480,
+            12250,
+            524440,
+            562020,
+            654310,
+            700580
+        };
 
         #endregion
 
         #region Properties
 
+        /// <summary>
+        ///     Reference to the Logger instance.
+        /// </summary>
         private static Logger Logger => Logger.Instance;
 
         #endregion
@@ -48,12 +54,14 @@ namespace Depressurizer.Helpers
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Grabs the banner from the Steam store
+        ///     Grabs the banner from the Steam store.
         /// </summary>
-        /// <param name="appIds">AppId of the apps to fetch</param>
-        public static async void GrabBanners(List<int> appIds)
+        /// <param name="appIds">
+        ///     IEnumerable containing the id's of the apps to download the banner for.
+        /// </param>
+        public static async void GrabBanners(IEnumerable<int> appIds)
         {
-            appIds = appIds.Distinct().ToList();
+            appIds = appIds.Distinct();
             await Task.Run(() => { Parallel.ForEach(appIds, FetchBanner); });
 
 #if DEBUG
@@ -67,7 +75,7 @@ namespace Depressurizer.Helpers
             IgnoreList.Sort();
 
             InvalidDataException exception = new InvalidDataException("Found new failing banners!");
-            exception.Data.Add("ID", JsonConvert.SerializeObject(IgnoreList.Distinct()));
+            exception.Data.Add("IgnoreList", JsonConvert.SerializeObject(IgnoreList.Distinct()));
 
             SentrySdk.CaptureException(exception);
 #endif
@@ -77,6 +85,12 @@ namespace Depressurizer.Helpers
 
         #region Methods
 
+        /// <summary>
+        ///     Downloads the banner of the specified appid.
+        /// </summary>
+        /// <param name="appId">
+        ///     Id of the target app, must be greater than zero.
+        /// </param>
         private static void FetchBanner(int appId)
         {
             if (appId <= 0 || IgnoreList.Contains(appId))
@@ -89,12 +103,11 @@ namespace Depressurizer.Helpers
                 return;
             }
 
-            string bannerLink = string.Format(CultureInfo.InvariantCulture, "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg", appId);
+            string bannerLink = string.Format(CultureInfo.InvariantCulture, Constants.StoreBanner, appId);
             try
             {
                 using (WebClient webClient = new WebClient())
                 {
-                    webClient.Headers.Set("User-Agent", "Depressurizer");
                     webClient.DownloadFile(bannerLink, Locations.File.Banner(appId));
                 }
             }
@@ -111,13 +124,14 @@ namespace Depressurizer.Helpers
                 {
                     throw;
                 }
-
+#if DEBUG
                 BannerFailed.Add(appId);
-                Logger.Warn("Couldn't fetch banner for appId: {0}", appId);
+#endif
+                Logger.Warn("Steam: Couldn't fetch banner for appId: {0}, error code 404.", appId);
             }
-            catch
+            catch (Exception e)
             {
-                Logger.Warn("Couldn't fetch banner for appId: {0}", appId);
+                Logger.Warn("Steam: Couldn't fetch banner for appId: {0}, exception: {1}.", appId, e);
             }
         }
 

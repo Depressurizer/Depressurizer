@@ -693,7 +693,7 @@ namespace Depressurizer
             }
 
             int HalfAWeekInSecs = 84 * 24 * 60 * 60;
-            if (Utility.GetCurrentUTime() > Database.LastHLTBUpdate + HalfAWeekInSecs)
+            if (DateTimeOffset.UtcNow.ToUnixTimeSeconds() > Database.LastHLTBUpdate + HalfAWeekInSecs)
             {
                 WriteLine("Skipping HLTB update.");
                 return true;

@@ -147,9 +147,9 @@ namespace Depressurizer.Models
             set => _languageSupport = value;
         }
 
-        public int LastAppInfoUpdate { get; set; }
+        public long LastAppInfoUpdate { get; set; }
 
-        public int LastStoreScrape { get; set; }
+        public long LastStoreScrape { get; set; }
 
         public string MetacriticUrl { get; set; }
 
@@ -593,9 +593,9 @@ namespace Depressurizer.Models
 
             int redirectTarget = -1;
 
-            int oldTime = LastStoreScrape;
+            long oldTime = LastStoreScrape;
 
-            LastStoreScrape = Utility.GetCurrentUTime();
+            LastStoreScrape = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
             HttpWebResponse resp = null;
             Stream responseStream = null;

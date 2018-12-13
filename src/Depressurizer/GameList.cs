@@ -1384,7 +1384,7 @@ namespace Depressurizer
                     }
 
                     game.LastPlayed = gameNodePair.Value["LastPlayed"].NodeInt;
-                    Logger.Verbose(GlobalStrings.GameData_ProcessedGame, gameId, Utility.GetDTFromUTime(game.LastPlayed).Date);
+                    Logger.Verbose(GlobalStrings.GameData_ProcessedGame, gameId, DateTimeOffset.FromUnixTimeSeconds(game.LastPlayed).Date);
                 }
             }
         }

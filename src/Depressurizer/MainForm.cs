@@ -323,7 +323,7 @@ namespace Depressurizer
                 return;
             }
 
-            gameInfo.LastPlayed = Utility.GetCurrentUTime();
+            gameInfo.LastPlayed = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             Process.Start(gameInfo.Executable);
         }
 
@@ -690,7 +690,7 @@ namespace Depressurizer
                     notInDbOrOldData.Enqueue(game.Id);
                     notInDbCount++;
                 }
-                else if (Database.Contains(game.Id, out DatabaseEntry entry2) && game.Id > 0 && Utility.GetCurrentUTime() > entry2.LastStoreScrape + Settings.Instance.ScrapePromptDays * 86400) //86400 seconds in a day
+                else if (Database.Contains(game.Id, out DatabaseEntry entry2) && game.Id > 0 && DateTimeOffset.UtcNow.ToUnixTimeSeconds() > entry2.LastStoreScrape + Settings.Instance.ScrapePromptDays * 86400) //86400 seconds in a day
                 {
                     notInDbOrOldData.Enqueue(game.Id);
                     oldDbDataCount++;
@@ -1636,7 +1636,7 @@ namespace Depressurizer
                 }
             }
 
-            Steam.GrabBanners(gameInfos.Select(game => game.Id).ToList());
+            Steam.GrabBanners(gameInfos.Select(game => game.Id));
 
             lstGames.SetObjects(gameInfos);
             lstGames.BuildList();
@@ -1778,7 +1778,7 @@ namespace Depressurizer
             }
 
             const int aWeekInSecs = 7 * 24 * 60 * 60;
-            if (Settings.Instance.UpdateHltbOnStart && Utility.GetCurrentUTime() > Database.LastHLTBUpdate + aWeekInSecs)
+            if (Settings.Instance.UpdateHltbOnStart && DateTimeOffset.UtcNow.ToUnixTimeSeconds() > Database.LastHLTBUpdate + aWeekInSecs)
             {
                 UpdateDatabaseFromHLTB();
             }
@@ -2166,7 +2166,7 @@ namespace Depressurizer
                     return DateTime.MinValue;
                 }
 
-                return Utility.GetDTFromUTime(gameInfo.LastPlayed).Date;
+                return DateTimeOffset.FromUnixTimeSeconds(gameInfo.LastPlayed).Date;
             };
             colAchievements.AspectGetter = delegate(object g)
             {

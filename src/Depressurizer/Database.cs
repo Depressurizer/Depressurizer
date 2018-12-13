@@ -467,8 +467,7 @@ namespace Depressurizer
             string json;
             using (WebClient client = new WebClient())
             {
-                client.Headers.Set("User-Agent", "Depressurizer");
-                json = client.DownloadString("https://api.steampowered.com/ISteamApps/GetAppList/v2/");
+                json = client.DownloadString(Constants.GetAppList);
             }
 
             Logger.Info("Database: Downloaded list of public apps.");
@@ -702,7 +701,7 @@ namespace Depressurizer
             int updated = 0;
 
             Dictionary<int, AppInfo> appInfos = AppInfo.LoadApps(path);
-            int timestamp = Utility.GetCurrentUTime();
+            long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
             foreach (AppInfo aInf in appInfos.Values)
             {

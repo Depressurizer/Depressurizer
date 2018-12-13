@@ -953,7 +953,7 @@ namespace Depressurizer
                     return false;
                 }
 
-                if (radWebSince.Checked && g.LastStoreScrape > Utility.GetUTime(dateWeb.Value))
+                if (radWebSince.Checked && g.LastStoreScrape > ((DateTimeOffset) dateWeb.Value).ToUnixTimeSeconds())
                 {
                     return false;
                 }

@@ -88,15 +88,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/Depressurizer/depressurizer.
-        /// </summary>
-        internal static string DepressurizerHomepage {
-            get {
-                return ResourceManager.GetString("DepressurizerHomepage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}\userdata\{1}\config\localconfig.vdf.
         /// </summary>
         internal static string LocalConfigPath {
