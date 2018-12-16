@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
-using Depressurizer.Core.Enums;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
@@ -43,21 +42,6 @@ namespace Depressurizer
         #endregion
 
         #region Methods
-
-        private static bool UpdateGameList_Web_Html(Profile profile)
-        {
-            try
-            {
-                string doc = GameList.FetchHtmlGameList(profile.SteamID64);
-                profile.GameData.IntegrateHtmlGameList(doc, false, profile.IgnoreList, out int _);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Logger.Exception("Automatic mode: Error on HTML web profile update.", e);
-                return false;
-            }
-        }
 
         private static bool UpdateGameList_Web_Xml(Profile profile)
         {
@@ -730,23 +714,8 @@ namespace Depressurizer
             if (!success && profile.WebUpdate)
             {
                 Write("Trying web update...");
-                switch (Settings.Instance.ListSource)
-                {
-                    case GameListSource.XmlPreferred:
-                        success = UpdateGameList_Web_Xml(profile);
-                        if (!success)
-                        {
-                            success = UpdateGameList_Web_Html(profile);
-                        }
 
-                        break;
-                    case GameListSource.XmlOnly:
-                        success = UpdateGameList_Web_Xml(profile);
-                        break;
-                    case GameListSource.WebsiteOnly:
-                        success = UpdateGameList_Web_Html(profile);
-                        break;
-                }
+                success = UpdateGameList_Web_Xml(profile);
             }
 
             if (success)

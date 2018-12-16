@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Xml;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
@@ -25,12 +24,6 @@ namespace Depressurizer
         public const string FAVORITE_CONFIG_VALUE = "favorite";
 
         public const string FAVORITE_NEW_CONFIG_VALUE = "<Favorite>";
-
-        #endregion
-
-        #region Static Fields
-
-        private static readonly Regex rxUnicode = new Regex(@"\\u(?<Value>[a-zA-Z0-9]{4})", RegexOptions.Compiled);
 
         #endregion
 
@@ -72,67 +65,6 @@ namespace Depressurizer
         #endregion
 
         #region Public Methods and Operators
-
-        /// <summary>
-        ///     Fetches an HTML game list and returns the full page text.
-        ///     Mostly just grabs the given HTTP response, except that it throws an errors if the profile is not public, and writes
-        ///     approrpriate log entries.
-        /// </summary>
-        /// <param name="url">The URL to fetch</param>
-        /// <returns>The full text of the HTML page</returns>
-        public static string FetchHtmlFromUrl(string url)
-        {
-            try
-            {
-                string result;
-
-                Logger.Info(GlobalStrings.GameData_AttemptingDownloadHTMLGameList, url);
-                WebRequest req = WebRequest.Create(url);
-                using (WebResponse response = req.GetResponse())
-                {
-                    if (response.ResponseUri.Segments.Length < 4)
-                    {
-                        throw new ProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
-                    }
-
-                    StreamReader sr = new StreamReader(response.GetResponseStream());
-                    result = sr.ReadToEnd();
-                }
-
-                Logger.Info(GlobalStrings.GameData_SuccessDownloadHTMLGameList, url);
-                return result;
-            }
-            catch (ProfileAccessException e)
-            {
-                Logger.Error(GlobalStrings.GameData_ProfileNotPublic);
-                throw e;
-            }
-            catch (Exception e)
-            {
-                Logger.Error(GlobalStrings.GameData_ExceptionDownloadHTMLGameList, e.Message);
-                throw new ApplicationException(e.Message, e);
-            }
-        }
-
-        /// <summary>
-        ///     Grabs the HTML game list for the given account and returns its full text.
-        /// </summary>
-        /// <param name="customUrl">The custom name for the account</param>
-        /// <returns>Full text of the HTTP response</returns>
-        public static string FetchHtmlGameList(string customUrl)
-        {
-            return FetchHtmlFromUrl(string.Format(CultureInfo.InvariantCulture, Resources.UrlCustomGameListHtml, customUrl));
-        }
-
-        /// <summary>
-        ///     Grabs the HTML game list for the given account and returns its full text.
-        /// </summary>
-        /// <param name="accountId">The 64-bit account ID</param>
-        /// <returns>Full text of the HTTP response</returns>
-        public static string FetchHtmlGameList(long accountId)
-        {
-            return FetchHtmlFromUrl(string.Format(CultureInfo.InvariantCulture, Resources.UrlGameListHtml, accountId));
-        }
 
         /// <summary>
         ///     Fetches an XML game list and loads it into an XML document.
@@ -878,54 +810,6 @@ namespace Depressurizer
         }
 
         /// <summary>
-        ///     Integrates list of games from an HTML page into the loaded game list.
-        /// </summary>
-        /// <param name="page">The full text of the page to load</param>
-        /// <param name="overWrite">If true, overwrite the names of games already in the list.</param>
-        /// <param name="ignore">A set of item IDs to ignore. Can be null.</param>
-        /// <param name="newItems">The number of new items actually added</param>
-        /// <returns>Returns the number of games successfully processed and not ignored.</returns>
-        public int IntegrateHtmlGameList(string page, bool overWrite, SortedSet<int> ignore, out int newItems)
-        {
-            newItems = 0;
-            int totalItems = 0;
-
-            Regex srch = new Regex("\"appid\":([0-9]+),\"name\":\"([^\"]+)\"");
-            MatchCollection matches = srch.Matches(page);
-            foreach (Match m in matches)
-            {
-                if (m.Groups.Count < 3)
-                {
-                    continue;
-                }
-
-                string appIdString = m.Groups[1].Value;
-                string appName = m.Groups[2].Value;
-
-                if (!int.TryParse(appIdString, out int appId))
-                {
-                    continue;
-                }
-
-                appName = ProcessUnicode(appName);
-                GameInfo integratedGame = IntegrateGame(appId, appName, overWrite, ignore, GameListingSource.WebProfile, out bool isNew);
-                if (integratedGame == null)
-                {
-                    continue;
-                }
-
-                totalItems++;
-                if (isNew)
-                {
-                    newItems++;
-                }
-            }
-
-            Logger.Info(GlobalStrings.GameData_IntegratedHTMLDataIntoGameList, totalItems, newItems);
-            return totalItems;
-        }
-
-        /// <summary>
         ///     Integrates list of games from an XmlDocument into the loaded game list.
         /// </summary>
         /// <param name="doc">The XmlDocument containing the new game list</param>
@@ -973,16 +857,6 @@ namespace Depressurizer
 
             Logger.Info(GlobalStrings.GameData_IntegratedXMLDataIntoGameList, loadedGames, newItems);
             return loadedGames;
-        }
-
-        /// <summary>
-        ///     Searches a string for HTML unicode entities ('\u####') and replaces them with actual unicode characters.
-        /// </summary>
-        /// <param name="val">The string to process</param>
-        /// <returns>The processed string</returns>
-        public string ProcessUnicode(string val)
-        {
-            return rxUnicode.Replace(val, m => ((char) int.Parse(m.Groups["Value"].Value, NumberStyles.HexNumber)).ToString());
         }
 
         /// <summary>

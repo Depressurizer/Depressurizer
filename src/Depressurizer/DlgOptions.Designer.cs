@@ -55,8 +55,6 @@ namespace Depressurizer {
             this.cmdAccept = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.grpSaving = new System.Windows.Forms.GroupBox();
-            this.grpDatSrc = new System.Windows.Forms.GroupBox();
-            this.cmbDatSrc = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.grpStoreLanguage = new System.Windows.Forms.GroupBox();
@@ -78,7 +76,6 @@ namespace Depressurizer {
             this.grpSteamDir.SuspendLayout();
             this.grpStartup.SuspendLayout();
             this.grpSaving.SuspendLayout();
-            this.grpDatSrc.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.grpStoreLanguage.SuspendLayout();
@@ -180,24 +177,6 @@ namespace Depressurizer {
             this.grpSaving.Name = "grpSaving";
             this.grpSaving.TabStop = false;
             // 
-            // grpDatSrc
-            // 
-            resources.ApplyResources(this.grpDatSrc, "grpDatSrc");
-            this.grpDatSrc.Controls.Add(this.cmbDatSrc);
-            this.grpDatSrc.Name = "grpDatSrc";
-            this.grpDatSrc.TabStop = false;
-            // 
-            // cmbDatSrc
-            // 
-            resources.ApplyResources(this.cmbDatSrc, "cmbDatSrc");
-            this.cmbDatSrc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDatSrc.FormattingEnabled = true;
-            this.cmbDatSrc.Items.AddRange(new object[] {
-            resources.GetString("cmbDatSrc.Items"),
-            resources.GetString("cmbDatSrc.Items1"),
-            resources.GetString("cmbDatSrc.Items2")});
-            this.cmbDatSrc.Name = "cmbDatSrc";
-            // 
             // tabControl
             // 
             resources.ApplyResources(this.tabControl, "tabControl");
@@ -212,7 +191,6 @@ namespace Depressurizer {
             this.tabGeneral.Controls.Add(this.grpDatabase);
             this.tabGeneral.Controls.Add(this.grpUILanguage);
             this.tabGeneral.Controls.Add(this.grpSteamDir);
-            this.tabGeneral.Controls.Add(this.grpDatSrc);
             this.tabGeneral.Controls.Add(this.grpStartup);
             this.tabGeneral.Controls.Add(this.grpSaving);
             resources.ApplyResources(this.tabGeneral, "tabGeneral");
@@ -343,7 +321,6 @@ namespace Depressurizer {
             this.grpStartup.PerformLayout();
             this.grpSaving.ResumeLayout(false);
             this.grpSaving.PerformLayout();
-            this.grpDatSrc.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.grpStoreLanguage.ResumeLayout(false);
@@ -373,8 +350,6 @@ namespace Depressurizer {
         private System.Windows.Forms.RadioButton radNone;
         private System.Windows.Forms.RadioButton radCreate;
         private System.Windows.Forms.RadioButton radLoad;
-        private System.Windows.Forms.GroupBox grpDatSrc;
-        private System.Windows.Forms.ComboBox cmbDatSrc;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabGeneral;
         private System.Windows.Forms.GroupBox grpUILanguage;

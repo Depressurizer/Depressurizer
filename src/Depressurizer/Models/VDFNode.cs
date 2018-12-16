@@ -381,11 +381,6 @@ namespace Depressurizer.Models
             return arrayData.ContainsKey(index);
         }
 
-        public VDFNode GetNodeAt(string[] args)
-        {
-            return GetNodeAt(args, true, 0);
-        }
-
         public VDFNode GetNodeAt(string[] args, bool create)
         {
             return GetNodeAt(args, create, 0);

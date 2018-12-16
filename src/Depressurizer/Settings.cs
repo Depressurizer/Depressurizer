@@ -117,8 +117,6 @@ namespace Depressurizer
             }
         }
 
-        public GameListSource ListSource { get; set; } = GameListSource.XmlPreferred;
-
         public string LstGamesState { get; set; } = "";
 
         public string ProfileToLoad { get; set; }

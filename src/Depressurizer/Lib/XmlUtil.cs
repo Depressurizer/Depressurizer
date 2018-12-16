@@ -22,11 +22,6 @@ namespace Depressurizer
             return null;
         }
 
-        public static bool GetBoolFromAttribute(XmlNode node, string attName, bool defaultValue)
-        {
-            return TryGetBoolFromAttribute(node, attName, out bool result) ? result : defaultValue;
-        }
-
         public static bool GetBoolFromNode(XmlNode node, bool defaultValue)
         {
             return TryGetBoolFromNode(node, out bool result) ? result : defaultValue;
@@ -92,18 +87,6 @@ namespace Depressurizer
             }
 
             return result;
-        }
-
-        public static bool TryGetBoolFromAttribute(XmlNode node, string attName, out bool value)
-        {
-            string attText = GetAttributeText(node, attName);
-            if (attText != null && bool.TryParse(attText, out value))
-            {
-                return true;
-            }
-
-            value = false;
-            return false;
         }
 
         public static bool TryGetBoolFromNode(XmlNode node, out bool value)

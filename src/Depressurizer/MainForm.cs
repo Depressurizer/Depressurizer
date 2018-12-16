@@ -4357,13 +4357,13 @@ namespace Depressurizer
             {
                 try
                 {
-                    CDlgUpdateProfile updateDlg = new CDlgUpdateProfile(CurrentProfile.GameData, CurrentProfile.SteamID64, CurrentProfile.OverwriteOnDownload, CurrentProfile.IgnoreList, CurrentProfile.IncludeUnknown);
+                    CDlgUpdateProfile updateDlg = new CDlgUpdateProfile(CurrentProfile.GameData, CurrentProfile.SteamID64, CurrentProfile.OverwriteOnDownload, CurrentProfile.IgnoreList);
                     DialogResult res = updateDlg.ShowDialog();
 
                     if (updateDlg.Error != null)
                     {
                         Logger.Exception(GlobalStrings.MainForm_Log_ExceptionWebUpdateDialog, updateDlg.Error);
-                        AddStatus(string.Format(GlobalStrings.MainForm_ErrorDownloadingProfileData, updateDlg.UseHtml ? "HTML" : "XML"));
+                        AddStatus(string.Format(GlobalStrings.MainForm_ErrorDownloadingProfileData, "XML"));
                         MessageBox.Show(string.Format(GlobalStrings.MainForm_ErrorDowloadingProfile, updateDlg.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
@@ -4374,11 +4374,6 @@ namespace Depressurizer
                         }
                         else
                         {
-                            if (updateDlg.Failover)
-                            {
-                                AddStatus(GlobalStrings.MainForm_XMLDownloadFailed);
-                            }
-
                             if (updateDlg.Fetched == 0)
                             {
                                 MessageBox.Show(GlobalStrings.MainForm_NoGameDataFound, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -4387,7 +4382,7 @@ namespace Depressurizer
                             else
                             {
                                 MakeChange(true);
-                                AddStatus(string.Format(GlobalStrings.MainForm_DownloadedGames, updateDlg.Fetched, updateDlg.Added, updateDlg.UseHtml ? "HTML" : "XML"));
+                                AddStatus(string.Format(GlobalStrings.MainForm_DownloadedGames, updateDlg.Fetched, updateDlg.Added, "XML"));
                                 FullListRefresh();
                             }
                         }
