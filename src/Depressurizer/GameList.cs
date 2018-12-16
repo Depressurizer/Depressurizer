@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
@@ -324,7 +325,7 @@ namespace Depressurizer
         /// <param name="includeShortcuts">If true, also saves the Steam shortcut category data</param>
         public void ExportSteamConfig(long steamId, bool discardMissing, bool includeShortcuts)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
             ExportSteamConfigFile(filePath, discardMissing);
             if (includeShortcuts)
             {
@@ -739,7 +740,7 @@ namespace Depressurizer
         /// <returns>The number of game entries found</returns>
         public int ImportSteamConfig(long steamId, SortedSet<int> ignore, bool includeShortcuts)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
             int result = ImportSteamConfigFile(filePath, ignore);
             if (includeShortcuts)
             {
@@ -1172,7 +1173,7 @@ namespace Depressurizer
 
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-            string localConfigPath = string.Format(CultureInfo.InvariantCulture, Resources.LocalConfigPath, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
+            string localConfigPath = string.Format(CultureInfo.InvariantCulture, Constants.LocalConfig, Settings.Instance.SteamPath, Profile.ID64toDirName(accountId));
             VDFNode vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
             if (vdfFile != null)
             {

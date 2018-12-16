@@ -1641,7 +1641,7 @@ namespace Depressurizer
             lstGames.SetObjects(gameInfos);
             lstGames.BuildList();
 
-            mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+            mbtnAutoCategorize.Text = $"Auto-Categorize ({AutoCatGameCount()} Games)";
 
             Cursor = Cursors.Default;
         }
@@ -2904,7 +2904,7 @@ namespace Depressurizer
                 if (webBrowser1.Visible)
                 {
                     webBrowser1.ScriptErrorsSuppressed = true;
-                    webBrowser1.Navigate(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamStoreApp + "?l=" + storeLanguage, g.Id));
+                    webBrowser1.Navigate(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp + "?l=" + storeLanguage, g.Id));
                 }
             }
             else if (webBrowser1.Visible)
@@ -2915,12 +2915,12 @@ namespace Depressurizer
                     {
                         GameInfo g = tlstGames.Objects[0];
                         webBrowser1.ScriptErrorsSuppressed = true;
-                        webBrowser1.Navigate(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamStoreApp + "?l=" + storeLanguage, g.Id));
+                        webBrowser1.Navigate(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp + "?l=" + storeLanguage, g.Id));
                     }
                     else
                     {
                         webBrowser1.ScriptErrorsSuppressed = true;
-                        webBrowser1.Navigate(Resources.UrlSteamStore + "?l=" + storeLanguage);
+                        webBrowser1.Navigate(Constants.SteamStore + "?l=" + storeLanguage);
                     }
                 }
                 catch
@@ -2937,7 +2937,7 @@ namespace Depressurizer
             UpdateEnabledStatesForGames();
             UpdateGameCheckStates();
             UpdateAutoCatSelected_StatusMessage();
-            mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+            mbtnAutoCategorize.Text = $"Auto-Categorize ({AutoCatGameCount()} Games)";
             Cursor.Current = Cursors.Default;
         }
 
@@ -3221,7 +3221,7 @@ namespace Depressurizer
         private void mchkAutoCatSelected_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAutoCatSelected_StatusMessage();
-            mbtnAutoCategorize.Text = string.Format(Resources.AutoCat_ButtonLabel, AutoCatGameCount());
+            mbtnAutoCategorize.Text = $"Auto-Categorize ({AutoCatGameCount()} Games)";
         }
 
         private void mchkBrowser_CheckedChanged(object sender, EventArgs e)
@@ -3341,7 +3341,7 @@ namespace Depressurizer
 
         private void menu_Profile_Restore_Config_Click(object sender, EventArgs e)
         {
-            string sharedConfigPath = Path.GetDirectoryName(string.Format(Resources.ConfigFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(CurrentProfile.SteamID64)));
+            string sharedConfigPath = Path.GetDirectoryName(string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Profile.ID64toDirName(CurrentProfile.SteamID64)));
             using (DlgRestore dialog = new DlgRestore(sharedConfigPath))
             {
                 dialog.ShowDialog();

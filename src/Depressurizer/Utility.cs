@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Windows.Forms;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
 
@@ -172,7 +173,7 @@ namespace Depressurizer
         /// <param name="appId"></param>
         public static void LaunchStorePage(int appId)
         {
-            Process.Start(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamStoreApp, appId));
+            Process.Start(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp, appId));
         }
 
         public static void MoveItem(ListBox lb, int direction)

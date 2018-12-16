@@ -352,7 +352,7 @@ namespace Depressurizer
                 string profile = string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamProfile, SteamID64);
                 xml.Load(profile);
 
-                XmlNodeList xnList = xml.SelectNodes(Resources.XmlNodeAvatar);
+                XmlNodeList xnList = xml.SelectNodes("/profile/avatarIcon");
                 foreach (XmlNode xn in xnList)
                 {
                     string avatarURL = xn.InnerText;

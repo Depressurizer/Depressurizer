@@ -27,6 +27,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
 using Newtonsoft.Json.Linq;
@@ -95,7 +96,7 @@ namespace Depressurizer
             using (WebClient wc = new WebClient())
             {
                 wc.Encoding = Encoding.UTF8;
-                json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamCuratorRecommendations, curatorId, 0));
+                json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Constants.SteamCuratorRecommendations, curatorId, 0));
             }
 
             JObject parsedJson = JObject.Parse(json);
@@ -110,7 +111,7 @@ namespace Depressurizer
                     using (WebClient wc = new WebClient())
                     {
                         wc.Encoding = Encoding.UTF8;
-                        json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamCuratorRecommendations, curatorId, currentPosition));
+                        json = wc.DownloadString(string.Format(CultureInfo.InvariantCulture, Constants.SteamCuratorRecommendations, curatorId, currentPosition));
                     }
 
                     parsedJson = JObject.Parse(json);

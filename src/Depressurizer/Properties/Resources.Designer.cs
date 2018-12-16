@@ -70,33 +70,6 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto-Categorize ({0} Games).
-        /// </summary>
-        internal static string AutoCat_ButtonLabel {
-            get {
-                return ResourceManager.GetString("AutoCat_ButtonLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}\userdata\{1}\7\remote\sharedconfig.vdf.
-        /// </summary>
-        internal static string ConfigFilePath {
-            get {
-                return ResourceManager.GetString("ConfigFilePath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}\userdata\{1}\config\localconfig.vdf.
-        /// </summary>
-        internal static string LocalConfigPath {
-            get {
-                return ResourceManager.GetString("LocalConfigPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}\appcache\packageinfo.vdf.
         /// </summary>
         internal static string PackageInfoPath {
@@ -169,47 +142,11 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://store.steampowered.com/curator/{0}/ajaxgetfilteredrecommendations/render/?query=&amp;start={1}&amp;count=50.
-        /// </summary>
-        internal static string UrlSteamCuratorRecommendations {
-            get {
-                return ResourceManager.GetString("UrlSteamCuratorRecommendations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to http://steamcommunity.com/profiles/{0}?xml=1.
         /// </summary>
         internal static string UrlSteamProfile {
             get {
                 return ResourceManager.GetString("UrlSteamProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://store.steampowered.com/.
-        /// </summary>
-        internal static string UrlSteamStore {
-            get {
-                return ResourceManager.GetString("UrlSteamStore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://store.steampowered.com/app/{0}/.
-        /// </summary>
-        internal static string UrlSteamStoreApp {
-            get {
-                return ResourceManager.GetString("UrlSteamStoreApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /profile/avatarIcon.
-        /// </summary>
-        internal static string XmlNodeAvatar {
-            get {
-                return ResourceManager.GetString("XmlNodeAvatar", resourceCulture);
             }
         }
     }

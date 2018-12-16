@@ -1,26 +1,4 @@
-﻿#region LICENSE
-
-//     This file (DatabaseEntry.cs) is part of Depressurizer.
-//     Copyright (C) 2011 Steve Labbe
-//     Copyright (C) 2017 Theodoros Dimos
-//     Copyright (C) 2017 Martijn Vegter
-// 
-//     This program is free software: you can redistribute it and/or modify
-//     it under the terms of the GNU General Public License as published by
-//     the Free Software Foundation, either version 3 of the License, or
-//     (at your option) any later version.
-// 
-//     This program is distributed in the hope that it will be useful,
-//     but WITHOUT ANY WARRANTY; without even the implied warranty of
-//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//     GNU General Public License for more details.
-// 
-//     You should have received a copy of the GNU General Public License
-//     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -603,14 +581,14 @@ namespace Depressurizer.Models
             try
             {
                 string storeLanguage = Language.LanguageCode(Database.Language);
-                HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamStoreApp + "?l=" + storeLanguage, id));
+                HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp + "?l=" + storeLanguage, id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
                 while (resp.StatusCode == HttpStatusCode.Found && count < 5)
                 {
                     resp.Close();
-                    if (resp.Headers[HttpResponseHeader.Location] == Resources.UrlSteamStore)
+                    if (Regexes.IsSteamStore.IsMatch(resp.Headers[HttpResponseHeader.Location]))
                     {
                         // If we are redirected to the store front page
                         Logger.Verbose(GlobalStrings.GameDB_ScrapingRedirectedToMainStorePage, id);
