@@ -11,7 +11,6 @@ using System.Reflection;
 using System.Windows.Forms;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
-using Depressurizer.Properties;
 
 namespace Depressurizer
 {

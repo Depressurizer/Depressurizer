@@ -1,7 +1,4 @@
-﻿// ReSharper disable CommentTypo
-// ReSharper disable IdentifierTypo
-
-namespace Depressurizer.Core.Enums
+﻿namespace Depressurizer.Core.Enums
 {
     /// <summary>
     ///     These are the languages supported on Steam.
