@@ -60,7 +60,7 @@ namespace Depressurizer
 
         private void clbAutocats_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            ((AutoCat) clbAutocats.Items[e.Index]).Selected = e.NewValue == CheckState.Checked ? true : false;
+            ((AutoCat) clbAutocats.Items[e.Index]).Selected = e.NewValue == CheckState.Checked;
         }
 
         private void DlgAutoCat_Load(object sender, EventArgs e)
@@ -97,29 +97,31 @@ namespace Depressurizer
         private bool IsGroup(string find)
         {
             AutoCat test = GetAutoCat(find);
-            return test.AutoCatType == AutoCatType.Group ? true : false;
+            return test.AutoCatType == AutoCatType.Group;
         }
 
-        private bool SafeGroup(List<string> autocats, List<string> groups)
+        private bool SafeGroup(IEnumerable<string> autocats, ICollection<string> groups)
         {
             foreach (string ac in autocats)
                 // is AutoCat a group?
             {
-                if (IsGroup(ac))
+                if (!IsGroup(ac))
                 {
-                    // if group list already contains the group then we are stuck in an infinite loop.  RETURN FALSE.
-                    if (groups.Contains(ac))
-                    {
-                        return false;
-                    }
-
-                    // add new group to group list
-                    groups.Add(ac);
-                    // get AutoCat from group name
-                    AutoCatGroup group = GetAutoCat(ac) as AutoCatGroup;
-                    // send new group to SafeGroup to continue testing
-                    return SafeGroup(group.Autocats, groups);
+                    continue;
                 }
+
+                // if group list already contains the group then we are stuck in an infinite loop.  RETURN FALSE.
+                if (groups.Contains(ac))
+                {
+                    return false;
+                }
+
+                // add new group to group list
+                groups.Add(ac);
+                // get AutoCat from group name
+                AutoCatGroup group = GetAutoCat(ac) as AutoCatGroup;
+                // send new group to SafeGroup to continue testing
+                return SafeGroup(group.Autocats, groups);
             }
 
             // no duplicate group found.  All good! RETURN TRUE.

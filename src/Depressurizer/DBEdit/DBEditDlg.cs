@@ -677,8 +677,6 @@ namespace Depressurizer
             {
                 RebuildDisplayList();
             }
-
-            ;
         }
 
         private void RebuildDisplayList()

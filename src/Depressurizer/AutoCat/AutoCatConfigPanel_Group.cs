@@ -151,8 +151,8 @@ namespace Depressurizer
             else if (lbAutocats.SelectedItem != null)
             {
                 btnRemove.Enabled = true;
-                btnUp.Enabled = lbAutocats.SelectedIndex == 0 ? false : true;
-                btnDown.Enabled = lbAutocats.SelectedIndex == lbAutocats.Items.Count - 1 ? false : true;
+                btnUp.Enabled = lbAutocats.SelectedIndex != 0;
+                btnDown.Enabled = lbAutocats.SelectedIndex != lbAutocats.Items.Count - 1;
             }
             else
             {

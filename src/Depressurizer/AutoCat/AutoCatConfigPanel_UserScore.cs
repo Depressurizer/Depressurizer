@@ -222,7 +222,7 @@ namespace Depressurizer
 
             txtRuleName.Enabled = numRuleMaxScore.Enabled = numRuleMinScore.Enabled = numRuleMinReviews.Enabled = numRuleMaxReviews.Enabled = cmdRuleRemove.Enabled = ruleSelected;
             cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
-            cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
+            cmdRuleDown.Enabled = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
         }
 
         #endregion

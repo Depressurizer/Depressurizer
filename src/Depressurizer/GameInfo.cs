@@ -12,7 +12,7 @@ namespace Depressurizer
     {
         #region Constants
 
-        private const string runSteam = "steam://rungameid/{0}";
+        private const string RunSteam = "steam://rungameid/{0}";
 
         #endregion
 
@@ -63,14 +63,14 @@ namespace Depressurizer
             {
                 if (_executable == null)
                 {
-                    return string.Format(runSteam, Id);
+                    return string.Format(RunSteam, Id);
                 }
 
                 return _executable;
             }
             set
             {
-                if (value != string.Format(runSteam, Id))
+                if (value != string.Format(RunSteam, Id))
                 {
                     _executable = value;
                 }
@@ -281,29 +281,6 @@ namespace Depressurizer
             }
 
             return !(!includeFavorite && Categories.Count == 1 && Categories.Contains(FavoriteCategory));
-        }
-
-        /// <summary>
-        ///     Check to see if the game has any categories set that do not exist in the given list
-        /// </summary>
-        /// <param name="except">List of games to exclude from the  check</param>
-        /// <returns>True if the game has any categories that do not exist in the list</returns>
-        public bool HasCategoriesExcept(ICollection<Category> except)
-        {
-            if (Categories.Count == 0)
-            {
-                return false;
-            }
-
-            foreach (Category c in Categories)
-            {
-                if (!except.Contains(c))
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         public bool IncludeGame(Filter f)

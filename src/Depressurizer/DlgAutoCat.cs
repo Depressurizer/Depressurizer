@@ -220,8 +220,8 @@ namespace Depressurizer
 
             if (lstAutoCats.SelectedItem != null)
             {
-                btnUp.Enabled = lstAutoCats.SelectedIndex == 0 ? false : true;
-                btnDown.Enabled = lstAutoCats.SelectedIndex == lstAutoCats.Items.Count - 1 ? false : true;
+                btnUp.Enabled = lstAutoCats.SelectedIndex != 0;
+                btnDown.Enabled = lstAutoCats.SelectedIndex != lstAutoCats.Items.Count - 1;
             }
             else
             {

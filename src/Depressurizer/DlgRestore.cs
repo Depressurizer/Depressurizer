@@ -32,11 +32,6 @@ namespace Depressurizer
 
         #region Methods
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void btnRestore_Click(object sender, EventArgs e)
         {
             string name = ((ComboItem) cboRestore.SelectedItem).Name;

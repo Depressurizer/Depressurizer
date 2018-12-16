@@ -49,7 +49,7 @@ namespace Depressurizer
             try
             {
                 string doc = GameList.FetchHtmlGameList(profile.SteamID64);
-                profile.GameData.IntegrateHtmlGameList(doc, false, profile.IgnoreList, out int newApps);
+                profile.GameData.IntegrateHtmlGameList(doc, false, profile.IgnoreList, out int _);
                 return true;
             }
             catch (Exception e)
@@ -144,7 +144,7 @@ namespace Depressurizer
                 {
                     Write("Checking for running Steam instance...");
                     Process[] processes = Process.GetProcessesByName("steam");
-                    if (processes.Count() == 0)
+                    if (!processes.Any())
                     {
                         WriteLine("Not found. Continuing.");
                         return true;
@@ -286,7 +286,7 @@ namespace Depressurizer
         private Profile LoadProfile(string customProfile)
         {
             // First, decide which profile to load
-            string profileToLoad = null;
+            string profileToLoad;
             Write("Deciding what profile to load...");
             if (string.IsNullOrWhiteSpace(customProfile))
             {
@@ -714,11 +714,10 @@ namespace Depressurizer
             bool success = false;
             if (profile.LocalUpdate)
             {
-                int newApps = 0;
                 try
                 {
                     Write("Trying local update...");
-                    profile.GameData.UpdateGameListFromOwnedPackageInfo(profile.SteamID64, profile.IgnoreList, out newApps);
+                    profile.GameData.UpdateGameListFromOwnedPackageInfo(profile.SteamID64, profile.IgnoreList, out int _);
                     success = true;
                 }
                 catch (Exception e)

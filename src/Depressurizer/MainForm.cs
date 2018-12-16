@@ -61,8 +61,6 @@ namespace Depressurizer
 
         private readonly Color listBackground = Color.FromArgb(255, 22, 22, 22);
 
-        private readonly MaterialSkinManager materialSkinManager;
-
         private readonly Color primary = Color.FromArgb(255, 55, 71, 79);
 
         private readonly Color primaryDark = Color.FromArgb(255, 38, 50, 56);
@@ -111,10 +109,9 @@ namespace Depressurizer
             contextAutoCat.Renderer = new MyRenderer();
 
             // Initialize MaterialSkinManager
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue700, TextShade.WHITE);
+            MaterialSkinManager.AddFormToManage(this);
+            MaterialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            MaterialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue700, TextShade.WHITE);
 
             lstCategories.BackColor = formColor;
             lstCategories.ForeColor = textColor;
@@ -144,6 +141,8 @@ namespace Depressurizer
         private static Database Database => Database.Instance;
 
         private static Logger Logger => Logger.Instance;
+
+        private static MaterialSkinManager MaterialSkinManager => MaterialSkinManager.Instance;
 
         private static Settings Settings => Settings.Instance;
 
@@ -2700,7 +2699,7 @@ namespace Depressurizer
                 if (AdvancedCategoryFilter)
                 {
                     ListViewItem i = lstCategories.GetItemAt(e.X, e.Y);
-                    if (lstCategories.SelectedItems.Contains(i) && !(ModifierKeys == Keys.Control))
+                    if (lstCategories.SelectedItems.Contains(i) && ModifierKeys != Keys.Control)
                     {
                         HandleAdvancedCategoryItemActivation(i, ModifierKeys == Keys.Shift);
                     }
@@ -4272,7 +4271,7 @@ namespace Depressurizer
             Cursor = Cursors.WaitCursor;
             foreach (Control c in splitGame.Panel2.Controls)
             {
-                if (!(c == cmbAutoCatType))
+                if (c != cmbAutoCatType)
                 {
                     c.Enabled = gamesSelected;
                 }

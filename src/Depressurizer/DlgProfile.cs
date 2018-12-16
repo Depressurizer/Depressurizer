@@ -514,14 +514,14 @@ namespace Depressurizer
             return false;
         }
 
-        private bool SelectUserInList(string accountId)
+        private void SelectUserInList(string accountId)
         {
-            if (long.TryParse(accountId, out long val))
+            if (!long.TryParse(accountId, out long val))
             {
-                return SelectUserInList(val);
+                return;
             }
 
-            return false;
+            SelectUserInList(val);
         }
 
         private void SetUpdateInterfaceNormal()
@@ -614,13 +614,13 @@ namespace Depressurizer
 
         private bool ValidateEntries()
         {
-            if (!long.TryParse(txtUserID.Text, out long id))
+            if (long.TryParse(txtUserID.Text, out long _))
             {
-                MessageBox.Show(GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                return true;
             }
 
-            return true;
+            MessageBox.Show(GlobalStrings.DlgProfile_AccountIDMustBeNumber, GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
         }
 
         #endregion

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Depressurizer.Models;
-using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer
 {
@@ -52,64 +50,6 @@ namespace Depressurizer
         #endregion
 
         #region Public Methods and Operators
-
-        public static PackageInfo FromVdfNode(VDFNode node)
-        {
-            VDFNode idNode = node.GetNodeAt(new[]
-            {
-                "packageId"
-            }, false);
-            if (idNode != null && idNode.NodeType == ValueType.Int)
-            {
-                int id = idNode.NodeInt;
-
-                string name = null;
-                VDFNode nameNode = node.GetNodeAt(new[]
-                {
-                    "name"
-                }, false);
-                if (nameNode != null && nameNode.NodeType == ValueType.String)
-                {
-                    name = nameNode.NodeString;
-                }
-
-                PackageInfo package = new PackageInfo(id, name);
-
-                VDFNode billingtypeNode = node["billingtype"];
-                if (billingtypeNode != null && billingtypeNode.NodeType == ValueType.String || billingtypeNode.NodeType == ValueType.Int)
-                {
-                    int bType = billingtypeNode.NodeInt;
-                    /*if( Enum.IsDefined( typeof(PackageBillingType), bType ) ) {
-
-                    } else {
-
-                    }*/
-                    package.BillingType = (PackageBillingType) bType;
-                }
-
-                VDFNode appsNode = node["appids"];
-                if (appsNode != null && appsNode.NodeType == ValueType.Array)
-                {
-                    foreach (VDFNode aNode in appsNode.NodeArray.Values)
-                    {
-                        if (aNode.NodeType == ValueType.Int)
-                        {
-                            package.AppIds.Add(aNode.NodeInt);
-                        }
-                    }
-                }
-
-                return package;
-            }
-
-            return null;
-        }
-
-        public static DateTime GetLocalDateTime(int timeStamp)
-        {
-            DateTime result = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            return result.AddSeconds(timeStamp).ToLocalTime();
-        }
 
         /// <summary>
         ///     Loads Apps from packageinfo.vdf.

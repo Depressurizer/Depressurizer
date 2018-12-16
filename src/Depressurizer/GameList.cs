@@ -252,16 +252,6 @@ namespace Depressurizer
         }
 
         /// <summary>
-        ///     Adds a set of categories to a single game
-        /// </summary>
-        /// <param name="appId">Game ID to add to</param>
-        /// <param name="categories">Categories to add</param>
-        public void AddGameCategory(int appId, ICollection<Category> categories)
-        {
-            Games[appId].AddCategory(categories);
-        }
-
-        /// <summary>
         ///     Checks to see if a category with the given name exists
         /// </summary>
         /// <param name="name">Name of the category to look for</param>
@@ -533,8 +523,7 @@ namespace Depressurizer
                     }
                 }
 
-                StringDictionary launchIds = new StringDictionary();
-                LoadShortcutLaunchIds(steamId, out launchIds);
+                LoadShortcutLaunchIds(steamId, out StringDictionary launchIds);
 
                 VDFNode appsNode = dataRoot.GetNodeAt(new[]
                 {
@@ -543,8 +532,7 @@ namespace Depressurizer
                 foreach (KeyValuePair<string, VDFNode> shortcutPair in appsNode.NodeArray)
                 {
                     VDFNode nodeGame = shortcutPair.Value;
-                    int nodeId = -1;
-                    int.TryParse(shortcutPair.Key, out nodeId);
+                    int.TryParse(shortcutPair.Key, out int nodeId);
 
                     int matchingIndex = FindMatchingShortcut(nodeId, nodeGame, gamesToSave, launchIds);
 
@@ -914,7 +902,7 @@ namespace Depressurizer
                 string appIdString = m.Groups[1].Value;
                 string appName = m.Groups[2].Value;
 
-                if (appName == null || appIdString == null || !int.TryParse(appIdString, out int appId))
+                if (!int.TryParse(appIdString, out int appId))
                 {
                     continue;
                 }

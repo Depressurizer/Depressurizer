@@ -34,18 +34,21 @@ namespace Depressurizer
 
         public static TEnum GetEnumFromNode<TEnum>(XmlNode node, TEnum defaultValue) where TEnum : struct, IComparable, IConvertible, IFormattable
         {
-            if (node != null)
+            if (node == null)
             {
-                XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null)
-                {
-                    string str = textNode.InnerText;
-                    TEnum res = defaultValue;
-                    if (Enum.TryParse(str, out res))
-                    {
-                        return res;
-                    }
-                }
+                return defaultValue;
+            }
+
+            XmlNode textNode = node.SelectSingleNode("text()");
+            if (textNode == null)
+            {
+                return defaultValue;
+            }
+
+            string str = textNode.InnerText;
+            if (Enum.TryParse(str, out TEnum res))
+            {
+                return res;
             }
 
             return defaultValue;

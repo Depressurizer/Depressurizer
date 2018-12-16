@@ -178,7 +178,7 @@ namespace Depressurizer
 
             txtRuleName.Enabled = numRuleMaxTime.Enabled = numRuleMinTime.Enabled = cmbTimeType.Enabled = cmdRuleRemove.Enabled = ruleSelected;
             cmdRuleUp.Enabled = ruleSelected && lstRules.SelectedIndex != 0;
-            cmdRuleDown.Enabled = ruleSelected = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
+            cmdRuleDown.Enabled = ruleSelected && lstRules.SelectedIndex != lstRules.Items.Count - 1;
         }
 
         #endregion

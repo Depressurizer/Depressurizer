@@ -16,19 +16,19 @@ namespace Depressurizer.Models
 
         private const string TypeIdString = "Filter";
 
-        private const string XmlName_Allow = "Allow";
+        private const string XmlNameAllow = "Allow";
 
-        private const string XmlName_Exclude = "Exclude";
+        private const string XmlNameExclude = "Exclude";
 
-        private const string XmlName_Hidden = "Hidden";
+        private const string XmlNameHidden = "Hidden";
 
-        private const string XmlName_Name = "Name";
+        private const string XmlNameName = "Name";
 
-        private const string XmlName_Require = "Require";
+        private const string XmlNameRequire = "Require";
 
-        private const string XmlName_Uncategorized = "Uncategorized";
+        private const string XmlNameUncategorized = "Uncategorized";
 
-        private const string XmlName_VR = "VR";
+        private const string XmlNameVR = "VR";
 
         #endregion
 
@@ -126,24 +126,24 @@ namespace Depressurizer.Models
 
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
-            writer.WriteElementString(XmlName_Uncategorized, Uncategorized.ToString());
-            writer.WriteElementString(XmlName_Hidden, Hidden.ToString());
-            writer.WriteElementString(XmlName_VR, VR.ToString());
+            writer.WriteElementString(XmlNameName, Name);
+            writer.WriteElementString(XmlNameUncategorized, Uncategorized.ToString());
+            writer.WriteElementString(XmlNameHidden, Hidden.ToString());
+            writer.WriteElementString(XmlNameVR, VR.ToString());
 
             foreach (Category c in Allow)
             {
-                writer.WriteElementString(XmlName_Allow, c.Name);
+                writer.WriteElementString(XmlNameAllow, c.Name);
             }
 
             foreach (Category c in Require)
             {
-                writer.WriteElementString(XmlName_Require, c.Name);
+                writer.WriteElementString(XmlNameRequire, c.Name);
             }
 
             foreach (Category c in Exclude)
             {
-                writer.WriteElementString(XmlName_Exclude, c.Name);
+                writer.WriteElementString(XmlNameExclude, c.Name);
             }
 
             writer.WriteEndElement(); // Filter

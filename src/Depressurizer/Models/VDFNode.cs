@@ -586,10 +586,9 @@ namespace Depressurizer.Models
             bool escaped = false;
             bool stringDone = false;
             StringBuilder sb = new StringBuilder();
-            char nextChar;
             do
             {
-                nextChar = (char) stream.Read();
+                char nextChar = (char) stream.Read();
                 if (escaped)
                 {
                     switch (nextChar)

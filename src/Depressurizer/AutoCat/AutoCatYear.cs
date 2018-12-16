@@ -160,7 +160,7 @@ namespace Depressurizer
 
         private string GetProcessedString(int year)
         {
-            string result = string.Empty;
+            string result;
             if (year <= 0)
             {
                 result = UnknownText;

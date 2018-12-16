@@ -29,7 +29,7 @@ namespace Depressurizer
         {
             InitializeComponent();
             Game = game;
-            editMode = game == null ? false : true;
+            editMode = game != null;
         }
 
         #endregion
