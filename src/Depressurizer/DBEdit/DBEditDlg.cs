@@ -4,9 +4,9 @@ using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
-using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -970,7 +970,7 @@ namespace Depressurizer
         {
             try
             {
-                string path = string.Format(CultureInfo.InvariantCulture, Resources.AppInfoPath, Settings.Instance.SteamPath);
+                string path = string.Format(CultureInfo.InvariantCulture, Constants.AppInfo, Settings.Instance.SteamPath);
                 int updated = Database.UpdateFromAppInfo(path);
                 if (updated > 0)
                 {

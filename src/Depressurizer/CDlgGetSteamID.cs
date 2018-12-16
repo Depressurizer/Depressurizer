@@ -2,8 +2,8 @@
 using System.Globalization;
 using System.Net;
 using System.Xml;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
-using Depressurizer.Properties;
 using Rallion;
 
 namespace Depressurizer
@@ -59,7 +59,7 @@ namespace Depressurizer
 
             try
             {
-                string url = string.Format(CultureInfo.InvariantCulture, Resources.UrlCustomProfileXml, customUrlName);
+                string url = string.Format(CultureInfo.InvariantCulture, Constants.UrlCustomProfileXml, customUrlName);
                 Logger.Info(GlobalStrings.CDlgGetSteamID_AttemptingDownloadXMLProfile, customUrlName, url);
                 WebRequest req = WebRequest.Create(url);
                 WebResponse response = req.GetResponse();

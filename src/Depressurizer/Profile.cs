@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Globalization;
 using System.Net.Cache;
 using System.Xml;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
-using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -402,7 +402,7 @@ namespace Depressurizer
             try
             {
                 XmlDocument xml = new XmlDocument();
-                string profile = string.Format(CultureInfo.InvariantCulture, Resources.UrlSteamProfile, SteamID64);
+                string profile = string.Format(CultureInfo.InvariantCulture, Constants.UrlSteamProfile, SteamID64);
                 xml.Load(profile);
 
                 XmlNodeList xnList = xml.SelectNodes("/profile/avatarIcon");

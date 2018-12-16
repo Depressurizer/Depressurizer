@@ -20,7 +20,6 @@ using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
-using Depressurizer.Properties;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Win32;
@@ -4189,7 +4188,7 @@ namespace Depressurizer
         {
             try
             {
-                int num = Database.UpdateFromAppInfo(string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath));
+                int num = Database.UpdateFromAppInfo(string.Format(CultureInfo.InvariantCulture, Constants.AppInfo, Settings.Instance.SteamPath));
                 AddStatus(string.Format(GlobalStrings.MainForm_Status_AppInfoAutoupdate, num));
                 if (num > 0 && Settings.Instance.AutoSaveDatabase)
                 {

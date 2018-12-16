@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
-using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -624,7 +625,7 @@ namespace Depressurizer
             bool success = false;
             try
             {
-                string path = string.Format(Resources.AppInfoPath, Settings.Instance.SteamPath);
+                string path = string.Format(CultureInfo.InvariantCulture, Constants.AppInfo, Settings.Instance.SteamPath);
                 if (Database.UpdateFromAppInfo(path) > 0)
                 {
                     dbModified = true;

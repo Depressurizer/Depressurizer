@@ -9,7 +9,6 @@ using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
-using Depressurizer.Properties;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer
@@ -113,7 +112,7 @@ namespace Depressurizer
         /// <returns>Fetched XML page as an XmlDocument</returns>
         public static XmlDocument FetchXmlGameList(string customUrl)
         {
-            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Resources.UrlCustomGameListXml, customUrl));
+            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Constants.UrlCustomGameListXml, customUrl));
         }
 
         /// <summary>
@@ -123,7 +122,7 @@ namespace Depressurizer
         /// <returns>Fetched XML page as an XmlDocument</returns>
         public static XmlDocument FetchXmlGameList(long steamId)
         {
-            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Resources.UrlGameListXml, steamId));
+            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Constants.UrlGameListXml, steamId));
         }
 
         /// <summary>
@@ -409,7 +408,7 @@ namespace Depressurizer
         /// <param name="steamId">Identifier of Steam user to save information</param>
         public void ExportSteamShortcuts(long steamId)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Shortcuts, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
             Logger.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
             FileStream fStream = null;
             BinaryReader binReader = null;
@@ -711,12 +710,6 @@ namespace Depressurizer
             return count;
         }
 
-        /// <summary>
-        ///     Updates set of non-Steam games. Will remove any games that are currently in the list but not found in the Steam
-        ///     config.
-        /// </summary>
-        /// <param name="steamId">The ID64 of the account to load shortcuts for</param>
-        /// <returns>Total number of entries processed</returns>
         public int ImportSteamShortcuts(long steamId)
         {
             if (steamId <= 0)
@@ -726,7 +719,7 @@ namespace Depressurizer
 
             int loadedGames = 0;
 
-            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ShortCutsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Shortcuts, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
             FileStream fStream = null;
             BinaryReader binReader = null;
 
@@ -1017,21 +1010,12 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        ///     Updates the game list based on data from the localconfig file and the package cache, including LastPlayed.
-        /// </summary>
-        /// <param name="accountId">64-bit account ID to update for</param>
-        /// <param name="ignored">Set of games to ignore</param>
-        /// <param name="includeUnknown">
-        ///     If true, include games that do not exist in the database or are of unknown type in the
-        ///     database
-        /// </param>
         public int UpdateGameListFromOwnedPackageInfo(long accountId, SortedSet<int> ignored, out int newApps)
         {
             newApps = 0;
             int totalApps = 0;
 
-            Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(CultureInfo.InvariantCulture, Resources.PackageInfoPath, Settings.Instance.SteamPath));
+            Dictionary<int, PackageInfo> allPackages = PackageInfo.LoadPackages(string.Format(CultureInfo.InvariantCulture, Constants.PackageInfo, Settings.Instance.SteamPath));
 
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
@@ -1151,15 +1135,9 @@ namespace Depressurizer
             return -1;
         }
 
-        /// <summary>
-        ///     Load launch IDs for external games from screenshots.vdf
-        /// </summary>
-        /// <param name="steamId">Steam user identifier</param>
-        /// <param name="shortcutLaunchIds">Found games listed as pairs of {gameName, gameId} </param>
-        /// <returns>True if file was successfully loaded, false otherwise</returns>
         private static void LoadShortcutLaunchIds(long steamId, out StringDictionary shortcutLaunchIds)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Resources.ScreenshotsFilePath, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Screenshots, Settings.Instance.SteamPath, Profile.ID64toDirName(steamId));
 
             shortcutLaunchIds = new StringDictionary();
 
