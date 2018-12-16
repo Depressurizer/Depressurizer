@@ -28,7 +28,7 @@ namespace Depressurizer
 
         #region Fields
 
-        private readonly Dictionary<int, DatabaseEntry> _games = new Dictionary<int, DatabaseEntry>();
+        public readonly Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
 
         #endregion
 
@@ -162,19 +162,20 @@ namespace Depressurizer
         }
 
         [JsonIgnore]
-        public int Count => _games.Count;
+        public int Count => Games.Count;
 
         public StoreLanguage Language { get; set; } = StoreLanguage.English;
 
         public long LastHLTBUpdate { get; set; }
 
+        [JsonIgnore]
         public Dictionary<int, DatabaseEntry>.ValueCollection Values
         {
             get
             {
                 lock (SyncRoot)
                 {
-                    return _games.Values;
+                    return Games.Values;
                 }
             }
         }
@@ -204,7 +205,7 @@ namespace Depressurizer
                 }
                 else
                 {
-                    _games.Add(entry.Id, entry);
+                    Games.Add(entry.Id, entry);
                 }
             }
         }
@@ -358,7 +359,7 @@ namespace Depressurizer
         {
             lock (SyncRoot)
             {
-                _games.Clear();
+                Games.Clear();
             }
         }
 
@@ -366,7 +367,7 @@ namespace Depressurizer
         {
             lock (SyncRoot)
             {
-                return _games.ContainsKey(appId);
+                return Games.ContainsKey(appId);
             }
         }
 
@@ -378,7 +379,7 @@ namespace Depressurizer
 
                 if (Contains(appId))
                 {
-                    entry = _games[appId];
+                    entry = Games[appId];
                 }
 
                 return entry != null;
@@ -622,7 +623,10 @@ namespace Depressurizer
 
         public void Remove(int appId)
         {
-            _games.Remove(appId);
+            lock (SyncRoot)
+            {
+                Games.Remove(appId);
+            }
         }
 
         public void Reset()
@@ -910,8 +914,8 @@ namespace Depressurizer
                     }
                     else
                     {
-                        float interp = i / (float) (tagsToLoad - 1);
-                        score = (1 - interp) * weightFactor + interp;
+                        float inter = i / (float) (tagsToLoad - 1);
+                        score = (1 - inter) * weightFactor + inter;
                     }
                 }
 
