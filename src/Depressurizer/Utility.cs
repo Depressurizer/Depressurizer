@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Net.Cache;
 using System.Reflection;
 using System.Windows.Forms;
 using Depressurizer.Core.Helpers;
@@ -107,16 +106,11 @@ namespace Depressurizer
             return value.ToString();
         }
 
-        public static Image GetImage(string url, RequestCacheLevel cache)
-        {
-            return GetImage(url, cache, 0);
-        }
-
-        public static Image GetImage(string url, RequestCacheLevel cache, int id)
+        public static Image GetImage(string url)
         {
             try
             {
-                return Image.FromStream(GetRemoteImageStream(url, id));
+                return Image.FromStream(GetRemoteImageStream(url));
             }
             catch
             {
@@ -126,7 +120,7 @@ namespace Depressurizer
             return null;
         }
 
-        public static Stream GetRemoteImageStream(string url, int id)
+        public static Stream GetRemoteImageStream(string url)
         {
             try
             {

@@ -8,20 +8,6 @@ namespace Depressurizer
     {
         #region Public Methods and Operators
 
-        public static string GetAttributeText(XmlNode node, string attName)
-        {
-            if (node != null)
-            {
-                XmlAttribute att = node.Attributes["attName"];
-                if (att != null)
-                {
-                    return att.Value;
-                }
-            }
-
-            return null;
-        }
-
         public static bool GetBoolFromNode(XmlNode node, bool defaultValue)
         {
             return TryGetBoolFromNode(node, out bool result) ? result : defaultValue;

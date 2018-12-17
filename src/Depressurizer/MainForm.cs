@@ -3339,7 +3339,7 @@ namespace Depressurizer
 
         private void menu_Profile_Restore_Config_Click(object sender, EventArgs e)
         {
-            string sharedConfigPath = Path.GetDirectoryName(string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Profile.ID64toDirName(CurrentProfile.SteamID64)));
+            string sharedConfigPath = Path.GetDirectoryName(string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Profile.ToSteam3Id(CurrentProfile.SteamID64)));
             using (DlgRestore dialog = new DlgRestore(sharedConfigPath))
             {
                 dialog.ShowDialog();
@@ -4435,7 +4435,7 @@ namespace Depressurizer
             //update Avatar picture for new profile
             if (CurrentProfile != null)
             {
-                picAvatar.Image = CurrentProfile.GetAvatar();
+                picAvatar.Image = CurrentProfile.Avatar;
             }
         }
 

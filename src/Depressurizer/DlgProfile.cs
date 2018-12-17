@@ -355,7 +355,7 @@ namespace Depressurizer
             UserRecord u = lstUsers.SelectedItem as UserRecord;
             if (u != null)
             {
-                txtUserID.Text = Profile.DirNametoID64(u.DirName).ToString();
+                txtUserID.Text = Profile.ToSteamId64(u.DirName).ToString();
             }
         }
 
@@ -380,7 +380,7 @@ namespace Depressurizer
 
                 if (job != null)
                 {
-                    string name = GetDisplayName(Profile.DirNametoID64(job.dir));
+                    string name = GetDisplayName(Profile.ToSteamId64(job.dir));
 
                     lock (data.tLock)
                     {
@@ -499,7 +499,7 @@ namespace Depressurizer
 
         private bool SelectUserInList(long accountId)
         {
-            string profDirName = Profile.ID64toDirName(accountId);
+            string profDirName = Profile.ToSteam3Id(accountId);
 
             for (int i = 0; i < lstUsers.Items.Count; i++)
             {
