@@ -2446,15 +2446,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not delete filter..
-        /// </summary>
-        internal static string MainForm_CouldNotDeleteFilter {
-            get {
-                return ResourceManager.GetString("MainForm_CouldNotDeleteFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         internal static string MainForm_Create {
@@ -2496,15 +2487,6 @@ namespace Depressurizer {
         internal static string MainForm_DeleteCategoryMulti {
             get {
                 return ResourceManager.GetString("MainForm_DeleteCategoryMulti", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete filter &apos;{0}&apos;?.
-        /// </summary>
-        internal static string MainForm_DeleteFilter {
-            get {
-                return ResourceManager.GetString("MainForm_DeleteFilter", resourceCulture);
             }
         }
         
@@ -2716,15 +2698,6 @@ namespace Depressurizer {
         internal static string MainForm_FilterAdded {
             get {
                 return ResourceManager.GetString("MainForm_FilterAdded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} filters deleted..
-        /// </summary>
-        internal static string MainForm_FilterDeleted {
-            get {
-                return ResourceManager.GetString("MainForm_FilterDeleted", resourceCulture);
             }
         }
         

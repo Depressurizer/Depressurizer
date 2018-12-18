@@ -20,6 +20,7 @@ using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
+using Depressurizer.Properties;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Win32;
@@ -1260,30 +1261,45 @@ namespace Depressurizer
         {
             if (filter == null)
             {
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_CouldNotDeleteFilter), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            if (!ProfileLoaded || !AdvancedCategoryFilter)
-            {
+                Logger.Info("MainForm:DeleteFilter | Tried to delete a filter but given object was null.");
                 return;
             }
 
-            DialogResult res = MessageBox.Show(string.Format(GlobalStrings.MainForm_DeleteFilter, filter.Name), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (res != DialogResult.Yes)
+            if (!ProfileLoaded)
             {
+                Logger.Info("MainForm:DeleteFilter | Tried to delete filter '{0}', but there is no profile loaded.", filter.Name);
+                return;
+            }
+
+            if (!AdvancedCategoryFilter)
+            {
+                Logger.Info("MainForm:DeleteFilter | Tried to delete filter '{0}', but AdvancedCategoryFilter is not enabled.", filter.Name);
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Resources.ConfirmDeleteFilter, filter.Name), Resources.Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes)
+            {
+                Logger.Info("MainForm:DeleteFilter | User canceled the deletion of filter '{0}'.", filter.Name);
                 return;
             }
 
             try
             {
-                CurrentProfile.GameData.Filters.Remove(filter);
-                AddStatus(string.Format(GlobalStrings.MainForm_FilterDeleted, filter.Name));
-                RefreshFilters();
+                if (!CurrentProfile.GameData.Filters.Remove(filter))
+                {
+                    throw new InvalidOperationException();
+                }
+
+                AddStatus(string.Format(CultureInfo.CurrentCulture, Resources.DeletedFilter, filter.Name));
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show(string.Format(GlobalStrings.MainForm_CouldNotDeleteFilter), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Logger.Warn("MainForm:DeleteFilter | Tried to delete filter '{0}', but an exception was thrown: {1}.", filter.Name, e);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Resources.FailedDeletingFilter, filter.Name), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+
+            RefreshFilters();
         }
 
         /// <summary>
@@ -3173,7 +3189,7 @@ namespace Depressurizer
 
             if (!(cboFilter.SelectedItem is Filter filter))
             {
-                MessageBox.Show("Selected item is not a Filter!", GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Selected item is not a Filter!", Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 

@@ -1255,20 +1255,11 @@ If unchecked, games with no times will be skipped.</value>
   <data name="MainForm_CouldNotAddFilter" xml:space="preserve">
     <value>Could not add filter '{0}'</value>
   </data>
-  <data name="MainForm_CouldNotDeleteFilter" xml:space="preserve">
-    <value>Could not delete filter.</value>
-  </data>
-  <data name="MainForm_DeleteFilter" xml:space="preserve">
-    <value>Delete filter '{0}'?</value>
-  </data>
   <data name="MainForm_EnterNewFilterName" xml:space="preserve">
     <value>Enter new filter name:</value>
   </data>
   <data name="MainForm_FilterAdded" xml:space="preserve">
     <value>Filter '{0}' added.</value>
-  </data>
-  <data name="MainForm_FilterDeleted" xml:space="preserve">
-    <value>{0} filters deleted.</value>
   </data>
   <data name="MainForm_FilterExists" xml:space="preserve">
     <value>Filter {0} already exists.</value>
