@@ -1438,6 +1438,7 @@ namespace Depressurizer
         private void FillAllCategoryLists()
         {
             Cursor = Cursors.WaitCursor;
+
             contextGameAddCat.Items.Clear();
             contextGameAddCat.Items.Add(contextGameAddCat_Create);
             contextGameRemCat.Items.Clear();
@@ -1454,31 +1455,30 @@ namespace Depressurizer
             FillCategoryList();
 
             lstMultiCat.BeginUpdate();
-            foreach (Category c in CurrentProfile.GameData.Categories)
+            foreach (Category category in CurrentProfile.GameData.Categories)
             {
-                if (c != CurrentProfile.GameData.FavoriteCategory)
+                if (category == CurrentProfile.GameData.FavoriteCategory)
                 {
-                    ToolStripItem item = contextGame_AddCat.DropDownItems.Add(c.Name);
-                    item.Tag = c;
-                    item.Click += contextGameAddCat_Category_Click;
-
-                    //item = contextGameRemCat.Items.Add( c.Name );
-                    //item.Tag = c;
-                    //item.Click += contextGameRemCat_Category_Click;
-
-                    ListViewItem listItem = new ListViewItem(c.Name)
-                    {
-                        Tag = c,
-                        StateImageIndex = 0
-                    };
-                    lstMultiCat.Items.Add(listItem);
+                    continue;
                 }
+
+                ToolStripItem item = contextGame_AddCat.DropDownItems.Add(category.Name);
+                item.Tag = category;
+                item.Click += contextGameAddCat_Category_Click;
+
+                ListViewItem listItem = new ListViewItem(category.Name)
+                {
+                    Tag = category,
+                    StateImageIndex = 0
+                };
+                lstMultiCat.Items.Add(listItem);
             }
 
             UpdateGameCheckStates();
             lstMultiCat.EndUpdate();
             mlblCategoryCount.Font = new Font("Arial", 8);
-            mlblCategoryCount.Text = lstCategories.Items.Count + " Categories";
+            mlblCategoryCount.Text = string.Format(CultureInfo.CurrentCulture, "{0} {1}", lstCategories.Items.Count, Resources.Categories);
+
             Cursor = Cursors.Default;
         }
 
@@ -2560,64 +2560,65 @@ namespace Depressurizer
 
         private void lstCategories_DragDrop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(int[])))
+            if (!e.Data.GetDataPresent(typeof(int[])))
             {
-                lstCategories.SelectedIndices.Clear();
-                if (dragOldCat >= 0)
+                return;
+            }
+
+            lstCategories.SelectedIndices.Clear();
+            if (dragOldCat >= 0)
+            {
+                lstCategories.SelectedIndices.Add(dragOldCat);
+            }
+
+            isDragging = false;
+            ClearStatus();
+            ListViewItem dropItem = GetCategoryItemAtPoint(e.X, e.Y);
+
+            SetDragDropEffect(e);
+
+            if (dropItem.Tag != null && dropItem.Tag is Category dropCat)
+            {
+                if (e.Effect == DragDropEffects.Move)
                 {
-                    lstCategories.SelectedIndices.Add(dragOldCat);
-                }
-
-                isDragging = false;
-                ClearStatus();
-                ListViewItem dropItem = GetCategoryItemAtPoint(e.X, e.Y);
-
-                SetDragDropEffect(e);
-
-                if (dropItem.Tag != null && dropItem.Tag is Category)
-                {
-                    Category dropCat = (Category) dropItem.Tag;
-                    if (e.Effect == DragDropEffects.Move)
-                    {
-                        if (dropCat == CurrentProfile.GameData.FavoriteCategory)
-                        {
-                            CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
-                        }
-                        else
-                        {
-                            CurrentProfile.GameData.SetGameCategories((int[]) e.Data.GetData(typeof(int[])), dropCat, true);
-                        }
-                    }
-                    else if (e.Effect == DragDropEffects.Link)
-                    {
-                        CurrentProfile.GameData.RemoveGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
-                    }
-                    else if (e.Effect == DragDropEffects.Copy)
+                    if (dropCat == CurrentProfile.GameData.FavoriteCategory)
                     {
                         CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
                     }
-
-                    FillAllCategoryLists();
-                    FilterGameList(false);
-                    MakeChange(true);
+                    else
+                    {
+                        CurrentProfile.GameData.SetGameCategories((int[]) e.Data.GetData(typeof(int[])), dropCat, true);
+                    }
                 }
-                else if ((string) dropItem.Tag == GlobalStrings.MainForm_Uncategorized)
+                else if (e.Effect == DragDropEffects.Link)
                 {
-                    CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
-                    FillCategoryList();
-                    FilterGameList(false);
-                    MakeChange(true);
+                    CurrentProfile.GameData.RemoveGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
                 }
-                else if ((string) dropItem.Tag == GlobalStrings.MainForm_Hidden)
+                else if (e.Effect == DragDropEffects.Copy)
                 {
-                    CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
-                    FillCategoryList();
-                    FilterGameList(false);
-                    MakeChange(true);
+                    CurrentProfile.GameData.AddGameCategory((int[]) e.Data.GetData(typeof(int[])), dropCat);
                 }
 
-                FlushStatus();
+                FillAllCategoryLists();
+                FilterGameList(false);
+                MakeChange(true);
             }
+            else if ((string) dropItem.Tag == GlobalStrings.MainForm_Uncategorized)
+            {
+                CurrentProfile.GameData.ClearGameCategories((int[]) e.Data.GetData(typeof(int[])), true);
+                FillCategoryList();
+                FilterGameList(false);
+                MakeChange(true);
+            }
+            else if ((string) dropItem.Tag == GlobalStrings.MainForm_Hidden)
+            {
+                CurrentProfile.GameData.HideGames((int[]) e.Data.GetData(typeof(int[])), true);
+                FillCategoryList();
+                FilterGameList(false);
+                MakeChange(true);
+            }
+
+            FlushStatus();
         }
 
         private void lstCategories_DragEnter(object sender, DragEventArgs e)
@@ -2826,12 +2827,11 @@ namespace Depressurizer
 
         private void lstGames_FormatRow(object sender, FormatRowEventArgs e)
         {
-            if (e.Model == null)
+            if (e.Model == null || !(e.Model is GameInfo g))
             {
                 return;
             }
 
-            GameInfo g = (GameInfo) e.Model;
             if (g.IsFavorite())
             {
                 e.Item.BackColor = listBackground;
@@ -3023,12 +3023,14 @@ namespace Depressurizer
 
         private void lvAutoCatType_MouseDown(object sender, MouseEventArgs e)
         {
-            if (lvAutoCatType.GetItemAt(e.X, e.Y) != null)
+            if (lvAutoCatType.GetItemAt(e.X, e.Y) == null)
             {
-                if (e.Clicks > 1)
-                {
-                    doubleClick = true;
-                }
+                return;
+            }
+
+            if (e.Clicks > 1)
+            {
+                doubleClick = true;
             }
         }
 
@@ -3097,15 +3099,15 @@ namespace Depressurizer
                 }
                 else
                 {
-                    List<AutoCat> autocats = new List<AutoCat>();
+                    List<AutoCat> autoCats = new List<AutoCat>();
                     foreach (ListViewItem item in lvAutoCatType.CheckedItems)
                     {
                         AutoCat ac = (AutoCat) item.Tag;
-                        autocats.Add(ac);
+                        autoCats.Add(ac);
                     }
 
                     //RunAutoCats(currentProfile.AutoCats);  WILL THIS WORK?  ARE AUTOCATS SELECTED VALUES SET CORRECTLY
-                    RunAutoCats(autocats, true);
+                    RunAutoCats(autoCats, true);
                     RemoveEmptyCats();
                     FilterGameList(true);
                 }
@@ -3189,7 +3191,7 @@ namespace Depressurizer
 
             if (!(cboFilter.SelectedItem is Filter filter))
             {
-                MessageBox.Show("Selected item is not a Filter!", Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Resources.ItemIsNotAFilter, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -3205,7 +3207,7 @@ namespace Depressurizer
 
             if (!(cboFilter.SelectedItem is Filter filter))
             {
-                MessageBox.Show("Selected item is not a Filter!", GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(Resources.ItemIsNotAFilter, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -3573,7 +3575,7 @@ namespace Depressurizer
             }
 
             FillAllCategoryLists();
-            if (lstCategories.SelectedItems[0].Tag is Category && (Category) lstCategories.SelectedItems[0].Tag == category)
+            if (lstCategories.SelectedItems[0].Tag is Category selectedCategory && selectedCategory == category)
             {
                 FilterGameList(false);
             }
@@ -3710,30 +3712,47 @@ namespace Depressurizer
         {
             if (filter == null)
             {
-                MessageBox.Show("Could not rename filter!", GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Logger.Info("MainForm:RenameFilter | Tried to rename a filter but given object was null.");
+                return;
+            }
+
+            if (!ProfileLoaded)
+            {
+                Logger.Info("MainForm:RenameFilter | Tried to rename filter '{0}', but there is no profile loaded.", filter.Name);
                 return;
             }
 
             if (!AdvancedCategoryFilter)
             {
+                Logger.Info("MainForm:RenameFilter | Tried to rename filter '{0}', but AdvancedCategoryFilter is not enabled.", filter.Name);
                 return;
             }
 
-            using (GetStringDlg dialog = new GetStringDlg(filter.Name, string.Format(GlobalStrings.MainForm_RenameFilter, filter.Name), GlobalStrings.MainForm_EnterNewName, GlobalStrings.MainForm_Rename))
+            using (GetStringDlg dialog = new GetStringDlg(filter.Name, string.Format(CultureInfo.CurrentCulture, Resources.RenameFilter, filter.Name), Resources.EnterNewName, Resources.Rename))
             {
-                if (dialog.ShowDialog() != DialogResult.OK || filter.Name == dialog.Value)
+                if (dialog.ShowDialog() != DialogResult.OK)
                 {
+                    Logger.Info("MainForm:RenameFilter | User canceled the renaming of filter '{0}'.", filter.Name);
+                    return;
+                }
+
+                if (filter.Name == dialog.Value)
+                {
+                    Logger.Info("MainForm:RenameFilter | Canceled the renaming of filter '{0}' because the new name is the same as the old name.", filter.Name);
                     return;
                 }
 
                 if (CurrentProfile.GameData.FilterExists(dialog.Value))
                 {
-                    MessageBox.Show(GlobalStrings.MainForm_FilterExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Logger.Info("MainForm:RenameFilter | Canceled the renaming of filter '{0}' because the new name, '{1}', already exists.", filter.Name, dialog.Value);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, Resources.FilterAlreadyExists, dialog.Value), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
 
                 filter.Name = dialog.Value;
+
                 RefreshFilters();
+
                 cboFilter.SelectedItem = filter;
                 cboFilter.Text = filter.Name;
             }

@@ -1261,9 +1261,6 @@ If unchecked, games with no times will be skipped.</value>
   <data name="MainForm_FilterAdded" xml:space="preserve">
     <value>Filter '{0}' added.</value>
   </data>
-  <data name="MainForm_FilterExists" xml:space="preserve">
-    <value>Filter {0} already exists.</value>
-  </data>
   <data name="MainForm_FilterNamesNotEmpty" xml:space="preserve">
     <value>Filter names cannot be empty.</value>
   </data>
@@ -1272,9 +1269,6 @@ If unchecked, games with no times will be skipped.</value>
   </data>
   <data name="MainForm_OverwriteFilterName" xml:space="preserve">
     <value>Do you want to overwrite filter: {0}</value>
-  </data>
-  <data name="MainForm_RenameFilter" xml:space="preserve">
-    <value>Rename filter: {0}</value>
   </data>
   <data name="MainForm_Save" xml:space="preserve">
     <value>Save</value>

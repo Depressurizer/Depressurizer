@@ -2702,15 +2702,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter {0} already exists..
-        /// </summary>
-        internal static string MainForm_FilterExists {
-            get {
-                return ResourceManager.GetString("MainForm_FilterExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Filter names cannot be empty..
         /// </summary>
         internal static string MainForm_FilterNamesNotEmpty {
@@ -3238,15 +3229,6 @@ namespace Depressurizer {
         internal static string MainForm_RenameCategory {
             get {
                 return ResourceManager.GetString("MainForm_RenameCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rename filter: {0}.
-        /// </summary>
-        internal static string MainForm_RenameFilter {
-            get {
-                return ResourceManager.GetString("MainForm_RenameFilter", resourceCulture);
             }
         }
         

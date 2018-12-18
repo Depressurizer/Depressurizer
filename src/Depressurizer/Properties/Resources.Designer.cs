@@ -39,7 +39,7 @@ namespace Depressurizer.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Depressurizer.Core.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Depressurizer.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,15 @@ namespace Depressurizer.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        internal static string Categories {
+            get {
+                return ResourceManager.GetString("Categories", resourceCulture);
             }
         }
         
@@ -79,11 +88,20 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleted filter {0}..
+        ///   Looks up a localized string similar to Deleted filter &apos;{0}&apos;..
         /// </summary>
         internal static string DeletedFilter {
             get {
                 return ResourceManager.GetString("DeletedFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter new name:.
+        /// </summary>
+        internal static string EnterNewName {
+            get {
+                return ResourceManager.GetString("EnterNewName", resourceCulture);
             }
         }
         
@@ -93,6 +111,42 @@ namespace Depressurizer.Properties {
         internal static string FailedDeletingFilter {
             get {
                 return ResourceManager.GetString("FailedDeletingFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter &apos;{0}&apos; already exists..
+        /// </summary>
+        internal static string FilterAlreadyExists {
+            get {
+                return ResourceManager.GetString("FilterAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected item is not a Filter!.
+        /// </summary>
+        internal static string ItemIsNotAFilter {
+            get {
+                return ResourceManager.GetString("ItemIsNotAFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        internal static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename filter &apos;{0}&apos;..
+        /// </summary>
+        internal static string RenameFilter {
+            get {
+                return ResourceManager.GetString("RenameFilter", resourceCulture);
             }
         }
         

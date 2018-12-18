@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
@@ -124,10 +127,25 @@
     <value>Are you sure you want to delete filter '{0}'?</value>
   </data>
   <data name="DeletedFilter" xml:space="preserve">
-    <value>Deleted filter {0}.</value>
+    <value>Deleted filter '{0}'.</value>
+  </data>
+  <data name="EnterNewName" xml:space="preserve">
+    <value>Enter new name:</value>
   </data>
   <data name="FailedDeletingFilter" xml:space="preserve">
     <value>Could not delete filter '{0}'.</value>
+  </data>
+  <data name="FilterAlreadyExists" xml:space="preserve">
+    <value>Filter '{0}' already exists.</value>
+  </data>
+  <data name="ItemIsNotAFilter" xml:space="preserve">
+    <value>Selected item is not a Filter!</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="RenameFilter" xml:space="preserve">
+    <value>Rename filter '{0}'.</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
