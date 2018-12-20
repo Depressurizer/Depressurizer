@@ -147,6 +147,27 @@
   <data name="RenameFilter" xml:space="preserve">
     <value>Rename filter '{0}'.</value>
   </data>
+  <data name="SpecialCategoryAll" xml:space="preserve">
+    <value>&lt;All&gt;</value>
+  </data>
+  <data name="SpecialCategoryFavorite" xml:space="preserve">
+    <value>&lt;Favorite&gt;</value>
+  </data>
+  <data name="SpecialCategoryGames" xml:space="preserve">
+    <value>&lt;Games&gt;</value>
+  </data>
+  <data name="SpecialCategoryHidden" xml:space="preserve">
+    <value>&lt;Hidden&gt;</value>
+  </data>
+  <data name="SpecialCategorySoftware" xml:space="preserve">
+    <value>&lt;Software&gt;</value>
+  </data>
+  <data name="SpecialCategoryUncategorized" xml:space="preserve">
+    <value>&lt;Uncategorized&gt;</value>
+  </data>
+  <data name="SpecialCategoryVR" xml:space="preserve">
+    <value>&lt;VR&gt;</value>
+  </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>

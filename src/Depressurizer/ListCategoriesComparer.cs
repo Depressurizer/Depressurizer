@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Models;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -66,11 +67,13 @@ namespace Depressurizer
 
             List<string> specialCategories = new List<string>
             {
-                GlobalStrings.MainForm_All,
-                GlobalStrings.MainForm_Uncategorized,
-                GlobalStrings.MainForm_Hidden,
-                GlobalStrings.MainForm_Favorite,
-                GlobalStrings.MainForm_VR
+                Resources.SpecialCategoryAll,
+                Resources.SpecialCategoryGames,
+                Resources.SpecialCategorySoftware,
+                Resources.SpecialCategoryUncategorized,
+                Resources.SpecialCategoryHidden,
+                Resources.SpecialCategoryFavorite,
+                Resources.SpecialCategoryVR
             };
 
             foreach (string category in specialCategories)

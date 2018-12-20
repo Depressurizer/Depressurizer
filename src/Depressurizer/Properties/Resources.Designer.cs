@@ -151,6 +151,69 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;All&gt;.
+        /// </summary>
+        internal static string SpecialCategoryAll {
+            get {
+                return ResourceManager.GetString("SpecialCategoryAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Favorite&gt;.
+        /// </summary>
+        internal static string SpecialCategoryFavorite {
+            get {
+                return ResourceManager.GetString("SpecialCategoryFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Games&gt;.
+        /// </summary>
+        internal static string SpecialCategoryGames {
+            get {
+                return ResourceManager.GetString("SpecialCategoryGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Hidden&gt;.
+        /// </summary>
+        internal static string SpecialCategoryHidden {
+            get {
+                return ResourceManager.GetString("SpecialCategoryHidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Software&gt;.
+        /// </summary>
+        internal static string SpecialCategorySoftware {
+            get {
+                return ResourceManager.GetString("SpecialCategorySoftware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Uncategorized&gt;.
+        /// </summary>
+        internal static string SpecialCategoryUncategorized {
+            get {
+                return ResourceManager.GetString("SpecialCategoryUncategorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;VR&gt;.
+        /// </summary>
+        internal static string SpecialCategoryVR {
+            get {
+                return ResourceManager.GetString("SpecialCategoryVR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning.
         /// </summary>
         internal static string Warning {

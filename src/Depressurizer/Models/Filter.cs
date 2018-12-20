@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Xml;
 using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
@@ -20,11 +21,15 @@ namespace Depressurizer.Models
 
         private const string XmlNameExclude = "Exclude";
 
+        private const string XmlNameGame = "Game";
+
         private const string XmlNameHidden = "Hidden";
 
         private const string XmlNameName = "Name";
 
         private const string XmlNameRequire = "Require";
+
+        private const string XmlNameSoftware = "Software";
 
         private const string XmlNameUncategorized = "Uncategorized";
 
@@ -34,7 +39,11 @@ namespace Depressurizer.Models
 
         #region Fields
 
+        public int Game;
+
         public int Hidden;
+
+        public int Software;
 
         public int Uncategorized;
 
@@ -53,9 +62,12 @@ namespace Depressurizer.Models
         public Filter(string name)
         {
             Name = name;
+            Game = -1;
+            Software = -1;
             Uncategorized = -1;
             Hidden = -1;
             VR = -1;
+
             Allow = new SortedSet<Category>();
             Require = new SortedSet<Category>();
             Exclude = new SortedSet<Category>();
@@ -127,9 +139,11 @@ namespace Depressurizer.Models
             writer.WriteStartElement(TypeIdString);
 
             writer.WriteElementString(XmlNameName, Name);
-            writer.WriteElementString(XmlNameUncategorized, Uncategorized.ToString());
-            writer.WriteElementString(XmlNameHidden, Hidden.ToString());
-            writer.WriteElementString(XmlNameVR, VR.ToString());
+            writer.WriteElementString(XmlNameGame, Game.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameSoftware, Software.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameUncategorized, Uncategorized.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameHidden, Hidden.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameVR, VR.ToString(CultureInfo.InvariantCulture));
 
             foreach (Category c in Allow)
             {
