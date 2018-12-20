@@ -20,28 +20,28 @@ namespace Depressurizer
 
         #region Fields
 
-        private readonly Dictionary<int, DatabaseEntrySorter.SortModes> columnSortMap = new Dictionary<int, DatabaseEntrySorter.SortModes>
+        private readonly Dictionary<int, SortModes> columnSortMap = new Dictionary<int, SortModes>
         {
             {
-                0, DatabaseEntrySorter.SortModes.Id
+                0, SortModes.Id
             },
             {
-                1, DatabaseEntrySorter.SortModes.Name
+                1, SortModes.Name
             },
             {
-                2, DatabaseEntrySorter.SortModes.Genre
+                2, SortModes.Genre
             },
             {
-                3, DatabaseEntrySorter.SortModes.Type
+                3, SortModes.Type
             },
             {
-                4, DatabaseEntrySorter.SortModes.IsScraped
+                4, SortModes.IsScraped
             },
             {
-                5, DatabaseEntrySorter.SortModes.HasAppInfo
+                5, SortModes.HasAppInfo
             },
             {
-                6, DatabaseEntrySorter.SortModes.Parent
+                6, SortModes.Parent
             }
         };
 

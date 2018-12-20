@@ -135,6 +135,7 @@
     <Compile Include="Helpers\Locations.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\Steam.cs" />
+    <Compile Include="ListCategoriesComparer.cs" />
     <Compile Include="Models\AppInfo.cs" />
     <Compile Include="AutoCat\AutoCatConfigPanel_Curator.cs">
       <SubType>UserControl</SubType>
