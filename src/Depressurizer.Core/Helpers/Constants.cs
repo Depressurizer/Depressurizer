@@ -23,6 +23,16 @@
         public static string DepressurizerLatestRelease => "https://api.github.com/repos/Depressurizer/Depressurizer/releases/latest";
 
         /// <summary>
+        ///     Generic URL for the game list of a Steam profile, must be formatted with a SteamID64.
+        /// </summary>
+        public static string GameList => @"http://steamcommunity.com/profiles/{0}/games?tab=all&xml=1";
+
+        /// <summary>
+        ///     Generic URL for the game list of a Steam profile, must be formatted with the custom id.
+        /// </summary>
+        public static string GameListCustom => @"http://steamcommunity.com/id/{0}/games?tab=all&xml=1";
+
+        /// <summary>
         ///     Full list of every publicly facing program in the store/library.
         /// </summary>
         public static string GetAppList => "https://api.steampowered.com/ISteamApps/GetAppList/v2";
@@ -48,6 +58,11 @@
         public static string Screenshots => @"{0}\userdata\{1}\760\screenshots.vdf";
 
         /// <summary>
+        ///     Sentry Data Source Name.
+        /// </summary>
+        public static string SentryDSN => "https://fbb6fca0ff1748d7a9160b6bc92bcb1d@sentry.io/267726";
+
+        /// <summary>
         ///     Generic path to sharedconfig.vdf, must be formatted with the Steam installation path and the Steam ID.
         /// </summary>
         public static string SharedConfig => @"{0}\userdata\{1}\7\remote\sharedconfig.vdf";
@@ -57,7 +72,20 @@
         /// </summary>
         public static string Shortcuts => @"{0}\userdata\{1}\config\shortcuts.vdf";
 
+        /// <summary>
+        ///     Generic URL for a curators Steam recommendations, must be formatted with the curator id and page index.
+        /// </summary>
         public static string SteamCuratorRecommendations => "https://store.steampowered.com/curator/{0}/ajaxgetfilteredrecommendations/render/?query=&start={1}&count=50";
+
+        /// <summary>
+        ///     Generic URL for a Steam profile, must be formatted with a SteamID64.
+        /// </summary>
+        public static string SteamProfile => @"http://steamcommunity.com/profiles/{0}?xml=1";
+
+        /// <summary>
+        ///     Generic URL for a Steam profile, must be formatted with the custom id.
+        /// </summary>
+        public static string SteamProfileCustom => @"http://steamcommunity.com/id/{0}?xml=1";
 
         /// <summary>
         ///     URL to the Steam Store homepage.
@@ -73,14 +101,6 @@
         ///     Generic URL for a single Steam Store banner, must be formatted with an appid.
         /// </summary>
         public static string StoreBanner => "https://steamcdn-a.akamaihd.net/steam/apps/{0}/capsule_sm_120.jpg";
-
-        public static string UrlCustomGameListXml => @"http://steamcommunity.com/id/{0}/games?tab=all&xml=1";
-
-        public static string UrlCustomProfileXml => @"http://steamcommunity.com/id/{0}?xml=1";
-
-        public static string UrlGameListXml => @"http://steamcommunity.com/profiles/{0}/games?tab=all&xml=1";
-
-        public static string UrlSteamProfile => @"http://steamcommunity.com/profiles/{0}?xml=1";
 
         #endregion
     }

@@ -64,9 +64,9 @@ namespace Depressurizer
 
         #region Methods
 
-        protected void FetchXml()
+        protected void Fetch()
         {
-            doc = custom ? GameList.FetchXmlGameList(customUrl) : GameList.FetchXmlGameList(SteamId);
+            doc = custom ? GameList.FetchGameList(customUrl) : GameList.FetchGameList(SteamId);
         }
 
         protected override void Finish()
@@ -78,7 +78,7 @@ namespace Depressurizer
 
             SetText(GlobalStrings.CDlgFetch_FinishingDownload);
 
-            Fetched = data.IntegrateXmlGameList(doc, overwrite, ignore, out int newItems);
+            Fetched = data.IntegrateGameList(doc, overwrite, ignore, out int newItems);
             Added = newItems;
 
             OnJobCompletion();
@@ -89,7 +89,7 @@ namespace Depressurizer
             Added = 0;
             Fetched = 0;
 
-            FetchXml();
+            Fetch();
 
             OnThreadCompletion();
         }

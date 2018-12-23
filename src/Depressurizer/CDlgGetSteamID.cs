@@ -59,7 +59,7 @@ namespace Depressurizer
 
             try
             {
-                string url = string.Format(CultureInfo.InvariantCulture, Constants.UrlCustomProfileXml, customUrlName);
+                string url = string.Format(CultureInfo.InvariantCulture, Constants.SteamProfileCustom, customUrlName);
                 Logger.Info(GlobalStrings.CDlgGetSteamID_AttemptingDownloadXMLProfile, customUrlName, url);
                 WebRequest req = WebRequest.Create(url);
                 WebResponse response = req.GetResponse();

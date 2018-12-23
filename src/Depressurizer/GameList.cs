@@ -65,6 +65,16 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
+        public static XmlDocument FetchGameList(string customUrl)
+        {
+            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Constants.GameListCustom, customUrl));
+        }
+
+        public static XmlDocument FetchGameList(long steamId)
+        {
+            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Constants.GameList, steamId));
+        }
+
         /// <summary>
         ///     Fetches an XML game list and loads it into an XML document.
         /// </summary>
@@ -103,26 +113,6 @@ namespace Depressurizer
                 Logger.Error(GlobalStrings.GameData_ExceptionDownloadXMLGameList, e.Message);
                 throw new ApplicationException(e.Message, e);
             }
-        }
-
-        /// <summary>
-        ///     Grabs the XML game list for the given account and reads it into an XmlDocument.
-        /// </summary>
-        /// <param name="customUrl">The custom name for the account</param>
-        /// <returns>Fetched XML page as an XmlDocument</returns>
-        public static XmlDocument FetchXmlGameList(string customUrl)
-        {
-            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Constants.UrlCustomGameListXml, customUrl));
-        }
-
-        /// <summary>
-        ///     Grabs the XML game list for the given account and reads it into an XmlDocument.
-        /// </summary>
-        /// <param name="steamId">The 64-bit account ID</param>
-        /// <returns>Fetched XML page as an XmlDocument</returns>
-        public static XmlDocument FetchXmlGameList(long steamId)
-        {
-            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Constants.UrlGameListXml, steamId));
         }
 
         /// <summary>
@@ -802,16 +792,7 @@ namespace Depressurizer
             return loadedGames;
         }
 
-        /// <summary>
-        ///     Integrates list of games from an XmlDocument into the loaded game list.
-        /// </summary>
-        /// <param name="doc">The XmlDocument containing the new game list</param>
-        /// <param name="overWrite">If true, overwrite the names of games already in the list.</param>
-        /// <param name="ignore">A set of item IDs to ignore.</param>
-        /// <param name="ignoreDlc">Ignore any items classified as DLC in the database.</param>
-        /// <param name="newItems">The number of new items actually added</param>
-        /// <returns>Returns the number of games successfully processed and not ignored.</returns>
-        public int IntegrateXmlGameList(XmlDocument doc, bool overWrite, SortedSet<int> ignore, out int newItems)
+        public int IntegrateGameList(XmlDocument doc, bool overWrite, SortedSet<int> ignore, out int newItems)
         {
             newItems = 0;
             if (doc == null)

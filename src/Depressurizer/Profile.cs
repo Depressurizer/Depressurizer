@@ -108,7 +108,7 @@ namespace Depressurizer
             get
             {
                 XmlDocument xml = new XmlDocument();
-                string profile = string.Format(CultureInfo.InvariantCulture, Constants.UrlSteamProfile, SteamID64);
+                string profile = string.Format(CultureInfo.InvariantCulture, Constants.SteamProfile, SteamID64);
 
                 try
                 {

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using NDesk.Options;
 using Rallion;
@@ -33,7 +35,7 @@ namespace Depressurizer
         [STAThread]
         private static void Main(string[] args)
         {
-            using (SentrySdk.Init("https://fbb6fca0ff1748d7a9160b6bc92bcb1d@sentry.io/267726"))
+            using (SentrySdk.Init(Constants.SentryDSN))
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -60,7 +62,7 @@ namespace Depressurizer
             }
         }
 
-        private static AutomaticModeOptions ParseAutoOptions(string[] args)
+        private static AutomaticModeOptions ParseAutoOptions(IEnumerable<string> args)
         {
             AutomaticModeOptions config = new AutomaticModeOptions();
             bool auto = false;

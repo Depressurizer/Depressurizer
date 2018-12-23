@@ -48,8 +48,8 @@ namespace Depressurizer
         {
             try
             {
-                XmlDocument doc = GameList.FetchXmlGameList(profile.SteamID64);
-                profile.GameData.IntegrateXmlGameList(doc, false, profile.IgnoreList, out int _);
+                XmlDocument doc = GameList.FetchGameList(profile.SteamID64);
+                profile.GameData.IntegrateGameList(doc, false, profile.IgnoreList, out int _);
                 return true;
             }
             catch (Exception e)
