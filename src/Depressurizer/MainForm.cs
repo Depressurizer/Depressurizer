@@ -286,6 +286,7 @@ namespace Depressurizer
 
                 using (WebClient wc = new WebClient())
                 {
+                    wc.Headers.Set("User-Agent", "Depressurizer");
                     string json = wc.DownloadString(Constants.DepressurizerLatestRelease);
 
                     JObject parsedJson = JObject.Parse(json);
