@@ -88,6 +88,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to JSON files (*.json)|*.json.
+        /// </summary>
+        internal static string DatabaseSaveFilter {
+            get {
+                return ResourceManager.GetString("DatabaseSaveFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleted filter &apos;{0}&apos;..
         /// </summary>
         internal static string DeletedFilter {

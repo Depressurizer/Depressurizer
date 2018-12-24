@@ -171,4 +171,7 @@
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="DatabaseSaveFilter" xml:space="preserve">
+    <value>JSON files (*.json)|*.json</value>
+  </data>
 </root>

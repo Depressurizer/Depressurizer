@@ -871,15 +871,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GZip Files (*.gz)|*.gz|XML Files (*.xml)|*.xml|All Files|*.*.
-        /// </summary>
-        internal static string DBEditDlg_DialogFilter {
-            get {
-                return ResourceManager.GetString("DBEditDlg_DialogFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Edited game with ID {0}.
         /// </summary>
         internal static string DBEditDlg_EditedGame {

@@ -168,9 +168,6 @@
   <data name="DBEditDlg_DeletedGames" xml:space="preserve">
     <value>Deleted {0} games.</value>
   </data>
-  <data name="DBEditDlg_DialogFilter" xml:space="preserve">
-    <value>GZip Files (*.gz)|*.gz|XML Files (*.xml)|*.xml|All Files|*.*</value>
-  </data>
   <data name="DBEditDlg_EditedGame" xml:space="preserve">
     <value>Edited game with ID {0}</value>
   </data>

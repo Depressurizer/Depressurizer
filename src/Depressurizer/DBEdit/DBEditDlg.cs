@@ -7,20 +7,15 @@ using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
     public partial class DBEditDlg : Form
     {
-        #region Constants
-
-        private const int ID_FILTER_MAX = 1000000;
-
-        #endregion
-
         #region Fields
 
-        private readonly Dictionary<int, SortModes> columnSortMap = new Dictionary<int, SortModes>
+        private readonly Dictionary<int, SortModes> _columnSortMap = new Dictionary<int, SortModes>
         {
             {
                 0, SortModes.Id
@@ -45,19 +40,21 @@ namespace Depressurizer
             }
         };
 
-        private readonly DatabaseEntrySorter dbEntrySorter = new DatabaseEntrySorter();
+        private readonly DatabaseEntrySorter _dbEntrySorter = new DatabaseEntrySorter();
 
-        private readonly List<DatabaseEntry> displayedGames = new List<DatabaseEntry>();
+        private readonly List<DatabaseEntry> _displayedGames = new List<DatabaseEntry>();
 
-        private readonly GameList ownedList;
+        private readonly GameList _ownedList;
 
-        private readonly StringBuilder statusBuilder = new StringBuilder();
+        private readonly StringBuilder _statusBuilder = new StringBuilder();
 
-        private string currentFilter = string.Empty;
+        private string _currentFilter = string.Empty;
 
-        private int currentMinId, currentMaxId = ID_FILTER_MAX;
+        private int _currentMaxId = FilterMaxId;
 
-        private bool filterSuspend;
+        private int _currentMinId;
+
+        private bool _filterSuspend;
 
         #endregion
 
@@ -66,7 +63,7 @@ namespace Depressurizer
         public DBEditDlg(GameList owned = null)
         {
             InitializeComponent();
-            ownedList = owned;
+            _ownedList = owned;
         }
 
         #endregion
@@ -74,6 +71,8 @@ namespace Depressurizer
         #region Properties
 
         private static Database Database => Database.Instance;
+
+        private static int FilterMaxId => 1000000;
 
         private static Logger Logger => Logger.Instance;
 
@@ -87,13 +86,13 @@ namespace Depressurizer
         {
             return new ListViewItem(new[]
             {
-                entry.Id.ToString(),
+                entry.Id.ToString(CultureInfo.CurrentCulture),
                 entry.Name,
                 entry.Genres != null ? string.Join(",", entry.Genres) : "",
                 entry.AppType.ToString(),
                 entry.LastStoreScrape == 0 ? "" : "X",
                 entry.LastAppInfoUpdate == 0 ? "" : "X",
-                entry.ParentId <= 0 ? "" : entry.ParentId.ToString()
+                entry.ParentId <= 0 ? "" : entry.ParentId.ToString(CultureInfo.CurrentCulture)
             });
         }
 
@@ -112,7 +111,7 @@ namespace Depressurizer
                 if (Database.Contains(dlg.Game.Id))
                 {
                     MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));
+                    AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));
                 }
                 else
                 {
@@ -120,13 +119,13 @@ namespace Depressurizer
 
                     if (ShouldDisplayGame(dlg.Game))
                     {
-                        displayedGames.Add(dlg.Game);
+                        _displayedGames.Add(dlg.Game);
                         lstGames.VirtualListSize += 1;
-                        displayedGames.Sort(dbEntrySorter);
+                        _displayedGames.Sort(_dbEntrySorter);
                         InvalidateAllListViewItems();
                     }
 
-                    AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AddedGame, dlg.Game.Id));
+                    AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AddedGame, dlg.Game.Id));
                     UnsavedChanges = true;
                     UpdateStatusCount();
                 }
@@ -139,31 +138,31 @@ namespace Depressurizer
         /// <param name="s">Message to add</param>
         private void AddStatusMsg(string s)
         {
-            statusBuilder.Append(s);
-            statusBuilder.Append(' ');
+            _statusBuilder.Append(s);
+            _statusBuilder.Append(' ');
         }
 
         private void ApplyIdFilterChange()
         {
-            int oldMinId = currentMinId, oldMaxId = currentMaxId;
+            int oldMinId = _currentMinId, oldMaxId = _currentMaxId;
 
             if (chkIdRange.Checked)
             {
-                currentMinId = (int) numIdRangeMin.Value;
-                currentMaxId = (int) numIdRangeMax.Value;
+                _currentMinId = (int) numIdRangeMin.Value;
+                _currentMaxId = (int) numIdRangeMax.Value;
             }
             else
             {
-                currentMinId = 0;
-                currentMaxId = ID_FILTER_MAX;
+                _currentMinId = 0;
+                _currentMaxId = FilterMaxId;
             }
 
-            if (currentMinId == oldMinId && currentMaxId == oldMaxId)
+            if (_currentMinId == oldMinId && _currentMaxId == oldMaxId)
             {
                 return;
             }
 
-            if (currentMinId < oldMinId || currentMaxId > oldMaxId)
+            if (_currentMinId < oldMinId || _currentMaxId > oldMaxId)
             {
                 RebuildDisplayList();
             }
@@ -175,15 +174,15 @@ namespace Depressurizer
 
         private void ApplyTextFilterChange()
         {
-            string oldFilter = currentFilter;
-            currentFilter = txtSearch.Text;
+            string oldFilter = _currentFilter;
+            _currentFilter = txtSearch.Text;
 
-            if (currentFilter.Equals(oldFilter, StringComparison.CurrentCultureIgnoreCase))
+            if (_currentFilter.Equals(oldFilter, StringComparison.CurrentCultureIgnoreCase))
             {
                 return;
             }
 
-            if (currentFilter.IndexOf(oldFilter, StringComparison.CurrentCultureIgnoreCase) == -1)
+            if (_currentFilter.IndexOf(oldFilter, StringComparison.CurrentCultureIgnoreCase) == -1)
             {
                 RebuildDisplayList();
             }
@@ -221,15 +220,15 @@ namespace Depressurizer
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
         {
-            if (!filterSuspend)
+            if (!_filterSuspend)
             {
-                filterSuspend = true;
+                _filterSuspend = true;
                 if (chkTypeAll.Checked)
                 {
                     chkTypeDLC.Checked = chkTypeGame.Checked = chkTypeOther.Checked = chkTypeUnknown.Checked = false;
                 }
 
-                filterSuspend = false;
+                _filterSuspend = false;
                 RebuildDisplayList();
             }
         }
@@ -241,21 +240,18 @@ namespace Depressurizer
 
         private void chkType_CheckedChanged(object sender, EventArgs e)
         {
-            if (!filterSuspend)
+            if (!_filterSuspend)
             {
-                filterSuspend = true;
+                _filterSuspend = true;
 
                 chkTypeAll.Checked = !(chkTypeDLC.Checked || chkTypeGame.Checked || chkTypeOther.Checked || chkTypeUnknown.Checked);
 
-                filterSuspend = false;
+                _filterSuspend = false;
                 RebuildDisplayList();
             }
         }
 
-        /// <summary>
-        ///     Empties the entire database of all entries.
-        /// </summary>
-        private void ClearDB()
+        private void ClearDatabase()
         {
             if (MessageBox.Show(GlobalStrings.DBEditDlg_AreYouSureToClear, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) != DialogResult.Yes)
             {
@@ -277,7 +273,7 @@ namespace Depressurizer
         /// </summary>
         private void ClearStatusMsg()
         {
-            statusBuilder.Clear();
+            _statusBuilder.Clear();
         }
 
         private void cmdAddGame_Click(object sender, EventArgs e)
@@ -317,7 +313,7 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                Utility.LaunchStorePage(displayedGames[lstGames.SelectedIndices[0]].Id);
+                Utility.LaunchStorePage(_displayedGames[lstGames.SelectedIndices[0]].Id);
             }
         }
 
@@ -375,7 +371,7 @@ namespace Depressurizer
                 return;
             }
 
-            DialogResult res = MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_AreYouSureDeleteGames, lstGames.SelectedIndices.Count), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+            DialogResult res = MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AreYouSureDeleteGames, lstGames.SelectedIndices.Count), GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
             if (res != DialogResult.Yes)
             {
                 return;
@@ -384,7 +380,7 @@ namespace Depressurizer
             int deleted = 0;
             foreach (int index in lstGames.SelectedIndices)
             {
-                DatabaseEntry game = displayedGames[index];
+                DatabaseEntry game = _displayedGames[index];
                 if (game == null)
                 {
                     continue;
@@ -394,7 +390,7 @@ namespace Depressurizer
                 deleted++;
             }
 
-            AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_DeletedGames, deleted));
+            AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_DeletedGames, deleted));
             if (deleted <= 0)
             {
                 return;
@@ -415,7 +411,7 @@ namespace Depressurizer
                 return;
             }
 
-            DatabaseEntry game = displayedGames[lstGames.SelectedIndices[0]];
+            DatabaseEntry game = _displayedGames[lstGames.SelectedIndices[0]];
             if (game == null)
             {
                 return;
@@ -430,7 +426,7 @@ namespace Depressurizer
                 }
 
                 lstGames.RedrawItems(lstGames.SelectedIndices[0], lstGames.SelectedIndices[0], true);
-                AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_EditedGame, game.Id));
+                AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_EditedGame, game.Id));
                 UnsavedChanges = true;
             }
         }
@@ -449,11 +445,11 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_ErrorWhileUpdatingGameList, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGameList);
             }
 
-            AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedGameList, added));
+            AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_UpdatedGameList, added));
             UnsavedChanges = true;
 
             RebuildDisplayList();
@@ -465,7 +461,7 @@ namespace Depressurizer
         /// </summary>
         private void FlushStatusMsg()
         {
-            statusMsg.Text = statusBuilder.ToString();
+            statusMsg.Text = _statusBuilder.ToString();
             ClearStatusMsg();
         }
 
@@ -482,9 +478,6 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        ///     Loads a db from a user-specified file.
-        /// </summary>
         private void LoadDatabase()
         {
             if (!CheckForUnsaved())
@@ -492,38 +485,49 @@ namespace Depressurizer
                 return;
             }
 
-            OpenFileDialog dialog = new OpenFileDialog
+            string path;
+            using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                DefaultExt = "json",
-                AddExtension = true,
-                CheckFileExists = true,
-                Filter = GlobalStrings.DBEditDlg_DialogFilter
-            };
+                dialog.DefaultExt = "json";
+                dialog.AddExtension = true;
+                dialog.CheckFileExists = true;
+                dialog.Filter = Resources.DatabaseSaveFilter;
 
-            DialogResult result = dialog.ShowDialog();
-            if (result != DialogResult.OK)
-            {
-                return;
+                DialogResult result = dialog.ShowDialog();
+                if (result != DialogResult.OK)
+                {
+                    return;
+                }
+
+                path = dialog.FileName;
             }
 
             Cursor = Cursors.WaitCursor;
-            Database.Load(dialog.FileName);
 
-            RebuildDisplayList();
-            AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
-            UnsavedChanges = true;
-            Cursor = Cursors.Default;
+            try
+            {
+                Database.Load(path);
+                RebuildDisplayList();
+                AddStatusMsg(GlobalStrings.DBEditDlg_FileLoaded);
+                UnsavedChanges = true;
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
         }
 
         private void lstGames_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            if (columnSortMap.ContainsKey(e.Column))
+            if (!_columnSortMap.ContainsKey(e.Column))
             {
-                dbEntrySorter.SetSortMode(columnSortMap[e.Column]);
-                lstGames.SetSortIcon(e.Column, dbEntrySorter.SortDirection > 0 ? SortOrder.Ascending : SortOrder.Descending);
-                displayedGames.Sort(dbEntrySorter);
-                InvalidateAllListViewItems();
+                return;
             }
+
+            _dbEntrySorter.SetSortMode(_columnSortMap[e.Column]);
+            lstGames.SetSortIcon(e.Column, _dbEntrySorter.SortDirection > 0 ? SortOrder.Ascending : SortOrder.Descending);
+            _displayedGames.Sort(_dbEntrySorter);
+            InvalidateAllListViewItems();
         }
 
         private void lstGames_DoubleClick(object sender, EventArgs e)
@@ -582,14 +586,14 @@ namespace Depressurizer
 
         private void lstGames_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = CreateListViewItem(displayedGames[e.ItemIndex]);
+            e.Item = CreateListViewItem(_displayedGames[e.ItemIndex]);
         }
 
         private void lstGames_SearchForVirtualItem(object sender, SearchForVirtualItemEventArgs e)
         {
-            for (int i = e.StartIndex; i < displayedGames.Count; i++)
+            for (int i = e.StartIndex; i < _displayedGames.Count; i++)
             {
-                if (displayedGames[i].Name.StartsWith(e.Text, StringComparison.CurrentCultureIgnoreCase))
+                if (_displayedGames[i].Name.StartsWith(e.Text, StringComparison.CurrentCultureIgnoreCase))
                 {
                     e.Index = i;
                     return;
@@ -598,7 +602,7 @@ namespace Depressurizer
 
             for (int i = 0; i < e.StartIndex; i++)
             {
-                if (displayedGames[i].Name.StartsWith(e.Text, StringComparison.CurrentCultureIgnoreCase))
+                if (_displayedGames[i].Name.StartsWith(e.Text, StringComparison.CurrentCultureIgnoreCase))
                 {
                     e.Index = i;
                     return;
@@ -615,17 +619,17 @@ namespace Depressurizer
         {
             // Initialize list sorting
             int initialSortCol = 0;
-            dbEntrySorter.SetSortMode(columnSortMap[initialSortCol], 1);
+            _dbEntrySorter.SetSortMode(_columnSortMap[initialSortCol], 1);
             lstGames.SetSortIcon(initialSortCol, SortOrder.Ascending);
 
-            if (ownedList == null)
+            if (_ownedList == null)
             {
                 chkOwned.Checked = false;
                 chkOwned.Enabled = false;
             }
 
-            numIdRangeMax.Maximum = numIdRangeMax.Value = ID_FILTER_MAX;
-            numIdRangeMin.Maximum = ID_FILTER_MAX;
+            numIdRangeMax.Maximum = numIdRangeMax.Value = FilterMaxId;
+            numIdRangeMin.Maximum = FilterMaxId;
 
             RebuildDisplayList();
         }
@@ -633,7 +637,7 @@ namespace Depressurizer
         private void menu_File_Clear_Click(object sender, EventArgs e)
         {
             ClearStatusMsg();
-            ClearDB();
+            ClearDatabase();
             FlushStatusMsg();
         }
 
@@ -682,17 +686,17 @@ namespace Depressurizer
         private void RebuildDisplayList()
         {
             lstGames.SelectedIndices.Clear();
-            displayedGames.Clear();
+            _displayedGames.Clear();
             foreach (DatabaseEntry g in Database.Values)
             {
                 if (ShouldDisplayGame(g))
                 {
-                    displayedGames.Add(g);
+                    _displayedGames.Add(g);
                 }
             }
 
-            displayedGames.Sort(dbEntrySorter);
-            lstGames.VirtualListSize = displayedGames.Count;
+            _displayedGames.Sort(_dbEntrySorter);
+            lstGames.VirtualListSize = _displayedGames.Count;
             InvalidateAllListViewItems();
             UpdateStatusCount();
         }
@@ -700,53 +704,49 @@ namespace Depressurizer
         private void RefilterDisplayList()
         {
             lstGames.SelectedIndices.Clear();
-            displayedGames.RemoveAll(ShouldHideGame);
-            lstGames.VirtualListSize = displayedGames.Count;
+            _displayedGames.RemoveAll(ShouldHideGame);
+            lstGames.VirtualListSize = _displayedGames.Count;
             InvalidateAllListViewItems();
             UpdateStatusCount();
         }
 
-        /// <summary>
-        ///     Saves the DB to the given file.
-        /// </summary>
-        /// <param name="filename">Path to save to</param>
-        /// <returns>True if successful</returns>
-        private bool Save(string filename)
+        private bool Save(string path)
         {
-            Cursor c = Cursor;
             Cursor = Cursors.WaitCursor;
+
             try
             {
-                Database.Save(filename);
+                Database.Save(path);
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorSavingFile, e.Message));
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_ErrorSavingFile, e.Message));
                 Cursor = Cursors.Default;
                 return false;
             }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
 
-            Cursor = c;
             return true;
         }
 
-        /// <summary>
-        ///     Saves the database to a user-specified file.
-        /// </summary>
         private void SaveAs()
         {
-            SaveFileDialog dialog = new SaveFileDialog
+            using (SaveFileDialog dialog = new SaveFileDialog())
             {
-                DefaultExt = "json",
-                AddExtension = true,
-                CheckFileExists = false,
-                Filter = GlobalStrings.DBEditDlg_DialogFilter
-            };
+                dialog.FileName = "database";
+                dialog.DefaultExt = "json";
+                dialog.AddExtension = true;
+                dialog.CheckFileExists = false;
+                dialog.Filter = Resources.DatabaseSaveFilter;
 
-            DialogResult result = dialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                AddStatusMsg(Save(dialog.FileName) ? GlobalStrings.DBEditDlg_FileSaved : GlobalStrings.DBEditDlg_SaveFailed);
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    AddStatusMsg(Save(dialog.FileName) ? GlobalStrings.DBEditDlg_FileSaved : GlobalStrings.DBEditDlg_SaveFailed);
+                }
             }
         }
 
@@ -756,7 +756,7 @@ namespace Depressurizer
         /// <returns></returns>
         private bool SaveDatabase()
         {
-            if (Save("database.json"))
+            if (Save(Locations.File.Database))
             {
                 AddStatusMsg(GlobalStrings.DBEditDlg_DatabaseSaved);
                 UnsavedChanges = false;
@@ -786,7 +786,7 @@ namespace Depressurizer
                 if (dialog.Error != null)
                 {
                     AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingGames);
-                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_ErrorWhileUpdatingGames, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 switch (result)
@@ -795,10 +795,10 @@ namespace Depressurizer
                         AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
                         break;
                     case DialogResult.Abort:
-                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_AbortedUpdate, dialog.JobsCompleted, dialog.JobsTotal));
+                        AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AbortedUpdate, dialog.JobsCompleted, dialog.JobsTotal));
                         break;
                     default:
-                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_UpdatedEntries, dialog.JobsCompleted));
+                        AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_UpdatedEntries, dialog.JobsCompleted));
                         break;
                 }
 
@@ -819,72 +819,75 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            Queue<int> gamesToScrape = new Queue<int>();
-
-            foreach (DatabaseEntry g in Database.Values)
-                //Only scrape displayed games
+            Queue<int> appIds = new Queue<int>();
+            foreach (DatabaseEntry entry in Database.Values)
             {
-                if (g.LastStoreScrape == 0 && ShouldDisplayGame(g))
+                if (entry.LastStoreScrape == 0 && ShouldDisplayGame(entry))
                 {
-                    gamesToScrape.Enqueue(g.Id);
+                    appIds.Enqueue(entry.Id);
                 }
             }
 
-            ScrapeGames(gamesToScrape);
-            Cursor = Cursors.Default;
-        }
-
-        /// <summary>
-        ///     Performs a web scrape on all games that are selected in the list.
-        /// </summary>
-        private void ScrapeSelected()
-        {
-            if (lstGames.SelectedIndices.Count > 0)
+            try
             {
-                Cursor = Cursors.WaitCursor;
-
-                Queue<int> gamesToScrape = new Queue<int>();
-
-                foreach (int index in lstGames.SelectedIndices)
-                {
-                    gamesToScrape.Enqueue(displayedGames[index].Id);
-                }
-
-                ScrapeGames(gamesToScrape);
+                ScrapeGames(appIds);
+            }
+            finally
+            {
                 Cursor = Cursors.Default;
             }
         }
 
-        /// <summary>
-        ///     Determine whether a particular entry should be displayed based on current filter selections
-        /// </summary>
-        /// <param name="g">entry to evaluate</param>
-        /// <returns>True if the entry should be displayed</returns>
-        private bool ShouldDisplayGame(DatabaseEntry g)
+        private void ScrapeSelected()
         {
-            if (g == null)
+            if (lstGames.SelectedIndices.Count <= 0)
+            {
+                return;
+            }
+
+            Cursor = Cursors.WaitCursor;
+
+            Queue<int> appIds = new Queue<int>();
+            foreach (int index in lstGames.SelectedIndices)
+            {
+                appIds.Enqueue(_displayedGames[index].Id);
+            }
+
+            try
+            {
+                ScrapeGames(appIds);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private bool ShouldDisplayGame(DatabaseEntry entry)
+        {
+            if (entry == null)
             {
                 return false;
             }
 
-            if (!Database.Contains(g.Id))
+            if (!Database.Contains(entry.Id))
             {
                 return false;
             }
 
-            if (chkIdRange.Checked && (g.Id < currentMinId || g.Id > currentMaxId))
+            if (chkIdRange.Checked && (entry.Id < _currentMinId || entry.Id > _currentMaxId))
             {
                 return false;
             }
 
-            if (ownedList != null && chkOwned.Checked && !ownedList.Games.ContainsKey(g.Id))
+            if (_ownedList != null && chkOwned.Checked && !_ownedList.Games.ContainsKey(entry.Id))
             {
                 return false;
             }
 
             if (chkTypeAll.Checked == false)
             {
-                switch (g.AppType)
+                switch (entry.AppType)
                 {
                     case AppType.Game:
                         if (chkTypeGame.Checked == false)
@@ -919,17 +922,17 @@ namespace Depressurizer
 
             if (radWebAll.Checked == false)
             {
-                if (radWebNo.Checked && g.LastStoreScrape > 0)
+                if (radWebNo.Checked && entry.LastStoreScrape > 0)
                 {
                     return false;
                 }
 
-                if (radWebYes.Checked && g.LastStoreScrape <= 0)
+                if (radWebYes.Checked && entry.LastStoreScrape <= 0)
                 {
                     return false;
                 }
 
-                if (radWebSince.Checked && g.LastStoreScrape > ((DateTimeOffset) dateWeb.Value).ToUnixTimeSeconds())
+                if (radWebSince.Checked && entry.LastStoreScrape > ((DateTimeOffset) dateWeb.Value).ToUnixTimeSeconds())
                 {
                     return false;
                 }
@@ -937,18 +940,18 @@ namespace Depressurizer
 
             if (radAppAll.Checked == false)
             {
-                if (radAppNo.Checked && g.LastAppInfoUpdate > 0)
+                if (radAppNo.Checked && entry.LastAppInfoUpdate > 0)
                 {
                     return false;
                 }
 
-                if (radAppYes.Checked && g.LastAppInfoUpdate <= 0)
+                if (radAppYes.Checked && entry.LastAppInfoUpdate <= 0)
                 {
                     return false;
                 }
             }
 
-            if (currentFilter.Length > 0 && g.Name.IndexOf(currentFilter, StringComparison.CurrentCultureIgnoreCase) == -1)
+            if (_currentFilter.Length > 0 && entry.Name.IndexOf(_currentFilter, StringComparison.CurrentCultureIgnoreCase) == -1)
             {
                 return false;
             }
@@ -956,9 +959,14 @@ namespace Depressurizer
             return true;
         }
 
-        private bool ShouldHideGame(DatabaseEntry g)
+        private bool ShouldHideGame(DatabaseEntry entry)
         {
-            return !ShouldDisplayGame(g);
+            if (entry == null)
+            {
+                return true;
+            }
+
+            return !ShouldDisplayGame(entry);
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -978,11 +986,11 @@ namespace Depressurizer
                 }
 
                 RebuildDisplayList();
-                AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedAppInfo, updated));
+                AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_Status_UpdatedAppInfo, updated));
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_AppInfoUpdateFailed, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AppInfoUpdateFailed, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Logger.Error(GlobalStrings.DBEditDlg_Log_ExceptionAppInfo, e.ToString());
             }
         }
@@ -997,7 +1005,7 @@ namespace Depressurizer
 
                 if (dialog.Error != null)
                 {
-                    MessageBox.Show(string.Format(GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_ErrorWhileUpdatingHltb, dialog.Error.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Logger.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dialog.Error.Message);
                     AddStatusMsg(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
                 }
@@ -1009,7 +1017,7 @@ namespace Depressurizer
                     }
                     else
                     {
-                        AddStatusMsg(string.Format(GlobalStrings.DBEditDlg_Status_UpdatedHltb, dialog.Updated));
+                        AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_Status_UpdatedHltb, dialog.Updated));
                         UnsavedChanges = true;
                     }
                 }
@@ -1024,7 +1032,7 @@ namespace Depressurizer
         /// </summary>
         private void UpdateStatusCount()
         {
-            statSelected.Text = string.Format(GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Database.Count);
+            statSelected.Text = string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_SelectedDisplayedTotal, lstGames.SelectedIndices.Count, lstGames.VirtualListSize, Database.Count);
             cmdDeleteGame.Enabled = cmdEditGame.Enabled = cmdStore.Enabled = cmdUpdateSelected.Enabled = lstGames.SelectedIndices.Count >= 1;
         }
 
