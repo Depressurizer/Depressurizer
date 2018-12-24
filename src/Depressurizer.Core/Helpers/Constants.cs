@@ -60,7 +60,7 @@
         /// <summary>
         ///     Sentry Data Source Name.
         /// </summary>
-        public static string SentryDSN => "https://fbb6fca0ff1748d7a9160b6bc92bcb1d@sentry.io/267726";
+        public static string SentryDSN => "https://9771482bc19c450b86ea6bcead6f7b6f@sentry.io/267726";
 
         /// <summary>
         ///     Generic path to sharedconfig.vdf, must be formatted with the Steam installation path and the Steam ID.
