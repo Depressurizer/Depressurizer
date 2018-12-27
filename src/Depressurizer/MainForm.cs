@@ -2272,8 +2272,7 @@ namespace Depressurizer
                     return GlobalStrings.MainForm_Unknown;
                 }
 
-                CultureInfo culture = Language.GetCultureInfo(Database.Language);
-                if (DateTime.TryParse(entry.SteamReleaseDate, culture, DateTimeStyles.None, out DateTime releaseDate))
+                if (DateTime.TryParse(entry.SteamReleaseDate, Database.Culture, DateTimeStyles.None, out DateTime releaseDate))
                 {
                     return releaseDate.Year.ToString(CultureInfo.CurrentCulture);
                 }

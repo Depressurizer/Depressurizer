@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -29,6 +30,8 @@ namespace Depressurizer
         #region Fields
 
         public readonly Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
+
+        private StoreLanguage _language = StoreLanguage.English;
 
         #endregion
 
@@ -164,7 +167,27 @@ namespace Depressurizer
         [JsonIgnore]
         public int Count => Games.Count;
 
-        public StoreLanguage Language { get; set; } = StoreLanguage.English;
+        [JsonIgnore]
+        public CultureInfo Culture { get; private set; }
+
+        public StoreLanguage Language
+        {
+            get
+            {
+                lock (SyncRoot)
+                {
+                    return _language;
+                }
+            }
+            set
+            {
+                lock (SyncRoot)
+                {
+                    _language = value;
+                    Culture = Core.Helpers.Language.GetCultureInfo(_language);
+                }
+            }
+        }
 
         public long LastHLTBUpdate { get; set; }
 
