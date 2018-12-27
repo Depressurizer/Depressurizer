@@ -3002,7 +3002,7 @@ namespace Depressurizer
             contextGameHidden_Yes.Checked = false;
             contextGameHidden_No.Checked = false;
 
-            string storeLanguage = Language.LanguageCode(Database.Language);
+            string storeLanguage = Database.LanguageCode;
 
             if (lstGames.SelectedObjects.Count > 0)
             {

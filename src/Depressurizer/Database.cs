@@ -185,9 +185,13 @@ namespace Depressurizer
                 {
                     _language = value;
                     Culture = Core.Helpers.Language.GetCultureInfo(_language);
+                    LanguageCode = Core.Helpers.Language.LanguageCode(_language);
                 }
             }
         }
+
+        [JsonIgnore]
+        public string LanguageCode { get; private set; }
 
         public long LastHLTBUpdate { get; set; }
 
