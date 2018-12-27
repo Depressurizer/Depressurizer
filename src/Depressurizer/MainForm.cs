@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
@@ -70,6 +71,8 @@ namespace Depressurizer
         private readonly StringBuilder statusBuilder = new StringBuilder();
 
         private readonly Color textColor = Color.FromArgb(255, 255, 255, 255);
+
+        private Regex _currentFilterRegex;
 
         private Filter advFilter = new Filter(ADVANCED_FILTER);
 
@@ -139,6 +142,11 @@ namespace Depressurizer
         #region Properties
 
         private static Database Database => Database.Instance;
+
+        /// <summary>
+        ///     Color indicating that the given search Regex is invalid.
+        /// </summary>
+        private static Color InvalidSearchRegexColor => Color.PaleVioletRed;
 
         private static Logger Logger => Logger.Instance;
 
@@ -915,6 +923,11 @@ namespace Depressurizer
             }
 
             return SaveProfile();
+        }
+
+        private void chkRegex_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterGameList(false);
         }
 
         private void cmdAddCatAndAssign_Click(object sender, EventArgs e)
@@ -1737,6 +1750,28 @@ namespace Depressurizer
         /// <param name="preserveSelection">If true, will try to preserve game selection</param>
         private void FilterGameList(bool preserveSelection)
         {
+            if (chkRegex.CheckState == CheckState.Checked)
+            {
+                try
+                {
+                    _currentFilterRegex = new Regex(mtxtSearch.Text, RegexOptions.IgnoreCase);
+
+                    // Resets the search box color if a valid Regex is provided.
+                    mtxtSearch.BackColor = Color.Empty;
+                }
+                catch
+                {
+                    // We are creating the Regex as it is typed, the exception thrown is because the Regex is invalid.
+                    // Change color to of the search box to indicate that the current Regex is invalid.
+                    mtxtSearch.BackColor = InvalidSearchRegexColor;
+                }
+            }
+            else
+            {
+                _currentFilterRegex = null;
+                mtxtSearch.BackColor = Color.Empty;
+            }
+
             Cursor = Cursors.WaitCursor;
             lstGames.BeginUpdate();
             if (!preserveSelection)
@@ -4204,12 +4239,19 @@ namespace Depressurizer
         /// <returns>True if it should be displayed, false otherwise</returns>
         private bool ShouldDisplayGame(GameInfo g)
         {
-            if (CurrentProfile == null)
+            if (CurrentProfile == null || g == null)
             {
                 return false;
             }
 
-            if (!string.IsNullOrWhiteSpace(mtxtSearch.Text) && g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1)
+            if (_currentFilterRegex != null)
+            {
+                if (!_currentFilterRegex.IsMatch(g.Name))
+                {
+                    return false;
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(mtxtSearch.Text) && g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1)
             {
                 return false;
             }
