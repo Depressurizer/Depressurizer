@@ -286,6 +286,8 @@ namespace Depressurizer
 
                 using (WebClient wc = new WebClient())
                 {
+                    // Github wants TLS 1.2
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
                     wc.Headers.Set("User-Agent", "Depressurizer");
                     string json = wc.DownloadString(Constants.DepressurizerLatestRelease);
 
