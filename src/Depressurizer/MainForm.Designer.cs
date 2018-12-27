@@ -142,6 +142,7 @@ namespace Depressurizer {
             this.contextGame_Sep3 = new System.Windows.Forms.ToolStripSeparator();
             this.contextGame_VisitStore = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlLstGamesToolbar = new System.Windows.Forms.Panel();
+            this.chkRegex = new MaterialSkin.Controls.MaterialCheckBox();
             this.mbtnCategories = new MaterialSkin.Controls.MaterialRaisedButton();
             this.cmdAddCatAndAssign = new System.Windows.Forms.Button();
             this.mchkBrowser = new MaterialSkin.Controls.MaterialCheckBox();
@@ -1116,6 +1117,7 @@ namespace Depressurizer {
             // 
             // pnlLstGamesToolbar
             // 
+            this.pnlLstGamesToolbar.Controls.Add(this.chkRegex);
             this.pnlLstGamesToolbar.Controls.Add(this.mbtnCategories);
             this.pnlLstGamesToolbar.Controls.Add(this.cmdAddCatAndAssign);
             this.pnlLstGamesToolbar.Controls.Add(this.mchkBrowser);
@@ -1125,6 +1127,18 @@ namespace Depressurizer {
             this.pnlLstGamesToolbar.Controls.Add(this.mtxtSearch);
             resources.ApplyResources(this.pnlLstGamesToolbar, "pnlLstGamesToolbar");
             this.pnlLstGamesToolbar.Name = "pnlLstGamesToolbar";
+            // 
+            // chkRegex
+            // 
+            resources.ApplyResources(this.chkRegex, "chkRegex");
+            this.chkRegex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(44)))));
+            this.chkRegex.Depth = 0;
+            this.chkRegex.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkRegex.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkRegex.Name = "chkRegex";
+            this.chkRegex.Ripple = true;
+            this.chkRegex.UseVisualStyleBackColor = false;
+            this.chkRegex.CheckedChanged += new System.EventHandler(this.chkRegex_CheckedChanged);
             // 
             // mbtnCategories
             // 
@@ -1746,6 +1760,7 @@ namespace Depressurizer {
         private TableLayoutPanel tblLayoutPanelAutocats;
         private TableLayoutPanel tblLayoutPanelFilterToolbar;
         private ComboBox cboFilter;
+        private MaterialSkin.Controls.MaterialCheckBox chkRegex;
     }
 }
 

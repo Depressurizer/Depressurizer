@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
@@ -89,6 +90,8 @@ namespace Depressurizer
         private TypedObjectListView<GameInfo> tlstGames;
 
         private bool unsavedChanges;
+
+        private Regex currentFilterRegex;
 
         #endregion
 
@@ -1735,6 +1738,26 @@ namespace Depressurizer
         /// <param name="preserveSelection">If true, will try to preserve game selection</param>
         private void FilterGameList(bool preserveSelection)
         {
+            if (chkRegex.CheckState == CheckState.Checked)
+            {
+                try
+                {
+                    currentFilterRegex = new Regex(mtxtSearch.Text, RegexOptions.IgnoreCase);
+                    mtxtSearch.BackColor = Color.Empty;
+                }
+                catch (Exception e)
+                {
+                    // we are trying to make a regex as it is typed, we'll just ignore the exceptions
+                    // during creation, since it is in the middle of being constructed.
+                    mtxtSearch.BackColor = Color.PaleVioletRed;
+                }
+            }
+            else
+            {
+                currentFilterRegex = null;
+                mtxtSearch.BackColor = Color.Empty;
+            }
+
             Cursor = Cursors.WaitCursor;
             lstGames.BeginUpdate();
             if (!preserveSelection)
@@ -4207,7 +4230,15 @@ namespace Depressurizer
                 return false;
             }
 
-            if (!string.IsNullOrWhiteSpace(mtxtSearch.Text) && g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1)
+
+            if(currentFilterRegex != null)
+            {
+                if( currentFilterRegex.Match(g.Name) == Match.Empty)
+                {
+                    return false;
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(mtxtSearch.Text) && g.Name.IndexOf(mtxtSearch.Text, StringComparison.CurrentCultureIgnoreCase) == -1)
             {
                 return false;
             }
@@ -4591,5 +4622,10 @@ namespace Depressurizer
         }
 
         #endregion
+
+        private void chkRegex_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterGameList(false);
+        }
     }
 }
