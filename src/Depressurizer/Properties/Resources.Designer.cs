@@ -61,6 +61,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto-Categorize ({0} Apps).
+        /// </summary>
+        internal static string AutoCategorizeNumApps {
+            get {
+                return ResourceManager.GetString("AutoCategorizeNumApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categories.
         /// </summary>
         internal static string Categories {

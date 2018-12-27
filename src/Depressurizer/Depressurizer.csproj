@@ -129,7 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommaClusteringStrategy.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GameList.cs" />
     <Compile Include="GameListingSource.cs" />
     <Compile Include="Helpers\Locations.cs" />

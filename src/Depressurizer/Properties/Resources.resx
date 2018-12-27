@@ -174,4 +174,7 @@
   <data name="DatabaseSaveFilter" xml:space="preserve">
     <value>JSON files (*.json)|*.json</value>
   </data>
+  <data name="AutoCategorizeNumApps" xml:space="preserve">
+    <value>Auto-Categorize ({0} Apps)</value>
+  </data>
 </root>
