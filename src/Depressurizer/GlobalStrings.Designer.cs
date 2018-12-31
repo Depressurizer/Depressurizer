@@ -2111,24 +2111,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Page read.
-        /// </summary>
-        internal static string GameDB_ScrapingPageRead {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingPageRead", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Page read failed. {1}.
-        /// </summary>
-        internal static string GameDB_ScrapingPageReadFailed {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingPageReadFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Scraping {0}: Parsed. Genre: {1}.
         /// </summary>
         internal static string GameDB_ScrapingParsed {
@@ -2165,38 +2147,11 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Redirected to main store page.
-        /// </summary>
-        internal static string GameDB_ScrapingRedirectedToMainStorePage {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingRedirectedToMainStorePage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Redirected to a non-app URL.
-        /// </summary>
-        internal static string GameDB_ScrapingRedirectedToNonApp {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingRedirectedToNonApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Scraping {0}: Redirected to another app id ({1}).
         /// </summary>
         internal static string GameDB_ScrapingRedirectedToOtherApp {
             get {
                 return ResourceManager.GetString("GameDB_ScrapingRedirectedToOtherApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Too Many Redirects.
-        /// </summary>
-        internal static string GameDB_TooManyRedirects {
-            get {
-                return ResourceManager.GetString("GameDB_TooManyRedirects", resourceCulture);
             }
         }
         

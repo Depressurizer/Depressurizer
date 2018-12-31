@@ -469,12 +469,6 @@ Time Remaining:</value>
   <data name="GameDB_ScrapingHitAgeCheck" xml:space="preserve">
     <value>Scraping {0}: Hit age check for id {1}</value>
   </data>
-  <data name="GameDB_ScrapingPageRead" xml:space="preserve">
-    <value>Scraping {0}: Page read</value>
-  </data>
-  <data name="GameDB_ScrapingPageReadFailed" xml:space="preserve">
-    <value>Scraping {0}: Page read failed. {1}</value>
-  </data>
   <data name="GameDB_ScrapingParsed" xml:space="preserve">
     <value>Scraping {0}: Parsed. Genre: {1}</value>
   </data>
@@ -486,12 +480,6 @@ Time Remaining:</value>
   </data>
   <data name="GameDB_ScrapingRedirectedTo" xml:space="preserve">
     <value>Scraping {0}: Redirecting to {1}</value>
-  </data>
-  <data name="GameDB_ScrapingRedirectedToMainStorePage" xml:space="preserve">
-    <value>Scraping {0}: Redirected to main store page</value>
-  </data>
-  <data name="GameDB_ScrapingRedirectedToNonApp" xml:space="preserve">
-    <value>Scraping {0}: Redirected to a non-app URL</value>
   </data>
   <data name="GameDB_ScrapingRedirectedToOtherApp" xml:space="preserve">
     <value>Scraping {0}: Redirected to another app id ({1})</value>
@@ -1115,9 +1103,6 @@ Recommended: Enabled</value>
   </data>
   <data name="GameDB_RedirectsToItself" xml:space="preserve">
     <value>Scraping {0}: Redirects to itself</value>
-  </data>
-  <data name="GameDB_TooManyRedirects" xml:space="preserve">
-    <value>Scraping {0}: Too Many Redirects</value>
   </data>
   <data name="MainForm_Log_ExceptionHltb" xml:space="preserve">
     <value>Exception when auto-updating DB from HLTB.</value>
