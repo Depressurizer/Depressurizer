@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml;
+using System.Xml.XPath;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 using Depressurizer.Models;
@@ -48,7 +48,7 @@ namespace Depressurizer
         {
             try
             {
-                XmlDocument doc = GameList.FetchGameList(profile.SteamID64);
+                IXPathNavigable doc = GameList.FetchGameList(profile.SteamID64);
                 profile.GameData.IntegrateGameList(doc, false, profile.IgnoreList, out int _);
                 return true;
             }

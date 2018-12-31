@@ -508,9 +508,9 @@ namespace Depressurizer
                 foreach (Category category in gameInfo.Categories)
                 {
                     string categoryName = category.Name;
-                    if (category.Name == GameList.FAVORITE_NEW_CONFIG_VALUE)
+                    if (category.Name == GameList.FavoriteNewConfigValue)
                     {
-                        categoryName = GameList.FAVORITE_CONFIG_VALUE;
+                        categoryName = GameList.FavoriteConfigValue;
                     }
 
                     writer.WriteElementString(XmlNameGameCategory, categoryName);

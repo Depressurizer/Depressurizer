@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Xml;
+using System.Xml.XPath;
 using Rallion;
 
 namespace Depressurizer
@@ -20,7 +20,7 @@ namespace Depressurizer
 
         private readonly long SteamId;
 
-        private XmlDocument doc;
+        private IXPathNavigable doc;
 
         #endregion
 

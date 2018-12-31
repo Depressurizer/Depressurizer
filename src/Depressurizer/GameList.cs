@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Xml;
+using System.Xml.XPath;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
@@ -18,24 +19,6 @@ namespace Depressurizer
     /// </summary>
     public class GameList
     {
-        #region Constants
-
-        public const string FAVORITE_CONFIG_VALUE = "favorite";
-
-        public const string FAVORITE_NEW_CONFIG_VALUE = "<Favorite>";
-
-        #endregion
-
-        #region Fields
-
-        public List<Category> Categories;
-
-        public List<Filter> Filters;
-
-        public Dictionary<int, GameInfo> Games;
-
-        #endregion
-
         #region Constructors and Destructors
 
         public GameList()
@@ -43,7 +26,7 @@ namespace Depressurizer
             Games = new Dictionary<int, GameInfo>();
             Categories = new List<Category>();
             Filters = new List<Filter>();
-            FavoriteCategory = new Category(FAVORITE_NEW_CONFIG_VALUE);
+            FavoriteCategory = new Category(FavoriteNewConfigValue);
             Categories.Add(FavoriteCategory);
         }
 
@@ -51,7 +34,17 @@ namespace Depressurizer
 
         #region Public Properties
 
+        public static string FavoriteConfigValue => "favorite";
+
+        public static string FavoriteNewConfigValue => "<Favorite>";
+
+        public List<Category> Categories { get; set; }
+
         public Category FavoriteCategory { get; }
+
+        public List<Filter> Filters { get; set; }
+
+        public Dictionary<int, GameInfo> Games { get; set; }
 
         #endregion
 
@@ -65,22 +58,17 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public static XmlDocument FetchGameList(string customUrl)
+        public static IXPathNavigable FetchGameList(string customUrl)
         {
-            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Constants.GameListCustom, customUrl));
+            return FetchXmlFromUrl(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameListCustom, customUrl)));
         }
 
-        public static XmlDocument FetchGameList(long steamId)
+        public static IXPathNavigable FetchGameList(long steamId)
         {
-            return FetchXmlFromUrl(string.Format(CultureInfo.InvariantCulture, Constants.GameList, steamId));
+            return FetchXmlFromUrl(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameList, steamId)));
         }
 
-        /// <summary>
-        ///     Fetches an XML game list and loads it into an XML document.
-        /// </summary>
-        /// <param name="url">The URL to fetch</param>
-        /// <returns>Fetched XML page as an XmlDocument</returns>
-        public static XmlDocument FetchXmlFromUrl(string url)
+        public static IXPathNavigable FetchXmlFromUrl(Uri url)
         {
             XmlDocument doc = new XmlDocument();
             try
@@ -103,10 +91,10 @@ namespace Depressurizer
                 Logger.Info(GlobalStrings.GameData_SuccessDownloadXMLGameList, url);
                 return doc;
             }
-            catch (ProfileAccessException e)
+            catch (ProfileAccessException)
             {
                 Logger.Error(GlobalStrings.GameData_ProfileNotPublic);
-                throw e;
+                throw;
             }
             catch (Exception e)
             {
@@ -166,6 +154,11 @@ namespace Depressurizer
         /// <param name="category">Category to add</param>
         public void AddGameCategory(int[] appIds, Category category)
         {
+            if (appIds == null || category == null)
+            {
+                return;
+            }
+
             foreach (int appId in appIds)
             {
                 AddGameCategory(appId, category);
@@ -180,7 +173,7 @@ namespace Depressurizer
         public bool CategoryExists(string name)
         {
             // Favorite category always exists
-            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE)
+            if (name == FavoriteNewConfigValue || name == FavoriteConfigValue)
             {
                 return true;
             }
@@ -219,6 +212,11 @@ namespace Depressurizer
         /// <param name="preserveFavorite">If true, preserves the favorite category.</param>
         public void ClearGameCategories(int[] appIds, bool preserveFavorite)
         {
+            if (appIds == null)
+            {
+                return;
+            }
+
             foreach (int appId in appIds)
             {
                 ClearGameCategories(appId, preserveFavorite);
@@ -324,12 +322,12 @@ namespace Depressurizer
                 foreach (Category c in game.Categories)
                 {
                     string name = c.Name;
-                    if (name == FAVORITE_NEW_CONFIG_VALUE)
+                    if (name == FavoriteNewConfigValue)
                     {
-                        name = FAVORITE_CONFIG_VALUE;
+                        name = FavoriteConfigValue;
                     }
 
-                    tagsNode[key.ToString()] = new VDFNode(name);
+                    tagsNode[key.ToString(CultureInfo.InvariantCulture)] = new VDFNode(name);
                     key++;
                 }
 
@@ -418,15 +416,10 @@ namespace Depressurizer
             {
                 Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
             }
-
-            if (binReader != null)
+            finally
             {
-                binReader.Close();
-            }
-
-            if (fStream != null)
-            {
-                fStream.Close();
+                binReader?.Close();
+                fStream?.Close();
             }
 
             if (dataRoot == null)
@@ -434,104 +427,105 @@ namespace Depressurizer
                 return;
             }
 
+            List<GameInfo> gamesToSave = new List<GameInfo>();
+            foreach (int id in Games.Keys)
             {
-                List<GameInfo> gamesToSave = new List<GameInfo>();
-                foreach (int id in Games.Keys)
+                if (id < 0)
                 {
-                    if (id < 0)
-                    {
-                        gamesToSave.Add(Games[id]);
-                    }
+                    gamesToSave.Add(Games[id]);
+                }
+            }
+
+            LoadShortcutLaunchIds(steamId, out StringDictionary launchIds);
+
+            VDFNode appsNode = dataRoot.GetNodeAt(new[]
+            {
+                "shortcuts"
+            }, false);
+            foreach (KeyValuePair<string, VDFNode> shortcutPair in appsNode.NodeArray)
+            {
+                VDFNode nodeGame = shortcutPair.Value;
+                if (!int.TryParse(shortcutPair.Key, out int nodeId))
+                {
+                    continue;
                 }
 
-                LoadShortcutLaunchIds(steamId, out StringDictionary launchIds);
+                int matchingIndex = FindMatchingShortcut(nodeId, nodeGame, gamesToSave, launchIds);
 
-                VDFNode appsNode = dataRoot.GetNodeAt(new[]
+                if (matchingIndex >= 0)
                 {
-                    "shortcuts"
-                }, false);
-                foreach (KeyValuePair<string, VDFNode> shortcutPair in appsNode.NodeArray)
-                {
-                    VDFNode nodeGame = shortcutPair.Value;
-                    int.TryParse(shortcutPair.Key, out int nodeId);
+                    GameInfo game = gamesToSave[matchingIndex];
+                    gamesToSave.RemoveAt(matchingIndex);
 
-                    int matchingIndex = FindMatchingShortcut(nodeId, nodeGame, gamesToSave, launchIds);
+                    Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
 
-                    if (matchingIndex >= 0)
+                    VDFNode tagsNode = nodeGame.GetNodeAt(new[]
                     {
-                        GameInfo game = gamesToSave[matchingIndex];
-                        gamesToSave.RemoveAt(matchingIndex);
+                        "tags"
+                    }, true);
+                    Dictionary<string, VDFNode> tags = tagsNode.NodeArray;
+                    if (tags != null)
+                    {
+                        tags.Clear();
+                    }
 
-                        Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
-
-                        VDFNode tagsNode = nodeGame.GetNodeAt(new[]
+                    int index = 0;
+                    foreach (Category c in game.Categories)
+                    {
+                        string name = c.Name;
+                        if (name == FavoriteNewConfigValue)
                         {
-                            "tags"
-                        }, true);
-                        Dictionary<string, VDFNode> tags = tagsNode.NodeArray;
-                        if (tags != null)
-                        {
-                            tags.Clear();
+                            name = FavoriteConfigValue;
                         }
 
-                        int index = 0;
-                        foreach (Category c in game.Categories)
-                        {
-                            string name = c.Name;
-                            if (name == FAVORITE_NEW_CONFIG_VALUE)
-                            {
-                                name = FAVORITE_CONFIG_VALUE;
-                            }
-
-                            tagsNode[index.ToString(CultureInfo.InvariantCulture)] = new VDFNode(name);
-                            index++;
-                        }
-
-                        nodeGame["hidden"] = new VDFNode(game.Hidden ? 1 : 0);
+                        tagsNode[index.ToString(CultureInfo.InvariantCulture)] = new VDFNode(name);
+                        index++;
                     }
-                }
 
-                if (dataRoot.NodeType != ValueType.Array)
-                {
-                    return;
+                    nodeGame["hidden"] = new VDFNode(game.Hidden ? 1 : 0);
                 }
+            }
 
-                Logger.Info(GlobalStrings.GameData_SavingShortcutConfigFile, filePath);
-                try
-                {
-                    Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
-                }
-                catch (Exception e)
-                {
-                    Logger.Error(GlobalStrings.Log_GameData_ShortcutBackupFailed, e.Message);
-                }
+            if (dataRoot.NodeType != ValueType.Array)
+            {
+                return;
+            }
 
-                try
-                {
-                    string filePathTmp = filePath + ".tmp";
-                    fStream = new FileStream(filePathTmp, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
-                    BinaryWriter binWriter = new BinaryWriter(fStream);
-                    dataRoot.SaveAsBinary(binWriter);
-                    binWriter.Close();
-                    fStream.Close();
-                    File.Delete(filePath);
-                    File.Move(filePathTmp, filePath);
-                }
-                catch (ArgumentException e)
-                {
-                    Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                    throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
-                }
-                catch (IOException e)
-                {
-                    Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                    throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e);
-                }
-                catch (UnauthorizedAccessException e)
-                {
-                    Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
-                    throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e);
-                }
+            Logger.Info(GlobalStrings.GameData_SavingShortcutConfigFile, filePath);
+            try
+            {
+                Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
+            }
+            catch (Exception e)
+            {
+                Logger.Error(GlobalStrings.Log_GameData_ShortcutBackupFailed, e.Message);
+            }
+
+            try
+            {
+                string filePathTmp = filePath + ".tmp";
+                fStream = new FileStream(filePathTmp, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
+                BinaryWriter binWriter = new BinaryWriter(fStream);
+                dataRoot.SaveAsBinary(binWriter);
+                binWriter.Close();
+                fStream.Close();
+                File.Delete(filePath);
+                File.Move(filePathTmp, filePath);
+            }
+            catch (ArgumentException e)
+            {
+                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+                throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigBadPath, e);
+            }
+            catch (IOException e)
+            {
+                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+                throw new ApplicationException(GlobalStrings.GameData_FailedToSaveSteamConfigFile + e.Message, e);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Logger.Error(GlobalStrings.GameData_ErrorSavingSteamConfigFile, e.ToString());
+                throw new ApplicationException(GlobalStrings.GameData_AccessDeniedSteamConfigFile + e.Message, e);
             }
         }
 
@@ -567,7 +561,7 @@ namespace Depressurizer
             }
 
             // Check for Favorite category
-            if (name == FAVORITE_NEW_CONFIG_VALUE || name == FAVORITE_CONFIG_VALUE)
+            if (name == FavoriteNewConfigValue || name == FavoriteConfigValue)
             {
                 return FavoriteCategory;
             }
@@ -583,10 +577,6 @@ namespace Depressurizer
 
             // Create a new category and return it
             return AddCategory(name);
-
-            //Category newCat = new Category( name );
-            //Categories.Add( newCat );
-            //return newCat;
         }
 
         /// <summary>
@@ -634,6 +624,11 @@ namespace Depressurizer
         /// <param name="isHidden">Whether the games should be hidden.</param>
         public void HideGames(int[] appIds, bool isHidden)
         {
+            if (appIds == null)
+            {
+                return;
+            }
+
             foreach (int appId in appIds)
             {
                 HideGames(appId, isHidden);
@@ -792,16 +787,22 @@ namespace Depressurizer
             return loadedGames;
         }
 
-        public int IntegrateGameList(XmlDocument doc, bool overWrite, SortedSet<int> ignore, out int newItems)
+        public int IntegrateGameList(IXPathNavigable doc, bool overwrite, SortedSet<int> ignore, out int newItems)
         {
             newItems = 0;
-            if (doc == null)
+            if (doc == null || !(doc is XmlNode node))
             {
                 return 0;
             }
 
             int loadedGames = 0;
-            XmlNodeList gameNodes = doc.SelectNodes("/gamesList/games/game");
+            XmlNodeList gameNodes = node.SelectNodes("/gamesList/games/game");
+            if (gameNodes == null)
+            {
+                Logger.Warn("GameList: Failed integrating XML data, gameNodes is null.");
+                return 0;
+            }
+
             foreach (XmlNode gameNode in gameNodes)
             {
                 XmlNode appIdNode = gameNode["appID"];
@@ -816,7 +817,7 @@ namespace Depressurizer
                     continue;
                 }
 
-                GameInfo integratedGame = IntegrateGame(appId, nameNode.InnerText, overWrite, ignore, GameListingSource.WebProfile, out bool isNew);
+                GameInfo integratedGame = IntegrateGame(appId, nameNode.InnerText, overwrite, ignore, GameListingSource.WebProfile, out bool isNew);
                 if (integratedGame == null)
                 {
                     continue;
@@ -1001,7 +1002,13 @@ namespace Depressurizer
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
             string localConfigPath = string.Format(CultureInfo.InvariantCulture, Constants.LocalConfig, Settings.Instance.SteamPath, Profile.ToSteam3Id(accountId));
-            VDFNode vdfFile = VDFNode.LoadFromText(new StreamReader(localConfigPath));
+
+            VDFNode vdfFile;
+            using (StreamReader streamReader = new StreamReader(localConfigPath))
+            {
+                vdfFile = VDFNode.LoadFromText(streamReader);
+            }
+
             if (vdfFile != null)
             {
                 VDFNode licensesNode = vdfFile.GetNodeAt(new[]
@@ -1118,9 +1125,14 @@ namespace Depressurizer
 
         private static void LoadShortcutLaunchIds(long steamId, out StringDictionary shortcutLaunchIds)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Screenshots, Settings.Instance.SteamPath, Profile.ToSteam3Id(steamId));
-
             shortcutLaunchIds = new StringDictionary();
+
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Screenshots, Settings.Instance.SteamPath, Profile.ToSteam3Id(steamId));
+            if (!File.Exists(filePath))
+            {
+                Logger.Warn("LoadShortcutLaunchIds: Could not find screenshots.vdf at the specified location.");
+                return;
+            }
 
             StreamReader reader = null;
             try
@@ -1151,23 +1163,15 @@ namespace Depressurizer
             {
                 Logger.Error(GlobalStrings.GameData_LoadingErrorSteamConfig, e.ToString());
             }
-
-            if (reader != null)
+            finally
             {
-                reader.Close();
+                reader?.Close();
             }
         }
 
-        /// <summary>
-        ///     Get LastPlayed date from a VDF node containing a list of games.
-        ///     Any games in the node not found in the game list will be added to the gamelist.
-        /// </summary>
-        /// <param name="appsNode">Node containing the game nodes</param>
-        /// <param name="ignore">Set of games to ignore</param>
-        /// <param name="forceInclude">Include games even if their type is not an included type</param>
-        private void GetLastPlayedFromVdf(VDFNode appsNode, SortedSet<int> ignore)
+        private void GetLastPlayedFromVdf(VDFNode appsNode, ICollection<int> ignore)
         {
-            Dictionary<string, VDFNode> gameNodeArray = appsNode.NodeArray;
+            Dictionary<string, VDFNode> gameNodeArray = appsNode?.NodeArray;
             if (gameNodeArray == null)
             {
                 return;
