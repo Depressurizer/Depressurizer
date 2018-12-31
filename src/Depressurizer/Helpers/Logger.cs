@@ -3,8 +3,10 @@ using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using Depressurizer.Core.Enums;
+#if DEBUG
+using System.Threading.Tasks;
+#endif
 
 namespace Depressurizer.Helpers
 {
@@ -231,7 +233,9 @@ namespace Depressurizer.Helpers
                 string logEntry = string.Format(CultureInfo.InvariantCulture, "{0} {1,-7} | {2}", DateTime.Now, logLevel, logMessage);
                 LogQueue.Enqueue(logEntry);
 
+#if DEBUG
                 Task.Run(() => System.Diagnostics.Debug.WriteLine(logEntry));
+#endif
 
                 if (LogQueue.Count >= 100)
                 {
