@@ -710,19 +710,19 @@ namespace Depressurizer
             int updated = 0;
 
             // List of games not found in database or that have old data, so we can try to scrape data for them
-            Queue<int> notInDbOrOldData = new Queue<int>();
+            List<int> appIds = new List<int>();
             int oldDbDataCount = 0;
             int notInDbCount = 0;
             foreach (GameInfo game in gamesToUpdate)
             {
                 if (game.Id > 0 && (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0))
                 {
-                    notInDbOrOldData.Enqueue(game.Id);
+                    appIds.Add(game.Id);
                     notInDbCount++;
                 }
                 else if (Database.Contains(game.Id, out DatabaseEntry entry2) && game.Id > 0 && DateTimeOffset.UtcNow.ToUnixTimeSeconds() > entry2.LastStoreScrape + Settings.ScrapePromptDays * 86400) //86400 seconds in a day
                 {
-                    notInDbOrOldData.Enqueue(game.Id);
+                    appIds.Add(game.Id);
                     oldDbDataCount++;
                 }
             }
@@ -745,7 +745,7 @@ namespace Depressurizer
                 message += string.Format(CultureInfo.CurrentCulture, ". {0}", GlobalStrings.MainForm_ScrapeNow);
                 if (MessageBox.Show(message, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    using (DbScrapeDlg dialog = new DbScrapeDlg(notInDbOrOldData))
+                    using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
                     {
                         DialogResult result = dialog.ShowDialog();
 

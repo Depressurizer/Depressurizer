@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Depressurizer.Models;
 using Rallion;
@@ -10,22 +11,20 @@ namespace Depressurizer
     {
         #region Fields
 
-        private readonly Queue<int> jobs;
+        private readonly Queue<int> _queue;
 
-        private readonly List<DatabaseEntry> results;
+        private readonly List<DatabaseEntry> _results = new List<DatabaseEntry>();
 
-        private DateTime start;
+        private DateTime _start;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public DbScrapeDlg(Queue<int> jobs) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
+        public DbScrapeDlg(IEnumerable<int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
-            this.jobs = jobs;
-            totalJobs = jobs.Count;
-
-            results = new List<DatabaseEntry>();
+            _queue = new Queue<int>(appIds.Distinct().Where(id => id > 0));
+            totalJobs = _queue.Count;
         }
 
         #endregion
@@ -40,23 +39,27 @@ namespace Depressurizer
 
         protected override void Finish()
         {
-            if (!Canceled)
+            if (Canceled)
             {
-                SetText(GlobalStrings.CDlgScrape_ApplyingData);
+                return;
+            }
 
-                if (results != null)
+            SetText(GlobalStrings.CDlgScrape_ApplyingData);
+
+            if (_results == null)
+            {
+                return;
+            }
+
+            foreach (DatabaseEntry g in _results)
+            {
+                if (Database.Contains(g.Id, out DatabaseEntry entry))
                 {
-                    foreach (DatabaseEntry g in results)
-                    {
-                        if (Database.Contains(g.Id, out DatabaseEntry entry))
-                        {
-                            entry.MergeIn(g);
-                        }
-                        else
-                        {
-                            Database.Add(g);
-                        }
-                    }
+                    entry.MergeIn(g);
+                }
+                else
+                {
+                    Database.Add(g);
                 }
             }
         }
@@ -74,7 +77,7 @@ namespace Depressurizer
 
         protected override void UpdateForm_Load(object sender, EventArgs e)
         {
-            start = DateTime.Now;
+            _start = DateTime.Now;
             base.UpdateForm_Load(sender, e);
         }
 
@@ -83,7 +86,7 @@ namespace Depressurizer
             TimeSpan timeRemaining = TimeSpan.Zero;
             if (jobsCompleted > 0)
             {
-                double msElapsed = (DateTime.Now - start).TotalMilliseconds;
+                double msElapsed = (DateTime.Now - _start).TotalMilliseconds;
                 double msPerItem = msElapsed / jobsCompleted;
                 double msRemaining = msPerItem * (totalJobs - jobsCompleted);
                 timeRemaining = TimeSpan.FromMilliseconds(msRemaining);
@@ -117,21 +120,17 @@ namespace Depressurizer
 
         private int GetNextGameId()
         {
-            lock (jobs)
+            lock (_queue)
             {
-                if (jobs.Count > 0)
+                if (_queue.Count > 0)
                 {
-                    return jobs.Dequeue();
+                    return _queue.Dequeue();
                 }
 
                 return 0;
             }
         }
 
-        /// <summary>
-        ///     Runs the next job in the queue, in a thread-safe manner. Aborts ASAP if the form is closed.
-        /// </summary>
-        /// <returns>True if a job was run, false if it was aborted first</returns>
         private bool RunNextJob()
         {
             int id = GetNextGameId();
@@ -152,14 +151,14 @@ namespace Depressurizer
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
             lock (abortLock)
             {
-                if (!Stopped)
+                if (Stopped)
                 {
-                    results.Add(newGame);
-                    OnJobCompletion();
-                    return true;
+                    return false;
                 }
 
-                return false;
+                _results.Add(newGame);
+                OnJobCompletion();
+                return true;
             }
         }
 

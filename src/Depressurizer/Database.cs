@@ -361,19 +361,12 @@ namespace Depressurizer
                 g.LanguageSupport = new LanguageSupport();
             }
 
-            //Update DB with data in correct language
-            Queue<int> gamesToUpdate = new Queue<int>();
+            // Update DB with data in correct language
+            List<int> appIds = new List<int>();
             if (FormMain.CurrentProfile != null)
             {
-                foreach (GameInfo game in FormMain.CurrentProfile.GameData.Games.Values)
-                {
-                    if (game.Id > 0)
-                    {
-                        gamesToUpdate.Enqueue(game.Id);
-                    }
-                }
-
-                using (DbScrapeDlg dialog = new DbScrapeDlg(gamesToUpdate))
+                appIds.AddRange(FormMain.CurrentProfile.GameData.Games.Values.Where(g => g.Id > 0).Select(g => g.Id));
+                using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
                 {
                     dialog.ShowDialog();
                 }

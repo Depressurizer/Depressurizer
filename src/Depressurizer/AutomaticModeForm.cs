@@ -527,19 +527,23 @@ namespace Depressurizer
             Write("Scraping unscraped games...");
             try
             {
-                Queue<int> jobs = new Queue<int>();
-                foreach (int id in p.GameData.Games.Keys)
+                List<int> appIds = new List<int>();
+                foreach (int appId in p.GameData.Games.Keys)
                 {
                     DatabaseEntry entry = null;
-                    if (id > 0 && !Database.Contains(id, out entry) || entry != null && entry.LastStoreScrape == 0)
+                    if (appId > 0 && !Database.Contains(appId, out entry))
                     {
-                        jobs.Enqueue(id);
+                        appIds.Add(appId);
+                    }
+                    else if (entry != null && entry.LastStoreScrape == 0)
+                    {
+                        appIds.Add(appId);
                     }
                 }
 
-                if (jobs.Count > 0)
+                if (appIds.Count > 0)
                 {
-                    using (DbScrapeDlg dialog = new DbScrapeDlg(jobs))
+                    using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
                     {
                         DialogResult result = dialog.ShowDialog();
 

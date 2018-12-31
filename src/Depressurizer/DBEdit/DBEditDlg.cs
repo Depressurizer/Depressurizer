@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
@@ -767,19 +768,15 @@ namespace Depressurizer
             return false;
         }
 
-        /// <summary>
-        ///     Performs a web scrape on the given games.
-        /// </summary>
-        /// <param name="gamesToScrape">Queue of games to scrape</param>
-        private void ScrapeGames(Queue<int> gamesToScrape)
+        private void ScrapeGames(ICollection<int> appIds)
         {
-            if (gamesToScrape.Count <= 0)
+            if (appIds.Count <= 0)
             {
                 AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
                 return;
             }
 
-            using (DbScrapeDlg dialog = new DbScrapeDlg(gamesToScrape))
+            using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
             {
                 DialogResult result = dialog.ShowDialog();
 
@@ -819,14 +816,7 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            Queue<int> appIds = new Queue<int>();
-            foreach (DatabaseEntry entry in Database.Values)
-            {
-                if (entry.LastStoreScrape == 0 && ShouldDisplayGame(entry))
-                {
-                    appIds.Enqueue(entry.Id);
-                }
-            }
+            List<int> appIds = new List<int>(Database.Values.Where(e => e.LastStoreScrape == 0 && ShouldDisplayGame(e)).Select(e => e.Id));
 
             try
             {
@@ -847,10 +837,10 @@ namespace Depressurizer
 
             Cursor = Cursors.WaitCursor;
 
-            Queue<int> appIds = new Queue<int>();
+            List<int> appIds = new List<int>();
             foreach (int index in lstGames.SelectedIndices)
             {
-                appIds.Enqueue(_displayedGames[index].Id);
+                appIds.Add(_displayedGames[index].Id);
             }
 
             try
