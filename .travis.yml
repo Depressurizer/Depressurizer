@@ -5,4 +5,5 @@ install:
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner  
 script:
   - msbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
+  - msbuild /p:Configuration=Release src/Depressurizer.Tests/Depressurizer.Tests.csproj
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Depressurizer.Tests/bin/Release/Depressurizer.Tests.dll  

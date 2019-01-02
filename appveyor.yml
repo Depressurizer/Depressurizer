@@ -16,3 +16,7 @@ before_build: nuget restore src\Depressurizer.sln
 build:
   project: src\Depressurizer.sln
   verbosity: quiet
+
+test:
+  assemblies:
+    - '**\*.tests.dll'
