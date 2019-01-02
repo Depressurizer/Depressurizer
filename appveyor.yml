@@ -1,6 +1,6 @@
 configuration: Debug
 
-platform: x86
+platform: Any CPU 
 
 skip_commits:
   files:
@@ -16,7 +16,3 @@ before_build: nuget restore src\Depressurizer.sln
 build:
   project: src\Depressurizer.sln
   verbosity: quiet
-
-test:
-  assemblies:
-    - '**\*.tests.dll'
