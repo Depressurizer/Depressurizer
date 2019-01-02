@@ -6,4 +6,4 @@ install:
 script:
   - msbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
   - msbuild /p:Configuration=Release src/Depressurizer.Tests/Depressurizer.Tests.csproj
-  - mono ./testrunner/xunit.runners.*/tools/xunit.console.clr4.exe ./src/Depressurizer.Tests/bin/Release/netcoreapp2.1./Depressurizer.Tests.dll
+  - mono ./testrunner/xunit.runners.*/tools/xunit.console.clr4.exe src/Depressurizer.Tests/bin/Release/netcoreapp2.1/Depressurizer.Tests.dll
