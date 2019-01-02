@@ -1,4 +1,5 @@
 using Depressurizer.Core.Enums;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Depressurizer.Tests
@@ -11,7 +12,7 @@ namespace Depressurizer.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.AreEqual((int) StoreLanguage.English, 7);
+            ((int)StoreLanguage.English).Should().Be(7);
         }
 
         #endregion
