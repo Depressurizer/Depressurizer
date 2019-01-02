@@ -1,4 +1,6 @@
-﻿namespace Depressurizer.Core.Helpers
+﻿using System;
+
+namespace Depressurizer.Core.Helpers
 {
     /// <summary>
     ///     Static class containing all constants.
@@ -40,7 +42,7 @@
         /// <summary>
         ///     URL to the API page of HowLongToBeat.com.
         /// </summary>
-        public static string HowLongToBeat => "https://www.howlongtobeatsteam.com/api/games/library/cached/all";
+        public static Uri HowLongToBeat => new Uri("https://www.howlongtobeatsteam.com/api/games/library/cached/all");
 
         /// <summary>
         ///     Generic path to localconfig.vdf, must be formatted with the Steam installation path and the Steam ID.

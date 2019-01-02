@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -55,33 +56,28 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public void FillTagsList()
-        {
-            FillTagsList(null);
-        }
-
         public void FillTagsList(ICollection<string> preChecked)
         {
             clbTags.Items.Clear();
             loaded = false;
 
             lstIncluded.Columns[0].Width = -1;
-            IEnumerable<Tuple<string, float>> tagList = Database.CalculateSortedTagList(list_chkOwnedOnly.Checked ? ownedGames : null, (float) list_numWeightFactor.Value, (int) list_numMinScore.Value, (int) list_numTagsPerGame.Value, list_chkExcludeGenres.Checked, false);
+            Dictionary<string, float> tagList = Database.CalculateSortedTagList(list_chkOwnedOnly.Checked ? ownedGames : null, (float) list_numWeightFactor.Value, (int) list_numMinScore.Value, (int) list_numTagsPerGame.Value, list_chkExcludeGenres.Checked, false);
             lstIncluded.BeginUpdate();
             lstIncluded.Items.Clear();
-            foreach (Tuple<string, float> tag in tagList)
+            foreach (KeyValuePair<string, float> tag in tagList)
             {
-                ListViewItem newItem = new ListViewItem($"{tag.Item1} [{tag.Item2:F0}]")
+                ListViewItem newItem = new ListViewItem($"{tag.Key} [{tag.Value:F0}]")
                 {
-                    Tag = tag.Item1
+                    Tag = tag.Key
                 };
 
-                if (preChecked != null && preChecked.Contains(tag.Item1))
+                if (preChecked != null && preChecked.Contains(tag.Key))
                 {
                     newItem.Checked = true;
                 }
 
-                newItem.SubItems.Add(tag.Item2.ToString());
+                newItem.SubItems.Add(tag.Value.ToString(CultureInfo.InvariantCulture));
                 lstIncluded.Items.Add(newItem);
             }
 

@@ -66,23 +66,24 @@ namespace Depressurizer
         public void FillDevList(ICollection<string> preChecked)
         {
             Cursor = Cursors.WaitCursor;
-            IEnumerable<Tuple<string, int>> devList = Database.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
+            IDictionary<string, int> devList = Database.CalculateSortedDevList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
             clbDevelopersSelected.Items.Clear();
             lstDevelopers.BeginUpdate();
             lstDevelopers.Items.Clear();
-            foreach (Tuple<string, int> dev in devList)
+
+            foreach (KeyValuePair<string, int> dev in devList)
             {
-                ListViewItem newItem = new ListViewItem($"{dev.Item1} [{dev.Item2}]")
+                ListViewItem newItem = new ListViewItem($"{dev.Key} [{dev.Value}]")
                 {
-                    Tag = dev.Item1
+                    Tag = dev.Key
                 };
 
-                if (preChecked != null && preChecked.Contains(dev.Item1))
+                if (preChecked != null && preChecked.Contains(dev.Key))
                 {
                     newItem.Checked = true;
                 }
 
-                newItem.SubItems.Add(dev.Item2.ToString());
+                newItem.SubItems.Add(dev.Value.ToString());
                 lstDevelopers.Items.Add(newItem);
             }
 
@@ -101,22 +102,23 @@ namespace Depressurizer
         public void FillPubList(ICollection<string> preChecked)
         {
             Cursor = Cursors.WaitCursor;
-            IEnumerable<Tuple<string, int>> pubList = Database.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
+            Dictionary<string, int> pubList = Database.CalculateSortedPubList(chkOwnedOnly.Checked ? ownedGames : null, (int) list_numScore.Value);
             clbPublishersSelected.Items.Clear();
             lstPublishers.BeginUpdate();
             lstPublishers.Items.Clear();
-            foreach (Tuple<string, int> pub in pubList)
+
+            foreach (KeyValuePair<string, int> pub in pubList)
             {
-                ListViewItem newItem = new ListViewItem($"{pub.Item1} [{pub.Item2}]")
+                ListViewItem newItem = new ListViewItem($"{pub.Key} [{pub.Value}]")
                 {
-                    Tag = pub.Item1
+                    Tag = pub.Key
                 };
-                if (preChecked != null && preChecked.Contains(pub.Item1))
+                if (preChecked != null && preChecked.Contains(pub.Key))
                 {
                     newItem.Checked = true;
                 }
 
-                newItem.SubItems.Add(pub.Item2.ToString());
+                newItem.SubItems.Add(pub.Value.ToString());
                 lstPublishers.Items.Add(newItem);
             }
 

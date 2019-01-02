@@ -442,7 +442,7 @@ namespace Depressurizer
             int added = 0;
             try
             {
-                added = Database.GetIntegrateAppList();
+                added = Database.FetchIntegrateAppList();
             }
             catch (Exception e)
             {

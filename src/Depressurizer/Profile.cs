@@ -200,9 +200,9 @@ namespace Depressurizer
 
             //By Tags
             AutoCatTags act = new AutoCatTags(GlobalStrings.Profile_DefaultAutoCatName_Tags, null, "(" + GlobalStrings.Name_Tags + ") ");
-            foreach (Tuple<string, float> tag in Database.CalculateSortedTagList(null, 1, 20, 0, false, false))
+            foreach (KeyValuePair<string, float> tag in Database.CalculateSortedTagList(null, 1, 20, 0, false, false))
             {
-                act.IncludedTags.Add(tag.Item1);
+                act.IncludedTags.Add(tag.Key);
             }
 
             list.Add(act);

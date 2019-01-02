@@ -219,13 +219,13 @@ namespace Depressurizer
 
         public void Add(DatabaseEntry entry)
         {
+            if (entry == null)
+            {
+                return;
+            }
+
             lock (SyncRoot)
             {
-                if (entry == null)
-                {
-                    return;
-                }
-
                 if (Contains(entry.Id, out DatabaseEntry databaseEntry))
                 {
                     databaseEntry.MergeIn(entry);
@@ -237,19 +237,7 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        ///     Gets a list of developers found on games with their game count.
-        /// </summary>
-        /// <param name="gameList">
-        ///     GameList including games to include in the search. If null, finds developers for all games in the
-        ///     database.
-        /// </param>
-        /// <param name="minCount">
-        ///     Minimum count of developers games to include in the result list. Developers with lower game
-        ///     counts will be discarded.
-        /// </param>
-        /// <returns>List of developers, as strings with game counts</returns>
-        public IEnumerable<Tuple<string, int>> CalculateSortedDevList(GameList gameList, int minCount)
+        public Dictionary<string, int> CalculateSortedDevList(GameList gameList, int minCount)
         {
             Dictionary<string, int> devCounts = new Dictionary<string, int>();
             if (gameList == null)
@@ -270,11 +258,10 @@ namespace Depressurizer
                 }
             }
 
-            IEnumerable<Tuple<string, int>> unsortedList = from entry in devCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
-            return unsortedList.ToList();
+            return devCounts.Where(e => e.Value >= minCount).ToDictionary(p => p.Key, p => p.Value);
         }
 
-        public IEnumerable<Tuple<string, int>> CalculateSortedPubList(GameList filter, int minCount)
+        public Dictionary<string, int> CalculateSortedPubList(GameList filter, int minCount)
         {
             Dictionary<string, int> pubCounts = new Dictionary<string, int>();
             if (filter == null)
@@ -297,11 +284,10 @@ namespace Depressurizer
                 }
             }
 
-            IEnumerable<Tuple<string, int>> unsortedList = from entry in pubCounts where entry.Value >= minCount select new Tuple<string, int>(entry.Key, entry.Value);
-            return unsortedList.ToList();
+            return pubCounts.Where(e => e.Value >= minCount).ToDictionary(p => p.Key, p => p.Value);
         }
 
-        public IEnumerable<Tuple<string, float>> CalculateSortedTagList(GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
+        public Dictionary<string, float> CalculateSortedTagList(GameList filter, float weightFactor, int minScore, int tagsPerGame, bool excludeGenres, bool scoreSort)
         {
             Dictionary<string, float> tagCounts = new Dictionary<string, float>();
             if (filter == null)
@@ -330,9 +316,13 @@ namespace Depressurizer
                 }
             }
 
-            IEnumerable<Tuple<string, float>> unsortedList = from entry in tagCounts where entry.Value >= minScore select new Tuple<string, float>(entry.Key, entry.Value);
-            IOrderedEnumerable<Tuple<string, float>> sortedList = scoreSort ? from entry in unsortedList orderby entry.Item2 descending select entry : from entry in unsortedList orderby entry.Item1 select entry;
-            return sortedList.ToList();
+            IEnumerable<KeyValuePair<string, float>> unsorted = tagCounts.Where(e => e.Value >= minScore);
+            if (scoreSort)
+            {
+                return unsorted.OrderByDescending(e => e.Value).ToDictionary(e => e.Key, e => e.Value);
+            }
+
+            return unsorted.OrderBy(e => e.Key).ToDictionary(e => e.Key, e => e.Value);
         }
 
         public void ChangeLanguage(StoreLanguage language)
@@ -406,6 +396,60 @@ namespace Depressurizer
             }
         }
 
+        /// <summary>
+        ///     Fetches and integrates the complete list of public apps.
+        /// </summary>
+        /// <returns>
+        ///     The number of new entries.
+        /// </returns>
+        public int FetchIntegrateAppList()
+        {
+            int added = 0;
+
+            Logger.Info("Database: Downloading list of public apps.");
+
+            string json;
+            using (WebClient client = new WebClient())
+            {
+                json = client.DownloadString(Constants.GetAppList);
+            }
+
+            Logger.Info("Database: Downloaded list of public apps.");
+            Logger.Info("Database: Parsing list of public apps.");
+
+            dynamic appList = JObject.Parse(json);
+            foreach (dynamic app in appList.applist.apps)
+            {
+                int appId = app["appid"];
+                string name = app["name"];
+
+                if (Contains(appId, out DatabaseEntry entry))
+                {
+                    if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name == name)
+                    {
+                        continue;
+                    }
+
+                    entry.Name = name;
+                    entry.AppType = AppType.Unknown;
+                }
+                else
+                {
+                    entry = new DatabaseEntry(appId)
+                    {
+                        Name = name
+                    };
+
+                    Add(entry);
+                    added++;
+                }
+            }
+
+            Logger.Info("Database: Parsed list of public apps, added {0} apps.", added);
+
+            return added;
+        }
+
         public Collection<string> GetDevelopers(int appId)
         {
             return GetDevelopers(appId, 3);
@@ -471,60 +515,6 @@ namespace Depressurizer
             }
 
             return result;
-        }
-
-        /// <summary>
-        ///     Gets and integrates the complete list of public apps.
-        /// </summary>
-        /// <returns>
-        ///     The number of new entries.
-        /// </returns>
-        public int GetIntegrateAppList()
-        {
-            int added = 0;
-
-            Logger.Info("Database: Downloading list of public apps.");
-
-            string json;
-            using (WebClient client = new WebClient())
-            {
-                json = client.DownloadString(Constants.GetAppList);
-            }
-
-            Logger.Info("Database: Downloaded list of public apps.");
-            Logger.Info("Database: Parsing list of public apps.");
-
-            dynamic appList = JObject.Parse(json);
-            foreach (dynamic app in appList.applist.apps)
-            {
-                int appId = app["appid"];
-                string name = app["name"];
-
-                if (Contains(appId, out DatabaseEntry entry))
-                {
-                    if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name == name)
-                    {
-                        continue;
-                    }
-
-                    entry.Name = name;
-                    entry.AppType = AppType.Unknown;
-                }
-                else
-                {
-                    entry = new DatabaseEntry(appId)
-                    {
-                        Name = name
-                    };
-
-                    Add(entry);
-                    added++;
-                }
-            }
-
-            Logger.Info("Database: Parsed list of public apps, added {0} apps.", added);
-
-            return added;
         }
 
         public string GetName(int appId)

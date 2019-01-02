@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Helpers;
@@ -24,11 +25,11 @@ namespace Depressurizer
 
         #region Fields
 
-        private IEnumerable<Tuple<string, int>> devList;
+        private Dictionary<string, int> devList;
 
         private GameList gamelist;
 
-        private IEnumerable<Tuple<string, int>> pubList;
+        private Dictionary<string, int> pubList;
 
         #endregion
 
@@ -281,15 +282,7 @@ namespace Depressurizer
 
         private int DevCount(string name)
         {
-            foreach (Tuple<string, int> dev in devList)
-            {
-                if (dev.Item1 == name)
-                {
-                    return dev.Item2;
-                }
-            }
-
-            return 0;
+            return devList.Where(dev => dev.Key == name).Select(dev => dev.Value).FirstOrDefault();
         }
 
         private string GetProcessedString(string baseString)
@@ -304,15 +297,7 @@ namespace Depressurizer
 
         private int PubCount(string name)
         {
-            foreach (Tuple<string, int> pub in pubList)
-            {
-                if (pub.Item1 == name)
-                {
-                    return pub.Item2;
-                }
-            }
-
-            return 0;
+            return pubList.Where(pub => pub.Key == name).Select(pub => pub.Value).FirstOrDefault();
         }
 
         #endregion
