@@ -1,20 +1,20 @@
 using Depressurizer.Core.Enums;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Depressurizer.Tests
 {
-    [TestClass]
-    public class UnitTest1
+    public class Tests
     {
-        #region Public Methods and Operators
+        [SetUp]
+        public void Setup()
+        {
+        }
 
-        [TestMethod]
-        public void TestMethod1()
+        [Test]
+        public void Test1()
         {
             ((int)StoreLanguage.English).Should().Be(7);
         }
-
-        #endregion
     }
 }
