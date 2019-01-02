@@ -2,7 +2,7 @@ language: csharp
 solution: src/Depressurizer.sln
 install:
   - nuget restore src/Depressurizer.sln
-  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
+  - nuget install NUnit.Console -OutputDirectory testrunner
 script:
   - msbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
   - msbuild /p:Configuration=Release src/Depressurizer.Tests/Depressurizer.Tests.csproj
