@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Models;
 using Depressurizer.Helpers;
 
 namespace Depressurizer.Models

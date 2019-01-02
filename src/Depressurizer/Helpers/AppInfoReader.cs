@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer.Helpers
 {

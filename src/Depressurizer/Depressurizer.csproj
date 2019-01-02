@@ -295,7 +295,6 @@
     </Compile>
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Helpers\AppInfoReader.cs" />
-    <Compile Include="Models\AppInfoNode.cs" />
     <Compile Include="Models\DatabaseEntry.cs" />
     <Compile Include="DatabaseEntrySorter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
