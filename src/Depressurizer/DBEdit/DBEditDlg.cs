@@ -587,6 +587,11 @@ namespace Depressurizer
 
         private void lstGames_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
+            if (e.ItemIndex < 0)
+            {
+                return;
+            }
+
             e.Item = CreateListViewItem(_displayedGames[e.ItemIndex]);
         }
 
