@@ -1,20 +1,15 @@
+using System;
 using Depressurizer.Core.Enums;
-using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Depressurizer.Tests
 {
-    public class Tests
+    public class UnitTest1
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
+        [Fact]
         public void Test1()
         {
-            ((int)StoreLanguage.English).Should().Be(7);
+            Assert.Equal(7, (int) StoreLanguage.English);
         }
     }
 }

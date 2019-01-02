@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressurizer", "Depressuri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Depressurizer.Core", "Depressurizer.Core\Depressurizer.Core.csproj", "{45EAC201-E9C9-4EAF-BCC1-18E432B8FE62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressurizer.Tests", "Depressurizer.Tests\Depressurizer.Tests.csproj", "{FEA1C5B1-7C3C-42FA-9096-F94FAEAF33A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depressurizer.Tests", "Depressurizer.Tests\Depressurizer.Tests.csproj", "{0C7CD55F-FE61-45BF-BCED-816832EDCB93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{45EAC201-E9C9-4EAF-BCC1-18E432B8FE62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45EAC201-E9C9-4EAF-BCC1-18E432B8FE62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45EAC201-E9C9-4EAF-BCC1-18E432B8FE62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FEA1C5B1-7C3C-42FA-9096-F94FAEAF33A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FEA1C5B1-7C3C-42FA-9096-F94FAEAF33A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FEA1C5B1-7C3C-42FA-9096-F94FAEAF33A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FEA1C5B1-7C3C-42FA-9096-F94FAEAF33A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C7CD55F-FE61-45BF-BCED-816832EDCB93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C7CD55F-FE61-45BF-BCED-816832EDCB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C7CD55F-FE61-45BF-BCED-816832EDCB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C7CD55F-FE61-45BF-BCED-816832EDCB93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
