@@ -1,9 +1,12 @@
 language: csharp
 solution: src/Depressurizer.sln
+before_install:
+  - wget http://aura-project.org/xunit.runners.1.9.2.zip
+  - unzip xunit.runners.1.9.2.zip
 install:
   - nuget restore src/Depressurizer.sln
-  - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory packages
 script:
-  - xbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
-  - xbuild /p:Configuration=Release src/Depressurizer.Tests/Depressurizer.Tests.csproj
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe src/Depressurizer.Tests/bin/Release/netcoreapp2.1/Depressurizer.Tests.dll
+  - msbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
+  - msbuild /p:Configuration=Release src/Depressurizer.Tests/Depressurizer.Tests.csproj
+  - mono --debug ./testrunner/xunit.runners.*/tools/xunit.console.clr4.exe src/Depressurizer.Tests/bin/Release/netcoreapp2.1/Depressurizer.Tests.dll
