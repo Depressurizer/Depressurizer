@@ -5,11 +5,8 @@ os:
   - linux
   - osx
 
-matrix:
-  include:
-    - dotnet: 2.1.502
-      mono: none
-    - mono: latest
+dotnet: 2.1.502
+mono: none
 
 script:
   - dotnet build ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
