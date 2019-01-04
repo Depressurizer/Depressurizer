@@ -1,9 +1,11 @@
 language: csharp
+mono: none
+dotnet: 2.1.502
 solution: src/Depressurizer.sln
 install:
   - nuget restore src/Depressurizer.sln
-  - nuget install xunit.runner.console -OutputDirectory testrunner  
 script:
   - msbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
   - msbuild /p:Configuration=Release src/Depressurizer.Tests/Depressurizer.Tests.csproj
-  - mono ./testrunner/xunit.runner.console.*/tools/xunit.console.exe ./src/Depressurizer.Tests/bin/Release/netcoreapp2.1/Depressurizer.Tests.dll
+  - dotnet restore
+  - dotnet test
