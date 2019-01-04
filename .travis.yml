@@ -3,4 +3,4 @@ mono: none
 dotnet: 2.1.502
 solution: src/Depressurizer.sln
 script:
-  - dotnet restore
+  - dotnet build ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
