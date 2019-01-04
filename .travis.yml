@@ -1,6 +1,9 @@
 language: csharp
 solution: src/Depressurizer.sln
-install:
-  - nuget restore src/Depressurizer.sln
+
+dotnet: 2.1.502
+mono: none
+
 script:
-  - msbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
+  - dotnet build ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
+  - dotnet test ./src/Depressurizer.Tests/Depressurizer.Tests.csproj

@@ -1,6 +1,6 @@
 configuration: Debug
 
-platform: x86
+platform: Any CPU 
 
 skip_commits:
   files:
