@@ -1,5 +1,6 @@
 language: csharp
 mono: none
+dotnet: 2.1.502
 solution: src/Depressurizer.sln
 script:
   - dotnet restore
