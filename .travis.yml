@@ -6,4 +6,4 @@ mono: none
 
 script:
   - dotnet build ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
-  - dotnet test ./src/Depressurizer.Tests/Depressurizer.Tests.csproj --verbosity detailed
+  - dotnet test ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
