@@ -3,9 +3,7 @@ mono: none
 dotnet: 2.1.502
 solution: src/Depressurizer.sln
 install:
-  - nuget restore src/Depressurizer.sln
-script:
-  - msbuild /p:Configuration=Release src/Depressurizer.Core/Depressurizer.Core.csproj
-  - msbuild /p:Configuration=Release src/Depressurizer.Tests/Depressurizer.Tests.csproj
   - dotnet restore
-  - dotnet test
+script:
+  - dotnet build
+  - dotnet test ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
