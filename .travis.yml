@@ -1,7 +1,12 @@
 language: csharp
-mono: none
-dotnet: 2.1.502
 solution: src/Depressurizer.sln
+
+matrix:
+  include:
+    - dotnet: 2.1.502
+      mono: none
+    - mono: latest
+
 script:
   - dotnet build ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
   - dotnet test ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
