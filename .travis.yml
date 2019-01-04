@@ -1,6 +1,10 @@
 language: csharp
 solution: src/Depressurizer.sln
 
+os:
+  - linux
+  - osx
+
 matrix:
   include:
     - dotnet: 2.1.502
