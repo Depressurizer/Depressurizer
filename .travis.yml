@@ -2,5 +2,4 @@ language: csharp
 mono: none
 solution: src/Depressurizer.sln
 script:
-  - dotnet restore ./src/Depressurizer.Core/Depressurizer.Core.csproj
-  - dotnet restore ./src/Depressurizer.Tests/Depressurizer.Tests.csproj
+  - dotnet restore
