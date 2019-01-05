@@ -70,7 +70,7 @@ namespace Depressurizer
             try
             {
                 XmlDocument doc = new XmlDocument();
-                HttpWebRequest req = (HttpWebRequest) WebRequest.Create($"http://www.steamcommunity.com/profiles/{accountId}?xml=true");
+                HttpWebRequest req = (HttpWebRequest) WebRequest.Create($"https://steamcommunity.com/profiles/{accountId}?xml=true");
                 using (WebResponse resp = req.GetResponse())
                 {
                     doc.Load(resp.GetResponseStream());

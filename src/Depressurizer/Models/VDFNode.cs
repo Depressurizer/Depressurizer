@@ -332,16 +332,21 @@ namespace Depressurizer.Models
         public static void ReadBin_SeekTo(BinaryReader binaryReader, byte[] bytes, long streamLength)
         {
             int indexAt = 0;
-
+            byte currentByte;
             while (indexAt < bytes.Length && binaryReader.BaseStream.Position < streamLength)
             {
-                if (binaryReader.ReadByte() == bytes[indexAt])
+                currentByte = binaryReader.ReadByte();
+                if (currentByte == bytes[indexAt])
                 {
                     indexAt++;
                 }
-                else
+                else if (indexAt != 0)
                 {
                     indexAt = 0;
+                    if (currentByte == bytes[indexAt])
+                    {
+                        indexAt++;
+                    }
                 }
             }
         }
