@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Helpers;
 
 namespace Depressurizer
@@ -70,7 +72,7 @@ namespace Depressurizer
             try
             {
                 XmlDocument doc = new XmlDocument();
-                HttpWebRequest req = (HttpWebRequest) WebRequest.Create($"http://www.steamcommunity.com/profiles/{accountId}?xml=true");
+                HttpWebRequest req = (HttpWebRequest) WebRequest.Create(string.Format(CultureInfo.InvariantCulture, Constants.SteamProfile, accountId));
                 using (WebResponse resp = req.GetResponse())
                 {
                     doc.Load(resp.GetResponseStream());
