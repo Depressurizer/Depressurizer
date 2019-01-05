@@ -7,9 +7,8 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Core.Models;
 
-namespace Depressurizer.Models
+namespace Depressurizer.Core.Models
 {
     public class DatabaseEntry
     {
@@ -43,9 +42,11 @@ namespace Depressurizer.Models
 
         private static readonly Regex RegexReleaseDate = new Regex(@"<div class=""release_date"">\s*<div[^>]*>[^<]*<\/div>\s*<div class=""date"">([^<]+)<\/div>", RegexOptions.Compiled);
 
-        private static readonly Regex RegexReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
-
         private static readonly Regex RegexTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
+
+        private static readonly Regex RegexTotalPositiveReviews = new Regex(@"<input type=""hidden"" id=""review_summary_num_positive_reviews"" value=""([0-9]*)"">", RegexOptions.Compiled);
+
+        private static readonly Regex RegexTotalReviews = new Regex(@"<input type=""hidden"" id=""review_summary_num_reviews"" value=""([0-9]*)"">", RegexOptions.Compiled);
 
         private static readonly Regex RegexVrSupportFlagMatch = new Regex(@"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""https?:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>", RegexOptions.Compiled);
 
@@ -167,8 +168,6 @@ namespace Depressurizer.Models
         #endregion
 
         #region Properties
-
-        private static Database Database => Database.Instance;
 
         private static Logger Logger => Logger.Instance;
 
@@ -309,9 +308,9 @@ namespace Depressurizer.Models
             }
         }
 
-        public void ScrapeStore()
+        public void ScrapeStore(string languageCode)
         {
-            AppType result = ScrapeStoreHelper();
+            AppType result = ScrapeStoreHelper(languageCode);
             SetTypeFromStoreScrape(result);
         }
 
@@ -508,18 +507,27 @@ namespace Depressurizer.Models
                 SteamReleaseDate = m.Groups[1].Captures[0].Value;
             }
 
-            // Get user review data
-            m = RegexReviews.Match(page);
+            // Get the total number of reviews.
+            m = RegexTotalReviews.Match(page);
             if (m.Success)
             {
-                if (int.TryParse(m.Groups[1].Value, out int num))
+                if (int.TryParse(m.Groups[1].Value, out int numReviews))
                 {
-                    ReviewPositivePercentage = num;
+                    ReviewTotal = numReviews;
                 }
+            }
 
-                if (int.TryParse(m.Groups[2].Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out num))
+            // Only interested in the percentage if we have more than 0 reviews.
+            if (ReviewTotal > 0)
+            {
+                // Get the total number of positive reviews.
+                m = RegexTotalPositiveReviews.Match(page);
+                if (m.Success)
                 {
-                    ReviewTotal = num;
+                    if (int.TryParse(m.Groups[1].Value, out int numPositiveReviews))
+                    {
+                        ReviewPositivePercentage = (int) Math.Round(numPositiveReviews / (double) ReviewTotal * 100.00);
+                    }
                 }
             }
 
@@ -550,9 +558,9 @@ namespace Depressurizer.Models
             }
         }
 
-        private AppType ScrapeStoreHelper()
+        private AppType ScrapeStoreHelper(string languageCode)
         {
-            Logger.Verbose(GlobalStrings.GameDB_InitiatingStoreScrapeForGame, Id);
+            Logger.Verbose("Scraping {0}: Initiating scraping of the Steam Store.", Id);
 
             int redirectTarget = -1;
 
@@ -560,7 +568,7 @@ namespace Depressurizer.Models
 
             try
             {
-                HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp + "?l=" + Database.LanguageCode, Id));
+                HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp + "?l=" + languageCode, Id));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
@@ -573,10 +581,10 @@ namespace Depressurizer.Models
                         return AppType.Unknown;
                     }
 
+                    // If page redirects to itself
                     if (resp.ResponseUri.ToString() == resp.Headers[HttpResponseHeader.Location])
                     {
-                        //If page redirects to itself
-                        Logger.Verbose(GlobalStrings.GameDB_RedirectsToItself, Id);
+                        Logger.Warn("Scraping {0}: Location header points to itself, aborting scraping.", Id);
                         return AppType.Unknown;
                     }
 
@@ -597,23 +605,22 @@ namespace Depressurizer.Models
                     return AppType.Unknown;
                 }
 
+                // If we encountered an age gate (cookies should bypass this, but sometimes they don't seem to)
                 if (resp.ResponseUri.Segments[1] == "agecheck/")
                 {
-                    // If we encountered an age gate (cookies should bypass this, but sometimes they don't seem to)
-                    if (resp.ResponseUri.Segments.Length >= 4 && resp.ResponseUri.Segments[3].TrimEnd('/') != Id.ToString())
+                    // If we got an age check with no redirect
+                    if (resp.ResponseUri.Segments.Length < 4 || resp.ResponseUri.Segments[3].TrimEnd('/') == Id.ToString())
                     {
-                        // Age check + redirect
-                        Logger.Verbose(GlobalStrings.GameDB_ScrapingHitAgeCheck, Id, resp.ResponseUri.Segments[3].TrimEnd('/'));
-                        if (!int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
-                        {
-                            // If we got an age check without numeric id (shouldn't happen)
-                            return AppType.Unknown;
-                        }
+                        Logger.Warn("Scraping {0}: Hit an age check without redirect, aborting scraping.", Id);
+                        return AppType.Unknown;
                     }
-                    else
+
+                    Logger.Verbose("Scraping {0}: Hit age check for id {1}.", Id, resp.ResponseUri.Segments[3].TrimEnd('/'));
+
+                    // If we got an age check without numeric id (shouldn't happen)
+                    if (!int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
                     {
-                        // If we got an age check with no redirect
-                        Logger.Verbose(GlobalStrings.GameDB_ScrapingAgeCheckNoRedirect, Id);
+                        Logger.Warn("Scraping {0}: Hit an age check without numeric id, aborting scraping.", Id);
                         return AppType.Unknown;
                     }
                 }
@@ -622,20 +629,22 @@ namespace Depressurizer.Models
                     Logger.Warn("Scraping {0}: Redirected to a non-app URL, aborting scraping.", Id);
                     return AppType.Unknown;
                 }
+                // The URI ends with "/app/" ?
                 else if (resp.ResponseUri.Segments.Length < 3)
                 {
-                    // The URI ends with "/app/" ?
-                    Logger.Verbose(GlobalStrings.GameDB_Log_ScrapingNoAppId, Id);
+                    Logger.Warn("Scraping {0}: Response URI ends with 'app' thus missing the redirect ID, aborting scraping.", Id);
                     return AppType.Unknown;
                 }
+                // Redirected to a different app id
                 else if (resp.ResponseUri.Segments[2].TrimEnd('/') != Id.ToString())
                 {
-                    // Redirected to a different app id
-                    Logger.Verbose(GlobalStrings.GameDB_ScrapingRedirectedToOtherApp, Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
                     if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
                     {
+                        Logger.Verbose("Scraping {0}: Redirected to a different but failed parsing the id: {1},  aborting scraping.", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
                         return AppType.Unknown;
                     }
+
+                    Logger.Verbose("Scraping {0}: Redirected to a different id: {1}.", Id, redirectTarget);
                 }
             }
             catch (Exception e)
@@ -675,35 +684,42 @@ namespace Depressurizer.Models
 
             LastStoreScrape = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
-            AppType result;
+            AppType result = AppType.Unknown;
             if (page.Contains("<title>Site Error</title>"))
             {
-                Logger.Verbose(GlobalStrings.GameDB_ScrapingReceivedSiteError, Id);
-                result = AppType.Unknown;
+                if (redirectTarget == -1)
+                {
+                    Logger.Warn("Scraping {0}: Received a site error, aborting scraping.", Id);
+                    return result;
+                }
+
+                Logger.Verbose("Scraping {0}: Received a site error, following redirect target.", Id);
             }
+            // Here we should have an app, but make sure.
             else if (RegexIsGame.IsMatch(page) || RegexIsSoftware.IsMatch(page))
             {
-                // Here we should have an app, but make sure.
-
                 GetAllDataFromPage(page);
 
                 // Check whether it's DLC and return appropriately
                 if (RegexIsDLC.IsMatch(page))
                 {
-                    Logger.Verbose(GlobalStrings.GameDB_ScrapingParsedDLC, Id, string.Join(",", Genres));
                     result = AppType.DLC;
                 }
                 else
                 {
-                    Logger.Verbose(GlobalStrings.GameDB_ScrapingParsed, Id, string.Join(",", Genres));
                     result = RegexIsSoftware.IsMatch(page) ? AppType.Application : AppType.Game;
                 }
             }
+            // The URI is right, but it didn't pass the regex check
             else
             {
-                // The URI is right, but it didn't pass the regex check
-                Logger.Verbose(GlobalStrings.GameDB_ScrapingCouldNotParse, Id);
-                result = AppType.Unknown;
+                if (redirectTarget == -1)
+                {
+                    Logger.Warn("Scraping {0}: Could not parse information from page, aborting scraping.", Id);
+                    return result;
+                }
+
+                Logger.Verbose("Scraping {0}: Could not parse information from page, following redirect target.", Id);
             }
 
             if (redirectTarget == -1)

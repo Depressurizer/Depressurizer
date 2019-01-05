@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.XPath;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {

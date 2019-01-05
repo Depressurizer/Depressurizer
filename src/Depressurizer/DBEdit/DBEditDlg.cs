@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 using Depressurizer.Properties;
 
 namespace Depressurizer

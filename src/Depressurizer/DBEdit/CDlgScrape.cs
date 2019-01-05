@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 using Rallion;
 
 namespace Depressurizer
@@ -145,7 +145,7 @@ namespace Depressurizer
             }
 
             DatabaseEntry newGame = new DatabaseEntry(id);
-            newGame.ScrapeStore();
+            newGame.ScrapeStore(Database.LanguageCode);
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
             // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
