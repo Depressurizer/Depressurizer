@@ -1,6 +1,6 @@
 ﻿using System;
 using Depressurizer.Core.Enums;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Models;
 
 namespace Depressurizer

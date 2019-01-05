@@ -6,7 +6,6 @@ using System.Text;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
 

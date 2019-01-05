@@ -4,7 +4,6 @@ using System.Threading;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
-using Depressurizer.Helpers;
 using Newtonsoft.Json;
 
 namespace Depressurizer

@@ -3,17 +3,15 @@ using System.Collections.Concurrent;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Depressurizer.Core.Enums;
-#if DEBUG
 using System.Threading.Tasks;
+using Depressurizer.Core.Enums;
 
-#endif
-
-namespace Depressurizer.Helpers
+namespace Depressurizer.Core.Helpers
 {
     /// <summary>
     ///     Logger Controller
     /// </summary>
+    /// <inheritdoc />
     public sealed class Logger : IDisposable
     {
         #region Static Fields

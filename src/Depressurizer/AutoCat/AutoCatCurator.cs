@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
-using Depressurizer.Helpers;
 using Depressurizer.Models;
 
 namespace Depressurizer

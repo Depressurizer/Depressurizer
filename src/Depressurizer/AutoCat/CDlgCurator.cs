@@ -6,7 +6,6 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Helpers;
 using Newtonsoft.Json.Linq;
 using Rallion;
 

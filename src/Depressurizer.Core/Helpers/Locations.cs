@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.IO;
 
-namespace Depressurizer.Helpers
+namespace Depressurizer.Core.Helpers
 {
-    internal class Locations
+    public class Locations
     {
         /// <summary>
         ///     File Controller

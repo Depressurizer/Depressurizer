@@ -8,7 +8,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Helpers;
 
 namespace Depressurizer
 {

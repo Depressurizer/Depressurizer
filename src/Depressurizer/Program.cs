@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Helpers;
 using NDesk.Options;
 using Rallion;
 using Sentry;
