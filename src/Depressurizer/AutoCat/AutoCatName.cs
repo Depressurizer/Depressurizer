@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Models;
 
 namespace Depressurizer

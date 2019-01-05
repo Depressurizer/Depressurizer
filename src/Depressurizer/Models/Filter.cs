@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
-using Depressurizer.Helpers;
 
 namespace Depressurizer.Models
 {

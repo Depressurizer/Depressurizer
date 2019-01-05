@@ -8,7 +8,6 @@ using System.Xml;
 using System.Xml.XPath;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
-using Depressurizer.Helpers;
 using Depressurizer.Models;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 

@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Depressurizer;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Helpers;
 using Sentry;
 
 namespace Rallion

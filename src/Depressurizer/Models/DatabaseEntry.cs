@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
-using Depressurizer.Helpers;
 
 namespace Depressurizer.Models
 {

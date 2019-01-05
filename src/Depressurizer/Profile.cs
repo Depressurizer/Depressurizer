@@ -6,7 +6,6 @@ using System.Xml;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
-using Depressurizer.Helpers;
 using Depressurizer.Models;
 using Newtonsoft.Json;
 
