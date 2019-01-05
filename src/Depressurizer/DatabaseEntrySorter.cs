@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Depressurizer.Core.Enums;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {

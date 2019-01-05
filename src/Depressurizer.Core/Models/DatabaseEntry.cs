@@ -7,9 +7,8 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Core.Models;
 
-namespace Depressurizer.Models
+namespace Depressurizer.Core.Models
 {
     public class DatabaseEntry
     {
@@ -43,9 +42,11 @@ namespace Depressurizer.Models
 
         private static readonly Regex RegexReleaseDate = new Regex(@"<div class=""release_date"">\s*<div[^>]*>[^<]*<\/div>\s*<div class=""date"">([^<]+)<\/div>", RegexOptions.Compiled);
 
-        private static readonly Regex RegexReviews = new Regex(@"<span class=""(?:nonresponsive_hidden ?| responsive_reviewdesc ?){2}"">[^\d]*(\d+)%[^\d]*([\d.,]+)[^\d]*\s*</span>", RegexOptions.Compiled);
-
         private static readonly Regex RegexTags = new Regex(@"<a[^>]*class=""app_tag""[^>]*>([^<]*)</a>", RegexOptions.Compiled);
+
+        private static readonly Regex RegexTotalPositiveReviews = new Regex(@"<input type=""hidden"" id=""review_summary_num_positive_reviews"" value=""([0-9]*)"">", RegexOptions.Compiled);
+
+        private static readonly Regex RegexTotalReviews = new Regex(@"<input type=""hidden"" id=""review_summary_num_reviews"" value=""([0-9]*)"">", RegexOptions.Compiled);
 
         private static readonly Regex RegexVrSupportFlagMatch = new Regex(@"<div class=""game_area_details_specs"">.*?<a class=""name"" href=""https?:\/\/store\.steampowered\.com\/search\/\?vrsupport=\d*"">([^<]*)<\/a><\/div>", RegexOptions.Compiled);
 
@@ -506,18 +507,27 @@ namespace Depressurizer.Models
                 SteamReleaseDate = m.Groups[1].Captures[0].Value;
             }
 
-            // Get user review data
-            m = RegexReviews.Match(page);
+            // Get the total number of reviews.
+            m = RegexTotalReviews.Match(page);
             if (m.Success)
             {
-                if (int.TryParse(m.Groups[1].Value, out int num))
+                if (int.TryParse(m.Groups[1].Value, out int numReviews))
                 {
-                    ReviewPositivePercentage = num;
+                    ReviewTotal = numReviews;
                 }
+            }
 
-                if (int.TryParse(m.Groups[2].Value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out num))
+            // Only interested in the percentage if we have more than 0 reviews.
+            if (ReviewTotal > 0)
+            {
+                // Get the total number of positive reviews.
+                m = RegexTotalPositiveReviews.Match(page);
+                if (m.Success)
                 {
-                    ReviewTotal = num;
+                    if (int.TryParse(m.Groups[1].Value, out int numPositiveReviews))
+                    {
+                        ReviewPositivePercentage = (int) Math.Round(numPositiveReviews / (double) ReviewTotal * 100.00);
+                    }
                 }
             }
 

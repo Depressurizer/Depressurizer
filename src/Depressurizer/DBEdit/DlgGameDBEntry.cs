@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {

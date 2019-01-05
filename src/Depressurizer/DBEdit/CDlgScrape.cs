@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 using Rallion;
 
 namespace Depressurizer
