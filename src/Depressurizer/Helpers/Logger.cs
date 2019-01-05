@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 #if DEBUG
 using System.Threading.Tasks;
 

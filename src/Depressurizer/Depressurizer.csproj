@@ -124,7 +124,6 @@
     <Compile Include="GameList.cs" />
     <Compile Include="GameListingSource.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\Locations.cs" />
     <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\Steam.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
