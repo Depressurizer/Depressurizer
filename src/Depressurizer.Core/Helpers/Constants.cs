@@ -27,12 +27,12 @@ namespace Depressurizer.Core.Helpers
         /// <summary>
         ///     Generic URL for the game list of a Steam profile, must be formatted with a SteamID64.
         /// </summary>
-        public static string GameList => @"http://steamcommunity.com/profiles/{0}/games?tab=all&xml=1";
+        public static string GameList => @"https://steamcommunity.com/profiles/{0}/games?tab=all&xml=1";
 
         /// <summary>
         ///     Generic URL for the game list of a Steam profile, must be formatted with the custom id.
         /// </summary>
-        public static string GameListCustom => @"http://steamcommunity.com/id/{0}/games?tab=all&xml=1";
+        public static string GameListCustom => @"https://steamcommunity.com/id/{0}/games?tab=all&xml=1";
 
         /// <summary>
         ///     Full list of every publicly facing program in the store/library.
@@ -82,12 +82,12 @@ namespace Depressurizer.Core.Helpers
         /// <summary>
         ///     Generic URL for a Steam profile, must be formatted with a SteamID64.
         /// </summary>
-        public static string SteamProfile => @"http://steamcommunity.com/profiles/{0}?xml=1";
+        public static string SteamProfile => @"https://steamcommunity.com/profiles/{0}?xml=1";
 
         /// <summary>
         ///     Generic URL for a Steam profile, must be formatted with the custom id.
         /// </summary>
-        public static string SteamProfileCustom => @"http://steamcommunity.com/id/{0}?xml=1";
+        public static string SteamProfileCustom => @"https://steamcommunity.com/id/{0}?xml=1";
 
         /// <summary>
         ///     URL to the Steam Store homepage.
