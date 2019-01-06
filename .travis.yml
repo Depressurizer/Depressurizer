@@ -7,7 +7,7 @@ git:
 # Use latest images for building: https://blog.travis-ci.com/2017-12-01-new-update-schedule-for-linux-build-images
 group: travis_latest
 
-dotnet: 2.2
+dotnet: 2.1.502
 mono: none
 
 env:
@@ -15,7 +15,7 @@ env:
     - CONFIGURATION: Release
     - DOTNET_CLI_TELEMETRY_OPTOUT: 1
     - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-    - NET_CORE_VERSION: netcoreapp2.2
+    - NET_CORE_VERSION: netcoreapp2.1
 
 matrix:
   # We can use fast finish, as we don't need to wait for allow_failures builds to mark build as success
@@ -26,7 +26,7 @@ matrix:
       dist: xenial
     - os: osx
       # Ref: https://docs.travis-ci.com/user/reference/osx
-      dotnet: 2.2.101 # For OSX, we need absolute dotnet version until https://github.com/dotnet/core-setup/issues/4187 is resolved
+      dotnet: 2.1.502 # For OSX, we need absolute dotnet version until https://github.com/dotnet/core-setup/issues/4187 is resolved
       osx_image: xcode10.1
 
 script:
