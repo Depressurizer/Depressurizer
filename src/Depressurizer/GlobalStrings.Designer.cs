@@ -2084,101 +2084,11 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Age check with no redirect.
-        /// </summary>
-        internal static string GameDB_ScrapingAgeCheckNoRedirect {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingAgeCheckNoRedirect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Could not parse info from page.
-        /// </summary>
-        internal static string GameDB_ScrapingCouldNotParse {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingCouldNotParse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Hit age check for id {1}.
-        /// </summary>
-        internal static string GameDB_ScrapingHitAgeCheck {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingHitAgeCheck", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Parsed. Genre: {1}.
-        /// </summary>
-        internal static string GameDB_ScrapingParsed {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingParsed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Parsed. DLC. Genre: {1}.
-        /// </summary>
-        internal static string GameDB_ScrapingParsedDLC {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingParsedDLC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Received Site Error.
-        /// </summary>
-        internal static string GameDB_ScrapingReceivedSiteError {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingReceivedSiteError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Redirecting to {1}.
-        /// </summary>
-        internal static string GameDB_ScrapingRedirectedTo {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingRedirectedTo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping {0}: Redirected to another app id ({1}).
-        /// </summary>
-        internal static string GameDB_ScrapingRedirectedToOtherApp {
-            get {
-                return ResourceManager.GetString("GameDB_ScrapingRedirectedToOtherApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to XML App list downloaded..
         /// </summary>
         internal static string GameDB_XMLAppListDownloaded {
             get {
                 return ResourceManager.GetString("GameDB_XMLAppListDownloaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        internal static string Gen_Error {
-            get {
-                return ResourceManager.GetString("Gen_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warning.
-        /// </summary>
-        internal static string Gen_Warning {
-            get {
-                return ResourceManager.GetString("Gen_Warning", resourceCulture);
             }
         }
         

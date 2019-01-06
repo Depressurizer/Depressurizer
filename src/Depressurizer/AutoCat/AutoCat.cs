@@ -5,6 +5,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Models;
+using Depressurizer.Properties;
 
 /* ADDING NEW AUTOCAT METHODS
  * 
@@ -267,7 +268,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Logger.Exception($"Failed to load from xml an Autocat of type {type.FullName}: ", e);
             }
 

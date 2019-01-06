@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -71,7 +72,7 @@ namespace Depressurizer
             {
                 if (!int.TryParse(txtId.Text, out int id))
                 {
-                    MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 

@@ -356,10 +356,12 @@ namespace Depressurizer.Core.Models
                 foreach (Match ma in matches)
                 {
                     string flag = ma.Groups[1].Value;
-                    if (!string.IsNullOrWhiteSpace(flag))
+                    if (string.IsNullOrWhiteSpace(flag))
                     {
-                        Flags.Add(flag);
+                        continue;
                     }
+
+                    Flags.Add(flag);
                 }
             }
 
@@ -466,15 +468,9 @@ namespace Depressurizer.Core.Models
             m = RegexAchievements.Match(page);
             if (m.Success)
             {
-                // Sometimes games have achievements but don't have the "Steam Achievements" flag in the store
-                if (!Flags.Contains("Steam Achievements"))
+                if (int.TryParse(m.Groups[1].Value, out int numAchievements))
                 {
-                    Flags.Add("Steam Achievements");
-                }
-
-                if (int.TryParse(m.Groups[1].Value, out int num))
-                {
-                    TotalAchievements = num;
+                    TotalAchievements = numAchievements;
                 }
             }
 

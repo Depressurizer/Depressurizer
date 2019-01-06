@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -137,7 +138,7 @@ namespace Depressurizer
         {
             if (name != null && presetMap.ContainsKey(name))
             {
-                if (ruleList.Count == 0 || MessageBox.Show(GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset, GlobalStrings.Gen_Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (ruleList.Count == 0 || MessageBox.Show(GlobalStrings.AutoCatUserScore_Dialog_ConfirmPreset, Resources.Warning, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     UserScorePresetDelegate dlgt = presetMap[name];
                     ruleList.Clear();

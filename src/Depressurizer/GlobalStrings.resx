@@ -231,9 +231,6 @@
   <data name="DBEditDlg_UpdatedGameList" xml:space="preserve">
     <value>Updated game list, added {0} games.</value>
   </data>
-  <data name="Gen_Warning" xml:space="preserve">
-    <value>Warning</value>
-  </data>
   <data name="DlgGameDBEntry_Add" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -459,30 +456,6 @@ Time Remaining:</value>
   </data>
   <data name="GameDB_SavingGameDBTo" xml:space="preserve">
     <value>Saving Database to {0}</value>
-  </data>
-  <data name="GameDB_ScrapingAgeCheckNoRedirect" xml:space="preserve">
-    <value>Scraping {0}: Age check with no redirect</value>
-  </data>
-  <data name="GameDB_ScrapingCouldNotParse" xml:space="preserve">
-    <value>Scraping {0}: Could not parse info from page</value>
-  </data>
-  <data name="GameDB_ScrapingHitAgeCheck" xml:space="preserve">
-    <value>Scraping {0}: Hit age check for id {1}</value>
-  </data>
-  <data name="GameDB_ScrapingParsed" xml:space="preserve">
-    <value>Scraping {0}: Parsed. Genre: {1}</value>
-  </data>
-  <data name="GameDB_ScrapingParsedDLC" xml:space="preserve">
-    <value>Scraping {0}: Parsed. DLC. Genre: {1}</value>
-  </data>
-  <data name="GameDB_ScrapingReceivedSiteError" xml:space="preserve">
-    <value>Scraping {0}: Received Site Error</value>
-  </data>
-  <data name="GameDB_ScrapingRedirectedTo" xml:space="preserve">
-    <value>Scraping {0}: Redirecting to {1}</value>
-  </data>
-  <data name="GameDB_ScrapingRedirectedToOtherApp" xml:space="preserve">
-    <value>Scraping {0}: Redirected to another app id ({1})</value>
   </data>
   <data name="GameDB_XMLAppListDownloaded" xml:space="preserve">
     <value>XML App list downloaded.</value>
@@ -888,9 +861,6 @@ Requires your profile to be set to "Public".</value>
   </data>
   <data name="GameDB_Log_ScrapingNoAppId" xml:space="preserve">
     <value>Scraping {0}: response URI ends with 'app', no ID found.</value>
-  </data>
-  <data name="Gen_Error" xml:space="preserve">
-    <value>Error</value>
   </data>
   <data name="MainForm_Log_ExceptionAppInfo" xml:space="preserve">
     <value>Exception when auto-updating DB from AppInfo.</value>

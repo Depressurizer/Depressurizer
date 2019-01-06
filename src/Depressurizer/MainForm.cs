@@ -309,7 +309,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 Logger.Exception("MainForm: Exception while checking for new updates for Depressurizer.", e);
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -405,7 +405,7 @@ namespace Depressurizer
                 return true;
             }
 
-            MessageBox.Show(GlobalStrings.MainForm_CategoryNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(GlobalStrings.MainForm_CategoryNamesNotEmpty, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return false;
         }
 
@@ -416,7 +416,7 @@ namespace Depressurizer
                 return true;
             }
 
-            MessageBox.Show(GlobalStrings.MainForm_FilterNamesNotEmpty, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show(GlobalStrings.MainForm_FilterNamesNotEmpty, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return false;
         }
 
@@ -1200,7 +1200,7 @@ namespace Depressurizer
                     return newCat;
                 }
 
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotAddCategory, dialog.Value), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotAddCategory, dialog.Value), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             return null;
@@ -1292,7 +1292,7 @@ namespace Depressurizer
                 }
                 else
                 {
-                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotDeleteCategory), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotDeleteCategory), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
         }
@@ -1466,7 +1466,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorExportingToSteam, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorExportingToSteam, e.Message), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Logger.Exception(GlobalStrings.MainForm_Log_ExceptionExport, e);
                 AddStatus(GlobalStrings.MainForm_ExportFailed);
             }
@@ -1818,7 +1818,7 @@ namespace Depressurizer
             }
             catch
             {
-                MessageBox.Show(GlobalStrings.MainForm_AdminRights, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(GlobalStrings.MainForm_AdminRights, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             finally
             {
@@ -2093,7 +2093,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_ErrorImportingSteamDataList, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_ErrorImportingSteamDataList, e.Message), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Logger.Exception("Exception encountered while importing the remote config file.", e);
                 AddStatus(GlobalStrings.MainForm_ImportFailed);
             }
@@ -2645,7 +2645,7 @@ namespace Depressurizer
             }
             catch (ApplicationException e)
             {
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorLoadingProfile, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorLoadingProfile, e.Message), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Logger.Exception(GlobalStrings.MainForm_Log_ExceptionLoadingProfile, e);
                 OnProfileChange();
                 AddStatus(GlobalStrings.MainForm_FailedLoadProfile);
@@ -3182,7 +3182,7 @@ namespace Depressurizer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorManualExport, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorManualExport, e.Message), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Logger.Exception(GlobalStrings.MainForm_Log_ExceptionExport, e);
                     AddStatus(GlobalStrings.MainForm_ExportFailed);
                 }
@@ -3836,7 +3836,7 @@ namespace Depressurizer
                     }
                 }
 
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_NameIsInUse, newName), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_NameIsInUse, newName), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -3946,7 +3946,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 Logger.Exception(GlobalStrings.MainForm_Log_ExceptionAutosavingDB, e);
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorAutosavingDB, e.Message), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -4005,7 +4005,7 @@ namespace Depressurizer
                 }
                 else
                 {
-                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotAddFilter, dialog.Value), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_CouldNotAddFilter, dialog.Value), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
         }
@@ -4047,7 +4047,7 @@ namespace Depressurizer
             }
             catch (ApplicationException e)
             {
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorSavingProfile, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorSavingProfile, e.Message), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Logger.Exception(GlobalStrings.MainForm_Log_ExceptionSavingProfile, e);
                 AddStatus(GlobalStrings.MainForm_FailedSaveProfile);
                 return false;
@@ -4406,7 +4406,7 @@ namespace Depressurizer
             catch (Exception e)
             {
                 Logger.Exception(GlobalStrings.MainForm_Log_ExceptionAppInfo, e);
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorAppInfo, e.Message), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -4425,7 +4425,7 @@ namespace Depressurizer
                 if (dialog.Error != null)
                 {
                     Logger.Error(GlobalStrings.DBEditDlg_Log_ExceptionHltb, dialog.Error.Message);
-                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorHltb, dialog.Error.Message), GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorHltb, dialog.Error.Message), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     AddStatus(GlobalStrings.DBEditDlg_ErrorUpdatingHltb);
                 }
                 else
@@ -4554,7 +4554,7 @@ namespace Depressurizer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_LocalUpdateError, e.Message), GlobalStrings.Gen_Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_LocalUpdateError, e.Message), Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     Logger.Exception(GlobalStrings.MainForm_Log_ExceptionLocalUpdate, e);
                     AddStatus(GlobalStrings.MainForm_Status_LocalUpdateFailed);
                     success = false;
@@ -4590,7 +4590,7 @@ namespace Depressurizer
                             {
                                 if (dialog.Fetched == 0)
                                 {
-                                    MessageBox.Show(GlobalStrings.MainForm_NoGameDataFound, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show(GlobalStrings.MainForm_NoGameDataFound, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     AddStatus(GlobalStrings.MainForm_NoGamesInDownload);
                                 }
                                 else

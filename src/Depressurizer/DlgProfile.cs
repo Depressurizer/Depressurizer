@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -172,7 +173,7 @@ namespace Depressurizer
             }
             else
             {
-                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -443,7 +444,7 @@ namespace Depressurizer
 
                 if (lstUsers.Items.Count == 0)
                 {
-                    MessageBox.Show(GlobalStrings.DlgProfile_NoAccountConfiguration, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(GlobalStrings.DlgProfile_NoAccountConfiguration, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     radSelUserByURL.Checked = true;
                 }
                 else

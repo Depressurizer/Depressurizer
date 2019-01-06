@@ -110,7 +110,7 @@ namespace Depressurizer
 
                 if (Database.Contains(dlg.Game.Id))
                 {
-                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, GlobalStrings.Gen_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));
                 }
                 else
