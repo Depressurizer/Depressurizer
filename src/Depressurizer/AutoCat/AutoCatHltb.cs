@@ -193,7 +193,7 @@ namespace Depressurizer
 
             float hltbMain = entry.HltbMain / 60.0f;
             float hltbExtras = entry.HltbExtras / 60.0f;
-            float hltbCompletionist = entry.HltbCompletionist / 60.0f;
+            float hltbCompletionist = entry.HltbCompletionists / 60.0f;
 
             if (IncludeUnknown && hltbMain == 0.0f && hltbExtras == 0.0f && hltbCompletionist == 0.0f)
             {

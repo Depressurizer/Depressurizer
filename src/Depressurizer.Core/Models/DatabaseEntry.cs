@@ -10,6 +10,9 @@ using Depressurizer.Core.Helpers;
 
 namespace Depressurizer.Core.Models
 {
+    /// <summary>
+    ///     Class representing a single database entry.
+    /// </summary>
     public class DatabaseEntry
     {
         #region Static Fields
@@ -78,6 +81,12 @@ namespace Depressurizer.Core.Models
 
         #region Constructors and Destructors
 
+        /// <summary>
+        ///     Creates a DatabaseEntry object with the specified appId.
+        /// </summary>
+        /// <param name="appId">
+        ///     Steam Application ID.
+        /// </param>
         public DatabaseEntry(int appId)
         {
             Id = appId;
@@ -87,33 +96,57 @@ namespace Depressurizer.Core.Models
 
         #region Public Properties
 
+        /// <summary>
+        ///     Type of this application.
+        /// </summary>
         public AppType AppType { get; set; } = AppType.Unknown;
 
+        /// <summary>
+        ///     List of the developers of this application.
+        /// </summary>
         public Collection<string> Developers
         {
             get => _developers ?? (_developers = new Collection<string>());
             set => _developers = value;
         }
 
+        /// <summary>
+        ///     List of flags specified on the Store page.
+        /// </summary>
         public Collection<string> Flags
         {
             get => _flags ?? (_flags = new Collection<string>());
             set => _flags = value;
         }
 
+        /// <summary>
+        ///     List of genres specified on the Store page.
+        /// </summary>
         public Collection<string> Genres
         {
             get => _genres ?? (_genres = new Collection<string>());
             set => _genres = value;
         }
 
-        public int HltbCompletionist { get; set; }
+        /// <summary>
+        ///     HLTB-time of completionists.
+        /// </summary>
+        public int HltbCompletionists { get; set; }
 
+        /// <summary>
+        ///     HLTB-time of Main Story + Extras.
+        /// </summary>
         public int HltbExtras { get; set; }
 
+        /// <summary>
+        ///     HLTB-time of Main Story.
+        /// </summary>
         public int HltbMain { get; set; }
 
-        public int Id { get; set; }
+        /// <summary>
+        ///     Steam Application ID.
+        /// </summary>
+        public int Id { get; }
 
         /// <remarks>
         ///     TODO: Add field to DB edit dialog
@@ -124,36 +157,72 @@ namespace Depressurizer.Core.Models
             set => _languageSupport = value;
         }
 
+        /// <summary>
+        ///     Unix-timestamp of last appinfo update.
+        /// </summary>
         public long LastAppInfoUpdate { get; set; }
 
+        /// <summary>
+        ///     Unix-timestamp of last store scrape.
+        /// </summary>
         public long LastStoreScrape { get; set; }
 
+        /// <summary>
+        ///     URL to the Metacritic page of this application.
+        /// </summary>
         public string MetacriticUrl { get; set; }
 
+        /// <summary>
+        ///     The name of this application.
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        ///     Steam Application ID of the parent application.
+        /// </summary>
         public int ParentId { get; set; } = -1;
 
+        /// <summary>
+        ///     Supported platforms.
+        /// </summary>
         public AppPlatforms Platforms { get; set; } = AppPlatforms.None;
 
+        /// <summary>
+        ///     List of the publishers of this application.
+        /// </summary>
         public Collection<string> Publishers
         {
             get => _publishers ?? (_publishers = new Collection<string>());
             set => _publishers = value;
         }
 
+        /// <summary>
+        ///     Positive percentage of the reviews on the Steam Store.
+        /// </summary>
         public int ReviewPositivePercentage { get; set; }
 
+        /// <summary>
+        ///     Total number of reviews on the Steam Store.
+        /// </summary>
         public int ReviewTotal { get; set; }
 
+        /// <summary>
+        ///     Release date of this application.
+        /// </summary>
         public string SteamReleaseDate { get; set; }
 
+        /// <summary>
+        ///     List of tags specified on the Store page.
+        /// </summary>
         public Collection<string> Tags
         {
             get => _tags ?? (_tags = new Collection<string>());
             set => _tags = value;
         }
 
+        /// <summary>
+        ///     Total number of achievements.
+        /// </summary>
         public int TotalAchievements { get; set; }
 
         /// <remarks>
@@ -181,7 +250,9 @@ namespace Depressurizer.Core.Models
         ///     Uses newer data when there is a conflict.
         ///     Does NOT perform deep copies of list fields.
         /// </summary>
-        /// <param name="other">DatabaseEntry containing info to be merged into this entry.</param>
+        /// <param name="other">
+        ///     DatabaseEntry containing info to be merged into this entry.
+        /// </param>
         public void MergeIn(DatabaseEntry other)
         {
             bool useAppInfoFields = other.LastAppInfoUpdate > LastAppInfoUpdate || LastAppInfoUpdate == 0 && other.LastStoreScrape >= LastStoreScrape;
@@ -308,6 +379,23 @@ namespace Depressurizer.Core.Models
             }
         }
 
+        /// <summary>
+        ///     Scrapes the Steam Store in the specified language.
+        /// </summary>
+        /// <param name="storeLanguage">
+        ///     Steam Store language.
+        /// </param>
+        public void ScrapeStore(StoreLanguage storeLanguage)
+        {
+            ScrapeStore(Language.LanguageCode(storeLanguage));
+        }
+
+        /// <summary>
+        ///     Scrapes the Steam Store in the specified language.
+        /// </summary>
+        /// <param name="languageCode">
+        ///     Steam API language code.
+        /// </param>
         public void ScrapeStore(string languageCode)
         {
             AppType result = ScrapeStoreHelper(languageCode);
@@ -331,10 +419,6 @@ namespace Depressurizer.Core.Models
             return req;
         }
 
-        /// <summary>
-        ///     Applies all data from a steam store page to this entry
-        /// </summary>
-        /// <param name="page">The full result of the HTTP request.</param>
         private void GetAllDataFromPage(string page)
         {
             // Genres
@@ -727,11 +811,6 @@ namespace Depressurizer.Core.Models
             return AppType.Unknown;
         }
 
-        /// <summary>
-        ///     Updates the game's type with a type determined during a store scrape. Makes sure that better data (AppInfo type)
-        ///     isn't overwritten with worse data.
-        /// </summary>
-        /// <param name="typeFromStore">Type found from the store scrape</param>
         private void SetTypeFromStoreScrape(AppType typeFromStore)
         {
             if (AppType == AppType.Unknown || typeFromStore != AppType.Unknown && LastAppInfoUpdate == 0)

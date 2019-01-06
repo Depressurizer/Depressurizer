@@ -1,6 +1,5 @@
 ﻿using System;
 using Depressurizer.Core.Enums;
-using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using FluentAssertions;
 using Xunit;
@@ -32,9 +31,9 @@ namespace Depressurizer.Tests.Models
 
         public DatabaseEntryTests()
         {
-            _entry1.ScrapeStore(Language.LanguageCode(StoreLanguage.English));
-            _entry2.ScrapeStore(Language.LanguageCode(StoreLanguage.Dutch));
-            _entry3.ScrapeStore(Language.LanguageCode(StoreLanguage.ChineseSimplified));
+            _entry1.ScrapeStore(StoreLanguage.English);
+            _entry2.ScrapeStore(StoreLanguage.Dutch);
+            _entry3.ScrapeStore(StoreLanguage.ChineseSimplified);
         }
 
         #endregion

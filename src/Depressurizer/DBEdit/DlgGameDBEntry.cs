@@ -122,7 +122,7 @@ namespace Depressurizer
                 numReviewCount.Value = Utility.Clamp(Game.ReviewTotal, (int) numReviewCount.Minimum, (int) numReviewCount.Maximum);
                 numHltbMain.Value = Utility.Clamp(Game.HltbMain, (int) numHltbMain.Minimum, (int) numHltbMain.Maximum);
                 numHltbExtras.Value = Utility.Clamp(Game.HltbExtras, (int) numHltbExtras.Minimum, (int) numHltbExtras.Maximum);
-                numHltbCompletionist.Value = Utility.Clamp(Game.HltbCompletionist, (int) numHltbCompletionist.Minimum, (int) numHltbCompletionist.Maximum);
+                numHltbCompletionist.Value = Utility.Clamp(Game.HltbCompletionists, (int) numHltbCompletionist.Minimum, (int) numHltbCompletionist.Maximum);
                 chkPlatWin.Checked = Game.Platforms.HasFlag(AppPlatforms.Windows);
                 chkPlatMac.Checked = Game.Platforms.HasFlag(AppPlatforms.Mac);
                 chkPlatLinux.Checked = Game.Platforms.HasFlag(AppPlatforms.Linux);
@@ -164,7 +164,7 @@ namespace Depressurizer
 
             Game.HltbMain = (int) numHltbMain.Value;
             Game.HltbExtras = (int) numHltbExtras.Value;
-            Game.HltbCompletionist = (int) numHltbCompletionist.Value;
+            Game.HltbCompletionists = (int) numHltbCompletionist.Value;
 
             Game.MetacriticUrl = txtMCName.Text;
             Game.SteamReleaseDate = txtRelease.Text;

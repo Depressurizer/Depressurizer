@@ -2444,7 +2444,7 @@ namespace Depressurizer
                     return 0;
                 }
 
-                return Database.Contains(gameInfo.Id, out DatabaseEntry entry) ? entry.HltbCompletionist : 0;
+                return Database.Contains(gameInfo.Id, out DatabaseEntry entry) ? entry.HltbCompletionists : 0;
             };
 
             //Aspect to String Converters

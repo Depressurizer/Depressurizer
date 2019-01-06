@@ -807,11 +807,11 @@ namespace Depressurizer
 
                             if (!includeImputedTimes && info.CompletionistTtbImputed)
                             {
-                                entry.HltbCompletionist = 0;
+                                entry.HltbCompletionists = 0;
                             }
                             else
                             {
-                                entry.HltbCompletionist = info.CompletionistTtb;
+                                entry.HltbCompletionists = info.CompletionistTtb;
                             }
 
                             updated++;
