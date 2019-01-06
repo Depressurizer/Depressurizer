@@ -180,4 +180,16 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="SpecialCategoryNoFlags" xml:space="preserve">
+    <value>&lt;No Flags&gt;</value>
+  </data>
+  <data name="SpecialCategoryNoGenres" xml:space="preserve">
+    <value>&lt;No Genres&gt;</value>
+  </data>
+  <data name="SpecialCategoryNoTags" xml:space="preserve">
+    <value>&lt;No Tags&gt;</value>
+  </data>
+  <data name="SpecialCategoryUnknown" xml:space="preserve">
+    <value>&lt;Unknown&gt;</value>
+  </data>
 </root>

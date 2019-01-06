@@ -709,12 +709,6 @@ Continue loading file?</value>
   <data name="Profile_SavingProfile" xml:space="preserve">
     <value>Saving profile: {0}</value>
   </data>
-  <data name="Program_ProgramClosing" xml:space="preserve">
-    <value>Program closing.</value>
-  </data>
-  <data name="Program_ProgramInitialized" xml:space="preserve">
-    <value>Program initialized. Logging level set to {0}.</value>
-  </data>
   <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
     <value>Node is a value, not an array. Cannot get key {0}</value>
   </data>
@@ -1059,18 +1053,6 @@ Can be slow, but will only download information for games that need it.
 If this is unchecked, newer games may not be categorized.
 Recommended: Enabled</value>
   </data>
-  <data name="MainForm_NoFlags" xml:space="preserve">
-    <value>&lt;No Flags&gt;</value>
-  </data>
-  <data name="MainForm_NoGenres" xml:space="preserve">
-    <value>&lt;No Genres&gt;</value>
-  </data>
-  <data name="MainForm_NoTags" xml:space="preserve">
-    <value>&lt;No Tags&gt;</value>
-  </data>
-  <data name="MainForm_Unknown" xml:space="preserve">
-    <value>&lt;Unknown&gt;</value>
-  </data>
   <data name="GameDB_RedirectsToItself" xml:space="preserve">
     <value>Scraping {0}: Redirects to itself</value>
   </data>
@@ -1116,9 +1098,6 @@ Recommended: Enabled.</value>
   <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
     <value>Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times. </value>
   </data>
-  <data name="MainForm_NoHltbTime" xml:space="preserve">
-    <value>--</value>
-  </data>
   <data name="AutoCat_Name_Hltb" xml:space="preserve">
     <value>HLTB time</value>
   </data>
@@ -1149,12 +1128,6 @@ If unchecked, games with no times will be skipped.</value>
   </data>
   <data name="GameData_GetBanner" xml:space="preserve">
     <value>Error getting game banner from {0}.</value>
-  </data>
-  <data name="Utility_GetImage" xml:space="preserve">
-    <value>Error getting image from {0}.</value>
-  </data>
-  <data name="Utility_SaveBanner" xml:space="preserve">
-    <value>Error saving game banner to {0}.</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Tags" xml:space="preserve">
     <value>By Tags</value>

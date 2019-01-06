@@ -2873,15 +2873,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;No Flags&gt;.
-        /// </summary>
-        internal static string MainForm_NoFlags {
-            get {
-                return ResourceManager.GetString("MainForm_NoFlags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No game data found. Please make sure the custom URL name is spelled correctly..
         /// </summary>
         internal static string MainForm_NoGameDataFound {
@@ -2918,38 +2909,11 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;No Genres&gt;.
-        /// </summary>
-        internal static string MainForm_NoGenres {
-            get {
-                return ResourceManager.GetString("MainForm_NoGenres", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to --.
-        /// </summary>
-        internal static string MainForm_NoHltbTime {
-            get {
-                return ResourceManager.GetString("MainForm_NoHltbTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No profile loaded. Create one now?.
         /// </summary>
         internal static string MainForm_NoProfileLoaded {
             get {
                 return ResourceManager.GetString("MainForm_NoProfileLoaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;No Tags&gt;.
-        /// </summary>
-        internal static string MainForm_NoTags {
-            get {
-                return ResourceManager.GetString("MainForm_NoTags", resourceCulture);
             }
         }
         
@@ -3194,15 +3158,6 @@ namespace Depressurizer {
         internal static string MainForm_UnignoredGame {
             get {
                 return ResourceManager.GetString("MainForm_UnignoredGame", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;Unknown&gt;.
-        /// </summary>
-        internal static string MainForm_Unknown {
-            get {
-                return ResourceManager.GetString("MainForm_Unknown", resourceCulture);
             }
         }
         
@@ -3513,24 +3468,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Program closing..
-        /// </summary>
-        internal static string Program_ProgramClosing {
-            get {
-                return ResourceManager.GetString("Program_ProgramClosing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Program initialized. Logging level set to {0}..
-        /// </summary>
-        internal static string Program_ProgramInitialized {
-            get {
-                return ResourceManager.GetString("Program_ProgramInitialized", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to and.
         /// </summary>
         internal static string Text_And {
@@ -3581,24 +3518,6 @@ namespace Depressurizer {
         internal static string TextVdfFile_UnexpectedEOF {
             get {
                 return ResourceManager.GetString("TextVdfFile_UnexpectedEOF", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error getting image from {0}..
-        /// </summary>
-        internal static string Utility_GetImage {
-            get {
-                return ResourceManager.GetString("Utility_GetImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error saving game banner to {0}..
-        /// </summary>
-        internal static string Utility_SaveBanner {
-            get {
-                return ResourceManager.GetString("Utility_SaveBanner", resourceCulture);
             }
         }
     }

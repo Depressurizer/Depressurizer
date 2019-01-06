@@ -111,9 +111,9 @@ namespace Depressurizer
             {
                 return Image.FromStream(GetRemoteImageStream(url));
             }
-            catch
+            catch (Exception e)
             {
-                Logger.Warn(string.Format(GlobalStrings.Utility_GetImage, url));
+                Logger.Warn("GetImage: Error getting image from {0}, error: {1}.", url, e.Message);
             }
 
             return null;
@@ -136,9 +136,9 @@ namespace Depressurizer
                     return response.GetResponseStream();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                Logger.Warn(string.Format(GlobalStrings.Utility_GetImage, url));
+                Logger.Warn("GetRemoteImageStream: Error getting image stream from {0}, error: {1}.", url, e.Message);
             }
 
             return null;
