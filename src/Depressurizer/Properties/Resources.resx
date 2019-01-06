@@ -192,4 +192,13 @@
   <data name="SpecialCategoryUnknown" xml:space="preserve">
     <value>&lt;Unknown&gt;</value>
   </data>
+  <data name="ScrapedProgress" xml:space="preserve">
+    <value>Scraped {0}/{1}</value>
+  </data>
+  <data name="TimeLeft" xml:space="preserve">
+    <value>Time Left</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
 </root>

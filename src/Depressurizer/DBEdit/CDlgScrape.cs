@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Depressurizer.Core.Models;
+using Depressurizer.Properties;
 using Rallion;
 
 namespace Depressurizer
@@ -16,6 +18,8 @@ namespace Depressurizer
         private readonly List<DatabaseEntry> _results = new List<DatabaseEntry>();
 
         private DateTime _start;
+
+        private string _timeLeft;
 
         #endregion
 
@@ -77,45 +81,39 @@ namespace Depressurizer
 
         protected override void UpdateForm_Load(object sender, EventArgs e)
         {
-            _start = DateTime.Now;
+            _start = DateTime.UtcNow;
             base.UpdateForm_Load(sender, e);
         }
 
         protected override void UpdateText()
         {
-            TimeSpan timeRemaining = TimeSpan.Zero;
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(string.Format(CultureInfo.CurrentCulture, Resources.ScrapedProgress, jobsCompleted, totalJobs));
+
+            string timeLeft = string.Format(CultureInfo.CurrentCulture, "{0}: ", Resources.TimeLeft) + "{0}";
             if (jobsCompleted > 0)
             {
-                double msElapsed = (DateTime.Now - _start).TotalMilliseconds;
-                double msPerItem = msElapsed / jobsCompleted;
-                double msRemaining = msPerItem * (totalJobs - jobsCompleted);
-                timeRemaining = TimeSpan.FromMilliseconds(msRemaining);
-            }
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append(string.Format(GlobalStrings.CDlgDataScrape_UpdatingComplete, jobsCompleted, totalJobs));
-
-            sb.Append(GlobalStrings.CDlgDataScrape_TimeRemaining);
-            if (timeRemaining == TimeSpan.Zero)
-            {
-                sb.Append(GlobalStrings.CDlgScrape_Unknown);
-            }
-            else if (timeRemaining.TotalMinutes < 1.0)
-            {
-                sb.Append(GlobalStrings.CDlgScrape_1minute);
+                TimeSpan timeRemaining = TimeSpan.FromTicks(DateTime.UtcNow.Subtract(_start).Ticks * (totalJobs - (jobsCompleted + 1)) / (jobsCompleted + 1));
+                if (timeRemaining.TotalHours >= 1)
+                {
+                    _timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Hours + ":" + (timeRemaining.Minutes < 10 ? "0" + timeRemaining.Minutes : timeRemaining.Minutes.ToString(CultureInfo.InvariantCulture)) + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString(CultureInfo.InvariantCulture)));
+                }
+                else if (timeRemaining.TotalSeconds >= 60)
+                {
+                    _timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, (timeRemaining.Minutes < 10 ? "0" + timeRemaining.Minutes : timeRemaining.Minutes.ToString(CultureInfo.InvariantCulture)) + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString(CultureInfo.InvariantCulture)));
+                }
+                else
+                {
+                    _timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Seconds + "s");
+                }
             }
             else
             {
-                double hours = timeRemaining.TotalHours;
-                if (hours >= 1.0)
-                {
-                    sb.Append($"{hours:F0}h");
-                }
-
-                sb.Append($"{timeRemaining.Minutes:D2}m");
+                _timeLeft = string.Format(CultureInfo.CurrentCulture, timeLeft, Resources.Unknown);
             }
 
-            SetText(sb.ToString());
+            stringBuilder.AppendLine(_timeLeft);
+            SetText(stringBuilder.ToString());
         }
 
         private int GetNextGameId()

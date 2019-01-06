@@ -178,6 +178,15 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scraped {0}/{1}.
+        /// </summary>
+        internal static string ScrapedProgress {
+            get {
+                return ResourceManager.GetString("ScrapedProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;All&gt;.
         /// </summary>
         internal static string SpecialCategoryAll {
@@ -273,6 +282,24 @@ namespace Depressurizer.Properties {
         internal static string SpecialCategoryVR {
             get {
                 return ResourceManager.GetString("SpecialCategoryVR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time Left.
+        /// </summary>
+        internal static string TimeLeft {
+            get {
+                return ResourceManager.GetString("TimeLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
         

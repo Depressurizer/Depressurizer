@@ -146,7 +146,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     Steam Application ID.
         /// </summary>
-        public int Id { get; }
+        public int Id { get; set; }
 
         /// <remarks>
         ///     TODO: Add field to DB edit dialog
