@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Depressurizer.Core.Enums;
 using Rallion;
 
 namespace Depressurizer

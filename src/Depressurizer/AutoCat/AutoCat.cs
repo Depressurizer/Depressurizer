@@ -1,111 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Models;
 using Depressurizer.Properties;
 
-/* ADDING NEW AUTOCAT METHODS
- * 
- * Here is a list of everything you need to do to add an additional autocat method.
- * 
- * 1) Add an element to the AutoCatType enum.
- * 
- * 2a) Create a new class that extends the AutoCat abstract base class.
- *    Things to implement in derived classes:
- *       public override AutoCatType AutoCatType: Just return the enum value you added.
- *       public override AutoCat Clone(): return a complete deep copy of the object
- *       
- *       public abstract AutoCatResult CategorizeGame( GameInfo game ): Perform autocategorization on a game.
- *       [Optional] public override void PreProcess( GameList games, Database db ): Do any pre-processing you want to do before a set of autocategorization operations.
- *       [Optional] public override void DeProcess(): Clean up after a set of autocategorization operations.
- *
- *       [Recommended] public string TypeIDString: Just a constant string that serves as a type identifier for serialization purposes.      
- *       Parameterless constructor (needed by Xml.Serialization.XmlSerializer()): An empty constructor (e.g "private AutoCatGenre) { }") will suffice.
- *       [Optional] Apply attributes to control xml serialization (e.g XmlIgnore, XmlArray, XmlArrayItem, XmlElement).
- * 
- * 2b) Update the following static methods in the AutoCat class to include your new class:
- *       LoadACFromXMLElement: Must be able to handle reading an object of your selected type.
- *       Create: Just create a new object.
- *       
- * 3a) Create a class that extends AutoCatConfigPanel.
- *    This is a user control that defines the settings UI used in the AutoCat config dialog.
- *    The easiest way to start  in VS is to create a new User Control, then change it so that it extends AutoCatConfigPanel instead of UserControl.
- *       NOTE: You should be able to edit the new control using the VS designer. If it gives you an error about not being able to create an instance of AutoCatConfigPanel,
- *             close the derived class, clean solution, restart VS, rebuild solution. It should work then. If not, make AutoCatConfigPanel non-abstract when you want to
- *             use the designer.
- *    Things to implement:
- *       public override void SaveToAutoCat( AutoCat ac ): Takes the settings in the UI and saves them to the given AutoCat object.
- *       public override void LoadFromAutoCat( AutoCat ac ): Take the settings in the given AutoCat object and fill in the UI with them.
- * 
- * 3b) Update AutoCatConfigPanel.CreatePanel so that it can create a panel for your type.
- * 
- * 4) Update the arrays in the DlgAutoCatCreate constructor to allow creating AutoCats of your type.
- */
-
 namespace Depressurizer
 {
-    public enum AutoCatType
-    {
-        [Description("None")]
-        None,
-
-        [Description("AutoCatGenre")]
-        Genre,
-
-        [Description("AutoCatFlags")]
-        Flags,
-
-        [Description("AutoCatTags")]
-        Tags,
-
-        [Description("AutoCatYear")]
-        Year,
-
-        [Description("AutoCatUserScore")]
-        UserScore,
-
-        [Description("AutoCatHltb")]
-        Hltb,
-
-        [Description("AutoCatManual")]
-        Manual,
-
-        [Description("AutoCatDevPub")]
-        DevPub,
-
-        [Description("AutoCatGroup")]
-        Group,
-
-        [Description("AutoCatName")]
-        Name,
-
-        [Description("AutoCatVrSupport")]
-        VrSupport,
-
-        [Description("AutoCatLanguage")]
-        Language,
-
-        [Description("AutoCatCurator")]
-        Curator,
-
-        [Description("AutoCatPlatform")]
-        Platform
-    }
-
-    public enum AutoCatResult
-    {
-        Success,
-
-        Failure,
-
-        NotInDatabase,
-
-        Filtered
-    }
-
     /// <summary>
     ///     Abstract base class for autocategorization schemes. Call PreProcess before any set of autocat operations.
     ///     This is a preliminary form, and may change in future versions.
