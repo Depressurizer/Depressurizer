@@ -8,16 +8,16 @@
         /// <summary>
         ///     Execute the default sequence.
         /// </summary>
-        None,
+        None = 0,
 
         /// <summary>
         ///     Load the profile specified in the settings file.
         /// </summary>
-        Load,
+        Load = 1,
 
         /// <summary>
         ///     Load the "Create a profile" dialog.
         /// </summary>
-        Create
+        Create = 2
     }
 }

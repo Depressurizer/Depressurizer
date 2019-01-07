@@ -8,66 +8,66 @@
         /// <summary>
         ///     Unknown
         /// </summary>
-        Unknown,
+        Unknown = 0,
 
         /// <summary>
         ///     Game
         /// </summary>
-        Game,
+        Game = 1,
 
         /// <summary>
         ///     DLC
         /// </summary>
-        DLC,
+        DLC = 2,
 
         /// <summary>
         ///     Steam Demo
         /// </summary>
-        Demo,
+        Demo = 3,
 
         /// <summary>
         ///     Steam Software
         /// </summary>
-        Application,
+        Application = 4,
 
         /// <summary>
         ///     SDK's, servers etc..
         /// </summary>
-        Tool,
+        Tool = 5,
 
         /// <summary>
         ///     Steam Media
         /// </summary>
-        Media,
+        Media = 6,
 
         /// <summary>
         ///     Steam Config File
         /// </summary>
-        Config,
+        Config = 7,
 
         /// <summary>
         ///     Steam Media Content
         /// </summary>
-        Series,
+        Series = 8,
 
         /// <summary>
         ///     Steam Media Content
         /// </summary>
-        Video,
+        Video = 9,
 
         /// <summary>
         ///     Steam Hardware
         /// </summary>
-        Hardware,
+        Hardware = 10,
 
         /// <summary>
         ///     Player-created manuals and references
         /// </summary>
-        Guide,
+        Guide = 11,
 
         /// <summary>
         ///     Mod
         /// </summary>
-        Mod
+        Mod = 12
     }
 }

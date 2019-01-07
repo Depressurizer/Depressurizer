@@ -755,24 +755,6 @@ namespace Depressurizer
         #endregion
     }
 
-    public enum SteamLaunchType
-    {
-        None,
-
-        Normal,
-
-        BigPicture
-    }
-
-    public enum AutoCloseType
-    {
-        None,
-
-        UnlessError,
-
-        Always
-    }
-
     public class AutomaticModeOptions
     {
         #region Fields

@@ -1,4 +1,6 @@
-﻿namespace Depressurizer
+﻿using Depressurizer.Core.Enums;
+
+namespace Depressurizer
 {
     public partial class AutoCatConfigPanel_Year : AutoCatConfigPanel
     {
@@ -28,10 +30,10 @@
             txtUnknownText.Text = acYear.UnknownText == null ? string.Empty : acYear.UnknownText;
             switch (acYear.GroupingMode)
             {
-                case AutoCatYear_Grouping.Decade:
+                case AutoCatYearGrouping.Decade:
                     radGroupDec.Checked = true;
                     break;
-                case AutoCatYear_Grouping.HalfDecade:
+                case AutoCatYearGrouping.HalfDecade:
                     radGroupHalf.Checked = true;
                     break;
                 default:
@@ -53,15 +55,15 @@
             ac.UnknownText = txtUnknownText.Text;
             if (radGroupNone.Checked)
             {
-                ac.GroupingMode = AutoCatYear_Grouping.None;
+                ac.GroupingMode = AutoCatYearGrouping.None;
             }
             else if (radGroupHalf.Checked)
             {
-                ac.GroupingMode = AutoCatYear_Grouping.HalfDecade;
+                ac.GroupingMode = AutoCatYearGrouping.HalfDecade;
             }
             else if (radGroupDec.Checked)
             {
-                ac.GroupingMode = AutoCatYear_Grouping.Decade;
+                ac.GroupingMode = AutoCatYearGrouping.Decade;
             }
         }
 

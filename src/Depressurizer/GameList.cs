@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using System.Xml.XPath;
+using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Models;

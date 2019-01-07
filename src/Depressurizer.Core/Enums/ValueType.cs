@@ -2,10 +2,10 @@
 {
     public enum ValueType
     {
-        Array,
+        Array = 0,
 
-        String,
+        String = 1,
 
-        Int
+        Int = 2
     }
 }

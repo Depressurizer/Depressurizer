@@ -8,31 +8,31 @@
         /// <summary>
         ///     Designates finer-grained informational events than the DEBUG.
         /// </summary>
-        Verbose,
+        Verbose = 0,
 
         /// <summary>
         ///     Designates fine-grained informational events that are most useful to debug an application.
         /// </summary>
-        Debug,
+        Debug = 1,
 
         /// <summary>
         ///     Designates informational messages that highlight the progress of the application at coarse-grained level.
         /// </summary>
-        Info,
+        Info = 2,
 
         /// <summary>
         ///     Designates potentially harmful situations.
         /// </summary>
-        Warn,
+        Warn = 3,
 
         /// <summary>
         ///     Designates error events that might still allow the application to continue running.
         /// </summary>
-        Error,
+        Error = 4,
 
         /// <summary>
         ///     Designates very severe error events that will presumably lead the application to abort.
         /// </summary>
-        Fatal
+        Fatal = 5
     }
 }

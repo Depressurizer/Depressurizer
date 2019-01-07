@@ -9,15 +9,6 @@ using Depressurizer.Models;
 
 namespace Depressurizer
 {
-    public enum TimeType
-    {
-        Main,
-
-        Extras,
-
-        Completionist
-    }
-
     public class Hltb_Rule
     {
         #region Constructors and Destructors

@@ -2,12 +2,12 @@
 {
     public enum AutoCatResult
     {
-        Success,
+        Success = 0,
 
-        Failure,
+        Failure = 1,
 
-        NotInDatabase,
+        NotInDatabase = 2,
 
-        Filtered
+        Filtered = 3
     }
 }

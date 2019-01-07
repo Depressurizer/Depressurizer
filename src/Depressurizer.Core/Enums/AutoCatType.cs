@@ -5,48 +5,48 @@ namespace Depressurizer.Core.Enums
     public enum AutoCatType
     {
         [Description("None")]
-        None,
+        None = 0,
 
         [Description("AutoCatGenre")]
-        Genre,
+        Genre = 1,
 
         [Description("AutoCatFlags")]
-        Flags,
+        Flags = 2,
 
         [Description("AutoCatTags")]
-        Tags,
+        Tags = 3,
 
         [Description("AutoCatYear")]
-        Year,
+        Year = 4,
 
         [Description("AutoCatUserScore")]
-        UserScore,
+        UserScore = 5,
 
         [Description("AutoCatHltb")]
-        Hltb,
+        Hltb = 6,
 
         [Description("AutoCatManual")]
-        Manual,
+        Manual = 7,
 
         [Description("AutoCatDevPub")]
-        DevPub,
+        DevPub = 8,
 
         [Description("AutoCatGroup")]
-        Group,
+        Group = 9,
 
         [Description("AutoCatName")]
-        Name,
+        Name = 10,
 
         [Description("AutoCatVrSupport")]
-        VrSupport,
+        VrSupport = 11,
 
         [Description("AutoCatLanguage")]
-        Language,
+        Language = 12,
 
         [Description("AutoCatCurator")]
-        Curator,
+        Curator = 13,
 
         [Description("AutoCatPlatform")]
-        Platform
+        Platform = 14
     }
 }

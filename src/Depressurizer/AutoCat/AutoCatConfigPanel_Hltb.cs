@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Depressurizer.Core.Enums;
 
 namespace Depressurizer
 {

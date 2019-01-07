@@ -1,31 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Newtonsoft.Json.Linq;
 using Rallion;
 
 namespace Depressurizer
 {
-    public enum CuratorRecommendation
-    {
-        [Description("Error")]
-        Error,
-
-        [Description("Recommended")]
-        Recommended,
-
-        [Description("Not Recommended")]
-        NotRecommended,
-
-        [Description("Informational")]
-        Informational
-    }
-
     internal class GetCuratorRecommendationsDlg : CancelableDlg
     {
         #region Fields

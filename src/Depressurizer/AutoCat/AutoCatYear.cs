@@ -6,15 +6,6 @@ using Depressurizer.Models;
 
 namespace Depressurizer
 {
-    public enum AutoCatYear_Grouping
-    {
-        None,
-
-        Decade,
-
-        HalfDecade
-    }
-
     public class AutoCatYear : AutoCat
     {
         #region Constants
@@ -28,7 +19,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public AutoCatYear(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYear_Grouping groupMode = AutoCatYear_Grouping.None, bool selected = false) : base(name)
+        public AutoCatYear(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = null, AutoCatYearGrouping groupMode = AutoCatYearGrouping.None, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
@@ -58,7 +49,7 @@ namespace Depressurizer
         // Meta properies
         public override AutoCatType AutoCatType => AutoCatType.Year;
 
-        public AutoCatYear_Grouping GroupingMode { get; set; }
+        public AutoCatYearGrouping GroupingMode { get; set; }
 
         public bool IncludeUnknown { get; set; }
 
@@ -84,7 +75,7 @@ namespace Depressurizer
             string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
             bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], true);
             string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], null);
-            AutoCatYear_Grouping groupMode = XmlUtil.GetEnumFromNode(xElement[XmlName_GroupingMode], AutoCatYear_Grouping.None);
+            AutoCatYearGrouping groupMode = XmlUtil.GetEnumFromNode(xElement[XmlName_GroupingMode], AutoCatYearGrouping.None);
 
             return new AutoCatYear(name, filter, prefix, includeUnknown, unknownText, groupMode);
         }
@@ -170,10 +161,10 @@ namespace Depressurizer
             {
                 switch (GroupingMode)
                 {
-                    case AutoCatYear_Grouping.Decade:
+                    case AutoCatYearGrouping.Decade:
                         result = GetRangeString(year, 10);
                         break;
-                    case AutoCatYear_Grouping.HalfDecade:
+                    case AutoCatYearGrouping.HalfDecade:
                         result = GetRangeString(year, 5);
                         break;
                     default:

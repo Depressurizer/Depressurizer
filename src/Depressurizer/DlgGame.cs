@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using Depressurizer.Core.Enums;
 using Depressurizer.Properties;
 
 namespace Depressurizer

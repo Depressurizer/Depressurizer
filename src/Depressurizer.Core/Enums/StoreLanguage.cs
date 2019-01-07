@@ -11,146 +11,146 @@
         /// <summary>
         ///     Arabic - العربية
         /// </summary>
-        Arabic,
+        Arabic = 0,
 
         /// <summary>
         ///     Bulgarian - български език
         /// </summary>
-        Bulgarian,
+        Bulgarian = 1,
 
         /// <summary>
         ///     Chinese (Simplified) - 简体中文
         /// </summary>
-        ChineseSimplified,
+        ChineseSimplified = 2,
 
         /// <summary>
         ///     Chinese (Traditional) - 繁體中文
         /// </summary>
-        ChineseTraditional,
+        ChineseTraditional = 3,
 
         /// <summary>
         ///     Czech - čeština
         /// </summary>
-        Czech,
+        Czech = 4,
 
         /// <summary>
         ///     Danish - Dansk
         /// </summary>
-        Danish,
+        Danish = 5,
 
         /// <summary>
         ///     Dutch - Nederlands
         /// </summary>
-        Dutch,
+        Dutch = 6,
 
         /// <summary>
         ///     English - English
         /// </summary>
-        English,
+        English = 7,
 
         /// <summary>
         ///     Finnish - Suomi
         /// </summary>
-        Finnish,
+        Finnish = 8,
 
         /// <summary>
         ///     French - Français
         /// </summary>
-        French,
+        French = 9,
 
         /// <summary>
         ///     German - Deutsch
         /// </summary>
-        German,
+        German = 10,
 
         /// <summary>
         ///     Greek - Ελληνικά
         /// </summary>
-        Greek,
+        Greek = 11,
 
         /// <summary>
         ///     Hungarian - Magyar
         /// </summary>
-        Hungarian,
+        Hungarian = 12,
 
         /// <summary>
         ///     Italian - Italiano
         /// </summary>
-        Italian,
+        Italian = 13,
 
         /// <summary>
         ///     Japanese - 日本語
         /// </summary>
-        Japanese,
+        Japanese = 14,
 
         /// <summary>
         ///     Korean - 한국어
         /// </summary>
-        Korean,
+        Korean = 15,
 
         /// <summary>
         ///     Norwegian - Norsk
         /// </summary>
-        Norwegian,
+        Norwegian = 16,
 
         /// <summary>
         ///     Polish - Polski
         /// </summary>
-        Polish,
+        Polish = 17,
 
         /// <summary>
         ///     Portuguese - Português
         /// </summary>
-        Portuguese,
+        Portuguese = 18,
 
         /// <summary>
         ///     Portuguese-Brazil - Português-Brasil
         /// </summary>
-        PortugueseBrasil,
+        PortugueseBrasil = 19,
 
         /// <summary>
         ///     Romanian - Română
         /// </summary>
-        Romanian,
+        Romanian = 20,
 
         /// <summary>
         ///     Russian - Русский
         /// </summary>
-        Russian,
+        Russian = 21,
 
         /// <summary>
         ///     Spanish - Español
         /// </summary>
-        Spanish,
+        Spanish = 22,
 
         /// <summary>
         ///     Spanish-Latin America - Español-Latinoamérica
         /// </summary>
-        SpanishLatin,
+        SpanishLatin = 23,
 
         /// <summary>
         ///     Swedish - Svenska
         /// </summary>
-        Swedish,
+        Swedish = 24,
 
         /// <summary>
         ///     Thai - ไทย
         /// </summary>
-        Thai,
+        Thai = 25,
 
         /// <summary>
         ///     Turkish - Türkçe
         /// </summary>
-        Turkish,
+        Turkish = 26,
 
         /// <summary>
         ///     Ukrainian - Українська
         /// </summary>
-        Ukrainian,
+        Ukrainian = 27,
 
         /// <summary>
         ///     Vietnamese - Tiếng Việt
         /// </summary>
-        Vietnamese
+        Vietnamese = 28
     }
 }

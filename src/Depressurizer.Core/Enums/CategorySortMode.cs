@@ -2,8 +2,8 @@
 {
     public enum CategorySortMode
     {
-        Name,
+        Name = 0,
 
-        Count
+        Count = 1
     }
 }

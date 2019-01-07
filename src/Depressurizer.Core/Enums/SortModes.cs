@@ -2,18 +2,18 @@
 {
     public enum SortModes
     {
-        Id,
+        Id = 0,
 
-        Name,
+        Name = 1,
 
-        Genre,
+        Genre = 2,
 
-        Type,
+        Type = 3,
 
-        IsScraped,
+        IsScraped = 4,
 
-        HasAppInfo,
+        HasAppInfo = 5,
 
-        Parent
+        Parent = 6
     }
 }
