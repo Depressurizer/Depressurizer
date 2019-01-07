@@ -7,7 +7,6 @@ using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
 using Depressurizer.Core.Models;
-using Depressurizer.Models;
 using Newtonsoft.Json;
 
 namespace Depressurizer
@@ -40,6 +39,8 @@ namespace Depressurizer
 
         private const string XmlNameFilterExclude = "Exclude";
 
+        private const string XmlNameFilterGame = "Game";
+
         private const string XmlNameFilterHidden = "Hidden";
 
         private const string XmlNameFilterList = "Filters";
@@ -47,6 +48,10 @@ namespace Depressurizer
         private const string XmlNameFilterName = "Name";
 
         private const string XmlNameFilterRequire = "Require";
+
+        private const string XmlNameFilterSoftware = "Software";
+
+        private const string XmlNameFilterType = "Filter";
 
         private const string XmlNameFilterUncategorized = "Uncategorized";
 
@@ -527,7 +532,7 @@ namespace Depressurizer
 
             foreach (Filter filter in GameData.Filters)
             {
-                filter.WriteToXml(writer);
+                WriteFilterToXml(writer, filter);
             }
 
             writer.WriteEndElement(); //game filters
@@ -557,6 +562,35 @@ namespace Depressurizer
             Logger.Info(GlobalStrings.Profile_ProfileSaveComplete);
         }
 
+        public void WriteFilterToXml(XmlWriter writer, Filter filter)
+        {
+            writer.WriteStartElement(XmlNameFilterType);
+
+            writer.WriteElementString(XmlNameFilterName, filter.Name);
+            writer.WriteElementString(XmlNameFilterGame, filter.Game.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameFilterSoftware, filter.Software.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameFilterUncategorized, filter.Uncategorized.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameFilterHidden, filter.Hidden.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameFilterVR, filter.VR.ToString(CultureInfo.InvariantCulture));
+
+            foreach (Category c in filter.Allow)
+            {
+                writer.WriteElementString(XmlNameFilterAllow, c.Name);
+            }
+
+            foreach (Category c in filter.Require)
+            {
+                writer.WriteElementString(XmlNameFilterRequire, c.Name);
+            }
+
+            foreach (Category c in filter.Exclude)
+            {
+                writer.WriteElementString(XmlNameFilterExclude, c.Name);
+            }
+
+            writer.WriteEndElement();
+        }
+
         #endregion
 
         #region Methods
@@ -569,19 +603,29 @@ namespace Depressurizer
             }
 
             Filter filter = profile.GameData.AddFilter(name);
-            if (!XmlUtil.TryGetIntFromNode(node[XmlNameFilterUncategorized], out filter.Uncategorized))
+            if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterSoftware], out int game))
             {
-                filter.Uncategorized = -1;
+                filter.Game = game;
             }
 
-            if (!XmlUtil.TryGetIntFromNode(node[XmlNameFilterHidden], out filter.Hidden))
+            if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterSoftware], out int software))
             {
-                filter.Hidden = -1;
+                filter.Software = software;
             }
 
-            if (!XmlUtil.TryGetIntFromNode(node[XmlNameFilterVR], out filter.VR))
+            if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterUncategorized], out int uncategorized))
             {
-                filter.VR = -1;
+                filter.Uncategorized = uncategorized;
+            }
+
+            if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterHidden], out int hidden))
+            {
+                filter.Hidden = hidden;
+            }
+
+            if (XmlUtil.TryGetIntFromNode(node[XmlNameFilterVR], out int vr))
+            {
+                filter.VR = vr;
             }
 
             XmlNodeList filterNodes = node.SelectNodes(XmlNameFilterAllow);

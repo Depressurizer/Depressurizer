@@ -282,7 +282,6 @@
     <Compile Include="DlgRestore.Designer.cs">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Filter.cs" />
     <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="DatabaseEntrySorter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">

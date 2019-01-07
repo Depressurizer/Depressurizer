@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {

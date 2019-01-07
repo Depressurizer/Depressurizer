@@ -2,7 +2,6 @@
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
-using Depressurizer.Models;
 
 namespace Depressurizer
 {

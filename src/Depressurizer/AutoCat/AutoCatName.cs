@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
-using Depressurizer.Models;
+using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {
