@@ -67,7 +67,13 @@ namespace Depressurizer.Core.Models
                 return 1;
             }
 
-            return string.Compare(Name, otherCategory.Name, StringComparison.OrdinalIgnoreCase);
+            int value = string.Compare(Name, otherCategory.Name, StringComparison.OrdinalIgnoreCase);
+            if (value != 0)
+            {
+                return value;
+            }
+
+            return Count.CompareTo(otherCategory.Count);
         }
 
         /// <inheritdoc />

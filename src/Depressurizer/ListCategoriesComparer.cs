@@ -107,8 +107,7 @@ namespace Depressurizer
                 return 1;
             }
 
-            int result = SortMode == CategorySortMode.Count ? category1.Count.CompareTo(category2.Count) : string.Compare(category1.Name, category2.Name, StringComparison.CurrentCultureIgnoreCase);
-
+            int result = SortMode == CategorySortMode.Count ? category1.Count.CompareTo(category2.Count) : string.Compare(category1.Name, category2.Name, StringComparison.OrdinalIgnoreCase);
             if (SortOrder == SortOrder.Ascending)
             {
                 return result;
