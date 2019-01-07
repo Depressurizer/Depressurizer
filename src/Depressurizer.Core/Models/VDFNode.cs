@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
-namespace Depressurizer.Models
+namespace Depressurizer.Core.Models
 {
     /// <summary>
     ///     ValveDataFormat Node

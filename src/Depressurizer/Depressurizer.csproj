@@ -91,8 +91,8 @@
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
-    <Reference Include="Sentry, Version=1.1.0.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sentry.1.1.0\lib\net461\Sentry.dll</HintPath>
+    <Reference Include="Sentry, Version=1.1.1.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sentry.1.1.1\lib\net461\Sentry.dll</HintPath>
     </Reference>
     <Reference Include="Sentry.PlatformAbstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
       <HintPath>..\packages\Sentry.PlatformAbstractions.1.0.0\lib\net45\Sentry.PlatformAbstractions.dll</HintPath>
@@ -123,9 +123,7 @@
     <Compile Include="CommaClusteringStrategy.cs" />
     <Compile Include="GameList.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\Steam.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
-    <Compile Include="Models\AppInfo.cs" />
     <Compile Include="AutoCat\AutoCatConfigPanel_Curator.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -282,7 +280,6 @@
     <Compile Include="DlgRestore.Designer.cs">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\AppInfoReader.cs" />
     <Compile Include="DatabaseEntrySorter.cs" />
     <Compile Include="GlobalStrings.nl.Designer.cs">
       <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
@@ -297,7 +294,6 @@
     </Compile>
     <Compile Include="Lib\Options.cs" />
     <Compile Include="ListViewComparer.cs" />
-    <Compile Include="Models\VDFNode.cs" />
     <Compile Include="MyRenderer.cs" />
     <Compile Include="PackageInfo.cs" />
     <Compile Include="ProfileAccessException.cs" />
@@ -752,6 +748,7 @@
       <Name>Depressurizer.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Resource.Embedder.1.2.6\build\Resource.Embedder.targets" Condition="Exists('..\packages\Resource.Embedder.1.2.6\build\Resource.Embedder.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

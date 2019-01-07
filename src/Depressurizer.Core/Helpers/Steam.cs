@@ -5,19 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Depressurizer.Core.Helpers;
-#if DEBUG
 using Newtonsoft.Json;
 using Sentry;
 
-#endif
-
-namespace Depressurizer.Helpers
+namespace Depressurizer.Core.Helpers
 {
     /// <summary>
     ///     Static class containing helper functions related to Steam.
     /// </summary>
-    internal static class Steam
+    public static class Steam
     {
         #region Static Fields
 

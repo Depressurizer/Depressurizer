@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using Depressurizer.Core.Enums;
-using Depressurizer.Core.Models;
-using Depressurizer.Helpers;
+using Depressurizer.Core.Helpers;
 
-namespace Depressurizer.Models
+namespace Depressurizer.Core.Models
 {
     /// <summary>
     ///     Steam AppInfo object

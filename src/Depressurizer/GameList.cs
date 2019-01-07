@@ -9,7 +9,6 @@ using System.Xml.XPath;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
-using Depressurizer.Models;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer

@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using Depressurizer.Core.Models;
 
-namespace Depressurizer.Helpers
+namespace Depressurizer.Core.Helpers
 {
     /// <summary>
     ///     Steam AppInfo.vdf Reader
