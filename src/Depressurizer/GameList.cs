@@ -251,7 +251,7 @@ namespace Depressurizer
         /// </param>
         public void ExportSteamConfigFile(string filePath, bool discardMissing)
         {
-            Logger.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
+            Logger.Info("Saving Steam config file: {0}.", filePath);
 
             VDFNode fileData = new VDFNode();
             try
@@ -387,16 +387,11 @@ namespace Depressurizer
             }
         }
 
-        /// <summary>
-        ///     Writes category info for shortcut games to shortcuts.vdf config file for specified Steam user.
-        ///     Loads the shortcut config file, then tries to match each game in the file against one of the games in the gameList.
-        ///     If it finds a match, it updates the config file with the new category info.
-        /// </summary>
-        /// <param name="steamId">Identifier of Steam user to save information</param>
         public void ExportSteamShortcuts(long steamId)
         {
             string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Shortcuts, Settings.Instance.SteamPath, Profile.ToSteam3Id(steamId));
-            Logger.Info(GlobalStrings.GameData_SavingSteamConfigFile, filePath);
+            Logger.Info("GameList:ExportSteamShortcuts | Saving shortcuts.vdf to: {0}.", filePath);
+
             FileStream fStream = null;
             BinaryReader binReader = null;
             VDFNode dataRoot = null;
@@ -441,6 +436,8 @@ namespace Depressurizer
             {
                 "shortcuts"
             }, false);
+
+            List<string> toRemove = new List<string>();
             foreach (KeyValuePair<string, VDFNode> shortcutPair in appsNode.NodeArray)
             {
                 VDFNode nodeGame = shortcutPair.Value;
@@ -450,39 +447,46 @@ namespace Depressurizer
                 }
 
                 int matchingIndex = FindMatchingShortcut(nodeId, nodeGame, gamesToSave, launchIds);
-
-                if (matchingIndex >= 0)
+                if (matchingIndex < 0)
                 {
-                    GameInfo game = gamesToSave[matchingIndex];
-                    gamesToSave.RemoveAt(matchingIndex);
-
-                    Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
-
-                    VDFNode tagsNode = nodeGame.GetNodeAt(new[]
-                    {
-                        "tags"
-                    }, true);
-                    Dictionary<string, VDFNode> tags = tagsNode.NodeArray;
-                    if (tags != null)
-                    {
-                        tags.Clear();
-                    }
-
-                    int index = 0;
-                    foreach (Category c in game.Categories)
-                    {
-                        string name = c.Name;
-                        if (name == FavoriteNewConfigValue)
-                        {
-                            name = FavoriteConfigValue;
-                        }
-
-                        tagsNode[index.ToString(CultureInfo.InvariantCulture)] = new VDFNode(name);
-                        index++;
-                    }
-
-                    nodeGame["hidden"] = new VDFNode(game.Hidden ? 1 : 0);
+                    toRemove.Add(shortcutPair.Key);
+                    continue;
                 }
+
+                GameInfo game = gamesToSave[matchingIndex];
+                gamesToSave.RemoveAt(matchingIndex);
+
+                Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
+
+                VDFNode tagsNode = nodeGame.GetNodeAt(new[]
+                {
+                    "tags"
+                }, true);
+                Dictionary<string, VDFNode> tags = tagsNode.NodeArray;
+                if (tags != null)
+                {
+                    tags.Clear();
+                }
+
+                int index = 0;
+                foreach (Category c in game.Categories)
+                {
+                    string name = c.Name;
+                    if (name == FavoriteNewConfigValue)
+                    {
+                        name = FavoriteConfigValue;
+                    }
+
+                    tagsNode[index.ToString(CultureInfo.InvariantCulture)] = new VDFNode(name);
+                    index++;
+                }
+
+                nodeGame["hidden"] = new VDFNode(game.Hidden ? 1 : 0);
+            }
+
+            foreach (string key in toRemove)
+            {
+                appsNode.RemoveSubNode(key);
             }
 
             if (dataRoot.NodeType != ValueType.Array)

@@ -409,9 +409,6 @@ Time Remaining:</value>
   <data name="GameData_RemovingGameCategoryFromSteamConfig" xml:space="preserve">
     <value>Removing game {0} category info from Steam config file.</value>
   </data>
-  <data name="GameData_SavingSteamConfigFile" xml:space="preserve">
-    <value>Saving Steam config file: {0}.</value>
-  </data>
   <data name="GameData_SkippedIntegratingGame" xml:space="preserve">
     <value>Skipped integrating game: {0} - {1}.</value>
   </data>

@@ -964,7 +964,7 @@ namespace Depressurizer
         private void cmdGameRemove_Click(object sender, EventArgs e)
         {
             ClearStatus();
-            RemoveGames();
+            RemoveSelectedApps();
             FlushStatus();
         }
 
@@ -2976,7 +2976,7 @@ namespace Depressurizer
             switch (e.KeyCode)
             {
                 case Keys.Delete:
-                    RemoveGames();
+                    RemoveSelectedApps();
                     break;
                 case Keys.N:
                     if (e.Control)
@@ -3728,10 +3728,7 @@ namespace Depressurizer
             FillAllCategoryLists();
         }
 
-        /// <summary>
-        ///     Removes all selected games. Prompts for confirmation.
-        /// </summary>
-        private void RemoveGames()
+        private void RemoveSelectedApps()
         {
             int selectCount = lstGames.SelectedObjects.Count;
             if (selectCount <= 0)
@@ -3777,6 +3774,8 @@ namespace Depressurizer
                 AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_IgnoredGame, ignored, ignored == 1 ? "" : "s"));
                 MakeChange(true);
             }
+
+            Logger.Info("MainForm:RemoveSelectedApps | Removed {0} app(s) and ignored {1} app(s).", removed, ignored);
 
             FillGameList();
             Cursor.Current = Cursors.Default;

@@ -1913,15 +1913,6 @@ namespace Depressurizer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving Steam config file: {0}..
-        /// </summary>
-        internal static string GameData_SavingSteamConfigFile {
-            get {
-                return ResourceManager.GetString("GameData_SavingSteamConfigFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Skipped integrating game: {0} - {1}..
         /// </summary>
         internal static string GameData_SkippedIntegratingGame {
