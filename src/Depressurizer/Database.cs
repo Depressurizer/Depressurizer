@@ -5,14 +5,12 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Depressurizer
 {
@@ -404,47 +402,71 @@ namespace Depressurizer
         public int FetchIntegrateAppList()
         {
             int added = 0;
+            int updated = 0;
 
-            Logger.Info("Database: Downloading list of public apps.");
-
-            string json;
-            using (WebClient client = new WebClient())
+            lock (SyncRoot)
             {
-                json = client.DownloadString(Constants.GetAppList);
-            }
+                HttpClient client = null;
+                Stream stream = null;
+                StreamReader streamReader = null;
 
-            Logger.Info("Database: Downloaded list of public apps.");
-            Logger.Info("Database: Parsing list of public apps.");
-
-            dynamic appList = JObject.Parse(json);
-            foreach (dynamic app in appList.applist.apps)
-            {
-                int appId = app["appid"];
-                string name = app["name"];
-
-                if (Contains(appId, out DatabaseEntry entry))
+                try
                 {
-                    if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name == name)
+                    Logger.Info("Database: Downloading list of public apps.");
+
+                    client = new HttpClient();
+                    stream = client.GetStreamAsync(Constants.GetAppList).Result;
+                    streamReader = new StreamReader(stream);
+
+                    using (JsonReader reader = new JsonTextReader(streamReader))
                     {
-                        continue;
+                        streamReader = null;
+                        stream = null;
+                        client = null;
+
+                        Logger.Info("Database: Downloaded list of public apps.");
+                        Logger.Info("Database: Parsing list of public apps.");
+
+                        JsonSerializer serializer = new JsonSerializer();
+                        AppList_RawData rawData = serializer.Deserialize<AppList_RawData>(reader);
+
+                        foreach (App app in rawData.Applist.Apps)
+                        {
+                            if (Contains(app.AppId, out DatabaseEntry entry))
+                            {
+                                if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name == app.Name)
+                                {
+                                    continue;
+                                }
+
+                                entry.Name = app.Name;
+                                entry.AppType = AppType.Unknown;
+
+                                updated++;
+                            }
+                            else
+                            {
+                                entry = new DatabaseEntry(app.AppId)
+                                {
+                                    Name = app.Name
+                                };
+
+                                Add(entry);
+
+                                added++;
+                            }
+                        }
                     }
-
-                    entry.Name = name;
-                    entry.AppType = AppType.Unknown;
                 }
-                else
+                finally
                 {
-                    entry = new DatabaseEntry(appId)
-                    {
-                        Name = name
-                    };
-
-                    Add(entry);
-                    added++;
+                    streamReader?.Dispose();
+                    stream?.Dispose();
+                    client?.Dispose();
                 }
-            }
 
-            Logger.Info("Database: Parsed list of public apps, added {0} apps.", added);
+                Logger.Info("Database: Parsed list of public apps, added {0} apps and updated {1} apps.", added, updated);
+            }
 
             return added;
         }
