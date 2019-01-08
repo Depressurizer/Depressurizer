@@ -2,11 +2,10 @@
 using System.IO;
 using System.Text;
 using Depressurizer.Core.Enums;
-using Depressurizer.Core.Models;
 
-namespace Depressurizer
+namespace Depressurizer.Core.Models
 {
-    internal class PackageInfo
+    public class PackageInfo
     {
         #region Fields
 
