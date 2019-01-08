@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Depressurizer
+namespace Depressurizer.Core.Helpers
 {
     public static class XmlUtil
     {
@@ -77,78 +77,67 @@ namespace Depressurizer
 
         public static bool TryGetBoolFromNode(XmlNode node, out bool value)
         {
-            if (node != null)
+            value = false;
+
+            XmlNode textNode = node?.SelectSingleNode("text()");
+            if (textNode != null && bool.TryParse(textNode.InnerText, out value))
             {
-                XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null && bool.TryParse(textNode.InnerText, out value))
-                {
-                    return true;
-                }
+                return true;
             }
 
-            value = false;
             return false;
         }
 
         public static bool TryGetFloatFromNode(XmlNode node, out float value)
         {
-            if (node != null)
+            value = 0;
+            XmlNode textNode = node?.SelectSingleNode("text()");
+            if (textNode != null && float.TryParse(textNode.InnerText, out value))
             {
-                XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null && float.TryParse(textNode.InnerText, out value))
-                {
-                    return true;
-                }
+                return true;
             }
 
-            value = 0;
             return false;
         }
 
         public static bool TryGetInt64FromNode(XmlNode node, out long value)
         {
-            if (node != null)
+            value = 0;
+
+            XmlNode textNode = node?.SelectSingleNode("text()");
+            if (textNode != null && long.TryParse(textNode.InnerText, out value))
             {
-                XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null && long.TryParse(textNode.InnerText, out value))
-                {
-                    return true;
-                }
+                return true;
             }
 
-            value = 0;
             return false;
         }
 
         public static bool TryGetIntFromNode(XmlNode node, out int value)
         {
-            if (node != null)
+            value = 0;
+
+            XmlNode textNode = node?.SelectSingleNode("text()");
+            if (textNode != null && int.TryParse(textNode.InnerText, out value))
             {
-                XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null && int.TryParse(textNode.InnerText, out value))
-                {
-                    return true;
-                }
+                return true;
             }
 
-            value = 0;
             return false;
         }
 
         public static bool TryGetStringFromNode(XmlNode node, out string value)
         {
-            if (node != null)
+            value = string.Empty;
+
+            XmlNode textNode = node?.SelectSingleNode("text()");
+            if (textNode == null)
             {
-                XmlNode textNode = node.SelectSingleNode("text()");
-                if (textNode != null)
-                {
-                    value = node.InnerText;
-                    return true;
-                }
+                return false;
             }
 
-            value = string.Empty;
-            return false;
+            value = node.InnerText;
+            return true;
         }
 
         #endregion

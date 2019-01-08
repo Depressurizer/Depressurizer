@@ -353,7 +353,6 @@
       <DependentUpon>CancelableDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\MultiColumnListViewComparer.cs" />
-    <Compile Include="Lib\XmlUtil.cs" />
     <Compile Include="DlgProfile.cs">
       <SubType>Form</SubType>
     </Compile>
