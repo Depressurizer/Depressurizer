@@ -247,7 +247,7 @@ namespace Depressurizer
             {
                 foreach (int appId in gameList.Games.Keys)
                 {
-                    if (Contains(appId, out DatabaseEntry entry) && !gameList.Games[appId].Hidden)
+                    if (Contains(appId, out DatabaseEntry entry) && !gameList.Games[appId].IsHidden)
                     {
                         CalculateSortedDevListHelper(devCounts, entry);
                     }
@@ -271,7 +271,7 @@ namespace Depressurizer
             {
                 foreach (int appId in filter.Games.Keys)
                 {
-                    if (!Contains(appId, out DatabaseEntry entry) || filter.Games[appId].Hidden)
+                    if (!Contains(appId, out DatabaseEntry entry) || filter.Games[appId].IsHidden)
                     {
                         continue;
                     }
@@ -297,7 +297,7 @@ namespace Depressurizer
             {
                 foreach (int appId in filter.Games.Keys)
                 {
-                    if (Contains(appId, out DatabaseEntry entry) && !filter.Games[appId].Hidden)
+                    if (Contains(appId, out DatabaseEntry entry) && !filter.Games[appId].IsHidden)
                     {
                         CalculateSortedTagListHelper(tagCounts, entry, weightFactor, tagsPerGame);
                     }
@@ -612,6 +612,16 @@ namespace Depressurizer
             }
 
             return entry.AppType == AppType.Application || entry.AppType == AppType.Game;
+        }
+
+        public bool IsType(int appId, AppType appType)
+        {
+            if (!Contains(appId, out DatabaseEntry entry))
+            {
+                return false;
+            }
+
+            return entry.AppType == appType;
         }
 
         public void Load()

@@ -336,7 +336,7 @@ namespace Depressurizer
                     key++;
                 }
 
-                if (game.Hidden)
+                if (game.IsHidden)
                 {
                     gameNode["hidden"] = new VDFNode("1");
                 }
@@ -487,7 +487,7 @@ namespace Depressurizer
                     index++;
                 }
 
-                nodeGame["hidden"] = new VDFNode(game.Hidden ? 1 : 0);
+                nodeGame["hidden"] = new VDFNode(game.IsHidden ? 1 : 0);
             }
 
             foreach (string key in toRemove)
@@ -1317,7 +1317,7 @@ namespace Depressurizer
 
                     game.ApplySource(GameListingSource.SteamConfig);
 
-                    game.Hidden = gameNodePair.Value.ContainsKey("hidden") && gameNodePair.Value["hidden"].NodeInt != 0;
+                    game.IsHidden = gameNodePair.Value.ContainsKey("hidden") && gameNodePair.Value["hidden"].NodeInt != 0;
 
                     VDFNode tagsNode = gameNodePair.Value["tags"];
                     Dictionary<string, VDFNode> tagArray = tagsNode?.NodeArray;
@@ -1410,11 +1410,11 @@ namespace Depressurizer
             }
 
             // Fill in Hidden
-            game.Hidden = false;
+            game.IsHidden = false;
             if (gameNode.ContainsKey("IsHidden"))
             {
                 VDFNode hiddenNode = gameNode["IsHidden"];
-                game.Hidden = hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1;
+                game.IsHidden = hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1;
             }
 
             return true;

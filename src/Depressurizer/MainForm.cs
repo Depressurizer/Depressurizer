@@ -1590,7 +1590,7 @@ namespace Depressurizer
                     continue;
                 }
 
-                if (g.Hidden)
+                if (g.IsHidden)
                 {
                     hidden++;
                 }
@@ -1599,7 +1599,7 @@ namespace Depressurizer
                     uncategorized++;
                 }
 
-                if (Database.SupportsVR(g.Id) && !g.Hidden)
+                if (Database.SupportsVR(g.Id) && !g.IsHidden)
                 {
                     vr++;
                 }
@@ -2130,7 +2130,7 @@ namespace Depressurizer
                     return string.Empty;
                 }
 
-                return gameInfo.Hidden ? "X" : string.Empty;
+                return gameInfo.IsHidden ? "X" : string.Empty;
             };
             colGenres.AspectGetter = delegate(object g)
             {
@@ -2946,7 +2946,7 @@ namespace Depressurizer
                 e.Item.BackColor = ListBackgroundColor;
             }
 
-            if (g.Hidden)
+            if (g.IsHidden)
             {
                 e.Item.BackColor = PrimaryLightColor;
             }
@@ -3015,7 +3015,7 @@ namespace Depressurizer
                     contextGameFav_No.Checked = true;
                 }
 
-                if (_typedListGames.SelectedObjects.Count == 1 && g.Hidden)
+                if (_typedListGames.SelectedObjects.Count == 1 && g.IsHidden)
                 {
                     contextGameHidden_Yes.Checked = true;
                 }
@@ -4296,7 +4296,7 @@ namespace Depressurizer
                 return g.IncludeGame(_advFilter);
             }
 
-            if (g.Hidden)
+            if (g.IsHidden)
             {
                 return lstCategories.SelectedItems[0].Tag.ToString() == Resources.SpecialCategoryHidden;
             }

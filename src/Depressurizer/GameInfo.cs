@@ -21,8 +21,6 @@ namespace Depressurizer
 
         public GameList GameList;
 
-        public bool Hidden;
-
         public int Id; // Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
 
         public string Name;
@@ -46,7 +44,7 @@ namespace Depressurizer
         {
             Id = id;
             Name = name;
-            Hidden = false;
+
             Categories = new SortedSet<Category>();
             GameList = list;
             Executable = executable;
@@ -76,18 +74,9 @@ namespace Depressurizer
             }
         }
 
-        public Category FavoriteCategory
-        {
-            get
-            {
-                if (GameList == null)
-                {
-                    return null;
-                }
+        public Category FavoriteCategory => GameList?.FavoriteCategory;
 
-                return GameList.FavoriteCategory;
-            }
-        }
+        public bool IsHidden { get; set; } = false;
 
         public long LastPlayed { get; set; }
 
@@ -129,7 +118,7 @@ namespace Depressurizer
         /// <param name="newCat">Category to add</param>
         public void AddCategory(Category newCat)
         {
-            if (newCat != null && Categories.Add(newCat) && !Hidden)
+            if (newCat != null && Categories.Add(newCat) && !IsHidden)
             {
                 newCat.Count++;
             }
@@ -174,7 +163,7 @@ namespace Depressurizer
         {
             foreach (Category cat in Categories)
             {
-                if (!Hidden)
+                if (!IsHidden)
                 {
                     cat.Count--;
                 }
@@ -191,7 +180,7 @@ namespace Depressurizer
                 if (restore)
                 {
                     Categories.Add(FavoriteCategory);
-                    if (!Hidden)
+                    if (!IsHidden)
                     {
                         FavoriteCategory.Count++;
                     }
@@ -289,52 +278,69 @@ namespace Depressurizer
                 return true;
             }
 
-            bool isCategorized = false;
             bool isHidden = false;
-            bool isVR = false;
+            if (f.Hidden != (int) AdvancedFilterState.None)
+            {
+                isHidden = IsHidden;
+            }
+
+            switch (f.Hidden)
+            {
+                case (int) AdvancedFilterState.Require when !isHidden:
+                case (int) AdvancedFilterState.Exclude when isHidden:
+                    return false;
+            }
+
+            bool isCategorized = false;
             if (f.Uncategorized != (int) AdvancedFilterState.None)
             {
                 isCategorized = HasCategories();
             }
 
-            if (f.Hidden != (int) AdvancedFilterState.None)
+            switch (f.Uncategorized)
             {
-                isHidden = Hidden;
+                case (int) AdvancedFilterState.Require when isCategorized:
+                case (int) AdvancedFilterState.Exclude when !isCategorized:
+                    return false;
             }
 
+            bool isVR = false;
             if (f.VR != (int) AdvancedFilterState.None)
             {
                 isVR = Database.SupportsVR(Id);
             }
 
-            if (f.Uncategorized == (int) AdvancedFilterState.Require && isCategorized)
+            switch (f.VR)
             {
-                return false;
+                case (int) AdvancedFilterState.Require when !isVR:
+                case (int) AdvancedFilterState.Exclude when isVR:
+                    return false;
             }
 
-            if (f.Hidden == (int) AdvancedFilterState.Require && !isHidden)
+            bool isSoftware = false;
+            if (f.Software != (int) AdvancedFilterState.None)
             {
-                return false;
+                isSoftware = Database.IsType(Id, AppType.Application);
             }
 
-            if (f.VR == (int) AdvancedFilterState.Require && !isVR)
+            switch (f.Software)
             {
-                return false;
+                case (int) AdvancedFilterState.Require when !isSoftware:
+                case (int) AdvancedFilterState.Exclude when isSoftware:
+                    return false;
             }
 
-            if (f.Uncategorized == (int) AdvancedFilterState.Exclude && !isCategorized)
+            bool isGame = false;
+            if (f.Game != (int) AdvancedFilterState.None)
             {
-                return false;
+                isGame = Database.IsType(Id, AppType.Game);
             }
 
-            if (f.Hidden == (int) AdvancedFilterState.Exclude && isHidden)
+            switch (f.Game)
             {
-                return false;
-            }
-
-            if (f.VR == (int) AdvancedFilterState.Exclude && isVR)
-            {
-                return false;
+                case (int) AdvancedFilterState.Exclude when isGame:
+                case (int) AdvancedFilterState.Require when !isGame:
+                    return false;
             }
 
             if (f.Uncategorized == (int) AdvancedFilterState.Allow || f.Hidden == (int) AdvancedFilterState.Allow || f.VR == (int) AdvancedFilterState.Allow || f.Allow.Count > 0)
@@ -345,9 +351,15 @@ namespace Depressurizer
                     {
                         if (f.VR != (int) AdvancedFilterState.Allow || !isVR)
                         {
-                            if (!Categories.Overlaps(f.Allow))
+                            if (f.Software != (int) AdvancedFilterState.Allow || !isSoftware)
                             {
-                                return false;
+                                if (f.Game != (int) AdvancedFilterState.Allow || !isGame)
+                                {
+                                    if (!Categories.Overlaps(f.Allow))
+                                    {
+                                        return false;
+                                    }
+                                }
                             }
                         }
                     }
@@ -378,7 +390,7 @@ namespace Depressurizer
         /// <param name="remCat">Category to remove</param>
         public void RemoveCategory(Category remCat)
         {
-            if (Categories.Remove(remCat) && !Hidden)
+            if (Categories.Remove(remCat) && !IsHidden)
             {
                 remCat.Count--;
             }
@@ -428,7 +440,7 @@ namespace Depressurizer
         /// <param name="hide">Whether the game should be hidden</param>
         public void SetHidden(bool hide)
         {
-            if (Hidden == hide)
+            if (IsHidden == hide)
             {
                 return;
             }
@@ -448,7 +460,7 @@ namespace Depressurizer
                 }
             }
 
-            Hidden = hide;
+            IsHidden = hide;
         }
 
         #endregion

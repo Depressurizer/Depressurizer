@@ -90,7 +90,7 @@ namespace Depressurizer
 
             Game.SetFavorite(chkFavorite.Checked);
 
-            Game.Hidden = chkHidden.Checked;
+            Game.IsHidden = chkHidden.Checked;
 
             DialogResult = DialogResult.OK;
             Close();
@@ -106,7 +106,7 @@ namespace Depressurizer
                 txtCategory.Text = Game.GetCatString();
                 txtExecutable.Text = Game.Executable;
                 chkFavorite.Checked = Game.IsFavorite();
-                chkHidden.Checked = Game.Hidden;
+                chkHidden.Checked = Game.IsHidden;
                 txtId.ReadOnly = true;
             }
             else
