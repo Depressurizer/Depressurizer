@@ -57,23 +57,29 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
-        public static IXPathNavigable FetchGameList(string customUrl)
+        public static IXPathNavigable FetchGameList(string url)
         {
-            return FetchXmlFromUrl(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameListCustom, customUrl)));
+            return FetchGameList(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameListCustom, url)));
+        }
+
+        public static IXPathNavigable FetchGameList(Uri uri)
+        {
+            return FetchGameListFromUri(uri);
         }
 
         public static IXPathNavigable FetchGameList(long steamId)
         {
-            return FetchXmlFromUrl(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameList, steamId)));
+            return FetchGameList(new Uri(string.Format(CultureInfo.InvariantCulture, Constants.GameList, steamId)));
         }
 
-        public static IXPathNavigable FetchXmlFromUrl(Uri url)
+        public static IXPathNavigable FetchGameListFromUri(Uri uri)
         {
+            Logger.Info("FetchGameListFromUri | Downloading game list from URI: {0}.", uri.ToString());
+
             XmlDocument doc = new XmlDocument();
             try
             {
-                Logger.Info(GlobalStrings.GameData_AttemptingDownloadXMLGameList, url);
-                WebRequest req = WebRequest.Create(url);
+                WebRequest req = WebRequest.Create(uri);
                 WebResponse response = req.GetResponse();
                 if (response.ResponseUri.Segments.Length < 4)
                 {
@@ -87,17 +93,17 @@ namespace Depressurizer
                     throw new ProfileAccessException(GlobalStrings.GameData_SpecifiedProfileNotPublic);
                 }
 
-                Logger.Info(GlobalStrings.GameData_SuccessDownloadXMLGameList, url);
+                Logger.Info(GlobalStrings.GameData_SuccessDownloadXMLGameList, uri);
                 return doc;
             }
             catch (ProfileAccessException)
             {
-                Logger.Error(GlobalStrings.GameData_ProfileNotPublic);
+                Logger.Warn("FetchGameListFromUri | Found a private profile...");
                 throw;
             }
             catch (Exception e)
             {
-                Logger.Error(GlobalStrings.GameData_ExceptionDownloadXMLGameList, e.Message);
+                Logger.Warn("FetchGameListFromUri | Exception thrown while downloading game list from URI, error: {0}.", e.Message);
                 throw new ApplicationException(e.Message, e);
             }
         }
