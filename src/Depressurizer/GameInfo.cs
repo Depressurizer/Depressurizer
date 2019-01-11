@@ -76,6 +76,8 @@ namespace Depressurizer
 
         public Category FavoriteCategory => GameList?.FavoriteCategory;
 
+        public double HoursPlayed { get; set; } = 0;
+
         public bool IsHidden { get; set; } = false;
 
         public long LastPlayed { get; set; }
