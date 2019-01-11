@@ -16,12 +16,6 @@ namespace Depressurizer
     /// </summary>
     public abstract class AutoCat : IComparable
     {
-        #region Constants
-
-        private const string XmlName_Filter = "Filter";
-
-        #endregion
-
         #region Fields
 
         protected Database db;
@@ -87,6 +81,8 @@ namespace Depressurizer
         {
             switch (type)
             {
+                case AutoCatType.None:
+                    return null;
                 case AutoCatType.Genre:
                     return new AutoCatGenre(name);
                 case AutoCatType.Flags:
@@ -115,8 +111,8 @@ namespace Depressurizer
                     return new AutoCatCurator(name);
                 case AutoCatType.Platform:
                     return new AutoCatPlatform(name);
-                case AutoCatType.None:
-                    return null;
+                case AutoCatType.HoursPlayed:
+                    return new AutoCatHoursPlayed(name);
                 default:
                     return null;
             }
@@ -156,6 +152,8 @@ namespace Depressurizer
                     return LoadFromXmlElement(xElement, typeof(AutoCatCurator));
                 case AutoCatPlatform.TypeIdString:
                     return LoadFromXmlElement(xElement, typeof(AutoCatPlatform));
+                case AutoCatHoursPlayed.TypeIdString:
+                    return AutoCatHoursPlayed.LoadFromXmlElement(xElement);
                 default:
                     return null;
             }
@@ -176,24 +174,6 @@ namespace Depressurizer
             }
 
             return null;
-        }
-
-        /// <summary>
-        ///     Applies this autocategorization scheme to the game with the given ID.
-        /// </summary>
-        /// <param name="gameId">The game ID to process</param>
-        /// <returns>
-        ///     False if the game was not found in database. This allows the calling function to potentially re-scrape data
-        ///     and reattempt.
-        /// </returns>
-        public virtual AutoCatResult CategorizeGame(int gameId, Filter filter)
-        {
-            if (games.Games.ContainsKey(gameId))
-            {
-                return CategorizeGame(games.Games[gameId], filter);
-            }
-
-            return AutoCatResult.Failure;
         }
 
         /// <summary>

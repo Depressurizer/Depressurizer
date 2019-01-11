@@ -33,10 +33,10 @@
             this.cmdSave = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.panelAutocat = new System.Windows.Forms.Panel();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.cboFilter = new System.Windows.Forms.ComboBox();
             this.chkFilter = new System.Windows.Forms.CheckBox();
-            this.panelAutocat = new System.Windows.Forms.Panel();
             this.grpList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -180,6 +180,14 @@
             this.splitContainer.SplitterDistance = 184;
             this.splitContainer.TabIndex = 7;
             // 
+            // panelAutocat
+            // 
+            this.panelAutocat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAutocat.Location = new System.Drawing.Point(0, 30);
+            this.panelAutocat.Name = "panelAutocat";
+            this.panelAutocat.Size = new System.Drawing.Size(402, 311);
+            this.panelAutocat.TabIndex = 1;
+            // 
             // panelFilter
             // 
             this.panelFilter.Controls.Add(this.cboFilter);
@@ -212,14 +220,6 @@
             this.chkFilter.Text = "Filter";
             this.chkFilter.UseVisualStyleBackColor = true;
             this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
-            // 
-            // panelAutocat
-            // 
-            this.panelAutocat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelAutocat.Location = new System.Drawing.Point(0, 30);
-            this.panelAutocat.Name = "panelAutocat";
-            this.panelAutocat.Size = new System.Drawing.Size(402, 311);
-            this.panelAutocat.TabIndex = 1;
             // 
             // DlgAutoCat
             // 

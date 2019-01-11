@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
@@ -103,6 +104,7 @@ namespace Depressurizer
                 Text = GlobalStrings.DlgGame_EditGame;
                 txtId.Text = Game.Id.ToString();
                 txtName.Text = Game.Name;
+                txtHoursPlayed.Text = Game.HoursPlayed.ToString(CultureInfo.CurrentCulture);
                 txtCategory.Text = Game.GetCatString();
                 txtExecutable.Text = Game.Executable;
                 chkFavorite.Checked = Game.IsFavorite();

@@ -124,6 +124,15 @@ namespace Depressurizer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hours Played.
+        /// </summary>
+        internal static string AutoCat_Name_HoursPlayed {
+            get {
+                return ResourceManager.GetString("AutoCat_Name_HoursPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string AutoCat_Name_Language {

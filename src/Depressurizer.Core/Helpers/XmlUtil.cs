@@ -13,6 +13,11 @@ namespace Depressurizer.Core.Helpers
             return TryGetBoolFromNode(node, out bool result) ? result : defaultValue;
         }
 
+        public static double GetDoubleFromNode(XmlNode node, double defaultValue)
+        {
+            return TryGetDoubleFromNode(node, out double result) ? result : defaultValue;
+        }
+
         public static TEnum GetEnumFromNode<TEnum>(XmlNode node, TEnum defaultValue) where TEnum : struct, IComparable, IConvertible, IFormattable
         {
             if (node == null)
@@ -81,6 +86,19 @@ namespace Depressurizer.Core.Helpers
 
             XmlNode textNode = node?.SelectSingleNode("text()");
             if (textNode != null && bool.TryParse(textNode.InnerText, out value))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool TryGetDoubleFromNode(XmlNode node, out double value)
+        {
+            value = 0;
+
+            XmlNode textNode = node?.SelectSingleNode("text()");
+            if (textNode != null && double.TryParse(textNode.InnerText, out value))
             {
                 return true;
             }

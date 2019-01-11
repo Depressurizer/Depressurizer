@@ -2291,6 +2291,15 @@ namespace Depressurizer
 
                 return DateTimeOffset.FromUnixTimeSeconds(gameInfo.LastPlayed).Date;
             };
+            colHoursPlayed.AspectGetter = delegate(object g)
+            {
+                if (g == null || !(g is GameInfo gameInfo))
+                {
+                    return 0;
+                }
+
+                return gameInfo.HoursPlayed;
+            };
             colAchievements.AspectGetter = delegate(object g)
             {
                 if (g == null || !(g is GameInfo gameInfo))
@@ -4558,12 +4567,7 @@ namespace Depressurizer
                 }
             }
 
-            if (success)
-            {
-                MakeChange(true);
-                FullListRefresh();
-            }
-            else if (CurrentProfile.WebUpdate)
+            if (CurrentProfile.WebUpdate)
             {
                 try
                 {
@@ -4592,9 +4596,8 @@ namespace Depressurizer
                                 }
                                 else
                                 {
-                                    MakeChange(true);
                                     AddStatus(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_DownloadedGames, dialog.Fetched, dialog.Added, "XML"));
-                                    FullListRefresh();
+                                    success = true;
                                 }
                             }
                         }
@@ -4606,6 +4609,12 @@ namespace Depressurizer
                     MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_ErrorDowloadingProfile, e.Message), GlobalStrings.DBEditDlg_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     AddStatus(GlobalStrings.MainForm_DownloadFailed);
                 }
+            }
+
+            if (success)
+            {
+                MakeChange(true);
+                FullListRefresh();
             }
 
             Cursor = Cursors.Default;

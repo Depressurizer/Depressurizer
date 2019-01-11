@@ -47,6 +47,9 @@ namespace Depressurizer.Core.Enums
         Curator = 13,
 
         [Description("AutoCatPlatform")]
-        Platform = 14
+        Platform = 14,
+
+        [Description("AutoCatHoursPlayed")]
+        HoursPlayed = 15
     }
 }

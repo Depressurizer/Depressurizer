@@ -67,6 +67,8 @@ namespace Depressurizer
 
         private const string XmlNameGameHidden = "hidden";
 
+        private const string XmlNameGameHoursPlayed = "hoursplayed";
+
         private const string XmlNameGameId = "id";
 
         private const string XmlNameGameLastPlayed = "lastplayed";
@@ -504,6 +506,11 @@ namespace Depressurizer
                     writer.WriteElementString(XmlNameGameLastPlayed, gameInfo.LastPlayed.ToString(CultureInfo.InvariantCulture));
                 }
 
+                if (gameInfo.HoursPlayed > 0)
+                {
+                    writer.WriteElementString(XmlNameGameHoursPlayed, gameInfo.HoursPlayed.ToString(CultureInfo.InvariantCulture));
+                }
+
                 if (!gameInfo.Executable.Contains("steam://"))
                 {
                     writer.WriteElementString(XmlNameGameExecutable, gameInfo.Executable);
@@ -689,6 +696,7 @@ namespace Depressurizer
             game.IsHidden = XmlUtil.GetBoolFromNode(node[XmlNameGameHidden], false);
             game.Executable = XmlUtil.GetStringFromNode(node[XmlNameGameExecutable], null);
             game.LastPlayed = XmlUtil.GetIntFromNode(node[XmlNameGameLastPlayed], 0);
+            game.HoursPlayed = XmlUtil.GetDoubleFromNode(node[XmlNameGameHoursPlayed], 0);
 
             XmlNode catListNode = node.SelectSingleNode(XmlNameGameCategoryList);
             XmlNodeList catNodes = catListNode?.SelectNodes(XmlNameGameCategory);

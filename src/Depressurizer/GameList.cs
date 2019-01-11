@@ -832,6 +832,18 @@ namespace Depressurizer
                     continue;
                 }
 
+                XmlNode hoursNode = gameNode["hoursOnRecord"];
+                if (hoursNode != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(hoursNode.InnerText))
+                    {
+                        if (double.TryParse(hoursNode.InnerText, NumberStyles.Any, CultureInfo.InvariantCulture, out double hoursPlayed))
+                        {
+                            integratedGame.HoursPlayed = hoursPlayed;
+                        }
+                    }
+                }
+
                 loadedGames++;
                 if (isNew)
                 {
