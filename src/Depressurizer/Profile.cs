@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Xml;
+using Depressurizer.Core.AutoCats;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
@@ -225,11 +226,11 @@ namespace Depressurizer
 
             //By HLTB
             AutoCatHltb ach = new AutoCatHltb(GlobalStrings.Profile_DefaultAutoCatName_Hltb, null, "(HLTB) ", false);
-            ach.Rules.Add(new Hltb_Rule(" 0-5", 0, 5, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule(" 5-10", 5, 10, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule("10-20", 10, 20, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule("20-50", 20, 50, TimeType.Extras));
-            ach.Rules.Add(new Hltb_Rule("50+", 20, 0, TimeType.Extras));
+            ach.Rules.Add(new HowLongToBeatRule(" 0-5", 0, 5, TimeType.Extras));
+            ach.Rules.Add(new HowLongToBeatRule(" 5-10", 5, 10, TimeType.Extras));
+            ach.Rules.Add(new HowLongToBeatRule("10-20", 10, 20, TimeType.Extras));
+            ach.Rules.Add(new HowLongToBeatRule("20-50", 20, 50, TimeType.Extras));
+            ach.Rules.Add(new HowLongToBeatRule("50+", 20, 0, TimeType.Extras));
             list.Add(ach);
 
             //By Platform

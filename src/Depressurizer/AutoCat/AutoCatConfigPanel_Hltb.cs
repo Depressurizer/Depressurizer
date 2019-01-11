@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Depressurizer.Core.AutoCats;
 using Depressurizer.Core.Enums;
 
 namespace Depressurizer
@@ -12,7 +13,7 @@ namespace Depressurizer
 
         private readonly BindingSource binding = new BindingSource();
 
-        private readonly BindingList<Hltb_Rule> ruleList = new BindingList<Hltb_Rule>();
+        private readonly BindingList<HowLongToBeatRule> ruleList = new BindingList<HowLongToBeatRule>();
 
         #endregion
 
@@ -73,9 +74,9 @@ namespace Depressurizer
             acHltb.UnknownText = txtUnknownText.Text;
 
             ruleList.Clear();
-            foreach (Hltb_Rule rule in acHltb.Rules)
+            foreach (HowLongToBeatRule rule in acHltb.Rules)
             {
-                ruleList.Add(new Hltb_Rule(rule));
+                ruleList.Add(new HowLongToBeatRule(rule));
             }
 
             UpdateEnabledSettings();
@@ -92,7 +93,7 @@ namespace Depressurizer
             acHltb.Prefix = txtPrefix.Text;
             acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
             acHltb.UnknownText = txtUnknownText.Text;
-            acHltb.Rules = new List<Hltb_Rule>(ruleList);
+            acHltb.Rules = new List<HowLongToBeatRule>(ruleList);
         }
 
         #endregion
@@ -104,7 +105,7 @@ namespace Depressurizer
         /// </summary>
         private void AddRule()
         {
-            Hltb_Rule newRule = new Hltb_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0, (TimeType) cmbTimeType.SelectedItem);
+            HowLongToBeatRule newRule = new HowLongToBeatRule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 0, (TimeType) cmbTimeType.SelectedItem);
             ruleList.Add(newRule);
             lstRules.SelectedIndex = lstRules.Items.Count - 1;
         }
@@ -149,7 +150,7 @@ namespace Depressurizer
                 return;
             }
 
-            Hltb_Rule mainItem = ruleList[mainIndex];
+            HowLongToBeatRule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
             if (selectMoved)

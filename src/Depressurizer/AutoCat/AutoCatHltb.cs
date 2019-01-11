@@ -2,77 +2,57 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Core.AutoCats;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 
 namespace Depressurizer
 {
-    public class Hltb_Rule
-    {
-        #region Constructors and Destructors
-
-        public Hltb_Rule(string name, float minHours, float maxHours, TimeType timeType)
-        {
-            Name = name;
-            MinHours = minHours;
-            MaxHours = maxHours;
-            TimeType = timeType;
-        }
-
-        public Hltb_Rule(Hltb_Rule other)
-        {
-            Name = other.Name;
-            MinHours = other.MinHours;
-            MaxHours = other.MaxHours;
-            TimeType = other.TimeType;
-        }
-
-        //XmlSerializer requires a parameterless constructor
-        private Hltb_Rule() { }
-
-        #endregion
-
-        #region Public Properties
-
-        public float MaxHours { get; set; }
-
-        public float MinHours { get; set; }
-
-        [XmlElement("Text")]
-        public string Name { get; set; }
-
-        public TimeType TimeType { get; set; }
-
-        #endregion
-    }
-
     public class AutoCatHltb : AutoCat
     {
         #region Constants
 
         public const string TypeIdString = "AutoCatHltb";
 
-        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_IncludeUnknown = "IncludeUnknown", XmlName_UnknownText = "UnknownText", XmlName_Rule = "Rule", XmlName_Rule_Text = "Text", XmlName_Rule_MinHours = "MinHours", XmlName_Rule_MaxHours = "MaxHours", XmlName_Rule_TimeType = "TimeType";
+        public const string XmlName_Filter = "Filter";
+
+        public const string XmlName_IncludeUnknown = "IncludeUnknown";
+
+        public const string XmlName_Name = "Name";
+
+        public const string XmlName_Prefix = "Prefix";
+
+        public const string XmlName_Rule = "Rule";
+
+        public const string XmlName_Rule_MaxHours = "MaxHours";
+
+        public const string XmlName_Rule_MinHours = "MinHours";
+
+        public const string XmlName_Rule_Text = "Text";
+
+        public const string XmlName_Rule_TimeType = "TimeType";
+
+        public const string XmlName_UnknownText = "UnknownText";
 
         #endregion
 
         #region Fields
 
         [XmlElement("Rule")]
-        public List<Hltb_Rule> Rules;
+        public List<HowLongToBeatRule> Rules;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public AutoCatHltb(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<Hltb_Rule> rules = null, bool selected = false) : base(name)
+        public AutoCatHltb(string name, string filter = null, string prefix = null, bool includeUnknown = true, string unknownText = "", List<HowLongToBeatRule> rules = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
             IncludeUnknown = includeUnknown;
             UnknownText = unknownText;
-            Rules = rules == null ? new List<Hltb_Rule>() : rules;
+            Rules = rules ?? new List<HowLongToBeatRule>();
             Selected = selected;
         }
 
@@ -82,17 +62,20 @@ namespace Depressurizer
             Prefix = other.Prefix;
             IncludeUnknown = other.IncludeUnknown;
             UnknownText = other.UnknownText;
-            Rules = other.Rules.ConvertAll(rule => new Hltb_Rule(rule));
+            Rules = other.Rules.ConvertAll(rule => new HowLongToBeatRule(rule));
             Selected = other.Selected;
         }
 
-        //XmlSerializer requires a parameterless constructor
+        /// <summary>
+        ///     Parameter-less constructor for XmlSerializer.
+        /// </summary>
         private AutoCatHltb() { }
 
         #endregion
 
         #region Public Properties
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.Hltb;
 
         public bool IncludeUnknown { get; set; }
@@ -119,28 +102,33 @@ namespace Depressurizer
             bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], false);
             string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], string.Empty);
 
-            List<Hltb_Rule> rules = new List<Hltb_Rule>();
-            foreach (XmlNode node in xElement.SelectNodes(XmlName_Rule))
+            XmlNodeList rulesNodeList = xElement.SelectNodes(XmlName_Rule);
+            List<HowLongToBeatRule> rules = new List<HowLongToBeatRule>();
+            if (rulesNodeList != null)
             {
-                string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
-                float ruleMin = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MinHours], 0);
-                float ruleMax = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MaxHours], 0);
-                string type = XmlUtil.GetStringFromNode(node[XmlName_Rule_TimeType], string.Empty);
-                TimeType ruleTimeType;
-                switch (type)
+                foreach (XmlNode node in rulesNodeList)
                 {
-                    case "Extras":
-                        ruleTimeType = TimeType.Extras;
-                        break;
-                    case "Completionist":
-                        ruleTimeType = TimeType.Completionist;
-                        break;
-                    default:
-                        ruleTimeType = TimeType.Main;
-                        break;
-                }
+                    string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
+                    float ruleMin = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MinHours], 0);
+                    float ruleMax = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MaxHours], 0);
+                    string type = XmlUtil.GetStringFromNode(node[XmlName_Rule_TimeType], string.Empty);
 
-                rules.Add(new Hltb_Rule(ruleName, ruleMin, ruleMax, ruleTimeType));
+                    TimeType ruleTimeType;
+                    switch (type)
+                    {
+                        case "Extras":
+                            ruleTimeType = TimeType.Extras;
+                            break;
+                        case "Completionist":
+                            ruleTimeType = TimeType.Completionist;
+                            break;
+                        default:
+                            ruleTimeType = TimeType.Main;
+                            break;
+                    }
+
+                    rules.Add(new HowLongToBeatRule(ruleName, ruleMin, ruleMax, ruleTimeType));
+                }
             }
 
             AutoCatHltb result = new AutoCatHltb(name, filter, prefix, includeUnknown, unknownText)
@@ -150,6 +138,7 @@ namespace Depressurizer
             return result;
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -192,21 +181,25 @@ namespace Depressurizer
             }
             else
             {
-                foreach (Hltb_Rule rule in Rules)
+                foreach (HowLongToBeatRule rule in Rules)
                 {
-                    if (CheckRule(rule, hltbMain, hltbExtras, hltbCompletionist))
+                    if (!CheckRule(rule, hltbMain, hltbExtras, hltbCompletionist))
                     {
-                        result = rule.Name;
-                        break;
+                        continue;
                     }
+
+                    result = rule.Name;
+                    break;
                 }
             }
 
-            if (result != null)
+            if (result == null)
             {
-                result = GetProcessedString(result);
-                game.AddCategory(games.GetCategory(result));
+                return AutoCatResult.Success;
             }
+
+            result = GetCategoryName(result);
+            game.AddCategory(games.GetCategory(result));
 
             return AutoCatResult.Success;
         }
@@ -234,7 +227,7 @@ namespace Depressurizer
             writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_UnknownText, UnknownText);
 
-            foreach (Hltb_Rule rule in Rules)
+            foreach (HowLongToBeatRule rule in Rules)
             {
                 writer.WriteStartElement(XmlName_Rule);
                 writer.WriteElementString(XmlName_Rule_Text, rule.Name);
@@ -252,20 +245,22 @@ namespace Depressurizer
 
         #region Methods
 
-        private bool CheckRule(Hltb_Rule rule, float hltbMain, float hltbExtras, float hltbCompletionist)
+        private static bool CheckRule(HowLongToBeatRule rule, float hltbMain, float hltbExtras, float hltbCompletionist)
         {
-            float hours = 0.0f;
-            if (rule.TimeType == TimeType.Main)
+            float hours;
+            switch (rule.TimeType)
             {
-                hours = hltbMain;
-            }
-            else if (rule.TimeType == TimeType.Extras)
-            {
-                hours = hltbExtras;
-            }
-            else if (rule.TimeType == TimeType.Completionist)
-            {
-                hours = hltbCompletionist;
+                case TimeType.Main:
+                    hours = hltbMain;
+                    break;
+                case TimeType.Extras:
+                    hours = hltbExtras;
+                    break;
+                case TimeType.Completionist:
+                    hours = hltbCompletionist;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             if (hours == 0.0f)
@@ -276,14 +271,14 @@ namespace Depressurizer
             return hours >= rule.MinHours && (hours <= rule.MaxHours || rule.MaxHours == 0.0f);
         }
 
-        private string GetProcessedString(string s)
+        private string GetCategoryName(string name)
         {
-            if (!string.IsNullOrEmpty(Prefix))
+            if (string.IsNullOrWhiteSpace(Prefix))
             {
-                return Prefix + s;
+                return name;
             }
 
-            return s;
+            return Prefix + name;
         }
 
         #endregion
