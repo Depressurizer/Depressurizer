@@ -2291,6 +2291,15 @@ namespace Depressurizer
 
                 return DateTimeOffset.FromUnixTimeSeconds(gameInfo.LastPlayed).Date;
             };
+            colHoursPlayed.AspectGetter = delegate(object g)
+            {
+                if (g == null || !(g is GameInfo gameInfo))
+                {
+                    return 0;
+                }
+
+                return gameInfo.HoursPlayed;
+            };
             colAchievements.AspectGetter = delegate(object g)
             {
                 if (g == null || !(g is GameInfo gameInfo))
