@@ -120,6 +120,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoCat\AutoCatHoursPlayed.cs" />
     <Compile Include="CommaClusteringStrategy.cs" />
     <Compile Include="GameList.cs" />
     <Compile Include="GlobalSuppressions.cs" />
