@@ -771,9 +771,9 @@ namespace Depressurizer
                     entry.Platforms = aInf.Platforms;
                 }
 
-                if (aInf.Parent > 0)
+                if (aInf.ParentId > 0)
                 {
-                    entry.ParentId = aInf.Parent;
+                    entry.ParentId = aInf.ParentId;
                 }
 
                 updated++;
