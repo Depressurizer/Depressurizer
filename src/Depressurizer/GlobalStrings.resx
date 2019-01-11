@@ -1314,4 +1314,7 @@ This could take up to a few seconds per game.</value>
   <data name="Profile_DefaultAutoCatName_Platform" xml:space="preserve">
     <value>By Platform</value>
   </data>
+  <data name="AutoCat_Name_HoursPlayed" xml:space="preserve">
+    <value>Hours Played</value>
+  </data>
 </root>

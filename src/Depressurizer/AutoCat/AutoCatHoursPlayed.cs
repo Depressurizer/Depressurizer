@@ -116,6 +116,7 @@ namespace Depressurizer
             return result;
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -213,17 +214,7 @@ namespace Depressurizer
 
         private static bool CheckRule(HoursPlayedRule rule, double hours)
         {
-            if (hours < rule.MinHours)
-            {
-                return false;
-            }
-
-            if (hours >= rule.MaxHours)
-            {
-                return false;
-            }
-
-            return true;
+            return hours >= rule.MinHours && (hours < rule.MaxHours || (int) rule.MaxHours == 0);
         }
 
         private string GetCategoryName(string name)

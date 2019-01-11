@@ -44,6 +44,8 @@ namespace Depressurizer
                     return new AutoCatConfigPanel_Curator();
                 case AutoCatType.Platform:
                     return new AutoCatConfigPanel_Platform();
+                case AutoCatType.HoursPlayed:
+                    return new AutoCatConfigPanel_HoursPlayed();
                 default:
                     return null;
             }

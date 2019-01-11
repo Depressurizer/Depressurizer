@@ -120,6 +120,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoCat\AutoCatConfigPanel_HoursPlayed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AutoCat\AutoCatConfigPanel_HoursPlayed.Designer.cs">
+      <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
+    </Compile>
     <Compile Include="AutoCat\AutoCatHoursPlayed.cs" />
     <Compile Include="CommaClusteringStrategy.cs" />
     <Compile Include="GameList.cs" />
@@ -398,6 +404,9 @@
     </Compile>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_HoursPlayed.resx">
+      <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Language.resx">
       <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
