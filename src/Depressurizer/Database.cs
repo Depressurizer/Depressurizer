@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
@@ -788,72 +789,63 @@ namespace Depressurizer
 
             lock (SyncRoot)
             {
-                HttpClient client = null;
-                Stream stream = null;
-                StreamReader streamReader = null;
 
-                try
+                using (WebClient client = new WebClient())
                 {
-                    client = new HttpClient();
-                    stream = client.GetStreamAsync(Constants.HowLongToBeat).Result;
-                    streamReader = new StreamReader(stream);
+                    string result = client.DownloadString(Constants.HowLongToBeat);
 
-                    using (JsonReader reader = new JsonTextReader(streamReader))
+                    if (result.Contains("An error has occurred."))
                     {
-                        streamReader = null;
-                        stream = null;
-                        client = null;
-
-                        JsonSerializer serializer = new JsonSerializer();
-                        HLTB_RawData rawData = serializer.Deserialize<HLTB_RawData>(reader);
-
-                        foreach (Game game in rawData.Games)
-                        {
-                            SteamAppData steamAppData = game.SteamAppData;
-                            int id = steamAppData.SteamAppId;
-                            if (!Contains(id, out DatabaseEntry entry))
-                            {
-                                continue;
-                            }
-
-                            HltbInfo info = steamAppData.HltbInfo;
-
-                            if (!includeImputedTimes && info.MainTtbImputed)
-                            {
-                                entry.HltbMain = 0;
-                            }
-                            else
-                            {
-                                entry.HltbMain = info.MainTtb;
-                            }
-
-                            if (!includeImputedTimes && info.ExtrasTtbImputed)
-                            {
-                                entry.HltbExtras = 0;
-                            }
-                            else
-                            {
-                                entry.HltbExtras = info.ExtrasTtb;
-                            }
-
-                            if (!includeImputedTimes && info.CompletionistTtbImputed)
-                            {
-                                entry.HltbCompletionists = 0;
-                            }
-                            else
-                            {
-                                entry.HltbCompletionists = info.CompletionistTtb;
-                            }
-
-                            updated++;
-                        }
+                        return updated;
                     }
-                }
-                finally
-                {
-                    streamReader?.Dispose();
-                    stream?.Dispose();
-                    client?.Dispose();
+
+                    HLTB_RawData rawData = JsonConvert.DeserializeObject<HLTB_RawData>(result);
+
+                    if (rawData == null)
+                    {
+                        return updated;
+                    }
+
+                    foreach (Game game in rawData.Games)
+                    {
+                        SteamAppData steamAppData = game.SteamAppData;
+                        int id = steamAppData.SteamAppId;
+                        if (!Contains(id, out DatabaseEntry entry))
+                        {
+                            continue;
+                        }
+
+                        HltbInfo info = steamAppData.HltbInfo;
+
+                        if (!includeImputedTimes && info.MainTtbImputed)
+                        {
+                            entry.HltbMain = 0;
+                        }
+                        else
+                        {
+                            entry.HltbMain = info.MainTtb;
+                        }
+
+                        if (!includeImputedTimes && info.ExtrasTtbImputed)
+                        {
+                            entry.HltbExtras = 0;
+                        }
+                        else
+                        {
+                            entry.HltbExtras = info.ExtrasTtb;
+                        }
+
+                        if (!includeImputedTimes && info.CompletionistTtbImputed)
+                        {
+                            entry.HltbCompletionists = 0;
+                        }
+                        else
+                        {
+                            entry.HltbCompletionists = info.CompletionistTtb;
+                        }
+
+                        updated++;
+                    }
                 }
 
                 LastHLTBUpdate = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
