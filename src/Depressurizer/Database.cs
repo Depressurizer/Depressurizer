@@ -789,7 +789,6 @@ namespace Depressurizer
 
             lock (SyncRoot)
             {
-
                 using (WebClient client = new WebClient())
                 {
                     string result = client.DownloadString(Constants.HowLongToBeat);
