@@ -14,7 +14,7 @@ namespace Rallion
 
         protected int runningThreads;
 
-        protected int threadsToRun = 5;
+        protected int ThreadsToRun = Environment.ProcessorCount;
 
         protected int totalJobs = 1;
 
@@ -36,8 +36,6 @@ namespace Rallion
         #endregion
 
         #region Delegates
-
-        private delegate void EndProcDelegate(bool b);
 
         private delegate void SimpleDelegate();
 
@@ -137,8 +135,8 @@ namespace Rallion
 
         protected virtual void UpdateForm_Load(object sender, EventArgs e)
         {
-            threadsToRun = Math.Min(threadsToRun, totalJobs);
-            for (int i = 0; i < threadsToRun; i++)
+            ThreadsToRun = Math.Min(ThreadsToRun, totalJobs);
+            for (int i = 0; i < ThreadsToRun; i++)
             {
                 Thread t = new Thread(RunProcessChecked);
                 t.Start();
