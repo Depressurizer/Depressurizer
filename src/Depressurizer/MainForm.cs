@@ -1578,6 +1578,7 @@ namespace Depressurizer
             lstCategories.Items.Clear();
 
             //calculate number of hidden, VR and uncategorized games
+            int all = 0;
             int hidden = 0;
             int uncategorized = 0;
             int vr = 0;
@@ -1585,7 +1586,7 @@ namespace Depressurizer
             int games = 0;
             foreach (GameInfo g in CurrentProfile.GameData.Games.Values)
             {
-                if (!Database.Contains(g.Id, out DatabaseEntry entry))
+                if (g.Id < 0 && !CurrentProfile.IncludeShortcuts)
                 {
                     continue;
                 }
@@ -1593,32 +1594,41 @@ namespace Depressurizer
                 if (g.IsHidden)
                 {
                     hidden++;
+                    continue;
                 }
-                else if (!g.HasCategories())
+
+                all++;
+
+                if (!g.HasCategories())
                 {
                     uncategorized++;
                 }
 
-                if (Database.SupportsVR(g.Id) && !g.IsHidden)
+                if (g.Id <= 0 || !Database.Contains(g.Id, out DatabaseEntry entry))
+                {
+                    continue;
+                }
+
+                if (Database.SupportsVR(g.Id))
                 {
                     vr++;
                 }
 
-                if (entry.AppType == AppType.Game)
+                switch (entry.AppType)
                 {
-                    games++;
-                }
-
-                if (entry.AppType == AppType.Application)
-                {
-                    software++;
+                    case AppType.Game:
+                        games++;
+                        break;
+                    case AppType.Application:
+                        software++;
+                        break;
                 }
             }
 
             ListViewItem listViewItem;
             if (!AdvancedCategoryFilter)
             {
-                listViewItem = new ListViewItem(CategoryListViewItemText(Resources.SpecialCategoryAll, games + software))
+                listViewItem = new ListViewItem(CategoryListViewItemText(Resources.SpecialCategoryAll, all))
                 {
                     Tag = Resources.SpecialCategoryAll,
                     Name = Resources.SpecialCategoryAll
