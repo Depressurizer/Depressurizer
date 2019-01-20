@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -14,7 +15,7 @@ namespace Depressurizer
     ///     This is a preliminary form, and may change in future versions.
     ///     Returning only true / false on a categorization attempt may prove too simplistic.
     /// </summary>
-    public abstract class AutoCat : IComparable
+    public abstract class AutoCat : IComparable, IComparable<AutoCat>
     {
         #region Fields
 
@@ -171,7 +172,7 @@ namespace Depressurizer
             }
             catch (Exception e)
             {
-                MessageBox.Show(string.Format(GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.Autocat_LoadFromXmlElement_Error, type.Name), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Logger.Exception($"Failed to load from xml an Autocat of type {type.FullName}: ", e);
             }
 
@@ -190,14 +191,26 @@ namespace Depressurizer
 
         public abstract AutoCat Clone();
 
-        public int CompareTo(object other)
+        /// <inheritdoc />
+        public int CompareTo(AutoCat other)
         {
-            if (other is AutoCat)
+            if (other == null)
             {
-                return string.Compare(Name, (other as AutoCat).Name);
+                return 1;
             }
 
-            return 1;
+            return string.Compare(Name, other.Name, StringComparison.Ordinal);
+        }
+
+        /// <inheritdoc />
+        public int CompareTo(object obj)
+        {
+            if (obj == null || !(obj is AutoCat other))
+            {
+                throw new ArgumentException("Object must be of type AutoCat.");
+            }
+
+            return CompareTo(other);
         }
 
         public virtual void DeProcess()
@@ -227,6 +240,7 @@ namespace Depressurizer
             this.db = db;
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Name;
