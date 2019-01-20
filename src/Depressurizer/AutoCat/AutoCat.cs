@@ -64,6 +64,8 @@ namespace Depressurizer
 
         public string Name { get; set; }
 
+        public string Prefix { get; set; }
+
         [XmlIgnore]
         public bool Selected { get; set; }
 
@@ -202,6 +204,16 @@ namespace Depressurizer
         {
             games = null;
             db = null;
+        }
+
+        public virtual string GetProcessedString(string s)
+        {
+            if (string.IsNullOrEmpty(Prefix))
+            {
+                return s;
+            }
+
+            return Prefix + s;
         }
 
         /// <summary>
