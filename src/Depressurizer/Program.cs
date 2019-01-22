@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Net;
+using System.Reflection;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Properties;
 using NDesk.Options;
+using Newtonsoft.Json.Linq;
 using Rallion;
 using Sentry;
 
@@ -14,6 +20,8 @@ namespace Depressurizer
         #region Properties
 
         private static Database Database => Database.Instance;
+
+        private static Version DepressurizerVersion => Assembly.GetExecutingAssembly().GetName().Version;
 
         private static Logger Logger => Logger.Instance;
 
@@ -27,6 +35,42 @@ namespace Depressurizer
         {
             Settings.Save();
             Logger.Dispose();
+        }
+
+        private static void CheckForDepressurizerUpdates()
+        {
+            try
+            {
+                Version githubVersion;
+                string url;
+
+                using (WebClient wc = new WebClient())
+                {
+                    // Github wants TLS 1.2
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                    wc.Headers.Set("User-Agent", "Depressurizer");
+                    string json = wc.DownloadString(Constants.DepressurizerLatestRelease);
+
+                    JObject parsedJson = JObject.Parse(json);
+                    githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
+                    url = (string) parsedJson.SelectToken("html_url");
+                }
+
+                if (githubVersion <= DepressurizerVersion)
+                {
+                    return;
+                }
+
+                if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Process.Start(url);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Exception("Exception while checking for new updates for Depressurizer.", e);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         /// <summary>
@@ -43,11 +87,17 @@ namespace Depressurizer
 
                 FatalError.InitializeHandler();
 
+                Logger.Info("Running Depressurizer v{0}", DepressurizerVersion);
+
                 Database.Load();
                 Settings.Load();
 
-                AutomaticModeOptions autoOpts = ParseAutoOptions(args);
+                if (Settings.CheckForDepressurizerUpdates)
+                {
+                    CheckForDepressurizerUpdates();
+                }
 
+                AutomaticModeOptions autoOpts = ParseAutoOptions(args);
                 if (autoOpts != null)
                 {
                     Logger.Info("Automatic mode set, loading automatic mode form.");

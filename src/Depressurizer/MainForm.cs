@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Security;
 using System.Security.Permissions;
@@ -23,7 +22,6 @@ using Depressurizer.Properties;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
 using Rallion;
 
 namespace Depressurizer
@@ -271,44 +269,6 @@ namespace Depressurizer
             }
 
             resources.ApplyResources(item, item.Name, newCulture);
-        }
-
-        private static void CheckForDepressurizerUpdates()
-        {
-            Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
-
-            try
-            {
-                Version githubVersion;
-                string url;
-
-                using (WebClient wc = new WebClient())
-                {
-                    // Github wants TLS 1.2
-                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                    wc.Headers.Set("User-Agent", "Depressurizer");
-                    string json = wc.DownloadString(Constants.DepressurizerLatestRelease);
-
-                    JObject parsedJson = JObject.Parse(json);
-                    githubVersion = new Version(((string) parsedJson.SelectToken("tag_name")).Replace("v", ""));
-                    url = (string) parsedJson.SelectToken("html_url");
-                }
-
-                if (githubVersion <= currentVersion)
-                {
-                    return;
-                }
-
-                if (MessageBox.Show(GlobalStrings.MainForm_Msg_UpdateFound, GlobalStrings.MainForm_Msg_UpdateFoundTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    Process.Start(url);
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.Exception("MainForm: Exception while checking for new updates for Depressurizer.", e);
-                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.MainForm_Msg_ErrorDepressurizerUpdate, e.Message), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         private static ListViewItem CreateCategoryListViewItem(Category category)
@@ -1905,11 +1865,6 @@ namespace Depressurizer
             if (Settings.UpdateHltbOnStart && DateTimeOffset.UtcNow.ToUnixTimeSeconds() > Database.LastHLTBUpdate + aWeekInSecs)
             {
                 UpdateDatabaseFromHLTB();
-            }
-
-            if (Settings.CheckForDepressurizerUpdates)
-            {
-                CheckForDepressurizerUpdates();
             }
 
             switch (Settings.StartupAction)
