@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -745,6 +745,8 @@ namespace Depressurizer
                     {
                         Games.Remove(g);
                     }
+
+                    RemoveEmptyCategories();
 
                     // Load launch IDs
                     LoadShortcutLaunchIds(steamId, out StringDictionary launchIds);
