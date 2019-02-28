@@ -1083,12 +1083,16 @@ namespace Depressurizer
             }, false);
             string gameName = nodeName?.NodeString;
             string launchId = shortcutLaunchIds[gameName];
+
             // First, look for games with matching launch IDs.
-            for (int i = 0; i < gamesToMatchAgainst.Count; i++)
+            if (!string.IsNullOrEmpty(launchId))
             {
-                if (gamesToMatchAgainst[i].LaunchString == launchId)
+                for (int i = 0; i < gamesToMatchAgainst.Count; i++)
                 {
-                    return i;
+                    if (gamesToMatchAgainst[i].LaunchString == launchId)
+                    {
+                        return i;
+                    }
                 }
             }
 
