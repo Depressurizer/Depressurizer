@@ -1,6 +1,3 @@
-using Depressurizer.Core.Enums;
-using Depressurizer.Core.Helpers;
-using Depressurizer.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -10,6 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Xml;
 using System.Xml.XPath;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Models;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer
@@ -425,17 +425,24 @@ namespace Depressurizer
             }
 
             if (dataRoot == null)
+            {
                 return;
+            }
 
             List<GameInfo> gamesToSave = Games.Keys.Select(key => Games[key]).ToList();
             LoadShortcutLaunchIds(steamId, out StringDictionary launchIds);
-            VDFNode shortcutsNode = dataRoot.GetNodeAt(new[] { "shortcuts" }, false);
+            VDFNode shortcutsNode = dataRoot.GetNodeAt(new[]
+            {
+                "shortcuts"
+            }, false);
 
             List<string> shortcutsToRemove = new List<string>();
             foreach (KeyValuePair<string, VDFNode> shortcutPair in shortcutsNode.NodeArray)
             {
                 if (!int.TryParse(shortcutPair.Key, out int gameNodeId))
+                {
                     continue;
+                }
 
                 VDFNode shortcutNode = shortcutPair.Value;
                 int matchingIndex = FindMatchingShortcut(gameNodeId, shortcutNode, gamesToSave, launchIds);
@@ -449,7 +456,10 @@ namespace Depressurizer
                 gamesToSave.RemoveAt(matchingIndex);
 
                 Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, gameInfo.Id);
-                VDFNode tagsNode = shortcutNode.GetNodeAt(new[] { "tags" }, true);
+                VDFNode tagsNode = shortcutNode.GetNodeAt(new[]
+                {
+                    "tags"
+                }, true);
                 tagsNode.NodeArray?.Clear();
 
                 for (int i = 0; i < gameInfo.Categories.Count; i++)
@@ -463,10 +473,14 @@ namespace Depressurizer
             }
 
             foreach (string key in shortcutsToRemove)
+            {
                 shortcutsNode.RemoveSubNode(key);
+            }
 
             if (dataRoot.NodeType != ValueType.Array)
+            {
                 return;
+            }
 
             Logger.Info(GlobalStrings.GameData_SavingShortcutConfigFile, filePath);
 
