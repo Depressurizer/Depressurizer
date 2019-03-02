@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Xml;
 using System.Xml.XPath;
@@ -401,6 +402,7 @@ namespace Depressurizer
             FileStream fStream = null;
             BinaryReader binReader = null;
             VDFNode dataRoot = null;
+
             try
             {
                 fStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
@@ -427,72 +429,52 @@ namespace Depressurizer
                 return;
             }
 
-            List<GameInfo> gamesToSave = new List<GameInfo>();
-            foreach (int id in Games.Keys)
-            {
-                if (id < 0)
-                {
-                    gamesToSave.Add(Games[id]);
-                }
-            }
-
+            List<GameInfo> gamesToSave = Games.Keys.Select(key => Games[key]).ToList();
             LoadShortcutLaunchIds(steamId, out StringDictionary launchIds);
-
-            VDFNode appsNode = dataRoot.GetNodeAt(new[]
+            VDFNode shortcutsNode = dataRoot.GetNodeAt(new[]
             {
                 "shortcuts"
             }, false);
 
-            List<string> toRemove = new List<string>();
-            foreach (KeyValuePair<string, VDFNode> shortcutPair in appsNode.NodeArray)
+            List<string> shortcutsToRemove = new List<string>();
+            foreach (KeyValuePair<string, VDFNode> shortcutPair in shortcutsNode.NodeArray)
             {
-                VDFNode nodeGame = shortcutPair.Value;
-                if (!int.TryParse(shortcutPair.Key, out int nodeId))
+                if (!int.TryParse(shortcutPair.Key, out int gameNodeId))
                 {
                     continue;
                 }
 
-                int matchingIndex = FindMatchingShortcut(nodeId, nodeGame, gamesToSave, launchIds);
+                VDFNode shortcutNode = shortcutPair.Value;
+                int matchingIndex = FindMatchingShortcut(gameNodeId, shortcutNode, gamesToSave, launchIds);
                 if (matchingIndex < 0)
                 {
-                    toRemove.Add(shortcutPair.Key);
+                    shortcutsToRemove.Add(shortcutPair.Key);
                     continue;
                 }
 
-                GameInfo game = gamesToSave[matchingIndex];
+                GameInfo gameInfo = gamesToSave[matchingIndex];
                 gamesToSave.RemoveAt(matchingIndex);
 
-                Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, game.Id);
-
-                VDFNode tagsNode = nodeGame.GetNodeAt(new[]
+                Logger.Verbose(GlobalStrings.GameData_AddingGameToConfigFile, gameInfo.Id);
+                VDFNode tagsNode = shortcutNode.GetNodeAt(new[]
                 {
                     "tags"
                 }, true);
-                Dictionary<string, VDFNode> tags = tagsNode.NodeArray;
-                if (tags != null)
+                tagsNode.NodeArray?.Clear();
+
+                for (int i = 0; i < gameInfo.Categories.Count; i++)
                 {
-                    tags.Clear();
+                    string categoryName = gameInfo.Categories.ElementAt(i).Name;
+                    categoryName = categoryName == FavoriteNewConfigValue ? FavoriteConfigValue : categoryName;
+                    tagsNode[i.ToString(CultureInfo.InvariantCulture)] = new VDFNode(categoryName);
                 }
 
-                int index = 0;
-                foreach (Category c in game.Categories)
-                {
-                    string name = c.Name;
-                    if (name == FavoriteNewConfigValue)
-                    {
-                        name = FavoriteConfigValue;
-                    }
-
-                    tagsNode[index.ToString(CultureInfo.InvariantCulture)] = new VDFNode(name);
-                    index++;
-                }
-
-                nodeGame["hidden"] = new VDFNode(game.IsHidden ? 1 : 0);
+                shortcutNode["hidden"] = new VDFNode(gameInfo.IsHidden ? 1 : 0);
             }
 
-            foreach (string key in toRemove)
+            foreach (string key in shortcutsToRemove)
             {
-                appsNode.RemoveSubNode(key);
+                shortcutsNode.RemoveSubNode(key);
             }
 
             if (dataRoot.NodeType != ValueType.Array)
@@ -501,6 +483,7 @@ namespace Depressurizer
             }
 
             Logger.Info(GlobalStrings.GameData_SavingShortcutConfigFile, filePath);
+
             try
             {
                 Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
@@ -1114,12 +1097,16 @@ namespace Depressurizer
             }, false);
             string gameName = nodeName?.NodeString;
             string launchId = shortcutLaunchIds[gameName];
+
             // First, look for games with matching launch IDs.
-            for (int i = 0; i < gamesToMatchAgainst.Count; i++)
+            if (!string.IsNullOrEmpty(launchId))
             {
-                if (gamesToMatchAgainst[i].LaunchString == launchId)
+                for (int i = 0; i < gamesToMatchAgainst.Count; i++)
                 {
-                    return i;
+                    if (gamesToMatchAgainst[i].LaunchString == launchId)
+                    {
+                        return i;
+                    }
                 }
             }
 
