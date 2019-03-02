@@ -729,6 +729,8 @@ namespace Depressurizer
                         Games.Remove(g);
                     }
 
+                    RemoveEmptyCategories();
+
                     // Load launch IDs
                     LoadShortcutLaunchIds(steamId, out StringDictionary launchIds);
 
