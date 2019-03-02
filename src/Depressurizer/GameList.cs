@@ -1,7 +1,4 @@
-﻿using Depressurizer.Core.Enums;
-using Depressurizer.Core.Helpers;
-using Depressurizer.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -9,6 +6,9 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using System.Xml.XPath;
+using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
+using Depressurizer.Core.Models;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer
