@@ -1,8 +1,6 @@
-﻿using System.Xml.Serialization;
-
-namespace Depressurizer.Core.AutoCats
+﻿namespace Depressurizer.Core.AutoCats
 {
-    public sealed class HoursPlayedRule
+    public sealed class HoursPlayedRule : AutoCatRule
     {
         #region Constructors and Destructors
 
@@ -38,9 +36,6 @@ namespace Depressurizer.Core.AutoCats
         ///     Minimum hours played, lower limit of the rule.
         /// </summary>
         public double MinHours { get; set; }
-
-        [XmlElement("Text")]
-        public string Name { get; set; }
 
         #endregion
     }

@@ -2,6 +2,7 @@
 
 namespace Depressurizer
 {
+    [Serializable]
     internal class ProfileAccessException : ApplicationException
     {
         #region Constructors and Destructors

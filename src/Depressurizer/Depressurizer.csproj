@@ -120,120 +120,120 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoCat\AutoCatConfigPanel_HoursPlayed.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_HoursPlayed.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_HoursPlayed.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_HoursPlayed.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatHoursPlayed.cs" />
+    <Compile Include="AutoCats\AutoCatHoursPlayed.cs" />
     <Compile Include="CommaClusteringStrategy.cs" />
     <Compile Include="GameList.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
-    <Compile Include="AutoCat\AutoCatConfigPanel_Curator.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Curator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Curator.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Curator.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Platform.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Platform.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Platform.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Platform.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatPlatform.cs" />
-    <Compile Include="AutoCat\AutoCatCurator.cs" />
-    <Compile Include="AutoCat\AutoCat.cs" />
-    <Compile Include="AutoCat\AutoCatConfigPanel.cs">
+    <Compile Include="AutoCats\AutoCatPlatform.cs" />
+    <Compile Include="AutoCats\AutoCatCurator.cs" />
+    <Compile Include="AutoCats\AutoCat.cs" />
+    <Compile Include="AutoCats\AutoCatConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Language.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Language.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Language.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Language.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_VrSupport.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_VrSupport.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_VrSupport.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_VrSupport.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Flags.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Flags.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Flags.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Flags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_DevPub.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_DevPub.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_DevPub.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_DevPub.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Group.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Group.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Group.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Group.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Manual.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Manual.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Manual.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Manual.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Genre.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Genre.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Genre.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Genre.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Name.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Name.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Name.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Name.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Name.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Tags.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Tags.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Tags.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Tags.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Hltb.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Hltb.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Hltb.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Hltb.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_UserScore.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_UserScore.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_UserScore.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_UserScore.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Year.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Year.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AutoCat\AutoCatConfigPanel_Year.Designer.cs">
+    <Compile Include="AutoCats\AutoCatConfigPanel_Year.Designer.cs">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoCat\AutoCatLanguage.cs" />
-    <Compile Include="AutoCat\AutoCatVrSupport.cs" />
-    <Compile Include="AutoCat\AutoCatFlags.cs" />
-    <Compile Include="AutoCat\AutoCatGenre.cs" />
-    <Compile Include="AutoCat\AutoCatDevPub.cs" />
-    <Compile Include="AutoCat\AutoCatManual.cs" />
-    <Compile Include="AutoCat\AutoCatName.cs" />
-    <Compile Include="AutoCat\AutoCatTags.cs" />
-    <Compile Include="AutoCat\AutoCatHltb.cs" />
-    <Compile Include="AutoCat\AutoCatUserScore.cs" />
-    <Compile Include="AutoCat\AutoCatGroup.cs" />
-    <Compile Include="AutoCat\AutoCatYear.cs" />
-    <Compile Include="AutoCat\CDlgCurator.cs">
+    <Compile Include="AutoCats\AutoCatLanguage.cs" />
+    <Compile Include="AutoCats\AutoCatVrSupport.cs" />
+    <Compile Include="AutoCats\AutoCatFlags.cs" />
+    <Compile Include="AutoCats\AutoCatGenre.cs" />
+    <Compile Include="AutoCats\AutoCatDevPub.cs" />
+    <Compile Include="AutoCats\AutoCatManual.cs" />
+    <Compile Include="AutoCats\AutoCatName.cs" />
+    <Compile Include="AutoCats\AutoCatTags.cs" />
+    <Compile Include="AutoCats\AutoCatHltb.cs" />
+    <Compile Include="AutoCats\AutoCatUserScore.cs" />
+    <Compile Include="AutoCats\AutoCatGroup.cs" />
+    <Compile Include="AutoCats\AutoCatYear.cs" />
+    <Compile Include="AutoCats\CDlgCurator.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AutomaticModeForm.cs">
@@ -402,49 +402,49 @@
     <Compile Include="CDlgUpdateProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Curator.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Curator.resx">
       <DependentUpon>AutoCatConfigPanel_Curator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_HoursPlayed.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_HoursPlayed.resx">
       <DependentUpon>AutoCatConfigPanel_HoursPlayed.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Language.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Language.resx">
       <DependentUpon>AutoCatConfigPanel_Language.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Platform.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Platform.resx">
       <DependentUpon>AutoCatConfigPanel_Platform.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_VrSupport.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_VrSupport.resx">
       <DependentUpon>AutoCatConfigPanel_VrSupport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Flags.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Flags.resx">
       <DependentUpon>AutoCatConfigPanel_Flags.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_DevPub.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_DevPub.resx">
       <DependentUpon>AutoCatConfigPanel_DevPub.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Group.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Group.resx">
       <DependentUpon>AutoCatConfigPanel_Group.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Manual.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Manual.resx">
       <DependentUpon>AutoCatConfigPanel_Manual.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Genre.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Genre.resx">
       <DependentUpon>AutoCatConfigPanel_Genre.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Name.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Name.resx">
       <DependentUpon>AutoCatConfigPanel_Name.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Tags.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Tags.resx">
       <DependentUpon>AutoCatConfigPanel_Tags.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Hltb.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Hltb.resx">
       <DependentUpon>AutoCatConfigPanel_Hltb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_UserScore.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_UserScore.resx">
       <DependentUpon>AutoCatConfigPanel_UserScore.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AutoCat\AutoCatConfigPanel_Year.resx">
+    <EmbeddedResource Include="AutoCats\AutoCatConfigPanel_Year.resx">
       <DependentUpon>AutoCatConfigPanel_Year.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutomaticModeForm.resx">

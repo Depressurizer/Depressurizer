@@ -1,9 +1,8 @@
-﻿using System.Xml.Serialization;
-using Depressurizer.Core.Enums;
+﻿using Depressurizer.Core.Enums;
 
 namespace Depressurizer.Core.AutoCats
 {
-    public sealed class HowLongToBeatRule
+    public sealed class HowLongToBeatRule : AutoCatRule
     {
         #region Constructors and Destructors
 
@@ -41,9 +40,6 @@ namespace Depressurizer.Core.AutoCats
         ///     Minimum hours played, lower limit of the rule.
         /// </summary>
         public float MinHours { get; set; }
-
-        [XmlElement("Text")]
-        public string Name { get; set; }
 
         public TimeType TimeType { get; set; }
 
