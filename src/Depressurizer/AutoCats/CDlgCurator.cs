@@ -63,12 +63,12 @@ namespace Depressurizer.AutoCats
             JObject parsedJson = JObject.Parse(json);
             if (int.TryParse(parsedJson["total_count"].ToString(), out TotalCount))
             {
-                SetText(GlobalStrings.CDlgCurator_GettingRecommendations + " " + string.Format(GlobalStrings.CDlg_Progress, 0, TotalCount));
+                SetText(GlobalStrings.CDlgCurator_GettingRecommendations + " " + string.Format(CultureInfo.CurrentCulture, GlobalStrings.CDlg_Progress, 0, TotalCount));
                 string resultsHtml = parsedJson["results_html"].ToString();
                 CuratorRecommendations = CuratorRecommendations.Union(GetCuratorRecommendationsFromPage(resultsHtml)).ToDictionary(k => k.Key, v => v.Value);
                 for (int currentPosition = 50; currentPosition < TotalCount; currentPosition += 50)
                 {
-                    SetText(GlobalStrings.CDlgCurator_GettingRecommendations + " " + string.Format(GlobalStrings.CDlg_Progress, currentPosition, TotalCount));
+                    SetText(GlobalStrings.CDlgCurator_GettingRecommendations + " " + string.Format(CultureInfo.CurrentCulture, GlobalStrings.CDlg_Progress, currentPosition, TotalCount));
                     using (WebClient wc = new WebClient())
                     {
                         wc.Encoding = Encoding.UTF8;

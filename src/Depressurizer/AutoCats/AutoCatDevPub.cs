@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -263,7 +264,7 @@ namespace Depressurizer.AutoCats
             }
 
             writer.WriteElementString(XmlName_OwnedOnly, OwnedOnly.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlName_MinCount, MinCount.ToString());
+            writer.WriteElementString(XmlName_MinCount, MinCount.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString(XmlName_AllDevelopers, AllDevelopers.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_AllPublishers, AllPublishers.ToString().ToLowerInvariant());
 

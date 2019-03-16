@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.AutoCats;
@@ -223,8 +224,8 @@ namespace Depressurizer.AutoCats
             {
                 writer.WriteStartElement(Serialization.Constants.Rule);
                 writer.WriteElementString(XmlName_Rule_Text, rule.Name);
-                writer.WriteElementString(XmlName_Rule_MinHours, rule.MinHours.ToString());
-                writer.WriteElementString(XmlName_Rule_MaxHours, rule.MaxHours.ToString());
+                writer.WriteElementString(XmlName_Rule_MinHours, rule.MinHours.ToString(CultureInfo.InvariantCulture));
+                writer.WriteElementString(XmlName_Rule_MaxHours, rule.MaxHours.ToString(CultureInfo.InvariantCulture));
                 writer.WriteElementString(XmlName_Rule_TimeType, rule.TimeType.ToString());
 
                 writer.WriteEndElement();

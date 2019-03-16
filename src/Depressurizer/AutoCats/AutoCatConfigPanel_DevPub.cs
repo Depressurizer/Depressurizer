@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -73,7 +74,7 @@ namespace Depressurizer.AutoCats
 
             foreach (KeyValuePair<string, int> dev in devList)
             {
-                ListViewItem newItem = new ListViewItem($"{dev.Key} [{dev.Value}]")
+                ListViewItem newItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "{0} [{1}]", dev.Key, dev.Value))
                 {
                     Tag = dev.Key
                 };
@@ -83,7 +84,7 @@ namespace Depressurizer.AutoCats
                     newItem.Checked = true;
                 }
 
-                newItem.SubItems.Add(dev.Value.ToString());
+                newItem.SubItems.Add(dev.Value.ToString(CultureInfo.CurrentCulture));
                 lstDevelopers.Items.Add(newItem);
             }
 
@@ -109,7 +110,7 @@ namespace Depressurizer.AutoCats
 
             foreach (KeyValuePair<string, int> pub in pubList)
             {
-                ListViewItem newItem = new ListViewItem($"{pub.Key} [{pub.Value}]")
+                ListViewItem newItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "{0} [{1}]", pub.Key, pub.Value))
                 {
                     Tag = pub.Key
                 };
@@ -118,7 +119,7 @@ namespace Depressurizer.AutoCats
                     newItem.Checked = true;
                 }
 
-                newItem.SubItems.Add(pub.Value.ToString());
+                newItem.SubItems.Add(pub.Value.ToString(CultureInfo.CurrentCulture));
                 lstPublishers.Items.Add(newItem);
             }
 

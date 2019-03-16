@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
@@ -240,7 +241,7 @@ namespace Depressurizer.AutoCats
                 writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
-            writer.WriteElementString(XmlName_MaxCats, MaxCategories.ToString());
+            writer.WriteElementString(XmlName_MaxCats, MaxCategories.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString(XmlName_RemOther, RemoveOtherGenres.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_TagFallback, TagFallback.ToString().ToLowerInvariant());
 

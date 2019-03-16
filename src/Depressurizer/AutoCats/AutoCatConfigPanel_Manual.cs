@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 using Depressurizer.Core.Models;
@@ -63,7 +64,7 @@ namespace Depressurizer.AutoCats
                 foreach (Category c in ownedGames.Categories)
                 {
                     ListViewItem l = CreateCategoryListViewItem(c);
-                    l.SubItems.Add(c.Count.ToString());
+                    l.SubItems.Add(c.Count.ToString(CultureInfo.CurrentCulture));
                     lstAdd.Items.Add(l);
                 }
             }
@@ -84,7 +85,7 @@ namespace Depressurizer.AutoCats
                 foreach (Category c in ownedGames.Categories)
                 {
                     ListViewItem l = CreateCategoryListViewItem(c);
-                    l.SubItems.Add(c.Count.ToString());
+                    l.SubItems.Add(c.Count.ToString(CultureInfo.CurrentCulture));
                     lstRemove.Items.Add(l);
                 }
             }

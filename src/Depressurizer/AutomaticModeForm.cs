@@ -724,14 +724,7 @@ namespace Depressurizer
                 success = UpdateGameList_Web_Xml(profile);
             }
 
-            if (success)
-            {
-                WriteLine("Game list updated.");
-            }
-            else
-            {
-                WriteLine("Update failed.");
-            }
+            WriteLine(success ? "Game list updated." : "Update failed.");
 
             return success;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -143,7 +144,7 @@ namespace Depressurizer.AutoCats
             if (!m.Success || !long.TryParse(m.Groups[1].Value, out long curatorId))
             {
                 Logger.Error($"Failed to parse curator id from url {CuratorUrl}.");
-                MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_CuratorIdParsing_Error, CuratorUrl), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.AutocatCurator_CuratorIdParsing_Error, CuratorUrl), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -154,7 +155,7 @@ namespace Depressurizer.AutoCats
                 if (dialog.Error != null)
                 {
                     Logger.Error(GlobalStrings.AutocatCurator_GetRecommendations_Error, dialog.Error.Message);
-                    MessageBox.Show(string.Format(GlobalStrings.AutocatCurator_GetRecommendations_Error, dialog.Error.Message), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format(CultureInfo.CurrentCulture, GlobalStrings.AutocatCurator_GetRecommendations_Error, dialog.Error.Message), Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else if (result != DialogResult.Cancel && result != DialogResult.Abort)
                 {

@@ -120,18 +120,19 @@ namespace Depressurizer
                 }
             }
 
-            if (editMode)
+            if (!editMode)
             {
-                if (ValidateEntries())
-                {
-                    SaveModifiables(Profile);
-                    return true;
-                }
+                return CreateProfile();
+            }
 
+            if (!ValidateEntries())
+            {
                 return false;
             }
 
-            return CreateProfile();
+            SaveModifiables(Profile);
+
+            return true;
         }
 
         private void cmdBrowse_Click(object sender, EventArgs e)
@@ -354,10 +355,9 @@ namespace Depressurizer
 
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UserRecord u = lstUsers.SelectedItem as UserRecord;
-            if (u != null)
+            if (lstUsers.SelectedItem is UserRecord userRecord)
             {
-                txtUserID.Text = Profile.ToSteamId64(u.DirName).ToString();
+                txtUserID.Text = Profile.ToSteamId64(userRecord.DirName).ToString();
             }
         }
 

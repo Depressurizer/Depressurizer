@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.AutoCats;
@@ -228,10 +229,10 @@ namespace Depressurizer.AutoCats
             {
                 writer.WriteStartElement(Serialization.Constants.Rule);
                 writer.WriteElementString(XmlName_Rule_Text, rule.Name);
-                writer.WriteElementString(XmlName_Rule_MinScore, rule.MinScore.ToString());
-                writer.WriteElementString(XmlName_Rule_MaxScore, rule.MaxScore.ToString());
-                writer.WriteElementString(XmlName_Rule_MinReviews, rule.MinReviews.ToString());
-                writer.WriteElementString(XmlName_Rule_MaxReviews, rule.MaxReviews.ToString());
+                writer.WriteElementString(XmlName_Rule_MinScore, rule.MinScore.ToString(CultureInfo.InvariantCulture));
+                writer.WriteElementString(XmlName_Rule_MaxScore, rule.MaxScore.ToString(CultureInfo.InvariantCulture));
+                writer.WriteElementString(XmlName_Rule_MinReviews, rule.MinReviews.ToString(CultureInfo.InvariantCulture));
+                writer.WriteElementString(XmlName_Rule_MaxReviews, rule.MaxReviews.ToString(CultureInfo.InvariantCulture));
 
                 writer.WriteEndElement();
             }

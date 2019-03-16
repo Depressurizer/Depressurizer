@@ -102,7 +102,7 @@ namespace Depressurizer
             if (editMode)
             {
                 Text = GlobalStrings.DlgGame_EditGame;
-                txtId.Text = Game.Id.ToString();
+                txtId.Text = Game.Id.ToString(CultureInfo.CurrentCulture);
                 txtName.Text = Game.Name;
                 txtHoursPlayed.Text = Game.HoursPlayed.ToString(CultureInfo.CurrentCulture);
                 txtCategory.Text = Game.GetCatString();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -133,8 +134,8 @@ namespace Rallion
 
             string appName = Application.ProductName;
 
-            Text = string.Format(GlobalStrings.DlgFatalError_FatalError, appName);
-            lblMessage.Text = string.Format(GlobalStrings.DlgFatalError_FatalErrorOcurred, appName);
+            Text = string.Format(CultureInfo.CurrentCulture, GlobalStrings.DlgFatalError_FatalError, appName);
+            lblMessage.Text = string.Format(CultureInfo.CurrentCulture, GlobalStrings.DlgFatalError_FatalErrorOcurred, appName);
 
             FillFields();
 
@@ -190,7 +191,7 @@ namespace Rallion
                     dialog.AddExtension = false;
                     dialog.AutoUpgradeEnabled = true;
                     dialog.InitialDirectory = Environment.CurrentDirectory;
-                    dialog.FileName = "dError_" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".log";
+                    dialog.FileName = "dError_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log";
 
                     DialogResult result = dialog.ShowDialog();
                     if (result != DialogResult.OK)

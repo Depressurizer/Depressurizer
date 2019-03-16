@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
 using Depressurizer.Core.Enums;
@@ -233,7 +234,7 @@ namespace Depressurizer.AutoCats
                 writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
-            writer.WriteElementString(XmlName_MaxTags, MaxTags.ToString());
+            writer.WriteElementString(XmlName_MaxTags, MaxTags.ToString(CultureInfo.InvariantCulture));
 
             if (IncludedTags != null && IncludedTags.Count > 0)
             {
@@ -247,9 +248,9 @@ namespace Depressurizer.AutoCats
             }
 
             writer.WriteElementString(XmlName_ListOwnedOnly, List_OwnedOnly.ToString().ToLowerInvariant());
-            writer.WriteElementString(XmlName_ListWeightFactor, List_WeightFactor.ToString());
-            writer.WriteElementString(XmlName_ListMinScore, List_MinScore.ToString());
-            writer.WriteElementString(XmlName_ListTagsPerGame, List_TagsPerGame.ToString());
+            writer.WriteElementString(XmlName_ListWeightFactor, List_WeightFactor.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlName_ListMinScore, List_MinScore.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlName_ListTagsPerGame, List_TagsPerGame.ToString(CultureInfo.InvariantCulture));
             writer.WriteElementString(XmlName_ListScoreSort, List_ScoreSort.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_ListExcludeGenres, List_ExcludeGenres.ToString().ToLowerInvariant());
 

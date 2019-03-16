@@ -67,7 +67,7 @@ namespace Depressurizer.AutoCats
             lstIncluded.Items.Clear();
             foreach (KeyValuePair<string, float> tag in tagList)
             {
-                ListViewItem newItem = new ListViewItem($"{tag.Key} [{tag.Value:F0}]")
+                ListViewItem newItem = new ListViewItem(string.Format(CultureInfo.CurrentCulture, "{0} [{1:F0}]", tag.Key, tag.Value))
                 {
                     Tag = tag.Key
                 };

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Models;
@@ -74,10 +75,10 @@ namespace Depressurizer
             }
             else
             {
-                txtId.Text = Game.Id.ToString();
+                txtId.Text = Game.Id.ToString(CultureInfo.CurrentCulture);
                 txtId.Enabled = false;
 
-                txtParent.Text = Game.ParentId < 0 ? "" : Game.ParentId.ToString();
+                txtParent.Text = Game.ParentId < 0 ? "" : Game.ParentId.ToString(CultureInfo.CurrentCulture);
 
                 cmbType.SelectedItem = Game.AppType;
 
