@@ -12,15 +12,9 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatYear";
 
-        public const string XmlName_Filter = "Filter";
-
         public const string XmlName_GroupingMode = "GroupingMode";
 
         public const string XmlName_IncludeUnknown = "IncludeUnknown";
-
-        public const string XmlName_Name = "Name";
-
-        public const string XmlName_Prefix = "Prefix";
 
         public const string XmlName_UnknownText = "UnknownText";
 
@@ -76,9 +70,9 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatYear LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], null);
             bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], true);
             string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], null);
             AutoCatYearGrouping groupMode = XmlUtil.GetEnumFromNode(xElement[XmlName_GroupingMode], AutoCatYearGrouping.None);
@@ -137,15 +131,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());

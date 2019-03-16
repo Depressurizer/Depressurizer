@@ -15,8 +15,6 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatTags";
 
-        private const string XmlName_Filter = "Filter";
-
         private const string XmlName_ListExcludeGenres = "List_ExcludeGenres";
 
         private const string XmlName_ListMinScore = "List_MinScore";
@@ -30,10 +28,6 @@ namespace Depressurizer.AutoCats
         private const string XmlName_ListWeightFactor = "List_WeightedScore";
 
         private const string XmlName_MaxTags = "MaxTags";
-
-        private const string XmlName_Name = "Name";
-
-        private const string XmlName_Prefix = "Prefix";
 
         private const string XmlName_Tag = "Tag";
 
@@ -116,14 +110,14 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatTags LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
 
             AutoCatTags result = new AutoCatTags(name)
             {
-                Filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null)
+                Filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null)
             };
 
-            if (XmlUtil.TryGetStringFromNode(xElement[XmlName_Prefix], out string prefix))
+            if (XmlUtil.TryGetStringFromNode(xElement[Serialization.Constants.Prefix], out string prefix))
             {
                 result.Prefix = prefix;
             }
@@ -228,15 +222,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteElementString(XmlName_MaxTags, MaxTags.ToString());

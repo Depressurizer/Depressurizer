@@ -27,15 +27,9 @@ namespace Depressurizer.AutoCats
 
         private const string XmlName_Developers = "Developers";
 
-        private const string XmlName_Filter = "Filter";
-
         private const string XmlName_MinCount = "MinCount";
 
-        private const string XmlName_Name = "Name";
-
         private const string XmlName_OwnedOnly = "OwnedOnly";
-
-        private const string XmlName_Prefix = "Prefix";
 
         private const string XmlName_Publisher = "Publisher";
 
@@ -124,11 +118,11 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatDevPub LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
             bool AllDevelopers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllDevelopers], false);
             bool AllPublishers = XmlUtil.GetBoolFromNode(xElement[XmlName_AllPublishers], false);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], null);
             bool owned = XmlUtil.GetBoolFromNode(xElement[XmlName_OwnedOnly], false);
             int count = XmlUtil.GetIntFromNode(xElement[XmlName_MinCount], 0);
 
@@ -257,15 +251,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteElementString(XmlName_OwnedOnly, OwnedOnly.ToString().ToLowerInvariant());

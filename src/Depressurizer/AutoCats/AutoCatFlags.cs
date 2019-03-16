@@ -16,15 +16,9 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatFlags";
 
-        private const string XmlName_Filter = "Filter";
-
         private const string XmlName_Flag = "Flag";
 
         private const string XmlName_FlagList = "Flags";
-
-        private const string XmlName_Name = "Name";
-
-        private const string XmlName_Prefix = "Prefix";
 
         #endregion
 
@@ -72,9 +66,9 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatFlags LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], null);
             List<string> flags = new List<string>();
 
             XmlElement flagListElement = xElement[XmlName_FlagList];
@@ -154,15 +148,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteStartElement(XmlName_FlagList);

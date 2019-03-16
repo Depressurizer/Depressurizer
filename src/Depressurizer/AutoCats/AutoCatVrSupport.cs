@@ -14,19 +14,13 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatVrSupport";
 
-        private const string XmlNameFilter = "Filter";
-
         private const string XmlNameFlag = "Flag";
 
         private const string XmlNameHeadsetsList = "Headsets";
 
         private const string XmlNameInputList = "Input";
 
-        private const string XmlNameName = "Name";
-
         private const string XmlNamePlayAreaList = "PlayArea";
-
-        private const string XmlNamePrefix = "Prefix";
 
         #endregion
 
@@ -85,9 +79,9 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatVrSupport LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], null);
             List<string> headsetsList = new List<string>();
             List<string> inputList = new List<string>();
             List<string> playAreaList = new List<string>();
@@ -213,15 +207,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlNameName, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlNameFilter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlNamePrefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteStartElement(XmlNameHeadsetsList);

@@ -14,8 +14,6 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatLanguage";
 
-        private const string XmlNameFilter = "Filter";
-
         private const string XmlNameFullAudioList = "FullAudio";
 
         private const string XmlNameIncludeTypePrefix = "IncludeTypePrefix";
@@ -23,10 +21,6 @@ namespace Depressurizer.AutoCats
         private const string XmlNameInterfaceList = "Interface";
 
         private const string XmlNameLanguage = "Langauge";
-
-        private const string XmlNameName = "Name";
-
-        private const string XmlNamePrefix = "Prefix";
 
         private const string XmlNameSubtitlesList = "Subtitles";
 
@@ -97,9 +91,9 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatLanguage LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlNameName], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlNameFilter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlNamePrefix], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], null);
             bool includeTypePrefix = XmlUtil.GetBoolFromNode(xElement[XmlNameIncludeTypePrefix], false);
             bool typeFallback = XmlUtil.GetBoolFromNode(xElement[XmlNameTypeFallback], false);
             List<string> interfaceList = new List<string>();
@@ -227,15 +221,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlNameName, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlNameFilter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlNamePrefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteElementString(XmlNameIncludeTypePrefix, IncludeTypePrefix.ToString().ToLowerInvariant());

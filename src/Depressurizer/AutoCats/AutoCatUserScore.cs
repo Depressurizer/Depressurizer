@@ -15,14 +15,6 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatUserScore";
 
-        public const string XmlName_Filter = "Filter";
-
-        public const string XmlName_Name = "Name";
-
-        public const string XmlName_Prefix = "Prefix";
-
-        public const string XmlName_Rule = "Rule";
-
         public const string XmlName_Rule_MaxReviews = "MaxReviews";
 
         public const string XmlName_Rule_MaxScore = "MaxScore";
@@ -88,13 +80,13 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatUserScore LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], string.Empty);
             bool useWilsonScore = XmlUtil.GetBoolFromNode(xElement[XmlName_UseWilsonScore], false);
 
             List<UserScoreRule> rules = new List<UserScoreRule>();
-            XmlNodeList nodeList = xElement.SelectNodes(XmlName_Rule);
+            XmlNodeList nodeList = xElement.SelectNodes(Serialization.Constants.Rule);
             if (nodeList != null)
             {
                 foreach (XmlNode node in nodeList)
@@ -219,22 +211,22 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteElementString(XmlName_UseWilsonScore, UseWilsonScore.ToString().ToLowerInvariant());
 
             foreach (UserScoreRule rule in Rules)
             {
-                writer.WriteStartElement(XmlName_Rule);
+                writer.WriteStartElement(Serialization.Constants.Rule);
                 writer.WriteElementString(XmlName_Rule_Text, rule.Name);
                 writer.WriteElementString(XmlName_Rule_MinScore, rule.MinScore.ToString());
                 writer.WriteElementString(XmlName_Rule_MaxScore, rule.MaxScore.ToString());

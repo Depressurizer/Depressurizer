@@ -19,10 +19,6 @@ namespace Depressurizer.AutoCats
 
         public const string XmlName_GroupNumbers = "GroupNumbers";
 
-        public const string XmlName_Name = "Name";
-
-        public const string XmlName_Prefix = "Prefix";
-
         public const string XmlName_SkipThe = "SkipThe";
 
         #endregion
@@ -69,8 +65,8 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatName LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], null);
             bool skipThe = XmlUtil.GetBoolFromNode(xElement[XmlName_SkipThe], true);
             bool groupNumbers = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNumbers], true);
             bool groupNonEnglishCharacters = XmlUtil.GetBoolFromNode(xElement[XmlName_GroupNonEnglishCharacters], false);
@@ -142,8 +138,8 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
-            writer.WriteElementString(XmlName_Prefix, Prefix);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
+            writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             writer.WriteElementString(XmlName_SkipThe, SkipThe.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_GroupNumbers, GroupNumbers.ToString().ToLowerInvariant());
             writer.WriteElementString(XmlName_GroupNonEnglishCharacters, GroupNonEnglishCharacters.ToString().ToLowerInvariant());

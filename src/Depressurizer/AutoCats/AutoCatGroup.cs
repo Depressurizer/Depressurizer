@@ -19,10 +19,6 @@ namespace Depressurizer.AutoCats
 
         public const string XmlName_Autocats = "Autocats";
 
-        public const string XmlName_Filter = "Filter";
-
-        public const string XmlName_Name = "Name";
-
         #endregion
 
         #region Constructors and Destructors
@@ -82,8 +78,8 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatGroup LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
             List<string> autocats = XmlUtil.GetStringsFromNodeList(xElement.SelectNodes(XmlName_Autocats + "/" + XmlName_Autocat));
 
             return new AutoCatGroup(name, filter, autocats);
@@ -134,10 +130,10 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Autocats != null && Autocats.Count > 0)

@@ -21,12 +21,6 @@ namespace Depressurizer.AutoCats
 
         private const string XmlName_AddList = "Add";
 
-        private const string XmlName_Filter = "Filter";
-
-        private const string XmlName_Name = "Name";
-
-        private const string XmlName_Prefix = "Prefix";
-
         private const string XmlName_RemoveAll = "RemoveAll";
 
         private const string XmlName_RemoveItem = "Category";
@@ -101,10 +95,10 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatManual LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
             bool removeAll = XmlUtil.GetBoolFromNode(xElement[XmlName_RemoveAll], false);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], null);
 
             List<string> remove = new List<string>();
 
@@ -242,15 +236,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteElementString(XmlName_RemoveAll, RemoveAllCategories.ToString().ToLowerInvariant());

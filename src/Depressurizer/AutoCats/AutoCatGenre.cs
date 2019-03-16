@@ -20,17 +20,11 @@ namespace Depressurizer.AutoCats
 
         private const int MAX_PARENT_DEPTH = 3;
 
-        private const string XmlName_Filter = "Filter";
-
         private const string XmlName_IgnoreItem = "Ignore";
 
         private const string XmlName_IgnoreList = "Ignored";
 
         private const string XmlName_MaxCats = "MaxCategories";
-
-        private const string XmlName_Name = "Name";
-
-        private const string XmlName_Prefix = "Prefix";
 
         private const string XmlName_RemOther = "RemoveOthers";
 
@@ -111,12 +105,12 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatGenre LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
             int maxCats = XmlUtil.GetIntFromNode(xElement[XmlName_MaxCats], 0);
             bool remOther = XmlUtil.GetBoolFromNode(xElement[XmlName_RemOther], false);
             bool tagFallback = XmlUtil.GetBoolFromNode(xElement[XmlName_TagFallback], true);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], null);
 
             List<string> ignore = new List<string>();
 
@@ -235,15 +229,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteElementString(XmlName_MaxCats, MaxCategories.ToString());

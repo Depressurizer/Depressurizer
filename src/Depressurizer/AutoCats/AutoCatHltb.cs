@@ -15,15 +15,7 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatHltb";
 
-        public const string XmlName_Filter = "Filter";
-
         public const string XmlName_IncludeUnknown = "IncludeUnknown";
-
-        public const string XmlName_Name = "Name";
-
-        public const string XmlName_Prefix = "Prefix";
-
-        public const string XmlName_Rule = "Rule";
 
         public const string XmlName_Rule_MaxHours = "MaxHours";
 
@@ -94,13 +86,13 @@ namespace Depressurizer.AutoCats
 
         public static AutoCatHltb LoadFromXmlElement(XmlElement xElement)
         {
-            string name = XmlUtil.GetStringFromNode(xElement[XmlName_Name], TypeIdString);
-            string filter = XmlUtil.GetStringFromNode(xElement[XmlName_Filter], null);
-            string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
+            string name = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Name], TypeIdString);
+            string filter = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Filter], null);
+            string prefix = XmlUtil.GetStringFromNode(xElement[Serialization.Constants.Prefix], string.Empty);
             bool includeUnknown = XmlUtil.GetBoolFromNode(xElement[XmlName_IncludeUnknown], false);
             string unknownText = XmlUtil.GetStringFromNode(xElement[XmlName_UnknownText], string.Empty);
 
-            XmlNodeList rulesNodeList = xElement.SelectNodes(XmlName_Rule);
+            XmlNodeList rulesNodeList = xElement.SelectNodes(Serialization.Constants.Rule);
             List<HowLongToBeatRule> rules = new List<HowLongToBeatRule>();
             if (rulesNodeList != null)
             {
@@ -213,15 +205,15 @@ namespace Depressurizer.AutoCats
         {
             writer.WriteStartElement(TypeIdString);
 
-            writer.WriteElementString(XmlName_Name, Name);
+            writer.WriteElementString(Serialization.Constants.Name, Name);
             if (Filter != null)
             {
-                writer.WriteElementString(XmlName_Filter, Filter);
+                writer.WriteElementString(Serialization.Constants.Filter, Filter);
             }
 
             if (Prefix != null)
             {
-                writer.WriteElementString(XmlName_Prefix, Prefix);
+                writer.WriteElementString(Serialization.Constants.Prefix, Prefix);
             }
 
             writer.WriteElementString(XmlName_IncludeUnknown, IncludeUnknown.ToString().ToLowerInvariant());
@@ -229,7 +221,7 @@ namespace Depressurizer.AutoCats
 
             foreach (HowLongToBeatRule rule in Rules)
             {
-                writer.WriteStartElement(XmlName_Rule);
+                writer.WriteStartElement(Serialization.Constants.Rule);
                 writer.WriteElementString(XmlName_Rule_Text, rule.Name);
                 writer.WriteElementString(XmlName_Rule_MinHours, rule.MinHours.ToString());
                 writer.WriteElementString(XmlName_Rule_MaxHours, rule.MaxHours.ToString());
