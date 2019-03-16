@@ -26,18 +26,25 @@ namespace Depressurizer.AutoCats
 
         #endregion
 
-        #region Public Methods and Operators
+        #region Public Properties
 
-        public List<string> GetGroup()
+        public List<string> Groups
         {
-            List<string> group = new List<string>();
-            foreach (string name in lbAutocats.Items)
+            get
             {
-                group.Add(name);
-            }
+                List<string> group = new List<string>();
+                foreach (string name in lbAutocats.Items)
+                {
+                    group.Add(name);
+                }
 
-            return group;
+                return group;
+            }
         }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         public override void LoadFromAutoCat(AutoCat autoCat)
         {
@@ -53,13 +60,12 @@ namespace Depressurizer.AutoCats
 
         public override void SaveToAutoCat(AutoCat autoCat)
         {
-            AutoCatGroup ac = autoCat as AutoCatGroup;
-            if (ac == null)
+            if (!(autoCat is AutoCatGroup ac))
             {
                 return;
             }
 
-            ac.Autocats = GetGroup();
+            ac.Autocats = Groups;
         }
 
         #endregion

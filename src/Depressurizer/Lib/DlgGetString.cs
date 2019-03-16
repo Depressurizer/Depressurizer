@@ -21,11 +21,13 @@ namespace Rallion
 
         public string AcceptButtonText
         {
+            get => cmdOk.Text;
             set => cmdOk.Text = value ?? string.Empty;
         }
 
         public string LabelText
         {
+            get => lblValue.Text;
             set => lblValue.Text = value ?? string.Empty;
         }
 
