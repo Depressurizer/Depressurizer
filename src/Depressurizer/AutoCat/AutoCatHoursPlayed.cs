@@ -75,8 +75,6 @@ namespace Depressurizer
 
         public bool IncludeUnknown { get; set; }
 
-        public string Prefix { get; set; }
-
         #endregion
 
         #region Properties
@@ -101,8 +99,8 @@ namespace Depressurizer
                 foreach (XmlNode node in rulesNodeList)
                 {
                     string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
-                    float ruleMin = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MinHours], 0);
-                    float ruleMax = XmlUtil.GetFloatFromNode(node[XmlName_Rule_MaxHours], 0);
+                    double ruleMin = XmlUtil.GetDoubleFromNode(node[XmlName_Rule_MinHours], 0);
+                    double ruleMax = XmlUtil.GetDoubleFromNode(node[XmlName_Rule_MaxHours], 0);
 
                     rules.Add(new HoursPlayedRule(ruleName, ruleMin, ruleMax));
                 }
@@ -214,7 +212,17 @@ namespace Depressurizer
 
         private static bool CheckRule(HoursPlayedRule rule, double hours)
         {
-            return hours >= rule.MinHours && (hours < rule.MaxHours || (int) rule.MaxHours == 0);
+            if (!(hours >= rule.MinHours))
+            {
+                return false;
+            }
+
+            if (hours < rule.MaxHours)
+            {
+                return true;
+            }
+
+            return Math.Abs(rule.MaxHours) < 0.01;
         }
 
         private string GetCategoryName(string name)

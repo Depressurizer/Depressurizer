@@ -6,7 +6,7 @@ namespace Depressurizer.Core.AutoCats
     {
         #region Constructors and Destructors
 
-        public HoursPlayedRule(string name, float minHours, float maxHours)
+        public HoursPlayedRule(string name, double minHours, double maxHours)
         {
             Name = name;
             MinHours = minHours;
@@ -32,12 +32,12 @@ namespace Depressurizer.Core.AutoCats
         /// <summary>
         ///     Maximum hours played, upper limit of the rule.
         /// </summary>
-        public float MaxHours { get; set; }
+        public double MaxHours { get; set; }
 
         /// <summary>
         ///     Minimum hours played, lower limit of the rule.
         /// </summary>
-        public float MinHours { get; set; }
+        public double MinHours { get; set; }
 
         [XmlElement("Text")]
         public string Name { get; set; }
