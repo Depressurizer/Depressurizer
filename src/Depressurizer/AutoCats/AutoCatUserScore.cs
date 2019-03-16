@@ -2,55 +2,13 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using Depressurizer.Core.AutoCats;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 
 namespace Depressurizer.AutoCats
 {
-    public class UserScore_Rule
-    {
-        #region Constructors and Destructors
-
-        public UserScore_Rule(string name, int minScore, int maxScore, int minReviews, int maxReviews)
-        {
-            Name = name;
-            MinScore = minScore;
-            MaxScore = maxScore;
-            MinReviews = minReviews;
-            MaxReviews = maxReviews;
-        }
-
-        public UserScore_Rule(UserScore_Rule other)
-        {
-            Name = other.Name;
-            MinScore = other.MinScore;
-            MaxScore = other.MaxScore;
-            MinReviews = other.MinReviews;
-            MaxReviews = other.MaxReviews;
-        }
-
-        //XmlSerializer requires a parameterless constructor
-        private UserScore_Rule() { }
-
-        #endregion
-
-        #region Public Properties
-
-        public int MaxReviews { get; set; }
-
-        public int MaxScore { get; set; }
-
-        public int MinReviews { get; set; }
-
-        public int MinScore { get; set; }
-
-        [XmlElement("Text")]
-        public string Name { get; set; }
-
-        #endregion
-    }
-
     public class AutoCatUserScore : AutoCat
     {
         #region Constants
@@ -82,18 +40,18 @@ namespace Depressurizer.AutoCats
         #region Fields
 
         [XmlElement("Rule")]
-        public List<UserScore_Rule> Rules;
+        public List<UserScoreRule> Rules;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public AutoCatUserScore(string name, string filter = null, string prefix = null, bool useWilsonScore = false, List<UserScore_Rule> rules = null, bool selected = false) : base(name)
+        public AutoCatUserScore(string name, string filter = null, string prefix = null, bool useWilsonScore = false, List<UserScoreRule> rules = null, bool selected = false) : base(name)
         {
             Filter = filter;
             Prefix = prefix;
             UseWilsonScore = useWilsonScore;
-            Rules = rules ?? new List<UserScore_Rule>();
+            Rules = rules ?? new List<UserScoreRule>();
             Selected = selected;
         }
 
@@ -102,7 +60,7 @@ namespace Depressurizer.AutoCats
             Filter = other.Filter;
             Prefix = other.Prefix;
             UseWilsonScore = other.UseWilsonScore;
-            Rules = other.Rules.ConvertAll(rule => new UserScore_Rule(rule));
+            Rules = other.Rules.ConvertAll(rule => new UserScoreRule(rule));
             Selected = other.Selected;
         }
 
@@ -135,7 +93,7 @@ namespace Depressurizer.AutoCats
             string prefix = XmlUtil.GetStringFromNode(xElement[XmlName_Prefix], string.Empty);
             bool useWilsonScore = XmlUtil.GetBoolFromNode(xElement[XmlName_UseWilsonScore], false);
 
-            List<UserScore_Rule> rules = new List<UserScore_Rule>();
+            List<UserScoreRule> rules = new List<UserScoreRule>();
             XmlNodeList nodeList = xElement.SelectNodes(XmlName_Rule);
             if (nodeList != null)
             {
@@ -146,7 +104,7 @@ namespace Depressurizer.AutoCats
                     int ruleMax = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxScore], 100);
                     int ruleMinRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinReviews], 0);
                     int ruleMaxRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxReviews], 0);
-                    rules.Add(new UserScore_Rule(ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev));
+                    rules.Add(new UserScoreRule(ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev));
                 }
             }
 
@@ -211,7 +169,7 @@ namespace Depressurizer.AutoCats
             }
 
             string result = null;
-            foreach (UserScore_Rule rule in Rules)
+            foreach (UserScoreRule rule in Rules)
             {
                 if (!CheckRule(rule, score, reviews))
                 {
@@ -242,18 +200,18 @@ namespace Depressurizer.AutoCats
         /// <summary>
         ///     Generates rules that match the Steam Store rating labels
         /// </summary>
-        /// <param name="rules">List of UserScore_Rule objects to populate with the new ones. Should generally be empty.</param>
-        public void GenerateSteamRules(ICollection<UserScore_Rule> rules)
+        /// <param name="rules">List of UserScoreRule objects to populate with the new ones. Should generally be empty.</param>
+        public void GenerateSteamRules(ICollection<UserScoreRule> rules)
         {
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive4, 95, 100, 500, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive3, 85, 100, 50, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive2, 80, 100, 1, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive1, 70, 79, 1, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Mixed, 40, 69, 1, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative1, 20, 39, 1, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative4, 0, 19, 500, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative3, 0, 19, 50, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive4, 95, 100, 500, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive3, 85, 100, 50, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive2, 80, 100, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive1, 70, 79, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Mixed, 40, 69, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative1, 20, 39, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative4, 0, 19, 500, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative3, 0, 19, 50, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0));
         }
 
         /// <inheritdoc />
@@ -274,7 +232,7 @@ namespace Depressurizer.AutoCats
 
             writer.WriteElementString(XmlName_UseWilsonScore, UseWilsonScore.ToString().ToLowerInvariant());
 
-            foreach (UserScore_Rule rule in Rules)
+            foreach (UserScoreRule rule in Rules)
             {
                 writer.WriteStartElement(XmlName_Rule);
                 writer.WriteElementString(XmlName_Rule_Text, rule.Name);
@@ -293,7 +251,7 @@ namespace Depressurizer.AutoCats
 
         #region Methods
 
-        private static bool CheckRule(UserScore_Rule rule, int score, int reviews)
+        private static bool CheckRule(UserScoreRule rule, int score, int reviews)
         {
             return score >= rule.MinScore && score <= rule.MaxScore && rule.MinReviews <= reviews && (rule.MaxReviews == 0 || rule.MaxReviews >= reviews);
         }

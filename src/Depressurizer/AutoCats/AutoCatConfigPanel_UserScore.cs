@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Depressurizer.Core.AutoCats;
 using Depressurizer.Properties;
 
 namespace Depressurizer.AutoCats
@@ -14,7 +15,7 @@ namespace Depressurizer.AutoCats
 
         private readonly Dictionary<string, UserScorePresetDelegate> presetMap = new Dictionary<string, UserScorePresetDelegate>();
 
-        private readonly BindingList<UserScore_Rule> ruleList = new BindingList<UserScore_Rule>();
+        private readonly BindingList<UserScoreRule> ruleList = new BindingList<UserScoreRule>();
 
         #endregion
 
@@ -59,7 +60,7 @@ namespace Depressurizer.AutoCats
 
         #region Delegates
 
-        public delegate void UserScorePresetDelegate(ICollection<UserScore_Rule> rules);
+        public delegate void UserScorePresetDelegate(ICollection<UserScoreRule> rules);
 
         #endregion
 
@@ -68,18 +69,18 @@ namespace Depressurizer.AutoCats
         /// <summary>
         ///     Generates rules that match the Steam Store rating labels
         /// </summary>
-        /// <param name="rules">List of UserScore_Rule objects to populate with the new ones. Should generally be empty.</param>
-        public void GenerateSteamRules(ICollection<UserScore_Rule> rules)
+        /// <param name="rules">List of UserScoreRule objects to populate with the new ones. Should generally be empty.</param>
+        public void GenerateSteamRules(ICollection<UserScoreRule> rules)
         {
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive4, 95, 100, 500, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive3, 85, 100, 50, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive2, 80, 100, 1, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive1, 70, 79, 1, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Mixed, 40, 69, 1, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative1, 20, 39, 1, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative4, 0, 19, 500, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative3, 0, 19, 50, 0));
-            rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive4, 95, 100, 500, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive3, 85, 100, 50, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive2, 80, 100, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Positive1, 70, 79, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Mixed, 40, 69, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative1, 20, 39, 1, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative4, 0, 19, 500, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative3, 0, 19, 50, 0));
+            rules.Add(new UserScoreRule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0));
         }
 
         public override void LoadFromAutoCat(AutoCat autoCat)
@@ -94,9 +95,9 @@ namespace Depressurizer.AutoCats
             chkUseWilsonScore.Checked = acScore.UseWilsonScore;
 
             ruleList.Clear();
-            foreach (UserScore_Rule rule in acScore.Rules)
+            foreach (UserScoreRule rule in acScore.Rules)
             {
-                ruleList.Add(new UserScore_Rule(rule));
+                ruleList.Add(new UserScoreRule(rule));
             }
 
             UpdateEnabledSettings();
@@ -112,7 +113,7 @@ namespace Depressurizer.AutoCats
 
             acScore.Prefix = txtPrefix.Text;
             acScore.UseWilsonScore = chkUseWilsonScore.Checked;
-            acScore.Rules = new List<UserScore_Rule>(ruleList);
+            acScore.Rules = new List<UserScoreRule>(ruleList);
         }
 
         #endregion
@@ -124,7 +125,7 @@ namespace Depressurizer.AutoCats
         /// </summary>
         private void AddRule()
         {
-            UserScore_Rule newRule = new UserScore_Rule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 100, 0, 0);
+            UserScoreRule newRule = new UserScoreRule(GlobalStrings.AutoCatUserScore_NewRuleName, 0, 100, 0, 0);
             ruleList.Add(newRule);
             lstRules.SelectedIndex = lstRules.Items.Count - 1;
         }
@@ -193,7 +194,7 @@ namespace Depressurizer.AutoCats
                 return;
             }
 
-            UserScore_Rule mainItem = ruleList[mainIndex];
+            UserScoreRule mainItem = ruleList[mainIndex];
             ruleList[mainIndex] = ruleList[alterIndex];
             ruleList[alterIndex] = mainItem;
             if (selectMoved)
