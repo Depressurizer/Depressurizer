@@ -95,22 +95,22 @@ namespace Depressurizer.AutoCats
             AppPlatforms platforms = entry.Platforms;
             if (Windows && platforms.HasFlag(AppPlatforms.Windows))
             {
-                game.AddCategory(games.GetCategory(GetProcessedString("Windows")));
+                game.AddCategory(games.GetCategory(GetCategoryName("Windows")));
             }
 
             if (Mac && platforms.HasFlag(AppPlatforms.Mac))
             {
-                game.AddCategory(games.GetCategory(GetProcessedString("Mac")));
+                game.AddCategory(games.GetCategory(GetCategoryName("Mac")));
             }
 
             if (Linux && platforms.HasFlag(AppPlatforms.Linux))
             {
-                game.AddCategory(games.GetCategory(GetProcessedString("Linux")));
+                game.AddCategory(games.GetCategory(GetCategoryName("Linux")));
             }
 
             if (Linux && platforms.HasFlag(AppPlatforms.Linux))
             {
-                game.AddCategory(games.GetCategory(GetProcessedString("SteamOS")));
+                game.AddCategory(games.GetCategory(GetCategoryName("SteamOS")));
             }
 
             return AutoCatResult.Success;

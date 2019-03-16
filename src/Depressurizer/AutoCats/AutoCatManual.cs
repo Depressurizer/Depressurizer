@@ -15,10 +15,23 @@ namespace Depressurizer.AutoCats
     {
         #region Constants
 
-        // Serialization keys
         public const string TypeIdString = "AutoCatManual";
 
-        private const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_RemoveAll = "RemoveAll", XmlName_Prefix = "Prefix", XmlName_RemoveList = "Remove", XmlName_RemoveItem = "Category", XmlName_AddList = "Add", XmlName_AddItem = "Category";
+        private const string XmlName_AddItem = "Category";
+
+        private const string XmlName_AddList = "Add";
+
+        private const string XmlName_Filter = "Filter";
+
+        private const string XmlName_Name = "Name";
+
+        private const string XmlName_Prefix = "Prefix";
+
+        private const string XmlName_RemoveAll = "RemoveAll";
+
+        private const string XmlName_RemoveItem = "Category";
+
+        private const string XmlName_RemoveList = "Remove";
 
         #endregion
 
@@ -39,8 +52,8 @@ namespace Depressurizer.AutoCats
             Filter = filter;
             Prefix = prefix;
             RemoveAllCategories = removeAll;
-            RemoveCategories = remove == null ? new List<string>() : remove;
-            AddCategories = add == null ? new List<string>() : add;
+            RemoveCategories = remove ?? new List<string>();
+            AddCategories = add ?? new List<string>();
             Selected = selected;
         }
 
@@ -65,9 +78,8 @@ namespace Depressurizer.AutoCats
         [XmlArrayItem("Category")]
         public List<string> AddCategories { get; set; }
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.Manual;
-
-        public string Prefix { get; set; }
 
         // Autocat configuration
         [XmlElement("RemoveAll")]
@@ -97,9 +109,9 @@ namespace Depressurizer.AutoCats
             List<string> remove = new List<string>();
 
             XmlElement removeListElement = xElement[XmlName_RemoveList];
-            if (removeListElement != null)
+            XmlNodeList removeNodes = removeListElement?.SelectNodes(XmlName_RemoveItem);
+            if (removeNodes != null)
             {
-                XmlNodeList removeNodes = removeListElement.SelectNodes(XmlName_RemoveItem);
                 foreach (XmlNode node in removeNodes)
                 {
                     if (XmlUtil.TryGetStringFromNode(node, out string s))
@@ -112,9 +124,9 @@ namespace Depressurizer.AutoCats
             List<string> add = new List<string>();
 
             XmlElement addListElement = xElement[XmlName_AddList];
-            if (addListElement != null)
+            XmlNodeList addNodes = addListElement?.SelectNodes(XmlName_AddItem);
+            if (addNodes != null)
             {
-                XmlNodeList addNodes = addListElement.SelectNodes(XmlName_AddItem);
                 foreach (XmlNode node in addNodes)
                 {
                     if (XmlUtil.TryGetStringFromNode(node, out string s))
@@ -128,6 +140,7 @@ namespace Depressurizer.AutoCats
             return result;
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -169,11 +182,13 @@ namespace Depressurizer.AutoCats
                 foreach (string category in RemoveCategories)
                 {
                     Category c = gamelist.GetCategory(category);
-                    if (game.ContainsCategory(c))
+                    if (!game.ContainsCategory(c))
                     {
-                        game.RemoveCategory(c);
-                        removed.Add(c);
+                        continue;
                     }
+
+                    game.RemoveCategory(c);
+                    removed.Add(c);
                 }
 
                 foreach (Category c in removed)
@@ -185,23 +200,27 @@ namespace Depressurizer.AutoCats
                 }
             }
 
-            if (AddCategories != null)
+            if (AddCategories == null)
             {
-                foreach (string category in AddCategories)
-                    // add Category, or create it if it doesn't exist
-                {
-                    game.AddCategory(gamelist.GetCategory(GetProcessedString(category)));
-                }
+                return AutoCatResult.Success;
+            }
+
+            foreach (string category in AddCategories)
+                // add Category, or create it if it doesn't exist
+            {
+                game.AddCategory(gamelist.GetCategory(GetCategoryName(category)));
             }
 
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatManual(this);
         }
 
+        /// <inheritdoc />
         public override void DeProcess()
         {
             base.DeProcess();
@@ -218,6 +237,7 @@ namespace Depressurizer.AutoCats
             gamelist = games;
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);
@@ -252,20 +272,6 @@ namespace Depressurizer.AutoCats
             writer.WriteEndElement();
 
             writer.WriteEndElement();
-        }
-
-        #endregion
-
-        #region Methods
-
-        private string GetProcessedString(string baseString)
-        {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-
-            return Prefix + baseString;
         }
 
         #endregion

@@ -219,14 +219,14 @@ namespace Depressurizer.AutoCats
             db = null;
         }
 
-        public virtual string GetProcessedString(string s)
+        public virtual string GetCategoryName(string name)
         {
             if (string.IsNullOrEmpty(Prefix))
             {
-                return s;
+                return name;
             }
 
-            return Prefix + s;
+            return Prefix + name;
         }
 
         /// <summary>

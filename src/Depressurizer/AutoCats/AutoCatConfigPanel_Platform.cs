@@ -22,7 +22,7 @@
                 return;
             }
 
-            txtPrefix.Text = acPlatform.Prefix == null ? string.Empty : acPlatform.Prefix;
+            txtPrefix.Text = acPlatform.Prefix ?? string.Empty;
             chkboxPlatforms.SetItemChecked(0, acPlatform.Windows);
             chkboxPlatforms.SetItemChecked(1, acPlatform.Mac);
             chkboxPlatforms.SetItemChecked(2, acPlatform.Linux);

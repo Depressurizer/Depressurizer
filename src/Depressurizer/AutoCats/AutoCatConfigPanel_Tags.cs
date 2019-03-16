@@ -97,7 +97,7 @@ namespace Depressurizer.AutoCats
                 return;
             }
 
-            txtPrefix.Text = ac.Prefix == null ? string.Empty : ac.Prefix;
+            txtPrefix.Text = ac.Prefix ?? string.Empty;
             numMaxTags.Value = ac.MaxTags;
 
             list_numMinScore.Value = ac.List_MinScore;

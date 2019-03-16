@@ -32,7 +32,7 @@ namespace Depressurizer.AutoCats
             Filter = filter;
             CategoryName = categoryName;
             CuratorUrl = curatorUrl;
-            IncludedRecommendations = includedRecommendations == null ? new List<CuratorRecommendation>() : includedRecommendations;
+            IncludedRecommendations = includedRecommendations ?? new List<CuratorRecommendation>();
             Selected = selected;
         }
 
@@ -41,7 +41,7 @@ namespace Depressurizer.AutoCats
             Filter = other.Filter;
             CategoryName = other.CategoryName;
             CuratorUrl = other.CuratorUrl;
-            IncludedRecommendations = other.IncludedRecommendations == null ? new List<CuratorRecommendation>() : other.IncludedRecommendations;
+            IncludedRecommendations = other.IncludedRecommendations ?? new List<CuratorRecommendation>();
             Selected = other.Selected;
         }
 
@@ -107,11 +107,13 @@ namespace Depressurizer.AutoCats
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatCurator(this);
         }
 
+        /// <inheritdoc />
         public override void PreProcess(GameList games, Database db)
         {
             this.games = games;
@@ -126,12 +128,12 @@ namespace Depressurizer.AutoCats
 
         private string GetProcessedString(string type)
         {
-            if (!string.IsNullOrEmpty(CategoryName))
+            if (string.IsNullOrEmpty(CategoryName))
             {
-                return CategoryName.Replace("{type}", type);
+                return type;
             }
 
-            return type;
+            return CategoryName.Replace("{type}", type);
         }
 
         private void GetRecommendations()

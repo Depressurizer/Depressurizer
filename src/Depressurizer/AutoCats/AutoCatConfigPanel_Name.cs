@@ -22,7 +22,7 @@
                 return;
             }
 
-            txtPrefix.Text = acName.Prefix == null ? string.Empty : acName.Prefix;
+            txtPrefix.Text = acName.Prefix ?? string.Empty;
             cbSkipThe.Checked = acName.SkipThe;
             cbGroupNumbers.Checked = acName.GroupNumbers;
             chkgroupNonEnglishCharacters.Checked = acName.GroupNonEnglishCharacters;

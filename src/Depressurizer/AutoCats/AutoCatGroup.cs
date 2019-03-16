@@ -15,7 +15,13 @@ namespace Depressurizer.AutoCats
         // Serialization strings
         public const string TypeIdString = "AutoCatGroup";
 
-        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Autocats = "Autocats", XmlName_Autocat = "Autocat";
+        public const string XmlName_Autocat = "Autocat";
+
+        public const string XmlName_Autocats = "Autocats";
+
+        public const string XmlName_Filter = "Filter";
+
+        public const string XmlName_Name = "Name";
 
         #endregion
 
@@ -24,7 +30,7 @@ namespace Depressurizer.AutoCats
         public AutoCatGroup(string name, string filter = null, List<string> autocats = null, bool selected = false) : base(name)
         {
             Filter = filter;
-            Autocats = autocats == null ? new List<string>() : autocats;
+            Autocats = autocats ?? new List<string>();
             Selected = selected;
         }
 
@@ -46,9 +52,10 @@ namespace Depressurizer.AutoCats
         [XmlArrayItem("Autocat")]
         public List<string> Autocats { get; set; }
 
-        // Meta properies
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.Group;
 
+        /// <inheritdoc />
         public override string DisplayName
         {
             get
@@ -82,6 +89,7 @@ namespace Depressurizer.AutoCats
             return new AutoCatGroup(name, filter, autocats);
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -115,11 +123,13 @@ namespace Depressurizer.AutoCats
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatGroup(this);
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);

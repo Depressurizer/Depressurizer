@@ -17,10 +17,29 @@ namespace Depressurizer.AutoCats
     {
         #region Constants
 
-        // Serialization keys
         public const string TypeIdString = "AutoCatDevPub";
 
-        private const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_AllDevelopers = "AllDevelopers", XmlName_AllPublishers = "AllPublishers", XmlName_Prefix = "Prefix", XmlName_OwnedOnly = "OwnedOnly", XmlName_MinCount = "MinCount", XmlName_Developers = "Developers", XmlName_Developer = "Developer", XmlName_Publishers = "Publishers", XmlName_Publisher = "Publisher";
+        private const string XmlName_AllDevelopers = "AllDevelopers";
+
+        private const string XmlName_AllPublishers = "AllPublishers";
+
+        private const string XmlName_Developer = "Developer";
+
+        private const string XmlName_Developers = "Developers";
+
+        private const string XmlName_Filter = "Filter";
+
+        private const string XmlName_MinCount = "MinCount";
+
+        private const string XmlName_Name = "Name";
+
+        private const string XmlName_OwnedOnly = "OwnedOnly";
+
+        private const string XmlName_Prefix = "Prefix";
+
+        private const string XmlName_Publisher = "Publisher";
+
+        private const string XmlName_Publishers = "Publishers";
 
         #endregion
 
@@ -48,8 +67,8 @@ namespace Depressurizer.AutoCats
             MinCount = count;
             AllDevelopers = developersAll;
             AllPublishers = publishersAll;
-            Developers = developers == null ? new List<string>() : developers;
-            Publishers = publishers == null ? new List<string>() : publishers;
+            Developers = developers ?? new List<string>();
+            Publishers = publishers ?? new List<string>();
             Selected = selected;
         }
 
@@ -78,6 +97,7 @@ namespace Depressurizer.AutoCats
 
         public bool AllPublishers { get; set; }
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.DevPub;
 
         [XmlArrayItem("Developer")]
@@ -86,8 +106,6 @@ namespace Depressurizer.AutoCats
         public int MinCount { get; set; }
 
         public bool OwnedOnly { get; set; }
-
-        public string Prefix { get; set; }
 
         [XmlArrayItem("Publisher")]
         public List<string> Publishers { get; set; }
@@ -148,6 +166,7 @@ namespace Depressurizer.AutoCats
             return result;
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -188,7 +207,7 @@ namespace Depressurizer.AutoCats
 
                 if (DevCount(developer) >= MinCount)
                 {
-                    game.AddCategory(games.GetCategory(GetProcessedString(developer)));
+                    game.AddCategory(games.GetCategory(GetCategoryName(developer)));
                 }
             }
 
@@ -202,18 +221,20 @@ namespace Depressurizer.AutoCats
 
                 if (PubCount(publisher) >= MinCount)
                 {
-                    game.AddCategory(games.GetCategory(GetProcessedString(publisher)));
+                    game.AddCategory(games.GetCategory(GetCategoryName(publisher)));
                 }
             }
 
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatDevPub(this);
         }
 
+        /// <inheritdoc />
         public override void DeProcess()
         {
             base.DeProcess();
@@ -284,16 +305,6 @@ namespace Depressurizer.AutoCats
         private int DevCount(string name)
         {
             return devList.Where(dev => dev.Key == name).Select(dev => dev.Value).FirstOrDefault();
-        }
-
-        private string GetProcessedString(string baseString)
-        {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-
-            return Prefix + baseString;
         }
 
         private int PubCount(string name)

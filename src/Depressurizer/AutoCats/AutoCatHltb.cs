@@ -80,8 +80,6 @@ namespace Depressurizer.AutoCats
 
         public bool IncludeUnknown { get; set; }
 
-        public string Prefix { get; set; }
-
         public string UnknownText { get; set; }
 
         #endregion
@@ -204,11 +202,13 @@ namespace Depressurizer.AutoCats
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatHltb(this);
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);
@@ -269,16 +269,6 @@ namespace Depressurizer.AutoCats
             }
 
             return hours >= rule.MinHours && (hours <= rule.MaxHours || rule.MaxHours == 0.0f);
-        }
-
-        private string GetCategoryName(string name)
-        {
-            if (string.IsNullOrWhiteSpace(Prefix))
-            {
-                return name;
-            }
-
-            return Prefix + name;
         }
 
         #endregion

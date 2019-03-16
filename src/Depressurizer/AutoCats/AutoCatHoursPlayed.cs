@@ -225,16 +225,6 @@ namespace Depressurizer.AutoCats
             return Math.Abs(rule.MaxHours) < 0.01;
         }
 
-        private string GetCategoryName(string name)
-        {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return name;
-            }
-
-            return Prefix + name;
-        }
-
         #endregion
     }
 }

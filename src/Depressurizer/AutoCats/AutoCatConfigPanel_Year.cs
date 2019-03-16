@@ -25,9 +25,9 @@ namespace Depressurizer.AutoCats
                 return;
             }
 
-            txtPrefix.Text = acYear.Prefix == null ? string.Empty : acYear.Prefix;
+            txtPrefix.Text = acYear.Prefix ?? string.Empty;
             chkIncludeUnknown.Checked = acYear.IncludeUnknown;
-            txtUnknownText.Text = acYear.UnknownText == null ? string.Empty : acYear.UnknownText;
+            txtUnknownText.Text = acYear.UnknownText ?? string.Empty;
             switch (acYear.GroupingMode)
             {
                 case AutoCatYearGrouping.Decade:

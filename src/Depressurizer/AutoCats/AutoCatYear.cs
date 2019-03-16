@@ -10,10 +10,19 @@ namespace Depressurizer.AutoCats
     {
         #region Constants
 
-        // Serialization strings
         public const string TypeIdString = "AutoCatYear";
 
-        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_IncludeUnknown = "IncludeUnknown", XmlName_UnknownText = "UnknownText", XmlName_GroupingMode = "GroupingMode";
+        public const string XmlName_Filter = "Filter";
+
+        public const string XmlName_GroupingMode = "GroupingMode";
+
+        public const string XmlName_IncludeUnknown = "IncludeUnknown";
+
+        public const string XmlName_Name = "Name";
+
+        public const string XmlName_Prefix = "Prefix";
+
+        public const string XmlName_UnknownText = "UnknownText";
 
         #endregion
 
@@ -46,15 +55,12 @@ namespace Depressurizer.AutoCats
 
         #region Public Properties
 
-        // Meta properies
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.Year;
 
         public AutoCatYearGrouping GroupingMode { get; set; }
 
         public bool IncludeUnknown { get; set; }
-
-        // Autocat configuration properties
-        public string Prefix { get; set; }
 
         public string UnknownText { get; set; }
 
@@ -80,6 +86,7 @@ namespace Depressurizer.AutoCats
             return new AutoCatYear(name, filter, prefix, includeUnknown, unknownText, groupMode);
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -119,11 +126,13 @@ namespace Depressurizer.AutoCats
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatYear(this);
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);
@@ -149,6 +158,12 @@ namespace Depressurizer.AutoCats
         #endregion
 
         #region Methods
+
+        private static string GetRangeString(int year, int rangeSize)
+        {
+            int first = year - year % rangeSize;
+            return $"{first}-{first + rangeSize - 1}";
+        }
 
         private string GetProcessedString(int year)
         {
@@ -179,12 +194,6 @@ namespace Depressurizer.AutoCats
             }
 
             return Prefix + result;
-        }
-
-        private string GetRangeString(int year, int rangeSize)
-        {
-            int first = year - year % rangeSize;
-            return $"{first}-{first + rangeSize - 1}";
         }
 
         #endregion

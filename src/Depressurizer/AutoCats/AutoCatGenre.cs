@@ -16,12 +16,25 @@ namespace Depressurizer.AutoCats
     {
         #region Constants
 
-        // Serialization keys
         public const string TypeIdString = "AutoCatGenre";
 
         private const int MAX_PARENT_DEPTH = 3;
 
-        private const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_RemOther = "RemoveOthers", XmlName_TagFallback = "TagFallback", XmlName_MaxCats = "MaxCategories", XmlName_Prefix = "Prefix", XmlName_IgnoreList = "Ignored", XmlName_IgnoreItem = "Ignore";
+        private const string XmlName_Filter = "Filter";
+
+        private const string XmlName_IgnoreItem = "Ignore";
+
+        private const string XmlName_IgnoreList = "Ignored";
+
+        private const string XmlName_MaxCats = "MaxCategories";
+
+        private const string XmlName_Name = "Name";
+
+        private const string XmlName_Prefix = "Prefix";
+
+        private const string XmlName_RemOther = "RemoveOthers";
+
+        private const string XmlName_TagFallback = "TagFallback";
 
         #endregion
 
@@ -50,7 +63,7 @@ namespace Depressurizer.AutoCats
             RemoveOtherGenres = removeOthers;
             TagFallback = tagFallback;
             Prefix = prefix;
-            IgnoredGenres = ignore == null ? new List<string>() : ignore;
+            IgnoredGenres = ignore ?? new List<string>();
             Selected = selected;
         }
 
@@ -81,8 +94,6 @@ namespace Depressurizer.AutoCats
         // Autocat configuration
         public int MaxCategories { get; set; }
 
-        public string Prefix { get; set; }
-
         [XmlElement("RemoveOthers")]
         public bool RemoveOtherGenres { get; set; }
 
@@ -110,9 +121,9 @@ namespace Depressurizer.AutoCats
             List<string> ignore = new List<string>();
 
             XmlElement ignoreListElement = xElement[XmlName_IgnoreList];
-            if (ignoreListElement != null)
+            XmlNodeList ignoreNodes = ignoreListElement?.SelectNodes(XmlName_IgnoreItem);
+            if (ignoreNodes != null)
             {
-                XmlNodeList ignoreNodes = ignoreListElement.SelectNodes(XmlName_IgnoreItem);
                 foreach (XmlNode node in ignoreNodes)
                 {
                     if (XmlUtil.TryGetStringFromNode(node, out string s))
@@ -126,6 +137,7 @@ namespace Depressurizer.AutoCats
             return result;
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -169,7 +181,7 @@ namespace Depressurizer.AutoCats
             {
                 if (!IgnoredGenres.Contains(genreList[i]))
                 {
-                    categories.Add(games.GetCategory(GetProcessedString(genreList[i])));
+                    categories.Add(games.GetCategory(GetCategoryName(genreList[i])));
                 }
                 else
                 {
@@ -182,11 +194,13 @@ namespace Depressurizer.AutoCats
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatGenre(this);
         }
 
+        /// <inheritdoc />
         public override void DeProcess()
         {
             base.DeProcess();
@@ -216,6 +230,7 @@ namespace Depressurizer.AutoCats
             }
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);
@@ -245,20 +260,6 @@ namespace Depressurizer.AutoCats
             writer.WriteEndElement();
 
             writer.WriteEndElement();
-        }
-
-        #endregion
-
-        #region Methods
-
-        private string GetProcessedString(string baseString)
-        {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-
-            return Prefix + baseString;
         }
 
         #endregion

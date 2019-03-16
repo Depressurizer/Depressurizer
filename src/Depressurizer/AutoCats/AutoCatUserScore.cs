@@ -57,7 +57,25 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatUserScore";
 
-        public const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_UseWilsonScore = "UseWilsonScore", XmlName_Rule = "Rule", XmlName_Rule_Text = "Text", XmlName_Rule_MinScore = "MinScore", XmlName_Rule_MaxScore = "MaxScore", XmlName_Rule_MinReviews = "MinReviews", XmlName_Rule_MaxReviews = "MaxReviews";
+        public const string XmlName_Filter = "Filter";
+
+        public const string XmlName_Name = "Name";
+
+        public const string XmlName_Prefix = "Prefix";
+
+        public const string XmlName_Rule = "Rule";
+
+        public const string XmlName_Rule_MaxReviews = "MaxReviews";
+
+        public const string XmlName_Rule_MaxScore = "MaxScore";
+
+        public const string XmlName_Rule_MinReviews = "MinReviews";
+
+        public const string XmlName_Rule_MinScore = "MinScore";
+
+        public const string XmlName_Rule_Text = "Text";
+
+        public const string XmlName_UseWilsonScore = "UseWilsonScore";
 
         #endregion
 
@@ -75,7 +93,7 @@ namespace Depressurizer.AutoCats
             Filter = filter;
             Prefix = prefix;
             UseWilsonScore = useWilsonScore;
-            Rules = rules == null ? new List<UserScore_Rule>() : rules;
+            Rules = rules ?? new List<UserScore_Rule>();
             Selected = selected;
         }
 
@@ -95,9 +113,8 @@ namespace Depressurizer.AutoCats
 
         #region Public Properties
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.UserScore;
-
-        public string Prefix { get; set; }
 
         public bool UseWilsonScore { get; set; }
 
@@ -119,23 +136,29 @@ namespace Depressurizer.AutoCats
             bool useWilsonScore = XmlUtil.GetBoolFromNode(xElement[XmlName_UseWilsonScore], false);
 
             List<UserScore_Rule> rules = new List<UserScore_Rule>();
-            foreach (XmlNode node in xElement.SelectNodes(XmlName_Rule))
+            XmlNodeList nodeList = xElement.SelectNodes(XmlName_Rule);
+            if (nodeList != null)
             {
-                string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
-                int ruleMin = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinScore], 0);
-                int ruleMax = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxScore], 100);
-                int ruleMinRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinReviews], 0);
-                int ruleMaxRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxReviews], 0);
-                rules.Add(new UserScore_Rule(ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev));
+                foreach (XmlNode node in nodeList)
+                {
+                    string ruleName = XmlUtil.GetStringFromNode(node[XmlName_Rule_Text], string.Empty);
+                    int ruleMin = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinScore], 0);
+                    int ruleMax = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxScore], 100);
+                    int ruleMinRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MinReviews], 0);
+                    int ruleMaxRev = XmlUtil.GetIntFromNode(node[XmlName_Rule_MaxReviews], 0);
+                    rules.Add(new UserScore_Rule(ruleName, ruleMin, ruleMax, ruleMinRev, ruleMaxRev));
+                }
             }
 
             AutoCatUserScore result = new AutoCatUserScore(name, filter, prefix, useWilsonScore)
             {
                 Rules = rules
             };
+
             return result;
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -190,22 +213,27 @@ namespace Depressurizer.AutoCats
             string result = null;
             foreach (UserScore_Rule rule in Rules)
             {
-                if (CheckRule(rule, score, reviews))
+                if (!CheckRule(rule, score, reviews))
                 {
-                    result = rule.Name;
-                    break;
+                    continue;
                 }
+
+                result = rule.Name;
+                break;
             }
 
-            if (result != null)
+            if (result == null)
             {
-                result = GetProcessedString(result);
-                game.AddCategory(games.GetCategory(result));
+                return AutoCatResult.Success;
             }
+
+            result = GetCategoryName(result);
+            game.AddCategory(games.GetCategory(result));
 
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatUserScore(this);
@@ -228,6 +256,7 @@ namespace Depressurizer.AutoCats
             rules.Add(new UserScore_Rule(GlobalStrings.AutoCatUserScore_Preset_Steam_Negative2, 0, 19, 1, 0));
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);
@@ -264,19 +293,9 @@ namespace Depressurizer.AutoCats
 
         #region Methods
 
-        private bool CheckRule(UserScore_Rule rule, int score, int reviews)
+        private static bool CheckRule(UserScore_Rule rule, int score, int reviews)
         {
             return score >= rule.MinScore && score <= rule.MaxScore && rule.MinReviews <= reviews && (rule.MaxReviews == 0 || rule.MaxReviews >= reviews);
-        }
-
-        private string GetProcessedString(string s)
-        {
-            if (!string.IsNullOrEmpty(Prefix))
-            {
-                return Prefix + s;
-            }
-
-            return s;
         }
 
         #endregion

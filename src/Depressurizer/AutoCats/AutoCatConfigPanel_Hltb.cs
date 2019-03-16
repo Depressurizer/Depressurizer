@@ -69,7 +69,7 @@ namespace Depressurizer.AutoCats
 
             txtPrefix.Text = acHltb.Prefix;
             chkIncludeUnknown.Checked = acHltb.IncludeUnknown;
-            txtUnknownText.Text = acHltb.UnknownText == null ? string.Empty : acHltb.UnknownText;
+            txtUnknownText.Text = acHltb.UnknownText ?? string.Empty;
             acHltb.IncludeUnknown = chkIncludeUnknown.Checked;
             acHltb.UnknownText = txtUnknownText.Text;
 

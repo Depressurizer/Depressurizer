@@ -12,7 +12,6 @@ namespace Depressurizer.AutoCats
     {
         #region Constants
 
-        // Serialization constants
         public const string TypeIdString = "AutoCatVrSupport";
 
         private const string XmlNameFilter = "Filter";
@@ -65,6 +64,7 @@ namespace Depressurizer.AutoCats
 
         #region Public Properties
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.VrSupport;
 
         public VRSupport IncludedVRSupportFlags
@@ -72,9 +72,6 @@ namespace Depressurizer.AutoCats
             get => _includedVrSupportFlags ?? (_includedVrSupportFlags = new VRSupport());
             set => _includedVrSupportFlags = value;
         }
-
-        // AutoCat configuration
-        public string Prefix { get; set; }
 
         #endregion
 
@@ -126,21 +123,24 @@ namespace Depressurizer.AutoCats
             }
 
             XmlNodeList playAreaElements = playArea?.SelectNodes(XmlNameFlag);
-            if (playAreaElements != null)
+            if (playAreaElements == null)
             {
-                for (int i = 0; i < playAreaElements.Count; i++)
+                return new AutoCatVrSupport(name, filter, prefix, headsetsList, inputList, playAreaList);
+            }
+
+            for (int i = 0; i < playAreaElements.Count; i++)
+            {
+                XmlNode n = playAreaElements[i];
+                if (XmlUtil.TryGetStringFromNode(n, out string flag))
                 {
-                    XmlNode n = playAreaElements[i];
-                    if (XmlUtil.TryGetStringFromNode(n, out string flag))
-                    {
-                        playAreaList.Add(flag);
-                    }
+                    playAreaList.Add(flag);
                 }
             }
 
             return new AutoCatVrSupport(name, filter, prefix, headsetsList, inputList, playAreaList);
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -183,30 +183,32 @@ namespace Depressurizer.AutoCats
 
             foreach (string catString in headsets)
             {
-                Category c = games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetCategoryName(catString));
                 game.AddCategory(c);
             }
 
             foreach (string catString in input)
             {
-                Category c = games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetCategoryName(catString));
                 game.AddCategory(c);
             }
 
             foreach (string catString in playArea)
             {
-                Category c = games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetCategoryName(catString));
                 game.AddCategory(c);
             }
 
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatVrSupport(this);
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);
@@ -249,20 +251,6 @@ namespace Depressurizer.AutoCats
 
             writer.WriteEndElement(); // VR Play Area list
             writer.WriteEndElement(); // type ID string
-        }
-
-        #endregion
-
-        #region Methods
-
-        private string GetProcessedString(string baseString)
-        {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-
-            return Prefix + baseString;
         }
 
         #endregion

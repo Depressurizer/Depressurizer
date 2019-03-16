@@ -15,7 +15,29 @@ namespace Depressurizer.AutoCats
 
         public const string TypeIdString = "AutoCatTags";
 
-        private const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_TagList = "Tags", XmlName_Tag = "Tag", XmlName_MaxTags = "MaxTags", XmlName_ListOwnedOnly = "List_OwnedOnly", XmlName_ListWeightFactor = "List_WeightedScore", XmlName_ListMinScore = "List_MinScore", XmlName_ListTagsPerGame = "List_TagsPerGame", XmlName_ListExcludeGenres = "List_ExcludeGenres", XmlName_ListScoreSort = "List_ScoreSort";
+        private const string XmlName_Filter = "Filter";
+
+        private const string XmlName_ListExcludeGenres = "List_ExcludeGenres";
+
+        private const string XmlName_ListMinScore = "List_MinScore";
+
+        private const string XmlName_ListOwnedOnly = "List_OwnedOnly";
+
+        private const string XmlName_ListScoreSort = "List_ScoreSort";
+
+        private const string XmlName_ListTagsPerGame = "List_TagsPerGame";
+
+        private const string XmlName_ListWeightFactor = "List_WeightedScore";
+
+        private const string XmlName_MaxTags = "MaxTags";
+
+        private const string XmlName_Name = "Name";
+
+        private const string XmlName_Prefix = "Prefix";
+
+        private const string XmlName_Tag = "Tag";
+
+        private const string XmlName_TagList = "Tags";
 
         #endregion
 
@@ -26,14 +48,7 @@ namespace Depressurizer.AutoCats
             Filter = filter;
             Prefix = prefix;
 
-            if (tags == null)
-            {
-                IncludedTags = new HashSet<string>();
-            }
-            else
-            {
-                IncludedTags = tags;
-            }
+            IncludedTags = tags ?? new HashSet<string>();
 
             MaxTags = maxTags;
             List_OwnedOnly = listOwnedOnly;
@@ -68,6 +83,7 @@ namespace Depressurizer.AutoCats
 
         #region Public Properties
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.Tags;
 
         [XmlArray("Tags")]
@@ -87,8 +103,6 @@ namespace Depressurizer.AutoCats
         public float List_WeightFactor { get; set; }
 
         public int MaxTags { get; set; }
-
-        public string Prefix { get; set; }
 
         #endregion
 
@@ -155,6 +169,7 @@ namespace Depressurizer.AutoCats
             return result;
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -195,28 +210,20 @@ namespace Depressurizer.AutoCats
                     continue;
                 }
 
-                game.AddCategory(games.GetCategory(GetProcessedString(gameTags[index])));
+                game.AddCategory(games.GetCategory(GetCategoryName(gameTags[index])));
                 added++;
             }
 
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatTags(this);
         }
 
-        public string GetProcessedString(string s)
-        {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return s;
-            }
-
-            return Prefix + s;
-        }
-
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);

@@ -12,7 +12,6 @@ namespace Depressurizer.AutoCats
     {
         #region Constants
 
-        // Serialization constants
         public const string TypeIdString = "AutoCatLanguage";
 
         private const string XmlNameFilter = "Filter";
@@ -73,6 +72,7 @@ namespace Depressurizer.AutoCats
 
         #region Public Properties
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.Language;
 
         public LanguageSupport IncludedLanguages
@@ -82,9 +82,6 @@ namespace Depressurizer.AutoCats
         }
 
         public bool IncludeTypePrefix { get; set; }
-
-        // AutoCat configuration
-        public string Prefix { get; set; }
 
         public bool TypeFallback { get; set; }
 
@@ -140,15 +137,17 @@ namespace Depressurizer.AutoCats
             }
 
             XmlNodeList fullAudioElements = fullAudio?.SelectNodes(XmlNameLanguage);
-            if (fullAudioElements != null)
+            if (fullAudioElements == null)
             {
-                for (int i = 0; i < fullAudioElements.Count; i++)
+                return new AutoCatLanguage(name, filter, prefix, includeTypePrefix, typeFallback, interfaceList, subtitlesList, fullAudioList);
+            }
+
+            for (int i = 0; i < fullAudioElements.Count; i++)
+            {
+                XmlNode n = fullAudioElements[i];
+                if (XmlUtil.TryGetStringFromNode(n, out string language))
                 {
-                    XmlNode n = fullAudioElements[i];
-                    if (XmlUtil.TryGetStringFromNode(n, out string language))
-                    {
-                        fullAudioList.Add(language);
-                    }
+                    fullAudioList.Add(language);
                 }
             }
 
@@ -217,11 +216,13 @@ namespace Depressurizer.AutoCats
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatLanguage(this);
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);

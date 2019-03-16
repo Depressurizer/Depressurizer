@@ -14,10 +14,17 @@ namespace Depressurizer.AutoCats
     {
         #region Constants
 
-        // Serialization constants
         public const string TypeIdString = "AutoCatFlags";
 
-        private const string XmlName_Name = "Name", XmlName_Filter = "Filter", XmlName_Prefix = "Prefix", XmlName_FlagList = "Flags", XmlName_Flag = "Flag";
+        private const string XmlName_Filter = "Filter";
+
+        private const string XmlName_Flag = "Flag";
+
+        private const string XmlName_FlagList = "Flags";
+
+        private const string XmlName_Name = "Name";
+
+        private const string XmlName_Prefix = "Prefix";
 
         #endregion
 
@@ -46,14 +53,12 @@ namespace Depressurizer.AutoCats
 
         #region Public Properties
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.Flags;
 
         [XmlArray("Flags")]
         [XmlArrayItem("Flag")]
         public List<string> IncludedFlags { get; set; }
-
-        // AutoCat configuration
-        public string Prefix { get; set; }
 
         #endregion
 
@@ -79,6 +84,11 @@ namespace Depressurizer.AutoCats
             }
 
             XmlNodeList flagElements = flagListElement.SelectNodes(XmlName_Flag);
+            if (flagElements == null)
+            {
+                return new AutoCatFlags(name, filter, prefix, flags);
+            }
+
             foreach (XmlNode n in flagElements)
             {
                 if (XmlUtil.TryGetStringFromNode(n, out string flag))
@@ -90,6 +100,7 @@ namespace Depressurizer.AutoCats
             return new AutoCatFlags(name, filter, prefix, flags);
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -125,18 +136,20 @@ namespace Depressurizer.AutoCats
 
             foreach (string catString in categories)
             {
-                Category c = games.GetCategory(GetProcessedString(catString));
+                Category c = games.GetCategory(GetCategoryName(catString));
                 game.AddCategory(c);
             }
 
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatFlags(this);
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);
@@ -161,20 +174,6 @@ namespace Depressurizer.AutoCats
 
             writer.WriteEndElement(); // flag list
             writer.WriteEndElement(); // type ID string
-        }
-
-        #endregion
-
-        #region Methods
-
-        private string GetProcessedString(string baseString)
-        {
-            if (string.IsNullOrEmpty(Prefix))
-            {
-                return baseString;
-            }
-
-            return Prefix + baseString;
         }
 
         #endregion

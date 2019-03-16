@@ -46,6 +46,7 @@ namespace Depressurizer.AutoCats
 
         #region Public Properties
 
+        /// <inheritdoc />
         public override AutoCatType AutoCatType => AutoCatType.Name;
 
         public bool GroupNonEnglishCharacters { get; set; }
@@ -53,8 +54,6 @@ namespace Depressurizer.AutoCats
         public string GroupNonEnglishCharactersText { get; set; }
 
         public bool GroupNumbers { get; set; }
-
-        public string Prefix { get; set; }
 
         public bool SkipThe { get; set; }
 
@@ -80,6 +79,7 @@ namespace Depressurizer.AutoCats
             return new AutoCatName(name, prefix, skipThe, groupNumbers, groupNonEnglishCharacters, groupNonEnglishCharactersText);
         }
 
+        /// <inheritdoc />
         public override AutoCatResult CategorizeGame(GameInfo game, Filter filter)
         {
             if (games == null)
@@ -131,11 +131,13 @@ namespace Depressurizer.AutoCats
             return AutoCatResult.Success;
         }
 
+        /// <inheritdoc />
         public override AutoCat Clone()
         {
             return new AutoCatName(Name, Prefix, SkipThe, GroupNumbers, GroupNonEnglishCharacters, GroupNonEnglishCharactersText);
         }
 
+        /// <inheritdoc />
         public override void WriteToXml(XmlWriter writer)
         {
             writer.WriteStartElement(TypeIdString);
