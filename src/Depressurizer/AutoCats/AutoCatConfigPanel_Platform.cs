@@ -1,4 +1,4 @@
-﻿namespace Depressurizer
+﻿namespace Depressurizer.AutoCats
 {
     public partial class AutoCatConfigPanel_Platform : AutoCatConfigPanel
     {

@@ -9,7 +9,7 @@ using Depressurizer.Core.Helpers;
 using Newtonsoft.Json.Linq;
 using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     internal class GetCuratorRecommendationsDlg : CancelableDlg
     {

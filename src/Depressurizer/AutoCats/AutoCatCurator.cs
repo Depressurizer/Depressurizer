@@ -8,7 +8,7 @@ using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 using Depressurizer.Properties;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public class AutoCatCurator : AutoCat
     {

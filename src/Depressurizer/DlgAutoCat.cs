@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Depressurizer.AutoCats;
 using Depressurizer.Core.Enums;
 using Rallion;
 

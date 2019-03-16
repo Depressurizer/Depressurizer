@@ -1,4 +1,4 @@
-﻿namespace Depressurizer {
+﻿namespace Depressurizer.AutoCats {
     partial class AutoCatConfigPanel_Tags {
         /// <summary> 
         /// Required designer variable.

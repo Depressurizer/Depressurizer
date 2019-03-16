@@ -7,7 +7,7 @@ using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     /// <summary>
     ///     Autocategorization scheme that adds genre categories.

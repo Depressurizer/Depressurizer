@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     [TypeDescriptionProvider(typeof(InstantiableClassProvider<AutoCatConfigPanel, UserControl>))]
     public class AutoCatConfigPanel : UserControl

@@ -1,6 +1,6 @@
 ﻿using Depressurizer.Core.Enums;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public partial class AutoCatConfigPanel_Year : AutoCatConfigPanel
     {

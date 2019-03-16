@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public partial class AutoCatConfigPanel_DevPub : AutoCatConfigPanel
     {

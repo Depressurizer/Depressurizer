@@ -8,7 +8,7 @@ using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public class AutoCatHoursPlayed : AutoCat
     {

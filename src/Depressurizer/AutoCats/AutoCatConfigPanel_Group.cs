@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public partial class AutoCatConfigPanel_Group : AutoCatConfigPanel
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Windows.Forms;
+using Depressurizer.AutoCats;
 using IWshRuntimeLibrary;
 
 namespace Depressurizer

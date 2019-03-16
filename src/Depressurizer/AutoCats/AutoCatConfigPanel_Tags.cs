@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public partial class AutoCatConfigPanel_Tags : AutoCatConfigPanel
     {

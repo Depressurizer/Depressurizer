@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using Depressurizer.Core.AutoCats;
 using Depressurizer.Core.Enums;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public partial class AutoCatConfigPanel_Hltb : AutoCatConfigPanel
     {

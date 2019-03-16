@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Depressurizer.Core.Models;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public partial class AutoCatConfigPanel_VrSupport : AutoCatConfigPanel
     {

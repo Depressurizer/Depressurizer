@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Depressurizer.Properties;
 
-namespace Depressurizer
+namespace Depressurizer.AutoCats
 {
     public partial class AutoCatConfigPanel_UserScore : AutoCatConfigPanel
     {

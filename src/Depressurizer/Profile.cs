@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Xml;
+using Depressurizer.AutoCats;
 using Depressurizer.Core.AutoCats;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
