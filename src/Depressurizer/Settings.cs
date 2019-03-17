@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using Depressurizer.Core.Enums;
@@ -11,6 +13,29 @@ namespace Depressurizer
     internal sealed class Settings : ISettings
     {
         #region Static Fields
+
+        public static readonly IList<int> DefaultIgnoreList = new ReadOnlyCollection<int>(new List<int>
+        {
+            480, // Spacewar
+            12250, // Grand Theft Auto: San Andreas
+            12750, // GRID
+            43110, // Metro 2033
+            104700, // Super Monday Night Combat
+            201700, // DiRT Showdown
+            224220, // Pressure
+            245550, // Free to Play
+            254000, // East India Company Gold
+            254040, // Pirates of Black Cove Gold
+            259280, // Earth 2150: The moon project
+            285050, // Showtime!
+            312710, // Broadsword: Age of Chivalry
+            314700, // Forsaken Uprising
+            321040, // DiRT 3 Complete Edition
+            329950, // The Slaughtering Grounds
+            331710, // Why So Evil 2: Dystopia
+            368900, // Brilliant Bob
+            373110 // Temper Tantrum
+        });
 
         private static readonly object SyncRoot = new object();
 
@@ -25,6 +50,8 @@ namespace Depressurizer
         public int SplitGameContainerHeight = 510;
 
         private int _height;
+
+        private List<int> _ignoreList;
 
         private int _splitBrowser;
 
@@ -94,6 +121,12 @@ namespace Depressurizer
                 return _height;
             }
             set => _height = value;
+        }
+
+        public List<int> IgnoreList
+        {
+            get => _ignoreList ?? (_ignoreList = new List<int>());
+            set => _ignoreList = value;
         }
 
         public bool IncludeImputedTimes { get; set; } = true;

@@ -27,7 +27,7 @@ namespace Depressurizer
 
         public DbScrapeDlg(IEnumerable<int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
-            _queue = new Queue<int>(appIds.Distinct().Where(id => id > 0));
+            _queue = new Queue<int>(appIds.Distinct().Where(id => id > 0).Except(Settings.IgnoreList));
             totalJobs = _queue.Count;
         }
 
@@ -36,6 +36,8 @@ namespace Depressurizer
         #region Properties
 
         private static Database Database => Database.Instance;
+
+        private static Settings Settings => Settings.Instance;
 
         #endregion
 

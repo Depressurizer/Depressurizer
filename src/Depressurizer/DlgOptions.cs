@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Properties;
 
 namespace Depressurizer
 {
@@ -20,6 +22,12 @@ namespace Depressurizer
 
         #endregion
 
+        #region Properties
+
+        private static Settings Settings => Settings.Instance;
+
+        #endregion
+
         #region Methods
 
         private void cmdAccept_Click(object sender, EventArgs e)
@@ -31,6 +39,12 @@ namespace Depressurizer
         private void cmdCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void cmdDefaultIgnored_Click(object sender, EventArgs e)
+        {
+            Settings.IgnoreList = new List<int>(Settings.DefaultIgnoreList);
+            LoadIgnoreList();
         }
 
         private void cmdDefaultProfileBrowse_Click(object sender, EventArgs e)
@@ -45,6 +59,21 @@ namespace Depressurizer
             }
         }
 
+        private void cmdIgnore_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtIgnore.Text, out int appId))
+            {
+                lstIgnored.Items.Add(appId.ToString(CultureInfo.InvariantCulture));
+                lstIgnored.Sort();
+
+                txtIgnore.ResetText();
+            }
+            else
+            {
+                MessageBox.Show(GlobalStrings.DlgGameDBEntry_IDMustBeInteger, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private void cmdSteamPathBrowse_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
@@ -54,6 +83,14 @@ namespace Depressurizer
                 {
                     txtSteamPath.Text = dialog.SelectedPath;
                 }
+            }
+        }
+
+        private void cmdUnignore_Click(object sender, EventArgs e)
+        {
+            while (lstIgnored.SelectedIndices.Count > 0)
+            {
+                lstIgnored.Items.RemoveAt(lstIgnored.SelectedIndices[0]);
             }
         }
 
@@ -90,6 +127,18 @@ namespace Depressurizer
             cmbStoreLanguage.SelectedIndex = (int) settings.StoreLanguage;
         }
 
+        private void LoadIgnoreList()
+        {
+            lstIgnored.Clear();
+            foreach (int i in Settings.IgnoreList)
+            {
+                lstIgnored.Items.Add(i.ToString());
+            }
+
+            lstIgnored.Sort();
+            lstIgnored.ListViewItemSorter = new IgnoreListViewItemComparer();
+        }
+
         private void OptionsForm_Load(object sender, EventArgs e)
         {
             // Interface languages
@@ -106,45 +155,56 @@ namespace Depressurizer
                 cmbStoreLanguage.Items.Add(cultureInfo.NativeName);
             }
 
+            LoadIgnoreList();
+
             FillFieldsFromSettings();
         }
 
         private void SaveFieldsToSettings()
         {
-            Settings settings = Settings.Instance;
-
-            settings.SteamPath = txtSteamPath.Text;
+            Settings.SteamPath = txtSteamPath.Text;
             if (radLoad.Checked)
             {
-                settings.StartupAction = StartupAction.Load;
+                Settings.StartupAction = StartupAction.Load;
             }
             else if (radCreate.Checked)
             {
-                settings.StartupAction = StartupAction.Create;
+                Settings.StartupAction = StartupAction.Create;
             }
             else
             {
-                settings.StartupAction = StartupAction.None;
+                Settings.StartupAction = StartupAction.None;
             }
 
-            settings.ProfileToLoad = txtDefaultProfile.Text;
+            Settings.ProfileToLoad = txtDefaultProfile.Text;
 
-            settings.UpdateAppInfoOnStart = chkUpdateAppInfoOnStartup.Checked;
-            settings.UpdateHltbOnStart = chkUpdateHltbOnStartup.Checked;
-            settings.IncludeImputedTimes = chkIncludeImputedTimes.Checked;
-            settings.AutoSaveDatabase = chkAutosaveDB.Checked;
-            settings.ScrapePromptDays = (int) numScrapePromptDays.Value;
+            Settings.UpdateAppInfoOnStart = chkUpdateAppInfoOnStartup.Checked;
+            Settings.UpdateHltbOnStart = chkUpdateHltbOnStartup.Checked;
+            Settings.IncludeImputedTimes = chkIncludeImputedTimes.Checked;
+            Settings.AutoSaveDatabase = chkAutosaveDB.Checked;
+            Settings.ScrapePromptDays = (int) numScrapePromptDays.Value;
 
-            settings.CheckForDepressurizerUpdates = chkCheckForDepressurizerUpdates.Checked;
+            Settings.CheckForDepressurizerUpdates = chkCheckForDepressurizerUpdates.Checked;
 
-            settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
+            Settings.RemoveExtraEntries = chkRemoveExtraEntries.Checked;
 
-            settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
-            settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
+            Settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
+            Settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
+
+            List<int> ignoreList = new List<int>(lstIgnored.Items.Count);
+            foreach (ListViewItem item in lstIgnored.Items)
+            {
+                if (int.TryParse(item.Text, out int appId))
+                {
+                    ignoreList.Add(appId);
+                }
+            }
+
+            Settings.IgnoreList = ignoreList;
 
             try
             {
-                settings.Save();
+                Settings.Save();
             }
             catch (Exception e)
             {

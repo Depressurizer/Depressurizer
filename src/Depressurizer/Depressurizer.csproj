@@ -130,6 +130,7 @@
     <Compile Include="CommaClusteringStrategy.cs" />
     <Compile Include="GameList.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IgnoreListViewItemComparer.cs" />
     <Compile Include="ListCategoriesComparer.cs" />
     <Compile Include="AutoCats\AutoCatConfigPanel_Curator.cs">
       <SubType>UserControl</SubType>

@@ -78,7 +78,7 @@ namespace Depressurizer
 
         public double HoursPlayed { get; set; } = 0;
 
-        public bool IsHidden { get; set; } = false;
+        public bool IsHidden { get; set; }
 
         public long LastPlayed { get; set; }
 
