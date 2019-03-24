@@ -18,8 +18,6 @@ namespace Depressurizer
             ','
         };
 
-        private bool editMode;
-
         #endregion
 
         #region Constructors and Destructors
@@ -30,7 +28,6 @@ namespace Depressurizer
         {
             InitializeComponent();
             Game = game;
-            editMode = game != null;
         }
 
         #endregion
@@ -45,22 +42,20 @@ namespace Depressurizer
 
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            if (SaveToGame())
+            if (!SaveToGame())
             {
-                DialogResult = DialogResult.OK;
-                Close();
+                return;
             }
+
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void GameDBEntryForm_Load(object sender, EventArgs e)
         {
-            foreach (object o in Enum.GetValues(typeof(AppType)))
+            foreach (object appType in Enum.GetValues(typeof(AppType)))
             {
-                int val = (int) o;
-                if ((val & (val - 1)) == 0)
-                {
-                    cmbType.Items.Add(o);
-                }
+                cmbType.Items.Add(appType);
             }
 
             InitializeFields(Game);
@@ -150,7 +145,7 @@ namespace Depressurizer
 
             Game.ParentId = parent;
 
-            Game.AppType = (AppType) cmbType.SelectedItem;
+            Game.AppType = (AppType?) cmbType.SelectedItem ?? AppType.Unknown;
             Game.Name = txtName.Text;
 
             Game.Genres = SplitAndTrim(txtGenres.Text);
