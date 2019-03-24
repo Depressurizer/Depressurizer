@@ -210,6 +210,8 @@ namespace Depressurizer
 
         private static Logger Logger => Logger.Instance;
 
+        private static Settings Settings => Settings.Instance;
+
         #endregion
 
         #region Public Methods and Operators
@@ -353,9 +355,14 @@ namespace Depressurizer
             if (FormMain.CurrentProfile != null)
             {
                 appIds.AddRange(FormMain.CurrentProfile.GameData.Games.Values.Where(g => g.Id > 0).Select(g => g.Id));
-                using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
+                appIds.RemoveAll(Settings.IgnoreList.Contains);
+
+                if (appIds.Count > 0)
                 {
-                    dialog.ShowDialog();
+                    using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
+                    {
+                        dialog.ShowDialog();
+                    }
                 }
             }
 

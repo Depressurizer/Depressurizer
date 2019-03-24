@@ -686,7 +686,8 @@ namespace Depressurizer
                 }
             }
 
-            if ((notInDbCount > 0 || oldDbDataCount > 0) && scrape)
+            appIds.RemoveAll(Settings.IgnoreList.Contains);
+            if ((notInDbCount > 0 || oldDbDataCount > 0) && scrape && appIds.Count > 0)
             {
                 Cursor.Current = Cursors.Default;
                 string message = "";

@@ -76,6 +76,8 @@ namespace Depressurizer
 
         private static Logger Logger => Logger.Instance;
 
+        private static Settings Settings => Settings.Instance;
+
         private bool UnsavedChanges { get; set; }
 
         #endregion
@@ -216,6 +218,11 @@ namespace Depressurizer
             }
 
             return SaveDatabase();
+        }
+
+        private void CheckShowIgnored_CheckedChanged(object sender, EventArgs e)
+        {
+            RebuildDisplayList();
         }
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
@@ -772,7 +779,7 @@ namespace Depressurizer
             return false;
         }
 
-        private void ScrapeGames(ICollection<int> appIds)
+        private void ScrapeGames(List<int> appIds)
         {
             if (appIds.Count <= 0)
             {
@@ -864,12 +871,17 @@ namespace Depressurizer
                 return false;
             }
 
-            if (!Database.Contains(entry.Id))
+            if (Settings.IgnoreList.Contains(entry.Id) && !CheckShowIgnored.Checked)
             {
                 return false;
             }
 
             if (chkIdRange.Checked && (entry.Id < _currentMinId || entry.Id > _currentMaxId))
+            {
+                return false;
+            }
+
+            if (!Database.Contains(entry.Id))
             {
                 return false;
             }

@@ -41,6 +41,8 @@ namespace Depressurizer
 
         private static Logger Logger => Logger.Instance;
 
+        private static Settings Settings => Settings.Instance;
+
         #endregion
 
         #region Methods
@@ -542,6 +544,7 @@ namespace Depressurizer
                     }
                 }
 
+                appIds.RemoveAll(Settings.IgnoreList.Contains);
                 if (appIds.Count > 0)
                 {
                     using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))

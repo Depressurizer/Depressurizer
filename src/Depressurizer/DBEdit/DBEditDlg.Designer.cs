@@ -95,6 +95,7 @@ namespace Depressurizer {
             this.colAppInfo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colParent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmdUpdateHltb = new System.Windows.Forms.Button();
+            this.CheckShowIgnored = new System.Windows.Forms.CheckBox();
             this.mainMenu.SuspendLayout();
             this.grpTypes.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -493,10 +494,18 @@ namespace Depressurizer {
             this.cmdUpdateHltb.UseVisualStyleBackColor = true;
             this.cmdUpdateHltb.Click += new System.EventHandler(this.cmdUpdateHltb_Click);
             // 
+            // CheckShowIgnored
+            // 
+            resources.ApplyResources(this.CheckShowIgnored, "CheckShowIgnored");
+            this.CheckShowIgnored.Name = "CheckShowIgnored";
+            this.CheckShowIgnored.UseVisualStyleBackColor = true;
+            this.CheckShowIgnored.CheckedChanged += new System.EventHandler(this.CheckShowIgnored_CheckedChanged);
+            // 
             // DBEditDlg
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.CheckShowIgnored);
             this.Controls.Add(this.cmdUpdateHltb);
             this.Controls.Add(this.chkIdRange);
             this.Controls.Add(this.lblIdRangeSep);
@@ -599,6 +608,7 @@ namespace Depressurizer {
         private System.Windows.Forms.Label lblIdRangeSep;
         private System.Windows.Forms.CheckBox chkIdRange;
         private System.Windows.Forms.Button cmdUpdateHltb;
+        private System.Windows.Forms.CheckBox CheckShowIgnored;
     }
 }
 

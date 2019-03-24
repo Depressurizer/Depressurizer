@@ -27,7 +27,7 @@ namespace Depressurizer
 
         public DbScrapeDlg(IEnumerable<int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
-            _queue = new Queue<int>(appIds.Distinct().Where(id => id > 0).Except(Settings.IgnoreList));
+            _queue = new Queue<int>(appIds.Distinct().Where(id => id > 0));
             totalJobs = _queue.Count;
         }
 
@@ -36,8 +36,6 @@ namespace Depressurizer
         #region Properties
 
         private static Database Database => Database.Instance;
-
-        private static Settings Settings => Settings.Instance;
 
         #endregion
 
@@ -156,7 +154,11 @@ namespace Depressurizer
                     return false;
                 }
 
-                _results.Add(newGame);
+                if (newGame.LastStoreScrape != 0)
+                {
+                    _results.Add(newGame);
+                }
+
                 OnJobCompletion();
                 return true;
             }
