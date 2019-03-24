@@ -126,8 +126,8 @@ namespace Depressurizer
                 chkWebUpdate.Checked = Game.LastStoreScrape > 0;
                 chkAppInfoUpdate.Checked = Game.LastAppInfoUpdate > 0;
 
-                dateWeb.Value = DateTimeOffset.FromUnixTimeSeconds(Game.LastStoreScrape).DateTime;
-                dateAppInfo.Value = DateTimeOffset.FromUnixTimeSeconds(Game.LastAppInfoUpdate).DateTime;
+                dateWeb.Value = DateTimeOffset.FromUnixTimeSeconds(Math.Max(0, Game.LastStoreScrape)).DateTime;
+                dateAppInfo.Value = DateTimeOffset.FromUnixTimeSeconds(Math.Max(0, Game.LastAppInfoUpdate)).DateTime;
             }
         }
 
