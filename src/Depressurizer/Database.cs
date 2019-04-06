@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -225,13 +224,13 @@ namespace Depressurizer
 
             lock (SyncRoot)
             {
-                if (Contains(entry.Id, out DatabaseEntry databaseEntry))
+                if (Contains(entry.AppId, out DatabaseEntry databaseEntry))
                 {
                     databaseEntry.MergeIn(entry);
                 }
                 else
                 {
-                    Games.Add(entry.Id, entry);
+                    Games.Add(entry.AppId, entry);
                 }
             }
         }
@@ -336,7 +335,7 @@ namespace Depressurizer
             //clean DB from data in wrong language
             foreach (DatabaseEntry g in Values)
             {
-                if (g.Id <= 0)
+                if (g.AppId <= 0)
                 {
                     continue;
                 }
@@ -478,19 +477,19 @@ namespace Depressurizer
             return added;
         }
 
-        public Collection<string> GetDevelopers(int appId)
+        public SortedSet<string> GetDevelopers(int appId)
         {
             return GetDevelopers(appId, 3);
         }
 
-        public Collection<string> GetDevelopers(int appId, int depth)
+        public SortedSet<string> GetDevelopers(int appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new Collection<string>();
+                return new SortedSet<string>();
             }
 
-            Collection<string> result = entry.Developers ?? new Collection<string>();
+            SortedSet<string> result = entry.Developers ?? new SortedSet<string>();
             if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
                 result = GetDevelopers(entry.ParentId, depth - 1);
@@ -499,19 +498,19 @@ namespace Depressurizer
             return result;
         }
 
-        public Collection<string> GetFlagList(int appId)
+        public SortedSet<string> GetFlagList(int appId)
         {
             return GetFlagList(appId, 3);
         }
 
-        public Collection<string> GetFlagList(int appId, int depth)
+        public SortedSet<string> GetFlagList(int appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new Collection<string>();
+                return new SortedSet<string>();
             }
 
-            Collection<string> result = entry.Flags ?? new Collection<string>();
+            SortedSet<string> result = entry.Flags ?? new SortedSet<string>();
             if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
                 result = GetFlagList(entry.ParentId, depth - 1);
@@ -520,20 +519,20 @@ namespace Depressurizer
             return result;
         }
 
-        public Collection<string> GetGenreList(int appId, int depth, bool tagFallback)
+        public SortedSet<string> GetGenreList(int appId, int depth, bool tagFallback)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new Collection<string>();
+                return new SortedSet<string>();
             }
 
-            Collection<string> result = entry.Genres ?? new Collection<string>();
+            SortedSet<string> result = entry.Genres ?? new SortedSet<string>();
             if (tagFallback && result.Count == 0)
             {
-                Collection<string> tags = GetTagList(appId, 0);
+                SortedSet<string> tags = GetTagList(appId, 0);
                 if (tags != null && tags.Count > 0)
                 {
-                    result = new Collection<string>(tags.Where(tag => AllGenres.Contains(tag)).ToList());
+                    result = new SortedSet<string>(tags.Where(tag => AllGenres.Contains(tag)).ToList());
                 }
             }
 
@@ -555,19 +554,19 @@ namespace Depressurizer
             return string.Empty;
         }
 
-        public Collection<string> GetPublishers(int appId)
+        public SortedSet<string> GetPublishers(int appId)
         {
             return GetPublishers(appId, 3);
         }
 
-        public Collection<string> GetPublishers(int appId, int depth)
+        public SortedSet<string> GetPublishers(int appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new Collection<string>();
+                return new SortedSet<string>();
             }
 
-            Collection<string> result = entry.Publishers ?? new Collection<string>();
+            SortedSet<string> result = entry.Publishers ?? new SortedSet<string>();
             if (result.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
                 result = GetPublishers(entry.ParentId, depth - 1);
@@ -591,19 +590,19 @@ namespace Depressurizer
             return 0;
         }
 
-        public Collection<string> GetTagList(int appId)
+        public SortedSet<string> GetTagList(int appId)
         {
             return GetTagList(appId, 3);
         }
 
-        public Collection<string> GetTagList(int appId, int depth)
+        public SortedSet<string> GetTagList(int appId, int depth)
         {
             if (!Contains(appId, out DatabaseEntry entry))
             {
-                return new Collection<string>();
+                return new SortedSet<string>();
             }
 
-            Collection<string> tags = entry.Tags ?? new Collection<string>();
+            SortedSet<string> tags = entry.Tags ?? new SortedSet<string>();
             if (tags.Count == 0 && depth > 0 && entry.ParentId > 0)
             {
                 tags = GetTagList(entry.ParentId, depth - 1);
@@ -940,8 +939,15 @@ namespace Depressurizer
             }
 
             int tagsToLoad = tagsPerGame == 0 ? entry.Tags.Count : Math.Min(tagsPerGame, entry.Tags.Count);
-            for (int i = 0; i < tagsToLoad; i++)
+
+            int i = 0;
+            foreach (string tag in entry.Tags)
             {
+                if (i >= tagsToLoad)
+                {
+                    continue;
+                }
+
                 // Get the score based on the weighting factor
                 float score = 1;
                 if (weightFactor > 1)
@@ -957,7 +963,6 @@ namespace Depressurizer
                     }
                 }
 
-                string tag = entry.Tags[i];
                 if (counts.ContainsKey(tag))
                 {
                     counts[tag] += score;
@@ -966,6 +971,8 @@ namespace Depressurizer
                 {
                     counts[tag] = score;
                 }
+
+                i++;
             }
         }
 

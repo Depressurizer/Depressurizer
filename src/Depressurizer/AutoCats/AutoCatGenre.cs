@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
@@ -168,20 +167,29 @@ namespace Depressurizer.AutoCats
                 game.RemoveCategory(genreCategories);
             }
 
-            Collection<string> genreList = db.GetGenreList(game.Id, MAX_PARENT_DEPTH, TagFallback);
+            ICollection<string> genreList = db.GetGenreList(game.Id, MAX_PARENT_DEPTH, TagFallback);
 
             List<Category> categories = new List<Category>();
             int max = MaxCategories;
-            for (int i = 0; i < genreList.Count && (MaxCategories == 0 || i < max); i++)
+
+            int i = 0;
+            foreach (string genre in genreList)
             {
-                if (!IgnoredGenres.Contains(genreList[i]))
+                if (MaxCategories != 0 && i >= max)
                 {
-                    categories.Add(games.GetCategory(GetCategoryName(genreList[i])));
+                    continue;
+                }
+
+                if (!IgnoredGenres.Contains(genre))
+                {
+                    categories.Add(games.GetCategory(GetCategoryName(genre)));
                 }
                 else
                 {
                     max++; // ignored genres don't contribute to max
                 }
+
+                i++;
             }
 
             game.AddCategory(categories);

@@ -57,7 +57,7 @@ namespace Depressurizer
 
             foreach (DatabaseEntry g in _results)
             {
-                if (Database.Contains(g.Id, out DatabaseEntry entry))
+                if (Database.Contains(g.AppId, out DatabaseEntry entry))
                 {
                     entry.MergeIn(g);
                 }

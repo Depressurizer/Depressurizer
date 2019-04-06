@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
@@ -195,17 +194,20 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
-            Collection<string> gameTags = db.GetTagList(game.Id);
-
             int added = 0;
-            for (int index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
+            foreach (string gameTag in db.GetTagList(game.Id))
             {
-                if (!IncludedTags.Contains(gameTags[index]))
+                if (MaxTags != 0 && added >= MaxTags)
                 {
                     continue;
                 }
 
-                game.AddCategory(games.GetCategory(GetCategoryName(gameTags[index])));
+                if (!IncludedTags.Contains(gameTag))
+                {
+                    continue;
+                }
+
+                game.AddCategory(games.GetCategory(GetCategoryName(gameTag)));
                 added++;
             }
 

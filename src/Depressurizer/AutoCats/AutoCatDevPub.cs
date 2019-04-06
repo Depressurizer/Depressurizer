@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Xml;
@@ -192,7 +191,7 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
-            Collection<string> developers = db.GetDevelopers(game.Id);
+            ICollection<string> developers = db.GetDevelopers(game.Id);
             foreach (string developer in developers)
             {
                 if (!Developers.Contains(developer) && !AllDevelopers)
@@ -206,7 +205,7 @@ namespace Depressurizer.AutoCats
                 }
             }
 
-            Collection<string> publishers = db.GetPublishers(game.Id);
+            ICollection<string> publishers = db.GetPublishers(game.Id);
             foreach (string publisher in publishers)
             {
                 if (!Publishers.Contains(publisher) && !AllPublishers)

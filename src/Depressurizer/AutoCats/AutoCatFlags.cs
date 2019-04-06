@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -125,7 +124,7 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
-            Collection<string> gameFlags = db.GetFlagList(game.Id);
+            ICollection<string> gameFlags = db.GetFlagList(game.Id);
             IEnumerable<string> categories = gameFlags.Intersect(IncludedFlags);
 
             foreach (string catString in categories)

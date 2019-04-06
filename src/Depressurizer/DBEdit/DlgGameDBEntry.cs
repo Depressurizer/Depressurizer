@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
@@ -70,7 +70,7 @@ namespace Depressurizer
             }
             else
             {
-                txtId.Text = Game.Id.ToString(CultureInfo.CurrentCulture);
+                txtId.Text = Game.AppId.ToString(CultureInfo.CurrentCulture);
                 txtId.Enabled = false;
 
                 txtParent.Text = Game.ParentId < 0 ? "" : Game.ParentId.ToString(CultureInfo.CurrentCulture);
@@ -187,9 +187,9 @@ namespace Depressurizer
             return true;
         }
 
-        private Collection<string> SplitAndTrim(string s)
+        private SortedSet<string> SplitAndTrim(string s)
         {
-            Collection<string> result = new Collection<string>();
+            SortedSet<string> result = new SortedSet<string>();
 
             if (string.IsNullOrWhiteSpace(s))
             {
