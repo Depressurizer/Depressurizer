@@ -71,7 +71,6 @@ namespace Depressurizer
             else
             {
                 txtId.Text = Game.AppId.ToString(CultureInfo.CurrentCulture);
-                txtId.Enabled = false;
 
                 txtParent.Text = Game.ParentId < 0 ? "" : Game.ParentId.ToString(CultureInfo.CurrentCulture);
 
@@ -142,6 +141,8 @@ namespace Depressurizer
             {
                 Game = new DatabaseEntry(id);
             }
+
+            Game.AppId = id;
 
             Game.ParentId = parent;
 

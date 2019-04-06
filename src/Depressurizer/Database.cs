@@ -65,17 +65,14 @@ namespace Depressurizer
         {
             get
             {
-                lock (SyncRoot)
+                SortedSet<string> flags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (DatabaseEntry entry in Values)
                 {
-                    SortedSet<string> flags = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-
-                    foreach (DatabaseEntry entry in Values)
-                    {
-                        flags.UnionWith(entry.Flags);
-                    }
-
-                    return flags;
+                    flags.UnionWith(entry.Flags);
                 }
+
+                return flags;
             }
         }
 
@@ -84,17 +81,14 @@ namespace Depressurizer
         {
             get
             {
-                lock (SyncRoot)
+                SortedSet<string> genres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (DatabaseEntry entry in Values)
                 {
-                    SortedSet<string> genres = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-
-                    foreach (DatabaseEntry entry in Values)
-                    {
-                        genres.UnionWith(entry.Genres);
-                    }
-
-                    return genres;
+                    genres.UnionWith(entry.Genres);
                 }
+
+                return genres;
             }
         }
 
@@ -103,29 +97,26 @@ namespace Depressurizer
         {
             get
             {
-                lock (SyncRoot)
+                LanguageSupport languageSupport = new LanguageSupport();
+
+                // ReSharper disable InconsistentNaming
+                SortedSet<string> FullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                SortedSet<string> Interface = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                SortedSet<string> Subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                // ReSharper restore InconsistentNaming
+
+                foreach (DatabaseEntry entry in Values)
                 {
-                    LanguageSupport languageSupport = new LanguageSupport();
-
-                    // ReSharper disable InconsistentNaming
-                    SortedSet<string> FullAudio = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-                    SortedSet<string> Interface = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-                    SortedSet<string> Subtitles = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-                    // ReSharper restore InconsistentNaming
-
-                    foreach (DatabaseEntry entry in Values)
-                    {
-                        FullAudio.UnionWith(entry.LanguageSupport.FullAudio);
-                        Interface.UnionWith(entry.LanguageSupport.Interface);
-                        Subtitles.UnionWith(entry.LanguageSupport.Subtitles);
-                    }
-
-                    languageSupport.FullAudio = FullAudio.ToList();
-                    languageSupport.Interface = Interface.ToList();
-                    languageSupport.Subtitles = Subtitles.ToList();
-
-                    return languageSupport;
+                    FullAudio.UnionWith(entry.LanguageSupport.FullAudio);
+                    Interface.UnionWith(entry.LanguageSupport.Interface);
+                    Subtitles.UnionWith(entry.LanguageSupport.Subtitles);
                 }
+
+                languageSupport.FullAudio = FullAudio.ToList();
+                languageSupport.Interface = Interface.ToList();
+                languageSupport.Subtitles = Subtitles.ToList();
+
+                return languageSupport;
             }
         }
 
@@ -134,29 +125,26 @@ namespace Depressurizer
         {
             get
             {
-                lock (SyncRoot)
+                VRSupport vrSupport = new VRSupport();
+
+                // ReSharper disable InconsistentNaming
+                SortedSet<string> Headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                SortedSet<string> Input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                SortedSet<string> PlayArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                // ReSharper restore InconsistentNaming
+
+                foreach (DatabaseEntry entry in Values)
                 {
-                    VRSupport vrSupport = new VRSupport();
-
-                    // ReSharper disable InconsistentNaming
-                    SortedSet<string> Headsets = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-                    SortedSet<string> Input = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-                    SortedSet<string> PlayArea = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
-                    // ReSharper restore InconsistentNaming
-
-                    foreach (DatabaseEntry entry in Values)
-                    {
-                        Headsets.UnionWith(entry.VRSupport.Headsets);
-                        Input.UnionWith(entry.VRSupport.Input);
-                        PlayArea.UnionWith(entry.VRSupport.PlayArea);
-                    }
-
-                    vrSupport.Headsets = Headsets.ToList();
-                    vrSupport.Input = Input.ToList();
-                    vrSupport.PlayArea = PlayArea.ToList();
-
-                    return vrSupport;
+                    Headsets.UnionWith(entry.VRSupport.Headsets);
+                    Input.UnionWith(entry.VRSupport.Input);
+                    PlayArea.UnionWith(entry.VRSupport.PlayArea);
                 }
+
+                vrSupport.Headsets = Headsets.ToList();
+                vrSupport.Input = Input.ToList();
+                vrSupport.PlayArea = PlayArea.ToList();
+
+                return vrSupport;
             }
         }
 
@@ -168,21 +156,12 @@ namespace Depressurizer
 
         public StoreLanguage Language
         {
-            get
-            {
-                lock (SyncRoot)
-                {
-                    return _language;
-                }
-            }
+            get => _language;
             set
             {
-                lock (SyncRoot)
-                {
-                    _language = value;
-                    Culture = Core.Helpers.Language.GetCultureInfo(_language);
-                    LanguageCode = Core.Helpers.Language.LanguageCode(_language);
-                }
+                _language = value;
+                Culture = Core.Helpers.Language.GetCultureInfo(_language);
+                LanguageCode = Core.Helpers.Language.LanguageCode(_language);
             }
         }
 
@@ -192,16 +171,7 @@ namespace Depressurizer
         public long LastHLTBUpdate { get; set; }
 
         [JsonIgnore]
-        public Dictionary<int, DatabaseEntry>.ValueCollection Values
-        {
-            get
-            {
-                lock (SyncRoot)
-                {
-                    return Games.Values;
-                }
-            }
-        }
+        public Dictionary<int, DatabaseEntry>.ValueCollection Values => Games.Values;
 
         #endregion
 
@@ -222,16 +192,13 @@ namespace Depressurizer
                 return;
             }
 
-            lock (SyncRoot)
+            if (Contains(entry.Id, out DatabaseEntry databaseEntry))
             {
-                if (Contains(entry.AppId, out DatabaseEntry databaseEntry))
-                {
-                    databaseEntry.MergeIn(entry);
-                }
-                else
-                {
-                    Games.Add(entry.AppId, entry);
-                }
+                databaseEntry.MergeIn(entry);
+            }
+            else
+            {
+                Games.Add(entry.Id, entry);
             }
         }
 
@@ -335,7 +302,7 @@ namespace Depressurizer
             //clean DB from data in wrong language
             foreach (DatabaseEntry g in Values)
             {
-                if (g.AppId <= 0)
+                if (g.Id <= 0)
                 {
                     continue;
                 }
@@ -350,11 +317,13 @@ namespace Depressurizer
             }
 
             // Update DB with data in correct language
-            List<int> appIds = new List<int>();
+            Dictionary<int, int> appIds = new Dictionary<int, int>();
             if (FormMain.CurrentProfile != null)
             {
-                appIds.AddRange(FormMain.CurrentProfile.GameData.Games.Values.Where(g => g.Id > 0).Select(g => g.Id));
-                appIds.RemoveAll(Settings.IgnoreList.Contains);
+                foreach (GameInfo gameInfo in FormMain.CurrentProfile.GameData.Games.Values.Where(g => g.Id > 0 && !Settings.IgnoreList.Contains(g.Id)))
+                {
+                    appIds.Add(gameInfo.Id, gameInfo.Id);
+                }
 
                 if (appIds.Count > 0)
                 {
@@ -370,33 +339,17 @@ namespace Depressurizer
 
         public void Clear()
         {
-            lock (SyncRoot)
-            {
-                Games.Clear();
-            }
+            Games.Clear();
         }
 
         public bool Contains(int appId)
         {
-            lock (SyncRoot)
-            {
-                return Games.ContainsKey(appId);
-            }
+            return Games.ContainsKey(appId);
         }
 
         public bool Contains(int appId, out DatabaseEntry entry)
         {
-            lock (SyncRoot)
-            {
-                entry = null;
-
-                if (Contains(appId))
-                {
-                    entry = Games[appId];
-                }
-
-                return entry != null;
-            }
+            return Games.TryGetValue(appId, out entry);
         }
 
         /// <summary>
@@ -410,69 +363,66 @@ namespace Depressurizer
             int added = 0;
             int updated = 0;
 
-            lock (SyncRoot)
+            HttpClient client = null;
+            Stream stream = null;
+            StreamReader streamReader = null;
+
+            try
             {
-                HttpClient client = null;
-                Stream stream = null;
-                StreamReader streamReader = null;
+                Logger.Info("Database: Downloading list of public apps.");
 
-                try
+                client = new HttpClient();
+                stream = client.GetStreamAsync(Constants.GetAppList).Result;
+                streamReader = new StreamReader(stream);
+
+                using (JsonReader reader = new JsonTextReader(streamReader))
                 {
-                    Logger.Info("Database: Downloading list of public apps.");
+                    streamReader = null;
+                    stream = null;
+                    client = null;
 
-                    client = new HttpClient();
-                    stream = client.GetStreamAsync(Constants.GetAppList).Result;
-                    streamReader = new StreamReader(stream);
+                    Logger.Info("Database: Downloaded list of public apps.");
+                    Logger.Info("Database: Parsing list of public apps.");
 
-                    using (JsonReader reader = new JsonTextReader(streamReader))
+                    JsonSerializer serializer = new JsonSerializer();
+                    AppList_RawData rawData = serializer.Deserialize<AppList_RawData>(reader);
+
+                    foreach (App app in rawData.Applist.Apps)
                     {
-                        streamReader = null;
-                        stream = null;
-                        client = null;
-
-                        Logger.Info("Database: Downloaded list of public apps.");
-                        Logger.Info("Database: Parsing list of public apps.");
-
-                        JsonSerializer serializer = new JsonSerializer();
-                        AppList_RawData rawData = serializer.Deserialize<AppList_RawData>(reader);
-
-                        foreach (App app in rawData.Applist.Apps)
+                        if (Contains(app.AppId, out DatabaseEntry entry))
                         {
-                            if (Contains(app.AppId, out DatabaseEntry entry))
+                            if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name == app.Name)
                             {
-                                if (!string.IsNullOrWhiteSpace(entry.Name) && entry.Name == app.Name)
-                                {
-                                    continue;
-                                }
-
-                                entry.Name = app.Name;
-                                entry.AppType = AppType.Unknown;
-
-                                updated++;
+                                continue;
                             }
-                            else
+
+                            entry.Name = app.Name;
+                            entry.AppType = AppType.Unknown;
+
+                            updated++;
+                        }
+                        else
+                        {
+                            entry = new DatabaseEntry(app.AppId)
                             {
-                                entry = new DatabaseEntry(app.AppId)
-                                {
-                                    Name = app.Name
-                                };
+                                Name = app.Name
+                            };
 
-                                Add(entry);
+                            Add(entry);
 
-                                added++;
-                            }
+                            added++;
                         }
                     }
                 }
-                finally
-                {
-                    streamReader?.Dispose();
-                    stream?.Dispose();
-                    client?.Dispose();
-                }
-
-                Logger.Info("Database: Parsed list of public apps, added {0} apps and updated {1} apps.", added, updated);
             }
+            finally
+            {
+                streamReader?.Dispose();
+                stream?.Dispose();
+                client?.Dispose();
+            }
+
+            Logger.Info("Database: Parsed list of public apps, added {0} apps and updated {1} apps.", added, updated);
 
             return added;
         }
@@ -638,51 +588,42 @@ namespace Depressurizer
 
         public void Load(string path)
         {
-            lock (SyncRoot)
+            Logger.Info("Database: Loading database from '{0}'.", path);
+            if (!File.Exists(path))
             {
-                Logger.Info("Database: Loading database from '{0}'.", path);
-                if (!File.Exists(path))
-                {
-                    Logger.Warn("Database: Database file not found at '{0}'.", path);
+                Logger.Warn("Database: Database file not found at '{0}'.", path);
 
-                    return;
-                }
-
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
-
-                using (StreamReader file = File.OpenText(path))
-                {
-                    JsonSerializer serializer = new JsonSerializer
-                    {
-#if DEBUG
-                        Formatting = Formatting.Indented
-#endif
-                    };
-
-                    _instance = (Database) serializer.Deserialize(file, typeof(Database));
-                }
-
-                sw.Stop();
-                Logger.Info("Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
+                return;
             }
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            using (StreamReader file = File.OpenText(path))
+            {
+                JsonSerializer serializer = new JsonSerializer
+                {
+#if DEBUG
+                    Formatting = Formatting.Indented
+#endif
+                };
+
+                _instance = (Database) serializer.Deserialize(file, typeof(Database));
+            }
+
+            sw.Stop();
+            Logger.Info("Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
         }
 
         public void Remove(int appId)
         {
-            lock (SyncRoot)
-            {
-                Games.Remove(appId);
-            }
+            Games.Remove(appId);
         }
 
         public void Reset()
         {
-            lock (SyncRoot)
-            {
-                Logger.Info("Database: Database was reset.");
-                _instance = new Database();
-            }
+            Logger.Info("Database: Database was reset.");
+            _instance = new Database();
         }
 
         public void Save()
@@ -692,28 +633,25 @@ namespace Depressurizer
 
         public void Save(string path)
         {
-            lock (SyncRoot)
+            Logger.Info("Database: Saving database to '{0}'.", path);
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            using (StreamWriter file = File.CreateText(path))
             {
-                Logger.Info("Database: Saving database to '{0}'.", path);
-
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
-
-                using (StreamWriter file = File.CreateText(path))
+                JsonSerializer serializer = new JsonSerializer
                 {
-                    JsonSerializer serializer = new JsonSerializer
-                    {
 #if DEBUG
-                        Formatting = Formatting.Indented
+                    Formatting = Formatting.Indented
 #endif
-                    };
+                };
 
-                    serializer.Serialize(file, _instance);
-                }
-
-                sw.Stop();
-                Logger.Info("Database: Saved database to '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
+                serializer.Serialize(file, _instance);
             }
+
+            sw.Stop();
+            Logger.Info("Database: Saved database to '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
         }
 
         public bool SupportsVR(int appId)
@@ -793,68 +731,65 @@ namespace Depressurizer
         {
             int updated = 0;
 
-            lock (SyncRoot)
+            using (WebClient client = new WebClient())
             {
-                using (WebClient client = new WebClient())
+                string result = client.DownloadString(Constants.HowLongToBeat);
+
+                if (result.Contains("An error has occurred."))
                 {
-                    string result = client.DownloadString(Constants.HowLongToBeat);
-
-                    if (result.Contains("An error has occurred."))
-                    {
-                        return updated;
-                    }
-
-                    HLTB_RawData rawData = JsonConvert.DeserializeObject<HLTB_RawData>(result);
-
-                    if (rawData == null)
-                    {
-                        return updated;
-                    }
-
-                    foreach (Game game in rawData.Games)
-                    {
-                        SteamAppData steamAppData = game.SteamAppData;
-                        int id = steamAppData.SteamAppId;
-                        if (!Contains(id, out DatabaseEntry entry))
-                        {
-                            continue;
-                        }
-
-                        HltbInfo info = steamAppData.HltbInfo;
-
-                        if (!includeImputedTimes && info.MainTtbImputed)
-                        {
-                            entry.HltbMain = 0;
-                        }
-                        else
-                        {
-                            entry.HltbMain = info.MainTtb;
-                        }
-
-                        if (!includeImputedTimes && info.ExtrasTtbImputed)
-                        {
-                            entry.HltbExtras = 0;
-                        }
-                        else
-                        {
-                            entry.HltbExtras = info.ExtrasTtb;
-                        }
-
-                        if (!includeImputedTimes && info.CompletionistTtbImputed)
-                        {
-                            entry.HltbCompletionists = 0;
-                        }
-                        else
-                        {
-                            entry.HltbCompletionists = info.CompletionistTtb;
-                        }
-
-                        updated++;
-                    }
+                    return updated;
                 }
 
-                LastHLTBUpdate = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                HLTB_RawData rawData = JsonConvert.DeserializeObject<HLTB_RawData>(result);
+
+                if (rawData == null)
+                {
+                    return updated;
+                }
+
+                foreach (Game game in rawData.Games)
+                {
+                    SteamAppData steamAppData = game.SteamAppData;
+                    int id = steamAppData.SteamAppId;
+                    if (!Contains(id, out DatabaseEntry entry))
+                    {
+                        continue;
+                    }
+
+                    HltbInfo info = steamAppData.HltbInfo;
+
+                    if (!includeImputedTimes && info.MainTtbImputed)
+                    {
+                        entry.HltbMain = 0;
+                    }
+                    else
+                    {
+                        entry.HltbMain = info.MainTtb;
+                    }
+
+                    if (!includeImputedTimes && info.ExtrasTtbImputed)
+                    {
+                        entry.HltbExtras = 0;
+                    }
+                    else
+                    {
+                        entry.HltbExtras = info.ExtrasTtb;
+                    }
+
+                    if (!includeImputedTimes && info.CompletionistTtbImputed)
+                    {
+                        entry.HltbCompletionists = 0;
+                    }
+                    else
+                    {
+                        entry.HltbCompletionists = info.CompletionistTtb;
+                    }
+
+                    updated++;
+                }
             }
+
+            LastHLTBUpdate = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
             return updated;
         }

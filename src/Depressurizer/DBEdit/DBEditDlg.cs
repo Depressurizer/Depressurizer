@@ -779,7 +779,7 @@ namespace Depressurizer
             return false;
         }
 
-        private void ScrapeGames(List<int> appIds)
+        private void ScrapeGames(Dictionary<int, int> appIds)
         {
             if (appIds.Count <= 0)
             {
@@ -827,7 +827,7 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            List<int> appIds = new List<int>(Database.Values.Where(e => e.LastStoreScrape == 0 && ShouldDisplayGame(e)).Select(e => e.AppId));
+            Dictionary<int, int> appIds = Database.Values.Where(e => e.LastStoreScrape == 0 && ShouldDisplayGame(e)).ToDictionary(entry => entry.Id, entry => entry.AppId);
 
             try
             {
@@ -848,10 +848,10 @@ namespace Depressurizer
 
             Cursor = Cursors.WaitCursor;
 
-            List<int> appIds = new List<int>();
+            Dictionary<int, int> appIds = new Dictionary<int, int>();
             foreach (int index in lstGames.SelectedIndices)
             {
-                appIds.Add(_displayedGames[index].AppId);
+                appIds.Add(_displayedGames[index].Id, _displayedGames[index].AppId);
             }
 
             try
