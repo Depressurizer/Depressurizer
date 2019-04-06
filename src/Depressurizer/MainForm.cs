@@ -727,7 +727,7 @@ namespace Depressurizer
                 Cursor.Current = Cursors.WaitCursor;
             }
 
-            autoCat.PreProcess(CurrentProfile.GameData, Database);
+            autoCat.PreProcess(CurrentProfile.GameData);
 
             foreach (GameInfo g in gamesToUpdate)
             {

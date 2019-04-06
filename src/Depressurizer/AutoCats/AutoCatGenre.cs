@@ -140,21 +140,10 @@ namespace Depressurizer.AutoCats
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
-            if (db == null)
-            {
-                Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-
             if (game == null)
             {
                 Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
-            }
-
-            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
-            {
-                return AutoCatResult.NotInDatabase;
             }
 
             if (!game.IncludeGame(filter))
@@ -162,12 +151,17 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
+            if (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
+            {
+                return AutoCatResult.NotInDatabase;
+            }
+
             if (RemoveOtherGenres && genreCategories != null)
             {
                 game.RemoveCategory(genreCategories);
             }
 
-            ICollection<string> genreList = db.GetGenreList(game.Id, MAX_PARENT_DEPTH, TagFallback);
+            ICollection<string> genreList = Database.GetGenreList(game.Id, MAX_PARENT_DEPTH, TagFallback);
 
             List<Category> categories = new List<Category>();
             int max = MaxCategories;
@@ -214,9 +208,9 @@ namespace Depressurizer.AutoCats
         ///     Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is
         ///     false.
         /// </summary>
-        public override void PreProcess(GameList games, Database db)
+        public override void PreProcess(GameList games)
         {
-            base.PreProcess(games, db);
+            base.PreProcess(games);
             if (!RemoveOtherGenres)
             {
                 return;
@@ -224,7 +218,7 @@ namespace Depressurizer.AutoCats
 
             genreCategories = new SortedSet<Category>();
 
-            foreach (string genre in db.AllGenres)
+            foreach (string genre in Database.AllGenres)
             {
                 if (games.CategoryExists(string.IsNullOrEmpty(Prefix) ? genre : Prefix + genre) && !IgnoredGenres.Contains(genre))
                 {

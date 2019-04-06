@@ -87,7 +87,7 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
-            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
+            if (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
             {
                 return AutoCatResult.NotInDatabase;
             }

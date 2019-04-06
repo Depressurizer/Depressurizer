@@ -431,7 +431,7 @@ namespace Depressurizer
             foreach (AutoCat ac in autocats)
             {
                 Write("Running autocat '" + ac.Name + "'...");
-                ac.PreProcess(p.GameData, Database);
+                ac.PreProcess(p.GameData);
 
                 if (ac.AutoCatType == AutoCatType.Group)
                 {
