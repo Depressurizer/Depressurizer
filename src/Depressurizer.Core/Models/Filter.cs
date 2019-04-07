@@ -6,8 +6,7 @@ namespace Depressurizer.Core.Models
     /// <summary>
     ///     Class representing a Filter.
     /// </summary>
-    /// <inheritdoc />
-    public class Filter : IComparable
+    public class Filter : IComparable, IComparer<Filter>
     {
         #region Fields
 
@@ -24,10 +23,6 @@ namespace Depressurizer.Core.Models
         public Filter(string name)
         {
             Name = name;
-
-            Allow = new SortedSet<Category>();
-            Require = new SortedSet<Category>();
-            Exclude = new SortedSet<Category>();
         }
 
         #endregion
@@ -36,13 +31,13 @@ namespace Depressurizer.Core.Models
 
         public SortedSet<Category> Allow
         {
-            get => _allow;
+            get => _allow ?? (_allow = new SortedSet<Category>());
             set => _allow = new SortedSet<Category>(value);
         }
 
         public SortedSet<Category> Exclude
         {
-            get => _exclude;
+            get => _exclude ?? (_exclude = new SortedSet<Category>());
             set => _exclude = new SortedSet<Category>(value);
         }
 
@@ -57,7 +52,7 @@ namespace Depressurizer.Core.Models
 
         public SortedSet<Category> Require
         {
-            get => _require;
+            get => _require ?? (_require = new SortedSet<Category>());
             set => _require = new SortedSet<Category>(value);
         }
 
@@ -70,6 +65,27 @@ namespace Depressurizer.Core.Models
         #endregion
 
         #region Public Methods and Operators
+
+        /// <inheritdoc />
+        public int Compare(Filter x, Filter y)
+        {
+            if (x == null)
+            {
+                if (y == null)
+                {
+                    return 0;
+                }
+
+                return -1;
+            }
+
+            if (y == null)
+            {
+                return 1;
+            }
+
+            return x.CompareTo(y);
+        }
 
         /// <inheritdoc />
         public int CompareTo(object obj)
