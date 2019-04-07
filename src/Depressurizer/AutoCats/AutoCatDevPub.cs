@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Xml;
@@ -109,8 +108,6 @@ namespace Depressurizer.AutoCats
 
         #region Properties
 
-        private static Database Database => Database.Instance;
-
         private static Logger Logger => Logger.Instance;
 
         #endregion
@@ -170,21 +167,10 @@ namespace Depressurizer.AutoCats
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
-            if (db == null)
-            {
-                Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-
             if (game == null)
             {
                 Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
-            }
-
-            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
-            {
-                return AutoCatResult.NotInDatabase;
             }
 
             if (!game.IncludeGame(filter))
@@ -192,7 +178,12 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
-            Collection<string> developers = db.GetDevelopers(game.Id);
+            if (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
+            {
+                return AutoCatResult.NotInDatabase;
+            }
+
+            ICollection<string> developers = Database.GetDevelopers(game.Id);
             foreach (string developer in developers)
             {
                 if (!Developers.Contains(developer) && !AllDevelopers)
@@ -206,7 +197,7 @@ namespace Depressurizer.AutoCats
                 }
             }
 
-            Collection<string> publishers = db.GetPublishers(game.Id);
+            ICollection<string> publishers = Database.GetPublishers(game.Id);
             foreach (string publisher in publishers)
             {
                 if (!Publishers.Contains(publisher) && !AllPublishers)
@@ -240,9 +231,9 @@ namespace Depressurizer.AutoCats
         ///     Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is
         ///     false.
         /// </summary>
-        public override void PreProcess(GameList games, Database db)
+        public override void PreProcess(GameList games)
         {
-            base.PreProcess(games, db);
+            base.PreProcess(games);
             gamelist = games;
             devList = Database.CalculateSortedDevList(OwnedOnly ? gamelist : null, MinCount);
             pubList = Database.CalculateSortedPubList(OwnedOnly ? gamelist : null, MinCount);

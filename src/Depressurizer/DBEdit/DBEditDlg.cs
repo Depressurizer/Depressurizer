@@ -88,7 +88,7 @@ namespace Depressurizer
         {
             return new ListViewItem(new[]
             {
-                entry.Id.ToString(CultureInfo.CurrentCulture),
+                entry.AppId.ToString(CultureInfo.CurrentCulture),
                 entry.Name,
                 entry.Genres != null ? string.Join(",", entry.Genres) : "",
                 entry.AppType.ToString(),
@@ -110,10 +110,10 @@ namespace Depressurizer
                     return;
                 }
 
-                if (Database.Contains(dlg.Game.Id))
+                if (Database.Contains(dlg.Game.AppId))
                 {
                     MessageBox.Show(GlobalStrings.DBEditDlg_GameIdAlreadyExists, Resources.Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.Id));
+                    AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_FailedToAddGame, dlg.Game.AppId));
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace Depressurizer
                         InvalidateAllListViewItems();
                     }
 
-                    AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AddedGame, dlg.Game.Id));
+                    AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AddedGame, dlg.Game.AppId));
                     UnsavedChanges = true;
                     UpdateStatusCount();
                 }
@@ -320,7 +320,7 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                Utility.LaunchStorePage(_displayedGames[lstGames.SelectedIndices[0]].Id);
+                Utility.LaunchStorePage(_displayedGames[lstGames.SelectedIndices[0]].AppId);
             }
         }
 
@@ -393,7 +393,7 @@ namespace Depressurizer
                     continue;
                 }
 
-                Database.Remove(game.Id);
+                Database.Remove(game.AppId);
                 deleted++;
             }
 
@@ -433,7 +433,7 @@ namespace Depressurizer
                 }
 
                 lstGames.RedrawItems(lstGames.SelectedIndices[0], lstGames.SelectedIndices[0], true);
-                AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_EditedGame, game.Id));
+                AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_EditedGame, game.AppId));
                 UnsavedChanges = true;
             }
         }
@@ -779,7 +779,7 @@ namespace Depressurizer
             return false;
         }
 
-        private void ScrapeGames(List<int> appIds)
+        private void ScrapeGames(Dictionary<int, int> appIds)
         {
             if (appIds.Count <= 0)
             {
@@ -827,7 +827,7 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            List<int> appIds = new List<int>(Database.Values.Where(e => e.LastStoreScrape == 0 && ShouldDisplayGame(e)).Select(e => e.Id));
+            Dictionary<int, int> appIds = Database.Values.Where(e => e.LastStoreScrape == 0 && ShouldDisplayGame(e)).ToDictionary(entry => entry.Id, entry => entry.AppId);
 
             try
             {
@@ -848,10 +848,10 @@ namespace Depressurizer
 
             Cursor = Cursors.WaitCursor;
 
-            List<int> appIds = new List<int>();
+            Dictionary<int, int> appIds = new Dictionary<int, int>();
             foreach (int index in lstGames.SelectedIndices)
             {
-                appIds.Add(_displayedGames[index].Id);
+                appIds.Add(_displayedGames[index].Id, _displayedGames[index].AppId);
             }
 
             try
@@ -871,22 +871,22 @@ namespace Depressurizer
                 return false;
             }
 
-            if (Settings.IgnoreList.Contains(entry.Id) && !CheckShowIgnored.Checked)
+            if (Settings.IgnoreList.Contains(entry.AppId) && !CheckShowIgnored.Checked)
             {
                 return false;
             }
 
-            if (chkIdRange.Checked && (entry.Id < _currentMinId || entry.Id > _currentMaxId))
+            if (chkIdRange.Checked && (entry.AppId < _currentMinId || entry.AppId > _currentMaxId))
             {
                 return false;
             }
 
-            if (!Database.Contains(entry.Id))
+            if (!Database.Contains(entry.AppId))
             {
                 return false;
             }
 
-            if (_ownedList != null && chkOwned.Checked && !_ownedList.Games.ContainsKey(entry.Id))
+            if (_ownedList != null && chkOwned.Checked && !_ownedList.Games.ContainsKey(entry.AppId))
             {
                 return false;
             }

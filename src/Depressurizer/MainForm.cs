@@ -669,24 +669,23 @@ namespace Depressurizer
             int updated = 0;
 
             // List of games not found in database or that have old data, so we can try to scrape data for them
-            List<int> appIds = new List<int>();
+            Dictionary<int, int> appIds = new Dictionary<int, int>();
             int oldDbDataCount = 0;
             int notInDbCount = 0;
-            foreach (GameInfo game in gamesToUpdate)
+            foreach (GameInfo game in gamesToUpdate.Where(g => !Settings.IgnoreList.Contains(g.Id)))
             {
                 if (game.Id > 0 && (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0))
                 {
-                    appIds.Add(game.Id);
+                    appIds.Add(game.Id, game.Id);
                     notInDbCount++;
                 }
                 else if (Database.Contains(game.Id, out DatabaseEntry entry2) && game.Id > 0 && DateTimeOffset.UtcNow.ToUnixTimeSeconds() > entry2.LastStoreScrape + Settings.ScrapePromptDays * 86400) //86400 seconds in a day
                 {
-                    appIds.Add(game.Id);
+                    appIds.Add(entry2.Id, game.Id);
                     oldDbDataCount++;
                 }
             }
 
-            appIds.RemoveAll(Settings.IgnoreList.Contains);
             if ((notInDbCount > 0 || oldDbDataCount > 0) && scrape && appIds.Count > 0)
             {
                 Cursor.Current = Cursors.Default;
@@ -727,7 +726,7 @@ namespace Depressurizer
                 Cursor.Current = Cursors.WaitCursor;
             }
 
-            autoCat.PreProcess(CurrentProfile.GameData, Database);
+            autoCat.PreProcess(CurrentProfile.GameData);
 
             foreach (GameInfo g in gamesToUpdate)
             {

@@ -431,7 +431,7 @@ namespace Depressurizer
             foreach (AutoCat ac in autocats)
             {
                 Write("Running autocat '" + ac.Name + "'...");
-                ac.PreProcess(p.GameData, Database);
+                ac.PreProcess(p.GameData);
 
                 if (ac.AutoCatType == AutoCatType.Group)
                 {
@@ -530,21 +530,20 @@ namespace Depressurizer
             Write("Scraping unscraped games...");
             try
             {
-                List<int> appIds = new List<int>();
-                foreach (int appId in p.GameData.Games.Keys)
+                Dictionary<int, int> appIds = new Dictionary<int, int>();
+                foreach (int appId in p.GameData.Games.Keys.Where(g => !Settings.IgnoreList.Contains(g)))
                 {
                     DatabaseEntry entry = null;
                     if (appId > 0 && !Database.Contains(appId, out entry))
                     {
-                        appIds.Add(appId);
+                        appIds.Add(appId, appId);
                     }
                     else if (entry != null && entry.LastStoreScrape == 0)
                     {
-                        appIds.Add(appId);
+                        appIds.Add(entry.Id, appId);
                     }
                 }
 
-                appIds.RemoveAll(Settings.IgnoreList.Contains);
                 if (appIds.Count > 0)
                 {
                     using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))

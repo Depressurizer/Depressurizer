@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -13,7 +12,7 @@ namespace Depressurizer.Core.Models
     /// <summary>
     ///     Class representing a single database entry.
     /// </summary>
-    public class DatabaseEntry
+    public class DatabaseEntry : IComparable, IComparer<DatabaseEntry>
     {
         #region Static Fields
 
@@ -63,17 +62,17 @@ namespace Depressurizer.Core.Models
 
         #region Fields
 
-        private Collection<string> _developers;
+        private SortedSet<string> _developers;
 
-        private Collection<string> _flags;
+        private SortedSet<string> _flags;
 
-        private Collection<string> _genres;
+        private SortedSet<string> _genres;
 
         private LanguageSupport _languageSupport;
 
-        private Collection<string> _publishers;
+        private SortedSet<string> _publishers;
 
-        private Collection<string> _tags;
+        private SortedSet<string> _tags;
 
         private VRSupport _vrSupport;
 
@@ -89,12 +88,17 @@ namespace Depressurizer.Core.Models
         /// </param>
         public DatabaseEntry(int appId)
         {
-            Id = appId;
+            Id = AppId = appId;
         }
 
         #endregion
 
         #region Public Properties
+
+        /// <summary>
+        ///     Steam Application ID.
+        /// </summary>
+        public int AppId { get; set; }
 
         /// <summary>
         ///     Type of this application.
@@ -104,27 +108,27 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List of the developers of this application.
         /// </summary>
-        public Collection<string> Developers
+        public SortedSet<string> Developers
         {
-            get => _developers ?? (_developers = new Collection<string>());
+            get => _developers ?? (_developers = new SortedSet<string>());
             set => _developers = value;
         }
 
         /// <summary>
         ///     List of flags specified on the Store page.
         /// </summary>
-        public Collection<string> Flags
+        public SortedSet<string> Flags
         {
-            get => _flags ?? (_flags = new Collection<string>());
+            get => _flags ?? (_flags = new SortedSet<string>());
             set => _flags = value;
         }
 
         /// <summary>
         ///     List of genres specified on the Store page.
         /// </summary>
-        public Collection<string> Genres
+        public SortedSet<string> Genres
         {
-            get => _genres ?? (_genres = new Collection<string>());
+            get => _genres ?? (_genres = new SortedSet<string>());
             set => _genres = value;
         }
 
@@ -144,9 +148,9 @@ namespace Depressurizer.Core.Models
         public int HltbMain { get; set; }
 
         /// <summary>
-        ///     Steam Application ID.
+        ///     Depressurizer id.
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; }
 
         /// <remarks>
         ///     TODO: Add field to DB edit dialog
@@ -190,9 +194,9 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List of the publishers of this application.
         /// </summary>
-        public Collection<string> Publishers
+        public SortedSet<string> Publishers
         {
-            get => _publishers ?? (_publishers = new Collection<string>());
+            get => _publishers ?? (_publishers = new SortedSet<string>());
             set => _publishers = value;
         }
 
@@ -214,9 +218,9 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List of tags specified on the Store page.
         /// </summary>
-        public Collection<string> Tags
+        public SortedSet<string> Tags
         {
-            get => _tags ?? (_tags = new Collection<string>());
+            get => _tags ?? (_tags = new SortedSet<string>());
             set => _tags = value;
         }
 
@@ -243,6 +247,43 @@ namespace Depressurizer.Core.Models
         #endregion
 
         #region Public Methods and Operators
+
+        /// <inheritdoc />
+        public int Compare(DatabaseEntry x, DatabaseEntry y)
+        {
+            if (x == null)
+            {
+                if (y == null)
+                {
+                    return 0;
+                }
+
+                return -1;
+            }
+
+            if (y == null)
+            {
+                return 1;
+            }
+
+            return x.CompareTo(y);
+        }
+
+        /// <inheritdoc />
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+            {
+                return 1;
+            }
+
+            if (!(obj is DatabaseEntry other))
+            {
+                throw new ArgumentException("Object is not a DatabaseEntry!");
+            }
+
+            return Id.CompareTo(other.Id);
+        }
 
         /// <summary>
         ///     Merges in data from another entry. Useful for merging scrape results, but could also merge data from a different
@@ -640,7 +681,7 @@ namespace Depressurizer.Core.Models
 
         private AppType ScrapeStoreHelper(string languageCode)
         {
-            Logger.Verbose("Scraping {0}: Initiating scraping of the Steam Store.", Id);
+            Logger.Verbose("Scraping {0}: Initiating scraping of the Steam Store.", AppId);
 
             int redirectTarget = -1;
 
@@ -648,7 +689,7 @@ namespace Depressurizer.Core.Models
 
             try
             {
-                HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp + "?l=" + languageCode, Id));
+                HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp + "?l=" + languageCode, AppId));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
@@ -657,14 +698,14 @@ namespace Depressurizer.Core.Models
                     resp.Close();
                     if (Regexes.IsSteamStore.IsMatch(resp.Headers[HttpResponseHeader.Location]))
                     {
-                        Logger.Warn("Scraping {0}: Location header points to the Steam Store homepage, aborting scraping.", Id);
+                        Logger.Warn("Scraping {0}: Location header points to the Steam Store homepage, aborting scraping.", AppId);
                         return AppType.Unknown;
                     }
 
                     // If page redirects to itself
                     if (resp.ResponseUri.ToString() == resp.Headers[HttpResponseHeader.Location])
                     {
-                        Logger.Warn("Scraping {0}: Location header points to itself, aborting scraping.", Id);
+                        Logger.Warn("Scraping {0}: Location header points to itself, aborting scraping.", AppId);
                         return AppType.Unknown;
                     }
 
@@ -675,13 +716,13 @@ namespace Depressurizer.Core.Models
 
                 if (count == 5 && resp.StatusCode == HttpStatusCode.Found)
                 {
-                    Logger.Warn("Scraping {0}: Received too many redirects, aborting scraping.", Id);
+                    Logger.Warn("Scraping {0}: Received too many redirects, aborting scraping.", AppId);
                     return AppType.Unknown;
                 }
 
                 if (resp.ResponseUri.Segments.Length < 2)
                 {
-                    Logger.Warn("Scraping {0}: Redirected to the Steam Store homepage, aborting scraping.", Id);
+                    Logger.Warn("Scraping {0}: Redirected to the Steam Store homepage, aborting scraping.", AppId);
                     return AppType.Unknown;
                 }
 
@@ -689,47 +730,47 @@ namespace Depressurizer.Core.Models
                 if (resp.ResponseUri.Segments[1] == "agecheck/")
                 {
                     // If we got an age check with no redirect
-                    if (resp.ResponseUri.Segments.Length < 4 || resp.ResponseUri.Segments[3].TrimEnd('/') == Id.ToString())
+                    if (resp.ResponseUri.Segments.Length < 4 || resp.ResponseUri.Segments[3].TrimEnd('/') == AppId.ToString())
                     {
-                        Logger.Warn("Scraping {0}: Hit an age check without redirect, aborting scraping.", Id);
+                        Logger.Warn("Scraping {0}: Hit an age check without redirect, aborting scraping.", AppId);
                         return AppType.Unknown;
                     }
 
-                    Logger.Verbose("Scraping {0}: Hit age check for id {1}.", Id, resp.ResponseUri.Segments[3].TrimEnd('/'));
+                    Logger.Verbose("Scraping {0}: Hit age check for id {1}.", AppId, resp.ResponseUri.Segments[3].TrimEnd('/'));
 
                     // If we got an age check without numeric id (shouldn't happen)
                     if (!int.TryParse(resp.ResponseUri.Segments[3].TrimEnd('/'), out redirectTarget))
                     {
-                        Logger.Warn("Scraping {0}: Hit an age check without numeric id, aborting scraping.", Id);
+                        Logger.Warn("Scraping {0}: Hit an age check without numeric id, aborting scraping.", AppId);
                         return AppType.Unknown;
                     }
                 }
                 else if (resp.ResponseUri.Segments[1] != "app/")
                 {
-                    Logger.Warn("Scraping {0}: Redirected to a non-app URL, aborting scraping.", Id);
+                    Logger.Warn("Scraping {0}: Redirected to a non-app URL, aborting scraping.", AppId);
                     return AppType.Unknown;
                 }
                 // The URI ends with "/app/" ?
                 else if (resp.ResponseUri.Segments.Length < 3)
                 {
-                    Logger.Warn("Scraping {0}: Response URI ends with 'app' thus missing the redirect ID, aborting scraping.", Id);
+                    Logger.Warn("Scraping {0}: Response URI ends with 'app' thus missing the redirect ID, aborting scraping.", AppId);
                     return AppType.Unknown;
                 }
                 // Redirected to a different app id
-                else if (resp.ResponseUri.Segments[2].TrimEnd('/') != Id.ToString())
+                else if (resp.ResponseUri.Segments[2].TrimEnd('/') != AppId.ToString())
                 {
                     if (!int.TryParse(resp.ResponseUri.Segments[2].TrimEnd('/'), out redirectTarget))
                     {
-                        Logger.Verbose("Scraping {0}: Redirected to a different but failed parsing the id: {1},  aborting scraping.", Id, resp.ResponseUri.Segments[2].TrimEnd('/'));
+                        Logger.Verbose("Scraping {0}: Redirected to a different but failed parsing the id: {1},  aborting scraping.", AppId, resp.ResponseUri.Segments[2].TrimEnd('/'));
                         return AppType.Unknown;
                     }
 
-                    Logger.Verbose("Scraping {0}: Redirected to a different id: {1}.", Id, redirectTarget);
+                    Logger.Verbose("Scraping {0}: Redirected to a different id: {1}.", AppId, redirectTarget);
                 }
             }
             catch (Exception e)
             {
-                Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", Id, e);
+                Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", AppId, e);
                 return AppType.Unknown;
             }
 
@@ -740,7 +781,7 @@ namespace Depressurizer.Core.Models
                 responseStream = resp.GetResponseStream();
                 if (responseStream == null)
                 {
-                    Logger.Warn("Scraping {0}: The response stream was null, aborting scraping.", Id);
+                    Logger.Warn("Scraping {0}: The response stream was null, aborting scraping.", AppId);
                     return AppType.Unknown;
                 }
 
@@ -749,16 +790,16 @@ namespace Depressurizer.Core.Models
                     page = streamReader.ReadToEnd();
                 }
 
-                Logger.Verbose("Scraping {0}: Successfully read page.", Id);
+                Logger.Verbose("Scraping {0}: Successfully read page.", AppId);
             }
             catch (Exception e)
             {
-                Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", Id, e);
+                Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", AppId, e);
                 return AppType.Unknown;
             }
             finally
             {
-                resp?.Dispose();
+                resp.Dispose();
                 responseStream?.Dispose();
             }
 
@@ -769,11 +810,11 @@ namespace Depressurizer.Core.Models
             {
                 if (redirectTarget == -1)
                 {
-                    Logger.Warn("Scraping {0}: Received a site error, aborting scraping.", Id);
+                    Logger.Warn("Scraping {0}: Received a site error, aborting scraping.", AppId);
                     return result;
                 }
 
-                Logger.Verbose("Scraping {0}: Received a site error, following redirect target.", Id);
+                Logger.Verbose("Scraping {0}: Received a site error, following redirect target.", AppId);
             }
             // Here we should have an app, but make sure.
             else if (RegexIsGame.IsMatch(page) || RegexIsSoftware.IsMatch(page))
@@ -795,11 +836,11 @@ namespace Depressurizer.Core.Models
             {
                 if (redirectTarget == -1)
                 {
-                    Logger.Warn("Scraping {0}: Could not parse information from page, aborting scraping.", Id);
+                    Logger.Warn("Scraping {0}: Could not parse information from page, aborting scraping.", AppId);
                     return result;
                 }
 
-                Logger.Verbose("Scraping {0}: Could not parse information from page, following redirect target.", Id);
+                Logger.Verbose("Scraping {0}: Could not parse information from page, following redirect target.", AppId);
             }
 
             if (redirectTarget == -1)

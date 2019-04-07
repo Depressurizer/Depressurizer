@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
@@ -141,21 +140,10 @@ namespace Depressurizer.AutoCats
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
-            if (db == null)
-            {
-                Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-
             if (game == null)
             {
                 Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
-            }
-
-            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
-            {
-                return AutoCatResult.NotInDatabase;
             }
 
             if (!game.IncludeGame(filter))
@@ -163,25 +151,39 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
+            if (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
+            {
+                return AutoCatResult.NotInDatabase;
+            }
+
             if (RemoveOtherGenres && genreCategories != null)
             {
                 game.RemoveCategory(genreCategories);
             }
 
-            Collection<string> genreList = db.GetGenreList(game.Id, MAX_PARENT_DEPTH, TagFallback);
+            ICollection<string> genreList = Database.GetGenreList(game.Id, MAX_PARENT_DEPTH, TagFallback);
 
             List<Category> categories = new List<Category>();
             int max = MaxCategories;
-            for (int i = 0; i < genreList.Count && (MaxCategories == 0 || i < max); i++)
+
+            int i = 0;
+            foreach (string genre in genreList)
             {
-                if (!IgnoredGenres.Contains(genreList[i]))
+                if (MaxCategories != 0 && i >= max)
                 {
-                    categories.Add(games.GetCategory(GetCategoryName(genreList[i])));
+                    continue;
+                }
+
+                if (!IgnoredGenres.Contains(genre))
+                {
+                    categories.Add(games.GetCategory(GetCategoryName(genre)));
                 }
                 else
                 {
                     max++; // ignored genres don't contribute to max
                 }
+
+                i++;
             }
 
             game.AddCategory(categories);
@@ -206,9 +208,9 @@ namespace Depressurizer.AutoCats
         ///     Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is
         ///     false.
         /// </summary>
-        public override void PreProcess(GameList games, Database db)
+        public override void PreProcess(GameList games)
         {
-            base.PreProcess(games, db);
+            base.PreProcess(games);
             if (!RemoveOtherGenres)
             {
                 return;
@@ -216,7 +218,7 @@ namespace Depressurizer.AutoCats
 
             genreCategories = new SortedSet<Category>();
 
-            foreach (string genre in db.AllGenres)
+            foreach (string genre in Database.AllGenres)
             {
                 if (games.CategoryExists(string.IsNullOrEmpty(Prefix) ? genre : Prefix + genre) && !IgnoredGenres.Contains(genre))
                 {

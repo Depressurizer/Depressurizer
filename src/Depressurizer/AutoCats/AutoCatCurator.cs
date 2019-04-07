@@ -115,10 +115,9 @@ namespace Depressurizer.AutoCats
         }
 
         /// <inheritdoc />
-        public override void PreProcess(GameList games, Database db)
+        public override void PreProcess(GameList games)
         {
             this.games = games;
-            this.db = db;
 
             GetRecommendations();
         }

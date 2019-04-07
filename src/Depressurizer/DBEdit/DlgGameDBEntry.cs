@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
@@ -70,8 +70,7 @@ namespace Depressurizer
             }
             else
             {
-                txtId.Text = Game.Id.ToString(CultureInfo.CurrentCulture);
-                txtId.Enabled = false;
+                txtId.Text = Game.AppId.ToString(CultureInfo.CurrentCulture);
 
                 txtParent.Text = Game.ParentId < 0 ? "" : Game.ParentId.ToString(CultureInfo.CurrentCulture);
 
@@ -143,6 +142,8 @@ namespace Depressurizer
                 Game = new DatabaseEntry(id);
             }
 
+            Game.AppId = id;
+
             Game.ParentId = parent;
 
             Game.AppType = (AppType?) cmbType.SelectedItem ?? AppType.Unknown;
@@ -187,9 +188,9 @@ namespace Depressurizer
             return true;
         }
 
-        private Collection<string> SplitAndTrim(string s)
+        private SortedSet<string> SplitAndTrim(string s)
         {
-            Collection<string> result = new Collection<string>();
+            SortedSet<string> result = new SortedSet<string>();
 
             if (string.IsNullOrWhiteSpace(s))
             {

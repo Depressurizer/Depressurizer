@@ -89,19 +89,13 @@ namespace Depressurizer.AutoCats
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
-            if (db == null)
-            {
-                Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-
             if (game == null)
             {
                 Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id))
+            if (!Database.Contains(game.Id))
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -111,7 +105,7 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
-            int year = db.GetReleaseYear(game.Id);
+            int year = Database.GetReleaseYear(game.Id);
             if (year > 0 || IncludeUnknown)
             {
                 game.AddCategory(games.GetCategory(GetProcessedString(year)));

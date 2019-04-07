@@ -39,7 +39,7 @@ namespace Depressurizer
             switch (SortMode)
             {
                 case SortModes.Id:
-                    res = x.Id - y.Id;
+                    res = x.Id.CompareTo(y.Id);
                     break;
                 case SortModes.Name:
                     res = string.Compare(x.Name, y.Name, StringComparison.CurrentCultureIgnoreCase);
@@ -57,7 +57,7 @@ namespace Depressurizer
                     res = (x.LastAppInfoUpdate > 0 ? 1 : 0) - (y.LastAppInfoUpdate > 0 ? 1 : 0);
                     break;
                 case SortModes.Parent:
-                    res = x.ParentId - y.ParentId;
+                    res = x.ParentId.CompareTo(y.ParentId);
                     break;
             }
 

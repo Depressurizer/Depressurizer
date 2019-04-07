@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using Depressurizer.Core.Models;
 using Depressurizer.Properties;
@@ -13,7 +12,7 @@ namespace Depressurizer
     {
         #region Fields
 
-        private readonly Queue<int> _queue;
+        private readonly Queue<ScrapeJob> _queue;
 
         private readonly List<DatabaseEntry> _results = new List<DatabaseEntry>();
 
@@ -25,9 +24,14 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public DbScrapeDlg(IEnumerable<int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
+        public DbScrapeDlg(Dictionary<int, int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
-            _queue = new Queue<int>(appIds.Distinct().Where(id => id > 0));
+            _queue = new Queue<ScrapeJob>(appIds.Count);
+            foreach (KeyValuePair<int, int> pair in appIds)
+            {
+                _queue.Enqueue(new ScrapeJob(pair.Key, pair.Value));
+            }
+
             totalJobs = _queue.Count;
         }
 
@@ -57,14 +61,7 @@ namespace Depressurizer
 
             foreach (DatabaseEntry g in _results)
             {
-                if (Database.Contains(g.Id, out DatabaseEntry entry))
-                {
-                    entry.MergeIn(g);
-                }
-                else
-                {
-                    Database.Add(g);
-                }
+                Database.Add(g);
             }
         }
 
@@ -116,7 +113,7 @@ namespace Depressurizer
             SetText(stringBuilder.ToString());
         }
 
-        private int GetNextGameId()
+        private ScrapeJob GetNextGameId()
         {
             lock (_queue)
             {
@@ -125,14 +122,14 @@ namespace Depressurizer
                     return _queue.Dequeue();
                 }
 
-                return 0;
+                return new ScrapeJob(0, 0);
             }
         }
 
         private bool RunNextJob()
         {
-            int id = GetNextGameId();
-            if (id == 0)
+            ScrapeJob job = GetNextGameId();
+            if (job.Id == 0)
             {
                 return false;
             }
@@ -142,7 +139,11 @@ namespace Depressurizer
                 return false;
             }
 
-            DatabaseEntry newGame = new DatabaseEntry(id);
+            DatabaseEntry newGame = new DatabaseEntry(job.Id)
+            {
+                AppId = job.ScrapeId
+            };
+
             newGame.ScrapeStore(Database.LanguageCode);
 
             // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
@@ -165,5 +166,26 @@ namespace Depressurizer
         }
 
         #endregion
+
+        private class ScrapeJob
+        {
+            #region Fields
+
+            public readonly int Id;
+
+            public readonly int ScrapeId;
+
+            #endregion
+
+            #region Constructors and Destructors
+
+            public ScrapeJob(int id, int scrapeId)
+            {
+                Id = id;
+                ScrapeId = scrapeId;
+            }
+
+            #endregion
+        }
     }
 }

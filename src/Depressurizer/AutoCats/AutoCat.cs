@@ -19,8 +19,6 @@ namespace Depressurizer.AutoCats
     {
         #region Fields
 
-        protected Database db;
-
         protected GameList games;
 
         #endregion
@@ -73,6 +71,8 @@ namespace Depressurizer.AutoCats
         #endregion
 
         #region Properties
+
+        protected Database Database => Database.Instance;
 
         private static Logger Logger => Logger.Instance;
 
@@ -216,7 +216,6 @@ namespace Depressurizer.AutoCats
         public virtual void DeProcess()
         {
             games = null;
-            db = null;
         }
 
         public virtual string GetCategoryName(string name)
@@ -234,10 +233,9 @@ namespace Depressurizer.AutoCats
         ///     or other preparation.
         ///     After this is called, no configuration options should be changed before using CategorizeGame.
         /// </summary>
-        public virtual void PreProcess(GameList games, Database db)
+        public virtual void PreProcess(GameList games)
         {
             this.games = games;
-            this.db = db;
         }
 
         /// <inheritdoc />

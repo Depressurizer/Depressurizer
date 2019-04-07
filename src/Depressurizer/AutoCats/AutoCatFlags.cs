@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -103,19 +102,13 @@ namespace Depressurizer.AutoCats
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
-            if (db == null)
-            {
-                Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-
             if (game == null)
             {
                 Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
+            if (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -125,7 +118,7 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
-            Collection<string> gameFlags = db.GetFlagList(game.Id);
+            ICollection<string> gameFlags = Database.GetFlagList(game.Id);
             IEnumerable<string> categories = gameFlags.Intersect(IncludedFlags);
 
             foreach (string catString in categories)

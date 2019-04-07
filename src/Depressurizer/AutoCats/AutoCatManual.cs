@@ -143,26 +143,20 @@ namespace Depressurizer.AutoCats
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
-            if (db == null)
-            {
-                Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-
             if (game == null)
             {
                 Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
-            {
-                return AutoCatResult.NotInDatabase;
-            }
-
             if (!game.IncludeGame(filter))
             {
                 return AutoCatResult.Filtered;
+            }
+
+            if (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
+            {
+                return AutoCatResult.NotInDatabase;
             }
 
             if (RemoveAllCategories)
@@ -225,9 +219,9 @@ namespace Depressurizer.AutoCats
         ///     Prepares to categorize games. Prepares a list of genre categories to remove. Does nothing if removeothergenres is
         ///     false.
         /// </summary>
-        public override void PreProcess(GameList games, Database db)
+        public override void PreProcess(GameList games)
         {
-            base.PreProcess(games, db);
+            base.PreProcess(games);
             gamelist = games;
         }
 

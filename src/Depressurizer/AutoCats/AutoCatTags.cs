@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
@@ -173,19 +172,13 @@ namespace Depressurizer.AutoCats
                 throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameList);
             }
 
-            if (db == null)
-            {
-                Logger.Error(GlobalStrings.Log_AutoCat_DBNull);
-                throw new ApplicationException(GlobalStrings.AutoCatGenre_Exception_NoGameDB);
-            }
-
             if (game == null)
             {
                 Logger.Error(GlobalStrings.Log_AutoCat_GameNull);
                 return AutoCatResult.Failure;
             }
 
-            if (!db.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
+            if (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0)
             {
                 return AutoCatResult.NotInDatabase;
             }
@@ -195,17 +188,20 @@ namespace Depressurizer.AutoCats
                 return AutoCatResult.Filtered;
             }
 
-            Collection<string> gameTags = db.GetTagList(game.Id);
-
             int added = 0;
-            for (int index = 0; index < gameTags.Count && (MaxTags == 0 || added < MaxTags); index++)
+            foreach (string gameTag in Database.GetTagList(game.Id))
             {
-                if (!IncludedTags.Contains(gameTags[index]))
+                if (MaxTags != 0 && added >= MaxTags)
                 {
                     continue;
                 }
 
-                game.AddCategory(games.GetCategory(GetCategoryName(gameTags[index])));
+                if (!IncludedTags.Contains(gameTag))
+                {
+                    continue;
+                }
+
+                game.AddCategory(games.GetCategory(GetCategoryName(gameTag)));
                 added++;
             }
 
