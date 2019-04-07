@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Depressurizer.Core.Models
 {
     /// <summary>
     ///     Class representing a single Category.
     /// </summary>
-    /// <inheritdoc />
-    public class Category : IComparable
+    public class Category : IComparable, IComparer<Category>
     {
         #region Constructors and Destructors
 
@@ -40,6 +40,27 @@ namespace Depressurizer.Core.Models
         #region Public Methods and Operators
 
         /// <inheritdoc />
+        public int Compare(Category x, Category y)
+        {
+            if (x == null)
+            {
+                if (y == null)
+                {
+                    return 0;
+                }
+
+                return -1;
+            }
+
+            if (y == null)
+            {
+                return 1;
+            }
+
+            return x.CompareTo(y);
+        }
+
+        /// <inheritdoc />
         public int CompareTo(object obj)
         {
             if (obj == null)
@@ -49,7 +70,7 @@ namespace Depressurizer.Core.Models
 
             if (!(obj is Category otherCategory))
             {
-                throw new ArgumentException("Object is not a Category");
+                throw new ArgumentException("Object is not a Category!");
             }
 
             if (Name.Equals(otherCategory.Name, StringComparison.OrdinalIgnoreCase))
