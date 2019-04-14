@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
@@ -60,46 +58,6 @@ namespace Depressurizer
             }
 
             return val;
-        }
-
-        /// <summary>
-        ///     Compares two lists of strings for equality / sorting purposes.
-        /// </summary>
-        /// <param name="a">First list</param>
-        /// <param name="b">Second list</param>
-        /// <returns>0 if equal, negative if a is greater, positive if b is greater</returns>
-        public static int CompareLists(SortedSet<string> a, SortedSet<string> b)
-        {
-            if (a == null)
-            {
-                return b == null ? 0 : 1;
-            }
-
-            if (b == null)
-            {
-                return -1;
-            }
-
-            if (a.Count() == b.Count() && !a.Except(b).Any())
-            {
-                return 0;
-            }
-
-            List<string> x = a.ToList();
-            List<string> y = b.ToList();
-
-            for (int i = 0; i < a.Count && i < b.Count; i++)
-            {
-                int res = string.Compare(x[i], y[i], StringComparison.Ordinal);
-                if (res == 0)
-                {
-                    continue;
-                }
-
-                return res;
-            }
-
-            return 0;
         }
 
         public static string GetEnumDescription(Enum value)

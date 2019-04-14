@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Models;
 
-namespace Depressurizer
+namespace Depressurizer.Core.Helpers
 {
     public class DatabaseEntrySorter : IComparer<DatabaseEntry>
     {
@@ -16,6 +17,45 @@ namespace Depressurizer
         #endregion
 
         #region Public Methods and Operators
+
+        public static int CompareLists(SortedSet<string> sortedX, SortedSet<string> sortedY)
+        {
+            if (sortedX == null)
+            {
+                if (sortedY == null)
+                {
+                    return 0;
+                }
+
+                return 1;
+            }
+
+            if (sortedY == null)
+            {
+                return -1;
+            }
+
+            if (sortedX.Count == sortedY.Count && !sortedX.Except(sortedY).Any())
+            {
+                return 0;
+            }
+
+            List<string> listX = sortedX.ToList();
+            List<string> listY = sortedY.ToList();
+
+            for (int i = 0; i < sortedX.Count && i < sortedY.Count; i++)
+            {
+                int res = string.Compare(listX[i], listY[i], StringComparison.Ordinal);
+                if (res == 0)
+                {
+                    continue;
+                }
+
+                return res;
+            }
+
+            return 0;
+        }
 
         /// <inheritdoc />
         public int Compare(DatabaseEntry x, DatabaseEntry y)
@@ -45,7 +85,7 @@ namespace Depressurizer
                     res = string.Compare(x.Name, y.Name, StringComparison.CurrentCultureIgnoreCase);
                     break;
                 case SortModes.Genre:
-                    res = Utility.CompareLists(x.Genres, y.Genres);
+                    res = CompareLists(x.Genres, y.Genres);
                     break;
                 case SortModes.Type:
                     res = x.AppType - y.AppType;
