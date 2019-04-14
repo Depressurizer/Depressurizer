@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -12,9 +13,9 @@ namespace Depressurizer
     {
         #region Fields
 
-        private readonly Queue<ScrapeJob> _queue;
+        private readonly ConcurrentQueue<ScrapeJob> _queue;
 
-        private readonly List<DatabaseEntry> _results = new List<DatabaseEntry>();
+        private readonly ConcurrentQueue<DatabaseEntry> _results = new ConcurrentQueue<DatabaseEntry>();
 
         private DateTime _start;
 
@@ -26,7 +27,7 @@ namespace Depressurizer
 
         public DbScrapeDlg(Dictionary<int, int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
-            _queue = new Queue<ScrapeJob>(appIds.Count);
+            _queue = new ConcurrentQueue<ScrapeJob>();
             foreach (KeyValuePair<int, int> pair in appIds)
             {
                 _queue.Enqueue(new ScrapeJob(pair.Key, pair.Value));
@@ -113,23 +114,14 @@ namespace Depressurizer
             SetText(stringBuilder.ToString());
         }
 
-        private ScrapeJob GetNextGameId()
+        private bool GetNextJob(out ScrapeJob job)
         {
-            lock (_queue)
-            {
-                if (_queue.Count > 0)
-                {
-                    return _queue.Dequeue();
-                }
-
-                return new ScrapeJob(0, 0);
-            }
+            return _queue.TryDequeue(out job);
         }
 
         private bool RunNextJob()
         {
-            ScrapeJob job = GetNextGameId();
-            if (job.Id == 0)
+            if (!GetNextJob(out ScrapeJob job))
             {
                 return false;
             }
@@ -154,15 +146,16 @@ namespace Depressurizer
                 {
                     return false;
                 }
-
-                if (newGame.LastStoreScrape != 0)
-                {
-                    _results.Add(newGame);
-                }
-
-                OnJobCompletion();
-                return true;
             }
+
+            if (newGame.LastStoreScrape != 0)
+            {
+                _results.Enqueue(newGame);
+            }
+
+            OnJobCompletion();
+
+            return true;
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -26,7 +27,7 @@ namespace Depressurizer
 
         #region Fields
 
-        public readonly Dictionary<int, DatabaseEntry> Games = new Dictionary<int, DatabaseEntry>();
+        public readonly ConcurrentDictionary<int, DatabaseEntry> DatabaseEntries = new ConcurrentDictionary<int, DatabaseEntry>();
 
         private StoreLanguage _language = StoreLanguage.English;
 
@@ -150,7 +151,7 @@ namespace Depressurizer
         }
 
         [JsonIgnore]
-        public int Count => Games.Count;
+        public int Count => DatabaseEntries.Count;
 
         [JsonIgnore]
         public CultureInfo Culture { get; private set; }
@@ -172,7 +173,7 @@ namespace Depressurizer
         public long LastHLTBUpdate { get; set; }
 
         [JsonIgnore]
-        public Dictionary<int, DatabaseEntry>.ValueCollection Values => Games.Values;
+        public ICollection<DatabaseEntry> Values => DatabaseEntries.Values;
 
         #endregion
 
@@ -193,14 +194,7 @@ namespace Depressurizer
                 return;
             }
 
-            if (Contains(entry.Id, out DatabaseEntry databaseEntry))
-            {
-                databaseEntry.MergeIn(entry);
-            }
-            else
-            {
-                Games.Add(entry.Id, entry);
-            }
+            DatabaseEntries.AddOrUpdate(entry.Id, entry, (i, entry1) => entry1.MergeIn(entry));
         }
 
         public Dictionary<string, int> CalculateSortedDevList(GameList gameList, int minCount)
@@ -340,17 +334,17 @@ namespace Depressurizer
 
         public void Clear()
         {
-            Games.Clear();
+            DatabaseEntries.Clear();
         }
 
         public bool Contains(int appId)
         {
-            return Games.ContainsKey(appId);
+            return DatabaseEntries.ContainsKey(appId);
         }
 
         public bool Contains(int appId, out DatabaseEntry entry)
         {
-            return Games.TryGetValue(appId, out entry);
+            return DatabaseEntries.TryGetValue(appId, out entry);
         }
 
         /// <summary>
@@ -616,9 +610,14 @@ namespace Depressurizer
             Logger.Info("Database: Loaded database from '{0}', in {1}ms.", path, sw.ElapsedMilliseconds);
         }
 
-        public void Remove(int appId)
+        public bool Remove(int appId)
         {
-            Games.Remove(appId);
+            return Remove(appId, out _);
+        }
+
+        public bool Remove(int appId, out DatabaseEntry entry)
+        {
+            return DatabaseEntries.TryRemove(appId, out entry);
         }
 
         public void Reset()

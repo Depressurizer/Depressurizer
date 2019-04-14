@@ -294,7 +294,7 @@ namespace Depressurizer.Core.Models
         /// <param name="other">
         ///     DatabaseEntry containing info to be merged into this entry.
         /// </param>
-        public void MergeIn(DatabaseEntry other)
+        public DatabaseEntry MergeIn(DatabaseEntry other)
         {
             bool useAppInfoFields = other.LastAppInfoUpdate > LastAppInfoUpdate || LastAppInfoUpdate == 0 && other.LastStoreScrape >= LastStoreScrape;
             bool useScrapeOnlyFields = other.LastStoreScrape >= LastStoreScrape;
@@ -418,6 +418,8 @@ namespace Depressurizer.Core.Models
             {
                 LastAppInfoUpdate = other.LastAppInfoUpdate;
             }
+
+            return this;
         }
 
         /// <summary>
