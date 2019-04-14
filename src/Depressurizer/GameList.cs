@@ -683,7 +683,7 @@ namespace Depressurizer
                 "Steam",
                 "apps"
             }, true);
-            int count = IntegrateGamesFromVdf(appsNode, ignore);
+            int count = IntegrateFromNode(appsNode, ignore);
             Logger.Info(GlobalStrings.GameData_SteamConfigFileLoaded, count);
             return count;
         }
@@ -1197,7 +1197,7 @@ namespace Depressurizer
 
                 if (ignore != null && ignore.Contains(gameId) || !Database.IncludeItemInGameList(gameId))
                 {
-                    Logger.Verbose(GlobalStrings.GameData_SkippedProcessingGame, gameId);
+                    Logger.Verbose("Skipped processing game {0} from Steam config.", gameId);
                 }
                 else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
                 {
@@ -1221,9 +1221,92 @@ namespace Depressurizer
                     }
 
                     game.LastPlayed = gameNodePair.Value["LastPlayed"].NodeInt;
-                    Logger.Verbose(GlobalStrings.GameData_ProcessedGame, gameId, DateTimeOffset.FromUnixTimeSeconds(game.LastPlayed).Date);
+                    Logger.Verbose("Processed game from Steam config: {0}, Cat: {1}", gameId, DateTimeOffset.FromUnixTimeSeconds(game.LastPlayed).Date);
                 }
             }
+        }
+
+        private int IntegrateFromNode(VDFNode appsNode, ICollection<int> ignore)
+        {
+            int loadedGames = 0;
+
+            // Validate appsNode
+            if (appsNode?.NodeArray == null || !(appsNode.NodeArray is Dictionary<string, VDFNode> gameNodeArray))
+            {
+                return loadedGames;
+            }
+
+            // Make sure ignore list is not null
+            ignore = ignore ?? new List<int>();
+
+            foreach (KeyValuePair<string, VDFNode> gameNodePair in gameNodeArray)
+            {
+                if (!int.TryParse(gameNodePair.Key, out int gameId))
+                {
+                    continue;
+                }
+
+                if (gameNodePair.Value == null || gameNodePair.Value.NodeType != ValueType.Array)
+                {
+                    Logger.Verbose("Skipped processing game {0} from Steam config, value was null or not of type Array.", gameId);
+                    continue;
+                }
+
+                if (ignore.Contains(gameId) || !Database.IncludeItemInGameList(gameId))
+                {
+                    Logger.Verbose("Skipped processing game {0} from Steam config.", gameId);
+                    continue;
+                }
+
+                GameInfo game;
+
+                // Add the game to the list if it doesn't exist already
+                if (!Games.ContainsKey(gameId))
+                {
+                    game = new GameInfo(gameId, Database.GetName(gameId), this);
+                    Games.Add(gameId, game);
+                    Logger.Verbose(GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
+                }
+                else
+                {
+                    game = Games[gameId];
+                }
+
+                loadedGames++;
+
+                game.ApplySource(GameListingSource.SteamConfig);
+
+                game.IsHidden = gameNodePair.Value.ContainsKey("hidden") && gameNodePair.Value["hidden"].NodeInt != 0;
+
+                VDFNode tagsNode = gameNodePair.Value["tags"];
+                if (tagsNode?.NodeArray != null && tagsNode.NodeArray is Dictionary<string, VDFNode> tagArray)
+                {
+                    List<Category> categories = new List<Category>(tagArray.Count);
+                    foreach (VDFNode tag in tagArray.Values)
+                    {
+                        string tagName = tag.NodeString;
+                        if (string.IsNullOrWhiteSpace(tagName))
+                        {
+                            continue;
+                        }
+
+                        Category category = GetCategory(tagName);
+                        if (category != null)
+                        {
+                            categories.Add(category);
+                        }
+                    }
+
+                    if (categories.Count > 0)
+                    {
+                        SetGameCategories(gameId, categories, false);
+                    }
+                }
+
+                Logger.Verbose("Processed game from Steam config: {0}, Cat: {1}", gameId, string.Join(",", game.Categories));
+            }
+
+            return loadedGames;
         }
 
         /// <summary>
@@ -1268,111 +1351,8 @@ namespace Depressurizer
             return result;
         }
 
-        /// <summary>
-        ///     Loads in games from a VDF node containing a list of games.
-        ///     Any games in the node not found in the game list will be added to the gameList.
-        ///     If a game in the node has a tags subNode, the "favorite" field will be overwritten.
-        ///     If a game in the node has a category set, it will overwrite any categories in the gameList.
-        ///     If a game in the node does NOT have a category set, the category in the gameList will NOT be cleared.
-        /// </summary>
-        /// <param name="appsNode">Node containing the game nodes</param>
-        /// <param name="ignore">Set of games to ignore</param>
-        /// <returns>Number of games loaded</returns>
-        private int IntegrateGamesFromVdf(VDFNode appsNode, ICollection<int> ignore)
-        {
-            int loadedGames = 0;
-
-            Dictionary<string, VDFNode> gameNodeArray = appsNode.NodeArray;
-            if (gameNodeArray == null)
-            {
-                return loadedGames;
-            }
-
-            foreach (KeyValuePair<string, VDFNode> gameNodePair in gameNodeArray)
-            {
-                if (!int.TryParse(gameNodePair.Key, out int gameId))
-                {
-                    continue;
-                }
-
-                if (ignore != null && ignore.Contains(gameId) || !Database.IncludeItemInGameList(gameId))
-                {
-                    Logger.Verbose(GlobalStrings.GameData_SkippedProcessingGame, gameId);
-                }
-                else if (gameNodePair.Value != null && gameNodePair.Value.NodeType == ValueType.Array)
-                {
-                    GameInfo game;
-
-                    // Add the game to the list if it doesn't exist already
-                    if (!Games.ContainsKey(gameId))
-                    {
-                        game = new GameInfo(gameId, Database.GetName(gameId), this);
-                        Games.Add(gameId, game);
-                        Logger.Verbose(GlobalStrings.GameData_AddedNewGame, gameId, game.Name);
-                    }
-                    else
-                    {
-                        game = Games[gameId];
-                    }
-
-                    loadedGames++;
-
-                    game.ApplySource(GameListingSource.SteamConfig);
-
-                    game.IsHidden = gameNodePair.Value.ContainsKey("hidden") && gameNodePair.Value["hidden"].NodeInt != 0;
-
-                    VDFNode tagsNode = gameNodePair.Value["tags"];
-                    Dictionary<string, VDFNode> tagArray = tagsNode?.NodeArray;
-                    if (tagArray != null)
-                    {
-                        List<Category> cats = new List<Category>(tagArray.Count);
-                        foreach (VDFNode tag in tagArray.Values)
-                        {
-                            string tagName = tag.NodeString;
-                            if (tagName == null)
-                            {
-                                continue;
-                            }
-
-                            Category c = GetCategory(tagName);
-                            if (c != null)
-                            {
-                                cats.Add(c);
-                            }
-                        }
-
-                        if (cats.Count > 0)
-                        {
-                            SetGameCategories(gameId, cats, false);
-                        }
-                    }
-
-                    Logger.Verbose(GlobalStrings.GameData_ProcessedGame, gameId, string.Join(",", game.Categories));
-                }
-            }
-
-            return loadedGames;
-        }
-
-        /// <summary>
-        ///     Adds a non-steam game to the gameList.
-        /// </summary>
-        /// <param name="gameId">ID of the game in the steam config file</param>
-        /// <param name="gameNode">Node for the game in the steam config file</param>
-        /// <param name="launchIds">Dictionary of launch ids (name:launchId)</param>
-        /// <param name="newGames">Number of NEW games that have been added to the list</param>
-        /// <param name="preferSteamCategories">
-        ///     If true, prefers to use the categories from the steam config if there is a
-        ///     conflict. If false, prefers to use the categories from the existing gameList.
-        /// </param>
-        /// <returns>True if the game was successfully added</returns>
         private bool IntegrateShortcut(int gameId, VDFNode gameNode, StringDictionary launchIds)
         {
-            VDFNode nodeName = gameNode.GetNodeAt(new[]
-            {
-                "appname"
-            }, false);
-            string gameName = nodeName?.NodeString;
             // The ID of the created game must be negative
             int newId = -(gameId + 1);
 
@@ -1382,30 +1362,37 @@ namespace Depressurizer
                 return false;
             }
 
-            //Create the new GameInfo
+            string gameName = gameNode.GetNodeAt(new[]
+            {
+                "appname"
+            }, false)?.NodeString ?? string.Empty;
+
+            // Create the new GameInfo
             GameInfo game = new GameInfo(newId, gameName, this);
             Games.Add(newId, game);
 
             // Fill in the LaunchString
             game.LaunchString = launchIds[gameName];
-            VDFNode nodeExecutable = gameNode.GetNodeAt(new[]
+
+            // Fill in the Executable
+            game.Executable = gameNode.GetNodeAt(new[]
             {
                 "exe"
-            }, false);
-            game.Executable = nodeExecutable != null ? nodeExecutable.NodeString : game.Executable;
+            }, false)?.NodeString ?? game.Executable;
 
-            VDFNode nodeLastPlayTime = gameNode.GetNodeAt(new[]
+            // Fill in the LastPlayed
+            game.LastPlayed = gameNode.GetNodeAt(new[]
             {
                 "LastPlayTime"
-            }, false);
-            game.LastPlayed = nodeLastPlayTime != null ? nodeExecutable.NodeInt : game.LastPlayed;
+            }, false)?.NodeInt ?? game.LastPlayed;
 
             // Fill in categories
             VDFNode tagsNode = gameNode.GetNodeAt(new[]
             {
                 "tags"
             }, false);
-            foreach (KeyValuePair<string, VDFNode> tag in tagsNode.NodeArray)
+
+            foreach (KeyValuePair<string, VDFNode> tag in tagsNode?.NodeArray ?? new Dictionary<string, VDFNode>())
             {
                 string tagName = tag.Value.NodeString;
                 game.AddCategory(GetCategory(tagName));
@@ -1413,11 +1400,18 @@ namespace Depressurizer
 
             // Fill in Hidden
             game.IsHidden = false;
-            if (gameNode.ContainsKey("IsHidden"))
+            if (!gameNode.ContainsKey("IsHidden"))
             {
-                VDFNode hiddenNode = gameNode["IsHidden"];
-                game.IsHidden = hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1;
+                return true;
             }
+
+            VDFNode hiddenNode = gameNode["IsHidden"];
+            if (hiddenNode == null)
+            {
+                return true;
+            }
+
+            game.IsHidden = hiddenNode.NodeString == "1" || hiddenNode.NodeInt == 1;
 
             return true;
         }
