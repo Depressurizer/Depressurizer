@@ -311,7 +311,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="ToolStripItemComparer.cs" />
+    <Compile Include="Helpers\ToolStripItemComparer.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="GlobalStrings.es.Designer.cs">
       <DependentUpon>GlobalStrings.es.resx</DependentUpon>
