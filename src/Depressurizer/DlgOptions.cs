@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
+using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
@@ -23,6 +25,8 @@ namespace Depressurizer
         #endregion
 
         #region Properties
+
+        private static Database Database => Database.Instance;
 
         private static Settings Settings => Settings.Instance;
 
@@ -190,6 +194,9 @@ namespace Depressurizer
 
             Settings.InterfaceLanguage = (InterfaceLanguage) cmbUILanguage.SelectedIndex;
             Settings.StoreLanguage = (StoreLanguage) cmbStoreLanguage.SelectedIndex;
+
+            Thread.CurrentThread.CurrentUICulture = Language.GetCultureInfo(Settings.InterfaceLanguage);
+            Database.ChangeLanguage(Settings.StoreLanguage);
 
             List<int> ignoreList = new List<int>(lstIgnored.Items.Count);
             foreach (ListViewItem item in lstIgnored.Items)

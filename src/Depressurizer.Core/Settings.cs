@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
-using System.Threading;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
 using Newtonsoft.Json;
 
-namespace Depressurizer
+namespace Depressurizer.Core
 {
-    internal sealed class Settings : ISettings
+    public sealed class Settings : ISettings
     {
         #region Static Fields
 
@@ -163,10 +161,6 @@ namespace Depressurizer
 
         #region Fields
 
-        public int SplitBrowserContainerWidth = 722;
-
-        public int SplitGameContainerHeight = 510;
-
         private int _height;
 
         private List<int> _ignoreList;
@@ -176,10 +170,6 @@ namespace Depressurizer
         private int _splitContainer;
 
         private int _splitGame;
-
-        private StoreLanguage _storeLanguage = StoreLanguage.English;
-
-        private InterfaceLanguage _userLanguage = InterfaceLanguage.English;
 
         private int _width;
 
@@ -252,20 +242,7 @@ namespace Depressurizer
         /// <summary>
         ///     Depressurizer interface language.
         /// </summary>
-        public InterfaceLanguage InterfaceLanguage
-        {
-            get => _userLanguage;
-            set
-            {
-                if (_userLanguage == value)
-                {
-                    return;
-                }
-
-                _userLanguage = value;
-                ChangeLanguage(_userLanguage);
-            }
-        }
+        public InterfaceLanguage InterfaceLanguage { get; set; } = InterfaceLanguage.English;
 
         public string LstGamesState { get; set; } = "";
 
@@ -290,6 +267,8 @@ namespace Depressurizer
             }
             set => _splitBrowser = value;
         }
+
+        public int SplitBrowserContainerWidth { get; set; } = 722;
 
         public int SplitContainer
         {
@@ -319,6 +298,8 @@ namespace Depressurizer
             set => _splitGame = value;
         }
 
+        public int SplitGameContainerHeight { get; set; } = 510;
+
         public StartupAction StartupAction { get; set; } = StartupAction.Create;
 
         public string SteamPath { get; set; }
@@ -326,20 +307,7 @@ namespace Depressurizer
         /// <summary>
         ///     Language of the Steam Store. Used for the in-app browser and for scraping the Steam Store pages.
         /// </summary>
-        public StoreLanguage StoreLanguage
-        {
-            get => _storeLanguage;
-            set
-            {
-                if (_storeLanguage == value)
-                {
-                    return;
-                }
-
-                _storeLanguage = value;
-                Database.ChangeLanguage(_storeLanguage);
-            }
-        }
+        public StoreLanguage StoreLanguage { get; set; } = StoreLanguage.English;
 
         public bool UpdateAppInfoOnStart { get; set; } = true;
 
@@ -369,8 +337,6 @@ namespace Depressurizer
         #endregion
 
         #region Properties
-
-        private static Database Database => Database.Instance;
 
         private static Logger Logger => Logger.Instance;
 
@@ -424,16 +390,6 @@ namespace Depressurizer
                     serializer.Serialize(writer, _instance);
                 }
             }
-        }
-
-        #endregion
-
-        #region Methods
-
-        private static void ChangeLanguage(InterfaceLanguage language)
-        {
-            CultureInfo newCulture = Language.GetCultureInfo(language);
-            Thread.CurrentThread.CurrentUICulture = newCulture;
         }
 
         #endregion

@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using Depressurizer.Core;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
 
