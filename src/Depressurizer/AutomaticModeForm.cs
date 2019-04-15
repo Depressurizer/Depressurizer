@@ -63,33 +63,47 @@ namespace Depressurizer
             }
         }
 
-        private bool AutocatGames(Profile p, List<string> autocatStrings, bool doAll)
+        private bool AutoCatGames(Profile profile, IEnumerable<string> autoCatStrings, bool doAll)
         {
             WriteLine("Starting autocategorization...");
+
+            if (profile == null)
+            {
+                WriteLine("Canceled autocategorization, profile was null...");
+                return false;
+            }
+
+            if (autoCatStrings == null)
+            {
+                WriteLine("Canceled autocategorization, autoCatStrings was null...");
+                return false;
+            }
+
             bool success = false;
             try
             {
-                List<AutoCat> acList = new List<AutoCat>();
+                List<AutoCat> autoCats = new List<AutoCat>();
                 if (doAll)
                 {
-                    foreach (AutoCat a in p.AutoCats)
+                    foreach (AutoCat autoCat in profile.AutoCats)
                     {
-                        acList.Add(a);
+                        autoCats.Add(autoCat);
                     }
                 }
                 else
                 {
-                    foreach (string s in autocatStrings)
-                    foreach (AutoCat a in p.AutoCats)
+                    foreach (string autoCatString in autoCatStrings)
+                    foreach (AutoCat autoCat in profile.AutoCats)
                     {
-                        if (a.Name == s && !acList.Contains(a))
+                        if (autoCat.Name == autoCatString && !autoCats.Contains(autoCat))
                         {
-                            acList.Add(a);
+                            autoCats.Add(autoCat);
                         }
                     }
                 }
 
-                RunAutoCats(p, acList);
+                RunAutoCats(profile, autoCats);
+
                 success = true;
             }
             catch (Exception e)
@@ -355,7 +369,7 @@ namespace Depressurizer
                 }
             }
 
-            if (!UpdateDBWithAppInfo(options.UpdateAppInfo))
+            if (!UpdateDatabaseFromAppInfo(options.UpdateAppInfo))
             {
                 encounteredError = true;
                 if (!options.TolerateMinorErrors)
@@ -365,7 +379,7 @@ namespace Depressurizer
                 }
             }
 
-            if (!UpdateDBWithHltb(options.UpdateHltb))
+            if (!UpdateDatabaseFromHLTB(options.UpdateHltb))
             {
                 encounteredError = true;
                 if (!options.TolerateMinorErrors)
@@ -395,7 +409,7 @@ namespace Depressurizer
                 }
             }
 
-            if (!AutocatGames(profile, options.AutoCats, options.ApplyAllAutoCats))
+            if (!AutoCatGames(profile, options.AutoCats, options.ApplyAllAutoCats))
             {
                 encounteredError = true;
                 if (!options.TolerateMinorErrors)
@@ -427,31 +441,36 @@ namespace Depressurizer
             WriteLine("Done.");
         }
 
-        private void RunAutoCats(Profile p, List<AutoCat> autocats)
+        private void RunAutoCats(Profile profile, IEnumerable<AutoCat> autoCats)
         {
-            foreach (AutoCat ac in autocats)
+            if (profile == null || autoCats == null)
             {
-                Write("Running autocat '" + ac.Name + "'...");
-                ac.PreProcess(p.GameData);
+                return;
+            }
 
-                if (ac.AutoCatType == AutoCatType.Group)
+            foreach (AutoCat autoCat in autoCats)
+            {
+                Write("Running AutoCat '" + autoCat.Name + "'...");
+                autoCat.PreProcess(profile.GameData);
+
+                if (autoCat.AutoCatType == AutoCatType.Group)
                 {
-                    AutoCatGroup acg = (AutoCatGroup) ac;
-                    RunAutoCats(p, p.CloneAutoCatList(acg.Autocats, p.GameData.GetFilter(acg.Filter)));
+                    AutoCatGroup autoCatGroup = (AutoCatGroup) autoCat;
+                    RunAutoCats(profile, profile.CloneAutoCatList(autoCatGroup.Autocats, profile.GameData.GetFilter(autoCatGroup.Filter)));
                 }
                 else
                 {
-                    foreach (GameInfo g in p.GameData.Games.Values)
+                    foreach (GameInfo g in profile.GameData.Games.Values)
                     {
                         if (g.Id > 0)
                         {
-                            ac.CategorizeGame(g, p.GameData.GetFilter(ac.Filter));
+                            autoCat.CategorizeGame(g, profile.GameData.GetFilter(autoCat.Filter));
                         }
                     }
                 }
 
-                ac.DeProcess();
-                WriteLine(ac.Name + " complete.");
+                autoCat.DeProcess();
+                WriteLine(autoCat.Name + " complete.");
             }
         }
 
@@ -581,19 +600,19 @@ namespace Depressurizer
             return success;
         }
 
-        private bool TryCloseSteam(Process[] steamProcs = null)
+        private bool TryCloseSteam(Process[] steamProcesses = null)
         {
             try
             {
-                if (steamProcs == null)
+                if (steamProcesses == null)
                 {
-                    steamProcs = Process.GetProcessesByName("steam");
+                    steamProcesses = Process.GetProcessesByName("steam");
                 }
 
                 string steamDir = Settings.Instance.SteamPath;
                 Write("Trying to close Steam...");
                 Process closeProc = Process.Start(new ProcessStartInfo(steamDir + "\\steam.exe", "-shutdown"));
-                bool closeProcSuccess = closeProc.WaitForExit(5000);
+                bool closeProcSuccess = closeProc != null && closeProc.WaitForExit(5000);
 
                 if (!closeProcSuccess)
                 {
@@ -601,13 +620,10 @@ namespace Depressurizer
                     return false;
                 }
 
-                foreach (Process sProc in steamProcs)
+                if (steamProcesses.Any(sProc => !sProc.WaitForExit(5000)))
                 {
-                    if (!sProc.WaitForExit(5000))
-                    {
-                        WriteLine("Steam process did not terminate as requested.");
-                        return false;
-                    }
+                    WriteLine("Steam process did not terminate as requested.");
+                    return false;
                 }
 
                 WriteLine("Steam terminated.");
@@ -621,7 +637,7 @@ namespace Depressurizer
             }
         }
 
-        private bool UpdateDBWithAppInfo(bool doUpdate)
+        private bool UpdateDatabaseFromAppInfo(bool doUpdate)
         {
             if (!doUpdate)
             {
@@ -655,7 +671,7 @@ namespace Depressurizer
             return success;
         }
 
-        private bool UpdateDBWithHltb(bool doUpdate)
+        private bool UpdateDatabaseFromHLTB(bool doUpdate)
         {
             if (!doUpdate)
             {
