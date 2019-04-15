@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Xml;
 using Depressurizer.Core.Enums;
+using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
 
 namespace Depressurizer
@@ -12,6 +15,26 @@ namespace Depressurizer
         #region Constants
 
         private const string RunSteam = "steam://rungameid/{0}";
+
+        private const string XmlNameGame = "game";
+
+        private const string XmlNameGameCategory = "category";
+
+        private const string XmlNameGameCategoryList = "categories";
+
+        private const string XmlNameGameExecutable = "executable";
+
+        private const string XmlNameGameHidden = "hidden";
+
+        private const string XmlNameGameHoursPlayed = "hoursplayed";
+
+        private const string XmlNameGameId = "id";
+
+        private const string XmlNameGameLastPlayed = "lastplayed";
+
+        private const string XmlNameGameName = "name";
+
+        private const string XmlNameGameSource = "source";
 
         #endregion
 
@@ -71,7 +94,7 @@ namespace Depressurizer
 
         public GameList GameList { get; }
 
-        public double HoursPlayed { get; set; } = 0;
+        public double HoursPlayed { get; set; }
 
         /// <summary>
         ///     Positive ID matches to a Steam ID, negative means it's a non-steam game (= -1 - shortcut ID)
@@ -120,6 +143,48 @@ namespace Depressurizer
         #endregion
 
         #region Public Methods and Operators
+
+        public static void AddFromNode(XmlNode node, Profile profile)
+        {
+            if (!XmlUtil.TryGetIntFromNode(node[XmlNameGameId], out int id))
+            {
+                return;
+            }
+
+            GameListingSource source = XmlUtil.GetEnumFromNode(node[XmlNameGameSource], GameListingSource.Unknown);
+
+            if (source < GameListingSource.Manual && profile.IgnoreList.Contains(id))
+            {
+                return;
+            }
+
+            string name = XmlUtil.GetStringFromNode(node[XmlNameGameName], null);
+            GameInfo game = new GameInfo(id, name, profile.GameData)
+            {
+                Source = source
+            };
+            profile.GameData.Games.Add(id, game);
+
+            game.IsHidden = XmlUtil.GetBoolFromNode(node[XmlNameGameHidden], false);
+            game.Executable = XmlUtil.GetStringFromNode(node[XmlNameGameExecutable], null);
+            game.LastPlayed = XmlUtil.GetIntFromNode(node[XmlNameGameLastPlayed], 0);
+            game.HoursPlayed = XmlUtil.GetDoubleFromNode(node[XmlNameGameHoursPlayed], 0);
+
+            XmlNode catListNode = node.SelectSingleNode(XmlNameGameCategoryList);
+            XmlNodeList catNodes = catListNode?.SelectNodes(XmlNameGameCategory);
+            if (catNodes == null)
+            {
+                return;
+            }
+
+            foreach (XmlNode cNode in catNodes)
+            {
+                if (XmlUtil.TryGetStringFromNode(cNode, out string cat))
+                {
+                    game.AddCategory(profile.GameData.GetCategory(cat));
+                }
+            }
+        }
 
         public void AddCategory(Category category)
         {
@@ -451,6 +516,53 @@ namespace Depressurizer
             }
 
             IsHidden = isHidden;
+        }
+
+        public void WriteToXml(XmlWriter writer)
+        {
+            // Don't save shortcuts if we aren't including them
+            writer.WriteStartElement(XmlNameGame);
+
+            writer.WriteElementString(XmlNameGameId, Id.ToString(CultureInfo.InvariantCulture));
+            writer.WriteElementString(XmlNameGameSource, Source.ToString());
+
+            if (Name != null)
+            {
+                writer.WriteElementString(XmlNameGameName, Name);
+            }
+
+            writer.WriteElementString(XmlNameGameHidden, IsHidden.ToString().ToLowerInvariant());
+
+            if (LastPlayed != 0)
+            {
+                writer.WriteElementString(XmlNameGameLastPlayed, LastPlayed.ToString(CultureInfo.InvariantCulture));
+            }
+
+            if (HoursPlayed > 0)
+            {
+                writer.WriteElementString(XmlNameGameHoursPlayed, HoursPlayed.ToString(CultureInfo.InvariantCulture));
+            }
+
+            if (!Executable.Contains("steam://"))
+            {
+                writer.WriteElementString(XmlNameGameExecutable, Executable);
+            }
+
+            writer.WriteStartElement(XmlNameGameCategoryList);
+            foreach (Category category in Categories)
+            {
+                string categoryName = category.Name;
+                if (category.Name == GameList.FavoriteNewConfigValue)
+                {
+                    categoryName = GameList.FavoriteConfigValue;
+                }
+
+                writer.WriteElementString(XmlNameGameCategory, categoryName);
+            }
+
+            writer.WriteEndElement(); // categories
+
+            writer.WriteEndElement(); // game
         }
 
         #endregion

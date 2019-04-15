@@ -360,6 +360,8 @@ namespace Depressurizer.Core.Helpers
         /// </summary>
         private static Logger Logger => Logger.Instance;
 
+        private static long ProfileConstant => 0x0110000100000000;
+
         #endregion
 
         #region Public Methods and Operators
@@ -390,6 +392,21 @@ namespace Depressurizer.Core.Helpers
 
             SentrySdk.CaptureException(exception);
 #endif
+        }
+
+        public static string ToSteam3Id(long id)
+        {
+            return (id - ProfileConstant).ToString(CultureInfo.InvariantCulture);
+        }
+
+        public static long ToSteamId64(string id)
+        {
+            if (long.TryParse(id, out long res))
+            {
+                return res + ProfileConstant;
+            }
+
+            return 0;
         }
 
         #endregion

@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using Depressurizer.AutoCats;
 using Depressurizer.Core;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Properties;
@@ -247,7 +248,7 @@ namespace Depressurizer
             Profile profile = new Profile();
 
             SaveModifiables(profile);
-            Profile.GenerateDefaultAutoCatSet(profile.AutoCats);
+            AutoCat.GenerateDefaultAutoCatSet(profile.AutoCats);
 
             try
             {
@@ -357,7 +358,7 @@ namespace Depressurizer
         {
             if (lstUsers.SelectedItem is UserRecord userRecord)
             {
-                txtUserID.Text = Profile.ToSteamId64(userRecord.DirName).ToString();
+                txtUserID.Text = Steam.ToSteamId64(userRecord.DirName).ToString();
             }
         }
 
@@ -382,7 +383,7 @@ namespace Depressurizer
 
                 if (job != null)
                 {
-                    string name = GetDisplayName(Profile.ToSteamId64(job.dir));
+                    string name = GetDisplayName(Steam.ToSteamId64(job.dir));
 
                     lock (data.tLock)
                     {
@@ -501,7 +502,7 @@ namespace Depressurizer
 
         private bool SelectUserInList(long accountId)
         {
-            string profDirName = Profile.ToSteam3Id(accountId);
+            string profDirName = Steam.ToSteam3Id(accountId);
 
             for (int i = 0; i < lstUsers.Items.Count; i++)
             {

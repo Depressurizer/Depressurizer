@@ -3464,7 +3464,7 @@ namespace Depressurizer
 
         private void menu_Profile_Restore_Config_Click(object sender, EventArgs e)
         {
-            string sharedConfigPath = Path.GetDirectoryName(string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.SteamPath, Profile.ToSteam3Id(CurrentProfile.SteamID64)));
+            string sharedConfigPath = Path.GetDirectoryName(string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.SteamPath, Steam.ToSteam3Id(CurrentProfile.SteamID64)));
             using (DlgRestore dialog = new DlgRestore(sharedConfigPath))
             {
                 dialog.ShowDialog();

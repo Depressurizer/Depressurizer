@@ -241,7 +241,7 @@ namespace Depressurizer
         /// <param name="includeShortcuts">If true, also saves the Steam shortcut category data</param>
         public void ExportSteamConfig(long steamId, bool discardMissing, bool includeShortcuts)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Profile.ToSteam3Id(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Steam.ToSteam3Id(steamId));
             ExportSteamConfigFile(filePath, discardMissing);
             if (includeShortcuts)
             {
@@ -397,7 +397,7 @@ namespace Depressurizer
 
         public void ExportSteamShortcuts(long steamId)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Shortcuts, Settings.Instance.SteamPath, Profile.ToSteam3Id(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Shortcuts, Settings.Instance.SteamPath, Steam.ToSteam3Id(steamId));
             Logger.Info("GameList:ExportSteamShortcuts | Saving shortcuts.vdf to: {0}.", filePath);
 
             FileStream fStream = null;
@@ -637,7 +637,7 @@ namespace Depressurizer
         /// <returns>The number of game entries found</returns>
         public int ImportSteamConfig(long steamId, SortedSet<int> ignore, bool includeShortcuts)
         {
-            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Profile.ToSteam3Id(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.SharedConfig, Settings.Instance.SteamPath, Steam.ToSteam3Id(steamId));
             int result = ImportSteamConfigFile(filePath, ignore);
             if (includeShortcuts)
             {
@@ -697,7 +697,7 @@ namespace Depressurizer
 
             int loadedGames = 0;
 
-            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Shortcuts, Settings.Instance.SteamPath, Profile.ToSteam3Id(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Shortcuts, Settings.Instance.SteamPath, Steam.ToSteam3Id(steamId));
             FileStream fStream = null;
             BinaryReader binReader = null;
 
@@ -1008,7 +1008,7 @@ namespace Depressurizer
 
             Dictionary<int, GameListingSource> ownedApps = new Dictionary<int, GameListingSource>();
 
-            string localConfigPath = string.Format(CultureInfo.InvariantCulture, Constants.LocalConfig, Settings.Instance.SteamPath, Profile.ToSteam3Id(accountId));
+            string localConfigPath = string.Format(CultureInfo.InvariantCulture, Constants.LocalConfig, Settings.Instance.SteamPath, Steam.ToSteam3Id(accountId));
 
             VDFNode vdfFile;
             using (StreamReader streamReader = new StreamReader(localConfigPath))
@@ -1138,7 +1138,7 @@ namespace Depressurizer
         {
             shortcutLaunchIds = new StringDictionary();
 
-            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Screenshots, Settings.Instance.SteamPath, Profile.ToSteam3Id(steamId));
+            string filePath = string.Format(CultureInfo.InvariantCulture, Constants.Screenshots, Settings.Instance.SteamPath, Steam.ToSteam3Id(steamId));
             if (!File.Exists(filePath))
             {
                 Logger.Warn("LoadShortcutLaunchIds: Could not find screenshots.vdf at the specified location.");
