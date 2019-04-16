@@ -194,7 +194,11 @@ namespace Depressurizer
                 return;
             }
 
-            DatabaseEntries.AddOrUpdate(entry.Id, entry, (i, entry1) => entry1.MergeIn(entry));
+            DatabaseEntries.AddOrUpdate(entry.Id, entry, (i, entry1) =>
+            {
+                Logger.Debug("Database:Add | Entry for '{0} already exists, merging them.'", entry.Id);
+                return entry1.MergeIn(entry);
+            });
         }
 
         public Dictionary<string, int> CalculateSortedDevList(GameList gameList, int minCount)

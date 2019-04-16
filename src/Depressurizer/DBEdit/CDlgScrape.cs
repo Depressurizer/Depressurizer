@@ -64,6 +64,8 @@ namespace Depressurizer
             {
                 Database.Add(g);
             }
+
+            SetText("Applied data...");
         }
 
         protected override void RunProcess()
@@ -116,7 +118,9 @@ namespace Depressurizer
 
         private bool GetNextJob(out ScrapeJob job)
         {
-            return _queue.TryDequeue(out job);
+            job = null;
+
+            return !Stopped && _queue.TryDequeue(out job);
         }
 
         private bool RunNextJob()
@@ -137,15 +141,9 @@ namespace Depressurizer
             };
 
             newGame.ScrapeStore(Database.LanguageCode);
-
-            // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
-            // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
-            lock (abortLock)
+            if (Stopped)
             {
-                if (Stopped)
-                {
-                    return false;
-                }
+                return false;
             }
 
             if (newGame.LastStoreScrape != 0)

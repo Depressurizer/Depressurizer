@@ -683,6 +683,8 @@ namespace Depressurizer.Core.Models
 
         private AppType ScrapeStoreHelper(string languageCode)
         {
+            const int maxCount = 3;
+
             Logger.Verbose("Scraping {0}: Initiating scraping of the Steam Store.", AppId);
 
             int redirectTarget = -1;
@@ -695,7 +697,7 @@ namespace Depressurizer.Core.Models
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
-                while (resp.StatusCode == HttpStatusCode.Found && count < 5)
+                while (resp.StatusCode == HttpStatusCode.Found && count < maxCount)
                 {
                     resp.Close();
                     if (Regexes.IsSteamStore.IsMatch(resp.Headers[HttpResponseHeader.Location]))
@@ -716,7 +718,7 @@ namespace Depressurizer.Core.Models
                     count++;
                 }
 
-                if (count == 5 && resp.StatusCode == HttpStatusCode.Found)
+                if (count == maxCount && resp.StatusCode == HttpStatusCode.Found)
                 {
                     Logger.Warn("Scraping {0}: Received too many redirects, aborting scraping.", AppId);
                     return AppType.Unknown;
@@ -773,7 +775,7 @@ namespace Depressurizer.Core.Models
             catch (Exception e)
             {
                 Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", AppId, e);
-                return AppType.Unknown;
+                throw;
             }
 
             Stream responseStream = null;
@@ -797,7 +799,9 @@ namespace Depressurizer.Core.Models
             catch (Exception e)
             {
                 Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", AppId, e);
-                return AppType.Unknown;
+                throw;
+
+                ;
             }
             finally
             {
@@ -813,7 +817,7 @@ namespace Depressurizer.Core.Models
                 if (redirectTarget == -1)
                 {
                     Logger.Warn("Scraping {0}: Received a site error, aborting scraping.", AppId);
-                    return result;
+                    return AppType.Unknown;
                 }
 
                 Logger.Verbose("Scraping {0}: Received a site error, following redirect target.", AppId);
@@ -851,6 +855,7 @@ namespace Depressurizer.Core.Models
             }
 
             ParentId = redirectTarget;
+
             return AppType.Unknown;
         }
 

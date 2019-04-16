@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Depressurizer.Core.Helpers;
 
 namespace Rallion
 {
@@ -17,8 +20,6 @@ namespace Rallion
         protected int ThreadsToRun = Environment.ProcessorCount;
 
         protected int totalJobs = 1;
-
-        private bool _stopped;
 
         #endregion
 
@@ -51,29 +52,17 @@ namespace Rallion
 
         public int JobsTotal => totalJobs;
 
+        public List<Thread> Threads { get; set; }
+
         #endregion
 
         #region Properties
 
+        protected static Logger Logger => Logger.Instance;
+
         protected bool Canceled { get; private set; }
 
-        protected bool Stopped
-        {
-            get
-            {
-                lock (abortLock)
-                {
-                    return _stopped;
-                }
-            }
-            set
-            {
-                lock (abortLock)
-                {
-                    _stopped = value;
-                }
-            }
-        }
+        protected bool Stopped { get; set; }
 
         #endregion
 
@@ -112,10 +101,7 @@ namespace Rallion
             else
             {
                 runningThreads--;
-                if (runningThreads <= 0)
-                {
-                    Close();
-                }
+                Logger.Info("CancelableDlg:{0} | Thread completed, still running {1}.", Text, runningThreads);
             }
         }
 
@@ -136,31 +122,66 @@ namespace Rallion
         protected virtual void UpdateForm_Load(object sender, EventArgs e)
         {
             ThreadsToRun = Math.Min(ThreadsToRun, totalJobs);
+            Threads = new List<Thread>(ThreadsToRun);
+
             for (int i = 0; i < ThreadsToRun; i++)
             {
                 Thread t = new Thread(RunProcessChecked);
+                Threads.Add(t);
+
                 t.Start();
                 runningThreads++;
             }
+
+            Thread thread = new Thread(CheckClose)
+            {
+                IsBackground = true
+            };
+            thread.Start();
 
             UpdateText();
         }
 
         protected virtual void UpdateText() { }
 
+        private void CheckClose()
+        {
+            const int delay = 500;
+
+            while (runningThreads != 0)
+            {
+                Thread.Sleep(delay);
+            }
+
+            if (InvokeRequired)
+            {
+                Invoke(new SimpleDelegate(Close));
+            }
+            else
+            {
+                Close();
+            }
+        }
+
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            Stopped = true;
-            Canceled = true;
+            lock (abortLock)
+            {
+                Stopped = true;
+                Canceled = true;
+            }
+
             DisableAbort();
-            Close();
         }
 
         private void cmdStop_Click(object sender, EventArgs e)
         {
-            Stopped = true;
+            lock (abortLock)
+            {
+                Stopped = true;
+            }
+
             DisableAbort();
-            Close();
         }
 
         private void RunProcessChecked()
@@ -193,7 +214,16 @@ namespace Rallion
             }
 
             DisableAbort();
-            //DialogResult = ( jobsCompleted >= totalJobs ) ? DialogResult.OK : DialogResult.Abort;
+
+            Logger.Info("Waiting on threads to exit...");
+            foreach (Thread t in Threads)
+            {
+                Logger.Info("Joining thread {0}...", t.ManagedThreadId);
+                t.Join();
+                Logger.Info("Thread {0} joined...", t.ManagedThreadId);
+            }
+            Logger.Info("All threads have exited...");
+
             Finish();
             if (jobsCompleted >= totalJobs)
             {

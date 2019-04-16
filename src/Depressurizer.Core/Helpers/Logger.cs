@@ -222,20 +222,22 @@ namespace Depressurizer.Core.Helpers
 
         private void Write(LogLevel logLevel, string logMessage)
         {
-            lock (SyncRoot)
-            {
-                if (logLevel == LogLevel.Verbose)
-                {
-                    return;
-                }
-
-                string logEntry = string.Format(CultureInfo.InvariantCulture, "{0} {1,-7} | {2}", DateTime.Now, logLevel, logMessage);
-                LogQueue.Enqueue(logEntry);
+            string logEntry = string.Format(CultureInfo.InvariantCulture, "{0} {1,-7} | {2}", DateTime.Now, logLevel, logMessage);
+            LogQueue.Enqueue(logEntry);
 
 #if DEBUG
+            if (logLevel > LogLevel.Verbose)
+            {
                 Task.Run(() => System.Diagnostics.Debug.WriteLine(logEntry));
+            }
 #endif
+            if (LogQueue.Count < 100)
+            {
+                return;
+            }
 
+            lock (SyncRoot)
+            {
                 if (LogQueue.Count >= 100)
                 {
                     FlushLog();
