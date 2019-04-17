@@ -5,7 +5,7 @@ using Depressurizer.Lib;
 
 namespace Depressurizer
 {
-    internal class CDlgUpdateProfile : CancelableDlg
+    internal class CDlgUpdateProfile : CancelableDialog
     {
         #region Fields
 

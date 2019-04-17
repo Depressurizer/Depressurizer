@@ -354,11 +354,11 @@
     <Compile Include="DlgGame.Designer.cs">
       <DependentUpon>DlgGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\CancelableDlg.cs">
+    <Compile Include="Dialogs\CancelableDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\CancelableDlg.Designer.cs">
-      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    <Compile Include="Dialogs\CancelableDialog.Designer.cs">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\MultiColumnListViewComparer.cs" />
     <Compile Include="DlgProfile.cs">
@@ -614,20 +614,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalStrings.ru.resx" />
     <EmbeddedResource Include="GlobalStrings.uk.resx" />
-    <EmbeddedResource Include="Dialogs\CancelableDlg.es.resx">
-      <DependentUpon>CancelableDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\CancelableDlg.resx">
-      <DependentUpon>CancelableDlg.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\CancelableDialog.resx">
+      <DependentUpon>CancelableDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgProfile.resx">
       <DependentUpon>DlgProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\CancelableDlg.ru.resx">
-      <DependentUpon>CancelableDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\CancelableDlg.uk.resx">
-      <DependentUpon>CancelableDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgFatalError.es.resx">
       <DependentUpon>DlgFatalError.cs</DependentUpon>

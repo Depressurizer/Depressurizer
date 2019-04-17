@@ -8,7 +8,7 @@ using Depressurizer.Lib;
 
 namespace Depressurizer
 {
-    internal class CDlgGetSteamID : CancelableDlg
+    internal class CDlgGetSteamID : CancelableDialog
     {
         #region Fields
 

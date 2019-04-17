@@ -6,7 +6,7 @@ using Depressurizer.Core.Helpers;
 
 namespace Depressurizer.Dialogs
 {
-    public partial class CancelableDlg : Form
+    public partial class CancelableDialog : Form
     {
         #region Fields
 
@@ -18,7 +18,7 @@ namespace Depressurizer.Dialogs
 
         #region Constructors and Destructors
 
-        public CancelableDlg(string title, bool stopButton)
+        public CancelableDialog(string title, bool stopButton)
         {
             InitializeComponent();
 

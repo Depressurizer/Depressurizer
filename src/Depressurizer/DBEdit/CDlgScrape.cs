@@ -10,7 +10,7 @@ using Depressurizer.Properties;
 
 namespace Depressurizer
 {
-    internal class DbScrapeDlg : CancelableDlg
+    internal class DbScrapeDlg : CancelableDialog
     {
         #region Fields
 

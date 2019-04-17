@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Depressurizer.AutoCats
 {
-    internal class GetCuratorRecommendationsDlg : CancelableDlg
+    internal class GetCuratorRecommendationsDlg : CancelableDialog
     {
         #region Fields
 
