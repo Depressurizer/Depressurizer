@@ -19,7 +19,7 @@ namespace Depressurizer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,11 +61,38 @@ namespace Depressurizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applied data....
+        /// </summary>
+        internal static string AppliedData {
+            get {
+                return ResourceManager.GetString("AppliedData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applying data....
+        /// </summary>
+        internal static string ApplyingData {
+            get {
+                return ResourceManager.GetString("ApplyingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto-Categorize ({0} Apps).
         /// </summary>
         internal static string AutoCategorizeNumApps {
             get {
                 return ResourceManager.GetString("AutoCategorizeNumApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception thrown in thread, stopping....
+        /// </summary>
+        internal static string CancelableDialog_ThreadErrorStopping {
+            get {
+                return ResourceManager.GetString("CancelableDialog_ThreadErrorStopping", resourceCulture);
             }
         }
         
@@ -174,6 +201,15 @@ namespace Depressurizer.Properties {
         internal static string RenameFilter {
             get {
                 return ResourceManager.GetString("RenameFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scraping data....
+        /// </summary>
+        internal static string ScrapeDialog_Title {
+            get {
+                return ResourceManager.GetString("ScrapeDialog_Title", resourceCulture);
             }
         }
         

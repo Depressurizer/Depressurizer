@@ -126,18 +126,6 @@
   <data name="CDlgFetch_UpdatingGameList" xml:space="preserve">
     <value>Updating Game List</value>
   </data>
-  <data name="CDlgScrape_1minute" xml:space="preserve">
-    <value>&lt; 1 minute</value>
-  </data>
-  <data name="CDlgScrape_ApplyingData" xml:space="preserve">
-    <value>Applying data...</value>
-  </data>
-  <data name="CDlgScrape_ScrapingGameInfo" xml:space="preserve">
-    <value>Scraping game info</value>
-  </data>
-  <data name="CDlgScrape_Unknown" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
   <data name="DBEditDlg_AbortedUpdate" xml:space="preserve">
     <value>Aborted. Updated {0} / {1} entries.</value>
   </data>

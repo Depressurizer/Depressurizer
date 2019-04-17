@@ -19,7 +19,7 @@ namespace Depressurizer {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class GlobalStrings {
@@ -722,42 +722,6 @@ namespace Depressurizer {
         internal static string CDlgHltb_UpdateHltb {
             get {
                 return ResourceManager.GetString("CDlgHltb_UpdateHltb", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt; 1 minute.
-        /// </summary>
-        internal static string CDlgScrape_1minute {
-            get {
-                return ResourceManager.GetString("CDlgScrape_1minute", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Applying data....
-        /// </summary>
-        internal static string CDlgScrape_ApplyingData {
-            get {
-                return ResourceManager.GetString("CDlgScrape_ApplyingData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scraping game info.
-        /// </summary>
-        internal static string CDlgScrape_ScrapingGameInfo {
-            get {
-                return ResourceManager.GetString("CDlgScrape_ScrapingGameInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown.
-        /// </summary>
-        internal static string CDlgScrape_Unknown {
-            get {
-                return ResourceManager.GetString("CDlgScrape_Unknown", resourceCulture);
             }
         }
         

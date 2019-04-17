@@ -290,11 +290,6 @@
     <Compile Include="DlgRestore.Designer.cs">
       <DependentUpon>DlgRestore.cs</DependentUpon>
     </Compile>
-    <Compile Include="GlobalStrings.nl.Designer.cs">
-      <DependentUpon>GlobalStrings.nl.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Lib\ExtListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -313,11 +308,6 @@
     </Compile>
     <Compile Include="Helpers\ToolStripItemComparer.cs" />
     <Compile Include="Utility.cs" />
-    <Compile Include="GlobalStrings.es.Designer.cs">
-      <DependentUpon>GlobalStrings.es.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="DBEdit\DBEditDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -562,16 +552,6 @@
     <EmbeddedResource Include="DlgSteamPath.uk.resx">
       <DependentUpon>DlgSteamPath.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalStrings.nl.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalStrings.nl.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GlobalStrings.es.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalStrings.es.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DBEditDlg.es.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -612,8 +592,6 @@
       <LastGenOutput>GlobalStrings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalStrings.ru.resx" />
-    <EmbeddedResource Include="GlobalStrings.uk.resx" />
     <EmbeddedResource Include="Dialogs\CancelableDialog.resx">
       <DependentUpon>CancelableDialog.cs</DependentUpon>
     </EmbeddedResource>

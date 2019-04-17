@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Properties;
 
 namespace Depressurizer.Dialogs
 {
@@ -54,7 +55,7 @@ namespace Depressurizer.Dialogs
             set => base.Text = value;
         }
 
-        public List<Thread> Threads { get; }
+        public ICollection<Thread> Threads { get; }
 
         public int TotalJobs { get; protected set; }
 
@@ -74,18 +75,19 @@ namespace Depressurizer.Dialogs
 
         protected virtual void CancelableDialog_Load(object sender, EventArgs e)
         {
-            int numberOfThreads = Math.Min(TotalJobs, Environment.ProcessorCount);
+            Thread thread;
 
+            int numberOfThreads = Math.Min(TotalJobs, Environment.ProcessorCount);
             for (int i = 0; i < numberOfThreads; i++)
             {
-                Thread t = new Thread(RunProcessChecked);
-                Threads.Add(t);
+                thread = new Thread(RunProcessChecked);
+                Threads.Add(thread);
 
-                t.Start();
+                thread.Start();
                 runningThreads++;
             }
 
-            Thread thread = new Thread(CheckClose)
+            thread = new Thread(CheckClose)
             {
                 IsBackground = true
             };
@@ -133,15 +135,15 @@ namespace Depressurizer.Dialogs
 
         protected virtual void RunProcess() { }
 
-        protected void SetText(string s)
+        protected void SetText(string text)
         {
             if (InvokeRequired)
             {
-                Invoke(new TextUpdateDelegate(SetText), s);
+                Invoke(new TextUpdateDelegate(SetText), text);
             }
             else
             {
-                lblText.Text = s;
+                lblText.Text = text;
             }
         }
 
@@ -202,11 +204,9 @@ namespace Depressurizer.Dialogs
 
         private void CheckClose()
         {
-            const int delay = 500;
-
             while (runningThreads > 0)
             {
-                Thread.Sleep(delay);
+                Thread.Sleep(500);
             }
 
             if (InvokeRequired)
@@ -236,7 +236,7 @@ namespace Depressurizer.Dialogs
                 Logger.Warn("CancelableDlg:{0} | Thread threw an exception: {1}.", Text, e);
 
                 DisableAbort();
-                SetText("Error thrown by thread, stopping...");
+                SetText(Resources.CancelableDialog_ThreadErrorStopping);
 
                 OnThreadCompletion();
             }

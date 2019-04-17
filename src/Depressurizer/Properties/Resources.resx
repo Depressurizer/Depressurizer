@@ -201,4 +201,16 @@
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="AppliedData" xml:space="preserve">
+    <value>Applied data...</value>
+  </data>
+  <data name="ApplyingData" xml:space="preserve">
+    <value>Applying data...</value>
+  </data>
+  <data name="CancelableDialog_ThreadErrorStopping" xml:space="preserve">
+    <value>Exception thrown in thread, stopping...</value>
+  </data>
+  <data name="ScrapeDialog_Title" xml:space="preserve">
+    <value>Scraping data...</value>
+  </data>
 </root>

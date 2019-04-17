@@ -211,7 +211,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Updating Games</value>
+    <value>Dialog</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>CancelableDialog</value>

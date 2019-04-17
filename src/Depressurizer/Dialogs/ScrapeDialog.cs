@@ -24,7 +24,7 @@ namespace Depressurizer.Dialogs
 
         #region Constructors and Destructors
 
-        public ScrapeDialog(Dictionary<int, int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
+        public ScrapeDialog(Dictionary<int, int> appIds) : base(Resources.ScrapeDialog_Title, true)
         {
             _queue = new ConcurrentQueue<ScrapeJob>();
             foreach (KeyValuePair<int, int> pair in appIds)
@@ -53,24 +53,19 @@ namespace Depressurizer.Dialogs
 
         protected override void Finish()
         {
-            if (Canceled)
+            if (Canceled || _results == null)
             {
                 return;
             }
 
-            SetText(GlobalStrings.CDlgScrape_ApplyingData);
-
-            if (_results == null)
-            {
-                return;
-            }
+            SetText(Resources.ApplyingData);
 
             foreach (DatabaseEntry g in _results)
             {
                 Database.Add(g);
             }
 
-            SetText("Applied data...");
+            SetText(Resources.AppliedData);
         }
 
         protected override void RunProcess()
@@ -122,11 +117,6 @@ namespace Depressurizer.Dialogs
 
         private bool RunNextJob()
         {
-            if (Stopped)
-            {
-                return false;
-            }
-
             if (!GetNextJob(out ScrapeJob job))
             {
                 return false;
@@ -154,26 +144,5 @@ namespace Depressurizer.Dialogs
         }
 
         #endregion
-
-        private class ScrapeJob
-        {
-            #region Fields
-
-            public readonly int Id;
-
-            public readonly int ScrapeId;
-
-            #endregion
-
-            #region Constructors and Destructors
-
-            public ScrapeJob(int id, int scrapeId)
-            {
-                Id = id;
-                ScrapeId = scrapeId;
-            }
-
-            #endregion
-        }
     }
 }
