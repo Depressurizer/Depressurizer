@@ -45,6 +45,12 @@ namespace Depressurizer.Dialogs
 
         #region Methods
 
+        protected override void CancelableDialog_Load(object sender, EventArgs e)
+        {
+            _start = DateTime.UtcNow;
+            base.CancelableDialog_Load(sender, e);
+        }
+
         protected override void Finish()
         {
             if (Canceled)
@@ -76,12 +82,6 @@ namespace Depressurizer.Dialogs
             }
 
             OnThreadCompletion();
-        }
-
-        protected override void UpdateForm_Load(object sender, EventArgs e)
-        {
-            _start = DateTime.UtcNow;
-            base.UpdateForm_Load(sender, e);
         }
 
         protected override void UpdateText()

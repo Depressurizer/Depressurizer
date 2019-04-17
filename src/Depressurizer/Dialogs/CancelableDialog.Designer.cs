@@ -25,8 +25,8 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CancelableDialog));
             this.lblText = new System.Windows.Forms.Label();
-            this.cmdStop = new System.Windows.Forms.Button();
-            this.cmdCancel = new System.Windows.Forms.Button();
+            this.ButtonStop = new System.Windows.Forms.Button();
+            this.ButtonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblText
@@ -34,34 +34,33 @@
             resources.ApplyResources(this.lblText, "lblText");
             this.lblText.Name = "lblText";
             // 
-            // cmdStop
+            // ButtonStop
             // 
-            resources.ApplyResources(this.cmdStop, "cmdStop");
-            this.cmdStop.Name = "cmdStop";
-            this.cmdStop.UseVisualStyleBackColor = true;
-            this.cmdStop.Click += new System.EventHandler(this.cmdStop_Click);
+            resources.ApplyResources(this.ButtonStop, "ButtonStop");
+            this.ButtonStop.Name = "ButtonStop";
+            this.ButtonStop.UseVisualStyleBackColor = true;
+            this.ButtonStop.Click += new System.EventHandler(this.ButtonStop_Click);
             // 
-            // cmdCancel
+            // ButtonCancel
             // 
-            resources.ApplyResources(this.cmdCancel, "cmdCancel");
-            this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.UseVisualStyleBackColor = true;
-            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            resources.ApplyResources(this.ButtonCancel, "ButtonCancel");
+            this.ButtonCancel.Name = "ButtonCancel";
+            this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
-            // CancelableDlg
+            // CancelableDialog
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ControlBox = false;
-            this.Controls.Add(this.cmdCancel);
-            this.Controls.Add(this.cmdStop);
+            this.Controls.Add(this.ButtonCancel);
+            this.Controls.Add(this.ButtonStop);
             this.Controls.Add(this.lblText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "CancelableDlg";
+            this.Name = "CancelableDialog";
             this.ShowInTaskbar = false;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UpdateForm_FormClosing);
-            this.Load += new System.EventHandler(this.UpdateForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CancelableDialog_FormClosing);
+            this.Load += new System.EventHandler(this.CancelableDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -70,7 +69,7 @@
         #endregion
 
         private System.Windows.Forms.Label lblText;
-        private System.Windows.Forms.Button cmdStop;
-        private System.Windows.Forms.Button cmdCancel;
+        private System.Windows.Forms.Button ButtonStop;
+        private System.Windows.Forms.Button ButtonCancel;
     }
 }

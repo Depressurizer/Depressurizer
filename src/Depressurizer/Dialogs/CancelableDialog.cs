@@ -24,7 +24,7 @@ namespace Depressurizer.Dialogs
 
             Text = title;
 
-            cmdStop.Enabled = cmdStop.Visible = stopButton;
+            ButtonStop.Enabled = ButtonStop.Visible = stopButton;
 
             Stopped = false;
             Canceled = false;
@@ -72,6 +72,28 @@ namespace Depressurizer.Dialogs
 
         #region Methods
 
+        protected virtual void CancelableDialog_Load(object sender, EventArgs e)
+        {
+            int numberOfThreads = Math.Min(TotalJobs, Environment.ProcessorCount);
+
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                Thread t = new Thread(RunProcessChecked);
+                Threads.Add(t);
+
+                t.Start();
+                runningThreads++;
+            }
+
+            Thread thread = new Thread(CheckClose)
+            {
+                IsBackground = true
+            };
+            thread.Start();
+
+            UpdateText();
+        }
+
         protected void DisableAbort()
         {
             if (InvokeRequired)
@@ -80,7 +102,7 @@ namespace Depressurizer.Dialogs
             }
             else
             {
-                cmdStop.Enabled = cmdCancel.Enabled = false;
+                ButtonStop.Enabled = ButtonCancel.Enabled = false;
             }
         }
 
@@ -123,50 +145,9 @@ namespace Depressurizer.Dialogs
             }
         }
 
-        protected virtual void UpdateForm_Load(object sender, EventArgs e)
-        {
-            int numberOfThreads = Math.Min(TotalJobs, Environment.ProcessorCount);
-
-            for (int i = 0; i < numberOfThreads; i++)
-            {
-                Thread t = new Thread(RunProcessChecked);
-                Threads.Add(t);
-
-                t.Start();
-                runningThreads++;
-            }
-
-            Thread thread = new Thread(CheckClose)
-            {
-                IsBackground = true
-            };
-            thread.Start();
-
-            UpdateText();
-        }
-
         protected virtual void UpdateText() { }
 
-        private void CheckClose()
-        {
-            const int delay = 500;
-
-            while (runningThreads > 0)
-            {
-                Thread.Sleep(delay);
-            }
-
-            if (InvokeRequired)
-            {
-                Invoke(new SimpleDelegate(Close));
-            }
-            else
-            {
-                Close();
-            }
-        }
-
-        private void cmdCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             lock (SyncRoot)
             {
@@ -177,7 +158,7 @@ namespace Depressurizer.Dialogs
             DisableAbort();
         }
 
-        private void cmdStop_Click(object sender, EventArgs e)
+        private void ButtonStop_Click(object sender, EventArgs e)
         {
             lock (SyncRoot)
             {
@@ -187,30 +168,7 @@ namespace Depressurizer.Dialogs
             DisableAbort();
         }
 
-        private void RunProcessChecked()
-        {
-            try
-            {
-                RunProcess();
-            }
-            catch (Exception e)
-            {
-                lock (SyncRoot)
-                {
-                    Stopped = true;
-                    Error = e;
-                }
-
-                Logger.Warn("CancelableDlg:{0} | Thread threw an exception: {1}.", Text, e);
-
-                DisableAbort();
-                SetText("Error thrown by thread, stopping...");
-
-                OnThreadCompletion();
-            }
-        }
-
-        private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void CancelableDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             lock (SyncRoot)
             {
@@ -239,6 +197,48 @@ namespace Depressurizer.Dialogs
             else
             {
                 DialogResult = DialogResult.Abort;
+            }
+        }
+
+        private void CheckClose()
+        {
+            const int delay = 500;
+
+            while (runningThreads > 0)
+            {
+                Thread.Sleep(delay);
+            }
+
+            if (InvokeRequired)
+            {
+                Invoke(new SimpleDelegate(Close));
+            }
+            else
+            {
+                Close();
+            }
+        }
+
+        private void RunProcessChecked()
+        {
+            try
+            {
+                RunProcess();
+            }
+            catch (Exception e)
+            {
+                lock (SyncRoot)
+                {
+                    Stopped = true;
+                    Error = e;
+                }
+
+                Logger.Warn("CancelableDlg:{0} | Thread threw an exception: {1}.", Text, e);
+
+                DisableAbort();
+                SetText("Error thrown by thread, stopping...");
+
+                OnThreadCompletion();
             }
         }
 
