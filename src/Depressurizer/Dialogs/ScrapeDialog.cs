@@ -24,14 +24,9 @@ namespace Depressurizer.Dialogs
 
         #region Constructors and Destructors
 
-        public ScrapeDialog(Dictionary<int, int> appIds) : base(Resources.ScrapeDialog_Title, true)
+        public ScrapeDialog(IEnumerable<ScrapeJob> scrapeJobs) : base(Resources.ScrapeDialog_Title, true)
         {
-            _queue = new ConcurrentQueue<ScrapeJob>();
-            foreach (KeyValuePair<int, int> pair in appIds)
-            {
-                _queue.Enqueue(new ScrapeJob(pair.Key, pair.Value));
-            }
-
+            _queue = new ConcurrentQueue<ScrapeJob>(scrapeJobs);
             TotalJobs = _queue.Count;
         }
 

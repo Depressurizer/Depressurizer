@@ -551,23 +551,23 @@ namespace Depressurizer
             Write("Scraping unscraped games...");
             try
             {
-                Dictionary<int, int> appIds = new Dictionary<int, int>();
+                List<ScrapeJob> scrapeJobs = new List<ScrapeJob>();
                 foreach (int appId in p.GameData.Games.Keys.Where(g => !Settings.IgnoreList.Contains(g)))
                 {
                     DatabaseEntry entry = null;
                     if (appId > 0 && !Database.Contains(appId, out entry))
                     {
-                        appIds.Add(appId, appId);
+                        scrapeJobs.Add(new ScrapeJob(appId, appId));
                     }
                     else if (entry != null && entry.LastStoreScrape == 0)
                     {
-                        appIds.Add(entry.Id, appId);
+                        scrapeJobs.Add(new ScrapeJob(entry.Id, appId));
                     }
                 }
 
-                if (appIds.Count > 0)
+                if (scrapeJobs.Count > 0)
                 {
-                    using (ScrapeDialog dialog = new ScrapeDialog(appIds))
+                    using (ScrapeDialog dialog = new ScrapeDialog(scrapeJobs))
                     {
                         DialogResult result = dialog.ShowDialog();
 

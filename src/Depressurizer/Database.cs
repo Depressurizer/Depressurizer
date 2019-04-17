@@ -313,17 +313,14 @@ namespace Depressurizer
             }
 
             // Update DB with data in correct language
-            Dictionary<int, int> appIds = new Dictionary<int, int>();
             if (FormMain.CurrentProfile != null)
             {
-                foreach (GameInfo gameInfo in FormMain.CurrentProfile.GameData.Games.Values.Where(g => g.Id > 0 && !Settings.IgnoreList.Contains(g.Id)))
-                {
-                    appIds.Add(gameInfo.Id, gameInfo.Id);
-                }
+                List<ScrapeJob> scrapeJobs = new List<ScrapeJob>();
+                scrapeJobs.AddRange(FormMain.CurrentProfile.GameData.Games.Values.Where(g => g.Id > 0 && !Settings.IgnoreList.Contains(g.Id)).Select(gameInfo => new ScrapeJob(gameInfo.Id, gameInfo.Id)));
 
-                if (appIds.Count > 0)
+                if (scrapeJobs.Count > 0)
                 {
-                    using (ScrapeDialog dialog = new ScrapeDialog(appIds))
+                    using (ScrapeDialog dialog = new ScrapeDialog(scrapeJobs))
                     {
                         dialog.ShowDialog();
                     }

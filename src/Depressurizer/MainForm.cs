@@ -672,24 +672,24 @@ namespace Depressurizer
             int updated = 0;
 
             // List of games not found in database or that have old data, so we can try to scrape data for them
-            Dictionary<int, int> appIds = new Dictionary<int, int>();
+            List<ScrapeJob> scrapeJobs = new List<ScrapeJob>();
             int oldDbDataCount = 0;
             int notInDbCount = 0;
             foreach (GameInfo game in gamesToUpdate.Where(g => !Settings.IgnoreList.Contains(g.Id)))
             {
                 if (game.Id > 0 && (!Database.Contains(game.Id, out DatabaseEntry entry) || entry.LastStoreScrape == 0))
                 {
-                    appIds.Add(game.Id, game.Id);
+                    scrapeJobs.Add(new ScrapeJob(game.Id, game.Id));
                     notInDbCount++;
                 }
                 else if (Database.Contains(game.Id, out DatabaseEntry entry2) && game.Id > 0 && DateTimeOffset.UtcNow.ToUnixTimeSeconds() > entry2.LastStoreScrape + Settings.ScrapePromptDays * 86400) //86400 seconds in a day
                 {
-                    appIds.Add(entry2.Id, game.Id);
+                    scrapeJobs.Add(new ScrapeJob(entry2.Id, game.Id));
                     oldDbDataCount++;
                 }
             }
 
-            if ((notInDbCount > 0 || oldDbDataCount > 0) && scrape && appIds.Count > 0)
+            if ((notInDbCount > 0 || oldDbDataCount > 0) && scrape && scrapeJobs.Count > 0)
             {
                 Cursor.Current = Cursors.Default;
                 string message = "";
@@ -707,7 +707,7 @@ namespace Depressurizer
                 message += string.Format(CultureInfo.CurrentCulture, ". {0}", GlobalStrings.MainForm_ScrapeNow);
                 if (MessageBox.Show(message, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    using (ScrapeDialog dialog = new ScrapeDialog(appIds))
+                    using (ScrapeDialog dialog = new ScrapeDialog(scrapeJobs))
                     {
                         DialogResult result = dialog.ShowDialog();
 

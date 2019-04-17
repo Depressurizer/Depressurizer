@@ -781,15 +781,15 @@ namespace Depressurizer
             return false;
         }
 
-        private void ScrapeGames(Dictionary<int, int> appIds)
+        private void ScrapeGames(ICollection<ScrapeJob> scrapeJobs)
         {
-            if (appIds.Count <= 0)
+            if (scrapeJobs.Count <= 0)
             {
                 AddStatusMsg(GlobalStrings.DBEditDlg_NoGamesToScrape);
                 return;
             }
 
-            using (ScrapeDialog dialog = new ScrapeDialog(appIds))
+            using (ScrapeDialog dialog = new ScrapeDialog(scrapeJobs))
             {
                 DialogResult result = dialog.ShowDialog();
 
@@ -829,11 +829,10 @@ namespace Depressurizer
         {
             Cursor = Cursors.WaitCursor;
 
-            Dictionary<int, int> appIds = Database.Values.Where(e => e.LastStoreScrape == 0 && ShouldDisplayGame(e)).ToDictionary(entry => entry.Id, entry => entry.AppId);
-
             try
             {
-                ScrapeGames(appIds);
+                List<ScrapeJob> scrapeJobs = Database.Values.Where(e => e.LastStoreScrape == 0 && ShouldDisplayGame(e)).Select(entry => new ScrapeJob(entry.Id, entry.AppId)).ToList();
+                ScrapeGames(scrapeJobs);
             }
             finally
             {
@@ -850,10 +849,10 @@ namespace Depressurizer
 
             Cursor = Cursors.WaitCursor;
 
-            Dictionary<int, int> appIds = new Dictionary<int, int>();
+            List<ScrapeJob> appIds = new List<ScrapeJob>();
             foreach (int index in lstGames.SelectedIndices)
             {
-                appIds.Add(_displayedGames[index].Id, _displayedGames[index].AppId);
+                appIds.Add(new ScrapeJob(_displayedGames[index].Id, _displayedGames[index].AppId));
             }
 
             try
