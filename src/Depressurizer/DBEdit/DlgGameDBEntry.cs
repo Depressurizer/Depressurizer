@@ -32,6 +32,25 @@ namespace Depressurizer
 
         #endregion
 
+        #region Public Methods and Operators
+
+        public static T Clamp<T>(T val, T min, T max) where T : IComparable<T>
+        {
+            if (val.CompareTo(min) < 0)
+            {
+                return min;
+            }
+
+            if (val.CompareTo(max) > 0)
+            {
+                return max;
+            }
+
+            return val;
+        }
+
+        #endregion
+
         #region Methods
 
         private void cmdCancel_Click(object sender, EventArgs e)
@@ -112,12 +131,12 @@ namespace Depressurizer
                     txtRelease.Text = Game.SteamReleaseDate;
                 }
 
-                numAchievements.Value = Utility.Clamp(Game.TotalAchievements, (int) numAchievements.Minimum, (int) numAchievements.Maximum);
-                numReviewScore.Value = Utility.Clamp(Game.ReviewPositivePercentage, (int) numReviewScore.Minimum, (int) numReviewScore.Maximum);
-                numReviewCount.Value = Utility.Clamp(Game.ReviewTotal, (int) numReviewCount.Minimum, (int) numReviewCount.Maximum);
-                numHltbMain.Value = Utility.Clamp(Game.HltbMain, (int) numHltbMain.Minimum, (int) numHltbMain.Maximum);
-                numHltbExtras.Value = Utility.Clamp(Game.HltbExtras, (int) numHltbExtras.Minimum, (int) numHltbExtras.Maximum);
-                numHltbCompletionist.Value = Utility.Clamp(Game.HltbCompletionists, (int) numHltbCompletionist.Minimum, (int) numHltbCompletionist.Maximum);
+                numAchievements.Value = Clamp(Game.TotalAchievements, (int) numAchievements.Minimum, (int) numAchievements.Maximum);
+                numReviewScore.Value = Clamp(Game.ReviewPositivePercentage, (int) numReviewScore.Minimum, (int) numReviewScore.Maximum);
+                numReviewCount.Value = Clamp(Game.ReviewTotal, (int) numReviewCount.Minimum, (int) numReviewCount.Maximum);
+                numHltbMain.Value = Clamp(Game.HltbMain, (int) numHltbMain.Minimum, (int) numHltbMain.Maximum);
+                numHltbExtras.Value = Clamp(Game.HltbExtras, (int) numHltbExtras.Minimum, (int) numHltbExtras.Maximum);
+                numHltbCompletionist.Value = Clamp(Game.HltbCompletionists, (int) numHltbCompletionist.Minimum, (int) numHltbCompletionist.Maximum);
                 chkPlatWin.Checked = Game.Platforms.HasFlag(AppPlatforms.Windows);
                 chkPlatMac.Checked = Game.Platforms.HasFlag(AppPlatforms.Mac);
                 chkPlatLinux.Checked = Game.Platforms.HasFlag(AppPlatforms.Linux);

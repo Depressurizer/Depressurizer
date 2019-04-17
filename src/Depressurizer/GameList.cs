@@ -356,7 +356,7 @@ namespace Depressurizer
             fullFile["UserLocalConfigStore"] = fileData;
             try
             {
-                Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
+                Locations.File.Backup(filePath, Settings.Instance.ConfigBackupCount);
             }
             catch (Exception e)
             {
@@ -487,7 +487,7 @@ namespace Depressurizer
 
             try
             {
-                Utility.BackupFile(filePath, Settings.Instance.ConfigBackupCount);
+                Locations.File.Backup(filePath, Settings.Instance.ConfigBackupCount);
             }
             catch (Exception e)
             {

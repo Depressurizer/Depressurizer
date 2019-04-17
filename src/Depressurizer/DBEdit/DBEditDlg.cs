@@ -322,7 +322,7 @@ namespace Depressurizer
         {
             if (lstGames.SelectedIndices.Count > 0)
             {
-                Utility.LaunchStorePage(_displayedGames[lstGames.SelectedIndices[0]].AppId);
+                Steam.LaunchStorePage(_displayedGames[lstGames.SelectedIndices[0]].AppId);
             }
         }
 

@@ -156,6 +156,13 @@ namespace Depressurizer
 
         #region Public Methods and Operators
 
+        public static bool IsOnScreen(Control form)
+        {
+            Point formTopLeft = new Point(form.Left, form.Top);
+
+            return Screen.AllScreens.Any(screen => screen.WorkingArea.Contains(formTopLeft));
+        }
+
         public void AddStatus(string message)
         {
             _statusBuilder.Append(message);
@@ -1064,7 +1071,7 @@ namespace Depressurizer
         {
             if (lstGames.SelectedObjects.Count > 0)
             {
-                Utility.LaunchStorePage(_typedListGames.SelectedObjects[0].Id);
+                Steam.LaunchStorePage(_typedListGames.SelectedObjects[0].Id);
             }
         }
 
@@ -1830,7 +1837,7 @@ namespace Depressurizer
 
             // Load saved forms settings
             Location = new Point(Settings.X, Settings.Y);
-            if (!Utility.IsOnScreen(this))
+            if (!IsOnScreen(this))
             {
                 Location = new Point(0, 0);
             }

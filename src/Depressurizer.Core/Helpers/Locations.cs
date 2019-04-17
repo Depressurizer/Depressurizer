@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using static System.IO.File;
 
 namespace Depressurizer.Core.Helpers
 {
@@ -32,12 +33,56 @@ namespace Depressurizer.Core.Helpers
 
             #region Public Methods and Operators
 
+            public static void Backup(string filePath, int maxBackups)
+            {
+                if (maxBackups < 1)
+                {
+                    return;
+                }
+
+                string targetPath = BackupClearSlot(filePath, maxBackups, 1);
+                Copy(filePath, targetPath);
+            }
+
             /// <summary>
             ///     App-Specific Banner File
             /// </summary>
             public static string Banner(int appId)
             {
                 return Path.Combine(Folder.Banners, string.Format(CultureInfo.InvariantCulture, "{0}.jpg", appId));
+            }
+
+            #endregion
+
+            #region Methods
+
+            private static string BackupClearSlot(string basePath, int maxBackups, int current)
+            {
+                string thisPath = BackupGetName(basePath, current);
+                if (!Exists(thisPath))
+                {
+                    return thisPath;
+                }
+
+                if (current >= maxBackups)
+                {
+                    Delete(thisPath);
+                    return thisPath;
+                }
+
+                string moveTarget = BackupClearSlot(basePath, maxBackups, current + 1);
+                Move(thisPath, moveTarget);
+                return thisPath;
+            }
+
+            private static string BackupGetName(string baseName, int slotNum)
+            {
+                if (slotNum == 0)
+                {
+                    return baseName;
+                }
+
+                return $"{baseName}.bak_{slotNum}";
             }
 
             #endregion

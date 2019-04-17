@@ -359,7 +359,7 @@ namespace Depressurizer
 
             try
             {
-                Utility.BackupFile(path, Settings.Instance.ConfigBackupCount);
+                Locations.File.Backup(path, Settings.Instance.ConfigBackupCount);
             }
             catch (Exception e)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -392,6 +393,15 @@ namespace Depressurizer.Core.Helpers
 
             SentrySdk.CaptureException(exception);
 #endif
+        }
+
+        /// <summary>
+        ///     Opens the store page for the specified app in the default browser.
+        /// </summary>
+        /// <param name="appId"></param>
+        public static void LaunchStorePage(int appId)
+        {
+            Process.Start(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp, appId));
         }
 
         public static string ToSteam3Id(long id)
