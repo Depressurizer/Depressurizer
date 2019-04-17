@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Depressurizer.Core.Helpers;
 
@@ -198,11 +197,9 @@ namespace Rallion
                     Error = e;
                 }
 
-                if (IsHandleCreated)
-                {
-                    Invoke(new SimpleDelegate(Finish));
-                    Invoke(new SimpleDelegate(Close));
-                }
+                Logger.Warn("CancelableDlg:{0} | Thread threw an exception: {1}.", Text, e);
+
+                OnThreadCompletion();
             }
         }
 
@@ -222,6 +219,7 @@ namespace Rallion
                 t.Join();
                 Logger.Info("Thread {0} joined...", t.ManagedThreadId);
             }
+
             Logger.Info("All threads have exited...");
 
             Finish();
