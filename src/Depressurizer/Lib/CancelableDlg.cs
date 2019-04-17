@@ -215,9 +215,7 @@ namespace Rallion
             Logger.Info("Waiting on threads to exit...");
             foreach (Thread t in Threads)
             {
-                Logger.Info("Joining thread {0}...", t.ManagedThreadId);
                 t.Join();
-                Logger.Info("Thread {0} joined...", t.ManagedThreadId);
             }
 
             Logger.Info("All threads have exited...");

@@ -118,19 +118,17 @@ namespace Depressurizer
 
         private bool GetNextJob(out ScrapeJob job)
         {
-            job = null;
-
-            return !Stopped && _queue.TryDequeue(out job);
+            return _queue.TryDequeue(out job);
         }
 
         private bool RunNextJob()
         {
-            if (!GetNextJob(out ScrapeJob job))
+            if (Stopped)
             {
                 return false;
             }
 
-            if (Stopped)
+            if (!GetNextJob(out ScrapeJob job))
             {
                 return false;
             }
