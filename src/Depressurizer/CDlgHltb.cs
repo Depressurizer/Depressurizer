@@ -1,9 +1,9 @@
 ﻿using Depressurizer.Core;
-using Rallion;
+using Depressurizer.Dialogs;
 
 namespace Depressurizer
 {
-    internal class HltbPrcDlg : CancelableDlg
+    internal class HltbPrcDlg : CancelableDialog
     {
         #region Constructors and Destructors
 

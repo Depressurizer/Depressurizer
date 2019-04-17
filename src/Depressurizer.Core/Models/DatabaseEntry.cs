@@ -14,6 +14,12 @@ namespace Depressurizer.Core.Models
     /// </summary>
     public class DatabaseEntry : IComparable, IComparer<DatabaseEntry>
     {
+        #region Constants
+
+        private const int MaxFollowAttempts = 3;
+
+        #endregion
+
         #region Static Fields
 
         private static readonly Regex RegexAchievements = new Regex(@"<div (?:id=""achievement_block"" ?|class=""block responsive_apppage_details_right"" ?){2}>\s*<div class=""block_title"">[^\d]*(\d+)[^\d<]*</div>\s*<div class=""communitylink_achievement_images"">", RegexOptions.Compiled);
@@ -687,15 +693,14 @@ namespace Depressurizer.Core.Models
 
             int redirectTarget = -1;
 
-            HttpWebResponse resp;
-
+            HttpWebResponse resp = null;
             try
             {
                 HttpWebRequest req = GetSteamRequest(string.Format(CultureInfo.InvariantCulture, Constants.SteamStoreApp + "?l=" + languageCode, AppId));
                 resp = (HttpWebResponse) req.GetResponse();
 
                 int count = 0;
-                while (resp.StatusCode == HttpStatusCode.Found && count < 5)
+                while (resp.StatusCode == HttpStatusCode.Found && count < MaxFollowAttempts)
                 {
                     resp.Close();
                     if (Regexes.IsSteamStore.IsMatch(resp.Headers[HttpResponseHeader.Location]))
@@ -716,7 +721,7 @@ namespace Depressurizer.Core.Models
                     count++;
                 }
 
-                if (count == 5 && resp.StatusCode == HttpStatusCode.Found)
+                if (count == MaxFollowAttempts && resp.StatusCode == HttpStatusCode.Found)
                 {
                     Logger.Warn("Scraping {0}: Received too many redirects, aborting scraping.", AppId);
                     return AppType.Unknown;
@@ -773,11 +778,15 @@ namespace Depressurizer.Core.Models
             catch (Exception e)
             {
                 Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", AppId, e);
-                return AppType.Unknown;
+
+                resp?.Dispose();
+
+                throw;
             }
 
-            Stream responseStream = null;
             string page;
+
+            Stream responseStream = null;
             try
             {
                 responseStream = resp.GetResponseStream();
@@ -797,7 +806,7 @@ namespace Depressurizer.Core.Models
             catch (Exception e)
             {
                 Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", AppId, e);
-                return AppType.Unknown;
+                throw;
             }
             finally
             {
@@ -813,7 +822,7 @@ namespace Depressurizer.Core.Models
                 if (redirectTarget == -1)
                 {
                     Logger.Warn("Scraping {0}: Received a site error, aborting scraping.", AppId);
-                    return result;
+                    return AppType.Unknown;
                 }
 
                 Logger.Verbose("Scraping {0}: Received a site error, following redirect target.", AppId);
@@ -851,6 +860,7 @@ namespace Depressurizer.Core.Models
             }
 
             ParentId = redirectTarget;
+
             return AppType.Unknown;
         }
 

@@ -3,11 +3,11 @@ using System.Globalization;
 using System.Net;
 using System.Xml;
 using Depressurizer.Core.Helpers;
-using Rallion;
+using Depressurizer.Dialogs;
 
 namespace Depressurizer
 {
-    internal class CDlgGetSteamID : CancelableDlg
+    internal class CDlgGetSteamID : CancelableDialog
     {
         #region Fields
 

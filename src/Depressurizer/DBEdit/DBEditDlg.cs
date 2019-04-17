@@ -8,6 +8,7 @@ using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
+using Depressurizer.Dialogs;
 using Depressurizer.Properties;
 
 namespace Depressurizer
@@ -788,7 +789,7 @@ namespace Depressurizer
                 return;
             }
 
-            using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
+            using (ScrapeDialog dialog = new ScrapeDialog(appIds))
             {
                 DialogResult result = dialog.ShowDialog();
 
@@ -804,7 +805,7 @@ namespace Depressurizer
                         AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
                         break;
                     case DialogResult.Abort:
-                        AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AbortedUpdate, dialog.JobsCompleted, dialog.JobsTotal));
+                        AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AbortedUpdate, dialog.JobsCompleted, dialog.TotalJobs));
                         break;
                     default:
                         AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_UpdatedEntries, dialog.JobsCompleted));

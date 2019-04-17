@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml.XPath;
-using Rallion;
+using Depressurizer.Dialogs;
 
 namespace Depressurizer
 {
-    internal class CDlgUpdateProfile : CancelableDlg
+    internal class CDlgUpdateProfile : CancelableDialog
     {
         #region Fields
 

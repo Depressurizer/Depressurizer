@@ -20,6 +20,7 @@ using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
+using Depressurizer.Dialogs;
 using Depressurizer.Helpers;
 using Depressurizer.Properties;
 using MaterialSkin;
@@ -706,7 +707,7 @@ namespace Depressurizer
                 message += string.Format(CultureInfo.CurrentCulture, ". {0}", GlobalStrings.MainForm_ScrapeNow);
                 if (MessageBox.Show(message, GlobalStrings.DBEditDlg_Confirm, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
+                    using (ScrapeDialog dialog = new ScrapeDialog(appIds))
                     {
                         DialogResult result = dialog.ShowDialog();
 

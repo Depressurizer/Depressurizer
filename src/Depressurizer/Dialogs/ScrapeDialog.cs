@@ -5,11 +5,10 @@ using System.Globalization;
 using System.Text;
 using Depressurizer.Core.Models;
 using Depressurizer.Properties;
-using Rallion;
 
-namespace Depressurizer
+namespace Depressurizer.Dialogs
 {
-    internal class DbScrapeDlg : CancelableDlg
+    internal class ScrapeDialog : CancelableDialog
     {
         #region Fields
 
@@ -25,7 +24,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public DbScrapeDlg(Dictionary<int, int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
+        public ScrapeDialog(Dictionary<int, int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
             _queue = new ConcurrentQueue<ScrapeJob>();
             foreach (KeyValuePair<int, int> pair in appIds)
@@ -33,7 +32,7 @@ namespace Depressurizer
                 _queue.Enqueue(new ScrapeJob(pair.Key, pair.Value));
             }
 
-            totalJobs = _queue.Count;
+            TotalJobs = _queue.Count;
         }
 
         #endregion
@@ -45,6 +44,12 @@ namespace Depressurizer
         #endregion
 
         #region Methods
+
+        protected override void CancelableDialog_Load(object sender, EventArgs e)
+        {
+            _start = DateTime.UtcNow;
+            base.CancelableDialog_Load(sender, e);
+        }
 
         protected override void Finish()
         {
@@ -64,6 +69,8 @@ namespace Depressurizer
             {
                 Database.Add(g);
             }
+
+            SetText("Applied data...");
         }
 
         protected override void RunProcess()
@@ -77,21 +84,15 @@ namespace Depressurizer
             OnThreadCompletion();
         }
 
-        protected override void UpdateForm_Load(object sender, EventArgs e)
-        {
-            _start = DateTime.UtcNow;
-            base.UpdateForm_Load(sender, e);
-        }
-
         protected override void UpdateText()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(string.Format(CultureInfo.CurrentCulture, Resources.ScrapedProgress, jobsCompleted, totalJobs));
+            stringBuilder.AppendLine(string.Format(CultureInfo.CurrentCulture, Resources.ScrapedProgress, JobsCompleted, TotalJobs));
 
             string timeLeft = string.Format(CultureInfo.CurrentCulture, "{0}: ", Resources.TimeLeft) + "{0}";
-            if (jobsCompleted > 0)
+            if (JobsCompleted > 0)
             {
-                TimeSpan timeRemaining = TimeSpan.FromTicks(DateTime.UtcNow.Subtract(_start).Ticks * (totalJobs - (jobsCompleted + 1)) / (jobsCompleted + 1));
+                TimeSpan timeRemaining = TimeSpan.FromTicks(DateTime.UtcNow.Subtract(_start).Ticks * (TotalJobs - (JobsCompleted + 1)) / (JobsCompleted + 1));
                 if (timeRemaining.TotalHours >= 1)
                 {
                     _timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Hours + ":" + (timeRemaining.Minutes < 10 ? "0" + timeRemaining.Minutes : timeRemaining.Minutes.ToString(CultureInfo.InvariantCulture)) + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString(CultureInfo.InvariantCulture)));
@@ -121,12 +122,12 @@ namespace Depressurizer
 
         private bool RunNextJob()
         {
-            if (!GetNextJob(out ScrapeJob job))
+            if (Stopped)
             {
                 return false;
             }
 
-            if (Stopped)
+            if (!GetNextJob(out ScrapeJob job))
             {
                 return false;
             }
@@ -137,15 +138,9 @@ namespace Depressurizer
             };
 
             newGame.ScrapeStore(Database.LanguageCode);
-
-            // This lock is critical, as it makes sure that the abort check and the actual game update funtion essentially atomically with reference to form-closing.
-            // If this isn't the case, the form could successfully close before this happens, but then it could still go through, and that's no good.
-            lock (abortLock)
+            if (Stopped)
             {
-                if (Stopped)
-                {
-                    return false;
-                }
+                return false;
             }
 
             if (newGame.LastStoreScrape != 0)
