@@ -11,6 +11,7 @@ using Depressurizer.Core;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Models;
+using Depressurizer.Dialogs;
 using Newtonsoft.Json;
 
 namespace Depressurizer
@@ -322,7 +323,7 @@ namespace Depressurizer
 
                 if (appIds.Count > 0)
                 {
-                    using (DbScrapeDlg dialog = new DbScrapeDlg(appIds))
+                    using (ScrapeDialog dialog = new ScrapeDialog(appIds))
                     {
                         dialog.ShowDialog();
                     }

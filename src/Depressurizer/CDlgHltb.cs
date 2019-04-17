@@ -1,6 +1,5 @@
 ﻿using Depressurizer.Core;
 using Depressurizer.Dialogs;
-using Depressurizer.Lib;
 
 namespace Depressurizer
 {

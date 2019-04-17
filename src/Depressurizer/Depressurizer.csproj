@@ -330,7 +330,7 @@
     <Compile Include="DBEdit\DlgGameDBEntry.Designer.cs">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </Compile>
-    <Compile Include="DBEdit\CDlgScrape.cs">
+    <Compile Include="Dialogs\ScrapeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DlgManualDownload.cs">

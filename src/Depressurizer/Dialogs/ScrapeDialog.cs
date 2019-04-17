@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Depressurizer.Core.Models;
-using Depressurizer.Dialogs;
-using Depressurizer.Lib;
 using Depressurizer.Properties;
 
-namespace Depressurizer
+namespace Depressurizer.Dialogs
 {
-    internal class DbScrapeDlg : CancelableDialog
+    internal class ScrapeDialog : CancelableDialog
     {
         #region Fields
 
@@ -26,7 +24,7 @@ namespace Depressurizer
 
         #region Constructors and Destructors
 
-        public DbScrapeDlg(Dictionary<int, int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
+        public ScrapeDialog(Dictionary<int, int> appIds) : base(GlobalStrings.CDlgScrape_ScrapingGameInfo, true)
         {
             _queue = new ConcurrentQueue<ScrapeJob>();
             foreach (KeyValuePair<int, int> pair in appIds)

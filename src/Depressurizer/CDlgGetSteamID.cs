@@ -4,7 +4,6 @@ using System.Net;
 using System.Xml;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Dialogs;
-using Depressurizer.Lib;
 
 namespace Depressurizer
 {
