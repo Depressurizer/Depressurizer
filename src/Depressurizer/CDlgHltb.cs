@@ -1,5 +1,6 @@
 ﻿using Depressurizer.Core;
-using Rallion;
+using Depressurizer.Dialogs;
+using Depressurizer.Lib;
 
 namespace Depressurizer
 {

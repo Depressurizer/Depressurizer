@@ -4,21 +4,15 @@ using System.Threading;
 using System.Windows.Forms;
 using Depressurizer.Core.Helpers;
 
-namespace Rallion
+namespace Depressurizer.Dialogs
 {
     public partial class CancelableDlg : Form
     {
         #region Fields
 
-        protected object abortLock = new object();
+        protected readonly object SyncRoot = new object();
 
-        protected int jobsCompleted;
-
-        protected int runningThreads;
-
-        protected int ThreadsToRun = Environment.ProcessorCount;
-
-        protected int totalJobs = 1;
+        private int runningThreads;
 
         #endregion
 
@@ -27,10 +21,15 @@ namespace Rallion
         public CancelableDlg(string title, bool stopButton)
         {
             InitializeComponent();
+
             Text = title;
-            Canceled = false;
 
             cmdStop.Enabled = cmdStop.Visible = stopButton;
+
+            Stopped = false;
+            Canceled = false;
+            Threads = new List<Thread>();
+            TotalJobs = 1;
         }
 
         #endregion
@@ -47,11 +46,17 @@ namespace Rallion
 
         public Exception Error { get; protected set; }
 
-        public int JobsCompleted => jobsCompleted;
+        public int JobsCompleted { get; protected set; }
 
-        public int JobsTotal => totalJobs;
+        public sealed override string Text
+        {
+            get => base.Text;
+            set => base.Text = value;
+        }
 
-        public List<Thread> Threads { get; set; }
+        public List<Thread> Threads { get; }
+
+        public int TotalJobs { get; protected set; }
 
         #endregion
 
@@ -83,9 +88,9 @@ namespace Rallion
 
         protected void OnJobCompletion()
         {
-            lock (abortLock)
+            lock (SyncRoot)
             {
-                jobsCompleted++;
+                JobsCompleted++;
             }
 
             UpdateText();
@@ -120,10 +125,9 @@ namespace Rallion
 
         protected virtual void UpdateForm_Load(object sender, EventArgs e)
         {
-            ThreadsToRun = Math.Min(ThreadsToRun, totalJobs);
-            Threads = new List<Thread>(ThreadsToRun);
+            int numberOfThreads = Math.Min(TotalJobs, Environment.ProcessorCount);
 
-            for (int i = 0; i < ThreadsToRun; i++)
+            for (int i = 0; i < numberOfThreads; i++)
             {
                 Thread t = new Thread(RunProcessChecked);
                 Threads.Add(t);
@@ -147,7 +151,7 @@ namespace Rallion
         {
             const int delay = 500;
 
-            while (runningThreads != 0)
+            while (runningThreads > 0)
             {
                 Thread.Sleep(delay);
             }
@@ -164,7 +168,7 @@ namespace Rallion
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            lock (abortLock)
+            lock (SyncRoot)
             {
                 Stopped = true;
                 Canceled = true;
@@ -175,7 +179,7 @@ namespace Rallion
 
         private void cmdStop_Click(object sender, EventArgs e)
         {
-            lock (abortLock)
+            lock (SyncRoot)
             {
                 Stopped = true;
             }
@@ -191,7 +195,7 @@ namespace Rallion
             }
             catch (Exception e)
             {
-                lock (abortLock)
+                lock (SyncRoot)
                 {
                     Stopped = true;
                     Error = e;
@@ -199,13 +203,16 @@ namespace Rallion
 
                 Logger.Warn("CancelableDlg:{0} | Thread threw an exception: {1}.", Text, e);
 
+                DisableAbort();
+                SetText("Error thrown by thread, stopping...");
+
                 OnThreadCompletion();
             }
         }
 
         private void UpdateForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            lock (abortLock)
+            lock (SyncRoot)
             {
                 Stopped = true;
             }
@@ -221,7 +228,7 @@ namespace Rallion
             Logger.Info("All threads have exited...");
 
             Finish();
-            if (jobsCompleted >= totalJobs)
+            if (JobsCompleted >= TotalJobs)
             {
                 DialogResult = DialogResult.OK;
             }

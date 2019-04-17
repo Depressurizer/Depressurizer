@@ -3,7 +3,8 @@ using System.Globalization;
 using System.Net;
 using System.Xml;
 using Depressurizer.Core.Helpers;
-using Rallion;
+using Depressurizer.Dialogs;
+using Depressurizer.Lib;
 
 namespace Depressurizer
 {

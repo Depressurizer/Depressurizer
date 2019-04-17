@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.XPath;
-using Rallion;
+using Depressurizer.Dialogs;
+using Depressurizer.Lib;
 
 namespace Depressurizer
 {

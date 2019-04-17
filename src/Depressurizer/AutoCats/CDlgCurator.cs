@@ -6,8 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using Depressurizer.Dialogs;
+using Depressurizer.Lib;
 using Newtonsoft.Json.Linq;
-using Rallion;
 
 namespace Depressurizer.AutoCats
 {

@@ -804,7 +804,7 @@ namespace Depressurizer
                         AddStatusMsg(GlobalStrings.DBEditDlg_UpdateCanceled);
                         break;
                     case DialogResult.Abort:
-                        AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AbortedUpdate, dialog.JobsCompleted, dialog.JobsTotal));
+                        AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_AbortedUpdate, dialog.JobsCompleted, dialog.TotalJobs));
                         break;
                     default:
                         AddStatusMsg(string.Format(CultureInfo.CurrentCulture, GlobalStrings.DBEditDlg_UpdatedEntries, dialog.JobsCompleted));

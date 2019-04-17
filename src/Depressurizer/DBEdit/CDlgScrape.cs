@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Depressurizer.Core.Models;
+using Depressurizer.Dialogs;
+using Depressurizer.Lib;
 using Depressurizer.Properties;
-using Rallion;
 
 namespace Depressurizer
 {
@@ -33,7 +34,7 @@ namespace Depressurizer
                 _queue.Enqueue(new ScrapeJob(pair.Key, pair.Value));
             }
 
-            totalJobs = _queue.Count;
+            TotalJobs = _queue.Count;
         }
 
         #endregion
@@ -88,12 +89,12 @@ namespace Depressurizer
         protected override void UpdateText()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(string.Format(CultureInfo.CurrentCulture, Resources.ScrapedProgress, jobsCompleted, totalJobs));
+            stringBuilder.AppendLine(string.Format(CultureInfo.CurrentCulture, Resources.ScrapedProgress, JobsCompleted, TotalJobs));
 
             string timeLeft = string.Format(CultureInfo.CurrentCulture, "{0}: ", Resources.TimeLeft) + "{0}";
-            if (jobsCompleted > 0)
+            if (JobsCompleted > 0)
             {
-                TimeSpan timeRemaining = TimeSpan.FromTicks(DateTime.UtcNow.Subtract(_start).Ticks * (totalJobs - (jobsCompleted + 1)) / (jobsCompleted + 1));
+                TimeSpan timeRemaining = TimeSpan.FromTicks(DateTime.UtcNow.Subtract(_start).Ticks * (TotalJobs - (JobsCompleted + 1)) / (JobsCompleted + 1));
                 if (timeRemaining.TotalHours >= 1)
                 {
                     _timeLeft = string.Format(CultureInfo.InvariantCulture, timeLeft, timeRemaining.Hours + ":" + (timeRemaining.Minutes < 10 ? "0" + timeRemaining.Minutes : timeRemaining.Minutes.ToString(CultureInfo.InvariantCulture)) + ":" + (timeRemaining.Seconds < 10 ? "0" + timeRemaining.Seconds : timeRemaining.Seconds.ToString(CultureInfo.InvariantCulture)));
