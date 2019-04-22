@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using Depressurizer.Core.Enums;
+using JetBrains.Annotations;
 
 namespace Depressurizer.Core.Models
 {
@@ -9,24 +10,31 @@ namespace Depressurizer.Core.Models
     {
         #region Fields
 
-        public List<int> AppIds;
-
-        public PackageBillingType BillingType;
-
-        public int Id;
-
-        public string Name;
+        private List<int> _appIds;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public PackageInfo(int id = 0, string name = null)
+        public PackageInfo(int id = 0)
         {
-            AppIds = new List<int>();
             Id = id;
-            Name = name;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        [NotNull]
+        public List<int> AppIds
+        {
+            get => _appIds ?? (_appIds = new List<int>());
+            set => _appIds = value;
+        }
+
+        public PackageBillingType BillingType { get; set; }
+
+        public int Id { get; }
 
         #endregion
 

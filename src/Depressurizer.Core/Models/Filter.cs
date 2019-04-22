@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Xml;
 using Depressurizer.Core.Helpers;
 using Depressurizer.Core.Interfaces;
+using JetBrains.Annotations;
 
 namespace Depressurizer.Core.Models
 {
@@ -53,12 +54,14 @@ namespace Depressurizer.Core.Models
 
         #region Public Properties
 
+        [NotNull]
         public SortedSet<Category> Allow
         {
             get => _allow ?? (_allow = new SortedSet<Category>());
             set => _allow = new SortedSet<Category>(value);
         }
 
+        [NotNull]
         public SortedSet<Category> Exclude
         {
             get => _exclude ?? (_exclude = new SortedSet<Category>());
@@ -74,6 +77,7 @@ namespace Depressurizer.Core.Models
         /// </summary>
         public string Name { get; set; }
 
+        [NotNull]
         public SortedSet<Category> Require
         {
             get => _require ?? (_require = new SortedSet<Category>());

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Depressurizer.Core.Models
 {
@@ -19,6 +20,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List containing supported audio languages.
         /// </summary>
+        [NotNull]
         public List<string> FullAudio
         {
             get => _fullAudio ?? (_fullAudio = new List<string>());
@@ -28,6 +30,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List containing supported interface languages.
         /// </summary>
+        [NotNull]
         public List<string> Interface
         {
             get => _interface ?? (_interface = new List<string>());
@@ -37,6 +40,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List containing supported subtitle languages.
         /// </summary>
+        [NotNull]
         public List<string> Subtitles
         {
             get => _subtitles ?? (_subtitles = new List<string>());

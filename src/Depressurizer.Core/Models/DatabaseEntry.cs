@@ -6,6 +6,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Helpers;
+using JetBrains.Annotations;
 
 namespace Depressurizer.Core.Models
 {
@@ -114,6 +115,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List of the developers of this application.
         /// </summary>
+        [NotNull]
         public SortedSet<string> Developers
         {
             get => _developers ?? (_developers = new SortedSet<string>());
@@ -123,6 +125,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List of flags specified on the Store page.
         /// </summary>
+        [NotNull]
         public SortedSet<string> Flags
         {
             get => _flags ?? (_flags = new SortedSet<string>());
@@ -132,6 +135,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List of genres specified on the Store page.
         /// </summary>
+        [NotNull]
         public SortedSet<string> Genres
         {
             get => _genres ?? (_genres = new SortedSet<string>());
@@ -161,6 +165,7 @@ namespace Depressurizer.Core.Models
         /// <remarks>
         ///     TODO: Add field to DB edit dialog
         /// </remarks>
+        [NotNull]
         public LanguageSupport LanguageSupport
         {
             get => _languageSupport ?? (_languageSupport = new LanguageSupport());
@@ -200,6 +205,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List of the publishers of this application.
         /// </summary>
+        [NotNull]
         public SortedSet<string> Publishers
         {
             get => _publishers ?? (_publishers = new SortedSet<string>());
@@ -224,6 +230,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List of tags specified on the Store page.
         /// </summary>
+        [NotNull]
         public SortedSet<string> Tags
         {
             get => _tags ?? (_tags = new SortedSet<string>());
@@ -238,6 +245,7 @@ namespace Depressurizer.Core.Models
         /// <remarks>
         ///     TODO: Add field to DB edit dialog
         /// </remarks>
+        [NotNull]
         public VRSupport VRSupport
         {
             get => _vrSupport ?? (_vrSupport = new VRSupport());

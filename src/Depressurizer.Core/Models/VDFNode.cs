@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using ValueType = Depressurizer.Core.Enums.ValueType;
 
 namespace Depressurizer.Core.Models
@@ -75,11 +76,6 @@ namespace Depressurizer.Core.Models
         }
 
         /// <summary>
-        ///     Can be an Int, String or Dictionary.
-        /// </summary>
-        public object NodeData { get; set; }
-
-        /// <summary>
         ///     NodeData casted to an Integer.
         /// </summary>
         public int NodeInt
@@ -123,6 +119,16 @@ namespace Depressurizer.Core.Models
         ///     NodeData Type
         /// </summary>
         public ValueType NodeType { get; set; }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Can be an Int, String or Dictionary.
+        /// </summary>
+        [CanBeNull]
+        private object NodeData { get; set; }
 
         #endregion
 

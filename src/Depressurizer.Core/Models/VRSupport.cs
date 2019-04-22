@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Depressurizer.Core.Models
 {
@@ -19,6 +20,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List containing all supported virtual reality headsets.
         /// </summary>
+        [NotNull]
         public List<string> Headsets
         {
             get => _headsets ?? (_headsets = new List<string>());
@@ -28,6 +30,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List containing all supported input devices.
         /// </summary>
+        [NotNull]
         public List<string> Input
         {
             get => _input ?? (_input = new List<string>());
@@ -37,6 +40,7 @@ namespace Depressurizer.Core.Models
         /// <summary>
         ///     List containing all supported play area's.
         /// </summary>
+        [NotNull]
         public List<string> PlayArea
         {
             get => _playArea ?? (_playArea = new List<string>());

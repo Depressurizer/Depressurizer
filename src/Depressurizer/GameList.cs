@@ -1159,7 +1159,7 @@ namespace Depressurizer
                 foreach (KeyValuePair<string, VDFNode> shortcutPair in appsNode.NodeArray)
                 {
                     string launchId = shortcutPair.Key;
-                    string gameName = (string) shortcutPair.Value.NodeData;
+                    string gameName = shortcutPair.Value.NodeString;
                     if (!shortcutLaunchIds.ContainsKey(gameName))
                     {
                         shortcutLaunchIds.Add(gameName, launchId);
