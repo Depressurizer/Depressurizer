@@ -34,12 +34,6 @@ namespace Depressurizer.AutoCats
 
         #endregion
 
-        #region Properties
-
-        private static Logger Logger => Logger.Instance;
-
-        #endregion
-
         #region Methods
 
         protected override void Finish()
