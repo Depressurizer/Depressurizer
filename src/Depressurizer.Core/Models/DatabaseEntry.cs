@@ -783,6 +783,11 @@ namespace Depressurizer.Core.Models
                     Logger.Verbose("Scraping {0}: Redirected to a different id: {1}.", AppId, redirectTarget);
                 }
             }
+            catch (WebException e) when (e.Status == WebExceptionStatus.Timeout)
+            {
+                Logger.Warn("Scraping {0}: Exception thrown while reading page - operation timed out (page no longer exists or internet connection interrupted?); {1}.", AppId, e);
+                return AppType.Unknown;
+            }
             catch (Exception e)
             {
                 Logger.Warn("Scraping {0}: Exception thrown while reading page; {1}.", AppId, e);
