@@ -786,6 +786,7 @@ namespace Depressurizer.Core.Models
             catch (WebException e) when (e.Status == WebExceptionStatus.Timeout)
             {
                 Logger.Warn("Scraping {0}: Exception thrown while reading page - operation timed out (page no longer exists or internet connection interrupted?); {1}.", AppId, e);
+                resp?.Dispose();
                 return AppType.Unknown;
             }
             catch (Exception e)
