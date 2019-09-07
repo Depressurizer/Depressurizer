@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Depressurizer.Core.Enums;
 using Depressurizer.Core.Models;
@@ -10,6 +11,21 @@ namespace Depressurizer
 {
     public class ListCategoriesComparer : IComparer
     {
+        #region Static Fields
+
+        private static readonly ReadOnlyCollection<string> SpecialCategories = new ReadOnlyCollection<string>(new List<string>
+        {
+            Resources.SpecialCategoryAll,
+            Resources.SpecialCategoryGames,
+            Resources.SpecialCategorySoftware,
+            Resources.SpecialCategoryUncategorized,
+            Resources.SpecialCategoryHidden,
+            Resources.SpecialCategoryFavorite,
+            Resources.SpecialCategoryVR
+        });
+
+        #endregion
+
         #region Constructors and Destructors
 
         public ListCategoriesComparer(CategorySortMode sortMode, SortOrder sortOrder)
@@ -65,28 +81,22 @@ namespace Depressurizer
                 return 1;
             }
 
-            List<string> specialCategories = new List<string>
-            {
-                Resources.SpecialCategoryAll,
-                Resources.SpecialCategoryGames,
-                Resources.SpecialCategorySoftware,
-                Resources.SpecialCategoryUncategorized,
-                Resources.SpecialCategoryHidden,
-                Resources.SpecialCategoryFavorite,
-                Resources.SpecialCategoryVR
-            };
+            bool isSpecial1 = SpecialCategories.Contains(listViewItem1.Tag.ToString());
+            bool isSpecial2 = SpecialCategories.Contains(listViewItem2.Tag.ToString());
 
-            foreach (string category in specialCategories)
+            if (isSpecial1 && isSpecial2)
             {
-                if (listViewItem1.Tag.ToString() == category)
+                return string.CompareOrdinal(listViewItem1.Tag.ToString(), listViewItem2.Tag.ToString());
+            }
+
+            if (isSpecial1 || isSpecial2)
+            {
+                if (isSpecial1)
                 {
                     return -1;
                 }
 
-                if (listViewItem2.Tag.ToString() == category)
-                {
-                    return 1;
-                }
+                return 1;
             }
 
             Category category1 = listViewItem1.Tag as Category;
