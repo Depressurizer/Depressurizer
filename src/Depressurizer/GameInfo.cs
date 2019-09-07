@@ -406,7 +406,7 @@ namespace Depressurizer
                     return false;
             }
 
-            if (f.Uncategorized == (int) AdvancedFilterState.Allow || f.Hidden == (int) AdvancedFilterState.Allow || f.VR == (int) AdvancedFilterState.Allow || f.Allow.Count > 0)
+            if (IsAnySpecialCategoryAllowed(f) || f.Allow.Count > 0)
             {
                 if (f.Uncategorized != (int) AdvancedFilterState.Allow || isCategorized)
                 {
@@ -563,6 +563,45 @@ namespace Depressurizer
             writer.WriteEndElement(); // categories
 
             writer.WriteEndElement(); // game
+        }
+
+        #endregion
+
+        #region Methods
+
+        private static bool IsAnySpecialCategoryAllowed(Filter filter)
+        {
+            if (filter == null)
+            {
+                return false;
+            }
+
+            if (filter.Uncategorized == (int) AdvancedFilterState.Allow)
+            {
+                return true;
+            }
+
+            if (filter.Hidden == (int) AdvancedFilterState.Allow)
+            {
+                return true;
+            }
+
+            if (filter.VR == (int) AdvancedFilterState.Allow)
+            {
+                return true;
+            }
+
+            if (filter.Software == (int) AdvancedFilterState.Allow)
+            {
+                return true;
+            }
+
+            if (filter.Game == (int) AdvancedFilterState.Allow)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         #endregion
