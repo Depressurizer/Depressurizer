@@ -128,8 +128,6 @@ namespace Depressurizer
 
         public string FilePath { get; set; }
 
-        public string SteamWebApiKey {get;set;}
-
         public GameList GameData { get; } = new GameList();
 
         public SortedSet<int> IgnoreList
@@ -147,6 +145,8 @@ namespace Depressurizer
         public bool OverwriteOnDownload { get; set; }
 
         public long SteamID64 { get; set; }
+
+        public string SteamWebApiKey { get; set; }
 
         public bool WebUpdate { get; set; } = true;
 
