@@ -66,6 +66,8 @@ namespace Depressurizer
 
         private SortedSet<int> _ignoreList = new SortedSet<int>();
 
+        private string _steamWebApiKey;
+
         #endregion
 
         #region Public Properties
@@ -146,7 +148,11 @@ namespace Depressurizer
 
         public long SteamID64 { get; set; }
 
-        public string SteamWebApiKey { get; set; }
+        public string SteamWebApiKey
+        {
+            get => _steamWebApiKey ?? (_steamWebApiKey = string.Empty);
+            set => _steamWebApiKey = value;
+        }
 
         public bool WebUpdate { get; set; } = true;
 
