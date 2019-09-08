@@ -114,6 +114,8 @@ namespace Depressurizer.Core.Helpers
                     return new CultureInfo("uk");
                 case InterfaceLanguage.Dutch:
                     return new CultureInfo("nl");
+                case InterfaceLanguage.SChinese:
+                    return new CultureInfo("zh-CN");
                 default:
                     throw new ArgumentOutOfRangeException(nameof(language), language, null);
             }

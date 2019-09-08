@@ -16,6 +16,7 @@ namespace Depressurizer.Tests.Enums
             InterfaceLanguage.Russian.Should().Be(2);
             InterfaceLanguage.Ukrainian.Should().Be(3);
             InterfaceLanguage.Dutch.Should().Be(4);
+            InterfaceLanguage.SChinese.Should().Be(5);
         }
 
         #endregion

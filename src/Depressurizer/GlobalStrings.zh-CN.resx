@@ -118,757 +118,742 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CDlgFetch_DownloadingGameList" xml:space="preserve">
-    <value>Downloading game list...</value>
+    <value>正在下载游戏名单...</value>
   </data>
   <data name="CDlgFetch_FinishingDownload" xml:space="preserve">
-    <value>Finishing download...</value>
+    <value>正在完成下载...</value>
   </data>
   <data name="CDlgFetch_UpdatingGameList" xml:space="preserve">
-    <value>Updating Game List</value>
+    <value>正在更新游戏名单</value>
   </data>
   <data name="DBEditDlg_AbortedUpdate" xml:space="preserve">
-    <value>Aborted. Updated {0} / {1} entries.</value>
+    <value>已中止。更新了 {0} / {1} 项。</value>
   </data>
   <data name="DBEditDlg_AddedGame" xml:space="preserve">
-    <value>Added game with ID {0}.</value>
+    <value>已添加 ID {0} 的游戏。</value>
   </data>
   <data name="DBEditDlg_AreYouSureDeleteGames" xml:space="preserve">
-    <value>Delete {0} games from the database?</value>
+    <value>从数据库中删除 {0} 个游戏？</value>
   </data>
   <data name="DBEditDlg_AreYouSureToClear" xml:space="preserve">
-    <value>Are you sure you want to clear all data?</value>
+    <value>确定清除所有数据？</value>
   </data>
   <data name="DBEditDlg_CanceledListUpdate" xml:space="preserve">
-    <value>Canceled list update.</value>
+    <value>已取消名单更新。</value>
   </data>
   <data name="DBEditDlg_ClearedAllData" xml:space="preserve">
-    <value>Cleared all data.</value>
+    <value>所有数据已清除。</value>
   </data>
   <data name="DBEditDlg_Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>确认</value>
   </data>
   <data name="DBEditDlg_DatabaseSaved" xml:space="preserve">
-    <value>Database saved.</value>
+    <value>数据库已保存。</value>
   </data>
   <data name="DBEditDlg_DatabaseSaveFailed" xml:space="preserve">
-    <value>Database save failed.</value>
+    <value>数据库保存失败</value>
   </data>
   <data name="DBEditDlg_DeletedGames" xml:space="preserve">
-    <value>Deleted {0} games.</value>
+    <value>已删除 {0} 个游戏。</value>
   </data>
   <data name="DBEditDlg_EditedGame" xml:space="preserve">
-    <value>Edited game with ID {0}</value>
+    <value>已编辑 ID {0} 的游戏</value>
   </data>
   <data name="DBEditDlg_Error" xml:space="preserve">
-    <value>Error</value>
+    <value>错误</value>
   </data>
   <data name="DBEditDlg_ErrorSavingFile" xml:space="preserve">
-    <value>Error saving file: 
+    <value>保存文件出错：
 
 {0}</value>
   </data>
   <data name="DBEditDlg_ErrorUpdatingGameList" xml:space="preserve">
-    <value>Error updating game list.</value>
+    <value>更新游戏名单出错。</value>
   </data>
   <data name="DBEditDlg_ErrorUpdatingGames" xml:space="preserve">
-    <value>Error updating games.</value>
+    <value>更新您的游戏时出错。</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingGameList" xml:space="preserve">
-    <value>An error occurred while updating the game list:
+    <value>更新游戏名单时发生错误：
 
 {0}</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingGames" xml:space="preserve">
-    <value>An error occurred while updating games:
+    <value>更新您的游戏时发生错误：
 
 {0}</value>
   </data>
   <data name="DBEditDlg_FailedToAddGame" xml:space="preserve">
-    <value>Failed to add game with ID {0}.</value>
+    <value>添加 ID 为 {0} 的游戏失败。</value>
   </data>
   <data name="DBEditDlg_FileLoaded" xml:space="preserve">
-    <value>File loaded.</value>
+    <value>文件已加载。</value>
   </data>
   <data name="DBEditDlg_FileSaved" xml:space="preserve">
-    <value>File saved.</value>
+    <value>文件已保存。</value>
   </data>
   <data name="DBEditDlg_GameIdAlreadyExists" xml:space="preserve">
-    <value>Game with specified ID already exists.</value>
+    <value>指定 ID 的游戏已存在。</value>
   </data>
   <data name="DBEditDlg_NoGamesToScrape" xml:space="preserve">
-    <value>No games to scrape.</value>
+    <value>没有游戏可抓取。</value>
   </data>
   <data name="DBEditDlg_SaveFailed" xml:space="preserve">
-    <value>Save failed.</value>
+    <value>保存失败。</value>
   </data>
   <data name="DBEditDlg_SelectedDisplayedTotal" xml:space="preserve">
     <value>{0} selected / {1} displayed / {2} total</value>
   </data>
   <data name="DBEditDlg_UnsavedChanges" xml:space="preserve">
-    <value>Unsaved changes</value>
+    <value>未保存的更改</value>
   </data>
   <data name="DBEditDlg_UnsavedChangesSave" xml:space="preserve">
-    <value>There are unsaved changes. Save to the game database first?</value>
+    <value>有未保存的更改。先保存到游戏数据库？</value>
   </data>
   <data name="DBEditDlg_UpdateCanceled" xml:space="preserve">
-    <value>Update canceled.</value>
+    <value>更新已取消。</value>
   </data>
   <data name="DBEditDlg_UpdatedEntries" xml:space="preserve">
-    <value>Updated {0} entries.</value>
+    <value>已更新 {0} 项。</value>
   </data>
   <data name="DBEditDlg_UpdatedGameList" xml:space="preserve">
-    <value>Updated game list, added {0} games.</value>
+    <value>游戏名单已更新，新增 {0} 个游戏。</value>
   </data>
   <data name="DlgGameDBEntry_Add" xml:space="preserve">
-    <value>Add</value>
+    <value>添加</value>
   </data>
   <data name="DlgGameDBEntry_IDMustBeInteger" xml:space="preserve">
-    <value>Game ID must be an integer.</value>
+    <value>游戏 ID 必须为一个整数。</value>
   </data>
   <data name="CDlgDataScrape_FinishingUp" xml:space="preserve">
-    <value>Finishing up...</value>
+    <value>即将完成...</value>
   </data>
   <data name="CDlgDataScrape_InitiatingSteamStoreDataScrape" xml:space="preserve">
-    <value>Initiating Steam Store data scrape. {0} jobs to complete.</value>
+    <value>初始化 Steam 商店数据抓取。要完成 {0} 项任务。</value>
   </data>
   <data name="CDlgDataScrape_ScrapeCompleted" xml:space="preserve">
-    <value>Scrape completed. {0} failures. {1} results. Merging results into game data.</value>
+    <value>抓取完成。{0} 项失败。{1} 个结果。正合并结果到游戏数据。</value>
   </data>
   <data name="CDlgDataScrape_TimeRemaining" xml:space="preserve">
     <value>
-Time Remaining:</value>
+剩余时间:</value>
   </data>
   <data name="CDlgDataScrape_UpdatingComplete" xml:space="preserve">
-    <value>Updating...{0}/{1} complete.</value>
+    <value>更新中...已完成 {0}/{1}。</value>
   </data>
   <data name="CDlgGetSteamID_AttemptingDownloadXMLProfile" xml:space="preserve">
-    <value>Attempting to download XML profile page for custom URL name {0}: {1}</value>
+    <value>尝试按自定义 URL 名称 {0} 下载 XML 格式的个人资料页面: {1}</value>
   </data>
   <data name="CDlgGetSteamID_ExceptionDownloadingXMLProfile" xml:space="preserve">
-    <value>Exception when downloading XML profile:
+    <value>下载 XML 格式的个人资料发生异常:
 {0}</value>
   </data>
   <data name="CDlgGetSteamID_FailedToDownloadProfile" xml:space="preserve">
-    <value>Failed to download profile data:</value>
+    <value>下载个人资料数据失败:</value>
   </data>
   <data name="CDlgGetSteamID_GettingIDFromURL" xml:space="preserve">
-    <value>Getting Steam ID from Custom URL...</value>
+    <value>正在从自定义 URL 获取 Steam ID...</value>
   </data>
   <data name="CDlgGetSteamID_GettingSteamID" xml:space="preserve">
-    <value>Getting Steam ID...</value>
+    <value>正在获取 Steam ID...</value>
   </data>
   <data name="CDlgGetSteamID_XMLProfileDownloaded" xml:space="preserve">
-    <value>Successfully downloaded XML profile.</value>
+    <value>成功下载 XML 格式的个人资料。</value>
   </data>
   <data name="CDlgUpdateProfile_UpdatingGameList" xml:space="preserve">
-    <value>Updating game list...</value>
+    <value>正在更新游戏名单...</value>
   </data>
   <data name="DlgFatalError_ClipboardUpdated" xml:space="preserve">
-    <value>Clipboard updated.</value>
+    <value>剪贴板已更新。</value>
   </data>
   <data name="DlgFatalError_CouldNotCopyClipboard" xml:space="preserve">
-    <value>Could not copy to clipboard.</value>
+    <value>复制到剪贴板失败。</value>
   </data>
   <data name="DlgFatalError_CouldNotSaveErrorInformation" xml:space="preserve">
-    <value>Could not save error information.</value>
+    <value>保存错误信息失败。</value>
   </data>
   <data name="DlgFatalError_ErrorInformationSaved" xml:space="preserve">
-    <value>Error information saved.</value>
+    <value>保存信息失败。</value>
   </data>
   <data name="DlgFatalError_FatalError" xml:space="preserve">
-    <value>{0} - Fatal Error</value>
+    <value>{0} - 致命错误</value>
   </data>
   <data name="DlgFatalError_FatalErrorOcurred" xml:space="preserve">
-    <value>A fatal error has occurred in {0}. The program will now terminate.</value>
+    <value>{0} 中发生致命错误。程序即将终止。</value>
   </data>
   <data name="DlgGame_CreateGame" xml:space="preserve">
-    <value>Create Game</value>
+    <value>创建游戏</value>
   </data>
   <data name="DlgGame_EditGame" xml:space="preserve">
-    <value>Edit Game</value>
+    <value>编辑游戏</value>
   </data>
   <data name="DlgManualDownload_IfIDSelectedMustBeNumber" xml:space="preserve">
-    <value>If ID is selected, entry must be a number.</value>
+    <value>如已选中 ID，则必须输入一个数字。</value>
   </data>
   <data name="DlgOptions_ErrorSavingSettingsFile" xml:space="preserve">
-    <value>Error saving settings file:</value>
+    <value>保存设置文件出错。</value>
   </data>
   <data name="DlgProfile_AccountIDMustBeNumber" xml:space="preserve">
-    <value>Account ID must be a number.</value>
+    <value>帐号 ID 必须为数字。</value>
   </data>
   <data name="DlgProfile_Cancelling" xml:space="preserve">
-    <value>Cancelling...</value>
+    <value>正在取消...</value>
   </data>
   <data name="DlgProfile_ClickUpdateToDisplayNames" xml:space="preserve">
-    <value>Click Update to get display names for the account numbers above.</value>
+    <value>点击“更新”获取帐户号的显示名称。</value>
   </data>
   <data name="DlgProfile_CouldNotFindSteamProfile" xml:space="preserve">
-    <value>Could not find the Steam profile specified.</value>
+    <value>未能找到指定的 Steam 配置文件。</value>
   </data>
   <data name="DlgProfile_ExceptionRaisedWhenTryingScrapeProfileName" xml:space="preserve">
-    <value>Exception raised when trying to scrape profile name for account {0}:</value>
+    <value>尝试抓取账号 {0} 的个人资料名称时遇到异常:</value>
   </data>
   <data name="DlgProfile_FailedToCreateParentDirectory" xml:space="preserve">
-    <value>Failed to create parent directory of profile file.</value>
+    <value>创建配置文件的父目录失败。</value>
   </data>
   <data name="DlgProfile_Filter" xml:space="preserve">
-    <value>Profiles (*.profile)|*.profile</value>
+    <value>配置文件 (*.profile)|*.profile</value>
   </data>
   <data name="DlgProfile_NoAccountConfiguration" xml:space="preserve">
-    <value>No account configuration information was found in your Steam installation folder. You must enter your 64-bit account ID OR your Custom URL name manually.</value>
+    <value>在您的 Steam 安装文件夹中没有找到账号配置信息。您必须手动输入您的 64 位账号 ID，或者您的自定义 URL 名称。</value>
   </data>
   <data name="DlgProfile_UpdatingNames" xml:space="preserve">
-    <value>Updating names...</value>
+    <value>正在更新名称...</value>
   </data>
   <data name="DlgProfile_YouMustEnterValidProfilePath" xml:space="preserve">
-    <value>You must enter a valid profile file path.</value>
+    <value>必须输入有效的配置文件路径。</value>
   </data>
   <data name="DlgSteamPath_ThatPathDoesNotExist" xml:space="preserve">
-    <value>That path does not exist. Are you sure?</value>
+    <value>该路径不存在。您确定吗？</value>
   </data>
   <data name="GameData_AccessDeniedSteamConfigFile" xml:space="preserve">
-    <value>Access denied on Steam config file:</value>
+    <value>访问如下 Steam 配置文件被拒绝:</value>
   </data>
   <data name="GameData_AddedNewGame" xml:space="preserve">
-    <value>Added new game found in Steam config: {0} - {1}</value>
+    <value>已添加从 Steam 配置文件找到的新游戏: {0} - {1}</value>
   </data>
   <data name="GameData_AddingGameToConfigFile" xml:space="preserve">
-    <value>Adding game {0} to config file.</value>
+    <value>添加游戏 {0} 到配置文件。</value>
   </data>
   <data name="GameData_AttemptingDownloadHTMLGameList" xml:space="preserve">
-    <value>Attempting to download HTML game list from URL {0}</value>
+    <value>尝试下载 HTML 格式的游戏名单，从 URL {0}</value>
   </data>
   <data name="GameData_AttemptingDownloadXMLGameList" xml:space="preserve">
-    <value>Attempting to download XML game list from URL {0}</value>
+    <value>尝试下载 XML 格式的游戏名单，从 URL {0}</value>
   </data>
   <data name="GameData_CleaningUpSteamConfigTree" xml:space="preserve">
-    <value>Cleaning up steam config tree before writing to disk.</value>
+    <value>写入磁盘前清理 Steam 配置文件树</value>
   </data>
   <data name="GameData_ErrorOpeningConfigFileParam" xml:space="preserve">
-    <value>Error opening Steam config file: {0}</value>
+    <value>打开 Steam 配置文件出错: {0}</value>
   </data>
   <data name="GameData_ErrorOpeningSteamConfigFile" xml:space="preserve">
-    <value>Error opening Steam config file:</value>
+    <value>打开 Steam 配置文件出错:</value>
   </data>
   <data name="GameData_ErrorParsingConfigFileParam" xml:space="preserve">
-    <value>Error parsing Steam config file: {0}</value>
+    <value>解析 Steam 配置文件出错: {0}</value>
   </data>
   <data name="GameData_ErrorParsingSteamConfigFile" xml:space="preserve">
-    <value>Error parsing Steam config file:</value>
+    <value>解析 Steam 配置文件出错:</value>
   </data>
   <data name="GameData_ErrorSavingSteamConfigFile" xml:space="preserve">
-    <value>Error saving steam config file: {0}</value>
+    <value>保存 Steam 配置文件出错: {0}</value>
   </data>
   <data name="GameData_ExceptionDownloadHTMLGameList" xml:space="preserve">
-    <value>Exception when downloading HTML game list:
+    <value>下载 HTML 格式的游戏名单发生异常:
 {0}</value>
   </data>
   <data name="GameData_ExceptionDownloadXMLGameList" xml:space="preserve">
-    <value>Exception when downloading XML game list:
+    <value>下载 XML 格式的游戏名单发生异常:
 {0}</value>
   </data>
   <data name="GameData_FailedToSaveSteamConfigBadPath" xml:space="preserve">
-    <value>Failed to save Steam config file: Invalid path specified.</value>
+    <value>保存 Steam 配置文件失败：指定的路径无效。</value>
   </data>
   <data name="GameData_FailedToSaveSteamConfigFile" xml:space="preserve">
-    <value>Failed to save Steam config file:</value>
+    <value>保存 Steam 配置文件失败:</value>
   </data>
   <data name="GameData_IntegratedGameIntoGameList" xml:space="preserve">
-    <value>Integrated game into game list: {0} - {1}. New: {2}</value>
+    <value>整合游戏到游戏名单: {0} - {1}。{2} 个新的。</value>
   </data>
   <data name="GameData_IntegratedHTMLDataIntoGameList" xml:space="preserve">
-    <value>Integrated HTML data into game list. {0} total items, {1} new.</value>
+    <value>整合 HTML 数据到游戏名单。总计 {0} 项，新的 {1} 项。</value>
   </data>
   <data name="GameData_IntegratedXMLDataIntoGameList" xml:space="preserve">
-    <value>Integrated XML data into game list. {0} total items, {1} new.</value>
+    <value>已整合 XML 数据到游戏名单。总计 {0} 项，新的 {1} 项。</value>
   </data>
   <data name="GameData_LoadingErrorSteamConfig" xml:space="preserve">
-    <value>Loading existing Steam config failed: {0}</value>
+    <value>加载现有的 Steam 配置失败: {0}</value>
   </data>
   <data name="GameData_OpeningSteamConfigFile" xml:space="preserve">
-    <value>Opening Steam config file: {0}</value>
+    <value>打开 Steam 配置文件: {0}</value>
   </data>
   <data name="GameData_ProcessedGame" xml:space="preserve">
-    <value>Processed game from Steam config: {0}, Cat: {1}</value>
+    <value>已处理 Steam 配置中的游戏: {0} 个，类别: {1} 个</value>
   </data>
   <data name="GameData_ProfileNotPublic" xml:space="preserve">
-    <value>Profile is not public.</value>
+    <value>个人资料没有公开。</value>
   </data>
   <data name="GameData_RemovingGameCategoryFromSteamConfig" xml:space="preserve">
-    <value>Removing game {0} category info from Steam config file.</value>
+    <value>正从 Steam 的配置文件中移除游戏 {0} 的类别。</value>
   </data>
   <data name="GameData_SkippedIntegratingGame" xml:space="preserve">
-    <value>Skipped integrating game: {0} - {1}.</value>
+    <value>跳过整合游戏: {0} - {1}。</value>
   </data>
   <data name="GameData_SkippedProcessingGame" xml:space="preserve">
-    <value>Skipped processing game {0} from Steam config.</value>
+    <value>跳过处理 Steam 配置中的游戏 {0}。</value>
   </data>
   <data name="GameData_SpecifiedProfileNotPublic" xml:space="preserve">
-    <value>The specified profile is not public.</value>
+    <value>指定的个人资料非公开。</value>
   </data>
   <data name="GameData_SteamConfigFileLoaded" xml:space="preserve">
-    <value>Steam config file loaded. {0} items found.</value>
+    <value>Steam 个人资料已加载。找到 {0} 项。</value>
   </data>
   <data name="GameData_SuccessDownloadHTMLGameList" xml:space="preserve">
-    <value>Successfully downloaded HTML game list.</value>
+    <value>成功下载 HTML 格式的游戏名单。</value>
   </data>
   <data name="GameData_SuccessDownloadXMLGameList" xml:space="preserve">
-    <value>Successfully downloaded XML game list.</value>
+    <value>成功下载 XML 格式的游戏名单。</value>
   </data>
   <data name="GameData_WritingToDisk" xml:space="preserve">
-    <value>Writing to disk...</value>
+    <value>正在写到磁盘...</value>
   </data>
   <data name="GameDB_DownloadingSteamAppList" xml:space="preserve">
-    <value>Downloading Steam app list.</value>
+    <value>正在下载 Steam 应用名单。</value>
   </data>
   <data name="GameDB_GameDBSaved" xml:space="preserve">
-    <value>Database saved.</value>
+    <value>数据库已保存。</value>
   </data>
   <data name="GameDB_GameDBXMLParsed" xml:space="preserve">
-    <value>Database XML document parsed.</value>
+    <value>数据库 XML 文档已解析。</value>
   </data>
   <data name="GameDB_GameDBXMLProcessed" xml:space="preserve">
-    <value>Database XML processed, load complete.</value>
+    <value>数据库 XML 已解析，加载完成。</value>
   </data>
   <data name="GameDB_InitiatingStoreScrapeForGame" xml:space="preserve">
-    <value>Initiating store scrape for game id {0}</value>
+    <value>正初始化游戏 {0} 的商店信息</value>
   </data>
   <data name="GameDB_LoadedNewItemsFromAppList" xml:space="preserve">
-    <value>Loaded {0} new items from the app list.</value>
+    <value>从应用名单加载了 {0} 个新项目。</value>
   </data>
   <data name="GameDB_LoadingGameDBFrom" xml:space="preserve">
-    <value>Loading Database from {0}</value>
+    <value>正从 {0} 加载数据库</value>
   </data>
   <data name="GameDB_SavingGameDBTo" xml:space="preserve">
-    <value>Saving Database to {0}</value>
+    <value>正保存数据库到 {0}</value>
   </data>
   <data name="GameDB_XMLAppListDownloaded" xml:space="preserve">
-    <value>XML App list downloaded.</value>
+    <value>XML 格式的应用名单已下载。</value>
   </data>
   <data name="MainForm_AddContentsOfSteamCommunity" xml:space="preserve">
-    <value>This action will add the contents of a Steam community game list to the currently loaded game list. If you do not want to do this, close the open game list or profile first.
-Continue loading games?</value>
+    <value>此操作将添加 Steam 社区的游戏名单到当前已加载的游戏名单。如果您不想这样做，请先关闭已打开的游戏名单或配置文件。
+继续加载游戏？</value>
   </data>
   <data name="MainForm_AddContentsOfSteamConfigFile" xml:space="preserve">
-    <value>This action will add the contents of a Steam config file to the currently loaded game list, and will overwrite the category information for any existing games. If you do not want to do this, close the open profile or gamelist first.
-Continue loading file?</value>
+    <value>此操作将添加配置文件的内容到当前已加载的游戏名单，并覆盖现有的所有类别信息。如果您不想这样做，请先关闭已打开的配置文件或游戏名单。
+继续加载文件？</value>
   </data>
   <data name="MainForm_DataExported" xml:space="preserve">
-    <value>Data exported.</value>
+    <value>数据已导出</value>
   </data>
   <data name="MainForm_ExportFailed" xml:space="preserve">
-    <value>Export failed.</value>
+    <value>导出失败</value>
   </data>
   <data name="MainForm_ImportedGames" xml:space="preserve">
-    <value>Imported {0} games.</value>
+    <value>已导入 {0} 个游戏。</value>
   </data>
   <data name="MainForm_ImportFailed" xml:space="preserve">
-    <value>Import failed.</value>
+    <value>导入失败</value>
   </data>
   <data name="MainForm_NoGameInfoFound" xml:space="preserve">
-    <value>Warning: No game info found in the specified file.</value>
+    <value>警告：没有在指定文件中找到游戏信息。</value>
   </data>
   <data name="MainForm_NoGamesFound" xml:space="preserve">
-    <value>No games found.</value>
+    <value>没有发现游戏。</value>
   </data>
   <data name="MainForm_AddedGame" xml:space="preserve">
-    <value>Added game.</value>
+    <value>游戏已添加。</value>
   </data>
   <data name="MainForm_AutonameCanceled" xml:space="preserve">
-    <value>Autoname canceled.</value>
+    <value>自动命名已取消。</value>
   </data>
   <data name="MainForm_AutonamedGames" xml:space="preserve">
-    <value>Autonamed {0} games.</value>
+    <value>自动命名了 {0} 个游戏。</value>
   </data>
   <data name="MainForm_CanceledDatabaseUpdate" xml:space="preserve">
-    <value>Canceled web update.</value>
+    <value>网络更新已取消。</value>
   </data>
   <data name="MainForm_CategoryAdded" xml:space="preserve">
-    <value>Category '{0}' added.</value>
+    <value>添加了 {0} 类别。</value>
   </data>
   <data name="MainForm_CategoryDeleted" xml:space="preserve">
-    <value>{0} categories deleted.</value>
+    <value>{0} 个类别已删除。</value>
   </data>
   <data name="MainForm_CategoryNameReserved" xml:space="preserve">
-    <value>Category name '{0}' is reserved.</value>
+    <value>类别名称 {0} 是保留名称。</value>
   </data>
   <data name="MainForm_CategoryNamesNotEmpty" xml:space="preserve">
-    <value>Category names cannot be empty.</value>
+    <value>类别名称不能为空。</value>
   </data>
   <data name="MainForm_CategoryRenamed" xml:space="preserve">
-    <value>Category renamed.</value>
+    <value>类别已更名。</value>
   </data>
   <data name="MainForm_ClearedData" xml:space="preserve">
-    <value>Cleared data.</value>
+    <value>数据已清除。</value>
   </data>
   <data name="MainForm_CouldNotAddCategory" xml:space="preserve">
-    <value>Could not add category '{0}'</value>
+    <value>未能添加类别 {0}</value>
   </data>
   <data name="MainForm_CouldNotDeleteCategory" xml:space="preserve">
-    <value>Could not delete categories.</value>
+    <value>未能删除类别</value>
   </data>
   <data name="MainForm_Create" xml:space="preserve">
-    <value>Create</value>
+    <value>创建</value>
   </data>
   <data name="MainForm_CreateCategory" xml:space="preserve">
-    <value>Create category</value>
+    <value>创建类别</value>
   </data>
   <data name="MainForm_DeleteCategory" xml:space="preserve">
-    <value>Delete category '{0}'?</value>
+    <value>删除类别 {0}？</value>
   </data>
   <data name="MainForm_DownloadAborted" xml:space="preserve">
-    <value>Download aborted.</value>
+    <value>下载已中止。</value>
   </data>
   <data name="MainForm_DownloadedGames" xml:space="preserve">
-    <value>Downloaded {0} games, {1} new, via {2}.</value>
+    <value>已下载 {0} 个游戏，新的 {1} 个，通过 {2}。</value>
   </data>
   <data name="MainForm_DownloadFailed" xml:space="preserve">
-    <value>Download failed.</value>
+    <value>下载失败。</value>
   </data>
   <data name="MainForm_EditedGame" xml:space="preserve">
-    <value>Edited game.</value>
+    <value>已编辑游戏。</value>
   </data>
   <data name="MainForm_EnterNewCategoryName" xml:space="preserve">
-    <value>Enter new category name:</value>
+    <value>输入新的类别名称:</value>
   </data>
   <data name="MainForm_EnterNewName" xml:space="preserve">
-    <value>Enter new name:</value>
+    <value>输入新名称:</value>
   </data>
   <data name="MainForm_ErrorDowloadingProfile" xml:space="preserve">
-    <value>There was an error downloading the profile data: 
+    <value>下载个人资料数据时出错: 
 {0}</value>
   </data>
   <data name="MainForm_ErrorDownloadingGames" xml:space="preserve">
-    <value>Error downloading games.</value>
+    <value>下载游戏出错。</value>
   </data>
   <data name="MainForm_ErrorDownloadingProfileData" xml:space="preserve">
-    <value>Error downloading profile data via {0}.</value>
+    <value>通过 {0} 下载个人资料数据出错。</value>
   </data>
   <data name="MainForm_Msg_ErrorExportingToSteam" xml:space="preserve">
-    <value>Error exporting to Steam.
+    <value>导出到 Steam 出错。
 {0}</value>
   </data>
   <data name="MainForm_ErrorImportingSteamDataList" xml:space="preserve">
-    <value>Error importing steam data list.
+    <value>导入 Steam 数据列表出错。
 {0}</value>
   </data>
   <data name="MainForm_ErrorLoadingGameDB" xml:space="preserve">
-    <value>Error loading game database. Local category and DLC data will not be available.
+    <value>加载游戏数据库出错。本地类别和 DLC 数据将不可用。
 
 </value>
   </data>
   <data name="MainForm_Msg_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error loading profile.
+    <value>加载配置文件出错。
 {0}</value>
   </data>
   <data name="MainForm_ErrorOcurredOnGames" xml:space="preserve">
-    <value>Errors occurred on {0} games.</value>
+    <value>{0} 个游戏上遇到错误。</value>
   </data>
   <data name="MainForm_ErrorSavingFile" xml:space="preserve">
-    <value>Error saving file.</value>
+    <value>保存文件出错。</value>
   </data>
   <data name="MainForm_Msg_ErrorSavingProfile" xml:space="preserve">
-    <value>Error saving profile.
+    <value>保存配置文件出错。
 {0}</value>
   </data>
   <data name="MainForm_ExportedCategories" xml:space="preserve">
-    <value>Exported categories.</value>
+    <value>类别已导出。</value>
   </data>
   <data name="MainForm_FailedLoadProfile" xml:space="preserve">
-    <value>Failed to load profile.</value>
+    <value>加载配置文件失败。</value>
   </data>
   <data name="MainForm_FailedSaveProfile" xml:space="preserve">
-    <value>Failed to save profile.</value>
+    <value>保存配置文件失败。</value>
   </data>
   <data name="MainForm_FailedToLoadStorePages" xml:space="preserve">
-    <value>Failed to load store pages for {0} games.</value>
+    <value>加载 {0} 个游戏的商店页面失败。</value>
   </data>
   <data name="MainForm_GameDBFileNotExist" xml:space="preserve">
-    <value>Database file does not exist.</value>
+    <value>数据库文件不存在。</value>
   </data>
   <data name="MainForm_GamesNotFoundInGameDB" xml:space="preserve">
-    <value>{0} games have no web-sourced data in the local database</value>
+    <value>本地数据库中的 {0} 个游戏没有网络来源的数据</value>
   </data>
   <data name="MainForm_IgnoredGame" xml:space="preserve">
-    <value>Ignored {0} game{1}.</value>
+    <value>已忽略 {0} 个游戏{1}。</value>
   </data>
   <data name="MainForm_ImportedItems" xml:space="preserve">
-    <value>Imported {0} items.</value>
+    <value>已导入 {0} 项</value>
   </data>
   <data name="MainForm_NameIsInUse" xml:space="preserve">
-    <value>Name '{0}' is already in use.</value>
+    <value>“{0}”名称已被使用。</value>
   </data>
   <data name="MainForm_NoGameDataFound" xml:space="preserve">
-    <value>No game data found. Please make sure the custom URL name is spelled correctly.</value>
+    <value>没有找到游戏数据。请确认自定义 URL 名称拼写正确。</value>
   </data>
   <data name="MainForm_NoGamesInDownload" xml:space="preserve">
-    <value>No games in download.</value>
+    <value>没有下载中的游戏。</value>
   </data>
   <data name="MainForm_NoProfileLoaded" xml:space="preserve">
-    <value>No profile loaded. Create one now?</value>
+    <value>尚未加载配置文件。新建一个？</value>
   </data>
   <data name="MainForm_Overwrite" xml:space="preserve">
-    <value>Overwrite?</value>
+    <value>覆盖？</value>
   </data>
   <data name="MainForm_OverwriteExistingNames" xml:space="preserve">
-    <value>Do you want to overwrite existing names? Saying "No" will only rename games that do not have a name set.</value>
+    <value>是否要覆盖现有的名称？选“否”将只更名尚无名称的游戏。</value>
   </data>
   <data name="MainForm_ProfileCreated" xml:space="preserve">
-    <value>Profile created.</value>
+    <value>配置文件已创建。</value>
   </data>
   <data name="MainForm_ProfileEdited" xml:space="preserve">
-    <value>Profile edited.</value>
+    <value>配置文件已编辑。</value>
   </data>
   <data name="MainForm_ProfileLoaded" xml:space="preserve">
-    <value>Profile loaded.</value>
+    <value>配置文件已加载。</value>
   </data>
   <data name="MainForm_ProfileSaved" xml:space="preserve">
-    <value>Profile saved.</value>
+    <value>配置文件已保存。</value>
   </data>
   <data name="MainForm_RemovedEmptyCategories" xml:space="preserve">
-    <value>Removed {0} empty categories.</value>
+    <value>{0} 个空类别已删除。</value>
   </data>
   <data name="MainForm_RemovedGame" xml:space="preserve">
-    <value>Removed {0} game{1}.</value>
+    <value>已删除 {0} 个游戏{1}。</value>
   </data>
   <data name="MainForm_RemoveGame" xml:space="preserve">
-    <value>Remove {0} game{1}?</value>
+    <value>删除 {0} 个游戏{1}？</value>
   </data>
   <data name="MainForm_Rename" xml:space="preserve">
-    <value>Rename</value>
+    <value>更名</value>
   </data>
   <data name="MainForm_RenameCategory" xml:space="preserve">
-    <value>Rename category: {0}</value>
+    <value>分类更名: {0}</value>
   </data>
   <data name="MainForm_SavingProfileDataFailed" xml:space="preserve">
-    <value>Saving profile data failed:</value>
+    <value>保存配置文件数据失败：</value>
   </data>
   <data name="MainForm_SelectedDisplayed" xml:space="preserve">
-    <value>{0} selected / {1} displayed</value>
+    <value>{0} 已选 / {1} 已显示</value>
   </data>
   <data name="MainForm_SomeSelectedGameHaveCategories" xml:space="preserve">
-    <value>Some of the selected games already have categories set. Would you like to overwrite these categories?</value>
+    <value>部分选中的游戏已设定类别。覆盖这些类别吗？</value>
   </data>
   <data name="MainForm_UnignoredGame" xml:space="preserve">
-    <value>Unignored game {0}.</value>
+    <value>取消忽略游戏 {0}。</value>
   </data>
   <data name="MainForm_UnsavedChanges" xml:space="preserve">
-    <value>Unsaved Changes</value>
+    <value>未保存的更改</value>
   </data>
   <data name="MainForm_UnsavedChangesWillBeLost" xml:space="preserve">
-    <value>Unsaved changes will be lost. Save first?</value>
+    <value>未保存的更改将会丢失。先保存吗？</value>
   </data>
   <data name="MainForm_UpdatedCategories" xml:space="preserve">
-    <value>Updated {0} categories.</value>
+    <value>已更新 {0} 个类别。</value>
   </data>
   <data name="MainForm_UpdatedViaWeb" xml:space="preserve">
-    <value>Updated {0} via web.</value>
+    <value>已通过网络更新 {0} 项。</value>
   </data>
   <data name="MainForm_UpdatedViaWebAndAborted" xml:space="preserve">
-    <value>Updated {0} / {1} via web and aborted.</value>
+    <value>已通过网络更新 {0} / {1} 项，并且中止。</value>
   </data>
   <data name="MainForm_XMLDownloadFailed" xml:space="preserve">
-    <value>XML download failed.</value>
+    <value>XML 下载失败。</value>
   </data>
   <data name="MainForm_Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>是</value>
   </data>
   <data name="Profile_ErrorLoadingProfile" xml:space="preserve">
-    <value>Error loading profile.</value>
+    <value>加载配置文件出错。</value>
   </data>
   <data name="Profile_ErrorSavingProfileFile" xml:space="preserve">
-    <value>Error saving profile file.</value>
+    <value>保存配置文件出错。</value>
   </data>
   <data name="Profile_FailedToLoadProfile" xml:space="preserve">
-    <value>Failed to load profile: {0}</value>
+    <value>加载配置文件失败：{0}</value>
   </data>
   <data name="Profile_FailedToOpenProfileFile" xml:space="preserve">
-    <value>Failed to open profile file for writing: {0}</value>
+    <value>打开配置文件以进行写入失败: {0}</value>
   </data>
   <data name="Profile_LoadingProfile" xml:space="preserve">
-    <value>Loading profile from file: {0}</value>
+    <value>正从该文件加载配置文件: {0}</value>
   </data>
   <data name="Profile_ProfileSaveComplete" xml:space="preserve">
-    <value>Profile save complete.</value>
+    <value>配置文件保存完成。</value>
   </data>
   <data name="Profile_SavingProfile" xml:space="preserve">
-    <value>Saving profile: {0}</value>
-  </data>
-  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
-    <value>Node is a value, not an array. Cannot get key {0}</value>
-  </data>
-  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
-    <value>Node is a value, not an array. Cannot set key {0}</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
-    <value>Unexpected character '{0}' found when expecting key.</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
-    <value>Unexpected character '{0}' found when expecting value.</value>
-  </data>
-  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
-    <value>Unexpected end-of-file reached: Unterminated string.</value>
+    <value>正在保存配置文件: {0}</value>
   </data>
   <data name="DlgProfile_EditProfile" xml:space="preserve">
-    <value>Edit Profile</value>
+    <value>编辑配置文件</value>
   </data>
   <data name="GameData_ErrorParsingScreenshots" xml:space="preserve">
     <value>Error parsing gameId from Screenshots.vdf file for game '{0}'</value>
     <comment>probably no longer needed</comment>
   </data>
   <data name="GameData_IntegratedShortCuts" xml:space="preserve">
-    <value>Integrated external games into game list. {0} total items.</value>
+    <value>已整合外部的游戏到游戏名单。总计 {0} 项。</value>
   </data>
   <data name="GameData_ErrorRemovingGame" xml:space="preserve">
-    <value>Couldn't remove game: {0} - {1}.</value>
+    <value>未能移除游戏: {0} - {1}。</value>
   </data>
   <data name="GameData_ErrorRemovingSteamGame" xml:space="preserve">
     <value>Only external games with negative identifier can be removed: {0}</value>
   </data>
   <data name="GameData_RemovedGameFromGameList" xml:space="preserve">
-    <value>Removed game from game list: {0} - {1}.</value>
+    <value>已从游戏名单中移除游戏: {0} - {1}。</value>
   </data>
   <data name="GameData_SavingShortcutConfigFile" xml:space="preserve">
-    <value>Saving Steam shortcuts config file: {0}.</value>
+    <value>正保存 Steam 快捷方式配置文件: {0}。</value>
   </data>
   <data name="MainForm_External" xml:space="preserve">
-    <value>External</value>
+    <value>外部</value>
   </data>
   <data name="AutoCatGenre_Exception_NoGameDB" xml:space="preserve">
-    <value>AutoCatGenre has no game database.</value>
+    <value>AutoCatGenre 没有游戏数据库。</value>
   </data>
   <data name="AutoCatGenre_Exception_NoGameList" xml:space="preserve">
-    <value>AutoCatGenre has no game list.</value>
+    <value>AutoCatGenre 没有游戏名单。</value>
   </data>
   <data name="Category_Exception_ObjectNotCategory" xml:space="preserve">
-    <value>Object is not a Category</value>
+    <value>对象不是一个类别</value>
   </data>
   <data name="Log_AutoCat_DBNull" xml:space="preserve">
-    <value>Failed to Autocategorize game because database was null.</value>
+    <value>数据库为空，自动归类游戏失败。</value>
   </data>
   <data name="Log_AutoCat_GamelistNull" xml:space="preserve">
-    <value>Failed to Autocategorize game because gamelist was null.</value>
+    <value>游戏名单为空，自动归类游戏失败。</value>
   </data>
   <data name="Log_AutoCat_GameNull" xml:space="preserve">
-    <value>Failed to Autocategorize game because game was null.</value>
+    <value>游戏为空（null），自动归类游戏失败。</value>
   </data>
   <data name="Log_GameData_ConfigBackupFailed" xml:space="preserve">
-    <value>Steam config file backup failed: {0}</value>
+    <value>Steam 配置文件备份失败: {0}</value>
   </data>
   <data name="Log_GameData_ShortcutBackupFailed" xml:space="preserve">
-    <value>Steam shortcut file backup failed: {0}</value>
+    <value>Steam 快捷方式文件备份失败: {0}</value>
   </data>
   <data name="MainForm_FailedToUpdate" xml:space="preserve">
-    <value>Failed to update {0} games.</value>
+    <value>更新 {0} 个游戏失败。</value>
   </data>
   <data name="MainForm_SingleCategoryMode" xml:space="preserve">
-    <value>Single Category Mode</value>
+    <value>单类别（文件夹）模式</value>
   </data>
   <data name="MainForm_UpdatedDatabaseEntries" xml:space="preserve">
-    <value>Updated {0} database entries.</value>
+    <value>已更新 {0} 项数据库记录。</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Genre" xml:space="preserve">
-    <value>By Genre</value>
+    <value>按种类</value>
   </data>
   <data name="MainForm_LaunchFailed" xml:space="preserve">
-    <value>A non-Steam game must have been launched at least once from the Steam client before it can be launched externally.</value>
+    <value>在能从外部启动前，非 Steam 的游戏必须从 Steam 内启动至少一次。</value>
   </data>
   <data name="AutoCat_Name_Flags" xml:space="preserve">
-    <value>Store Flags</value>
+    <value>Store 标签</value>
   </data>
   <data name="AutoCat_Name_Genre" xml:space="preserve">
-    <value>Store Genre</value>
+    <value>商店种类</value>
   </data>
   <data name="DlgAutoCat_MustHaveName" xml:space="preserve">
-    <value>AutoCat must have a name.</value>
+    <value>自动归类必须有名称。</value>
   </data>
   <data name="DlgAutoCat_NameInUse" xml:space="preserve">
-    <value>Name is already in use.</value>
+    <value>名称已被使用。</value>
   </data>
   <data name="DlgAutoCat_RenameBoxButton" xml:space="preserve">
-    <value>Rename</value>
+    <value>更名</value>
   </data>
   <data name="DlgAutoCat_RenameBoxLabel" xml:space="preserve">
-    <value>Name:</value>
+    <value>名称:</value>
   </data>
   <data name="DlgAutoCat_RenameBoxTitle" xml:space="preserve">
-    <value>Enter new AutoCat name</value>
+    <value>输入新的自动归类名称</value>
   </data>
   <data name="DlgAutoCat_SelectValidType" xml:space="preserve">
-    <value>You must select a valid AutoCat type.</value>
+    <value>必须设定有效的自动归类类型。</value>
   </data>
   <data name="DlgAutoCat_Help_Genre_RemoveExisting" xml:space="preserve">
-    <value>Remove any pre-existing categories that could potentially be added by this AutoCat.
-Removes any category that consists of the Prefix followed by one of the unchecked genres below.</value>
+    <value>删除所有可能是由该软件“自动归类”功能添加的预置类别。
+删除所有由前缀 + 下述之一未选中种类组成的类别。</value>
   </data>
   <data name="DlgAutoCat_Help_Prefix" xml:space="preserve">
-    <value>Optional. Text prefix placed before the name.</value>
+    <value>可选。放在名称前的文本前缀。</value>
   </data>
   <data name="DlgGameDBEntry_ParentMustBeInt" xml:space="preserve">
-    <value>Parent must be empty or integer.</value>
+    <value>父必须为空或一个整数。</value>
   </data>
   <data name="DBEditDlg_AppInfoUpdateFailed" xml:space="preserve">
-    <value>Failed to update from AppInfo:
+    <value>更新 AppInfo 的信息失败：
 {0}</value>
   </data>
   <data name="DBEditDlg_Log_ExceptionAppInfo" xml:space="preserve">
-    <value>Exception when updating AppInfo: {0}</value>
+    <value>更新 AppInfo 时发生异常: {0}</value>
   </data>
   <data name="DBEditDlg_Status_UpdatedAppInfo" xml:space="preserve">
-    <value>Updated {0} entries from AppInfo.</value>
+    <value>从 AppInfo 更新了 {0} 项。</value>
   </data>
   <data name="DlgProfile_Help_BypassIgnoreOnImport" xml:space="preserve">
-    <value>Ignore app type restrictions when importing games from your existing category setup.
-Turn this on if you have games that Depressurizer refuses to recognize even after you categorize them in the Steam client and import categories.</value>
+    <value>从您现有的类别设置导入游戏时，忽略应用类型限制。
+如果您遇到即便在 Steam 客户端中归类并导入类别后 Depressurizer 仍拒绝识别的游戏，请启用此功能。</value>
   </data>
   <data name="DlgProfile_Help_ExportDiscard" xml:space="preserve">
-    <value>Removes extraneous information for unrecognized games from your Steam config file.
-Does not remove games from your library or game list.
-Disable this if you are losing categories for games in your library that do not show up in Depressurizer.</value>
+    <value>移除您的 Steam 配置文件中的不能识别游戏的无关信息。
+这不会删除您的“库”或游戏列表中的游戏。
+如果您遇到未显示在 Depressurizer 中但实际在“库”中显示的游戏的分类丢失，禁用此项。</value>
   </data>
   <data name="DlgProfile_Help_IncludeUnknown" xml:space="preserve">
-    <value>Include apps that are not in the database or are of unknown type.
-Normally, the game list includes only games that are listed as Games or Applications.</value>
+    <value>包括数据库不含或类型未知的应用程序。
+通常来说，该游戏列表仅包含列为 Games 或 Applications 的游戏。</value>
   </data>
   <data name="DlgProfile_Help_LocalUpdate" xml:space="preserve">
-    <value>Parse files from your Steam installation to get a list of your games.
-Much faster and generally more accurate and reliable than a web update.</value>
+    <value>从您的 Steam 安装位置解析相关文件以获取您的游戏名单。
+这比网络获取更快、更准确、更可靠。</value>
   </data>
   <data name="DlgProfile_Help_WebUpdate" xml:space="preserve">
-    <value>Download a game list from your profile on the steamcommunity.com website.
-Requires your profile to be set to "Public".</value>
+    <value>从 steamcommunity.com 网站上的您的个人资料页面下载游戏清单。
+须将您的个人资料设置为“公开”。</value>
   </data>
   <data name="GameDB_Log_ScrapingNoAppId" xml:space="preserve">
-    <value>Scraping {0}: response URI ends with 'app', no ID found.</value>
+    <value>抓取 {0}：响应 URI 是 'app' 结尾，未找到 ID。</value>
   </data>
   <data name="MainForm_Log_ExceptionAppInfo" xml:space="preserve">
-    <value>Exception when auto-updating DB from AppInfo.</value>
+    <value>自动从 AppInfo 更新数据库时发生异常。</value>
   </data>
   <data name="MainForm_Log_ExceptionAutosavingDB" xml:space="preserve">
-    <value>Exception when autosaving database.</value>
+    <value>自动保存数据库时发生异常。</value>
   </data>
   <data name="MainForm_Msg_ErrorAppInfo" xml:space="preserve">
-    <value>Error encountered when updating database from AppInfo: {0}</value>
+    <value>从 AppInfo 更新数据库时发生错误: {0}</value>
   </data>
   <data name="MainForm_Msg_ErrorAutosavingDB" xml:space="preserve">
-    <value>Error saving database:
+    <value>保存数据库出错;
 {0}</value>
   </data>
   <data name="MainForm_Msg_LocalUpdateError" xml:space="preserve">
-    <value>Error updating from local files:
+    <value>从本地文件更新时出错:
 {0}</value>
   </data>
   <data name="MainForm_Status_AppInfoAutoupdate" xml:space="preserve">
-    <value>Updated {0} DB entries from AppInfo.</value>
+    <value>已从 AppInfo 更新 {0} 项数据库记录。</value>
   </data>
   <data name="MainForm_Status_LocalUpdate" xml:space="preserve">
-    <value>Updated game list from config files, {0} found, {1} new.</value>
+    <value>已根据配置文件更新游戏名单，找到 {0} 项，新的 {1} 项。</value>
   </data>
   <data name="MainForm_Status_LocalUpdateFailed" xml:space="preserve">
-    <value>Failed to update from config files.</value>
+    <value>更新配置文件失败。</value>
   </data>
   <data name="MainForm_Status_SavedDB" xml:space="preserve">
-    <value>Saved DB.</value>
+    <value>数据库已保存。</value>
   </data>
   <data name="MainForm_Log_ExceptionExport" xml:space="preserve">
     <value>Exception encountered while exporting Steam config.</value>
@@ -895,23 +880,23 @@ Requires your profile to be set to "Public".</value>
     <value>Exception encountered by game list web update dialog.</value>
   </data>
   <data name="MainForm_Msg_ErrorManualExport" xml:space="preserve">
-    <value>Error exporting to file.
+    <value>导出到文件出错。
 {0}</value>
   </data>
   <data name="AutoCat_Name_Tags" xml:space="preserve">
-    <value>Store Tags</value>
+    <value>商店标签</value>
   </data>
   <data name="DlgAutoCat_Help_ListMinScore" xml:space="preserve">
-    <value>Tags that fall below this "score" will not show up on the list.</value>
+    <value>低于此得分的标签不出现在名单中。</value>
   </data>
   <data name="DlgAutoCat_Help_ListOwnedOnly" xml:space="preserve">
-    <value>Only use the games you own to generate the tag list.
-Otherwise, all games in the database will be used.</value>
+    <value>只使用您拥有的游戏生成标签列表。
+否则，将使用数据库中已有的全部游戏。</value>
   </data>
   <data name="DlgAutoCat_Help_ListTagsPerGame" xml:space="preserve">
-    <value>Only this many tags from each game will be processed.
-Ex: Set to 10 to only process the first ten tags from each game and ignore the rest.
-Set to 0 to process all tags from each game.</value>
+    <value>每个游戏最多处理这么多标签。
+例如，设定 10 则只处理前10个标签，其他标签被忽略。
+设为 0 将处理每个游戏的所有标签。</value>
   </data>
   <data name="DlgAutoCat_Help_ListWeightFactor" xml:space="preserve">
     <value>With this set to 1, each tag's score is simply the number of games that it appears on.
@@ -919,108 +904,107 @@ With this higher than one, tags earlier in games' tag lists receive a higher sco
 The higher the number, the more weight is placed on tag position.</value>
   </data>
   <data name="MainForm_DeleteCategoryMulti" xml:space="preserve">
-    <value>Delete {0} categories?</value>
+    <value>删除 {0} 个类别？</value>
   </data>
   <data name="DlgAutoCat_Help_ListExcludeGenres" xml:space="preserve">
-    <value>Do not include tags that match Steam genre names, like Action or Strategy.</value>
+    <value>不包括与 Steam 种类名匹配的标签，如动作（Action）和策略（Strategy）。</value>
   </data>
   <data name="DlgAutoCat_Help_ListScoreSort" xml:space="preserve">
-    <value>Sort tags by their score, with the higher scores first.
-Otherwise, sorts alphabetically.</value>
+    <value>按得分排序标签，得分最高的优先。
+否则，将按字母顺序排列。</value>
   </data>
   <data name="MainForm_Help_AdvancedCategories" xml:space="preserve">
-    <value>In advanced mode, games will be displayed if they meet the following criteria:
-If at least one category is marked with a CHECKMARK ("Allowed"), the game must belong to at least one of these categories.
-A game must be in all categories marked with a CIRCLE ("Required").
-A game must NOT be in any categories marked with an X ("Excluded").</value>
+    <value>在高级模式中，只显示符合下列条件的游戏：
+如果有至少一个类别被勾选（“允许”），游戏必须属于这些类别之一。
+游戏必须有标为“必选”（蓝色圆环）的所有类别。
+游戏不能是标为 X（“排除”）的类别的成员。</value>
   </data>
   <data name="AutoCatGenrePanel_Help_TagFallback" xml:space="preserve">
-    <value>If a game exists in the database but has no genres defined, look for tags that match genre names instead.</value>
+    <value>如果数据库中存在的游戏没有定义种类，查找与种类名称匹配的标签。</value>
   </data>
   <data name="AutoCatYearPanel_Help_Unknown" xml:space="preserve">
-    <value>If checked, games with no release date will be autocategorized with the name below.
-If unchecked, games with no date will be skipped.</value>
+    <value>如果选中，没有发行日期的游戏将使用以下名称作自动归类。如果未选中，将会跳过没有发行日期的游戏。</value>
   </data>
   <data name="AutoCat_Name_Year" xml:space="preserve">
-    <value>Release Year</value>
+    <value>发行年份</value>
   </data>
   <data name="AutoCat_Name_UserScore" xml:space="preserve">
-    <value>User Score</value>
+    <value>用户评分</value>
   </data>
   <data name="AutoCatUserScore_Dialog_ConfirmPreset" xml:space="preserve">
-    <value>This will erase your current rules. Continue?</value>
+    <value>这将删除您当前的规则。确认继续？</value>
   </data>
   <data name="AutoCatUserScore_Help_Rules" xml:space="preserve">
-    <value>Each game will be assigned to a category with the name of the first rule that matches.
-If a game matches more than one rule, it will only be assigned to a category for the first one.
-If a game does not match any rules, no category will be assigned.</value>
+    <value>每个游戏分配到的一个类别，取自首个匹配的规则的名称。
+如果一个游戏匹配了多个规则，也只会分类到第一个的类别。
+如果某个游戏没有匹配任何规则，则不会分配类别。</value>
   </data>
   <data name="AutoCatUserScore_NewRuleName" xml:space="preserve">
-    <value>New Rule</value>
+    <value>新建规则</value>
   </data>
   <data name="AutoCatUserScore_Preset_Name_SteamLabels" xml:space="preserve">
-    <value>Steam Labels</value>
+    <value>Steam 标签</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Mixed" xml:space="preserve">
-    <value>Mixed</value>
+    <value>褒贬不一</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative1" xml:space="preserve">
-    <value>Mostly Negative</value>
+    <value>多半差评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative2" xml:space="preserve">
-    <value>Negative</value>
+    <value>失望</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative3" xml:space="preserve">
-    <value>Very Negative</value>
+    <value>特别差评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative4" xml:space="preserve">
-    <value>Overwhelmingly Negative</value>
+    <value>差评如潮</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive1" xml:space="preserve">
-    <value>Mostly Positive</value>
+    <value>多半好评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive2" xml:space="preserve">
-    <value>Positive</value>
+    <value>高兴</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive3" xml:space="preserve">
-    <value>Very Positive</value>
+    <value>特别好评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive4" xml:space="preserve">
-    <value>Overwhelmingly Positive</value>
+    <value>好评如潮</value>
   </data>
   <data name="AutoMode_Help_Export" xml:space="preserve">
-    <value>Export your categories to Steam after running autocats.
-If this is disabled, changes will not show up in the Steam client.
-Recommended: Enabled</value>
+    <value>运行自动归类后将您的类别导出到 Steam。
+如果禁用，Steam 客户端中不会呈现更改。
+推荐：启用</value>
   </data>
   <data name="AutoMode_Help_ImportCats" xml:space="preserve">
-    <value>Import existing categories from Steam before running autocat operations.
-If this is disabled, manual categorizations done through the client may be lost.</value>
+    <value>运行自动归类操作前从 Steam 导入现有类别（类型）。
+如果此项禁用，通过客户端完成的手动归类可能丢失。</value>
   </data>
   <data name="AutoMode_Help_Launch" xml:space="preserve">
-    <value>Will launch Steam after completing autocats.</value>
+    <value>完成自动归类后启动 Steam</value>
   </data>
   <data name="AutoMode_Help_Output" xml:space="preserve">
-    <value>If set to Normal, the output window will remain open until you close it.
-If set to Quiet, the output window will automatically close unless errors are encountered.
-If set to Silent, the output window will always automatically close.</value>
+    <value>如设定为正常，输出窗口将在您关闭前保持打开状态。
+如设定为退出，输出窗口将自动关闭，除非有错误发生。
+如设定为静默，输出窗口始终会自动关闭。</value>
   </data>
   <data name="AutoMode_Help_SaveDB" xml:space="preserve">
-    <value>Save the database if any changes are made to it.
-Recommended: Enabled</value>
+    <value>如对数据库做了任何更改，保存数据库。
+推荐：启用</value>
   </data>
   <data name="AutoMode_Help_SaveProfile" xml:space="preserve">
-    <value>Save the profile after running autocats.
-Recommended: Enabled</value>
+    <value>运行自动归类前保存配置文件。
+推荐：启用</value>
   </data>
   <data name="AutoMode_Help_SteamCheck" xml:space="preserve">
-    <value>If set to Check and Close, attempt to close Steam if it is running. (Recommended.)
-If set to Check and Abort, stop AutoCat operation if Steam is running.
-If set to Skip, don't check whether Steam is running.</value>
+    <value>如果设为检查并关闭，则在运行时尝试关闭 Steam。（推荐）
+如果设为检查并中止，当 Steam 还在运行，自动归类操作将停止。
+如果设为跳过，则不会检查 Steam 是否正在运行。</value>
   </data>
   <data name="AutoMode_Help_Tolerant" xml:space="preserve">
-    <value>If disabled, will terminate after any error.
-If enabled, will continue if non-fatal errors are encountered.
+    <value>如果禁用，将在任何错误后终止。
+如果启用，遇到非致命性错误后仍将继续。
 Recommended: Enabled</value>
   </data>
   <data name="AutoMode_Help_UpdateAppInfo" xml:space="preserve">
@@ -1048,183 +1032,183 @@ Recommended: Enabled</value>
     <value>Error encountered when updating database from HLTB: {0}</value>
   </data>
   <data name="MainForm_Status_HltbAutoupdate" xml:space="preserve">
-    <value>Updated {0} DB entries from HLTB.</value>
+    <value>已从 HLTB 更新 {0} 项数据库记录。</value>
   </data>
   <data name="AutoMode_Help_UpdateHltb" xml:space="preserve">
     <value>Update the database with information from HLTB before running any autocat operations.
 Only updates if an update didn't occur for more than half a week.
 Slows operation by about 15-20 secs if an update occurs.
-Recommended: Enabled</value>
+Recommended: Enabled.</value>
   </data>
   <data name="CDlgHltb_Title" xml:space="preserve">
-    <value>Updating HLTB times</value>
+    <value>正在更新 HLTB 时数</value>
   </data>
   <data name="CDlgHltb_UpdateHltb" xml:space="preserve">
-    <value>Updating HowLongToBeat.com times...</value>
+    <value>正在更新 HowLongToBeat.com 时数...</value>
   </data>
   <data name="DBEditDlg_CanceledHltbUpdate" xml:space="preserve">
-    <value>Canceled HLTB update.</value>
+    <value>已取消 HLTB 更新。</value>
   </data>
   <data name="DBEditDlg_ErrorUpdatingHltb" xml:space="preserve">
-    <value>Error updating from HLTB.</value>
+    <value>更新 HLTB 数据出错。</value>
   </data>
   <data name="DBEditDlg_ErrorWhileUpdatingHltb" xml:space="preserve">
-    <value>An error occured while updating from howlongtobeatsteam.com: {0}</value>
+    <value>从 howlongtobeatsteam.com 更新数据时发生错误: {0}</value>
   </data>
   <data name="DBEditDlg_HltbUpdateFailed" xml:space="preserve">
-    <value>Failed to update from HLTB: {0}</value>
+    <value>从 HLTB 更新数据失败: {0}</value>
   </data>
   <data name="DBEditDlg_Log_ExceptionHltb" xml:space="preserve">
-    <value>Exception when updating from HLTB: {0}</value>
+    <value>从 HLTB 更新时发生异常: {0}</value>
   </data>
   <data name="DBEditDlg_Status_UpdatedHltb" xml:space="preserve">
-    <value>Updated {0} entries from HLTB.</value>
+    <value>从 HLTB 更新了 {0} 项。</value>
   </data>
   <data name="DlgOptions_Help_IncludeImputedTimes" xml:space="preserve">
-    <value>Whether to use imputed (statistically probable) times from howlongtobeatsteam.com for missing times. </value>
+    <value>使用来自 howlongtobeatsteam.com 的从统计学上估算的时间弥补缺失的时数。</value>
   </data>
   <data name="AutoCat_Name_Hltb" xml:space="preserve">
-    <value>HLTB time</value>
+    <value>HLTB 时数</value>
   </data>
   <data name="AutocatHltb_Help_Unknown" xml:space="preserve">
-    <value>If checked, games with no times in all 3 types will be autocategorized with the name below.
-If unchecked, games with no times will be skipped.</value>
+    <value>如果选中，三种类型中都没有时数的游戏将自动归类到如下名称。
+如果未选中，没有时数的游戏将跳过。</value>
   </data>
   <data name="MainForm_Msg_UpdateFound" xml:space="preserve">
-    <value>There is a new update to depressurizer. Do you want to visit the download page?</value>
+    <value>有 depressurizer 的更新。是否访问下载页面？</value>
   </data>
   <data name="MainForm_Log_ExceptionDepressurizerUpdate" xml:space="preserve">
-    <value>Exception while checking for new updates to depressurizer.</value>
+    <value>检查 depressurizer 的更新时出错。</value>
   </data>
   <data name="MainForm_Msg_ErrorDepressurizerUpdate" xml:space="preserve">
-    <value>Error encountered while checking for new updates to depressurizer: {0}</value>
+    <value>检查 depressurizer 的更新时出错: {0}</value>
   </data>
   <data name="MainForm_Msg_UpdateFoundTitle" xml:space="preserve">
-    <value>Update Found</value>
+    <value>找到更新</value>
   </data>
   <data name="AutoCat_NothingSelected" xml:space="preserve">
-    <value>No AutoCats selected. Select at least one AutoCat before running.</value>
+    <value>没有选定任何自动归类。运行前请至少选择一个。</value>
   </data>
   <data name="AutoCatSelected_NothingSelected" xml:space="preserve">
-    <value>No games are currently selected.  Auto-Categorize will not do anything.</value>
+    <value>当前没有选中游戏。自动归类没什么可做。</value>
   </data>
   <data name="GameDB_GameBannerError" xml:space="preserve">
-    <value>Scraping {0}: Error downloading game banner</value>
+    <value>抓取 {0}：下载游戏横幅出错</value>
   </data>
   <data name="GameData_GetBanner" xml:space="preserve">
-    <value>Error getting game banner from {0}.</value>
+    <value>从 {0} 获取游戏横幅出错。</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Tags" xml:space="preserve">
-    <value>By Tags</value>
+    <value>按标签</value>
   </data>
   <data name="Profile_DefaultAutoCatName_UserScore" xml:space="preserve">
-    <value>By User Score</value>
+    <value>按用户评分</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Year" xml:space="preserve">
-    <value>By Year</value>
+    <value>按年份</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Flags" xml:space="preserve">
-    <value>By Flags</value>
+    <value>按标记</value>
   </data>
   <data name="Filter_ErrorSavingFilterFile" xml:space="preserve">
-    <value>Error saving filter file: {0}</value>
+    <value>保存过滤器文件时出错: {0}</value>
   </data>
   <data name="Filter_FailedToOpenFilterFile" xml:space="preserve">
-    <value>Failed to open filter file for writing: {0}</value>
+    <value>打开过滤器文件以进行写入失败: {0}</value>
   </data>
   <data name="Filter_FilterSaveComplete" xml:space="preserve">
-    <value>Filter save complete.</value>
+    <value>过滤器保存完成。</value>
   </data>
   <data name="Filter_SavingFilter" xml:space="preserve">
-    <value>Saving filter: {0}</value>
+    <value>正在保存过滤器: {0}</value>
   </data>
   <data name="AutoCat_Name_Manual" xml:space="preserve">
-    <value>Manual</value>
+    <value>手动</value>
   </data>
   <data name="DlgAutoCat_Help_Manual_RemoveAll" xml:space="preserve">
-    <value>Remove all pre-existing categories.</value>
+    <value>删除所有预置分类。</value>
   </data>
   <data name="Filter_Exception_ObjectNotFilter" xml:space="preserve">
-    <value>Object is not a filter</value>
+    <value>对象不是一个过滤器</value>
   </data>
   <data name="MainForm_AdminRights" xml:space="preserve">
-    <value>Run once with Admin rights to set browser registry key.</value>
+    <value>用管理员权限运行一次，以设定浏览器相关的注册表键值。</value>
   </data>
   <data name="MainForm_CouldNotAddFilter" xml:space="preserve">
-    <value>Could not add filter '{0}'</value>
+    <value>未能添加过滤器 {0}</value>
   </data>
   <data name="MainForm_EnterNewFilterName" xml:space="preserve">
-    <value>Enter new filter name:</value>
+    <value>输入新的过滤器名称:</value>
   </data>
   <data name="MainForm_FilterAdded" xml:space="preserve">
-    <value>Filter '{0}' added.</value>
+    <value>已添加过滤器 {0}。</value>
   </data>
   <data name="MainForm_FilterNamesNotEmpty" xml:space="preserve">
-    <value>Filter names cannot be empty.</value>
+    <value>过滤器名称不能为空。</value>
   </data>
   <data name="MainForm_FilterRenamed" xml:space="preserve">
-    <value>Filter renamed.</value>
+    <value>已更名过滤器。</value>
   </data>
   <data name="MainForm_OverwriteFilterName" xml:space="preserve">
-    <value>Do you want to overwrite filter: {0}</value>
+    <value>是否覆盖过滤器: {0}</value>
   </data>
   <data name="MainForm_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
   </data>
   <data name="MainForm_SaveFilter" xml:space="preserve">
-    <value>Save Filter</value>
+    <value>保存过滤器</value>
   </data>
   <data name="AutoCat_Name_DevPub" xml:space="preserve">
-    <value>Developers &amp; Publishers</value>
+    <value>开发者和发行商</value>
   </data>
   <data name="DlgAutoCat_Help_DevSelected" xml:space="preserve">
-    <value>Show/hide selected Developers</value>
+    <value>显示/隐藏选中的开发者</value>
   </data>
   <data name="DlgAutoCat_Help_MinScore" xml:space="preserve">
-    <value>Developers and Publishers with game counts lower than this will not show up on the list.</value>
+    <value>低于此数值的开发者和发行商不会出现在列表中。</value>
   </data>
   <data name="DlgAutoCat_Help_PubSelected" xml:space="preserve">
-    <value>Show/hide selected Publishers</value>
+    <value>显示/隐藏选中的发行商</value>
   </data>
   <data name="MainForm_No" xml:space="preserve">
-    <value>No</value>
+    <value>否</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Developer" xml:space="preserve">
-    <value>By Developer</value>
+    <value>按开发者</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Hltb" xml:space="preserve">
-    <value>By HowLongToBeat</value>
+    <value>按 HowLongToBeat</value>
   </data>
   <data name="AutoCatGroup_AutoCatsLoaded" xml:space="preserve">
-    <value>Autocats loaded.</value>
+    <value>自动归类已加载。</value>
   </data>
   <data name="AutoCat_Name_Group" xml:space="preserve">
-    <value>Group of Autocats</value>
+    <value>自动归类分组</value>
   </data>
   <data name="Profile_ErrorLoadingAutoCats" xml:space="preserve">
-    <value>Error loading AutoCats from profile.</value>
+    <value>从配置文件中加载自动归类失败。</value>
   </data>
   <data name="Profile_FailedToLoadAutoCats" xml:space="preserve">
-    <value>Failed to load AutoCats from profile: {0}</value>
+    <value>从配置文件中加载自动归类失败: {0}</value>
   </data>
   <data name="Profile_LoadingAutoCats" xml:space="preserve">
-    <value>Loading AutoCats from file: {0}</value>
+    <value>正从该文件加载自动归类: {0}</value>
   </data>
   <data name="MainForm_SaveProfile" xml:space="preserve">
-    <value>Save Profile</value>
+    <value>保存配置文件</value>
   </data>
   <data name="MainForm_SaveProfileConfirm" xml:space="preserve">
-    <value>Save your current profile settings?</value>
+    <value>保存您当前的配置文件设置？</value>
   </data>
   <data name="Log_Profile_ConfigBackupFailed" xml:space="preserve">
-    <value>Profile backup failed: {0}</value>
+    <value>配置文件备份失败: {0}</value>
   </data>
   <data name="DlgRestore_ConfigConfirm" xml:space="preserve">
-    <value>Are you sure you want to overwrite your Steam config file with: {0}?
-Close Steam BEFORE restoring!</value>
+    <value>确定要用 {0} 覆盖您的 Steam 配置文件？
+执行还原操作前，请先关闭 Steam！</value>
   </data>
   <data name="DlgRestore_ProfileConfirm" xml:space="preserve">
-    <value>Are you sure you want to overwrite your profile with: {0}?</value>
+    <value>确定用 {0} 覆盖您的配置文件？</value>
   </data>
   <data name="DlgAutoCat_Help_UseWilsonScore" xml:space="preserve">
     <value>Use the lower bound of the Wilson 95% confidence interval instead of the positive reviews fraction.
@@ -1233,76 +1217,76 @@ This calculation reduces the rating if the number of reviews is too low.
 See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="AutoCat_Name_Name" xml:space="preserve">
-    <value>Name</value>
+    <value>名称</value>
   </data>
   <data name="Name_Genre" xml:space="preserve">
-    <value>Genre</value>
+    <value>种类</value>
   </data>
   <data name="Name_Year" xml:space="preserve">
-    <value>Year</value>
+    <value>年份</value>
   </data>
   <data name="Name_Score" xml:space="preserve">
-    <value>Score</value>
+    <value>得分</value>
   </data>
   <data name="Name_Tags" xml:space="preserve">
-    <value>Tags</value>
+    <value>标签</value>
   </data>
   <data name="Name_Flags" xml:space="preserve">
-    <value>Flags</value>
+    <value>标记</value>
   </data>
   <data name="Name_Developer" xml:space="preserve">
-    <value>Developer</value>
+    <value>开发者</value>
   </data>
   <data name="Name_Publisher" xml:space="preserve">
-    <value>Publisher</value>
+    <value>发行商</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Publisher" xml:space="preserve">
-    <value>By Publisher</value>
+    <value>按发行商</value>
   </data>
   <data name="MainForm_ScrapeNow" xml:space="preserve">
-    <value>Scrape now?
-This could take up to a few seconds per game.</value>
+    <value>立即抓取？
+可能每个游戏花费几秒。</value>
   </data>
   <data name="MainForm_GamesHaveOldDataInGameDB" xml:space="preserve">
-    <value>{0} games have web-sourced data older than {1} days</value>
+    <value>{0} 个游戏的网络来源数据超过 {1} 天未更新</value>
   </data>
   <data name="Text_And" xml:space="preserve">
-    <value>and</value>
+    <value>和</value>
   </data>
   <data name="AutoCat_Name_VrSupport" xml:space="preserve">
-    <value>VR Support</value>
+    <value>VR 支持</value>
   </data>
   <data name="AutoCat_Name_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>语言</value>
   </data>
   <data name="CDlgCurator_GettingRecommendations" xml:space="preserve">
-    <value>Retrieving Curator Recommendations</value>
+    <value>正在检索鉴赏家的推荐</value>
   </data>
   <data name="CDlg_Progress" xml:space="preserve">
-    <value>{0}/{1} completed</value>
+    <value>已完成 {0}/{1}</value>
   </data>
   <data name="AutocatCurator_CuratorIdParsing_Error" xml:space="preserve">
-    <value>Error occured while parsing curator url: {0}. Please ensure that is is correct.</value>
+    <value>解析 curator url 出错: {0}。请确认该值无误。</value>
   </data>
   <data name="AutocatCurator_GetRecommendations_Error" xml:space="preserve">
-    <value>Error occured while retrieving recommendations:</value>
+    <value>检索推荐时出错。</value>
   </data>
   <data name="AutoCat_Name_Curator" xml:space="preserve">
-    <value>Curator</value>
+    <value>鉴赏家</value>
   </data>
   <data name="Autocat_LoadFromXmlElement_Error" xml:space="preserve">
-    <value>Failed to load an autocat of type {0}.</value>
+    <value>加载自动归类的类型 {0} 失败。</value>
   </data>
   <data name="AutoCatCurator_Help_CategoryName" xml:space="preserve">
-    <value>Use {type} keyword for recommendation type (recommended, not recommended, informational)</value>
+    <value>推荐类型使用 {type} 关键词 (recommended, not recommended, informational)</value>
   </data>
   <data name="AutoCat_Name_Platform" xml:space="preserve">
-    <value>Platform</value>
+    <value>平台</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Platform" xml:space="preserve">
-    <value>By Platform</value>
+    <value>按平台</value>
   </data>
   <data name="AutoCat_Name_HoursPlayed" xml:space="preserve">
-    <value>Hours Played</value>
+    <value>已玩小时</value>
   </data>
 </root>
