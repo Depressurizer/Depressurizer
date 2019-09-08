@@ -283,7 +283,7 @@
     <value>12</value>
   </data>
   <data name="lblFlags.Text" xml:space="preserve">
-    <value>标记:</value>
+    <value>特征:</value>
   </data>
   <data name="lblParent.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>

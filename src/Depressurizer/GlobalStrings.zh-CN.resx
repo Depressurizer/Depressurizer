@@ -759,7 +759,7 @@
     <value>在能从外部启动前，非 Steam 的游戏必须从 Steam 内启动至少一次。</value>
   </data>
   <data name="AutoCat_Name_Flags" xml:space="preserve">
-    <value>Store 标签</value>
+    <value>商店特征</value>
   </data>
   <data name="AutoCat_Name_Genre" xml:space="preserve">
     <value>商店种类</value>
@@ -952,7 +952,7 @@ The higher the number, the more weight is placed on tag position.</value>
     <value>多半差评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative2" xml:space="preserve">
-    <value>失望</value>
+    <value>差评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Negative3" xml:space="preserve">
     <value>特别差评</value>
@@ -964,7 +964,7 @@ The higher the number, the more weight is placed on tag position.</value>
     <value>多半好评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive2" xml:space="preserve">
-    <value>高兴</value>
+    <value>好评</value>
   </data>
   <data name="AutoCatUserScore_Preset_Steam_Positive3" xml:space="preserve">
     <value>特别好评</value>
@@ -1108,7 +1108,7 @@ Recommended: Enabled.</value>
     <value>按年份</value>
   </data>
   <data name="Profile_DefaultAutoCatName_Flags" xml:space="preserve">
-    <value>按标记</value>
+    <value>按特征</value>
   </data>
   <data name="Filter_ErrorSavingFilterFile" xml:space="preserve">
     <value>保存过滤器文件时出错: {0}</value>
@@ -1226,13 +1226,13 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
     <value>年份</value>
   </data>
   <data name="Name_Score" xml:space="preserve">
-    <value>得分</value>
+    <value>评价</value>
   </data>
   <data name="Name_Tags" xml:space="preserve">
     <value>标签</value>
   </data>
   <data name="Name_Flags" xml:space="preserve">
-    <value>标记</value>
+    <value>特征</value>
   </data>
   <data name="Name_Developer" xml:space="preserve">
     <value>开发者</value>
@@ -1245,7 +1245,7 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="MainForm_ScrapeNow" xml:space="preserve">
     <value>立即抓取？
-可能每个游戏花费几秒。</value>
+每个游戏可能花费几秒。</value>
   </data>
   <data name="MainForm_GamesHaveOldDataInGameDB" xml:space="preserve">
     <value>{0} 个游戏的网络来源数据超过 {1} 天未更新</value>
@@ -1288,5 +1288,20 @@ See: http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</value>
   </data>
   <data name="AutoCat_Name_HoursPlayed" xml:space="preserve">
     <value>已玩小时</value>
+  </data>
+  <data name="TextVdfFile_CanNotSetKey" xml:space="preserve">
+    <value>节点是值，但不是数组，无法设定键 {0}</value>
+  </data>
+  <data name="TextVdfFile_CanNotGetKey" xml:space="preserve">
+    <value>节点是值，但不是数组，无法获取键 {0}</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedEOF" xml:space="preserve">
+    <value>意外遇到文件结尾：字符串未终止。</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterValue" xml:space="preserve">
+    <value>预期为值时发现意外的字符 {0}。</value>
+  </data>
+  <data name="TextVdfFile_UnexpectedCharacterKey" xml:space="preserve">
+    <value>预期为键时遇到意外字符 {0}。</value>
   </data>
 </root>

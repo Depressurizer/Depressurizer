@@ -117,100 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Categories" xml:space="preserve">
-    <value>个类别</value>
+  <data name="cmdClose.Text" xml:space="preserve">
+    <value>确定</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>确认</value>
+  <data name="grpMoreInfo.Text" xml:space="preserve">
+    <value>错误详情</value>
   </data>
-  <data name="ConfirmDeleteFilter" xml:space="preserve">
-    <value>确定删除过滤器 {0}？</value>
+  <data name="lblErrMsg.Text" xml:space="preserve">
+    <value>错误消息:</value>
   </data>
-  <data name="DeletedFilter" xml:space="preserve">
-    <value>已删除过滤器 {0}。</value>
+  <data name="cmdShow.Text" xml:space="preserve">
+    <value>更多信息</value>
   </data>
-  <data name="EnterNewName" xml:space="preserve">
-    <value>输入新名称:</value>
+  <data name="lblTrace.Text" xml:space="preserve">
+    <value>堆栈跟踪:</value>
   </data>
-  <data name="FailedDeletingFilter" xml:space="preserve">
-    <value>未能删除过滤器 {0}。</value>
+  <data name="lblErrType.Text" xml:space="preserve">
+    <value>错误类型:</value>
   </data>
-  <data name="FilterAlreadyExists" xml:space="preserve">
-    <value>过滤器 {0} 已经存在。</value>
+  <data name="cmdCopy.Text" xml:space="preserve">
+    <value>复制到剪贴板</value>
   </data>
-  <data name="ItemIsNotAFilter" xml:space="preserve">
-    <value>选中的项不是过滤器！</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>致命错误</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>更名</value>
+  <data name="cmdSave.Text" xml:space="preserve">
+    <value>保存到文件</value>
   </data>
-  <data name="RenameFilter" xml:space="preserve">
-    <value>更名过滤器 {0}。</value>
-  </data>
-  <data name="SpecialCategoryAll" xml:space="preserve">
-    <value>&lt;全部&gt;</value>
-  </data>
-  <data name="SpecialCategoryFavorite" xml:space="preserve">
-    <value>&lt;收藏夹&gt;</value>
-  </data>
-  <data name="SpecialCategoryGames" xml:space="preserve">
-    <value>&lt;游戏&gt;</value>
-  </data>
-  <data name="SpecialCategoryHidden" xml:space="preserve">
-    <value>&lt;隐藏&gt;</value>
-  </data>
-  <data name="SpecialCategorySoftware" xml:space="preserve">
-    <value>&lt;软件&gt;</value>
-  </data>
-  <data name="SpecialCategoryUncategorized" xml:space="preserve">
-    <value>&lt;未归类&gt;</value>
-  </data>
-  <data name="SpecialCategoryVR" xml:space="preserve">
-    <value>&lt;VR&gt;</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>警告</value>
-  </data>
-  <data name="DatabaseSaveFilter" xml:space="preserve">
-    <value>JSON 文件 (*.json)|*.json</value>
-  </data>
-  <data name="AutoCategorizeNumApps" xml:space="preserve">
-    <value>自动归类 ({0} 个应用)</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>错误</value>
-  </data>
-  <data name="SpecialCategoryNoFlags" xml:space="preserve">
-    <value>&lt;无特征&gt;</value>
-  </data>
-  <data name="SpecialCategoryNoGenres" xml:space="preserve">
-    <value>&lt;无种类&gt;</value>
-  </data>
-  <data name="SpecialCategoryNoTags" xml:space="preserve">
-    <value>&lt;无标签&gt;</value>
-  </data>
-  <data name="SpecialCategoryUnknown" xml:space="preserve">
-    <value>&lt;未知&gt;</value>
-  </data>
-  <data name="ScrapedProgress" xml:space="preserve">
-    <value>已抓取 {0}/{1}</value>
-  </data>
-  <data name="TimeLeft" xml:space="preserve">
-    <value>剩余时间</value>
-  </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>未知</value>
-  </data>
-  <data name="AppliedData" xml:space="preserve">
-    <value>已应用数据...</value>
-  </data>
-  <data name="ApplyingData" xml:space="preserve">
-    <value>正应用数据...</value>
-  </data>
-  <data name="CancelableDialog_ThreadErrorStopping" xml:space="preserve">
-    <value>线程抛出异常，正停止...</value>
-  </data>
-  <data name="ScrapeDialog_Title" xml:space="preserve">
-    <value>正在抓取数据...</value>
+  <data name="lblMessage.Text" xml:space="preserve">
+    <value>本程序遭遇致命错误，需要关闭。</value>
   </data>
 </root>

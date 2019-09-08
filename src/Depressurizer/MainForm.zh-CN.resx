@@ -804,7 +804,7 @@
     <value>3</value>
   </data>
   <data name="colFlags.Text" xml:space="preserve">
-    <value>标记</value>
+    <value>特征</value>
   </data>
   <data name="colFlags.Width" type="System.Int32, mscorlib">
     <value>71</value>
@@ -1562,7 +1562,7 @@
     <value>223, 22</value>
   </data>
   <data name="menu_File_Exit.Text" xml:space="preserve">
-    <value>退出(&amp;x)</value>
+    <value>退出(&amp;X)</value>
   </data>
   <data name="menu_File.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>

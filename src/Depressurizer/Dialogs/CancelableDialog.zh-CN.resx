@@ -117,100 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Categories" xml:space="preserve">
-    <value>个类别</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblText.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>确认</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 15</value>
   </data>
-  <data name="ConfirmDeleteFilter" xml:space="preserve">
-    <value>确定删除过滤器 {0}？</value>
+  <data name="lblText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 13</value>
   </data>
-  <data name="DeletedFilter" xml:space="preserve">
-    <value>已删除过滤器 {0}。</value>
+  <data name="lblText.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="EnterNewName" xml:space="preserve">
-    <value>输入新名称:</value>
+  <data name="lblText.Text" xml:space="preserve">
+    <value>正在开始...</value>
   </data>
-  <data name="FailedDeletingFilter" xml:space="preserve">
-    <value>未能删除过滤器 {0}。</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ButtonStop.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="FilterAlreadyExists" xml:space="preserve">
-    <value>过滤器 {0} 已经存在。</value>
+  <data name="ButtonStop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>198, 59</value>
   </data>
-  <data name="ItemIsNotAFilter" xml:space="preserve">
-    <value>选中的项不是过滤器！</value>
+  <data name="ButtonStop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
-  <data name="Rename" xml:space="preserve">
-    <value>更名</value>
+  <data name="ButtonStop.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="RenameFilter" xml:space="preserve">
-    <value>更名过滤器 {0}。</value>
+  <data name="ButtonStop.Text" xml:space="preserve">
+    <value>停止</value>
   </data>
-  <data name="SpecialCategoryAll" xml:space="preserve">
-    <value>&lt;全部&gt;</value>
+  <data name="ButtonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>279, 59</value>
   </data>
-  <data name="SpecialCategoryFavorite" xml:space="preserve">
-    <value>&lt;收藏夹&gt;</value>
+  <data name="ButtonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
-  <data name="SpecialCategoryGames" xml:space="preserve">
-    <value>&lt;游戏&gt;</value>
+  <data name="ButtonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="SpecialCategoryHidden" xml:space="preserve">
-    <value>&lt;隐藏&gt;</value>
+  <data name="ButtonCancel.Text" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="SpecialCategorySoftware" xml:space="preserve">
-    <value>&lt;软件&gt;</value>
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="SpecialCategoryUncategorized" xml:space="preserve">
-    <value>&lt;未归类&gt;</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
   </data>
-  <data name="SpecialCategoryVR" xml:space="preserve">
-    <value>&lt;VR&gt;</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>366, 94</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>警告</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
   </data>
-  <data name="DatabaseSaveFilter" xml:space="preserve">
-    <value>JSON 文件 (*.json)|*.json</value>
-  </data>
-  <data name="AutoCategorizeNumApps" xml:space="preserve">
-    <value>自动归类 ({0} 个应用)</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>错误</value>
-  </data>
-  <data name="SpecialCategoryNoFlags" xml:space="preserve">
-    <value>&lt;无特征&gt;</value>
-  </data>
-  <data name="SpecialCategoryNoGenres" xml:space="preserve">
-    <value>&lt;无种类&gt;</value>
-  </data>
-  <data name="SpecialCategoryNoTags" xml:space="preserve">
-    <value>&lt;无标签&gt;</value>
-  </data>
-  <data name="SpecialCategoryUnknown" xml:space="preserve">
-    <value>&lt;未知&gt;</value>
-  </data>
-  <data name="ScrapedProgress" xml:space="preserve">
-    <value>已抓取 {0}/{1}</value>
-  </data>
-  <data name="TimeLeft" xml:space="preserve">
-    <value>剩余时间</value>
-  </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>未知</value>
-  </data>
-  <data name="AppliedData" xml:space="preserve">
-    <value>已应用数据...</value>
-  </data>
-  <data name="ApplyingData" xml:space="preserve">
-    <value>正应用数据...</value>
-  </data>
-  <data name="CancelableDialog_ThreadErrorStopping" xml:space="preserve">
-    <value>线程抛出异常，正停止...</value>
-  </data>
-  <data name="ScrapeDialog_Title" xml:space="preserve">
-    <value>正在抓取数据...</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>对话框</value>
   </data>
 </root>

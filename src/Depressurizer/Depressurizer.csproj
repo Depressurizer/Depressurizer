@@ -457,6 +457,9 @@
     <EmbeddedResource Include="DBEdit\DBEditDlg.uk.resx">
       <DependentUpon>DBEditDlg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DBEdit\DBEditDlg.zh-CN.resx">
+      <DependentUpon>DBEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DBEdit\DlgGameDBEntry.ru.resx">
       <DependentUpon>DlgGameDBEntry.cs</DependentUpon>
     </EmbeddedResource>
@@ -471,9 +474,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAbout.resx">
       <DependentUpon>DlgAbout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DlgAutoCatSelect.resx">
-      <DependentUpon>DlgAutoCatSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DlgAutoCat.resx">
       <DependentUpon>DlgAutoCat.cs</DependentUpon>
@@ -653,6 +653,9 @@
     <EmbeddedResource Include="Lib\DlgFatalError.uk.resx">
       <DependentUpon>DlgFatalError.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgFatalError.zh-CN.resx">
+      <DependentUpon>DlgFatalError.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.es.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
@@ -663,6 +666,9 @@
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Lib\DlgGetString.uk.resx">
+      <DependentUpon>DlgGetString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lib\DlgGetString.zh-CN.resx">
       <DependentUpon>DlgGetString.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.es.resx">
